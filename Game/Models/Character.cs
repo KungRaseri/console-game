@@ -374,31 +374,6 @@ public class Character
         return total;
     }
 
-    // Legacy methods for backward compatibility - these now map to D20 attributes
-    /// <summary>
-    /// Calculate total defense (maps to Constitution for backward compatibility).
-    /// </summary>
-    public int GetTotalDefense(List<EquipmentSet>? sets = null)
-    {
-        return GetTotalConstitution(sets);
-    }
-
-    /// <summary>
-    /// Calculate total agility (maps to Dexterity for backward compatibility).
-    /// </summary>
-    public int GetTotalAgility(List<EquipmentSet>? sets = null)
-    {
-        return GetTotalDexterity(sets);
-    }
-
-    /// <summary>
-    /// Calculate total vitality (maps to Constitution for backward compatibility).
-    /// </summary>
-    public int GetTotalVitality(List<EquipmentSet>? sets = null)
-    {
-        return GetTotalConstitution(sets);
-    }
-
     /// <summary>
     /// Get all currently equipped items.
     /// </summary>
@@ -472,10 +447,6 @@ public class Character
                         "Intelligence" => bonus.BonusIntelligence,
                         "Wisdom" => bonus.BonusWisdom,
                         "Charisma" => bonus.BonusCharisma,
-                        // Legacy support
-                        "Defense" => bonus.BonusDefense,
-                        "Agility" => bonus.BonusAgility,
-                        "Vitality" => bonus.BonusVitality,
                         _ => 0
                     };
                     

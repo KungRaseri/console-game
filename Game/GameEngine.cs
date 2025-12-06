@@ -667,8 +667,8 @@ public class GameEngine
         }
         
         // Show stats if item has any bonuses
-        bool hasStats = item.BonusStrength > 0 || item.BonusDefense > 0 || item.BonusAgility > 0 
-                        || item.BonusIntelligence > 0 || item.BonusVitality > 0;
+        bool hasStats = item.BonusStrength > 0 || item.BonusDexterity > 0 || item.BonusConstitution > 0 
+                        || item.BonusIntelligence > 0 || item.BonusWisdom > 0 || item.BonusCharisma > 0;
         
         if (hasStats)
         {
@@ -676,14 +676,16 @@ public class GameEngine
             detailLines.Add("[underline]Base Bonuses:[/]");
             if (item.BonusStrength > 0) 
                 detailLines.Add($"  [red]+{item.BonusStrength} Strength[/]");
-            if (item.BonusDefense > 0) 
-                detailLines.Add($"  [blue]+{item.BonusDefense} Defense[/]");
-            if (item.BonusAgility > 0) 
-                detailLines.Add($"  [green]+{item.BonusAgility} Agility[/]");
+            if (item.BonusDexterity > 0) 
+                detailLines.Add($"  [green]+{item.BonusDexterity} Dexterity[/]");
+            if (item.BonusConstitution > 0) 
+                detailLines.Add($"  [yellow]+{item.BonusConstitution} Constitution[/]");
             if (item.BonusIntelligence > 0) 
                 detailLines.Add($"  [purple]+{item.BonusIntelligence} Intelligence[/]");
-            if (item.BonusVitality > 0) 
-                detailLines.Add($"  [yellow]+{item.BonusVitality} Vitality[/]");
+            if (item.BonusWisdom > 0) 
+                detailLines.Add($"  [blue]+{item.BonusWisdom} Wisdom[/]");
+            if (item.BonusCharisma > 0) 
+                detailLines.Add($"  [cyan]+{item.BonusCharisma} Charisma[/]");
         }
         
         // Show enchantments
@@ -706,14 +708,16 @@ public class GameEngine
                 detailLines.Add($"  [{enchantColor}]{enchantment.Name}[/]");
                 if (enchantment.BonusStrength > 0) 
                     detailLines.Add($"    [red]+{enchantment.BonusStrength} Strength[/]");
-                if (enchantment.BonusDefense > 0) 
-                    detailLines.Add($"    [blue]+{enchantment.BonusDefense} Defense[/]");
-                if (enchantment.BonusAgility > 0) 
-                    detailLines.Add($"    [green]+{enchantment.BonusAgility} Agility[/]");
+                if (enchantment.BonusDexterity > 0) 
+                    detailLines.Add($"    [green]+{enchantment.BonusDexterity} Dexterity[/]");
+                if (enchantment.BonusConstitution > 0) 
+                    detailLines.Add($"    [yellow]+{enchantment.BonusConstitution} Constitution[/]");
                 if (enchantment.BonusIntelligence > 0) 
                     detailLines.Add($"    [purple]+{enchantment.BonusIntelligence} Intelligence[/]");
-                if (enchantment.BonusVitality > 0) 
-                    detailLines.Add($"    [yellow]+{enchantment.BonusVitality} Vitality[/]");
+                if (enchantment.BonusWisdom > 0) 
+                    detailLines.Add($"    [blue]+{enchantment.BonusWisdom} Wisdom[/]");
+                if (enchantment.BonusCharisma > 0) 
+                    detailLines.Add($"    [cyan]+{enchantment.BonusCharisma} Charisma[/]");
                 
                 if (!string.IsNullOrEmpty(enchantment.SpecialEffect))
                 {
@@ -728,16 +732,18 @@ public class GameEngine
             detailLines.Add("");
             detailLines.Add("[underline]Total Bonuses:[/]");
             var totalStr = item.GetTotalBonusStrength();
-            var totalDef = item.GetTotalBonusDefense();
-            var totalAgi = item.GetTotalBonusAgility();
+            var totalDex = item.GetTotalBonusDexterity();
+            var totalCon = item.GetTotalBonusConstitution();
             var totalInt = item.GetTotalBonusIntelligence();
-            var totalVit = item.GetTotalBonusVitality();
+            var totalWis = item.GetTotalBonusWisdom();
+            var totalCha = item.GetTotalBonusCharisma();
             
             if (totalStr > 0) detailLines.Add($"  [red]+{totalStr} Strength[/]");
-            if (totalDef > 0) detailLines.Add($"  [blue]+{totalDef} Defense[/]");
-            if (totalAgi > 0) detailLines.Add($"  [green]+{totalAgi} Agility[/]");
+            if (totalDex > 0) detailLines.Add($"  [green]+{totalDex} Dexterity[/]");
+            if (totalCon > 0) detailLines.Add($"  [yellow]+{totalCon} Constitution[/]");
             if (totalInt > 0) detailLines.Add($"  [purple]+{totalInt} Intelligence[/]");
-            if (totalVit > 0) detailLines.Add($"  [yellow]+{totalVit} Vitality[/]");
+            if (totalWis > 0) detailLines.Add($"  [blue]+{totalWis} Wisdom[/]");
+            if (totalCha > 0) detailLines.Add($"  [cyan]+{totalCha} Charisma[/]");
         }
         
         detailLines.Add("");

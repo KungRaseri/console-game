@@ -37,8 +37,8 @@ public static class EquipmentSetRepository
             Bonuses = new Dictionary<int, SetBonus>
             {
                 { 2, new SetBonus { PiecesRequired = 2, Description = "+15 Strength", BonusStrength = 15 } },
-                { 4, new SetBonus { PiecesRequired = 4, Description = "+30 Vitality", BonusVitality = 30 } },
-                { 6, new SetBonus { PiecesRequired = 6, Description = "+50 Strength, +25 Defense", BonusStrength = 50, BonusDefense = 25 } }
+                { 4, new SetBonus { PiecesRequired = 4, Description = "+30 Constitution", BonusConstitution = 30 } },
+                { 6, new SetBonus { PiecesRequired = 6, Description = "+50 Strength, +25 Constitution", BonusStrength = 50, BonusConstitution = 25 } }
             }
         };
     }
@@ -59,9 +59,9 @@ public static class EquipmentSetRepository
             },
             Bonuses = new Dictionary<int, SetBonus>
             {
-                { 2, new SetBonus { PiecesRequired = 2, Description = "+20 Agility", BonusAgility = 20 } },
-                { 4, new SetBonus { PiecesRequired = 4, Description = "+15 Strength, +30 Agility", BonusStrength = 15, BonusAgility = 30 } },
-                { 5, new SetBonus { PiecesRequired = 5, Description = "+40 Agility, +25 Defense", BonusAgility = 40, BonusDefense = 25, SpecialEffect = "Critical Strike Chance +10%" } }
+                { 2, new SetBonus { PiecesRequired = 2, Description = "+20 Dexterity", BonusDexterity = 20 } },
+                { 4, new SetBonus { PiecesRequired = 4, Description = "+15 Strength, +30 Dexterity", BonusStrength = 15, BonusDexterity = 30 } },
+                { 5, new SetBonus { PiecesRequired = 5, Description = "+40 Dexterity, +25 Constitution", BonusDexterity = 40, BonusConstitution = 25, SpecialEffect = "Critical Strike Chance +10%" } }
             }
         };
     }
@@ -84,7 +84,7 @@ public static class EquipmentSetRepository
             {
                 { 2, new SetBonus { PiecesRequired = 2, Description = "+25 Intelligence", BonusIntelligence = 25 } },
                 { 3, new SetBonus { PiecesRequired = 3, Description = "+40 Intelligence", BonusIntelligence = 40 } },
-                { 5, new SetBonus { PiecesRequired = 5, Description = "+60 Intelligence, +20 Vitality", BonusIntelligence = 60, BonusVitality = 20, SpecialEffect = "Spell Power +15%" } }
+                { 5, new SetBonus { PiecesRequired = 5, Description = "+60 Intelligence, +20 Wisdom", BonusIntelligence = 60, BonusWisdom = 20, SpecialEffect = "Spell Power +15%" } }
             }
         };
     }
@@ -106,9 +106,9 @@ public static class EquipmentSetRepository
             },
             Bonuses = new Dictionary<int, SetBonus>
             {
-                { 2, new SetBonus { PiecesRequired = 2, Description = "+20 Defense", BonusDefense = 20 } },
-                { 4, new SetBonus { PiecesRequired = 4, Description = "+40 Defense, +15 Vitality", BonusDefense = 40, BonusVitality = 15 } },
-                { 6, new SetBonus { PiecesRequired = 6, Description = "+70 Defense, +30 Vitality", BonusDefense = 70, BonusVitality = 30, SpecialEffect = "Damage Reduction +20%" } }
+                { 2, new SetBonus { PiecesRequired = 2, Description = "+20 Constitution", BonusConstitution = 20 } },
+                { 4, new SetBonus { PiecesRequired = 4, Description = "+40 Constitution, +15 Strength", BonusConstitution = 40, BonusStrength = 15 } },
+                { 6, new SetBonus { PiecesRequired = 6, Description = "+70 Constitution, +30 Strength", BonusConstitution = 70, BonusStrength = 30, SpecialEffect = "Damage Reduction +20%" } }
             }
         };
     }
@@ -129,9 +129,9 @@ public static class EquipmentSetRepository
             },
             Bonuses = new Dictionary<int, SetBonus>
             {
-                { 2, new SetBonus { PiecesRequired = 2, Description = "+15 Intelligence, +10 Agility", BonusIntelligence = 15, BonusAgility = 10 } },
-                { 3, new SetBonus { PiecesRequired = 3, Description = "+25 Intelligence, +20 Agility", BonusIntelligence = 25, BonusAgility = 20 } },
-                { 5, new SetBonus { PiecesRequired = 5, Description = "+45 Intelligence, +35 Agility", BonusIntelligence = 45, BonusAgility = 35, SpecialEffect = "Lightning Damage +25%" } }
+                { 2, new SetBonus { PiecesRequired = 2, Description = "+15 Intelligence, +10 Dexterity", BonusIntelligence = 15, BonusDexterity = 10 } },
+                { 3, new SetBonus { PiecesRequired = 3, Description = "+25 Intelligence, +20 Dexterity", BonusIntelligence = 25, BonusDexterity = 20 } },
+                { 5, new SetBonus { PiecesRequired = 5, Description = "+45 Intelligence, +35 Dexterity", BonusIntelligence = 45, BonusDexterity = 35, SpecialEffect = "Lightning Damage +25%" } }
             }
         };
     }
