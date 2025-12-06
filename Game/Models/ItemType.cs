@@ -6,8 +6,27 @@ namespace Game.Models;
 public enum ItemType
 {
     Consumable,
+
+    // Weapons & Off-hand
     Weapon,
-    Armor,
-    Accessory,
+    Shield,
+    // Orbs, tomes, etc.
+    OffHand,
+
+    // Armor pieces
+    Helmet,
+    Shoulders,
+    Chest,
+    Bracers,
+    Gloves,
+    Belt,
+    Legs,
+    Boots,
+
+    // Jewelry
+    Necklace,
+    Ring,
+
+    // Special
     QuestItem
 }

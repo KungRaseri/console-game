@@ -70,10 +70,10 @@ public class ItemTests
 
     [Theory]
     [InlineData(ItemType.Weapon)]
-    [InlineData(ItemType.Armor)]
+    [InlineData(ItemType.Chest)]
     [InlineData(ItemType.Consumable)]
     [InlineData(ItemType.QuestItem)]
-    [InlineData(ItemType.Accessory)]
+    [InlineData(ItemType.Ring)]
     public void Item_Should_Accept_All_Item_Types(ItemType type)
     {
         // Arrange & Act

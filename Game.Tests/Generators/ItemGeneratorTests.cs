@@ -37,9 +37,9 @@ public class ItemGeneratorTests
 
     [Theory]
     [InlineData(ItemType.Weapon)]
-    [InlineData(ItemType.Armor)]
+    [InlineData(ItemType.Helmet)]
     [InlineData(ItemType.Consumable)]
-    [InlineData(ItemType.Accessory)]
+    [InlineData(ItemType.Necklace)]
     [InlineData(ItemType.QuestItem)]
     public void GenerateByType_Should_Create_Items_Of_Specified_Type(ItemType type)
     {
@@ -60,7 +60,7 @@ public class ItemGeneratorTests
         // Assert
         foreach (var weapon in weapons)
         {
-            weapon.Name.Should().MatchRegex("(Iron|Steel|Mythril|Dragon) (Sword|Axe|Bow|Dagger)");
+            weapon.Name.Should().MatchRegex("(Iron|Steel|Mythril|Dragon) (Sword|Axe|Bow|Dagger|Spear|Staff|Wand|Mace)");
         }
     }
 

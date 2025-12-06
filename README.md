@@ -12,9 +12,10 @@ A .NET Core Console application written in C# for building feature-rich console-
 
 **Quick Links:**
 - [Game Loop Guide](./docs/guides/GAME_LOOP_GUIDE.md) - Understanding the GameEngine architecture
+- [Inventory System Guide](./docs/guides/INVENTORY_GUIDE.md) - Complete item management system
 - [Settings Guide](./docs/guides/SETTINGS_GUIDE.md) - Configuration management
 - [ConsoleUI Guide](./docs/guides/CONSOLEUI_GUIDE.md) - Using Spectre.Console UI components
-- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - 148 tests (100% coverage)
+- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - 176 tests (100% coverage)
 
 ## Quick Start
 
@@ -22,7 +23,7 @@ A .NET Core Console application written in C# for building feature-rich console-
 # Run the game
 dotnet run --project Game
 
-# Run tests (38 tests ✅)
+# Run tests (176 tests ✅)
 dotnet test Game.Tests
 
 # Debug in VS Code
@@ -37,6 +38,12 @@ Press F5
 - **Settings System**: Microsoft.Extensions.Configuration with validation
 - **Logging**: Structured logging (Serilog) to console and files
 
+### Gameplay Features
+- **Inventory System**: Full item management with equipment slots, consumables, and sorting
+- **Item Generation**: Random loot drops with 5 rarity tiers (Common to Legendary)
+- **Character Progression**: XP gain, leveling, stat increases
+- **Exploration**: Adventure and find treasures
+
 ### User Interface & Experience
 - **Rich Console UI**: Beautiful interactive displays (Spectre.Console)
 - **Data Persistence**: Save/load game state (LiteDB)
@@ -46,9 +53,22 @@ Press F5
 - **Validation**: Robust input checking (FluentValidation)
 - **Procedural Generation**: Random NPCs and items (Bogus)
 - **Natural Language**: Number formatting and pluralization (Humanizer)
-- **100% Test Coverage**: 148 tests with xUnit and FluentAssertions
+- **100% Test Coverage**: 176 tests with xUnit and FluentAssertions
 
 See the [docs/](./docs/) folder for detailed feature documentation.
+
+## What's New - Inventory System! 🎒
+
+**Version 1.1 adds a complete inventory management system:**
+
+✨ **Find Items** - 30% chance to discover items while exploring  
+🎒 **Manage Inventory** - View, sort, and organize your items  
+⚔️ **Equip Gear** - Weapon, armor, and accessory slots  
+💊 **Use Consumables** - Health and mana potions with rarity-based effects  
+📊 **Smart Sorting** - Sort by name, type, rarity, or value  
+🎲 **Procedural Loot** - Random generation with 5 rarity tiers  
+
+See the [Inventory Guide](./docs/guides/INVENTORY_GUIDE.md) for complete details!
 
 ## Building the Project
 
@@ -249,22 +269,24 @@ public void Should_Have_Error_When_Name_Is_Empty()
 
 ## Next Steps
 
-1. Add integration tests for save/load functionality
-2. Add command-line interface with Spectre.Console.Cli
-3. Implement combat system with tests
-4. Create quest system
-5. Add more NPCs and locations
-6. Integrate audio files
+1. ✅ ~~Inventory system with item management~~ **COMPLETED!**
+2. Implement combat system with turn-based battles
+3. Add integration tests for save/load functionality
+4. Create quest system with objectives and rewards
+5. Add command-line interface with Spectre.Console.Cli
+6. Integrate audio files for immersive experience
 
 ## Resources
 
 - **📚 [Full Documentation](./docs/)** - Complete guides and references
+- **🎒 [Inventory Guide](./docs/guides/INVENTORY_GUIDE.md)** - Full inventory system documentation
 - [Spectre.Console Documentation](https://spectreconsole.net/)
 - [.NET 9 Documentation](https://docs.microsoft.com/en-us/dotnet/)
 - [xUnit Documentation](https://xunit.net/)
 
 ---
 
-**Last Updated**: December 4, 2025  
-**Test Coverage**: 148 tests passing ✅  
-**Framework**: .NET 9.0
+**Last Updated**: December 5, 2025  
+**Test Coverage**: 176 tests passing ✅ (100% coverage)  
+**Framework**: .NET 9.0  
+**New in v1.1**: Complete Inventory System 🎒

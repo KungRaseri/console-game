@@ -5,6 +5,7 @@ using MediatR;
 using Serilog;
 using Polly;
 using Polly.Retry;
+using Spectre.Console;
 
 namespace Game;
 
@@ -281,9 +282,102 @@ public class GameEngine
 
     private async Task HandleInventoryAsync()
     {
-        // TODO: Implement inventory management
-        ConsoleUI.ShowInfo("Inventory management coming soon!");
-        await Task.Delay(1000);
+        if (_player == null)
+        {
+            _state = GameState.InGame;
+            return;
+        }
+
+        bool inInventory = true;
+
+        while (inInventory)
+        {
+            Console.WriteLine();
+            
+            // Display inventory summary
+            var inventoryCount = _player.Inventory.Count;
+            var totalValue = _player.Inventory.Sum(i => i.Price);
+
+            if (inventoryCount == 0)
+            {
+                ConsoleUI.ShowInfo("Your inventory is empty.");
+                ConsoleUI.ShowPanel("Equipment", GetEquipmentDisplay(), "cyan");
+                
+                if (!ConsoleUI.Confirm("Return to game?"))
+                {
+                    continue;
+                }
+                inInventory = false;
+                break;
+            }
+
+            // Show inventory stats
+            ConsoleUI.ShowBanner($"Inventory ({inventoryCount} items)", $"Total Value: {totalValue} gold");
+
+            // Show equipped items
+            ConsoleUI.ShowPanel("Equipment", GetEquipmentDisplay(), "cyan");
+
+            // Group items by type for display
+            var itemsByType = _player.Inventory
+                .GroupBy(i => i.Type)
+                .OrderBy(g => g.Key)
+                .ToList();
+
+            // Create display table
+            var table = new Table();
+            table.Border = TableBorder.Rounded;
+            table.AddColumn(new TableColumn("[yellow]Type[/]"));
+            table.AddColumn(new TableColumn("[yellow]Items[/]"));
+
+            foreach (var group in itemsByType)
+            {
+                var itemList = string.Join(", ", group.Select(i => 
+                    $"{i.Name} ({GetRarityColor(i.Rarity)}{i.Rarity}[/])"));
+                table.AddRow($"[cyan]{group.Key}[/]", itemList);
+            }
+
+            AnsiConsole.Write(table);
+            Console.WriteLine();
+
+            // Inventory actions
+            var action = ConsoleUI.ShowMenu(
+                "What would you like to do?",
+                "View Item Details",
+                "Use Item",
+                "Equip Item",
+                "Drop Item",
+                "Sort Inventory",
+                "Back to Game"
+            );
+
+            switch (action)
+            {
+                case "View Item Details":
+                    await ViewItemDetailsAsync();
+                    break;
+
+                case "Use Item":
+                    await UseItemAsync();
+                    break;
+
+                case "Equip Item":
+                    await EquipItemAsync();
+                    break;
+
+                case "Drop Item":
+                    await DropItemAsync();
+                    break;
+
+                case "Sort Inventory":
+                    SortInventory();
+                    break;
+
+                case "Back to Game":
+                    inInventory = false;
+                    break;
+            }
+        }
+
         _state = GameState.InGame;
     }
 
@@ -364,6 +458,17 @@ public class GameEngine
         _player.Gold += goldFound;
         await _mediator.Publish(new GoldGained(_player.Name, goldFound));
 
+        // Random chance to find an item (30% chance)
+        if (Random.Shared.Next(100) < 30)
+        {
+            var foundItem = Generators.ItemGenerator.Generate();
+            
+            _player.Inventory.Add(foundItem);
+            await _mediator.Publish(new ItemAcquired(_player.Name, foundItem.Name));
+            
+            ConsoleUI.ShowSuccess($"Found: {foundItem.Name} ({GetRarityColor(foundItem.Rarity)}{foundItem.Rarity}[/])!");
+        }
+
         await Task.Delay(1000);
     }
 
@@ -415,6 +520,559 @@ public class GameEngine
         ConsoleUI.Clear();
         ConsoleUI.ShowBanner("Thanks for Playing!", "See you next time!");
         await Task.Delay(1000);
+    }
+
+    // ========== Inventory Helper Methods ==========
+
+    private string GetEquipmentDisplay()
+    {
+        if (_player == null) return "No character";
+
+        var lines = new List<string>();
+        
+        // Weapons
+        lines.Add("[underline yellow]Weapons & Off-hand[/]");
+        lines.Add($"  [yellow]Main Hand:[/] {GetItemDisplay(_player.EquippedMainHand)}");
+        lines.Add($"  [yellow]Off Hand:[/]  {GetItemDisplay(_player.EquippedOffHand)}");
+        lines.Add("");
+        
+        // Armor
+        lines.Add("[underline yellow]Armor[/]");
+        lines.Add($"  [yellow]Helmet:[/]    {GetItemDisplay(_player.EquippedHelmet)}");
+        lines.Add($"  [yellow]Shoulders:[/] {GetItemDisplay(_player.EquippedShoulders)}");
+        lines.Add($"  [yellow]Chest:[/]     {GetItemDisplay(_player.EquippedChest)}");
+        lines.Add($"  [yellow]Bracers:[/]   {GetItemDisplay(_player.EquippedBracers)}");
+        lines.Add($"  [yellow]Gloves:[/]    {GetItemDisplay(_player.EquippedGloves)}");
+        lines.Add($"  [yellow]Belt:[/]      {GetItemDisplay(_player.EquippedBelt)}");
+        lines.Add($"  [yellow]Legs:[/]      {GetItemDisplay(_player.EquippedLegs)}");
+        lines.Add($"  [yellow]Boots:[/]     {GetItemDisplay(_player.EquippedBoots)}");
+        lines.Add("");
+        
+        // Jewelry
+        lines.Add("[underline yellow]Jewelry[/]");
+        lines.Add($"  [yellow]Necklace:[/]  {GetItemDisplay(_player.EquippedNecklace)}");
+        lines.Add($"  [yellow]Ring 1:[/]    {GetItemDisplay(_player.EquippedRing1)}");
+        lines.Add($"  [yellow]Ring 2:[/]    {GetItemDisplay(_player.EquippedRing2)}");
+        lines.Add("");
+        
+        // Total Stats
+        lines.Add("[underline yellow]Total Stats[/]");
+        var allSets = Data.EquipmentSetRepository.GetAllSets();
+        lines.Add($"  [red]Strength:[/]     {_player.GetTotalStrength(allSets)} ([grey]{_player.BaseStrength} base[/])");
+        lines.Add($"  [blue]Defense:[/]      {_player.GetTotalDefense(allSets)} ([grey]{_player.BaseDefense} base[/])");
+        lines.Add($"  [green]Agility:[/]      {_player.GetTotalAgility(allSets)} ([grey]{_player.BaseAgility} base[/])");
+        lines.Add($"  [purple]Intelligence:[/] {_player.GetTotalIntelligence(allSets)} ([grey]{_player.BaseIntelligence} base[/])");
+        lines.Add($"  [yellow]Vitality:[/]     {_player.GetTotalVitality(allSets)} ([grey]{_player.BaseVitality} base[/])");
+        
+        // Active Equipment Sets
+        var activeSets = _player.GetActiveEquipmentSets();
+        if (activeSets.Any())
+        {
+            lines.Add("");
+            lines.Add("[underline yellow]Active Equipment Sets[/]");
+            
+            foreach (var (setName, piecesEquipped) in activeSets)
+            {
+                var set = allSets.FirstOrDefault(s => s.Name == setName);
+                if (set != null)
+                {
+                    lines.Add($"  [cyan]{setName}:[/] {piecesEquipped}/{set.SetItemNames.Count} pieces");
+                    
+                    // Show active bonuses
+                    foreach (var (requiredPieces, bonus) in set.Bonuses.OrderBy(b => b.Key))
+                    {
+                        if (piecesEquipped >= requiredPieces)
+                        {
+                            lines.Add($"    [green]✓[/] ({requiredPieces}) {bonus.Description}");
+                        }
+                        else
+                        {
+                            lines.Add($"    [grey]○ ({requiredPieces}) {bonus.Description}[/]");
+                        }
+                    }
+                }
+            }
+        }
+        
+        return string.Join("\n", lines);
+    }
+
+    private string GetItemDisplay(Item? item)
+    {
+        if (item == null) return "[grey]Empty[/]";
+        
+        var displayName = item.GetDisplayName();
+        return $"{GetRarityColor(item.Rarity)}{displayName}[/]";
+    }
+
+    private string GetRarityColor(ItemRarity rarity)
+    {
+        return rarity switch
+        {
+            ItemRarity.Common => "[white]",
+            ItemRarity.Uncommon => "[green]",
+            ItemRarity.Rare => "[blue]",
+            ItemRarity.Epic => "[purple]",
+            ItemRarity.Legendary => "[orange1]",
+            _ => "[grey]"
+        };
+    }
+
+    private async Task ViewItemDetailsAsync()
+    {
+        if (_player == null || _player.Inventory.Count == 0) return;
+
+        var item = SelectItemFromInventory("Select an item to view");
+        if (item == null) return;
+
+        Console.WriteLine();
+        
+        var detailLines = new List<string>
+        {
+            $"[yellow]Name:[/] {item.GetDisplayName()}",
+            $"[yellow]Type:[/] {item.Type}",
+            $"[yellow]Rarity:[/] {GetRarityColor(item.Rarity)}{item.Rarity}[/]",
+            $"[yellow]Value:[/] {item.Price} gold"
+        };
+        
+        // Show upgrade level
+        if (item.UpgradeLevel > 0)
+        {
+            detailLines.Add($"[cyan]⬆ Upgrade Level: +{item.UpgradeLevel}[/] (+{item.UpgradeLevel * 2} to all stats)");
+        }
+        
+        // Show two-handed indicator
+        if (item.IsTwoHanded)
+        {
+            detailLines.Add($"[red]⚔️ Two-Handed Weapon[/]");
+        }
+        
+        // Show set membership
+        if (!string.IsNullOrEmpty(item.SetName))
+        {
+            detailLines.Add($"[cyan]Set: {item.SetName}[/]");
+        }
+        
+        // Show stats if item has any bonuses
+        bool hasStats = item.BonusStrength > 0 || item.BonusDefense > 0 || item.BonusAgility > 0 
+                        || item.BonusIntelligence > 0 || item.BonusVitality > 0;
+        
+        if (hasStats)
+        {
+            detailLines.Add("");
+            detailLines.Add("[underline]Base Bonuses:[/]");
+            if (item.BonusStrength > 0) 
+                detailLines.Add($"  [red]+{item.BonusStrength} Strength[/]");
+            if (item.BonusDefense > 0) 
+                detailLines.Add($"  [blue]+{item.BonusDefense} Defense[/]");
+            if (item.BonusAgility > 0) 
+                detailLines.Add($"  [green]+{item.BonusAgility} Agility[/]");
+            if (item.BonusIntelligence > 0) 
+                detailLines.Add($"  [purple]+{item.BonusIntelligence} Intelligence[/]");
+            if (item.BonusVitality > 0) 
+                detailLines.Add($"  [yellow]+{item.BonusVitality} Vitality[/]");
+        }
+        
+        // Show enchantments
+        if (item.Enchantments.Any())
+        {
+            detailLines.Add("");
+            detailLines.Add("[underline]Enchantments:[/]");
+            foreach (var enchantment in item.Enchantments)
+            {
+                var enchantColor = enchantment.Rarity switch
+                {
+                    EnchantmentRarity.Minor => "grey",
+                    EnchantmentRarity.Lesser => "green",
+                    EnchantmentRarity.Greater => "blue",
+                    EnchantmentRarity.Superior => "purple",
+                    EnchantmentRarity.Legendary => "orange1",
+                    _ => "white"
+                };
+                
+                detailLines.Add($"  [{enchantColor}]{enchantment.Name}[/]");
+                if (enchantment.BonusStrength > 0) 
+                    detailLines.Add($"    [red]+{enchantment.BonusStrength} Strength[/]");
+                if (enchantment.BonusDefense > 0) 
+                    detailLines.Add($"    [blue]+{enchantment.BonusDefense} Defense[/]");
+                if (enchantment.BonusAgility > 0) 
+                    detailLines.Add($"    [green]+{enchantment.BonusAgility} Agility[/]");
+                if (enchantment.BonusIntelligence > 0) 
+                    detailLines.Add($"    [purple]+{enchantment.BonusIntelligence} Intelligence[/]");
+                if (enchantment.BonusVitality > 0) 
+                    detailLines.Add($"    [yellow]+{enchantment.BonusVitality} Vitality[/]");
+                
+                if (!string.IsNullOrEmpty(enchantment.SpecialEffect))
+                {
+                    detailLines.Add($"    [cyan]{enchantment.SpecialEffect}[/]");
+                }
+            }
+        }
+        
+        // Show total bonuses if enchanted or upgraded
+        if (item.Enchantments.Any() || item.UpgradeLevel > 0)
+        {
+            detailLines.Add("");
+            detailLines.Add("[underline]Total Bonuses:[/]");
+            var totalStr = item.GetTotalBonusStrength();
+            var totalDef = item.GetTotalBonusDefense();
+            var totalAgi = item.GetTotalBonusAgility();
+            var totalInt = item.GetTotalBonusIntelligence();
+            var totalVit = item.GetTotalBonusVitality();
+            
+            if (totalStr > 0) detailLines.Add($"  [red]+{totalStr} Strength[/]");
+            if (totalDef > 0) detailLines.Add($"  [blue]+{totalDef} Defense[/]");
+            if (totalAgi > 0) detailLines.Add($"  [green]+{totalAgi} Agility[/]");
+            if (totalInt > 0) detailLines.Add($"  [purple]+{totalInt} Intelligence[/]");
+            if (totalVit > 0) detailLines.Add($"  [yellow]+{totalVit} Vitality[/]");
+        }
+        
+        detailLines.Add("");
+        detailLines.Add($"[yellow]Description:[/] {(string.IsNullOrEmpty(item.Description) ? "[grey]No description[/]" : item.Description)}");
+        
+        var details = string.Join("\n", detailLines);
+
+        ConsoleUI.ShowPanel($"Item Details", details, "cyan");
+        await Task.Delay(1500);
+    }
+
+    private async Task UseItemAsync()
+    {
+        if (_player == null || _player.Inventory.Count == 0) return;
+
+        var consumables = _player.Inventory.Where(i => i.Type == ItemType.Consumable).ToList();
+        
+        if (consumables.Count == 0)
+        {
+            ConsoleUI.ShowWarning("You have no consumable items!");
+            await Task.Delay(1500);
+            return;
+        }
+
+        var item = SelectItemFromList(consumables, "Select a consumable to use");
+        if (item == null) return;
+
+        var healthBefore = _player.Health;
+        var manaBefore = _player.Mana;
+
+        // Apply consumable effects (simplified - similar to InventoryService logic)
+        ApplyConsumableEffects(item, _player);
+
+        // Remove from inventory
+        _player.Inventory.Remove(item);
+        await _mediator.Publish(new ItemAcquired(_player.Name, $"{item.Name} (used)"));
+
+        // Show results
+        Console.WriteLine();
+        ConsoleUI.ShowSuccess($"Used {item.Name}!");
+        
+        if (_player.Health != healthBefore)
+        {
+            ConsoleUI.ShowInfo($"Health: {healthBefore} → {_player.Health}");
+        }
+        if (_player.Mana != manaBefore)
+        {
+            ConsoleUI.ShowInfo($"Mana: {manaBefore} → {_player.Mana}");
+        }
+
+        await Task.Delay(2000);
+    }
+
+    private async Task EquipItemAsync()
+    {
+        if (_player == null || _player.Inventory.Count == 0) return;
+
+        var equipable = _player.Inventory
+            .Where(i => i.Type != ItemType.Consumable && i.Type != ItemType.QuestItem)
+            .ToList();
+
+        if (equipable.Count == 0)
+        {
+            ConsoleUI.ShowWarning("You have no equipable items!");
+            await Task.Delay(1500);
+            return;
+        }
+
+        var item = SelectItemFromList(equipable, "Select an item to equip");
+        if (item == null) return;
+
+        Item? unequipped = null;
+
+        switch (item.Type)
+        {
+            case ItemType.Weapon:
+                // Check if this is a two-handed weapon
+                if (item.IsTwoHanded && _player.EquippedOffHand != null)
+                {
+                    var confirm = ConsoleUI.Confirm($"This is a two-handed weapon and will unequip your off-hand ({_player.EquippedOffHand.Name}). Continue?");
+                    if (!confirm)
+                    {
+                        return;
+                    }
+                    
+                    // Unequip off-hand first
+                    _player.Inventory.Add(_player.EquippedOffHand);
+                    _player.EquippedOffHand = null;
+                    ConsoleUI.ShowInfo($"Unequipped {_player.EquippedOffHand?.Name ?? "off-hand"}");
+                }
+                
+                unequipped = _player.EquippedMainHand;
+                _player.EquippedMainHand = item;
+                break;
+
+            case ItemType.Shield:
+            case ItemType.OffHand:
+                // Check if main hand has a two-handed weapon
+                if (_player.EquippedMainHand != null && _player.EquippedMainHand.IsTwoHanded)
+                {
+                    ConsoleUI.ShowWarning($"Cannot equip off-hand while wielding a two-handed weapon ({_player.EquippedMainHand.Name})!");
+                    await Task.Delay(2000);
+                    return;
+                }
+                
+                unequipped = _player.EquippedOffHand;
+                _player.EquippedOffHand = item;
+                break;
+
+            case ItemType.Helmet:
+                unequipped = _player.EquippedHelmet;
+                _player.EquippedHelmet = item;
+                break;
+
+            case ItemType.Shoulders:
+                unequipped = _player.EquippedShoulders;
+                _player.EquippedShoulders = item;
+                break;
+
+            case ItemType.Chest:
+                unequipped = _player.EquippedChest;
+                _player.EquippedChest = item;
+                break;
+
+            case ItemType.Bracers:
+                unequipped = _player.EquippedBracers;
+                _player.EquippedBracers = item;
+                break;
+
+            case ItemType.Gloves:
+                unequipped = _player.EquippedGloves;
+                _player.EquippedGloves = item;
+                break;
+
+            case ItemType.Belt:
+                unequipped = _player.EquippedBelt;
+                _player.EquippedBelt = item;
+                break;
+
+            case ItemType.Legs:
+                unequipped = _player.EquippedLegs;
+                _player.EquippedLegs = item;
+                break;
+
+            case ItemType.Boots:
+                unequipped = _player.EquippedBoots;
+                _player.EquippedBoots = item;
+                break;
+
+            case ItemType.Necklace:
+                unequipped = _player.EquippedNecklace;
+                _player.EquippedNecklace = item;
+                break;
+
+            case ItemType.Ring:
+                // Special handling for rings - let player choose slot
+                unequipped = await EquipRingAsync(item);
+                break;
+
+            default:
+                ConsoleUI.ShowWarning($"Cannot equip {item.Type} type items!");
+                await Task.Delay(1500);
+                return;
+        }
+
+        // Remove from inventory
+        _player.Inventory.Remove(item);
+
+        // Add previously equipped item back to inventory
+        if (unequipped != null)
+        {
+            _player.Inventory.Add(unequipped);
+        }
+
+        ConsoleUI.ShowSuccess($"Equipped {item.Name}!");
+        if (unequipped != null)
+        {
+            ConsoleUI.ShowInfo($"Unequipped {unequipped.Name}");
+        }
+
+        await Task.Delay(1500);
+    }
+
+    private Task<Item?> EquipRingAsync(Item ring)
+    {
+        if (_player == null) return Task.FromResult<Item?>(null);
+
+        // Both rings empty - equip to slot 1
+        if (_player.EquippedRing1 == null && _player.EquippedRing2 == null)
+        {
+            _player.EquippedRing1 = ring;
+            return Task.FromResult<Item?>(null);
+        }
+
+        // Ring 1 empty - equip there
+        if (_player.EquippedRing1 == null)
+        {
+            _player.EquippedRing1 = ring;
+            return Task.FromResult<Item?>(null);
+        }
+
+        // Ring 2 empty - equip there
+        if (_player.EquippedRing2 == null)
+        {
+            _player.EquippedRing2 = ring;
+            return Task.FromResult<Item?>(null);
+        }
+
+        // Both rings equipped - ask which to replace
+        var choice = ConsoleUI.ShowMenu(
+            "Both ring slots are occupied. Which ring slot?",
+            $"Ring 1: {_player.EquippedRing1.Name}",
+            $"Ring 2: {_player.EquippedRing2.Name}",
+            "Cancel"
+        );
+
+        if (choice.StartsWith("Ring 1"))
+        {
+            var old = _player.EquippedRing1;
+            _player.EquippedRing1 = ring;
+            return Task.FromResult<Item?>(old);
+        }
+        else if (choice.StartsWith("Ring 2"))
+        {
+            var old = _player.EquippedRing2;
+            _player.EquippedRing2 = ring;
+            return Task.FromResult<Item?>(old);
+        }
+
+        return Task.FromResult<Item?>(null); // Cancelled
+    }
+
+    private async Task DropItemAsync()
+    {
+        if (_player == null || _player.Inventory.Count == 0) return;
+
+        var item = SelectItemFromInventory("Select an item to drop");
+        if (item == null) return;
+
+        if (!ConsoleUI.Confirm($"Drop {item.Name}? This cannot be undone."))
+        {
+            return;
+        }
+
+        _player.Inventory.Remove(item);
+        ConsoleUI.ShowWarning($"Dropped {item.Name}");
+        Log.Information("Player {PlayerName} dropped item: {ItemName}", _player.Name, item.Name);
+
+        await Task.Delay(1000);
+    }
+
+    private void SortInventory()
+    {
+        if (_player == null || _player.Inventory.Count == 0) return;
+
+        var sortChoice = ConsoleUI.ShowMenu(
+            "Sort by...",
+            "Name",
+            "Type",
+            "Rarity",
+            "Value",
+            "Cancel"
+        );
+
+        switch (sortChoice)
+        {
+            case "Name":
+                _player.Inventory.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
+                ConsoleUI.ShowSuccess("Sorted by name");
+                break;
+
+            case "Type":
+                _player.Inventory.Sort((a, b) => a.Type.CompareTo(b.Type));
+                ConsoleUI.ShowSuccess("Sorted by type");
+                break;
+
+            case "Rarity":
+                _player.Inventory.Sort((a, b) => b.Rarity.CompareTo(a.Rarity));
+                ConsoleUI.ShowSuccess("Sorted by rarity");
+                break;
+
+            case "Value":
+                _player.Inventory.Sort((a, b) => b.Price.CompareTo(a.Price));
+                ConsoleUI.ShowSuccess("Sorted by value");
+                break;
+        }
+    }
+
+    private Item? SelectItemFromInventory(string prompt)
+    {
+        if (_player == null || _player.Inventory.Count == 0) return null;
+        return SelectItemFromList(_player.Inventory, prompt);
+    }
+
+    private Item? SelectItemFromList(List<Item> items, string prompt)
+    {
+        if (items.Count == 0) return null;
+
+        var itemNames = items.Select(i => 
+            $"{i.Name} ({GetRarityColor(i.Rarity)}{i.Rarity}[/]) - {i.Type}").ToArray();
+        
+        var selected = ConsoleUI.ShowMenu(prompt, itemNames.Concat(new[] { "Cancel" }).ToArray());
+        
+        if (selected == "Cancel") return null;
+
+        var index = Array.IndexOf(itemNames, selected);
+        return index >= 0 && index < items.Count ? items[index] : null;
+    }
+
+    private void ApplyConsumableEffects(Item item, Character character)
+    {
+        var itemNameLower = item.Name.ToLower();
+
+        // Mana potions (check first to avoid "potion" matching health)
+        if (itemNameLower.Contains("mana") || itemNameLower.Contains("magic") || itemNameLower.Contains("energy"))
+        {
+            var manaAmount = item.Rarity switch
+            {
+                ItemRarity.Common => 20,
+                ItemRarity.Uncommon => 35,
+                ItemRarity.Rare => 50,
+                ItemRarity.Epic => 75,
+                ItemRarity.Legendary => 100,
+                _ => 15
+            };
+
+            character.Mana = Math.Min(character.Mana + manaAmount, character.MaxMana);
+        }
+        // Health potions
+        else if (itemNameLower.Contains("health") || itemNameLower.Contains("potion") || itemNameLower.Contains("healing"))
+        {
+            var healAmount = item.Rarity switch
+            {
+                ItemRarity.Common => 30,
+                ItemRarity.Uncommon => 50,
+                ItemRarity.Rare => 75,
+                ItemRarity.Epic => 100,
+                ItemRarity.Legendary => 150,
+                _ => 20
+            };
+
+            character.Health = Math.Min(character.Health + healAmount, character.MaxHealth);
+        }
+        // Default: small health boost
+        else
+        {
+            character.Health = Math.Min(character.Health + 10, character.MaxHealth);
+        }
     }
 }
 
