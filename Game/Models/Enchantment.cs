@@ -18,11 +18,6 @@ public class Enchantment
     public int BonusWisdom { get; set; } = 0;
     public int BonusCharisma { get; set; } = 0;
     
-    // Legacy properties for backward compatibility
-    public int BonusDefense { get => BonusConstitution; set => BonusConstitution = value; }
-    public int BonusAgility { get => BonusDexterity; set => BonusDexterity = value; }
-    public int BonusVitality { get => BonusConstitution; set => BonusConstitution = value; }
-    
     // Special effects (for display/future implementation)
     public string? SpecialEffect { get; set; }
     

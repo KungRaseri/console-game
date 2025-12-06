@@ -57,20 +57,41 @@ public class CharacterTests
         var character = new Character
         {
             Level = 1,
-            Experience = 0,
-            MaxHealth = 100,
-            MaxMana = 50
+            Experience = 0
         };
+        
+        // Set initial values from D20 calculations
+        character.MaxHealth = character.GetMaxHealth(); // (CON:10 × 10) + (Level:1 × 5) = 105
+        character.Health = character.MaxHealth;
+        character.MaxMana = character.GetMaxMana();     // (WIS:10 × 5) + (Level:1 × 3) = 53
+        character.Mana = character.MaxMana;
+        
+        var initialMaxHealth = character.MaxHealth;
+        var initialMaxMana = character.MaxMana;
+        var initialConstitution = character.Constitution;
+        var initialWisdom = character.Wisdom;
 
-        // Act
+        // Act - Level up to 2
         character.GainExperience(100);
 
         // Assert
         character.Level.Should().Be(2);
-        character.MaxHealth.Should().Be(110); // +10 per level
-        character.Health.Should().Be(110); // Restored to max
-        character.MaxMana.Should().Be(55); // +5 per level
-        character.Mana.Should().Be(55); // Restored to max
+        
+        // Stats should have increased
+        character.Constitution.Should().Be(initialConstitution + 2); // CON gets +2
+        character.Wisdom.Should().Be(initialWisdom + 1);             // WIS gets +1
+        character.Strength.Should().Be(11);   // All other stats +1
+        character.Dexterity.Should().Be(11);
+        character.Intelligence.Should().Be(11);
+        character.Charisma.Should().Be(11);
+        
+        // MaxHealth and MaxMana should have been recalculated
+        character.MaxHealth.Should().BeGreaterThan(initialMaxHealth);
+        character.MaxMana.Should().BeGreaterThan(initialMaxMana);
+        
+        // Health and Mana should be fully restored
+        character.Health.Should().Be(character.MaxHealth);
+        character.Mana.Should().Be(character.MaxMana);
     }
 
     [Theory]

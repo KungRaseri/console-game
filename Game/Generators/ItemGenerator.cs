@@ -47,10 +47,11 @@ public static class ItemGenerator
             .RuleFor(i => i.IsTwoHanded, (f, item) => 
                 item.Type == ItemType.Weapon && f.Random.Bool(0.3f)) // 30% chance for two-handed weapons
             .RuleFor(i => i.BonusStrength, (f, item) => GenerateStatBonus(f, item, "Strength"))
-            .RuleFor(i => i.BonusDefense, (f, item) => GenerateStatBonus(f, item, "Defense"))
-            .RuleFor(i => i.BonusAgility, (f, item) => GenerateStatBonus(f, item, "Agility"))
+            .RuleFor(i => i.BonusDexterity, (f, item) => GenerateStatBonus(f, item, "Dexterity"))
+            .RuleFor(i => i.BonusConstitution, (f, item) => GenerateStatBonus(f, item, "Constitution"))
             .RuleFor(i => i.BonusIntelligence, (f, item) => GenerateStatBonus(f, item, "Intelligence"))
-            .RuleFor(i => i.BonusVitality, (f, item) => GenerateStatBonus(f, item, "Vitality"));
+            .RuleFor(i => i.BonusWisdom, (f, item) => GenerateStatBonus(f, item, "Wisdom"))
+            .RuleFor(i => i.BonusCharisma, (f, item) => GenerateStatBonus(f, item, "Charisma"));
 
         return typedFaker.Generate(count);
     }
@@ -141,28 +142,30 @@ public static class ItemGenerator
     {
         return type switch
         {
-            // Weapons - Strength or Intelligence
+            // Weapons - Strength (melee) or Intelligence (magic)
             ItemType.Weapon => "Strength",
             
-            // Shields and armor - Defense or Vitality
-            ItemType.Shield => "Defense",
-            ItemType.Helmet => "Defense",
-            ItemType.Shoulders => "Defense",
-            ItemType.Chest => "Vitality",
-            ItemType.Bracers => "Defense",
-            ItemType.Gloves => "Agility",
-            ItemType.Belt => "Vitality",
-            ItemType.Legs => "Defense",
-            ItemType.Boots => "Agility",
+            // Shields and heavy armor - Constitution
+            ItemType.Shield => "Constitution",
+            ItemType.Helmet => "Constitution",
+            ItemType.Shoulders => "Constitution",
+            ItemType.Chest => "Constitution",
+            ItemType.Bracers => "Constitution",
+            ItemType.Belt => "Constitution",
+            ItemType.Legs => "Constitution",
             
-            // Off-hand items - Intelligence
-            ItemType.OffHand => "Intelligence",
+            // Light armor - Dexterity
+            ItemType.Gloves => "Dexterity",
+            ItemType.Boots => "Dexterity",
             
-            // Jewelry - Mixed stats
+            // Off-hand items - Intelligence or Wisdom
+            ItemType.OffHand => "Wisdom",
+            
+            // Jewelry - Mixed stats (can roll any)
             ItemType.Necklace => "Strength",
-            ItemType.Ring => "Agility",
+            ItemType.Ring => "Charisma",
             
-            _ => "Vitality"
+            _ => "Constitution"
         };
     }
 }

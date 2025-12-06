@@ -555,14 +555,27 @@ public class GameEngine
         lines.Add($"  [yellow]Ring 2:[/]    {GetItemDisplay(_player.EquippedRing2)}");
         lines.Add("");
         
-        // Total Stats
-        lines.Add("[underline yellow]Total Stats[/]");
+        // D20 Attributes
+        lines.Add("[underline yellow]Attributes[/]");
         var allSets = Data.EquipmentSetRepository.GetAllSets();
-        lines.Add($"  [red]Strength:[/]     {_player.GetTotalStrength(allSets)} ([grey]{_player.BaseStrength} base[/])");
-        lines.Add($"  [blue]Defense:[/]      {_player.GetTotalDefense(allSets)} ([grey]{_player.BaseDefense} base[/])");
-        lines.Add($"  [green]Agility:[/]      {_player.GetTotalAgility(allSets)} ([grey]{_player.BaseAgility} base[/])");
-        lines.Add($"  [purple]Intelligence:[/] {_player.GetTotalIntelligence(allSets)} ([grey]{_player.BaseIntelligence} base[/])");
-        lines.Add($"  [yellow]Vitality:[/]     {_player.GetTotalVitality(allSets)} ([grey]{_player.BaseVitality} base[/])");
+        lines.Add($"  [red]Strength (STR):[/]     {_player.GetTotalStrength(allSets)} ([grey]{_player.Strength} base[/])");
+        lines.Add($"  [green]Dexterity (DEX):[/]    {_player.GetTotalDexterity(allSets)} ([grey]{_player.Dexterity} base[/])");
+        lines.Add($"  [yellow]Constitution (CON):[/] {_player.GetTotalConstitution(allSets)} ([grey]{_player.Constitution} base[/])");
+        lines.Add($"  [purple]Intelligence (INT):[/] {_player.GetTotalIntelligence(allSets)} ([grey]{_player.Intelligence} base[/])");
+        lines.Add($"  [blue]Wisdom (WIS):[/]        {_player.GetTotalWisdom(allSets)} ([grey]{_player.Wisdom} base[/])");
+        lines.Add($"  [cyan]Charisma (CHA):[/]      {_player.GetTotalCharisma(allSets)} ([grey]{_player.Charisma} base[/])");
+        lines.Add("");
+        
+        // Derived Stats
+        lines.Add("[underline yellow]Derived Stats[/]");
+        lines.Add($"  [red]Physical Damage:[/] +{_player.GetPhysicalDamageBonus()}");
+        lines.Add($"  [purple]Magic Damage:[/]    +{_player.GetMagicDamageBonus()}");
+        lines.Add($"  [green]Dodge Chance:[/]    {_player.GetDodgeChance():F1}%");
+        lines.Add($"  [yellow]Crit Chance:[/]     {_player.GetCriticalChance():F1}%");
+        lines.Add($"  [blue]Physical Defense:[/] {_player.GetPhysicalDefense()}");
+        lines.Add($"  [cyan]Magic Resist:[/]     {_player.GetMagicResistance():F1}%");
+        lines.Add($"  [magenta]Shop Discount:[/]   {_player.GetShopDiscount():F1}%");
+        lines.Add($"  [white]Rare Find:[/]        {_player.GetRareItemChance():F1}%");
         
         // Active Equipment Sets
         var activeSets = _player.GetActiveEquipmentSets();

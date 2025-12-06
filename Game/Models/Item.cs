@@ -31,11 +31,6 @@ public class Item
     public int BonusIntelligence { get; set; } = 0;
     public int BonusWisdom { get; set; } = 0;
     public int BonusCharisma { get; set; } = 0;
-    
-    // Legacy properties for backward compatibility
-    public int BonusDefense { get => BonusConstitution; set => BonusConstitution = value; }
-    public int BonusAgility { get => BonusDexterity; set => BonusDexterity = value; }
-    public int BonusVitality { get => BonusConstitution; set => BonusConstitution = value; }
 
     /// <summary>
     /// Get the total strength bonus including base bonus, enchantments, and upgrade level.
@@ -101,31 +96,6 @@ public class Item
         total += Enchantments.Sum(e => e.BonusCharisma);
         total += UpgradeLevel * 2;
         return total;
-    }
-
-    // Legacy methods for backward compatibility
-    /// <summary>
-    /// Get the total defense bonus (maps to Constitution).
-    /// </summary>
-    public int GetTotalBonusDefense()
-    {
-        return GetTotalBonusConstitution();
-    }
-
-    /// <summary>
-    /// Get the total agility bonus (maps to Dexterity).
-    /// </summary>
-    public int GetTotalBonusAgility()
-    {
-        return GetTotalBonusDexterity();
-    }
-
-    /// <summary>
-    /// Get the total vitality bonus (maps to Constitution).
-    /// </summary>
-    public int GetTotalBonusVitality()
-    {
-        return GetTotalBonusConstitution();
     }
 
     /// <summary>
