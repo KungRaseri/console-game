@@ -417,6 +417,39 @@ public static class ConsoleUI
     }
 
     /// <summary>
+    /// Displays a 2-column combat layout with main content on left and combat log on right.
+    /// </summary>
+    public static void ShowCombatLayout(IRenderable mainContent, List<string> logEntries, string logTitle = "Combat Log")
+    {
+        // Create the log panel
+        var logContent = logEntries.Count > 0 
+            ? string.Join("\n", logEntries)
+            : "[dim]No combat events yet...[/]";
+
+        var logPanel = new Panel(new Markup(logContent))
+        {
+            Header = new PanelHeader($"[bold yellow]{EscapeMarkup(logTitle)}[/]"),
+            Border = BoxBorder.Rounded,
+            BorderStyle = new Style(Color.Yellow)
+        };
+
+        // Create columns with 70% main content, 30% log
+        var table = new Table()
+        {
+            Border = TableBorder.None,
+            ShowHeaders = false,
+            Expand = true
+        };
+
+        table.AddColumn(new TableColumn("").Width(70));
+        table.AddColumn(new TableColumn("").Width(30));
+
+        table.AddRow(mainContent, logPanel);
+
+        AnsiConsole.Write(table);
+    }
+
+    /// <summary>
     /// Shows a two-column layout (label: value) for displaying character stats, etc.
     /// </summary>
     public static void ShowKeyValueList(string title, Dictionary<string, string> items, string borderColor = "blue")

@@ -223,7 +223,7 @@ public static class LevelUpService
                 character.Mana += (character.MaxMana - oldMaxMana);
                 
                 ConsoleUI.ShowSuccess("Attributes increased!");
-                await Task.Delay(1000);
+                await Task.Delay(300);
                 done = true;
             }
 
@@ -318,7 +318,7 @@ public static class LevelUpService
             if (!availableSkills.Any())
             {
                 ConsoleUI.ShowWarning("No skills available at your current level.");
-                await Task.Delay(1500);
+                await Task.Delay(300);
                 break;
             }
 
@@ -353,7 +353,7 @@ public static class LevelUpService
                 }
 
                 pointsUsed++;
-                await Task.Delay(1500);
+                await Task.Delay(300);
                 ConsoleUI.Clear();
             }
         }

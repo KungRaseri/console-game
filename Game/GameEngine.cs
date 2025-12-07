@@ -23,6 +23,7 @@ public class GameEngine
     private bool _isRunning;
     private List<Item> _inventory;
     private string? _currentSaveId;
+    private CombatLog? _combatLog;
 
     public GameEngine(IMediator mediator)
     {
@@ -130,7 +131,7 @@ public class GameEngine
                 break;
 
             case GameState.Paused:
-                await HandlePausedAsync();
+                HandlePaused();
                 break;
 
             case GameState.GameOver:
@@ -224,7 +225,7 @@ public class GameEngine
         _player = Services.CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
         
         // Step 5: Review character
-        await ReviewCharacterAsync(_player, selectedClass);
+        ReviewCharacter(_player, selectedClass);
 
         ConsoleUI.ShowSuccess($"Welcome, {_player.Name} the {_player.ClassName}!");
         await Task.Delay(500);
@@ -458,7 +459,7 @@ public class GameEngine
     /// <summary>
     /// Review the final character before starting.
     /// </summary>
-    private async Task ReviewCharacterAsync(Character character, CharacterClass characterClass)
+    private void ReviewCharacter(Character character, CharacterClass characterClass)
     {
         ConsoleUI.Clear();
         ConsoleUI.ShowBanner("Character Summary", "Your Hero Awaits");
@@ -545,11 +546,11 @@ public class GameEngine
                 break;
 
             case "Rest":
-                await RestAsync();
+                RestAsync();
                 break;
 
             case "Save Game":
-                await SaveGameAsync();
+                SaveGameAsync();
                 break;
 
             case "Main Menu":
@@ -573,8 +574,9 @@ public class GameEngine
         // Generate enemy based on player level
         var enemy = Generators.EnemyGenerator.Generate(_player.Level, EnemyDifficulty.Normal);
         
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("⚔️ COMBAT ⚔️", $"A {enemy.Name} appears!");
+        // Initialize combat log
+        _combatLog = new CombatLog(maxEntries: 15);
+        _combatLog.AddEntry($"⚔️ Combat begins! A {enemy.Name} appears!", CombatLogType.Info);
         
         await _mediator.Publish(new CombatStarted(_player.Name, enemy.Name));
         
@@ -583,8 +585,8 @@ public class GameEngine
         // Combat loop
         while (_player.IsAlive() && enemy.IsAlive())
         {
-            // Display combat status
-            DisplayCombatStatus(_player, enemy);
+            // Display combat status with log
+            DisplayCombatStatusWithLog(_player, enemy);
             
             // Player turn
             var action = ConsoleUI.ShowMenu(
@@ -605,6 +607,7 @@ public class GameEngine
                     
                 case "🛡️  Defend":
                     playerDefending = true;
+                    _combatLog.AddEntry("You raise your guard!", CombatLogType.Defend);
                     ConsoleUI.ShowInfo("You raise your guard, ready to defend!");
                     await Task.Delay(300);
                     break;
@@ -621,13 +624,16 @@ public class GameEngine
                     var fleeResult = Services.CombatService.AttemptFlee(_player, enemy);
                     if (fleeResult.Success)
                     {
+                        _combatLog.AddEntry("Successfully fled!", CombatLogType.Info);
                         ConsoleUI.ShowSuccess(fleeResult.Message);
                         await Task.Delay(500);
                         _state = GameState.InGame;
+                        _combatLog = null;
                         return;
                     }
                     else
                     {
+                        _combatLog.AddEntry("Failed to escape!", CombatLogType.Info);
                         ConsoleUI.ShowError(fleeResult.Message);
                         await Task.Delay(500);
                     }
@@ -654,47 +660,41 @@ public class GameEngine
             var regenAmount = Services.SkillEffectService.ApplyRegeneration(_player);
             if (regenAmount > 0)
             {
+                _combatLog.AddEntry($"💚 Regeneration healed {regenAmount} HP", CombatLogType.Heal);
                 ConsoleUI.WriteColoredText($"[green]💚 Regeneration healed {regenAmount} HP[/]");
                 await Task.Delay(300);
             }
             
             Console.WriteLine();
-            ConsoleUI.PressAnyKey("Press any key to continue...");
         }
         
         // Combat ended
         if (_player.IsAlive())
         {
+            _combatLog.AddEntry($"🎉 Victory! {enemy.Name} defeated!", CombatLogType.Victory);
             await HandleCombatVictoryAsync(_player, enemy);
         }
         else
         {
+            _combatLog.AddEntry("💀 You have been defeated...", CombatLogType.Defeat);
             await HandleCombatDefeatAsync(_player, enemy);
         }
         
+        // Clear combat log
+        _combatLog = null;
         _state = GameState.InGame;
     }
     
-    private void DisplayCombatStatus(Character player, Enemy enemy)
+    private void DisplayCombatStatusWithLog(Character player, Enemy enemy)
     {
-        Console.WriteLine();
+        ConsoleUI.Clear();
+        ConsoleUI.ShowBanner("⚔️ COMBAT ⚔️", $"Fighting: {enemy.Name}");
         
-        // Player status
+        // Create main combat content
         var playerHealthPercent = (double)player.Health / player.MaxHealth * 100;
         var playerHealthColor = playerHealthPercent > 50 ? "green" : playerHealthPercent > 25 ? "yellow" : "red";
         var playerHealthBar = GenerateHealthBar(player.Health, player.MaxHealth, 20);
         
-        ConsoleUI.ShowPanel(
-            $"[bold cyan]{player.Name}[/] - Level {player.Level}",
-            $"[{playerHealthColor}]HP: {player.Health}/{player.MaxHealth}[/] {playerHealthBar}\n" +
-            $"[blue]MP: {player.Mana}/{player.MaxMana}[/]\n" +
-            $"[dim]ATK: {player.GetPhysicalDamageBonus()} | DEF: {player.GetPhysicalDefense()}[/]",
-            "cyan"
-        );
-        
-        Console.WriteLine();
-        
-        // Enemy status
         var enemyHealthPercent = (double)enemy.Health / enemy.MaxHealth * 100;
         var enemyHealthColor = enemyHealthPercent > 50 ? "green" : enemyHealthPercent > 25 ? "yellow" : "red";
         var enemyHealthBar = GenerateHealthBar(enemy.Health, enemy.MaxHealth, 20);
@@ -709,17 +709,30 @@ public class GameEngine
             _ => "white"
         };
         
-        ConsoleUI.ShowPanel(
-            $"[bold {difficultyColor}]{enemy.Name}[/] - Level {enemy.Level} [{enemy.Difficulty}]",
+        // Build main combat panel
+        var combatInfo = new Panel(new Markup(
+            $"[bold cyan]{player.Name}[/] - Level {player.Level}\n" +
+            $"[{playerHealthColor}]HP: {player.Health}/{player.MaxHealth}[/] {playerHealthBar}\n" +
+            $"[blue]MP: {player.Mana}/{player.MaxMana}[/]\n" +
+            $"[dim]ATK: {player.GetPhysicalDamageBonus()} | DEF: {player.GetPhysicalDefense()}[/]\n\n" +
+            $"[bold {difficultyColor}]VS[/]\n\n" +
+            $"[bold {difficultyColor}]{enemy.Name}[/] - Level {enemy.Level} [dim]({enemy.Difficulty})[/]\n" +
             $"[{enemyHealthColor}]HP: {enemy.Health}/{enemy.MaxHealth}[/] {enemyHealthBar}\n" +
-            $"[dim]ATK: {enemy.GetPhysicalDamageBonus()} | DEF: {enemy.GetPhysicalDefense()}[/]",
-            difficultyColor
-        );
+            $"[dim]ATK: {enemy.GetPhysicalDamageBonus()} | DEF: {enemy.GetPhysicalDefense()}[/]"
+        ))
+        {
+            Header = new PanelHeader("[bold yellow]Battle Status[/]"),
+            Border = BoxBorder.Rounded,
+            BorderStyle = new Style(Color.Cyan)
+        };
         
+        // Display with combat log
+        var logEntries = _combatLog?.GetFormattedEntries() ?? new List<string>();
+        ConsoleUI.ShowCombatLayout(combatInfo, logEntries);
         Console.WriteLine();
     }
     
-    private string GenerateHealthBar(int current, int max, int width)
+    private static string GenerateHealthBar(int current, int max, int width)
     {
         var percent = (double)current / max;
         var filled = (int)(percent * width);
@@ -738,14 +751,17 @@ public class GameEngine
         
         if (result.IsDodged)
         {
+            _combatLog?.AddEntry($"💨 {result.Message}", CombatLogType.Dodge);
             ConsoleUI.WriteColoredText($"[yellow]💨 {result.Message}[/]");
         }
         else if (result.IsCritical)
         {
+            _combatLog?.AddEntry($"💥 CRIT! {result.Damage} damage!", CombatLogType.Critical);
             ConsoleUI.WriteColoredText($"[red bold]💥 {result.Message}[/]");
         }
         else
         {
+            _combatLog?.AddEntry($"⚔️ Hit for {result.Damage} damage", CombatLogType.PlayerAttack);
             ConsoleUI.WriteColoredText($"[green]⚔️  {result.Message}[/]");
         }
         
@@ -765,18 +781,22 @@ public class GameEngine
         
         if (result.IsDodged)
         {
+            _combatLog?.AddEntry($"💨 Dodged {enemy.Name}'s attack!", CombatLogType.Dodge);
             ConsoleUI.WriteColoredText($"[cyan]💨 {result.Message}[/]");
         }
         else if (result.IsBlocked)
         {
+            _combatLog?.AddEntry($"🛡️ Blocked {result.Damage} damage", CombatLogType.Defend);
             ConsoleUI.WriteColoredText($"[blue]🛡️  {result.Message}[/]");
         }
         else if (result.IsCritical)
         {
+            _combatLog?.AddEntry($"💥 {enemy.Name} CRIT! {result.Damage} damage!", CombatLogType.EnemyAttack);
             ConsoleUI.WriteColoredText($"[red bold]💥 {result.Message}[/]");
         }
         else
         {
+            _combatLog?.AddEntry($"🗡️ {enemy.Name} hit for {result.Damage}", CombatLogType.EnemyAttack);
             ConsoleUI.WriteColoredText($"[orange1]🗡️  {result.Message}[/]");
         }
         
@@ -795,7 +815,7 @@ public class GameEngine
         if (!consumables.Any())
         {
             ConsoleUI.ShowWarning("You have no consumable items!");
-            await Task.Delay(1000);
+            await Task.Delay(300);
             return false;
         }
         
@@ -816,8 +836,11 @@ public class GameEngine
         
         if (result.Success)
         {
+            _combatLog?.AddEntry($"✨ Used {item.Name}", CombatLogType.ItemUse);
+            
             if (result.Healing > 0)
             {
+                _combatLog?.AddEntry($"💚 Restored {result.Healing} HP", CombatLogType.Heal);
                 ConsoleUI.WriteColoredText($"[green]✨ {result.Message}[/]");
             }
             else
@@ -1043,7 +1066,7 @@ public class GameEngine
         _state = GameState.InGame;
     }
 
-    private async Task HandlePausedAsync()
+    private void HandlePaused()
     {
         var choice = ConsoleUI.ShowMenu(
             "Game Paused",
@@ -1059,7 +1082,7 @@ public class GameEngine
                 break;
 
             case "Save Game":
-                await SaveGameAsync();
+                SaveGameAsync();
                 break;
 
             case "Main Menu":
@@ -1109,7 +1132,7 @@ public class GameEngine
         {
             // Combat encounter!
             ConsoleUI.ShowWarning("You encounter an enemy!");
-            await Task.Delay(1000);
+            await Task.Delay(300);
             _state = GameState.Combat;
             return;
         }
@@ -1226,7 +1249,7 @@ public class GameEngine
         await Task.CompletedTask;
     }
 
-    private async Task RestAsync()
+    private void RestAsync()
     {
         if (_player == null) return;
 
@@ -1238,12 +1261,11 @@ public class GameEngine
         ConsoleUI.ShowSuccess("Fully rested!");
     }
 
-    private async Task SaveGameAsync()
+    private void SaveGameAsync()
     {
         if (_player == null)
         {
             ConsoleUI.ShowError("No active game to save!");
-            await Task.Delay(1000);
             return;
         }
 
@@ -1384,7 +1406,7 @@ public class GameEngine
                 _saveGameService.DeleteSave(selectedSave.Id);
                 ConsoleUI.ShowSuccess("Save deleted successfully!");
                 Log.Information("Save deleted for player {PlayerName}", selectedSave.Character.Name);
-                await Task.Delay(1000);
+                await Task.Delay(300);
                 
                 // Return to load menu
                 await LoadGameAsync();
@@ -1393,7 +1415,7 @@ public class GameEngine
             {
                 ConsoleUI.ShowError($"Failed to delete save: {ex.Message}");
                 Log.Error(ex, "Failed to delete save");
-                await Task.Delay(1500);
+                await Task.Delay(500);
             }
         }
         else
@@ -1406,7 +1428,7 @@ public class GameEngine
     {
         ConsoleUI.Clear();
         ConsoleUI.ShowBanner("Thanks for Playing!", "See you next time!");
-        await Task.Delay(1000);
+        await Task.Delay(300);
     }
 
     // ========== Inventory Helper Methods ==========
@@ -1639,7 +1661,7 @@ public class GameEngine
         var details = string.Join("\n", detailLines);
 
         ConsoleUI.ShowPanel($"Item Details", details, "cyan");
-        await Task.Delay(1500);
+        await Task.Delay(500);
     }
 
     private async Task UseItemAsync()
@@ -1651,7 +1673,7 @@ public class GameEngine
         if (consumables.Count == 0)
         {
             ConsoleUI.ShowWarning("You have no consumable items!");
-            await Task.Delay(1500);
+            await Task.Delay(300);
             return;
         }
 
@@ -1681,7 +1703,7 @@ public class GameEngine
             ConsoleUI.ShowInfo($"Mana: {manaBefore} → {_player.Mana}");
         }
 
-        await Task.Delay(2000);
+        await Task.Delay(500);
     }
 
     private async Task EquipItemAsync()
@@ -1695,7 +1717,7 @@ public class GameEngine
         if (equipable.Count == 0)
         {
             ConsoleUI.ShowWarning("You have no equipable items!");
-            await Task.Delay(1500);
+            await Task.Delay(300);
             return;
         }
 
@@ -1732,7 +1754,7 @@ public class GameEngine
                 if (_player.EquippedMainHand != null && _player.EquippedMainHand.IsTwoHanded)
                 {
                     ConsoleUI.ShowWarning($"Cannot equip off-hand while wielding a two-handed weapon ({_player.EquippedMainHand.Name})!");
-                    await Task.Delay(2000);
+                    await Task.Delay(500);
                     return;
                 }
                 
@@ -1792,7 +1814,7 @@ public class GameEngine
 
             default:
                 ConsoleUI.ShowWarning($"Cannot equip {item.Type} type items!");
-                await Task.Delay(1500);
+                await Task.Delay(300);
                 return;
         }
 
@@ -1811,7 +1833,7 @@ public class GameEngine
             ConsoleUI.ShowInfo($"Unequipped {unequipped.Name}");
         }
 
-        await Task.Delay(1500);
+        await Task.Delay(500);
     }
 
     private Task<Item?> EquipRingAsync(Item ring)
@@ -1879,7 +1901,7 @@ public class GameEngine
         ConsoleUI.ShowWarning($"Dropped {item.Name}");
         Log.Information("Player {PlayerName} dropped item: {ItemName}", _player.Name, item.Name);
 
-        await Task.Delay(1000);
+        await Task.Delay(300);
     }
 
     private void SortInventory()
