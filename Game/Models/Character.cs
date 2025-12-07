@@ -6,6 +6,7 @@ namespace Game.Models;
 public class Character
 {
     public string Name { get; set; } = string.Empty;
+    public string ClassName { get; set; } = string.Empty;  // Character's class (Warrior, Mage, etc.)
     public int Level { get; set; } = 1;
     public int Experience { get; set; } = 0;
     public int Health { get; set; } = 100;
