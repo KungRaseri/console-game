@@ -23,6 +23,12 @@ public class Character
     public int Wisdom { get; set; } = 10;        // Max Mana, magic defense
     public int Charisma { get; set; } = 10;      // Shop prices, rare loot
 
+    // Level-up tracking
+    public int UnspentAttributePoints { get; set; } = 0;
+    public int UnspentSkillPoints { get; set; } = 0;
+    public List<LevelUpInfo> PendingLevelUps { get; set; } = new();
+    public List<Skill> LearnedSkills { get; set; } = new();
+
     // Inventory
     public List<Item> Inventory { get; set; } = new();
 
@@ -82,13 +88,28 @@ public class Character
         MaxMana = GetMaxMana();
         Mana = MaxMana;  // Fully restore mana on level up
         
-        // Increase D20 attributes on level up
-        Strength += 1;
-        Dexterity += 1;
-        Constitution += 2;      // CON gets more since it affects survivability
-        Intelligence += 1;
-        Wisdom += 1;
-        Charisma += 1;
+        // Award attribute and skill points for player to allocate
+        int attributePoints = 3; // 3 attribute points per level
+        int skillPoints = 1;     // 1 skill point per level
+        
+        // Every 5 levels, award bonus points
+        if (Level % 5 == 0)
+        {
+            attributePoints += 2; // Bonus at levels 5, 10, 15, etc.
+            skillPoints += 1;
+        }
+        
+        UnspentAttributePoints += attributePoints;
+        UnspentSkillPoints += skillPoints;
+        
+        // Queue this level-up for player interaction
+        PendingLevelUps.Add(new LevelUpInfo
+        {
+            NewLevel = Level,
+            AttributePointsGained = attributePoints,
+            SkillPointsGained = skillPoints,
+            IsProcessed = false
+        });
     }
 
     /// <summary>
@@ -104,7 +125,9 @@ public class Character
     /// </summary>
     public int GetMaxMana()
     {
-        return (Wisdom * 5) + (Level * 3);
+        int baseMana = (Wisdom * 5) + (Level * 3);
+        double skillMultiplier = Services.SkillEffectService.GetMaxManaMultiplier(this);
+        return (int)(baseMana * skillMultiplier);
     }
 
     /// <summary>
@@ -192,7 +215,17 @@ public class Character
     /// </summary>
     public double GetRareItemChance()
     {
-        return Charisma * 0.5;  // 10 CHA = 5% rare find
+        double baseChance = Charisma * 0.5;  // 10 CHA = 5% rare find
+        double skillBonus = Services.SkillEffectService.GetRareItemFindBonus(this);
+        return baseChance + skillBonus;
+    }
+
+    /// <summary>
+    /// Check if character is alive (health > 0).
+    /// </summary>
+    public bool IsAlive()
+    {
+        return Health > 0;
     }
 
     /// <summary>

@@ -12,7 +12,7 @@ public class CharacterValidator : AbstractValidator<Character>
     {
         RuleFor(c => c.Name)
             .NotEmpty().WithMessage("Character name cannot be empty")
-            .Length(3, 20).WithMessage("Character name must be between 3 and 20 characters")
+            .Length(2, 20).WithMessage("Character name must be between 2 and 20 characters")
             .Matches("^[a-zA-Z ]+$").WithMessage("Character name can only contain letters and spaces");
 
         RuleFor(c => c.Level)

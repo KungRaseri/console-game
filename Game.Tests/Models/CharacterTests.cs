@@ -69,7 +69,7 @@ public class CharacterTests
         var initialMaxHealth = character.MaxHealth;
         var initialMaxMana = character.MaxMana;
         var initialConstitution = character.Constitution;
-        var initialWisdom = character.Wisdom;
+        var initialAttributePoints = character.UnspentAttributePoints;
 
         // Act - Level up to 2
         character.GainExperience(100);
@@ -77,15 +77,21 @@ public class CharacterTests
         // Assert
         character.Level.Should().Be(2);
         
-        // Stats should have increased
-        character.Constitution.Should().Be(initialConstitution + 2); // CON gets +2
-        character.Wisdom.Should().Be(initialWisdom + 1);             // WIS gets +1
-        character.Strength.Should().Be(11);   // All other stats +1
-        character.Dexterity.Should().Be(11);
-        character.Intelligence.Should().Be(11);
-        character.Charisma.Should().Be(11);
+        // Stats should NOT auto-increase (new system - player allocates)
+        character.Constitution.Should().Be(initialConstitution); // No auto-increase
+        character.Strength.Should().Be(10);   // Base stats unchanged
+        character.Dexterity.Should().Be(10);
+        character.Intelligence.Should().Be(10);
+        character.Wisdom.Should().Be(10);
+        character.Charisma.Should().Be(10);
         
-        // MaxHealth and MaxMana should have been recalculated
+        // Should have unspent attribute points
+        character.UnspentAttributePoints.Should().Be(initialAttributePoints + 3); // 3 points per level
+        
+        // Should have a pending level-up
+        character.PendingLevelUps.Should().HaveCount(1);
+        
+        // MaxHealth and MaxMana should still recalculate based on level
         character.MaxHealth.Should().BeGreaterThan(initialMaxHealth);
         character.MaxMana.Should().BeGreaterThan(initialMaxMana);
         

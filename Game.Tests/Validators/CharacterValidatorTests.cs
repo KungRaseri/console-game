@@ -35,7 +35,7 @@ public class CharacterValidatorTests
 
     [Theory]
     [InlineData("")]
-    [InlineData("ab")] // Too short
+    [InlineData("a")] // Too short (minimum is 2)
     [InlineData("ThisNameIsTooLongForACharacter")] // Too long
     public void Should_Fail_For_Invalid_Name(string invalidName)
     {

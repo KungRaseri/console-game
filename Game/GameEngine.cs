@@ -495,14 +495,29 @@ public class GameEngine
         }
 
         Console.WriteLine();
-        var action = ConsoleUI.ShowMenu(
-            $"[{_player.Name}] - Level {_player.Level} | HP: {_player.Health}/{_player.MaxHealth} | Gold: {_player.Gold}",
+        
+        // Build menu options
+        var menuOptions = new List<string>
+        {
             "Explore",
+            "⚔️  Combat",
             "View Character",
             "Inventory",
-            "Rest",
-            "Save Game",
-            "Main Menu"
+            "Rest"
+        };
+        
+        // Add level-up option if player has unspent points
+        if (_player.UnspentAttributePoints > 0 || _player.UnspentSkillPoints > 0)
+        {
+            menuOptions.Insert(3, $"[yellow]🌟 Level Up ({_player.UnspentAttributePoints} attr, {_player.UnspentSkillPoints} skill)[/]");
+        }
+        
+        menuOptions.Add("Save Game");
+        menuOptions.Add("Main Menu");
+        
+        var action = ConsoleUI.ShowMenu(
+            $"[{_player.Name}] - Level {_player.Level} | HP: {_player.Health}/{_player.MaxHealth} | Gold: {_player.Gold}",
+            menuOptions.ToArray()
         );
 
         switch (action)
@@ -511,8 +526,16 @@ public class GameEngine
                 await ExploreAsync();
                 break;
 
+            case "⚔️  Combat":
+                _state = GameState.Combat;
+                break;
+
             case "View Character":
                 await ViewCharacterAsync();
+                break;
+                
+            case var s when s.Contains("Level Up"):
+                await Services.LevelUpService.ProcessPendingLevelUpsAsync(_player);
                 break;
 
             case "Inventory":
@@ -539,10 +562,374 @@ public class GameEngine
 
     private async Task HandleCombatAsync()
     {
-        // TODO: Implement combat system
-        ConsoleUI.ShowWarning("Combat system coming soon!");
-        await Task.Delay(1000);
+        if (_player == null)
+        {
+            _state = GameState.InGame;
+            return;
+        }
+
+        // Generate enemy based on player level
+        var enemy = Generators.EnemyGenerator.Generate(_player.Level, EnemyDifficulty.Normal);
+        
+        ConsoleUI.Clear();
+        ConsoleUI.ShowBanner("⚔️ COMBAT ⚔️", $"A {enemy.Name} appears!");
+        
+        await _mediator.Publish(new CombatStarted(_player.Name, enemy.Name));
+        
+        bool playerDefending = false;
+        
+        // Combat loop
+        while (_player.IsAlive() && enemy.IsAlive())
+        {
+            // Display combat status
+            DisplayCombatStatus(_player, enemy);
+            
+            // Player turn
+            var action = ConsoleUI.ShowMenu(
+                "Choose your action:",
+                "⚔️  Attack",
+                "🛡️  Defend",
+                "🧪 Use Item",
+                "🏃 Flee"
+            );
+            
+            playerDefending = false;
+            
+            switch (action)
+            {
+                case "⚔️  Attack":
+                    await ExecutePlayerTurnAsync(_player, enemy, CombatActionType.Attack);
+                    break;
+                    
+                case "🛡️  Defend":
+                    playerDefending = true;
+                    ConsoleUI.ShowInfo("You raise your guard, ready to defend!");
+                    await Task.Delay(800);
+                    break;
+                    
+                case "🧪 Use Item":
+                    var itemUsed = await UseItemInCombatMenuAsync(_player);
+                    if (!itemUsed)
+                    {
+                        continue; // Don't advance turn if no item was used
+                    }
+                    break;
+                    
+                case "🏃 Flee":
+                    var fleeResult = Services.CombatService.AttemptFlee(_player, enemy);
+                    if (fleeResult.Success)
+                    {
+                        ConsoleUI.ShowSuccess(fleeResult.Message);
+                        await Task.Delay(1500);
+                        _state = GameState.InGame;
+                        return;
+                    }
+                    else
+                    {
+                        ConsoleUI.ShowError(fleeResult.Message);
+                        await Task.Delay(1500);
+                    }
+                    break;
+            }
+            
+            // Check if enemy is defeated
+            if (!enemy.IsAlive())
+            {
+                break;
+            }
+            
+            // Enemy turn
+            await Task.Delay(500);
+            await ExecuteEnemyTurnAsync(_player, enemy, playerDefending);
+            
+            // Check if player is defeated
+            if (!_player.IsAlive())
+            {
+                break;
+            }
+            
+            // Apply regeneration at end of turn
+            var regenAmount = Services.SkillEffectService.ApplyRegeneration(_player);
+            if (regenAmount > 0)
+            {
+                ConsoleUI.WriteColoredText($"[green]💚 Regeneration healed {regenAmount} HP[/]");
+                await Task.Delay(800);
+            }
+            
+            Console.WriteLine();
+            ConsoleUI.PressAnyKey("Press any key to continue...");
+        }
+        
+        // Combat ended
+        if (_player.IsAlive())
+        {
+            await HandleCombatVictoryAsync(_player, enemy);
+        }
+        else
+        {
+            await HandleCombatDefeatAsync(_player, enemy);
+        }
+        
         _state = GameState.InGame;
+    }
+    
+    private void DisplayCombatStatus(Character player, Enemy enemy)
+    {
+        Console.WriteLine();
+        
+        // Player status
+        var playerHealthPercent = (double)player.Health / player.MaxHealth * 100;
+        var playerHealthColor = playerHealthPercent > 50 ? "green" : playerHealthPercent > 25 ? "yellow" : "red";
+        var playerHealthBar = GenerateHealthBar(player.Health, player.MaxHealth, 20);
+        
+        ConsoleUI.ShowPanel(
+            $"[bold cyan]{player.Name}[/] - Level {player.Level}",
+            $"[{playerHealthColor}]HP: {player.Health}/{player.MaxHealth}[/] {playerHealthBar}\n" +
+            $"[blue]MP: {player.Mana}/{player.MaxMana}[/]\n" +
+            $"[dim]ATK: {player.GetPhysicalDamageBonus()} | DEF: {player.GetPhysicalDefense()}[/]",
+            "cyan"
+        );
+        
+        Console.WriteLine();
+        
+        // Enemy status
+        var enemyHealthPercent = (double)enemy.Health / enemy.MaxHealth * 100;
+        var enemyHealthColor = enemyHealthPercent > 50 ? "green" : enemyHealthPercent > 25 ? "yellow" : "red";
+        var enemyHealthBar = GenerateHealthBar(enemy.Health, enemy.MaxHealth, 20);
+        
+        var difficultyColor = enemy.Difficulty switch
+        {
+            EnemyDifficulty.Easy => "green",
+            EnemyDifficulty.Normal => "white",
+            EnemyDifficulty.Hard => "yellow",
+            EnemyDifficulty.Elite => "orange1",
+            EnemyDifficulty.Boss => "red",
+            _ => "white"
+        };
+        
+        ConsoleUI.ShowPanel(
+            $"[bold {difficultyColor}]{enemy.Name}[/] - Level {enemy.Level} [{enemy.Difficulty}]",
+            $"[{enemyHealthColor}]HP: {enemy.Health}/{enemy.MaxHealth}[/] {enemyHealthBar}\n" +
+            $"[dim]ATK: {enemy.GetPhysicalDamageBonus()} | DEF: {enemy.GetPhysicalDefense()}[/]",
+            difficultyColor
+        );
+        
+        Console.WriteLine();
+    }
+    
+    private string GenerateHealthBar(int current, int max, int width)
+    {
+        var percent = (double)current / max;
+        var filled = (int)(percent * width);
+        var empty = width - filled;
+        
+        var color = percent > 0.5 ? "green" : percent > 0.25 ? "yellow" : "red";
+        
+        return $"[{color}]{'█'.ToString().PadRight(filled, '█')}[/][dim]{'░'.ToString().PadRight(empty, '░')}[/]";
+    }
+    
+    private async Task ExecutePlayerTurnAsync(Character player, Enemy enemy, CombatActionType actionType)
+    {
+        var result = Services.CombatService.ExecutePlayerAttack(player, enemy);
+        
+        await _mediator.Publish(new AttackPerformed(player.Name, enemy.Name, result.Damage));
+        
+        if (result.IsDodged)
+        {
+            ConsoleUI.WriteColoredText($"[yellow]💨 {result.Message}[/]");
+        }
+        else if (result.IsCritical)
+        {
+            ConsoleUI.WriteColoredText($"[red bold]💥 {result.Message}[/]");
+        }
+        else
+        {
+            ConsoleUI.WriteColoredText($"[green]⚔️  {result.Message}[/]");
+        }
+        
+        if (!enemy.IsAlive())
+        {
+            await _mediator.Publish(new EnemyDefeated(player.Name, enemy.Name));
+        }
+        
+        await Task.Delay(1000);
+    }
+    
+    private async Task ExecuteEnemyTurnAsync(Character player, Enemy enemy, bool playerDefending)
+    {
+        var result = Services.CombatService.ExecuteEnemyAttack(enemy, player, playerDefending);
+        
+        await _mediator.Publish(new DamageTaken(player.Name, result.Damage));
+        
+        if (result.IsDodged)
+        {
+            ConsoleUI.WriteColoredText($"[cyan]💨 {result.Message}[/]");
+        }
+        else if (result.IsBlocked)
+        {
+            ConsoleUI.WriteColoredText($"[blue]🛡️  {result.Message}[/]");
+        }
+        else if (result.IsCritical)
+        {
+            ConsoleUI.WriteColoredText($"[red bold]💥 {result.Message}[/]");
+        }
+        else
+        {
+            ConsoleUI.WriteColoredText($"[orange1]🗡️  {result.Message}[/]");
+        }
+        
+        if (!player.IsAlive())
+        {
+            await _mediator.Publish(new PlayerDefeated(player.Name, enemy.Name));
+        }
+        
+        await Task.Delay(1000);
+    }
+    
+    private async Task<bool> UseItemInCombatMenuAsync(Character player)
+    {
+        var consumables = player.Inventory.Where(i => i.Type == ItemType.Consumable).ToList();
+        
+        if (!consumables.Any())
+        {
+            ConsoleUI.ShowWarning("You have no consumable items!");
+            await Task.Delay(1000);
+            return false;
+        }
+        
+        var itemNames = consumables.Select(i => $"{i.Name} ({i.Rarity})").ToList();
+        itemNames.Add("[dim]Cancel[/]");
+        
+        var selection = ConsoleUI.ShowMenu("Select an item to use:", itemNames.ToArray());
+        
+        if (selection == "[dim]Cancel[/]")
+        {
+            return false;
+        }
+        
+        var selectedIndex = itemNames.IndexOf(selection);
+        var item = consumables[selectedIndex];
+        
+        var result = Services.CombatService.UseItemInCombat(player, item);
+        
+        if (result.Success)
+        {
+            if (result.Healing > 0)
+            {
+                ConsoleUI.WriteColoredText($"[green]✨ {result.Message}[/]");
+            }
+            else
+            {
+                ConsoleUI.WriteColoredText($"[cyan]✨ {result.Message}[/]");
+            }
+            
+            await Task.Delay(1500);
+            return true;
+        }
+        else
+        {
+            ConsoleUI.ShowError(result.Message);
+            await Task.Delay(1000);
+            return false;
+        }
+    }
+    
+    private async Task HandleCombatVictoryAsync(Character player, Enemy enemy)
+    {
+        ConsoleUI.Clear();
+        
+        var outcome = Services.CombatService.GenerateVictoryOutcome(player, enemy);
+        
+        ConsoleUI.ShowBanner("🏆 VICTORY! 🏆", $"You defeated {enemy.Name}!");
+        
+        // Award XP
+        var previousLevel = player.Level;
+        player.GainExperience(outcome.XPGained);
+        
+        // Award gold
+        player.Gold += outcome.GoldGained;
+        
+        // Display rewards
+        ConsoleUI.ShowPanel(
+            "Battle Rewards",
+            $"[green]+{outcome.XPGained} XP[/] ({player.Experience}/{player.Level * 100} to next level)\n" +
+            $"[yellow]+{outcome.GoldGained} Gold[/] (Total: {player.Gold})",
+            "green"
+        );
+        
+        // Check for level up
+        if (player.Level > previousLevel)
+        {
+            Console.WriteLine();
+            ConsoleUI.WriteColoredText($"[bold yellow]🌟 LEVEL UP! You are now level {player.Level}! 🌟[/]");
+            await _mediator.Publish(new PlayerLeveledUp(player.Name, player.Level));
+            await Task.Delay(1500);
+            
+            // Process level-up allocation
+            ConsoleUI.PressAnyKey("Press any key to allocate your level-up points...");
+            await Services.LevelUpService.ProcessPendingLevelUpsAsync(player);
+        }
+        
+        // Display loot
+        if (outcome.LootDropped.Any())
+        {
+            Console.WriteLine();
+            ConsoleUI.WriteColoredText("[cyan bold]💎 Loot Dropped![/]");
+            
+            foreach (var item in outcome.LootDropped)
+            {
+                player.Inventory.Add(item);
+                
+                var rarityColor = item.Rarity switch
+                {
+                    ItemRarity.Common => "white",
+                    ItemRarity.Uncommon => "green",
+                    ItemRarity.Rare => "blue",
+                    ItemRarity.Epic => "purple",
+                    ItemRarity.Legendary => "orange1",
+                    _ => "white"
+                };
+                
+                ConsoleUI.WriteColoredText($"  [{rarityColor}]• {item.Name} ({item.Rarity})[/]");
+            }
+        }
+        
+        await _mediator.Publish(new CombatEnded(player.Name, true));
+        
+        Console.WriteLine();
+        ConsoleUI.PressAnyKey("Press any key to continue...");
+    }
+    
+    private async Task HandleCombatDefeatAsync(Character player, Enemy enemy)
+    {
+        ConsoleUI.Clear();
+        ConsoleUI.ShowBanner("💀 DEFEAT 💀", $"You were defeated by {enemy.Name}...");
+        
+        ConsoleUI.ShowPanel(
+            "Battle Summary",
+            $"The {enemy.Name} proved too powerful.\n" +
+            $"You have been knocked unconscious and lost some gold.",
+            "red"
+        );
+        
+        // Lose some gold
+        var goldLost = (int)(player.Gold * 0.1); // Lose 10% of gold
+        player.Gold = Math.Max(0, player.Gold - goldLost);
+        
+        if (goldLost > 0)
+        {
+            ConsoleUI.WriteColoredText($"[red]-{goldLost} Gold[/]");
+        }
+        
+        // Restore some health
+        player.Health = player.MaxHealth / 4; // Restore to 25% health
+        
+        ConsoleUI.WriteColoredText($"[dim]You wake up with {player.Health} HP remaining.[/]");
+        
+        await _mediator.Publish(new CombatEnded(player.Name, false));
+        
+        Console.WriteLine();
+        ConsoleUI.PressAnyKey("Press any key to continue...");
     }
 
     private async Task HandleInventoryAsync()
@@ -705,8 +1092,20 @@ public class GameEngine
             }
         });
 
-        // Gain XP
-        var xpGained = Random.Shared.Next(10, 50);
+        // 60% chance of combat encounter, 40% chance of peaceful exploration
+        var encounterRoll = Random.Shared.Next(100);
+        
+        if (encounterRoll < 60)
+        {
+            // Combat encounter!
+            ConsoleUI.ShowWarning("You encounter an enemy!");
+            await Task.Delay(1000);
+            _state = GameState.Combat;
+            return;
+        }
+
+        // Peaceful exploration - gain some XP
+        var xpGained = Random.Shared.Next(10, 30);
         _player.GainExperience(xpGained);
 
         // Check if leveled up
@@ -741,8 +1140,11 @@ public class GameEngine
     {
         if (_player == null) return;
 
+        ConsoleUI.Clear();
+        
+        // Basic stats
         var statsContent = $"""
-        [yellow]Name:[/] {_player.Name}
+        [yellow]Name:[/] {_player.Name} ([cyan]{_player.ClassName}[/])
         [red]Health:[/] {_player.Health}/{_player.MaxHealth}
         [blue]Mana:[/] {_player.Mana}/{_player.MaxMana}
         [green]Level:[/] {_player.Level}
@@ -751,6 +1153,66 @@ public class GameEngine
         """;
 
         ConsoleUI.ShowPanel("Character Stats", statsContent, "green");
+        
+        // D20 Attributes
+        var attributesContent = $"""
+        [red]Strength (STR):[/] {_player.Strength}
+        [magenta]Dexterity (DEX):[/] {_player.Dexterity}
+        [green]Constitution (CON):[/] {_player.Constitution}
+        [cyan]Intelligence (INT):[/] {_player.Intelligence}
+        [blue]Wisdom (WIS):[/] {_player.Wisdom}
+        [yellow]Charisma (CHA):[/] {_player.Charisma}
+        """;
+        
+        Console.WriteLine();
+        ConsoleUI.ShowPanel("D20 Attributes", attributesContent, "cyan");
+        
+        // Derived stats with skill bonuses
+        var derivedContent = $"""
+        [red]Physical Damage:[/] {_player.GetPhysicalDamageBonus()} (+{(Services.SkillEffectService.GetPhysicalDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
+        [cyan]Magic Damage:[/] {_player.GetMagicDamageBonus()} (+{(Services.SkillEffectService.GetMagicDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
+        [magenta]Dodge Chance:[/] {_player.GetDodgeChance() + Services.SkillEffectService.GetDodgeChanceBonus(_player):F1}%
+        [yellow]Critical Chance:[/] {_player.GetCriticalChance() + Services.SkillEffectService.GetCriticalChanceBonus(_player):F1}%
+        [green]Physical Defense:[/] {(int)(_player.GetPhysicalDefense() * Services.SkillEffectService.GetPhysicalDefenseMultiplier(_player))}
+        [blue]Magic Resistance:[/] {_player.GetMagicResistance():F1}%
+        [gold1]Rare Find:[/] {_player.GetRareItemChance():F1}%
+        """;
+        
+        Console.WriteLine();
+        ConsoleUI.ShowPanel("Combat Stats", derivedContent, "yellow");
+        
+        // Show learned skills
+        if (_player.LearnedSkills.Any())
+        {
+            Console.WriteLine();
+            ConsoleUI.WriteColoredText("[bold cyan]📚 Learned Skills:[/]");
+            Console.WriteLine();
+            
+            foreach (var skill in _player.LearnedSkills.OrderBy(s => s.Type))
+            {
+                var typeColor = skill.Type switch
+                {
+                    SkillType.Combat => "red",
+                    SkillType.Defense => "blue",
+                    SkillType.Magic => "cyan",
+                    SkillType.Utility => "yellow",
+                    SkillType.Passive => "green",
+                    _ => "white"
+                };
+                
+                ConsoleUI.WriteColoredText($"  [{typeColor}]{skill.Name}[/] [dim](Rank {skill.CurrentRank}/{skill.MaxRank})[/] - {skill.Description}");
+            }
+        }
+        
+        // Show active skill bonuses
+        var bonusSummary = Services.SkillEffectService.GetSkillBonusSummary(_player);
+        if (!bonusSummary.Contains("No active"))
+        {
+            Console.WriteLine();
+            ConsoleUI.ShowPanel("Active Skill Bonuses", bonusSummary, "green");
+        }
+        
+        Console.WriteLine();
         ConsoleUI.PressAnyKey();
 
         await Task.CompletedTask;
