@@ -8,6 +8,11 @@ using Microsoft.Extensions.Options;
 using System.Reflection;
 using DotNetEnv;
 using FluentValidation;
+using System.Text;
+
+// Set console encoding to UTF-8 to support emojis and special characters
+Console.OutputEncoding = Encoding.UTF8;
+Console.InputEncoding = Encoding.UTF8;
 
 // Load .env file for secrets (not versioned)
 Env.Load();

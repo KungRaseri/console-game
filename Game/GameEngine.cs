@@ -666,6 +666,7 @@ public class GameEngine
             }
             
             Console.WriteLine();
+            await Task.Delay(600);
         }
         
         // Combat ended
@@ -709,13 +710,15 @@ public class GameEngine
             _ => "white"
         };
         
-        // Build main combat panel
+        // Build main combat panel with fixed height to match log
         var combatInfo = new Panel(new Markup(
             $"[bold cyan]{player.Name}[/] - Level {player.Level}\n" +
             $"[{playerHealthColor}]HP: {player.Health}/{player.MaxHealth}[/] {playerHealthBar}\n" +
             $"[blue]MP: {player.Mana}/{player.MaxMana}[/]\n" +
-            $"[dim]ATK: {player.GetPhysicalDamageBonus()} | DEF: {player.GetPhysicalDefense()}[/]\n\n" +
-            $"[bold {difficultyColor}]VS[/]\n\n" +
+            $"[dim]ATK: {player.GetPhysicalDamageBonus()} | DEF: {player.GetPhysicalDefense()}[/]\n" +
+            $"\n\n\n" +
+            $"[bold {difficultyColor}]VS[/]\n" +
+            $"\n\n\n" +
             $"[bold {difficultyColor}]{enemy.Name}[/] - Level {enemy.Level} [dim]({enemy.Difficulty})[/]\n" +
             $"[{enemyHealthColor}]HP: {enemy.Health}/{enemy.MaxHealth}[/] {enemyHealthBar}\n" +
             $"[dim]ATK: {enemy.GetPhysicalDamageBonus()} | DEF: {enemy.GetPhysicalDefense()}[/]"
@@ -723,7 +726,8 @@ public class GameEngine
         {
             Header = new PanelHeader("[bold yellow]Battle Status[/]"),
             Border = BoxBorder.Rounded,
-            BorderStyle = new Style(Color.Cyan)
+            BorderStyle = new Style(Color.Cyan),
+            Height = 17 // Match log height: 15 lines + 2 for borders
         };
         
         // Display with combat log

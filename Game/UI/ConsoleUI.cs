@@ -419,30 +419,44 @@ public static class ConsoleUI
     /// <summary>
     /// Displays a 2-column combat layout with main content on left and combat log on right.
     /// </summary>
-    public static void ShowCombatLayout(IRenderable mainContent, List<string> logEntries, string logTitle = "Combat Log")
+    public static void ShowCombatLayout(IRenderable mainContent, List<string> logEntries, string logTitle = "Combat Log", int maxLogLines = 15)
     {
-        // Create the log panel
-        var logContent = logEntries.Count > 0 
-            ? string.Join("\n", logEntries)
-            : "[dim]No combat events yet...[/]";
+        // Pad log entries to always show maxLogLines (fill with empty lines if needed)
+        var paddedEntries = new List<string>();
+        
+        // Add existing entries
+        paddedEntries.AddRange(logEntries);
+        
+        // Fill remaining space with empty lines to maintain consistent height
+        while (paddedEntries.Count < maxLogLines)
+        {
+            paddedEntries.Add("[dim] [/]"); // Empty line with minimal markup
+        }
+        
+        // Create the log content with fixed height and width
+        var logContent = string.Join("\n", paddedEntries);
 
         var logPanel = new Panel(new Markup(logContent))
         {
             Header = new PanelHeader($"[bold yellow]{EscapeMarkup(logTitle)}[/]"),
             Border = BoxBorder.Rounded,
-            BorderStyle = new Style(Color.Yellow)
+            BorderStyle = new Style(Color.Yellow),
+            Height = maxLogLines + 2, // +2 for panel borders
+            Width = 50, // Fixed width to prevent shifting
+            Padding = new Padding(1, 0, 1, 0) // Left/Right padding only
         };
 
-        // Create columns with 70% main content, 30% log
+        // Create columns with fixed widths
         var table = new Table()
         {
             Border = TableBorder.None,
             ShowHeaders = false,
-            Expand = true
+            Expand = false // Don't expand to fill terminal width
         };
 
-        table.AddColumn(new TableColumn("").Width(70));
-        table.AddColumn(new TableColumn("").Width(30));
+        // Use fixed column widths instead of percentages
+        table.AddColumn(new TableColumn("").NoWrap());
+        table.AddColumn(new TableColumn("").Width(50).NoWrap());
 
         table.AddRow(mainContent, logPanel);
 
