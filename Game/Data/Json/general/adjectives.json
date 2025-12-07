@@ -1,0 +1,58 @@
+{
+  "positive": [
+    "Magnificent",
+    "Exquisite",
+    "Pristine",
+    "Flawless",
+    "Radiant",
+    "Brilliant",
+    "Majestic",
+    "Glorious",
+    "Splendid",
+    "Superb"
+  ],
+  "negative": [
+    "Broken",
+    "Damaged",
+    "Cracked",
+    "Worn",
+    "Tattered",
+    "Ruined",
+    "Decayed",
+    "Corrupted",
+    "Cursed",
+    "Blighted"
+  ],
+  "size": [
+    "Tiny",
+    "Small",
+    "Large",
+    "Huge",
+    "Massive",
+    "Gigantic",
+    "Colossal",
+    "Miniature"
+  ],
+  "appearance": [
+    "Shining",
+    "Glowing",
+    "Sparkling",
+    "Shadowy",
+    "Ethereal",
+    "Translucent",
+    "Ornate",
+    "Plain",
+    "Decorated",
+    "Engraved"
+  ],
+  "condition": [
+    "New",
+    "Old",
+    "Ancient",
+    "Modern",
+    "Vintage",
+    "Antique",
+    "Fresh",
+    "Stale"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "prefixes": [
+    "Dire",
+    "Wild",
+    "Rabid",
+    "Giant",
+    "Feral",
+    "Savage",
+    "Primal",
+    "Ancient",
+    "Alpha",
+    "Elder",
+    "Monstrous",
+    "Vicious",
+    "Enraged",
+    "Frenzied",
+    "Bloodthirsty"
+  ],
+  "creatures": [
+    "Wolf",
+    "Bear",
+    "Boar",
+    "Spider",
+    "Rat",
+    "Tiger",
+    "Serpent",
+    "Scorpion",
+    "Panther",
+    "Lion",
+    "Hyena",
+    "Wolverine",
+    "Badger",
+    "Crocodile",
+    "Gorilla"
+  ],
+  "variants": {
+    "wolf": [
+      "Lone Wolf",
+      "Pack Leader",
+      "Moon Howler",
+      "Shadow Stalker",
+      "Frost Wolf",
+      "Timber Wolf"
+    ],
+    "bear": [
+      "Cave Bear",
+      "Grizzly Bear",
+      "Ursine Beast",
+      "Forest Guardian",
+      "Polar Bear",
+      "Black Bear"
+    ],
+    "spider": [
+      "Giant Spider",
+      "Web Spinner",
+      "Cave Lurker",
+      "Widow Spider",
+      "Tarantula",
+      "Arachnid Horror"
+    ],
+    "serpent": [
+      "Viper",
+      "Cobra",
+      "Python",
+      "Anaconda",
+      "Sea Serpent",
+      "Basilisk"
+    ]
+  }
+}

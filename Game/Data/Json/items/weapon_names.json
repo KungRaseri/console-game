@@ -1,0 +1,72 @@
+{
+  "swords": [
+    "Longsword",
+    "Shortsword",
+    "Greatsword",
+    "Scimitar",
+    "Rapier",
+    "Katana",
+    "Broadsword",
+    "Claymore",
+    "Saber",
+    "Gladius"
+  ],
+  "axes": [
+    "Battleaxe",
+    "Handaxe",
+    "Greataxe",
+    "Waraxe",
+    "Hatchet",
+    "Tomahawk",
+    "Cleaver",
+    "Poleaxe"
+  ],
+  "bows": [
+    "Longbow",
+    "Shortbow",
+    "Composite Bow",
+    "Recurve Bow",
+    "Crossbow",
+    "Heavy Crossbow",
+    "Warbow",
+    "Hunting Bow"
+  ],
+  "daggers": [
+    "Dagger",
+    "Dirk",
+    "Stiletto",
+    "Kris",
+    "Tanto",
+    "Kukri",
+    "Rondel",
+    "Main Gauche"
+  ],
+  "spears": [
+    "Spear",
+    "Lance",
+    "Javelin",
+    "Pike",
+    "Halberd",
+    "Trident",
+    "Partisan",
+    "Glaive"
+  ],
+  "maces": [
+    "Mace",
+    "Warhammer",
+    "Flail",
+    "Morning Star",
+    "Club",
+    "Maul",
+    "Cudgel",
+    "Scepter"
+  ],
+  "staves": [
+    "Staff",
+    "Quarterstaff",
+    "War Staff",
+    "Battle Staff",
+    "Rod",
+    "Scepter Staff"
+  ]
+}

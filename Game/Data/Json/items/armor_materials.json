@@ -1,0 +1,42 @@
+{
+  "common": [
+    "Cloth",
+    "Leather",
+    "Hide",
+    "Padded",
+    "Linen",
+    "Rough"
+  ],
+  "uncommon": [
+    "Studded Leather",
+    "Hardened Leather",
+    "Chain",
+    "Scale",
+    "Ringmail",
+    "Brigandine"
+  ],
+  "rare": [
+    "Steel",
+    "Plate",
+    "Mithril",
+    "Splint",
+    "Banded",
+    "Reinforced"
+  ],
+  "epic": [
+    "Dragon Scale",
+    "Adamantine",
+    "Celestial",
+    "Dragonhide",
+    "Demon Plate",
+    "Crystal"
+  ],
+  "legendary": [
+    "Divine",
+    "Godforged",
+    "Ethereal",
+    "Cosmic",
+    "Immortal",
+    "Primordial"
+  ]
+}

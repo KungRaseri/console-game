@@ -1,0 +1,77 @@
+{
+  "power": [
+    "of Power",
+    "of Might",
+    "of Strength",
+    "of the Titan",
+    "of the Bear",
+    "of the Warrior"
+  ],
+  "protection": [
+    "of Protection",
+    "of Warding",
+    "of Defense",
+    "of the Guardian",
+    "of the Shield",
+    "of Fortitude"
+  ],
+  "wisdom": [
+    "of Wisdom",
+    "of Insight",
+    "of Knowledge",
+    "of the Sage",
+    "of the Oracle",
+    "of Enlightenment"
+  ],
+  "agility": [
+    "of Agility",
+    "of Speed",
+    "of Swiftness",
+    "of the Cat",
+    "of the Wind",
+    "of the Falcon"
+  ],
+  "magic": [
+    "of Magic",
+    "of Sorcery",
+    "of the Arcane",
+    "of the Magi",
+    "of Spellcraft",
+    "of the Enchanter"
+  ],
+  "fire": [
+    "of Flames",
+    "of the Inferno",
+    "of Burning",
+    "of the Phoenix",
+    "of Dragonfire"
+  ],
+  "ice": [
+    "of Frost",
+    "of Winter",
+    "of the Frozen",
+    "of Glaciers",
+    "of Eternal Ice"
+  ],
+  "lightning": [
+    "of Lightning",
+    "of Thunder",
+    "of the Storm",
+    "of Storms",
+    "of the Tempest"
+  ],
+  "life": [
+    "of Life",
+    "of Vitality",
+    "of Regeneration",
+    "of the Phoenix",
+    "of Renewal"
+  ],
+  "death": [
+    "of Death",
+    "of Shadows",
+    "of the Void",
+    "of Souls",
+    "of the Reaper"
+  ]
+}

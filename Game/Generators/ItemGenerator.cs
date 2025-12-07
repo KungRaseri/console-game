@@ -1,10 +1,11 @@
 using Bogus;
 using Game.Models;
+using Game.Services;
 
 namespace Game.Generators;
 
 /// <summary>
-/// Generates random items using Bogus.
+/// Generates random items using Bogus and JSON data.
 /// </summary>
 public static class ItemGenerator
 {
@@ -60,30 +61,148 @@ public static class ItemGenerator
     {
         return type switch
         {
-            // Weapons
-            ItemType.Weapon => $"{f.PickRandom("Iron", "Steel", "Mythril", "Dragon")} {f.PickRandom("Sword", "Axe", "Bow", "Dagger", "Spear", "Mace")}",
-            ItemType.Shield => $"{f.PickRandom("Wooden", "Iron", "Steel", "Tower", "Kite")} Shield",
-            ItemType.OffHand => $"{f.PickRandom("Tome", "Orb", "Crystal", "Focus")} of {f.PickRandom("Power", "Wisdom", "Light")}",
+            // Weapons - use JSON data for more variety
+            ItemType.Weapon => GenerateWeaponName(f),
+            ItemType.Shield => $"{GetRandomMaterial(ItemRarity.Common)} Shield",
+            ItemType.OffHand => $"{f.PickRandom("Tome", "Orb", "Crystal", "Focus")} {GetRandomEnchantmentSuffix(f)}",
             
-            // Armor
-            ItemType.Helmet => $"{f.PickRandom("Leather", "Chain", "Plate", "Dragon")} Helmet",
-            ItemType.Shoulders => $"{f.PickRandom("Leather", "Chain", "Plate", "Scaled")} Shoulderpads",
-            ItemType.Chest => $"{f.PickRandom("Leather", "Chain", "Plate", "Dragon")} Chestpiece",
-            ItemType.Bracers => $"{f.PickRandom("Leather", "Chain", "Steel", "Mithril")} Bracers",
-            ItemType.Gloves => $"{f.PickRandom("Leather", "Chain", "Plate", "Silk")} Gloves",
-            ItemType.Belt => $"{f.PickRandom("Leather", "Studded", "Chain", "Plate")} Belt",
-            ItemType.Legs => $"{f.PickRandom("Leather", "Chain", "Plate", "Dragon")} Leggings",
-            ItemType.Boots => $"{f.PickRandom("Leather", "Chain", "Plate", "Dragon")} Boots",
+            // Armor - use JSON materials
+            ItemType.Helmet => $"{GetRandomArmorMaterial(f)} Helmet",
+            ItemType.Shoulders => $"{GetRandomArmorMaterial(f)} Shoulderpads",
+            ItemType.Chest => $"{GetRandomArmorMaterial(f)} Chestpiece",
+            ItemType.Bracers => $"{GetRandomArmorMaterial(f)} Bracers",
+            ItemType.Gloves => $"{GetRandomArmorMaterial(f)} Gloves",
+            ItemType.Belt => $"{GetRandomArmorMaterial(f)} Belt",
+            ItemType.Legs => $"{GetRandomArmorMaterial(f)} Leggings",
+            ItemType.Boots => $"{GetRandomArmorMaterial(f)} Boots",
             
-            // Jewelry
-            ItemType.Necklace => $"{f.PickRandom("Amulet", "Necklace", "Pendant")} of {f.PickRandom("Strength", "Wisdom", "Agility", "Power")}",
-            ItemType.Ring => $"{f.PickRandom("Ring", "Band", "Signet")} of {f.PickRandom("Strength", "Wisdom", "Agility", "Protection", "Power")}",
+            // Jewelry - use enchantment suffixes
+            ItemType.Necklace => $"{f.PickRandom("Amulet", "Necklace", "Pendant")} {GetRandomEnchantmentSuffix(f)}",
+            ItemType.Ring => $"{f.PickRandom("Ring", "Band", "Signet")} {GetRandomEnchantmentSuffix(f)}",
             
             // Other
             ItemType.Consumable => $"{f.PickRandom("Health", "Mana", "Stamina")} Potion",
             ItemType.QuestItem => $"{f.Lorem.Word()} {f.PickRandom("Key", "Scroll", "Crystal", "Relic")}",
             
             _ => f.Commerce.ProductName()
+        };
+    }
+    
+    /// <summary>
+    /// Generate a weapon name using JSON data.
+    /// </summary>
+    private static string GenerateWeaponName(Faker f)
+    {
+        var data = GameDataService.Instance;
+        var weaponType = f.PickRandom("swords", "axes", "bows", "daggers", "spears", "maces", "staves");
+        
+        var weaponList = weaponType switch
+        {
+            "swords" => data.WeaponNames.Swords,
+            "axes" => data.WeaponNames.Axes,
+            "bows" => data.WeaponNames.Bows,
+            "daggers" => data.WeaponNames.Daggers,
+            "spears" => data.WeaponNames.Spears,
+            "maces" => data.WeaponNames.Maces,
+            "staves" => data.WeaponNames.Staves,
+            _ => data.WeaponNames.Swords
+        };
+        
+        var weaponName = GameDataService.GetRandom(weaponList);
+        
+        // Sometimes add a prefix (30% chance)
+        if (f.Random.Bool(0.3f))
+        {
+            var rarity = f.PickRandom<ItemRarity>();
+            var prefixList = GetPrefixByRarity(rarity);
+            if (prefixList.Count > 0)
+            {
+                var prefix = GameDataService.GetRandom(prefixList);
+                return $"{prefix} {weaponName}";
+            }
+        }
+        
+        return weaponName;
+    }
+    
+    /// <summary>
+    /// Get a random armor material based on rarity.
+    /// </summary>
+    private static string GetRandomArmorMaterial(Faker f)
+    {
+        var data = GameDataService.Instance;
+        var rarity = f.PickRandom<ItemRarity>();
+        
+        var materials = rarity switch
+        {
+            ItemRarity.Common => data.ArmorMaterials.Common,
+            ItemRarity.Uncommon => data.ArmorMaterials.Uncommon,
+            ItemRarity.Rare => data.ArmorMaterials.Rare,
+            ItemRarity.Epic => data.ArmorMaterials.Epic,
+            ItemRarity.Legendary => data.ArmorMaterials.Legendary,
+            _ => data.ArmorMaterials.Common
+        };
+        
+        return materials.Count > 0 ? GameDataService.GetRandom(materials) : "Cloth";
+    }
+    
+    /// <summary>
+    /// Get a random material from the general materials list.
+    /// </summary>
+    private static string GetRandomMaterial(ItemRarity rarity)
+    {
+        var data = GameDataService.Instance;
+        
+        return rarity switch
+        {
+            ItemRarity.Common or ItemRarity.Uncommon => GameDataService.GetRandom(data.Materials.Natural),
+            ItemRarity.Rare or ItemRarity.Epic => GameDataService.GetRandom(data.Materials.Metals),
+            ItemRarity.Legendary => GameDataService.GetRandom(data.Materials.Precious),
+            _ => GameDataService.GetRandom(data.Materials.Natural)
+        };
+    }
+    
+    /// <summary>
+    /// Get a random enchantment suffix.
+    /// </summary>
+    private static string GetRandomEnchantmentSuffix(Faker f)
+    {
+        var data = GameDataService.Instance;
+        var category = f.PickRandom("power", "protection", "wisdom", "agility", "magic", "fire", "ice", "lightning", "life", "death");
+        
+        var suffixList = category switch
+        {
+            "power" => data.EnchantmentSuffixes.Power,
+            "protection" => data.EnchantmentSuffixes.Protection,
+            "wisdom" => data.EnchantmentSuffixes.Wisdom,
+            "agility" => data.EnchantmentSuffixes.Agility,
+            "magic" => data.EnchantmentSuffixes.Magic,
+            "fire" => data.EnchantmentSuffixes.Fire,
+            "ice" => data.EnchantmentSuffixes.Ice,
+            "lightning" => data.EnchantmentSuffixes.Lightning,
+            "life" => data.EnchantmentSuffixes.Life,
+            "death" => data.EnchantmentSuffixes.Death,
+            _ => data.EnchantmentSuffixes.Power
+        };
+        
+        return suffixList.Count > 0 ? GameDataService.GetRandom(suffixList) : "of Power";
+    }
+    
+    /// <summary>
+    /// Get weapon prefixes by rarity.
+    /// </summary>
+    private static List<string> GetPrefixByRarity(ItemRarity rarity)
+    {
+        var data = GameDataService.Instance;
+        
+        return rarity switch
+        {
+            ItemRarity.Common => data.WeaponPrefixes.Common,
+            ItemRarity.Uncommon => data.WeaponPrefixes.Uncommon,
+            ItemRarity.Rare => data.WeaponPrefixes.Rare,
+            ItemRarity.Epic => data.WeaponPrefixes.Epic,
+            ItemRarity.Legendary => data.WeaponPrefixes.Legendary,
+            _ => data.WeaponPrefixes.Common
         };
     }
 

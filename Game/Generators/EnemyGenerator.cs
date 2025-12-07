@@ -1,10 +1,12 @@
 using Bogus;
+using Game.Data.Models;
 using Game.Models;
+using Game.Services;
 
 namespace Game.Generators;
 
 /// <summary>
-/// Generates random enemies using Bogus, scaled to player level.
+/// Generates random enemies using Bogus and JSON data, scaled to player level.
 /// </summary>
 public static class EnemyGenerator
 {
@@ -33,7 +35,7 @@ public static class EnemyGenerator
         var enemy = new Enemy
         {
             Name = GenerateEnemyName(faker, type),
-            Description = GenerateEnemyDescription(faker, type),
+            Description = GenerateEnemyDescription(type),
             Level = enemyLevel,
             Type = type,
             Difficulty = difficulty
@@ -112,26 +114,130 @@ public static class EnemyGenerator
     }
     
     /// <summary>
-    /// Generate enemy name based on type.
+    /// Generate enemy name based on type using JSON data.
     /// </summary>
     private static string GenerateEnemyName(Faker faker, EnemyType type)
     {
+        var data = GameDataService.Instance;
+        
         return type switch
         {
-            EnemyType.Beast => $"{faker.PickRandom("Dire", "Wild", "Rabid", "Giant", "Feral")} {faker.PickRandom("Wolf", "Bear", "Boar", "Spider", "Rat")}",
-            EnemyType.Undead => $"{faker.PickRandom("Rotting", "Ancient", "Cursed", "Skeletal")} {faker.PickRandom("Zombie", "Skeleton", "Ghoul", "Wraith")}",
-            EnemyType.Demon => $"{faker.PickRandom("Lesser", "Greater", "Infernal", "Abyssal")} {faker.PickRandom("Demon", "Devil", "Fiend", "Hellhound")}",
-            EnemyType.Elemental => $"{faker.PickRandom("Fire", "Ice", "Earth", "Air", "Lightning")} {faker.PickRandom("Elemental", "Spirit", "Wisp", "Golem")}",
-            EnemyType.Humanoid => $"{faker.PickRandom("Bandit", "Thug", "Mercenary", "Cultist", "Raider")} {faker.PickRandom("Scout", "Warrior", "Archer", "Mage")}",
-            EnemyType.Dragon => $"{faker.PickRandom("Young", "Wyrm", "Drake", "Dragonling")} {faker.PickRandom("Red", "Blue", "Green", "Black", "White")}",
+            EnemyType.Beast => GenerateNameFromData(faker, data.BeastNames),
+            EnemyType.Undead => GenerateNameFromData(faker, data.UndeadNames),
+            EnemyType.Demon => GenerateNameFromData(faker, data.DemonNames),
+            EnemyType.Elemental => GenerateNameFromData(faker, data.ElementalNames),
+            EnemyType.Dragon => GenerateDragonName(faker),
+            EnemyType.Humanoid => GenerateHumanoidName(faker),
             _ => $"{faker.PickRandom("Common", "Wild", "Rogue")} {faker.PickRandom("Creature", "Monster", "Beast")}"
         };
     }
     
     /// <summary>
+    /// Generate a name from enemy name data (Beast, Undead, Demon, Elemental).
+    /// </summary>
+    private static string GenerateNameFromData(Faker faker, EnemyNameData data)
+    {
+        // 70% chance for prefix + creature, 30% chance for variant
+        if (faker.Random.Bool(0.7f) && data.Prefixes.Count > 0 && data.Creatures.Count > 0)
+        {
+            var prefix = GameDataService.GetRandom(data.Prefixes);
+            var creature = GameDataService.GetRandom(data.Creatures);
+            return $"{prefix} {creature}";
+        }
+        
+        // Try to get a variant
+        if (data.Variants.Count > 0)
+        {
+            var variantKey = GameDataService.GetRandom(data.Variants.Keys.ToList());
+            var variantList = data.Variants[variantKey];
+            if (variantList.Count > 0)
+            {
+                return GameDataService.GetRandom(variantList);
+            }
+        }
+        
+        // Fallback to prefix + creature
+        if (data.Creatures.Count > 0)
+        {
+            var prefix = data.Prefixes.Count > 0 ? GameDataService.GetRandom(data.Prefixes) : "Wild";
+            var creature = GameDataService.GetRandom(data.Creatures);
+            return $"{prefix} {creature}";
+        }
+        
+        return "Unknown Creature";
+    }
+    
+    /// <summary>
+    /// Generate a dragon name using dragon-specific data.
+    /// </summary>
+    private static string GenerateDragonName(Faker faker)
+    {
+        var data = GameDataService.Instance.DragonNames;
+        
+        // 60% chance for prefix + color + type, 40% for variant
+        if (faker.Random.Bool(0.6f) && data.Prefixes.Count > 0 && data.Colors.Count > 0 && data.Types.Count > 0)
+        {
+            var prefix = GameDataService.GetRandom(data.Prefixes);
+            var color = GameDataService.GetRandom(data.Colors);
+            var dragonType = GameDataService.GetRandom(data.Types);
+            return $"{prefix} {color} {dragonType}";
+        }
+        
+        // Try variant
+        if (data.Variants.Count > 0)
+        {
+            var variantKey = GameDataService.GetRandom(data.Variants.Keys.ToList());
+            var variantList = data.Variants[variantKey];
+            if (variantList.Count > 0)
+            {
+                return GameDataService.GetRandom(variantList);
+            }
+        }
+        
+        // Fallback
+        var fallbackColor = data.Colors.Count > 0 ? GameDataService.GetRandom(data.Colors) : "Red";
+        return $"{fallbackColor} Dragon";
+    }
+    
+    /// <summary>
+    /// Generate a humanoid enemy name using humanoid-specific data.
+    /// </summary>
+    private static string GenerateHumanoidName(Faker faker)
+    {
+        var data = GameDataService.Instance.HumanoidNames;
+        
+        // 60% chance for profession + role, 40% for variant or faction-based name
+        if (faker.Random.Bool(0.6f) && data.Professions.Count > 0 && data.Roles.Count > 0)
+        {
+            var profession = GameDataService.GetRandom(data.Professions);
+            var role = GameDataService.GetRandom(data.Roles);
+            return $"{profession} {role}";
+        }
+        
+        // Try variant
+        if (data.Variants.Count > 0)
+        {
+            var variantKey = GameDataService.GetRandom(data.Variants.Keys.ToList());
+            var variantList = data.Variants[variantKey];
+            if (variantList.Count > 0)
+            {
+                return GameDataService.GetRandom(variantList);
+            }
+        }
+        
+        // Fallback
+        if (data.Professions.Count > 0)
+        {
+            return GameDataService.GetRandom(data.Professions);
+        }
+        
+        return "Hostile Warrior";
+    }
+    
+    /// <summary>
     /// Generate enemy description based on type.
     /// </summary>
-    private static string GenerateEnemyDescription(Faker faker, EnemyType type)
+    private static string GenerateEnemyDescription(EnemyType type)
     {
         return type switch
         {

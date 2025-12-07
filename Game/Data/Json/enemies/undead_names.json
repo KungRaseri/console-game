@@ -1,0 +1,60 @@
+{
+  "prefixes": [
+    "Rotting",
+    "Ancient",
+    "Cursed",
+    "Skeletal",
+    "Risen",
+    "Decayed",
+    "Shambling",
+    "Withered",
+    "Decrepit",
+    "Festering",
+    "Lurching",
+    "Vengeful",
+    "Restless",
+    "Tormented"
+  ],
+  "creatures": [
+    "Zombie",
+    "Skeleton",
+    "Ghoul",
+    "Wraith",
+    "Wight",
+    "Specter",
+    "Revenant",
+    "Lich",
+    "Mummy",
+    "Banshee",
+    "Phantom",
+    "Shade",
+    "Corpse",
+    "Ghast"
+  ],
+  "variants": {
+    "zombie": [
+      "Plague Zombie",
+      "Drowned Zombie",
+      "Frozen Corpse",
+      "Bloated Zombie"
+    ],
+    "skeleton": [
+      "Bone Warrior",
+      "Skeletal Knight",
+      "Bone Archer",
+      "Skull Mage"
+    ],
+    "wraith": [
+      "Shadow Wraith",
+      "Frost Wraith",
+      "Spectral Wraith",
+      "Dread Wraith"
+    ],
+    "lich": [
+      "Necromancer Lich",
+      "Death Knight",
+      "Arch Lich",
+      "Lich Lord"
+    ]
+  }
+}

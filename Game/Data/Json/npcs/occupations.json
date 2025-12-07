@@ -1,0 +1,123 @@
+{
+  "merchants": [
+    "Merchant",
+    "Trader",
+    "Shopkeeper",
+    "Vendor",
+    "Peddler",
+    "Apothecary",
+    "Alchemist",
+    "Jeweler",
+    "Armorer",
+    "Weaponsmith",
+    "Blacksmith"
+  ],
+  "craftsmen": [
+    "Blacksmith",
+    "Carpenter",
+    "Mason",
+    "Leatherworker",
+    "Tailor",
+    "Cobbler",
+    "Fletcher",
+    "Bowyer",
+    "Artificer",
+    "Tinker"
+  ],
+  "professionals": [
+    "Healer",
+    "Herbalist",
+    "Scholar",
+    "Scribe",
+    "Librarian",
+    "Sage",
+    "Astrologer",
+    "Cartographer",
+    "Engineer",
+    "Architect"
+  ],
+  "service": [
+    "Innkeeper",
+    "Bartender",
+    "Barmaid",
+    "Cook",
+    "Baker",
+    "Brewer",
+    "Butcher",
+    "Fishmonger",
+    "Stable Master",
+    "Groom"
+  ],
+  "nobility": [
+    "Noble",
+    "Knight",
+    "Lord",
+    "Lady",
+    "Baron",
+    "Baroness",
+    "Count",
+    "Countess",
+    "Duke",
+    "Duchess"
+  ],
+  "religious": [
+    "Priest",
+    "Priestess",
+    "Cleric",
+    "Monk",
+    "Paladin",
+    "Oracle",
+    "Prophet",
+    "Templar",
+    "Inquisitor",
+    "Zealot"
+  ],
+  "adventurers": [
+    "Adventurer",
+    "Mercenary",
+    "Bounty Hunter",
+    "Treasure Hunter",
+    "Explorer",
+    "Ranger",
+    "Scout",
+    "Tracker",
+    "Guide",
+    "Sellsword"
+  ],
+  "magical": [
+    "Wizard",
+    "Sorcerer",
+    "Witch",
+    "Warlock",
+    "Enchanter",
+    "Summoner",
+    "Necromancer",
+    "Illusionist",
+    "Diviner",
+    "Elementalist"
+  ],
+  "criminal": [
+    "Thief",
+    "Rogue",
+    "Assassin",
+    "Smuggler",
+    "Fence",
+    "Spy",
+    "Burglar",
+    "Pickpocket",
+    "Con Artist",
+    "Forger"
+  ],
+  "common": [
+    "Farmer",
+    "Miner",
+    "Fisherman",
+    "Hunter",
+    "Woodcutter",
+    "Shepherd",
+    "Miller",
+    "Guard",
+    "Watchman",
+    "Beggar"
+  ]
+}

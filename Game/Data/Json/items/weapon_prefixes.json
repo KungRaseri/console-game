@@ -1,0 +1,52 @@
+{
+  "common": [
+    "Rusty",
+    "Old",
+    "Simple",
+    "Basic",
+    "Worn",
+    "Crude",
+    "Plain",
+    "Chipped"
+  ],
+  "uncommon": [
+    "Iron",
+    "Steel",
+    "Sharp",
+    "Keen",
+    "Sturdy",
+    "Polished",
+    "Balanced",
+    "Hardened"
+  ],
+  "rare": [
+    "Mythril",
+    "Enchanted",
+    "Gleaming",
+    "Masterwork",
+    "Silvered",
+    "Tempered",
+    "Forged",
+    "Blessed"
+  ],
+  "epic": [
+    "Dragon",
+    "Ancient",
+    "Legendary",
+    "Celestial",
+    "Runic",
+    "Ethereal",
+    "Astral",
+    "Arcane"
+  ],
+  "legendary": [
+    "Godslayer",
+    "Eternal",
+    "Divine",
+    "Cosmic",
+    "Immortal",
+    "Primordial",
+    "Omnipotent",
+    "Transcendent"
+  ]
+}
