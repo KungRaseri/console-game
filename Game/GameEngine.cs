@@ -1,6 +1,7 @@
 using Game.Models;
 using Game.UI;
 using Game.Handlers;
+using Game.Services;
 using MediatR;
 using Serilog;
 using Polly;
@@ -16,15 +17,20 @@ public class GameEngine
 {
     private readonly IMediator _mediator;
     private readonly ResiliencePipeline _resiliencePipeline;
+    private readonly SaveGameService _saveGameService;
     private Character? _player;
     private GameState _state;
     private bool _isRunning;
+    private List<Item> _inventory;
+    private string? _currentSaveId;
 
     public GameEngine(IMediator mediator)
     {
         _mediator = mediator;
         _state = GameState.MainMenu;
         _isRunning = false;
+        _saveGameService = new SaveGameService();
+        _inventory = new List<Item>();
 
         // Configure Polly resilience pipeline for error handling
         _resiliencePipeline = new ResiliencePipelineBuilder()
@@ -66,7 +72,7 @@ public class GameEngine
                         await ProcessGameTickAsync();
                     });
 
-                    // Small delay to prevent CPU spinning (optional)
+                    // Small delay to prevent CPU spinning
                     await Task.Delay(10);
                 }
                 catch (Exception ex)
@@ -176,15 +182,12 @@ public class GameEngine
                 break;
 
             case "Load Game":
-                // TODO: Implement load game
-                ConsoleUI.ShowInfo("Load game not yet implemented");
-                await Task.Delay(1000);
+                await LoadGameAsync();
                 break;
 
             case "Settings":
                 // TODO: Implement settings
                 ConsoleUI.ShowInfo("Settings not yet implemented");
-                await Task.Delay(1000);
                 break;
 
             case "Exit":
@@ -224,7 +227,7 @@ public class GameEngine
         await ReviewCharacterAsync(_player, selectedClass);
 
         ConsoleUI.ShowSuccess($"Welcome, {_player.Name} the {_player.ClassName}!");
-        await Task.Delay(1500);
+        await Task.Delay(500);
 
         // Publish character created event
         await _mediator.Publish(new CharacterCreated(_player.Name));
@@ -275,7 +278,7 @@ public class GameEngine
         if (selected != null)
         {
             ConsoleUI.ShowSuccess($"You have chosen the path of the {selected.Name}!");
-            await Task.Delay(1000);
+            await Task.Delay(300);
         }
         
         return selected;
@@ -353,13 +356,13 @@ public class GameEngine
                 // Auto-allocate based on class
                 allocation = AutoAllocateAttributes(selectedClass);
                 ConsoleUI.ShowSuccess("Attributes auto-allocated based on your class!");
-                await Task.Delay(1000);
+                await Task.Delay(300);
             }
             else if (choice == "Reset All")
             {
                 allocation = new AttributeAllocation();
                 ConsoleUI.ShowInfo("Attributes reset to base values.");
-                await Task.Delay(800);
+                await Task.Delay(200);
             }
             else if (choice == "Confirm & Continue")
             {
@@ -483,7 +486,6 @@ public class GameEngine
         ConsoleUI.ShowPanel("Your Character", string.Join("\n", summary), "cyan");
         
         ConsoleUI.PressAnyKey("Press any key to begin your adventure");
-        await Task.Delay(100);
     }
 
     private async Task HandleInGameAsync()
@@ -604,7 +606,7 @@ public class GameEngine
                 case "🛡️  Defend":
                     playerDefending = true;
                     ConsoleUI.ShowInfo("You raise your guard, ready to defend!");
-                    await Task.Delay(800);
+                    await Task.Delay(300);
                     break;
                     
                 case "🧪 Use Item":
@@ -620,14 +622,14 @@ public class GameEngine
                     if (fleeResult.Success)
                     {
                         ConsoleUI.ShowSuccess(fleeResult.Message);
-                        await Task.Delay(1500);
+                        await Task.Delay(500);
                         _state = GameState.InGame;
                         return;
                     }
                     else
                     {
                         ConsoleUI.ShowError(fleeResult.Message);
-                        await Task.Delay(1500);
+                        await Task.Delay(500);
                     }
                     break;
             }
@@ -639,7 +641,7 @@ public class GameEngine
             }
             
             // Enemy turn
-            await Task.Delay(500);
+            await Task.Delay(200);
             await ExecuteEnemyTurnAsync(_player, enemy, playerDefending);
             
             // Check if player is defeated
@@ -653,7 +655,7 @@ public class GameEngine
             if (regenAmount > 0)
             {
                 ConsoleUI.WriteColoredText($"[green]💚 Regeneration healed {regenAmount} HP[/]");
-                await Task.Delay(800);
+                await Task.Delay(300);
             }
             
             Console.WriteLine();
@@ -752,7 +754,7 @@ public class GameEngine
             await _mediator.Publish(new EnemyDefeated(player.Name, enemy.Name));
         }
         
-        await Task.Delay(1000);
+        await Task.Delay(300);
     }
     
     private async Task ExecuteEnemyTurnAsync(Character player, Enemy enemy, bool playerDefending)
@@ -783,7 +785,7 @@ public class GameEngine
             await _mediator.Publish(new PlayerDefeated(player.Name, enemy.Name));
         }
         
-        await Task.Delay(1000);
+        await Task.Delay(300);
     }
     
     private async Task<bool> UseItemInCombatMenuAsync(Character player)
@@ -823,13 +825,13 @@ public class GameEngine
                 ConsoleUI.WriteColoredText($"[cyan]✨ {result.Message}[/]");
             }
             
-            await Task.Delay(1500);
+            await Task.Delay(500);
             return true;
         }
         else
         {
             ConsoleUI.ShowError(result.Message);
-            await Task.Delay(1000);
+            await Task.Delay(300);
             return false;
         }
     }
@@ -863,7 +865,7 @@ public class GameEngine
             Console.WriteLine();
             ConsoleUI.WriteColoredText($"[bold yellow]🌟 LEVEL UP! You are now level {player.Level}! 🌟[/]");
             await _mediator.Publish(new PlayerLeveledUp(player.Name, player.Level));
-            await Task.Delay(1500);
+            await Task.Delay(500);
             
             // Process level-up allocation
             ConsoleUI.PressAnyKey("Press any key to allocate your level-up points...");
@@ -895,6 +897,17 @@ public class GameEngine
         }
         
         await _mediator.Publish(new CombatEnded(player.Name, true));
+        
+        // Auto-save after combat
+        try
+        {
+            _saveGameService.AutoSave(player, _inventory);
+            ConsoleUI.WriteText("[grey]Game auto-saved[/]");
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "Auto-save after combat failed");
+        }
         
         Console.WriteLine();
         ConsoleUI.PressAnyKey("Press any key to continue...");
@@ -965,9 +978,6 @@ public class GameEngine
 
             // Show inventory stats
             ConsoleUI.ShowBanner($"Inventory ({inventoryCount} items)", $"Total Value: {totalValue} gold");
-
-            // Show equipped items
-            ConsoleUI.ShowPanel("Equipment", GetEquipmentDisplay(), "cyan");
 
             // Group items by type for display
             var itemsByType = _player.Inventory
@@ -1132,8 +1142,6 @@ public class GameEngine
             
             ConsoleUI.ShowSuccess($"Found: {foundItem.Name} ({GetRarityColor(foundItem.Rarity)}{foundItem.Rarity}[/])!");
         }
-
-        await Task.Delay(1000);
     }
 
     private async Task ViewCharacterAsync()
@@ -1228,18 +1236,170 @@ public class GameEngine
         _player.Mana = _player.MaxMana;
 
         ConsoleUI.ShowSuccess("Fully rested!");
-        await Task.Delay(1000);
     }
 
     private async Task SaveGameAsync()
     {
+        if (_player == null)
+        {
+            ConsoleUI.ShowError("No active game to save!");
+            await Task.Delay(1000);
+            return;
+        }
+
         ConsoleUI.ShowInfo("Saving game...");
 
-        // TODO: Implement save with LiteDB
-        await Task.Delay(500);
+        try
+        {
+            _saveGameService.SaveGame(_player, _inventory, _currentSaveId);
+            ConsoleUI.ShowSuccess("Game saved successfully!");
+            Log.Information("Game saved for player {PlayerName}", _player.Name);
+        }
+        catch (Exception ex)
+        {
+            ConsoleUI.ShowError($"Failed to save game: {ex.Message}");
+            Log.Error(ex, "Failed to save game");
+        }
+    }
 
-        ConsoleUI.ShowSuccess("Game saved!");
-        await Task.Delay(1000);
+    private async Task LoadGameAsync()
+    {
+        try
+        {
+            var saves = _saveGameService.GetAllSaves();
+
+            if (!saves.Any())
+            {
+                ConsoleUI.ShowWarning("No saved games found!");
+                await Task.Delay(500);
+                return;
+            }
+
+            ConsoleUI.Clear();
+            ConsoleUI.ShowBanner("Load Game", "Select a save to continue your adventure");
+
+            // Display saves in a table
+            var headers = new[] { "Player", "Class", "Level", "Last Played", "Play Time" };
+            var rows = saves.Select(s =>
+            {
+                var timeSinceSave = DateTime.Now - s.SaveDate;
+                var timeAgo = timeSinceSave.TotalHours < 24
+                    ? $"{(int)timeSinceSave.TotalHours}h ago"
+                    : $"{(int)timeSinceSave.TotalDays}d ago";
+                
+                var playTime = s.PlayTimeMinutes < 60
+                    ? $"{s.PlayTimeMinutes}m"
+                    : $"{s.PlayTimeMinutes / 60}h {s.PlayTimeMinutes % 60}m";
+
+                return new[]
+                {
+                    s.Character.Name,
+                    s.Character.ClassName,
+                    s.Character.Level.ToString(),
+                    timeAgo,
+                    playTime
+                };
+            }).ToList();
+
+            ConsoleUI.ShowTable("Available Saves", headers, rows);
+
+            // Build menu options
+            var menuOptions = saves.Select(s =>
+                $"{s.Character.Name} - Level {s.Character.Level} {s.Character.ClassName}"
+            ).ToList();
+            menuOptions.Add("Delete a Save");
+            menuOptions.Add("Back to Menu");
+
+            var choice = ConsoleUI.ShowMenu("Select save:", menuOptions.ToArray());
+
+            if (choice == "Back to Menu")
+            {
+                return;
+            }
+
+            if (choice == "Delete a Save")
+            {
+                await DeleteSaveAsync(saves);
+                return;
+            }
+
+            // Find selected save
+            var selectedIndex = menuOptions.IndexOf(choice);
+            var selectedSave = saves[selectedIndex];
+
+            // Load the save
+            ConsoleUI.ShowProgress("Loading game...", task =>
+            {
+                task.MaxValue = 100;
+                for (int i = 0; i <= 100; i += 20)
+                {
+                    task.Value = i;
+                    Thread.Sleep(150);
+                }
+            });
+
+            _player = selectedSave.Character;
+            _inventory = selectedSave.Inventory;
+            _currentSaveId = selectedSave.Id;
+
+            ConsoleUI.ShowSuccess($"Welcome back, {_player.Name}!");
+            Log.Information("Game loaded for player {PlayerName}", _player.Name);
+            await Task.Delay(500);
+
+            _state = GameState.InGame;
+        }
+        catch (Exception ex)
+        {
+            ConsoleUI.ShowError($"Failed to load game: {ex.Message}");
+            Log.Error(ex, "Failed to load game");
+            await Task.Delay(500);
+        }
+    }
+
+    private async Task DeleteSaveAsync(List<SaveGame> saves)
+    {
+        ConsoleUI.Clear();
+        ConsoleUI.ShowBanner("Delete Save", "⚠️ This action cannot be undone!");
+
+        var menuOptions = saves.Select(s =>
+            $"{s.Character.Name} - Level {s.Character.Level} {s.Character.ClassName}"
+        ).ToList();
+        menuOptions.Add("Cancel");
+
+        var choice = ConsoleUI.ShowMenu("Select save to delete:", menuOptions.ToArray());
+
+        if (choice == "Cancel")
+        {
+            await LoadGameAsync(); // Return to load menu
+            return;
+        }
+
+        var selectedIndex = menuOptions.IndexOf(choice);
+        var selectedSave = saves[selectedIndex];
+
+        if (ConsoleUI.Confirm($"Delete save for {selectedSave.Character.Name}?"))
+        {
+            try
+            {
+                _saveGameService.DeleteSave(selectedSave.Id);
+                ConsoleUI.ShowSuccess("Save deleted successfully!");
+                Log.Information("Save deleted for player {PlayerName}", selectedSave.Character.Name);
+                await Task.Delay(1000);
+                
+                // Return to load menu
+                await LoadGameAsync();
+            }
+            catch (Exception ex)
+            {
+                ConsoleUI.ShowError($"Failed to delete save: {ex.Message}");
+                Log.Error(ex, "Failed to delete save");
+                await Task.Delay(1500);
+            }
+        }
+        else
+        {
+            await LoadGameAsync(); // Return to load menu
+        }
     }
 
     private async Task ShutdownGameAsync()

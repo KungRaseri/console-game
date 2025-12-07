@@ -77,7 +77,7 @@ public static class LevelUpService
 
         ConsoleUI.Clear();
         ConsoleUI.ShowSuccess($"Level {levelUp.NewLevel} complete! You are now more powerful!");
-        await Task.Delay(1500);
+        await Task.Delay(300);
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ public static class LevelUpService
                 else
                 {
                     ConsoleUI.ShowWarning("No points remaining!");
-                    await Task.Delay(800);
+                    await Task.Delay(200);
                 }
             }
             else if (choice.StartsWith("Dexterity"))
@@ -142,7 +142,7 @@ public static class LevelUpService
                 else
                 {
                     ConsoleUI.ShowWarning("No points remaining!");
-                    await Task.Delay(800);
+                    await Task.Delay(200);
                 }
             }
             else if (choice.StartsWith("Constitution"))
@@ -154,7 +154,7 @@ public static class LevelUpService
                 else
                 {
                     ConsoleUI.ShowWarning("No points remaining!");
-                    await Task.Delay(800);
+                    await Task.Delay(200);
                 }
             }
             else if (choice.StartsWith("Intelligence"))
@@ -166,7 +166,7 @@ public static class LevelUpService
                 else
                 {
                     ConsoleUI.ShowWarning("No points remaining!");
-                    await Task.Delay(800);
+                    await Task.Delay(200);
                 }
             }
             else if (choice.StartsWith("Wisdom"))
@@ -178,7 +178,7 @@ public static class LevelUpService
                 else
                 {
                     ConsoleUI.ShowWarning("No points remaining!");
-                    await Task.Delay(800);
+                    await Task.Delay(200);
                 }
             }
             else if (choice.StartsWith("Charisma"))
@@ -190,14 +190,14 @@ public static class LevelUpService
                 else
                 {
                     ConsoleUI.ShowWarning("No points remaining!");
-                    await Task.Delay(800);
+                    await Task.Delay(200);
                 }
             }
             else if (choice.Contains("Reset"))
             {
                 allocation.Reset();
                 ConsoleUI.ShowInfo("Allocation reset.");
-                await Task.Delay(800);
+                await Task.Delay(200);
             }
             else if (choice.Contains("Confirm"))
             {

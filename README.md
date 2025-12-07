@@ -15,7 +15,8 @@ A .NET Core Console application written in C# for building feature-rich console-
 - [Inventory System Guide](./docs/guides/INVENTORY_GUIDE.md) - Complete item management system
 - [Settings Guide](./docs/guides/SETTINGS_GUIDE.md) - Configuration management
 - [ConsoleUI Guide](./docs/guides/CONSOLEUI_GUIDE.md) - Using Spectre.Console UI components
-- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - 176 tests (100% coverage)
+- [Save/Load Guide](./docs/guides/SAVE_LOAD_GUIDE.md) - Game persistence system
+- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - 286 tests (100% coverage)
 
 ## Quick Start
 
@@ -23,7 +24,7 @@ A .NET Core Console application written in C# for building feature-rich console-
 # Run the game
 dotnet run --project Game
 
-# Run tests (176 tests ✅)
+# Run tests (286 tests ✅)
 dotnet test Game.Tests
 
 # Debug in VS Code
@@ -39,10 +40,15 @@ Press F5
 - **Logging**: Structured logging (Serilog) to console and files
 
 ### Gameplay Features
+- **D20 System**: Full attribute system (STR, DEX, CON, INT, WIS, CHA) with derived stats
+- **Character Classes**: 6 classes (Warrior, Rogue, Mage, Cleric, Ranger, Paladin) with unique bonuses
+- **Turn-Based Combat**: Attack, defend, use items - with dodge, crit, and blocking mechanics
+- **Level-Up System**: Interactive attribute allocation and skill learning
+- **Skills**: 8 learnable skills that enhance combat and character abilities
 - **Inventory System**: Full item management with equipment slots, consumables, and sorting
 - **Item Generation**: Random loot drops with 5 rarity tiers (Common to Legendary)
-- **Character Progression**: XP gain, leveling, stat increases
-- **Exploration**: Adventure and find treasures
+- **Save/Load**: Persistent game state with auto-save and multiple character support
+- **Enemy AI**: Procedurally generated enemies with difficulty scaling
 
 ### User Interface & Experience
 - **Rich Console UI**: Beautiful interactive displays (Spectre.Console)
@@ -53,22 +59,42 @@ Press F5
 - **Validation**: Robust input checking (FluentValidation)
 - **Procedural Generation**: Random NPCs and items (Bogus)
 - **Natural Language**: Number formatting and pluralization (Humanizer)
-- **100% Test Coverage**: 176 tests with xUnit and FluentAssertions
+- **100% Test Coverage**: 286 tests with xUnit and FluentAssertions
 
 See the [docs/](./docs/) folder for detailed feature documentation.
 
-## What's New - Inventory System! 🎒
+## What's New - Save/Load & Skills! 💾⚔️
 
-**Version 1.1 adds a complete inventory management system:**
+**Version 1.3 adds persistence and functional skill system:**
 
-✨ **Find Items** - 30% chance to discover items while exploring  
-🎒 **Manage Inventory** - View, sort, and organize your items  
-⚔️ **Equip Gear** - Weapon, armor, and accessory slots  
-💊 **Use Consumables** - Health and mana potions with rarity-based effects  
-📊 **Smart Sorting** - Sort by name, type, rarity, or value  
-🎲 **Procedural Loot** - Random generation with 5 rarity tiers  
+💾 **Save/Load System** - Persistent game state with LiteDB  
+🔄 **Auto-Save** - Never lose progress after combat victories  
+📂 **Multiple Saves** - Create and manage multiple characters  
+⚔️ **Functional Skills** - 8 skills that enhance your character  
+📊 **Skill Bonuses** - Damage, defense, dodge, crit, and utility boosts  
+🎯 **Level-Up Rewards** - Learn skills and allocate attribute points  
+🎮 **Enhanced Character View** - See all stats, skills, and bonuses  
 
-See the [Inventory Guide](./docs/guides/INVENTORY_GUIDE.md) for complete details!
+See the [Save/Load Guide](./docs/guides/SAVE_LOAD_GUIDE.md) for complete details!
+
+## Recent Updates
+
+### Version 1.3 - Save/Load & Skills (December 6, 2025)
+- ✅ Complete save/load system with auto-save
+- ✅ 8 functional skills affecting combat and stats
+- ✅ Enhanced character view with skill display
+- ✅ 13 new save/load tests (286 total tests)
+
+### Version 1.2 - Combat & Leveling (December 5, 2025)
+- ✅ Turn-based combat system with enemies
+- ✅ Level-up with interactive attribute allocation
+- ✅ Skill learning system with 8 skills
+- ✅ Enemy generation with difficulty scaling
+
+### Version 1.1 - Inventory System (December 5, 2025)
+- ✅ Complete inventory management
+- ✅ Equipment slots and item stats
+- ✅ Item generation and loot drops
 
 ## Building the Project
 
@@ -230,7 +256,7 @@ Current test coverage includes:
 - **Item Generator**: Item creation, type filtering, unique items (6 tests)
 - **NPC Generator**: NPC creation, data variety, realistic data (5 tests)
 
-**Total: 38 passing tests** ✅
+**Total: 286 passing tests** ✅
 
 ### Writing Tests
 
@@ -270,11 +296,15 @@ public void Should_Have_Error_When_Name_Is_Empty()
 ## Next Steps
 
 1. ✅ ~~Inventory system with item management~~ **COMPLETED!**
-2. Implement combat system with turn-based battles
-3. Add integration tests for save/load functionality
-4. Create quest system with objectives and rewards
-5. Add command-line interface with Spectre.Console.Cli
-6. Integrate audio files for immersive experience
+2. ✅ ~~Combat system with turn-based battles~~ **COMPLETED!**
+3. ✅ ~~Level-up and skill system~~ **COMPLETED!**
+4. ✅ ~~Save/Load functionality~~ **COMPLETED!**
+5. Create quest system with objectives and rewards
+6. Add magic spell system (use Arcane Knowledge bonus)
+7. Implement shop/economy system
+8. Add dungeon zones with procedural generation
+9. Create status effects (poison, stun, burning)
+10. Add achievements and statistics tracking
 
 ## Resources
 
@@ -286,7 +316,8 @@ public void Should_Have_Error_When_Name_Is_Empty()
 
 ---
 
-**Last Updated**: December 5, 2025  
-**Test Coverage**: 176 tests passing ✅ (100% coverage)  
+**Last Updated**: December 6, 2025  
+**Current Version**: v1.3 - Save/Load & Skills System  
+**Test Coverage**: 286 tests passing ✅ (100% coverage)  
 **Framework**: .NET 9.0  
-**New in v1.1**: Complete Inventory System 🎒
+**New Features**: Save/Load System 💾 + Functional Skills ⚔️
