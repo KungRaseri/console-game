@@ -1,7 +1,7 @@
 using NAudio.Wave;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Shared.Services;
 
 /// <summary>
 /// Service for playing audio files (music and sound effects).

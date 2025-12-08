@@ -1,7 +1,8 @@
 using Game.Models;
+using Game.Services;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Shared.Services;
 
 /// <summary>
 /// Centralized service for accessing game state and context.

@@ -1,9 +1,9 @@
 using MediatR;
-using Game.UI;
+using Game.Shared.UI;
 using Game.Models;
 using Serilog;
 
-namespace Game.Handlers;
+namespace Game.Shared.Events;
 
 /// <summary>
 /// Handles the CharacterCreated event.

@@ -1,6 +1,6 @@
 using Game.Models;
 
-namespace Game.Data.Models;
+namespace Game.Shared.Data.Models;
 
 /// <summary>
 /// Data models for deserializing JSON game data files.

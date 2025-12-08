@@ -1,7 +1,7 @@
 using LiteDB;
 using Game.Models;
 
-namespace Game.Data;
+namespace Game.Shared.Data;
 
 /// <summary>
 /// Repository for managing save game data using LiteDB.

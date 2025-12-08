@@ -1,5 +1,5 @@
 using Game.Models;
-using Game.UI;
+using Game.Shared.UI;
 using Serilog;
 
 namespace Game.Services;

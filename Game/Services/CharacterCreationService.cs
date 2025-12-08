@@ -1,4 +1,4 @@
-using Game.Data;
+using Game.Shared.Data;
 using Game.Models;
 
 namespace Game.Services;

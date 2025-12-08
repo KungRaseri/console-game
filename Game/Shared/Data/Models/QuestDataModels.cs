@@ -1,7 +1,7 @@
 using Game.Models;
 using System.Text.Json.Serialization;
 
-namespace Game.Data.Models;
+namespace Game.Shared.Data.Models;
 
 /// <summary>
 /// Data models for quest templates from JSON.

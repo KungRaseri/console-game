@@ -1,9 +1,10 @@
 using Game.Models;
-using Game.UI;
+using Game.Services;
+using Game.Shared.UI;
 using Spectre.Console;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Shared.Services;
 
 /// <summary>
 /// Service for handling all menu operations and navigation.

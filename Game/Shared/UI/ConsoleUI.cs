@@ -2,7 +2,7 @@ using Spectre.Console;
 using Spectre.Console.Rendering;
 using Game.Models;
 
-namespace Game.UI;
+namespace Game.Shared.UI;
 
 /// <summary>
 /// Comprehensive wrapper for Spectre.Console functionality.

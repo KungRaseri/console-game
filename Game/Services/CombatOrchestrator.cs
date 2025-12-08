@@ -1,5 +1,6 @@
 using Game.Models;
-using Game.UI;
+using Game.Shared.UI;
+using Game.Shared.Services;
 using Game.Utilities;
 using MediatR;
 using Serilog;

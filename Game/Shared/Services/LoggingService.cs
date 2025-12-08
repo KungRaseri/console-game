@@ -1,7 +1,7 @@
 using Serilog;
 using Serilog.Events;
 
-namespace Game.Services;
+namespace Game.Shared.Services;
 
 /// <summary>
 /// Configures and manages Serilog logging for the game.

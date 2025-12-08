@@ -1,5 +1,7 @@
 using Game;
 using Game.Services;
+using Game.Shared.Services;
+using Game.Shared.Behaviors;
 using Game.Settings;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
@@ -62,6 +64,11 @@ try
     services.AddMediatR(cfg =>
     {
         cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        
+        // Add pipeline behaviors (order matters!)
+        cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
+        cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+        cfg.AddOpenBehavior(typeof(PerformanceBehavior<,>));
     });
 
     // Register core game services

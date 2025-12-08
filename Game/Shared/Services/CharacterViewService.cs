@@ -1,9 +1,9 @@
 using Game.Models;
-using Game.UI;
-using Game.Data;
+using Game.Shared.UI;
+using Game.Shared.Data;
 using Game.Utilities;
 
-namespace Game.Services;
+namespace Game.Shared.Services;
 
 /// <summary>
 /// Service for displaying character information and statistics.

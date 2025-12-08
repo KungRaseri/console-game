@@ -1,6 +1,6 @@
 using Game.Models;
 
-namespace Game.Data;
+namespace Game.Shared.Data;
 
 /// <summary>
 /// Repository of predefined character classes.

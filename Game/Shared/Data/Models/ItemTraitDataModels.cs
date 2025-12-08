@@ -1,14 +1,14 @@
 using Game.Models;
 using System.Text.Json.Serialization;
 
-namespace Game.Data.Models;
+namespace Game.Shared.Data.Models;
 
 /// <summary>
-/// Enhanced data models for enemy traits from JSON.
+/// Data models for item traits from JSON.
 /// </summary>
 
-// Enemy prefix with traits (Dire, Ancient, Elder, etc.)
-public class EnemyPrefixTraitData
+// Weapon prefix with traits
+public class WeaponPrefixTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
@@ -34,8 +34,17 @@ public class EnemyPrefixTraitData
     }
 }
 
-// NPC occupation with traits (Blacksmith, Merchant, etc.)
-public class OccupationTraitData
+public class WeaponPrefixData
+{
+    public Dictionary<string, WeaponPrefixTraitData> Common { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Uncommon { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Rare { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Epic { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Legendary { get; set; } = new();
+}
+
+// Armor material with traits
+public class ArmorMaterialTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
@@ -61,33 +70,17 @@ public class OccupationTraitData
     }
 }
 
-// Enemy prefix data structure
-public class EnemyPrefixData
+public class ArmorMaterialData
 {
-    public Dictionary<string, EnemyPrefixTraitData> Common { get; set; } = new();
-    public Dictionary<string, EnemyPrefixTraitData> Uncommon { get; set; } = new();
-    public Dictionary<string, EnemyPrefixTraitData> Rare { get; set; } = new();
-    public Dictionary<string, EnemyPrefixTraitData> Elite { get; set; } = new();
-    public Dictionary<string, EnemyPrefixTraitData> Boss { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Common { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Uncommon { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Rare { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Epic { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Legendary { get; set; } = new();
 }
 
-// Occupation data structure
-public class OccupationData
-{
-    public Dictionary<string, OccupationTraitData> Merchants { get; set; } = new();
-    public Dictionary<string, OccupationTraitData> Craftsmen { get; set; } = new();
-    public Dictionary<string, OccupationTraitData> Professionals { get; set; } = new();
-    public Dictionary<string, OccupationTraitData> Service { get; set; } = new();
-    public Dictionary<string, OccupationTraitData> Nobility { get; set; } = new();
-    public Dictionary<string, OccupationTraitData> Religious { get; set; } = new();
-    public Dictionary<string, OccupationTraitData> Adventurers { get; set; } = new();
-    public Dictionary<string, OccupationTraitData> Magical { get; set; } = new();
-    public Dictionary<string, OccupationTraitData> Criminal { get; set; } = new();
-    public Dictionary<string, OccupationTraitData> Common { get; set; } = new();
-}
-
-// Dragon color trait data
-public class DragonColorTraitData
+// Enchantment suffix with traits
+public class EnchantmentSuffixTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
@@ -113,13 +106,22 @@ public class DragonColorTraitData
     }
 }
 
-// Dragon color data - flat dictionary (no tiers, just 13 colors)
-public class DragonColorData : Dictionary<string, DragonColorTraitData>
+public class EnchantmentSuffixData
 {
+    public Dictionary<string, EnchantmentSuffixTraitData> Power { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Protection { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Wisdom { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Agility { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Magic { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Fire { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Ice { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Lightning { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Life { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Death { get; set; } = new();
 }
 
-// Dialogue personality trait data
-public class DialogueTraitData
+// Material property trait data (for metals, leathers, woods, gemstones)
+public class MaterialTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
@@ -145,7 +147,8 @@ public class DialogueTraitData
     }
 }
 
-// Dialogue trait data - flat dictionary of personality archetypes
-public class DialogueTraitsData : Dictionary<string, DialogueTraitData>
-{
-}
+// Material data collections (flat dictionaries, not tiered)
+public class MetalData : Dictionary<string, MaterialTraitData> { }
+public class LeatherData : Dictionary<string, MaterialTraitData> { }
+public class WoodData : Dictionary<string, MaterialTraitData> { }
+public class GemstoneData : Dictionary<string, MaterialTraitData> { }

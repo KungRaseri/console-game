@@ -1,8 +1,8 @@
 using System.Text.Json;
-using Game.Data.Models;
+using Game.Shared.Data.Models;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Shared.Services;
 
 /// <summary>
 /// Service for loading and managing game data from JSON files.
