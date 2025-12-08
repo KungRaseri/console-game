@@ -121,6 +121,7 @@ public static class StandardTraits
     
     // Health & Resources
     public const string HealthBonus = "healthBonus";
+    public const string HealthMultiplier = "healthMultiplier";
     public const string ManaBonus = "manaBonus";
     public const string StaminaBonus = "staminaBonus";
     public const string HealthRegen = "healthRegen";

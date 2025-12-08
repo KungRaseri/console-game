@@ -1,0 +1,251 @@
+{
+  "common": {
+    "Soldier": {
+      "displayName": "Soldier",
+      "description": "Basic trained warrior",
+      "traits": {
+        "healthMultiplier": { "value": 1.0, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.0, "type": "Multiplier" },
+        "armorBonus": { "value": 5, "type": "Flat" },
+        "weaponSkill": { "value": 10, "type": "Flat" },
+        "discipline": { "value": true, "type": "Boolean" }
+      }
+    },
+    "Militia": {
+      "displayName": "Militia",
+      "description": "Barely trained common fighter",
+      "traits": {
+        "healthMultiplier": { "value": 0.9, "type": "Multiplier" },
+        "damageMultiplier": { "value": 0.9, "type": "Multiplier" },
+        "armorBonus": { "value": 3, "type": "Flat" },
+        "weaponSkill": { "value": 5, "type": "Flat" },
+        "groupBonus": { "value": 10, "type": "Percentage" }
+      }
+    },
+    "Guard": {
+      "displayName": "Guard",
+      "description": "Defensive-minded warrior",
+      "traits": {
+        "healthMultiplier": { "value": 1.1, "type": "Multiplier" },
+        "damageMultiplier": { "value": 0.95, "type": "Multiplier" },
+        "armorBonus": { "value": 10, "type": "Flat" },
+        "blockChance": { "value": 15, "type": "Percentage" },
+        "counterAttack": { "value": 10, "type": "Percentage" },
+        "defensiveTactics": { "value": true, "type": "Boolean" }
+      }
+    }
+  },
+  "uncommon": {
+    "Veteran": {
+      "displayName": "Veteran",
+      "description": "Battle-hardened experienced warrior",
+      "traits": {
+        "healthMultiplier": { "value": 1.4, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.4, "type": "Multiplier" },
+        "armorBonus": { "value": 15, "type": "Flat" },
+        "weaponSkill": { "value": 25, "type": "Flat" },
+        "criticalChance": { "value": 15, "type": "Percentage" },
+        "combatExperience": { "value": true, "type": "Boolean" },
+        "tactics": { "value": 15, "type": "Flat" }
+      }
+    },
+    "Knight": {
+      "displayName": "Knight",
+      "description": "Armored warrior of noble training",
+      "traits": {
+        "healthMultiplier": { "value": 1.5, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.5, "type": "Multiplier" },
+        "armorBonus": { "value": 25, "type": "Flat" },
+        "weaponSkill": { "value": 30, "type": "Flat" },
+        "mountedCombat": { "value": true, "type": "Boolean" },
+        "chargeBonus": { "value": 50, "type": "Percentage" },
+        "honor": { "value": true, "type": "Boolean" }
+      }
+    },
+    "Raider": {
+      "displayName": "Raider",
+      "description": "Aggressive hit-and-run warrior",
+      "traits": {
+        "healthMultiplier": { "value": 1.2, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.6, "type": "Multiplier" },
+        "armorBonus": { "value": 8, "type": "Flat" },
+        "weaponSkill": { "value": 20, "type": "Flat" },
+        "attackSpeed": { "value": 15, "type": "Flat" },
+        "movementSpeed": { "value": 20, "type": "Flat" },
+        "criticalChance": { "value": 20, "type": "Percentage" },
+        "reckless": { "value": true, "type": "Boolean" }
+      }
+    }
+  },
+  "rare": {
+    "Elite": {
+      "displayName": "Elite",
+      "description": "Top-tier professional warrior",
+      "traits": {
+        "healthMultiplier": { "value": 2.0, "type": "Multiplier" },
+        "damageMultiplier": { "value": 2.0, "type": "Multiplier" },
+        "armorBonus": { "value": 30, "type": "Flat" },
+        "weaponSkill": { "value": 45, "type": "Flat" },
+        "criticalChance": { "value": 25, "type": "Percentage" },
+        "criticalDamage": { "value": 50, "type": "Percentage" },
+        "tactics": { "value": 30, "type": "Flat" },
+        "leadership": { "value": 20, "type": "Flat" },
+        "multiAttack": { "value": 2, "type": "Flat" }
+      }
+    },
+    "Warlord": {
+      "displayName": "Warlord",
+      "description": "Commanding leader inspiring troops",
+      "traits": {
+        "healthMultiplier": { "value": 2.2, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.9, "type": "Multiplier" },
+        "armorBonus": { "value": 35, "type": "Flat" },
+        "weaponSkill": { "value": 40, "type": "Flat" },
+        "leadership": { "value": 50, "type": "Flat" },
+        "commandAura": { "value": true, "type": "Boolean" },
+        "alliesBuffed": { "value": 40, "type": "Percentage" },
+        "rallyTroops": { "value": true, "type": "Boolean" },
+        "tactics": { "value": 40, "type": "Flat" },
+        "fearAura": { "value": 15, "type": "Percentage" }
+      }
+    },
+    "Berserker": {
+      "displayName": "Berserker",
+      "description": "Rage-fueled warrior of devastating power",
+      "traits": {
+        "healthMultiplier": { "value": 1.8, "type": "Multiplier" },
+        "damageMultiplier": { "value": 2.5, "type": "Multiplier" },
+        "armorBonus": { "value": 10, "type": "Flat" },
+        "weaponSkill": { "value": 35, "type": "Flat" },
+        "berserk": { "value": true, "type": "Boolean" },
+        "berserkDamage": { "value": 100, "type": "Percentage" },
+        "criticalChance": { "value": 30, "type": "Percentage" },
+        "criticalDamage": { "value": 100, "type": "Percentage" },
+        "attackSpeed": { "value": 25, "type": "Flat" },
+        "painResist": { "value": 50, "type": "Percentage" }
+      }
+    }
+  },
+  "elite": {
+    "Champion": {
+      "displayName": "Champion",
+      "description": "Renowned warrior of exceptional skill",
+      "traits": {
+        "healthMultiplier": { "value": 2.8, "type": "Multiplier" },
+        "damageMultiplier": { "value": 2.5, "type": "Multiplier" },
+        "armorBonus": { "value": 45, "type": "Flat" },
+        "weaponSkill": { "value": 60, "type": "Flat" },
+        "criticalChance": { "value": 30, "type": "Percentage" },
+        "criticalDamage": { "value": 75, "type": "Percentage" },
+        "tactics": { "value": 50, "type": "Flat" },
+        "leadership": { "value": 35, "type": "Flat" },
+        "multiAttack": { "value": 3, "type": "Flat" },
+        "counterAttack": { "value": 25, "type": "Percentage" },
+        "blockChance": { "value": 25, "type": "Percentage" },
+        "fame": { "value": true, "type": "Boolean" }
+      }
+    },
+    "Crusader": {
+      "displayName": "Crusader",
+      "description": "Holy warrior blessed by divine power",
+      "traits": {
+        "healthMultiplier": { "value": 3.0, "type": "Multiplier" },
+        "damageMultiplier": { "value": 2.3, "type": "Multiplier" },
+        "armorBonus": { "value": 50, "type": "Flat" },
+        "weaponSkill": { "value": 55, "type": "Flat" },
+        "holyDamage": { "value": 40, "type": "Flat" },
+        "divineProtection": { "value": true, "type": "Boolean" },
+        "resistMagic": { "value": 35, "type": "Percentage" },
+        "resistDark": { "value": 50, "type": "Percentage" },
+        "healingPower": { "value": 30, "type": "Flat" },
+        "smiteEvil": { "value": 100, "type": "Percentage" },
+        "unwavering": { "value": true, "type": "Boolean" }
+      }
+    },
+    "Blademaster": {
+      "displayName": "Blademaster",
+      "description": "Master of blade techniques",
+      "traits": {
+        "healthMultiplier": { "value": 2.5, "type": "Multiplier" },
+        "damageMultiplier": { "value": 3.0, "type": "Multiplier" },
+        "armorBonus": { "value": 30, "type": "Flat" },
+        "weaponSkill": { "value": 70, "type": "Flat" },
+        "criticalChance": { "value": 40, "type": "Percentage" },
+        "criticalDamage": { "value": 125, "type": "Percentage" },
+        "attackSpeed": { "value": 30, "type": "Flat" },
+        "multiAttack": { "value": 4, "type": "Flat" },
+        "riposte": { "value": true, "type": "Boolean" },
+        "counterAttack": { "value": 40, "type": "Percentage" },
+        "evadeChance": { "value": 25, "type": "Percentage" }
+      }
+    }
+  },
+  "boss": {
+    "Legendary": {
+      "displayName": "Legendary",
+      "description": "Warrior of myth and legend",
+      "traits": {
+        "healthMultiplier": { "value": 4.0, "type": "Multiplier" },
+        "damageMultiplier": { "value": 3.5, "type": "Multiplier" },
+        "armorBonus": { "value": 70, "type": "Flat" },
+        "weaponSkill": { "value": 90, "type": "Flat" },
+        "criticalChance": { "value": 45, "type": "Percentage" },
+        "criticalDamage": { "value": 150, "type": "Percentage" },
+        "tactics": { "value": 80, "type": "Flat" },
+        "leadership": { "value": 70, "type": "Flat" },
+        "multiAttack": { "value": 5, "type": "Flat" },
+        "counterAttack": { "value": 50, "type": "Percentage" },
+        "blockChance": { "value": 35, "type": "Percentage" },
+        "legendaryResistance": { "value": 5, "type": "Flat" },
+        "fearAura": { "value": 40, "type": "Percentage" },
+        "commandAura": { "value": true, "type": "Boolean" },
+        "alliesBuffed": { "value": 75, "type": "Percentage" },
+        "unstoppable": { "value": true, "type": "Boolean" }
+      }
+    },
+    "Conqueror": {
+      "displayName": "Conqueror",
+      "description": "Warlord who has subjugated nations",
+      "traits": {
+        "healthMultiplier": { "value": 4.5, "type": "Multiplier" },
+        "damageMultiplier": { "value": 3.2, "type": "Multiplier" },
+        "armorBonus": { "value": 80, "type": "Flat" },
+        "weaponSkill": { "value": 85, "type": "Flat" },
+        "leadership": { "value": 100, "type": "Flat" },
+        "commandAura": { "value": true, "type": "Boolean" },
+        "alliesBuffed": { "value": 100, "type": "Percentage" },
+        "summonWarriors": { "value": 5, "type": "Flat" },
+        "tactics": { "value": 100, "type": "Flat" },
+        "mountedCombat": { "value": true, "type": "Boolean" },
+        "chargeBonus": { "value": 100, "type": "Percentage" },
+        "fearAura": { "value": 50, "type": "Percentage" },
+        "rallyTroops": { "value": true, "type": "Boolean" },
+        "legendaryResistance": { "value": 7, "type": "Flat" },
+        "ironWill": { "value": true, "type": "Boolean" }
+      }
+    },
+    "Godslayer": {
+      "displayName": "Godslayer",
+      "description": "Mortal who has challenged the divine",
+      "traits": {
+        "healthMultiplier": { "value": 3.8, "type": "Multiplier" },
+        "damageMultiplier": { "value": 4.0, "type": "Multiplier" },
+        "armorBonus": { "value": 65, "type": "Flat" },
+        "weaponSkill": { "value": 100, "type": "Flat" },
+        "criticalChance": { "value": 50, "type": "Percentage" },
+        "criticalDamage": { "value": 200, "type": "Percentage" },
+        "multiAttack": { "value": 6, "type": "Flat" },
+        "attackSpeed": { "value": 40, "type": "Flat" },
+        "evadeChance": { "value": 35, "type": "Percentage" },
+        "counterAttack": { "value": 60, "type": "Percentage" },
+        "blockChance": { "value": 40, "type": "Percentage" },
+        "executioner": { "value": true, "type": "Boolean" },
+        "executeThreshold": { "value": 20, "type": "Percentage" },
+        "resistAll": { "value": 50, "type": "Percentage" },
+        "legendaryResistance": { "value": 10, "type": "Flat" },
+        "unstoppable": { "value": true, "type": "Boolean" },
+        "immortalSlayer": { "value": true, "type": "Boolean" }
+      }
+    }
+  }
+}

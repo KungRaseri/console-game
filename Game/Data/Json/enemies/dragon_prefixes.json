@@ -1,0 +1,293 @@
+{
+  "common": {
+    "Hatchling": {
+      "displayName": "Hatchling",
+      "description": "Newly hatched dragon, still learning to fly",
+      "traits": {
+        "healthMultiplier": { "value": 0.8, "type": "Multiplier" },
+        "damageMultiplier": { "value": 0.8, "type": "Multiplier" },
+        "armorRating": { "value": 5, "type": "Flat" },
+        "breathWeaponDamage": { "value": 15, "type": "Flat" },
+        "flyingSpeed": { "value": 10, "type": "Flat" },
+        "treasureMultiplier": { "value": 0.5, "type": "Multiplier" }
+      }
+    },
+    "Young": {
+      "displayName": "Young",
+      "description": "Juvenile dragon still growing in power",
+      "traits": {
+        "healthMultiplier": { "value": 1.0, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.0, "type": "Multiplier" },
+        "armorRating": { "value": 10, "type": "Flat" },
+        "breathWeaponDamage": { "value": 25, "type": "Flat" },
+        "flyingSpeed": { "value": 15, "type": "Flat" },
+        "treasureMultiplier": { "value": 0.8, "type": "Multiplier" },
+        "intelligence": { "value": 5, "type": "Flat" }
+      }
+    },
+    "Wyrmling": {
+      "displayName": "Wyrmling",
+      "description": "Small dragon with developing powers",
+      "traits": {
+        "healthMultiplier": { "value": 1.1, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.1, "type": "Multiplier" },
+        "armorRating": { "value": 15, "type": "Flat" },
+        "breathWeaponDamage": { "value": 30, "type": "Flat" },
+        "breathWeaponCooldown": { "value": -1, "type": "Flat" },
+        "flyingSpeed": { "value": 20, "type": "Flat" },
+        "treasureMultiplier": { "value": 1.0, "type": "Multiplier" }
+      }
+    }
+  },
+  "uncommon": {
+    "Drake": {
+      "displayName": "Drake",
+      "description": "Mature dragon entering its prime",
+      "traits": {
+        "healthMultiplier": { "value": 1.5, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.4, "type": "Multiplier" },
+        "armorRating": { "value": 25, "type": "Flat" },
+        "breathWeaponDamage": { "value": 50, "type": "Flat" },
+        "breathWeaponCooldown": { "value": -2, "type": "Flat" },
+        "flyingSpeed": { "value": 30, "type": "Flat" },
+        "scaleResistance": { "value": 15, "type": "Percentage" },
+        "treasureMultiplier": { "value": 1.5, "type": "Multiplier" },
+        "intelligence": { "value": 10, "type": "Flat" }
+      }
+    },
+    "Adult": {
+      "displayName": "Adult",
+      "description": "Full-grown dragon at peak physical strength",
+      "traits": {
+        "healthMultiplier": { "value": 1.8, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.6, "type": "Multiplier" },
+        "armorRating": { "value": 35, "type": "Flat" },
+        "breathWeaponDamage": { "value": 75, "type": "Flat" },
+        "breathWeaponArea": { "value": 3, "type": "Flat" },
+        "flyingSpeed": { "value": 40, "type": "Flat" },
+        "scaleResistance": { "value": 25, "type": "Percentage" },
+        "treasureMultiplier": { "value": 2.0, "type": "Multiplier" },
+        "intelligence": { "value": 15, "type": "Flat" },
+        "fearAura": { "value": 10, "type": "Percentage" }
+      }
+    },
+    "Wyrm": {
+      "displayName": "Wyrm",
+      "description": "Experienced dragon with formidable power",
+      "traits": {
+        "healthMultiplier": { "value": 2.0, "type": "Multiplier" },
+        "damageMultiplier": { "value": 1.7, "type": "Multiplier" },
+        "armorRating": { "value": 40, "type": "Flat" },
+        "breathWeaponDamage": { "value": 85, "type": "Flat" },
+        "breathWeaponArea": { "value": 4, "type": "Flat" },
+        "flyingSpeed": { "value": 45, "type": "Flat" },
+        "scaleResistance": { "value": 30, "type": "Percentage" },
+        "magicResist": { "value": 20, "type": "Percentage" },
+        "treasureMultiplier": { "value": 2.5, "type": "Multiplier" },
+        "intelligence": { "value": 20, "type": "Flat" }
+      }
+    }
+  },
+  "rare": {
+    "Elder": {
+      "displayName": "Elder",
+      "description": "Ancient dragon with centuries of accumulated knowledge",
+      "traits": {
+        "healthMultiplier": { "value": 2.5, "type": "Multiplier" },
+        "damageMultiplier": { "value": 2.0, "type": "Multiplier" },
+        "armorRating": { "value": 50, "type": "Flat" },
+        "breathWeaponDamage": { "value": 100, "type": "Flat" },
+        "breathWeaponArea": { "value": 5, "type": "Flat" },
+        "breathWeaponCooldown": { "value": -3, "type": "Flat" },
+        "flyingSpeed": { "value": 50, "type": "Flat" },
+        "scaleResistance": { "value": 40, "type": "Percentage" },
+        "magicResist": { "value": 35, "type": "Percentage" },
+        "treasureMultiplier": { "value": 3.5, "type": "Multiplier" },
+        "intelligence": { "value": 30, "type": "Flat" },
+        "fearAura": { "value": 20, "type": "Percentage" },
+        "spellPower": { "value": 25, "type": "Flat" }
+      }
+    },
+    "Ancient": {
+      "displayName": "Ancient",
+      "description": "Millennia-old dragon of legendary power",
+      "traits": {
+        "healthMultiplier": { "value": 3.0, "type": "Multiplier" },
+        "damageMultiplier": { "value": 2.3, "type": "Multiplier" },
+        "armorRating": { "value": 60, "type": "Flat" },
+        "breathWeaponDamage": { "value": 125, "type": "Flat" },
+        "breathWeaponArea": { "value": 6, "type": "Flat" },
+        "breathWeaponCooldown": { "value": -4, "type": "Flat" },
+        "flyingSpeed": { "value": 55, "type": "Flat" },
+        "scaleResistance": { "value": 50, "type": "Percentage" },
+        "magicResist": { "value": 45, "type": "Percentage" },
+        "treasureMultiplier": { "value": 5.0, "type": "Multiplier" },
+        "intelligence": { "value": 40, "type": "Flat" },
+        "fearAura": { "value": 30, "type": "Percentage" },
+        "spellPower": { "value": 40, "type": "Flat" },
+        "legendaryResistance": { "value": 3, "type": "Flat" }
+      }
+    },
+    "Great": {
+      "displayName": "Great",
+      "description": "Dragon of exceptional size and might",
+      "traits": {
+        "healthMultiplier": { "value": 2.8, "type": "Multiplier" },
+        "damageMultiplier": { "value": 2.5, "type": "Multiplier" },
+        "armorRating": { "value": 55, "type": "Flat" },
+        "breathWeaponDamage": { "value": 110, "type": "Flat" },
+        "breathWeaponArea": { "value": 7, "type": "Flat" },
+        "physicalSize": { "value": 150, "type": "Percentage" },
+        "crushDamage": { "value": 50, "type": "Flat" },
+        "flyingSpeed": { "value": 45, "type": "Flat" },
+        "scaleResistance": { "value": 45, "type": "Percentage" },
+        "treasureMultiplier": { "value": 4.0, "type": "Multiplier" },
+        "fearAura": { "value": 25, "type": "Percentage" }
+      }
+    }
+  },
+  "elite": {
+    "Primordial": {
+      "displayName": "Primordial",
+      "description": "Dragon from the dawn of time, embodying primal forces",
+      "traits": {
+        "healthMultiplier": { "value": 3.5, "type": "Multiplier" },
+        "damageMultiplier": { "value": 2.8, "type": "Multiplier" },
+        "armorRating": { "value": 75, "type": "Flat" },
+        "breathWeaponDamage": { "value": 150, "type": "Flat" },
+        "breathWeaponArea": { "value": 8, "type": "Flat" },
+        "breathWeaponCooldown": { "value": -5, "type": "Flat" },
+        "flyingSpeed": { "value": 60, "type": "Flat" },
+        "scaleResistance": { "value": 60, "type": "Percentage" },
+        "magicResist": { "value": 55, "type": "Percentage" },
+        "elementalResist": { "value": 50, "type": "Percentage" },
+        "treasureMultiplier": { "value": 7.0, "type": "Multiplier" },
+        "intelligence": { "value": 50, "type": "Flat" },
+        "fearAura": { "value": 40, "type": "Percentage" },
+        "spellPower": { "value": 60, "type": "Flat" },
+        "legendaryResistance": { "value": 5, "type": "Flat" },
+        "primalPower": { "value": true, "type": "Boolean" }
+      }
+    },
+    "Legendary": {
+      "displayName": "Legendary",
+      "description": "Dragon of myth and legend, known across all lands",
+      "traits": {
+        "healthMultiplier": { "value": 4.0, "type": "Multiplier" },
+        "damageMultiplier": { "value": 3.0, "type": "Multiplier" },
+        "armorRating": { "value": 80, "type": "Flat" },
+        "breathWeaponDamage": { "value": 140, "type": "Flat" },
+        "breathWeaponArea": { "value": 7, "type": "Flat" },
+        "breathWeaponCooldown": { "value": -4, "type": "Flat" },
+        "multiBreath": { "value": 2, "type": "Flat" },
+        "flyingSpeed": { "value": 65, "type": "Flat" },
+        "scaleResistance": { "value": 65, "type": "Percentage" },
+        "magicResist": { "value": 60, "type": "Percentage" },
+        "treasureMultiplier": { "value": 8.0, "type": "Multiplier" },
+        "intelligence": { "value": 55, "type": "Flat" },
+        "fearAura": { "value": 45, "type": "Percentage" },
+        "spellPower": { "value": 55, "type": "Flat" },
+        "legendaryResistance": { "value": 6, "type": "Flat" },
+        "legendaryActions": { "value": 3, "type": "Flat" }
+      }
+    },
+    "Mighty": {
+      "displayName": "Mighty",
+      "description": "Dragon of overwhelming physical power",
+      "traits": {
+        "healthMultiplier": { "value": 3.8, "type": "Multiplier" },
+        "damageMultiplier": { "value": 3.2, "type": "Multiplier" },
+        "armorRating": { "value": 70, "type": "Flat" },
+        "breathWeaponDamage": { "value": 135, "type": "Flat" },
+        "breathWeaponArea": { "value": 6, "type": "Flat" },
+        "criticalChance": { "value": 25, "type": "Percentage" },
+        "criticalDamage": { "value": 150, "type": "Percentage" },
+        "physicalSize": { "value": 175, "type": "Percentage" },
+        "crushDamage": { "value": 75, "type": "Flat" },
+        "tailSwipe": { "value": true, "type": "Boolean" },
+        "wingBuffet": { "value": true, "type": "Boolean" },
+        "scaleResistance": { "value": 55, "type": "Percentage" },
+        "treasureMultiplier": { "value": 6.0, "type": "Multiplier" }
+      }
+    }
+  },
+  "boss": {
+    "Apocalyptic": {
+      "displayName": "Apocalyptic",
+      "description": "World-ending dragon of cataclysmic power",
+      "traits": {
+        "healthMultiplier": { "value": 5.0, "type": "Multiplier" },
+        "damageMultiplier": { "value": 3.5, "type": "Multiplier" },
+        "armorRating": { "value": 100, "type": "Flat" },
+        "breathWeaponDamage": { "value": 200, "type": "Flat" },
+        "breathWeaponArea": { "value": 10, "type": "Flat" },
+        "breathWeaponCooldown": { "value": -6, "type": "Flat" },
+        "multiBreath": { "value": 3, "type": "Flat" },
+        "flyingSpeed": { "value": 75, "type": "Flat" },
+        "scaleResistance": { "value": 75, "type": "Percentage" },
+        "magicResist": { "value": 70, "type": "Percentage" },
+        "elementalResist": { "value": 65, "type": "Percentage" },
+        "treasureMultiplier": { "value": 12.0, "type": "Multiplier" },
+        "intelligence": { "value": 70, "type": "Flat" },
+        "fearAura": { "value": 60, "type": "Percentage" },
+        "spellPower": { "value": 80, "type": "Flat" },
+        "legendaryResistance": { "value": 10, "type": "Flat" },
+        "legendaryActions": { "value": 5, "type": "Flat" },
+        "cataclysm": { "value": true, "type": "Boolean" },
+        "unstoppable": { "value": true, "type": "Boolean" }
+      }
+    },
+    "Godlike": {
+      "displayName": "Godlike",
+      "description": "Dragon ascending to divine status",
+      "traits": {
+        "healthMultiplier": { "value": 4.5, "type": "Multiplier" },
+        "damageMultiplier": { "value": 3.8, "type": "Multiplier" },
+        "armorRating": { "value": 95, "type": "Flat" },
+        "breathWeaponDamage": { "value": 180, "type": "Flat" },
+        "breathWeaponArea": { "value": 9, "type": "Flat" },
+        "multiBreath": { "value": 2, "type": "Flat" },
+        "flyingSpeed": { "value": 80, "type": "Flat" },
+        "scaleResistance": { "value": 80, "type": "Percentage" },
+        "magicResist": { "value": 75, "type": "Percentage" },
+        "elementalResist": { "value": 70, "type": "Percentage" },
+        "divineProtection": { "value": true, "type": "Boolean" },
+        "healthRegeneration": { "value": 50, "type": "Flat" },
+        "manaRegeneration": { "value": 40, "type": "Flat" },
+        "treasureMultiplier": { "value": 15.0, "type": "Multiplier" },
+        "intelligence": { "value": 80, "type": "Flat" },
+        "fearAura": { "value": 70, "type": "Percentage" },
+        "spellPower": { "value": 100, "type": "Flat" },
+        "legendaryResistance": { "value": 12, "type": "Flat" },
+        "legendaryActions": { "value": 6, "type": "Flat" }
+      }
+    },
+    "Eternal Wyrm": {
+      "displayName": "Eternal Wyrm",
+      "description": "Immortal dragon existing beyond mortality",
+      "traits": {
+        "healthMultiplier": { "value": 4.8, "type": "Multiplier" },
+        "damageMultiplier": { "value": 3.3, "type": "Multiplier" },
+        "armorRating": { "value": 90, "type": "Flat" },
+        "breathWeaponDamage": { "value": 175, "type": "Flat" },
+        "breathWeaponArea": { "value": 8, "type": "Flat" },
+        "breathWeaponCooldown": { "value": -7, "type": "Flat" },
+        "multiBreath": { "value": 4, "type": "Flat" },
+        "flyingSpeed": { "value": 70, "type": "Flat" },
+        "scaleResistance": { "value": 70, "type": "Percentage" },
+        "magicResist": { "value": 80, "type": "Percentage" },
+        "elementalResist": { "value": 75, "type": "Percentage" },
+        "healthRegeneration": { "value": 40, "type": "Flat" },
+        "resurrectsOnce": { "value": true, "type": "Boolean" },
+        "resurrectionHealth": { "value": 100, "type": "Percentage" },
+        "treasureMultiplier": { "value": 10.0, "type": "Multiplier" },
+        "intelligence": { "value": 75, "type": "Flat" },
+        "fearAura": { "value": 65, "type": "Percentage" },
+        "spellPower": { "value": 90, "type": "Flat" },
+        "legendaryResistance": { "value": 15, "type": "Flat" },
+        "legendaryActions": { "value": 7, "type": "Flat" },
+        "timeless": { "value": true, "type": "Boolean" }
+      }
+    }
+  }
+}

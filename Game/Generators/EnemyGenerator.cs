@@ -2,6 +2,7 @@ using Bogus;
 using Game.Data.Models;
 using Game.Models;
 using Game.Services;
+using Serilog;
 
 namespace Game.Generators;
 
@@ -50,6 +51,15 @@ public static class EnemyGenerator
         
         // Set damage based on type
         SetEnemyDamage(enemy, type);
+        
+        // Apply prefix traits based on difficulty and type
+        ApplyPrefixTraits(enemy, type, difficulty);
+        
+        // Apply dragon color traits if this is a dragon
+        if (type == EnemyType.Dragon)
+        {
+            ApplyDragonColorTraits(enemy);
+        }
         
         // Calculate rewards
         enemy.XPReward = CalculateXPReward(enemyLevel, difficulty);
@@ -409,5 +419,134 @@ public static class EnemyGenerator
         };
         
         return (int)(baseGold * multiplier);
+    }
+    
+    /// <summary>
+    /// Apply prefix traits to an enemy based on type and difficulty.
+    /// This applies trait multipliers and special abilities from JSON data.
+    /// </summary>
+    private static void ApplyPrefixTraits(Enemy enemy, EnemyType type, EnemyDifficulty difficulty)
+    {
+        try
+        {
+            // Get the appropriate prefix data for the enemy type
+            var prefixData = type switch
+            {
+                EnemyType.Beast => GameDataService.Instance.BeastPrefixes,
+                EnemyType.Undead => GameDataService.Instance.UndeadPrefixes,
+                EnemyType.Demon => GameDataService.Instance.DemonPrefixes,
+                EnemyType.Elemental => GameDataService.Instance.ElementalPrefixes,
+                EnemyType.Dragon => GameDataService.Instance.DragonPrefixes,
+                EnemyType.Humanoid => GameDataService.Instance.HumanoidPrefixes,
+                _ => null
+            };
+            
+            if (prefixData == null)
+                return;
+            
+            // Select prefix tier based on difficulty
+            Dictionary<string, EnemyPrefixTraitData>? tierData = difficulty switch
+            {
+                EnemyDifficulty.Easy => prefixData.Common,
+                EnemyDifficulty.Normal => prefixData.Uncommon,
+                EnemyDifficulty.Hard => prefixData.Rare,
+                EnemyDifficulty.Elite => prefixData.Elite,
+                EnemyDifficulty.Boss => prefixData.Boss,
+                _ => prefixData.Common
+            };
+            
+            if (tierData == null || tierData.Count == 0)
+                return;
+            
+            // Pick a random prefix from the tier
+            var prefixNames = tierData.Keys.ToList();
+            var prefixName = prefixNames[_random.Next(prefixNames.Count)];
+            var prefix = tierData[prefixName];
+            
+            // Update enemy name to include prefix
+            if (!enemy.Name.Contains(prefix.DisplayName))
+            {
+                enemy.Name = $"{prefix.DisplayName} {enemy.Name}";
+            }
+            
+            // Apply all traits from the prefix
+            foreach (var trait in prefix.Traits)
+            {
+                enemy.Traits[trait.Key] = trait.Value;
+            }
+            
+            // Apply health and damage multipliers to base stats
+            var healthMultiplier = TraitApplicator.GetTrait<double>(enemy, StandardTraits.HealthMultiplier, 1.0);
+            var damageMultiplier = TraitApplicator.GetTrait<double>(enemy, StandardTraits.DamageMultiplier, 1.0);
+            
+            enemy.MaxHealth = (int)(enemy.MaxHealth * healthMultiplier);
+            enemy.Health = enemy.MaxHealth;
+            enemy.BasePhysicalDamage = (int)(enemy.BasePhysicalDamage * damageMultiplier);
+            enemy.BaseMagicDamage = (int)(enemy.BaseMagicDamage * damageMultiplier);
+            
+            Log.Debug("Applied {PrefixName} traits to {EnemyName}: Health={Health}, PhysDmg={PhysDmg}, Traits={TraitCount}",
+                prefix.DisplayName, enemy.Name, enemy.MaxHealth, enemy.BasePhysicalDamage, enemy.Traits.Count);
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "Failed to apply prefix traits to enemy {EnemyName}", enemy.Name);
+        }
+    }
+    
+    /// <summary>
+    /// Apply dragon color traits to a dragon enemy.
+    /// </summary>
+    private static void ApplyDragonColorTraits(Enemy enemy)
+    {
+        try
+        {
+            var colorData = GameDataService.Instance.DragonColors;
+            
+            if (colorData == null || colorData.Count == 0)
+            {
+                Log.Warning("No dragon color data available");
+                return;
+            }
+            
+            // Pick a random dragon color
+            var colors = colorData.Values.ToList();
+            var colorIndex = _random.Next(colors.Count);
+            var color = colors[colorIndex];
+            
+            // Update enemy name to include color (e.g., "Ancient Dragon" -> "Ancient Red Dragon")
+            enemy.Name = $"{enemy.Name.Replace("Dragon", color.DisplayName + " Dragon")}";
+            
+            // Apply all color traits
+            foreach (var trait in color.Traits)
+            {
+                // Don't override healthMultiplier/damageMultiplier from prefix, but combine them
+                if (trait.Key == StandardTraits.HealthMultiplier || trait.Key == StandardTraits.DamageMultiplier)
+                {
+                    var existingValue = TraitApplicator.GetTrait<double>(enemy, trait.Key, 1.0);
+                    var colorValue = trait.Value.AsDouble();
+                    enemy.Traits[trait.Key] = new TraitValue(existingValue * colorValue, TraitType.Number);
+                }
+                else
+                {
+                    enemy.Traits[trait.Key] = trait.Value;
+                }
+            }
+            
+            // Apply any additional multipliers from color
+            var healthMultiplier = TraitApplicator.GetTrait<double>(enemy, StandardTraits.HealthMultiplier, 1.0);
+            var damageMultiplier = TraitApplicator.GetTrait<double>(enemy, StandardTraits.DamageMultiplier, 1.0);
+            
+            enemy.MaxHealth = (int)(enemy.MaxHealth * healthMultiplier);
+            enemy.Health = enemy.MaxHealth;
+            enemy.BasePhysicalDamage = (int)(enemy.BasePhysicalDamage * damageMultiplier);
+            enemy.BaseMagicDamage = (int)(enemy.BaseMagicDamage * damageMultiplier);
+            
+            Log.Debug("Applied {ColorName} dragon color traits to {EnemyName}: Traits={TraitCount}",
+                color.DisplayName, enemy.Name, enemy.Traits.Count);
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "Failed to apply dragon color traits to enemy {EnemyName}", enemy.Name);
+        }
     }
 }

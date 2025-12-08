@@ -1,4 +1,5 @@
 using Bogus;
+using Game.Data.Models;
 using Game.Models;
 using Game.Services;
 
@@ -73,7 +74,7 @@ public static class NpcGenerator
         var data = GameDataService.Instance.Occupations;
         
         // Pick a random category
-        var categories = new List<List<string>>
+        var categories = new List<Dictionary<string, OccupationTraitData>>
         {
             data.Merchants,
             data.Craftsmen,
@@ -96,7 +97,8 @@ public static class NpcGenerator
         }
         
         var selectedCategory = faker.PickRandom(validCategories);
-        return GameDataService.GetRandom(selectedCategory);
+        var occupation = faker.PickRandom(selectedCategory.Values.ToList());
+        return occupation.DisplayName;
     }
     
     /// <summary>

@@ -61,8 +61,8 @@ public class OccupationTraitData
     }
 }
 
-// Enhanced enemy prefix data structure
-public class EnemyPrefixDataEnhanced
+// Enemy prefix data structure
+public class EnemyPrefixData
 {
     public Dictionary<string, EnemyPrefixTraitData> Common { get; set; } = new();
     public Dictionary<string, EnemyPrefixTraitData> Uncommon { get; set; } = new();
@@ -71,8 +71,8 @@ public class EnemyPrefixDataEnhanced
     public Dictionary<string, EnemyPrefixTraitData> Boss { get; set; } = new();
 }
 
-// Enhanced occupation data structure
-public class OccupationDataEnhanced
+// Occupation data structure
+public class OccupationData
 {
     public Dictionary<string, OccupationTraitData> Merchants { get; set; } = new();
     public Dictionary<string, OccupationTraitData> Craftsmen { get; set; } = new();
@@ -84,4 +84,36 @@ public class OccupationDataEnhanced
     public Dictionary<string, OccupationTraitData> Magical { get; set; } = new();
     public Dictionary<string, OccupationTraitData> Criminal { get; set; } = new();
     public Dictionary<string, OccupationTraitData> Common { get; set; } = new();
+}
+
+// Dragon color trait data
+public class DragonColorTraitData
+{
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; } = string.Empty;
+    
+    [JsonPropertyName("traits")]
+    public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
+    
+    /// <summary>
+    /// Convert JSON traits to TraitValue dictionary.
+    /// </summary>
+    [JsonIgnore]
+    public Dictionary<string, TraitValue> Traits
+    {
+        get
+        {
+            var result = new Dictionary<string, TraitValue>();
+            foreach (var kvp in JsonTraits)
+            {
+                result[kvp.Key] = kvp.Value.ToTraitValue();
+            }
+            return result;
+        }
+    }
+}
+
+// Dragon color data - flat dictionary (no tiers, just 13 colors)
+public class DragonColorData : Dictionary<string, DragonColorTraitData>
+{
 }

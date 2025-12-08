@@ -21,13 +21,24 @@ public class GameDataService
     public ArmorMaterialData ArmorMaterials { get; private set; } = new();
     public EnchantmentSuffixData EnchantmentSuffixes { get; private set; } = new();
     
-    // Enemy data
+    // Enemy data - names
     public EnemyNameData BeastNames { get; private set; } = new();
     public EnemyNameData UndeadNames { get; private set; } = new();
     public EnemyNameData DemonNames { get; private set; } = new();
     public EnemyNameData ElementalNames { get; private set; } = new();
     public DragonNameData DragonNames { get; private set; } = new();
     public HumanoidNameData HumanoidNames { get; private set; } = new();
+    
+    // Enemy data - prefixes with traits
+    public EnemyPrefixData BeastPrefixes { get; private set; } = new();
+    public EnemyPrefixData UndeadPrefixes { get; private set; } = new();
+    public EnemyPrefixData DemonPrefixes { get; private set; } = new();
+    public EnemyPrefixData ElementalPrefixes { get; private set; } = new();
+    public EnemyPrefixData DragonPrefixes { get; private set; } = new();
+    public EnemyPrefixData HumanoidPrefixes { get; private set; } = new();
+    
+    // Dragon color data
+    public DragonColorData DragonColors { get; private set; } = new();
     
     // NPC data
     public FantasyNameData FantasyNames { get; private set; } = new();
@@ -98,13 +109,24 @@ public class GameDataService
             ArmorMaterials = LoadJson<ArmorMaterialData>("items/armor_materials.json");
             EnchantmentSuffixes = LoadJson<EnchantmentSuffixData>("items/enchantment_suffixes.json");
             
-            // Load enemy data
+            // Load enemy data - names
             BeastNames = LoadJson<EnemyNameData>("enemies/beast_names.json");
             UndeadNames = LoadJson<EnemyNameData>("enemies/undead_names.json");
             DemonNames = LoadJson<EnemyNameData>("enemies/demon_names.json");
             ElementalNames = LoadJson<EnemyNameData>("enemies/elemental_names.json");
             DragonNames = LoadJson<DragonNameData>("enemies/dragon_names.json");
             HumanoidNames = LoadJson<HumanoidNameData>("enemies/humanoid_names.json");
+            
+            // Load enemy data - prefixes with traits
+            BeastPrefixes = LoadJson<EnemyPrefixData>("enemies/beast_prefixes.json");
+            UndeadPrefixes = LoadJson<EnemyPrefixData>("enemies/undead_prefixes.json");
+            DemonPrefixes = LoadJson<EnemyPrefixData>("enemies/demon_prefixes.json");
+            ElementalPrefixes = LoadJson<EnemyPrefixData>("enemies/elemental_prefixes.json");
+            DragonPrefixes = LoadJson<EnemyPrefixData>("enemies/dragon_prefixes.json");
+            HumanoidPrefixes = LoadJson<EnemyPrefixData>("enemies/humanoid_prefixes.json");
+            
+            // Load dragon color data
+            DragonColors = LoadJson<DragonColorData>("enemies/dragon_colors.json");
             
             // Load NPC data
             FantasyNames = LoadJson<FantasyNameData>("npcs/fantasy_names.json");

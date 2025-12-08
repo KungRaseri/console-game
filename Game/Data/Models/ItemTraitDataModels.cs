@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Game.Data.Models;
 
 /// <summary>
-/// Enhanced data models for item traits from JSON.
+/// Data models for item traits from JSON.
 /// </summary>
 
 // Weapon prefix with traits
@@ -34,7 +34,7 @@ public class WeaponPrefixTraitData
     }
 }
 
-public class WeaponPrefixDataEnhanced
+public class WeaponPrefixData
 {
     public Dictionary<string, WeaponPrefixTraitData> Common { get; set; } = new();
     public Dictionary<string, WeaponPrefixTraitData> Uncommon { get; set; } = new();
@@ -70,7 +70,7 @@ public class ArmorMaterialTraitData
     }
 }
 
-public class ArmorMaterialDataEnhanced
+public class ArmorMaterialData
 {
     public Dictionary<string, ArmorMaterialTraitData> Common { get; set; } = new();
     public Dictionary<string, ArmorMaterialTraitData> Uncommon { get; set; } = new();
@@ -106,7 +106,7 @@ public class EnchantmentSuffixTraitData
     }
 }
 
-public class EnchantmentSuffixDataEnhanced
+public class EnchantmentSuffixData
 {
     public Dictionary<string, EnchantmentSuffixTraitData> Power { get; set; } = new();
     public Dictionary<string, EnchantmentSuffixTraitData> Protection { get; set; } = new();
@@ -118,31 +118,4 @@ public class EnchantmentSuffixDataEnhanced
     public Dictionary<string, EnchantmentSuffixTraitData> Lightning { get; set; } = new();
     public Dictionary<string, EnchantmentSuffixTraitData> Life { get; set; } = new();
     public Dictionary<string, EnchantmentSuffixTraitData> Death { get; set; } = new();
-}
-
-/// <summary>
-/// Helper for deserializing trait data from JSON.
-/// </summary>
-public class JsonTraitValue
-{
-    [JsonPropertyName("value")]
-    public object? Value { get; set; }
-    
-    [JsonPropertyName("type")]
-    public string Type { get; set; } = "string";
-    
-    public TraitValue ToTraitValue()
-    {
-        var traitType = Type.ToLower() switch
-        {
-            "number" => TraitType.Number,
-            "string" => TraitType.String,
-            "boolean" => TraitType.Boolean,
-            "stringarray" => TraitType.StringArray,
-            "numberarray" => TraitType.NumberArray,
-            _ => TraitType.String
-        };
-        
-        return new TraitValue(Value, traitType);
-    }
 }
