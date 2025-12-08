@@ -16,7 +16,9 @@ A .NET Core Console application written in C# for building feature-rich console-
 - [Settings Guide](./docs/guides/SETTINGS_GUIDE.md) - Configuration management
 - [ConsoleUI Guide](./docs/guides/CONSOLEUI_GUIDE.md) - Using Spectre.Console UI components
 - [Save/Load Guide](./docs/guides/SAVE_LOAD_GUIDE.md) - Game persistence system
-- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - 286 tests (100% coverage)
+- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - 375 tests (887% growth)
+- [Phase 3 Completion Summary](./docs/PHASE_3_COMPLETE.md) - ✅ Refactoring complete!
+- [Final Refactoring Review](./docs/REFACTORING_FINAL_REVIEW.md) - Production readiness review
 
 ## Quick Start
 
@@ -24,8 +26,8 @@ A .NET Core Console application written in C# for building feature-rich console-
 # Run the game
 dotnet run --project Game
 
-# Run tests (286 tests ✅)
-dotnet test Game.Tests
+# Run tests (375 tests ✅)
+dotnet test
 
 # Debug in VS Code
 Press F5

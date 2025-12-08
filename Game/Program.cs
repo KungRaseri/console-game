@@ -78,6 +78,7 @@ try
     services.AddTransient<LoadGameService>();
     services.AddTransient<GameplayService>();
     services.AddTransient<CombatOrchestrator>();
+    services.AddTransient<InventoryOrchestrator>();
     
     // Register the game engine
     services.AddSingleton<GameEngine>();
