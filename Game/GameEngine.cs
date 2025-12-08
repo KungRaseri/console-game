@@ -2,6 +2,7 @@ using Game.Models;
 using Game.UI;
 using Game.Handlers;
 using Game.Services;
+using Game.Utilities;
 using MediatR;
 using Serilog;
 using Polly;
@@ -18,12 +19,27 @@ public class GameEngine
     private readonly IMediator _mediator;
     private readonly ResiliencePipeline _resiliencePipeline;
     private readonly SaveGameService _saveGameService;
+    private readonly CombatService _combatService;
     private Character? _player;
     private GameState _state;
     private bool _isRunning;
     private List<Item> _inventory;
     private string? _currentSaveId;
     private CombatLog? _combatLog;
+    
+    // Location tracking
+    private string _currentLocation = "Hub Town";
+    private readonly List<string> _knownLocations = new()
+    {
+        "Hub Town",
+        "Dark Forest",
+        "Ancient Ruins",
+        "Dragon's Lair",
+        "Cursed Graveyard",
+        "Mountain Peak",
+        "Coastal Village",
+        "Underground Caverns"
+    };
 
     public GameEngine(IMediator mediator)
     {
@@ -31,6 +47,7 @@ public class GameEngine
         _state = GameState.MainMenu;
         _isRunning = false;
         _saveGameService = new SaveGameService();
+        _combatService = new CombatService(_saveGameService);
         _inventory = new List<Item>();
 
         // Configure Polly resilience pipeline for error handling
@@ -503,6 +520,7 @@ public class GameEngine
         var menuOptions = new List<string>
         {
             "Explore",
+            "🗺️  Travel",
             "⚔️  Combat",
             "View Character",
             "Inventory",
@@ -527,6 +545,10 @@ public class GameEngine
         {
             case "Explore":
                 await ExploreAsync();
+                break;
+
+            case "🗺️  Travel":
+                TravelToLocation();
                 break;
 
             case "⚔️  Combat":
@@ -573,6 +595,9 @@ public class GameEngine
 
         // Generate enemy based on player level
         var enemy = Generators.EnemyGenerator.Generate(_player.Level, EnemyDifficulty.Normal);
+        
+        // Initialize combat with difficulty scaling
+        _combatService.InitializeCombat(enemy);
         
         // Initialize combat log
         _combatLog = new CombatLog(maxEntries: 15);
@@ -621,7 +646,7 @@ public class GameEngine
                     break;
                     
                 case "🏃 Flee":
-                    var fleeResult = Services.CombatService.AttemptFlee(_player, enemy);
+                    var fleeResult = _combatService.AttemptFlee(_player, enemy);
                     if (fleeResult.Success)
                     {
                         _combatLog.AddEntry("Successfully fled!", CombatLogType.Info);
@@ -657,7 +682,7 @@ public class GameEngine
             }
             
             // Apply regeneration at end of turn
-            var regenAmount = Services.SkillEffectService.ApplyRegeneration(_player);
+            var regenAmount = SkillEffectService.ApplyRegeneration(_player);
             if (regenAmount > 0)
             {
                 _combatLog.AddEntry($"💚 Regeneration healed {regenAmount} HP", CombatLogType.Heal);
@@ -749,7 +774,7 @@ public class GameEngine
     
     private async Task ExecutePlayerTurnAsync(Character player, Enemy enemy, CombatActionType actionType)
     {
-        var result = Services.CombatService.ExecutePlayerAttack(player, enemy);
+        var result = _combatService.ExecutePlayerAttack(player, enemy);
         
         await _mediator.Publish(new AttackPerformed(player.Name, enemy.Name, result.Damage));
         
@@ -779,7 +804,7 @@ public class GameEngine
     
     private async Task ExecuteEnemyTurnAsync(Character player, Enemy enemy, bool playerDefending)
     {
-        var result = Services.CombatService.ExecuteEnemyAttack(enemy, player, playerDefending);
+        var result = _combatService.ExecuteEnemyAttack(enemy, player, playerDefending);
         
         await _mediator.Publish(new DamageTaken(player.Name, result.Damage));
         
@@ -836,7 +861,7 @@ public class GameEngine
         var selectedIndex = itemNames.IndexOf(selection);
         var item = consumables[selectedIndex];
         
-        var result = Services.CombatService.UseItemInCombat(player, item);
+        var result = _combatService.UseItemInCombat(player, item);
         
         if (result.Success)
         {
@@ -867,7 +892,7 @@ public class GameEngine
     {
         ConsoleUI.Clear();
         
-        var outcome = Services.CombatService.GenerateVictoryOutcome(player, enemy);
+        var outcome = _combatService.GenerateVictoryOutcome(player, enemy);
         
         ConsoleUI.ShowBanner("🏆 VICTORY! 🏆", $"You defeated {enemy.Name}!");
         
@@ -1116,7 +1141,7 @@ public class GameEngine
     {
         if (_player == null) return;
 
-        ConsoleUI.ShowInfo("You venture forth into the unknown...");
+        ConsoleUI.ShowInfo($"Exploring {_currentLocation}...");
 
         // Simulate exploration
         ConsoleUI.ShowProgress("Exploring...", task =>
@@ -1171,6 +1196,45 @@ public class GameEngine
         }
     }
 
+    /// <summary>
+    /// Allow player to travel to a different location
+    /// </summary>
+    private void TravelToLocation()
+    {
+        var availableLocations = _knownLocations
+            .Where(loc => loc != _currentLocation)
+            .ToList();
+
+        if (!availableLocations.Any())
+        {
+            ConsoleUI.ShowInfo("No other locations available.");
+            return;
+        }
+
+        var choice = ConsoleUI.ShowMenu(
+            $"Current Location: {_currentLocation}\n\nWhere would you like to travel?",
+            availableLocations.Concat(new[] { "Cancel" }).ToArray()
+        );
+
+        if (choice == "Cancel")
+            return;
+
+        _currentLocation = choice;
+        
+        // Update visited locations in save game
+        if (_currentSaveId != null)
+        {
+            var saveGame = _saveGameService.GetCurrentSave();
+            if (saveGame != null && !saveGame.VisitedLocations.Contains(_currentLocation))
+            {
+                saveGame.VisitedLocations.Add(_currentLocation);
+                Log.Information("Player visited {Location} for the first time", _currentLocation);
+            }
+        }
+
+        ConsoleUI.ShowSuccess($"Traveled to {_currentLocation}");
+    }
+
     private async Task ViewCharacterAsync()
     {
         if (_player == null) return;
@@ -1204,11 +1268,11 @@ public class GameEngine
         
         // Derived stats with skill bonuses
         var derivedContent = $"""
-        [red]Physical Damage:[/] {_player.GetPhysicalDamageBonus()} (+{(Services.SkillEffectService.GetPhysicalDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
-        [cyan]Magic Damage:[/] {_player.GetMagicDamageBonus()} (+{(Services.SkillEffectService.GetMagicDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
-        [magenta]Dodge Chance:[/] {_player.GetDodgeChance() + Services.SkillEffectService.GetDodgeChanceBonus(_player):F1}%
-        [yellow]Critical Chance:[/] {_player.GetCriticalChance() + Services.SkillEffectService.GetCriticalChanceBonus(_player):F1}%
-        [green]Physical Defense:[/] {(int)(_player.GetPhysicalDefense() * Services.SkillEffectService.GetPhysicalDefenseMultiplier(_player))}
+        [red]Physical Damage:[/] {_player.GetPhysicalDamageBonus()} (+{(SkillEffectService.GetPhysicalDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
+        [cyan]Magic Damage:[/] {_player.GetMagicDamageBonus()} (+{(SkillEffectService.GetMagicDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
+        [magenta]Dodge Chance:[/] {_player.GetDodgeChance() + SkillEffectService.GetDodgeChanceBonus(_player):F1}%
+        [yellow]Critical Chance:[/] {_player.GetCriticalChance() + SkillEffectService.GetCriticalChanceBonus(_player):F1}%
+        [green]Physical Defense:[/] {(int)(_player.GetPhysicalDefense() * SkillEffectService.GetPhysicalDefenseMultiplier(_player))}
         [blue]Magic Resistance:[/] {_player.GetMagicResistance():F1}%
         [gold1]Rare Find:[/] {_player.GetRareItemChance():F1}%
         """;
@@ -1240,7 +1304,7 @@ public class GameEngine
         }
         
         // Show active skill bonuses
-        var bonusSummary = Services.SkillEffectService.GetSkillBonusSummary(_player);
+        var bonusSummary = SkillEffectService.GetSkillBonusSummary(_player);
         if (!bonusSummary.Contains("No active"))
         {
             Console.WriteLine();

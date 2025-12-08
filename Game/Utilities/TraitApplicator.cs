@@ -1,6 +1,6 @@
 using Game.Models;
 
-namespace Game.Services;
+namespace Game.Utilities;
 
 /// <summary>
 /// Utility class for applying and querying traits on entities.

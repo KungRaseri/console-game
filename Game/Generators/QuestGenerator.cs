@@ -2,6 +2,7 @@ using Bogus;
 using Game.Data.Models;
 using Game.Models;
 using Game.Services;
+using Game.Utilities;
 using Serilog;
 
 namespace Game.Generators;
@@ -97,7 +98,8 @@ public static class QuestGenerator
         {
             Title = template.DisplayName,
             QuestType = questType.ToLower(),
-            Difficulty = difficulty.ToLower()
+            Difficulty = difficulty.ToLower(),
+            Type = DetermineQuestType(template, questType) // New Phase 4 field
         };
         
         // Apply all traits from template
@@ -135,6 +137,9 @@ public static class QuestGenerator
                 GenerateDeliveryQuestDetails(quest, faker);
                 break;
         }
+        
+        // Initialize objectives dictionary (Phase 4 enhancement)
+        InitializeObjectives(quest);
         
         // Generate description
         GenerateDescription(quest);
@@ -395,4 +400,77 @@ public static class QuestGenerator
             _ => faker.PickRandom("Mysterious Item", "Unknown Object")
         };
     }
+    
+    /// <summary>
+    /// Determine quest type (main, side, legendary) based on template and quest type (Phase 4).
+    /// </summary>
+    private static string DetermineQuestType(QuestTemplateTraitData template, string questType)
+    {
+        // Check if template has explicit quest type trait
+        if (template.Traits.ContainsKey("questCategory"))
+        {
+            return template.Traits["questCategory"].AsString();
+        }
+        
+        // Hard difficulty quests have a chance to be legendary
+        if (template.Traits.ContainsKey("baseGoldReward"))
+        {
+            var goldReward = template.Traits["baseGoldReward"].AsInt();
+            if (goldReward > 500)
+            {
+                return "legendary";
+            }
+        }
+        
+        // Default to side quest
+        return "side";
+    }
+    
+    /// <summary>
+    /// Initialize objectives dictionary for quest tracking (Phase 4 enhancement).
+    /// </summary>
+    private static void InitializeObjectives(Quest quest)
+    {
+        // Convert legacy quest data to objectives format
+        switch (quest.QuestType.ToLower())
+        {
+            case "kill":
+                if (!string.IsNullOrEmpty(quest.TargetName))
+                {
+                    quest.Objectives[$"Kill {quest.TargetName}"] = quest.Quantity;
+                    quest.ObjectiveProgress[$"Kill {quest.TargetName}"] = 0;
+                }
+                break;
+                
+            case "fetch":
+                if (!string.IsNullOrEmpty(quest.TargetName))
+                {
+                    quest.Objectives[$"Collect {quest.TargetName}"] = quest.Quantity;
+                    quest.ObjectiveProgress[$"Collect {quest.TargetName}"] = 0;
+                }
+                break;
+                
+            case "escort":
+                if (!string.IsNullOrEmpty(quest.TargetName))
+                {
+                    quest.Objectives[$"Escort {quest.TargetName} to {quest.Location}"] = 1;
+                    quest.ObjectiveProgress[$"Escort {quest.TargetName} to {quest.Location}"] = 0;
+                }
+                break;
+                
+            case "investigate":
+                quest.Objectives[$"Investigate {quest.Location}"] = 1;
+                quest.ObjectiveProgress[$"Investigate {quest.Location}"] = 0;
+                break;
+                
+            case "delivery":
+                if (!string.IsNullOrEmpty(quest.TargetName))
+                {
+                    quest.Objectives[$"Deliver to {quest.TargetName}"] = 1;
+                    quest.ObjectiveProgress[$"Deliver to {quest.TargetName}"] = 0;
+                }
+                break;
+        }
+    }
 }
+

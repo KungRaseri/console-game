@@ -2,6 +2,7 @@ using FluentAssertions;
 using Game.Generators;
 using Game.Models;
 using Game.Services;
+using Game.Utilities;
 using Xunit;
 
 namespace Game.Tests.Generators;

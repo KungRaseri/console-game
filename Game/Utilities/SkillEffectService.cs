@@ -1,9 +1,9 @@
 using Game.Models;
 
-namespace Game.Services;
+namespace Game.Utilities;
 
 /// <summary>
-/// Service for calculating skill effects and bonuses.
+/// Utility class for calculating skill effects and bonuses.
 /// </summary>
 public static class SkillEffectService
 {

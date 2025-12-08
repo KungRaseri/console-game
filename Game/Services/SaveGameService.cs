@@ -231,6 +231,36 @@ public class SaveGameService : IDisposable
         }
     }
 
+    /// <summary>
+    /// Record a player death, incrementing death count and handling auto-save for Ironman mode.
+    /// </summary>
+    public void RecordDeath(string location, string killedBy)
+    {
+        if (_currentSave == null)
+        {
+            Log.Warning("Attempted to record death with no active save game");
+            return;
+        }
+
+        _currentSave.DeathCount++;
+        
+        // Track death in game flags for historical reference
+        if (!_currentSave.GameFlags.ContainsKey("deaths"))
+        {
+            _currentSave.GameFlags["deaths"] = true;
+        }
+        
+        Log.Warning("Player death #{Count} at {Location} by {Killer}", 
+            _currentSave.DeathCount, location, killedBy);
+        
+        // Auto-save in Ironman mode
+        if (_currentSave.IronmanMode)
+        {
+            SaveGame(_currentSave);
+            Log.Information("Ironman auto-save triggered by death");
+        }
+    }
+
     // === Quest Management ===
     
     /// <summary>

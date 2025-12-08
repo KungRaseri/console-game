@@ -1,3 +1,5 @@
+using Game.Utilities;
+
 namespace Game.Models;
 
 /// <summary>
@@ -126,7 +128,7 @@ public class Character
     public int GetMaxMana()
     {
         int baseMana = (Wisdom * 5) + (Level * 3);
-        double skillMultiplier = Services.SkillEffectService.GetMaxManaMultiplier(this);
+        double skillMultiplier = SkillEffectService.GetMaxManaMultiplier(this);
         return (int)(baseMana * skillMultiplier);
     }
 
@@ -216,7 +218,7 @@ public class Character
     public double GetRareItemChance()
     {
         double baseChance = Charisma * 0.5;  // 10 CHA = 5% rare find
-        double skillBonus = Services.SkillEffectService.GetRareItemFindBonus(this);
+        double skillBonus = SkillEffectService.GetRareItemFindBonus(this);
         return baseChance + skillBonus;
     }
 

@@ -6,6 +6,27 @@ namespace Game.Tests.Services;
 
 public class CombatServiceTests
 {
+    private readonly CombatService _combatService;
+    
+    public CombatServiceTests()
+    {
+        // Create a SaveGameService with in-memory database for testing
+        var saveGameService = new SaveGameService(":memory:");
+        
+        // Create a test save game with normal difficulty
+        var testSave = new SaveGame 
+        { 
+            DifficultyLevel = "Normal",
+            IronmanMode = false,
+            PlayerName = "TestPlayer",
+            Character = CreateTestPlayer()
+        };
+        saveGameService.CreateNewGame(testSave.Character, "Normal", false);
+        
+        // Create CombatService instance with SaveGameService
+        _combatService = new CombatService(saveGameService);
+    }
+    
     [Fact]
     public void ExecutePlayerAttack_Should_Deal_Damage_To_Enemy()
     {
@@ -15,7 +36,7 @@ public class CombatServiceTests
         int initialHealth = enemy.Health;
         
         // Act
-        var result = CombatService.ExecutePlayerAttack(player, enemy);
+        var result = _combatService.ExecutePlayerAttack(player, enemy);
         
         // Assert
         result.Success.Should().BeTrue();
@@ -36,7 +57,7 @@ public class CombatServiceTests
         for (int i = 0; i < 100; i++)
         {
             enemy.Health = enemy.MaxHealth; // Reset health
-            var result = CombatService.ExecutePlayerAttack(player, enemy);
+            var result = _combatService.ExecutePlayerAttack(player, enemy);
             if (result.IsDodged)
             {
                 foundDodge = true;
@@ -63,7 +84,7 @@ public class CombatServiceTests
         bool foundCritical = false;
         for (int i = 0; i < 100; i++)
         {
-            var result = CombatService.ExecutePlayerAttack(player, enemy);
+            var result = _combatService.ExecutePlayerAttack(player, enemy);
             if (result.IsCritical)
             {
                 foundCritical = true;
@@ -89,8 +110,8 @@ public class CombatServiceTests
         strongEnemy.Constitution = 20; // High defense
         
         // Act
-        var weakResult = CombatService.ExecutePlayerAttack(player, weakEnemy);
-        var strongResult = CombatService.ExecutePlayerAttack(player, strongEnemy);
+        var weakResult = _combatService.ExecutePlayerAttack(player, weakEnemy);
+        var strongResult = _combatService.ExecutePlayerAttack(player, strongEnemy);
         
         // Assert - Weak enemy should take more damage due to lower defense
         weakResult.Damage.Should().BeGreaterThan(strongResult.Damage);
@@ -110,7 +131,7 @@ public class CombatServiceTests
         for (int i = 0; i < 10; i++)
         {
             player.Health = player.MaxHealth; // Reset health
-            var result = CombatService.ExecuteEnemyAttack(enemy, player);
+            var result = _combatService.ExecuteEnemyAttack(enemy, player);
             
             if (!result.IsDodged && player.Health < player.MaxHealth)
             {
@@ -135,12 +156,12 @@ public class CombatServiceTests
         // Set health to max for consistent comparison
         player.Health = player.MaxHealth;
         int healthBefore = player.Health;
-        var normalResult = CombatService.ExecuteEnemyAttack(enemy, player);
+        var normalResult = _combatService.ExecuteEnemyAttack(enemy, player);
         int normalDamage = normalResult.Damage;
         
         // Reset and defend
         player.Health = healthBefore;
-        var defendResult = CombatService.ExecuteEnemyAttack(enemy, player, isDefending: true);
+        var defendResult = _combatService.ExecuteEnemyAttack(enemy, player, isDefending: true);
         
         // Assert - Defending should reduce damage (if not blocked/dodged)
         if (!defendResult.IsBlocked && !defendResult.IsDodged)
@@ -161,7 +182,7 @@ public class CombatServiceTests
         bool foundBlock = false;
         for (int i = 0; i < 100; i++)
         {
-            var result = CombatService.ExecuteEnemyAttack(enemy, player, isDefending: true);
+            var result = _combatService.ExecuteEnemyAttack(enemy, player, isDefending: true);
             if (result.IsBlocked)
             {
                 foundBlock = true;
@@ -194,9 +215,9 @@ public class CombatServiceTests
         
         for (int i = 0; i < 100; i++)
         {
-            if (CombatService.AttemptFlee(fastPlayer, enemy).Success)
+            if (_combatService.AttemptFlee(fastPlayer, enemy).Success)
                 fastSuccesses++;
-            if (CombatService.AttemptFlee(slowPlayer, enemy).Success)
+            if (_combatService.AttemptFlee(slowPlayer, enemy).Success)
                 slowSuccesses++;
         }
         
@@ -221,7 +242,7 @@ public class CombatServiceTests
         int initialHealth = player.Health;
         
         // Act
-        var result = CombatService.UseItemInCombat(player, healthPotion);
+        var result = _combatService.UseItemInCombat(player, healthPotion);
         
         // Assert
         result.Success.Should().BeTrue();
@@ -242,7 +263,7 @@ public class CombatServiceTests
         };
         
         // Act
-        var result = CombatService.UseItemInCombat(player, sword);
+        var result = _combatService.UseItemInCombat(player, sword);
         
         // Assert
         result.Success.Should().BeFalse();
@@ -259,7 +280,7 @@ public class CombatServiceTests
         enemy.GoldReward = 50;
         
         // Act
-        var outcome = CombatService.GenerateVictoryOutcome(player, enemy);
+        var outcome = _combatService.GenerateVictoryOutcome(player, enemy);
         
         // Assert
         outcome.PlayerVictory.Should().BeTrue();
@@ -282,7 +303,7 @@ public class CombatServiceTests
         bool foundLoot = false;
         for (int i = 0; i < 10; i++) // Boss has 100% drop chance
         {
-            var outcome = CombatService.GenerateVictoryOutcome(player, boss);
+            var outcome = _combatService.GenerateVictoryOutcome(player, boss);
             if (outcome.LootDropped.Any())
             {
                 foundLoot = true;
@@ -305,7 +326,7 @@ public class CombatServiceTests
         enemy.Difficulty = EnemyDifficulty.Boss; // 100% loot chance
         
         // Act
-        var outcome = CombatService.GenerateVictoryOutcome(player, enemy);
+        var outcome = _combatService.GenerateVictoryOutcome(player, enemy);
         
         // Assert
         if (outcome.LootDropped.Any())
@@ -329,7 +350,7 @@ public class CombatServiceTests
         enemy.BasePhysicalDamage = 1000; // Overkill damage
         
         // Act
-        CombatService.ExecuteEnemyAttack(enemy, player);
+        _combatService.ExecuteEnemyAttack(enemy, player);
         
         // Assert
         player.Health.Should().Be(0);
@@ -347,7 +368,7 @@ public class CombatServiceTests
         enemy.Constitution = 100; // Very high defense
         
         // Act
-        var result = CombatService.ExecutePlayerAttack(player, enemy);
+        var result = _combatService.ExecutePlayerAttack(player, enemy);
         
         // Assert - Should always deal at least 1 damage
         if (!result.IsDodged)

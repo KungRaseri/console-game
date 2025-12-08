@@ -1,18 +1,57 @@
 using Game.Models;
+using Game.Utilities;
+using Serilog;
 
 namespace Game.Services;
 
 /// <summary>
 /// Service for handling combat mechanics and calculations.
 /// </summary>
-public static class CombatService
+public class CombatService
 {
-    private static readonly Random _random = new();
+    private readonly Random _random = new();
+    private readonly SaveGameService _saveGameService;
+    
+    /// <summary>
+    /// Initialize the combat service with required dependencies.
+    /// </summary>
+    public CombatService(SaveGameService saveGameService)
+    {
+        _saveGameService = saveGameService;
+    }
+    
+    /// <summary>
+    /// Initialize combat by applying difficulty multipliers to enemy stats.
+    /// This should be called before combat begins.
+    /// </summary>
+    public void InitializeCombat(Enemy enemy)
+    {
+        var save = _saveGameService.GetCurrentSave();
+        if (save == null) return;
+        
+        // For now, apply a basic multiplier based on difficulty level
+        // In Phase 1, this will use DifficultySettings.EnemyHealthMultiplier
+        double healthMultiplier = save.DifficultyLevel.ToLower() switch
+        {
+            "easy" => 0.75,
+            "normal" => 1.0,
+            "hard" => 1.5,
+            "expert" => 2.0,
+            _ => 1.0
+        };
+        
+        // Scale enemy health
+        enemy.MaxHealth = (int)(enemy.MaxHealth * healthMultiplier);
+        enemy.Health = enemy.MaxHealth;
+        
+        Log.Information("Enemy {Name} initialized with {Health} HP (difficulty: {Difficulty}, multiplier: {Multiplier})",
+            enemy.Name, enemy.Health, save.DifficultyLevel, healthMultiplier);
+    }
     
     /// <summary>
     /// Execute a player attack on an enemy.
     /// </summary>
-    public static CombatResult ExecutePlayerAttack(Character player, Enemy enemy, bool isDefending = false)
+    public CombatResult ExecutePlayerAttack(Character player, Enemy enemy, bool isDefending = false)
     {
         var result = new CombatResult { Success = true };
         
@@ -65,7 +104,7 @@ public static class CombatService
     /// <summary>
     /// Execute an enemy attack on the player.
     /// </summary>
-    public static CombatResult ExecuteEnemyAttack(Enemy enemy, Character player, bool isDefending = false)
+    public CombatResult ExecuteEnemyAttack(Enemy enemy, Character player, bool isDefending = false)
     {
         var result = new CombatResult { Success = true };
         
@@ -139,7 +178,7 @@ public static class CombatService
     /// <summary>
     /// Calculate player's attack damage based on equipped weapon and attributes.
     /// </summary>
-    private static int CalculatePlayerDamage(Character player)
+    private int CalculatePlayerDamage(Character player)
     {
         int weaponDamage = 5; // Base unarmed damage
         
@@ -172,7 +211,7 @@ public static class CombatService
     /// <summary>
     /// Attempt to flee from combat.
     /// </summary>
-    public static CombatResult AttemptFlee(Character player, Enemy enemy)
+    public CombatResult AttemptFlee(Character player, Enemy enemy)
     {
         // Success chance based on player DEX vs enemy DEX
         double baseChance = 50.0;
@@ -193,7 +232,7 @@ public static class CombatService
     /// <summary>
     /// Use a consumable item in combat.
     /// </summary>
-    public static CombatResult UseItemInCombat(Character player, Item item)
+    public CombatResult UseItemInCombat(Character player, Item item)
     {
         var result = new CombatResult { Success = true };
         
@@ -233,7 +272,7 @@ public static class CombatService
     /// <summary>
     /// Roll for dodge based on chance percentage.
     /// </summary>
-    private static bool RollDodge(double dodgeChance)
+    private bool RollDodge(double dodgeChance)
     {
         return _random.Next(0, 10000) < (dodgeChance * 100);
     }
@@ -241,7 +280,7 @@ public static class CombatService
     /// <summary>
     /// Roll for critical hit based on chance percentage.
     /// </summary>
-    private static bool RollCritical(double critChance)
+    private bool RollCritical(double critChance)
     {
         return _random.Next(0, 10000) < (critChance * 100);
     }
@@ -249,7 +288,7 @@ public static class CombatService
     /// <summary>
     /// Roll for block when defending.
     /// </summary>
-    private static bool RollBlock(double blockChance)
+    private bool RollBlock(double blockChance)
     {
         return _random.Next(0, 100) < blockChance;
     }
@@ -257,7 +296,7 @@ public static class CombatService
     /// <summary>
     /// Generate combat outcome after victory.
     /// </summary>
-    public static CombatOutcome GenerateVictoryOutcome(Character player, Enemy enemy)
+    public CombatOutcome GenerateVictoryOutcome(Character player, Enemy enemy)
     {
         var outcome = new CombatOutcome
         {
@@ -282,7 +321,7 @@ public static class CombatService
     /// <summary>
     /// Generate loot item based on enemy difficulty and player stats.
     /// </summary>
-    private static Item? GenerateLoot(Character player, Enemy enemy)
+    private Item? GenerateLoot(Character player, Enemy enemy)
     {
         double lootChance = GetLootChance(enemy.Difficulty);
         lootChance += player.GetRareItemChance();
@@ -309,7 +348,7 @@ public static class CombatService
     /// <summary>
     /// Get base loot drop chance for enemy difficulty.
     /// </summary>
-    private static double GetLootChance(EnemyDifficulty difficulty)
+    private double GetLootChance(EnemyDifficulty difficulty)
     {
         return difficulty switch
         {
@@ -325,7 +364,7 @@ public static class CombatService
     /// <summary>
     /// Determine loot rarity based on enemy difficulty.
     /// </summary>
-    private static ItemRarity DetermineLootRarity(EnemyDifficulty difficulty)
+    private ItemRarity DetermineLootRarity(EnemyDifficulty difficulty)
     {
         return difficulty switch
         {
@@ -341,7 +380,7 @@ public static class CombatService
     /// <summary>
     /// Generate victory summary message.
     /// </summary>
-    private static string GenerateVictorySummary(Enemy enemy, CombatOutcome outcome)
+    private string GenerateVictorySummary(Enemy enemy, CombatOutcome outcome)
     {
         var summary = $"Victory! Defeated {enemy.Name}!\n\n";
         summary += $"[green]+{outcome.XPGained} XP[/]\n";
