@@ -52,6 +52,9 @@ public class GameDataService
     public DialogueTemplateData DialogueTemplates { get; private set; } = new();
     public DialogueTraitsData DialogueTraits { get; private set; } = new();
     
+    // Quest data
+    public QuestTemplatesData QuestTemplates { get; private set; } = new();
+    
     // General data
     public AdjectiveData Adjectives { get; private set; } = new();
     public MaterialData Materials { get; private set; } = new();
@@ -146,6 +149,9 @@ public class GameDataService
             Occupations = LoadJson<OccupationData>("npcs/occupations.json");
             DialogueTemplates = LoadJson<DialogueTemplateData>("npcs/dialogue_templates.json");
             DialogueTraits = LoadJson<DialogueTraitsData>("npcs/dialogue_traits.json");
+            
+            // Load quest data
+            QuestTemplates = LoadJson<QuestTemplatesData>("quests/quest_templates.json");
             
             // Load general data
             Adjectives = LoadJson<AdjectiveData>("general/adjectives.json");
