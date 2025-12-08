@@ -48,7 +48,7 @@ public class GameStateService
     /// <summary>
     /// Update the current location and track it in the save game.
     /// </summary>
-    public void SetLocation(string location)
+    public void UpdateLocation(string location)
     {
         CurrentLocation = location;
         

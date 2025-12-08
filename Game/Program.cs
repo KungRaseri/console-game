@@ -65,6 +65,15 @@ try
     });
 
     // Register core game services
+    services.AddSingleton<SaveGameService>();
+    services.AddSingleton<GameStateService>();
+    services.AddSingleton<CombatService>();
+    
+    // Register UI and interaction services
+    services.AddTransient<MenuService>();
+    services.AddTransient<ExplorationService>();
+    
+    // Register the game engine
     services.AddSingleton<GameEngine>();
 
     var serviceProvider = services.BuildServiceProvider();
