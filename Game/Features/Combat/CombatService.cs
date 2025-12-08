@@ -1,8 +1,9 @@
 using Game.Models;
+using Game.Services;
 using Game.Utilities;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.Combat;
 
 /// <summary>
 /// Service for handling combat mechanics and calculations.

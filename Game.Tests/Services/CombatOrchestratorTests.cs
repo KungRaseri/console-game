@@ -1,6 +1,8 @@
 using Xunit;
 using FluentAssertions;
 using Game.Services;
+using Game.Features.Combat;
+using Game.Shared.Services;
 using Game.Models;
 using MediatR;
 using Moq;

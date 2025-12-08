@@ -1,4 +1,5 @@
 using Game.Models;
+using Game.Services;
 using Game.Shared.UI;
 using Game.Shared.Services;
 using Game.Utilities;
@@ -6,7 +7,7 @@ using MediatR;
 using Serilog;
 using Spectre.Console;
 
-namespace Game.Services;
+namespace Game.Features.Combat;
 
 /// <summary>
 /// Orchestrates high-level combat flow including turns, victory, and defeat.

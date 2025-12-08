@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Game.Models;
 using Game.Services;
+using Game.Features.Combat;
 using System;
 using System.IO;
 

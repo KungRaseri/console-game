@@ -2,6 +2,7 @@ using FluentAssertions;
 using Game.Generators;
 using Game.Models;
 using Game.Services;
+using Game.Shared.Services;
 using Game.Utilities;
 using Xunit;
 
@@ -12,7 +13,7 @@ public class EnemyTraitTests
     public EnemyTraitTests()
     {
         // Initialize GameDataService for tests
-        var dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "Game", "Data", "Json");
+        var dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "Game", "Shared", "Data", "Json");
         if (Directory.Exists(dataPath))
         {
             GameDataService.Initialize(dataPath);

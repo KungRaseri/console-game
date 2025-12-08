@@ -2,6 +2,7 @@ using Game.Models;
 using Game.Shared.UI;
 using Game.Shared.Events;
 using Game.Services;
+using Game.Features.Combat;
 using Game.Shared.Services;
 using Game.Utilities;
 using MediatR;

@@ -1,6 +1,6 @@
 using Game.Models;
 using Game.Services;
-using Game.Data;
+using Game.Shared.Data;
 using MediatR;
 using Xunit;
 using FluentAssertions;
