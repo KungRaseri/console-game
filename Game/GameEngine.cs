@@ -20,7 +20,6 @@ public class GameEngine
     private readonly ResiliencePipeline _resiliencePipeline;
     private readonly SaveGameService _saveGameService;
     private readonly CombatService _combatService;
-    private Character? _player;
     private GameState _state;
     private bool _isRunning;
     private List<Item> _inventory;
@@ -40,6 +39,12 @@ public class GameEngine
         "Coastal Village",
         "Underground Caverns"
     };
+    
+    /// <summary>
+    /// Get the current player character from the active save game.
+    /// Returns null if no save game is active.
+    /// </summary>
+    private Character? Player => _saveGameService.GetCurrentSave()?.Character;
 
     public GameEngine(IMediator mediator)
     {
@@ -239,16 +244,20 @@ public class GameEngine
         }
         
         // Step 4: Create character
-        _player = Services.CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
+        var newCharacter = Services.CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
         
         // Step 5: Review character
-        ReviewCharacter(_player, selectedClass);
+        ReviewCharacter(newCharacter, selectedClass);
 
-        ConsoleUI.ShowSuccess($"Welcome, {_player.Name} the {_player.ClassName}!");
+        ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
         await Task.Delay(500);
 
         // Publish character created event
-        await _mediator.Publish(new CharacterCreated(_player.Name));
+        await _mediator.Publish(new CharacterCreated(newCharacter.Name));
+
+        // Create save game with the new character
+        var saveGame = _saveGameService.CreateNewGame(newCharacter);
+        _currentSaveId = saveGame.Id;
 
         _state = GameState.InGame;
     }
@@ -508,7 +517,7 @@ public class GameEngine
 
     private async Task HandleInGameAsync()
     {
-        if (_player == null)
+        if (Player == null)
         {
             _state = GameState.MainMenu;
             return;
@@ -528,16 +537,16 @@ public class GameEngine
         };
         
         // Add level-up option if player has unspent points
-        if (_player.UnspentAttributePoints > 0 || _player.UnspentSkillPoints > 0)
+        if (Player.UnspentAttributePoints > 0 || Player.UnspentSkillPoints > 0)
         {
-            menuOptions.Insert(3, $"[yellow]🌟 Level Up ({_player.UnspentAttributePoints} attr, {_player.UnspentSkillPoints} skill)[/]");
+            menuOptions.Insert(3, $"[yellow]🌟 Level Up ({Player.UnspentAttributePoints} attr, {Player.UnspentSkillPoints} skill)[/]");
         }
         
         menuOptions.Add("Save Game");
         menuOptions.Add("Main Menu");
         
         var action = ConsoleUI.ShowMenu(
-            $"[{_player.Name}] - Level {_player.Level} | HP: {_player.Health}/{_player.MaxHealth} | Gold: {_player.Gold}",
+            $"[{Player.Name}] - Level {Player.Level} | HP: {Player.Health}/{Player.MaxHealth} | Gold: {Player.Gold}",
             menuOptions.ToArray()
         );
 
@@ -560,7 +569,7 @@ public class GameEngine
                 break;
                 
             case var s when s.Contains("Level Up"):
-                await Services.LevelUpService.ProcessPendingLevelUpsAsync(_player);
+                await Services.LevelUpService.ProcessPendingLevelUpsAsync(Player);
                 break;
 
             case "Inventory":
@@ -579,7 +588,7 @@ public class GameEngine
                 if (ConsoleUI.Confirm("Return to main menu? (unsaved progress will be lost)"))
                 {
                     _state = GameState.MainMenu;
-                    _player = null;
+                    _currentSaveId = null; // Clear current save
                 }
                 break;
         }
@@ -587,14 +596,14 @@ public class GameEngine
 
     private async Task HandleCombatAsync()
     {
-        if (_player == null)
+        if (Player == null)
         {
             _state = GameState.InGame;
             return;
         }
 
         // Generate enemy based on player level
-        var enemy = Generators.EnemyGenerator.Generate(_player.Level, EnemyDifficulty.Normal);
+        var enemy = Generators.EnemyGenerator.Generate(Player.Level, EnemyDifficulty.Normal);
         
         // Initialize combat with difficulty scaling
         _combatService.InitializeCombat(enemy);
@@ -603,15 +612,15 @@ public class GameEngine
         _combatLog = new CombatLog(maxEntries: 15);
         _combatLog.AddEntry($"⚔️ Combat begins! A {enemy.Name} appears!", CombatLogType.Info);
         
-        await _mediator.Publish(new CombatStarted(_player.Name, enemy.Name));
+        await _mediator.Publish(new CombatStarted(Player.Name, enemy.Name));
         
         bool playerDefending = false;
         
         // Combat loop
-        while (_player.IsAlive() && enemy.IsAlive())
+        while (Player.IsAlive() && enemy.IsAlive())
         {
             // Display combat status with log
-            DisplayCombatStatusWithLog(_player, enemy);
+            DisplayCombatStatusWithLog(Player, enemy);
             
             // Player turn
             var action = ConsoleUI.ShowMenu(
@@ -627,7 +636,7 @@ public class GameEngine
             switch (action)
             {
                 case "⚔️  Attack":
-                    await ExecutePlayerTurnAsync(_player, enemy, CombatActionType.Attack);
+                    await ExecutePlayerTurnAsync(Player, enemy, CombatActionType.Attack);
                     break;
                     
                 case "🛡️  Defend":
@@ -638,7 +647,7 @@ public class GameEngine
                     break;
                     
                 case "🧪 Use Item":
-                    var itemUsed = await UseItemInCombatMenuAsync(_player);
+                    var itemUsed = await UseItemInCombatMenuAsync(Player);
                     if (!itemUsed)
                     {
                         continue; // Don't advance turn if no item was used
@@ -646,7 +655,7 @@ public class GameEngine
                     break;
                     
                 case "🏃 Flee":
-                    var fleeResult = _combatService.AttemptFlee(_player, enemy);
+                    var fleeResult = _combatService.AttemptFlee(Player, enemy);
                     if (fleeResult.Success)
                     {
                         _combatLog.AddEntry("Successfully fled!", CombatLogType.Info);
@@ -673,16 +682,16 @@ public class GameEngine
             
             // Enemy turn
             await Task.Delay(200);
-            await ExecuteEnemyTurnAsync(_player, enemy, playerDefending);
+            await ExecuteEnemyTurnAsync(Player, enemy, playerDefending);
             
             // Check if player is defeated
-            if (!_player.IsAlive())
+            if (!Player.IsAlive())
             {
                 break;
             }
             
             // Apply regeneration at end of turn
-            var regenAmount = SkillEffectCalculator.ApplyRegeneration(_player);
+            var regenAmount = SkillEffectCalculator.ApplyRegeneration(Player);
             if (regenAmount > 0)
             {
                 _combatLog.AddEntry($"💚 Regeneration healed {regenAmount} HP", CombatLogType.Heal);
@@ -695,15 +704,15 @@ public class GameEngine
         }
         
         // Combat ended
-        if (_player.IsAlive())
+        if (Player.IsAlive())
         {
             _combatLog.AddEntry($"🎉 Victory! {enemy.Name} defeated!", CombatLogType.Victory);
-            await HandleCombatVictoryAsync(_player, enemy);
+            await HandleCombatVictoryAsync(Player, enemy);
         }
         else
         {
             _combatLog.AddEntry("💀 You have been defeated...", CombatLogType.Defeat);
-            await HandleCombatDefeatAsync(_player, enemy);
+            await HandleCombatDefeatAsync(Player, enemy);
         }
         
         // Clear combat log
@@ -999,7 +1008,7 @@ public class GameEngine
 
     private async Task HandleInventoryAsync()
     {
-        if (_player == null)
+        if (Player == null)
         {
             _state = GameState.InGame;
             return;
@@ -1012,8 +1021,8 @@ public class GameEngine
             Console.WriteLine();
             
             // Display inventory summary
-            var inventoryCount = _player.Inventory.Count;
-            var totalValue = _player.Inventory.Sum(i => i.Price);
+            var inventoryCount = Player.Inventory.Count;
+            var totalValue = Player.Inventory.Sum(i => i.Price);
 
             if (inventoryCount == 0)
             {
@@ -1032,7 +1041,7 @@ public class GameEngine
             ConsoleUI.ShowBanner($"Inventory ({inventoryCount} items)", $"Total Value: {totalValue} gold");
 
             // Group items by type for display
-            var itemsByType = _player.Inventory
+            var itemsByType = Player.Inventory
                 .GroupBy(i => i.Type)
                 .OrderBy(g => g.Key)
                 .ToList();
@@ -1118,7 +1127,7 @@ public class GameEngine
                 if (ConsoleUI.Confirm("Return to main menu? (unsaved progress will be lost)"))
                 {
                     _state = GameState.MainMenu;
-                    _player = null;
+                    _currentSaveId = null; // Clear current save
                 }
                 break;
         }
@@ -1127,19 +1136,19 @@ public class GameEngine
     private async Task HandleGameOverAsync()
     {
         ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("GAME OVER", $"{_player?.Name ?? "Hero"} has fallen...");
+        ConsoleUI.ShowBanner("GAME OVER", $"{Player?.Name ?? "Hero"} has fallen...");
 
         ConsoleUI.PressAnyKey("Press any key to return to main menu");
 
         _state = GameState.MainMenu;
-        _player = null;
+        _currentSaveId = null; // Clear current save
 
         await Task.CompletedTask;
     }
 
     private async Task ExploreAsync()
     {
-        if (_player == null) return;
+        if (Player == null) return;
 
         ConsoleUI.ShowInfo($"Exploring {_currentLocation}...");
 
@@ -1168,29 +1177,29 @@ public class GameEngine
 
         // Peaceful exploration - gain some XP
         var xpGained = Random.Shared.Next(10, 30);
-        _player.GainExperience(xpGained);
+        Player.GainExperience(xpGained);
 
         // Check if leveled up
-        var newLevel = _player.Level;
-        if (newLevel > _player.Level - 1)
+        var newLevel = Player.Level;
+        if (newLevel > Player.Level - 1)
         {
-            await _mediator.Publish(new PlayerLeveledUp(_player.Name, newLevel));
+            await _mediator.Publish(new PlayerLeveledUp(Player.Name, newLevel));
         }
 
         ConsoleUI.ShowSuccess($"Gained {xpGained} XP!");
 
         // Find gold
         var goldFound = Random.Shared.Next(5, 25);
-        _player.Gold += goldFound;
-        await _mediator.Publish(new GoldGained(_player.Name, goldFound));
+        Player.Gold += goldFound;
+        await _mediator.Publish(new GoldGained(Player.Name, goldFound));
 
         // Random chance to find an item (30% chance)
         if (Random.Shared.Next(100) < 30)
         {
             var foundItem = Generators.ItemGenerator.Generate();
             
-            _player.Inventory.Add(foundItem);
-            await _mediator.Publish(new ItemAcquired(_player.Name, foundItem.Name));
+            Player.Inventory.Add(foundItem);
+            await _mediator.Publish(new ItemAcquired(Player.Name, foundItem.Name));
             
             ConsoleUI.ShowSuccess($"Found: {foundItem.Name} ({GetRarityColor(foundItem.Rarity)}{foundItem.Rarity}[/])!");
         }
@@ -1237,30 +1246,30 @@ public class GameEngine
 
     private async Task ViewCharacterAsync()
     {
-        if (_player == null) return;
+        if (Player == null) return;
 
         ConsoleUI.Clear();
         
         // Basic stats
         var statsContent = $"""
-        [yellow]Name:[/] {_player.Name} ([cyan]{_player.ClassName}[/])
-        [red]Health:[/] {_player.Health}/{_player.MaxHealth}
-        [blue]Mana:[/] {_player.Mana}/{_player.MaxMana}
-        [green]Level:[/] {_player.Level}
-        [cyan]Experience:[/] {_player.Experience}/{_player.Level * 100}
-        [yellow]Gold:[/] {_player.Gold}
+        [yellow]Name:[/] {Player.Name} ([cyan]{Player.ClassName}[/])
+        [red]Health:[/] {Player.Health}/{Player.MaxHealth}
+        [blue]Mana:[/] {Player.Mana}/{Player.MaxMana}
+        [green]Level:[/] {Player.Level}
+        [cyan]Experience:[/] {Player.Experience}/{Player.Level * 100}
+        [yellow]Gold:[/] {Player.Gold}
         """;
 
         ConsoleUI.ShowPanel("Character Stats", statsContent, "green");
         
         // D20 Attributes
         var attributesContent = $"""
-        [red]Strength (STR):[/] {_player.Strength}
-        [magenta]Dexterity (DEX):[/] {_player.Dexterity}
-        [green]Constitution (CON):[/] {_player.Constitution}
-        [cyan]Intelligence (INT):[/] {_player.Intelligence}
-        [blue]Wisdom (WIS):[/] {_player.Wisdom}
-        [yellow]Charisma (CHA):[/] {_player.Charisma}
+        [red]Strength (STR):[/] {Player.Strength}
+        [magenta]Dexterity (DEX):[/] {Player.Dexterity}
+        [green]Constitution (CON):[/] {Player.Constitution}
+        [cyan]Intelligence (INT):[/] {Player.Intelligence}
+        [blue]Wisdom (WIS):[/] {Player.Wisdom}
+        [yellow]Charisma (CHA):[/] {Player.Charisma}
         """;
         
         Console.WriteLine();
@@ -1268,26 +1277,26 @@ public class GameEngine
         
         // Derived stats with skill bonuses
         var derivedContent = $"""
-        [red]Physical Damage:[/] {_player.GetPhysicalDamageBonus()} (+{(SkillEffectCalculator.GetPhysicalDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
-        [cyan]Magic Damage:[/] {_player.GetMagicDamageBonus()} (+{(SkillEffectCalculator.GetMagicDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
-        [magenta]Dodge Chance:[/] {_player.GetDodgeChance() + SkillEffectCalculator.GetDodgeChanceBonus(_player):F1}%
-        [yellow]Critical Chance:[/] {_player.GetCriticalChance() + SkillEffectCalculator.GetCriticalChanceBonus(_player):F1}%
-        [green]Physical Defense:[/] {(int)(_player.GetPhysicalDefense() * SkillEffectCalculator.GetPhysicalDefenseMultiplier(_player))}
-        [blue]Magic Resistance:[/] {_player.GetMagicResistance():F1}%
-        [gold1]Rare Find:[/] {_player.GetRareItemChance():F1}%
+        [red]Physical Damage:[/] {Player.GetPhysicalDamageBonus()} (+{(SkillEffectCalculator.GetPhysicalDamageMultiplier(Player) - 1.0) * 100:F0}% from skills)
+        [cyan]Magic Damage:[/] {Player.GetMagicDamageBonus()} (+{(SkillEffectCalculator.GetMagicDamageMultiplier(Player) - 1.0) * 100:F0}% from skills)
+        [magenta]Dodge Chance:[/] {Player.GetDodgeChance() + SkillEffectCalculator.GetDodgeChanceBonus(Player):F1}%
+        [yellow]Critical Chance:[/] {Player.GetCriticalChance() + SkillEffectCalculator.GetCriticalChanceBonus(Player):F1}%
+        [green]Physical Defense:[/] {(int)(Player.GetPhysicalDefense() * SkillEffectCalculator.GetPhysicalDefenseMultiplier(Player))}
+        [blue]Magic Resistance:[/] {Player.GetMagicResistance():F1}%
+        [gold1]Rare Find:[/] {Player.GetRareItemChance():F1}%
         """;
         
         Console.WriteLine();
         ConsoleUI.ShowPanel("Combat Stats", derivedContent, "yellow");
         
         // Show learned skills
-        if (_player.LearnedSkills.Any())
+        if (Player.LearnedSkills.Any())
         {
             Console.WriteLine();
             ConsoleUI.WriteColoredText("[bold cyan]📚 Learned Skills:[/]");
             Console.WriteLine();
             
-            foreach (var skill in _player.LearnedSkills.OrderBy(s => s.Type))
+            foreach (var skill in Player.LearnedSkills.OrderBy(s => s.Type))
             {
                 var typeColor = skill.Type switch
                 {
@@ -1304,7 +1313,7 @@ public class GameEngine
         }
         
         // Show active skill bonuses
-        var bonusSummary = SkillEffectCalculator.GetSkillBonusSummary(_player);
+        var bonusSummary = SkillEffectCalculator.GetSkillBonusSummary(Player);
         if (!bonusSummary.Contains("No active"))
         {
             Console.WriteLine();
@@ -1319,19 +1328,19 @@ public class GameEngine
 
     private void RestAsync()
     {
-        if (_player == null) return;
+        if (Player == null) return;
 
         ConsoleUI.ShowInfo("You rest and recover...");
 
-        _player.Health = _player.MaxHealth;
-        _player.Mana = _player.MaxMana;
+        Player.Health = Player.MaxHealth;
+        Player.Mana = Player.MaxMana;
 
         ConsoleUI.ShowSuccess("Fully rested!");
     }
 
     private void SaveGameAsync()
     {
-        if (_player == null)
+        if (Player == null)
         {
             ConsoleUI.ShowError("No active game to save!");
             return;
@@ -1341,9 +1350,9 @@ public class GameEngine
 
         try
         {
-            _saveGameService.SaveGame(_player, _inventory, _currentSaveId);
+            _saveGameService.SaveGame(Player, _inventory, _currentSaveId);
             ConsoleUI.ShowSuccess("Game saved successfully!");
-            Log.Information("Game saved for player {PlayerName}", _player.Name);
+            Log.Information("Game saved for player {PlayerName}", Player.Name);
         }
         catch (Exception ex)
         {
@@ -1428,12 +1437,12 @@ public class GameEngine
                 }
             });
 
-            _player = selectedSave.Character;
-            _inventory = _player.Inventory; // Inventory is now tracked in Character
+            // Save loaded - set current save ID
             _currentSaveId = selectedSave.Id;
+            _inventory = selectedSave.Character.Inventory; // Inventory is now tracked in Character
 
-            ConsoleUI.ShowSuccess($"Welcome back, {_player.Name}!");
-            Log.Information("Game loaded for player {PlayerName}", _player.Name);
+            ConsoleUI.ShowSuccess($"Welcome back, {Player!.Name}!");
+            Log.Information("Game loaded for player {PlayerName}", Player.Name);
             await Task.Delay(500);
 
             _state = GameState.InGame;
@@ -1503,59 +1512,59 @@ public class GameEngine
 
     private string GetEquipmentDisplay()
     {
-        if (_player == null) return "No character";
+        if (Player == null) return "No character";
 
         var lines = new List<string>();
         
         // Weapons
         lines.Add("[underline yellow]Weapons & Off-hand[/]");
-        lines.Add($"  [yellow]Main Hand:[/] {GetItemDisplay(_player.EquippedMainHand)}");
-        lines.Add($"  [yellow]Off Hand:[/]  {GetItemDisplay(_player.EquippedOffHand)}");
+        lines.Add($"  [yellow]Main Hand:[/] {GetItemDisplay(Player.EquippedMainHand)}");
+        lines.Add($"  [yellow]Off Hand:[/]  {GetItemDisplay(Player.EquippedOffHand)}");
         lines.Add("");
         
         // Armor
         lines.Add("[underline yellow]Armor[/]");
-        lines.Add($"  [yellow]Helmet:[/]    {GetItemDisplay(_player.EquippedHelmet)}");
-        lines.Add($"  [yellow]Shoulders:[/] {GetItemDisplay(_player.EquippedShoulders)}");
-        lines.Add($"  [yellow]Chest:[/]     {GetItemDisplay(_player.EquippedChest)}");
-        lines.Add($"  [yellow]Bracers:[/]   {GetItemDisplay(_player.EquippedBracers)}");
-        lines.Add($"  [yellow]Gloves:[/]    {GetItemDisplay(_player.EquippedGloves)}");
-        lines.Add($"  [yellow]Belt:[/]      {GetItemDisplay(_player.EquippedBelt)}");
-        lines.Add($"  [yellow]Legs:[/]      {GetItemDisplay(_player.EquippedLegs)}");
-        lines.Add($"  [yellow]Boots:[/]     {GetItemDisplay(_player.EquippedBoots)}");
+        lines.Add($"  [yellow]Helmet:[/]    {GetItemDisplay(Player.EquippedHelmet)}");
+        lines.Add($"  [yellow]Shoulders:[/] {GetItemDisplay(Player.EquippedShoulders)}");
+        lines.Add($"  [yellow]Chest:[/]     {GetItemDisplay(Player.EquippedChest)}");
+        lines.Add($"  [yellow]Bracers:[/]   {GetItemDisplay(Player.EquippedBracers)}");
+        lines.Add($"  [yellow]Gloves:[/]    {GetItemDisplay(Player.EquippedGloves)}");
+        lines.Add($"  [yellow]Belt:[/]      {GetItemDisplay(Player.EquippedBelt)}");
+        lines.Add($"  [yellow]Legs:[/]      {GetItemDisplay(Player.EquippedLegs)}");
+        lines.Add($"  [yellow]Boots:[/]     {GetItemDisplay(Player.EquippedBoots)}");
         lines.Add("");
         
         // Jewelry
         lines.Add("[underline yellow]Jewelry[/]");
-        lines.Add($"  [yellow]Necklace:[/]  {GetItemDisplay(_player.EquippedNecklace)}");
-        lines.Add($"  [yellow]Ring 1:[/]    {GetItemDisplay(_player.EquippedRing1)}");
-        lines.Add($"  [yellow]Ring 2:[/]    {GetItemDisplay(_player.EquippedRing2)}");
+        lines.Add($"  [yellow]Necklace:[/]  {GetItemDisplay(Player.EquippedNecklace)}");
+        lines.Add($"  [yellow]Ring 1:[/]    {GetItemDisplay(Player.EquippedRing1)}");
+        lines.Add($"  [yellow]Ring 2:[/]    {GetItemDisplay(Player.EquippedRing2)}");
         lines.Add("");
         
         // D20 Attributes
         lines.Add("[underline yellow]Attributes[/]");
         var allSets = Data.EquipmentSetRepository.GetAllSets();
-        lines.Add($"  [red]Strength (STR):[/]     {_player.GetTotalStrength(allSets)} ([grey]{_player.Strength} base[/])");
-        lines.Add($"  [green]Dexterity (DEX):[/]    {_player.GetTotalDexterity(allSets)} ([grey]{_player.Dexterity} base[/])");
-        lines.Add($"  [yellow]Constitution (CON):[/] {_player.GetTotalConstitution(allSets)} ([grey]{_player.Constitution} base[/])");
-        lines.Add($"  [purple]Intelligence (INT):[/] {_player.GetTotalIntelligence(allSets)} ([grey]{_player.Intelligence} base[/])");
-        lines.Add($"  [blue]Wisdom (WIS):[/]        {_player.GetTotalWisdom(allSets)} ([grey]{_player.Wisdom} base[/])");
-        lines.Add($"  [cyan]Charisma (CHA):[/]      {_player.GetTotalCharisma(allSets)} ([grey]{_player.Charisma} base[/])");
+        lines.Add($"  [red]Strength (STR):[/]     {Player.GetTotalStrength(allSets)} ([grey]{Player.Strength} base[/])");
+        lines.Add($"  [green]Dexterity (DEX):[/]    {Player.GetTotalDexterity(allSets)} ([grey]{Player.Dexterity} base[/])");
+        lines.Add($"  [yellow]Constitution (CON):[/] {Player.GetTotalConstitution(allSets)} ([grey]{Player.Constitution} base[/])");
+        lines.Add($"  [purple]Intelligence (INT):[/] {Player.GetTotalIntelligence(allSets)} ([grey]{Player.Intelligence} base[/])");
+        lines.Add($"  [blue]Wisdom (WIS):[/]        {Player.GetTotalWisdom(allSets)} ([grey]{Player.Wisdom} base[/])");
+        lines.Add($"  [cyan]Charisma (CHA):[/]      {Player.GetTotalCharisma(allSets)} ([grey]{Player.Charisma} base[/])");
         lines.Add("");
         
         // Derived Stats
         lines.Add("[underline yellow]Derived Stats[/]");
-        lines.Add($"  [red]Physical Damage:[/] +{_player.GetPhysicalDamageBonus()}");
-        lines.Add($"  [purple]Magic Damage:[/]    +{_player.GetMagicDamageBonus()}");
-        lines.Add($"  [green]Dodge Chance:[/]    {_player.GetDodgeChance():F1}%");
-        lines.Add($"  [yellow]Crit Chance:[/]     {_player.GetCriticalChance():F1}%");
-        lines.Add($"  [blue]Physical Defense:[/] {_player.GetPhysicalDefense()}");
-        lines.Add($"  [cyan]Magic Resist:[/]     {_player.GetMagicResistance():F1}%");
-        lines.Add($"  [magenta]Shop Discount:[/]   {_player.GetShopDiscount():F1}%");
-        lines.Add($"  [white]Rare Find:[/]        {_player.GetRareItemChance():F1}%");
+        lines.Add($"  [red]Physical Damage:[/] +{Player.GetPhysicalDamageBonus()}");
+        lines.Add($"  [purple]Magic Damage:[/]    +{Player.GetMagicDamageBonus()}");
+        lines.Add($"  [green]Dodge Chance:[/]    {Player.GetDodgeChance():F1}%");
+        lines.Add($"  [yellow]Crit Chance:[/]     {Player.GetCriticalChance():F1}%");
+        lines.Add($"  [blue]Physical Defense:[/] {Player.GetPhysicalDefense()}");
+        lines.Add($"  [cyan]Magic Resist:[/]     {Player.GetMagicResistance():F1}%");
+        lines.Add($"  [magenta]Shop Discount:[/]   {Player.GetShopDiscount():F1}%");
+        lines.Add($"  [white]Rare Find:[/]        {Player.GetRareItemChance():F1}%");
         
         // Active Equipment Sets
-        var activeSets = _player.GetActiveEquipmentSets();
+        var activeSets = Player.GetActiveEquipmentSets();
         if (activeSets.Any())
         {
             lines.Add("");
@@ -1610,7 +1619,7 @@ public class GameEngine
 
     private async Task ViewItemDetailsAsync()
     {
-        if (_player == null || _player.Inventory.Count == 0) return;
+        if (Player == null || Player.Inventory.Count == 0) return;
 
         var item = SelectItemFromInventory("Select an item to view");
         if (item == null) return;
@@ -1734,9 +1743,9 @@ public class GameEngine
 
     private async Task UseItemAsync()
     {
-        if (_player == null || _player.Inventory.Count == 0) return;
+        if (Player == null || Player.Inventory.Count == 0) return;
 
-        var consumables = _player.Inventory.Where(i => i.Type == ItemType.Consumable).ToList();
+        var consumables = Player.Inventory.Where(i => i.Type == ItemType.Consumable).ToList();
         
         if (consumables.Count == 0)
         {
@@ -1748,27 +1757,27 @@ public class GameEngine
         var item = SelectItemFromList(consumables, "Select a consumable to use");
         if (item == null) return;
 
-        var healthBefore = _player.Health;
-        var manaBefore = _player.Mana;
+        var healthBefore = Player.Health;
+        var manaBefore = Player.Mana;
 
         // Apply consumable effects (simplified - similar to InventoryService logic)
-        ApplyConsumableEffects(item, _player);
+        ApplyConsumableEffects(item, Player);
 
         // Remove from inventory
-        _player.Inventory.Remove(item);
-        await _mediator.Publish(new ItemAcquired(_player.Name, $"{item.Name} (used)"));
+        Player.Inventory.Remove(item);
+        await _mediator.Publish(new ItemAcquired(Player.Name, $"{item.Name} (used)"));
 
         // Show results
         Console.WriteLine();
         ConsoleUI.ShowSuccess($"Used {item.Name}!");
         
-        if (_player.Health != healthBefore)
+        if (Player.Health != healthBefore)
         {
-            ConsoleUI.ShowInfo($"Health: {healthBefore} → {_player.Health}");
+            ConsoleUI.ShowInfo($"Health: {healthBefore} → {Player.Health}");
         }
-        if (_player.Mana != manaBefore)
+        if (Player.Mana != manaBefore)
         {
-            ConsoleUI.ShowInfo($"Mana: {manaBefore} → {_player.Mana}");
+            ConsoleUI.ShowInfo($"Mana: {manaBefore} → {Player.Mana}");
         }
 
         await Task.Delay(500);
@@ -1776,9 +1785,9 @@ public class GameEngine
 
     private async Task EquipItemAsync()
     {
-        if (_player == null || _player.Inventory.Count == 0) return;
+        if (Player == null || Player.Inventory.Count == 0) return;
 
-        var equipable = _player.Inventory
+        var equipable = Player.Inventory
             .Where(i => i.Type != ItemType.Consumable && i.Type != ItemType.QuestItem)
             .ToList();
 
@@ -1798,81 +1807,81 @@ public class GameEngine
         {
             case ItemType.Weapon:
                 // Check if this is a two-handed weapon
-                if (item.IsTwoHanded && _player.EquippedOffHand != null)
+                if (item.IsTwoHanded && Player.EquippedOffHand != null)
                 {
-                    var confirm = ConsoleUI.Confirm($"This is a two-handed weapon and will unequip your off-hand ({_player.EquippedOffHand.Name}). Continue?");
+                    var confirm = ConsoleUI.Confirm($"This is a two-handed weapon and will unequip your off-hand ({Player.EquippedOffHand.Name}). Continue?");
                     if (!confirm)
                     {
                         return;
                     }
                     
                     // Unequip off-hand first
-                    _player.Inventory.Add(_player.EquippedOffHand);
-                    _player.EquippedOffHand = null;
-                    ConsoleUI.ShowInfo($"Unequipped {_player.EquippedOffHand?.Name ?? "off-hand"}");
+                    Player.Inventory.Add(Player.EquippedOffHand);
+                    Player.EquippedOffHand = null;
+                    ConsoleUI.ShowInfo($"Unequipped {Player.EquippedOffHand?.Name ?? "off-hand"}");
                 }
                 
-                unequipped = _player.EquippedMainHand;
-                _player.EquippedMainHand = item;
+                unequipped = Player.EquippedMainHand;
+                Player.EquippedMainHand = item;
                 break;
 
             case ItemType.Shield:
             case ItemType.OffHand:
                 // Check if main hand has a two-handed weapon
-                if (_player.EquippedMainHand != null && _player.EquippedMainHand.IsTwoHanded)
+                if (Player.EquippedMainHand != null && Player.EquippedMainHand.IsTwoHanded)
                 {
-                    ConsoleUI.ShowWarning($"Cannot equip off-hand while wielding a two-handed weapon ({_player.EquippedMainHand.Name})!");
+                    ConsoleUI.ShowWarning($"Cannot equip off-hand while wielding a two-handed weapon ({Player.EquippedMainHand.Name})!");
                     await Task.Delay(500);
                     return;
                 }
                 
-                unequipped = _player.EquippedOffHand;
-                _player.EquippedOffHand = item;
+                unequipped = Player.EquippedOffHand;
+                Player.EquippedOffHand = item;
                 break;
 
             case ItemType.Helmet:
-                unequipped = _player.EquippedHelmet;
-                _player.EquippedHelmet = item;
+                unequipped = Player.EquippedHelmet;
+                Player.EquippedHelmet = item;
                 break;
 
             case ItemType.Shoulders:
-                unequipped = _player.EquippedShoulders;
-                _player.EquippedShoulders = item;
+                unequipped = Player.EquippedShoulders;
+                Player.EquippedShoulders = item;
                 break;
 
             case ItemType.Chest:
-                unequipped = _player.EquippedChest;
-                _player.EquippedChest = item;
+                unequipped = Player.EquippedChest;
+                Player.EquippedChest = item;
                 break;
 
             case ItemType.Bracers:
-                unequipped = _player.EquippedBracers;
-                _player.EquippedBracers = item;
+                unequipped = Player.EquippedBracers;
+                Player.EquippedBracers = item;
                 break;
 
             case ItemType.Gloves:
-                unequipped = _player.EquippedGloves;
-                _player.EquippedGloves = item;
+                unequipped = Player.EquippedGloves;
+                Player.EquippedGloves = item;
                 break;
 
             case ItemType.Belt:
-                unequipped = _player.EquippedBelt;
-                _player.EquippedBelt = item;
+                unequipped = Player.EquippedBelt;
+                Player.EquippedBelt = item;
                 break;
 
             case ItemType.Legs:
-                unequipped = _player.EquippedLegs;
-                _player.EquippedLegs = item;
+                unequipped = Player.EquippedLegs;
+                Player.EquippedLegs = item;
                 break;
 
             case ItemType.Boots:
-                unequipped = _player.EquippedBoots;
-                _player.EquippedBoots = item;
+                unequipped = Player.EquippedBoots;
+                Player.EquippedBoots = item;
                 break;
 
             case ItemType.Necklace:
-                unequipped = _player.EquippedNecklace;
-                _player.EquippedNecklace = item;
+                unequipped = Player.EquippedNecklace;
+                Player.EquippedNecklace = item;
                 break;
 
             case ItemType.Ring:
@@ -1887,12 +1896,12 @@ public class GameEngine
         }
 
         // Remove from inventory
-        _player.Inventory.Remove(item);
+        Player.Inventory.Remove(item);
 
         // Add previously equipped item back to inventory
         if (unequipped != null)
         {
-            _player.Inventory.Add(unequipped);
+            Player.Inventory.Add(unequipped);
         }
 
         ConsoleUI.ShowSuccess($"Equipped {item.Name}!");
@@ -1906,47 +1915,47 @@ public class GameEngine
 
     private Task<Item?> EquipRingAsync(Item ring)
     {
-        if (_player == null) return Task.FromResult<Item?>(null);
+        if (Player == null) return Task.FromResult<Item?>(null);
 
         // Both rings empty - equip to slot 1
-        if (_player.EquippedRing1 == null && _player.EquippedRing2 == null)
+        if (Player.EquippedRing1 == null && Player.EquippedRing2 == null)
         {
-            _player.EquippedRing1 = ring;
+            Player.EquippedRing1 = ring;
             return Task.FromResult<Item?>(null);
         }
 
         // Ring 1 empty - equip there
-        if (_player.EquippedRing1 == null)
+        if (Player.EquippedRing1 == null)
         {
-            _player.EquippedRing1 = ring;
+            Player.EquippedRing1 = ring;
             return Task.FromResult<Item?>(null);
         }
 
         // Ring 2 empty - equip there
-        if (_player.EquippedRing2 == null)
+        if (Player.EquippedRing2 == null)
         {
-            _player.EquippedRing2 = ring;
+            Player.EquippedRing2 = ring;
             return Task.FromResult<Item?>(null);
         }
 
         // Both rings equipped - ask which to replace
         var choice = ConsoleUI.ShowMenu(
             "Both ring slots are occupied. Which ring slot?",
-            $"Ring 1: {_player.EquippedRing1.Name}",
-            $"Ring 2: {_player.EquippedRing2.Name}",
+            $"Ring 1: {Player.EquippedRing1.Name}",
+            $"Ring 2: {Player.EquippedRing2.Name}",
             "Cancel"
         );
 
         if (choice.StartsWith("Ring 1"))
         {
-            var old = _player.EquippedRing1;
-            _player.EquippedRing1 = ring;
+            var old = Player.EquippedRing1;
+            Player.EquippedRing1 = ring;
             return Task.FromResult<Item?>(old);
         }
         else if (choice.StartsWith("Ring 2"))
         {
-            var old = _player.EquippedRing2;
-            _player.EquippedRing2 = ring;
+            var old = Player.EquippedRing2;
+            Player.EquippedRing2 = ring;
             return Task.FromResult<Item?>(old);
         }
 
@@ -1955,7 +1964,7 @@ public class GameEngine
 
     private async Task DropItemAsync()
     {
-        if (_player == null || _player.Inventory.Count == 0) return;
+        if (Player == null || Player.Inventory.Count == 0) return;
 
         var item = SelectItemFromInventory("Select an item to drop");
         if (item == null) return;
@@ -1965,16 +1974,16 @@ public class GameEngine
             return;
         }
 
-        _player.Inventory.Remove(item);
+        Player.Inventory.Remove(item);
         ConsoleUI.ShowWarning($"Dropped {item.Name}");
-        Log.Information("Player {PlayerName} dropped item: {ItemName}", _player.Name, item.Name);
+        Log.Information("Player {PlayerName} dropped item: {ItemName}", Player.Name, item.Name);
 
         await Task.Delay(300);
     }
 
     private void SortInventory()
     {
-        if (_player == null || _player.Inventory.Count == 0) return;
+        if (Player == null || Player.Inventory.Count == 0) return;
 
         var sortChoice = ConsoleUI.ShowMenu(
             "Sort by...",
@@ -1988,22 +1997,22 @@ public class GameEngine
         switch (sortChoice)
         {
             case "Name":
-                _player.Inventory.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
+                Player.Inventory.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
                 ConsoleUI.ShowSuccess("Sorted by name");
                 break;
 
             case "Type":
-                _player.Inventory.Sort((a, b) => a.Type.CompareTo(b.Type));
+                Player.Inventory.Sort((a, b) => a.Type.CompareTo(b.Type));
                 ConsoleUI.ShowSuccess("Sorted by type");
                 break;
 
             case "Rarity":
-                _player.Inventory.Sort((a, b) => b.Rarity.CompareTo(a.Rarity));
+                Player.Inventory.Sort((a, b) => b.Rarity.CompareTo(a.Rarity));
                 ConsoleUI.ShowSuccess("Sorted by rarity");
                 break;
 
             case "Value":
-                _player.Inventory.Sort((a, b) => b.Price.CompareTo(a.Price));
+                Player.Inventory.Sort((a, b) => b.Price.CompareTo(a.Price));
                 ConsoleUI.ShowSuccess("Sorted by value");
                 break;
         }
@@ -2011,8 +2020,8 @@ public class GameEngine
 
     private Item? SelectItemFromInventory(string prompt)
     {
-        if (_player == null || _player.Inventory.Count == 0) return null;
-        return SelectItemFromList(_player.Inventory, prompt);
+        if (Player == null || Player.Inventory.Count == 0) return null;
+        return SelectItemFromList(Player.Inventory, prompt);
     }
 
     private Item? SelectItemFromList(List<Item> items, string prompt)
@@ -2085,3 +2094,4 @@ public enum GameState
     Paused,
     GameOver
 }
+
