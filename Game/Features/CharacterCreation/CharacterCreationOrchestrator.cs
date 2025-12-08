@@ -2,10 +2,11 @@ using Game.Shared.Data;
 using Game.Models;
 using Game.Shared.UI;
 using Game.Shared.Services;
+using Game.Services;
 using MediatR;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.CharacterCreation;
 
 /// <summary>
 /// Orchestrates the entire character creation flow including class selection,

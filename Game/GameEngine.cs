@@ -4,6 +4,7 @@ using Game.Shared.Events;
 using Game.Services;
 using Game.Features.Combat;
 using Game.Features.Inventory;
+using Game.Features.CharacterCreation;
 using Game.Shared.Services;
 using Game.Utilities;
 using MediatR;

@@ -1,7 +1,7 @@
 using Game.Shared.Data;
 using Game.Models;
 
-namespace Game.Services;
+namespace Game.Features.CharacterCreation;
 
 /// <summary>
 /// Service for creating new characters with class selection and attribute allocation.

@@ -2,6 +2,7 @@ using FluentAssertions;
 using Game.Models;
 using Game.Shared.Data;
 using Game.Services;
+using Game.Features.CharacterCreation;
 
 namespace Game.Tests.Services;
 

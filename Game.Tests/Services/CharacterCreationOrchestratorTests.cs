@@ -1,5 +1,6 @@
 using Game.Models;
 using Game.Services;
+using Game.Features.CharacterCreation;
 using Game.Shared.Data;
 using MediatR;
 using Xunit;
