@@ -1,0 +1,84 @@
+using Game.Models;
+
+namespace Game.Data.Models;
+
+/// <summary>
+/// Enhanced data models for item traits from JSON.
+/// </summary>
+
+// Weapon prefix with traits
+public class WeaponPrefixTraitData
+{
+    public string DisplayName { get; set; } = string.Empty;
+    public Dictionary<string, TraitValue> Traits { get; set; } = new();
+}
+
+public class WeaponPrefixDataEnhanced
+{
+    public Dictionary<string, WeaponPrefixTraitData> Common { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Uncommon { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Rare { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Epic { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Legendary { get; set; } = new();
+}
+
+// Armor material with traits
+public class ArmorMaterialTraitData
+{
+    public string DisplayName { get; set; } = string.Empty;
+    public Dictionary<string, TraitValue> Traits { get; set; } = new();
+}
+
+public class ArmorMaterialDataEnhanced
+{
+    public Dictionary<string, ArmorMaterialTraitData> Common { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Uncommon { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Rare { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Epic { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Legendary { get; set; } = new();
+}
+
+// Enchantment suffix with traits
+public class EnchantmentSuffixTraitData
+{
+    public string DisplayName { get; set; } = string.Empty;
+    public Dictionary<string, TraitValue> Traits { get; set; } = new();
+}
+
+public class EnchantmentSuffixDataEnhanced
+{
+    public Dictionary<string, EnchantmentSuffixTraitData> Power { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Protection { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Wisdom { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Agility { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Magic { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Fire { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Ice { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Lightning { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Life { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Death { get; set; } = new();
+}
+
+/// <summary>
+/// Helper for deserializing trait data from JSON.
+/// </summary>
+public class JsonTraitValue
+{
+    public object? Value { get; set; }
+    public string Type { get; set; } = "string";
+    
+    public TraitValue ToTraitValue()
+    {
+        var traitType = Type.ToLower() switch
+        {
+            "number" => TraitType.Number,
+            "string" => TraitType.String,
+            "boolean" => TraitType.Boolean,
+            "stringarray" => TraitType.StringArray,
+            "numberarray" => TraitType.NumberArray,
+            _ => TraitType.String
+        };
+        
+        return new TraitValue(Value, traitType);
+    }
+}

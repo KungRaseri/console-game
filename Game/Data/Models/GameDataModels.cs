@@ -1,17 +1,19 @@
+using Game.Models;
+
 namespace Game.Data.Models;
 
 /// <summary>
 /// Data models for deserializing JSON game data files.
 /// </summary>
 
-// Item-related data models
+// Item-related data models with trait support
 public class WeaponPrefixData
 {
-    public List<string> Common { get; set; } = new();
-    public List<string> Uncommon { get; set; } = new();
-    public List<string> Rare { get; set; } = new();
-    public List<string> Epic { get; set; } = new();
-    public List<string> Legendary { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Common { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Uncommon { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Rare { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Epic { get; set; } = new();
+    public Dictionary<string, WeaponPrefixTraitData> Legendary { get; set; } = new();
 }
 
 public class WeaponNameData
@@ -27,25 +29,25 @@ public class WeaponNameData
 
 public class ArmorMaterialData
 {
-    public List<string> Common { get; set; } = new();
-    public List<string> Uncommon { get; set; } = new();
-    public List<string> Rare { get; set; } = new();
-    public List<string> Epic { get; set; } = new();
-    public List<string> Legendary { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Common { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Uncommon { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Rare { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Epic { get; set; } = new();
+    public Dictionary<string, ArmorMaterialTraitData> Legendary { get; set; } = new();
 }
 
 public class EnchantmentSuffixData
 {
-    public List<string> Power { get; set; } = new();
-    public List<string> Protection { get; set; } = new();
-    public List<string> Wisdom { get; set; } = new();
-    public List<string> Agility { get; set; } = new();
-    public List<string> Magic { get; set; } = new();
-    public List<string> Fire { get; set; } = new();
-    public List<string> Ice { get; set; } = new();
-    public List<string> Lightning { get; set; } = new();
-    public List<string> Life { get; set; } = new();
-    public List<string> Death { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Power { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Protection { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Wisdom { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Agility { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Magic { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Fire { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Ice { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Lightning { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Life { get; set; } = new();
+    public Dictionary<string, EnchantmentSuffixTraitData> Death { get; set; } = new();
 }
 
 // Enemy-related data models

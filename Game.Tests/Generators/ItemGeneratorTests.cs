@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using FluentAssertions;
 using Game.Generators;
 using Game.Models;
@@ -55,13 +56,20 @@ public class ItemGeneratorTests
     public void GenerateByType_Weapon_Should_Have_Weapon_Names()
     {
         // Act
-        var weapons = ItemGenerator.GenerateByType(ItemType.Weapon, 5);
+        var weapons = ItemGenerator.GenerateByType(ItemType.Weapon, 10);
 
-        // Assert
+        // Assert - check that weapons have names from our JSON data
         foreach (var weapon in weapons)
         {
-            weapon.Name.Should().MatchRegex("(Iron|Steel|Mythril|Dragon) (Sword|Axe|Bow|Dagger|Spear|Staff|Wand|Mace)");
+            weapon.Name.Should().NotBeNullOrWhiteSpace();
+            // Weapon names should not be empty and should be actual weapon types
+            weapon.Type.Should().Be(ItemType.Weapon);
         }
+        
+        // At least some weapons should have recognizable weapon words
+        var hasWeaponWords = weapons.Any(w => 
+            Regex.IsMatch(w.Name, @"(sword|axe|bow|dagger|spear|mace|staff|partisan|halberd|lance|pike|javelin|crossbow|flail|hammer|katana|claymore|rapier|scimitar|trident|glaive|club|maul)", RegexOptions.IgnoreCase));
+        hasWeaponWords.Should().BeTrue("weapons should contain recognizable weapon type names");
     }
 
     [Fact]

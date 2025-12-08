@@ -3,7 +3,7 @@ namespace Game.Models;
 /// <summary>
 /// Represents an item in the game.
 /// </summary>
-public class Item
+public class Item : ITraitable
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string Name { get; set; } = string.Empty;
@@ -11,6 +11,9 @@ public class Item
     public int Price { get; set; }
     public ItemRarity Rarity { get; set; } = ItemRarity.Common;
     public ItemType Type { get; set; } = ItemType.Consumable;
+    
+    // Trait system - flexible properties defined in JSON
+    public Dictionary<string, TraitValue> Traits { get; } = new();
     
     // Equipment set
     public string? SetName { get; set; }

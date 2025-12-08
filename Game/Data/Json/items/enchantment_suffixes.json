@@ -1,77 +1,459 @@
 {
-  "power": [
-    "of Power",
-    "of Might",
-    "of Strength",
-    "of the Titan",
-    "of the Bear",
-    "of the Warrior"
-  ],
-  "protection": [
-    "of Protection",
-    "of Warding",
-    "of Defense",
-    "of the Guardian",
-    "of the Shield",
-    "of Fortitude"
-  ],
-  "wisdom": [
-    "of Wisdom",
-    "of Insight",
-    "of Knowledge",
-    "of the Sage",
-    "of the Oracle",
-    "of Enlightenment"
-  ],
-  "agility": [
-    "of Agility",
-    "of Speed",
-    "of Swiftness",
-    "of the Cat",
-    "of the Wind",
-    "of the Falcon"
-  ],
-  "magic": [
-    "of Magic",
-    "of Sorcery",
-    "of the Arcane",
-    "of the Magi",
-    "of Spellcraft",
-    "of the Enchanter"
-  ],
-  "fire": [
-    "of Flames",
-    "of the Inferno",
-    "of Burning",
-    "of the Phoenix",
-    "of Dragonfire"
-  ],
-  "ice": [
-    "of Frost",
-    "of Winter",
-    "of the Frozen",
-    "of Glaciers",
-    "of Eternal Ice"
-  ],
-  "lightning": [
-    "of Lightning",
-    "of Thunder",
-    "of the Storm",
-    "of Storms",
-    "of the Tempest"
-  ],
-  "life": [
-    "of Life",
-    "of Vitality",
-    "of Regeneration",
-    "of the Phoenix",
-    "of Renewal"
-  ],
-  "death": [
-    "of Death",
-    "of Shadows",
-    "of the Void",
-    "of Souls",
-    "of the Reaper"
-  ]
+  "power": {
+    "of Power": {
+      "displayName": "of Power",
+      "traits": {
+        "strengthBonus": { "value": 3, "type": "number" },
+        "damageBonus": { "value": 2, "type": "number" }
+      }
+    },
+    "of Might": {
+      "displayName": "of Might",
+      "traits": {
+        "strengthBonus": { "value": 5, "type": "number" },
+        "damageBonus": { "value": 3, "type": "number" },
+        "knockbackChance": { "value": 10, "type": "number" }
+      }
+    },
+    "of Strength": {
+      "displayName": "of Strength",
+      "traits": {
+        "strengthBonus": { "value": 7, "type": "number" },
+        "damageBonus": { "value": 5, "type": "number" }
+      }
+    },
+    "of the Titan": {
+      "displayName": "of the Titan",
+      "traits": {
+        "strengthBonus": { "value": 10, "type": "number" },
+        "damageBonus": { "value": 8, "type": "number" },
+        "healthBonus": { "value": 20, "type": "number" },
+        "knockbackChance": { "value": 20, "type": "number" }
+      }
+    },
+    "of the Bear": {
+      "displayName": "of the Bear",
+      "traits": {
+        "strengthBonus": { "value": 8, "type": "number" },
+        "healthBonus": { "value": 30, "type": "number" },
+        "damageBonus": { "value": 6, "type": "number" }
+      }
+    },
+    "of the Warrior": {
+      "displayName": "of the Warrior",
+      "traits": {
+        "strengthBonus": { "value": 6, "type": "number" },
+        "damageBonus": { "value": 4, "type": "number" },
+        "criticalChance": { "value": 5, "type": "number" }
+      }
+    }
+  },
+  "protection": {
+    "of Protection": {
+      "displayName": "of Protection",
+      "traits": {
+        "armorBonus": { "value": 3, "type": "number" },
+        "healthBonus": { "value": 10, "type": "number" }
+      }
+    },
+    "of Warding": {
+      "displayName": "of Warding",
+      "traits": {
+        "armorBonus": { "value": 5, "type": "number" },
+        "resistMagic": { "value": 10, "type": "number" }
+      }
+    },
+    "of Defense": {
+      "displayName": "of Defense",
+      "traits": {
+        "armorBonus": { "value": 7, "type": "number" },
+        "blockChance": { "value": 10, "type": "number" }
+      }
+    },
+    "of the Guardian": {
+      "displayName": "of the Guardian",
+      "traits": {
+        "armorBonus": { "value": 10, "type": "number" },
+        "healthBonus": { "value": 30, "type": "number" },
+        "blockChance": { "value": 15, "type": "number" },
+        "damageReflection": { "value": 5, "type": "number" }
+      }
+    },
+    "of the Shield": {
+      "displayName": "of the Shield",
+      "traits": {
+        "armorBonus": { "value": 8, "type": "number" },
+        "blockChance": { "value": 20, "type": "number" }
+      }
+    },
+    "of Fortitude": {
+      "displayName": "of Fortitude",
+      "traits": {
+        "healthBonus": { "value": 50, "type": "number" },
+        "armorBonus": { "value": 5, "type": "number" },
+        "healthRegeneration": { "value": 2, "type": "number" }
+      }
+    }
+  },
+  "wisdom": {
+    "of Wisdom": {
+      "displayName": "of Wisdom",
+      "traits": {
+        "intelligenceBonus": { "value": 3, "type": "number" },
+        "manaBonus": { "value": 15, "type": "number" }
+      }
+    },
+    "of Insight": {
+      "displayName": "of Insight",
+      "traits": {
+        "intelligenceBonus": { "value": 5, "type": "number" },
+        "manaBonus": { "value": 20, "type": "number" },
+        "criticalChance": { "value": 5, "type": "number" }
+      }
+    },
+    "of Knowledge": {
+      "displayName": "of Knowledge",
+      "traits": {
+        "intelligenceBonus": { "value": 7, "type": "number" },
+        "manaBonus": { "value": 30, "type": "number" },
+        "spellPower": { "value": 5, "type": "number" }
+      }
+    },
+    "of the Sage": {
+      "displayName": "of the Sage",
+      "traits": {
+        "intelligenceBonus": { "value": 10, "type": "number" },
+        "manaBonus": { "value": 50, "type": "number" },
+        "spellPower": { "value": 10, "type": "number" },
+        "manaRegeneration": { "value": 3, "type": "number" }
+      }
+    },
+    "of the Oracle": {
+      "displayName": "of the Oracle",
+      "traits": {
+        "intelligenceBonus": { "value": 8, "type": "number" },
+        "manaBonus": { "value": 40, "type": "number" },
+        "spellPower": { "value": 8, "type": "number" },
+        "visionRange": { "value": 2, "type": "number" }
+      }
+    },
+    "of Enlightenment": {
+      "displayName": "of Enlightenment",
+      "traits": {
+        "intelligenceBonus": { "value": 12, "type": "number" },
+        "manaBonus": { "value": 60, "type": "number" },
+        "experienceBonus": { "value": 10, "type": "number" }
+      }
+    }
+  },
+  "agility": {
+    "of Agility": {
+      "displayName": "of Agility",
+      "traits": {
+        "dexterityBonus": { "value": 3, "type": "number" },
+        "dodgeChance": { "value": 5, "type": "number" }
+      }
+    },
+    "of Speed": {
+      "displayName": "of Speed",
+      "traits": {
+        "dexterityBonus": { "value": 5, "type": "number" },
+        "movementSpeed": { "value": 10, "type": "number" },
+        "attackSpeed": { "value": 5, "type": "number" }
+      }
+    },
+    "of Swiftness": {
+      "displayName": "of Swiftness",
+      "traits": {
+        "dexterityBonus": { "value": 7, "type": "number" },
+        "movementSpeed": { "value": 15, "type": "number" },
+        "dodgeChance": { "value": 10, "type": "number" }
+      }
+    },
+    "of the Cat": {
+      "displayName": "of the Cat",
+      "traits": {
+        "dexterityBonus": { "value": 10, "type": "number" },
+        "dodgeChance": { "value": 20, "type": "number" },
+        "criticalChance": { "value": 10, "type": "number" },
+        "stealthBonus": { "value": 15, "type": "number" }
+      }
+    },
+    "of the Wind": {
+      "displayName": "of the Wind",
+      "traits": {
+        "dexterityBonus": { "value": 8, "type": "number" },
+        "movementSpeed": { "value": 25, "type": "number" },
+        "attackSpeed": { "value": 15, "type": "number" }
+      }
+    },
+    "of the Falcon": {
+      "displayName": "of the Falcon",
+      "traits": {
+        "dexterityBonus": { "value": 9, "type": "number" },
+        "criticalChance": { "value": 15, "type": "number" },
+        "visionRange": { "value": 3, "type": "number" }
+      }
+    }
+  },
+  "magic": {
+    "of Magic": {
+      "displayName": "of Magic",
+      "traits": {
+        "spellPower": { "value": 5, "type": "number" },
+        "manaBonus": { "value": 20, "type": "number" }
+      }
+    },
+    "of Sorcery": {
+      "displayName": "of Sorcery",
+      "traits": {
+        "spellPower": { "value": 8, "type": "number" },
+        "manaBonus": { "value": 30, "type": "number" },
+        "spellCriticalChance": { "value": 5, "type": "number" }
+      }
+    },
+    "of the Arcane": {
+      "displayName": "of the Arcane",
+      "traits": {
+        "spellPower": { "value": 12, "type": "number" },
+        "manaBonus": { "value": 40, "type": "number" },
+        "resistMagic": { "value": 15, "type": "number" }
+      }
+    },
+    "of the Magi": {
+      "displayName": "of the Magi",
+      "traits": {
+        "spellPower": { "value": 15, "type": "number" },
+        "manaBonus": { "value": 60, "type": "number" },
+        "spellCriticalChance": { "value": 10, "type": "number" },
+        "manaRegeneration": { "value": 5, "type": "number" }
+      }
+    },
+    "of Spellcraft": {
+      "displayName": "of Spellcraft",
+      "traits": {
+        "spellPower": { "value": 10, "type": "number" },
+        "manaBonus": { "value": 50, "type": "number" },
+        "cooldownReduction": { "value": 10, "type": "number" }
+      }
+    },
+    "of the Enchanter": {
+      "displayName": "of the Enchanter",
+      "traits": {
+        "spellPower": { "value": 13, "type": "number" },
+        "manaBonus": { "value": 45, "type": "number" },
+        "enchantmentPower": { "value": 20, "type": "number" }
+      }
+    }
+  },
+  "fire": {
+    "of Flames": {
+      "displayName": "of Flames",
+      "traits": {
+        "fireDamage": { "value": 5, "type": "number" },
+        "resistFire": { "value": 10, "type": "number" }
+      }
+    },
+    "of the Inferno": {
+      "displayName": "of the Inferno",
+      "traits": {
+        "fireDamage": { "value": 12, "type": "number" },
+        "resistFire": { "value": 25, "type": "number" },
+        "burnChance": { "value": 20, "type": "number" }
+      }
+    },
+    "of Burning": {
+      "displayName": "of Burning",
+      "traits": {
+        "fireDamage": { "value": 8, "type": "number" },
+        "burnChance": { "value": 30, "type": "number" }
+      }
+    },
+    "of the Phoenix": {
+      "displayName": "of the Phoenix",
+      "traits": {
+        "fireDamage": { "value": 15, "type": "number" },
+        "resistFire": { "value": 40, "type": "number" },
+        "burnChance": { "value": 25, "type": "number" },
+        "resurrectChance": { "value": 5, "type": "number" }
+      }
+    },
+    "of Dragonfire": {
+      "displayName": "of Dragonfire",
+      "traits": {
+        "fireDamage": { "value": 20, "type": "number" },
+        "resistFire": { "value": 30, "type": "number" },
+        "areaDamage": { "value": 10, "type": "number" }
+      }
+    }
+  },
+  "ice": {
+    "of Frost": {
+      "displayName": "of Frost",
+      "traits": {
+        "iceDamage": { "value": 5, "type": "number" },
+        "resistIce": { "value": 10, "type": "number" }
+      }
+    },
+    "of Winter": {
+      "displayName": "of Winter",
+      "traits": {
+        "iceDamage": { "value": 10, "type": "number" },
+        "resistIce": { "value": 20, "type": "number" },
+        "slowChance": { "value": 25, "type": "number" }
+      }
+    },
+    "of the Frozen": {
+      "displayName": "of the Frozen",
+      "traits": {
+        "iceDamage": { "value": 8, "type": "number" },
+        "freezeChance": { "value": 15, "type": "number" },
+        "slowChance": { "value": 30, "type": "number" }
+      }
+    },
+    "of Glaciers": {
+      "displayName": "of Glaciers",
+      "traits": {
+        "iceDamage": { "value": 15, "type": "number" },
+        "resistIce": { "value": 35, "type": "number" },
+        "armorBonus": { "value": 5, "type": "number" }
+      }
+    },
+    "of Eternal Ice": {
+      "displayName": "of Eternal Ice",
+      "traits": {
+        "iceDamage": { "value": 18, "type": "number" },
+        "resistIce": { "value": 40, "type": "number" },
+        "freezeChance": { "value": 25, "type": "number" },
+        "manaRegeneration": { "value": 3, "type": "number" }
+      }
+    }
+  },
+  "lightning": {
+    "of Lightning": {
+      "displayName": "of Lightning",
+      "traits": {
+        "lightningDamage": { "value": 6, "type": "number" },
+        "resistLightning": { "value": 10, "type": "number" }
+      }
+    },
+    "of Thunder": {
+      "displayName": "of Thunder",
+      "traits": {
+        "lightningDamage": { "value": 10, "type": "number" },
+        "resistLightning": { "value": 20, "type": "number" },
+        "stunChance": { "value": 15, "type": "number" }
+      }
+    },
+    "of the Storm": {
+      "displayName": "of the Storm",
+      "traits": {
+        "lightningDamage": { "value": 12, "type": "number" },
+        "chainLightningChance": { "value": 20, "type": "number" },
+        "attackSpeed": { "value": 10, "type": "number" }
+      }
+    },
+    "of Storms": {
+      "displayName": "of Storms",
+      "traits": {
+        "lightningDamage": { "value": 15, "type": "number" },
+        "resistLightning": { "value": 25, "type": "number" },
+        "chainLightningChance": { "value": 30, "type": "number" }
+      }
+    },
+    "of the Tempest": {
+      "displayName": "of the Tempest",
+      "traits": {
+        "lightningDamage": { "value": 18, "type": "number" },
+        "resistLightning": { "value": 35, "type": "number" },
+        "stunChance": { "value": 25, "type": "number" },
+        "movementSpeed": { "value": 15, "type": "number" }
+      }
+    }
+  },
+  "life": {
+    "of Life": {
+      "displayName": "of Life",
+      "traits": {
+        "healthBonus": { "value": 20, "type": "number" },
+        "healthRegeneration": { "value": 2, "type": "number" }
+      }
+    },
+    "of Vitality": {
+      "displayName": "of Vitality",
+      "traits": {
+        "healthBonus": { "value": 40, "type": "number" },
+        "healthRegeneration": { "value": 4, "type": "number" },
+        "constitutionBonus": { "value": 3, "type": "number" }
+      }
+    },
+    "of Regeneration": {
+      "displayName": "of Regeneration",
+      "traits": {
+        "healthBonus": { "value": 30, "type": "number" },
+        "healthRegeneration": { "value": 8, "type": "number" },
+        "poisonResist": { "value": 20, "type": "number" }
+      }
+    },
+    "of the Phoenix": {
+      "displayName": "of the Phoenix",
+      "traits": {
+        "healthBonus": { "value": 50, "type": "number" },
+        "healthRegeneration": { "value": 10, "type": "number" },
+        "resurrectChance": { "value": 10, "type": "number" },
+        "fireDamage": { "value": 8, "type": "number" }
+      }
+    },
+    "of Renewal": {
+      "displayName": "of Renewal",
+      "traits": {
+        "healthBonus": { "value": 35, "type": "number" },
+        "healthRegeneration": { "value": 6, "type": "number" },
+        "manaRegeneration": { "value": 3, "type": "number" }
+      }
+    }
+  },
+  "death": {
+    "of Death": {
+      "displayName": "of Death",
+      "traits": {
+        "necroticDamage": { "value": 8, "type": "number" },
+        "lifeSteal": { "value": 5, "type": "number" }
+      }
+    },
+    "of Shadows": {
+      "displayName": "of Shadows",
+      "traits": {
+        "necroticDamage": { "value": 10, "type": "number" },
+        "stealthBonus": { "value": 20, "type": "number" },
+        "criticalChance": { "value": 10, "type": "number" }
+      }
+    },
+    "of the Void": {
+      "displayName": "of the Void",
+      "traits": {
+        "necroticDamage": { "value": 15, "type": "number" },
+        "lifeSteal": { "value": 10, "type": "number" },
+        "resistMagic": { "value": 15, "type": "number" }
+      }
+    },
+    "of Souls": {
+      "displayName": "of Souls",
+      "traits": {
+        "necroticDamage": { "value": 12, "type": "number" },
+        "lifeSteal": { "value": 8, "type": "number" },
+        "soulTrapChance": { "value": 20, "type": "number" },
+        "manaOnKill": { "value": 5, "type": "number" }
+      }
+    },
+    "of the Reaper": {
+      "displayName": "of the Reaper",
+      "traits": {
+        "necroticDamage": { "value": 20, "type": "number" },
+        "lifeSteal": { "value": 15, "type": "number" },
+        "executeChance": { "value": 5, "type": "number" },
+        "criticalDamage": { "value": 25, "type": "number" }
+      }
+    }
+  }
 }
