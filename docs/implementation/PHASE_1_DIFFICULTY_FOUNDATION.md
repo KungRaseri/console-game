@@ -1,6 +1,7 @@
 # Phase 1: Difficulty System Foundation
 
-**Status**: 🟡 Not Started  
+**Status**: � Ready to Start  
+**Prerequisites**: ✅ All pre-phase improvements complete  
 **Estimated Time**: 2-3 hours  
 **Next Phase**: [Phase 2: Death System](./PHASE_2_DEATH_SYSTEM.md)  
 **Related Phases**: [Phase 3](./PHASE_3_APOCALYPSE_MODE.md) | [Phase 4](./PHASE_4_ENDGAME.md)
@@ -10,6 +11,12 @@
 ## 📋 Overview
 
 Create the foundational difficulty system with 7 difficulty modes: Easy, Normal, Hard, Expert, Ironman, Permadeath, and Apocalypse. This phase establishes the data models and applies combat multipliers.
+
+**✅ Pre-Phase Foundation Complete:**
+- CombatService is now instance-based with SaveGameService injection
+- Enemy scaling hook (InitializeCombat) already exists
+- GameStateService provides centralized difficulty access
+- All infrastructure ready for multiplier implementation
 
 ---
 
@@ -353,65 +360,51 @@ public DifficultySettings GetDifficultySettings()
 
 ### 5. `Game/Services/CombatService.cs` - Apply Difficulty Multipliers
 
-**Location**: Modify damage calculation methods
+**✅ Pre-Phase Note**: CombatService is already an instance class with SaveGameService injected! The InitializeCombat method already exists for enemy health scaling.
 
-**Add field at top of class**:
+**Location**: Update existing `InitializeCombat` method to use DifficultySettings
+
+**CURRENT CODE** (from pre-phase improvements):
 ```csharp
-private readonly SaveGameService _saveGameService;
-
-public CombatService(SaveGameService? saveGameService = null)
+public void InitializeCombat(Enemy enemy)
 {
-    _saveGameService = saveGameService ?? new SaveGameService();
-}
-```
-
-**Modify `CalculateDamage` method** (around line 50):
-
-**ADD** at the beginning of the method:
-```csharp
-public int CalculateDamage(Character attacker, Enemy defender, bool isPlayerAttack)
-{
-    // Get difficulty multipliers
     var difficulty = _saveGameService.GetDifficultySettings();
     
-    // ... existing code ...
-    
-    // Apply difficulty multiplier at the end before return
-    if (isPlayerAttack)
-    {
-        finalDamage = (int)(finalDamage * difficulty.PlayerDamageMultiplier);
-    }
-    else
-    {
-        finalDamage = (int)(finalDamage * difficulty.EnemyDamageMultiplier);
-    }
-    
-    return Math.Max(1, finalDamage);
-}
-```
-
-**Modify `EnemyGenerator.cs`** - Apply enemy health multiplier:
-
-**Location**: In `GenerateByType` method after health calculation (around line 53)
-
-**ADD** after `enemy.Health = enemy.MaxHealth;`:
-```csharp
-// Apply difficulty multiplier to enemy health
-// Note: SaveGameService may not be initialized yet during generation
-// So we'll apply this in CombatService when enemy is first encountered
-// OR pass difficulty to generator - decision point
-```
-
-**ALTERNATIVE**: Add to `CombatService.StartCombat`:
-```csharp
-public CombatResult StartCombat(Character player, Enemy enemy)
-{
-    // Apply difficulty multiplier to enemy health
-    var difficulty = _saveGameService.GetDifficultySettings();
+    // Scale enemy health
     enemy.MaxHealth = (int)(enemy.MaxHealth * difficulty.EnemyHealthMultiplier);
     enemy.Health = enemy.MaxHealth;
+}
+```
+
+**NO CHANGES NEEDED** - This method already applies enemy health multipliers!
+
+**ADD** player and enemy damage multipliers to combat methods:
+
+**Modify `ExecutePlayerAttack` method** - Apply player damage multiplier:
+```csharp
+public CombatResult ExecutePlayerAttack(Character player, Enemy enemy)
+{
+    // ... existing damage calculation ...
     
-    // ... rest of combat logic ...
+    // Apply difficulty multiplier to player damage
+    var difficulty = _saveGameService.GetDifficultySettings();
+    damage = (int)(damage * difficulty.PlayerDamageMultiplier);
+    
+    // ... rest of method ...
+}
+```
+
+**Modify `ExecuteEnemyAttack` method** - Apply enemy damage multiplier:
+```csharp
+public CombatResult ExecuteEnemyAttack(Enemy enemy, Character player, bool playerDefending)
+{
+    // ... existing damage calculation ...
+    
+    // Apply difficulty multiplier to enemy damage
+    var difficulty = _saveGameService.GetDifficultySettings();
+    damage = (int)(damage * difficulty.EnemyDamageMultiplier);
+    
+    // ... rest of method ...
 }
 ```
 
@@ -419,26 +412,47 @@ public CombatResult StartCombat(Character player, Enemy enemy)
 
 ### 6. `Game/GameEngine.cs` - Integrate Difficulty Selection
 
-**Location**: In `NewGameAsync` method (around line 500)
+**Location**: In `HandleCharacterCreationAsync` method (around line 230)
 
-**FIND**:
+**FIND** (near end of character creation):
 ```csharp
-var character = CharacterCreationService.CreateCharacter();
+// Step 4: Create character
+var newCharacter = Services.CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
+
+// Step 5: Review character
+ReviewCharacter(newCharacter, selectedClass);
+
+ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
+await Task.Delay(500);
+
+// Publish character created event
+await _mediator.Publish(new CharacterCreated(newCharacter.Name));
+
+// Create save game with the new character
+var saveGame = _saveGameService.CreateNewGame(newCharacter);
+_currentSaveId = saveGame.Id;
 ```
 
-**ADD AFTER**:
+**REPLACE WITH**:
 ```csharp
-// Select difficulty
-var difficulty = CharacterCreationService.SelectDifficulty();
+// Step 4: Create character
+var newCharacter = Services.CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
 
-// Create save with difficulty settings
-_saveGameService = new SaveGameService();
-var newSave = _saveGameService.CreateNewGame(character, difficulty);
-```
+// Step 5: Review character
+ReviewCharacter(newCharacter, selectedClass);
 
-**REMOVE OLD**:
-```csharp
-// Remove any old manual difficulty setting code
+// Step 6: Select difficulty
+var difficulty = Services.CharacterCreationService.SelectDifficulty();
+
+ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
+await Task.Delay(500);
+
+// Publish character created event
+await _mediator.Publish(new CharacterCreated(newCharacter.Name));
+
+// Create save game with the new character and difficulty settings
+var saveGame = _saveGameService.CreateNewGame(newCharacter, difficulty);
+_currentSaveId = saveGame.Id;
 ```
 
 ---
