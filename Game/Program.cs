@@ -73,6 +73,12 @@ try
     services.AddTransient<MenuService>();
     services.AddTransient<ExplorationService>();
     
+    // Register orchestrator services
+    services.AddTransient<CharacterCreationOrchestrator>();
+    services.AddTransient<LoadGameService>();
+    services.AddTransient<GameplayService>();
+    services.AddTransient<CombatOrchestrator>();
+    
     // Register the game engine
     services.AddSingleton<GameEngine>();
 

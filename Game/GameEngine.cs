@@ -23,6 +23,10 @@ public class GameEngine
     private readonly GameStateService _gameState;
     private readonly MenuService _menuService;
     private readonly ExplorationService _explorationService;
+    private readonly CharacterCreationOrchestrator _characterCreation;
+    private readonly LoadGameService _loadGameService;
+    private readonly GameplayService _gameplayService;
+    private readonly CombatOrchestrator _combatOrchestrator;
     private GameState _state;
     private bool _isRunning;
     private List<Item> _inventory;
@@ -41,7 +45,11 @@ public class GameEngine
         GameStateService gameState,
         CombatService combatService,
         MenuService menuService,
-        ExplorationService explorationService)
+        ExplorationService explorationService,
+        CharacterCreationOrchestrator characterCreation,
+        LoadGameService loadGameService,
+        GameplayService gameplayService,
+        CombatOrchestrator combatOrchestrator)
     {
         _mediator = mediator;
         _saveGameService = saveGameService;
@@ -49,6 +57,10 @@ public class GameEngine
         _combatService = combatService;
         _menuService = menuService;
         _explorationService = explorationService;
+        _characterCreation = characterCreation;
+        _loadGameService = loadGameService;
+        _gameplayService = gameplayService;
+        _combatOrchestrator = combatOrchestrator;
         _state = GameState.MainMenu;
         _isRunning = false;
         _inventory = new List<Item>();
@@ -211,275 +223,23 @@ public class GameEngine
 
     private async Task HandleCharacterCreationAsync()
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Character Creation", "Forge your legend");
-
-        // Step 1: Enter name
-        var playerName = ConsoleUI.AskForInput("What is your name, brave adventurer?");
+        var (character, saveId, success) = await _characterCreation.CreateCharacterAsync();
         
-        // Step 2: Choose class
-        var selectedClass = await SelectCharacterClassAsync();
-        if (selectedClass == null)
+        if (success && character != null && saveId != null)
+        {
+            _currentSaveId = saveId;
+            _state = GameState.InGame;
+        }
+        else
         {
             _state = GameState.MainMenu;
-            return;
         }
-        
-        // Step 3: Allocate attributes
-        var allocation = await AllocateAttributesAsync(selectedClass);
-        if (allocation == null)
-        {
-            _state = GameState.MainMenu;
-            return;
-        }
-        
-        // Step 4: Create character
-        var newCharacter = Services.CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
-        
-        // Step 5: Review character
-        ReviewCharacter(newCharacter, selectedClass);
-
-        ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
-        await Task.Delay(500);
-
-        // Publish character created event
-        await _mediator.Publish(new CharacterCreated(newCharacter.Name));
-
-        // Create save game with the new character
-        var saveGame = _saveGameService.CreateNewGame(newCharacter);
-        _currentSaveId = saveGame.Id;
-
-        _state = GameState.InGame;
     }
     
     /// <summary>
     /// Let the player select their character class.
     /// </summary>
-    private async Task<CharacterClass?> SelectCharacterClassAsync()
-    {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Choose Your Class", "Each class offers unique strengths");
-        
-        var classes = Data.CharacterClassRepository.GetAllClasses();
-        
-        // Display all classes with details
-        foreach (var cls in classes)
-        {
-            ConsoleUI.WriteText("");
-            ConsoleUI.ShowPanel(
-                $"{cls.Name} ({string.Join(", ", cls.PrimaryAttributes)})",
-                $"{cls.Description}\n\n{cls.FlavorText}\n\n" +
-                $"[cyan]Attribute Bonuses:[/]\n" +
-                (cls.BonusStrength > 0 ? $"  +{cls.BonusStrength} Strength\n" : "") +
-                (cls.BonusDexterity > 0 ? $"  +{cls.BonusDexterity} Dexterity\n" : "") +
-                (cls.BonusConstitution > 0 ? $"  +{cls.BonusConstitution} Constitution\n" : "") +
-                (cls.BonusIntelligence > 0 ? $"  +{cls.BonusIntelligence} Intelligence\n" : "") +
-                (cls.BonusWisdom > 0 ? $"  +{cls.BonusWisdom} Wisdom\n" : "") +
-                (cls.BonusCharisma > 0 ? $"  +{cls.BonusCharisma} Charisma\n" : "") +
-                $"\n[yellow]Health Bonus:[/] {(cls.StartingHealthBonus >= 0 ? "+" : "")}{cls.StartingHealthBonus}\n" +
-                $"[blue]Mana Bonus:[/] {(cls.StartingManaBonus >= 0 ? "+" : "")}{cls.StartingManaBonus}",
-                "yellow"
-            );
-        }
-        
-        var classNames = classes.Select(c => c.Name).Append("Back to Menu").ToArray();
-        var choice = ConsoleUI.ShowMenu("Select your class:", classNames);
-        
-        if (choice == "Back to Menu")
-        {
-            return null;
-        }
-        
-        var selected = classes.FirstOrDefault(c => c.Name == choice);
-        
-        if (selected != null)
-        {
-            ConsoleUI.ShowSuccess($"You have chosen the path of the {selected.Name}!");
-            await Task.Delay(300);
-        }
-        
-        return selected;
-    }
     
-    /// <summary>
-    /// Let the player allocate attribute points.
-    /// </summary>
-    private async Task<AttributeAllocation?> AllocateAttributesAsync(CharacterClass selectedClass)
-    {
-        var allocation = new AttributeAllocation();
-        var attributes = new[] { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" };
-        
-        while (true)
-        {
-            ConsoleUI.Clear();
-            ConsoleUI.ShowBanner("Attribute Allocation", $"Points Remaining: {allocation.GetRemainingPoints()}/27");
-            
-            // Show current allocation
-            var allocationLines = new List<string>();
-            allocationLines.Add("[yellow]Current Attributes:[/]");
-            allocationLines.Add("");
-            
-            foreach (var attr in attributes)
-            {
-                var current = allocation.GetAttributeValue(attr);
-                var withBonus = current + GetClassBonus(selectedClass, attr);
-                var isPrimary = selectedClass.PrimaryAttributes.Contains(attr);
-                var primaryMark = isPrimary ? " [cyan]★[/]" : "";
-                var color = isPrimary ? "cyan" : "white";
-                
-                allocationLines.Add($"  [{color}]{attr}:{primaryMark,-20}[/] {current,2} " +
-                    $"(+{GetClassBonus(selectedClass, attr)} class) = [green]{withBonus}[/]");
-            }
-            
-            allocationLines.Add("");
-            allocationLines.Add("[grey]★ = Primary attribute for your class[/]");
-            allocationLines.Add("");
-            allocationLines.Add($"[yellow]Points Spent:[/] {allocation.GetPointsSpent()}/27");
-            allocationLines.Add($"[cyan]Points Remaining:[/] {allocation.GetRemainingPoints()}");
-            
-            ConsoleUI.ShowPanel("Your Attributes", string.Join("\n", allocationLines), "green");
-            
-            // Menu options
-            var options = new List<string>();
-            foreach (var attr in attributes)
-            {
-                if (allocation.CanIncrease(attr))
-                    options.Add($"Increase {attr}");
-                if (allocation.CanDecrease(attr))
-                    options.Add($"Decrease {attr}");
-            }
-            
-            options.Add("Auto-Allocate (Recommended)");
-            options.Add("Reset All");
-            options.Add("Confirm & Continue");
-            options.Add("Back to Class Selection");
-            
-            var choice = ConsoleUI.ShowMenu("Adjust attributes:", options.ToArray());
-            
-            if (choice.StartsWith("Increase "))
-            {
-                var attr = choice.Replace("Increase ", "");
-                var current = allocation.GetAttributeValue(attr);
-                allocation.SetAttributeValue(attr, current + 1);
-            }
-            else if (choice.StartsWith("Decrease "))
-            {
-                var attr = choice.Replace("Decrease ", "");
-                var current = allocation.GetAttributeValue(attr);
-                allocation.SetAttributeValue(attr, current - 1);
-            }
-            else if (choice == "Auto-Allocate (Recommended)")
-            {
-                // Auto-allocate based on class
-                allocation = AutoAllocateAttributes(selectedClass);
-                ConsoleUI.ShowSuccess("Attributes auto-allocated based on your class!");
-                await Task.Delay(300);
-            }
-            else if (choice == "Reset All")
-            {
-                allocation = new AttributeAllocation();
-                ConsoleUI.ShowInfo("Attributes reset to base values.");
-                await Task.Delay(200);
-            }
-            else if (choice == "Confirm & Continue")
-            {
-                if (allocation.GetRemainingPoints() > 0)
-                {
-                    if (ConsoleUI.Confirm($"You have {allocation.GetRemainingPoints()} unspent points. Continue anyway?"))
-                    {
-                        return allocation;
-                    }
-                }
-                else
-                {
-                    return allocation;
-                }
-            }
-            else if (choice == "Back to Class Selection")
-            {
-                return null;
-            }
-        }
-    }
-    
-    /// <summary>
-    /// Auto-allocate attributes based on class recommendations.
-    /// </summary>
-    private AttributeAllocation AutoAllocateAttributes(CharacterClass characterClass)
-    {
-        var allocation = new AttributeAllocation();
-        
-        // Prioritize primary attributes
-        foreach (var primary in characterClass.PrimaryAttributes)
-        {
-            allocation.SetAttributeValue(primary, 14); // High in primary
-        }
-        
-        // Distribute remaining points to secondary stats
-        var remaining = allocation.GetRemainingPoints();
-        var secondaryAttrs = new[] { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" }
-            .Where(a => !characterClass.PrimaryAttributes.Contains(a))
-            .ToArray();
-        
-        // Bring all secondaries to 10 if possible
-        foreach (var attr in secondaryAttrs)
-        {
-            if (remaining <= 0) break;
-            var current = allocation.GetAttributeValue(attr);
-            if (current < 10 && remaining >= 2)
-            {
-                allocation.SetAttributeValue(attr, 10);
-                remaining = allocation.GetRemainingPoints();
-            }
-        }
-        
-        // Spend any leftover points on primary stats
-        while (remaining > 0)
-        {
-            foreach (var primary in characterClass.PrimaryAttributes)
-            {
-                if (remaining <= 0) break;
-                if (allocation.CanIncrease(primary))
-                {
-                    var current = allocation.GetAttributeValue(primary);
-                    allocation.SetAttributeValue(primary, current + 1);
-                    remaining = allocation.GetRemainingPoints();
-                }
-            }
-            
-            // Safety: if we can't allocate more, break
-            if (!characterClass.PrimaryAttributes.Any(p => allocation.CanIncrease(p)))
-                break;
-        }
-        
-        return allocation;
-    }
-    
-    /// <summary>
-    /// Get class bonus for a specific attribute.
-    /// </summary>
-    private int GetClassBonus(CharacterClass characterClass, string attribute)
-    {
-        return attribute switch
-        {
-            "Strength" => characterClass.BonusStrength,
-            "Dexterity" => characterClass.BonusDexterity,
-            "Constitution" => characterClass.BonusConstitution,
-            "Intelligence" => characterClass.BonusIntelligence,
-            "Wisdom" => characterClass.BonusWisdom,
-            "Charisma" => characterClass.BonusCharisma,
-            _ => 0
-        };
-    }
-    
-    /// <summary>
-    /// Review the final character before starting.
-    /// </summary>
-    private void ReviewCharacter(Character character, CharacterClass characterClass)
-    {
-        CharacterViewService.ReviewCharacter(character, characterClass);
-    }
-
     private async Task HandleInGameAsync()
     {
         if (Player == null)
@@ -552,395 +312,15 @@ public class GameEngine
         
         // Initialize combat log
         _combatLog = new CombatLog(maxEntries: 15);
-        _combatLog.AddEntry($"⚔️ Combat begins! A {enemy.Name} appears!", CombatLogType.Info);
         
-        await _mediator.Publish(new CombatStarted(Player.Name, enemy.Name));
+        // Delegate to CombatOrchestrator
+        await _combatOrchestrator.HandleCombatAsync(Player, enemy, _combatLog);
         
-        bool playerDefending = false;
-        
-        // Combat loop
-        while (Player.IsAlive() && enemy.IsAlive())
-        {
-            // Display combat status with log
-            DisplayCombatStatusWithLog(Player, enemy);
-            
-            // Player turn
-            var action = _menuService.ShowCombatMenu();
-            
-            playerDefending = false;
-            
-            switch (action)
-            {
-                case "⚔️  Attack":
-                    await ExecutePlayerTurnAsync(Player, enemy, CombatActionType.Attack);
-                    break;
-                    
-                case "🛡️  Defend":
-                    playerDefending = true;
-                    _combatLog?.AddEntry("You raise your guard!", CombatLogType.Defend);
-                    ConsoleUI.ShowInfo("You raise your guard, ready to defend!");
-                    await Task.Delay(300);
-                    break;
-                    
-                case "🧪 Use Item":
-                    var itemUsed = await UseItemInCombatMenuAsync(Player);
-                    if (!itemUsed)
-                    {
-                        continue; // Don't advance turn if no item was used
-                    }
-                    break;
-                    
-                case "🏃 Flee":
-                    var fleeResult = _combatService.AttemptFlee(Player, enemy);
-                    if (fleeResult.Success)
-                    {
-                        _combatLog?.AddEntry("Successfully fled!", CombatLogType.Info);
-                        ConsoleUI.ShowSuccess(fleeResult.Message);
-                        await Task.Delay(500);
-                        _state = GameState.InGame;
-                        _combatLog = null;
-                        return;
-                    }
-                    else
-                    {
-                        _combatLog?.AddEntry("Failed to escape!", CombatLogType.Info);
-                        ConsoleUI.ShowError(fleeResult.Message);
-                        await Task.Delay(500);
-                    }
-                    break;
-            }
-            
-            // Check if enemy is defeated
-            if (!enemy.IsAlive())
-            {
-                break;
-            }
-            
-            // Enemy turn
-            await Task.Delay(200);
-            await ExecuteEnemyTurnAsync(Player, enemy, playerDefending);
-            
-            // Check if player is defeated
-            if (!Player.IsAlive())
-            {
-                break;
-            }
-            
-            // Apply regeneration at end of turn
-            var regenAmount = SkillEffectCalculator.ApplyRegeneration(Player);
-            if (regenAmount > 0)
-            {
-                _combatLog?.AddEntry($"💚 Regeneration healed {regenAmount} HP", CombatLogType.Heal);
-                ConsoleUI.WriteColoredText($"[green]💚 Regeneration healed {regenAmount} HP[/]");
-                await Task.Delay(300);
-            }
-            
-            Console.WriteLine();
-            await Task.Delay(600);
-        }
-        
-        // Combat ended
-        if (Player.IsAlive())
-        {
-            _combatLog?.AddEntry($"🎉 Victory! {enemy.Name} defeated!", CombatLogType.Victory);
-            await HandleCombatVictoryAsync(Player, enemy);
-        }
-        else
-        {
-            _combatLog?.AddEntry("💀 You have been defeated...", CombatLogType.Defeat);
-            await HandleCombatDefeatAsync(Player, enemy);
-        }
-        
-        // Clear combat log
+        // Clear combat log and return to game
         _combatLog = null;
         _state = GameState.InGame;
     }
     
-    private void DisplayCombatStatusWithLog(Character player, Enemy enemy)
-    {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("⚔️ COMBAT ⚔️", $"Fighting: {enemy.Name}");
-        
-        // Create main combat content
-        var playerHealthPercent = (double)player.Health / player.MaxHealth * 100;
-        var playerHealthColor = playerHealthPercent > 50 ? "green" : playerHealthPercent > 25 ? "yellow" : "red";
-        var playerHealthBar = GenerateHealthBar(player.Health, player.MaxHealth, 20);
-        
-        var enemyHealthPercent = (double)enemy.Health / enemy.MaxHealth * 100;
-        var enemyHealthColor = enemyHealthPercent > 50 ? "green" : enemyHealthPercent > 25 ? "yellow" : "red";
-        var enemyHealthBar = GenerateHealthBar(enemy.Health, enemy.MaxHealth, 20);
-        
-        var difficultyColor = enemy.Difficulty switch
-        {
-            EnemyDifficulty.Easy => "green",
-            EnemyDifficulty.Normal => "white",
-            EnemyDifficulty.Hard => "yellow",
-            EnemyDifficulty.Elite => "orange1",
-            EnemyDifficulty.Boss => "red",
-            _ => "white"
-        };
-        
-        // Build main combat panel with fixed height to match log
-        var combatInfo = new Panel(new Markup(
-            $"[bold cyan]{player.Name}[/] - Level {player.Level}\n" +
-            $"[{playerHealthColor}]HP: {player.Health}/{player.MaxHealth}[/] {playerHealthBar}\n" +
-            $"[blue]MP: {player.Mana}/{player.MaxMana}[/]\n" +
-            $"[dim]ATK: {player.GetPhysicalDamageBonus()} | DEF: {player.GetPhysicalDefense()}[/]\n" +
-            $"\n\n\n" +
-            $"[bold {difficultyColor}]VS[/]\n" +
-            $"\n\n\n" +
-            $"[bold {difficultyColor}]{enemy.Name}[/] - Level {enemy.Level} [dim]({enemy.Difficulty})[/]\n" +
-            $"[{enemyHealthColor}]HP: {enemy.Health}/{enemy.MaxHealth}[/] {enemyHealthBar}\n" +
-            $"[dim]ATK: {enemy.GetPhysicalDamageBonus()} | DEF: {enemy.GetPhysicalDefense()}[/]"
-        ))
-        {
-            Header = new PanelHeader("[bold yellow]Battle Status[/]"),
-            Border = BoxBorder.Rounded,
-            BorderStyle = new Style(Color.Cyan),
-            Height = 17 // Match log height: 15 lines + 2 for borders
-        };
-        
-        // Display with combat log
-        var logEntries = _combatLog?.GetFormattedEntries() ?? new List<string>();
-        ConsoleUI.ShowCombatLayout(combatInfo, logEntries);
-        Console.WriteLine();
-    }
-    
-    private static string GenerateHealthBar(int current, int max, int width)
-    {
-        var percent = (double)current / max;
-        var filled = (int)(percent * width);
-        var empty = width - filled;
-        
-        var color = percent > 0.5 ? "green" : percent > 0.25 ? "yellow" : "red";
-        
-        return $"[{color}]{'█'.ToString().PadRight(filled, '█')}[/][dim]{'░'.ToString().PadRight(empty, '░')}[/]";
-    }
-    
-    private async Task ExecutePlayerTurnAsync(Character player, Enemy enemy, CombatActionType actionType)
-    {
-        var result = _combatService.ExecutePlayerAttack(player, enemy);
-        
-        await _mediator.Publish(new AttackPerformed(player.Name, enemy.Name, result.Damage));
-        
-        if (result.IsDodged)
-        {
-            _combatLog?.AddEntry($"💨 {result.Message}", CombatLogType.Dodge);
-            ConsoleUI.WriteColoredText($"[yellow]💨 {result.Message}[/]");
-        }
-        else if (result.IsCritical)
-        {
-            _combatLog?.AddEntry($"💥 CRIT! {result.Damage} damage!", CombatLogType.Critical);
-            ConsoleUI.WriteColoredText($"[red bold]💥 {result.Message}[/]");
-        }
-        else
-        {
-            _combatLog?.AddEntry($"⚔️ Hit for {result.Damage} damage", CombatLogType.PlayerAttack);
-            ConsoleUI.WriteColoredText($"[green]⚔️  {result.Message}[/]");
-        }
-        
-        if (!enemy.IsAlive())
-        {
-            await _mediator.Publish(new EnemyDefeated(player.Name, enemy.Name));
-        }
-        
-        await Task.Delay(300);
-    }
-    
-    private async Task ExecuteEnemyTurnAsync(Character player, Enemy enemy, bool playerDefending)
-    {
-        var result = _combatService.ExecuteEnemyAttack(enemy, player, playerDefending);
-        
-        await _mediator.Publish(new DamageTaken(player.Name, result.Damage));
-        
-        if (result.IsDodged)
-        {
-            _combatLog?.AddEntry($"💨 Dodged {enemy.Name}'s attack!", CombatLogType.Dodge);
-            ConsoleUI.WriteColoredText($"[cyan]💨 {result.Message}[/]");
-        }
-        else if (result.IsBlocked)
-        {
-            _combatLog?.AddEntry($"🛡️ Blocked {result.Damage} damage", CombatLogType.Defend);
-            ConsoleUI.WriteColoredText($"[blue]🛡️  {result.Message}[/]");
-        }
-        else if (result.IsCritical)
-        {
-            _combatLog?.AddEntry($"💥 {enemy.Name} CRIT! {result.Damage} damage!", CombatLogType.EnemyAttack);
-            ConsoleUI.WriteColoredText($"[red bold]💥 {result.Message}[/]");
-        }
-        else
-        {
-            _combatLog?.AddEntry($"🗡️ {enemy.Name} hit for {result.Damage}", CombatLogType.EnemyAttack);
-            ConsoleUI.WriteColoredText($"[orange1]🗡️  {result.Message}[/]");
-        }
-        
-        if (!player.IsAlive())
-        {
-            await _mediator.Publish(new PlayerDefeated(player.Name, enemy.Name));
-        }
-        
-        await Task.Delay(300);
-    }
-    
-    private async Task<bool> UseItemInCombatMenuAsync(Character player)
-    {
-        var consumables = player.Inventory.Where(i => i.Type == ItemType.Consumable).ToList();
-        
-        if (!consumables.Any())
-        {
-            ConsoleUI.ShowWarning("You have no consumable items!");
-            await Task.Delay(300);
-            return false;
-        }
-        
-        var itemNames = consumables.Select(i => $"{i.Name} ({i.Rarity})").ToList();
-        itemNames.Add("[dim]Cancel[/]");
-        
-        var selection = ConsoleUI.ShowMenu("Select an item to use:", itemNames.ToArray());
-        
-        if (selection == "[dim]Cancel[/]")
-        {
-            return false;
-        }
-        
-        var selectedIndex = itemNames.IndexOf(selection);
-        var item = consumables[selectedIndex];
-        
-        var result = _combatService.UseItemInCombat(player, item);
-        
-        if (result.Success)
-        {
-            _combatLog?.AddEntry($"✨ Used {item.Name}", CombatLogType.ItemUse);
-            
-            if (result.Healing > 0)
-            {
-                _combatLog?.AddEntry($"💚 Restored {result.Healing} HP", CombatLogType.Heal);
-                ConsoleUI.WriteColoredText($"[green]✨ {result.Message}[/]");
-            }
-            else
-            {
-                ConsoleUI.WriteColoredText($"[cyan]✨ {result.Message}[/]");
-            }
-            
-            await Task.Delay(500);
-            return true;
-        }
-        else
-        {
-            ConsoleUI.ShowError(result.Message);
-            await Task.Delay(300);
-            return false;
-        }
-    }
-    
-    private async Task HandleCombatVictoryAsync(Character player, Enemy enemy)
-    {
-        ConsoleUI.Clear();
-        
-        var outcome = _combatService.GenerateVictoryOutcome(player, enemy);
-        
-        ConsoleUI.ShowBanner("🏆 VICTORY! 🏆", $"You defeated {enemy.Name}!");
-        
-        // Award XP
-        var previousLevel = player.Level;
-        player.GainExperience(outcome.XPGained);
-        
-        // Award gold
-        player.Gold += outcome.GoldGained;
-        
-        // Display rewards
-        ConsoleUI.ShowPanel(
-            "Battle Rewards",
-            $"[green]+{outcome.XPGained} XP[/] ({player.Experience}/{player.Level * 100} to next level)\n" +
-            $"[yellow]+{outcome.GoldGained} Gold[/] (Total: {player.Gold})",
-            "green"
-        );
-        
-        // Check for level up
-        if (player.Level > previousLevel)
-        {
-            Console.WriteLine();
-            ConsoleUI.WriteColoredText($"[bold yellow]🌟 LEVEL UP! You are now level {player.Level}! 🌟[/]");
-            await _mediator.Publish(new PlayerLeveledUp(player.Name, player.Level));
-            await Task.Delay(500);
-            
-            // Process level-up allocation
-            ConsoleUI.PressAnyKey("Press any key to allocate your level-up points...");
-            await Services.LevelUpService.ProcessPendingLevelUpsAsync(player);
-        }
-        
-        // Display loot
-        if (outcome.LootDropped.Any())
-        {
-            Console.WriteLine();
-            ConsoleUI.WriteColoredText("[cyan bold]💎 Loot Dropped![/]");
-            
-            foreach (var item in outcome.LootDropped)
-            {
-                player.Inventory.Add(item);
-                
-                var rarityColor = item.Rarity switch
-                {
-                    ItemRarity.Common => "white",
-                    ItemRarity.Uncommon => "green",
-                    ItemRarity.Rare => "blue",
-                    ItemRarity.Epic => "purple",
-                    ItemRarity.Legendary => "orange1",
-                    _ => "white"
-                };
-                
-                ConsoleUI.WriteColoredText($"  [{rarityColor}]• {item.Name} ({item.Rarity})[/]");
-            }
-        }
-        
-        await _mediator.Publish(new CombatEnded(player.Name, true));
-        
-        // Auto-save after combat
-        try
-        {
-            _saveGameService.AutoSave(player, _inventory);
-            ConsoleUI.WriteText("[grey]Game auto-saved[/]");
-        }
-        catch (Exception ex)
-        {
-            Log.Warning(ex, "Auto-save after combat failed");
-        }
-        
-        Console.WriteLine();
-        ConsoleUI.PressAnyKey("Press any key to continue...");
-    }
-    
-    private async Task HandleCombatDefeatAsync(Character player, Enemy enemy)
-    {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("💀 DEFEAT 💀", $"You were defeated by {enemy.Name}...");
-        
-        ConsoleUI.ShowPanel(
-            "Battle Summary",
-            $"The {enemy.Name} proved too powerful.\n" +
-            $"You have been knocked unconscious and lost some gold.",
-            "red"
-        );
-        
-        // Lose some gold
-        var goldLost = (int)(player.Gold * 0.1); // Lose 10% of gold
-        player.Gold = Math.Max(0, player.Gold - goldLost);
-        
-        if (goldLost > 0)
-        {
-            ConsoleUI.WriteColoredText($"[red]-{goldLost} Gold[/]");
-        }
-        
-        // Restore some health
-        player.Health = player.MaxHealth / 4; // Restore to 25% health
-        
-        ConsoleUI.WriteColoredText($"[dim]You wake up with {player.Health} HP remaining.[/]");
-        
-        await _mediator.Publish(new CombatEnded(player.Name, false));
-        
-        Console.WriteLine();
-        ConsoleUI.PressAnyKey("Press any key to continue...");
-    }
 
     private async Task HandleInventoryAsync()
     {
@@ -1101,13 +481,7 @@ public class GameEngine
     private void RestAsync()
     {
         if (Player == null) return;
-
-        ConsoleUI.ShowInfo("You rest and recover...");
-
-        Player.Health = Player.MaxHealth;
-        Player.Mana = Player.MaxMana;
-
-        ConsoleUI.ShowSuccess("Fully rested!");
+        _gameplayService.Rest(Player);
     }
 
     private void SaveGameAsync()
@@ -1117,159 +491,19 @@ public class GameEngine
             ConsoleUI.ShowError("No active game to save!");
             return;
         }
-
-        ConsoleUI.ShowInfo("Saving game...");
-
-        try
-        {
-            _saveGameService.SaveGame(Player, _inventory, _currentSaveId);
-            ConsoleUI.ShowSuccess("Game saved successfully!");
-            Log.Information("Game saved for player {PlayerName}", Player.Name);
-        }
-        catch (Exception ex)
-        {
-            ConsoleUI.ShowError($"Failed to save game: {ex.Message}");
-            Log.Error(ex, "Failed to save game");
-        }
+        
+        _gameplayService.SaveGame(Player, _inventory, _currentSaveId);
     }
 
     private async Task LoadGameAsync()
     {
-        try
+        var (selectedSave, loadSuccessful) = await _loadGameService.LoadGameAsync();
+        
+        if (loadSuccessful && selectedSave != null)
         {
-            var saves = _saveGameService.GetAllSaves();
-
-            if (!saves.Any())
-            {
-                ConsoleUI.ShowWarning("No saved games found!");
-                await Task.Delay(500);
-                return;
-            }
-
-            ConsoleUI.Clear();
-            ConsoleUI.ShowBanner("Load Game", "Select a save to continue your adventure");
-
-            // Display saves in a table
-            var headers = new[] { "Player", "Class", "Level", "Last Played", "Play Time" };
-            var rows = saves.Select(s =>
-            {
-                var timeSinceSave = DateTime.Now - s.SaveDate;
-                var timeAgo = timeSinceSave.TotalHours < 24
-                    ? $"{(int)timeSinceSave.TotalHours}h ago"
-                    : $"{(int)timeSinceSave.TotalDays}d ago";
-                
-                var playTime = s.PlayTimeMinutes < 60
-                    ? $"{s.PlayTimeMinutes}m"
-                    : $"{s.PlayTimeMinutes / 60}h {s.PlayTimeMinutes % 60}m";
-
-                return new[]
-                {
-                    s.Character.Name,
-                    s.Character.ClassName,
-                    s.Character.Level.ToString(),
-                    timeAgo,
-                    playTime
-                };
-            }).ToList();
-
-            ConsoleUI.ShowTable("Available Saves", headers, rows);
-
-            // Build menu options
-            var menuOptions = saves.Select(s =>
-                $"{s.Character.Name} - Level {s.Character.Level} {s.Character.ClassName}"
-            ).ToList();
-            menuOptions.Add("Delete a Save");
-            menuOptions.Add("Back to Menu");
-
-            var choice = ConsoleUI.ShowMenu("Select save:", menuOptions.ToArray());
-
-            if (choice == "Back to Menu")
-            {
-                return;
-            }
-
-            if (choice == "Delete a Save")
-            {
-                await DeleteSaveAsync(saves);
-                return;
-            }
-
-            // Find selected save
-            var selectedIndex = menuOptions.IndexOf(choice);
-            var selectedSave = saves[selectedIndex];
-
-            // Load the save
-            ConsoleUI.ShowProgress("Loading game...", task =>
-            {
-                task.MaxValue = 100;
-                for (int i = 0; i <= 100; i += 20)
-                {
-                    task.Value = i;
-                    Thread.Sleep(150);
-                }
-            });
-
-            // Save loaded - set current save ID
             _currentSaveId = selectedSave.Id;
-            _inventory = selectedSave.Character.Inventory; // Inventory is now tracked in Character
-
-            ConsoleUI.ShowSuccess($"Welcome back, {Player!.Name}!");
-            Log.Information("Game loaded for player {PlayerName}", Player.Name);
-            await Task.Delay(500);
-
+            _inventory = selectedSave.Character.Inventory;
             _state = GameState.InGame;
-        }
-        catch (Exception ex)
-        {
-            ConsoleUI.ShowError($"Failed to load game: {ex.Message}");
-            Log.Error(ex, "Failed to load game");
-            await Task.Delay(500);
-        }
-    }
-
-    private async Task DeleteSaveAsync(List<SaveGame> saves)
-    {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Delete Save", "⚠️ This action cannot be undone!");
-
-        var menuOptions = saves.Select(s =>
-            $"{s.Character.Name} - Level {s.Character.Level} {s.Character.ClassName}"
-        ).ToList();
-        menuOptions.Add("Cancel");
-
-        var choice = ConsoleUI.ShowMenu("Select save to delete:", menuOptions.ToArray());
-
-        if (choice == "Cancel")
-        {
-            await LoadGameAsync(); // Return to load menu
-            return;
-        }
-
-        var selectedIndex = menuOptions.IndexOf(choice);
-        var selectedSave = saves[selectedIndex];
-
-        if (ConsoleUI.Confirm($"Delete save for {selectedSave.Character.Name}?"))
-        {
-            try
-            {
-                _saveGameService.DeleteSave(selectedSave.Id);
-                ConsoleUI.ShowSuccess("Save deleted successfully!");
-                Log.Information("Save deleted for player {PlayerName}", selectedSave.Character.Name);
-                await Task.Delay(300);
-                
-                // Return to load menu
-                await LoadGameAsync();
-            }
-            catch (Exception ex)
-            {
-                ConsoleUI.ShowError($"Failed to delete save: {ex.Message}");
-                Log.Error(ex, "Failed to delete save");
-                await Task.Delay(500);
-            }
-        }
-        else
-        {
-            await LoadGameAsync(); // Return to load menu
         }
     }
 

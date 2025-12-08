@@ -1,17 +1,21 @@
 using FluentAssertions;
 using Game.Models;
 using Game.Services;
+using System;
+using System.IO;
 
 namespace Game.Tests.Services;
 
-public class CombatServiceTests
+public class CombatServiceTests : IDisposable
 {
     private readonly CombatService _combatService;
+    private readonly string _testDbPath;
     
     public CombatServiceTests()
     {
-        // Create a SaveGameService with in-memory database for testing
-        var saveGameService = new SaveGameService(":memory:");
+        // Use unique test database to avoid file locking issues
+        _testDbPath = $"test-combat-{Guid.NewGuid()}.db";
+        var saveGameService = new SaveGameService(_testDbPath);
         
         // Create a test save game with normal difficulty
         var testSave = new SaveGame 
@@ -25,6 +29,24 @@ public class CombatServiceTests
         
         // Create CombatService instance with SaveGameService
         _combatService = new CombatService(saveGameService);
+    }
+    
+    public void Dispose()
+    {
+        // Clean up test database files
+        try
+        {
+            if (File.Exists(_testDbPath))
+                File.Delete(_testDbPath);
+            
+            var logFile = _testDbPath.Replace(".db", "-log.db");
+            if (File.Exists(logFile))
+                File.Delete(logFile);
+        }
+        catch
+        {
+            // Ignore cleanup errors
+        }
     }
     
     [Fact]
