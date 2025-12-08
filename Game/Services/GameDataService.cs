@@ -21,6 +21,12 @@ public class GameDataService
     public ArmorMaterialData ArmorMaterials { get; private set; } = new();
     public EnchantmentSuffixData EnchantmentSuffixes { get; private set; } = new();
     
+    // Material properties for items
+    public MetalData Metals { get; private set; } = new();
+    public LeatherData Leathers { get; private set; } = new();
+    public WoodData Woods { get; private set; } = new();
+    public GemstoneData Gemstones { get; private set; } = new();
+    
     // Enemy data - names
     public EnemyNameData BeastNames { get; private set; } = new();
     public EnemyNameData UndeadNames { get; private set; } = new();
@@ -44,6 +50,7 @@ public class GameDataService
     public FantasyNameData FantasyNames { get; private set; } = new();
     public OccupationData Occupations { get; private set; } = new();
     public DialogueTemplateData DialogueTemplates { get; private set; } = new();
+    public DialogueTraitsData DialogueTraits { get; private set; } = new();
     
     // General data
     public AdjectiveData Adjectives { get; private set; } = new();
@@ -109,6 +116,12 @@ public class GameDataService
             ArmorMaterials = LoadJson<ArmorMaterialData>("items/armor_materials.json");
             EnchantmentSuffixes = LoadJson<EnchantmentSuffixData>("items/enchantment_suffixes.json");
             
+            // Load material properties
+            Metals = LoadJson<MetalData>("items/metals.json");
+            Leathers = LoadJson<LeatherData>("items/leathers.json");
+            Woods = LoadJson<WoodData>("items/woods.json");
+            Gemstones = LoadJson<GemstoneData>("items/gemstones.json");
+            
             // Load enemy data - names
             BeastNames = LoadJson<EnemyNameData>("enemies/beast_names.json");
             UndeadNames = LoadJson<EnemyNameData>("enemies/undead_names.json");
@@ -132,6 +145,7 @@ public class GameDataService
             FantasyNames = LoadJson<FantasyNameData>("npcs/fantasy_names.json");
             Occupations = LoadJson<OccupationData>("npcs/occupations.json");
             DialogueTemplates = LoadJson<DialogueTemplateData>("npcs/dialogue_templates.json");
+            DialogueTraits = LoadJson<DialogueTraitsData>("npcs/dialogue_traits.json");
             
             // Load general data
             Adjectives = LoadJson<AdjectiveData>("general/adjectives.json");

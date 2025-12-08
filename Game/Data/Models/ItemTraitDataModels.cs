@@ -119,3 +119,36 @@ public class EnchantmentSuffixData
     public Dictionary<string, EnchantmentSuffixTraitData> Life { get; set; } = new();
     public Dictionary<string, EnchantmentSuffixTraitData> Death { get; set; } = new();
 }
+
+// Material property trait data (for metals, leathers, woods, gemstones)
+public class MaterialTraitData
+{
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; } = string.Empty;
+    
+    [JsonPropertyName("traits")]
+    public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
+    
+    /// <summary>
+    /// Convert JSON traits to TraitValue dictionary.
+    /// </summary>
+    [JsonIgnore]
+    public Dictionary<string, TraitValue> Traits
+    {
+        get
+        {
+            var result = new Dictionary<string, TraitValue>();
+            foreach (var kvp in JsonTraits)
+            {
+                result[kvp.Key] = kvp.Value.ToTraitValue();
+            }
+            return result;
+        }
+    }
+}
+
+// Material data collections (flat dictionaries, not tiered)
+public class MetalData : Dictionary<string, MaterialTraitData> { }
+public class LeatherData : Dictionary<string, MaterialTraitData> { }
+public class WoodData : Dictionary<string, MaterialTraitData> { }
+public class GemstoneData : Dictionary<string, MaterialTraitData> { }

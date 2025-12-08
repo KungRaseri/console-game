@@ -64,22 +64,22 @@ public static class ItemGenerator
         {
             // Weapons - use JSON data for more variety
             ItemType.Weapon => GenerateWeaponName(f, item),
-            ItemType.Shield => $"{GetRandomMaterial(ItemRarity.Common)} Shield",
+            ItemType.Shield => $"{ApplyMetalMaterial(item, f) ?? "Iron"} Shield",
             ItemType.OffHand => $"{f.PickRandom("Tome", "Orb", "Crystal", "Focus")} {GetRandomEnchantmentSuffix(f, item)}",
             
-            // Armor - use JSON materials
-            ItemType.Helmet => $"{GetRandomArmorMaterial(f, item)} Helmet",
-            ItemType.Shoulders => $"{GetRandomArmorMaterial(f, item)} Shoulderpads",
-            ItemType.Chest => $"{GetRandomArmorMaterial(f, item)} Chestpiece",
-            ItemType.Bracers => $"{GetRandomArmorMaterial(f, item)} Bracers",
-            ItemType.Gloves => $"{GetRandomArmorMaterial(f, item)} Gloves",
-            ItemType.Belt => $"{GetRandomArmorMaterial(f, item)} Belt",
-            ItemType.Legs => $"{GetRandomArmorMaterial(f, item)} Leggings",
-            ItemType.Boots => $"{GetRandomArmorMaterial(f, item)} Boots",
+            // Armor - use leather materials for light armor
+            ItemType.Helmet => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Helmet",
+            ItemType.Shoulders => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Shoulderpads",
+            ItemType.Chest => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Chestpiece",
+            ItemType.Bracers => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Bracers",
+            ItemType.Gloves => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Gloves",
+            ItemType.Belt => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Belt",
+            ItemType.Legs => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Leggings",
+            ItemType.Boots => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Boots",
             
-            // Jewelry - use enchantment suffixes
-            ItemType.Necklace => $"{f.PickRandom("Amulet", "Necklace", "Pendant")} {GetRandomEnchantmentSuffix(f, item)}",
-            ItemType.Ring => $"{f.PickRandom("Ring", "Band", "Signet")} {GetRandomEnchantmentSuffix(f, item)}",
+            // Jewelry - use gemstones
+            ItemType.Necklace => $"{ApplyGemstoneMaterial(item, f)} {f.PickRandom("Amulet", "Necklace", "Pendant")}",
+            ItemType.Ring => $"{ApplyGemstoneMaterial(item, f)} {f.PickRandom("Ring", "Band", "Signet")}",
             
             // Other
             ItemType.Consumable => $"{f.PickRandom("Health", "Mana", "Stamina")} Potion",
@@ -111,7 +111,21 @@ public static class ItemGenerator
         
         var weaponName = GameDataService.GetRandom(weaponList);
         
+        // Apply material traits based on weapon type
+        string? materialPrefix = null;
+        if (weaponType == "bows" || weaponType == "staves")
+        {
+            // Bows and staves use wood materials
+            materialPrefix = ApplyWoodMaterial(item, f);
+        }
+        else
+        {
+            // Other weapons use metal materials
+            materialPrefix = ApplyMetalMaterial(item, f);
+        }
+        
         // Sometimes add a prefix (30% chance) and apply traits
+        string? prefixName = null;
         if (f.Random.Bool(0.3f))
         {
             var prefixData = GetPrefixByRarity(item.Rarity);
@@ -119,11 +133,19 @@ public static class ItemGenerator
             {
                 // Apply traits from prefix
                 TraitApplicator.ApplyTraits(item, prefixData.Traits);
-                return $"{prefixData.DisplayName} {weaponName}";
+                prefixName = prefixData.DisplayName;
             }
         }
         
-        return weaponName;
+        // Combine material + prefix + weapon name
+        if (materialPrefix != null && prefixName != null)
+            return $"{prefixName} {materialPrefix} {weaponName}";
+        else if (materialPrefix != null)
+            return $"{materialPrefix} {weaponName}";
+        else if (prefixName != null)
+            return $"{prefixName} {weaponName}";
+        else
+            return weaponName;
     }
     
     /// <summary>
@@ -200,6 +222,135 @@ public static class ItemGenerator
         }
         
         return "of Power";
+    }
+    
+    /// <summary>
+    /// Apply metal material traits to an item and return the material name.
+    /// </summary>
+    private static string? ApplyMetalMaterial(Item item, Faker f)
+    {
+        var data = GameDataService.Instance;
+        
+        if (data.Metals.Count == 0)
+            return null;
+        
+        // Pick appropriate metal based on rarity
+        var metalOptions = data.Metals.Values.ToList();
+        
+        // Filter by rarity - legendary items get legendary materials, etc.
+        var appropriateMetals = item.Rarity switch
+        {
+            ItemRarity.Common => metalOptions.Where(m => !m.Traits.ContainsKey("legendary")).Take(2).ToList(), // Iron, Bronze
+            ItemRarity.Uncommon => metalOptions.Where(m => !m.Traits.ContainsKey("legendary")).Skip(1).Take(3).ToList(), // Steel, Silver, Bronze
+            ItemRarity.Rare => metalOptions.Where(m => !m.Traits.ContainsKey("legendary")).Skip(2).Take(4).ToList(), // Silver, Mithril, Electrum, etc.
+            ItemRarity.Epic => metalOptions.Where(m => !m.Traits.ContainsKey("cursed") || f.Random.Bool(0.3f)).Skip(3).ToList(), // Higher tier metals
+            ItemRarity.Legendary => metalOptions.Where(m => m.Traits.ContainsKey("legendary") || f.Random.Bool(0.5f)).ToList(), // Legendary materials
+            _ => metalOptions.Take(2).ToList()
+        };
+        
+        if (appropriateMetals.Count == 0)
+            appropriateMetals = metalOptions.Take(3).ToList(); // Fallback
+        
+        var metal = f.PickRandom(appropriateMetals);
+        TraitApplicator.ApplyTraits(item, metal.Traits);
+        
+        return metal.DisplayName;
+    }
+    
+    /// <summary>
+    /// Apply wood material traits to an item and return the material name.
+    /// </summary>
+    private static string? ApplyWoodMaterial(Item item, Faker f)
+    {
+        var data = GameDataService.Instance;
+        
+        if (data.Woods.Count == 0)
+            return null;
+        
+        // Pick appropriate wood based on rarity
+        var woodOptions = data.Woods.Values.ToList();
+        
+        var appropriateWoods = item.Rarity switch
+        {
+            ItemRarity.Common => woodOptions.Where(w => !w.Traits.ContainsKey("legendary")).Take(2).ToList(), // Oak, Ash
+            ItemRarity.Uncommon => woodOptions.Where(w => !w.Traits.ContainsKey("legendary")).Skip(1).Take(3).ToList(), // Ash, Yew, Maple
+            ItemRarity.Rare => woodOptions.Where(w => !w.Traits.ContainsKey("legendary")).Skip(3).Take(4).ToList(), // Ironwood, Ebony, etc.
+            ItemRarity.Epic => woodOptions.Where(w => !w.Traits.ContainsKey("shadowBlend") || f.Random.Bool(0.3f)).Skip(4).ToList(),
+            ItemRarity.Legendary => woodOptions.Where(w => w.Traits.ContainsKey("legendary") || f.Random.Bool(0.5f)).ToList(),
+            _ => woodOptions.Take(2).ToList()
+        };
+        
+        if (appropriateWoods.Count == 0)
+            appropriateWoods = woodOptions.Take(3).ToList(); // Fallback
+        
+        var wood = f.PickRandom(appropriateWoods);
+        TraitApplicator.ApplyTraits(item, wood.Traits);
+        
+        return wood.DisplayName;
+    }
+    
+    /// <summary>
+    /// Apply leather material traits to an item and return the material name.
+    /// </summary>
+    private static string? ApplyLeatherMaterial(Item item, Faker f)
+    {
+        var data = GameDataService.Instance;
+        
+        if (data.Leathers.Count == 0)
+            return null;
+        
+        // Pick appropriate leather based on rarity
+        var leatherOptions = data.Leathers.Values.ToList();
+        
+        var appropriateLeathers = item.Rarity switch
+        {
+            ItemRarity.Common => leatherOptions.Where(l => !l.Traits.ContainsKey("legendary")).Take(2).ToList(), // Hide, Leather
+            ItemRarity.Uncommon => leatherOptions.Where(l => !l.Traits.ContainsKey("legendary")).Skip(1).Take(3).ToList(), // Leather, Studded, Hardened
+            ItemRarity.Rare => leatherOptions.Where(l => !l.Traits.ContainsKey("legendary")).Skip(3).Take(3).ToList(), // Drake, Shadow, Chimera
+            ItemRarity.Epic => leatherOptions.Where(l => !l.Traits.ContainsKey("cursed") || f.Random.Bool(0.3f)).Skip(4).ToList(),
+            ItemRarity.Legendary => leatherOptions.Where(l => l.Traits.ContainsKey("legendary") || f.Random.Bool(0.5f)).ToList(),
+            _ => leatherOptions.Take(2).ToList()
+        };
+        
+        if (appropriateLeathers.Count == 0)
+            appropriateLeathers = leatherOptions.Take(3).ToList(); // Fallback
+        
+        var leather = f.PickRandom(appropriateLeathers);
+        TraitApplicator.ApplyTraits(item, leather.Traits);
+        
+        return leather.DisplayName;
+    }
+    
+    /// <summary>
+    /// Apply gemstone material traits to an item and return the material name.
+    /// </summary>
+    private static string? ApplyGemstoneMaterial(Item item, Faker f)
+    {
+        var data = GameDataService.Instance;
+        
+        if (data.Gemstones.Count == 0)
+            return null;
+        
+        // Pick appropriate gemstone based on rarity
+        var gemOptions = data.Gemstones.Values.ToList();
+        
+        var appropriateGems = item.Rarity switch
+        {
+            ItemRarity.Common => gemOptions.Where(g => !g.Traits.ContainsKey("legendary")).Take(3).ToList(), // Ruby, Topaz, Obsidian
+            ItemRarity.Uncommon => gemOptions.Where(g => !g.Traits.ContainsKey("legendary")).Skip(1).Take(4).ToList(), // Sapphire, Amethyst, etc.
+            ItemRarity.Rare => gemOptions.Where(g => !g.Traits.ContainsKey("legendary")).Skip(3).Take(4).ToList(), // Diamond, Emerald, Opal, etc.
+            ItemRarity.Epic => gemOptions.Where(g => !g.Traits.ContainsKey("cursed") || f.Random.Bool(0.3f)).Skip(5).ToList(),
+            ItemRarity.Legendary => gemOptions.Where(g => g.Traits.ContainsKey("legendary") || g.Traits.ContainsKey("artifact")).ToList(),
+            _ => gemOptions.Take(3).ToList()
+        };
+        
+        if (appropriateGems.Count == 0)
+            appropriateGems = gemOptions.Take(3).ToList(); // Fallback
+        
+        var gem = f.PickRandom(appropriateGems);
+        TraitApplicator.ApplyTraits(item, gem.Traits);
+        
+        return gem.DisplayName;
     }
     
     /// <summary>

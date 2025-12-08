@@ -117,3 +117,35 @@ public class DragonColorTraitData
 public class DragonColorData : Dictionary<string, DragonColorTraitData>
 {
 }
+
+// Dialogue personality trait data
+public class DialogueTraitData
+{
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; set; } = string.Empty;
+    
+    [JsonPropertyName("traits")]
+    public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
+    
+    /// <summary>
+    /// Convert JSON traits to TraitValue dictionary.
+    /// </summary>
+    [JsonIgnore]
+    public Dictionary<string, TraitValue> Traits
+    {
+        get
+        {
+            var result = new Dictionary<string, TraitValue>();
+            foreach (var kvp in JsonTraits)
+            {
+                result[kvp.Key] = kvp.Value.ToTraitValue();
+            }
+            return result;
+        }
+    }
+}
+
+// Dialogue trait data - flat dictionary of personality archetypes
+public class DialogueTraitsData : Dictionary<string, DialogueTraitData>
+{
+}
