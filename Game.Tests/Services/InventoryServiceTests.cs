@@ -1,5 +1,6 @@
 using Game.Models;
 using Game.Services;
+using Game.Features.Inventory;
 using FluentAssertions;
 using MediatR;
 

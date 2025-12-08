@@ -5,7 +5,7 @@ using MediatR;
 using Serilog;
 using Spectre.Console;
 
-namespace Game.Services;
+namespace Game.Features.Inventory;
 
 /// <summary>
 /// Orchestrates high-level inventory UI flows and item management.

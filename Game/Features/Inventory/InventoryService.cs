@@ -2,7 +2,7 @@ using Game.Models;
 using MediatR;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.Inventory;
 
 /// <summary>
 /// Service for managing character inventory operations.

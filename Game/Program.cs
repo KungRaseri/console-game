@@ -1,6 +1,7 @@
 using Game;
 using Game.Services;
 using Game.Features.Combat;
+using Game.Features.Inventory;
 using Game.Shared.Services;
 using Game.Shared.Behaviors;
 using Game.Settings;

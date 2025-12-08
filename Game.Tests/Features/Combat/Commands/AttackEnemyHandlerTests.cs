@@ -97,7 +97,7 @@ public class AttackEnemyHandlerTests
         result.GoldGained.Should().Be(25);
         player.Experience.Should().Be(50);
         player.Gold.Should().Be(25);
-        enemy.Health.Should().BeLessOrEqualTo(0);
+        enemy.Health.Should().BeLessThanOrEqualTo(0);
         combatLog.Entries.Should().Contain(e => e.Message.Contains("defeated"));
     }
 
