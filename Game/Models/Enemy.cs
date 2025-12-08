@@ -3,11 +3,14 @@ namespace Game.Models;
 /// <summary>
 /// Represents an enemy combatant.
 /// </summary>
-public class Enemy
+public class Enemy : ITraitable
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
+    
+    // Trait system
+    public Dictionary<string, TraitValue> Traits { get; } = new();
     
     // Combat stats
     public int Level { get; set; } = 1;

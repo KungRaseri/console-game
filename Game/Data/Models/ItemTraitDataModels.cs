@@ -1,4 +1,5 @@
 using Game.Models;
+using System.Text.Json.Serialization;
 
 namespace Game.Data.Models;
 
@@ -9,8 +10,28 @@ namespace Game.Data.Models;
 // Weapon prefix with traits
 public class WeaponPrefixTraitData
 {
+    [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    public Dictionary<string, TraitValue> Traits { get; set; } = new();
+    
+    [JsonPropertyName("traits")]
+    public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
+    
+    /// <summary>
+    /// Convert JSON traits to TraitValue dictionary.
+    /// </summary>
+    [JsonIgnore]
+    public Dictionary<string, TraitValue> Traits
+    {
+        get
+        {
+            var result = new Dictionary<string, TraitValue>();
+            foreach (var kvp in JsonTraits)
+            {
+                result[kvp.Key] = kvp.Value.ToTraitValue();
+            }
+            return result;
+        }
+    }
 }
 
 public class WeaponPrefixDataEnhanced
@@ -25,8 +46,28 @@ public class WeaponPrefixDataEnhanced
 // Armor material with traits
 public class ArmorMaterialTraitData
 {
+    [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    public Dictionary<string, TraitValue> Traits { get; set; } = new();
+    
+    [JsonPropertyName("traits")]
+    public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
+    
+    /// <summary>
+    /// Convert JSON traits to TraitValue dictionary.
+    /// </summary>
+    [JsonIgnore]
+    public Dictionary<string, TraitValue> Traits
+    {
+        get
+        {
+            var result = new Dictionary<string, TraitValue>();
+            foreach (var kvp in JsonTraits)
+            {
+                result[kvp.Key] = kvp.Value.ToTraitValue();
+            }
+            return result;
+        }
+    }
 }
 
 public class ArmorMaterialDataEnhanced
@@ -41,8 +82,28 @@ public class ArmorMaterialDataEnhanced
 // Enchantment suffix with traits
 public class EnchantmentSuffixTraitData
 {
+    [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    public Dictionary<string, TraitValue> Traits { get; set; } = new();
+    
+    [JsonPropertyName("traits")]
+    public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
+    
+    /// <summary>
+    /// Convert JSON traits to TraitValue dictionary.
+    /// </summary>
+    [JsonIgnore]
+    public Dictionary<string, TraitValue> Traits
+    {
+        get
+        {
+            var result = new Dictionary<string, TraitValue>();
+            foreach (var kvp in JsonTraits)
+            {
+                result[kvp.Key] = kvp.Value.ToTraitValue();
+            }
+            return result;
+        }
+    }
 }
 
 public class EnchantmentSuffixDataEnhanced
@@ -64,7 +125,10 @@ public class EnchantmentSuffixDataEnhanced
 /// </summary>
 public class JsonTraitValue
 {
+    [JsonPropertyName("value")]
     public object? Value { get; set; }
+    
+    [JsonPropertyName("type")]
     public string Type { get; set; } = "string";
     
     public TraitValue ToTraitValue()

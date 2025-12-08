@@ -163,33 +163,4 @@ public class GameDataService
         
         return list[Random.Shared.Next(list.Count)];
     }
-    
-    /// <summary>
-    /// Get all items from a list based on rarity.
-    /// </summary>
-    public List<string> GetByRarity(string category, string rarity)
-    {
-        return category.ToLower() switch
-        {
-            "weapon_prefixes" => rarity.ToLower() switch
-            {
-                "common" => WeaponPrefixes.Common,
-                "uncommon" => WeaponPrefixes.Uncommon,
-                "rare" => WeaponPrefixes.Rare,
-                "epic" => WeaponPrefixes.Epic,
-                "legendary" => WeaponPrefixes.Legendary,
-                _ => new List<string>()
-            },
-            "armor_materials" => rarity.ToLower() switch
-            {
-                "common" => ArmorMaterials.Common,
-                "uncommon" => ArmorMaterials.Uncommon,
-                "rare" => ArmorMaterials.Rare,
-                "epic" => ArmorMaterials.Epic,
-                "legendary" => ArmorMaterials.Legendary,
-                _ => new List<string>()
-            },
-            _ => new List<string>()
-        };
-    }
 }
