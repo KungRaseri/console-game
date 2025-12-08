@@ -2,7 +2,7 @@ using Game.Models;
 using Game.Shared.UI;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.SaveLoad;
 
 /// <summary>
 /// Handles loading saved games and deleting saves.

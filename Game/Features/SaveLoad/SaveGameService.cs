@@ -2,7 +2,7 @@ using Game.Shared.Data;
 using Game.Models;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.SaveLoad;
 
 /// <summary>
 /// Service for managing game saves and loads with comprehensive world state tracking.
