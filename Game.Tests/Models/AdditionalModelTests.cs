@@ -160,7 +160,7 @@ public class SaveGameTests
         saveGame.PlayerName.Should().Be(string.Empty);
         saveGame.SaveDate.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(1));
         saveGame.Character.Should().NotBeNull();
-        saveGame.Inventory.Should().NotBeNull().And.BeEmpty();
+        saveGame.Character.Inventory.Should().NotBeNull().And.BeEmpty(); // Inventory is in Character now
         saveGame.PlayTimeMinutes.Should().Be(0);
     }
 
@@ -190,14 +190,14 @@ public class SaveGameTests
         // Act
         saveGame.PlayerName = "TestPlayer";
         saveGame.Character = character;
-        saveGame.Inventory = inventory;
+        saveGame.Character.Inventory = inventory; // Inventory is in Character now
         saveGame.PlayTimeMinutes = 120;
 
         // Assert
         saveGame.PlayerName.Should().Be("TestPlayer");
         saveGame.Character.Name.Should().Be("Hero");
         saveGame.Character.Level.Should().Be(5);
-        saveGame.Inventory.Should().HaveCount(2);
+        saveGame.Character.Inventory.Should().HaveCount(2); // Inventory is in Character now
         saveGame.PlayTimeMinutes.Should().Be(120);
     }
 
@@ -222,15 +222,15 @@ public class SaveGameTests
         var saveGame = new SaveGame();
 
         // Act
-        saveGame.Inventory.Add(new Item { Name = "Sword" });
-        saveGame.Inventory.Add(new Item { Name = "Shield" });
-        saveGame.Inventory.Add(new Item { Name = "Potion" });
+        saveGame.Character.Inventory.Add(new Item { Name = "Sword" });
+        saveGame.Character.Inventory.Add(new Item { Name = "Shield" });
+        saveGame.Character.Inventory.Add(new Item { Name = "Potion" });
 
         // Assert
-        saveGame.Inventory.Should().HaveCount(3);
-        saveGame.Inventory.Should().Contain(i => i.Name == "Sword");
-        saveGame.Inventory.Should().Contain(i => i.Name == "Shield");
-        saveGame.Inventory.Should().Contain(i => i.Name == "Potion");
+        saveGame.Character.Inventory.Should().HaveCount(3);
+        saveGame.Character.Inventory.Should().Contain(i => i.Name == "Sword");
+        saveGame.Character.Inventory.Should().Contain(i => i.Name == "Shield");
+        saveGame.Character.Inventory.Should().Contain(i => i.Name == "Potion");
     }
 }
 

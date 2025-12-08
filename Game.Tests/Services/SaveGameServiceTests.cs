@@ -44,7 +44,7 @@ public class SaveGameServiceTests : IDisposable
         saves.Should().HaveCount(1);
         saves[0].PlayerName.Should().Be("TestHero");
         saves[0].Character.Level.Should().Be(5);
-        saves[0].Inventory.Should().HaveCount(1);
+        saves[0].Character.Inventory.Should().HaveCount(1); // Inventory is in Character now
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class SaveGameServiceTests : IDisposable
         loadedSave.Character.Gold.Should().Be(500);
         loadedSave.Character.Strength.Should().Be(12);
         loadedSave.Character.Intelligence.Should().Be(18);
-        loadedSave.Inventory.Should().HaveCount(2);
+        loadedSave.Character.Inventory.Should().HaveCount(2); // Inventory is in Character now
     }
 
     [Fact]

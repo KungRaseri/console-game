@@ -1365,7 +1365,7 @@ public class GameEngine
             });
 
             _player = selectedSave.Character;
-            _inventory = selectedSave.Inventory;
+            _inventory = _player.Inventory; // Inventory is now tracked in Character
             _currentSaveId = selectedSave.Id;
 
             ConsoleUI.ShowSuccess($"Welcome back, {_player.Name}!");
