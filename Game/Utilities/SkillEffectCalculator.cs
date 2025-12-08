@@ -5,7 +5,7 @@ namespace Game.Utilities;
 /// <summary>
 /// Utility class for calculating skill effects and bonuses.
 /// </summary>
-public static class SkillEffectService
+public static class SkillEffectCalculator
 {
     /// <summary>
     /// Get total physical damage bonus from skills.

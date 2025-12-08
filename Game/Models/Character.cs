@@ -128,7 +128,7 @@ public class Character
     public int GetMaxMana()
     {
         int baseMana = (Wisdom * 5) + (Level * 3);
-        double skillMultiplier = SkillEffectService.GetMaxManaMultiplier(this);
+        double skillMultiplier = SkillEffectCalculator.GetMaxManaMultiplier(this);
         return (int)(baseMana * skillMultiplier);
     }
 
@@ -218,7 +218,7 @@ public class Character
     public double GetRareItemChance()
     {
         double baseChance = Charisma * 0.5;  // 10 CHA = 5% rare find
-        double skillBonus = SkillEffectService.GetRareItemFindBonus(this);
+        double skillBonus = SkillEffectCalculator.GetRareItemFindBonus(this);
         return baseChance + skillBonus;
     }
 

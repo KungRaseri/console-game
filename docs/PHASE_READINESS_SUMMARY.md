@@ -45,7 +45,7 @@ Without these fixes, you'll encounter:
 
 ## 🟡 High Priority (SHOULD FIX)
 
-### 5. No GameContext Service (1.5 hours)
+### 5. No GameStateService Service (1.5 hours)
 **Benefit**: Makes ALL phases 40% easier  
 **Why**: Centralized game state access
 
@@ -77,7 +77,7 @@ Without these fixes, you'll encounter:
 
 Why?
 - Extra 1.85 hours saves 5+ hours during Phase implementation
-- GameContext service is a game-changer
+- GameStateService service is a game-changer
 - Clean code from the start
 - Less debugging and rework
 
@@ -117,7 +117,7 @@ dotnet test
 2. ✅ Add RecordDeath method (15 min)
 3. ✅ Update Quest model (30 min)
 4. ✅ Convert CombatService (1 hour)
-5. ✅ Create GameContext (1.5 hours)
+5. ✅ Create GameStateService (1.5 hours)
 6. ✅ Fix character reference (45 min)
 7. ✅ Add enemy scaling (20 min)
 
@@ -131,7 +131,7 @@ dotnet test
 - [ ] Location tracking exists in GameEngine
 - [ ] SaveGame.Character is single source of truth
 - [ ] Quest model has Type, Prerequisites, Objectives
-- [ ] GameContext service provides Difficulty, Player, etc.
+- [ ] GameStateService service provides Difficulty, Player, etc.
 - [ ] SaveGameService.RecordDeath() exists
 - [ ] Enemy health scaling works in combat
 - [ ] All tests pass

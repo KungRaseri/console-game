@@ -19,7 +19,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var multiplier = SkillEffectService.GetPhysicalDamageMultiplier(character);
+        var multiplier = SkillEffectCalculator.GetPhysicalDamageMultiplier(character);
         
         // Assert
         multiplier.Should().Be(1.30); // 1.0 + (3 * 0.10)
@@ -37,7 +37,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var multiplier = SkillEffectService.GetMagicDamageMultiplier(character);
+        var multiplier = SkillEffectCalculator.GetMagicDamageMultiplier(character);
         
         // Assert
         multiplier.Should().Be(1.50); // 1.0 + (5 * 0.10)
@@ -55,7 +55,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var bonus = SkillEffectService.GetCriticalChanceBonus(character);
+        var bonus = SkillEffectCalculator.GetCriticalChanceBonus(character);
         
         // Assert
         bonus.Should().Be(8.0); // 4 * 2.0%
@@ -73,7 +73,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var multiplier = SkillEffectService.GetPhysicalDefenseMultiplier(character);
+        var multiplier = SkillEffectCalculator.GetPhysicalDefenseMultiplier(character);
         
         // Assert
         multiplier.Should().Be(1.10); // 1.0 + (2 * 0.05)
@@ -91,7 +91,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var bonus = SkillEffectService.GetDodgeChanceBonus(character);
+        var bonus = SkillEffectCalculator.GetDodgeChanceBonus(character);
         
         // Assert
         bonus.Should().Be(15.0); // 5 * 3.0%
@@ -109,7 +109,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var bonus = SkillEffectService.GetRareItemFindBonus(character);
+        var bonus = SkillEffectCalculator.GetRareItemFindBonus(character);
         
         // Assert
         bonus.Should().Be(30.0); // 3 * 10.0%
@@ -127,7 +127,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var multiplier = SkillEffectService.GetMaxManaMultiplier(character);
+        var multiplier = SkillEffectCalculator.GetMaxManaMultiplier(character);
         
         // Assert
         multiplier.Should().Be(1.20); // 1.0 + (2 * 0.10)
@@ -145,7 +145,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var regen = SkillEffectService.GetHealthRegeneration(character);
+        var regen = SkillEffectCalculator.GetHealthRegeneration(character);
         
         // Assert
         regen.Should().Be(6); // 3 * 2 HP
@@ -167,7 +167,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var healed = SkillEffectService.ApplyRegeneration(character);
+        var healed = SkillEffectCalculator.ApplyRegeneration(character);
         
         // Assert
         healed.Should().Be(4); // 2 * 2 HP
@@ -190,7 +190,7 @@ public class SkillEffectTests
         });
         
         // Act
-        var healed = SkillEffectService.ApplyRegeneration(character);
+        var healed = SkillEffectCalculator.ApplyRegeneration(character);
         
         // Assert
         healed.Should().Be(2); // Only heal to max
@@ -207,7 +207,7 @@ public class SkillEffectTests
         character.LearnedSkills.Add(new Skill { Name = "Regeneration", CurrentRank = 1 });
         
         // Act
-        var summary = SkillEffectService.GetSkillBonusSummary(character);
+        var summary = SkillEffectCalculator.GetSkillBonusSummary(character);
         
         // Assert
         summary.Should().Contain("Physical Damage");
@@ -222,7 +222,7 @@ public class SkillEffectTests
         var character = new Character();
         
         // Act
-        var summary = SkillEffectService.GetSkillBonusSummary(character);
+        var summary = SkillEffectCalculator.GetSkillBonusSummary(character);
         
         // Assert
         summary.Should().Contain("No active skill bonuses");
@@ -272,9 +272,9 @@ public class SkillEffectTests
         character.LearnedSkills.Add(new Skill { Name = "Iron Skin", CurrentRank = 5 });
         
         // Act
-        var physDmg = SkillEffectService.GetPhysicalDamageMultiplier(character);
-        var critChance = SkillEffectService.GetCriticalChanceBonus(character);
-        var defense = SkillEffectService.GetPhysicalDefenseMultiplier(character);
+        var physDmg = SkillEffectCalculator.GetPhysicalDamageMultiplier(character);
+        var critChance = SkillEffectCalculator.GetCriticalChanceBonus(character);
+        var defense = SkillEffectCalculator.GetPhysicalDefenseMultiplier(character);
         
         // Assert
         physDmg.Should().Be(1.50); // +50% damage

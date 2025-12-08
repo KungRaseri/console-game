@@ -682,7 +682,7 @@ public class GameEngine
             }
             
             // Apply regeneration at end of turn
-            var regenAmount = SkillEffectService.ApplyRegeneration(_player);
+            var regenAmount = SkillEffectCalculator.ApplyRegeneration(_player);
             if (regenAmount > 0)
             {
                 _combatLog.AddEntry($"💚 Regeneration healed {regenAmount} HP", CombatLogType.Heal);
@@ -1268,11 +1268,11 @@ public class GameEngine
         
         // Derived stats with skill bonuses
         var derivedContent = $"""
-        [red]Physical Damage:[/] {_player.GetPhysicalDamageBonus()} (+{(SkillEffectService.GetPhysicalDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
-        [cyan]Magic Damage:[/] {_player.GetMagicDamageBonus()} (+{(SkillEffectService.GetMagicDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
-        [magenta]Dodge Chance:[/] {_player.GetDodgeChance() + SkillEffectService.GetDodgeChanceBonus(_player):F1}%
-        [yellow]Critical Chance:[/] {_player.GetCriticalChance() + SkillEffectService.GetCriticalChanceBonus(_player):F1}%
-        [green]Physical Defense:[/] {(int)(_player.GetPhysicalDefense() * SkillEffectService.GetPhysicalDefenseMultiplier(_player))}
+        [red]Physical Damage:[/] {_player.GetPhysicalDamageBonus()} (+{(SkillEffectCalculator.GetPhysicalDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
+        [cyan]Magic Damage:[/] {_player.GetMagicDamageBonus()} (+{(SkillEffectCalculator.GetMagicDamageMultiplier(_player) - 1.0) * 100:F0}% from skills)
+        [magenta]Dodge Chance:[/] {_player.GetDodgeChance() + SkillEffectCalculator.GetDodgeChanceBonus(_player):F1}%
+        [yellow]Critical Chance:[/] {_player.GetCriticalChance() + SkillEffectCalculator.GetCriticalChanceBonus(_player):F1}%
+        [green]Physical Defense:[/] {(int)(_player.GetPhysicalDefense() * SkillEffectCalculator.GetPhysicalDefenseMultiplier(_player))}
         [blue]Magic Resistance:[/] {_player.GetMagicResistance():F1}%
         [gold1]Rare Find:[/] {_player.GetRareItemChance():F1}%
         """;
@@ -1304,7 +1304,7 @@ public class GameEngine
         }
         
         // Show active skill bonuses
-        var bonusSummary = SkillEffectService.GetSkillBonusSummary(_player);
+        var bonusSummary = SkillEffectCalculator.GetSkillBonusSummary(_player);
         if (!bonusSummary.Contains("No active"))
         {
             Console.WriteLine();

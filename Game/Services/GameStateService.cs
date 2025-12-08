@@ -7,7 +7,7 @@ namespace Game.Services;
 /// Centralized service for accessing game state and context.
 /// Provides clean access to difficulty settings, current save, player character, and location.
 /// </summary>
-public class GameContext
+public class GameStateService
 {
     private readonly SaveGameService _saveGameService;
     
@@ -16,7 +16,7 @@ public class GameContext
     /// </summary>
     public string CurrentLocation { get; set; } = "Hub Town";
     
-    public GameContext(SaveGameService saveGameService)
+    public GameStateService(SaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }

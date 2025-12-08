@@ -240,13 +240,13 @@ var difficulty = _saveGameService.GetDifficultySettings();
 var multiplier = difficulty.PlayerDamageMultiplier;
 ```
 
-**Better Approach**: Create a `GameContext` service
+**Better Approach**: Create a `GameStateService` service
 ```csharp
-public class GameContext
+public class GameStateService
 {
     private readonly SaveGameService _saveGameService;
     
-    public GameContext(SaveGameService saveGameService)
+    public GameStateService(SaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
@@ -271,11 +271,11 @@ public class GameContext
 - All phases benefit
 
 **Files to Create**:
-- `Game/Services/GameContext.cs`
+- `Game/Services/GameStateService.cs`
 
 **Files to Modify**:
-- `Game/GameEngine.cs` - Use GameContext instead of individual fields
-- All services - Inject GameContext instead of SaveGameService
+- `Game/GameEngine.cs` - Use GameStateService instead of individual fields
+- All services - Inject GameStateService instead of SaveGameService
 
 **Estimated Time**: 1.5 hours
 
@@ -436,7 +436,7 @@ private async Task HandleCombatAsync()
 **Total Critical Work**: ~2.75 hours
 
 ### Should Do Before Phases (High Value)
-5. **Create GameContext service** (1.5 hours) - Makes all phases easier
+5. **Create GameStateService service** (1.5 hours) - Makes all phases easier
 6. **Add RecordDeath method** (15 min) - Prevents Phase 2 issues
 7. **Add enemy scaling hook** (20 min) - Required for Phase 1
 
@@ -476,7 +476,7 @@ private async Task HandleCombatAsync()
 
 Reasoning:
 1. The extra 1.85 hours investment will **save 5+ hours** during Phase implementation
-2. GameContext service (#5) makes ALL phases dramatically easier
+2. GameStateService service (#5) makes ALL phases dramatically easier
 3. RecordDeath method (#6) prevents having to test death logic twice
 4. Enemy scaling hook (#7) is required for Phase 1 anyway
 
@@ -492,8 +492,8 @@ If you choose Option B, do them in this order:
 2. **Add RecordDeath method** (15 min) - Quick, required for Phase 2
 3. **Update Quest model** (30 min) - Data model changes first
 4. **Convert CombatService to instance** (1 hour) - Biggest refactor
-5. **Create GameContext service** (1.5 hours) - Build on CombatService changes
-6. **Fix SaveGame character reference** (45 min) - Use GameContext
+5. **Create GameStateService service** (1.5 hours) - Build on CombatService changes
+6. **Fix SaveGame character reference** (45 min) - Use GameStateService
 7. **Add enemy scaling hook** (20 min) - Integrates with CombatService
 
 **Total Time**: ~4.6 hours  
@@ -509,7 +509,7 @@ Before starting Phase 1, verify:
 - [ ] `GameEngine` has `_currentLocation` field and tracks location changes
 - [ ] `SaveGame.Character` is the single source of truth (no `_player` duplication)
 - [ ] `Quest` model has `Type`, `Prerequisites`, `Objectives`, `Progress` properties
-- [ ] `GameContext` service exists and provides `Difficulty`, `CurrentSave`, `Player`
+- [ ] `GameStateService` service exists and provides `Difficulty`, `CurrentSave`, `Player`
 - [ ] `SaveGameService.RecordDeath()` method exists
 - [ ] `CombatService.InitializeCombat()` applies enemy health multipliers
 - [ ] All existing tests still pass

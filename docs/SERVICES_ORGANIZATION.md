@@ -17,7 +17,7 @@ Game/
 │   ├── AudioService.cs
 │   ├── CharacterCreationService.cs
 │   ├── CombatService.cs ⭐ (newly made instance-based)
-│   ├── GameContext.cs ⭐ (newly created)
+│   ├── GameStateService.cs ⭐ (newly created)
 │   ├── GameDataService.cs
 │   ├── InventoryService.cs
 │   ├── LevelUpService.cs
@@ -25,7 +25,7 @@ Game/
 │   └── SaveGameService.cs
 │
 └── Utilities/          # Static helper/utility classes ⭐ NEW FOLDER
-    ├── SkillEffectService.cs ⭐ (moved from Services)
+    ├── SkillEffectCalculator.cs ⭐ (moved from Services)
     └── TraitApplicator.cs ⭐ (moved from Services)
 ```
 
@@ -34,7 +34,7 @@ Game/
 | File | From | To | Reason |
 |------|------|-----|--------|
 | `TraitApplicator.cs` | `Game/Services/` | `Game/Utilities/` | Static utility class with no state |
-| `SkillEffectService.cs` | `Game/Services/` | `Game/Utilities/` | Static utility class with no state |
+| `SkillEffectCalculator.cs` | `Game/Services/` | `Game/Utilities/` | Static utility class with no state |
 
 ### ✅ Updated Namespaces
 
@@ -73,13 +73,13 @@ Updated `using` statements in the following files:
 - ✅ Have dependencies injected via constructor
 - ✅ Maintain state
 - ✅ Instance-based (non-static)
-- ✅ Example: `CombatService`, `SaveGameService`, `GameContext`
+- ✅ Example: `CombatService`, `SaveGameService`, `GameStateService`
 
 **Utilities** (belong in `Utilities/` folder):
 - ✅ Static classes with no dependencies
 - ✅ Pure functions with no state
 - ✅ Helper/calculator methods
-- ✅ Example: `SkillEffectService`, `TraitApplicator`
+- ✅ Example: `SkillEffectCalculator`, `TraitApplicator`
 
 ## Results
 

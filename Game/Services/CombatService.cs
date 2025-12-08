@@ -64,7 +64,7 @@ public class CombatService
         }
         
         // Check for critical hit (base + skill bonus)
-        double critChance = player.GetCriticalChance() + SkillEffectService.GetCriticalChanceBonus(player);
+        double critChance = player.GetCriticalChance() + SkillEffectCalculator.GetCriticalChanceBonus(player);
         bool isCritical = RollCritical(critChance);
         result.IsCritical = isCritical;
         
@@ -72,7 +72,7 @@ public class CombatService
         int baseDamage = CalculatePlayerDamage(player);
         
         // Apply skill damage multiplier
-        double skillMultiplier = SkillEffectService.GetPhysicalDamageMultiplier(player);
+        double skillMultiplier = SkillEffectCalculator.GetPhysicalDamageMultiplier(player);
         baseDamage = (int)(baseDamage * skillMultiplier);
         
         // Apply critical multiplier
@@ -109,7 +109,7 @@ public class CombatService
         var result = new CombatResult { Success = true };
         
         // Check if player dodges (base + skill bonus)
-        double dodgeChance = player.GetDodgeChance() + SkillEffectService.GetDodgeChanceBonus(player);
+        double dodgeChance = player.GetDodgeChance() + SkillEffectCalculator.GetDodgeChanceBonus(player);
         if (RollDodge(dodgeChance))
         {
             result.IsDodged = true;
@@ -149,7 +149,7 @@ public class CombatService
         
         // Apply player defense (base + skill multiplier)
         int playerDefense = player.GetPhysicalDefense();
-        double defenseMultiplier = SkillEffectService.GetPhysicalDefenseMultiplier(player);
+        double defenseMultiplier = SkillEffectCalculator.GetPhysicalDefenseMultiplier(player);
         playerDefense = (int)(playerDefense * defenseMultiplier);
         
         int finalDamage = Math.Max(1, baseDamage - playerDefense);
