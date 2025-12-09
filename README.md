@@ -2,6 +2,21 @@
 
 A .NET Core Console application written in C# for building feature-rich console-based games.
 
+## 🏗️ Architecture
+
+**Vertical Slice Architecture + CQRS Pattern**
+
+This project uses **Vertical Slice Architecture** with **CQRS** (Command Query Responsibility Segregation) using **MediatR** for a clean, maintainable codebase organized by business features.
+
+- 📐 **[Vertical Slice Migration Summary](./docs/VERTICAL_SLICE_MIGRATION_SUMMARY.md)** - Complete migration details
+- 🚀 **[Developer Quick Reference](./docs/VERTICAL_SLICE_QUICK_REFERENCE.md)** - How to add new features
+
+**Key Benefits:**
+- ✅ Code organized by **business capability** (Features/Combat, Features/Inventory, etc.)
+- ✅ Clear separation: **Commands** (write) vs **Queries** (read)
+- ✅ Automatic **validation** and **logging** via MediatR pipeline behaviors
+- ✅ **27 handlers** across 5 features (Combat, Inventory, CharacterCreation, SaveLoad, Exploration)
+
 ## 📚 Documentation
 
 **Complete documentation is available in the [docs/](./docs/) folder:**
