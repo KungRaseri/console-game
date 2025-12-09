@@ -39,7 +39,7 @@ public class ExplorationServiceTests : IDisposable
         var serviceProvider = services.BuildServiceProvider();
         _mediator = serviceProvider.GetRequiredService<IMediator>();
         
-        _saveGameService = new SaveGameService(_testDbPath);
+        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbPath);
         _gameStateService = new GameStateService(_saveGameService);
         _explorationService = new ExplorationService(_mediator, _gameStateService, _saveGameService);
     }

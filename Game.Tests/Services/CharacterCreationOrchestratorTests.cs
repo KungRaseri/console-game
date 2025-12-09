@@ -3,6 +3,7 @@ using Game.Services;
 using Game.Features.CharacterCreation;
 using Game.Features.SaveLoad;
 using Game.Shared.Data;
+using Game.Shared.Services;
 using MediatR;
 using Xunit;
 using FluentAssertions;
@@ -39,8 +40,9 @@ public class CharacterCreationOrchestratorTests : IDisposable
         var serviceProvider = services.BuildServiceProvider();
         _mediator = serviceProvider.GetRequiredService<IMediator>();
         
-        _saveGameService = new SaveGameService(_testDbPath);
-        _orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService);
+        var apocalypseTimer = new ApocalypseTimer();
+        _saveGameService = new SaveGameService(apocalypseTimer, _testDbPath);
+        _orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, apocalypseTimer);
     }
 
     public void Dispose()
@@ -65,7 +67,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void CharacterCreationOrchestrator_Should_Be_Instantiable()
     {
         // Arrange & Act
-        var orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService);
+        var orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, new ApocalypseTimer());
 
         // Assert
         orchestrator.Should().NotBeNull();

@@ -1,5 +1,6 @@
 using Game.Services;
 using Game.Features.SaveLoad;
+using Game.Shared.Services;
 using Xunit;
 using FluentAssertions;
 using System;
@@ -16,14 +17,16 @@ public class LoadGameServiceTests : IDisposable
 {
     private readonly LoadGameService _loadGameService;
     private readonly SaveGameService _saveGameService;
+    private readonly ApocalypseTimer _apocalypseTimer;
     private readonly string _testDbPath;
 
     public LoadGameServiceTests()
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-loadgame-{Guid.NewGuid()}.db";
-        _saveGameService = new SaveGameService(_testDbPath);
-        _loadGameService = new LoadGameService(_saveGameService);
+        _apocalypseTimer = new ApocalypseTimer();
+        _saveGameService = new SaveGameService(_apocalypseTimer, _testDbPath);
+        _loadGameService = new LoadGameService(_saveGameService, _apocalypseTimer);
     }
 
     public void Dispose()
@@ -48,7 +51,7 @@ public class LoadGameServiceTests : IDisposable
     public void LoadGameService_Should_Be_Instantiable()
     {
         // Arrange & Act
-        var service = new LoadGameService(_saveGameService);
+        var service = new LoadGameService(_saveGameService, _apocalypseTimer);
 
         // Assert
         service.Should().NotBeNull();

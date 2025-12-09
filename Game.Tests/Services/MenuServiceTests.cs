@@ -23,7 +23,7 @@ public class MenuServiceTests : IDisposable
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-menu-{Guid.NewGuid()}.db";
-        _saveGameService = new SaveGameService(_testDbPath);
+        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbPath);
         _gameStateService = new GameStateService(_saveGameService);
         _menuService = new MenuService(_gameStateService, _saveGameService);
     }

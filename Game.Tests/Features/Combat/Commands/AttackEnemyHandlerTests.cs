@@ -4,6 +4,7 @@ using Game.Features.Combat.Commands.AttackEnemy;
 using Game.Features.SaveLoad;
 using Game.Models;
 using Game.Services;
+using Game.Shared.Services;
 using MediatR;
 using Moq;
 using Xunit;
@@ -22,10 +23,11 @@ public class AttackEnemyHandlerTests
 
     public AttackEnemyHandlerTests()
     {
-        var mockSaveGameService = new Mock<SaveGameService>(MockBehavior.Loose, "test.db");
+        var apocalypseTimer = new ApocalypseTimer();
+        var mockSaveGameService = new Mock<SaveGameService>(MockBehavior.Loose, apocalypseTimer, "test.db");
         _combatServiceMock = new Mock<CombatService>(MockBehavior.Loose, mockSaveGameService.Object);
         _mediatorMock = new Mock<IMediator>();
-        _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, "test.db");
+        _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, apocalypseTimer, "test.db");
         
         // Setup default difficulty settings
         _saveGameServiceMock

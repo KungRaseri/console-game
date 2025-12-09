@@ -2,6 +2,7 @@ using Game.Models;
 using Game.Services;
 using Game.Features.Exploration;
 using Game.Features.SaveLoad;
+using Game.Shared.Services;
 using Xunit;
 using FluentAssertions;
 using System;
@@ -23,7 +24,7 @@ public class GameplayServiceTests : IDisposable
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-gameplay-{Guid.NewGuid()}.db";
-        _saveGameService = new SaveGameService(_testDbPath);
+        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbPath);
         _gameplayService = new GameplayService(_saveGameService);
     }
 

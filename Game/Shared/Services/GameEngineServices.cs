@@ -30,6 +30,9 @@ public class GameEngineServices
     public GameplayService Gameplay { get; }
     public HallOfFameService HallOfFame { get; }
     
+    // Shared services
+    public ApocalypseTimer ApocalypseTimer { get; }
+    
     // UI services
     public MenuService Menu { get; }
     
@@ -47,6 +50,7 @@ public class GameEngineServices
         ExplorationService exploration,
         GameplayService gameplay,
         HallOfFameService hallOfFame,
+        ApocalypseTimer apocalypseTimer,
         MenuService menu)
 #pragma warning restore S107
     {
@@ -60,6 +64,7 @@ public class GameEngineServices
         Exploration = exploration;
         Gameplay = gameplay;
         HallOfFame = hallOfFame;
+        ApocalypseTimer = apocalypseTimer;
         Menu = menu;
     }
 }

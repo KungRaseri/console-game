@@ -230,6 +230,22 @@ public class GameEngine
             return;
         }
 
+        // Check apocalypse timer
+        var saveGame = _services.SaveGame.GetCurrentSave();
+        if (saveGame != null && saveGame.ApocalypseMode)
+        {
+            _services.ApocalypseTimer.CheckTimeWarnings();
+            
+            if (_services.ApocalypseTimer.IsExpired())
+            {
+                await HandleApocalypseGameOverAsync();
+                return;
+            }
+        }
+        
+        // Display HUD with timer
+        DisplayGameHUD();
+
         Console.WriteLine();
         
         var action = _services.Menu.ShowInGameMenu();
@@ -312,8 +328,16 @@ public class GameEngine
             return;
         }
 
-        await _services.Inventory.HandleInventoryAsync(Player);
-        _state = GameState.InGame;
+        _services.ApocalypseTimer.Pause();
+        try
+        {
+            await _services.Inventory.HandleInventoryAsync(Player);
+            _state = GameState.InGame;
+        }
+        finally
+        {
+            _services.ApocalypseTimer.Resume();
+        }
     }
 
     private void HandlePaused()
@@ -371,21 +395,46 @@ public class GameEngine
     /// </summary>
     private async Task TravelToLocation()
     {
-        await _services.Exploration.TravelToLocation();
+        _services.ApocalypseTimer.Pause();
+        try
+        {
+            await _services.Exploration.TravelToLocation();
+        }
+        finally
+        {
+            _services.ApocalypseTimer.Resume();
+        }
     }
 
     private async Task ViewCharacterAsync()
     {
         if (Player == null) return;
 
-        CharacterViewService.ViewCharacter(Player);
-        await Task.CompletedTask;
+        _services.ApocalypseTimer.Pause();
+        try
+        {
+            CharacterViewService.ViewCharacter(Player);
+            await Task.CompletedTask;
+        }
+        finally
+        {
+            _services.ApocalypseTimer.Resume();
+        }
     }
 
     private void RestAsync()
     {
         if (Player == null) return;
-        _services.Gameplay.Rest(Player);
+        
+        _services.ApocalypseTimer.Pause();
+        try
+        {
+            _services.Gameplay.Rest(Player);
+        }
+        finally
+        {
+            _services.ApocalypseTimer.Resume();
+        }
     }
 
     private void SaveGameAsync()
@@ -396,7 +445,15 @@ public class GameEngine
             return;
         }
         
-        _services.Gameplay.SaveGame(Player, _inventory, _currentSaveId);
+        _services.ApocalypseTimer.Pause();
+        try
+        {
+            _services.Gameplay.SaveGame(Player, _inventory, _currentSaveId);
+        }
+        finally
+        {
+            _services.ApocalypseTimer.Resume();
+        }
     }
 
     private async Task LoadGameAsync()
@@ -407,6 +464,15 @@ public class GameEngine
         {
             _currentSaveId = selectedSave.Id;
             _inventory = selectedSave.Character.Inventory;
+            
+            // Check if apocalypse timer expired immediately after loading
+            if (selectedSave.ApocalypseMode && _services.ApocalypseTimer.IsExpired())
+            {
+                _state = GameState.InGame; // Set state so HandleApocalypseGameOverAsync works correctly
+                await HandleApocalypseGameOverAsync();
+                return;
+            }
+            
             _state = GameState.InGame;
         }
     }
@@ -416,6 +482,135 @@ public class GameEngine
         ConsoleUI.Clear();
         ConsoleUI.ShowBanner("Thanks for Playing!", "See you next time!");
         await Task.Delay(300);
+    }
+
+    /// <summary>
+    /// Display the game HUD with character info and apocalypse timer if active.
+    /// </summary>
+    private void DisplayGameHUD()
+    {
+        Console.Clear();
+        
+        // Top bar with character info and timer
+        var leftInfo = $"[cyan]{Player?.Name}[/] | Level {Player?.Level} {Player?.ClassName}";
+        var centerInfo = $"[green]❤ {Player?.Health}/{Player?.MaxHealth}[/]  [blue]⚡ {Player?.Mana}/{Player?.MaxMana}[/]  [yellow]💰 {Player?.Gold}g[/]";
+        var rightInfo = "";
+        
+        // Add timer if in Apocalypse mode
+        var saveGame = _services.SaveGame.GetCurrentSave();
+        if (saveGame != null && saveGame.ApocalypseMode)
+        {
+            rightInfo = _services.ApocalypseTimer.GetColoredTimeDisplay();
+        }
+        
+        // Calculate spacing for centered layout
+        var leftLen = ConsoleUI.StripMarkup(leftInfo).Length;
+        var centerLen = ConsoleUI.StripMarkup(centerInfo).Length;
+        var rightLen = ConsoleUI.StripMarkup(rightInfo).Length;
+        
+        var totalWidth = Console.WindowWidth;
+        var spacing = Math.Max(2, (totalWidth - leftLen - centerLen - rightLen) / 2);
+        
+        // Display HUD
+        Console.WriteLine(new string('═', totalWidth));
+        AnsiConsole.MarkupLine($"{leftInfo}{new string(' ', spacing)}{centerInfo}{new string(' ', spacing)}{rightInfo}");
+        Console.WriteLine(new string('═', totalWidth));
+        Console.WriteLine();
+    }
+
+    /// <summary>
+    /// Handle apocalypse game over when timer expires.
+    /// </summary>
+    private async Task HandleApocalypseGameOverAsync()
+    {
+        ConsoleUI.Clear();
+        
+        // Dramatic apocalypse sequence
+        ConsoleUI.ShowError("═══════════════════════════════════════");
+        await Task.Delay(500);
+        ConsoleUI.ShowError("        TIME HAS RUN OUT...            ");
+        await Task.Delay(1000);
+        ConsoleUI.ShowError("═══════════════════════════════════════");
+        await Task.Delay(1500);
+        
+        Console.Clear();
+        ConsoleUI.ShowError("The world trembles...");
+        await Task.Delay(2000);
+        
+        ConsoleUI.ShowError("The sky darkens...");
+        await Task.Delay(2000);
+        
+        ConsoleUI.ShowError("Reality fractures...");
+        await Task.Delay(2000);
+        
+        Console.Clear();
+        ConsoleUI.ShowError("═════════════════════════════════════════════════");
+        ConsoleUI.ShowError("                                                 ");
+        ConsoleUI.ShowError("         THE APOCALYPSE HAS COME                 ");
+        ConsoleUI.ShowError("                                                 ");
+        ConsoleUI.ShowError("═════════════════════════════════════════════════");
+        await Task.Delay(2000);
+        
+        Console.WriteLine();
+        ConsoleUI.WriteText("The world crumbles into eternal darkness...");
+        ConsoleUI.WriteText("You failed to stop the inevitable.");
+        Console.WriteLine();
+        
+        // Show final statistics
+        var saveGame = _services.SaveGame.GetCurrentSave();
+        if (saveGame != null)
+        {
+            var elapsed = _services.ApocalypseTimer.GetElapsedMinutes();
+            ConsoleUI.WriteText($"Time Survived: {elapsed / 60}h {elapsed % 60}m");
+            ConsoleUI.WriteText($"Final Level: {Player?.Level ?? 0}");
+            ConsoleUI.WriteText($"Quests Completed: {saveGame.QuestsCompleted}");
+            ConsoleUI.WriteText($"Enemies Defeated: {saveGame.TotalEnemiesDefeated}");
+            Console.WriteLine();
+            
+            // Check progress
+            var mainQuestProgress = CalculateMainQuestProgress(saveGame);
+            if (mainQuestProgress >= 0.8) // 80% complete
+            {
+                ConsoleUI.ShowWarning("You were so close... Only a few quests remained.");
+            }
+            else if (mainQuestProgress >= 0.5)
+            {
+                ConsoleUI.ShowWarning("You made significant progress, but it wasn't enough.");
+            }
+            else
+            {
+                ConsoleUI.ShowWarning("You barely scratched the surface of what was needed.");
+            }
+        }
+        
+        Console.WriteLine();
+        ConsoleUI.ShowError("═════════════════════════════════════════════════");
+        ConsoleUI.ShowError("                  GAME OVER                      ");
+        ConsoleUI.ShowError("═════════════════════════════════════════════════");
+        
+        Log.Warning("Apocalypse game over. Player failed to complete main quest in time.");
+        
+        await Task.Delay(5000);
+        
+        // Ask if they want to try again
+        if (ConsoleUI.Confirm("Try again?"))
+        {
+            _state = GameState.MainMenu;
+        }
+        else
+        {
+            _isRunning = false;
+        }
+    }
+
+    /// <summary>
+    /// Calculate main quest progress for apocalypse game over.
+    /// </summary>
+    private double CalculateMainQuestProgress(SaveGame saveGame)
+    {
+        // Simple calculation - can be enhanced in Phase 4 with actual main quest tracking
+        var totalQuests = Math.Max(1, saveGame.QuestsCompleted + saveGame.ActiveQuests.Count);
+        return (double)saveGame.QuestsCompleted / totalQuests;
     }
 }
 

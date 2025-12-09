@@ -35,7 +35,7 @@ public class CombatOrchestratorTests : IDisposable
         _mockMediator = new Mock<IMediator>();
 
         // Create real dependencies with correct constructors
-        _saveGameService = new SaveGameService(_testDbFile);
+        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbFile);
         _combatService = new CombatService(_saveGameService);
         _gameStateService = new GameStateService(_saveGameService);
         _menuService = new MenuService(_gameStateService, _saveGameService);

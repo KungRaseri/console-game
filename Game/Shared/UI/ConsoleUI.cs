@@ -44,6 +44,13 @@ public static class ConsoleUI
         };
     }
     
+    /// <summary>
+    /// Strip Spectre.Console markup from text for length calculations.
+    /// </summary>
+    public static string StripMarkup(string text)
+    {
+        return System.Text.RegularExpressions.Regex.Replace(text, @"\[.*?\]", "");
+    }
     
     #endregion
 

@@ -2,6 +2,7 @@ using FluentAssertions;
 using Game.Models;
 using Game.Services;
 using Game.Features.SaveLoad;
+using Game.Shared.Services;
 
 namespace Game.Tests.Services;
 
@@ -18,7 +19,7 @@ public class SaveGameServiceTests : IDisposable
             File.Delete(_testDbPath);
         }
         
-        _saveService = new SaveGameService(_testDbPath);
+        _saveService = new SaveGameService(new ApocalypseTimer(), _testDbPath);
     }
 
     [Fact]

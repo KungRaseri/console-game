@@ -3,6 +3,7 @@ using Game.Models;
 using Game.Services;
 using Game.Features.Combat;
 using Game.Features.SaveLoad;
+using Game.Shared.Services;
 using System;
 using System.IO;
 
@@ -17,7 +18,7 @@ public class CombatServiceTests : IDisposable
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-combat-{Guid.NewGuid()}.db";
-        var saveGameService = new SaveGameService(_testDbPath);
+        var saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbPath);
         
         // Create a test save game with normal difficulty
         var testSave = new SaveGame 

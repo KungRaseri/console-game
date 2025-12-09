@@ -1,5 +1,6 @@
 using Game.Shared.Data;
 using Game.Models;
+using Game.Shared.Services;
 using Serilog;
 
 namespace Game.Features.SaveLoad;
@@ -10,12 +11,14 @@ namespace Game.Features.SaveLoad;
 public class SaveGameService : IDisposable
 {
     private readonly SaveGameRepository _repository;
+    private readonly ApocalypseTimer _apocalypseTimer;
     private DateTime _gameStartTime;
     private SaveGame? _currentSave;
 
-    public SaveGameService(string databasePath = "savegames.db")
+    public SaveGameService(ApocalypseTimer apocalypseTimer, string databasePath = "savegames.db")
     {
         _repository = new SaveGameRepository(databasePath);
+        _apocalypseTimer = apocalypseTimer;
         _gameStartTime = DateTime.Now;
     }
 
@@ -68,6 +71,13 @@ public class SaveGameService : IDisposable
             if (_currentSave?.Id == saveGame.Id)
             {
                 saveGame.PlayTimeMinutes = (int)(DateTime.Now - _gameStartTime).TotalMinutes;
+            }
+            
+            // Update apocalypse timer state if applicable
+            if (saveGame.ApocalypseMode)
+            {
+                saveGame.ApocalypseBonusMinutes = _apocalypseTimer.GetBonusMinutes();
+                // ApocalypseStartTime is already set during game creation
             }
             
             saveGame.SaveDate = DateTime.Now;
@@ -324,6 +334,24 @@ public class SaveGameService : IDisposable
             _currentSave.CompletedQuests.Add(quest);
             _currentSave.QuestsCompleted++;
             Log.Information("Quest '{QuestTitle}' completed!", quest.Title);
+            
+            // Award bonus time in Apocalypse mode
+            if (_currentSave.ApocalypseMode)
+            {
+                var bonusMinutes = quest.Difficulty.ToLower() switch
+                {
+                    "easy" => 10,
+                    "medium" => 20,
+                    "hard" => 30,
+                    _ => 15
+                };
+                
+                _apocalypseTimer.AddBonusTime(bonusMinutes, $"Completed quest: {quest.Title}");
+                
+                // Update save with new bonus time
+                _currentSave.ApocalypseBonusMinutes = _apocalypseTimer.GetBonusMinutes();
+                SaveGame(_currentSave);
+            }
         }
     }
 

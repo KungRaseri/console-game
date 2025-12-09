@@ -17,11 +17,13 @@ public class CharacterCreationOrchestrator
 {
     private readonly IMediator _mediator;
     private readonly SaveGameService _saveGameService;
+    private readonly ApocalypseTimer _apocalypseTimer;
 
-    public CharacterCreationOrchestrator(IMediator mediator, SaveGameService saveGameService)
+    public CharacterCreationOrchestrator(IMediator mediator, SaveGameService saveGameService, ApocalypseTimer apocalypseTimer)
     {
         _mediator = mediator;
         _saveGameService = saveGameService;
+        _apocalypseTimer = apocalypseTimer;
     }
 
     /// <summary>
@@ -72,6 +74,22 @@ public class CharacterCreationOrchestrator
 
         // Create save game with the new character and difficulty settings
         var saveGame = _saveGameService.CreateNewGame(newCharacter, difficulty);
+        
+        // Start apocalypse timer if applicable
+        if (difficulty.IsApocalypse)
+        {
+            _apocalypseTimer.Start();
+            
+            ConsoleUI.Clear();
+            ConsoleUI.ShowWarning("═══════════════════════════════════════");
+            ConsoleUI.ShowWarning("      APOCALYPSE MODE ACTIVE           ");
+            ConsoleUI.ShowWarning("═══════════════════════════════════════");
+            ConsoleUI.WriteText("  The world will end in 4 hours!");
+            ConsoleUI.WriteText("  Complete the main quest before time runs out.");
+            ConsoleUI.WriteText("  Completing quests will award bonus time.");
+            ConsoleUI.ShowWarning("═══════════════════════════════════════");
+            await Task.Delay(4000);
+        }
         
         Log.Information("Character created: {CharacterName} ({ClassName})", newCharacter.Name, newCharacter.ClassName);
 

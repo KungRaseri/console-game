@@ -4,6 +4,7 @@ using Game.Services;
 using Game.Features.Combat;
 using Game.Features.Exploration;
 using Game.Features.SaveLoad;
+using Game.Shared.Services;
 using Game.Models;
 
 namespace Game.Tests.Integration;
@@ -22,7 +23,7 @@ public class GameWorkflowIntegrationTests : IDisposable
     public GameWorkflowIntegrationTests()
     {
         _testDbFile = $"test-integration-{Guid.NewGuid()}.db";
-        _saveGameService = new SaveGameService(_testDbFile);
+        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbFile);
         _combatService = new CombatService(_saveGameService);
         _gameplayService = new GameplayService(_saveGameService);
     }

@@ -81,6 +81,9 @@ try
     services.AddSingleton<GameStateService>();
     services.AddSingleton<CombatService>();
     
+    // Apocalypse timer (shared service)
+    services.AddSingleton<ApocalypseTimer>();
+    
     // Death system services (Phase 2)
     services.AddSingleton<Game.Features.Death.DeathService>();
     services.AddSingleton<Game.Features.Death.HallOfFameService>();

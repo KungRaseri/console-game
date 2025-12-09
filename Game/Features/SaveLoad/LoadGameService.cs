@@ -1,5 +1,6 @@
 using Game.Models;
 using Game.Shared.UI;
+using Game.Shared.Services;
 using Serilog;
 
 namespace Game.Features.SaveLoad;
@@ -10,10 +11,12 @@ namespace Game.Features.SaveLoad;
 public class LoadGameService
 {
     private readonly SaveGameService _saveGameService;
+    private readonly ApocalypseTimer _apocalypseTimer;
 
-    public LoadGameService(SaveGameService saveGameService)
+    public LoadGameService(SaveGameService saveGameService, ApocalypseTimer apocalypseTimer)
     {
         _saveGameService = saveGameService;
+        _apocalypseTimer = apocalypseTimer;
     }
 
     /// <summary>
@@ -98,6 +101,33 @@ public class LoadGameService
 
             ConsoleUI.ShowSuccess($"Welcome back, {selectedSave.Character.Name}!");
             Log.Information("Game loaded for player {PlayerName}", selectedSave.Character.Name);
+            
+            // Restore apocalypse timer if applicable
+            if (selectedSave.ApocalypseMode && selectedSave.ApocalypseStartTime.HasValue)
+            {
+                _apocalypseTimer.StartFromSave(selectedSave.ApocalypseStartTime.Value, selectedSave.ApocalypseBonusMinutes);
+                
+                // Check if time expired while they were away
+                if (_apocalypseTimer.IsExpired())
+                {
+                    ConsoleUI.ShowError("Time has run out! The apocalypse occurred while you were gone.");
+                    await Task.Delay(3000);
+                    // Return to GameEngine which will handle the apocalypse game over
+                    return (selectedSave, true);
+                }
+                
+                // Show time remaining
+                var remaining = _apocalypseTimer.GetRemainingMinutes();
+                ConsoleUI.ShowWarning($"Apocalypse Mode: {remaining} minutes remaining!");
+                
+                if (remaining < 60)
+                {
+                    ConsoleUI.ShowError("WARNING: Less than 1 hour remaining!");
+                }
+                
+                await Task.Delay(2000);
+            }
+            
             await Task.Delay(500);
 
             return (selectedSave, true);
