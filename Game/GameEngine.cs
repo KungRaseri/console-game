@@ -22,17 +22,8 @@ namespace Game;
 /// </summary>
 public class GameEngine
 {
-    private readonly IMediator _mediator;
+    private readonly GameEngineServices _services;
     private readonly ResiliencePipeline _resiliencePipeline;
-    private readonly SaveGameService _saveGameService;
-    private readonly CombatService _combatService;
-    private readonly MenuService _menuService;
-    private readonly ExplorationService _explorationService;
-    private readonly CharacterCreationOrchestrator _characterCreation;
-    private readonly LoadGameService _loadGameService;
-    private readonly GameplayService _gameplayService;
-    private readonly CombatOrchestrator _combatOrchestrator;
-    private readonly InventoryOrchestrator _inventoryOrchestrator;
     private GameState _state;
     private bool _isRunning;
     private List<Item> _inventory;
@@ -43,30 +34,11 @@ public class GameEngine
     /// Get the current player character from the active save game.
     /// Returns null if no save game is active.
     /// </summary>
-    private Character? Player => _saveGameService.GetCurrentSave()?.Character;
+    private Character? Player => _services.SaveGame.GetCurrentSave()?.Character;
 
-    public GameEngine(
-        IMediator mediator,
-        SaveGameService saveGameService,
-        CombatService combatService,
-        MenuService menuService,
-        ExplorationService explorationService,
-        CharacterCreationOrchestrator characterCreation,
-        LoadGameService loadGameService,
-        GameplayService gameplayService,
-        CombatOrchestrator combatOrchestrator,
-        InventoryOrchestrator inventoryOrchestrator)
+    public GameEngine(GameEngineServices services)
     {
-        _mediator = mediator;
-        _saveGameService = saveGameService;
-        _combatService = combatService;
-        _menuService = menuService;
-        _explorationService = explorationService;
-        _characterCreation = characterCreation;
-        _loadGameService = loadGameService;
-        _gameplayService = gameplayService;
-        _combatOrchestrator = combatOrchestrator;
-        _inventoryOrchestrator = inventoryOrchestrator;
+        _services = services;
         _state = GameState.MainMenu;
         _isRunning = false;
         _inventory = new List<Item>();
@@ -205,7 +177,7 @@ public class GameEngine
 
     private async Task HandleMainMenuAsync()
     {
-        var choice = _menuService.HandleMainMenu();
+        var choice = _services.Menu.HandleMainMenu();
         
         switch (choice)
         {
@@ -229,7 +201,7 @@ public class GameEngine
 
     private async Task HandleCharacterCreationAsync()
     {
-        var (character, saveId, success) = await _characterCreation.CreateCharacterAsync();
+        var (character, saveId, success) = await _services.CharacterCreation.CreateCharacterAsync();
         
         if (success && character != null && saveId != null)
         {
@@ -256,7 +228,7 @@ public class GameEngine
 
         Console.WriteLine();
         
-        var action = _menuService.ShowInGameMenu();
+        var action = _services.Menu.ShowInGameMenu();
 
         switch (action)
         {
@@ -314,13 +286,13 @@ public class GameEngine
         var enemy = Generators.EnemyGenerator.Generate(Player.Level, EnemyDifficulty.Normal);
         
         // Initialize combat with difficulty scaling
-        _combatService.InitializeCombat(enemy);
+        _services.CombatLogic.InitializeCombat(enemy);
         
         // Initialize combat log
         _combatLog = new CombatLog(maxEntries: 15);
         
         // Delegate to CombatOrchestrator
-        await _combatOrchestrator.HandleCombatAsync(Player, enemy, _combatLog);
+        await _services.Combat.HandleCombatAsync(Player, enemy, _combatLog);
         
         // Clear combat log and return to game
         _combatLog = null;
@@ -336,13 +308,13 @@ public class GameEngine
             return;
         }
 
-        await _inventoryOrchestrator.HandleInventoryAsync(Player);
+        await _services.Inventory.HandleInventoryAsync(Player);
         _state = GameState.InGame;
     }
 
     private void HandlePaused()
     {
-        var nextState = _menuService.HandlePauseMenu();
+        var nextState = _services.Menu.HandlePauseMenu();
         
         switch (nextState)
         {
@@ -382,7 +354,7 @@ public class GameEngine
     {
         if (Player == null) return;
 
-        var shouldEnterCombat = await _explorationService.ExploreAsync();
+        var shouldEnterCombat = await _services.Exploration.ExploreAsync();
         
         if (shouldEnterCombat)
         {
@@ -395,7 +367,7 @@ public class GameEngine
     /// </summary>
     private void TravelToLocation()
     {
-        _explorationService.TravelToLocation();
+        _services.Exploration.TravelToLocation();
     }
 
     private async Task ViewCharacterAsync()
@@ -409,7 +381,7 @@ public class GameEngine
     private void RestAsync()
     {
         if (Player == null) return;
-        _gameplayService.Rest(Player);
+        _services.Gameplay.Rest(Player);
     }
 
     private void SaveGameAsync()
@@ -420,12 +392,12 @@ public class GameEngine
             return;
         }
         
-        _gameplayService.SaveGame(Player, _inventory, _currentSaveId);
+        _services.Gameplay.SaveGame(Player, _inventory, _currentSaveId);
     }
 
     private async Task LoadGameAsync()
     {
-        var (selectedSave, loadSuccessful) = await _loadGameService.LoadGameAsync();
+        var (selectedSave, loadSuccessful) = await _services.LoadGame.LoadGameAsync();
         
         if (loadSuccessful && selectedSave != null)
         {

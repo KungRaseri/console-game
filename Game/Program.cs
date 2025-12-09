@@ -92,6 +92,9 @@ try
     services.AddTransient<CombatOrchestrator>();
     services.AddTransient<InventoryOrchestrator>();
     
+    // Register GameEngine service aggregator (reduces constructor complexity)
+    services.AddScoped<GameEngineServices>();
+    
     // Register the game engine
     services.AddSingleton<GameEngine>();
 
