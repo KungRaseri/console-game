@@ -20,7 +20,7 @@ public class SaveGameServiceTests : IDisposable
         }
         
         _saveService = new SaveGameService(new ApocalypseTimer(), _testDbPath);
-    }
+    } 
 
     [Fact]
     public void SaveGame_Should_Create_New_Save()
