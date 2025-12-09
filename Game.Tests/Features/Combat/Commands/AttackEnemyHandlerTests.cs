@@ -14,20 +14,25 @@ namespace Game.Tests.Features.Combat.Commands;
 /// <summary>
 /// Tests for AttackEnemyHandler.
 /// </summary>
-public class AttackEnemyHandlerTests
+public class AttackEnemyHandlerTests : IDisposable
 {
     private readonly Mock<CombatService> _combatServiceMock;
     private readonly Mock<IMediator> _mediatorMock;
     private readonly Mock<SaveGameService> _saveGameServiceMock;
     private readonly AttackEnemyHandler _handler;
+    private readonly string _testDbPath;
 
     public AttackEnemyHandlerTests()
     {
+        // Use unique database path for each test instance to avoid file locking
+        _testDbPath = $"test_attack_{Guid.NewGuid()}.db";
+        
         var apocalypseTimer = new ApocalypseTimer();
-        var mockSaveGameService = new Mock<SaveGameService>(MockBehavior.Loose, apocalypseTimer, "test.db");
-        _combatServiceMock = new Mock<CombatService>(MockBehavior.Loose, mockSaveGameService.Object);
+        
+        // Create a single mock instance to avoid creating multiple database connections
+        _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, apocalypseTimer, _testDbPath);
+        _combatServiceMock = new Mock<CombatService>(MockBehavior.Loose, _saveGameServiceMock.Object);
         _mediatorMock = new Mock<IMediator>();
-        _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, apocalypseTimer, "test.db");
         
         // Setup default difficulty settings
         _saveGameServiceMock
@@ -35,6 +40,27 @@ public class AttackEnemyHandlerTests
             .Returns(DifficultySettings.Normal);
         
         _handler = new AttackEnemyHandler(_combatServiceMock.Object, _mediatorMock.Object, _saveGameServiceMock.Object);
+    }
+
+    public void Dispose()
+    {
+        // Dispose of the real SaveGameService instance created in the mock
+        _saveGameServiceMock?.Object?.Dispose();
+        
+        // Clean up test database files
+        try
+        {
+            if (File.Exists(_testDbPath))
+                File.Delete(_testDbPath);
+            
+            var logFile = _testDbPath.Replace(".db", "-log.db");
+            if (File.Exists(logFile))
+                File.Delete(logFile);
+        }
+        catch
+        {
+            // Ignore cleanup errors
+        }
     }
 
     [Fact]

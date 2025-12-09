@@ -13,7 +13,7 @@ public class Item : ITraitable
     public ItemType Type { get; set; } = ItemType.Consumable;
     
     // Trait system - flexible properties defined in JSON
-    public Dictionary<string, TraitValue> Traits { get; } = new();
+    public Dictionary<string, TraitValue> Traits { get; set; } = new();
     
     // Equipment set
     public string? SetName { get; set; }

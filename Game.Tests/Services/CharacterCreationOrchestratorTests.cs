@@ -47,6 +47,9 @@ public class CharacterCreationOrchestratorTests : IDisposable
 
     public void Dispose()
     {
+        // Dispose of SaveGameService first to release file locks
+        _saveGameService?.Dispose();
+        
         // Clean up test database files
         try
         {

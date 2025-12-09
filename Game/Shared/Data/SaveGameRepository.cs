@@ -17,8 +17,17 @@ public class SaveGameRepository : IDisposable
         _collection = _database.GetCollection<SaveGame>("saves");
         
         // Create indexes for better performance
-        _collection.EnsureIndex(x => x.PlayerName);
-        _collection.EnsureIndex(x => x.SaveDate);
+        // Use string-based indexing to avoid BsonMapper issues with complex types
+        try
+        {
+            _collection.EnsureIndex("PlayerName");
+            _collection.EnsureIndex("SaveDate");
+        }
+        catch (NotSupportedException)
+        {
+            // If indexing fails due to complex types, continue without indexes
+            // Performance will be slightly worse but functionality remains intact
+        }
     }
 
     /// <summary>

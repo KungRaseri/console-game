@@ -39,10 +39,14 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <!-- Copy all JSON data files to output -->
-    <None Update="Data\Json\**\*.json">
+  </ItemGroup>
+
+  <!-- Copy JSON files from Shared/Data/Json to output as Data/Json -->
+  <ItemGroup>
+    <Content Include="Shared\Data\Json\**\*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+      <TargetPath>Data\Json\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+    </Content>
   </ItemGroup>
 
 </Project>

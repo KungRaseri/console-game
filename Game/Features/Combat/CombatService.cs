@@ -26,7 +26,7 @@ public class CombatService
     /// Initialize combat by applying difficulty multipliers to enemy stats.
     /// This should be called before combat begins.
     /// </summary>
-    public void InitializeCombat(Enemy enemy)
+    public virtual void InitializeCombat(Enemy enemy)
     {
         var difficulty = _saveGameService.GetDifficultySettings();
         
@@ -41,7 +41,7 @@ public class CombatService
     /// <summary>
     /// Execute a player attack on an enemy.
     /// </summary>
-    public CombatResult ExecutePlayerAttack(Character player, Enemy enemy, bool isDefending = false)
+    public virtual CombatResult ExecutePlayerAttack(Character player, Enemy enemy, bool isDefending = false)
     {
         var result = new CombatResult { Success = true };
         
