@@ -1,7 +1,7 @@
 # Phase 1: Difficulty System Foundation
 
-**Status**: � Ready to Start  
-**Prerequisites**: ✅ All pre-phase improvements complete  
+**Status**: ⚪ Ready to Start  
+**Prerequisites**: ✅ CQRS/Vertical Slice migration complete  
 **Estimated Time**: 2-3 hours  
 **Next Phase**: [Phase 2: Death System](./PHASE_2_DEATH_SYSTEM.md)  
 **Related Phases**: [Phase 3](./PHASE_3_APOCALYPSE_MODE.md) | [Phase 4](./PHASE_4_ENDGAME.md)
@@ -10,12 +10,15 @@
 
 ## 📋 Overview
 
-Create the foundational difficulty system with 7 difficulty modes: Easy, Normal, Hard, Expert, Ironman, Permadeath, and Apocalypse. This phase establishes the data models and applies combat multipliers.
+Create the foundational difficulty system with 7 difficulty modes: Easy, Normal, Hard, Expert, Ironman, Permadeath, and Apocalypse. This phase establishes the data models and applies combat multipliers using the **CQRS + Vertical Slice Architecture**.
 
 **✅ Pre-Phase Foundation Complete:**
-- CombatService is now instance-based with SaveGameService injection
-- Enemy scaling hook (InitializeCombat) already exists
-- GameStateService provides centralized difficulty access
+
+- Project migrated to **CQRS + Vertical Slice Architecture**
+- CombatService is in `Features/Combat/` with command/query handlers
+- CharacterCreationOrchestrator in `Features/CharacterCreation/` handles UI workflows
+- SaveGameService in `Features/SaveLoad/` manages save data
+- GameStateService provides centralized difficulty access in `Shared/Services/`
 - All infrastructure ready for multiplier implementation
 
 ---
@@ -23,9 +26,9 @@ Create the foundational difficulty system with 7 difficulty modes: Easy, Normal,
 ## 🎯 Goals
 
 1. ✅ Create `DifficultySettings` model with all 7 modes
-2. ✅ Add difficulty selection to character creation flow
+2. ✅ Add difficulty selection to CharacterCreationOrchestrator
 3. ✅ Update `SaveGame` to store difficulty settings
-4. ✅ Apply difficulty multipliers to combat calculations
+4. ✅ Apply difficulty multipliers in CombatService
 5. ✅ Test all difficulty modes in combat
 6. ✅ Update this artifact with completion status
 
@@ -50,7 +53,7 @@ public class DifficultySettings
     public double PlayerDamageMultiplier { get; set; } = 1.0;
     public double EnemyDamageMultiplier { get; set; } = 1.0;
     public double EnemyHealthMultiplier { get; set; } = 1.0;
-    public double GoldXPMultiplier { get; set; } = 1.0;
+    public double GoldXPMultiplier { get; set} = 1.0;
     
     // Save system behavior
     public bool AutoSaveOnly { get; set; } = false;
@@ -225,14 +228,12 @@ public class DifficultySettings
 
 ### 2. `Game/Models/SaveGame.cs` - Add Difficulty Fields
 
-**Location**: Add after `DifficultyLevel` property (around line 60)
+**Location**: Add after existing difficulty-related properties
+
+**ADD** these properties:
 
 ```csharp
-// Existing:
-public string DifficultyLevel { get; set; } = "Normal";
-public bool IronmanMode { get; set; } = false;
-
-// ADD THESE:
+// New difficulty system fields
 public bool PermadeathMode { get; set; } = false;
 public bool ApocalypseMode { get; set; } = false;
 public DateTime? ApocalypseStartTime { get; set; }
@@ -244,22 +245,22 @@ public Dictionary<string, List<Item>> DroppedItemsAtLocations { get; set; } = ne
 
 ---
 
-### 3. `Game/Services/CharacterCreationService.cs` - Add Difficulty Selection
+### 3. `Game/Features/CharacterCreation/CharacterCreationOrchestrator.cs` - Add Difficulty Selection
 
-**Location**: Add new method after `CreateCharacter`
+**ADD** this private method to the orchestrator class:
 
 ```csharp
 /// <summary>
-/// Show difficulty selection menu and return chosen difficulty.
+/// Let the player select game difficulty.
 /// </summary>
-public static DifficultySettings SelectDifficulty()
+private async Task<DifficultySettings?> SelectDifficultyAsync()
 {
     ConsoleUI.Clear();
     ConsoleUI.ShowBanner("Select Difficulty", "Choose your challenge level");
     
     var difficulties = DifficultySettings.GetAll();
     var options = difficulties.Select((d, i) => 
-        $"[{i + 1}] {d.Name,-15} - {d.Description}"
+        $"{d.Name,-12} - {d.Description}"
     ).ToArray();
     
     var choice = ConsoleUI.ShowMenu("Select difficulty level:", options);
@@ -269,60 +270,107 @@ public static DifficultySettings SelectDifficulty()
     if (selected.Name is "Ironman" or "Permadeath" or "Apocalypse")
     {
         ConsoleUI.Clear();
-        ConsoleUI.ShowWarning($"You selected: {selected.Name.ToUpper()}");
+        ConsoleUI.ShowWarning($"⚠️  WARNING: {selected.Name.ToUpper()} MODE");
         Console.WriteLine();
         ConsoleUI.WriteText("This mode features:");
         
         if (selected.AutoSaveOnly)
-            ConsoleUI.WriteText("  • Auto-save after every action");
+            ConsoleUI.WriteText("  • Auto-save after every action - no manual saves");
         if (selected.IsPermadeath)
-            ConsoleUI.WriteText("  • Death permanently deletes your save");
+            ConsoleUI.WriteText("  • Death PERMANENTLY deletes your save file");
         if (selected.IsApocalypse)
-            ConsoleUI.WriteText($"  • {selected.ApocalypseTimeLimitMinutes / 60}-hour time limit to complete main story");
-        if (selected.Name == "Ironman")
-            ConsoleUI.WriteText("  • Cannot reload previous saves");
+        {
+            ConsoleUI.WriteText($"  • {selected.ApocalypseTimeLimitMinutes / 60}-hour time limit to complete main quest");
+            ConsoleUI.WriteText("  • World ends when time runs out");
+        }
+        if (selected.DropAllInventoryOnDeath)
+            ConsoleUI.WriteText("  • Drop ALL items on death");
         
         Console.WriteLine();
-        var confirm = ConsoleUI.Confirm($"Are you sure you want {selected.Name} mode?");
-        
-        if (!confirm)
+        if (!ConsoleUI.Confirm($"Are you absolutely sure you want {selected.Name} mode?"))
         {
             ConsoleUI.ShowWarning("Returning to difficulty selection...");
-            Thread.Sleep(1000);
-            return SelectDifficulty(); // Recursive call
+            await Task.Delay(1000);
+            return await SelectDifficultyAsync(); // Recursive call to let player re-select
         }
     }
     
     ConsoleUI.ShowSuccess($"Difficulty set to: {selected.Name}");
-    Thread.Sleep(1000);
+    await Task.Delay(1000);
     
     return selected;
 }
 ```
 
+**THEN MODIFY** the `CreateCharacterAsync` method to add difficulty selection step:
+
+**FIND** these lines (around line 62-72):
+
+```csharp
+// Step 4: Create character
+var newCharacter = CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
+
+// Step 5: Review character
+ReviewCharacter(newCharacter, selectedClass);
+
+ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
+await Task.Delay(500);
+
+// Publish character created event
+await _mediator.Publish(new CharacterCreated(newCharacter.Name));
+
+// Create save game with the new character
+var saveGame = _saveGameService.CreateNewGame(newCharacter);
+```
+
+**REPLACE WITH**:
+
+```csharp
+// Step 4: Create character
+var newCharacter = CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
+
+// Step 5: Review character
+ReviewCharacter(newCharacter, selectedClass);
+
+// Step 6: Select difficulty
+var difficulty = await SelectDifficultyAsync();
+if (difficulty == null)
+{
+    // Player canceled difficulty selection - restart character creation
+    return await CreateCharacterAsync();
+}
+
+ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
+await Task.Delay(500);
+
+// Publish character created event
+await _mediator.Publish(new CharacterCreated(newCharacter.Name));
+
+// Create save game with the new character and difficulty settings
+var saveGame = _saveGameService.CreateNewGame(newCharacter, difficulty);
+```
+
 ---
 
-### 4. `Game/Services/SaveGameService.cs` - Update CreateNewGame
+### 4. `Game/Features/SaveLoad/SaveGameService.cs` - Update CreateNewGame Signature
 
-**Location**: Modify existing `CreateNewGame` method (around line 23)
+**FIND** the `CreateNewGame` method signature:
 
-**OLD**:
 ```csharp
-public SaveGame CreateNewGame(Character player, string difficultyLevel = "Normal", bool ironmanMode = false)
+public SaveGame CreateNewGame(Character player)
 {
     _currentSave = new SaveGame
     {
         PlayerName = player.Name,
         Character = player,
-        CreationDate = DateTime.Now,
-        SaveDate = DateTime.Now,
-        DifficultyLevel = difficultyLevel,
-        IronmanMode = ironmanMode,
-        PlayTimeMinutes = 0
+        // ... other fields ...
     };
+    // ...
+}
 ```
 
-**NEW**:
+**REPLACE** with this updated signature and implementation:
+
 ```csharp
 public SaveGame CreateNewGame(Character player, DifficultySettings difficulty)
 {
@@ -340,9 +388,15 @@ public SaveGame CreateNewGame(Character player, DifficultySettings difficulty)
         ApocalypseBonusMinutes = 0,
         PlayTimeMinutes = 0
     };
+    
+    // ... rest of existing code ...
+    
+    return _currentSave;
+}
 ```
 
-**ALSO ADD** helper method:
+**ALSO ADD** this helper method to retrieve difficulty settings:
+
 ```csharp
 /// <summary>
 /// Get difficulty settings from current save.
@@ -358,101 +412,112 @@ public DifficultySettings GetDifficultySettings()
 
 ---
 
-### 5. `Game/Services/CombatService.cs` - Apply Difficulty Multipliers
+### 5. `Game/Features/Combat/CombatService.cs` - Apply Difficulty Multipliers
 
-**✅ Pre-Phase Note**: CombatService is already an instance class with SaveGameService injected! The InitializeCombat method already exists for enemy health scaling.
+The `InitializeCombat` method already exists and applies enemy health multipliers, but we need to update it to use the new `DifficultySettings` class:
 
-**Location**: Update existing `InitializeCombat` method to use DifficultySettings
+**FIND** the `InitializeCombat` method (around line 30):
 
-**CURRENT CODE** (from pre-phase improvements):
+```csharp
+public void InitializeCombat(Enemy enemy)
+{
+    var save = _saveGameService.GetCurrentSave();
+    if (save == null) return;
+    
+    // For now, apply a basic multiplier based on difficulty level
+    // In Phase 1, this will use DifficultySettings.EnemyHealthMultiplier
+    double healthMultiplier = save.DifficultyLevel.ToLower() switch
+    {
+        "easy" => 0.75,
+        "normal" => 1.0,
+        "hard" => 1.5,
+        "expert" => 2.0,
+        _ => 1.0
+    };
+    
+    // Scale enemy health
+    enemy.MaxHealth = (int)(enemy.MaxHealth * healthMultiplier);
+    enemy.Health = enemy.MaxHealth;
+    
+    Log.Information("Enemy {Name} initialized with {Health} HP (difficulty: {Difficulty}, multiplier: {Multiplier})",
+        enemy.Name, enemy.Health, save.DifficultyLevel, healthMultiplier);
+}
+```
+
+**REPLACE WITH**:
+
 ```csharp
 public void InitializeCombat(Enemy enemy)
 {
     var difficulty = _saveGameService.GetDifficultySettings();
     
-    // Scale enemy health
+    // Scale enemy health based on difficulty
     enemy.MaxHealth = (int)(enemy.MaxHealth * difficulty.EnemyHealthMultiplier);
     enemy.Health = enemy.MaxHealth;
+    
+    Log.Information("Enemy {Name} initialized with {Health} HP (difficulty: {Difficulty}, multiplier: {Multiplier})",
+        enemy.Name, enemy.Health, difficulty.Name, difficulty.EnemyHealthMultiplier);
 }
 ```
 
-**NO CHANGES NEEDED** - This method already applies enemy health multipliers!
+**NEXT**, find the `CalculateDamage` method or wherever player/enemy damage is calculated. Look for the damage calculation logic and add multipliers:
 
-**ADD** player and enemy damage multipliers to combat methods:
+**For player damage**, FIND the damage calculation (search for where player attacks enemy):
 
-**Modify `ExecutePlayerAttack` method** - Apply player damage multiplier:
 ```csharp
-public CombatResult ExecutePlayerAttack(Character player, Enemy enemy)
-{
-    // ... existing damage calculation ...
-    
-    // Apply difficulty multiplier to player damage
-    var difficulty = _saveGameService.GetDifficultySettings();
-    damage = (int)(damage * difficulty.PlayerDamageMultiplier);
-    
-    // ... rest of method ...
-}
+// Example location - your code may vary
+var baseDamage = character.Attack - enemy.Defense;
+damage = Math.Max(1, baseDamage + criticalBonus);
 ```
 
-**Modify `ExecuteEnemyAttack` method** - Apply enemy damage multiplier:
+**AFTER the damage calculation, ADD the difficulty multiplier**:
+
 ```csharp
-public CombatResult ExecuteEnemyAttack(Enemy enemy, Character player, bool playerDefending)
-{
-    // ... existing damage calculation ...
-    
-    // Apply difficulty multiplier to enemy damage
-    var difficulty = _saveGameService.GetDifficultySettings();
-    damage = (int)(damage * difficulty.EnemyDamageMultiplier);
-    
-    // ... rest of method ...
-}
+// Apply difficulty multiplier to player damage
+var difficulty = _saveGameService.GetDifficultySettings();
+damage = (int)(damage * difficulty.PlayerDamageMultiplier);
 ```
+
+**For enemy damage**, FIND where enemy attacks player:
+
+```csharp
+// Example location - your code may vary
+var baseDamage = enemy.Attack - effectiveDefense;
+damage = Math.Max(1, baseDamage);
+```
+
+**AFTER the damage calculation, ADD the difficulty multiplier**:
+
+```csharp
+// Apply difficulty multiplier to enemy damage
+var difficulty = _saveGameService.GetDifficultySettings();
+damage = (int)(damage * difficulty.EnemyDamageMultiplier);
+```
+
+**Note**: The exact location depends on your current CombatService implementation. Look for methods like `ExecutePlayerAttack`, `ExecuteEnemyAttack`, `CalculateDamage`, etc.
 
 ---
 
-### 6. `Game/GameEngine.cs` - Integrate Difficulty Selection
+### 6. `Game/Features/Combat/Commands/AttackEnemy/AttackEnemyHandler.cs` - Add Gold/XP Multipliers
 
-**Location**: In `HandleCharacterCreationAsync` method (around line 230)
+**FIND** where gold and XP are awarded after victory (around line 60-80):
 
-**FIND** (near end of character creation):
 ```csharp
-// Step 4: Create character
-var newCharacter = Services.CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
-
-// Step 5: Review character
-ReviewCharacter(newCharacter, selectedClass);
-
-ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
-await Task.Delay(500);
-
-// Publish character created event
-await _mediator.Publish(new CharacterCreated(newCharacter.Name));
-
-// Create save game with the new character
-var saveGame = _saveGameService.CreateNewGame(newCharacter);
-_currentSaveId = saveGame.Id;
+// Award gold and experience
+player.Gold += enemy.GoldReward;
+player.GainExperience(enemy.ExperienceReward);
 ```
 
 **REPLACE WITH**:
+
 ```csharp
-// Step 4: Create character
-var newCharacter = Services.CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
+// Award gold and experience with difficulty multiplier
+var difficulty = _saveGameService.GetDifficultySettings();
+var adjustedGold = (int)(enemy.GoldReward * difficulty.GoldXPMultiplier);
+var adjustedXP = (int)(enemy.ExperienceReward * difficulty.GoldXPMultiplier);
 
-// Step 5: Review character
-ReviewCharacter(newCharacter, selectedClass);
-
-// Step 6: Select difficulty
-var difficulty = Services.CharacterCreationService.SelectDifficulty();
-
-ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
-await Task.Delay(500);
-
-// Publish character created event
-await _mediator.Publish(new CharacterCreated(newCharacter.Name));
-
-// Create save game with the new character and difficulty settings
-var saveGame = _saveGameService.CreateNewGame(newCharacter, difficulty);
-_currentSaveId = saveGame.Id;
+player.Gold += adjustedGold;
+player.GainExperience(adjustedXP);
 ```
 
 ---
@@ -462,78 +527,58 @@ _currentSaveId = saveGame.Id;
 ### Manual Testing
 
 1. **Difficulty Selection**:
-   - [ ] Start new game
-   - [ ] See all 7 difficulty options
-   - [ ] Select each difficulty and confirm it's saved
+   - [ ] Start new game via CharacterCreationOrchestrator
+   - [ ] Complete class selection and attribute allocation
+   - [ ] See all 7 difficulty options displayed
+   - [ ] Select each difficulty and confirm proper save
    - [ ] Verify warnings appear for Ironman/Permadeath/Apocalypse
-   - [ ] Test canceling difficult mode selection
+   - [ ] Test canceling difficulty selection (returns to character creation)
 
 2. **Combat Multipliers**:
-   - [ ] Create Easy mode character → verify enemies die faster
-   - [ ] Create Normal mode character → baseline
-   - [ ] Create Hard mode character → verify fights are harder
-   - [ ] Create Expert mode character → verify extreme difficulty
-   - [ ] Verify player damage changes match difficulty
-   - [ ] Verify enemy damage changes match difficulty
+   - [ ] Create Easy mode character → verify enemies die faster (1.5x player damage)
+   - [ ] Create Easy mode → verify taking less damage (0.75x enemy damage)
+   - [ ] Create Normal mode character → baseline (1.0x all)
+   - [ ] Create Hard mode character → verify fights are harder (0.75x player, 1.25x enemy)
+   - [ ] Create Expert mode character → verify extreme difficulty (0.5x player, 1.5x enemy)
+   - [ ] Verify enemy health scales correctly
 
-3. **Save/Load**:
-   - [ ] Create save with difficulty
-   - [ ] Load save
-   - [ ] Verify difficulty persists
-   - [ ] Verify multipliers still apply
+3. **Gold/XP Rewards**:
+   - [ ] Easy mode → verify 1.5x gold and XP
+   - [ ] Normal/Hard/Expert → verify 1.0x gold and XP
+   - [ ] Check rewards display correctly after combat
 
-### Unit Tests (Optional)
+4. **Save/Load**:
+   - [ ] Create save with each difficulty
+   - [ ] Exit and reload game
+   - [ ] Load each save and verify difficulty persists
+   - [ ] Verify multipliers still apply after loading
 
-Create `Game.Tests/Models/DifficultySettingsTests.cs`:
+### Edge Cases
 
-```csharp
-public class DifficultySettingsTests
-{
-    [Fact]
-    public void GetByName_Should_Return_Correct_Difficulty()
-    {
-        var easy = DifficultySettings.GetByName("Easy");
-        easy.Name.Should().Be("Easy");
-        easy.PlayerDamageMultiplier.Should().Be(1.5);
-    }
-    
-    [Fact]
-    public void GetAll_Should_Return_Seven_Difficulties()
-    {
-        var all = DifficultySettings.GetAll();
-        all.Should().HaveCount(7);
-    }
-    
-    [Theory]
-    [InlineData("Easy", 1.5)]
-    [InlineData("Normal", 1.0)]
-    [InlineData("Hard", 0.75)]
-    public void Difficulty_Should_Have_Correct_Player_Damage(string name, double expectedDamage)
-    {
-        var difficulty = DifficultySettings.GetByName(name);
-        difficulty.PlayerDamageMultiplier.Should().Be(expectedDamage);
-    }
-}
-```
+- [ ] Cancel difficulty selection → should return to character creation start
+- [ ] Recursive selection cancel (cancel warning → pick again → cancel again)
+- [ ] Load old saves without difficulty fields → should default to Normal
+- [ ] Ironman auto-save behavior (Phase 2 will implement this fully)
 
 ---
 
 ## ✅ Completion Checklist
 
-- [ ] Created `DifficultySettings.cs` with all 7 modes
-- [ ] Updated `SaveGame.cs` with difficulty fields
-- [ ] Added `SelectDifficulty()` to `CharacterCreationService.cs`
-- [ ] Updated `SaveGameService.CreateNewGame()` to accept `DifficultySettings`
+- [ ] Created `Game/Models/DifficultySettings.cs` with all 7 modes
+- [ ] Updated `SaveGame.cs` with new difficulty fields
+- [ ] Added `SelectDifficultyAsync()` to `CharacterCreationOrchestrator.cs`
+- [ ] Modified `CreateCharacterAsync()` to call difficulty selection
+- [ ] Updated `SaveGameService.CreateNewGame()` signature to accept `DifficultySettings`
 - [ ] Added `GetDifficultySettings()` helper to `SaveGameService`
-- [ ] Applied player damage multiplier in `CombatService`
-- [ ] Applied enemy damage multiplier in `CombatService`
-- [ ] Applied enemy health multiplier in `CombatService.StartCombat()`
-- [ ] Integrated difficulty selection in `GameEngine.NewGameAsync()`
-- [ ] Tested all 7 difficulty modes
+- [ ] Updated `InitializeCombat()` to use `DifficultySettings.EnemyHealthMultiplier`
+- [ ] Applied player damage multiplier in CombatService
+- [ ] Applied enemy damage multiplier in CombatService
+- [ ] Applied gold/XP multipliers in AttackEnemyHandler
+- [ ] Tested all 7 difficulty modes end-to-end
 - [ ] Verified combat multipliers work correctly
 - [ ] Verified save/load preserves difficulty
-- [ ] Built successfully with no errors
-- [ ] All existing tests still pass
+- [ ] Built successfully with `dotnet build`
+- [ ] All existing tests still pass (`dotnet test`)
 
 ---
 
@@ -545,13 +590,15 @@ public class DifficultySettingsTests
 **Test Results**: ⚪ Not Tested
 
 ### Issues Encountered
-```
+
+```text
 [List any issues or deviations from the plan]
 ```
 
 ### Notes
-```
-[Any additional notes or observations]
+
+```text
+[Any additional notes about difficulty balance, testing observations, etc.]
 ```
 
 ---
@@ -560,10 +607,10 @@ public class DifficultySettingsTests
 
 - **Current Phase**: Phase 1 - Difficulty Foundation
 - **Next Phase**: [Phase 2: Death System](./PHASE_2_DEATH_SYSTEM.md)
-- **See Also**: 
+- **See Also**:
   - [Phase 3: Apocalypse Mode](./PHASE_3_APOCALYPSE_MODE.md)
   - [Phase 4: End-Game System](./PHASE_4_ENDGAME.md)
-  - [Project Overview](../README.md)
+  - [CQRS Quick Reference](../VERTICAL_SLICE_QUICK_REFERENCE.md)
 
 ---
 

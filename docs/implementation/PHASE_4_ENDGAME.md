@@ -1,333 +1,655 @@
-# Phase 4: End-Game System & Victory Conditions
+# Phase 4: End-Game System (Quest, Achievement, Victory)
 
-**Status**: � Ready to Start  
-**Prerequisites**: ✅ Phase 1, 2, & 3 complete  
-**Estimated Time**: 4-5 hours  
+**Status**: ⚪ Ready to Start  
+**Prerequisites**: ✅ Phase 1, 2, 3 complete + CQRS/Vertical Slice Architecture  
+**Estimated Time**: 4-6 hours  
 **Previous Phase**: [Phase 3: Apocalypse Mode](./PHASE_3_APOCALYPSE_MODE.md)  
-**Next Phase**: None (Final Phase)  
 **Related**: [Phase 1: Difficulty](./PHASE_1_DIFFICULTY_FOUNDATION.md), [Phase 2: Death System](./PHASE_2_DEATH_SYSTEM.md)
 
 ---
 
 ## 📋 Overview
 
-Implement the 4-phase end-game system with main quest chain, victory screens, True Ending unlock conditions, New Game+ system, and comprehensive achievement tracking.
+Implement the main quest chain, achievement system, victory conditions, and New Game+ mode using **CQRS + Vertical Slice Architecture**. This phase represents the culmination of the game experience with clear progression, goals, and replay value.
 
 **✅ Pre-Phase Foundation Complete:**
-- Quest model enhanced with Type, Prerequisites, Objectives, ObjectiveProgress
-- Quest model has IsObjectivesComplete() and UpdateObjectiveProgress() methods
-- QuestGenerator updated with InitializeObjectives and DetermineQuestType
-- SaveGame has quest tracking fields (ActiveQuests, CompletedQuests, etc.)
-- All infrastructure ready for main quest chain implementation
+
+- DifficultySettings ready for New Game+ tracking
+- SaveGame has QuestsCompleted, ActiveQuests, Achievements fields
+- GameStateService provides centralized state access
+- MediatR infrastructure for commands/queries ready
+- ApocalypseTimer ready for integration with quest bonuses
 
 ---
 
 ## 🎯 Goals
 
-1. ✅ Create main quest chain (10 quests, Lv1-35)
-2. ✅ Implement victory screen and statistics display
-3. ✅ Add True Ending unlock (Level 50 + 100% completion)
-4. ✅ Create New Game+ system with carry-over bonuses
-5. ✅ Implement achievement system (50+ achievements)
-6. ✅ Add completion percentage tracking
+1. ✅ Create main quest chain with 5-7 major quests
+2. ✅ Implement achievement system with unlock mechanics
+3. ✅ Add victory screen and game completion celebration
+4. ✅ Implement New Game+ with increased difficulty and rewards
+5. ✅ Track statistics for Hall of Fame integration
+6. ✅ Add quest journal UI
 7. ✅ Update this artifact with completion status
+
+---
+
+## 🏗️ Architecture: Features as Vertical Slices
+
+This phase creates **THREE** new features, each with full CQRS structure:
+
+### Feature 1: `Features/Quest/`
+- **Commands**: `StartQuestCommand`, `CompleteQuestCommand`, `UpdateQuestProgressCommand`
+- **Queries**: `GetActiveQuestsQuery`, `GetMainQuestChainQuery`, `GetQuestByIdQuery`
+- **Services**: `MainQuestService` (quest chain logic), `QuestProgressService` (tracking)
+- **Orchestrators**: None needed (commands are simple)
+
+### Feature 2: `Features/Achievement/`
+- **Commands**: `UnlockAchievementCommand`, `CheckAchievementProgressCommand`
+- **Queries**: `GetUnlockedAchievementsQuery`, `GetAchievementProgressQuery`
+- **Services**: `AchievementService` (unlock logic, progress tracking)
+- **Orchestrators**: None needed (achievements are reactive)
+
+### Feature 3: `Features/Victory/`
+- **Commands**: `TriggerVictoryCommand`, `StartNewGamePlusCommand`
+- **Queries**: `GetVictoryStatisticsQuery`, `CanStartNewGamePlusQuery`
+- **Services**: `VictoryService` (completion logic), `NewGamePlusService` (NG+ setup)
+- **Orchestrators**: `VictoryOrchestrator` (multi-step victory sequence and UI)
 
 ---
 
 ## 📁 Files to Create
 
-### 1. `Game/Models/Quest.cs` - Quest Model Enhancement
+### Feature 1: Quest System
 
-**✅ Note**: Quest model already enhanced during pre-phase improvements! The following properties already exist:
-- `Type` - Quest type (main, side, legendary)
-- `Prerequisites` - List of quest IDs that must be completed first
-- `Objectives` - Dictionary of objectives with target counts
-- `ObjectiveProgress` - Dictionary tracking current progress
-- `IsObjectivesComplete()` - Method to check completion
-- `UpdateObjectiveProgress(objectiveName, increment)` - Method to update progress
-
-**ADD** these additional properties for Phase 4:
+#### 1.1 `Game/Models/Quest.cs` (NEW)
 
 ```csharp
-// Add to existing Quest.cs
-public string Difficulty { get; set; } = "medium"; // "easy", "medium", "hard"
-public int GoldReward { get; set; }
-public int XpReward { get; set; }
-public Dictionary<string, int> ItemRewards { get; set; } = new(); // ItemId -> Quantity
+namespace Game.Models;
 
-public double GetCompletionPercentage()
+/// <summary>
+/// Represents a quest in the game.
+/// </summary>
+public class Quest
 {
-    if (Objectives.Count == 0) return 100.0;
+    public string Id { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public QuestType Type { get; set; }
+    public QuestDifficulty Difficulty { get; set; }
+    public bool IsMainQuest { get; set; }
+    public int OrderInChain { get; set; } // For main quest chain ordering
     
-    var totalRequired = Objectives.Values.Sum();
-    var totalProgress = 0;
+    // Requirements
+    public int RequiredLevel { get; set; }
+    public List<string> PrerequisiteQuestIds { get; set; } = new();
     
-    foreach (var objective in Objectives.Keys)
-    {
-        if (ObjectiveProgress.ContainsKey(objective))
-            totalProgress += ObjectiveProgress[objective];
-    }
+    // Objectives
+    public List<QuestObjective> Objectives { get; set; } = new();
     
-    return (double)totalProgress / totalRequired * 100.0;
+    // Rewards
+    public int XpReward { get; set; }
+    public int GoldReward { get; set; }
+    public int ApocalypseBonusMinutes { get; set; } // For Apocalypse mode
+    public List<string> ItemRewards { get; set; } = new();
+    
+    // State
+    public QuestStatus Status { get; set; }
+    public DateTime? StartedAt { get; set; }
+    public DateTime? CompletedAt { get; set; }
+}
+
+public class QuestObjective
+{
+    public string Id { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public ObjectiveType Type { get; set; }
+    public string TargetId { get; set; } = string.Empty; // Enemy ID, location ID, etc.
+    public int Required { get; set; }
+    public int Current { get; set; }
+    
+    public bool IsComplete => Current >= Required;
+}
+
+public enum QuestType
+{
+    Main,
+    Side,
+    Daily,
+    Bounty
+}
+
+public enum QuestDifficulty
+{
+    Easy,
+    Medium,
+    Hard,
+    Epic
+}
+
+public enum QuestStatus
+{
+    NotStarted,
+    Active,
+    Completed,
+    Failed
+}
+
+public enum ObjectiveType
+{
+    KillEnemy,
+    ReachLocation,
+    CollectItem,
+    TalkToNpc,
+    SurviveTime
 }
 ```
 
 ---
 
-### 2. `Game/Services/MainQuestService.cs` (NEW)
+#### 1.2 `Game/Features/Quest/Commands/StartQuestCommand.cs` (NEW)
+
+```csharp
+using MediatR;
+
+namespace Game.Features.Quest.Commands;
+
+public record StartQuestCommand(string QuestId) : IRequest<StartQuestResult>;
+
+public record StartQuestResult(bool Success, string Message, Models.Quest? Quest = null);
+
+public class StartQuestHandler : IRequestHandler<StartQuestCommand, StartQuestResult>
+{
+    private readonly Services.QuestService _questService;
+    
+    public StartQuestHandler(Services.QuestService questService)
+    {
+        _questService = questService;
+    }
+    
+    public async Task<StartQuestResult> Handle(StartQuestCommand request, CancellationToken cancellationToken)
+    {
+        var result = await _questService.StartQuestAsync(request.QuestId);
+        
+        if (result.Success)
+        {
+            return new StartQuestResult(true, $"Quest started: {result.Quest!.Title}", result.Quest);
+        }
+        
+        return new StartQuestResult(false, result.ErrorMessage);
+    }
+}
+```
+
+---
+
+#### 1.3 `Game/Features/Quest/Commands/CompleteQuestCommand.cs` (NEW)
+
+```csharp
+using MediatR;
+
+namespace Game.Features.Quest.Commands;
+
+public record CompleteQuestCommand(string QuestId) : IRequest<CompleteQuestResult>;
+
+public record CompleteQuestResult(bool Success, string Message, QuestRewards? Rewards = null);
+
+public record QuestRewards(int Xp, int Gold, int ApocalypseBonus, List<string> Items);
+
+public class CompleteQuestHandler : IRequestHandler<CompleteQuestCommand, CompleteQuestResult>
+{
+    private readonly Services.QuestService _questService;
+    
+    public CompleteQuestHandler(Services.QuestService questService)
+    {
+        _questService = questService;
+    }
+    
+    public async Task<CompleteQuestResult> Handle(CompleteQuestCommand request, CancellationToken cancellationToken)
+    {
+        var result = await _questService.CompleteQuestAsync(request.QuestId);
+        
+        if (result.Success)
+        {
+            var rewards = new QuestRewards(
+                result.Quest!.XpReward,
+                result.Quest.GoldReward,
+                result.Quest.ApocalypseBonusMinutes,
+                result.Quest.ItemRewards
+            );
+            
+            return new CompleteQuestResult(true, $"Quest completed: {result.Quest.Title}", rewards);
+        }
+        
+        return new CompleteQuestResult(false, result.ErrorMessage);
+    }
+}
+```
+
+---
+
+#### 1.4 `Game/Features/Quest/Commands/UpdateQuestProgressCommand.cs` (NEW)
+
+```csharp
+using MediatR;
+
+namespace Game.Features.Quest.Commands;
+
+public record UpdateQuestProgressCommand(string QuestId, string ObjectiveId, int Amount) : IRequest<UpdateQuestProgressResult>;
+
+public record UpdateQuestProgressResult(bool Success, bool ObjectiveCompleted, bool QuestCompleted);
+
+public class UpdateQuestProgressHandler : IRequestHandler<UpdateQuestProgressCommand, UpdateQuestProgressResult>
+{
+    private readonly Services.QuestProgressService _progressService;
+    
+    public UpdateQuestProgressHandler(Services.QuestProgressService progressService)
+    {
+        _progressService = progressService;
+    }
+    
+    public async Task<UpdateQuestProgressResult> Handle(UpdateQuestProgressCommand request, CancellationToken cancellationToken)
+    {
+        var result = await _progressService.UpdateProgressAsync(request.QuestId, request.ObjectiveId, request.Amount);
+        
+        return new UpdateQuestProgressResult(
+            result.Success,
+            result.ObjectiveCompleted,
+            result.QuestCompleted
+        );
+    }
+}
+```
+
+---
+
+#### 1.5 `Game/Features/Quest/Queries/GetActiveQuestsQuery.cs` (NEW)
+
+```csharp
+using MediatR;
+
+namespace Game.Features.Quest.Queries;
+
+public record GetActiveQuestsQuery : IRequest<List<Models.Quest>>;
+
+public class GetActiveQuestsHandler : IRequestHandler<GetActiveQuestsQuery, List<Models.Quest>>
+{
+    private readonly Services.QuestService _questService;
+    
+    public GetActiveQuestsHandler(Services.QuestService questService)
+    {
+        _questService = questService;
+    }
+    
+    public async Task<List<Models.Quest>> Handle(GetActiveQuestsQuery request, CancellationToken cancellationToken)
+    {
+        return await _questService.GetActiveQuestsAsync();
+    }
+}
+```
+
+---
+
+#### 1.6 `Game/Features/Quest/Queries/GetMainQuestChainQuery.cs` (NEW)
+
+```csharp
+using MediatR;
+
+namespace Game.Features.Quest.Queries;
+
+public record GetMainQuestChainQuery : IRequest<List<Models.Quest>>;
+
+public class GetMainQuestChainHandler : IRequestHandler<GetMainQuestChainQuery, List<Models.Quest>>
+{
+    private readonly Services.MainQuestService _mainQuestService;
+    
+    public GetMainQuestChainHandler(Services.MainQuestService mainQuestService)
+    {
+        _mainQuestService = mainQuestService;
+    }
+    
+    public async Task<List<Models.Quest>> Handle(GetMainQuestChainQuery request, CancellationToken cancellationToken)
+    {
+        return await _mainQuestService.GetMainQuestChainAsync();
+    }
+}
+```
+
+---
+
+#### 1.7 `Game/Features/Quest/Services/QuestService.cs` (NEW)
 
 ```csharp
 using Game.Models;
+using Game.Features.SaveLoad;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.Quest.Services;
+
+public class QuestService
+{
+    private readonly SaveGameService _saveGameService;
+    private readonly MainQuestService _mainQuestService;
+    
+    public QuestService(SaveGameService saveGameService, MainQuestService mainQuestService)
+    {
+        _saveGameService = saveGameService;
+        _mainQuestService = mainQuestService;
+    }
+    
+    public async Task<(bool Success, Models.Quest? Quest, string ErrorMessage)> StartQuestAsync(string questId)
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null)
+            return (false, null, "No active save game");
+        
+        // Check if quest is already active or completed
+        if (saveGame.ActiveQuests.Any(q => q.Id == questId))
+            return (false, null, "Quest is already active");
+        
+        if (saveGame.CompletedQuestIds.Contains(questId))
+            return (false, null, "Quest is already completed");
+        
+        // Get quest definition
+        var quest = await GetQuestDefinitionAsync(questId);
+        if (quest == null)
+            return (false, null, "Quest not found");
+        
+        // Check prerequisites
+        if (!CheckPrerequisites(quest, saveGame))
+            return (false, null, "Prerequisites not met");
+        
+        // Check level requirement
+        if (saveGame.Character.Level < quest.RequiredLevel)
+            return (false, null, $"Requires level {quest.RequiredLevel}");
+        
+        // Start quest
+        quest.Status = QuestStatus.Active;
+        quest.StartedAt = DateTime.Now;
+        saveGame.ActiveQuests.Add(quest);
+        
+        _saveGameService.SaveGame(saveGame);
+        
+        Log.Information("Quest started: {QuestId} - {QuestTitle}", questId, quest.Title);
+        
+        return (true, quest, string.Empty);
+    }
+    
+    public async Task<(bool Success, Models.Quest? Quest, string ErrorMessage)> CompleteQuestAsync(string questId)
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null)
+            return (false, null, "No active save game");
+        
+        var quest = saveGame.ActiveQuests.FirstOrDefault(q => q.Id == questId);
+        if (quest == null)
+            return (false, null, "Quest is not active");
+        
+        // Check if all objectives are complete
+        if (!quest.Objectives.All(o => o.IsComplete))
+            return (false, null, "Not all objectives complete");
+        
+        // Complete quest
+        quest.Status = QuestStatus.Completed;
+        quest.CompletedAt = DateTime.Now;
+        
+        saveGame.ActiveQuests.Remove(quest);
+        saveGame.CompletedQuestIds.Add(quest.Id);
+        saveGame.QuestsCompleted++;
+        
+        _saveGameService.SaveGame(saveGame);
+        
+        Log.Information("Quest completed: {QuestId} - {QuestTitle}", questId, quest.Title);
+        
+        return (true, quest, string.Empty);
+    }
+    
+    public async Task<List<Models.Quest>> GetActiveQuestsAsync()
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        return saveGame?.ActiveQuests ?? new List<Models.Quest>();
+    }
+    
+    private async Task<Models.Quest?> GetQuestDefinitionAsync(string questId)
+    {
+        // Get from main quest service or quest database
+        return await _mainQuestService.GetQuestByIdAsync(questId);
+    }
+    
+    private bool CheckPrerequisites(Models.Quest quest, SaveGame saveGame)
+    {
+        return quest.PrerequisiteQuestIds.All(prereqId => 
+            saveGame.CompletedQuestIds.Contains(prereqId));
+    }
+}
+```
+
+---
+
+#### 1.8 `Game/Features/Quest/Services/MainQuestService.cs` (NEW)
+
+```csharp
+using Game.Models;
+
+namespace Game.Features.Quest.Services;
 
 /// <summary>
-/// Manages the main quest chain and progression.
+/// Manages the main quest chain and quest definitions.
 /// </summary>
 public class MainQuestService
 {
-    private readonly List<Quest> _mainQuests;
+    private readonly List<Models.Quest> _allQuests;
     
     public MainQuestService()
     {
-        _mainQuests = CreateMainQuestChain();
+        _allQuests = InitializeQuestDatabase();
     }
     
-    /// <summary>
-    /// Get all main quests.
-    /// </summary>
-    public List<Quest> GetMainQuests() => _mainQuests;
-    
-    /// <summary>
-    /// Get next available main quest for player.
-    /// </summary>
-    public Quest? GetNextMainQuest(SaveGame saveGame, int playerLevel)
+    public async Task<List<Models.Quest>> GetMainQuestChainAsync()
     {
-        foreach (var quest in _mainQuests)
+        return await Task.FromResult(
+            _allQuests.Where(q => q.IsMainQuest)
+                      .OrderBy(q => q.OrderInChain)
+                      .ToList()
+        );
+    }
+    
+    public async Task<Models.Quest?> GetQuestByIdAsync(string questId)
+    {
+        return await Task.FromResult(_allQuests.FirstOrDefault(q => q.Id == questId));
+    }
+    
+    private List<Models.Quest> InitializeQuestDatabase()
+    {
+        return new List<Models.Quest>
         {
-            // Skip if already completed
-            if (saveGame.CompletedQuests.Contains(quest.Id))
-                continue;
-            
-            // Skip if already active
-            if (saveGame.ActiveQuests.Any(q => q.Id == quest.Id))
-                continue;
-            
-            // Check level requirement
-            if (playerLevel < quest.RequiredLevel)
-                continue;
-            
-            // Check prerequisites
-            var prereqsMet = quest.Prerequisites.All(prereq => 
-                saveGame.CompletedQuests.Contains(prereq));
-            
-            if (!prereqsMet)
-                continue;
-            
-            return quest;
-        }
-        
-        return null;
-    }
-    
-    /// <summary>
-    /// Check if player has completed main quest chain.
-    /// </summary>
-    public bool HasCompletedMainQuest(SaveGame saveGame)
-    {
-        var finalQuestId = "main_10_shadow_lord";
-        return saveGame.CompletedQuests.Contains(finalQuestId);
-    }
-    
-    /// <summary>
-    /// Get main quest completion percentage.
-    /// </summary>
-    public double GetMainQuestProgress(SaveGame saveGame)
-    {
-        var completed = _mainQuests.Count(q => saveGame.CompletedQuests.Contains(q.Id));
-        return (double)completed / _mainQuests.Count * 100.0;
-    }
-    
-    /// <summary>
-    /// Create the main quest chain.
-    /// </summary>
-    private List<Quest> CreateMainQuestChain()
-    {
-        return new List<Quest>
-        {
-            new Quest
+            // Main Quest 1: The Awakening
+            new Models.Quest
             {
                 Id = "main_01_awakening",
                 Title = "The Awakening",
-                Description = "You awaken in a strange land with no memory. Explore the village and speak to the Elder.",
-                Type = "main",
+                Description = "A mysterious voice calls to you. Investigate the ancient shrine.",
+                Type = QuestType.Main,
+                Difficulty = QuestDifficulty.Easy,
+                IsMainQuest = true,
+                OrderInChain = 1,
                 RequiredLevel = 1,
-                GoldReward = 100,
-                XpReward = 500,
-                Objectives = new Dictionary<string, int>
+                PrerequisiteQuestIds = new List<string>(),
+                Objectives = new List<QuestObjective>
                 {
-                    { "Speak to Village Elder", 1 },
-                    { "Explore the village", 1 }
-                }
+                    new QuestObjective
+                    {
+                        Id = "reach_shrine",
+                        Description = "Reach the Ancient Shrine",
+                        Type = ObjectiveType.ReachLocation,
+                        TargetId = "ancient_shrine",
+                        Required = 1,
+                        Current = 0
+                    }
+                },
+                XpReward = 100,
+                GoldReward = 50,
+                ApocalypseBonusMinutes = 15,
+                Status = QuestStatus.NotStarted
             },
             
-            new Quest
+            // Main Quest 2: The First Trial
+            new Models.Quest
             {
-                Id = "main_02_first_threat",
-                Title = "The First Threat",
-                Description = "Bandits are terrorizing the village. Defeat them to prove yourself.",
-                Type = "main",
+                Id = "main_02_first_trial",
+                Title = "The First Trial",
+                Description = "Defeat the guardian of the shrine to prove your worth.",
+                Type = QuestType.Main,
+                Difficulty = QuestDifficulty.Medium,
+                IsMainQuest = true,
+                OrderInChain = 2,
                 RequiredLevel = 3,
-                Prerequisites = new List<string> { "main_01_awakening" },
-                GoldReward = 250,
-                XpReward = 1000,
-                Objectives = new Dictionary<string, int>
+                PrerequisiteQuestIds = new List<string> { "main_01_awakening" },
+                Objectives = new List<QuestObjective>
                 {
-                    { "Defeat Bandits", 5 },
-                    { "Defeat Bandit Leader", 1 }
-                }
+                    new QuestObjective
+                    {
+                        Id = "defeat_guardian",
+                        Description = "Defeat the Shrine Guardian",
+                        Type = ObjectiveType.KillEnemy,
+                        TargetId = "shrine_guardian",
+                        Required = 1,
+                        Current = 0
+                    }
+                },
+                XpReward = 250,
+                GoldReward = 100,
+                ApocalypseBonusMinutes = 20,
+                Status = QuestStatus.NotStarted
             },
             
-            new Quest
+            // Main Quest 3: Gathering Power
+            new Models.Quest
             {
-                Id = "main_03_ancient_ruins",
-                Title = "Secrets of the Ruins",
-                Description = "The Elder speaks of ancient ruins holding clues to your past. Investigate them.",
-                Type = "main",
-                RequiredLevel = 7,
-                Prerequisites = new List<string> { "main_02_first_threat" },
-                GoldReward = 500,
-                XpReward = 2000,
-                Objectives = new Dictionary<string, int>
+                Id = "main_03_gathering_power",
+                Title = "Gathering Power",
+                Description = "Collect ancient artifacts to strengthen yourself for the battles ahead.",
+                Type = QuestType.Main,
+                Difficulty = QuestDifficulty.Medium,
+                IsMainQuest = true,
+                OrderInChain = 3,
+                RequiredLevel = 5,
+                PrerequisiteQuestIds = new List<string> { "main_02_first_trial" },
+                Objectives = new List<QuestObjective>
                 {
-                    { "Explore Ancient Ruins", 1 },
-                    { "Find Memory Fragment", 1 },
-                    { "Defeat Ruin Guardian", 1 }
-                }
+                    new QuestObjective
+                    {
+                        Id = "collect_artifacts",
+                        Description = "Collect Ancient Artifacts",
+                        Type = ObjectiveType.CollectItem,
+                        TargetId = "ancient_artifact",
+                        Required = 3,
+                        Current = 0
+                    }
+                },
+                XpReward = 400,
+                GoldReward = 200,
+                ApocalypseBonusMinutes = 25,
+                Status = QuestStatus.NotStarted
             },
             
-            new Quest
+            // Main Quest 4: The Dark Prophecy
+            new Models.Quest
             {
                 Id = "main_04_dark_prophecy",
                 Title = "The Dark Prophecy",
-                Description = "A prophecy foretells the return of the Shadow Lord. Seek the Oracle for guidance.",
-                Type = "main",
+                Description = "Seek out the oracle and learn of the coming apocalypse.",
+                Type = QuestType.Main,
+                Difficulty = QuestDifficulty.Hard,
+                IsMainQuest = true,
+                OrderInChain = 4,
+                RequiredLevel = 8,
+                PrerequisiteQuestIds = new List<string> { "main_03_gathering_power" },
+                Objectives = new List<QuestObjective>
+                {
+                    new QuestObjective
+                    {
+                        Id = "talk_to_oracle",
+                        Description = "Speak with the Oracle",
+                        Type = ObjectiveType.TalkToNpc,
+                        TargetId = "oracle_of_shadows",
+                        Required = 1,
+                        Current = 0
+                    }
+                },
+                XpReward = 600,
+                GoldReward = 300,
+                ApocalypseBonusMinutes = 30,
+                Status = QuestStatus.NotStarted
+            },
+            
+            // Main Quest 5: Into the Abyss
+            new Models.Quest
+            {
+                Id = "main_05_into_abyss",
+                Title = "Into the Abyss",
+                Description = "Enter the Abyssal Depths and confront the source of evil.",
+                Type = QuestType.Main,
+                Difficulty = QuestDifficulty.Hard,
+                IsMainQuest = true,
+                OrderInChain = 5,
                 RequiredLevel = 12,
-                Prerequisites = new List<string> { "main_03_ancient_ruins" },
-                GoldReward = 750,
-                XpReward = 3000,
-                Objectives = new Dictionary<string, int>
+                PrerequisiteQuestIds = new List<string> { "main_04_dark_prophecy" },
+                Objectives = new List<QuestObjective>
                 {
-                    { "Journey to Mountain Temple", 1 },
-                    { "Consult the Oracle", 1 }
-                }
+                    new QuestObjective
+                    {
+                        Id = "reach_abyss",
+                        Description = "Reach the Abyssal Depths",
+                        Type = ObjectiveType.ReachLocation,
+                        TargetId = "abyssal_depths",
+                        Required = 1,
+                        Current = 0
+                    },
+                    new QuestObjective
+                    {
+                        Id = "defeat_demons",
+                        Description = "Defeat Abyssal Demons",
+                        Type = ObjectiveType.KillEnemy,
+                        TargetId = "abyssal_demon",
+                        Required = 5,
+                        Current = 0
+                    }
+                },
+                XpReward = 1000,
+                GoldReward = 500,
+                ApocalypseBonusMinutes = 40,
+                Status = QuestStatus.NotStarted
             },
             
-            new Quest
+            // Main Quest 6: The Final Confrontation
+            new Models.Quest
             {
-                Id = "main_05_gathering_allies",
-                Title = "Gathering Allies",
-                Description = "The Shadow Lord's forces grow. Rally heroes from across the land.",
-                Type = "main",
-                RequiredLevel = 17,
-                Prerequisites = new List<string> { "main_04_dark_prophecy" },
+                Id = "main_06_final_boss",
+                Title = "The Final Confrontation",
+                Description = "Defeat the Dark Lord and save the world from destruction.",
+                Type = QuestType.Main,
+                Difficulty = QuestDifficulty.Epic,
+                IsMainQuest = true,
+                OrderInChain = 6,
+                RequiredLevel = 15,
+                PrerequisiteQuestIds = new List<string> { "main_05_into_abyss" },
+                Objectives = new List<QuestObjective>
+                {
+                    new QuestObjective
+                    {
+                        Id = "defeat_dark_lord",
+                        Description = "Defeat the Dark Lord",
+                        Type = ObjectiveType.KillEnemy,
+                        TargetId = "dark_lord",
+                        Required = 1,
+                        Current = 0
+                    }
+                },
+                XpReward = 2000,
                 GoldReward = 1000,
-                XpReward = 4000,
-                Objectives = new Dictionary<string, int>
-                {
-                    { "Recruit Warrior", 1 },
-                    { "Recruit Mage", 1 },
-                    { "Recruit Ranger", 1 }
-                }
-            },
-            
-            new Quest
-            {
-                Id = "main_06_trials",
-                Title = "The Trials of Worth",
-                Description = "Prove your worth in the ancient trials to unlock legendary power.",
-                Type = "main",
-                RequiredLevel = 22,
-                Prerequisites = new List<string> { "main_05_gathering_allies" },
-                GoldReward = 1500,
-                XpReward = 5000,
-                Objectives = new Dictionary<string, int>
-                {
-                    { "Trial of Strength", 1 },
-                    { "Trial of Wisdom", 1 },
-                    { "Trial of Courage", 1 }
-                }
-            },
-            
-            new Quest
-            {
-                Id = "main_07_dark_fortress",
-                Title = "Assault on the Dark Fortress",
-                Description = "Attack the Shadow Lord's fortress and weaken his defenses.",
-                Type = "main",
-                RequiredLevel = 27,
-                Prerequisites = new List<string> { "main_06_trials" },
-                GoldReward = 2000,
-                XpReward = 6000,
-                Objectives = new Dictionary<string, int>
-                {
-                    { "Breach the Outer Walls", 1 },
-                    { "Defeat Dark Generals", 3 },
-                    { "Destroy Shadow Crystals", 5 }
-                }
-            },
-            
-            new Quest
-            {
-                Id = "main_08_betrayal",
-                Title = "The Betrayal",
-                Description = "A trusted ally reveals their true allegiance. Face the betrayer.",
-                Type = "main",
-                RequiredLevel = 30,
-                Prerequisites = new List<string> { "main_07_dark_fortress" },
-                GoldReward = 2500,
-                XpReward = 7000,
-                Objectives = new Dictionary<string, int>
-                {
-                    { "Confront the Betrayer", 1 },
-                    { "Survive the Ambush", 1 }
-                }
-            },
-            
-            new Quest
-            {
-                Id = "main_09_final_preparations",
-                Title = "The Final Hour",
-                Description = "Prepare for the final confrontation with the Shadow Lord.",
-                Type = "main",
-                RequiredLevel = 33,
-                Prerequisites = new List<string> { "main_08_betrayal" },
-                GoldReward = 3000,
-                XpReward = 8000,
-                Objectives = new Dictionary<string, int>
-                {
-                    { "Gather Legendary Weapons", 1 },
-                    { "Rally All Allies", 1 },
-                    { "Strengthen Defenses", 1 }
-                }
-            },
-            
-            new Quest
-            {
-                Id = "main_10_shadow_lord",
-                Title = "Defeat the Shadow Lord",
-                Description = "The final battle. Defeat the Shadow Lord and save the world.",
-                Type = "main",
-                RequiredLevel = 35,
-                Prerequisites = new List<string> { "main_09_final_preparations" },
-                GoldReward = 10000,
-                XpReward = 15000,
-                Objectives = new Dictionary<string, int>
-                {
-                    { "Enter the Shadow Realm", 1 },
-                    { "Defeat the Shadow Lord", 1 }
-                }
+                ApocalypseBonusMinutes = 60,
+                Status = QuestStatus.NotStarted
             }
         };
     }
@@ -336,461 +658,758 @@ public class MainQuestService
 
 ---
 
-### 3. `Game/Services/AchievementService.cs` (NEW)
+#### 1.9 `Game/Features/Quest/Services/QuestProgressService.cs` (NEW)
+
+```csharp
+using Game.Features.SaveLoad;
+using Serilog;
+
+namespace Game.Features.Quest.Services;
+
+public class QuestProgressService
+{
+    private readonly SaveGameService _saveGameService;
+    
+    public QuestProgressService(SaveGameService saveGameService)
+    {
+        _saveGameService = saveGameService;
+    }
+    
+    public async Task<(bool Success, bool ObjectiveCompleted, bool QuestCompleted)> UpdateProgressAsync(
+        string questId, string objectiveId, int amount)
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null)
+            return (false, false, false);
+        
+        var quest = saveGame.ActiveQuests.FirstOrDefault(q => q.Id == questId);
+        if (quest == null)
+            return (false, false, false);
+        
+        var objective = quest.Objectives.FirstOrDefault(o => o.Id == objectiveId);
+        if (objective == null)
+            return (false, false, false);
+        
+        // Update progress
+        objective.Current = Math.Min(objective.Current + amount, objective.Required);
+        
+        var objectiveCompleted = objective.IsComplete;
+        var questCompleted = quest.Objectives.All(o => o.IsComplete);
+        
+        _saveGameService.SaveGame(saveGame);
+        
+        Log.Debug("Quest progress updated: {QuestId}/{ObjectiveId} = {Current}/{Required}",
+            questId, objectiveId, objective.Current, objective.Required);
+        
+        return await Task.FromResult((true, objectiveCompleted, questCompleted));
+    }
+}
+```
+
+---
+
+### Feature 2: Achievement System
+
+#### 2.1 `Game/Models/Achievement.cs` (NEW)
+
+```csharp
+namespace Game.Models;
+
+public class Achievement
+{
+    public string Id { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string Icon { get; set; } = "🏆";
+    public AchievementCategory Category { get; set; }
+    public int Points { get; set; }
+    public bool IsSecret { get; set; }
+    
+    // Unlock criteria
+    public AchievementCriteria Criteria { get; set; } = new();
+    
+    // State
+    public bool IsUnlocked { get; set; }
+    public DateTime? UnlockedAt { get; set; }
+}
+
+public class AchievementCriteria
+{
+    public AchievementType Type { get; set; }
+    public int RequiredValue { get; set; }
+    public string? RequiredId { get; set; } // For specific quests, enemies, etc.
+}
+
+public enum AchievementCategory
+{
+    Combat,
+    Exploration,
+    Quests,
+    Survival,
+    Mastery,
+    Secret
+}
+
+public enum AchievementType
+{
+    CompleteQuest,
+    DefeatEnemies,
+    ReachLevel,
+    CollectGold,
+    SurviveTime,
+    CompleteGame,
+    CompleteDifficulty,
+    Deathless
+}
+```
+
+---
+
+#### 2.2 `Game/Features/Achievement/Commands/UnlockAchievementCommand.cs` (NEW)
+
+```csharp
+using MediatR;
+
+namespace Game.Features.Achievement.Commands;
+
+public record UnlockAchievementCommand(string AchievementId) : IRequest<UnlockAchievementResult>;
+
+public record UnlockAchievementResult(bool Success, Models.Achievement? Achievement = null);
+
+public class UnlockAchievementHandler : IRequestHandler<UnlockAchievementCommand, UnlockAchievementResult>
+{
+    private readonly Services.AchievementService _achievementService;
+    
+    public UnlockAchievementHandler(Services.AchievementService achievementService)
+    {
+        _achievementService = achievementService;
+    }
+    
+    public async Task<UnlockAchievementResult> Handle(UnlockAchievementCommand request, CancellationToken cancellationToken)
+    {
+        var achievement = await _achievementService.UnlockAchievementAsync(request.AchievementId);
+        
+        if (achievement != null)
+        {
+            return new UnlockAchievementResult(true, achievement);
+        }
+        
+        return new UnlockAchievementResult(false);
+    }
+}
+```
+
+---
+
+#### 2.3 `Game/Features/Achievement/Commands/CheckAchievementProgressCommand.cs` (NEW)
+
+```csharp
+using MediatR;
+
+namespace Game.Features.Achievement.Commands;
+
+public record CheckAchievementProgressCommand : IRequest<List<Models.Achievement>>;
+
+public class CheckAchievementProgressHandler : IRequestHandler<CheckAchievementProgressCommand, List<Models.Achievement>>
+{
+    private readonly Services.AchievementService _achievementService;
+    
+    public CheckAchievementProgressHandler(Services.AchievementService achievementService)
+    {
+        _achievementService = achievementService;
+    }
+    
+    public async Task<List<Models.Achievement>> Handle(CheckAchievementProgressCommand request, CancellationToken cancellationToken)
+    {
+        return await _achievementService.CheckAllAchievementsAsync();
+    }
+}
+```
+
+---
+
+#### 2.4 `Game/Features/Achievement/Queries/GetUnlockedAchievementsQuery.cs` (NEW)
+
+```csharp
+using MediatR;
+
+namespace Game.Features.Achievement.Queries;
+
+public record GetUnlockedAchievementsQuery : IRequest<List<Models.Achievement>>;
+
+public class GetUnlockedAchievementsHandler : IRequestHandler<GetUnlockedAchievementsQuery, List<Models.Achievement>>
+{
+    private readonly Services.AchievementService _achievementService;
+    
+    public GetUnlockedAchievementsHandler(Services.AchievementService achievementService)
+    {
+        _achievementService = achievementService;
+    }
+    
+    public async Task<List<Models.Achievement>> Handle(GetUnlockedAchievementsQuery request, CancellationToken cancellationToken)
+    {
+        return await _achievementService.GetUnlockedAchievementsAsync();
+    }
+}
+```
+
+---
+
+#### 2.5 `Game/Features/Achievement/Services/AchievementService.cs` (NEW)
 
 ```csharp
 using Game.Models;
+using Game.Features.SaveLoad;
+using Game.Shared.UI;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.Achievement.Services;
 
-/// <summary>
-/// Manages achievements and tracks player progress.
-/// </summary>
 public class AchievementService
 {
-    private readonly List<Achievement> _allAchievements;
+    private readonly SaveGameService _saveGameService;
+    private readonly List<Models.Achievement> _allAchievements;
     
-    public AchievementService()
+    public AchievementService(SaveGameService saveGameService)
     {
-        _allAchievements = CreateAchievements();
+        _saveGameService = saveGameService;
+        _allAchievements = InitializeAchievements();
     }
     
-    /// <summary>
-    /// Get all achievements.
-    /// </summary>
-    public List<Achievement> GetAllAchievements() => _allAchievements;
-    
-    /// <summary>
-    /// Check and unlock achievements based on save game state.
-    /// </summary>
-    public List<Achievement> CheckAchievements(SaveGame saveGame, Character player)
+    public async Task<Models.Achievement?> UnlockAchievementAsync(string achievementId)
     {
-        var newlyUnlocked = new List<Achievement>();
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null)
+            return null;
+        
+        // Check if already unlocked
+        if (saveGame.Achievements.Any(a => a.Id == achievementId && a.IsUnlocked))
+            return null;
+        
+        var achievement = _allAchievements.FirstOrDefault(a => a.Id == achievementId);
+        if (achievement == null)
+            return null;
+        
+        // Unlock achievement
+        achievement.IsUnlocked = true;
+        achievement.UnlockedAt = DateTime.Now;
+        
+        saveGame.Achievements.Add(achievement);
+        _saveGameService.SaveGame(saveGame);
+        
+        // Show unlock notification
+        ShowAchievementUnlock(achievement);
+        
+        Log.Information("Achievement unlocked: {AchievementId} - {Title}", achievementId, achievement.Title);
+        
+        return await Task.FromResult(achievement);
+    }
+    
+    public async Task<List<Models.Achievement>> CheckAllAchievementsAsync()
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null)
+            return new List<Models.Achievement>();
+        
+        var newlyUnlocked = new List<Models.Achievement>();
         
         foreach (var achievement in _allAchievements)
         {
             // Skip if already unlocked
-            if (saveGame.UnlockedAchievements.Contains(achievement.Id))
+            if (saveGame.Achievements.Any(a => a.Id == achievement.Id && a.IsUnlocked))
                 continue;
             
-            // Check if conditions are met
-            if (IsAchievementUnlocked(achievement, saveGame, player))
+            // Check criteria
+            if (CheckCriteria(achievement, saveGame))
             {
-                saveGame.UnlockedAchievements.Add(achievement.Id);
-                newlyUnlocked.Add(achievement);
-                Log.Information("Achievement unlocked: {Title}", achievement.Title);
+                var unlocked = await UnlockAchievementAsync(achievement.Id);
+                if (unlocked != null)
+                    newlyUnlocked.Add(unlocked);
             }
         }
         
         return newlyUnlocked;
     }
     
-    /// <summary>
-    /// Get completion percentage (unlocked achievements / total).
-    /// </summary>
-    public double GetAchievementProgress(SaveGame saveGame)
+    public async Task<List<Models.Achievement>> GetUnlockedAchievementsAsync()
     {
-        return (double)saveGame.UnlockedAchievements.Count / _allAchievements.Count * 100.0;
+        var saveGame = _saveGameService.GetCurrentSave();
+        return await Task.FromResult(saveGame?.Achievements.Where(a => a.IsUnlocked).ToList() ?? new List<Models.Achievement>());
     }
     
-    /// <summary>
-    /// Check if achievement conditions are met.
-    /// </summary>
-    private bool IsAchievementUnlocked(Achievement achievement, SaveGame saveGame, Character player)
+    private bool CheckCriteria(Models.Achievement achievement, SaveGame saveGame)
     {
-        return achievement.Id switch
+        return achievement.Criteria.Type switch
         {
-            // Level Achievements
-            "level_10" => player.Level >= 10,
-            "level_25" => player.Level >= 25,
-            "level_50" => player.Level >= 50,
-            "max_level" => player.Level >= 100,
-            
-            // Quest Achievements
-            "complete_10_quests" => saveGame.QuestsCompleted >= 10,
-            "complete_50_quests" => saveGame.QuestsCompleted >= 50,
-            "complete_100_quests" => saveGame.QuestsCompleted >= 100,
-            "main_quest_complete" => saveGame.CompletedQuests.Contains("main_10_shadow_lord"),
-            
-            // Combat Achievements
-            "defeat_100_enemies" => saveGame.TotalEnemiesDefeated >= 100,
-            "defeat_500_enemies" => saveGame.TotalEnemiesDefeated >= 500,
-            "defeat_1000_enemies" => saveGame.TotalEnemiesDefeated >= 1000,
-            "defeat_first_legendary" => saveGame.LegendaryEnemiesDefeated.Count >= 1,
-            "defeat_all_legendaries" => saveGame.LegendaryEnemiesDefeated.Count >= 10,
-            
-            // Wealth Achievements
-            "earn_10k_gold" => saveGame.TotalGoldEarned >= 10000,
-            "earn_100k_gold" => saveGame.TotalGoldEarned >= 100000,
-            "hoarder" => player.Gold >= 50000,
-            
-            // Death Achievements (ironic!)
-            "die_once" => saveGame.TotalDeaths >= 1,
-            "die_10_times" => saveGame.TotalDeaths >= 10,
-            "survivor" => saveGame.TotalDeaths == 0 && player.Level >= 25,
-            "ironman_victory" => saveGame.IronmanMode && saveGame.CompletedQuests.Contains("main_10_shadow_lord"),
-            "permadeath_attempt" => saveGame.PermadeathMode, // Just attempting is an achievement!
-            
-            // Exploration Achievements
-            "discover_10_locations" => saveGame.DiscoveredLocations.Count >= 10,
-            "discover_all_locations" => saveGame.DiscoveredLocations.Count >= 30,
-            "world_traveler" => saveGame.VisitedLocations.Count >= 25,
-            
-            // NPC Achievements
-            "meet_20_npcs" => saveGame.KnownNPCs.Count >= 20,
-            "max_friendship" => saveGame.NPCRelationships.Values.Any(r => r >= 100),
-            "max_hatred" => saveGame.NPCRelationships.Values.Any(r => r <= -100),
-            
-            // Misc Achievements
-            "complete_game_100%" => saveGame.GetCompletionPercentage() >= 100.0,
-            "speed_runner" => saveGame.ApocalypseMode && saveGame.CompletedQuests.Contains("main_10_shadow_lord"),
-            "true_ending" => saveGame.CompletedQuests.Contains("true_ending_quest"),
-            "new_game_plus" => saveGame.NewGamePlusCount >= 1,
-            
+            AchievementType.CompleteQuest => saveGame.CompletedQuestIds.Contains(achievement.Criteria.RequiredId ?? ""),
+            AchievementType.DefeatEnemies => saveGame.EnemiesDefeated >= achievement.Criteria.RequiredValue,
+            AchievementType.ReachLevel => saveGame.Character.Level >= achievement.Criteria.RequiredValue,
+            AchievementType.CollectGold => saveGame.Character.Gold >= achievement.Criteria.RequiredValue,
+            AchievementType.SurviveTime => saveGame.PlayTimeMinutes >= achievement.Criteria.RequiredValue,
+            AchievementType.CompleteGame => saveGame.CompletedQuestIds.Contains("main_06_final_boss"),
+            AchievementType.CompleteDifficulty => saveGame.CompletedQuestIds.Contains("main_06_final_boss") && 
+                                                   saveGame.DifficultySettings.Name == achievement.Criteria.RequiredId,
+            AchievementType.Deathless => saveGame.DeathCount == 0 && saveGame.CompletedQuestIds.Contains("main_06_final_boss"),
             _ => false
         };
     }
     
-    /// <summary>
-    /// Create all achievements.
-    /// </summary>
-    private List<Achievement> CreateAchievements()
+    private void ShowAchievementUnlock(Models.Achievement achievement)
     {
-        return new List<Achievement>
-        {
-            // Level Achievements
-            new Achievement("level_10", "Apprentice Hero", "Reach level 10", "progression", 10),
-            new Achievement("level_25", "Veteran Hero", "Reach level 25", "progression", 25),
-            new Achievement("level_50", "Master Hero", "Reach level 50", "progression", 50),
-            new Achievement("max_level", "Legendary Hero", "Reach level 100", "progression", 100),
-            
-            // Quest Achievements
-            new Achievement("complete_10_quests", "Quest Starter", "Complete 10 quests", "quests", 10),
-            new Achievement("complete_50_quests", "Quest Master", "Complete 50 quests", "quests", 50),
-            new Achievement("complete_100_quests", "Questaholic", "Complete 100 quests", "quests", 100),
-            new Achievement("main_quest_complete", "Shadow Slayer", "Defeat the Shadow Lord", "quests", 200),
-            
-            // Combat Achievements
-            new Achievement("defeat_100_enemies", "Monster Slayer", "Defeat 100 enemies", "combat", 20),
-            new Achievement("defeat_500_enemies", "Demon Hunter", "Defeat 500 enemies", "combat", 50),
-            new Achievement("defeat_1000_enemies", "Army Crusher", "Defeat 1000 enemies", "combat", 100),
-            new Achievement("defeat_first_legendary", "Legend Killer", "Defeat your first legendary enemy", "combat", 50),
-            new Achievement("defeat_all_legendaries", "Bane of Legends", "Defeat all legendary enemies", "combat", 200),
-            
-            // Wealth Achievements
-            new Achievement("earn_10k_gold", "Entrepreneur", "Earn 10,000 gold", "wealth", 15),
-            new Achievement("earn_100k_gold", "Tycoon", "Earn 100,000 gold", "wealth", 75),
-            new Achievement("hoarder", "Dragon's Hoard", "Possess 50,000 gold at once", "wealth", 50),
-            
-            // Death Achievements
-            new Achievement("die_once", "Mortal", "Die for the first time", "death", 5),
-            new Achievement("die_10_times", "Stubborn", "Die 10 times and keep going", "death", 10),
-            new Achievement("survivor", "Untouchable", "Reach level 25 without dying", "death", 100),
-            new Achievement("ironman_victory", "Iron Will", "Complete the main quest in Ironman mode", "death", 200),
-            new Achievement("permadeath_attempt", "Brave Soul", "Attempt Permadeath mode", "death", 50),
-            
-            // Exploration Achievements
-            new Achievement("discover_10_locations", "Explorer", "Discover 10 locations", "exploration", 15),
-            new Achievement("discover_all_locations", "Cartographer", "Discover all locations", "exploration", 100),
-            new Achievement("world_traveler", "Wanderer", "Visit 25 different locations", "exploration", 50),
-            
-            // NPC Achievements
-            new Achievement("meet_20_npcs", "Social Butterfly", "Meet 20 NPCs", "social", 20),
-            new Achievement("max_friendship", "Best Friend", "Max out relationship with an NPC", "social", 50),
-            new Achievement("max_hatred", "Nemesis", "Min out relationship with an NPC", "social", 50),
-            
-            // Special Achievements
-            new Achievement("complete_game_100%", "Perfectionist", "Achieve 100% completion", "special", 250),
-            new Achievement("speed_runner", "Against the Clock", "Beat Apocalypse mode", "special", 200),
-            new Achievement("true_ending", "Truth Seeker", "Unlock the True Ending", "special", 300),
-            new Achievement("new_game_plus", "Never Enough", "Start New Game+", "special", 100)
-        };
+        ConsoleUI.Clear();
+        ConsoleUI.ShowSuccess("═══════════════════════════════════════");
+        ConsoleUI.ShowSuccess("      ACHIEVEMENT UNLOCKED!            ");
+        ConsoleUI.ShowSuccess("═══════════════════════════════════════");
+        ConsoleUI.WriteText($"  {achievement.Icon} {achievement.Title}");
+        ConsoleUI.WriteText($"  {achievement.Description}");
+        ConsoleUI.WriteText($"  Points: {achievement.Points}");
+        ConsoleUI.ShowSuccess("═══════════════════════════════════════");
+        Thread.Sleep(3000);
     }
-}
-
-public class Achievement
-{
-    public string Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string Category { get; set; }
-    public int Points { get; set; }
     
-    public Achievement(string id, string title, string description, string category, int points)
+    private List<Models.Achievement> InitializeAchievements()
     {
-        Id = id;
-        Title = title;
-        Description = description;
-        Category = category;
-        Points = points;
+        return new List<Models.Achievement>
+        {
+            new Models.Achievement
+            {
+                Id = "first_steps",
+                Title = "First Steps",
+                Description = "Complete your first quest",
+                Icon = "🌟",
+                Category = AchievementCategory.Quests,
+                Points = 10,
+                Criteria = new AchievementCriteria { Type = AchievementType.CompleteQuest, RequiredValue = 1 }
+            },
+            new Models.Achievement
+            {
+                Id = "slayer",
+                Title = "Slayer",
+                Description = "Defeat 100 enemies",
+                Icon = "⚔️",
+                Category = AchievementCategory.Combat,
+                Points = 25,
+                Criteria = new AchievementCriteria { Type = AchievementType.DefeatEnemies, RequiredValue = 100 }
+            },
+            new Models.Achievement
+            {
+                Id = "master",
+                Title = "Master",
+                Description = "Reach level 20",
+                Icon = "👑",
+                Category = AchievementCategory.Mastery,
+                Points = 50,
+                Criteria = new AchievementCriteria { Type = AchievementType.ReachLevel, RequiredValue = 20 }
+            },
+            new Models.Achievement
+            {
+                Id = "savior",
+                Title = "Savior of the World",
+                Description = "Complete the main quest",
+                Icon = "🏆",
+                Category = AchievementCategory.Quests,
+                Points = 100,
+                Criteria = new AchievementCriteria { Type = AchievementType.CompleteGame, RequiredValue = 1 }
+            },
+            new Models.Achievement
+            {
+                Id = "apocalypse_survivor",
+                Title = "Apocalypse Survivor",
+                Description = "Complete the game on Apocalypse difficulty",
+                Icon = "💀",
+                Category = AchievementCategory.Survival,
+                Points = 200,
+                IsSecret = true,
+                Criteria = new AchievementCriteria { Type = AchievementType.CompleteDifficulty, RequiredId = "Apocalypse" }
+            },
+            new Models.Achievement
+            {
+                Id = "deathless",
+                Title = "Deathless",
+                Description = "Complete the game without dying",
+                Icon = "✨",
+                Category = AchievementCategory.Mastery,
+                Points = 500,
+                IsSecret = true,
+                Criteria = new AchievementCriteria { Type = AchievementType.Deathless, RequiredValue = 1 }
+            }
+        };
     }
 }
 ```
 
 ---
 
-### 4. `Game/Services/VictoryService.cs` (NEW)
+### Feature 3: Victory System
+
+#### 3.1 `Game/Features/Victory/Commands/TriggerVictoryCommand.cs` (NEW)
 
 ```csharp
-using Game.Models;
-using Game.UI;
-using Spectre.Console;
-using Serilog;
+using MediatR;
 
-namespace Game.Services;
+namespace Game.Features.Victory.Commands;
 
-/// <summary>
-/// Handles victory screens and end-game scenarios.
-/// </summary>
-public class VictoryService
+public record TriggerVictoryCommand : IRequest<TriggerVictoryResult>;
+
+public record TriggerVictoryResult(bool Success, VictoryStatistics? Statistics = null);
+
+public record VictoryStatistics(
+    string PlayerName,
+    string ClassName,
+    int FinalLevel,
+    string Difficulty,
+    int PlayTimeMinutes,
+    int QuestsCompleted,
+    int EnemiesDefeated,
+    int DeathCount,
+    int AchievementsUnlocked,
+    int TotalGoldEarned
+);
+
+public class TriggerVictoryHandler : IRequestHandler<TriggerVictoryCommand, TriggerVictoryResult>
 {
-    private readonly MainQuestService _mainQuestService;
-    private readonly AchievementService _achievementService;
+    private readonly Services.VictoryService _victoryService;
     
-    public VictoryService(MainQuestService mainQuestService, AchievementService achievementService)
+    public TriggerVictoryHandler(Services.VictoryService victoryService)
     {
-        _mainQuestService = mainQuestService;
-        _achievementService = achievementService;
+        _victoryService = victoryService;
     }
     
-    /// <summary>
-    /// Show main quest victory screen.
-    /// </summary>
-    public async Task ShowMainQuestVictory(SaveGame saveGame, Character player)
+    public async Task<TriggerVictoryResult> Handle(TriggerVictoryCommand request, CancellationToken cancellationToken)
+    {
+        var statistics = await _victoryService.CalculateVictoryStatisticsAsync();
+        
+        if (statistics != null)
+        {
+            await _victoryService.MarkGameCompleteAsync();
+            return new TriggerVictoryResult(true, statistics);
+        }
+        
+        return new TriggerVictoryResult(false);
+    }
+}
+```
+
+---
+
+#### 3.2 `Game/Features/Victory/Commands/StartNewGamePlusCommand.cs` (NEW)
+
+```csharp
+using MediatR;
+
+namespace Game.Features.Victory.Commands;
+
+public record StartNewGamePlusCommand : IRequest<StartNewGamePlusResult>;
+
+public record StartNewGamePlusResult(bool Success, string Message);
+
+public class StartNewGamePlusHandler : IRequestHandler<StartNewGamePlusCommand, StartNewGamePlusResult>
+{
+    private readonly Services.NewGamePlusService _ngPlusService;
+    
+    public StartNewGamePlusHandler(Services.NewGamePlusService ngPlusService)
+    {
+        _ngPlusService = ngPlusService;
+    }
+    
+    public async Task<StartNewGamePlusResult> Handle(StartNewGamePlusCommand request, CancellationToken cancellationToken)
+    {
+        var result = await _ngPlusService.StartNewGamePlusAsync();
+        
+        if (result.Success)
+        {
+            return new StartNewGamePlusResult(true, "New Game+ started!");
+        }
+        
+        return new StartNewGamePlusResult(false, "Failed to start New Game+");
+    }
+}
+```
+
+---
+
+#### 3.3 `Game/Features/Victory/Services/VictoryService.cs` (NEW)
+
+```csharp
+using Game.Features.SaveLoad;
+using Game.Features.Victory.Commands;
+using Serilog;
+
+namespace Game.Features.Victory.Services;
+
+public class VictoryService
+{
+    private readonly SaveGameService _saveGameService;
+    
+    public VictoryService(SaveGameService saveGameService)
+    {
+        _saveGameService = saveGameService;
+    }
+    
+    public async Task<VictoryStatistics?> CalculateVictoryStatisticsAsync()
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null)
+            return null;
+        
+        var statistics = new VictoryStatistics(
+            saveGame.Character.Name,
+            saveGame.Character.ClassName,
+            saveGame.Character.Level,
+            saveGame.DifficultySettings.Name,
+            saveGame.PlayTimeMinutes,
+            saveGame.QuestsCompleted,
+            saveGame.EnemiesDefeated,
+            saveGame.DeathCount,
+            saveGame.Achievements.Count(a => a.IsUnlocked),
+            saveGame.TotalGoldEarned
+        );
+        
+        Log.Information("Victory statistics calculated for {PlayerName}", saveGame.Character.Name);
+        
+        return await Task.FromResult(statistics);
+    }
+    
+    public async Task MarkGameCompleteAsync()
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null)
+            return;
+        
+        saveGame.GameCompleted = true;
+        saveGame.CompletionDate = DateTime.Now;
+        
+        _saveGameService.SaveGame(saveGame);
+        
+        Log.Information("Game marked as completed for {PlayerName}", saveGame.Character.Name);
+        
+        await Task.CompletedTask;
+    }
+}
+```
+
+---
+
+#### 3.4 `Game/Features/Victory/Services/NewGamePlusService.cs` (NEW)
+
+```csharp
+using Game.Features.SaveLoad;
+using Game.Models;
+using Serilog;
+
+namespace Game.Features.Victory.Services;
+
+public class NewGamePlusService
+{
+    private readonly SaveGameService _saveGameService;
+    
+    public NewGamePlusService(SaveGameService saveGameService)
+    {
+        _saveGameService = saveGameService;
+    }
+    
+    public async Task<(bool Success, SaveGame? NewSave)> StartNewGamePlusAsync()
+    {
+        var completedSave = _saveGameService.GetCurrentSave();
+        if (completedSave == null || !completedSave.GameCompleted)
+            return (false, null);
+        
+        // Create New Game+ character with bonuses
+        var ngPlusCharacter = new Character
+        {
+            Name = completedSave.Character.Name,
+            ClassName = completedSave.Character.ClassName,
+            Level = 1, // Start at level 1
+            MaxHealth = completedSave.Character.MaxHealth + 50, // Bonus HP
+            Health = completedSave.Character.MaxHealth + 50,
+            MaxMana = completedSave.Character.MaxMana + 50, // Bonus Mana
+            Mana = completedSave.Character.MaxMana + 50,
+            Strength = completedSave.Character.Strength + 5, // Bonus stats
+            Intelligence = completedSave.Character.Intelligence + 5,
+            Dexterity = completedSave.Character.Dexterity + 5,
+            Gold = 500 // Starting gold bonus
+        };
+        
+        // Create harder difficulty for NG+
+        var ngPlusDifficulty = new DifficultySettings
+        {
+            Name = $"{completedSave.DifficultySettings.Name} NG+",
+            Description = "New Game+ difficulty with increased challenge and rewards",
+            EnemyHealthMultiplier = completedSave.DifficultySettings.EnemyHealthMultiplier * 1.5,
+            EnemyDamageMultiplier = completedSave.DifficultySettings.EnemyDamageMultiplier * 1.5,
+            XpMultiplier = completedSave.DifficultySettings.XpMultiplier * 1.25,
+            GoldMultiplier = completedSave.DifficultySettings.GoldMultiplier * 1.25,
+            ItemDropMultiplier = completedSave.DifficultySettings.ItemDropMultiplier * 1.25,
+            IsApocalypse = completedSave.DifficultySettings.IsApocalypse,
+            ApocalypseTimeLimitMinutes = completedSave.DifficultySettings.ApocalypseTimeLimitMinutes
+        };
+        
+        // Create new save
+        var ngPlusSave = _saveGameService.CreateNewGame(ngPlusCharacter, ngPlusDifficulty);
+        ngPlusSave.IsNewGamePlus = true;
+        ngPlusSave.NewGamePlusGeneration = (completedSave.NewGamePlusGeneration ?? 0) + 1;
+        
+        // Carry over achievements
+        ngPlusSave.Achievements = completedSave.Achievements;
+        
+        _saveGameService.SaveGame(ngPlusSave);
+        
+        Log.Information("New Game+ started. Generation: {Generation}", ngPlusSave.NewGamePlusGeneration);
+        
+        return await Task.FromResult((true, ngPlusSave));
+    }
+}
+```
+
+---
+
+#### 3.5 `Game/Features/Victory/Orchestrators/VictoryOrchestrator.cs` (NEW)
+
+```csharp
+using MediatR;
+using Game.Shared.UI;
+using Game.Features.Victory.Commands;
+using Serilog;
+
+namespace Game.Features.Victory.Orchestrators;
+
+/// <summary>
+/// Orchestrates the multi-step victory sequence with UI interactions.
+/// </summary>
+public class VictoryOrchestrator
+{
+    private readonly IMediator _mediator;
+    
+    public VictoryOrchestrator(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+    
+    public async Task<bool> ShowVictorySequenceAsync()
+    {
+        // Trigger victory command
+        var victoryResult = await _mediator.Send(new TriggerVictoryCommand());
+        
+        if (!victoryResult.Success || victoryResult.Statistics == null)
+            return false;
+        
+        var stats = victoryResult.Statistics;
+        
+        // Victory sequence
+        ConsoleUI.Clear();
+        await ShowDramaticVictoryAsync();
+        await ShowStatisticsAsync(stats);
+        await ShowAchievementsAsync();
+        
+        // Offer New Game+
+        return await OfferNewGamePlusAsync();
+    }
+    
+    private async Task ShowDramaticVictoryAsync()
+    {
+        ConsoleUI.ShowSuccess("═══════════════════════════════════════════════");
+        await Task.Delay(500);
+        ConsoleUI.ShowSuccess("        THE DARK LORD HAS FALLEN!              ");
+        await Task.Delay(1000);
+        ConsoleUI.ShowSuccess("═══════════════════════════════════════════════");
+        await Task.Delay(1500);
+        
+        Console.Clear();
+        ConsoleUI.ShowSuccess("Light returns to the world...");
+        await Task.Delay(2000);
+        
+        ConsoleUI.ShowSuccess("The apocalypse has been averted...");
+        await Task.Delay(2000);
+        
+        ConsoleUI.ShowSuccess("You are the savior of the realm!");
+        await Task.Delay(2000);
+        
+        Console.Clear();
+        ConsoleUI.ShowSuccess("═══════════════════════════════════════════════");
+        ConsoleUI.ShowSuccess("                                               ");
+        ConsoleUI.ShowSuccess("              🏆 VICTORY! 🏆                   ");
+        ConsoleUI.ShowSuccess("                                               ");
+        ConsoleUI.ShowSuccess("═══════════════════════════════════════════════");
+        await Task.Delay(3000);
+    }
+    
+    private async Task ShowStatisticsAsync(VictoryStatistics stats)
     {
         Console.Clear();
-        
-        // Victory animation
-        await ShowVictoryAnimation();
-        
-        // Victory screen
-        ConsoleUI.Clear();
-        ConsoleUI.ShowSuccess("═════════════════════════════════════════════════");
-        ConsoleUI.ShowSuccess("                                                 ");
-        ConsoleUI.ShowSuccess("              VICTORY!                           ");
-        ConsoleUI.ShowSuccess("                                                 ");
-        ConsoleUI.ShowSuccess("═════════════════════════════════════════════════");
-        
-        Thread.Sleep(2000);
+        ConsoleUI.ShowBanner("Final Statistics", $"{stats.PlayerName} the {stats.ClassName}");
         Console.WriteLine();
         
-        ConsoleUI.WriteText("The Shadow Lord falls before you.");
-        ConsoleUI.WriteText("Light returns to the land.");
-        ConsoleUI.WriteText("Peace is restored... for now.");
-        
-        Thread.Sleep(3000);
-        Console.WriteLine();
-        
-        // Show statistics
-        ShowVictoryStatistics(saveGame, player);
-        
-        Thread.Sleep(2000);
-        
-        // Check for True Ending unlock
-        var canUnlockTrueEnding = player.Level >= 50 && saveGame.GetCompletionPercentage() >= 100.0;
-        
-        if (canUnlockTrueEnding && !saveGame.CompletedQuests.Contains("true_ending_quest"))
+        var headers = new[] { "Stat", "Value" };
+        var rows = new List<string[]>
         {
-            await ShowTrueEndingUnlock();
+            new[] { "Final Level", stats.FinalLevel.ToString() },
+            new[] { "Difficulty", stats.Difficulty },
+            new[] { "Play Time", $"{stats.PlayTimeMinutes / 60}h {stats.PlayTimeMinutes % 60}m" },
+            new[] { "Quests Completed", stats.QuestsCompleted.ToString() },
+            new[] { "Enemies Defeated", stats.EnemiesDefeated.ToString() },
+            new[] { "Deaths", stats.DeathCount.ToString() },
+            new[] { "Achievements", $"{stats.AchievementsUnlocked} unlocked" },
+            new[] { "Total Gold Earned", $"{stats.TotalGoldEarned}g" }
+        };
+        
+        ConsoleUI.ShowTable("Your Journey", headers, rows);
+        
+        Log.Information("Victory statistics displayed for {PlayerName}", stats.PlayerName);
+        
+        await Task.Delay(5000);
+    }
+    
+    private async Task ShowAchievementsAsync()
+    {
+        Console.Clear();
+        ConsoleUI.ShowBanner("Achievements", "Your Accomplishments");
+        Console.WriteLine();
+        
+        var query = new Features.Achievement.Queries.GetUnlockedAchievementsQuery();
+        var achievements = await _mediator.Send(query);
+        
+        if (achievements.Any())
+        {
+            foreach (var achievement in achievements)
+            {
+                ConsoleUI.WriteText($"{achievement.Icon} {achievement.Title} - {achievement.Points} points");
+            }
         }
         else
         {
-            // Offer New Game+
-            await ShowNewGamePlusOffer(saveGame);
+            ConsoleUI.WriteText("No achievements unlocked yet.");
         }
         
-        Log.Information("Main quest victory screen shown for {PlayerName}", player.Name);
+        await Task.Delay(4000);
     }
     
-    /// <summary>
-    /// Show victory animation.
-    /// </summary>
-    private async Task ShowVictoryAnimation()
-    {
-        var frames = new[]
-        {
-            "The Shadow Lord staggers...",
-            "His power wanes...",
-            "He falls to one knee...",
-            "\"Impossible...\" he whispers...",
-            "A blinding flash of light!",
-            "Silence...",
-            "The darkness fades..."
-        };
-        
-        foreach (var frame in frames)
-        {
-            Console.Clear();
-            ConsoleUI.WriteText(frame);
-            await Task.Delay(1500);
-        }
-    }
-    
-    /// <summary>
-    /// Show victory statistics.
-    /// </summary>
-    private void ShowVictoryStatistics(SaveGame saveGame, Character player)
-    {
-        ConsoleUI.ShowBanner("Victory Statistics", "═");
-        
-        var table = new Table();
-        table.Border(TableBorder.Rounded);
-        table.AddColumn(new TableColumn("[cyan]Statistic[/]").LeftAligned());
-        table.AddColumn(new TableColumn("[yellow]Value[/]").RightAligned());
-        
-        table.AddRow("Final Level", player.Level.ToString());
-        table.AddRow("Total Playtime", FormatPlaytime(saveGame.TotalPlaytimeMinutes));
-        table.AddRow("Quests Completed", saveGame.QuestsCompleted.ToString());
-        table.AddRow("Enemies Defeated", saveGame.TotalEnemiesDefeated.ToString());
-        table.AddRow("Legendary Enemies", saveGame.LegendaryEnemiesDefeated.Count.ToString());
-        table.AddRow("Gold Earned", saveGame.TotalGoldEarned.ToString("N0"));
-        table.AddRow("Deaths", saveGame.TotalDeaths.ToString());
-        table.AddRow("Locations Discovered", saveGame.DiscoveredLocations.Count.ToString());
-        table.AddRow("Achievements Unlocked", $"{saveGame.UnlockedAchievements.Count} / {_achievementService.GetAllAchievements().Count}");
-        table.AddRow("Completion", $"{saveGame.GetCompletionPercentage():F1}%");
-        
-        AnsiConsole.Write(table);
-        Console.WriteLine();
-    }
-    
-    /// <summary>
-    /// Show True Ending unlock message.
-    /// </summary>
-    private async Task ShowTrueEndingUnlock()
+    private async Task<bool> OfferNewGamePlusAsync()
     {
         Console.Clear();
-        
-        ConsoleUI.ShowSuccess("═════════════════════════════════════════════════");
-        ConsoleUI.ShowSuccess("           TRUE ENDING UNLOCKED!                 ");
-        ConsoleUI.ShowSuccess("═════════════════════════════════════════════════");
-        
-        await Task.Delay(2000);
+        ConsoleUI.ShowBanner("New Game+", "Continue Your Journey");
         Console.WriteLine();
         
-        ConsoleUI.WriteText("But wait...");
-        await Task.Delay(1500);
-        
-        ConsoleUI.WriteText("Something stirs in the darkness...");
-        await Task.Delay(1500);
-        
-        ConsoleUI.WriteText("A new quest has appeared: 'The True Enemy'");
-        await Task.Delay(2000);
-        
-        Console.WriteLine();
-        ConsoleUI.ShowInfo("You have unlocked the True Ending path!");
-        ConsoleUI.WriteText("Return to the game to face the ultimate challenge.");
-        
-        Thread.Sleep(3000);
-    }
-    
-    /// <summary>
-    /// Offer New Game+ to the player.
-    /// </summary>
-    private async Task ShowNewGamePlusOffer(SaveGame saveGame)
-    {
-        Console.WriteLine();
-        ConsoleUI.ShowInfo("═════════════════════════════════════════════════");
-        ConsoleUI.ShowInfo("           NEW GAME+ AVAILABLE                   ");
-        ConsoleUI.ShowInfo("═════════════════════════════════════════════════");
-        
-        Console.WriteLine();
-        ConsoleUI.WriteText("Start a new adventure with bonuses:");
-        ConsoleUI.WriteText("  • Keep all achievements");
-        ConsoleUI.WriteText("  • +5 to all attributes");
-        ConsoleUI.WriteText("  • +25% gold and XP rewards");
-        ConsoleUI.WriteText("  • Enemies are stronger and smarter");
-        ConsoleUI.WriteText("  • New legendary enemies appear");
-        
+        ConsoleUI.WriteText("You have completed the game!");
+        ConsoleUI.WriteText("New Game+ is now available with:");
+        ConsoleUI.WriteText("  • Increased enemy difficulty");
+        ConsoleUI.WriteText("  • Better rewards (XP, gold, items)");
+        ConsoleUI.WriteText("  • Keep your achievements");
+        ConsoleUI.WriteText("  • Start with bonus stats");
         Console.WriteLine();
         
         if (ConsoleUI.Confirm("Start New Game+?"))
         {
-            ConsoleUI.ShowSuccess("New Game+ will be available in the main menu!");
+            var result = await _mediator.Send(new StartNewGamePlusCommand());
+            
+            if (result.Success)
+            {
+                ConsoleUI.ShowSuccess(result.Message);
+                await Task.Delay(2000);
+                return true;
+            }
         }
         
-        await Task.Delay(1000);
-    }
-    
-    /// <summary>
-    /// Format playtime in human-readable format.
-    /// </summary>
-    private string FormatPlaytime(int totalMinutes)
-    {
-        var hours = totalMinutes / 60;
-        var minutes = totalMinutes % 60;
-        
-        if (hours > 0)
-            return $"{hours}h {minutes}m";
-        
-        return $"{minutes}m";
-    }
-    
-    /// <summary>
-    /// Show True Ending victory screen.
-    /// </summary>
-    public async Task ShowTrueEndingVictory(SaveGame saveGame, Character player)
-    {
-        Console.Clear();
-        
-        // Epic victory sequence
-        await ShowTrueEndingAnimation();
-        
-        ConsoleUI.Clear();
-        ConsoleUI.ShowSuccess("═════════════════════════════════════════════════");
-        ConsoleUI.ShowSuccess("                                                 ");
-        ConsoleUI.ShowSuccess("           TRUE ENDING ACHIEVED!                 ");
-        ConsoleUI.ShowSuccess("                                                 ");
-        ConsoleUI.ShowSuccess("═════════════════════════════════════════════════");
-        
-        Thread.Sleep(3000);
-        Console.WriteLine();
-        
-        ConsoleUI.WriteText("You have defeated the Ancient Evil.");
-        ConsoleUI.WriteText("The true enemy has been vanquished.");
-        ConsoleUI.WriteText("The world is saved... truly, this time.");
-        
-        Thread.Sleep(4000);
-        Console.WriteLine();
-        
-        ConsoleUI.ShowSuccess("Congratulations! You have achieved 100% completion!");
-        
-        Thread.Sleep(2000);
-        
-        // Show final statistics
-        ShowVictoryStatistics(saveGame, player);
-        
-        // Still offer New Game+
-        await ShowNewGamePlusOffer(saveGame);
-        
-        Log.Information("True Ending victory shown for {PlayerName}", player.Name);
-    }
-    
-    /// <summary>
-    /// Show True Ending animation.
-    /// </summary>
-    private async Task ShowTrueEndingAnimation()
-    {
-        var frames = new[]
-        {
-            "The Ancient Evil reveals its true form...",
-            "Power beyond comprehension...",
-            "You draw upon all your strength...",
-            "The final clash!",
-            "Light versus Darkness...",
-            "An explosion of energy!",
-            "...",
-            "Silence.",
-            "You stand victorious.",
-            "The nightmare is over."
-        };
-        
-        foreach (var frame in frames)
-        {
-            Console.Clear();
-            ConsoleUI.WriteText(frame);
-            await Task.Delay(2000);
-        }
+        return false;
     }
 }
 ```
@@ -799,226 +1418,131 @@ public class VictoryService
 
 ## 📝 Files to Modify
 
-### 5. `Game/Models/SaveGame.cs` - Add New Game+ Fields
+### `Game/Program.cs` - Register Quest, Achievement, Victory Services
 
-**ADD** properties:
+**FIND** the service registration section:
 
 ```csharp
-// New Game+ tracking
-public int NewGamePlusCount { get; set; } = 0;
-public bool IsNewGamePlus { get; set; } = false;
-public List<string> NewGamePlusAchievements { get; set; } = new(); // Carried over
-public int NewGamePlusBonusStats { get; set; } = 0; // +5 per NG+ cycle
+// Register feature services
+services.AddScoped<CharacterCreationOrchestrator>();
+// ... other services ...
 ```
 
-**MODIFY** `GetCompletionPercentage` method:
+**ADD** these registrations:
 
 ```csharp
-public double GetCompletionPercentage()
-{
-    // This is a comprehensive formula considering all aspects
-    var totalWeight = 0.0;
-    var achievedWeight = 0.0;
-    
-    // Main quest (40% weight)
-    if (CompletedQuests.Contains("main_10_shadow_lord"))
-    {
-        achievedWeight += 40.0;
-    }
-    totalWeight += 40.0;
-    
-    // All quests (20% weight)
-    var questProgress = QuestsCompleted / Math.Max(1.0, QuestsCompleted + ActiveQuests.Count + AvailableQuests.Count);
-    achievedWeight += questProgress * 20.0;
-    totalWeight += 20.0;
-    
-    // Achievements (20% weight)
-    var achievementProgress = UnlockedAchievements.Count / 30.0; // Assuming ~30 achievements
-    achievedWeight += Math.Min(achievementProgress, 1.0) * 20.0;
-    totalWeight += 20.0;
-    
-    // Locations (10% weight)
-    var locationProgress = DiscoveredLocations.Count / 30.0; // Assuming 30 locations
-    achievedWeight += Math.Min(locationProgress, 1.0) * 10.0;
-    totalWeight += 10.0;
-    
-    // Legendary enemies (10% weight)
-    var legendaryProgress = LegendaryEnemiesDefeated.Count / 10.0; // Assuming 10 legendary enemies
-    achievedWeight += Math.Min(legendaryProgress, 1.0) * 10.0;
-    totalWeight += 10.0;
-    
-    return (achievedWeight / totalWeight) * 100.0;
-}
+// Quest feature
+services.AddScoped<Game.Features.Quest.Services.QuestService>();
+services.AddScoped<Game.Features.Quest.Services.MainQuestService>();
+services.AddScoped<Game.Features.Quest.Services.QuestProgressService>();
+
+// Achievement feature
+services.AddScoped<Game.Features.Achievement.Services.AchievementService>();
+
+// Victory feature
+services.AddScoped<Game.Features.Victory.Services.VictoryService>();
+services.AddScoped<Game.Features.Victory.Services.NewGamePlusService>();
+services.AddScoped<Game.Features.Victory.Orchestrators.VictoryOrchestrator>();
 ```
 
 ---
 
-### 6. `Game/Services/SaveGameService.cs` - Add New Game+ Method
+### `Game/Models/SaveGame.cs` - Add New Fields
 
-**ADD** method:
+**ADD** these properties if they don't exist:
 
 ```csharp
-/// <summary>
-/// Create a New Game+ save from an existing completed save.
-/// </summary>
-public SaveGame CreateNewGamePlus(SaveGame completedSave, Character newCharacter)
-{
-    var ngPlusSave = CreateNewGame(
-        newCharacter,
-        completedSave.Difficulty,
-        isNewGamePlus: true
-    );
-    
-    // Carry over achievements
-    ngPlusSave.NewGamePlusAchievements = new List<string>(completedSave.UnlockedAchievements);
-    ngPlusSave.UnlockedAchievements = new List<string>(completedSave.UnlockedAchievements);
-    
-    // Increment NG+ counter
-    ngPlusSave.NewGamePlusCount = completedSave.NewGamePlusCount + 1;
-    ngPlusSave.IsNewGamePlus = true;
-    
-    // Bonus stats (+5 per cycle)
-    ngPlusSave.NewGamePlusBonusStats = 5 * ngPlusSave.NewGamePlusCount;
-    
-    Log.Information("Created New Game+ save. Cycle: {Cycle}, Bonus Stats: {BonusStats}",
-        ngPlusSave.NewGamePlusCount, ngPlusSave.NewGamePlusBonusStats);
-    
-    return ngPlusSave;
-}
+// Quest tracking
+public List<Quest> ActiveQuests { get; set; } = new();
+public List<string> CompletedQuestIds { get; set; } = new();
+public int QuestsCompleted { get; set; }
 
-/// <summary>
-/// Update CreateNewGame signature to accept isNewGamePlus parameter.
-/// </summary>
-public SaveGame CreateNewGame(Character character, DifficultySettings difficulty, bool isNewGamePlus = false)
-{
-    // ... existing code ...
-    
-    saveGame.IsNewGamePlus = isNewGamePlus;
-    
-    return saveGame;
-}
+// Achievement tracking
+public List<Achievement> Achievements { get; set; } = new();
+
+// Game completion
+public bool GameCompleted { get; set; }
+public DateTime? CompletionDate { get; set; }
+
+// New Game+
+public bool IsNewGamePlus { get; set; }
+public int? NewGamePlusGeneration { get; set; }
+
+// Statistics
+public int EnemiesDefeated { get; set; }
+public int DeathCount { get; set; }
+public int PlayTimeMinutes { get; set; }
+public int TotalGoldEarned { get; set; }
 ```
 
 ---
 
-### 7. `Game/GameEngine.cs` - Integrate End-Game Systems
+### `Game/GameEngine.cs` - Integrate Quest, Achievement, Victory Systems
+
+**ADD** using statements:
+
+```csharp
+using Game.Features.Quest.Commands;
+using Game.Features.Achievement.Commands;
+using Game.Features.Victory.Commands;
+using Game.Features.Victory.Orchestrators;
+```
 
 **ADD** fields:
 
 ```csharp
-private readonly MainQuestService _mainQuestService;
-private readonly AchievementService _achievementService;
-private readonly VictoryService _victoryService;
+private readonly VictoryOrchestrator _victoryOrchestrator;
 ```
 
-**In constructor**:
+**UPDATE** constructor:
 
 ```csharp
-_mainQuestService = new MainQuestService();
-_achievementService = new AchievementService();
-_victoryService = new VictoryService(_mainQuestService, _achievementService);
-```
-
-**After quest completion**:
-
-```csharp
-private async Task OnQuestCompleted(Quest quest)
+public GameEngine(
+    IMediator mediator,
+    SaveGameService saveGameService,
+    VictoryOrchestrator victoryOrchestrator,
+    // ... other parameters
+    )
 {
-    // Award rewards
-    _player.Gold += quest.GoldReward;
-    _player.GainExperience(quest.XpReward);
+    // ... existing code ...
+    _victoryOrchestrator = victoryOrchestrator;
+}
+```
+
+**AFTER** defeating the final boss:
+
+```csharp
+private async Task OnEnemyDefeatedAsync(Enemy enemy)
+{
+    // ... existing logic ...
+    
+    // Check if final boss
+    if (enemy.Id == "dark_lord")
+    {
+        await HandleFinalBossVictoryAsync();
+    }
+}
+
+private async Task HandleFinalBossVictoryAsync()
+{
+    // Complete final quest
+    await _mediator.Send(new CompleteQuestCommand("main_06_final_boss"));
     
     // Check achievements
-    var newAchievements = _achievementService.CheckAchievements(_saveGameService.GetCurrentSave()!, _player);
+    await _mediator.Send(new CheckAchievementProgressCommand());
     
-    foreach (var achievement in newAchievements)
+    // Show victory sequence
+    var startedNgPlus = await _victoryOrchestrator.ShowVictorySequenceAsync();
+    
+    if (startedNgPlus)
     {
-        ConsoleUI.ShowSuccess($"🏆 Achievement Unlocked: {achievement.Title}");
-        ConsoleUI.WriteText($"   {achievement.Description} (+{achievement.Points} points)");
-        Thread.Sleep(2000);
+        _state = GameState.InGame;
+        // Game continues in NG+
     }
-    
-    // Check for victory conditions
-    if (quest.Id == "main_10_shadow_lord")
+    else
     {
-        await _victoryService.ShowMainQuestVictory(_saveGameService.GetCurrentSave()!, _player);
+        _state = GameState.MainMenu;
     }
-    else if (quest.Id == "true_ending_quest")
-    {
-        await _victoryService.ShowTrueEndingVictory(_saveGameService.GetCurrentSave()!, _player);
-    }
-    
-    // Make next main quest available
-    var nextMainQuest = _mainQuestService.GetNextMainQuest(_saveGameService.GetCurrentSave()!, _player.Level);
-    if (nextMainQuest != null)
-    {
-        _saveGameService.AddAvailableQuest(nextMainQuest);
-        ConsoleUI.ShowInfo($"New main quest available: {nextMainQuest.Title}");
-    }
-}
-```
-
-**In main menu**:
-
-```csharp
-private async Task ShowMainMenu()
-{
-    var options = new List<string> { "New Game", "Load Game", "Settings", "Exit" };
-    
-    // Check if player has completed main quest for NG+ option
-    var saves = _saveGameService.GetAllSaves();
-    var hasCompletedSave = saves.Any(s => s.CompletedQuests.Contains("main_10_shadow_lord"));
-    
-    if (hasCompletedSave)
-    {
-        options.Insert(1, "New Game+");
-    }
-    
-    var choice = ConsoleUI.ShowMenu("Main Menu", options.ToArray());
-    
-    // Handle choice...
-    if (choice == "New Game+")
-    {
-        await StartNewGamePlus();
-    }
-}
-
-private async Task StartNewGamePlus()
-{
-    // Select which completed save to use as base
-    var completedSaves = _saveGameService.GetAllSaves()
-        .Where(s => s.CompletedQuests.Contains("main_10_shadow_lord"))
-        .ToList();
-    
-    if (completedSaves.Count == 0)
-    {
-        ConsoleUI.ShowError("No completed saves found!");
-        return;
-    }
-    
-    var saveNames = completedSaves.Select(s => $"{s.CharacterName} (Lv{s.CharacterLevel}, NG+{s.NewGamePlusCount})").ToArray();
-    var selectedSave = ConsoleUI.ShowMenu("Select save for New Game+:", saveNames);
-    var baseSave = completedSaves[Array.IndexOf(saveNames, selectedSave)];
-    
-    // Create new character
-    var newCharacter = await _characterCreationService.CreateCharacterAsync();
-    
-    // Apply NG+ bonuses
-    var bonusStats = 5 * (baseSave.NewGamePlusCount + 1);
-    newCharacter.Strength += bonusStats;
-    newCharacter.Dexterity += bonusStats;
-    newCharacter.Intelligence += bonusStats;
-    newCharacter.Constitution += bonusStats;
-    
-    ConsoleUI.ShowSuccess($"New Game+ bonuses applied: +{bonusStats} to all stats!");
-    
-    // Create NG+ save
-    var ngPlusSave = _saveGameService.CreateNewGamePlus(baseSave, newCharacter);
-    _player = newCharacter;
-    
-    // Start game
-    _state = GameState.InGame;
-    await GameLoopAsync();
 }
 ```
 
@@ -1028,75 +1552,64 @@ private async Task StartNewGamePlus()
 
 ### Manual Testing
 
-1. **Main Quest Chain**:
-   - [ ] Start new game
-   - [ ] Verify first quest appears
-   - [ ] Complete first quest
-   - [ ] Verify next quest unlocks
-   - [ ] Verify prerequisites block future quests
-   - [ ] Complete entire quest chain
-   - [ ] Verify victory screen displays
+1. **Quest System**:
+   - [ ] Start main quest 1
+   - [ ] Complete objectives
+   - [ ] Receive rewards (XP, gold, apocalypse bonus)
+   - [ ] Quest unlocks next quest in chain
+   - [ ] Quest journal displays correctly
 
-2. **Victory Screens**:
-   - [ ] Defeat Shadow Lord
-   - [ ] Verify victory animation plays
-   - [ ] Verify statistics display correctly
-   - [ ] Check completion percentage calculation
+2. **Achievement System**:
+   - [ ] First quest completion unlocks "First Steps"
+   - [ ] Reaching level 20 unlocks "Master"
+   - [ ] Defeating 100 enemies unlocks "Slayer"
+   - [ ] Completing game unlocks "Savior of the World"
+   - [ ] Secret achievements unlock correctly
 
-3. **True Ending**:
-   - [ ] Reach Level 50
-   - [ ] Achieve 100% completion
-   - [ ] Defeat Shadow Lord
-   - [ ] Verify True Ending quest unlocks
-   - [ ] Complete True Ending quest
-   - [ ] Verify True Ending victory screen
+3. **Victory System**:
+   - [ ] Defeat final boss (Dark Lord)
+   - [ ] Victory sequence plays
+   - [ ] Statistics display correctly
+   - [ ] Achievements shown
+   - [ ] New Game+ offer appears
 
 4. **New Game+**:
-   - [ ] Complete main quest
-   - [ ] Verify "New Game+" appears in main menu
-   - [ ] Start New Game+
-   - [ ] Verify achievements carry over
-   - [ ] Verify +5 stat bonus applied
-   - [ ] Verify NG+ counter increments
-   - [ ] Complete NG+ and start NG++ (verify +10 stats)
+   - [ ] NG+ starts with bonus stats
+   - [ ] Difficulty increased (enemies harder)
+   - [ ] Rewards increased (XP, gold multipliers)
+   - [ ] Achievements persist
+   - [ ] Can chain multiple NG+ runs
 
-5. **Achievements**:
-   - [ ] Reach level 10 → verify achievement unlocks
-   - [ ] Complete 10 quests → verify achievement
-   - [ ] Defeat 100 enemies → verify achievement
-   - [ ] Die once → verify achievement
-   - [ ] Check achievement notifications display
-   - [ ] Verify achievement progress tracking
+### Edge Cases
 
-6. **Completion Percentage**:
-   - [ ] Start new game → verify 0%
-   - [ ] Complete main quest → verify ~40%
-   - [ ] Unlock achievements → verify percentage increases
-   - [ ] Discover locations → verify percentage increases
-   - [ ] Defeat legendary enemies → verify percentage increases
-   - [ ] Reach 100% → verify True Ending unlocks
+- [ ] Try to start quest without meeting prerequisites
+- [ ] Try to complete quest with incomplete objectives
+- [ ] Achievement unlocks persist across saves
+- [ ] Victory triggers only after final boss
+- [ ] NG+ can't start without completing game
+- [ ] NG+ generation number increments correctly
 
 ---
 
 ## ✅ Completion Checklist
 
-- [ ] Created `Quest.cs` model
-- [ ] Created `MainQuestService.cs` with 10-quest chain
-- [ ] Created `AchievementService.cs` with 30+ achievements
-- [ ] Created `VictoryService.cs` with victory screens
-- [ ] Modified `SaveGame.cs` with NG+ fields
-- [ ] Modified `SaveGameService.cs` with `CreateNewGamePlus`
-- [ ] Modified `GameEngine.cs` with end-game integration
-- [ ] Integrated achievement checks
-- [ ] Integrated victory conditions
-- [ ] Implemented True Ending unlock
+- [ ] Created `Quest.cs` model with objectives
+- [ ] Created `Achievement.cs` model with criteria
+- [ ] Created Quest feature (Commands, Queries, Services)
+- [ ] Created Achievement feature (Commands, Queries, Service)
+- [ ] Created Victory feature (Commands, Services, Orchestrator)
+- [ ] Registered all services in `Program.cs`
+- [ ] Updated `SaveGame.cs` with new fields
+- [ ] Integrated quest completion in `GameEngine`
+- [ ] Integrated achievement unlocks in `GameEngine`
+- [ ] Integrated victory sequence in `GameEngine`
 - [ ] Implemented New Game+ system
-- [ ] Tested main quest progression
-- [ ] Tested victory screens
-- [ ] Tested True Ending
-- [ ] Tested New Game+ bonuses
-- [ ] Built successfully with no errors
-- [ ] All existing tests still pass
+- [ ] Tested main quest chain (6 quests)
+- [ ] Tested achievement unlocks
+- [ ] Tested victory screen
+- [ ] Tested New Game+
+- [ ] Built successfully with `dotnet build`
+- [ ] All tests pass (`dotnet test`)
 
 ---
 
@@ -1116,7 +1629,7 @@ private async Task StartNewGamePlus()
 ### Notes
 
 ```text
-[Any additional notes about quest balance, achievement difficulty, etc.]
+[Any notes about quest design, achievement balance, NG+ difficulty scaling, etc.]
 ```
 
 ---
@@ -1124,12 +1637,9 @@ private async Task StartNewGamePlus()
 ## 🔗 Navigation
 
 - **Previous Phase**: [Phase 3: Apocalypse Mode](./PHASE_3_APOCALYPSE_MODE.md)
-- **Current Phase**: Phase 4 - End-Game System (FINAL PHASE)
-- **Next Phase**: None (implementation complete!)
+- **Current Phase**: Phase 4 - End-Game System
 - **See Also**: [Phase 1: Difficulty](./PHASE_1_DIFFICULTY_FOUNDATION.md), [Phase 2: Death System](./PHASE_2_DEATH_SYSTEM.md)
 
 ---
 
 **Ready to implement? Copy this entire artifact into chat to begin Phase 4!** 🚀
-
-**Once all 4 phases are complete, you'll have a fully-featured game loop from start to finish!** 🎮

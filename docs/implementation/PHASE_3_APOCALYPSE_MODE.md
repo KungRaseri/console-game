@@ -1,7 +1,7 @@
 # Phase 3: Apocalypse Mode & Timer System
 
-**Status**: � Ready to Start  
-**Prerequisites**: ✅ Phase 1 & 2 complete  
+**Status**: ⚪ Ready to Start  
+**Prerequisites**: ✅ Phase 1 & 2 complete + CQRS/Vertical Slice Architecture  
 **Estimated Time**: 2-3 hours  
 **Previous Phase**: [Phase 2: Death System](./PHASE_2_DEATH_SYSTEM.md)  
 **Next Phase**: [Phase 4: End-Game System](./PHASE_4_ENDGAME.md)  
@@ -11,21 +11,23 @@
 
 ## 📋 Overview
 
-Implement the Apocalypse mode with a 4-hour real-time countdown timer, bonus time rewards for completing quests, and a dramatic game-over when time expires.
+Implement the Apocalypse mode with a 4-hour real-time countdown timer, bonus time rewards for completing quests, and a dramatic game-over when time expires using **CQRS + Vertical Slice Architecture**.
 
 **✅ Pre-Phase Foundation Complete:**
+
 - DifficultySettings already has IsApocalypse and ApocalypseTimeLimitMinutes properties
 - SaveGame has ApocalypseMode, ApocalypseStartTime, ApocalypseBonusMinutes fields
-- GameStateService provides centralized state access
+- GameStateService provides centralized state access in `Shared/Services/`
 - Location tracking ready for apocalypse game-over location
+- CQRS infrastructure with MediatR ready
 
 ---
 
 ## 🎯 Goals
 
-1. ✅ Create `ApocalypseTimer` class for countdown management
-2. ✅ Display timer prominently on screen during gameplay
-3. ✅ Award bonus time for completing quests
+1. ✅ Create `ApocalypseTimer` service for countdown management
+2. ✅ Display timer prominently on HUD during gameplay
+3. ✅ Award bonus time for completing quests (via command)
 4. ✅ Implement time-based game over with dramatic ending
 5. ✅ Pause timer during menus/saves
 6. ✅ Add warnings at critical time thresholds
@@ -35,16 +37,19 @@ Implement the Apocalypse mode with a 4-hour real-time countdown timer, bonus tim
 
 ## 📁 Files to Create
 
-### 1. `Game/Services/ApocalypseTimer.cs` (NEW)
+### 1. `Game/Shared/Services/ApocalypseTimer.cs` (NEW)
+
+**Note**: Timer goes in `Shared/Services/` because it's infrastructure, not a business feature.
 
 ```csharp
-using Game.UI;
+using Game.Shared.UI;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Shared.Services;
 
 /// <summary>
 /// Manages the countdown timer for Apocalypse mode.
+/// This is a shared service, not a feature, as it's infrastructure.
 /// </summary>
 public class ApocalypseTimer
 {
@@ -65,7 +70,24 @@ public class ApocalypseTimer
     {
         _startTime = DateTime.Now;
         _isPaused = false;
+        _hasShownOneHourWarning = false;
+        _hasShownThirtyMinWarning = false;
+        _hasShownTenMinWarning = false;
+        
         Log.Information("Apocalypse timer started. {TotalMinutes} minutes until world end.", _totalMinutes);
+    }
+    
+    /// <summary>
+    /// Start timer from a saved state (for loading saves).
+    /// </summary>
+    public void StartFromSave(DateTime startTime, int bonusMinutes)
+    {
+        _startTime = startTime;
+        _bonusMinutes = bonusMinutes;
+        _isPaused = false;
+        
+        Log.Information("Apocalypse timer restored from save. Started at: {StartTime}, Bonus: {BonusMinutes}",
+            startTime, bonusMinutes);
     }
     
     /// <summary>
@@ -101,10 +123,10 @@ public class ApocalypseTimer
     /// </summary>
     public int GetRemainingMinutes()
     {
-        if (_isPaused)
+        if (_isPaused && _pauseStartTime.HasValue)
         {
             // Calculate as if we're still paused
-            var elapsed = (_pauseStartTime!.Value - _startTime) - _pausedDuration;
+            var elapsed = (_pauseStartTime.Value - _startTime) - _pausedDuration;
             return Math.Max(0, (int)(_totalMinutes + _bonusMinutes - elapsed.TotalMinutes));
         }
         
@@ -230,6 +252,30 @@ public class ApocalypseTimer
         var totalElapsed = (DateTime.Now - _startTime) - _pausedDuration;
         return (int)totalElapsed.TotalMinutes;
     }
+    
+    /// <summary>
+    /// Get bonus minutes awarded so far (for save persistence).
+    /// </summary>
+    public int GetBonusMinutes()
+    {
+        return _bonusMinutes;
+    }
+}
+```
+
+---
+
+### 2. `Game/Shared/UI/ConsoleUI.cs` - Add StripMarkup Helper
+
+**ADD** this method to ConsoleUI if it doesn't already exist:
+
+```csharp
+/// <summary>
+/// Strip Spectre.Console markup from text for length calculations.
+/// </summary>
+public static string StripMarkup(string text)
+{
+    return System.Text.RegularExpressions.Regex.Replace(text, @"\[.*?\]", "");
 }
 ```
 
@@ -237,19 +283,72 @@ public class ApocalypseTimer
 
 ## 📝 Files to Modify
 
-### 2. `Game/GameEngine.cs` - Initialize and Use Timer
+### 3. `Game/Program.cs` - Register ApocalypseTimer
 
-**ADD** field at top of class:
+**FIND** the service registration section:
+
 ```csharp
-private ApocalypseTimer? _apocalypseTimer;
+// Register shared services
+services.AddSingleton<GameStateService>();
+services.AddSingleton<MenuService>();
+// ... other services ...
 ```
 
-**In `NewGameAsync` or when starting game** after difficulty selection:
+**ADD** this registration:
+
 ```csharp
-// After creating save with difficulty
-if (difficulty.IsApocalypse)
+// Apocalypse timer (shared service)
+services.AddSingleton<ApocalypseTimer>();
+```
+
+---
+
+### 4. `Game/GameEngine.cs` - Initialize and Use Timer
+
+**ADD** using statement at top:
+
+```csharp
+using Game.Shared.Services;
+```
+
+**ADD** field for timer:
+
+```csharp
+private readonly ApocalypseTimer? _apocalypseTimer;
+```
+
+**UPDATE** constructor to inject it:
+
+```csharp
+public GameEngine(
+    IMediator mediator,
+    SaveGameService saveGameService,
+    HallOfFameService hallOfFameService,
+    ApocalypseTimer apocalypseTimer,
+    // ... other parameters
+    )
 {
-    _apocalypseTimer = new ApocalypseTimer();
+    // ... existing code ...
+    _apocalypseTimer = apocalypseTimer;
+}
+```
+
+**AFTER** difficulty selection in character creation:
+
+**FIND** where the save game is created with difficulty:
+
+```csharp
+// Create save game with the new character and difficulty settings
+var saveGame = _saveGameService.CreateNewGame(newCharacter, difficulty);
+_currentSaveId = saveGame.Id;
+```
+
+**ADD AFTER** this:
+
+```csharp
+// Start apocalypse timer if applicable
+if (difficulty.IsApocalypse && _apocalypseTimer != null)
+{
     _apocalypseTimer.Start();
     
     ConsoleUI.Clear();
@@ -260,11 +359,26 @@ if (difficulty.IsApocalypse)
     ConsoleUI.WriteText("  Complete the main quest before time runs out.");
     ConsoleUI.WriteText("  Completing quests will award bonus time.");
     ConsoleUI.ShowWarning("═══════════════════════════════════════");
-    Thread.Sleep(4000);
+    await Task.Delay(4000);
 }
 ```
 
-**In main game loop** (check timer every action):
+**IN** the main game loop, ADD timer checks:
+
+**FIND** your main game loop method (might be `RunGameAsync()` or `GameLoopAsync()`):
+
+```csharp
+private async Task GameLoopAsync()
+{
+    while (_state == GameState.InGame)
+    {
+        // ... existing code ...
+    }
+}
+```
+
+**ADD** at the beginning of the loop:
+
 ```csharp
 private async Task GameLoopAsync()
 {
@@ -273,16 +387,20 @@ private async Task GameLoopAsync()
         // Check apocalypse timer
         if (_apocalypseTimer != null)
         {
-            _apocalypseTimer.CheckTimeWarnings();
-            
-            if (_apocalypseTimer.IsExpired())
+            var saveGame = _saveGameService.GetCurrentSave();
+            if (saveGame != null && saveGame.ApocalypseMode)
             {
-                await HandleApocalypseGameOver();
-                return;
+                _apocalypseTimer.CheckTimeWarnings();
+                
+                if (_apocalypseTimer.IsExpired())
+                {
+                    await HandleApocalypseGameOverAsync();
+                    return;
+                }
             }
         }
         
-        // Display timer in UI
+        // Display HUD with timer
         DisplayGameHUD();
         
         // ... rest of game loop ...
@@ -292,9 +410,10 @@ private async Task GameLoopAsync()
 
 ---
 
-### 3. `Game/GameEngine.cs` - Add HUD Display
+### 5. `Game/GameEngine.cs` - Add HUD Display with Timer
 
-**CREATE** new method to display game HUD with timer:
+**ADD** this method:
+
 ```csharp
 private void DisplayGameHUD()
 {
@@ -305,87 +424,72 @@ private void DisplayGameHUD()
     var centerInfo = $"[green]❤ {_player.Health}/{_player.MaxHealth}[/]  [blue]⚡ {_player.Mana}/{_player.MaxMana}[/]  [yellow]💰 {_player.Gold}g[/]";
     var rightInfo = "";
     
-    if (_apocalypseTimer != null)
+    // Add timer if in Apocalypse mode
+    var saveGame = _saveGameService.GetCurrentSave();
+    if (saveGame != null && saveGame.ApocalypseMode && _apocalypseTimer != null)
     {
         rightInfo = _apocalypseTimer.GetColoredTimeDisplay();
     }
     
-    // Calculate spacing
+    // Calculate spacing for centered layout
     var leftLen = ConsoleUI.StripMarkup(leftInfo).Length;
     var centerLen = ConsoleUI.StripMarkup(centerInfo).Length;
     var rightLen = ConsoleUI.StripMarkup(rightInfo).Length;
     
     var totalWidth = Console.WindowWidth;
-    var centerPadding = (totalWidth - centerLen) / 2;
-    var rightPadding = totalWidth - leftLen - centerLen - rightLen - 4;
+    var spacing = Math.Max(2, (totalWidth - leftLen - centerLen - rightLen) / 2);
     
     // Display HUD
-    Console.WriteLine("═".Repeat(totalWidth));
-    AnsiConsole.MarkupLine($"{leftInfo}  {centerInfo}{new string(' ', Math.Max(0, rightPadding))}{rightInfo}");
-    Console.WriteLine("═".Repeat(totalWidth));
+    Console.WriteLine(new string('═', totalWidth));
+    AnsiConsole.MarkupLine($"{leftInfo}{new string(' ', spacing)}{centerInfo}{new string(' ', spacing)}{rightInfo}");
+    Console.WriteLine(new string('═', totalWidth));
     Console.WriteLine();
 }
+```
 
-// Helper extension
-public static class StringExtensions
+---
+
+### 6. `Game/GameEngine.cs` - Pause/Resume Timer in Menus
+
+For **EACH** menu method (inventory, character sheet, quest journal, save menu, settings), wrap with pause/resume:
+
+**EXAMPLE** for inventory:
+
+```csharp
+private async Task ShowInventoryAsync()
 {
-    public static string Repeat(this string s, int count)
+    _apocalypseTimer?.Pause();
+    
+    try
     {
-        return new string(s[0], count);
+        // ... existing inventory code ...
+    }
+    finally
+    {
+        _apocalypseTimer?.Resume();
     }
 }
 ```
 
-**Note**: ConsoleUI.StripMarkup needs to be added if not exists:
-```csharp
-// In ConsoleUI.cs
-public static string StripMarkup(string text)
-{
-    return System.Text.RegularExpressions.Regex.Replace(text, @"\[.*?\]", "");
-}
-```
+**Apply the same pattern to**:
+
+- `ShowCharacterSheetAsync()` or similar
+- `ShowQuestJournalAsync()` or similar
+- `ShowSaveMenuAsync()` or similar
+- `ShowSettingsAsync()` or similar
+- Any other menu that pauses gameplay
 
 ---
 
-### 4. `Game/GameEngine.cs` - Pause/Resume Timer
+### 7. `Game/GameEngine.cs` - Award Bonus Time on Quest Complete
 
-**When entering menus**:
+**FIND** where quests are completed (likely in a quest completion handler):
+
+**ADD** bonus time logic:
+
 ```csharp
-private void ShowInventoryMenu()
+private async Task OnQuestCompletedAsync(Quest quest)
 {
-    _apocalypseTimer?.Pause();
-    
-    // ... menu code ...
-    
-    _apocalypseTimer?.Resume();
-}
-
-private void ShowCharacterSheet()
-{
-    _apocalypseTimer?.Pause();
-    
-    // ... character sheet code ...
-    
-    _apocalypseTimer?.Resume();
-}
-```
-
-**Do the same for**:
-- Quest journal
-- Save menu
-- Settings
-- Any menu that pauses gameplay
-
----
-
-### 5. `Game/GameEngine.cs` - Award Bonus Time on Quest Complete
-
-**In quest completion handler**:
-```csharp
-private void CompleteQuest(Quest quest)
-{
-    _saveGameService.CompleteQuest(quest.Id);
-    
     // Award rewards
     _player.Gold += quest.GoldReward;
     _player.GainExperience(quest.XpReward);
@@ -394,7 +498,8 @@ private void CompleteQuest(Quest quest)
     ConsoleUI.WriteText($"Rewards: {quest.GoldReward}g, {quest.XpReward} XP");
     
     // Award bonus time in Apocalypse mode
-    if (_apocalypseTimer != null)
+    var saveGame = _saveGameService.GetCurrentSave();
+    if (saveGame != null && saveGame.ApocalypseMode && _apocalypseTimer != null)
     {
         var bonusMinutes = quest.Difficulty switch
         {
@@ -405,29 +510,34 @@ private void CompleteQuest(Quest quest)
         };
         
         _apocalypseTimer.AddBonusTime(bonusMinutes, $"Completed quest: {quest.Title}");
+        
+        // Update save with new bonus time
+        saveGame.ApocalypseBonusMinutes = _apocalypseTimer.GetBonusMinutes();
+        _saveGameService.SaveGame(saveGame);
     }
     
-    Thread.Sleep(2000);
+    await Task.Delay(2000);
 }
 ```
 
 ---
 
-### 6. `Game/GameEngine.cs` - Apocalypse Game Over
+### 8. `Game/GameEngine.cs` - Apocalypse Game Over Handler
 
-**CREATE** apocalypse game over handler:
+**ADD** this method:
+
 ```csharp
-private async Task HandleApocalypseGameOver()
+private async Task HandleApocalypseGameOverAsync()
 {
     ConsoleUI.Clear();
     
     // Dramatic apocalypse sequence
     ConsoleUI.ShowError("═══════════════════════════════════════");
-    Thread.Sleep(500);
+    await Task.Delay(500);
     ConsoleUI.ShowError("        TIME HAS RUN OUT...            ");
-    Thread.Sleep(1000);
+    await Task.Delay(1000);
     ConsoleUI.ShowError("═══════════════════════════════════════");
-    Thread.Sleep(1500);
+    await Task.Delay(1500);
     
     Console.Clear();
     ConsoleUI.ShowError("The world trembles...");
@@ -445,7 +555,7 @@ private async Task HandleApocalypseGameOver()
     ConsoleUI.ShowError("         THE APOCALYPSE HAS COME                 ");
     ConsoleUI.ShowError("                                                 ");
     ConsoleUI.ShowError("═════════════════════════════════════════════════");
-    Thread.Sleep(2000);
+    await Task.Delay(2000);
     
     Console.WriteLine();
     ConsoleUI.WriteText("The world crumbles into eternal darkness...");
@@ -454,15 +564,16 @@ private async Task HandleApocalypseGameOver()
     
     // Show final statistics
     var saveGame = _saveGameService.GetCurrentSave();
-    if (saveGame != null)
+    if (saveGame != null && _apocalypseTimer != null)
     {
-        ConsoleUI.WriteText($"Time Survived: {_apocalypseTimer!.GetElapsedMinutes() / 60}h {_apocalypseTimer.GetElapsedMinutes() % 60}m");
+        var elapsed = _apocalypseTimer.GetElapsedMinutes();
+        ConsoleUI.WriteText($"Time Survived: {elapsed / 60}h {elapsed % 60}m");
         ConsoleUI.WriteText($"Final Level: {_player.Level}");
-        ConsoleUI.WriteText($"Quests Completed: {saveGame.QuestsCompleted} / {saveGame.QuestsCompleted + saveGame.ActiveQuests.Count}");
-        ConsoleUI.WriteText($"Enemies Defeated: {saveGame.TotalEnemiesDefeated}");
+        ConsoleUI.WriteText($"Quests Completed: {saveGame.QuestsCompleted}");
+        ConsoleUI.WriteText($"Enemies Defeated: {saveGame.EnemiesDefeated}");
         Console.WriteLine();
         
-        // Check if they were close to completing main quest
+        // Check progress
         var mainQuestProgress = CalculateMainQuestProgress(saveGame);
         if (mainQuestProgress >= 0.8) // 80% complete
         {
@@ -500,54 +611,85 @@ private async Task HandleApocalypseGameOver()
 
 private double CalculateMainQuestProgress(SaveGame saveGame)
 {
-    // Count main quest completions
-    // This assumes you have a way to identify main quests
-    // For now, use total quest completion as proxy
-    var totalQuests = saveGame.QuestsCompleted + saveGame.ActiveQuests.Count + saveGame.AvailableQuests.Count;
-    if (totalQuests == 0) return 0;
-    
+    // Simple calculation - can be enhanced in Phase 4 with actual main quest tracking
+    var totalQuests = Math.Max(1, saveGame.QuestsCompleted + saveGame.ActiveQuests.Count);
     return (double)saveGame.QuestsCompleted / totalQuests;
 }
 ```
 
 ---
 
-### 7. `Game/Models/SaveGame.cs` - Add Timer State
+### 9. `Game/GameEngine.cs` - Restore Timer on Load
 
-**ADD** methods to save/restore timer state:
+**FIND** where saves are loaded:
+
+**ADD** timer restoration logic:
+
 ```csharp
-/// <summary>
-/// Get apocalypse timer remaining minutes for display.
-/// </summary>
-public int GetApocalypseTimeRemaining()
+private async Task LoadSaveAsync(SaveGame saveGame)
 {
-    if (!ApocalypseMode || !ApocalypseStartTime.HasValue)
-        return 0;
+    // ... existing load logic ...
     
-    var elapsed = (DateTime.Now - ApocalypseStartTime.Value).TotalMinutes;
-    var total = 240 + ApocalypseBonusMinutes; // 4 hours + bonuses
+    // Restore apocalypse timer if applicable
+    if (saveGame.ApocalypseMode && saveGame.ApocalypseStartTime.HasValue && _apocalypseTimer != null)
+    {
+        _apocalypseTimer.StartFromSave(saveGame.ApocalypseStartTime.Value, saveGame.ApocalypseBonusMinutes);
+        
+        // Check if time expired while they were away
+        if (_apocalypseTimer.IsExpired())
+        {
+            ConsoleUI.ShowError("Time has run out! The apocalypse occurred while you were gone.");
+            await Task.Delay(3000);
+            await HandleApocalypseGameOverAsync();
+            return;
+        }
+        
+        // Show time remaining
+        var remaining = _apocalypseTimer.GetRemainingMinutes();
+        ConsoleUI.ShowWarning($"Apocalypse Mode: {remaining} minutes remaining!");
+        
+        if (remaining < 60)
+        {
+            ConsoleUI.ShowError("WARNING: Less than 1 hour remaining!");
+        }
+        
+        await Task.Delay(2000);
+    }
     
-    return Math.Max(0, (int)(total - elapsed));
+    // ... rest of load logic ...
 }
 ```
 
-**In `GameEngine.cs` when loading Apocalypse save**:
+---
+
+### 10. `Game/Features/SaveLoad/SaveGameService.cs` - Update Save to Store Timer State
+
+**FIND** the `SaveGame()` method:
+
+**ADD** logic to save timer state:
+
 ```csharp
-if (saveGame.ApocalypseMode && saveGame.ApocalypseStartTime.HasValue)
+public void SaveGame(SaveGame saveGame)
 {
-    _apocalypseTimer = new ApocalypseTimer();
-    // Restore timer state
-    var elapsed = (DateTime.Now - saveGame.ApocalypseStartTime.Value).TotalMinutes;
-    // Note: May need to add RestoreState method to ApocalypseTimer
-    // Or check time on load and show warning if close to expiring
-    
-    _apocalypseTimer.Start(); // Continue from where left off
-    
-    if (_apocalypseTimer.IsExpired())
+    // Update apocalypse timer state if applicable
+    if (saveGame.ApocalypseMode && _apocalypseTimer != null)
     {
-        await HandleApocalypseGameOver();
-        return;
+        saveGame.ApocalypseBonusMinutes = _apocalypseTimer.GetBonusMinutes();
+        // ApocalypseStartTime is already set during game creation
     }
+    
+    // ... existing save logic ...
+}
+```
+
+**Note**: You'll need to inject `ApocalypseTimer` into `SaveGameService` constructor:
+
+```csharp
+private readonly ApocalypseTimer? _apocalypseTimer;
+
+public SaveGameService(ApocalypseTimer? apocalypseTimer = null)
+{
+    _apocalypseTimer = apocalypseTimer;
 }
 ```
 
@@ -581,45 +723,51 @@ if (saveGame.ApocalypseMode && saveGame.ApocalypseStartTime.HasValue)
    - [ ] Play until 60 minutes remain → verify 1-hour warning
    - [ ] Play until 30 minutes remain → verify 30-min warning
    - [ ] Play until 10 minutes remain → verify 10-min warning
-   - [ ] Verify warnings only show once
+   - [ ] Verify warnings only show once per session
 
 5. **Game Over**:
    - [ ] Let timer expire
    - [ ] Verify apocalypse sequence plays
    - [ ] Verify statistics display correctly
-   - [ ] Verify game returns to main menu
+   - [ ] Verify game returns to main menu or quits
 
 6. **Save/Load**:
    - [ ] Save game in Apocalypse mode
    - [ ] Quit and reload
    - [ ] Verify timer continues from save point
    - [ ] Verify bonus time persists
+   - [ ] Load save after time expired → verify game over
 
 ### Edge Cases
 
 - [ ] Start Apocalypse mode, immediately save/load
 - [ ] Complete many quests quickly (verify bonuses stack)
-- [ ] Pause for extended period (verify time tracking)
-- [ ] Let timer expire while in menu
-- [ ] Load Apocalypse save with expired timer
+- [ ] Pause for extended period (verify time tracking accurate)
+- [ ] Let timer expire while in menu (should not expire until resumed)
+- [ ] Load Apocalypse save with 1 minute left
+- [ ] Warnings after load (should not re-show if already shown)
 
 ---
 
 ## ✅ Completion Checklist
 
-- [ ] Created `ApocalypseTimer.cs` class
-- [ ] Added timer initialization in `GameEngine`
+- [ ] Created `ApocalypseTimer.cs` in `Shared/Services/`
+- [ ] Added `StripMarkup` method to `ConsoleUI`
+- [ ] Registered `ApocalypseTimer` in `Program.cs`
+- [ ] Injected timer into `GameEngine` constructor
+- [ ] Added timer initialization after character creation
 - [ ] Implemented HUD display with timer
-- [ ] Added pause/resume for all menus
+- [ ] Added pause/resume for all menu methods
 - [ ] Implemented bonus time on quest completion
 - [ ] Created apocalypse game over sequence
-- [ ] Added time warnings at thresholds
-- [ ] Implemented save/load timer state
+- [ ] Implemented timer restore on load
+- [ ] Updated `SaveGameService` to persist timer state
 - [ ] Tested timer countdown accuracy
 - [ ] Tested all bonus time awards
 - [ ] Tested apocalypse game over
-- [ ] Built successfully with no errors
-- [ ] All existing tests still pass
+- [ ] Tested save/load timer persistence
+- [ ] Built successfully with `dotnet build`
+- [ ] All existing tests still pass (`dotnet test`)
 
 ---
 

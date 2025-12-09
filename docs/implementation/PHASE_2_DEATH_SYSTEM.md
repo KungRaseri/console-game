@@ -1,7 +1,7 @@
 # Phase 2: Death & Penalty System
 
-**Status**: � Ready to Start  
-**Prerequisites**: ✅ Phase 1 complete (Difficulty System)  
+**Status**: ⚪ Ready to Start  
+**Prerequisites**: ✅ Phase 1 complete (Difficulty System) + CQRS/Vertical Slice Architecture  
 **Estimated Time**: 3-4 hours  
 **Previous Phase**: [Phase 1: Difficulty Foundation](./PHASE_1_DIFFICULTY_FOUNDATION.md)  
 **Next Phase**: [Phase 3: Apocalypse Mode](./PHASE_3_APOCALYPSE_MODE.md)  
@@ -11,24 +11,26 @@
 
 ## 📋 Overview
 
-Implement comprehensive death handling with difficulty-specific penalties, item dropping, respawning, Hall of Fame for permadeath, and proper save integration.
+Implement comprehensive death handling with difficulty-specific penalties, item dropping, respawning, Hall of Fame for permadeath, and proper save integration using **CQRS + Vertical Slice Architecture**.
 
 **✅ Pre-Phase Foundation Complete:**
-- Location tracking system exists in GameEngine (_currentLocation, _knownLocations)
-- SaveGameService.RecordDeath(location, killedBy) method ready
-- GameStateService provides centralized access to location and difficulty
-- SaveGame.DroppedItemsAtLocations dictionary ready for item drops
+
+- Location tracking system exists (can be accessed via GameStateService)
+- SaveGameService has basic save management in `Features/SaveLoad/`
+- GameStateService provides centralized access to game state
+- SaveGame model has DroppedItemsAtLocations dictionary ready
+- CQRS infrastructure with MediatR ready for commands/queries
 
 ---
 
 ## 🎯 Goals
 
-1. ✅ Create `DeathHandler` service for centralized death logic
+1. ✅ Create `Death` feature with Commands and Services
 2. ✅ Implement difficulty-based penalties (gold, XP, items)
 3. ✅ Create item dropping system with location tracking
 4. ✅ Implement Hall of Fame for permadeath characters
 5. ✅ Add respawn logic and proper UI feedback
-6. ✅ Integrate with existing combat and save systems
+6. ✅ Integrate with Combat feature using MediatR commands
 7. ✅ Update this artifact with completion status
 
 ---
@@ -91,307 +93,448 @@ public class HallOfFameEntry
 
 ---
 
-### 2. `Game/Services/DeathHandler.cs` (NEW)
+### 2. `Game/Features/Death/` (NEW FEATURE FOLDER)
+
+Create this folder structure:
+
+```
+Game/Features/Death/
+├── Commands/
+│   ├── HandlePlayerDeathCommand.cs
+│   └── HandlePlayerDeathHandler.cs
+├── Queries/
+│   ├── GetDroppedItemsQuery.cs
+│   └── GetDroppedItemsHandler.cs
+├── DeathService.cs
+└── HallOfFameService.cs
+```
+
+---
+
+### 3. `Game/Features/Death/Commands/HandlePlayerDeathCommand.cs` (NEW)
 
 ```csharp
 using Game.Models;
-using Game.UI;
-using Serilog;
+using MediatR;
 
-namespace Game.Services;
+namespace Game.Features.Death.Commands;
 
 /// <summary>
-/// Handles player death, penalties, respawning, and permadeath.
+/// Command to handle player death with appropriate penalties.
 /// </summary>
-public class DeathHandler
+public record HandlePlayerDeathCommand : IRequest<HandlePlayerDeathResult>
 {
+    public required Character Player { get; init; }
+    public required string DeathLocation { get; init; }
+    public Enemy? Killer { get; init; }
+}
+
+/// <summary>
+/// Result of player death handling.
+/// </summary>
+public record HandlePlayerDeathResult
+{
+    public required bool IsPermadeath { get; init; }
+    public required bool SaveDeleted { get; init; }
+    public List<Item> DroppedItems { get; init; } = new();
+    public int GoldLost { get; init; }
+    public int XPLost { get; init; }
+    public string? HallOfFameId { get; init; }
+}
+```
+
+---
+
+### 4. `Game/Features/Death/Commands/HandlePlayerDeathHandler.cs` (NEW)
+
+```csharp
+using Game.Features.Death;
+using Game.Features.SaveLoad;
+using Game.Models;
+using Game.Shared.UI;
+using MediatR;
+using Serilog;
+
+namespace Game.Features.Death.Commands;
+
+/// <summary>
+/// Handles player death with difficulty-appropriate penalties.
+/// </summary>
+public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand, HandlePlayerDeathResult>
+{
+    private readonly DeathService _deathService;
     private readonly SaveGameService _saveGameService;
-    private readonly Random _random = new();
+    private readonly HallOfFameService _hallOfFameService;
     
-    public DeathHandler(SaveGameService saveGameService)
+    public HandlePlayerDeathHandler(
+        DeathService deathService,
+        SaveGameService saveGameService,
+        HallOfFameService hallOfFameService)
     {
+        _deathService = deathService;
         _saveGameService = saveGameService;
+        _hallOfFameService = hallOfFameService;
     }
     
-    /// <summary>
-    /// Handle player death with difficulty-appropriate penalties.
-    /// </summary>
-    public void HandleDeath(Character character, SaveGame saveGame, string deathLocation, Enemy? killer = null)
+    public async Task<HandlePlayerDeathResult> Handle(HandlePlayerDeathCommand request, CancellationToken ct)
     {
+        var player = request.Player;
+        var location = request.DeathLocation;
+        var killer = request.Killer;
+        var saveGame = _saveGameService.GetCurrentSave();
+        
+        if (saveGame == null)
+        {
+            Log.Error("No active save game found during death handling");
+            return new HandlePlayerDeathResult
+            {
+                IsPermadeath = false,
+                SaveDeleted = false
+            };
+        }
+        
         var difficulty = _saveGameService.GetDifficultySettings();
         
         Log.Warning("Player death at {Location}. Difficulty: {Difficulty}, Death count: {DeathCount}",
-            deathLocation, difficulty.Name, saveGame.DeathCount + 1);
+            location, difficulty.Name, saveGame.DeathCount + 1);
         
         // Record death in save
-        _saveGameService.RecordDeath();
+        saveGame.DeathCount++;
+        saveGame.LastDeathLocation = location;
+        saveGame.LastDeathDate = DateTime.Now;
         
         // Handle based on difficulty
         if (difficulty.IsPermadeath)
         {
-            HandlePermadeath(character, saveGame, deathLocation, killer);
+            return await HandlePermadeathAsync(player, saveGame, location, killer);
         }
         else
         {
-            HandleStandardDeath(character, saveGame, deathLocation, difficulty);
+            return await HandleStandardDeathAsync(player, saveGame, location, difficulty);
         }
     }
     
-    /// <summary>
-    /// Handle standard death with penalties and respawn.
-    /// </summary>
-    private void HandleStandardDeath(Character character, SaveGame saveGame, string deathLocation, DifficultySettings difficulty)
+    private async Task<HandlePlayerDeathResult> HandleStandardDeathAsync(
+        Character player, SaveGame saveGame, string location, DifficultySettings difficulty)
     {
         ConsoleUI.Clear();
         ConsoleUI.ShowError("═══════════════════════════════════════");
-        ConsoleUI.ShowError("           YOU HAVE DIED!              ");
+        ConsoleUI.ShowError("           YOU HAVE DIED               ");
         ConsoleUI.ShowError("═══════════════════════════════════════");
-        Thread.Sleep(2000);
+        await Task.Delay(2000);
+        
+        Console.WriteLine();
+        ConsoleUI.WriteText($"You died at: {location}");
+        ConsoleUI.WriteText($"Death count: {saveGame.DeathCount}");
+        Console.WriteLine();
         
         // Calculate penalties
-        var goldLost = (int)(character.Gold * difficulty.GoldLossPercentage);
-        var xpLost = (int)(GetXPToNextLevel(character) * difficulty.XPLossPercentage);
+        var goldLost = (int)(player.Gold * difficulty.GoldLossPercentage);
+        var xpLost = (int)(player.Experience * difficulty.XPLossPercentage);
         
-        // Apply gold penalty
-        character.Gold = Math.Max(0, character.Gold - goldLost);
-        _saveGameService.RecordGoldSpent(goldLost);
-        
-        // Apply XP penalty (can't delevel)
-        character.Experience = Math.Max(0, character.Experience - xpLost);
+        // Apply penalties
+        player.Gold = Math.Max(0, player.Gold - goldLost);
+        player.Experience = Math.Max(0, player.Experience - xpLost);
         
         // Handle item dropping
-        var droppedItems = HandleItemDropping(character, saveGame, deathLocation, difficulty);
+        var droppedItems = _deathService.HandleItemDropping(
+            player, saveGame, location, difficulty);
         
-        // Respawn with full health
-        character.Health = character.MaxHealth;
-        character.Mana = character.MaxMana;
-        
-        // Show penalty summary
-        ConsoleUI.Clear();
-        ConsoleUI.ShowWarning("Death Penalties Applied:");
-        ConsoleUI.WriteText($"  • Lost {goldLost} gold");
-        ConsoleUI.WriteText($"  • Lost {xpLost} XP");
-        
+        // Show penalties
+        ConsoleUI.ShowError($"Penalties:");
+        if (goldLost > 0)
+            ConsoleUI.WriteText($"  • Lost {goldLost} gold");
+        if (xpLost > 0)
+            ConsoleUI.WriteText($"  • Lost {xpLost} XP");
         if (droppedItems.Count > 0)
         {
-            ConsoleUI.WriteText($"  • Dropped {droppedItems.Count} item(s) at {deathLocation}");
-            foreach (var item in droppedItems)
-            {
-                ConsoleUI.WriteText($"    - {item.Name}");
-            }
-            ConsoleUI.ShowInfo("You can return to recover your items!");
+            if (difficulty.DropAllInventoryOnDeath)
+                ConsoleUI.WriteText($"  • Dropped ALL {droppedItems.Count} items at {location}");
+            else
+                ConsoleUI.WriteText($"  • Dropped {droppedItems.Count} item(s) at {location}");
         }
         
-        ConsoleUI.ShowSuccess($"Respawning in Hub Town with full health...");
+        Console.WriteLine();
         
-        // Auto-save for Ironman mode
+        // Respawn
+        player.Health = player.MaxHealth;
+        player.Mana = player.MaxMana;
+        
+        ConsoleUI.ShowSuccess("You have respawned at Hub Town with full health!");
+        ConsoleUI.ShowInfo("Return to your death location to recover dropped items.");
+        
+        await Task.Delay(3000);
+        
+        // Auto-save in Ironman mode
         if (difficulty.AutoSaveOnly)
         {
-            _saveGameService.AutoSave(saveGame);
-            ConsoleUI.ShowInfo("(Auto-saved - cannot reload)");
+            _saveGameService.SaveGame(saveGame);
+            ConsoleUI.ShowInfo("Game auto-saved (Ironman mode)");
+            await Task.Delay(1000);
         }
         
-        Log.Information("Standard death handled. Gold lost: {GoldLost}, XP lost: {XpLost}, Items dropped: {ItemCount}",
-            goldLost, xpLost, droppedItems.Count);
-        
-        Thread.Sleep(3000);
+        return new HandlePlayerDeathResult
+        {
+            IsPermadeath = false,
+            SaveDeleted = false,
+            DroppedItems = droppedItems,
+            GoldLost = goldLost,
+            XPLost = xpLost
+        };
     }
     
-    /// <summary>
-    /// Handle item dropping based on difficulty settings.
-    /// </summary>
-    private List<Item> HandleItemDropping(Character character, SaveGame saveGame, string deathLocation, DifficultySettings difficulty)
-    {
-        var droppedItems = new List<Item>();
-        
-        if (difficulty.ItemsDroppedOnDeath == 0)
-            return droppedItems; // Easy mode - no items dropped
-        
-        if (difficulty.DropAllInventoryOnDeath)
-        {
-            // Drop ALL inventory items (Hard, Expert, Ironman)
-            droppedItems.AddRange(character.Inventory);
-            character.Inventory.Clear();
-        }
-        else if (difficulty.ItemsDroppedOnDeath > 0 && character.Inventory.Count > 0)
-        {
-            // Drop specific number of random items (Normal)
-            var itemsToDrop = Math.Min(difficulty.ItemsDroppedOnDeath, character.Inventory.Count);
-            
-            for (int i = 0; i < itemsToDrop; i++)
-            {
-                var randomIndex = _random.Next(character.Inventory.Count);
-                var droppedItem = character.Inventory[randomIndex];
-                character.Inventory.RemoveAt(randomIndex);
-                droppedItems.Add(droppedItem);
-            }
-        }
-        
-        // Store dropped items in save game
-        if (droppedItems.Count > 0)
-        {
-            if (!saveGame.DroppedItemsAtLocations.ContainsKey(deathLocation))
-            {
-                saveGame.DroppedItemsAtLocations[deathLocation] = new List<Item>();
-            }
-            
-            saveGame.DroppedItemsAtLocations[deathLocation].AddRange(droppedItems);
-        }
-        
-        return droppedItems;
-    }
-    
-    /// <summary>
-    /// Handle permadeath - delete save and record in Hall of Fame.
-    /// </summary>
-    private void HandlePermadeath(Character character, SaveGame saveGame, string deathLocation, Enemy? killer)
+    private async Task<HandlePlayerDeathResult> HandlePermadeathAsync(
+        Character player, SaveGame saveGame, string location, Enemy? killer)
     {
         ConsoleUI.Clear();
         ConsoleUI.ShowError("═══════════════════════════════════════");
-        ConsoleUI.ShowError("      PERMADEATH: GAME OVER            ");
+        ConsoleUI.ShowError("          PERMADEATH                   ");
         ConsoleUI.ShowError("═══════════════════════════════════════");
-        Thread.Sleep(3000);
+        await Task.Delay(2000);
+        
+        Console.WriteLine();
+        ConsoleUI.ShowError($"{player.Name} has fallen.");
+        ConsoleUI.WriteText($"Location: {location}");
+        if (killer != null)
+            ConsoleUI.WriteText($"Slain by: {killer.Name}");
+        Console.WriteLine();
+        
+        await Task.Delay(2000);
         
         // Create Hall of Fame entry
-        var hallOfFameEntry = new HallOfFameEntry
+        var entry = new HallOfFameEntry
         {
-            CharacterName = character.Name,
-            ClassName = character.ClassName,
-            Level = character.Level,
+            CharacterName = player.Name,
+            ClassName = player.ClassName,
+            Level = player.Level,
             PlayTimeMinutes = saveGame.PlayTimeMinutes,
-            TotalEnemiesDefeated = saveGame.TotalEnemiesDefeated,
+            TotalEnemiesDefeated = saveGame.EnemiesDefeated,
             QuestsCompleted = saveGame.QuestsCompleted,
             DeathCount = saveGame.DeathCount,
             DeathReason = killer != null ? $"Slain by {killer.Name}" : "Unknown cause",
-            DeathLocation = deathLocation,
+            DeathLocation = location,
             DeathDate = DateTime.Now,
             AchievementsUnlocked = saveGame.UnlockedAchievements.Count,
             IsPermadeath = true,
             DifficultyLevel = saveGame.DifficultyLevel
         };
         
-        // Add to Hall of Fame
-        AddToHallOfFame(hallOfFameEntry);
+        _hallOfFameService.AddEntry(entry);
         
         // Show final statistics
-        ShowPermadeathStatistics(character, saveGame, hallOfFameEntry);
+        ShowPermadeathStatistics(player, saveGame, entry);
+        
+        await Task.Delay(5000);
         
         // Delete save
         _saveGameService.DeleteSave(saveGame.Id);
         
         ConsoleUI.ShowError("Your save file has been deleted.");
-        ConsoleUI.ShowInfo("Your legend will be remembered in the Hall of Fame.");
+        ConsoleUI.ShowInfo($"Your legacy lives on in the Hall of Fame (Score: {entry.GetFameScore()})");
         
-        Log.Warning("Permadeath handled. Character: {Character}, Level: {Level}, Fame Score: {Score}",
-            character.Name, character.Level, hallOfFameEntry.GetFameScore());
+        await Task.Delay(3000);
         
-        Thread.Sleep(5000);
+        return new HandlePlayerDeathResult
+        {
+            IsPermadeath = true,
+            SaveDeleted = true,
+            HallOfFameId = entry.Id
+        };
     }
     
-    /// <summary>
-    /// Show detailed statistics for permadeath game over.
-    /// </summary>
-    private void ShowPermadeathStatistics(Character character, SaveGame saveGame, HallOfFameEntry entry)
+    private void ShowPermadeathStatistics(Character player, SaveGame saveGame, HallOfFameEntry entry)
     {
         ConsoleUI.Clear();
-        ConsoleUI.ShowBanner($"{character.Name}'s Final Stand", "Your Journey Ends");
+        ConsoleUI.ShowBanner($"{player.Name}'s Legacy", "Final Statistics");
+        Console.WriteLine();
         
-        ConsoleUI.WriteText($"Class: {character.ClassName}");
-        ConsoleUI.WriteText($"Level: {character.Level}");
+        ConsoleUI.WriteText($"Class: {player.ClassName}");
+        ConsoleUI.WriteText($"Level: {player.Level}");
         ConsoleUI.WriteText($"Playtime: {entry.GetPlaytimeFormatted()}");
+        ConsoleUI.WriteText($"Enemies Defeated: {saveGame.EnemiesDefeated}");
+        ConsoleUI.WriteText($"Quests Completed: {saveGame.QuestsCompleted}");
+        ConsoleUI.WriteText($"Locations Discovered: {saveGame.DiscoveredLocations.Count}");
+        ConsoleUI.WriteText($"Achievements Unlocked: {saveGame.UnlockedAchievements.Count}");
         Console.WriteLine();
-        
-        ConsoleUI.WriteText("Final Statistics:");
-        ConsoleUI.WriteText($"  • Enemies Defeated: {saveGame.TotalEnemiesDefeated}");
-        ConsoleUI.WriteText($"  • Quests Completed: {saveGame.QuestsCompleted}");
-        ConsoleUI.WriteText($"  • Achievements: {saveGame.UnlockedAchievements.Count}");
-        ConsoleUI.WriteText($"  • Gold Earned: {saveGame.TotalGoldEarned}g");
-        ConsoleUI.WriteText($"  • Locations Visited: {saveGame.VisitedLocations.Count}");
-        Console.WriteLine();
-        
-        ConsoleUI.WriteText($"Cause of Death: {entry.DeathReason}");
-        ConsoleUI.WriteText($"Location: {entry.DeathLocation}");
-        Console.WriteLine();
-        
-        ConsoleUI.ShowSuccess($"Fame Score: {entry.GetFameScore():N0}");
-        
-        Thread.Sleep(5000);
-    }
-    
-    /// <summary>
-    /// Add entry to Hall of Fame database.
-    /// </summary>
-    private void AddToHallOfFame(HallOfFameEntry entry)
-    {
-        try
-        {
-            using var db = new LiteDB.LiteDatabase("halloffame.db");
-            var collection = db.GetCollection<HallOfFameEntry>("heroes");
-            collection.Insert(entry);
-            
-            Log.Information("Added {CharacterName} to Hall of Fame with score {Score}",
-                entry.CharacterName, entry.GetFameScore());
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Failed to add entry to Hall of Fame");
-        }
-    }
-    
-    /// <summary>
-    /// Retrieve dropped items at a location.
-    /// </summary>
-    public List<Item> RetrieveDroppedItems(SaveGame saveGame, string location)
-    {
-        if (saveGame.DroppedItemsAtLocations.TryGetValue(location, out var items))
-        {
-            var retrievedItems = new List<Item>(items);
-            saveGame.DroppedItemsAtLocations.Remove(location);
-            
-            ConsoleUI.ShowSuccess($"Retrieved {retrievedItems.Count} dropped item(s)!");
-            foreach (var item in retrievedItems)
-            {
-                ConsoleUI.WriteText($"  • {item.Name}");
-            }
-            
-            return retrievedItems;
-        }
-        
-        return new List<Item>();
-    }
-    
-    /// <summary>
-    /// Check if there are dropped items at a location.
-    /// </summary>
-    public bool HasDroppedItems(SaveGame saveGame, string location)
-    {
-        return saveGame.DroppedItemsAtLocations.ContainsKey(location) &&
-               saveGame.DroppedItemsAtLocations[location].Count > 0;
-    }
-    
-    /// <summary>
-    /// Get XP required for next level (helper method).
-    /// </summary>
-    private int GetXPToNextLevel(Character character)
-    {
-        return character.Level * 100; // Match Character.ExperienceForNextLevel()
+        ConsoleUI.WriteText($"Fame Score: {entry.GetFameScore()}");
     }
 }
 ```
 
 ---
 
-### 3. `Game/Services/HallOfFameService.cs` (NEW)
+### 5. `Game/Features/Death/Queries/GetDroppedItemsQuery.cs` (NEW)
 
 ```csharp
 using Game.Models;
+using MediatR;
+
+namespace Game.Features.Death.Queries;
+
+/// <summary>
+/// Query to get dropped items at a specific location.
+/// </summary>
+public record GetDroppedItemsQuery : IRequest<GetDroppedItemsResult>
+{
+    public required string Location { get; init; }
+}
+
+/// <summary>
+/// Result containing dropped items at the location.
+/// </summary>
+public record GetDroppedItemsResult
+{
+    public List<Item> Items { get; init; } = new();
+    public bool HasItems => Items.Count > 0;
+}
+```
+
+---
+
+### 6. `Game/Features/Death/Queries/GetDroppedItemsHandler.cs` (NEW)
+
+```csharp
+using Game.Features.SaveLoad;
+using MediatR;
+
+namespace Game.Features.Death.Queries;
+
+/// <summary>
+/// Handles retrieval of dropped items at a location.
+/// </summary>
+public class GetDroppedItemsHandler : IRequestHandler<GetDroppedItemsQuery, GetDroppedItemsResult>
+{
+    private readonly SaveGameService _saveGameService;
+    
+    public GetDroppedItemsHandler(SaveGameService saveGameService)
+    {
+        _saveGameService = saveGameService;
+    }
+    
+    public async Task<GetDroppedItemsResult> Handle(GetDroppedItemsQuery request, CancellationToken ct)
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null)
+        {
+            return new GetDroppedItemsResult();
+        }
+        
+        if (saveGame.DroppedItemsAtLocations.TryGetValue(request.Location, out var items))
+        {
+            return new GetDroppedItemsResult { Items = items };
+        }
+        
+        return new GetDroppedItemsResult();
+    }
+}
+```
+
+---
+
+### 7. `Game/Features/Death/DeathService.cs` (NEW)
+
+```csharp
+using Game.Features.SaveLoad;
+using Game.Models;
+using Serilog;
+
+namespace Game.Features.Death;
+
+/// <summary>
+/// Service for death-related operations (penalties, item dropping, etc.).
+/// </summary>
+public class DeathService
+{
+    private readonly Random _random = new();
+    
+    /// <summary>
+    /// Handle item dropping based on difficulty settings.
+    /// </summary>
+    public List<Item> HandleItemDropping(
+        Character player,
+        SaveGame saveGame,
+        string location,
+        DifficultySettings difficulty)
+    {
+        var droppedItems = new List<Item>();
+        
+        // Early exit if no items to drop
+        if (difficulty.ItemsDroppedOnDeath == 0 && !difficulty.DropAllInventoryOnDeath)
+        {
+            return droppedItems;
+        }
+        
+        // Drop all inventory
+        if (difficulty.DropAllInventoryOnDeath)
+        {
+            droppedItems.AddRange(player.Inventory);
+            player.Inventory.Clear();
+            
+            Log.Information("Dropped all {Count} items at {Location}", droppedItems.Count, location);
+        }
+        // Drop random items
+        else
+        {
+            var itemsToDrop = Math.Min(difficulty.ItemsDroppedOnDeath, player.Inventory.Count);
+            
+            for (int i = 0; i < itemsToDrop; i++)
+            {
+                if (player.Inventory.Count == 0) break;
+                
+                var randomIndex = _random.Next(player.Inventory.Count);
+                var item = player.Inventory[randomIndex];
+                
+                droppedItems.Add(item);
+                player.Inventory.RemoveAt(randomIndex);
+            }
+            
+            Log.Information("Dropped {Count} random items at {Location}", droppedItems.Count, location);
+        }
+        
+        // Store dropped items in save game
+        if (droppedItems.Count > 0)
+        {
+            if (!saveGame.DroppedItemsAtLocations.ContainsKey(location))
+            {
+                saveGame.DroppedItemsAtLocations[location] = new List<Item>();
+            }
+            
+            saveGame.DroppedItemsAtLocations[location].AddRange(droppedItems);
+        }
+        
+        return droppedItems;
+    }
+    
+    /// <summary>
+    /// Retrieve dropped items from a location.
+    /// </summary>
+    public List<Item> RetrieveDroppedItems(SaveGame saveGame, string location)
+    {
+        if (saveGame.DroppedItemsAtLocations.TryGetValue(location, out var items))
+        {
+            saveGame.DroppedItemsAtLocations.Remove(location);
+            return items;
+        }
+        
+        return new List<Item>();
+    }
+}
+```
+
+---
+
+### 8. `Game/Features/Death/HallOfFameService.cs` (NEW)
+
+```csharp
+using Game.Models;
+using Game.Shared.UI;
 using LiteDB;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.Death;
 
 /// <summary>
-/// Manages Hall of Fame entries and leaderboards.
+/// Manages Hall of Fame entries for permadeath characters.
 /// </summary>
 public class HallOfFameService : IDisposable
 {
@@ -402,8 +545,6 @@ public class HallOfFameService : IDisposable
     {
         _db = new LiteDatabase(databasePath);
         _heroes = _db.GetCollection<HallOfFameEntry>("heroes");
-        
-        // Create index on fame score for faster queries
         _heroes.EnsureIndex(x => x.GetFameScore());
     }
     
@@ -415,13 +556,12 @@ public class HallOfFameService : IDisposable
         try
         {
             _heroes.Insert(entry);
-            Log.Information("Added {CharacterName} to Hall of Fame (Score: {Score})",
+            Log.Information("Added {CharacterName} to Hall of Fame (Fame Score: {Score})",
                 entry.CharacterName, entry.GetFameScore());
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to add Hall of Fame entry");
-            throw;
+            Log.Error(ex, "Failed to add Hall of Fame entry for {CharacterName}", entry.CharacterName);
         }
     }
     
@@ -431,7 +571,7 @@ public class HallOfFameService : IDisposable
     public List<HallOfFameEntry> GetAllEntries(int limit = 100)
     {
         return _heroes.FindAll()
-            .OrderByDescending(e => e.GetFameScore())
+            .OrderByDescending(x => x.GetFameScore())
             .Take(limit)
             .ToList();
     }
@@ -442,30 +582,8 @@ public class HallOfFameService : IDisposable
     public List<HallOfFameEntry> GetTopHeroes(int count = 10)
     {
         return _heroes.FindAll()
-            .OrderByDescending(e => e.GetFameScore())
+            .OrderByDescending(x => x.GetFameScore())
             .Take(count)
-            .ToList();
-    }
-    
-    /// <summary>
-    /// Get permadeath-only entries.
-    /// </summary>
-    public List<HallOfFameEntry> GetPermadeathHeroes(int limit = 50)
-    {
-        return _heroes.Find(x => x.IsPermadeath)
-            .OrderByDescending(e => e.GetFameScore())
-            .Take(limit)
-            .ToList();
-    }
-    
-    /// <summary>
-    /// Get entries by difficulty level.
-    /// </summary>
-    public List<HallOfFameEntry> GetByDifficulty(string difficulty, int limit = 50)
-    {
-        return _heroes.Find(x => x.DifficultyLevel == difficulty)
-            .OrderByDescending(e => e.GetFameScore())
-            .Take(limit)
             .ToList();
     }
     
@@ -478,34 +596,34 @@ public class HallOfFameService : IDisposable
         
         ConsoleUI.Clear();
         ConsoleUI.ShowBanner("Hall of Fame", "Legendary Heroes");
+        Console.WriteLine();
         
         if (entries.Count == 0)
         {
-            ConsoleUI.ShowWarning("No heroes yet. Be the first!");
+            ConsoleUI.WriteText("No heroes yet. Be the first to earn your place in history!");
+            ConsoleUI.PressAnyKey();
             return;
         }
         
-        var headers = new[] { "Rank", "Name", "Class", "Level", "Score", "Difficulty", "Death" };
+        var headers = new[] { "Rank", "Name", "Class", "Level", "Score", "Permadeath", "Date" };
         var rows = new List<string[]>();
         
         for (int i = 0; i < entries.Count; i++)
         {
             var entry = entries[i];
-            var deathMark = entry.IsPermadeath ? "☠" : "†";
-            
             rows.Add(new[]
             {
                 $"#{i + 1}",
                 entry.CharacterName,
                 entry.ClassName,
                 entry.Level.ToString(),
-                entry.GetFameScore().ToString("N0"),
-                entry.DifficultyLevel,
-                $"{deathMark} {entry.DeathReason.Substring(0, Math.Min(30, entry.DeathReason.Length))}"
+                entry.GetFameScore().ToString(),
+                entry.IsPermadeath ? "Yes" : "No",
+                entry.DeathDate.ToShortDateString()
             });
         }
         
-        ConsoleUI.ShowTable("Top 20 Heroes", headers, rows);
+        ConsoleUI.ShowTable("Top Heroes", headers, rows);
         ConsoleUI.PressAnyKey();
     }
     
@@ -520,151 +638,170 @@ public class HallOfFameService : IDisposable
 
 ## 📝 Files to Modify
 
-### 4. `Game/Services/CombatService.cs` - Integrate Death Handler
+### 9. `Game/Program.cs` - Register Death Services
 
-**ADD** field and constructor parameter:
+**FIND** the service registration section (around line 30-40):
+
 ```csharp
-private readonly DeathHandler _deathHandler;
-
-public CombatService(SaveGameService? saveGameService = null, DeathHandler? deathHandler = null)
-{
-    _saveGameService = saveGameService ?? new SaveGameService();
-    _deathHandler = deathHandler ?? new DeathHandler(_saveGameService);
-}
+// Register services
+services.AddSingleton<SaveGameService>();
+services.AddSingleton<CombatService>();
+// ... other services ...
 ```
 
-**Modify combat loop** where player health <= 0:
+**ADD** these registrations:
 
-**FIND** (around line 150):
 ```csharp
-if (player.Health <= 0)
-{
-    result.Victory = false;
-    result.Message = "You have been defeated!";
-    return result;
-}
-```
-
-**REPLACE WITH**:
-```csharp
-if (player.Health <= 0)
-{
-    result.Victory = false;
-    result.Message = "You have been defeated!";
-    
-    // Trigger death handler
-    // Note: Location and SaveGame need to be passed to CombatService
-    // This is a design decision - either pass them or handle in GameEngine
-    // For now, return defeat and handle in GameEngine
-    
-    return result;
-}
+// Death system services
+services.AddSingleton<DeathService>();
+services.AddSingleton<HallOfFameService>();
 ```
 
 ---
 
-### 5. `Game/GameEngine.cs` - Integrate Death in Combat
+### 10. `Game/Features/Combat/Commands/AttackEnemy/AttackEnemyHandler.cs` - Integrate Death
 
-**ADD** field:
+**ADD** using statement at top:
+
 ```csharp
-private DeathHandler? _deathHandler;
-private string _currentLocation = "Hub Town";
+using Game.Features.Death.Commands;
 ```
 
-**Initialize in constructor or StartAsync**:
-```csharp
-_deathHandler = new DeathHandler(_saveGameService);
-```
+**FIND** where the player dies in combat (look for `if (player.Health <= 0)`):
 
-**In combat handling** (wherever combat result is processed):
+**REPLACE** the death handling with this:
 
-**FIND**:
 ```csharp
-if (!combatResult.Victory)
+if (player.Health <= 0)
 {
-    ConsoleUI.ShowError(combatResult.Message);
-    // Player died - currently no handling
-}
-```
-
-**REPLACE WITH**:
-```csharp
-if (!combatResult.Victory && _player.Health <= 0)
-{
-    // Player died - handle death
-    _deathHandler?.HandleDeath(_player, _saveGameService.GetCurrentSave()!, _currentLocation, enemy);
-    
-    // Check if permadeath deleted save
-    if (_saveGameService.GetCurrentSave() == null)
+    // Player died - send death command
+    var deathResult = await _mediator.Send(new HandlePlayerDeathCommand
     {
-        // Return to main menu
-        _state = GameState.MainMenu;
-        return;
-    }
+        Player = player,
+        DeathLocation = "Combat Area", // TODO: Get actual location from GameStateService
+        Killer = enemy
+    }, cancellationToken);
     
-    // Respawn in hub town
-    _currentLocation = "Hub Town";
+    return new AttackEnemyResult
+    {
+        Success = false,
+        Message = deathResult.IsPermadeath 
+            ? "Permadeath - Save deleted" 
+            : "You have been defeated and respawned",
+        Victory = false,
+        PlayerDied = true,
+        WasPermadeath = deathResult.IsPermadeath
+    };
 }
+```
+
+**ALSO ADD** properties to `AttackEnemyResult` (in AttackEnemyCommand.cs):
+
+```csharp
+// Add to the record definition
+public bool PlayerDied { get; init; }
+public bool WasPermadeath { get; init; }
 ```
 
 ---
 
-### 6. `Game/GameEngine.cs` - Add Item Recovery
+### 11. `Game/GameEngine.cs` - Handle Death Result and Item Recovery
 
-**ADD** method to check for dropped items when entering location:
+**ADD** using statements at top:
+
 ```csharp
-private void CheckForDroppedItems()
+using Game.Features.Death.Commands;
+using Game.Features.Death.Queries;
+```
+
+**ADD** field for HallOfFameService:
+
+```csharp
+private readonly HallOfFameService _hallOfFameService;
+```
+
+**UPDATE** constructor to inject it:
+
+```csharp
+public GameEngine(IMediator mediator, SaveGameService saveGameService, HallOfFameService hallOfFameService, ...)
 {
-    var saveGame = _saveGameService.GetCurrentSave();
-    if (saveGame == null || _deathHandler == null)
-        return;
+    // ... existing code ...
+    _hallOfFameService = hallOfFameService;
+}
+```
+
+**ADD** method to check for dropped items when entering a location:
+
+```csharp
+private async Task CheckForDroppedItemsAsync(string location)
+{
+    var result = await _mediator.Send(new GetDroppedItemsQuery { Location = location });
     
-    if (_deathHandler.HasDroppedItems(saveGame, _currentLocation))
+    if (result.HasItems)
     {
-        ConsoleUI.ShowWarning($"You see your dropped items here!");
+        ConsoleUI.ShowWarning($"⚠️  You see your dropped items here! ({result.Items.Count} items)");
         
         if (ConsoleUI.Confirm("Retrieve your items?"))
         {
-            var items = _deathHandler.RetrieveDroppedItems(saveGame, _currentLocation);
-            _player.Inventory.AddRange(items);
-            
-            // Save the recovery
-            _saveGameService.AutoSave(saveGame);
+            // Recover items
+            var saveGame = _saveGameService.GetCurrentSave();
+            if (saveGame != null)
+            {
+                _player.Inventory.AddRange(result.Items);
+                saveGame.DroppedItemsAtLocations.Remove(location);
+                
+                ConsoleUI.ShowSuccess($"Recovered {result.Items.Count} items!");
+                await Task.Delay(1500);
+            }
         }
     }
 }
 ```
 
-**Call this when player enters a location**:
+**CALL** this method when player enters/travels to a location (in exploration logic):
+
 ```csharp
-// After player travels to location
-_currentLocation = selectedLocation;
-CheckForDroppedItems();
+// After changing location
+_currentLocation = newLocation;
+await CheckForDroppedItemsAsync(_currentLocation);
 ```
 
----
+**ADD** Hall of Fame to main menu. FIND the main menu options:
 
-### 7. `Game/GameEngine.cs` - Add Hall of Fame Menu
-
-**In Main Menu** add option:
 ```csharp
-var menuOptions = new[]
+var choice = ConsoleUI.ShowMenu("Main Menu", new[]
 {
     "New Game",
     "Load Game",
-    "Hall of Fame", // ADD THIS
     "Settings",
-    "Quit"
-};
+    "Exit"
+});
 ```
 
-**Handle selection**:
+**REPLACE WITH**:
+
+```csharp
+var choice = ConsoleUI.ShowMenu("Main Menu", new[]
+{
+    "New Game",
+    "Load Game",
+    "Hall of Fame",
+    "Settings",
+    "Exit"
+});
+```
+
+**THEN UPDATE** the switch/if statement handling menu choices to add Hall of Fame case (insert before Settings):
+
 ```csharp
 case 2: // Hall of Fame
-    using (var hallOfFame = new HallOfFameService())
-    {
-        hallOfFame.DisplayHallOfFame();
-    }
+    _hallOfFameService.DisplayHallOfFame();
+    break;
+case 3: // Settings (was case 2)
+    // ... settings code ...
+    break;
+case 4: // Exit (was case 3)
+    // ... exit code ...
     break;
 ```
 
@@ -677,37 +814,36 @@ case 2: // Hall of Fame
 1. **Normal Mode Death**:
    - [ ] Create Normal character
    - [ ] Die in combat
-   - [ ] Verify lost 10% gold
-   - [ ] Verify lost 25% XP (didn't delevel)
+   - [ ] Verify lost ~10% gold
+   - [ ] Verify lost ~25% XP (didn't delevel)
    - [ ] Verify dropped 1 item
-   - [ ] Return to death location
-   - [ ] Retrieve dropped item
-   - [ ] Verify respawned in Hub Town with full health
+   - [ ] Travel to death location
+   - [ ] Successfully retrieve dropped item
+   - [ ] Verify respawned with full health
 
 2. **Ironman Mode Death**:
    - [ ] Create Ironman character
    - [ ] Accumulate gold and items
    - [ ] Die in combat
-   - [ ] Verify lost 25% gold
-   - [ ] Verify lost 50% XP
-   - [ ] Verify dropped ALL inventory items
-   - [ ] Verify auto-saved (cannot reload)
+   - [ ] Verify auto-save occurred
+   - [ ] Verify cannot reload previous save
+   - [ ] Verify dropped all items
    - [ ] Return to death location
    - [ ] Retrieve all items
 
 3. **Permadeath Mode**:
    - [ ] Create Permadeath character
-   - [ ] Play for a while (get stats)
+   - [ ] Play for a while (get meaningful stats)
    - [ ] Die in combat
-   - [ ] Verify save deleted
+   - [ ] Verify save file deleted
    - [ ] Verify Hall of Fame entry created
-   - [ ] View Hall of Fame
+   - [ ] View Hall of Fame from main menu
    - [ ] Verify character appears with correct stats
 
 4. **Easy Mode**:
    - [ ] Create Easy character
    - [ ] Die in combat
-   - [ ] Verify lost only 5% gold, 10% XP
+   - [ ] Verify lost only ~5% gold, ~10% XP
    - [ ] Verify NO items dropped
    - [ ] Verify respawned normally
 
@@ -723,26 +859,30 @@ case 2: // Hall of Fame
 - [ ] Die with 0 gold (no penalty error)
 - [ ] Die at level 1 with 0 XP (no negative XP)
 - [ ] Die with empty inventory (no item drop error)
-- [ ] Die in Ironman with full inventory
-- [ ] Multiple deaths in same location (items stack?)
+- [ ] Die in Ironman with full inventory (all dropped)
+- [ ] Multiple deaths in same location (items stack correctly)
+- [ ] Die, retrieve items, die again at same location
 
 ---
 
 ## ✅ Completion Checklist
 
 - [ ] Created `HallOfFameEntry.cs` model
-- [ ] Created `DeathHandler.cs` service
-- [ ] Created `HallOfFameService.cs` service
-- [ ] Added death handling to `CombatService`
-- [ ] Integrated death in `GameEngine` combat flow
-- [ ] Added item dropping and recovery system
-- [ ] Added Hall of Fame display to main menu
+- [ ] Created `Features/Death/` folder structure
+- [ ] Created `HandlePlayerDeathCommand` and handler
+- [ ] Created `GetDroppedItemsQuery` and handler
+- [ ] Created `DeathService.cs`
+- [ ] Created `HallOfFameService.cs`
+- [ ] Registered services in `Program.cs`
+- [ ] Integrated death command in `AttackEnemyHandler`
+- [ ] Added item recovery in `GameEngine`
+- [ ] Added Hall of Fame to main menu
 - [ ] Tested all difficulty death penalties
 - [ ] Tested permadeath with Hall of Fame
 - [ ] Tested item recovery system
 - [ ] Verified Ironman auto-save on death
-- [ ] Built successfully with no errors
-- [ ] All existing tests still pass
+- [ ] Built successfully with `dotnet build`
+- [ ] All existing tests still pass (`dotnet test`)
 
 ---
 
@@ -754,12 +894,14 @@ case 2: // Hall of Fame
 **Test Results**: ⚪ Not Tested
 
 ### Issues Encountered
-```
+
+```text
 [List any issues or deviations from the plan]
 ```
 
 ### Notes
-```
+
+```text
 [Any additional notes about death handling, balancing, etc.]
 ```
 
