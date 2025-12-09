@@ -41,6 +41,8 @@ public class SaveGame
     public int ItemsCrafted { get; set; }
     public int ItemsSold { get; set; }
     public int DeathCount { get; set; }
+    public string LastDeathLocation { get; set; } = string.Empty;
+    public DateTime? LastDeathDate { get; set; }
     
     // === Achievements / Flags ===
     public List<string> UnlockedAchievements { get; set; } = new();

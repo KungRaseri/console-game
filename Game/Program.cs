@@ -81,6 +81,10 @@ try
     services.AddSingleton<GameStateService>();
     services.AddSingleton<CombatService>();
     
+    // Death system services (Phase 2)
+    services.AddSingleton<Game.Features.Death.DeathService>();
+    services.AddSingleton<Game.Features.Death.HallOfFameService>();
+    
     // Register UI and interaction services
     services.AddTransient<MenuService>();
     services.AddTransient<ExplorationService>();

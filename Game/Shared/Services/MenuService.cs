@@ -32,6 +32,7 @@ public class MenuService
             "Main Menu",
             "New Game",
             "Load Game",
+            "🏆 Hall of Fame",
             "Settings",
             "Exit"
         );

@@ -3,6 +3,7 @@ using Game.Features.Combat;
 using Game.Features.Exploration;
 using Game.Features.Inventory;
 using Game.Features.SaveLoad;
+using Game.Features.Death;
 using MediatR;
 
 namespace Game.Shared.Services;
@@ -27,6 +28,7 @@ public class GameEngineServices
     public CombatService CombatLogic { get; }
     public ExplorationService Exploration { get; }
     public GameplayService Gameplay { get; }
+    public HallOfFameService HallOfFame { get; }
     
     // UI services
     public MenuService Menu { get; }
@@ -44,6 +46,7 @@ public class GameEngineServices
         CombatService combatLogic,
         ExplorationService exploration,
         GameplayService gameplay,
+        HallOfFameService hallOfFame,
         MenuService menu)
 #pragma warning restore S107
     {
@@ -56,6 +59,7 @@ public class GameEngineServices
         CombatLogic = combatLogic;
         Exploration = exploration;
         Gameplay = gameplay;
+        HallOfFame = hallOfFame;
         Menu = menu;
     }
 }

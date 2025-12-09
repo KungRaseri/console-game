@@ -2,6 +2,7 @@ using Game.Models;
 using Game.Shared.UI;
 using Game.Shared.Services;
 using Game.Features.SaveLoad;
+using Game.Features.Death.Queries;
 using Game.Generators;
 using MediatR;
 using Serilog;
@@ -104,7 +105,7 @@ public class ExplorationService
     /// <summary>
     /// Allow player to travel to a different location.
     /// </summary>
-    public void TravelToLocation()
+    public async Task TravelToLocation()
     {
         var availableLocations = _knownLocations
             .Where(loc => loc != _gameState.CurrentLocation)
@@ -127,6 +128,36 @@ public class ExplorationService
         _gameState.UpdateLocation(choice);
         
         ConsoleUI.ShowSuccess($"Traveled to {_gameState.CurrentLocation}");
+        
+        // Check for dropped items at the new location
+        await CheckForDroppedItemsAsync(choice);
+    }
+    
+    /// <summary>
+    /// Check for dropped items at the current location and allow player to recover them.
+    /// </summary>
+    private async Task CheckForDroppedItemsAsync(string location)
+    {
+        var result = await _mediator.Send(new GetDroppedItemsQuery { Location = location });
+        
+        if (result.HasItems)
+        {
+            ConsoleUI.ShowWarning($"\n⚠️  You see your dropped items here! ({result.Items.Count} items)");
+            
+            if (ConsoleUI.Confirm("Retrieve your items?"))
+            {
+                // Recover items
+                var saveGame = _saveGameService.GetCurrentSave();
+                if (saveGame != null && saveGame.Character != null)
+                {
+                    saveGame.Character.Inventory.AddRange(result.Items);
+                    saveGame.DroppedItemsAtLocations.Remove(location);
+                    
+                    ConsoleUI.ShowSuccess($"Recovered {result.Items.Count} items!");
+                    await Task.Delay(1500);
+                }
+            }
+        }
     }
     
     /// <summary>

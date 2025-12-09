@@ -45,6 +45,7 @@ public class CombatOrchestratorTests : IDisposable
             _mockMediator.Object,
             _combatService,
             _saveGameService,
+            _gameStateService,
             _menuService
         );
     }

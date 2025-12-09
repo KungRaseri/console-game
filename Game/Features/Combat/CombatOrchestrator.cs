@@ -1,6 +1,7 @@
 using Game.Models;
 using Game.Services;
 using Game.Features.SaveLoad;
+using Game.Features.Death.Commands;
 using Game.Shared.UI;
 using Game.Shared.Services;
 using Game.Utilities;
@@ -18,17 +19,20 @@ public class CombatOrchestrator
     private readonly IMediator _mediator;
     private readonly CombatService _combatService;
     private readonly SaveGameService _saveGameService;
+    private readonly GameStateService _gameStateService;
     private readonly MenuService _menuService;
 
     public CombatOrchestrator(
         IMediator mediator,
         CombatService combatService,
         SaveGameService saveGameService,
+        GameStateService gameStateService,
         MenuService menuService)
     {
         _mediator = mediator;
         _combatService = combatService;
         _saveGameService = saveGameService;
+        _gameStateService = gameStateService;
         _menuService = menuService;
     }
 
@@ -394,34 +398,22 @@ public class CombatOrchestrator
 
     private async Task HandleCombatDefeatAsync(Character player, Enemy enemy)
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("💀 DEFEAT 💀", $"You were defeated by {enemy.Name}...");
-
-        ConsoleUI.ShowPanel(
-            "Battle Summary",
-            $"The {enemy.Name} proved too powerful.\n" +
-            $"You have been knocked unconscious and lost some gold.",
-            "red"
-        );
-
-        // Lose some gold
-        var goldLost = (int)(player.Gold * 0.1); // Lose 10% of gold
-        player.Gold = Math.Max(0, player.Gold - goldLost);
-
-        if (goldLost > 0)
+        // Get current location from GameStateService
+        var currentLocation = _gameStateService.CurrentLocation;
+        
+        // Use death command to handle player death with difficulty-based penalties
+        var deathResult = await _mediator.Send(new HandlePlayerDeathCommand
         {
-            ConsoleUI.WriteColoredText($"[red]-{goldLost} Gold[/]");
-        }
+            Player = player,
+            DeathLocation = currentLocation,
+            Killer = enemy
+        });
 
-        // Restore some health
-        player.Health = player.MaxHealth / 4; // Restore to 25% health
-
-        ConsoleUI.WriteColoredText($"[dim]You wake up with {player.Health} HP remaining.[/]");
-
+        // If permadeath, the save is deleted and player is sent to main menu
+        // The death handler already shows all the UI and messages
+        // No need to show additional UI here
+        
         await _mediator.Publish(new CombatEnded(player.Name, false));
-
-        Console.WriteLine();
-        ConsoleUI.PressAnyKey("Press any key to continue...");
     }
 
     private static CombatActionType ParseCombatAction(string choice)

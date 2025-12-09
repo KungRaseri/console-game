@@ -189,6 +189,10 @@ public class GameEngine
                 await LoadGameAsync();
                 break;
                 
+            case "🏆 Hall of Fame":
+                _services.HallOfFame.DisplayHallOfFame();
+                break;
+                
             case "Settings":
                 ConsoleUI.ShowInfo("Settings not yet implemented");
                 break;
@@ -237,7 +241,7 @@ public class GameEngine
                 break;
 
             case "🗺️  Travel":
-                TravelToLocation();
+                await TravelToLocation();
                 break;
 
             case "⚔️  Combat":
@@ -365,9 +369,9 @@ public class GameEngine
     /// <summary>
     /// Allow player to travel to a different location
     /// </summary>
-    private void TravelToLocation()
+    private async Task TravelToLocation()
     {
-        _services.Exploration.TravelToLocation();
+        await _services.Exploration.TravelToLocation();
     }
 
     private async Task ViewCharacterAsync()
