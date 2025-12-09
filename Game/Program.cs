@@ -88,6 +88,19 @@ try
     services.AddSingleton<Game.Features.Death.DeathService>();
     services.AddSingleton<Game.Features.Death.HallOfFameService>();
     
+    // Quest system services (Phase 4)
+    services.AddScoped<Game.Features.Quest.Services.QuestService>();
+    services.AddScoped<Game.Features.Quest.Services.MainQuestService>();
+    services.AddScoped<Game.Features.Quest.Services.QuestProgressService>();
+    
+    // Achievement system services (Phase 4)
+    services.AddScoped<Game.Features.Achievement.Services.AchievementService>();
+    
+    // Victory system services (Phase 4)
+    services.AddScoped<Game.Features.Victory.Services.VictoryService>();
+    services.AddScoped<Game.Features.Victory.Services.NewGamePlusService>();
+    services.AddScoped<Game.Features.Victory.Orchestrators.VictoryOrchestrator>();
+    
     // Register UI and interaction services
     services.AddTransient<MenuService>();
     services.AddTransient<ExplorationService>();

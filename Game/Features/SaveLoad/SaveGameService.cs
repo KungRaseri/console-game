@@ -2,6 +2,7 @@ using Game.Shared.Data;
 using Game.Models;
 using Game.Shared.Services;
 using Serilog;
+using QuestModel = Game.Models.Quest;
 
 namespace Game.Features.SaveLoad;
 
@@ -291,7 +292,7 @@ public class SaveGameService : IDisposable
     /// <summary>
     /// Add a quest to available quests (offered but not accepted).
     /// </summary>
-    public void AddAvailableQuest(Quest quest)
+    public void AddAvailableQuest(QuestModel quest)
     {
         if (_currentSave != null && !_currentSave.AvailableQuests.Any(q => q.Id == quest.Id))
         {
