@@ -1,5 +1,6 @@
 using Game.Models;
 using Game.Services;
+using Game.Features.Exploration;
 using Game.Features.SaveLoad;
 using Xunit;
 using FluentAssertions;

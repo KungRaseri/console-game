@@ -2,6 +2,7 @@ using Xunit;
 using FluentAssertions;
 using Game.Services;
 using Game.Features.Combat;
+using Game.Features.Exploration;
 using Game.Features.SaveLoad;
 using Game.Models;
 

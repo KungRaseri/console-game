@@ -6,7 +6,7 @@ using Game.Generators;
 using MediatR;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.Exploration;
 
 /// <summary>
 /// Service for handling exploration, travel, and location-based events.

@@ -3,7 +3,7 @@ using Game.Shared.UI;
 using Game.Features.SaveLoad;
 using Serilog;
 
-namespace Game.Services;
+namespace Game.Features.Exploration;
 
 /// <summary>
 /// Handles in-game operations like saving and resting.
