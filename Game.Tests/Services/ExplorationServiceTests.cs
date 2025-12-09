@@ -98,7 +98,7 @@ public class ExplorationServiceTests : IDisposable
             MaxHealth = 100
         };
         
-        _saveGameService.CreateNewGame(character);
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
         var result = await _explorationService.ExploreAsync();
@@ -123,7 +123,7 @@ public class ExplorationServiceTests : IDisposable
             MaxHealth = 100
         };
         
-        _saveGameService.CreateNewGame(character);
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
         var result = await _explorationService.ExploreAsync();
@@ -145,7 +145,7 @@ public class ExplorationServiceTests : IDisposable
             MaxHealth = 100
         };
         
-        _saveGameService.CreateNewGame(character);
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
         _explorationService.TravelToLocation();
@@ -167,7 +167,7 @@ public class ExplorationServiceTests : IDisposable
             MaxHealth = 100
         };
         
-        _saveGameService.CreateNewGame(character);
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
         var currentLocation = _gameStateService.CurrentLocation;
@@ -190,7 +190,7 @@ public class ExplorationServiceTests : IDisposable
             Dexterity = 12
         };
         
-        _saveGameService.CreateNewGame(character);
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
         var combatTriggered = await _explorationService.ExploreAsync();
@@ -214,7 +214,7 @@ public class ExplorationServiceTests : IDisposable
         };
         
         var initialInventorySize = character.Inventory.Count;
-        _saveGameService.CreateNewGame(character);
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
         await _explorationService.ExploreAsync();

@@ -56,14 +56,22 @@ public class CharacterCreationOrchestrator
         // Step 5: Review character
         ReviewCharacter(newCharacter, selectedClass);
 
+        // Step 6: Select difficulty
+        var difficulty = await SelectDifficultyAsync();
+        if (difficulty == null)
+        {
+            // Player canceled difficulty selection - restart character creation
+            return await CreateCharacterAsync();
+        }
+
         ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
         await Task.Delay(500);
 
         // Publish character created event
         await _mediator.Publish(new CharacterCreated(newCharacter.Name));
 
-        // Create save game with the new character
-        var saveGame = _saveGameService.CreateNewGame(newCharacter);
+        // Create save game with the new character and difficulty settings
+        var saveGame = _saveGameService.CreateNewGame(newCharacter, difficulty);
         
         Log.Information("Character created: {CharacterName} ({ClassName})", newCharacter.Name, newCharacter.ClassName);
 
@@ -296,5 +304,65 @@ public class CharacterCreationOrchestrator
     private void ReviewCharacter(Character character, CharacterClass characterClass)
     {
         CharacterViewService.ReviewCharacter(character, characterClass);
+    }
+    
+    /// <summary>
+    /// Let the player select game difficulty.
+    /// </summary>
+    private async Task<DifficultySettings?> SelectDifficultyAsync()
+    {
+        ConsoleUI.Clear();
+        ConsoleUI.ShowBanner("Select Difficulty", "Choose your challenge level");
+        
+        var difficulties = DifficultySettings.GetAll();
+        var options = difficulties.Select((d, i) => 
+            $"{d.Name,-12} - {d.Description}"
+        ).ToArray();
+        
+        var choiceText = ConsoleUI.ShowMenu("Select difficulty level:", options);
+        
+        // Extract difficulty name from the choice (format: "Name - Description")
+        var difficultyName = choiceText.Split(" - ")[0].Trim();
+        var selected = difficulties.FirstOrDefault(d => d.Name == difficultyName);
+        
+        if (selected == null)
+        {
+            // Fallback to Normal if something goes wrong
+            selected = DifficultySettings.Normal;
+        }
+        
+        // Show confirmation for challenging modes
+        if (selected.Name is "Ironman" or "Permadeath" or "Apocalypse")
+        {
+            ConsoleUI.Clear();
+            ConsoleUI.ShowWarning($"⚠️  WARNING: {selected.Name.ToUpper()} MODE");
+            Console.WriteLine();
+            ConsoleUI.WriteText("This mode features:");
+            
+            if (selected.AutoSaveOnly)
+                ConsoleUI.WriteText("  • Auto-save after every action - no manual saves");
+            if (selected.IsPermadeath)
+                ConsoleUI.WriteText("  • Death PERMANENTLY deletes your save file");
+            if (selected.IsApocalypse)
+            {
+                ConsoleUI.WriteText($"  • {selected.ApocalypseTimeLimitMinutes / 60}-hour time limit to complete main quest");
+                ConsoleUI.WriteText("  • World ends when time runs out");
+            }
+            if (selected.DropAllInventoryOnDeath)
+                ConsoleUI.WriteText("  • Drop ALL items on death");
+            
+            Console.WriteLine();
+            if (!ConsoleUI.Confirm($"Are you absolutely sure you want {selected.Name} mode?"))
+            {
+                ConsoleUI.ShowWarning("Returning to difficulty selection...");
+                await Task.Delay(1000);
+                return await SelectDifficultyAsync(); // Recursive call to let player re-select
+            }
+        }
+        
+        ConsoleUI.ShowSuccess($"Difficulty set to: {selected.Name}");
+        await Task.Delay(1000);
+        
+        return selected;
     }
 }

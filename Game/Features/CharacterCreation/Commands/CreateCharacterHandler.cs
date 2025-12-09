@@ -33,8 +33,8 @@ public class CreateCharacterHandler : IRequestHandler<CreateCharacterCommand, Cr
         // Publish character created event
         await _mediator.Publish(new CharacterCreated(character.Name), cancellationToken);
 
-        // Create save game with the new character
-        var saveGame = _saveGameService.CreateNewGame(character);
+        // Create save game with the new character (using Normal difficulty as default for backward compatibility)
+        var saveGame = _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         Log.Information("Character created: {CharacterName} ({ClassName})",
             character.Name, character.ClassName);

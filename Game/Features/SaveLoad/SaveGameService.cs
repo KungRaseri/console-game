@@ -22,7 +22,7 @@ public class SaveGameService : IDisposable
     /// <summary>
     /// Initialize a new game session with a fresh SaveGame object.
     /// </summary>
-    public SaveGame CreateNewGame(Character player, string difficultyLevel = "Normal", bool ironmanMode = false)
+    public SaveGame CreateNewGame(Character player, DifficultySettings difficulty)
     {
         _currentSave = new SaveGame
         {
@@ -30,16 +30,31 @@ public class SaveGameService : IDisposable
             Character = player,
             CreationDate = DateTime.Now,
             SaveDate = DateTime.Now,
-            DifficultyLevel = difficultyLevel,
-            IronmanMode = ironmanMode,
+            DifficultyLevel = difficulty.Name,
+            IronmanMode = difficulty.AutoSaveOnly,
+            PermadeathMode = difficulty.IsPermadeath,
+            ApocalypseMode = difficulty.IsApocalypse,
+            ApocalypseStartTime = difficulty.IsApocalypse ? DateTime.Now : null,
+            ApocalypseBonusMinutes = 0,
             PlayTimeMinutes = 0
         };
         
         _gameStartTime = DateTime.Now;
-        Log.Information("New game created for player {PlayerName} (Difficulty: {Difficulty}, Ironman: {Ironman})", 
-            player.Name, difficultyLevel, ironmanMode);
+        Log.Information("New game created for player {PlayerName} (Difficulty: {Difficulty}, Ironman: {Ironman}, Permadeath: {Permadeath}, Apocalypse: {Apocalypse})", 
+            player.Name, difficulty.Name, difficulty.AutoSaveOnly, difficulty.IsPermadeath, difficulty.IsApocalypse);
         
         return _currentSave;
+    }
+    
+    /// <summary>
+    /// Get difficulty settings from current save.
+    /// </summary>
+    public virtual DifficultySettings GetDifficultySettings()
+    {
+        if (_currentSave == null)
+            return DifficultySettings.Normal;
+        
+        return DifficultySettings.GetByName(_currentSave.DifficultyLevel);
     }
 
     /// <summary>

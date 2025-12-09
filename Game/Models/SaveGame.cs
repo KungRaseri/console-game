@@ -50,6 +50,15 @@ public class SaveGame
     public string DifficultyLevel { get; set; } = "Normal"; // Easy, Normal, Hard, Expert
     public bool IronmanMode { get; set; } = false; // No reload, single save file
     
+    // New difficulty system fields (Phase 1)
+    public bool PermadeathMode { get; set; } = false;
+    public bool ApocalypseMode { get; set; } = false;
+    public DateTime? ApocalypseStartTime { get; set; }
+    public int ApocalypseBonusMinutes { get; set; } = 0;
+    
+    // For tracking dropped items on death (Phase 2)
+    public Dictionary<string, List<Item>> DroppedItemsAtLocations { get; set; } = new();
+    
     /// <summary>
     /// Get a summary of the save game for display in load menu.
     /// </summary>

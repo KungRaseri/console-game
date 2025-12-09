@@ -28,26 +28,14 @@ public class CombatService
     /// </summary>
     public void InitializeCombat(Enemy enemy)
     {
-        var save = _saveGameService.GetCurrentSave();
-        if (save == null) return;
+        var difficulty = _saveGameService.GetDifficultySettings();
         
-        // For now, apply a basic multiplier based on difficulty level
-        // In Phase 1, this will use DifficultySettings.EnemyHealthMultiplier
-        double healthMultiplier = save.DifficultyLevel.ToLower() switch
-        {
-            "easy" => 0.75,
-            "normal" => 1.0,
-            "hard" => 1.5,
-            "expert" => 2.0,
-            _ => 1.0
-        };
-        
-        // Scale enemy health
-        enemy.MaxHealth = (int)(enemy.MaxHealth * healthMultiplier);
+        // Scale enemy health based on difficulty
+        enemy.MaxHealth = (int)(enemy.MaxHealth * difficulty.EnemyHealthMultiplier);
         enemy.Health = enemy.MaxHealth;
         
         Log.Information("Enemy {Name} initialized with {Health} HP (difficulty: {Difficulty}, multiplier: {Multiplier})",
-            enemy.Name, enemy.Health, save.DifficultyLevel, healthMultiplier);
+            enemy.Name, enemy.Health, difficulty.Name, difficulty.EnemyHealthMultiplier);
     }
     
     /// <summary>
@@ -85,6 +73,11 @@ public class CombatService
         
         // Apply enemy defense
         int finalDamage = Math.Max(1, baseDamage - enemy.GetPhysicalDefense());
+        
+        // Apply difficulty multiplier to player damage
+        var difficulty = _saveGameService.GetDifficultySettings();
+        finalDamage = (int)(finalDamage * difficulty.PlayerDamageMultiplier);
+        finalDamage = Math.Max(1, finalDamage); // Ensure at least 1 damage
         
         // Apply damage to enemy
         enemy.Health = Math.Max(0, enemy.Health - finalDamage);
@@ -155,6 +148,11 @@ public class CombatService
         playerDefense = (int)(playerDefense * defenseMultiplier);
         
         int finalDamage = Math.Max(1, baseDamage - playerDefense);
+        
+        // Apply difficulty multiplier to enemy damage
+        var difficulty = _saveGameService.GetDifficultySettings();
+        finalDamage = (int)(finalDamage * difficulty.EnemyDamageMultiplier);
+        finalDamage = Math.Max(1, finalDamage); // Ensure at least 1 damage
         
         // Apply damage to player
         player.Health = Math.Max(0, player.Health - finalDamage);

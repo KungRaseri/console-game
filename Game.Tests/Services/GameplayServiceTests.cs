@@ -212,7 +212,7 @@ public class GameplayServiceTests : IDisposable
         var inventory = new List<Item>();
 
         // Create initial save
-        var initialSave = _saveGameService.CreateNewGame(player);
+        var initialSave = _saveGameService.CreateNewGame(player, DifficultySettings.Normal);
         var saveId = initialSave.Id;
 
         // Modify player

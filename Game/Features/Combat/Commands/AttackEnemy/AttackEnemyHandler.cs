@@ -1,5 +1,6 @@
 using Game.Models;
 using Game.Services;
+using Game.Features.SaveLoad;
 using MediatR;
 using Serilog;
 
@@ -12,11 +13,13 @@ public class AttackEnemyHandler : IRequestHandler<AttackEnemyCommand, AttackEnem
 {
     private readonly CombatService _combatService;
     private readonly IMediator _mediator;
+    private readonly SaveGameService _saveGameService;
 
-    public AttackEnemyHandler(CombatService combatService, IMediator mediator)
+    public AttackEnemyHandler(CombatService combatService, IMediator mediator, SaveGameService saveGameService)
     {
         _combatService = combatService;
         _mediator = mediator;
+        _saveGameService = saveGameService;
     }
 
     public async Task<AttackEnemyResult> Handle(AttackEnemyCommand request, CancellationToken cancellationToken)
@@ -47,8 +50,10 @@ public class AttackEnemyHandler : IRequestHandler<AttackEnemyCommand, AttackEnem
 
         if (isDefeated)
         {
-            xpGained = enemy.XPReward;
-            goldGained = enemy.GoldReward;
+            // Award gold and experience with difficulty multiplier
+            var difficulty = _saveGameService.GetDifficultySettings();
+            xpGained = (int)(enemy.XPReward * difficulty.GoldXPMultiplier);
+            goldGained = (int)(enemy.GoldReward * difficulty.GoldXPMultiplier);
             
             player.Experience += xpGained;
             player.Gold += goldGained;

@@ -27,7 +27,7 @@ public class CombatServiceTests : IDisposable
             PlayerName = "TestPlayer",
             Character = CreateTestPlayer()
         };
-        saveGameService.CreateNewGame(testSave.Character, "Normal", false);
+        saveGameService.CreateNewGame(testSave.Character, DifficultySettings.Normal);
         
         // Create CombatService instance with SaveGameService
         _combatService = new CombatService(saveGameService);
@@ -368,7 +368,7 @@ public class CombatServiceTests : IDisposable
     {
         // Arrange
         var player = CreateTestPlayer();
-        player.Health = 1;
+        player.Health = 10; // Give more health to test the damage properly
         
         var enemy = CreateTestEnemy();
         enemy.BasePhysicalDamage = 1000; // Overkill damage
@@ -376,7 +376,7 @@ public class CombatServiceTests : IDisposable
         // Act
         _combatService.ExecuteEnemyAttack(enemy, player);
         
-        // Assert
+        // Assert - health should be 0, never negative (even with overkill damage)
         player.Health.Should().Be(0);
         player.Health.Should().BeGreaterThanOrEqualTo(0);
     }

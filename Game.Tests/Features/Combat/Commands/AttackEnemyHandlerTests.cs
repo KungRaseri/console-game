@@ -17,14 +17,22 @@ public class AttackEnemyHandlerTests
 {
     private readonly Mock<CombatService> _combatServiceMock;
     private readonly Mock<IMediator> _mediatorMock;
+    private readonly Mock<SaveGameService> _saveGameServiceMock;
     private readonly AttackEnemyHandler _handler;
 
     public AttackEnemyHandlerTests()
     {
-        var mockSaveGameService = new Mock<SaveGameService>(MockBehavior.Loose);
+        var mockSaveGameService = new Mock<SaveGameService>(MockBehavior.Loose, "test.db");
         _combatServiceMock = new Mock<CombatService>(MockBehavior.Loose, mockSaveGameService.Object);
         _mediatorMock = new Mock<IMediator>();
-        _handler = new AttackEnemyHandler(_combatServiceMock.Object, _mediatorMock.Object);
+        _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, "test.db");
+        
+        // Setup default difficulty settings
+        _saveGameServiceMock
+            .Setup(x => x.GetDifficultySettings())
+            .Returns(DifficultySettings.Normal);
+        
+        _handler = new AttackEnemyHandler(_combatServiceMock.Object, _mediatorMock.Object, _saveGameServiceMock.Object);
     }
 
     [Fact]

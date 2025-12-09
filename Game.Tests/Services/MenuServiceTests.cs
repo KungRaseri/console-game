@@ -68,7 +68,7 @@ public class MenuServiceTests : IDisposable
             MaxHealth = 100
         };
         
-        var saveGame = _saveGameService.CreateNewGame(character);
+        var saveGame = _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
         // Note: We can't directly test UI methods that call ConsoleUI
