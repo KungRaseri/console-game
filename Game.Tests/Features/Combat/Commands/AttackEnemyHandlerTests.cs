@@ -1,5 +1,8 @@
 using FluentAssertions;
 using Game.Features.Combat;
+using Game.Shared.UI;
+using Game.Tests.Helpers;
+using Spectre.Console.Testing;
 using Game.Features.Combat.Commands.AttackEnemy;
 using Game.Features.SaveLoad;
 using Game.Models;
@@ -20,6 +23,8 @@ public class AttackEnemyHandlerTests : IDisposable
     private readonly Mock<IMediator> _mediatorMock;
     private readonly Mock<SaveGameService> _saveGameServiceMock;
     private readonly AttackEnemyHandler _handler;
+    private readonly TestConsole _testConsole;
+    private readonly ConsoleUI _consoleUI;
     private readonly string _testDbPath;
 
     public AttackEnemyHandlerTests()
@@ -27,7 +32,10 @@ public class AttackEnemyHandlerTests : IDisposable
         // Use unique database path for each test instance to avoid file locking
         _testDbPath = $"test_attack_{Guid.NewGuid()}.db";
         
-        var apocalypseTimer = new ApocalypseTimer();
+        _testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        _consoleUI = new ConsoleUI(_testConsole);
+        
+        var apocalypseTimer = new ApocalypseTimer(_consoleUI);
         
         // Create a single mock instance to avoid creating multiple database connections
         _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, apocalypseTimer, _testDbPath);
@@ -205,3 +213,4 @@ public class AttackEnemyHandlerTests : IDisposable
             Times.Once);
     }
 }
+

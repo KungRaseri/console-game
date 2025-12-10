@@ -11,10 +11,12 @@ namespace Game.Features.Exploration.Commands;
 public class RestCommandHandler : IRequestHandler<RestCommand, RestResult>
 {
     private readonly GameStateService _gameState;
+    private readonly IConsoleUI _console;
 
-    public RestCommandHandler(GameStateService gameState)
+    public RestCommandHandler(GameStateService gameState, IConsoleUI console)
     {
         _gameState = gameState;
+        _console = console;
     }
 
     public Task<RestResult> Handle(RestCommand request, CancellationToken cancellationToken)
@@ -28,7 +30,7 @@ public class RestCommandHandler : IRequestHandler<RestCommand, RestResult>
                 return Task.FromResult(new RestResult(false, ErrorMessage: "No active player"));
             }
 
-            ConsoleUI.ShowInfo("You rest and recover...");
+            _console.ShowInfo("You rest and recover...");
 
             var healthRecovered = player.MaxHealth - player.Health;
             var manaRecovered = player.MaxMana - player.Mana;
@@ -36,7 +38,7 @@ public class RestCommandHandler : IRequestHandler<RestCommand, RestResult>
             player.Health = player.MaxHealth;
             player.Mana = player.MaxMana;
 
-            ConsoleUI.ShowSuccess("Fully rested!");
+            _console.ShowSuccess("Fully rested!");
             
             Log.Information("Player {PlayerName} rested", player.Name);
 

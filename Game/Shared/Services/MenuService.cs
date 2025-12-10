@@ -14,11 +14,13 @@ public class MenuService
 {
     private readonly GameStateService _gameState;
     private readonly SaveGameService _saveGameService;
+    private readonly IConsoleUI _console;
     
-    public MenuService(GameStateService gameState, SaveGameService saveGameService)
+    public MenuService(GameStateService gameState, SaveGameService saveGameService, IConsoleUI console)
     {
         _gameState = gameState;
         _saveGameService = saveGameService;
+        _console = console;
     }
     
     /// <summary>
@@ -27,8 +29,8 @@ public class MenuService
     /// </summary>
     public string HandleMainMenu()
     {
-        ConsoleUI.Clear();
-        var choice = ConsoleUI.ShowMenu(
+        _console.Clear();
+        var choice = _console.ShowMenu(
             "Main Menu",
             "New Game",
             "Load Game",
@@ -69,7 +71,7 @@ public class MenuService
         menuOptions.Add("Save Game");
         menuOptions.Add("Main Menu");
         
-        return ConsoleUI.ShowMenu(
+        return _console.ShowMenu(
             $"[{player.Name}] - Level {player.Level} | HP: {player.Health}/{player.MaxHealth} | Gold: {player.Gold}",
             menuOptions.ToArray()
         );
@@ -80,7 +82,7 @@ public class MenuService
     /// </summary>
     public string ShowCombatMenu()
     {
-        return ConsoleUI.ShowMenu(
+        return _console.ShowMenu(
             "Choose your action:",
             "⚔️  Attack",
             "🛡️  Defend",
@@ -94,7 +96,7 @@ public class MenuService
     /// </summary>
     public string ShowInventoryMenu()
     {
-        return ConsoleUI.ShowMenu(
+        return _console.ShowMenu(
             "What would you like to do?",
             "View Item Details",
             "Use Item",
@@ -110,7 +112,7 @@ public class MenuService
     /// </summary>
     public GameState HandlePauseMenu()
     {
-        var choice = ConsoleUI.ShowMenu(
+        var choice = _console.ShowMenu(
             "Game Paused",
             "Resume",
             "Save Game",
@@ -133,14 +135,14 @@ public class MenuService
     {
         if (!items.Any())
         {
-            ConsoleUI.ShowWarning("No items available!");
+            _console.ShowWarning("No items available!");
             return null;
         }
         
         var itemNames = items.Select(i => $"{i.GetDisplayName()} ({GetRarityColor(i.Rarity)}{i.Rarity}[/])").ToList();
         itemNames.Add("[dim]Cancel[/]");
         
-        var selection = ConsoleUI.ShowMenu(prompt, itemNames.ToArray());
+        var selection = _console.ShowMenu(prompt, itemNames.ToArray());
         
         if (selection == "[dim]Cancel[/]")
         {
@@ -156,7 +158,7 @@ public class MenuService
     /// </summary>
     public string ShowRingSlotMenu()
     {
-        return ConsoleUI.ShowMenu(
+        return _console.ShowMenu(
             "Which ring slot?",
             "Ring Slot 1",
             "Ring Slot 2",
@@ -166,7 +168,7 @@ public class MenuService
     
     private GameState HandleSettings()
     {
-        ConsoleUI.ShowInfo("Settings not yet implemented");
+        _console.ShowInfo("Settings not yet implemented");
         return GameState.MainMenu;
     }
     

@@ -21,19 +21,25 @@ public class CombatOrchestrator
     private readonly SaveGameService _saveGameService;
     private readonly GameStateService _gameStateService;
     private readonly MenuService _menuService;
+    private readonly IConsoleUI _console;
+    private readonly LevelUpService _levelUpService;
 
     public CombatOrchestrator(
         IMediator mediator,
         CombatService combatService,
         SaveGameService saveGameService,
         GameStateService gameStateService,
-        MenuService menuService)
+        MenuService menuService,
+        IConsoleUI console,
+        LevelUpService levelUpService)
     {
         _mediator = mediator;
         _combatService = combatService;
         _saveGameService = saveGameService;
         _gameStateService = gameStateService;
         _menuService = menuService;
+        _console = console;
+        _levelUpService = levelUpService;
     }
 
     /// <summary>
@@ -45,8 +51,8 @@ public class CombatOrchestrator
         Log.Information("Combat started: {PlayerName} vs {EnemyName}", player.Name, enemy.Name);
 
         combatLog.AddEntry($"⚔️ Battle begins against {enemy.Name}!", CombatLogType.Info);
-        ConsoleUI.ShowBanner("⚔️ COMBAT ⚔️", $"A wild {enemy.Name} appears!");
-        ConsoleUI.WriteColoredText($"[yellow]Level {enemy.Level} {enemy.Difficulty} enemy![/]");
+        _console.ShowBanner("⚔️ COMBAT ⚔️", $"A wild {enemy.Name} appears!");
+        _console.WriteColoredText($"[yellow]Level {enemy.Level} {enemy.Difficulty} enemy![/]");
         await _mediator.Publish(new CombatStarted(player.Name, enemy.Name));
         await Task.Delay(500);
 
@@ -68,14 +74,14 @@ public class CombatOrchestrator
                 if (fleeResult.Success)
                 {
                     combatLog.AddEntry("💨 Escaped successfully!", CombatLogType.Info);
-                    ConsoleUI.ShowSuccess(fleeResult.Message);
+                    _console.ShowSuccess(fleeResult.Message);
                     await Task.Delay(500);
                     return false; // Combat ended, but not a victory
                 }
                 else
                 {
                     combatLog.AddEntry("Failed to escape!", CombatLogType.Info);
-                    ConsoleUI.ShowError(fleeResult.Message);
+                    _console.ShowError(fleeResult.Message);
                     await Task.Delay(500);
                 }
             }
@@ -119,7 +125,7 @@ public class CombatOrchestrator
             if (regenAmount > 0)
             {
                 combatLog.AddEntry($"💚 Regeneration healed {regenAmount} HP", CombatLogType.Heal);
-                ConsoleUI.WriteColoredText($"[green]💚 Regeneration healed {regenAmount} HP[/]");
+                _console.WriteColoredText($"[green]💚 Regeneration healed {regenAmount} HP[/]");
                 await Task.Delay(300);
             }
 
@@ -144,8 +150,8 @@ public class CombatOrchestrator
 
     private void DisplayCombatStatusWithLog(Character player, Enemy enemy, CombatLog combatLog)
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("⚔️ COMBAT ⚔️", $"Fighting: {enemy.Name}");
+        _console.Clear();
+        _console.ShowBanner("⚔️ COMBAT ⚔️", $"Fighting: {enemy.Name}");
 
         // Create main combat content
         var playerHealthPercent = (double)player.Health / player.MaxHealth * 100;
@@ -188,7 +194,7 @@ public class CombatOrchestrator
 
         // Display with combat log
         var logEntries = combatLog.GetFormattedEntries();
-        ConsoleUI.ShowCombatLayout(combatInfo, logEntries);
+        _console.ShowCombatLayout(combatInfo, logEntries);
         Console.WriteLine();
     }
 
@@ -212,17 +218,17 @@ public class CombatOrchestrator
         if (result.IsDodged)
         {
             combatLog.AddEntry($"💨 {result.Message}", CombatLogType.Dodge);
-            ConsoleUI.WriteColoredText($"[yellow]💨 {result.Message}[/]");
+            _console.WriteColoredText($"[yellow]💨 {result.Message}[/]");
         }
         else if (result.IsCritical)
         {
             combatLog.AddEntry($"💥 CRIT! {result.Damage} damage!", CombatLogType.Critical);
-            ConsoleUI.WriteColoredText($"[red bold]💥 {result.Message}[/]");
+            _console.WriteColoredText($"[red bold]💥 {result.Message}[/]");
         }
         else
         {
             combatLog.AddEntry($"⚔️ Hit for {result.Damage} damage", CombatLogType.PlayerAttack);
-            ConsoleUI.WriteColoredText($"[green]⚔️  {result.Message}[/]");
+            _console.WriteColoredText($"[green]⚔️  {result.Message}[/]");
         }
 
         if (!enemy.IsAlive())
@@ -242,22 +248,22 @@ public class CombatOrchestrator
         if (result.IsDodged)
         {
             combatLog.AddEntry($"💨 Dodged {enemy.Name}'s attack!", CombatLogType.Dodge);
-            ConsoleUI.WriteColoredText($"[cyan]💨 {result.Message}[/]");
+            _console.WriteColoredText($"[cyan]💨 {result.Message}[/]");
         }
         else if (result.IsBlocked)
         {
             combatLog.AddEntry($"🛡️ Blocked {result.Damage} damage", CombatLogType.Defend);
-            ConsoleUI.WriteColoredText($"[blue]🛡️  {result.Message}[/]");
+            _console.WriteColoredText($"[blue]🛡️  {result.Message}[/]");
         }
         else if (result.IsCritical)
         {
             combatLog.AddEntry($"💥 {enemy.Name} CRIT! {result.Damage} damage!", CombatLogType.EnemyAttack);
-            ConsoleUI.WriteColoredText($"[red bold]💥 {result.Message}[/]");
+            _console.WriteColoredText($"[red bold]💥 {result.Message}[/]");
         }
         else
         {
             combatLog.AddEntry($"🗡️ {enemy.Name} hit for {result.Damage}", CombatLogType.EnemyAttack);
-            ConsoleUI.WriteColoredText($"[orange1]🗡️  {result.Message}[/]");
+            _console.WriteColoredText($"[orange1]🗡️  {result.Message}[/]");
         }
 
         if (!player.IsAlive())
@@ -274,7 +280,7 @@ public class CombatOrchestrator
 
         if (!consumables.Any())
         {
-            ConsoleUI.ShowWarning("You have no consumable items!");
+            _console.ShowWarning("You have no consumable items!");
             await Task.Delay(300);
             return false;
         }
@@ -282,7 +288,7 @@ public class CombatOrchestrator
         var itemNames = consumables.Select(i => $"{i.Name} ({i.Rarity})").ToList();
         itemNames.Add("[dim]Cancel[/]");
 
-        var selection = ConsoleUI.ShowMenu("Select an item to use:", itemNames.ToArray());
+        var selection = _console.ShowMenu("Select an item to use:", itemNames.ToArray());
 
         if (selection == "[dim]Cancel[/]")
         {
@@ -301,11 +307,11 @@ public class CombatOrchestrator
             if (result.Healing > 0)
             {
                 combatLog.AddEntry($"💚 Restored {result.Healing} HP", CombatLogType.Heal);
-                ConsoleUI.WriteColoredText($"[green]✨ {result.Message}[/]");
+                _console.WriteColoredText($"[green]✨ {result.Message}[/]");
             }
             else
             {
-                ConsoleUI.WriteColoredText($"[cyan]✨ {result.Message}[/]");
+                _console.WriteColoredText($"[cyan]✨ {result.Message}[/]");
             }
 
             await Task.Delay(500);
@@ -313,7 +319,7 @@ public class CombatOrchestrator
         }
         else
         {
-            ConsoleUI.ShowError(result.Message);
+            _console.ShowError(result.Message);
             await Task.Delay(300);
             return false;
         }
@@ -321,11 +327,11 @@ public class CombatOrchestrator
 
     private async Task HandleCombatVictoryAsync(Character player, Enemy enemy)
     {
-        ConsoleUI.Clear();
+        _console.Clear();
 
         var outcome = _combatService.GenerateVictoryOutcome(player, enemy);
 
-        ConsoleUI.ShowBanner("🏆 VICTORY! 🏆", $"You defeated {enemy.Name}!");
+        _console.ShowBanner("🏆 VICTORY! 🏆", $"You defeated {enemy.Name}!");
 
         // Award XP
         var previousLevel = player.Level;
@@ -335,7 +341,7 @@ public class CombatOrchestrator
         player.Gold += outcome.GoldGained;
 
         // Display rewards
-        ConsoleUI.ShowPanel(
+        _console.ShowPanel(
             "Battle Rewards",
             $"[green]+{outcome.XPGained} XP[/] ({player.Experience}/{player.Level * 100} to next level)\n" +
             $"[yellow]+{outcome.GoldGained} Gold[/] (Total: {player.Gold})",
@@ -346,20 +352,20 @@ public class CombatOrchestrator
         if (player.Level > previousLevel)
         {
             Console.WriteLine();
-            ConsoleUI.WriteColoredText($"[bold yellow]🌟 LEVEL UP! You are now level {player.Level}! 🌟[/]");
+            _console.WriteColoredText($"[bold yellow]🌟 LEVEL UP! You are now level {player.Level}! 🌟[/]");
             await _mediator.Publish(new PlayerLeveledUp(player.Name, player.Level));
             await Task.Delay(500);
 
             // Process level-up allocation
-            ConsoleUI.PressAnyKey("Press any key to allocate your level-up points...");
-            await LevelUpService.ProcessPendingLevelUpsAsync(player);
+            _console.PressAnyKey("Press any key to allocate your level-up points...");
+            await _levelUpService.ProcessPendingLevelUpsAsync(player);
         }
 
         // Display loot
         if (outcome.LootDropped.Any())
         {
             Console.WriteLine();
-            ConsoleUI.WriteColoredText("[cyan bold]💎 Loot Dropped![/]");
+            _console.WriteColoredText("[cyan bold]💎 Loot Dropped![/]");
 
             foreach (var item in outcome.LootDropped)
             {
@@ -375,7 +381,7 @@ public class CombatOrchestrator
                     _ => "white"
                 };
 
-                ConsoleUI.WriteColoredText($"  [{rarityColor}]• {item.Name} ({item.Rarity})[/]");
+                _console.WriteColoredText($"  [{rarityColor}]• {item.Name} ({item.Rarity})[/]");
             }
         }
 
@@ -385,7 +391,7 @@ public class CombatOrchestrator
         try
         {
             _saveGameService.AutoSave(player, player.Inventory);
-            ConsoleUI.WriteText("[grey]Game auto-saved[/]");
+            _console.WriteText("[grey]Game auto-saved[/]");
         }
         catch (Exception ex)
         {
@@ -393,7 +399,7 @@ public class CombatOrchestrator
         }
 
         Console.WriteLine();
-        ConsoleUI.PressAnyKey("Press any key to continue...");
+        _console.PressAnyKey("Press any key to continue...");
     }
 
     private async Task HandleCombatDefeatAsync(Character player, Enemy enemy)

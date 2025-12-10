@@ -1,6 +1,9 @@
 using Xunit;
 using FluentAssertions;
 using Game.Services;
+using Game.Shared.UI;
+using Game.Tests.Helpers;
+using Spectre.Console.Testing;
 using Game.Features.Combat;
 using Game.Features.SaveLoad;
 using Game.Shared.Services;
@@ -25,20 +28,28 @@ public class CombatOrchestratorTests : IDisposable
     private readonly MenuService _menuService;
     private readonly GameStateService _gameStateService;
     private readonly CombatOrchestrator _combatOrchestrator;
+    private readonly TestConsole _testConsole;
+    private readonly ConsoleUI _consoleUI;
+    private readonly LevelUpService _levelUpService;
 
     public CombatOrchestratorTests()
     {
         // Use unique database file for this test class
         _testDbFile = $"test-combatorchestrator-{Guid.NewGuid()}.db";
 
+        // Setup TestConsole
+        _testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        _consoleUI = new ConsoleUI(_testConsole);
+
         // Create mock mediator
         _mockMediator = new Mock<IMediator>();
 
         // Create real dependencies with correct constructors
-        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbFile);
+        _saveGameService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbFile);
         _combatService = new CombatService(_saveGameService);
         _gameStateService = new GameStateService(_saveGameService);
-        _menuService = new MenuService(_gameStateService, _saveGameService);
+        _menuService = new MenuService(_gameStateService, _saveGameService, _consoleUI);
+        _levelUpService = new LevelUpService(_consoleUI);
 
         // Create CombatOrchestrator
         _combatOrchestrator = new CombatOrchestrator(
@@ -46,7 +57,9 @@ public class CombatOrchestratorTests : IDisposable
             _combatService,
             _saveGameService,
             _gameStateService,
-            _menuService
+            _menuService,
+            _consoleUI,
+            _levelUpService
         );
     }
 
@@ -243,3 +256,4 @@ public class CombatOrchestratorTests : IDisposable
 
     #endregion
 }
+

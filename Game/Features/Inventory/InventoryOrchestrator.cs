@@ -14,11 +14,19 @@ public class InventoryOrchestrator
 {
     private readonly IMediator _mediator;
     private readonly MenuService _menuService;
+    private readonly IConsoleUI _console;
+    private readonly CharacterViewService _characterView;
 
-    public InventoryOrchestrator(IMediator mediator, MenuService menuService)
+    public InventoryOrchestrator(
+        IMediator mediator, 
+        MenuService menuService, 
+        IConsoleUI console,
+        CharacterViewService characterView)
     {
         _mediator = mediator;
         _menuService = menuService;
+        _console = console;
+        _characterView = characterView;
     }
 
     /// <summary>
@@ -44,10 +52,10 @@ public class InventoryOrchestrator
 
             if (inventoryCount == 0)
             {
-                ConsoleUI.ShowInfo("Your inventory is empty.");
-                ConsoleUI.ShowPanel("Equipment", CharacterViewService.GetEquipmentDisplay(player), "cyan");
+                _console.ShowInfo("Your inventory is empty.");
+                _console.ShowPanel("Equipment", _characterView.GetEquipmentDisplay(player), "cyan");
                 
-                if (!ConsoleUI.Confirm("Return to game?"))
+                if (!_console.Confirm("Return to game?"))
                 {
                     continue;
                 }
@@ -56,7 +64,7 @@ public class InventoryOrchestrator
             }
 
             // Show inventory stats
-            ConsoleUI.ShowBanner($"Inventory ({inventoryCount} items)", $"Total Value: {totalValue} gold");
+            _console.ShowBanner($"Inventory ({inventoryCount} items)", $"Total Value: {totalValue} gold");
 
             // Group items by type for display
             var itemsByType = player.Inventory
@@ -73,7 +81,7 @@ public class InventoryOrchestrator
             foreach (var group in itemsByType)
             {
                 var itemList = string.Join(", ", group.Select(i => 
-                    $"{i.Name} ({CharacterViewService.GetRarityColor(i.Rarity)}{i.Rarity}[/])"));
+                    $"{i.Name} ({_characterView.GetRarityColor(i.Rarity)}{i.Rarity}[/])"));
                 table.AddRow($"[cyan]{group.Key}[/]", itemList);
             }
 
@@ -128,7 +136,7 @@ public class InventoryOrchestrator
         {
             $"[yellow]Name:[/] {item.GetDisplayName()}",
             $"[yellow]Type:[/] {item.Type}",
-            $"[yellow]Rarity:[/] {CharacterViewService.GetRarityColor(item.Rarity)}{item.Rarity}[/]",
+            $"[yellow]Rarity:[/] {_characterView.GetRarityColor(item.Rarity)}{item.Rarity}[/]",
             $"[yellow]Value:[/] {item.Price} gold"
         };
         
@@ -235,7 +243,7 @@ public class InventoryOrchestrator
         
         var details = string.Join("\n", detailLines);
 
-        ConsoleUI.ShowPanel($"Item Details", details, "cyan");
+        _console.ShowPanel($"Item Details", details, "cyan");
         await Task.Delay(500);
     }
 
@@ -250,7 +258,7 @@ public class InventoryOrchestrator
         
         if (consumables.Count == 0)
         {
-            ConsoleUI.ShowWarning("You have no consumable items!");
+            _console.ShowWarning("You have no consumable items!");
             await Task.Delay(300);
             return;
         }
@@ -270,15 +278,15 @@ public class InventoryOrchestrator
 
         // Show results
         Console.WriteLine();
-        ConsoleUI.ShowSuccess($"Used {item.Name}!");
+        _console.ShowSuccess($"Used {item.Name}!");
         
         if (player.Health != healthBefore)
         {
-            ConsoleUI.ShowInfo($"Health: {healthBefore} → {player.Health}");
+            _console.ShowInfo($"Health: {healthBefore} → {player.Health}");
         }
         if (player.Mana != manaBefore)
         {
-            ConsoleUI.ShowInfo($"Mana: {manaBefore} → {player.Mana}");
+            _console.ShowInfo($"Mana: {manaBefore} → {player.Mana}");
         }
 
         await Task.Delay(500);
@@ -297,7 +305,7 @@ public class InventoryOrchestrator
 
         if (equipable.Count == 0)
         {
-            ConsoleUI.ShowWarning("You have no equipable items!");
+            _console.ShowWarning("You have no equipable items!");
             await Task.Delay(300);
             return;
         }
@@ -313,7 +321,7 @@ public class InventoryOrchestrator
                 // Check if this is a two-handed weapon
                 if (item.IsTwoHanded && player.EquippedOffHand != null)
                 {
-                    var confirm = ConsoleUI.Confirm($"This is a two-handed weapon and will unequip your off-hand ({player.EquippedOffHand.Name}). Continue?");
+                    var confirm = _console.Confirm($"This is a two-handed weapon and will unequip your off-hand ({player.EquippedOffHand.Name}). Continue?");
                     if (!confirm)
                     {
                         return;
@@ -322,7 +330,7 @@ public class InventoryOrchestrator
                     // Unequip off-hand first
                     player.Inventory.Add(player.EquippedOffHand);
                     player.EquippedOffHand = null;
-                    ConsoleUI.ShowInfo($"Unequipped {player.EquippedOffHand?.Name ?? "off-hand"}");
+                    _console.ShowInfo($"Unequipped {player.EquippedOffHand?.Name ?? "off-hand"}");
                 }
                 
                 unequipped = player.EquippedMainHand;
@@ -334,7 +342,7 @@ public class InventoryOrchestrator
                 // Check if main hand has a two-handed weapon
                 if (player.EquippedMainHand != null && player.EquippedMainHand.IsTwoHanded)
                 {
-                    ConsoleUI.ShowWarning($"Cannot equip off-hand while wielding a two-handed weapon ({player.EquippedMainHand.Name})!");
+                    _console.ShowWarning($"Cannot equip off-hand while wielding a two-handed weapon ({player.EquippedMainHand.Name})!");
                     await Task.Delay(500);
                     return;
                 }
@@ -394,7 +402,7 @@ public class InventoryOrchestrator
                 break;
 
             default:
-                ConsoleUI.ShowWarning($"Cannot equip {item.Type} type items!");
+                _console.ShowWarning($"Cannot equip {item.Type} type items!");
                 await Task.Delay(300);
                 return;
         }
@@ -408,10 +416,10 @@ public class InventoryOrchestrator
             player.Inventory.Add(unequipped);
         }
 
-        ConsoleUI.ShowSuccess($"Equipped {item.Name}!");
+        _console.ShowSuccess($"Equipped {item.Name}!");
         if (unequipped != null)
         {
-            ConsoleUI.ShowInfo($"Unequipped {unequipped.Name}");
+            _console.ShowInfo($"Unequipped {unequipped.Name}");
         }
 
         await Task.Delay(500);
@@ -427,13 +435,13 @@ public class InventoryOrchestrator
         var item = SelectItemFromInventory(player, "Select an item to drop");
         if (item == null) return;
 
-        if (!ConsoleUI.Confirm($"Drop {item.Name}? This cannot be undone."))
+        if (!_console.Confirm($"Drop {item.Name}? This cannot be undone."))
         {
             return;
         }
 
         player.Inventory.Remove(item);
-        ConsoleUI.ShowWarning($"Dropped {item.Name}");
+        _console.ShowWarning($"Dropped {item.Name}");
         Log.Information("Player {PlayerName} dropped item: {ItemName}", player.Name, item.Name);
 
         await Task.Delay(300);
@@ -446,7 +454,7 @@ public class InventoryOrchestrator
     {
         if (player == null || player.Inventory.Count == 0) return;
 
-        var sortChoice = ConsoleUI.ShowMenu(
+        var sortChoice = _console.ShowMenu(
             "Sort by...",
             "Name",
             "Type",
@@ -459,22 +467,22 @@ public class InventoryOrchestrator
         {
             case "Name":
                 player.Inventory.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
-                ConsoleUI.ShowSuccess("Sorted by name");
+                _console.ShowSuccess("Sorted by name");
                 break;
 
             case "Type":
                 player.Inventory.Sort((a, b) => a.Type.CompareTo(b.Type));
-                ConsoleUI.ShowSuccess("Sorted by type");
+                _console.ShowSuccess("Sorted by type");
                 break;
 
             case "Rarity":
                 player.Inventory.Sort((a, b) => b.Rarity.CompareTo(a.Rarity));
-                ConsoleUI.ShowSuccess("Sorted by rarity");
+                _console.ShowSuccess("Sorted by rarity");
                 break;
 
             case "Value":
                 player.Inventory.Sort((a, b) => b.Price.CompareTo(a.Price));
-                ConsoleUI.ShowSuccess("Sorted by value");
+                _console.ShowSuccess("Sorted by value");
                 break;
         }
     }
@@ -507,7 +515,7 @@ public class InventoryOrchestrator
         }
 
         // Both rings equipped - ask which to replace
-        var choice = ConsoleUI.ShowMenu(
+        var choice = _console.ShowMenu(
             "Both ring slots are occupied. Which ring slot?",
             $"Ring 1: {player.EquippedRing1.Name}",
             $"Ring 2: {player.EquippedRing2.Name}",

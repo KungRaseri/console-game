@@ -1,6 +1,9 @@
 using Xunit;
 using FluentAssertions;
 using Game.Services;
+using Game.Shared.UI;
+using Game.Tests.Helpers;
+using Spectre.Console.Testing;
 using Game.Features.Combat;
 using Game.Features.Exploration;
 using Game.Features.SaveLoad;
@@ -19,13 +22,19 @@ public class GameWorkflowIntegrationTests : IDisposable
     private readonly SaveGameService _saveGameService;
     private readonly CombatService _combatService;
     private readonly GameplayService _gameplayService;
+    private readonly TestConsole _testConsole;
+    private readonly ConsoleUI _consoleUI;
 
     public GameWorkflowIntegrationTests()
     {
         _testDbFile = $"test-integration-{Guid.NewGuid()}.db";
-        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbFile);
+        
+        _testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        _consoleUI = new ConsoleUI(_testConsole);
+        
+        _saveGameService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbFile);
         _combatService = new CombatService(_saveGameService);
-        _gameplayService = new GameplayService(_saveGameService);
+        _gameplayService = new GameplayService(_saveGameService, _consoleUI);
     }
 
     public void Dispose()
@@ -112,3 +121,4 @@ public class GameWorkflowIntegrationTests : IDisposable
         enemy.Health.Should().BeLessThan(enemy.MaxHealth);
     }
 }
+

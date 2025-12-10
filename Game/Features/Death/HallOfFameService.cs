@@ -12,9 +12,11 @@ public class HallOfFameService : IDisposable
 {
     private readonly LiteDatabase _db;
     private readonly ILiteCollection<HallOfFameEntry> _heroes;
+    private readonly IConsoleUI _console;
     
-    public HallOfFameService(string databasePath = "halloffame.db")
+    public HallOfFameService(IConsoleUI console, string databasePath = "halloffame.db")
     {
+        _console = console;
         _db = new LiteDatabase(databasePath);
         _heroes = _db.GetCollection<HallOfFameEntry>("heroes");
         _heroes.EnsureIndex(x => x.GetFameScore());
@@ -66,14 +68,14 @@ public class HallOfFameService : IDisposable
     {
         var entries = GetTopHeroes(20);
         
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Hall of Fame", "Legendary Heroes");
+        _console.Clear();
+        _console.ShowBanner("Hall of Fame", "Legendary Heroes");
         Console.WriteLine();
         
         if (entries.Count == 0)
         {
-            ConsoleUI.WriteText("No heroes yet. Be the first to earn your place in history!");
-            ConsoleUI.PressAnyKey();
+            _console.WriteText("No heroes yet. Be the first to earn your place in history!");
+            _console.PressAnyKey();
             return;
         }
         
@@ -95,8 +97,8 @@ public class HallOfFameService : IDisposable
             });
         }
         
-        ConsoleUI.ShowTable("Top Heroes", headers, rows);
-        ConsoleUI.PressAnyKey();
+        _console.ShowTable("Top Heroes", headers, rows);
+        _console.PressAnyKey();
     }
     
     public void Dispose()

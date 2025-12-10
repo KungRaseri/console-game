@@ -7,6 +7,7 @@ using Game.Features.SaveLoad;
 using Game.Features.Exploration;
 using Game.Shared.Services;
 using Game.Shared.Behaviors;
+using Game.Shared.UI;
 using Game.Settings;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,7 @@ using System.Reflection;
 using DotNetEnv;
 using FluentValidation;
 using System.Text;
-
+using Spectre.Console;
 // Set console encoding to UTF-8 to support emojis and special characters
 Console.OutputEncoding = Encoding.UTF8;
 Console.InputEncoding = Encoding.UTF8;
@@ -80,6 +81,11 @@ try
     services.AddSingleton<SaveGameService>();
     services.AddSingleton<GameStateService>();
     services.AddSingleton<CombatService>();
+    services.AddSingleton<LevelUpService>();
+    
+    // Register UI services
+    services.AddSingleton<IAnsiConsole>(AnsiConsole.Console);
+    services.AddSingleton<IConsoleUI, ConsoleUI>();
     
     // Apocalypse timer (shared service)
     services.AddSingleton<ApocalypseTimer>();
@@ -103,6 +109,7 @@ try
     
     // Register UI and interaction services
     services.AddTransient<MenuService>();
+    services.AddTransient<CharacterViewService>();
     services.AddTransient<ExplorationService>();
     
     // Register orchestrator services

@@ -7,12 +7,19 @@ namespace Game.Services;
 /// <summary>
 /// Service for managing level-up attribute allocation and skill selection.
 /// </summary>
-public static class LevelUpService
+public class LevelUpService
 {
+    private readonly IConsoleUI _console;
+    
+    public LevelUpService(IConsoleUI console)
+    {
+        _console = console;
+    }
+    
     /// <summary>
     /// Process all pending level-ups for a character.
     /// </summary>
-    public static async Task ProcessPendingLevelUpsAsync(Character character)
+    public async Task ProcessPendingLevelUpsAsync(Character character)
     {
         var unprocessedLevelUps = character.PendingLevelUps
             .Where(l => !l.IsProcessed)
@@ -43,16 +50,16 @@ public static class LevelUpService
     /// <summary>
     /// Process a single level-up with player choices.
     /// </summary>
-    private static async Task ProcessSingleLevelUpAsync(Character character, LevelUpInfo levelUp)
+    private async Task ProcessSingleLevelUpAsync(Character character, LevelUpInfo levelUp)
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner(
+        _console.Clear();
+        _console.ShowBanner(
             $"🌟 LEVEL {levelUp.NewLevel} 🌟",
             $"Congratulations! You have reached level {levelUp.NewLevel}!"
         );
 
         // Show what was gained
-        ConsoleUI.ShowPanel(
+        _console.ShowPanel(
             "Level-Up Rewards",
             $"[green]+{levelUp.AttributePointsGained} Attribute Points[/]\n" +
             $"[cyan]+{levelUp.SkillPointsGained} Skill Point(s)[/]\n" +
@@ -61,7 +68,7 @@ public static class LevelUpService
         );
 
         Console.WriteLine();
-        ConsoleUI.PressAnyKey("Press any key to allocate your points...");
+        _console.PressAnyKey("Press any key to allocate your points...");
 
         // Allocate attribute points
         if (character.UnspentAttributePoints > 0)
@@ -75,24 +82,24 @@ public static class LevelUpService
             await SelectSkillsAsync(character);
         }
 
-        ConsoleUI.Clear();
-        ConsoleUI.ShowSuccess($"Level {levelUp.NewLevel} complete! You are now more powerful!");
+        _console.Clear();
+        _console.ShowSuccess($"Level {levelUp.NewLevel} complete! You are now more powerful!");
         await Task.Delay(300);
     }
 
     /// <summary>
     /// Interactive attribute point allocation.
     /// </summary>
-    private static async Task AllocateAttributePointsAsync(Character character)
+    private async Task AllocateAttributePointsAsync(Character character)
     {
-        ConsoleUI.Clear();
+        _console.Clear();
         
         var allocation = new AttributePointAllocation();
         bool done = false;
 
         while (!done)
         {
-            ConsoleUI.ShowBanner(
+            _console.ShowBanner(
                 "Attribute Point Allocation",
                 $"You have {character.UnspentAttributePoints - allocation.TotalPointsAllocated} points remaining"
             );
@@ -119,7 +126,7 @@ public static class LevelUpService
                 choices.Add("[green bold]✓ Confirm Allocation[/]");
             }
 
-            var choice = ConsoleUI.ShowMenu("Allocate points to:", choices.ToArray());
+            var choice = _console.ShowMenu("Allocate points to:", choices.ToArray());
 
             if (choice.StartsWith("Strength"))
             {
@@ -129,7 +136,7 @@ public static class LevelUpService
                 }
                 else
                 {
-                    ConsoleUI.ShowWarning("No points remaining!");
+                    _console.ShowWarning("No points remaining!");
                     await Task.Delay(200);
                 }
             }
@@ -141,7 +148,7 @@ public static class LevelUpService
                 }
                 else
                 {
-                    ConsoleUI.ShowWarning("No points remaining!");
+                    _console.ShowWarning("No points remaining!");
                     await Task.Delay(200);
                 }
             }
@@ -153,7 +160,7 @@ public static class LevelUpService
                 }
                 else
                 {
-                    ConsoleUI.ShowWarning("No points remaining!");
+                    _console.ShowWarning("No points remaining!");
                     await Task.Delay(200);
                 }
             }
@@ -165,7 +172,7 @@ public static class LevelUpService
                 }
                 else
                 {
-                    ConsoleUI.ShowWarning("No points remaining!");
+                    _console.ShowWarning("No points remaining!");
                     await Task.Delay(200);
                 }
             }
@@ -177,7 +184,7 @@ public static class LevelUpService
                 }
                 else
                 {
-                    ConsoleUI.ShowWarning("No points remaining!");
+                    _console.ShowWarning("No points remaining!");
                     await Task.Delay(200);
                 }
             }
@@ -189,14 +196,14 @@ public static class LevelUpService
                 }
                 else
                 {
-                    ConsoleUI.ShowWarning("No points remaining!");
+                    _console.ShowWarning("No points remaining!");
                     await Task.Delay(200);
                 }
             }
             else if (choice.Contains("Reset"))
             {
                 allocation.Reset();
-                ConsoleUI.ShowInfo("Allocation reset.");
+                _console.ShowInfo("Allocation reset.");
                 await Task.Delay(200);
             }
             else if (choice.Contains("Confirm"))
@@ -222,19 +229,19 @@ public static class LevelUpService
                 character.Health += (character.MaxHealth - oldMaxHealth);
                 character.Mana += (character.MaxMana - oldMaxMana);
                 
-                ConsoleUI.ShowSuccess("Attributes increased!");
+                _console.ShowSuccess("Attributes increased!");
                 await Task.Delay(300);
                 done = true;
             }
 
-            ConsoleUI.Clear();
+            _console.Clear();
         }
     }
 
     /// <summary>
     /// Display attribute allocation preview.
     /// </summary>
-    private static void DisplayAttributeAllocationPreview(Character character, AttributePointAllocation allocation)
+    private void DisplayAttributeAllocationPreview(Character character, AttributePointAllocation allocation)
     {
         var table = new Table();
         table.Border = TableBorder.Rounded;
@@ -298,16 +305,16 @@ public static class LevelUpService
     /// <summary>
     /// Interactive skill selection.
     /// </summary>
-    private static async Task SelectSkillsAsync(Character character)
+    private async Task SelectSkillsAsync(Character character)
     {
-        ConsoleUI.Clear();
+        _console.Clear();
 
         bool done = false;
         int pointsUsed = 0;
 
         while (!done && pointsUsed < character.UnspentSkillPoints)
         {
-            ConsoleUI.ShowBanner(
+            _console.ShowBanner(
                 "Skill Selection",
                 $"You have {character.UnspentSkillPoints - pointsUsed} skill point(s) remaining"
             );
@@ -317,7 +324,7 @@ public static class LevelUpService
 
             if (!availableSkills.Any())
             {
-                ConsoleUI.ShowWarning("No skills available at your current level.");
+                _console.ShowWarning("No skills available at your current level.");
                 await Task.Delay(300);
                 break;
             }
@@ -327,7 +334,7 @@ public static class LevelUpService
                 .ToList();
             skillChoices.Add("[dim]Skip for now[/]");
 
-            var choice = ConsoleUI.ShowMenu("Select a skill to improve:", skillChoices.ToArray());
+            var choice = _console.ShowMenu("Select a skill to improve:", skillChoices.ToArray());
 
             if (choice.Contains("Skip"))
             {
@@ -343,18 +350,18 @@ public static class LevelUpService
                 if (existingSkill != null)
                 {
                     existingSkill.CurrentRank++;
-                    ConsoleUI.ShowSuccess($"{selectedSkill.Name} increased to rank {existingSkill.CurrentRank}!");
+                    _console.ShowSuccess($"{selectedSkill.Name} increased to rank {existingSkill.CurrentRank}!");
                 }
                 else
                 {
                     selectedSkill.CurrentRank = 1;
                     character.LearnedSkills.Add(selectedSkill);
-                    ConsoleUI.ShowSuccess($"Learned {selectedSkill.Name} (Rank 1)!");
+                    _console.ShowSuccess($"Learned {selectedSkill.Name} (Rank 1)!");
                 }
 
                 pointsUsed++;
                 await Task.Delay(300);
-                ConsoleUI.Clear();
+                _console.Clear();
             }
         }
 
@@ -364,7 +371,7 @@ public static class LevelUpService
     /// <summary>
     /// Get skills available for the character based on level and class.
     /// </summary>
-    private static List<Skill> GetAvailableSkills(Character character)
+    private List<Skill> GetAvailableSkills(Character character)
     {
         var allSkills = new List<Skill>
         {

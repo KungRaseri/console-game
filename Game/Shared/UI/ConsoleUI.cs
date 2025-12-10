@@ -9,14 +9,31 @@ namespace Game.Shared.UI;
 /// Provides rich console UI features with security best practices.
 /// All user input is automatically escaped to prevent markup injection.
 /// </summary>
-public static class ConsoleUI
+public class ConsoleUI : IConsoleUI
 {
+    private readonly IAnsiConsole _console;
+    
+    /// <summary>
+    /// Constructor for dependency injection.
+    /// </summary>
+    /// <param name="console">The IAnsiConsole implementation to use (real or mock)</param>
+    public ConsoleUI(IAnsiConsole console)
+    {
+        _console = console ?? throw new ArgumentNullException(nameof(console));
+    }
+    
+    /// <summary>
+    /// Default constructor using the real AnsiConsole.
+    /// </summary>
+    public ConsoleUI() : this(AnsiConsole.Console)
+    {
+    }
     #region Private Helpers
     
     /// <summary>
     /// Escapes markup characters in a string to prevent markup injection.
     /// </summary>
-    private static string EscapeMarkup(string text)
+    private string EscapeMarkup(string text)
     {
         return text.Replace("[", "[[").Replace("]", "]]");
     }
@@ -24,7 +41,7 @@ public static class ConsoleUI
     /// <summary>
     /// Parses a color string to a Spectre.Console Color.
     /// </summary>
-    private static Color ParseColor(string colorName)
+    private Color ParseColor(string colorName)
     {
         return colorName.ToLower() switch
         {
@@ -47,7 +64,7 @@ public static class ConsoleUI
     /// <summary>
     /// Strip Spectre.Console markup from text for length calculations.
     /// </summary>
-    public static string StripMarkup(string text)
+    public string StripMarkup(string text)
     {
         return System.Text.RegularExpressions.Regex.Replace(text, @"\[.*?\]", "");
     }
@@ -59,44 +76,44 @@ public static class ConsoleUI
     /// <summary>
     /// Displays a large ASCII art title using FigletText.
     /// </summary>
-    public static void ShowTitle(string title, Color? color = null)
+    public void ShowTitle(string title, Color? color = null)
     {
         var figlet = new FigletText(EscapeMarkup(title))
             .Centered()
             .Color(color ?? Color.Yellow);
         
-        AnsiConsole.Write(figlet);
-        AnsiConsole.WriteLine();
+        _console.Write(figlet);
+        _console.WriteLine();
     }
     
     /// <summary>
     /// Displays a horizontal rule with optional title.
     /// </summary>
-    public static void ShowRule(string? title = null, string style = "blue")
+    public void ShowRule(string? title = null, string style = "blue")
     {
         var rule = title != null 
             ? new Rule($"[{style}]{EscapeMarkup(title)}[/]")
             : new Rule();
         
         rule.RuleStyle(style);
-        AnsiConsole.Write(rule);
+        _console.Write(rule);
     }
     
     /// <summary>
     /// Displays a welcome banner with styled text.
     /// </summary>
-    public static void ShowBanner(string title, string subtitle = "")
+    public void ShowBanner(string title, string subtitle = "")
     {
         var rule = new Rule($"[bold yellow]{EscapeMarkup(title)}[/]");
         rule.RuleStyle("blue");
-        AnsiConsole.Write(rule);
+        _console.Write(rule);
 
         if (!string.IsNullOrEmpty(subtitle))
         {
-            AnsiConsole.MarkupLine($"[dim]{EscapeMarkup(subtitle)}[/]");
+            _console.MarkupLine($"[dim]{EscapeMarkup(subtitle)}[/]");
         }
 
-        AnsiConsole.WriteLine();
+        _console.WriteLine();
     }
 
     /// <summary>
@@ -104,37 +121,37 @@ public static class ConsoleUI
     /// Note: This method does NOT escape markup - use it only with trusted/controlled text.
     /// For user input, use WriteText() instead.
     /// </summary>
-    public static void WriteColoredText(string text)
+    public void WriteColoredText(string text)
     {
-        AnsiConsole.MarkupLine(text);
+        _console.MarkupLine(text);
     }
 
     /// <summary>
     /// Displays plain text safely (escapes markup characters).
     /// Use this for displaying user input or untrusted text.
     /// </summary>
-    public static void WriteText(string text)
+    public void WriteText(string text)
     {
-        AnsiConsole.WriteLine(EscapeMarkup(text));
+        _console.WriteLine(EscapeMarkup(text));
     }
 
     /// <summary>
     /// Asks the user for text input with a prompt.
     /// </summary>
-    public static string AskForInput(string prompt)
+    public string AskForInput(string prompt)
     {
-        return AnsiConsole.Ask<string>($"[green]{EscapeMarkup(prompt)}[/]");
+        return _console.Ask<string>($"[green]{EscapeMarkup(prompt)}[/]");
     }
 
     /// <summary>
     /// Asks the user for numeric input with validation.
     /// </summary>
-    public static int AskForNumber(string prompt, int min = int.MinValue, int max = int.MaxValue)
+    public int AskForNumber(string prompt, int min = int.MinValue, int max = int.MaxValue)
     {
         // Escape markup in prompt to prevent injection
         var safePrompt = prompt.Replace("[", "[[").Replace("]", "]]");
         
-        return AnsiConsole.Prompt(
+        return _console.Prompt(
             new TextPrompt<int>($"[green]{safePrompt}[/]")
                 .ValidationErrorMessage($"[red]Please enter a number between {min} and {max}[/]")
                 .Validate(n => n >= min && n <= max
@@ -146,12 +163,12 @@ public static class ConsoleUI
     /// <summary>
     /// Shows a selection menu and returns the user's choice.
     /// </summary>
-    public static string ShowMenu(string title, params string[] choices)
+    public string ShowMenu(string title, params string[] choices)
     {
         // Escape markup in title to prevent injection
         var safeTitle = title.Replace("[", "[[").Replace("]", "]]");
         
-        return AnsiConsole.Prompt(
+        return _console.Prompt(
             new SelectionPrompt<string>()
                 .Title($"[yellow]{safeTitle}[/]")
                 .PageSize(10)
@@ -163,12 +180,12 @@ public static class ConsoleUI
     /// <summary>
     /// Shows a multi-selection menu and returns the user's choices.
     /// </summary>
-    public static List<string> ShowMultiSelectMenu(string title, params string[] choices)
+    public List<string> ShowMultiSelectMenu(string title, params string[] choices)
     {
         // Escape markup in title to prevent injection
         var safeTitle = title.Replace("[", "[[").Replace("]", "]]");
         
-        return AnsiConsole.Prompt(
+        return _console.Prompt(
             new MultiSelectionPrompt<string>()
                 .Title($"[yellow]{safeTitle}[/]")
                 .PageSize(10)
@@ -181,17 +198,17 @@ public static class ConsoleUI
     /// <summary>
     /// Asks a yes/no confirmation question.
     /// </summary>
-    public static bool Confirm(string question)
+    public bool Confirm(string question)
     {
         // Escape markup in question to prevent injection
         var safeQuestion = question.Replace("[", "[[").Replace("]", "]]");
-        return AnsiConsole.Confirm($"[yellow]{safeQuestion}[/]");
+        return _console.Confirm($"[yellow]{safeQuestion}[/]");
     }
 
     /// <summary>
     /// Displays a simple table with headers and rows.
     /// </summary>
-    public static void ShowTable(string title, string[] headers, List<string[]> rows)
+    public void ShowTable(string title, string[] headers, List<string[]> rows)
     {
         // Escape markup in title to prevent injection
         var safeTitle = title.Replace("[", "[[").Replace("]", "]]");
@@ -214,14 +231,14 @@ public static class ConsoleUI
             table.AddRow(safeRow);
         }
 
-        AnsiConsole.Write(table);
+        _console.Write(table);
     }
 
     /// <summary>
     /// Displays text inside a styled panel.
     /// Note: Content supports markup. Use EscapeMarkup for user input if needed.
     /// </summary>
-    public static void ShowPanel(string title, string content, string borderColor = "blue")
+    public void ShowPanel(string title, string content, string borderColor = "blue")
     {
         var color = borderColor.ToLower() switch
         {
@@ -241,47 +258,47 @@ public static class ConsoleUI
             BorderStyle = new Style(color)
         };
 
-        AnsiConsole.Write(panel);
+        _console.Write(panel);
     }
 
     /// <summary>
     /// Displays a success message.
     /// </summary>
-    public static void ShowSuccess(string message)
+    public void ShowSuccess(string message)
     {
-        AnsiConsole.MarkupLine($"[green]✓[/] {EscapeMarkup(message)}");
+        _console.MarkupLine($"[green]✓[/] {EscapeMarkup(message)}");
     }
 
     /// <summary>
     /// Displays an error message.
     /// </summary>
-    public static void ShowError(string message)
+    public void ShowError(string message)
     {
-        AnsiConsole.MarkupLine($"[red]✗[/] {EscapeMarkup(message)}");
+        _console.MarkupLine($"[red]✗[/] {EscapeMarkup(message)}");
     }
 
     /// <summary>
     /// Displays a warning message.
     /// </summary>
-    public static void ShowWarning(string message)
+    public void ShowWarning(string message)
     {
-        AnsiConsole.MarkupLine($"[yellow]⚠[/] {EscapeMarkup(message)}");
+        _console.MarkupLine($"[yellow]⚠[/] {EscapeMarkup(message)}");
     }
 
     /// <summary>
     /// Displays an info message.
     /// </summary>
-    public static void ShowInfo(string message)
+    public void ShowInfo(string message)
     {
-        AnsiConsole.MarkupLine($"[blue]ℹ[/] {EscapeMarkup(message)}");
+        _console.MarkupLine($"[blue]ℹ[/] {EscapeMarkup(message)}");
     }
 
     /// <summary>
     /// Shows a progress bar while executing an action.
     /// </summary>
-    public static void ShowProgress(string description, Action<ProgressTask> action)
+    public void ShowProgress(string description, Action<ProgressTask> action)
     {
-        AnsiConsole.Progress()
+        _console.Progress()
             .Start(ctx =>
             {
                 var task = ctx.AddTask($"[green]{description}[/]");
@@ -296,9 +313,9 @@ public static class ConsoleUI
     /// <summary>
     /// Shows a status spinner while executing an async operation.
     /// </summary>
-    public static async Task<T> ShowSpinnerAsync<T>(string message, Func<Task<T>> asyncAction)
+    public async Task<T> ShowSpinnerAsync<T>(string message, Func<Task<T>> asyncAction)
     {
-        return await AnsiConsole.Status()
+        return await _console.Status()
             .Spinner(Spinner.Known.Dots)
             .StartAsync($"[yellow]{EscapeMarkup(message)}[/]", async ctx => 
             {
@@ -309,9 +326,9 @@ public static class ConsoleUI
     /// <summary>
     /// Shows a status spinner (void) while executing an async operation.
     /// </summary>
-    public static async Task ShowSpinnerAsync(string message, Func<Task> asyncAction)
+    public async Task ShowSpinnerAsync(string message, Func<Task> asyncAction)
     {
-        await AnsiConsole.Status()
+        await _console.Status()
             .Spinner(Spinner.Known.Dots)
             .StartAsync($"[yellow]{EscapeMarkup(message)}[/]", async ctx => 
             {
@@ -322,17 +339,17 @@ public static class ConsoleUI
     /// <summary>
     /// Displays a tree structure for hierarchical data.
     /// </summary>
-    public static void ShowTree(string rootLabel, Action<IHasTreeNodes> buildTree)
+    public void ShowTree(string rootLabel, Action<IHasTreeNodes> buildTree)
     {
         var tree = new Tree(EscapeMarkup(rootLabel));
         buildTree(tree);
-        AnsiConsole.Write(tree);
+        _console.Write(tree);
     }
 
     /// <summary>
     /// Displays a bar chart.
     /// </summary>
-    public static void ShowBarChart(string title, Dictionary<string, double> data, int width = 50)
+    public void ShowBarChart(string title, Dictionary<string, double> data, int width = 50)
     {
         var chart = new BarChart()
             .Width(width)
@@ -343,13 +360,13 @@ public static class ConsoleUI
             chart.AddItem(EscapeMarkup(item.Key), item.Value, Color.Green);
         }
 
-        AnsiConsole.Write(chart);
+        _console.Write(chart);
     }
 
     /// <summary>
     /// Displays a breakdown chart (percentages).
     /// </summary>
-    public static void ShowBreakdownChart(string title, Dictionary<string, double> data)
+    public void ShowBreakdownChart(string title, Dictionary<string, double> data)
     {
         var chart = new BreakdownChart()
             .Width(60);
@@ -359,7 +376,7 @@ public static class ConsoleUI
             chart.AddItem(EscapeMarkup(key), value, Color.Green);
         }
 
-        AnsiConsole.Write(new Panel(chart)
+        _console.Write(new Panel(chart)
         {
             Header = new PanelHeader($"[bold yellow]{EscapeMarkup(title)}[/]"),
             Border = BoxBorder.Rounded
@@ -369,7 +386,7 @@ public static class ConsoleUI
     /// <summary>
     /// Displays a calendar for a specific month/year.
     /// </summary>
-    public static void ShowCalendar(int year, int month, string title = "Calendar")
+    public void ShowCalendar(int year, int month, string title = "Calendar")
     {
         var calendar = new Calendar(year, month)
         {
@@ -377,7 +394,7 @@ public static class ConsoleUI
             HeaderStyle = new Style(Color.Blue, Color.Default, Decoration.Bold)
         };
 
-        AnsiConsole.Write(new Panel(calendar)
+        _console.Write(new Panel(calendar)
         {
             Header = new PanelHeader($"[bold]{EscapeMarkup(title)}[/]")
         });
@@ -386,17 +403,17 @@ public static class ConsoleUI
     /// <summary>
     /// Displays an exception with nice formatting.
     /// </summary>
-    public static void ShowException(Exception ex)
+    public void ShowException(Exception ex)
     {
-        AnsiConsole.WriteException(ex, ExceptionFormats.ShortenEverything);
+        _console.WriteException(ex, ExceptionFormats.ShortenEverything);
     }
 
     /// <summary>
     /// Creates a live display area that can be updated in real-time.
     /// </summary>
-    public static async Task ShowLiveDisplayAsync(IRenderable initialDisplay, Func<LiveDisplayContext, Task> updateAction)
+    public async Task ShowLiveDisplayAsync(IRenderable initialDisplay, Func<LiveDisplayContext, Task> updateAction)
     {
-        await AnsiConsole.Live(initialDisplay)
+        await _console.Live(initialDisplay)
             .StartAsync(updateAction);
     }
 
@@ -407,26 +424,26 @@ public static class ConsoleUI
     /// <summary>
     /// Displays content in multiple columns.
     /// </summary>
-    public static void ShowColumns(params IRenderable[] columns)
+    public void ShowColumns(params IRenderable[] columns)
     {
         var columnLayout = new Columns(columns);
-        AnsiConsole.Write(columnLayout);
+        _console.Write(columnLayout);
     }
 
     /// <summary>
     /// Displays a grid layout with rows and columns.
     /// </summary>
-    public static void ShowGrid(Action<Grid> buildGrid)
+    public void ShowGrid(Action<Grid> buildGrid)
     {
         var grid = new Grid();
         buildGrid(grid);
-        AnsiConsole.Write(grid);
+        _console.Write(grid);
     }
 
     /// <summary>
     /// Displays a 2-column combat layout with main content on left and combat log on right.
     /// </summary>
-    public static void ShowCombatLayout(IRenderable mainContent, List<string> logEntries, string logTitle = "Combat Log", int maxLogLines = 15)
+    public void ShowCombatLayout(IRenderable mainContent, List<string> logEntries, string logTitle = "Combat Log", int maxLogLines = 15)
     {
         // Pad log entries to always show maxLogLines (fill with empty lines if needed)
         var paddedEntries = new List<string>();
@@ -467,13 +484,13 @@ public static class ConsoleUI
 
         table.AddRow(mainContent, logPanel);
 
-        AnsiConsole.Write(table);
+        _console.Write(table);
     }
 
     /// <summary>
     /// Shows a two-column layout (label: value) for displaying character stats, etc.
     /// </summary>
-    public static void ShowKeyValueList(string title, Dictionary<string, string> items, string borderColor = "blue")
+    public void ShowKeyValueList(string title, Dictionary<string, string> items, string borderColor = "blue")
     {
         var table = new Table()
         {
@@ -494,7 +511,7 @@ public static class ConsoleUI
             table.AddRow(EscapeMarkup(key), EscapeMarkup(value));
         }
 
-        AnsiConsole.Write(table);
+        _console.Write(table);
     }
 
     #endregion
@@ -504,7 +521,7 @@ public static class ConsoleUI
     /// <summary>
     /// Displays character stats using a Character model.
     /// </summary>
-    public static void ShowCharacterStats(Character character)
+    public void ShowCharacterStats(Character character)
     {
         ShowCharacterStats(
             character.Name,
@@ -521,7 +538,7 @@ public static class ConsoleUI
     /// <summary>
     /// Displays character stats in a beautiful panel.
     /// </summary>
-    public static void ShowCharacterStats(string name, int level, int health, int maxHealth, 
+    public void ShowCharacterStats(string name, int level, int health, int maxHealth, 
         int mana, int maxMana, int gold, int experience)
     {
         var grid = new Grid();
@@ -570,13 +587,13 @@ public static class ConsoleUI
             BorderStyle = new Style(Color.Green)
         };
 
-        AnsiConsole.Write(panel);
+        _console.Write(panel);
     }
 
     /// <summary>
     /// Shows a health bar with percentage.
     /// </summary>
-    public static void ShowHealthBar(int current, int max, string label = "Health", int width = 40)
+    public void ShowHealthBar(int current, int max, string label = "Health", int width = 40)
     {
         var percentage = (double)current / max;
         Color color = Color.Red;
@@ -588,8 +605,8 @@ public static class ConsoleUI
             .AddItem(label, current, color)
             .AddItem("", max - current, Color.Grey);
 
-        AnsiConsole.Write(bar);
-        AnsiConsole.MarkupLine($"[{color.ToString().ToLower()}]{current}/{max} ({percentage:P0})[/]");
+        _console.Write(bar);
+        _console.MarkupLine($"[{color.ToString().ToLower()}]{current}/{max} ({percentage:P0})[/]");
     }
 
     #endregion
@@ -599,11 +616,11 @@ public static class ConsoleUI
     /// <summary>
     /// Shows a menu with custom item objects (displays a property as the label).
     /// </summary>
-    public static T ShowObjectMenu<T>(string title, IEnumerable<T> items, Func<T, string> labelSelector) where T : notnull
+    public T ShowObjectMenu<T>(string title, IEnumerable<T> items, Func<T, string> labelSelector) where T : notnull
     {
         var safeTitle = EscapeMarkup(title);
         
-        return AnsiConsole.Prompt(
+        return _console.Prompt(
             new SelectionPrompt<T>()
                 .Title($"[yellow]{safeTitle}[/]")
                 .PageSize(10)
@@ -615,9 +632,9 @@ public static class ConsoleUI
     /// <summary>
     /// Shows a password input prompt (masked).
     /// </summary>
-    public static string AskForPassword(string prompt)
+    public string AskForPassword(string prompt)
     {
-        return AnsiConsole.Prompt(
+        return _console.Prompt(
             new TextPrompt<string>($"[green]{EscapeMarkup(prompt)}[/]")
                 .PromptStyle("red")
                 .Secret()
@@ -627,9 +644,9 @@ public static class ConsoleUI
     /// <summary>
     /// Shows a text input with default value.
     /// </summary>
-    public static string AskForInputWithDefault(string prompt, string defaultValue)
+    public string AskForInputWithDefault(string prompt, string defaultValue)
     {
-        return AnsiConsole.Prompt(
+        return _console.Prompt(
             new TextPrompt<string>($"[green]{EscapeMarkup(prompt)}[/]")
                 .DefaultValue(defaultValue)
                 .ShowDefaultValue(true)
@@ -639,9 +656,9 @@ public static class ConsoleUI
     /// <summary>
     /// Shows a validated text input with custom validation.
     /// </summary>
-    public static string AskForInputWithValidation(string prompt, Func<string, ValidationResult> validator)
+    public string AskForInputWithValidation(string prompt, Func<string, ValidationResult> validator)
     {
-        return AnsiConsole.Prompt(
+        return _console.Prompt(
             new TextPrompt<string>($"[green]{EscapeMarkup(prompt)}[/]")
                 .Validate(validator)
         );
@@ -654,43 +671,43 @@ public static class ConsoleUI
     /// <summary>
     /// Clears the console screen.
     /// </summary>
-    public static void Clear()
+    public void Clear()
     {
-        AnsiConsole.Clear();
+        _console.Clear();
     }
 
     /// <summary>
     /// Waits for the user to press any key.
     /// </summary>
-    public static void PressAnyKey(string message = "Press any key to continue...")
+    public void PressAnyKey(string message = "Press any key to continue...")
     {
-        AnsiConsole.MarkupLine($"[dim]{message}[/]");
+        _console.MarkupLine($"[dim]{message}[/]");
         Console.ReadKey(true);
     }
 
     /// <summary>
     /// Writes a blank line.
     /// </summary>
-    public static void WriteLine()
+    public void WriteLine()
     {
-        AnsiConsole.WriteLine();
+        _console.WriteLine();
     }
 
     /// <summary>
     /// Writes multiple blank lines.
     /// </summary>
-    public static void WriteLines(int count)
+    public void WriteLines(int count)
     {
         for (int i = 0; i < count; i++)
         {
-            AnsiConsole.WriteLine();
+            _console.WriteLine();
         }
     }
 
     /// <summary>
     /// Sets the console title.
     /// </summary>
-    public static void SetTitle(string title)
+    public void SetTitle(string title)
     {
         Console.Title = title;
     }
@@ -698,10 +715,10 @@ public static class ConsoleUI
     /// <summary>
     /// Shows a divider line.
     /// </summary>
-    public static void ShowDivider(string character = "─", string color = "grey")
+    public void ShowDivider(string character = "─", string color = "grey")
     {
         var width = Console.WindowWidth;
-        AnsiConsole.MarkupLine($"[{color}]{new string(character[0], width)}[/]");
+        _console.MarkupLine($"[{color}]{new string(character[0], width)}[/]");
     }
 
     #endregion

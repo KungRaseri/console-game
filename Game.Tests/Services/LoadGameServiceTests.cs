@@ -1,10 +1,14 @@
 using Game.Services;
 using Game.Features.SaveLoad;
 using Game.Shared.Services;
+using Game.Shared.UI;
+using Game.Tests.Helpers;
+using Game.Models;
 using Xunit;
 using FluentAssertions;
 using System;
 using System.IO;
+using Spectre.Console.Testing;
 
 namespace Game.Tests.Services;
 
@@ -18,15 +22,23 @@ public class LoadGameServiceTests : IDisposable
     private readonly LoadGameService _loadGameService;
     private readonly SaveGameService _saveGameService;
     private readonly ApocalypseTimer _apocalypseTimer;
+    private readonly TestConsole _testConsole;
+    private readonly ConsoleUI _consoleUI;
     private readonly string _testDbPath;
 
     public LoadGameServiceTests()
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-loadgame-{Guid.NewGuid()}.db";
-        _apocalypseTimer = new ApocalypseTimer();
+        
+        // Create TestConsole for UI testing
+        _testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        _consoleUI = new ConsoleUI(_testConsole);
+        
+        // Create services with TestConsole
+        _apocalypseTimer = new ApocalypseTimer(_consoleUI);
         _saveGameService = new SaveGameService(_apocalypseTimer, _testDbPath);
-        _loadGameService = new LoadGameService(_saveGameService, _apocalypseTimer);
+        _loadGameService = new LoadGameService(_saveGameService, _apocalypseTimer, _consoleUI);
     }
 
     public void Dispose()
@@ -54,10 +66,17 @@ public class LoadGameServiceTests : IDisposable
     public void LoadGameService_Should_Be_Instantiable()
     {
         // Arrange & Act
-        var service = new LoadGameService(_saveGameService, _apocalypseTimer);
+        var testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        var consoleUI = new ConsoleUI(testConsole);
+        var apocalypseTimer = new ApocalypseTimer(consoleUI);
+        var saveGameService = new SaveGameService(apocalypseTimer, $"test-temp-{Guid.NewGuid()}.db");
+        var service = new LoadGameService(saveGameService, apocalypseTimer, consoleUI);
 
         // Assert
         service.Should().NotBeNull();
+        
+        // Cleanup
+        saveGameService.Dispose();
     }
 
     [Fact]
@@ -68,48 +87,56 @@ public class LoadGameServiceTests : IDisposable
         _saveGameService.Should().NotBeNull();
     }
 
-    [Fact(Skip = "LoadGameAsync requires interactive terminal - calls ConsoleUI.ShowMenu()")]
+    [Fact]
     public async Task LoadGameAsync_Should_Return_Unsuccessful_When_No_Saves_Exist()
     {
-        // Note: This test is skipped because LoadGameAsync calls ConsoleUI methods
-        // which require an interactive terminal.
+        // Arrange
+        // Simulate user selecting "Go Back" option (index 0 when no saves exist)
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0);
+
+        // Act
+        var (save, success) = await _loadGameService.LoadGameAsync();
+
+        // Assert
+        save.Should().BeNull("No saves exist to load");
+        success.Should().BeFalse("User selected Go Back");
         
-        // If we could test it, it would look like:
-        // var (save, success) = await _loadGameService.LoadGameAsync();
-        // save.Should().BeNull();
-        // success.Should().BeFalse();
-        
-        await Task.CompletedTask;
+        // Verify console output shows appropriate message
+        var output = TestConsoleHelper.GetOutput(_testConsole);
+        output.Should().Contain("No saved games found", "Should inform user no saves exist");
     }
 
-    [Fact(Skip = "LoadGameAsync requires interactive terminal - calls ConsoleUI.ShowTable() and ShowMenu()")]
+    [Fact]
     public async Task LoadGameAsync_Should_Display_Available_Saves_When_Saves_Exist()
     {
-        // Note: This test is skipped because LoadGameAsync calls ConsoleUI methods
-        // which require an interactive terminal.
-        
-        // If we could test it, we would:
-        // 1. Create some test saves
-        // 2. Call LoadGameAsync()
-        // 3. Verify that saves are displayed in a table
-        // 4. Verify menu options are shown
-        
-        await Task.CompletedTask;
-    }
+        // Arrange - Create test save and persist it to database
+        var testCharacter = new Character
+        {
+            Name = "TestHero",
+            ClassName = "Warrior",
+            Level = 5,
+            Health = 100,
+            MaxHealth = 100,
+            Mana = 50,
+            MaxMana = 50
+        };
+        var saveGame = _saveGameService.CreateNewGame(testCharacter, DifficultySettings.Normal);
+        _saveGameService.SaveGame(saveGame); // Persist to database
 
-    [Fact(Skip = "DeleteSaveAsync is private and requires interactive terminal")]
-    public async Task DeleteSaveAsync_Should_Delete_Save_With_Confirmation()
-    {
-        // Note: This test is skipped because:
-        // 1. DeleteSaveAsync is a private method
-        // 2. It calls ConsoleUI.Confirm() which requires an interactive terminal
+        // Simulate user selecting "Go Back" option to avoid loading
+        TestConsoleHelper.SelectMenuOption(_testConsole, 2); // Save is at index 0, Delete at 1, Go Back at index 2
+
+        // Act
+        var (save, success) = await _loadGameService.LoadGameAsync();
+
+        // Assert
+        save.Should().BeNull("User selected Go Back instead of loading");
+        success.Should().BeFalse();
         
-        // If we could test it with reflection, we would:
-        // 1. Create a test save
-        // 2. Call DeleteSaveAsync via reflection
-        // 3. Verify save is deleted after confirmation
-        
-        await Task.CompletedTask;
+        // Verify console output shows the save in a table
+        var output = TestConsoleHelper.GetOutput(_testConsole);
+        output.Should().Contain("TestHero", "Save should be displayed");
+        output.Should().Contain("Level", "Table should show level column");
     }
 
     [Fact]

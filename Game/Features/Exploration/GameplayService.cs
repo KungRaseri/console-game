@@ -11,10 +11,12 @@ namespace Game.Features.Exploration;
 public class GameplayService
 {
     private readonly SaveGameService _saveGameService;
+    private readonly IConsoleUI _console;
 
-    public GameplayService(SaveGameService saveGameService)
+    public GameplayService(SaveGameService saveGameService, IConsoleUI console)
     {
         _saveGameService = saveGameService;
+        _console = console;
     }
 
     /// <summary>
@@ -24,12 +26,12 @@ public class GameplayService
     {
         if (player == null) return;
 
-        ConsoleUI.ShowInfo("You rest and recover...");
+        _console.ShowInfo("You rest and recover...");
 
         player.Health = player.MaxHealth;
         player.Mana = player.MaxMana;
 
-        ConsoleUI.ShowSuccess("Fully rested!");
+        _console.ShowSuccess("Fully rested!");
         
         Log.Information("Player {PlayerName} rested", player.Name);
     }
@@ -41,21 +43,21 @@ public class GameplayService
     {
         if (player == null)
         {
-            ConsoleUI.ShowError("No active game to save!");
+            _console.ShowError("No active game to save!");
             return;
         }
 
-        ConsoleUI.ShowInfo("Saving game...");
+        _console.ShowInfo("Saving game...");
 
         try
         {
             _saveGameService.SaveGame(player, inventory, currentSaveId);
-            ConsoleUI.ShowSuccess("Game saved successfully!");
+            _console.ShowSuccess("Game saved successfully!");
             Log.Information("Game saved for player {PlayerName}", player.Name);
         }
         catch (Exception ex)
         {
-            ConsoleUI.ShowError($"Failed to save game: {ex.Message}");
+            _console.ShowError($"Failed to save game: {ex.Message}");
             Log.Error(ex, "Failed to save game");
         }
     }

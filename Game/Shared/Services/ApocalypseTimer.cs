@@ -9,6 +9,7 @@ namespace Game.Shared.Services;
 /// </summary>
 public class ApocalypseTimer
 {
+    private readonly IConsoleUI _console;
     private DateTime _startTime;
     private int _totalMinutes = 240; // 4 hours = 240 minutes
     private int _bonusMinutes = 0;
@@ -18,6 +19,11 @@ public class ApocalypseTimer
     private bool _hasShownOneHourWarning = false;
     private bool _hasShownThirtyMinWarning = false;
     private bool _hasShownTenMinWarning = false;
+    
+    public ApocalypseTimer(IConsoleUI console)
+    {
+        _console = console;
+    }
     
     /// <summary>
     /// Start the apocalypse timer.
@@ -105,14 +111,14 @@ public class ApocalypseTimer
     {
         _bonusMinutes += minutes;
         
-        ConsoleUI.Clear();
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════");
-        ConsoleUI.ShowSuccess("      BONUS TIME AWARDED!              ");
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════");
-        ConsoleUI.WriteText($"  Reason: {reason}");
-        ConsoleUI.WriteText($"  Bonus: +{minutes} minutes");
-        ConsoleUI.WriteText($"  New Total: {GetRemainingMinutes()} minutes remaining");
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════");
+        _console.Clear();
+        _console.ShowSuccess("═══════════════════════════════════════");
+        _console.ShowSuccess("      BONUS TIME AWARDED!              ");
+        _console.ShowSuccess("═══════════════════════════════════════");
+        _console.WriteText($"  Reason: {reason}");
+        _console.WriteText($"  Bonus: +{minutes} minutes");
+        _console.WriteText($"  New Total: {GetRemainingMinutes()} minutes remaining");
+        _console.ShowSuccess("═══════════════════════════════════════");
         
         Log.Information("Bonus time awarded: {Minutes} minutes. Reason: {Reason}. Remaining: {Remaining}",
             minutes, reason, GetRemainingMinutes());
@@ -180,13 +186,13 @@ public class ApocalypseTimer
     /// </summary>
     private void ShowTimeWarning(string title, string message)
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowWarning("═══════════════════════════════════════");
-        ConsoleUI.ShowWarning($"      {title}");
-        ConsoleUI.ShowWarning("═══════════════════════════════════════");
-        ConsoleUI.WriteText($"  {message}");
-        ConsoleUI.WriteText($"  Time Left: {GetFormattedTimeRemaining()}");
-        ConsoleUI.ShowWarning("═══════════════════════════════════════");
+        _console.Clear();
+        _console.ShowWarning("═══════════════════════════════════════");
+        _console.ShowWarning($"      {title}");
+        _console.ShowWarning("═══════════════════════════════════════");
+        _console.WriteText($"  {message}");
+        _console.WriteText($"  Time Left: {GetFormattedTimeRemaining()}");
+        _console.ShowWarning("═══════════════════════════════════════");
         
         Log.Warning("Apocalypse timer warning: {Title}", title);
         Thread.Sleep(3000);

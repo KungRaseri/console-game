@@ -14,11 +14,13 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
 {
     private readonly IMediator _mediator;
     private readonly GameStateService _gameState;
+    private readonly IConsoleUI _console;
 
-    public ExploreLocationCommandHandler(IMediator mediator, GameStateService gameState)
+    public ExploreLocationCommandHandler(IMediator mediator, GameStateService gameState, IConsoleUI console)
     {
         _mediator = mediator;
         _gameState = gameState;
+        _console = console;
     }
 
     public async Task<ExploreLocationResult> Handle(ExploreLocationCommand request, CancellationToken cancellationToken)
@@ -27,10 +29,10 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
         {
             var player = _gameState.Player;
             
-            ConsoleUI.ShowInfo($"Exploring {_gameState.CurrentLocation}...");
+            _console.ShowInfo($"Exploring {_gameState.CurrentLocation}...");
 
             // Simulate exploration
-            ConsoleUI.ShowProgress("Exploring...", task =>
+            _console.ShowProgress("Exploring...", task =>
             {
                 task.MaxValue = 100;
                 for (int i = 0; i <= 100; i += 10)
@@ -46,7 +48,7 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
             if (encounterRoll < 60)
             {
                 // Combat encounter!
-                ConsoleUI.ShowWarning("You encounter an enemy!");
+                _console.ShowWarning("You encounter an enemy!");
                 await Task.Delay(300);
                 return new ExploreLocationResult(true, CombatTriggered: true);
             }
@@ -62,7 +64,7 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
                 await _mediator.Publish(new PlayerLeveledUp(player.Name, player.Level), cancellationToken);
             }
 
-            ConsoleUI.ShowSuccess($"Gained {xpGained} XP!");
+            _console.ShowSuccess($"Gained {xpGained} XP!");
 
             // Find gold
             var goldFound = Random.Shared.Next(5, 25);
@@ -80,7 +82,7 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
                 await _mediator.Publish(new ItemAcquired(player.Name, foundItem.Name), cancellationToken);
                 
                 var rarityColor = GetRarityColor(foundItem.Rarity);
-                ConsoleUI.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
+                _console.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
                 itemFound = foundItem.Name;
             }
 

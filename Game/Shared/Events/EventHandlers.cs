@@ -10,9 +10,16 @@ namespace Game.Shared.Events;
 /// </summary>
 public class CharacterCreatedHandler : INotificationHandler<CharacterCreated>
 {
+    private readonly IConsoleUI _console;
+    
+    public CharacterCreatedHandler(IConsoleUI console)
+    {
+        _console = console;
+    }
+    
     public Task Handle(CharacterCreated notification, CancellationToken cancellationToken)
     {
-        ConsoleUI.WriteColoredText($"[green]⚔️ {notification.PlayerName} enters the world![/]");
+        _console.WriteColoredText($"[green]⚔️ {notification.PlayerName} enters the world![/]");
         Log.Information("New character created: {PlayerName}", notification.PlayerName);
         return Task.CompletedTask;
     }
@@ -23,10 +30,16 @@ public class CharacterCreatedHandler : INotificationHandler<CharacterCreated>
 /// </summary>
 public class PlayerLeveledUpHandler : INotificationHandler<PlayerLeveledUp>
 {
+    private readonly IConsoleUI _console;
+    
+    public PlayerLeveledUpHandler(IConsoleUI console)
+    {
+        _console = console;
+    }
     public Task Handle(PlayerLeveledUp notification, CancellationToken cancellationToken)
     {
-        ConsoleUI.ShowSuccess($"🎉 {notification.PlayerName} reached level {notification.NewLevel}!");
-        ConsoleUI.WriteColoredText($"[yellow]★[/] Congratulations! You are now more powerful!");
+        _console.ShowSuccess($"🎉 {notification.PlayerName} reached level {notification.NewLevel}!");
+        _console.WriteColoredText($"[yellow]★[/] Congratulations! You are now more powerful!");
         Log.Information("{PlayerName} leveled up to {Level}", notification.PlayerName, notification.NewLevel);
         return Task.CompletedTask;
     }
@@ -37,9 +50,16 @@ public class PlayerLeveledUpHandler : INotificationHandler<PlayerLeveledUp>
 /// </summary>
 public class GoldGainedHandler : INotificationHandler<GoldGained>
 {
+    private readonly IConsoleUI _console;
+    
+    public GoldGainedHandler(IConsoleUI console)
+    {
+        _console = console;
+    }
+    
     public Task Handle(GoldGained notification, CancellationToken cancellationToken)
     {
-        ConsoleUI.WriteColoredText($"[yellow]💰 +{notification.Amount} gold[/]");
+        _console.WriteColoredText($"[yellow]💰 +{notification.Amount} gold[/]");
         Log.Debug("{PlayerName} gained {Gold} gold", notification.PlayerName, notification.Amount);
         return Task.CompletedTask;
     }
@@ -50,9 +70,16 @@ public class GoldGainedHandler : INotificationHandler<GoldGained>
 /// </summary>
 public class DamageTakenHandler : INotificationHandler<DamageTaken>
 {
+    private readonly IConsoleUI _console;
+    
+    public DamageTakenHandler(IConsoleUI console)
+    {
+        _console = console;
+    }
+    
     public Task Handle(DamageTaken notification, CancellationToken cancellationToken)
     {
-        ConsoleUI.WriteColoredText($"[red]❤️ -{notification.Amount} health[/]");
+        _console.WriteColoredText($"[red]❤️ -{notification.Amount} health[/]");
         Log.Debug("{PlayerName} took {Damage} damage", notification.PlayerName, notification.Amount);
         return Task.CompletedTask;
     }
@@ -63,9 +90,16 @@ public class DamageTakenHandler : INotificationHandler<DamageTaken>
 /// </summary>
 public class ItemAcquiredHandler : INotificationHandler<ItemAcquired>
 {
+    private readonly IConsoleUI _console;
+    
+    public ItemAcquiredHandler(IConsoleUI console)
+    {
+        _console = console;
+    }
+    
     public Task Handle(ItemAcquired notification, CancellationToken cancellationToken)
     {
-        ConsoleUI.WriteColoredText($"[green]📦 Acquired: {notification.ItemName}[/]");
+        _console.WriteColoredText($"[green]📦 Acquired: {notification.ItemName}[/]");
         Log.Information("{PlayerName} acquired item: {ItemName}", notification.PlayerName, notification.ItemName);
         return Task.CompletedTask;
     }

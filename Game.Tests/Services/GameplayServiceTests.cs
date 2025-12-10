@@ -1,4 +1,7 @@
 using Game.Models;
+using Game.Shared.UI;
+using Game.Tests.Helpers;
+using Spectre.Console.Testing;
 using Game.Services;
 using Game.Features.Exploration;
 using Game.Features.SaveLoad;
@@ -18,14 +21,20 @@ public class GameplayServiceTests : IDisposable
 {
     private readonly GameplayService _gameplayService;
     private readonly SaveGameService _saveGameService;
+    private readonly TestConsole _testConsole;
+    private readonly ConsoleUI _consoleUI;
     private readonly string _testDbPath;
 
     public GameplayServiceTests()
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-gameplay-{Guid.NewGuid()}.db";
-        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbPath);
-        _gameplayService = new GameplayService(_saveGameService);
+        
+        _testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        _consoleUI = new ConsoleUI(_testConsole);
+        
+        _saveGameService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbPath);
+        _gameplayService = new GameplayService(_saveGameService, _consoleUI);
     }
 
     public void Dispose()
@@ -53,7 +62,7 @@ public class GameplayServiceTests : IDisposable
     public void GameplayService_Should_Be_Instantiable()
     {
         // Arrange & Act
-        var service = new GameplayService(_saveGameService);
+        var service = new GameplayService(_saveGameService, _consoleUI);
 
         // Assert
         service.Should().NotBeNull();
@@ -356,3 +365,4 @@ public class GameplayServiceTests : IDisposable
         save!.Character.Inventory.Should().BeEmpty();
     }
 }
+

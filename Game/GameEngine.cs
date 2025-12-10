@@ -89,10 +89,10 @@ public class GameEngine
                 catch (Exception ex)
                 {
                     Log.Error(ex, "Error in game loop");
-                    ConsoleUI.ShowError($"An error occurred: {ex.Message}");
+                    _services.Console.ShowError($"An error occurred: {ex.Message}");
 
                     // Ask if player wants to continue
-                    if (!ConsoleUI.Confirm("Continue playing?"))
+                    if (!_services.Console.Confirm("Continue playing?"))
                     {
                         _isRunning = false;
                     }
@@ -105,7 +105,7 @@ public class GameEngine
         catch (Exception ex)
         {
             Log.Fatal(ex, "Fatal error in game engine");
-            ConsoleUI.ShowError($"Fatal error: {ex.Message}");
+            _services.Console.ShowError($"Fatal error: {ex.Message}");
         }
         finally
         {
@@ -157,10 +157,10 @@ public class GameEngine
 
     private async Task InitializeLoadingScreenAsync()
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Loading Game...", "Please wait while the game initializes");
+        _services.Console.Clear();
+        _services.Console.ShowBanner("Loading Game...", "Please wait while the game initializes");
 
-        ConsoleUI.ShowProgress("Initializing...", task =>
+        _services.Console.ShowProgress("Initializing...", task =>
         {
             task.MaxValue = 100;
             for (int i = 0; i <= 100; i += 10)
@@ -194,7 +194,7 @@ public class GameEngine
                 break;
                 
             case "Settings":
-                ConsoleUI.ShowInfo("Settings not yet implemented");
+                _services.Console.ShowInfo("Settings not yet implemented");
                 break;
                 
             case "Exit":
@@ -269,7 +269,7 @@ public class GameEngine
                 break;
                 
             case var s when s.Contains("Level Up"):
-                await Services.LevelUpService.ProcessPendingLevelUpsAsync(Player);
+                await _services.LevelUpService.ProcessPendingLevelUpsAsync(Player);
                 break;
 
             case "Inventory":
@@ -285,7 +285,7 @@ public class GameEngine
                 break;
 
             case "Main Menu":
-                if (ConsoleUI.Confirm("Return to main menu? (unsaved progress will be lost)"))
+                if (_services.Console.Confirm("Return to main menu? (unsaved progress will be lost)"))
                 {
                     _state = GameState.MainMenu;
                     _currentSaveId = null; // Clear current save
@@ -356,7 +356,7 @@ public class GameEngine
                 break;
                 
             case GameState.MainMenu:
-                if (ConsoleUI.Confirm("Return to main menu? (unsaved progress will be lost)"))
+                if (_services.Console.Confirm("Return to main menu? (unsaved progress will be lost)"))
                 {
                     _state = GameState.MainMenu;
                     _currentSaveId = null;
@@ -367,10 +367,10 @@ public class GameEngine
 
     private async Task HandleGameOverAsync()
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("GAME OVER", $"{Player?.Name ?? "Hero"} has fallen...");
+        _services.Console.Clear();
+        _services.Console.ShowBanner("GAME OVER", $"{Player?.Name ?? "Hero"} has fallen...");
 
-        ConsoleUI.PressAnyKey("Press any key to return to main menu");
+        _services.Console.PressAnyKey("Press any key to return to main menu");
 
         _state = GameState.MainMenu;
         _currentSaveId = null; // Clear current save
@@ -413,7 +413,7 @@ public class GameEngine
         _services.ApocalypseTimer.Pause();
         try
         {
-            CharacterViewService.ViewCharacter(Player);
+            _services.CharacterView.ViewCharacter(Player);
             await Task.CompletedTask;
         }
         finally
@@ -441,7 +441,7 @@ public class GameEngine
     {
         if (Player == null)
         {
-            ConsoleUI.ShowError("No active game to save!");
+            _services.Console.ShowError("No active game to save!");
             return;
         }
         
@@ -479,8 +479,8 @@ public class GameEngine
 
     private async Task ShutdownGameAsync()
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Thanks for Playing!", "See you next time!");
+        _services.Console.Clear();
+        _services.Console.ShowBanner("Thanks for Playing!", "See you next time!");
         await Task.Delay(300);
     }
 
@@ -504,9 +504,9 @@ public class GameEngine
         }
         
         // Calculate spacing for centered layout
-        var leftLen = ConsoleUI.StripMarkup(leftInfo).Length;
-        var centerLen = ConsoleUI.StripMarkup(centerInfo).Length;
-        var rightLen = ConsoleUI.StripMarkup(rightInfo).Length;
+        var leftLen = _services.Console.StripMarkup(leftInfo).Length;
+        var centerLen = _services.Console.StripMarkup(centerInfo).Length;
+        var rightLen = _services.Console.StripMarkup(rightInfo).Length;
         
         var totalWidth = Console.WindowWidth;
         var spacing = Math.Max(2, (totalWidth - leftLen - centerLen - rightLen) / 2);
@@ -523,37 +523,37 @@ public class GameEngine
     /// </summary>
     private async Task HandleApocalypseGameOverAsync()
     {
-        ConsoleUI.Clear();
+        _services.Console.Clear();
         
         // Dramatic apocalypse sequence
-        ConsoleUI.ShowError("═══════════════════════════════════════");
+        _services.Console.ShowError("═══════════════════════════════════════");
         await Task.Delay(500);
-        ConsoleUI.ShowError("        TIME HAS RUN OUT...            ");
+        _services.Console.ShowError("        TIME HAS RUN OUT...            ");
         await Task.Delay(1000);
-        ConsoleUI.ShowError("═══════════════════════════════════════");
+        _services.Console.ShowError("═══════════════════════════════════════");
         await Task.Delay(1500);
         
         Console.Clear();
-        ConsoleUI.ShowError("The world trembles...");
+        _services.Console.ShowError("The world trembles...");
         await Task.Delay(2000);
         
-        ConsoleUI.ShowError("The sky darkens...");
+        _services.Console.ShowError("The sky darkens...");
         await Task.Delay(2000);
         
-        ConsoleUI.ShowError("Reality fractures...");
+        _services.Console.ShowError("Reality fractures...");
         await Task.Delay(2000);
         
         Console.Clear();
-        ConsoleUI.ShowError("═════════════════════════════════════════════════");
-        ConsoleUI.ShowError("                                                 ");
-        ConsoleUI.ShowError("         THE APOCALYPSE HAS COME                 ");
-        ConsoleUI.ShowError("                                                 ");
-        ConsoleUI.ShowError("═════════════════════════════════════════════════");
+        _services.Console.ShowError("═════════════════════════════════════════════════");
+        _services.Console.ShowError("                                                 ");
+        _services.Console.ShowError("         THE APOCALYPSE HAS COME                 ");
+        _services.Console.ShowError("                                                 ");
+        _services.Console.ShowError("═════════════════════════════════════════════════");
         await Task.Delay(2000);
         
         Console.WriteLine();
-        ConsoleUI.WriteText("The world crumbles into eternal darkness...");
-        ConsoleUI.WriteText("You failed to stop the inevitable.");
+        _services.Console.WriteText("The world crumbles into eternal darkness...");
+        _services.Console.WriteText("You failed to stop the inevitable.");
         Console.WriteLine();
         
         // Show final statistics
@@ -561,39 +561,39 @@ public class GameEngine
         if (saveGame != null)
         {
             var elapsed = _services.ApocalypseTimer.GetElapsedMinutes();
-            ConsoleUI.WriteText($"Time Survived: {elapsed / 60}h {elapsed % 60}m");
-            ConsoleUI.WriteText($"Final Level: {Player?.Level ?? 0}");
-            ConsoleUI.WriteText($"Quests Completed: {saveGame.QuestsCompleted}");
-            ConsoleUI.WriteText($"Enemies Defeated: {saveGame.TotalEnemiesDefeated}");
+            _services.Console.WriteText($"Time Survived: {elapsed / 60}h {elapsed % 60}m");
+            _services.Console.WriteText($"Final Level: {Player?.Level ?? 0}");
+            _services.Console.WriteText($"Quests Completed: {saveGame.QuestsCompleted}");
+            _services.Console.WriteText($"Enemies Defeated: {saveGame.TotalEnemiesDefeated}");
             Console.WriteLine();
             
             // Check progress
             var mainQuestProgress = CalculateMainQuestProgress(saveGame);
             if (mainQuestProgress >= 0.8) // 80% complete
             {
-                ConsoleUI.ShowWarning("You were so close... Only a few quests remained.");
+                _services.Console.ShowWarning("You were so close... Only a few quests remained.");
             }
             else if (mainQuestProgress >= 0.5)
             {
-                ConsoleUI.ShowWarning("You made significant progress, but it wasn't enough.");
+                _services.Console.ShowWarning("You made significant progress, but it wasn't enough.");
             }
             else
             {
-                ConsoleUI.ShowWarning("You barely scratched the surface of what was needed.");
+                _services.Console.ShowWarning("You barely scratched the surface of what was needed.");
             }
         }
         
         Console.WriteLine();
-        ConsoleUI.ShowError("═════════════════════════════════════════════════");
-        ConsoleUI.ShowError("                  GAME OVER                      ");
-        ConsoleUI.ShowError("═════════════════════════════════════════════════");
+        _services.Console.ShowError("═════════════════════════════════════════════════");
+        _services.Console.ShowError("                  GAME OVER                      ");
+        _services.Console.ShowError("═════════════════════════════════════════════════");
         
         Log.Warning("Apocalypse game over. Player failed to complete main quest in time.");
         
         await Task.Delay(5000);
         
         // Ask if they want to try again
-        if (ConsoleUI.Confirm("Try again?"))
+        if (_services.Console.Confirm("Try again?"))
         {
             _state = GameState.MainMenu;
         }

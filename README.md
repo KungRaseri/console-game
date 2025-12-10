@@ -21,19 +21,18 @@ This project uses **Vertical Slice Architecture** with **CQRS** (Command Query R
 
 **Complete documentation is available in the [docs/](./docs/) folder:**
 
-- 📖 **[User Guides](./docs/guides/)** - How to use the game systems and libraries
-- 🔧 **[Implementation Notes](./docs/implementation/)** - Technical decisions and summaries
-- 🧪 **[Testing](./docs/testing/)** - Test coverage reports and guidelines
+- 🎮 **[Game Design Document (GDD-Main.md)](./docs/GDD-Main.md)** - **START HERE!** Complete game overview, systems, and roadmap
+- � **[Vertical Slice Migration Summary](./docs/VERTICAL_SLICE_MIGRATION_SUMMARY.md)** - Complete migration details
+- 🚀 **[Developer Quick Reference](./docs/VERTICAL_SLICE_QUICK_REFERENCE.md)** - How to add new features
+- 📖 **[Documentation Index](./docs/README.md)** - All guides and implementation notes
 
-**Quick Links:**
+**Quick Guide Links:**
 - [Game Loop Guide](./docs/guides/GAME_LOOP_GUIDE.md) - Understanding the GameEngine architecture
 - [Inventory System Guide](./docs/guides/INVENTORY_GUIDE.md) - Complete item management system
 - [Settings Guide](./docs/guides/SETTINGS_GUIDE.md) - Configuration management
 - [ConsoleUI Guide](./docs/guides/CONSOLEUI_GUIDE.md) - Using Spectre.Console UI components
 - [Save/Load Guide](./docs/guides/SAVE_LOAD_GUIDE.md) - Game persistence system
-- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - 375 tests (887% growth)
-- [Phase 3 Completion Summary](./docs/PHASE_3_COMPLETE.md) - ✅ Refactoring complete!
-- [Final Refactoring Review](./docs/REFACTORING_FINAL_REVIEW.md) - Production readiness review
+- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - 375 tests (98.9% pass rate)
 
 ## Quick Start
 

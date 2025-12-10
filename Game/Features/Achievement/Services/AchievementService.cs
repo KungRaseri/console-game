@@ -9,10 +9,12 @@ public class AchievementService
 {
     private readonly SaveGameService _saveGameService;
     private readonly List<Models.Achievement> _allAchievements;
+    private readonly IConsoleUI _console;
     
-    public AchievementService(SaveGameService saveGameService)
+    public AchievementService(SaveGameService saveGameService, IConsoleUI console)
     {
         _saveGameService = saveGameService;
+        _console = console;
         _allAchievements = InitializeAchievements();
     }
     
@@ -107,14 +109,14 @@ public class AchievementService
     
     private void ShowAchievementUnlock(Models.Achievement achievement)
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════");
-        ConsoleUI.ShowSuccess("      ACHIEVEMENT UNLOCKED!            ");
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════");
-        ConsoleUI.WriteText($"  {achievement.Icon} {achievement.Title}");
-        ConsoleUI.WriteText($"  {achievement.Description}");
-        ConsoleUI.WriteText($"  Points: {achievement.Points}");
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════");
+        _console.Clear();
+        _console.ShowSuccess("═══════════════════════════════════════");
+        _console.ShowSuccess("      ACHIEVEMENT UNLOCKED!            ");
+        _console.ShowSuccess("═══════════════════════════════════════");
+        _console.WriteText($"  {achievement.Icon} {achievement.Title}");
+        _console.WriteText($"  {achievement.Description}");
+        _console.WriteText($"  Points: {achievement.Points}");
+        _console.ShowSuccess("═══════════════════════════════════════");
         Thread.Sleep(3000);
     }
     

@@ -11,10 +11,12 @@ namespace Game.Features.Exploration.Commands;
 public class TravelToLocationCommandHandler : IRequestHandler<TravelToLocationCommand, TravelToLocationResult>
 {
     private readonly GameStateService _gameState;
+    private readonly IConsoleUI _console;
 
-    public TravelToLocationCommandHandler(GameStateService gameState)
+    public TravelToLocationCommandHandler(GameStateService gameState, IConsoleUI console)
     {
         _gameState = gameState;
+        _console = console;
     }
 
     public Task<TravelToLocationResult> Handle(TravelToLocationCommand request, CancellationToken cancellationToken)
@@ -33,7 +35,7 @@ public class TravelToLocationCommandHandler : IRequestHandler<TravelToLocationCo
 
             _gameState.UpdateLocation(request.Destination);
             
-            ConsoleUI.ShowSuccess($"Traveled to {_gameState.CurrentLocation}");
+            _console.ShowSuccess($"Traveled to {_gameState.CurrentLocation}");
             Log.Information("Player traveled to {Location}", _gameState.CurrentLocation);
 
             return Task.FromResult(new TravelToLocationResult(true, NewLocation: _gameState.CurrentLocation));

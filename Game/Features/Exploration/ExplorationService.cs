@@ -17,6 +17,7 @@ public class ExplorationService
     private readonly IMediator _mediator;
     private readonly GameStateService _gameState;
     private readonly SaveGameService _saveGameService;
+    private readonly IConsoleUI _console;
     
     private readonly List<string> _knownLocations = new()
     {
@@ -30,11 +31,12 @@ public class ExplorationService
         "Underground Caverns"
     };
     
-    public ExplorationService(IMediator mediator, GameStateService gameState, SaveGameService saveGameService)
+    public ExplorationService(IMediator mediator, GameStateService gameState, SaveGameService saveGameService, IConsoleUI console)
     {
         _mediator = mediator;
         _gameState = gameState;
         _saveGameService = saveGameService;
+        _console = console;
     }
     
     /// <summary>
@@ -45,10 +47,10 @@ public class ExplorationService
     {
         var player = _gameState.Player;
         
-        ConsoleUI.ShowInfo($"Exploring {_gameState.CurrentLocation}...");
+        _console.ShowInfo($"Exploring {_gameState.CurrentLocation}...");
 
         // Simulate exploration
-        ConsoleUI.ShowProgress("Exploring...", task =>
+        _console.ShowProgress("Exploring...", task =>
         {
             task.MaxValue = 100;
             for (int i = 0; i <= 100; i += 10)
@@ -64,7 +66,7 @@ public class ExplorationService
         if (encounterRoll < 60)
         {
             // Combat encounter!
-            ConsoleUI.ShowWarning("You encounter an enemy!");
+            _console.ShowWarning("You encounter an enemy!");
             await Task.Delay(300);
             return true; // Indicates combat should start
         }
@@ -80,7 +82,7 @@ public class ExplorationService
             await _mediator.Publish(new PlayerLeveledUp(player.Name, newLevel));
         }
 
-        ConsoleUI.ShowSuccess($"Gained {xpGained} XP!");
+        _console.ShowSuccess($"Gained {xpGained} XP!");
 
         // Find gold
         var goldFound = Random.Shared.Next(5, 25);
@@ -96,7 +98,7 @@ public class ExplorationService
             await _mediator.Publish(new ItemAcquired(player.Name, foundItem.Name));
             
             var rarityColor = GetRarityColor(foundItem.Rarity);
-            ConsoleUI.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
+            _console.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
         }
         
         return false; // No combat
@@ -113,11 +115,11 @@ public class ExplorationService
 
         if (!availableLocations.Any())
         {
-            ConsoleUI.ShowInfo("No other locations available.");
+            _console.ShowInfo("No other locations available.");
             return;
         }
 
-        var choice = ConsoleUI.ShowMenu(
+        var choice = _console.ShowMenu(
             $"Current Location: {_gameState.CurrentLocation}\n\nWhere would you like to travel?",
             availableLocations.Concat(new[] { "Cancel" }).ToArray()
         );
@@ -127,7 +129,7 @@ public class ExplorationService
 
         _gameState.UpdateLocation(choice);
         
-        ConsoleUI.ShowSuccess($"Traveled to {_gameState.CurrentLocation}");
+        _console.ShowSuccess($"Traveled to {_gameState.CurrentLocation}");
         
         // Check for dropped items at the new location
         await CheckForDroppedItemsAsync(choice);
@@ -142,9 +144,9 @@ public class ExplorationService
         
         if (result.HasItems)
         {
-            ConsoleUI.ShowWarning($"\n⚠️  You see your dropped items here! ({result.Items.Count} items)");
+            _console.ShowWarning($"\n⚠️  You see your dropped items here! ({result.Items.Count} items)");
             
-            if (ConsoleUI.Confirm("Retrieve your items?"))
+            if (_console.Confirm("Retrieve your items?"))
             {
                 // Recover items
                 var saveGame = _saveGameService.GetCurrentSave();
@@ -153,7 +155,7 @@ public class ExplorationService
                     saveGame.Character.Inventory.AddRange(result.Items);
                     saveGame.DroppedItemsAtLocations.Remove(location);
                     
-                    ConsoleUI.ShowSuccess($"Recovered {result.Items.Count} items!");
+                    _console.ShowSuccess($"Recovered {result.Items.Count} items!");
                     await Task.Delay(1500);
                 }
             }

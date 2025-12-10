@@ -1,4 +1,7 @@
 using Game.Models;
+using Game.Shared.UI;
+using Game.Tests.Helpers;
+using Spectre.Console.Testing;
 using Game.Services;
 using Game.Features.CharacterCreation;
 using Game.Features.SaveLoad;
@@ -23,12 +26,20 @@ public class CharacterCreationOrchestratorTests : IDisposable
     private readonly CharacterCreationOrchestrator _orchestrator;
     private readonly SaveGameService _saveGameService;
     private readonly IMediator _mediator;
+    private readonly TestConsole _testConsole;
+    private readonly ConsoleUI _consoleUI;
+    private readonly CharacterViewService _characterViewService;
     private readonly string _testDbPath;
 
     public CharacterCreationOrchestratorTests()
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-charcreation-{Guid.NewGuid()}.db";
+        
+        // Setup TestConsole
+        _testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        _consoleUI = new ConsoleUI(_testConsole);
+        _characterViewService = new CharacterViewService(_consoleUI);
         
         // Setup MediatR
         var services = new ServiceCollection();
@@ -40,9 +51,9 @@ public class CharacterCreationOrchestratorTests : IDisposable
         var serviceProvider = services.BuildServiceProvider();
         _mediator = serviceProvider.GetRequiredService<IMediator>();
         
-        var apocalypseTimer = new ApocalypseTimer();
+        var apocalypseTimer = new ApocalypseTimer(_consoleUI);
         _saveGameService = new SaveGameService(apocalypseTimer, _testDbPath);
-        _orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, apocalypseTimer);
+        _orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, apocalypseTimer, _consoleUI, _characterViewService);
     }
 
     public void Dispose()
@@ -70,7 +81,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void CharacterCreationOrchestrator_Should_Be_Instantiable()
     {
         // Arrange & Act
-        var orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, new ApocalypseTimer());
+        var orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, new ApocalypseTimer(_consoleUI), _consoleUI, _characterViewService);
 
         // Assert
         orchestrator.Should().NotBeNull();
@@ -315,3 +326,4 @@ public class CharacterCreationOrchestratorTests : IDisposable
         }
     }
 }
+

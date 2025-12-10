@@ -18,12 +18,21 @@ public class CharacterCreationOrchestrator
     private readonly IMediator _mediator;
     private readonly SaveGameService _saveGameService;
     private readonly ApocalypseTimer _apocalypseTimer;
+    private readonly IConsoleUI _console;
+    private readonly CharacterViewService _characterView;
 
-    public CharacterCreationOrchestrator(IMediator mediator, SaveGameService saveGameService, ApocalypseTimer apocalypseTimer)
+    public CharacterCreationOrchestrator(
+        IMediator mediator, 
+        SaveGameService saveGameService, 
+        ApocalypseTimer apocalypseTimer,
+        IConsoleUI console,
+        CharacterViewService characterView)
     {
         _mediator = mediator;
         _saveGameService = saveGameService;
         _apocalypseTimer = apocalypseTimer;
+        _console = console;
+        _characterView = characterView;
     }
 
     /// <summary>
@@ -32,11 +41,11 @@ public class CharacterCreationOrchestrator
     /// </summary>
     public async Task<(Character? Character, string? SaveId, bool Success)> CreateCharacterAsync()
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Character Creation", "Forge your legend");
+        _console.Clear();
+        _console.ShowBanner("Character Creation", "Forge your legend");
 
         // Step 1: Enter name
-        var playerName = ConsoleUI.AskForInput("What is your name, brave adventurer?");
+        var playerName = _console.AskForInput("What is your name, brave adventurer?");
         
         // Step 2: Choose class
         var selectedClass = await SelectCharacterClassAsync();
@@ -66,7 +75,7 @@ public class CharacterCreationOrchestrator
             return await CreateCharacterAsync();
         }
 
-        ConsoleUI.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
+        _console.ShowSuccess($"Welcome, {newCharacter.Name} the {newCharacter.ClassName}!");
         await Task.Delay(500);
 
         // Publish character created event
@@ -80,14 +89,14 @@ public class CharacterCreationOrchestrator
         {
             _apocalypseTimer.Start();
             
-            ConsoleUI.Clear();
-            ConsoleUI.ShowWarning("═══════════════════════════════════════");
-            ConsoleUI.ShowWarning("      APOCALYPSE MODE ACTIVE           ");
-            ConsoleUI.ShowWarning("═══════════════════════════════════════");
-            ConsoleUI.WriteText("  The world will end in 4 hours!");
-            ConsoleUI.WriteText("  Complete the main quest before time runs out.");
-            ConsoleUI.WriteText("  Completing quests will award bonus time.");
-            ConsoleUI.ShowWarning("═══════════════════════════════════════");
+            _console.Clear();
+            _console.ShowWarning("═══════════════════════════════════════");
+            _console.ShowWarning("      APOCALYPSE MODE ACTIVE           ");
+            _console.ShowWarning("═══════════════════════════════════════");
+            _console.WriteText("  The world will end in 4 hours!");
+            _console.WriteText("  Complete the main quest before time runs out.");
+            _console.WriteText("  Completing quests will award bonus time.");
+            _console.ShowWarning("═══════════════════════════════════════");
             await Task.Delay(4000);
         }
         
@@ -101,16 +110,16 @@ public class CharacterCreationOrchestrator
     /// </summary>
     private async Task<CharacterClass?> SelectCharacterClassAsync()
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Choose Your Class", "Each class offers unique strengths");
+        _console.Clear();
+        _console.ShowBanner("Choose Your Class", "Each class offers unique strengths");
         
         var classes = CharacterClassRepository.GetAllClasses();
         
         // Display all classes with details
         foreach (var cls in classes)
         {
-            ConsoleUI.WriteText("");
-            ConsoleUI.ShowPanel(
+            _console.WriteText("");
+            _console.ShowPanel(
                 $"{cls.Name} ({string.Join(", ", cls.PrimaryAttributes)})",
                 $"{cls.Description}\n\n{cls.FlavorText}\n\n" +
                 $"[cyan]Attribute Bonuses:[/]\n" +
@@ -127,7 +136,7 @@ public class CharacterCreationOrchestrator
         }
         
         var classNames = classes.Select(c => c.Name).Append("Back to Menu").ToArray();
-        var choice = ConsoleUI.ShowMenu("Select your class:", classNames);
+        var choice = _console.ShowMenu("Select your class:", classNames);
         
         if (choice == "Back to Menu")
         {
@@ -138,7 +147,7 @@ public class CharacterCreationOrchestrator
         
         if (selected != null)
         {
-            ConsoleUI.ShowSuccess($"You have chosen the path of the {selected.Name}!");
+            _console.ShowSuccess($"You have chosen the path of the {selected.Name}!");
             await Task.Delay(300);
         }
         
@@ -155,8 +164,8 @@ public class CharacterCreationOrchestrator
         
         while (true)
         {
-            ConsoleUI.Clear();
-            ConsoleUI.ShowBanner("Attribute Allocation", $"Points Remaining: {allocation.GetRemainingPoints()}/27");
+            _console.Clear();
+            _console.ShowBanner("Attribute Allocation", $"Points Remaining: {allocation.GetRemainingPoints()}/27");
             
             // Show current allocation
             var allocationLines = new List<string>();
@@ -181,7 +190,7 @@ public class CharacterCreationOrchestrator
             allocationLines.Add($"[yellow]Points Spent:[/] {allocation.GetPointsSpent()}/27");
             allocationLines.Add($"[cyan]Points Remaining:[/] {allocation.GetRemainingPoints()}");
             
-            ConsoleUI.ShowPanel("Your Attributes", string.Join("\n", allocationLines), "green");
+            _console.ShowPanel("Your Attributes", string.Join("\n", allocationLines), "green");
             
             // Menu options
             var options = new List<string>();
@@ -198,7 +207,7 @@ public class CharacterCreationOrchestrator
             options.Add("Confirm & Continue");
             options.Add("Back to Class Selection");
             
-            var choice = ConsoleUI.ShowMenu("Adjust attributes:", options.ToArray());
+            var choice = _console.ShowMenu("Adjust attributes:", options.ToArray());
             
             if (choice.StartsWith("Increase "))
             {
@@ -216,20 +225,20 @@ public class CharacterCreationOrchestrator
             {
                 // Auto-allocate based on class
                 allocation = AutoAllocateAttributes(selectedClass);
-                ConsoleUI.ShowSuccess("Attributes auto-allocated based on your class!");
+                _console.ShowSuccess("Attributes auto-allocated based on your class!");
                 await Task.Delay(300);
             }
             else if (choice == "Reset All")
             {
                 allocation = new AttributeAllocation();
-                ConsoleUI.ShowInfo("Attributes reset to base values.");
+                _console.ShowInfo("Attributes reset to base values.");
                 await Task.Delay(200);
             }
             else if (choice == "Confirm & Continue")
             {
                 if (allocation.GetRemainingPoints() > 0)
                 {
-                    if (ConsoleUI.Confirm($"You have {allocation.GetRemainingPoints()} unspent points. Continue anyway?"))
+                    if (_console.Confirm($"You have {allocation.GetRemainingPoints()} unspent points. Continue anyway?"))
                     {
                         return allocation;
                     }
@@ -321,7 +330,7 @@ public class CharacterCreationOrchestrator
     /// </summary>
     private void ReviewCharacter(Character character, CharacterClass characterClass)
     {
-        CharacterViewService.ReviewCharacter(character, characterClass);
+        _characterView.ReviewCharacter(character, characterClass);
     }
     
     /// <summary>
@@ -329,15 +338,15 @@ public class CharacterCreationOrchestrator
     /// </summary>
     private async Task<DifficultySettings?> SelectDifficultyAsync()
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Select Difficulty", "Choose your challenge level");
+        _console.Clear();
+        _console.ShowBanner("Select Difficulty", "Choose your challenge level");
         
         var difficulties = DifficultySettings.GetAll();
         var options = difficulties.Select((d, i) => 
             $"{d.Name,-12} - {d.Description}"
         ).ToArray();
         
-        var choiceText = ConsoleUI.ShowMenu("Select difficulty level:", options);
+        var choiceText = _console.ShowMenu("Select difficulty level:", options);
         
         // Extract difficulty name from the choice (format: "Name - Description")
         var difficultyName = choiceText.Split(" - ")[0].Trim();
@@ -352,33 +361,33 @@ public class CharacterCreationOrchestrator
         // Show confirmation for challenging modes
         if (selected.Name is "Ironman" or "Permadeath" or "Apocalypse")
         {
-            ConsoleUI.Clear();
-            ConsoleUI.ShowWarning($"⚠️  WARNING: {selected.Name.ToUpper()} MODE");
+            _console.Clear();
+            _console.ShowWarning($"⚠️  WARNING: {selected.Name.ToUpper()} MODE");
             Console.WriteLine();
-            ConsoleUI.WriteText("This mode features:");
+            _console.WriteText("This mode features:");
             
             if (selected.AutoSaveOnly)
-                ConsoleUI.WriteText("  • Auto-save after every action - no manual saves");
+                _console.WriteText("  • Auto-save after every action - no manual saves");
             if (selected.IsPermadeath)
-                ConsoleUI.WriteText("  • Death PERMANENTLY deletes your save file");
+                _console.WriteText("  • Death PERMANENTLY deletes your save file");
             if (selected.IsApocalypse)
             {
-                ConsoleUI.WriteText($"  • {selected.ApocalypseTimeLimitMinutes / 60}-hour time limit to complete main quest");
-                ConsoleUI.WriteText("  • World ends when time runs out");
+                _console.WriteText($"  • {selected.ApocalypseTimeLimitMinutes / 60}-hour time limit to complete main quest");
+                _console.WriteText("  • World ends when time runs out");
             }
             if (selected.DropAllInventoryOnDeath)
-                ConsoleUI.WriteText("  • Drop ALL items on death");
+                _console.WriteText("  • Drop ALL items on death");
             
             Console.WriteLine();
-            if (!ConsoleUI.Confirm($"Are you absolutely sure you want {selected.Name} mode?"))
+            if (!_console.Confirm($"Are you absolutely sure you want {selected.Name} mode?"))
             {
-                ConsoleUI.ShowWarning("Returning to difficulty selection...");
+                _console.ShowWarning("Returning to difficulty selection...");
                 await Task.Delay(1000);
                 return await SelectDifficultyAsync(); // Recursive call to let player re-select
             }
         }
         
-        ConsoleUI.ShowSuccess($"Difficulty set to: {selected.Name}");
+        _console.ShowSuccess($"Difficulty set to: {selected.Name}");
         await Task.Delay(1000);
         
         return selected;

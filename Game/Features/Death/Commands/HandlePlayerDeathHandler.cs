@@ -15,15 +15,18 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
     private readonly DeathService _deathService;
     private readonly SaveGameService _saveGameService;
     private readonly HallOfFameService _hallOfFameService;
+    private readonly IConsoleUI _console;
     
     public HandlePlayerDeathHandler(
         DeathService deathService,
         SaveGameService saveGameService,
-        HallOfFameService hallOfFameService)
+        HallOfFameService hallOfFameService,
+        IConsoleUI console)
     {
         _deathService = deathService;
         _saveGameService = saveGameService;
         _hallOfFameService = hallOfFameService;
+        _console = console;
     }
     
     public async Task<HandlePlayerDeathResult> Handle(HandlePlayerDeathCommand request, CancellationToken cancellationToken)
@@ -67,15 +70,15 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
     private async Task<HandlePlayerDeathResult> HandleStandardDeathAsync(
         Character player, SaveGame saveGame, string location, DifficultySettings difficulty)
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowError("═══════════════════════════════════════");
-        ConsoleUI.ShowError("           YOU HAVE DIED               ");
-        ConsoleUI.ShowError("═══════════════════════════════════════");
+        _console.Clear();
+        _console.ShowError("═══════════════════════════════════════");
+        _console.ShowError("           YOU HAVE DIED               ");
+        _console.ShowError("═══════════════════════════════════════");
         await Task.Delay(2000);
         
         Console.WriteLine();
-        ConsoleUI.WriteText($"You died at: {location}");
-        ConsoleUI.WriteText($"Death count: {saveGame.DeathCount}");
+        _console.WriteText($"You died at: {location}");
+        _console.WriteText($"Death count: {saveGame.DeathCount}");
         Console.WriteLine();
         
         // Calculate penalties
@@ -91,17 +94,17 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
             player, saveGame, location, difficulty);
         
         // Show penalties
-        ConsoleUI.ShowError($"Penalties:");
+        _console.ShowError($"Penalties:");
         if (goldLost > 0)
-            ConsoleUI.WriteText($"  • Lost {goldLost} gold");
+            _console.WriteText($"  • Lost {goldLost} gold");
         if (xpLost > 0)
-            ConsoleUI.WriteText($"  • Lost {xpLost} XP");
+            _console.WriteText($"  • Lost {xpLost} XP");
         if (droppedItems.Count > 0)
         {
             if (difficulty.DropAllInventoryOnDeath)
-                ConsoleUI.WriteText($"  • Dropped ALL {droppedItems.Count} items at {location}");
+                _console.WriteText($"  • Dropped ALL {droppedItems.Count} items at {location}");
             else
-                ConsoleUI.WriteText($"  • Dropped {droppedItems.Count} item(s) at {location}");
+                _console.WriteText($"  • Dropped {droppedItems.Count} item(s) at {location}");
         }
         
         Console.WriteLine();
@@ -110,8 +113,8 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
         player.Health = player.MaxHealth;
         player.Mana = player.MaxMana;
         
-        ConsoleUI.ShowSuccess("You have respawned at Hub Town with full health!");
-        ConsoleUI.ShowInfo("Return to your death location to recover dropped items.");
+        _console.ShowSuccess("You have respawned at Hub Town with full health!");
+        _console.ShowInfo("Return to your death location to recover dropped items.");
         
         await Task.Delay(3000);
         
@@ -119,7 +122,7 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
         if (difficulty.AutoSaveOnly)
         {
             _saveGameService.SaveGame(saveGame);
-            ConsoleUI.ShowInfo("Game auto-saved (Ironman mode)");
+            _console.ShowInfo("Game auto-saved (Ironman mode)");
             await Task.Delay(1000);
         }
         
@@ -136,17 +139,17 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
     private async Task<HandlePlayerDeathResult> HandlePermadeathAsync(
         Character player, SaveGame saveGame, string location, Enemy? killer)
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowError("═══════════════════════════════════════");
-        ConsoleUI.ShowError("          PERMADEATH                   ");
-        ConsoleUI.ShowError("═══════════════════════════════════════");
+        _console.Clear();
+        _console.ShowError("═══════════════════════════════════════");
+        _console.ShowError("          PERMADEATH                   ");
+        _console.ShowError("═══════════════════════════════════════");
         await Task.Delay(2000);
         
         Console.WriteLine();
-        ConsoleUI.ShowError($"{player.Name} has fallen.");
-        ConsoleUI.WriteText($"Location: {location}");
+        _console.ShowError($"{player.Name} has fallen.");
+        _console.WriteText($"Location: {location}");
         if (killer != null)
-            ConsoleUI.WriteText($"Slain by: {killer.Name}");
+            _console.WriteText($"Slain by: {killer.Name}");
         Console.WriteLine();
         
         await Task.Delay(2000);
@@ -179,8 +182,8 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
         // Delete save
         _saveGameService.DeleteSave(saveGame.Id);
         
-        ConsoleUI.ShowError("Your save file has been deleted.");
-        ConsoleUI.ShowInfo($"Your legacy lives on in the Hall of Fame (Score: {entry.GetFameScore()})");
+        _console.ShowError("Your save file has been deleted.");
+        _console.ShowInfo($"Your legacy lives on in the Hall of Fame (Score: {entry.GetFameScore()})");
         
         await Task.Delay(3000);
         
@@ -194,18 +197,18 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
     
     private void ShowPermadeathStatistics(Character player, SaveGame saveGame, HallOfFameEntry entry)
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner($"{player.Name}'s Legacy", "Final Statistics");
+        _console.Clear();
+        _console.ShowBanner($"{player.Name}'s Legacy", "Final Statistics");
         Console.WriteLine();
         
-        ConsoleUI.WriteText($"Class: {player.ClassName}");
-        ConsoleUI.WriteText($"Level: {player.Level}");
-        ConsoleUI.WriteText($"Playtime: {entry.GetPlaytimeFormatted()}");
-        ConsoleUI.WriteText($"Enemies Defeated: {saveGame.TotalEnemiesDefeated}");
-        ConsoleUI.WriteText($"Quests Completed: {saveGame.QuestsCompleted}");
-        ConsoleUI.WriteText($"Locations Discovered: {saveGame.DiscoveredLocations.Count}");
-        ConsoleUI.WriteText($"Achievements Unlocked: {saveGame.UnlockedAchievements.Count}");
+        _console.WriteText($"Class: {player.ClassName}");
+        _console.WriteText($"Level: {player.Level}");
+        _console.WriteText($"Playtime: {entry.GetPlaytimeFormatted()}");
+        _console.WriteText($"Enemies Defeated: {saveGame.TotalEnemiesDefeated}");
+        _console.WriteText($"Quests Completed: {saveGame.QuestsCompleted}");
+        _console.WriteText($"Locations Discovered: {saveGame.DiscoveredLocations.Count}");
+        _console.WriteText($"Achievements Unlocked: {saveGame.UnlockedAchievements.Count}");
         Console.WriteLine();
-        ConsoleUI.WriteText($"Fame Score: {entry.GetFameScore()}");
+        _console.WriteText($"Fame Score: {entry.GetFameScore()}");
     }
 }

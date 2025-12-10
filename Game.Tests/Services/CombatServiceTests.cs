@@ -1,5 +1,8 @@
 using FluentAssertions;
 using Game.Models;
+using Game.Shared.UI;
+using Game.Tests.Helpers;
+using Spectre.Console.Testing;
 using Game.Services;
 using Game.Features.Combat;
 using Game.Features.SaveLoad;
@@ -13,13 +16,19 @@ public class CombatServiceTests : IDisposable
 {
     private readonly CombatService _combatService;
     private readonly SaveGameService _saveGameService;
+    private readonly TestConsole _testConsole;
+    private readonly ConsoleUI _consoleUI;
     private readonly string _testDbPath;
     
     public CombatServiceTests()
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-combat-{Guid.NewGuid()}.db";
-        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbPath);
+        
+        _testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        _consoleUI = new ConsoleUI(_testConsole);
+        
+        _saveGameService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbPath);
         
         // Create a test save game with normal difficulty
         var testSave = new SaveGame 
@@ -485,3 +494,4 @@ public class CombatServiceTests : IDisposable
         };
     }
 }
+

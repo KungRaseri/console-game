@@ -11,10 +11,12 @@ namespace Game.Features.Victory.Orchestrators;
 public class VictoryOrchestrator
 {
     private readonly IMediator _mediator;
+    private readonly IConsoleUI _console;
     
-    public VictoryOrchestrator(IMediator mediator)
+    public VictoryOrchestrator(IMediator mediator, IConsoleUI console)
     {
         _mediator = mediator;
+        _console = console;
     }
     
     public async Task<bool> ShowVictorySequenceAsync()
@@ -28,7 +30,7 @@ public class VictoryOrchestrator
         var stats = victoryResult.Statistics;
         
         // Victory sequence
-        ConsoleUI.Clear();
+        _console.Clear();
         await ShowDramaticVictoryAsync();
         await ShowStatisticsAsync(stats);
         await ShowAchievementsAsync();
@@ -39,36 +41,36 @@ public class VictoryOrchestrator
     
     private async Task ShowDramaticVictoryAsync()
     {
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════════════");
+        _console.ShowSuccess("═══════════════════════════════════════════════");
         await Task.Delay(500);
-        ConsoleUI.ShowSuccess("        THE DARK LORD HAS FALLEN!              ");
+        _console.ShowSuccess("        THE DARK LORD HAS FALLEN!              ");
         await Task.Delay(1000);
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════════════");
+        _console.ShowSuccess("═══════════════════════════════════════════════");
         await Task.Delay(1500);
         
         Console.Clear();
-        ConsoleUI.ShowSuccess("Light returns to the world...");
+        _console.ShowSuccess("Light returns to the world...");
         await Task.Delay(2000);
         
-        ConsoleUI.ShowSuccess("The apocalypse has been averted...");
+        _console.ShowSuccess("The apocalypse has been averted...");
         await Task.Delay(2000);
         
-        ConsoleUI.ShowSuccess("You are the savior of the realm!");
+        _console.ShowSuccess("You are the savior of the realm!");
         await Task.Delay(2000);
         
         Console.Clear();
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════════════");
-        ConsoleUI.ShowSuccess("                                               ");
-        ConsoleUI.ShowSuccess("              🏆 VICTORY! 🏆                   ");
-        ConsoleUI.ShowSuccess("                                               ");
-        ConsoleUI.ShowSuccess("═══════════════════════════════════════════════");
+        _console.ShowSuccess("═══════════════════════════════════════════════");
+        _console.ShowSuccess("                                               ");
+        _console.ShowSuccess("              🏆 VICTORY! 🏆                   ");
+        _console.ShowSuccess("                                               ");
+        _console.ShowSuccess("═══════════════════════════════════════════════");
         await Task.Delay(3000);
     }
     
     private async Task ShowStatisticsAsync(VictoryStatistics stats)
     {
         Console.Clear();
-        ConsoleUI.ShowBanner("Final Statistics", $"{stats.PlayerName} the {stats.ClassName}");
+        _console.ShowBanner("Final Statistics", $"{stats.PlayerName} the {stats.ClassName}");
         Console.WriteLine();
         
         var headers = new[] { "Stat", "Value" };
@@ -84,7 +86,7 @@ public class VictoryOrchestrator
             new[] { "Total Gold Earned", $"{stats.TotalGoldEarned}g" }
         };
         
-        ConsoleUI.ShowTable("Your Journey", headers, rows);
+        _console.ShowTable("Your Journey", headers, rows);
         
         Log.Information("Victory statistics displayed for {PlayerName}", stats.PlayerName);
         
@@ -94,7 +96,7 @@ public class VictoryOrchestrator
     private async Task ShowAchievementsAsync()
     {
         Console.Clear();
-        ConsoleUI.ShowBanner("Achievements", "Your Accomplishments");
+        _console.ShowBanner("Achievements", "Your Accomplishments");
         Console.WriteLine();
         
         var query = new Features.Achievement.Queries.GetUnlockedAchievementsQuery();
@@ -104,12 +106,12 @@ public class VictoryOrchestrator
         {
             foreach (var achievement in achievements)
             {
-                ConsoleUI.WriteText($"{achievement.Icon} {achievement.Title} - {achievement.Points} points");
+                _console.WriteText($"{achievement.Icon} {achievement.Title} - {achievement.Points} points");
             }
         }
         else
         {
-            ConsoleUI.WriteText("No achievements unlocked yet.");
+            _console.WriteText("No achievements unlocked yet.");
         }
         
         await Task.Delay(4000);
@@ -118,24 +120,24 @@ public class VictoryOrchestrator
     private async Task<bool> OfferNewGamePlusAsync()
     {
         Console.Clear();
-        ConsoleUI.ShowBanner("New Game+", "Continue Your Journey");
+        _console.ShowBanner("New Game+", "Continue Your Journey");
         Console.WriteLine();
         
-        ConsoleUI.WriteText("You have completed the game!");
-        ConsoleUI.WriteText("New Game+ is now available with:");
-        ConsoleUI.WriteText("  • Increased enemy difficulty");
-        ConsoleUI.WriteText("  • Better rewards (XP, gold, items)");
-        ConsoleUI.WriteText("  • Keep your achievements");
-        ConsoleUI.WriteText("  • Start with bonus stats");
+        _console.WriteText("You have completed the game!");
+        _console.WriteText("New Game+ is now available with:");
+        _console.WriteText("  • Increased enemy difficulty");
+        _console.WriteText("  • Better rewards (XP, gold, items)");
+        _console.WriteText("  • Keep your achievements");
+        _console.WriteText("  • Start with bonus stats");
         Console.WriteLine();
         
-        if (ConsoleUI.Confirm("Start New Game+?"))
+        if (_console.Confirm("Start New Game+?"))
         {
             var result = await _mediator.Send(new StartNewGamePlusCommand());
             
             if (result.Success)
             {
-                ConsoleUI.ShowSuccess(result.Message);
+                _console.ShowSuccess(result.Message);
                 await Task.Delay(2000);
                 return true;
             }

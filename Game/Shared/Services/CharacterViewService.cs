@@ -8,14 +8,21 @@ namespace Game.Shared.Services;
 /// <summary>
 /// Service for displaying character information and statistics.
 /// </summary>
-public static class CharacterViewService
+public class CharacterViewService
 {
+    private readonly IConsoleUI _console;
+    
+    public CharacterViewService(IConsoleUI console)
+    {
+        _console = console;
+    }
+    
     /// <summary>
     /// Display comprehensive character statistics.
     /// </summary>
-    public static void ViewCharacter(Character player)
+    public void ViewCharacter(Character player)
     {
-        ConsoleUI.Clear();
+        _console.Clear();
         
         // Basic stats
         var statsContent = $"""
@@ -27,7 +34,7 @@ public static class CharacterViewService
         [yellow]Gold:[/] {player.Gold}
         """;
 
-        ConsoleUI.ShowPanel("Character Stats", statsContent, "green");
+        _console.ShowPanel("Character Stats", statsContent, "green");
         
         // D20 Attributes
         var attributesContent = $"""
@@ -40,7 +47,7 @@ public static class CharacterViewService
         """;
         
         Console.WriteLine();
-        ConsoleUI.ShowPanel("D20 Attributes", attributesContent, "cyan");
+        _console.ShowPanel("D20 Attributes", attributesContent, "cyan");
         
         // Derived stats with skill bonuses
         var derivedContent = $"""
@@ -54,13 +61,13 @@ public static class CharacterViewService
         """;
         
         Console.WriteLine();
-        ConsoleUI.ShowPanel("Combat Stats", derivedContent, "yellow");
+        _console.ShowPanel("Combat Stats", derivedContent, "yellow");
         
         // Show learned skills
         if (player.LearnedSkills.Any())
         {
             Console.WriteLine();
-            ConsoleUI.WriteColoredText("[bold cyan]📚 Learned Skills:[/]");
+            _console.WriteColoredText("[bold cyan]📚 Learned Skills:[/]");
             Console.WriteLine();
             
             foreach (var skill in player.LearnedSkills.OrderBy(s => s.Type))
@@ -75,7 +82,7 @@ public static class CharacterViewService
                     _ => "white"
                 };
                 
-                ConsoleUI.WriteColoredText($"  [{typeColor}]{skill.Name}[/] [dim](Rank {skill.CurrentRank}/{skill.MaxRank})[/] - {skill.Description}");
+                _console.WriteColoredText($"  [{typeColor}]{skill.Name}[/] [dim](Rank {skill.CurrentRank}/{skill.MaxRank})[/] - {skill.Description}");
             }
         }
         
@@ -84,20 +91,20 @@ public static class CharacterViewService
         if (!bonusSummary.Contains("No active"))
         {
             Console.WriteLine();
-            ConsoleUI.ShowPanel("Active Skill Bonuses", bonusSummary, "green");
+            _console.ShowPanel("Active Skill Bonuses", bonusSummary, "green");
         }
         
         Console.WriteLine();
-        ConsoleUI.PressAnyKey();
+        _console.PressAnyKey();
     }
     
     /// <summary>
     /// Review the final character before starting the game.
     /// </summary>
-    public static void ReviewCharacter(Character character, CharacterClass characterClass)
+    public void ReviewCharacter(Character character, CharacterClass characterClass)
     {
-        ConsoleUI.Clear();
-        ConsoleUI.ShowBanner("Character Summary", "Your Hero Awaits");
+        _console.Clear();
+        _console.ShowBanner("Character Summary", "Your Hero Awaits");
         
         var summary = new List<string>();
         summary.Add($"[yellow]Name:[/] {character.Name}");
@@ -119,15 +126,15 @@ public static class CharacterViewService
         summary.Add("");
         summary.Add($"[underline yellow]Starting Equipment:[/] {character.Inventory.Count} items");
         
-        ConsoleUI.ShowPanel("Your Character", string.Join("\n", summary), "cyan");
+        _console.ShowPanel("Your Character", string.Join("\n", summary), "cyan");
         
-        ConsoleUI.PressAnyKey("Press any key to begin your adventure");
+        _console.PressAnyKey("Press any key to begin your adventure");
     }
     
     /// <summary>
     /// Display equipment and stats for a character.
     /// </summary>
-    public static string GetEquipmentDisplay(Character player)
+    public string GetEquipmentDisplay(Character player)
     {
         var lines = new List<string>();
         
@@ -211,7 +218,7 @@ public static class CharacterViewService
         return string.Join("\n", lines);
     }
     
-    private static string GetItemDisplay(Item? item)
+    private string GetItemDisplay(Item? item)
     {
         if (item == null) return "[grey]Empty[/]";
         
@@ -219,7 +226,7 @@ public static class CharacterViewService
         return $"{GetRarityColor(item.Rarity)}{displayName}[/]";
     }
     
-    public static string GetRarityColor(ItemRarity rarity)
+    public string GetRarityColor(ItemRarity rarity)
     {
         return rarity switch
         {

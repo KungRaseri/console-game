@@ -2,10 +2,13 @@ using Game.Models;
 using Game.Services;
 using Game.Features.SaveLoad;
 using Game.Shared.Services;
+using Game.Shared.UI;
+using Game.Tests.Helpers;
 using Xunit;
 using FluentAssertions;
 using System;
 using System.IO;
+using Spectre.Console.Testing;
 
 namespace Game.Tests.Services;
 
@@ -17,15 +20,21 @@ public class MenuServiceTests : IDisposable
     private readonly MenuService _menuService;
     private readonly SaveGameService _saveGameService;
     private readonly GameStateService _gameStateService;
+    private readonly TestConsole _testConsole;
+    private readonly ConsoleUI _consoleUI;
     private readonly string _testDbPath;
 
     public MenuServiceTests()
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-menu-{Guid.NewGuid()}.db";
-        _saveGameService = new SaveGameService(new ApocalypseTimer(), _testDbPath);
+        
+        _testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        _consoleUI = new ConsoleUI(_testConsole);
+        
+        _saveGameService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbPath);
         _gameStateService = new GameStateService(_saveGameService);
-        _menuService = new MenuService(_gameStateService, _saveGameService);
+        _menuService = new MenuService(_gameStateService, _saveGameService, _consoleUI);
     }
 
     public void Dispose()
@@ -53,7 +62,7 @@ public class MenuServiceTests : IDisposable
     public void MenuService_Should_Be_Instantiable()
     {
         // Arrange & Act
-        var service = new MenuService(_gameStateService, _saveGameService);
+        var service = new MenuService(_gameStateService, _saveGameService, _consoleUI);
 
         // Assert
         service.Should().NotBeNull();
