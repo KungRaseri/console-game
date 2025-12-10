@@ -139,23 +139,460 @@ public class MenuServiceTests : IDisposable
     public void ShowCombatMenu_Should_Return_Combat_Actions()
     {
         // Arrange
-        var expectedActions = new[] { "⚔️ Attack", "🛡️ Defend", "✨ Use Item", "💨 Flee" };
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0); // Select first option
 
-        // Act & Assert
-        expectedActions.Length.Should().Be(4);
-        expectedActions.Should().Contain("⚔️ Attack");
-        expectedActions.Should().Contain("🛡️ Defend");
+        // Act
+        var result = _menuService.ShowCombatMenu();
+
+        // Assert
+        result.Should().Be("⚔️  Attack");
     }
 
     [Fact]
-    public void ShowInventoryMenu_Should_Include_Common_Actions()
+    public void ShowCombatMenu_Should_Display_All_Combat_Options()
     {
         // Arrange
-        var commonActions = new[] { "View Details", "Equip", "Use", "Drop", "Back" };
+        TestConsoleHelper.SelectMenuOption(_testConsole, 1); // Select second option
 
-        // Act & Assert
-        commonActions.Should().HaveCountGreaterThan(0);
-        commonActions.Should().Contain("View Details");
-        commonActions.Should().Contain("Back");
+        // Act
+        var result = _menuService.ShowCombatMenu();
+
+        // Assert
+        var output = _testConsole.Output;
+        output.Should().Contain("Attack");
+        output.Should().Contain("Defend");
+        output.Should().Contain("Use Item");
+        output.Should().Contain("Flee");
+        result.Should().Be("🛡️  Defend");
+    }
+
+    [Fact]
+    public void HandleMainMenu_Should_Return_NewGame_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0); // New Game
+
+        // Act
+        var result = _menuService.HandleMainMenu();
+
+        // Assert
+        result.Should().Be("New Game");
+    }
+
+    [Fact]
+    public void HandleMainMenu_Should_Return_LoadGame_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 1); // Load Game
+
+        // Act
+        var result = _menuService.HandleMainMenu();
+
+        // Assert
+        result.Should().Be("Load Game");
+    }
+
+    [Fact]
+    public void HandleMainMenu_Should_Return_Settings_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 3); // Settings (index 3: skip Hall of Fame)
+
+        // Act
+        var result = _menuService.HandleMainMenu();
+
+        // Assert
+        result.Should().Be("Settings");
+    }
+
+    [Fact]
+    public void HandleMainMenu_Should_Return_Exit_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 4); // Exit
+
+        // Act
+        var result = _menuService.HandleMainMenu();
+
+        // Assert
+        result.Should().Be("Exit");
+    }
+
+    [Fact]
+    public void ShowInventoryMenu_Should_Return_ViewItemDetails_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0); // View Item Details
+
+        // Act
+        var result = _menuService.ShowInventoryMenu();
+
+        // Assert
+        result.Should().Be("View Item Details");
+    }
+
+    [Fact]
+    public void ShowInventoryMenu_Should_Return_UseItem_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 1); // Use Item
+
+        // Act
+        var result = _menuService.ShowInventoryMenu();
+
+        // Assert
+        result.Should().Be("Use Item");
+    }
+
+    [Fact]
+    public void ShowInventoryMenu_Should_Return_EquipItem_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 2); // Equip Item
+
+        // Act
+        var result = _menuService.ShowInventoryMenu();
+
+        // Assert
+        result.Should().Be("Equip Item");
+    }
+
+    [Fact]
+    public void ShowInventoryMenu_Should_Return_DropItem_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 3); // Drop Item
+
+        // Act
+        var result = _menuService.ShowInventoryMenu();
+
+        // Assert
+        result.Should().Be("Drop Item");
+    }
+
+    [Fact]
+    public void ShowInventoryMenu_Should_Return_SortInventory_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 4); // Sort Inventory
+
+        // Act
+        var result = _menuService.ShowInventoryMenu();
+
+        // Assert
+        result.Should().Be("Sort Inventory");
+    }
+
+    [Fact]
+    public void ShowInventoryMenu_Should_Return_BackToGame_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 5); // Back to Game
+
+        // Act
+        var result = _menuService.ShowInventoryMenu();
+
+        // Assert
+        result.Should().Be("Back to Game");
+    }
+
+    [Fact]
+    public void HandlePauseMenu_Should_Return_InGame_When_Resume_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0); // Resume
+
+        // Act
+        var result = _menuService.HandlePauseMenu();
+
+        // Assert
+        result.Should().Be(GameState.InGame);
+    }
+
+    [Fact]
+    public void HandlePauseMenu_Should_Return_Paused_When_SaveGame_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 1); // Save Game
+
+        // Act
+        var result = _menuService.HandlePauseMenu();
+
+        // Assert
+        result.Should().Be(GameState.Paused);
+    }
+
+    [Fact]
+    public void HandlePauseMenu_Should_Return_MainMenu_When_MainMenu_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 2); // Main Menu
+
+        // Act
+        var result = _menuService.HandlePauseMenu();
+
+        // Assert
+        result.Should().Be(GameState.MainMenu);
+    }
+
+    [Fact]
+    public void ShowRingSlotMenu_Should_Return_RingSlot1_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0); // Ring Slot 1
+
+        // Act
+        var result = _menuService.ShowRingSlotMenu();
+
+        // Assert
+        result.Should().Be("Ring Slot 1");
+    }
+
+    [Fact]
+    public void ShowRingSlotMenu_Should_Return_RingSlot2_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 1); // Ring Slot 2
+
+        // Act
+        var result = _menuService.ShowRingSlotMenu();
+
+        // Assert
+        result.Should().Be("Ring Slot 2");
+    }
+
+    [Fact]
+    public void ShowRingSlotMenu_Should_Return_Cancel_When_Selected()
+    {
+        // Arrange
+        TestConsoleHelper.SelectMenuOption(_testConsole, 2); // Cancel
+
+        // Act
+        var result = _menuService.ShowRingSlotMenu();
+
+        // Assert
+        result.Should().Be("Cancel");
+    }
+
+    [Fact]
+    public void SelectItemFromList_Should_Return_Null_When_No_Items()
+    {
+        // Arrange
+        var emptyList = new List<Item>();
+
+        // Act
+        var result = _menuService.SelectItemFromList(emptyList, "Select an item");
+
+        // Assert
+        result.Should().BeNull();
+        _testConsole.Output.Should().Contain("No items available");
+    }
+
+    [Fact]
+    public void SelectItemFromList_Should_Return_Selected_Item()
+    {
+        // Arrange
+        var items = new List<Item>
+        {
+            new Item { Name = "Potion", Rarity = ItemRarity.Common },
+            new Item { Name = "Sword", Rarity = ItemRarity.Rare },
+            new Item { Name = "Shield", Rarity = ItemRarity.Epic }
+        };
+
+        TestConsoleHelper.SelectMenuOption(_testConsole, 1); // Select Sword
+
+        // Act
+        var result = _menuService.SelectItemFromList(items, "Select an item");
+
+        // Assert
+        result.Should().NotBeNull();
+        result!.Name.Should().Be("Sword");
+        result.Rarity.Should().Be(ItemRarity.Rare);
+    }
+
+    [Fact]
+    public void SelectItemFromList_Should_Return_Null_When_Cancel_Selected()
+    {
+        // Arrange
+        var items = new List<Item>
+        {
+            new Item { Name = "Potion", Rarity = ItemRarity.Common },
+            new Item { Name = "Sword", Rarity = ItemRarity.Rare }
+        };
+
+        TestConsoleHelper.SelectMenuOption(_testConsole, 2); // Cancel (index 2 is after 2 items)
+
+        // Act
+        var result = _menuService.SelectItemFromList(items, "Select an item");
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public void SelectItemFromList_Should_Display_Item_Rarity()
+    {
+        // Arrange
+        var items = new List<Item>
+        {
+            new Item { Name = "Common Potion", Rarity = ItemRarity.Common },
+            new Item { Name = "Legendary Sword", Rarity = ItemRarity.Legendary }
+        };
+
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0);
+
+        // Act
+        _menuService.SelectItemFromList(items, "Select an item");
+
+        // Assert
+        var output = _testConsole.Output;
+        output.Should().Contain("Common");
+        output.Should().Contain("Legendary");
+    }
+
+    [Fact]
+    public void ShowInGameMenu_Should_Display_Player_Info()
+    {
+        // Arrange
+        var character = new Character
+        {
+            Name = "TestHero",
+            Level = 10,
+            Health = 80,
+            MaxHealth = 100,
+            Gold = 500
+        };
+
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0); // Select first option
+
+        // Act
+        _menuService.ShowInGameMenu();
+
+        // Assert
+        var output = _testConsole.Output;
+        output.Should().Contain("TestHero");
+        output.Should().Contain("Level 10");
+        output.Should().Contain("80/100"); // HP
+        output.Should().Contain("500"); // Gold
+    }
+
+    [Fact]
+    public void ShowInGameMenu_Should_Include_LevelUp_Option_When_Unspent_AttributePoints()
+    {
+        // Arrange
+        var character = new Character
+        {
+            Name = "TestHero",
+            Level = 5,
+            Health = 100,
+            MaxHealth = 100,
+            UnspentAttributePoints = 10,
+            UnspentSkillPoints = 0
+        };
+
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0);
+
+        // Act
+        _menuService.ShowInGameMenu();
+
+        // Assert
+        var output = _testConsole.Output;
+        output.Should().Contain("Level Up");
+        output.Should().Contain("10 attr");
+    }
+
+    [Fact]
+    public void ShowInGameMenu_Should_Include_LevelUp_Option_When_Unspent_SkillPoints()
+    {
+        // Arrange
+        var character = new Character
+        {
+            Name = "TestHero",
+            Level = 5,
+            Health = 100,
+            MaxHealth = 100,
+            UnspentAttributePoints = 0,
+            UnspentSkillPoints = 3
+        };
+
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0);
+
+        // Act
+        _menuService.ShowInGameMenu();
+
+        // Assert
+        var output = _testConsole.Output;
+        output.Should().Contain("Level Up");
+        output.Should().Contain("3 skill");
+    }
+
+    [Fact]
+    public void ShowInGameMenu_Should_Not_Include_LevelUp_When_No_Unspent_Points()
+    {
+        // Arrange
+        var character = new Character
+        {
+            Name = "TestHero",
+            Level = 5,
+            Health = 100,
+            MaxHealth = 100,
+            UnspentAttributePoints = 0,
+            UnspentSkillPoints = 0
+        };
+
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0);
+
+        // Act
+        var result = _menuService.ShowInGameMenu();
+
+        // Assert
+        result.Should().NotContain("Level Up");
+    }
+
+    [Fact]
+    public void ShowInGameMenu_Should_Return_Explore_When_Selected()
+    {
+        // Arrange
+        var character = new Character
+        {
+            Name = "TestHero",
+            Level = 1,
+            Health = 100,
+            MaxHealth = 100
+        };
+
+        _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
+        TestConsoleHelper.SelectMenuOption(_testConsole, 0); // Explore
+
+        // Act
+        var result = _menuService.ShowInGameMenu();
+
+        // Assert
+        result.Should().Be("Explore");
+    }
+
+    [Fact]
+    public void SelectItemFromList_Should_Handle_Multiple_Items_With_Same_Rarity()
+    {
+        // Arrange
+        var items = new List<Item>
+        {
+            new Item { Name = "Potion 1", Rarity = ItemRarity.Common },
+            new Item { Name = "Potion 2", Rarity = ItemRarity.Common },
+            new Item { Name = "Potion 3", Rarity = ItemRarity.Common }
+        };
+
+        TestConsoleHelper.SelectMenuOption(_testConsole, 2); // Select third item
+
+        // Act
+        var result = _menuService.SelectItemFromList(items, "Select potion");
+
+        // Assert
+        result.Should().NotBeNull();
+        result!.Name.Should().Be("Potion 3");
     }
 }
