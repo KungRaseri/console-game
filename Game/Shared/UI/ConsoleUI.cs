@@ -682,7 +682,7 @@ public class ConsoleUI : IConsoleUI
     public void PressAnyKey(string message = "Press any key to continue...")
     {
         _console.MarkupLine($"[dim]{message}[/]");
-        Console.ReadKey(true);
+        _console.Input.ReadKey(true);
     }
 
     /// <summary>
