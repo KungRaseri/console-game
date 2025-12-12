@@ -293,4 +293,234 @@ public class CombatLogTests
     }
 
     #endregion
+
+    #region GetFormattedEntries Tests
+
+    [Fact]
+    public void GetFormattedEntries_Should_Return_Empty_List_For_Empty_Log()
+    {
+        // Arrange
+        var log = new CombatLog();
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_Single_Entry()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Test message", CombatLogType.Info);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted.Should().HaveCount(1);
+        formatted[0].Should().Contain("Test message");
+        formatted[0].Should().Contain("[dim]"); // Info type uses dim color
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_PlayerAttack_With_Green()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Player hits enemy", CombatLogType.PlayerAttack);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().StartWith("[green]");
+        formatted[0].Should().Contain("Player hits enemy");
+        formatted[0].Should().EndWith("[/]");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_EnemyAttack_With_Red()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Enemy hits player", CombatLogType.EnemyAttack);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().StartWith("[red]");
+        formatted[0].Should().Contain("Enemy hits player");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_Critical_With_Orange()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("CRITICAL HIT!", CombatLogType.Critical);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().StartWith("[orange1]");
+        formatted[0].Should().Contain("CRITICAL HIT!");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_Dodge_With_Yellow()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Dodged attack", CombatLogType.Dodge);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().StartWith("[yellow]");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_Heal_With_Cyan()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Restored 25 HP", CombatLogType.Heal);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().StartWith("[cyan]");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_Defend_With_Blue()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Defending", CombatLogType.Defend);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().StartWith("[blue]");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_ItemUse_With_Purple()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Used Health Potion", CombatLogType.ItemUse);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().StartWith("[purple]");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_Victory_With_Lime()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Victory!", CombatLogType.Victory);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().StartWith("[lime]");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_Defeat_With_Red()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Defeated", CombatLogType.Defeat);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().StartWith("[red]");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_Multiple_Entries_With_Different_Colors()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("Player attacks", CombatLogType.PlayerAttack);
+        log.AddEntry("Enemy attacks", CombatLogType.EnemyAttack);
+        log.AddEntry("Critical hit!", CombatLogType.Critical);
+        log.AddEntry("Healed 50 HP", CombatLogType.Heal);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted.Should().HaveCount(4);
+        formatted[0].Should().StartWith("[green]"); // PlayerAttack
+        formatted[1].Should().StartWith("[red]");   // EnemyAttack
+        formatted[2].Should().StartWith("[orange1]"); // Critical
+        formatted[3].Should().StartWith("[cyan]");  // Heal
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Preserve_Entry_Order()
+    {
+        // Arrange
+        var log = new CombatLog();
+        log.AddEntry("First", CombatLogType.Info);
+        log.AddEntry("Second", CombatLogType.PlayerAttack);
+        log.AddEntry("Third", CombatLogType.EnemyAttack);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted[0].Should().Contain("First");
+        formatted[1].Should().Contain("Second");
+        formatted[2].Should().Contain("Third");
+    }
+
+    [Fact]
+    public void GetFormattedEntries_Should_Format_All_CombatLogTypes()
+    {
+        // Arrange
+        var log = new CombatLog(15);
+        log.AddEntry("Info", CombatLogType.Info);
+        log.AddEntry("PlayerAttack", CombatLogType.PlayerAttack);
+        log.AddEntry("EnemyAttack", CombatLogType.EnemyAttack);
+        log.AddEntry("Critical", CombatLogType.Critical);
+        log.AddEntry("Dodge", CombatLogType.Dodge);
+        log.AddEntry("Heal", CombatLogType.Heal);
+        log.AddEntry("Defend", CombatLogType.Defend);
+        log.AddEntry("ItemUse", CombatLogType.ItemUse);
+        log.AddEntry("Victory", CombatLogType.Victory);
+        log.AddEntry("Defeat", CombatLogType.Defeat);
+
+        // Act
+        var formatted = log.GetFormattedEntries();
+
+        // Assert
+        formatted.Should().HaveCount(10);
+        formatted.Should().AllSatisfy(entry => 
+        {
+            entry.Should().StartWith("[");
+            entry.Should().EndWith("[/]");
+        });
+    }
+
+    #endregion
 }

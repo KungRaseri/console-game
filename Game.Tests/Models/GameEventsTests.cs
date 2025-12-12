@@ -71,4 +71,60 @@ public class GameEventsTests
         event1.Should().Be(event2);
         event1.Should().NotBe(event3);
     }
+
+    [Fact]
+    public void CombatStarted_Should_Have_PlayerName_And_EnemyName()
+    {
+        // Arrange & Act
+        var evt = new CombatStarted("Warrior", "Dragon");
+
+        // Assert
+        evt.PlayerName.Should().Be("Warrior");
+        evt.EnemyName.Should().Be("Dragon");
+    }
+
+    [Fact]
+    public void CombatEnded_Should_Have_PlayerName_And_Victory()
+    {
+        // Arrange & Act
+        var evt = new CombatEnded("Mage", true);
+
+        // Assert
+        evt.PlayerName.Should().Be("Mage");
+        evt.Victory.Should().BeTrue();
+    }
+
+    [Fact]
+    public void PlayerDefeated_Should_Have_PlayerName_And_EnemyName()
+    {
+        // Arrange & Act
+        var evt = new PlayerDefeated("Rogue", "Goblin");
+
+        // Assert
+        evt.PlayerName.Should().Be("Rogue");
+        evt.EnemyName.Should().Be("Goblin");
+    }
+
+    [Fact]
+    public void AttackPerformed_Should_Have_All_Properties()
+    {
+        // Arrange & Act
+        var evt = new AttackPerformed("Hero", "Enemy", 50);
+
+        // Assert
+        evt.AttackerName.Should().Be("Hero");
+        evt.DefenderName.Should().Be("Enemy");
+        evt.Damage.Should().Be(50);
+    }
+
+    [Fact]
+    public void EnemyDefeated_Should_Have_PlayerName_And_EnemyName()
+    {
+        // Arrange & Act
+        var evt = new EnemyDefeated("Champion", "Troll");
+
+        // Assert
+        evt.PlayerName.Should().Be("Champion");
+        evt.EnemyName.Should().Be("Troll");
+    }
 }
