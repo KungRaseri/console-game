@@ -12,33 +12,33 @@ public class VictoryOrchestrator
 {
     private readonly IMediator _mediator;
     private readonly IConsoleUI _console;
-    
+
     public VictoryOrchestrator(IMediator mediator, IConsoleUI console)
     {
         _mediator = mediator;
         _console = console;
     }
-    
+
     public async Task<bool> ShowVictorySequenceAsync()
     {
         // Trigger victory command
         var victoryResult = await _mediator.Send(new TriggerVictoryCommand());
-        
+
         if (!victoryResult.Success || victoryResult.Statistics == null)
             return false;
-        
+
         var stats = victoryResult.Statistics;
-        
+
         // Victory sequence
         _console.Clear();
         await ShowDramaticVictoryAsync();
         await ShowStatisticsAsync(stats);
         await ShowAchievementsAsync();
-        
+
         // Offer New Game+
         return await OfferNewGamePlusAsync();
     }
-    
+
     private async Task ShowDramaticVictoryAsync()
     {
         _console.ShowSuccess("═══════════════════════════════════════════════");
@@ -47,17 +47,17 @@ public class VictoryOrchestrator
         await Task.Delay(1000);
         _console.ShowSuccess("═══════════════════════════════════════════════");
         await Task.Delay(1500);
-        
+
         Console.Clear();
         _console.ShowSuccess("Light returns to the world...");
         await Task.Delay(2000);
-        
+
         _console.ShowSuccess("The apocalypse has been averted...");
         await Task.Delay(2000);
-        
+
         _console.ShowSuccess("You are the savior of the realm!");
         await Task.Delay(2000);
-        
+
         Console.Clear();
         _console.ShowSuccess("═══════════════════════════════════════════════");
         _console.ShowSuccess("                                               ");
@@ -66,13 +66,13 @@ public class VictoryOrchestrator
         _console.ShowSuccess("═══════════════════════════════════════════════");
         await Task.Delay(3000);
     }
-    
+
     private async Task ShowStatisticsAsync(VictoryStatistics stats)
     {
         Console.Clear();
         _console.ShowBanner("Final Statistics", $"{stats.PlayerName} the {stats.ClassName}");
         Console.WriteLine();
-        
+
         var headers = new[] { "Stat", "Value" };
         var rows = new List<string[]>
         {
@@ -85,23 +85,23 @@ public class VictoryOrchestrator
             new[] { "Achievements", $"{stats.AchievementsUnlocked} unlocked" },
             new[] { "Total Gold Earned", $"{stats.TotalGoldEarned}g" }
         };
-        
+
         _console.ShowTable("Your Journey", headers, rows);
-        
+
         Log.Information("Victory statistics displayed for {PlayerName}", stats.PlayerName);
-        
+
         await Task.Delay(5000);
     }
-    
+
     private async Task ShowAchievementsAsync()
     {
         Console.Clear();
         _console.ShowBanner("Achievements", "Your Accomplishments");
         Console.WriteLine();
-        
+
         var query = new Features.Achievement.Queries.GetUnlockedAchievementsQuery();
         var achievements = await _mediator.Send(query);
-        
+
         if (achievements.Any())
         {
             foreach (var achievement in achievements)
@@ -113,16 +113,16 @@ public class VictoryOrchestrator
         {
             _console.WriteText("No achievements unlocked yet.");
         }
-        
+
         await Task.Delay(4000);
     }
-    
+
     private async Task<bool> OfferNewGamePlusAsync()
     {
         Console.Clear();
         _console.ShowBanner("New Game+", "Continue Your Journey");
         Console.WriteLine();
-        
+
         _console.WriteText("You have completed the game!");
         _console.WriteText("New Game+ is now available with:");
         _console.WriteText("  • Increased enemy difficulty");
@@ -130,11 +130,11 @@ public class VictoryOrchestrator
         _console.WriteText("  • Keep your achievements");
         _console.WriteText("  • Start with bonus stats");
         Console.WriteLine();
-        
+
         if (_console.Confirm("Start New Game+?"))
         {
             var result = await _mediator.Send(new StartNewGamePlusCommand());
-            
+
             if (result.Success)
             {
                 _console.ShowSuccess(result.Message);
@@ -142,7 +142,7 @@ public class VictoryOrchestrator
                 return true;
             }
         }
-        
+
         return false;
     }
 }

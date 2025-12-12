@@ -225,7 +225,7 @@ await AnsiConsole.Live(new Panel("Loading..."))
     {
         // Update display in real-time
         ctx.UpdateTarget(new Panel("50%..."));
-        await Task.Delay(1000);
+        await Task.Delay(500);
         ctx.UpdateTarget(new Panel("100%!"));
     });
 ```

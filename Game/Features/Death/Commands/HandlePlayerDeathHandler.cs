@@ -116,7 +116,7 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
         _console.ShowSuccess("You have respawned at Hub Town with full health!");
         _console.ShowInfo("Return to your death location to recover dropped items.");
         
-        await Task.Delay(3000);
+        await Task.Delay(1500);
         
         // Auto-save in Ironman mode
         if (difficulty.AutoSaveOnly)
@@ -177,7 +177,7 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
         // Show final statistics
         ShowPermadeathStatistics(player, saveGame, entry);
         
-        await Task.Delay(5000);
+        await Task.Delay(2500);
         
         // Delete save
         _saveGameService.DeleteSave(saveGame.Id);
@@ -185,7 +185,7 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
         _console.ShowError("Your save file has been deleted.");
         _console.ShowInfo($"Your legacy lives on in the Hall of Fame (Score: {entry.GetFameScore()})");
         
-        await Task.Delay(3000);
+        await Task.Delay(1500);
         
         return new HandlePlayerDeathResult
         {

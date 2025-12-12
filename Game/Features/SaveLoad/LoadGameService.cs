@@ -113,7 +113,7 @@ public class LoadGameService
                 if (_apocalypseTimer.IsExpired())
                 {
                     _console.ShowError("Time has run out! The apocalypse occurred while you were gone.");
-                    await Task.Delay(3000);
+                    await Task.Delay(1500);
                     // Return to GameEngine which will handle the apocalypse game over
                     return (selectedSave, true);
                 }
@@ -127,7 +127,7 @@ public class LoadGameService
                     _console.ShowError("WARNING: Less than 1 hour remaining!");
                 }
                 
-                await Task.Delay(2000);
+                await Task.Delay(1000);
             }
             
             await Task.Delay(500);

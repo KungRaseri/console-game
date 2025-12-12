@@ -1,0 +1,424 @@
+using Xunit;
+using FluentAssertions;
+using Game.Features.Death;
+using Game.Models;
+using Game.Shared.UI;
+using Moq;
+
+namespace Game.Tests.Features.Death.Services;
+
+/// <summary>
+/// Comprehensive tests for HallOfFameService.
+/// Targets 0% baseline coverage to achieve 80%+ line coverage.
+/// </summary>
+public class HallOfFameServiceTests : IDisposable
+{
+    private readonly string _testDbPath;
+    private readonly Mock<IConsoleUI> _mockConsoleUI;
+    private readonly HallOfFameService _hallOfFameService;
+
+    public HallOfFameServiceTests()
+    {
+        _testDbPath = $"test-halloffame-{Guid.NewGuid()}.db";
+        _mockConsoleUI = new Mock<IConsoleUI>();
+        _hallOfFameService = new HallOfFameService(_mockConsoleUI.Object, _testDbPath);
+    }
+
+    public void Dispose()
+    {
+        _hallOfFameService?.Dispose();
+
+        try
+        {
+            if (File.Exists(_testDbPath))
+                File.Delete(_testDbPath);
+            var logFile = _testDbPath.Replace(".db", "-log.db");
+            if (File.Exists(logFile))
+                File.Delete(logFile);
+        }
+        catch (IOException)
+        {
+            // Ignore cleanup errors - files might still be locked
+        }
+    }
+
+    #region AddEntry Tests
+
+    [Fact]
+    public void AddEntry_Should_Add_Entry_To_Database()
+    {
+        // Arrange
+        var entry = CreateTestEntry("Hero1", level: 10, isPermadeath: true);
+
+        // Act
+        _hallOfFameService.AddEntry(entry);
+
+        // Assert
+        var allEntries = _hallOfFameService.GetAllEntries();
+        allEntries.Should().ContainSingle();
+        allEntries[0].CharacterName.Should().Be("Hero1");
+    }
+
+    [Fact]
+    public void AddEntry_Should_Add_Multiple_Entries()
+    {
+        // Arrange
+        var entry1 = CreateTestEntry("Hero1", level: 10, isPermadeath: true);
+        var entry2 = CreateTestEntry("Hero2", level: 20, isPermadeath: false);
+        var entry3 = CreateTestEntry("Hero3", level: 5, isPermadeath: true);
+
+        // Act
+        _hallOfFameService.AddEntry(entry1);
+        _hallOfFameService.AddEntry(entry2);
+        _hallOfFameService.AddEntry(entry3);
+
+        // Assert
+        var allEntries = _hallOfFameService.GetAllEntries();
+        allEntries.Should().HaveCount(3);
+        allEntries.Should().Contain(e => e.CharacterName == "Hero1");
+        allEntries.Should().Contain(e => e.CharacterName == "Hero2");
+        allEntries.Should().Contain(e => e.CharacterName == "Hero3");
+    }
+
+    [Fact]
+    public void AddEntry_Should_Persist_All_Properties()
+    {
+        // Arrange
+        var entry = new HallOfFameEntry
+        {
+            CharacterName = "TestHero",
+            ClassName = "Warrior",
+            Level = 15,
+            TotalEnemiesDefeated = 100,
+            QuestsCompleted = 10,
+            AchievementsUnlocked = 5,
+            PlayTimeMinutes = 120,
+            IsPermadeath = true,
+            DeathDate = DateTime.Now,
+            DifficultyLevel = "Apocalypse"
+        };
+
+        // Act
+        _hallOfFameService.AddEntry(entry);
+
+        // Assert
+        var retrieved = _hallOfFameService.GetAllEntries().First();
+        retrieved.CharacterName.Should().Be("TestHero");
+        retrieved.ClassName.Should().Be("Warrior");
+        retrieved.Level.Should().Be(15);
+        retrieved.TotalEnemiesDefeated.Should().Be(100);
+        retrieved.QuestsCompleted.Should().Be(10);
+        retrieved.AchievementsUnlocked.Should().Be(5);
+        retrieved.PlayTimeMinutes.Should().Be(120);
+        retrieved.IsPermadeath.Should().BeTrue();
+        retrieved.DifficultyLevel.Should().Be("Apocalypse");
+    }
+
+    #endregion
+
+    #region GetAllEntries Tests
+
+    [Fact]
+    public void GetAllEntries_Should_Return_Empty_List_When_No_Entries()
+    {
+        // Act
+        var entries = _hallOfFameService.GetAllEntries();
+
+        // Assert
+        entries.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void GetAllEntries_Should_Return_All_Entries_Sorted_By_Fame_Score()
+    {
+        // Arrange
+        var lowScore = CreateTestEntry("LowHero", level: 5, isPermadeath: false);
+        var highScore = CreateTestEntry("HighHero", level: 20, isPermadeath: true);
+        var midScore = CreateTestEntry("MidHero", level: 10, isPermadeath: false);
+
+        _hallOfFameService.AddEntry(lowScore);
+        _hallOfFameService.AddEntry(highScore);
+        _hallOfFameService.AddEntry(midScore);
+
+        // Act
+        var entries = _hallOfFameService.GetAllEntries();
+
+        // Assert
+        entries.Should().HaveCount(3);
+        entries[0].CharacterName.Should().Be("HighHero", "highest fame score should be first");
+        entries[1].CharacterName.Should().Be("MidHero", "mid fame score should be second");
+        entries[2].CharacterName.Should().Be("LowHero", "lowest fame score should be last");
+    }
+
+    [Fact]
+    public void GetAllEntries_Should_Respect_Limit_Parameter()
+    {
+        // Arrange
+        for (int i = 0; i < 15; i++)
+        {
+            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i + 1, isPermadeath: false));
+        }
+
+        // Act
+        var entries = _hallOfFameService.GetAllEntries(limit: 5);
+
+        // Assert
+        entries.Should().HaveCount(5, "should only return requested limit");
+    }
+
+    [Fact]
+    public void GetAllEntries_Should_Default_To_100_Limit()
+    {
+        // Arrange
+        for (int i = 0; i < 150; i++)
+        {
+            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i + 1, isPermadeath: false));
+        }
+
+        // Act
+        var entries = _hallOfFameService.GetAllEntries();
+
+        // Assert
+        entries.Should().HaveCount(100, "default limit should be 100");
+    }
+
+    #endregion
+
+    #region GetTopHeroes Tests
+
+    [Fact]
+    public void GetTopHeroes_Should_Return_Empty_List_When_No_Entries()
+    {
+        // Act
+        var topHeroes = _hallOfFameService.GetTopHeroes();
+
+        // Assert
+        topHeroes.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void GetTopHeroes_Should_Return_Top_Entries_By_Fame_Score()
+    {
+        // Arrange
+        for (int i = 1; i <= 20; i++)
+        {
+            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
+        }
+
+        // Act
+        var topHeroes = _hallOfFameService.GetTopHeroes(count: 10);
+
+        // Assert
+        topHeroes.Should().HaveCount(10);
+        topHeroes[0].Level.Should().Be(20, "highest level should be first");
+        topHeroes[9].Level.Should().Be(11, "10th highest level should be last");
+    }
+
+    [Fact]
+    public void GetTopHeroes_Should_Default_To_10_Count()
+    {
+        // Arrange
+        for (int i = 1; i <= 20; i++)
+        {
+            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
+        }
+
+        // Act
+        var topHeroes = _hallOfFameService.GetTopHeroes();
+
+        // Assert
+        topHeroes.Should().HaveCount(10, "default count should be 10");
+    }
+
+    [Fact]
+    public void GetTopHeroes_Should_Handle_Request_For_More_Than_Available()
+    {
+        // Arrange
+        _hallOfFameService.AddEntry(CreateTestEntry("Hero1", level: 10, isPermadeath: false));
+        _hallOfFameService.AddEntry(CreateTestEntry("Hero2", level: 5, isPermadeath: false));
+
+        // Act
+        var topHeroes = _hallOfFameService.GetTopHeroes(count: 10);
+
+        // Assert
+        topHeroes.Should().HaveCount(2, "should return all available entries when requested count is higher");
+    }
+
+    #endregion
+
+    #region DisplayHallOfFame Tests
+
+    [Fact]
+    public void DisplayHallOfFame_Should_Show_No_Heroes_Message_When_Empty()
+    {
+        // Act
+        _hallOfFameService.DisplayHallOfFame();
+
+        // Assert
+        _mockConsoleUI.Verify(x => x.Clear(), Times.Once);
+        _mockConsoleUI.Verify(x => x.ShowBanner("Hall of Fame", "Legendary Heroes"), Times.Once);
+        _mockConsoleUI.Verify(x => x.WriteText(It.Is<string>(s => s.Contains("No heroes yet"))), Times.Once);
+        _mockConsoleUI.Verify(x => x.PressAnyKey(It.IsAny<string>()), Times.Once);
+    }
+
+    [Fact]
+    public void DisplayHallOfFame_Should_Display_Table_With_Entries()
+    {
+        // Arrange
+        _hallOfFameService.AddEntry(CreateTestEntry("Hero1", level: 10, isPermadeath: true));
+        _hallOfFameService.AddEntry(CreateTestEntry("Hero2", level: 20, isPermadeath: false));
+
+        // Act
+        _hallOfFameService.DisplayHallOfFame();
+
+        // Assert
+        _mockConsoleUI.Verify(x => x.Clear(), Times.Once);
+        _mockConsoleUI.Verify(x => x.ShowBanner("Hall of Fame", "Legendary Heroes"), Times.Once);
+        _mockConsoleUI.Verify(x => x.ShowTable(
+            It.Is<string>(s => s == "Top Heroes"),
+            It.Is<string[]>(h => h.Contains("Rank") && h.Contains("Name") && h.Contains("Score")),
+            It.Is<List<string[]>>(rows => rows.Count == 2)),
+            Times.Once);
+        _mockConsoleUI.Verify(x => x.PressAnyKey(It.IsAny<string>()), Times.Once);
+    }
+
+    [Fact]
+    public void DisplayHallOfFame_Should_Show_Correct_Rank_Numbers()
+    {
+        // Arrange
+        for (int i = 1; i <= 5; i++)
+        {
+            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
+        }
+
+        // Act
+        _hallOfFameService.DisplayHallOfFame();
+
+        // Assert
+        _mockConsoleUI.Verify(x => x.ShowTable(
+            It.IsAny<string>(),
+            It.IsAny<string[]>(),
+            It.Is<List<string[]>>(rows =>
+                rows.Count == 5 &&
+                rows[0][0] == "#1" &&
+                rows[1][0] == "#2" &&
+                rows[4][0] == "#5")),
+            Times.Once,
+            "Ranks should be numbered correctly");
+    }
+
+    [Fact]
+    public void DisplayHallOfFame_Should_Show_Permadeath_Status()
+    {
+        // Arrange
+        _hallOfFameService.AddEntry(CreateTestEntry("Permadeath Hero", level: 10, isPermadeath: true));
+        _hallOfFameService.AddEntry(CreateTestEntry("Normal Hero", level: 5, isPermadeath: false));
+
+        // Act
+        _hallOfFameService.DisplayHallOfFame();
+
+        // Assert
+        _mockConsoleUI.Verify(x => x.ShowTable(
+            It.IsAny<string>(),
+            It.IsAny<string[]>(),
+            It.Is<List<string[]>>(rows =>
+                rows.Any(r => r[5] == "Yes") &&
+                rows.Any(r => r[5] == "No"))),
+            Times.Once,
+            "Should show Yes/No for permadeath status");
+    }
+
+    [Fact]
+    public void DisplayHallOfFame_Should_Limit_To_Top_20_Entries()
+    {
+        // Arrange
+        for (int i = 1; i <= 30; i++)
+        {
+            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
+        }
+
+        // Act
+        _hallOfFameService.DisplayHallOfFame();
+
+        // Assert
+        _mockConsoleUI.Verify(x => x.ShowTable(
+            It.IsAny<string>(),
+            It.IsAny<string[]>(),
+            It.Is<List<string[]>>(rows => rows.Count == 20)),
+            Times.Once,
+            "Should limit display to top 20");
+    }
+
+    #endregion
+
+    #region Fame Score Tests
+
+    [Fact]
+    public void Entries_Should_Be_Ordered_By_Fame_Score_Calculation()
+    {
+        // Arrange - create entries with different stats that impact fame score
+        var highQuestHero = CreateTestEntry("QuestHero", level: 10, isPermadeath: false, completedQuests: 50);
+        var highEnemyHero = CreateTestEntry("SlayerHero", level: 15, isPermadeath: false, enemiesDefeated: 200);
+        var lowStatsHero = CreateTestEntry("WeakHero", level: 5, isPermadeath: false, enemiesDefeated: 10);
+
+        _hallOfFameService.AddEntry(highQuestHero);
+        _hallOfFameService.AddEntry(highEnemyHero);
+        _hallOfFameService.AddEntry(lowStatsHero);
+
+        // Act
+        var topHeroes = _hallOfFameService.GetTopHeroes();
+
+        // Assert
+        topHeroes.Should().HaveCount(3);
+        // All should be ordered by their calculated fame scores
+        for (int i = 0; i < topHeroes.Count - 1; i++)
+        {
+            topHeroes[i].FameScore.Should().BeGreaterThanOrEqualTo(topHeroes[i + 1].FameScore,
+                $"entry at index {i} should have higher or equal fame score than entry at {i + 1}");
+        }
+    }
+
+    [Fact]
+    public void Permadeath_Entries_Should_Have_Higher_Fame_Score()
+    {
+        // Arrange - identical stats except permadeath
+        var permadeathHero = CreateTestEntry("Permadeath", level: 10, isPermadeath: true);
+        var normalHero = CreateTestEntry("Normal", level: 10, isPermadeath: false);
+
+        // Calculate fame scores
+        permadeathHero.CalculateFameScore();
+        normalHero.CalculateFameScore();
+
+        // Assert
+        permadeathHero.FameScore.Should().BeGreaterThan(normalHero.FameScore,
+            "permadeath should give bonus to fame score");
+    }
+
+    #endregion
+
+    #region Helper Methods
+
+    private HallOfFameEntry CreateTestEntry(
+        string name,
+        int level,
+        bool isPermadeath,
+        int enemiesDefeated = 10,
+        int completedQuests = 5)
+    {
+        return new HallOfFameEntry
+        {
+            CharacterName = name,
+            ClassName = "Warrior",
+            Level = level,
+            TotalEnemiesDefeated = enemiesDefeated,
+            QuestsCompleted = completedQuests,
+            AchievementsUnlocked = 1,
+            PlayTimeMinutes = 60,
+            IsPermadeath = isPermadeath,
+            DeathDate = DateTime.Now,
+            DifficultyLevel = "Normal"
+        };
+    }
+
+    #endregion
+}

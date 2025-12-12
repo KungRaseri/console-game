@@ -40,7 +40,6 @@ public class GameWorkflowIntegrationTests : IDisposable
     public void Dispose()
     {
         _saveGameService?.Dispose();
-        System.Threading.Thread.Sleep(100);
         try
         {
             if (File.Exists(_testDbFile)) File.Delete(_testDbFile);

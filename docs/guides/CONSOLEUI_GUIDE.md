@@ -161,7 +161,7 @@ var data = await ConsoleUIExpanded.ShowSpinnerAsync(
     "Loading game data...",
     async () =>
     {
-        await Task.Delay(2000);
+        await Task.Delay(1000);
         return await LoadGameDataAsync();
     }
 );
@@ -673,7 +673,7 @@ public class ShopSystem
         if (player.Gold < item.Price)
         {
             ConsoleUI.ShowError("Not enough gold!");
-            await Task.Delay(1500);
+            await Task.Delay(1000);
             return;
         }
         

@@ -23,6 +23,17 @@ public class CombatOrchestrator
     private readonly MenuService _menuService;
     private readonly IConsoleUI _console;
     private readonly LevelUpService _levelUpService;
+    
+    /// <summary>
+    /// Delay multiplier for animations (0 = instant, 1 = normal speed). Useful for testing.
+    /// </summary>
+    public int DelayMultiplier { get; set; } = 1;
+    
+    private Task DelayAsync(int milliseconds)
+    {
+        if (DelayMultiplier == 0) return Task.CompletedTask;
+        return Task.Delay(milliseconds * DelayMultiplier);
+    }
 
     public CombatOrchestrator(
         IMediator mediator,
@@ -54,7 +65,7 @@ public class CombatOrchestrator
         _console.ShowBanner("⚔️ COMBAT ⚔️", $"A wild {enemy.Name} appears!");
         _console.WriteColoredText($"[yellow]Level {enemy.Level} {enemy.Difficulty} enemy![/]");
         await _mediator.Publish(new CombatStarted(player.Name, enemy.Name));
-        await Task.Delay(500);
+        await DelayAsync(500);
 
         bool playerDefending = false;
 
@@ -75,14 +86,14 @@ public class CombatOrchestrator
                 {
                     combatLog.AddEntry("💨 Escaped successfully!", CombatLogType.Info);
                     _console.ShowSuccess(fleeResult.Message);
-                    await Task.Delay(500);
+                    await DelayAsync(500);
                     return false; // Combat ended, but not a victory
                 }
                 else
                 {
                     combatLog.AddEntry("Failed to escape!", CombatLogType.Info);
                     _console.ShowError(fleeResult.Message);
-                    await Task.Delay(500);
+                    await DelayAsync(500);
                 }
             }
             else if (actionType == CombatActionType.UseItem)
@@ -111,7 +122,7 @@ public class CombatOrchestrator
             }
 
             // Enemy turn
-            await Task.Delay(200);
+            await DelayAsync(200);
             await ExecuteEnemyTurnAsync(player, enemy, playerDefending, combatLog);
 
             // Check if player is defeated
@@ -126,11 +137,11 @@ public class CombatOrchestrator
             {
                 combatLog.AddEntry($"💚 Regeneration healed {regenAmount} HP", CombatLogType.Heal);
                 _console.WriteColoredText($"[green]💚 Regeneration healed {regenAmount} HP[/]");
-                await Task.Delay(300);
+                await DelayAsync(300);
             }
 
             Console.WriteLine();
-            await Task.Delay(600);
+            await DelayAsync(600);
         }
 
         // Combat ended
@@ -236,7 +247,7 @@ public class CombatOrchestrator
             await _mediator.Publish(new EnemyDefeated(player.Name, enemy.Name));
         }
 
-        await Task.Delay(300);
+        await DelayAsync(300);
     }
 
     private async Task ExecuteEnemyTurnAsync(Character player, Enemy enemy, bool playerDefending, CombatLog combatLog)
@@ -271,7 +282,7 @@ public class CombatOrchestrator
             await _mediator.Publish(new PlayerDefeated(player.Name, enemy.Name));
         }
 
-        await Task.Delay(300);
+        await DelayAsync(300);
     }
 
     private async Task<bool> UseItemInCombatMenuAsync(Character player, CombatLog combatLog)
@@ -281,7 +292,7 @@ public class CombatOrchestrator
         if (!consumables.Any())
         {
             _console.ShowWarning("You have no consumable items!");
-            await Task.Delay(300);
+            await DelayAsync(300);
             return false;
         }
 
@@ -314,13 +325,13 @@ public class CombatOrchestrator
                 _console.WriteColoredText($"[cyan]✨ {result.Message}[/]");
             }
 
-            await Task.Delay(500);
+            await DelayAsync(500);
             return true;
         }
         else
         {
             _console.ShowError(result.Message);
-            await Task.Delay(300);
+            await DelayAsync(300);
             return false;
         }
     }
@@ -354,7 +365,7 @@ public class CombatOrchestrator
             Console.WriteLine();
             _console.WriteColoredText($"[bold yellow]🌟 LEVEL UP! You are now level {player.Level}! 🌟[/]");
             await _mediator.Publish(new PlayerLeveledUp(player.Name, player.Level));
-            await Task.Delay(500);
+            await DelayAsync(500);
 
             // Process level-up allocation
             _console.PressAnyKey("Press any key to allocate your level-up points...");

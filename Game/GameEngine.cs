@@ -29,7 +29,7 @@ public class GameEngine
     private List<Item> _inventory;
     private string? _currentSaveId;
     private CombatLog? _combatLog;
-    
+
     /// <summary>
     /// Get the current player character from the active save game.
     /// Returns null if no save game is active.
@@ -178,25 +178,25 @@ public class GameEngine
     private async Task HandleMainMenuAsync()
     {
         var choice = _services.Menu.HandleMainMenu();
-        
+
         switch (choice)
         {
             case "New Game":
                 _state = GameState.CharacterCreation;
                 break;
-                
+
             case "Load Game":
                 await LoadGameAsync();
                 break;
-                
+
             case "🏆 Hall of Fame":
                 _services.HallOfFame.DisplayHallOfFame();
                 break;
-                
+
             case "Settings":
                 _services.Console.ShowInfo("Settings not yet implemented");
                 break;
-                
+
             case "Exit":
                 _isRunning = false;
                 break;
@@ -206,7 +206,7 @@ public class GameEngine
     private async Task HandleCharacterCreationAsync()
     {
         var (character, saveId, success) = await _services.CharacterCreation.CreateCharacterAsync();
-        
+
         if (success && character != null && saveId != null)
         {
             _currentSaveId = saveId;
@@ -217,11 +217,11 @@ public class GameEngine
             _state = GameState.MainMenu;
         }
     }
-    
+
     /// <summary>
     /// Let the player select their character class.
     /// </summary>
-    
+
     private async Task HandleInGameAsync()
     {
         if (Player == null)
@@ -235,19 +235,19 @@ public class GameEngine
         if (saveGame != null && saveGame.ApocalypseMode)
         {
             _services.ApocalypseTimer.CheckTimeWarnings();
-            
+
             if (_services.ApocalypseTimer.IsExpired())
             {
                 await HandleApocalypseGameOverAsync();
                 return;
             }
         }
-        
+
         // Display HUD with timer
         DisplayGameHUD();
 
         Console.WriteLine();
-        
+
         var action = _services.Menu.ShowInGameMenu();
 
         switch (action)
@@ -267,7 +267,7 @@ public class GameEngine
             case "View Character":
                 await ViewCharacterAsync();
                 break;
-                
+
             case var s when s.Contains("Level Up"):
                 await _services.LevelUpService.ProcessPendingLevelUpsAsync(Player);
                 break;
@@ -304,21 +304,21 @@ public class GameEngine
 
         // Generate enemy based on player level
         var enemy = Generators.EnemyGenerator.Generate(Player.Level, EnemyDifficulty.Normal);
-        
+
         // Initialize combat with difficulty scaling
         _services.CombatLogic.InitializeCombat(enemy);
-        
+
         // Initialize combat log
         _combatLog = new CombatLog(maxEntries: 15);
-        
+
         // Delegate to CombatOrchestrator
         await _services.Combat.HandleCombatAsync(Player, enemy, _combatLog);
-        
+
         // Clear combat log and return to game
         _combatLog = null;
         _state = GameState.InGame;
     }
-    
+
 
     private async Task HandleInventoryAsync()
     {
@@ -343,18 +343,18 @@ public class GameEngine
     private void HandlePaused()
     {
         var nextState = _services.Menu.HandlePauseMenu();
-        
+
         switch (nextState)
         {
             case GameState.InGame:
                 _state = GameState.InGame;
                 break;
-                
+
             case GameState.Paused:
                 // Save was requested
                 SaveGameAsync();
                 break;
-                
+
             case GameState.MainMenu:
                 if (_services.Console.Confirm("Return to main menu? (unsaved progress will be lost)"))
                 {
@@ -383,7 +383,7 @@ public class GameEngine
         if (Player == null) return;
 
         var shouldEnterCombat = await _services.Exploration.ExploreAsync();
-        
+
         if (shouldEnterCombat)
         {
             _state = GameState.Combat;
@@ -425,7 +425,7 @@ public class GameEngine
     private void RestAsync()
     {
         if (Player == null) return;
-        
+
         _services.ApocalypseTimer.Pause();
         try
         {
@@ -444,7 +444,7 @@ public class GameEngine
             _services.Console.ShowError("No active game to save!");
             return;
         }
-        
+
         _services.ApocalypseTimer.Pause();
         try
         {
@@ -459,12 +459,12 @@ public class GameEngine
     private async Task LoadGameAsync()
     {
         var (selectedSave, loadSuccessful) = await _services.LoadGame.LoadGameAsync();
-        
+
         if (loadSuccessful && selectedSave != null)
         {
             _currentSaveId = selectedSave.Id;
             _inventory = selectedSave.Character.Inventory;
-            
+
             // Check if apocalypse timer expired immediately after loading
             if (selectedSave.ApocalypseMode && _services.ApocalypseTimer.IsExpired())
             {
@@ -472,7 +472,7 @@ public class GameEngine
                 await HandleApocalypseGameOverAsync();
                 return;
             }
-            
+
             _state = GameState.InGame;
         }
     }
@@ -490,27 +490,27 @@ public class GameEngine
     private void DisplayGameHUD()
     {
         Console.Clear();
-        
+
         // Top bar with character info and timer
         var leftInfo = $"[cyan]{Player?.Name}[/] | Level {Player?.Level} {Player?.ClassName}";
         var centerInfo = $"[green]❤ {Player?.Health}/{Player?.MaxHealth}[/]  [blue]⚡ {Player?.Mana}/{Player?.MaxMana}[/]  [yellow]💰 {Player?.Gold}g[/]";
         var rightInfo = "";
-        
+
         // Add timer if in Apocalypse mode
         var saveGame = _services.SaveGame.GetCurrentSave();
         if (saveGame != null && saveGame.ApocalypseMode)
         {
             rightInfo = _services.ApocalypseTimer.GetColoredTimeDisplay();
         }
-        
+
         // Calculate spacing for centered layout
         var leftLen = _services.Console.StripMarkup(leftInfo).Length;
         var centerLen = _services.Console.StripMarkup(centerInfo).Length;
         var rightLen = _services.Console.StripMarkup(rightInfo).Length;
-        
+
         var totalWidth = Console.WindowWidth;
         var spacing = Math.Max(2, (totalWidth - leftLen - centerLen - rightLen) / 2);
-        
+
         // Display HUD
         Console.WriteLine(new string('═', totalWidth));
         AnsiConsole.MarkupLine($"{leftInfo}{new string(' ', spacing)}{centerInfo}{new string(' ', spacing)}{rightInfo}");
@@ -524,7 +524,7 @@ public class GameEngine
     private async Task HandleApocalypseGameOverAsync()
     {
         _services.Console.Clear();
-        
+
         // Dramatic apocalypse sequence
         _services.Console.ShowError("═══════════════════════════════════════");
         await Task.Delay(500);
@@ -532,17 +532,17 @@ public class GameEngine
         await Task.Delay(1000);
         _services.Console.ShowError("═══════════════════════════════════════");
         await Task.Delay(1500);
-        
+
         Console.Clear();
         _services.Console.ShowError("The world trembles...");
-        await Task.Delay(2000);
-        
+        await Task.Delay(1000);
+
         _services.Console.ShowError("The sky darkens...");
-        await Task.Delay(2000);
-        
+        await Task.Delay(1000);
+
         _services.Console.ShowError("Reality fractures...");
-        await Task.Delay(2000);
-        
+        await Task.Delay(1000);
+
         Console.Clear();
         _services.Console.ShowError("═════════════════════════════════════════════════");
         _services.Console.ShowError("                                                 ");
@@ -550,12 +550,12 @@ public class GameEngine
         _services.Console.ShowError("                                                 ");
         _services.Console.ShowError("═════════════════════════════════════════════════");
         await Task.Delay(2000);
-        
+
         Console.WriteLine();
         _services.Console.WriteText("The world crumbles into eternal darkness...");
         _services.Console.WriteText("You failed to stop the inevitable.");
         Console.WriteLine();
-        
+
         // Show final statistics
         var saveGame = _services.SaveGame.GetCurrentSave();
         if (saveGame != null)
@@ -566,7 +566,7 @@ public class GameEngine
             _services.Console.WriteText($"Quests Completed: {saveGame.QuestsCompleted}");
             _services.Console.WriteText($"Enemies Defeated: {saveGame.TotalEnemiesDefeated}");
             Console.WriteLine();
-            
+
             // Check progress
             var mainQuestProgress = CalculateMainQuestProgress(saveGame);
             if (mainQuestProgress >= 0.8) // 80% complete
@@ -582,16 +582,16 @@ public class GameEngine
                 _services.Console.ShowWarning("You barely scratched the surface of what was needed.");
             }
         }
-        
+
         Console.WriteLine();
         _services.Console.ShowError("═════════════════════════════════════════════════");
         _services.Console.ShowError("                  GAME OVER                      ");
         _services.Console.ShowError("═════════════════════════════════════════════════");
-        
+
         Log.Warning("Apocalypse game over. Player failed to complete main quest in time.");
-        
-        await Task.Delay(5000);
-        
+
+        await Task.Delay(3000);
+
         // Ask if they want to try again
         if (_services.Console.Confirm("Try again?"))
         {

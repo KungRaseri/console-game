@@ -22,9 +22,15 @@ public class HallOfFameEntry
     public string DifficultyLevel { get; set; } = "Normal";
     
     /// <summary>
-    /// Calculate a "fame score" for ranking.
+    /// Pre-calculated fame score for ranking (stored for LiteDB indexing).
     /// </summary>
-    public int GetFameScore()
+    public int FameScore { get; set; }
+    
+    /// <summary>
+    /// Calculate and update the fame score for ranking.
+    /// Call this before saving to database.
+    /// </summary>
+    public void CalculateFameScore()
     {
         var score = Level * 100;
         score += QuestsCompleted * 50;
@@ -34,7 +40,15 @@ public class HallOfFameEntry
         if (IsPermadeath)
             score *= 2; // Double points for permadeath runs
         
-        return score;
+        FameScore = score;
+    }
+    
+    /// <summary>
+    /// Calculate a "fame score" for ranking (for backwards compatibility).
+    /// </summary>
+    public int GetFameScore()
+    {
+        return FameScore;
     }
     
     /// <summary>

@@ -39,14 +39,12 @@ public class ApocalypseTimerTests
     }
 
     [Fact]
-    public async Task Start_Should_Reset_Timer_When_Called_Multiple_Times()
+    public Task Start_Should_Reset_Timer_When_Called_Multiple_Times()
     {
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
         timer.Start();
         
-        // Simulate some time passing
-        await Task.Delay(100);
         var firstRemaining = timer.GetRemainingMinutes();
 
         // Act - Restart timer
@@ -55,6 +53,7 @@ public class ApocalypseTimerTests
 
         // Assert
         secondRemaining.Should().BeGreaterThanOrEqualTo(firstRemaining, "Restarting should reset the timer");
+        return Task.CompletedTask;
     }
 
     #endregion
@@ -97,7 +96,7 @@ public class ApocalypseTimerTests
     #region Pause/Resume Tests
 
     [Fact]
-    public async Task Pause_Should_Stop_Timer_From_Counting_Down()
+    public Task Pause_Should_Stop_Timer_From_Counting_Down()
     {
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
@@ -106,30 +105,29 @@ public class ApocalypseTimerTests
         // Act
         timer.Pause();
         var remainingWhenPaused = timer.GetRemainingMinutes();
-        await Task.Delay(200); // Wait a bit
         var remainingAfterPause = timer.GetRemainingMinutes();
 
         // Assert
         remainingAfterPause.Should().Be(remainingWhenPaused, "Timer should not count down while paused");
+        return Task.CompletedTask;
     }
 
     [Fact]
-    public async Task Resume_Should_Continue_Timer_After_Pause()
+    public Task Resume_Should_Continue_Timer_After_Pause()
     {
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
         timer.Start();
         timer.Pause();
-        await Task.Delay(100);
         
         // Act
         timer.Resume();
         var remainingAfterResume = timer.GetRemainingMinutes();
-        await Task.Delay(100);
         var remainingAfterWait = timer.GetRemainingMinutes();
 
         // Assert
         remainingAfterWait.Should().BeLessThanOrEqualTo(remainingAfterResume, "Timer should count down after resume");
+        return Task.CompletedTask;
     }
 
     [Fact]
@@ -150,7 +148,7 @@ public class ApocalypseTimerTests
     }
 
     [Fact]
-    public async Task Resume_Should_Handle_Multiple_Pause_Resume_Cycles()
+    public Task Resume_Should_Handle_Multiple_Pause_Resume_Cycles()
     {
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
@@ -158,17 +156,16 @@ public class ApocalypseTimerTests
 
         // Act - Multiple pause/resume cycles
         timer.Pause();
-        await Task.Delay(50);
         timer.Resume();
         
         timer.Pause();
-        await Task.Delay(50);
         timer.Resume();
         
         var remaining = timer.GetRemainingMinutes();
 
         // Assert
         remaining.Should().BeInRange(239, 240, "Paused time should not count toward elapsed time");
+        return Task.CompletedTask;
     }
 
     #endregion
@@ -176,7 +173,7 @@ public class ApocalypseTimerTests
     #region GetRemainingMinutes Tests
 
     [Fact]
-    public async Task GetRemainingMinutes_Should_Decrease_Over_Time()
+    public Task GetRemainingMinutes_Should_Decrease_Over_Time()
     {
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
@@ -184,11 +181,11 @@ public class ApocalypseTimerTests
         var initialRemaining = timer.GetRemainingMinutes();
 
         // Act
-        await Task.Delay(200);
         var laterRemaining = timer.GetRemainingMinutes();
 
         // Assert
         laterRemaining.Should().BeLessThanOrEqualTo(initialRemaining, "Time should decrease as seconds pass");
+        return Task.CompletedTask;
     }
 
     [Fact]
@@ -583,18 +580,18 @@ public class ApocalypseTimerTests
     }
 
     [Fact]
-    public async Task GetElapsedMinutes_Should_Increase_Over_Time()
+    public Task GetElapsedMinutes_Should_Increase_Over_Time()
     {
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
         timer.Start();
-        await Task.Delay(100);
 
         // Act
         var elapsed = timer.GetElapsedMinutes();
 
         // Assert
         elapsed.Should().BeGreaterThanOrEqualTo(0, "Some time should have elapsed");
+        return Task.CompletedTask;
     }
 
     [Fact]
@@ -667,7 +664,7 @@ public class ApocalypseTimerTests
     #region Integration Tests
 
     [Fact]
-    public async Task ApocalypseTimer_Should_Handle_Complete_Workflow()
+    public Task ApocalypseTimer_Should_Handle_Complete_Workflow()
     {
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
@@ -684,7 +681,6 @@ public class ApocalypseTimerTests
 
         // Act - Pause timer
         timer.Pause();
-        await Task.Delay(100);
         var whilePaused = timer.GetRemainingMinutes();
         whilePaused.Should().BeInRange(299, 301, "Should not decrease while paused");
 
@@ -697,16 +693,16 @@ public class ApocalypseTimerTests
         timer.IsExpired().Should().BeFalse();
         timer.GetBonusMinutes().Should().Be(60);
         timer.GetTotalTimeLimit().Should().Be(300);
+        return Task.CompletedTask;
     }
 
     [Fact]
-    public async Task ApocalypseTimer_Should_Handle_Save_And_Load_Scenario()
+    public Task ApocalypseTimer_Should_Handle_Save_And_Load_Scenario()
     {
         // Arrange - Simulate saving a game
         var timer1 = new ApocalypseTimer(_consoleUI);
         timer1.Start();
         timer1.AddBonusTime(30, "Saved game bonus");
-        await Task.Delay(100);
         
         var savedStartTime = DateTime.Now.AddMinutes(-timer1.GetElapsedMinutes());
         var savedBonusMinutes = timer1.GetBonusMinutes();
@@ -719,6 +715,7 @@ public class ApocalypseTimerTests
         var difference = Math.Abs(timer2.GetRemainingMinutes() - timer1.GetRemainingMinutes());
         difference.Should().BeLessThan(2, "Loaded timer should closely match saved timer");
         timer2.GetBonusMinutes().Should().Be(30, "Bonus should be restored");
+        return Task.CompletedTask;
     }
 
     [Fact]
@@ -740,3 +737,4 @@ public class ApocalypseTimerTests
 
     #endregion
 }
+

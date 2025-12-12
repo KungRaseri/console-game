@@ -189,6 +189,7 @@ public class HallOfFameEntryTests
         var entry = new HallOfFameEntry { Level = 10 };
 
         // Act
+        entry.CalculateFameScore();
         var score = entry.GetFameScore();
 
         // Assert - 10 * 100 = 1000
@@ -206,6 +207,7 @@ public class HallOfFameEntryTests
         };
 
         // Act
+        entry.CalculateFameScore();
         var score = entry.GetFameScore();
 
         // Assert - (5 * 100) + (10 * 50) = 500 + 500 = 1000
@@ -223,6 +225,7 @@ public class HallOfFameEntryTests
         };
 
         // Act
+        entry.CalculateFameScore();
         var score = entry.GetFameScore();
 
         // Assert - (5 * 100) + (100 * 5) = 500 + 500 = 1000
@@ -240,6 +243,7 @@ public class HallOfFameEntryTests
         };
 
         // Act
+        entry.CalculateFameScore();
         var score = entry.GetFameScore();
 
         // Assert - (5 * 100) + (3 * 200) = 500 + 600 = 1100
@@ -257,6 +261,7 @@ public class HallOfFameEntryTests
         };
 
         // Act
+        entry.CalculateFameScore();
         var score = entry.GetFameScore();
 
         // Assert - (10 * 100) * 2 = 2000
@@ -274,6 +279,7 @@ public class HallOfFameEntryTests
         };
 
         // Act
+        entry.CalculateFameScore();
         var score = entry.GetFameScore();
 
         // Assert - (10 * 100) = 1000 (not doubled)
@@ -295,6 +301,7 @@ public class HallOfFameEntryTests
         // Total: 2000 + 750 + 1000 + 1000 = 4750
 
         // Act
+        entry.CalculateFameScore();
         var score = entry.GetFameScore();
 
         // Assert
@@ -316,6 +323,7 @@ public class HallOfFameEntryTests
         // Total: (2000 + 750 + 1000 + 1000) * 2 = 9500
 
         // Act
+        entry.CalculateFameScore();
         var score = entry.GetFameScore();
 
         // Assert
@@ -431,6 +439,7 @@ public class HallOfFameEntryTests
         // Assert
         entry.CharacterName.Should().Be("Thorin");
         entry.Level.Should().Be(15);
+        entry.CalculateFameScore();
         entry.GetFameScore().Should().Be(3945); // (15*100 + 12*50 + 89*5 + 7*200) = 1500+600+445+1400 = 3945
         entry.GetPlaytimeFormatted().Should().Be("9h 0m");
     }
@@ -457,6 +466,7 @@ public class HallOfFameEntryTests
 
         // Assert
         entry.IsPermadeath.Should().BeTrue();
+        entry.CalculateFameScore();
         entry.GetFameScore().Should().Be(32500); // (50*100 + 75*50 + 500*5 + 25*200) * 2 = 16250 * 2 = 32500
         entry.GetPlaytimeFormatted().Should().Be("50h 0m");
         entry.DeathCount.Should().Be(0); // First death in permadeath
@@ -494,6 +504,7 @@ public class HallOfFameEntryTests
         };
 
         // Assert
+        entry.CalculateFameScore();
         entry.GetFameScore().Should().Be(100); // Just level * 100
     }
 

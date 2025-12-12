@@ -19,7 +19,7 @@ public class HallOfFameService : IDisposable
         _console = console;
         _db = new LiteDatabase(databasePath);
         _heroes = _db.GetCollection<HallOfFameEntry>("heroes");
-        _heroes.EnsureIndex(x => x.GetFameScore());
+        _heroes.EnsureIndex(x => x.FameScore);
     }
     
     /// <summary>
@@ -29,9 +29,10 @@ public class HallOfFameService : IDisposable
     {
         try
         {
+            entry.CalculateFameScore(); // Calculate and store fame score before inserting
             _heroes.Insert(entry);
             Log.Information("Added {CharacterName} to Hall of Fame (Fame Score: {Score})",
-                entry.CharacterName, entry.GetFameScore());
+                entry.CharacterName, entry.FameScore);
         }
         catch (Exception ex)
         {
@@ -45,7 +46,7 @@ public class HallOfFameService : IDisposable
     public List<HallOfFameEntry> GetAllEntries(int limit = 100)
     {
         return _heroes.FindAll()
-            .OrderByDescending(x => x.GetFameScore())
+            .OrderByDescending(x => x.FameScore)
             .Take(limit)
             .ToList();
     }
@@ -56,7 +57,7 @@ public class HallOfFameService : IDisposable
     public List<HallOfFameEntry> GetTopHeroes(int count = 10)
     {
         return _heroes.FindAll()
-            .OrderByDescending(x => x.GetFameScore())
+            .OrderByDescending(x => x.FameScore)
             .Take(count)
             .ToList();
     }
@@ -91,7 +92,7 @@ public class HallOfFameService : IDisposable
                 entry.CharacterName,
                 entry.ClassName,
                 entry.Level.ToString(),
-                entry.GetFameScore().ToString(),
+                entry.FameScore.ToString(),
                 entry.IsPermadeath ? "Yes" : "No",
                 entry.DeathDate.ToShortDateString()
             });

@@ -68,9 +68,6 @@ public class CombatOrchestratorTests : IDisposable
         // Dispose services to release database connections
         _saveGameService?.Dispose();
         
-        // Small delay to ensure file handles are released
-        System.Threading.Thread.Sleep(100);
-        
         // Clean up test database
         try
         {

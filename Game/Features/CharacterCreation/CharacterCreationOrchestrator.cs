@@ -97,7 +97,7 @@ public class CharacterCreationOrchestrator
             _console.WriteText("  Complete the main quest before time runs out.");
             _console.WriteText("  Completing quests will award bonus time.");
             _console.ShowWarning("═══════════════════════════════════════");
-            await Task.Delay(4000);
+            await Task.Delay(2000);
         }
         
         Log.Information("Character created: {CharacterName} ({ClassName})", newCharacter.Name, newCharacter.ClassName);
