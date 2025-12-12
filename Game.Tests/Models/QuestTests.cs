@@ -576,4 +576,353 @@ public class QuestTests
     }
 
     #endregion
+
+    #region IsObjectivesComplete Tests
+
+    [Fact]
+    public void IsObjectivesComplete_Should_Return_True_When_Legacy_Progress_Meets_Quantity()
+    {
+        // Arrange - Legacy quest without modern objectives
+        var quest = new Quest
+        {
+            Quantity = 10,
+            Progress = 10
+        };
+
+        // Act
+        var isComplete = quest.IsObjectivesComplete();
+
+        // Assert
+        isComplete.Should().BeTrue();
+    }
+
+    [Fact]
+    public void IsObjectivesComplete_Should_Return_False_When_Legacy_Progress_Below_Quantity()
+    {
+        // Arrange
+        var quest = new Quest
+        {
+            Quantity = 10,
+            Progress = 5
+        };
+
+        // Act
+        var isComplete = quest.IsObjectivesComplete();
+
+        // Assert
+        isComplete.Should().BeFalse();
+    }
+
+    [Fact]
+    public void IsObjectivesComplete_Should_Return_True_When_All_Objectives_Met()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillEnemies"] = 10;
+        quest.Objectives["CollectItems"] = 5;
+        quest.ObjectiveProgress["KillEnemies"] = 10;
+        quest.ObjectiveProgress["CollectItems"] = 5;
+
+        // Act
+        var isComplete = quest.IsObjectivesComplete();
+
+        // Assert
+        isComplete.Should().BeTrue();
+    }
+
+    [Fact]
+    public void IsObjectivesComplete_Should_Return_False_When_Any_Objective_Not_Met()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillEnemies"] = 10;
+        quest.Objectives["CollectItems"] = 5;
+        quest.ObjectiveProgress["KillEnemies"] = 10;
+        quest.ObjectiveProgress["CollectItems"] = 3; // Not enough
+
+        // Act
+        var isComplete = quest.IsObjectivesComplete();
+
+        // Assert
+        isComplete.Should().BeFalse();
+    }
+
+    [Fact]
+    public void IsObjectivesComplete_Should_Return_False_When_Objective_Progress_Missing()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillEnemies"] = 10;
+        quest.Objectives["CollectItems"] = 5;
+        quest.ObjectiveProgress["KillEnemies"] = 10;
+        // CollectItems progress not recorded yet
+
+        // Act
+        var isComplete = quest.IsObjectivesComplete();
+
+        // Assert
+        isComplete.Should().BeFalse();
+    }
+
+    [Fact]
+    public void IsObjectivesComplete_Should_Handle_Single_Objective()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["DefeatBoss"] = 1;
+        quest.ObjectiveProgress["DefeatBoss"] = 1;
+
+        // Act
+        var isComplete = quest.IsObjectivesComplete();
+
+        // Assert
+        isComplete.Should().BeTrue();
+    }
+
+    [Fact]
+    public void IsObjectivesComplete_Should_Allow_Exceeding_Objective_Requirements()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillEnemies"] = 10;
+        quest.ObjectiveProgress["KillEnemies"] = 15; // Exceeded
+
+        // Act
+        var isComplete = quest.IsObjectivesComplete();
+
+        // Assert
+        isComplete.Should().BeTrue();
+    }
+
+    [Fact]
+    public void IsObjectivesComplete_Should_Return_True_When_No_Objectives_And_Progress_Zero()
+    {
+        // Arrange
+        var quest = new Quest
+        {
+            Quantity = 0,
+            Progress = 0
+        };
+
+        // Act
+        var isComplete = quest.IsObjectivesComplete();
+
+        // Assert
+        isComplete.Should().BeTrue();
+    }
+
+    #endregion
+
+    #region UpdateObjectiveProgress Tests
+
+    [Fact]
+    public void UpdateObjectiveProgress_Should_Initialize_Progress_When_First_Update()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillGoblins"] = 10;
+
+        // Act
+        quest.UpdateObjectiveProgress("KillGoblins");
+
+        // Assert
+        quest.ObjectiveProgress["KillGoblins"].Should().Be(1);
+    }
+
+    [Fact]
+    public void UpdateObjectiveProgress_Should_Increment_Existing_Progress()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillGoblins"] = 10;
+        quest.ObjectiveProgress["KillGoblins"] = 5;
+
+        // Act
+        quest.UpdateObjectiveProgress("KillGoblins");
+
+        // Assert
+        quest.ObjectiveProgress["KillGoblins"].Should().Be(6);
+    }
+
+    [Fact]
+    public void UpdateObjectiveProgress_Should_Support_Custom_Increment()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["CollectGold"] = 100;
+        quest.ObjectiveProgress["CollectGold"] = 0;
+
+        // Act
+        quest.UpdateObjectiveProgress("CollectGold", 25);
+
+        // Assert
+        quest.ObjectiveProgress["CollectGold"].Should().Be(25);
+    }
+
+    [Fact]
+    public void UpdateObjectiveProgress_Should_Update_Legacy_Progress_Field()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillEnemies"] = 10;
+        quest.Objectives["CollectItems"] = 5;
+        quest.ObjectiveProgress["KillEnemies"] = 3;
+        quest.ObjectiveProgress["CollectItems"] = 2;
+
+        // Act
+        quest.UpdateObjectiveProgress("KillEnemies", 2);
+
+        // Assert
+        quest.ObjectiveProgress["KillEnemies"].Should().Be(5);
+        quest.Progress.Should().Be(7); // Sum of all objective progress
+    }
+
+    [Fact]
+    public void UpdateObjectiveProgress_Should_Ignore_Unknown_Objectives()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillGoblins"] = 10;
+
+        // Act
+        quest.UpdateObjectiveProgress("KillDragons"); // Doesn't exist
+
+        // Assert
+        quest.ObjectiveProgress.Should().BeEmpty();
+        quest.Progress.Should().Be(0);
+    }
+
+    [Fact]
+    public void UpdateObjectiveProgress_Should_Handle_Multiple_Objectives()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillEnemies"] = 10;
+        quest.Objectives["CollectItems"] = 5;
+        quest.Objectives["TalkToNPCs"] = 3;
+
+        // Act
+        quest.UpdateObjectiveProgress("KillEnemies", 5);
+        quest.UpdateObjectiveProgress("CollectItems", 3);
+        quest.UpdateObjectiveProgress("TalkToNPCs", 2);
+
+        // Assert
+        quest.ObjectiveProgress["KillEnemies"].Should().Be(5);
+        quest.ObjectiveProgress["CollectItems"].Should().Be(3);
+        quest.ObjectiveProgress["TalkToNPCs"].Should().Be(2);
+        quest.Progress.Should().Be(10); // 5 + 3 + 2
+    }
+
+    [Fact]
+    public void UpdateObjectiveProgress_Should_Allow_Progress_Beyond_Requirement()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillGoblins"] = 10;
+        quest.ObjectiveProgress["KillGoblins"] = 9;
+
+        // Act
+        quest.UpdateObjectiveProgress("KillGoblins", 5); // Exceeds requirement
+
+        // Assert
+        quest.ObjectiveProgress["KillGoblins"].Should().Be(14);
+    }
+
+    [Fact]
+    public void UpdateObjectiveProgress_Should_Handle_Zero_Increment()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["KillGoblins"] = 10;
+        quest.ObjectiveProgress["KillGoblins"] = 5;
+
+        // Act
+        quest.UpdateObjectiveProgress("KillGoblins", 0);
+
+        // Assert
+        quest.ObjectiveProgress["KillGoblins"].Should().Be(5);
+    }
+
+    [Fact]
+    public void UpdateObjectiveProgress_Should_Handle_Negative_Increment()
+    {
+        // Arrange
+        var quest = new Quest();
+        quest.Objectives["Reputation"] = 100;
+        quest.ObjectiveProgress["Reputation"] = 50;
+
+        // Act
+        quest.UpdateObjectiveProgress("Reputation", -10);
+
+        // Assert
+        quest.ObjectiveProgress["Reputation"].Should().Be(40);
+    }
+
+    #endregion
+
+    #region Complex Objective Scenarios
+
+    [Fact]
+    public void Quest_Should_Track_Partial_Objective_Completion()
+    {
+        // Arrange
+        var quest = new Quest { Title = "The Great Hunt" };
+        quest.Objectives["KillWolves"] = 10;
+        quest.Objectives["KillBears"] = 5;
+        quest.Objectives["FindTreasure"] = 1;
+
+        // Act - Partial completion
+        quest.UpdateObjectiveProgress("KillWolves", 10); // Complete
+        quest.UpdateObjectiveProgress("KillBears", 3);   // Partial
+        // FindTreasure not started
+
+        // Assert
+        quest.ObjectiveProgress["KillWolves"].Should().Be(10);
+        quest.ObjectiveProgress["KillBears"].Should().Be(3);
+        quest.ObjectiveProgress.Should().NotContainKey("FindTreasure");
+        quest.IsObjectivesComplete().Should().BeFalse();
+    }
+
+    [Fact]
+    public void Quest_Should_Complete_When_All_Objectives_Finished()
+    {
+        // Arrange
+        var quest = new Quest { Title = "The Final Trial" };
+        quest.Objectives["DefeatBoss"] = 1;
+        quest.Objectives["SaveVillagers"] = 10;
+        quest.Objectives["RecoverArtifact"] = 1;
+
+        // Act - Complete all
+        quest.UpdateObjectiveProgress("DefeatBoss", 1);
+        quest.UpdateObjectiveProgress("SaveVillagers", 10);
+        quest.UpdateObjectiveProgress("RecoverArtifact", 1);
+
+        // Assert
+        quest.IsObjectivesComplete().Should().BeTrue();
+        quest.Progress.Should().Be(12); // Total of all progress
+    }
+
+    [Fact]
+    public void Quest_Should_Handle_Mixed_Legacy_And_Modern_Objectives()
+    {
+        // Arrange - Quest with both old Progress and new Objectives
+        var quest = new Quest
+        {
+            Quantity = 5,
+            Progress = 5
+        };
+        quest.Objectives["KillBoss"] = 1;
+        quest.ObjectiveProgress["KillBoss"] = 0;
+
+        // Act & Assert - Modern objectives take precedence
+        quest.IsObjectivesComplete().Should().BeFalse(); // Boss not killed yet
+
+        // Act - Complete boss objective
+        quest.UpdateObjectiveProgress("KillBoss", 1);
+
+        // Assert
+        quest.IsObjectivesComplete().Should().BeTrue();
+    }
+
+    #endregion
 }
