@@ -45,7 +45,7 @@ public class AchievementServiceTests : IDisposable
                 Gold = 500
             },
             UnlockedAchievements = new List<string>(),
-            CompletedQuests = new List<Quest>(),
+            CompletedQuests = new List<Game.Models.Quest>(),
             TotalEnemiesDefeated = 50,
             PlayTimeMinutes = 120,
             DeathCount = 0,
@@ -98,7 +98,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - quest achievement that should be unlockable
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Quest { Id = "test_quest" });
+        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "test_quest" });
 
         // Act
         var result = await _achievementService.UnlockAchievementAsync("first_steps");
@@ -221,7 +221,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - completed main quest
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
 
         // Act
         var result = await _achievementService.CheckAllAchievementsAsync();
@@ -235,7 +235,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - completed game on Apocalypse difficulty
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
         currentSave.DifficultyLevel = "Apocalypse";
 
         // Act
@@ -251,7 +251,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - completed game without dying
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
         currentSave.DeathCount = 0;
 
         // Act
@@ -266,7 +266,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - completed game but died
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
         currentSave.DeathCount = 1;
 
         // Act
@@ -398,7 +398,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - meet deathless criteria
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
         currentSave.DeathCount = 0;
 
         // Act
@@ -442,7 +442,7 @@ public class AchievementServiceTests : IDisposable
         // Meet all criteria
         currentSave.Character.Level = 20;
         currentSave.TotalEnemiesDefeated = 150;
-        currentSave.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
+        currentSave.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
 
         // Act
         var result = await _achievementService.CheckAllAchievementsAsync();
@@ -453,3 +453,4 @@ public class AchievementServiceTests : IDisposable
 
     #endregion
 }
+

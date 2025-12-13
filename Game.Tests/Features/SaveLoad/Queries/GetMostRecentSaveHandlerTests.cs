@@ -38,6 +38,9 @@ public class GetMostRecentSaveHandlerTests : IDisposable
         var save1 = _saveGameService.CreateNewGame(player1, DifficultySettings.Normal);
         _saveGameService.SaveGame(player1, new List<Item>(), save1.Id);
 
+        // Small delay to ensure different timestamps
+        await Task.Delay(50);
+
         // Create second save (more recent)
         var player2 = new Character { Name = "NewSave", Level = 5, Health = 150, MaxHealth = 150 };
         var save2 = _saveGameService.CreateNewGame(player2, DifficultySettings.Normal);
@@ -97,9 +100,15 @@ public class GetMostRecentSaveHandlerTests : IDisposable
         var save1 = _saveGameService.CreateNewGame(player1, DifficultySettings.Normal);
         _saveGameService.SaveGame(player1, new List<Item>(), save1.Id);
 
+        // Small delay to ensure different timestamps
+        await Task.Delay(50);
+
         var player2 = new Character { Name = "Second", Level = 5, Health = 150, MaxHealth = 150 };
         var save2 = _saveGameService.CreateNewGame(player2, DifficultySettings.Normal);
         _saveGameService.SaveGame(player2, new List<Item>(), save2.Id);
+
+        // Small delay before updating first save
+        await Task.Delay(50);
 
         // Update first save (should become most recent)
         player1.Level = 20;
