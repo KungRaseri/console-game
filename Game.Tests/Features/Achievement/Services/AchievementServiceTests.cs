@@ -24,17 +24,17 @@ public class AchievementServiceTests : IDisposable
     {
         var testConsole = new TestConsole();
         _consoleUI = new ConsoleUI(testConsole);
-        
+
         // Use unique temporary file for each test
         _testDbPath = $"test-achievement-{Guid.NewGuid()}.db";
         if (File.Exists(_testDbPath))
         {
             File.Delete(_testDbPath);
         }
-        
+
         var apocalypseTimer = new ApocalypseTimer(_consoleUI);
         _saveService = new SaveGameService(apocalypseTimer, _testDbPath);
-        
+
         // Create test save game
         _testSaveGame = new SaveGame
         {
@@ -45,24 +45,24 @@ public class AchievementServiceTests : IDisposable
                 Gold = 500
             },
             UnlockedAchievements = new List<string>(),
-            CompletedQuests = new List<Game.Models.Quest>(),
+            CompletedQuests = new List<Quest>(),
             TotalEnemiesDefeated = 50,
             PlayTimeMinutes = 120,
             DeathCount = 0,
             DifficultyLevel = "Normal"
         };
-        
+
         // Initialize with a new game (this sets _currentSave)
         var difficulty = new DifficultySettings { Name = "Normal" };
         _saveService.CreateNewGame(_testSaveGame.Character, difficulty);
-        
+
         _achievementService = new AchievementService(_saveService, _consoleUI);
     }
-    
+
     public void Dispose()
     {
         _saveService.Dispose();
-        
+
         // Clean up test database file
         if (File.Exists(_testDbPath))
         {
@@ -75,7 +75,7 @@ public class AchievementServiceTests : IDisposable
                 // Ignore cleanup errors
             }
         }
-        
+
         // Also clean up the -log file if it exists
         var logFile = _testDbPath + "-log";
         if (File.Exists(logFile))
@@ -98,7 +98,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - quest achievement that should be unlockable
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "test_quest" });
+        currentSave!.CompletedQuests.Add(new Quest { Id = "test_quest" });
 
         // Act
         var result = await _achievementService.UnlockAchievementAsync("first_steps");
@@ -221,7 +221,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - completed main quest
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
 
         // Act
         var result = await _achievementService.CheckAllAchievementsAsync();
@@ -235,7 +235,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - completed game on Apocalypse difficulty
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
         currentSave.DifficultyLevel = "Apocalypse";
 
         // Act
@@ -251,7 +251,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - completed game without dying
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
         currentSave.DeathCount = 0;
 
         // Act
@@ -266,7 +266,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - completed game but died
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
         currentSave.DeathCount = 1;
 
         // Act
@@ -398,7 +398,7 @@ public class AchievementServiceTests : IDisposable
     {
         // Arrange - meet deathless criteria
         var currentSave = _saveService.GetCurrentSave();
-        currentSave!.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
+        currentSave!.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
         currentSave.DeathCount = 0;
 
         // Act
@@ -438,11 +438,11 @@ public class AchievementServiceTests : IDisposable
         {
             "first_steps", "slayer", "master", "savior", "apocalypse_survivor", "deathless"
         });
-        
+
         // Meet all criteria
         currentSave.Character.Level = 20;
         currentSave.TotalEnemiesDefeated = 150;
-        currentSave.CompletedQuests.Add(new Game.Models.Quest { Id = "main_06_final_boss" });
+        currentSave.CompletedQuests.Add(new Quest { Id = "main_06_final_boss" });
 
         // Act
         var result = await _achievementService.CheckAllAchievementsAsync();
