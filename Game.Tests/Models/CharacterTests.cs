@@ -806,4 +806,401 @@ public class CharacterTests
         // Assert
         totalDexterity.Should().Be(21); // 10 + 5 base + 6 upgrade bonus
     }
+
+    #region GetEquippedItems Tests
+
+    [Fact]
+    public void GetEquippedItems_Should_Return_Empty_List_When_No_Equipment()
+    {
+        // Arrange
+        var character = new Character();
+
+        // Act
+        var equippedItems = character.GetEquippedItems();
+
+        // Assert
+        equippedItems.Should().NotBeNull();
+        equippedItems.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void GetEquippedItems_Should_Return_Only_Equipped_Items()
+    {
+        // Arrange
+        var sword = new Item { Id = "1", Name = "Sword", Type = ItemType.Weapon };
+        var shield = new Item { Id = "2", Name = "Shield", Type = ItemType.Shield };
+        var helmet = new Item { Id = "3", Name = "Helmet", Type = ItemType.Helmet };
+        
+        var character = new Character
+        {
+            EquippedMainHand = sword,
+            EquippedOffHand = shield,
+            EquippedHelmet = helmet
+            // Other slots are null
+        };
+
+        // Act
+        var equippedItems = character.GetEquippedItems();
+
+        // Assert
+        equippedItems.Should().HaveCount(3);
+        equippedItems.Should().Contain(sword);
+        equippedItems.Should().Contain(shield);
+        equippedItems.Should().Contain(helmet);
+    }
+
+    [Fact]
+    public void GetEquippedItems_Should_Return_All_Equipped_Items()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedMainHand = new Item { Id = "1", Name = "Sword" },
+            EquippedOffHand = new Item { Id = "2", Name = "Shield" },
+            EquippedHelmet = new Item { Id = "3", Name = "Helmet" },
+            EquippedShoulders = new Item { Id = "4", Name = "Shoulders" },
+            EquippedChest = new Item { Id = "5", Name = "Chestplate" },
+            EquippedBracers = new Item { Id = "6", Name = "Bracers" },
+            EquippedGloves = new Item { Id = "7", Name = "Gloves" },
+            EquippedBelt = new Item { Id = "8", Name = "Belt" },
+            EquippedLegs = new Item { Id = "9", Name = "Leggings" },
+            EquippedBoots = new Item { Id = "10", Name = "Boots" },
+            EquippedNecklace = new Item { Id = "11", Name = "Necklace" },
+            EquippedRing1 = new Item { Id = "12", Name = "Ring of Power" },
+            EquippedRing2 = new Item { Id = "13", Name = "Ring of Wisdom" }
+        };
+
+        // Act
+        var equippedItems = character.GetEquippedItems();
+
+        // Assert
+        equippedItems.Should().HaveCount(13);
+    }
+
+    #endregion
+
+    #region GetActiveEquipmentSets Tests
+
+    [Fact]
+    public void GetActiveEquipmentSets_Should_Return_Empty_When_No_Set_Items()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedMainHand = new Item { Id = "1", Name = "Sword", SetName = null },
+            EquippedHelmet = new Item { Id = "2", Name = "Helmet", SetName = "" }
+        };
+
+        // Act
+        var activeSets = character.GetActiveEquipmentSets();
+
+        // Assert
+        activeSets.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void GetActiveEquipmentSets_Should_Count_Single_Set()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Warrior Helmet", SetName = "Warrior Set" },
+            EquippedChest = new Item { Id = "2", Name = "Warrior Chestplate", SetName = "Warrior Set" },
+            EquippedGloves = new Item { Id = "3", Name = "Warrior Gloves", SetName = "Warrior Set" }
+        };
+
+        // Act
+        var activeSets = character.GetActiveEquipmentSets();
+
+        // Assert
+        activeSets.Should().ContainKey("Warrior Set");
+        activeSets["Warrior Set"].Should().Be(3);
+    }
+
+    [Fact]
+    public void GetActiveEquipmentSets_Should_Count_Multiple_Sets()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Warrior Helmet", SetName = "Warrior Set" },
+            EquippedChest = new Item { Id = "2", Name = "Warrior Chestplate", SetName = "Warrior Set" },
+            EquippedBoots = new Item { Id = "3", Name = "Mage Boots", SetName = "Mage Set" },
+            EquippedGloves = new Item { Id = "4", Name = "Mage Gloves", SetName = "Mage Set" },
+            EquippedRing1 = new Item { Id = "5", Name = "Assassin Ring", SetName = "Assassin Set" }
+        };
+
+        // Act
+        var activeSets = character.GetActiveEquipmentSets();
+
+        // Assert
+        activeSets.Should().HaveCount(3);
+        activeSets["Warrior Set"].Should().Be(2);
+        activeSets["Mage Set"].Should().Be(2);
+        activeSets["Assassin Set"].Should().Be(1);
+    }
+
+    [Fact]
+    public void GetActiveEquipmentSets_Should_Mix_Set_And_NonSet_Items()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Warrior Helmet", SetName = "Warrior Set" },
+            EquippedChest = new Item { Id = "2", Name = "Random Chestplate", SetName = null },
+            EquippedGloves = new Item { Id = "3", Name = "Warrior Gloves", SetName = "Warrior Set" }
+        };
+
+        // Act
+        var activeSets = character.GetActiveEquipmentSets();
+
+        // Assert
+        activeSets.Should().HaveCount(1);
+        activeSets["Warrior Set"].Should().Be(2);
+    }
+
+    #endregion
+
+    #region GetSetBonuses Tests
+
+    [Fact]
+    public void GetSetBonuses_Should_Return_Empty_When_No_Sets_Available()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Warrior Helmet", SetName = "Warrior Set" }
+        };
+        var availableSets = new List<EquipmentSet>();
+
+        // Act
+        var bonuses = character.GetSetBonuses(availableSets, "Strength");
+
+        // Assert
+        bonuses.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void GetSetBonuses_Should_Return_Empty_When_No_Sets_Equipped()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Random Helmet", SetName = null }
+        };
+        var availableSets = new List<EquipmentSet>
+        {
+            new EquipmentSet
+            {
+                Name = "Warrior Set",
+                Bonuses = new Dictionary<int, SetBonus>
+                {
+                    { 2, new SetBonus { BonusStrength = 10 } }
+                }
+            }
+        };
+
+        // Act
+        var bonuses = character.GetSetBonuses(availableSets, "Strength");
+
+        // Assert
+        bonuses.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void GetSetBonuses_Should_Calculate_Strength_Bonus()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Warrior Helmet", SetName = "Warrior Set" },
+            EquippedChest = new Item { Id = "2", Name = "Warrior Chestplate", SetName = "Warrior Set" }
+        };
+        var availableSets = new List<EquipmentSet>
+        {
+            new EquipmentSet
+            {
+                Name = "Warrior Set",
+                Bonuses = new Dictionary<int, SetBonus>
+                {
+                    { 2, new SetBonus { BonusStrength = 10, PiecesRequired = 2 } }
+                }
+            }
+        };
+
+        // Act
+        var bonuses = character.GetSetBonuses(availableSets, "Strength");
+
+        // Assert
+        bonuses.Should().ContainKey("Warrior Set (2 pieces)");
+        bonuses["Warrior Set (2 pieces)"].Should().Be(10);
+    }
+
+    [Fact]
+    public void GetSetBonuses_Should_Calculate_Multiple_Stat_Types()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Mage Helmet", SetName = "Mage Set" },
+            EquippedChest = new Item { Id = "2", Name = "Mage Robe", SetName = "Mage Set" }
+        };
+        var availableSets = new List<EquipmentSet>
+        {
+            new EquipmentSet
+            {
+                Name = "Mage Set",
+                Bonuses = new Dictionary<int, SetBonus>
+                {
+                    { 2, new SetBonus { BonusIntelligence = 15, BonusWisdom = 10, PiecesRequired = 2 } }
+                }
+            }
+        };
+
+        // Act
+        var intelligenceBonuses = character.GetSetBonuses(availableSets, "Intelligence");
+        var wisdomBonuses = character.GetSetBonuses(availableSets, "Wisdom");
+        var strengthBonuses = character.GetSetBonuses(availableSets, "Strength");
+
+        // Assert
+        intelligenceBonuses["Mage Set (2 pieces)"].Should().Be(15);
+        wisdomBonuses["Mage Set (2 pieces)"].Should().Be(10);
+        strengthBonuses.Should().BeEmpty(); // No strength bonus on this set
+    }
+
+    [Fact]
+    public void GetSetBonuses_Should_Only_Apply_Bonuses_For_Equipped_Pieces()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Warrior Helmet", SetName = "Warrior Set" },
+            EquippedChest = new Item { Id = "2", Name = "Warrior Chestplate", SetName = "Warrior Set" }
+            // Only 2 pieces equipped
+        };
+        var availableSets = new List<EquipmentSet>
+        {
+            new EquipmentSet
+            {
+                Name = "Warrior Set",
+                Bonuses = new Dictionary<int, SetBonus>
+                {
+                    { 2, new SetBonus { BonusStrength = 10, PiecesRequired = 2 } },
+                    { 4, new SetBonus { BonusStrength = 25, PiecesRequired = 4 } }
+                }
+            }
+        };
+
+        // Act
+        var bonuses = character.GetSetBonuses(availableSets, "Strength");
+
+        // Assert
+        bonuses.Should().HaveCount(1);
+        bonuses.Should().ContainKey("Warrior Set (2 pieces)");
+        bonuses.Should().NotContainKey("Warrior Set (4 pieces)"); // Not enough pieces
+    }
+
+    [Fact]
+    public void GetSetBonuses_Should_Apply_Multiple_Tier_Bonuses()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Warrior Helmet", SetName = "Warrior Set" },
+            EquippedChest = new Item { Id = "2", Name = "Warrior Chestplate", SetName = "Warrior Set" },
+            EquippedGloves = new Item { Id = "3", Name = "Warrior Gloves", SetName = "Warrior Set" },
+            EquippedBoots = new Item { Id = "4", Name = "Warrior Boots", SetName = "Warrior Set" }
+            // 4 pieces equipped
+        };
+        var availableSets = new List<EquipmentSet>
+        {
+            new EquipmentSet
+            {
+                Name = "Warrior Set",
+                Bonuses = new Dictionary<int, SetBonus>
+                {
+                    { 2, new SetBonus { BonusStrength = 10, PiecesRequired = 2 } },
+                    { 4, new SetBonus { BonusStrength = 25, PiecesRequired = 4 } }
+                }
+            }
+        };
+
+        // Act
+        var bonuses = character.GetSetBonuses(availableSets, "Strength");
+
+        // Assert
+        bonuses.Should().HaveCount(2);
+        bonuses["Warrior Set (2 pieces)"].Should().Be(10);
+        bonuses["Warrior Set (4 pieces)"].Should().Be(25);
+    }
+
+    [Fact]
+    public void GetSetBonuses_Should_Handle_All_Stat_Types()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Divine Helmet", SetName = "Divine Set" },
+            EquippedChest = new Item { Id = "2", Name = "Divine Armor", SetName = "Divine Set" }
+        };
+        var availableSets = new List<EquipmentSet>
+        {
+            new EquipmentSet
+            {
+                Name = "Divine Set",
+                Bonuses = new Dictionary<int, SetBonus>
+                {
+                    { 2, new SetBonus
+                        {
+                            BonusStrength = 5,
+                            BonusDexterity = 6,
+                            BonusConstitution = 7,
+                            BonusIntelligence = 8,
+                            BonusWisdom = 9,
+                            BonusCharisma = 10,
+                            PiecesRequired = 2
+                        }
+                    }
+                }
+            }
+        };
+
+        // Act & Assert
+        character.GetSetBonuses(availableSets, "Strength")["Divine Set (2 pieces)"].Should().Be(5);
+        character.GetSetBonuses(availableSets, "Dexterity")["Divine Set (2 pieces)"].Should().Be(6);
+        character.GetSetBonuses(availableSets, "Constitution")["Divine Set (2 pieces)"].Should().Be(7);
+        character.GetSetBonuses(availableSets, "Intelligence")["Divine Set (2 pieces)"].Should().Be(8);
+        character.GetSetBonuses(availableSets, "Wisdom")["Divine Set (2 pieces)"].Should().Be(9);
+        character.GetSetBonuses(availableSets, "Charisma")["Divine Set (2 pieces)"].Should().Be(10);
+    }
+
+    [Fact]
+    public void GetSetBonuses_Should_Ignore_Unknown_Stat_Types()
+    {
+        // Arrange
+        var character = new Character
+        {
+            EquippedHelmet = new Item { Id = "1", Name = "Warrior Helmet", SetName = "Warrior Set" },
+            EquippedChest = new Item { Id = "2", Name = "Warrior Chestplate", SetName = "Warrior Set" }
+        };
+        var availableSets = new List<EquipmentSet>
+        {
+            new EquipmentSet
+            {
+                Name = "Warrior Set",
+                Bonuses = new Dictionary<int, SetBonus>
+                {
+                    { 2, new SetBonus { BonusStrength = 10, PiecesRequired = 2 } }
+                }
+            }
+        };
+
+        // Act
+        var bonuses = character.GetSetBonuses(availableSets, "UnknownStat");
+
+        // Assert
+        bonuses.Should().BeEmpty();
+    }
+
+    #endregion
 }

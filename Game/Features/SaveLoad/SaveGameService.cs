@@ -9,7 +9,7 @@ namespace Game.Features.SaveLoad;
 /// <summary>
 /// Service for managing game saves and loads with comprehensive world state tracking.
 /// </summary>
-public class SaveGameService : IDisposable
+public class SaveGameService : ISaveGameService, IDisposable
 {
     private readonly SaveGameRepository _repository;
     private readonly ApocalypseTimer _apocalypseTimer;
@@ -568,6 +568,15 @@ public class SaveGameService : IDisposable
     public SaveGame? GetCurrentSave()
     {
         return _currentSave;
+    }
+
+    /// <summary>
+    /// Set the current save game (used when loading or testing).
+    /// </summary>
+    public void SetCurrentSave(SaveGame saveGame)
+    {
+        _currentSave = saveGame;
+        _gameStartTime = DateTime.Now.AddMinutes(-saveGame.PlayTimeMinutes);
     }
 
     public void Dispose()
