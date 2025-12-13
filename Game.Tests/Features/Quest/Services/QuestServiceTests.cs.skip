@@ -1,0 +1,387 @@
+using FluentAssertions;
+using Game.Features.Quest.Services;
+using Game.Features.SaveLoad;
+using Moq;
+using QuestModel = Game.Models.Quest;
+using SaveGameModel = Game.Models.SaveGame;
+
+namespace Game.Tests.Features.Quest.Services;
+
+public class QuestServiceTests
+{
+    private readonly Mock<SaveGameService> _mockSaveGameService;
+    private readonly Mock<MainQuestService> _mockMainQuestService;
+    private readonly QuestService _questService;
+
+    public QuestServiceTests()
+    {
+        _mockSaveGameService = new Mock<SaveGameService>();
+        _mockMainQuestService = new Mock<MainQuestService>();
+        _questService = new QuestService(_mockSaveGameService.Object, _mockMainQuestService.Object);
+    }
+
+    #region StartQuestAsync Tests
+
+    [Fact]
+    public async Task StartQuestAsync_Should_Return_Error_When_No_Active_Save()
+    {
+        // Arrange
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns((SaveGame?)null);
+
+        // Act
+        var result = await _questService.StartQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeFalse();
+        result.Quest.Should().BeNull();
+        result.ErrorMessage.Should().Be("No active save game");
+    }
+
+    [Fact]
+    public async Task StartQuestAsync_Should_Return_Error_When_Quest_Already_Active()
+    {
+        // Arrange
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest>
+            {
+                new Models.Quest { Id = "quest1", Title = "Active Quest" }
+            }
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+
+        // Act
+        var result = await _questService.StartQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeFalse();
+        result.Quest.Should().BeNull();
+        result.ErrorMessage.Should().Be("Quest is already active");
+    }
+
+    [Fact]
+    public async Task StartQuestAsync_Should_Return_Error_When_Quest_Already_Completed()
+    {
+        // Arrange
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest>(),
+            CompletedQuests = new List<Models.Quest>
+            {
+                new Models.Quest { Id = "quest1", Title = "Completed Quest", IsCompleted = true }
+            }
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+
+        // Act
+        var result = await _questService.StartQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeFalse();
+        result.Quest.Should().BeNull();
+        result.ErrorMessage.Should().Be("Quest is already completed");
+    }
+
+    [Fact]
+    public async Task StartQuestAsync_Should_Return_Error_When_Quest_Not_Found()
+    {
+        // Arrange
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest>(),
+            CompletedQuests = new List<Models.Quest>()
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+        _mockMainQuestService.Setup(m => m.GetQuestByIdAsync("quest1")).ReturnsAsync((Models.Quest?)null);
+
+        // Act
+        var result = await _questService.StartQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeFalse();
+        result.Quest.Should().BeNull();
+        result.ErrorMessage.Should().Be("Quest not found");
+    }
+
+    [Fact]
+    public async Task StartQuestAsync_Should_Return_Error_When_Prerequisites_Not_Met()
+    {
+        // Arrange
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest>(),
+            CompletedQuests = new List<Models.Quest>()
+        };
+        var quest = new Models.Quest
+        {
+            Id = "quest2",
+            Title = "Quest with Prerequisites",
+            Prerequisites = new List<string> { "quest1" } // Requires quest1 completed
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+        _mockMainQuestService.Setup(m => m.GetQuestByIdAsync("quest2")).ReturnsAsync(quest);
+
+        // Act
+        var result = await _questService.StartQuestAsync("quest2");
+
+        // Assert
+        result.Success.Should().BeFalse();
+        result.Quest.Should().BeNull();
+        result.ErrorMessage.Should().Be("Prerequisites not met");
+    }
+
+    [Fact]
+    public async Task StartQuestAsync_Should_Start_Quest_When_All_Conditions_Met()
+    {
+        // Arrange
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest>(),
+            CompletedQuests = new List<Models.Quest>()
+        };
+        var quest = new Models.Quest
+        {
+            Id = "quest1",
+            Title = "First Quest",
+            Prerequisites = new List<string>()
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+        _mockMainQuestService.Setup(m => m.GetQuestByIdAsync("quest1")).ReturnsAsync(quest);
+
+        // Act
+        var result = await _questService.StartQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeTrue();
+        result.Quest.Should().NotBeNull();
+        result.Quest!.Id.Should().Be("quest1");
+        result.Quest.IsActive.Should().BeTrue();
+        result.Quest.StartTime.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(1));
+        result.ErrorMessage.Should().BeEmpty();
+        
+        saveGame.ActiveQuests.Should().Contain(quest);
+        _mockSaveGameService.Verify(s => s.SaveGame(saveGame), Times.Once);
+    }
+
+    [Fact]
+    public async Task StartQuestAsync_Should_Start_Quest_When_Prerequisites_Met()
+    {
+        // Arrange
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest>(),
+            CompletedQuests = new List<Models.Quest>
+            {
+                new Models.Quest { Id = "quest1", Title = "Prerequisite Quest", IsCompleted = true }
+            }
+        };
+        var quest = new Models.Quest
+        {
+            Id = "quest2",
+            Title = "Second Quest",
+            Prerequisites = new List<string> { "quest1" }
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+        _mockMainQuestService.Setup(m => m.GetQuestByIdAsync("quest2")).ReturnsAsync(quest);
+
+        // Act
+        var result = await _questService.StartQuestAsync("quest2");
+
+        // Assert
+        result.Success.Should().BeTrue();
+        result.Quest.Should().NotBeNull();
+        result.Quest!.Id.Should().Be("quest2");
+        result.Quest.IsActive.Should().BeTrue();
+        saveGame.ActiveQuests.Should().Contain(quest);
+    }
+
+    #endregion
+
+    #region CompleteQuestAsync Tests
+
+    [Fact]
+    public async Task CompleteQuestAsync_Should_Return_Error_When_No_Active_Save()
+    {
+        // Arrange
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns((SaveGame?)null);
+
+        // Act
+        var result = await _questService.CompleteQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeFalse();
+        result.Quest.Should().BeNull();
+        result.ErrorMessage.Should().Be("No active save game");
+    }
+
+    [Fact]
+    public async Task CompleteQuestAsync_Should_Return_Error_When_Quest_Not_Active()
+    {
+        // Arrange
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest>()
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+
+        // Act
+        var result = await _questService.CompleteQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeFalse();
+        result.Quest.Should().BeNull();
+        result.ErrorMessage.Should().Be("Quest is not active");
+    }
+
+    [Fact]
+    public async Task CompleteQuestAsync_Should_Return_Error_When_Objectives_Not_Complete()
+    {
+        // Arrange
+        var quest = new Models.Quest
+        {
+            Id = "quest1",
+            Title = "Incomplete Quest",
+            IsActive = true,
+            Objectives = new Dictionary<string, int>
+            {
+                { "kill_goblins", 10 },
+                { "collect_items", 5 }
+            },
+            ObjectiveProgress = new Dictionary<string, int>
+            {
+                { "kill_goblins", 7 }, // Only 7/10
+                { "collect_items", 5 }  // 5/5 complete
+            }
+        };
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest> { quest }
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+
+        // Act
+        var result = await _questService.CompleteQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeFalse();
+        result.Quest.Should().BeNull();
+        result.ErrorMessage.Should().Be("Not all objectives complete");
+    }
+
+    [Fact]
+    public async Task CompleteQuestAsync_Should_Complete_Quest_When_All_Objectives_Met()
+    {
+        // Arrange
+        var quest = new Models.Quest
+        {
+            Id = "quest1",
+            Title = "Complete Quest",
+            IsActive = true,
+            Objectives = new Dictionary<string, int>
+            {
+                { "kill_goblins", 10 },
+                { "collect_items", 5 }
+            },
+            ObjectiveProgress = new Dictionary<string, int>
+            {
+                { "kill_goblins", 10 },
+                { "collect_items", 5 }
+            }
+        };
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest> { quest },
+            CompletedQuests = new List<Models.Quest>(),
+            QuestsCompleted = 0
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+
+        // Act
+        var result = await _questService.CompleteQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeTrue();
+        result.Quest.Should().NotBeNull();
+        result.Quest!.Id.Should().Be("quest1");
+        result.Quest.IsCompleted.Should().BeTrue();
+        result.Quest.IsActive.Should().BeFalse();
+        result.ErrorMessage.Should().BeEmpty();
+        
+        saveGame.ActiveQuests.Should().NotContain(quest);
+        saveGame.CompletedQuests.Should().Contain(quest);
+        saveGame.QuestsCompleted.Should().Be(1);
+        _mockSaveGameService.Verify(s => s.SaveGame(saveGame), Times.Once);
+    }
+
+    [Fact]
+    public async Task CompleteQuestAsync_Should_Handle_Quest_With_No_Objectives()
+    {
+        // Arrange
+        var quest = new Models.Quest
+        {
+            Id = "quest1",
+            Title = "Simple Quest",
+            IsActive = true,
+            Objectives = new Dictionary<string, int>(), // No objectives
+            ObjectiveProgress = new Dictionary<string, int>()
+        };
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = new List<Models.Quest> { quest },
+            CompletedQuests = new List<Models.Quest>(),
+            QuestsCompleted = 0
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+
+        // Act
+        var result = await _questService.CompleteQuestAsync("quest1");
+
+        // Assert
+        result.Success.Should().BeTrue();
+        result.Quest!.IsCompleted.Should().BeTrue();
+        saveGame.CompletedQuests.Should().Contain(quest);
+    }
+
+    #endregion
+
+    #region GetActiveQuestsAsync Tests
+
+    [Fact]
+    public async Task GetActiveQuestsAsync_Should_Return_Empty_List_When_No_Active_Save()
+    {
+        // Arrange
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns((SaveGame?)null);
+
+        // Act
+        var result = await _questService.GetActiveQuestsAsync();
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetActiveQuestsAsync_Should_Return_Active_Quests()
+    {
+        // Arrange
+        var activeQuests = new List<Models.Quest>
+        {
+            new Models.Quest { Id = "quest1", Title = "Quest 1", IsActive = true },
+            new Models.Quest { Id = "quest2", Title = "Quest 2", IsActive = true }
+        };
+        var saveGame = new SaveGame
+        {
+            ActiveQuests = activeQuests
+        };
+        _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(saveGame);
+
+        // Act
+        var result = await _questService.GetActiveQuestsAsync();
+
+        // Assert
+        result.Should().HaveCount(2);
+        result.Should().BeEquivalentTo(activeQuests);
+    }
+
+    #endregion
+}

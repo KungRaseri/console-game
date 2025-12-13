@@ -1,0 +1,322 @@
+using FluentAssertions;
+using Game.Features.Death;
+using Game.Features.Death.Commands;
+using Game.Features.SaveLoad;
+using Game.Models;
+using Game.Shared.UI;
+using Game.Tests.Helpers;
+using Moq;
+using Spectre.Console.Testing;
+
+namespace Game.Tests.Features.Death.Commands;
+
+public class HandlePlayerDeathHandlerTests : IDisposable
+{
+    private readonly HandlePlayerDeathHandler _handler;
+    private readonly Mock<DeathService> _mockDeathService;
+    private readonly SaveGameService _saveGameService;
+    private readonly Mock<HallOfFameService> _mockHallOfFameService;
+    private readonly TestConsole _testConsole;
+    private readonly ConsoleUI _consoleUI;
+    private readonly string _testDbPath;
+
+    public HandlePlayerDeathHandlerTests()
+    {
+        _testDbPath = $"test-death-{Guid.NewGuid()}.db";
+        _testConsole = TestConsoleHelper.CreateInteractiveConsole();
+        _consoleUI = new ConsoleUI(_testConsole);
+
+        var apocalypseTimer = new Shared.Services.ApocalypseTimer(_consoleUI);
+        _saveGameService = new SaveGameService(apocalypseTimer, _testDbPath);
+        
+        _mockDeathService = new Mock<DeathService>(_consoleUI);
+        _mockHallOfFameService = new Mock<HallOfFameService>(Mock.Of<SaveGameService>());
+        
+        _handler = new HandlePlayerDeathHandler(
+            _mockDeathService.Object,
+            _saveGameService,
+            _mockHallOfFameService.Object,
+            _consoleUI
+        );
+    }
+
+    public void Dispose()
+    {
+        if (File.Exists(_testDbPath))
+        {
+            File.Delete(_testDbPath);
+        }
+    }
+
+    [Fact]
+    public async Task Handle_Should_Return_NonPermadeath_When_No_Active_Save()
+    {
+        // Arrange
+        var player = new Character { Name = "Hero", Level = 5 };
+        var command = new HandlePlayerDeathCommand
+        {
+            Player = player,
+            DeathLocation = "Dark Forest",
+            Killer = "Goblin"
+        };
+
+        // Act
+        var result = await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.IsPermadeath.Should().BeFalse();
+        result.SaveDeleted.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task Handle_Should_Increment_Death_Count_On_Standard_Death()
+    {
+        // Arrange
+        var player = new Character { Name = "Hero", Level = 5, Health = 100, MaxHealth = 100 };
+        var saveGame = _saveGameService.CreateNewGame(player, DifficultySettings.Normal);
+        _saveGameService.SetCurrentSave(saveGame.Id);
+        
+        var initialDeathCount = saveGame.DeathCount;
+        
+        var command = new HandlePlayerDeathCommand
+        {
+            Player = player,
+            DeathLocation = "Cursed Ruins",
+            Killer = "Skeleton"
+        };
+
+        _mockDeathService
+            .Setup(x => x.CalculatePenalty(It.IsAny<DifficultySettings>()))
+            .Returns(0.1);
+
+        // Act
+        await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        var updatedSave = _saveGameService.GetCurrentSave();
+        updatedSave.Should().NotBeNull();
+        updatedSave!.DeathCount.Should().Be(initialDeathCount + 1);
+    }
+
+    [Fact]
+    public async Task Handle_Should_Record_Death_Location_And_Date()
+    {
+        // Arrange
+        var player = new Character { Name = "Hero", Level = 3, Health = 50, MaxHealth = 50 };
+        var saveGame = _saveGameService.CreateNewGame(player, DifficultySettings.Normal);
+        _saveGameService.SetCurrentSave(saveGame.Id);
+        
+        var deathLocation = "Volcano Summit";
+        var command = new HandlePlayerDeathCommand
+        {
+            Player = player,
+            DeathLocation = deathLocation,
+            Killer = "Fire Drake"
+        };
+
+        _mockDeathService
+            .Setup(x => x.CalculatePenalty(It.IsAny<DifficultySettings>()))
+            .Returns(0.15);
+
+        var beforeDeath = DateTime.Now;
+
+        // Act
+        await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        var updatedSave = _saveGameService.GetCurrentSave();
+        updatedSave.Should().NotBeNull();
+        updatedSave!.LastDeathLocation.Should().Be(deathLocation);
+        updatedSave.LastDeathDate.Should().BeOnOrAfter(beforeDeath);
+        updatedSave.LastDeathDate.Should().BeOnOrBefore(DateTime.Now);
+    }
+
+    [Fact]
+    public async Task Handle_Should_Apply_Gold_Penalty_On_Standard_Death()
+    {
+        // Arrange
+        var player = new Character 
+        { 
+            Name = "Hero", 
+            Level = 10, 
+            Health = 100, 
+            MaxHealth = 100,
+            Gold = 1000 
+        };
+        var saveGame = _saveGameService.CreateNewGame(player, DifficultySettings.Normal);
+        _saveGameService.SetCurrentSave(saveGame.Id);
+        
+        var command = new HandlePlayerDeathCommand
+        {
+            Player = player,
+            DeathLocation = "Bandit Camp",
+            Killer = "Bandit Leader"
+        };
+
+        var penaltyRate = 0.2; // 20% penalty
+        _mockDeathService
+            .Setup(x => x.CalculatePenalty(It.IsAny<DifficultySettings>()))
+            .Returns(penaltyRate);
+
+        _mockDeathService
+            .Setup(x => x.ApplyGoldPenalty(player, penaltyRate))
+            .Returns(200); // Lost 200 gold
+
+        // Act
+        await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        _mockDeathService.Verify(x => x.ApplyGoldPenalty(player, penaltyRate), Times.Once);
+    }
+
+    [Fact]
+    public async Task Handle_Should_Return_Permadeath_Result_On_Permadeath_Difficulty()
+    {
+        // Arrange
+        var player = new Character { Name = "Hero", Level = 15, Health = 150, MaxHealth = 150 };
+        var apocalypseDifficulty = new DifficultySettings
+        {
+            Name = "Apocalypse",
+            GoldPenaltyOnDeath = 1.0,
+            XpPenaltyOnDeath = 1.0,
+            EnemyHealthMultiplier = 2.0,
+            EnemyDamageMultiplier = 2.0,
+            XpRewardMultiplier = 2.0,
+            GoldRewardMultiplier = 2.0,
+            IsPermadeath = true
+        };
+        
+        var saveGame = _saveGameService.CreateNewGame(player, apocalypseDifficulty);
+        _saveGameService.SetCurrentSave(saveGame.Id);
+        
+        var command = new HandlePlayerDeathCommand
+        {
+            Player = player,
+            DeathLocation = "Final Boss Arena",
+            Killer = "Ancient Dragon"
+        };
+
+        _mockHallOfFameService
+            .Setup(x => x.RecordLegend(It.IsAny<Character>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+            .Returns(Task.CompletedTask);
+
+        // Act
+        var result = await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        result.IsPermadeath.Should().BeTrue();
+        result.SaveDeleted.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task Handle_Should_Record_Hall_Of_Fame_On_Permadeath()
+    {
+        // Arrange
+        var player = new Character { Name = "Fallen Hero", Level = 20, Health = 200, MaxHealth = 200 };
+        var apocalypseDifficulty = new DifficultySettings
+        {
+            Name = "Apocalypse",
+            IsPermadeath = true,
+            GoldPenaltyOnDeath = 1.0,
+            XpPenaltyOnDeath = 1.0,
+            EnemyHealthMultiplier = 2.5,
+            EnemyDamageMultiplier = 2.5,
+            XpRewardMultiplier = 3.0,
+            GoldRewardMultiplier = 3.0
+        };
+        
+        var saveGame = _saveGameService.CreateNewGame(player, apocalypseDifficulty);
+        _saveGameService.SetCurrentSave(saveGame.Id);
+        
+        var deathLocation = "The Abyss";
+        var killer = "Demon Lord";
+        var command = new HandlePlayerDeathCommand
+        {
+            Player = player,
+            DeathLocation = deathLocation,
+            Killer = killer
+        };
+
+        _mockHallOfFameService
+            .Setup(x => x.RecordLegend(player, deathLocation, killer, saveGame.DeathCount + 1))
+            .Returns(Task.CompletedTask);
+
+        // Act
+        await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        _mockHallOfFameService.Verify(
+            x => x.RecordLegend(player, deathLocation, killer, saveGame.DeathCount + 1),
+            Times.Once
+        );
+    }
+
+    [Fact]
+    public async Task Handle_Should_Delete_Save_On_Permadeath()
+    {
+        // Arrange
+        var player = new Character { Name = "Doomed", Level = 8, Health = 80, MaxHealth = 80 };
+        var permadeathDifficulty = new DifficultySettings
+        {
+            Name = "Hardcore",
+            IsPermadeath = true,
+            GoldPenaltyOnDeath = 1.0,
+            XpPenaltyOnDeath = 0.5,
+            EnemyHealthMultiplier = 1.5,
+            EnemyDamageMultiplier = 1.5,
+            XpRewardMultiplier = 1.5,
+            GoldRewardMultiplier = 1.5
+        };
+        
+        var saveGame = _saveGameService.CreateNewGame(player, permadeathDifficulty);
+        _saveGameService.SetCurrentSave(saveGame.Id);
+        var saveId = saveGame.Id;
+        
+        var command = new HandlePlayerDeathCommand
+        {
+            Player = player,
+            DeathLocation = "Poisoned Swamp",
+            Killer = "Toxic Slime"
+        };
+
+        _mockHallOfFameService
+            .Setup(x => x.RecordLegend(It.IsAny<Character>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+            .Returns(Task.CompletedTask);
+
+        // Act
+        await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        var allSaves = _saveGameService.GetAllSaves();
+        allSaves.Should().NotContain(s => s.Id == saveId, "save should be deleted on permadeath");
+    }
+
+    [Fact]
+    public async Task Handle_Should_Not_Delete_Save_On_Standard_Death()
+    {
+        // Arrange
+        var player = new Character { Name = "Survivor", Level = 5, Health = 50, MaxHealth = 50 };
+        var saveGame = _saveGameService.CreateNewGame(player, DifficultySettings.Normal);
+        _saveGameService.SetCurrentSave(saveGame.Id);
+        var saveId = saveGame.Id;
+        
+        var command = new HandlePlayerDeathCommand
+        {
+            Player = player,
+            DeathLocation = "Training Grounds",
+            Killer = "Practice Dummy"
+        };
+
+        _mockDeathService
+            .Setup(x => x.CalculatePenalty(It.IsAny<DifficultySettings>()))
+            .Returns(0.1);
+
+        // Act
+        await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        var allSaves = _saveGameService.GetAllSaves();
+        allSaves.Should().Contain(s => s.Id == saveId, "save should NOT be deleted on standard death");
+    }
+}

@@ -41,6 +41,49 @@
 			],
 			"problemMatcher": "$msCompile",
 			"isBackground": true
+		},
+		{
+			"label": "test-with-coverage",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"--collect:XPlat Code Coverage",
+				"--settings",
+				"coverage.runsettings"
+			],
+			"problemMatcher": "$msCompile",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "generate-coverage-report",
+			"type": "shell",
+			"command": "reportgenerator",
+			"args": [
+				"-reports:Game.Tests\\TestResults\\*\\coverage.cobertura.xml",
+				"-targetdir:Game.Tests\\TestResults\\CoverageReport",
+				"-reporttypes:Html"
+			],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "test-coverage",
+			"dependsOn": [
+				"test-with-coverage",
+				"generate-coverage-report"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": []
 		}
 	]
 }
