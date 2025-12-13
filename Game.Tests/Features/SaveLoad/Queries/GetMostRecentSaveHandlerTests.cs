@@ -160,12 +160,13 @@ public class GetMostRecentSaveHandlerTests : IDisposable
         // Arrange
         var handler = new GetMostRecentSaveHandler(_saveGameService);
         
-        // Create multiple saves
+        // Create multiple saves with delays to ensure different timestamps
         for (int i = 1; i <= 5; i++)
         {
             var player = new Character { Name = $"Player{i}", Level = i, Health = 100, MaxHealth = 100 };
             var save = _saveGameService.CreateNewGame(player, DifficultySettings.Normal);
             _saveGameService.SaveGame(player, new List<Item>(), save.Id);
+            await Task.Delay(10); // Ensure different timestamps
         }
 
         var query = new GetMostRecentSaveQuery();

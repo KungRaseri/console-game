@@ -141,11 +141,13 @@ public class SaveGameServiceTests : IDisposable
     }
 
     [Fact]
-    public Task GetMostRecentSave_Should_Return_Latest_Save()
+    public async Task GetMostRecentSave_Should_Return_Latest_Save()
     {
         // Arrange
         _saveService.SaveGame(new Character { Name = "First" }, new List<Item>());
+        await Task.Delay(10); // Ensure different timestamps
         _saveService.SaveGame(new Character { Name = "Second" }, new List<Item>());
+        await Task.Delay(10); // Ensure different timestamps
         _saveService.SaveGame(new Character { Name = "Third" }, new List<Item>());
 
         // Act
@@ -154,8 +156,6 @@ public class SaveGameServiceTests : IDisposable
         // Assert
         recent.Should().NotBeNull();
         recent!.PlayerName.Should().Be("Third");
-        
-        return Task.CompletedTask;
     }
 
     [Fact]
