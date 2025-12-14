@@ -1,7 +1,47 @@
-[
-  "Potion",
-  "Elixir",
-  "Tonic",
-  "Brew",
-  "Draught"
-]
+{
+  "items": [
+    "Potion", "Elixir", "Tonic", "Brew", "Draught",
+    "Philter", "Concoction", "Mixture", "Remedy", "Salve",
+    "Ointment", "Balm", "Unguent", "Tincture", "Essence",
+    "Extract", "Distillation", "Infusion", "Decoction", "Cordial",
+    "Serum", "Vial", "Flask", "Bottle", "Ampoule",
+    "Panacea", "Antidote", "Cure", "Restorative", "Rejuvenator",
+    "Refresher", "Revitalizer", "Invigorator", "Energizer", "Stimulant",
+    "Fortifier", "Strengthener", "Enhancer", "Booster", "Amplifier",
+    "Cocktail", "Solution", "Suspension", "Syrup", "Nectar",
+    "Mead", "Wine", "Liquor", "Spirit", "Aqua Vitae"
+  ],
+  "components": {
+    "prefixes_quality": [
+      "Minor", "Lesser", "Common", "Greater", "Superior",
+      "Major", "Grand", "Masterwork", "Legendary", "Divine"
+    ],
+    "prefixes_effect": [
+      "Healing", "Mana", "Stamina", "Strength", "Agility",
+      "Intelligence", "Vitality", "Rejuvenation", "Restoration", "Regeneration",
+      "Protection", "Resistance", "Immunity", "Clarity", "Focus"
+    ],
+    "prefixes_descriptive": [
+      "Ancient", "Mystical", "Arcane", "Divine", "Blessed",
+      "Cursed", "Dark", "Light", "Shadow", "Radiant",
+      "Ethereal", "Spectral", "Infernal", "Celestial", "Primordial"
+    ],
+    "suffixes_form": [
+      "of Healing", "of Mana", "of Strength", "of Speed", "of Power",
+      "of the Bear", "of the Eagle", "of the Serpent", "of the Phoenix", "of the Dragon",
+      "of Vitality", "of Fortitude", "of Wisdom", "of Clarity", "of Protection"
+    ]
+  },
+  "patterns": [
+    "quality + base (Minor Potion, Grand Elixir)",
+    "effect + base (Healing Potion, Mana Elixir)",
+    "base + suffix (Potion of Healing, Elixir of Strength)",
+    "quality + effect + base (Superior Healing Potion)",
+    "descriptive + base + suffix (Ancient Brew of Power)"
+  ],
+  "metadata": {
+    "base_types": 50,
+    "typical_combinations": "quality + effect + base for common items",
+    "rare_combinations": "descriptive + base + suffix for unique items"
+  }
+}

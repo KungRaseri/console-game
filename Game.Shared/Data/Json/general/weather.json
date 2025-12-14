@@ -1,5 +1,42 @@
-[
-  "PLACEHOLDER_WORD_1",
-  "PLACEHOLDER_WORD_2",
-  "PLACEHOLDER_WORD_3"
-]
+{
+  "items": [
+    "clear", "cloudy", "overcast", "foggy", "misty",
+    "rainy", "drizzling", "stormy", "thunderous", "lightning",
+    "snowy", "blizzard", "sleeting", "hailing", "icy",
+    "windy", "breezy", "calm", "gusty", "howling",
+    "humid", "muggy", "dry", "arid", "scorching",
+    "freezing", "frigid", "chilly", "mild", "warm"
+  ],
+  "components": {
+    "precipitation": [
+      "clear", "rainy", "drizzling", "snowy", "sleeting",
+      "hailing", "misty", "foggy"
+    ],
+    "wind": [
+      "calm", "breezy", "windy", "gusty", "howling",
+      "gale", "hurricane", "tempest"
+    ],
+    "sky_condition": [
+      "clear", "cloudy", "overcast", "partly-cloudy", "grey",
+      "threatening", "ominous", "bright"
+    ],
+    "temperature": [
+      "freezing", "frigid", "cold", "chilly", "cool",
+      "mild", "warm", "hot", "scorching", "sweltering"
+    ],
+    "severity": [
+      "mild", "moderate", "severe", "extreme", "dangerous",
+      "pleasant", "uncomfortable", "harsh", "violent"
+    ],
+    "special": [
+      "stormy", "thunderous", "lightning", "blizzard", "tornado",
+      "magical", "supernatural", "cursed", "blessed"
+    ]
+  },
+  "patterns": [
+    "condition",
+    "temperature + precipitation",
+    "severity + condition",
+    "wind + precipitation"
+  ]
+}

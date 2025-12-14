@@ -1,5 +1,55 @@
-[
-  "PLACEHOLDER_WORD_1",
-  "PLACEHOLDER_WORD_2",
-  "PLACEHOLDER_WORD_3"
-]
+{
+  "items": [
+    "attacks", "strikes", "slashes", "stabs", "pierces",
+    "crushes", "smashes", "pounds", "hammers", "batters",
+    "blocks", "parries", "dodges", "evades", "deflects",
+    "casts", "conjures", "summons", "channels", "invokes",
+    "heals", "mends", "restores", "revives", "cures",
+    "curses", "hexes", "blights", "corrupts", "weakens",
+    "moves", "walks", "runs", "sprints", "dashes",
+    "jumps", "leaps", "bounds", "vaults", "climbs",
+    "sneaks", "creeps", "stalks", "prowls", "lurks",
+    "speaks", "shouts", "whispers", "murmurs", "declares",
+    "examines", "inspects", "searches", "investigates", "studies",
+    "opens", "closes", "locks", "unlocks", "breaks"
+  ],
+  "components": {
+    "combat_offensive": [
+      "attacks", "strikes", "slashes", "stabs", "pierces",
+      "crushes", "smashes", "pounds", "bludgeons", "maims"
+    ],
+    "combat_defensive": [
+      "blocks", "parries", "dodges", "evades", "deflects",
+      "guards", "protects", "shields", "counters", "ripostes"
+    ],
+    "magic": [
+      "casts", "conjures", "summons", "channels", "invokes",
+      "enchants", "curses", "hexes", "blesses", "dispels"
+    ],
+    "healing": [
+      "heals", "mends", "restores", "revives", "cures",
+      "soothes", "rejuvenates", "regenerates", "purifies"
+    ],
+    "movement": [
+      "moves", "walks", "runs", "sprints", "dashes",
+      "jumps", "leaps", "climbs", "crawls", "slides"
+    ],
+    "stealth": [
+      "sneaks", "creeps", "stalks", "prowls", "lurks",
+      "hides", "conceals", "shadows", "slinks"
+    ],
+    "interaction": [
+      "opens", "closes", "examines", "takes", "gives",
+      "uses", "activates", "triggers", "operates"
+    ],
+    "communication": [
+      "speaks", "shouts", "whispers", "murmurs", "declares",
+      "asks", "answers", "commands", "requests"
+    ]
+  },
+  "patterns": [
+    "verb",
+    "adverb + verb (quickly attacks)",
+    "verb + preposition (strikes at, casts upon)"
+  ]
+}

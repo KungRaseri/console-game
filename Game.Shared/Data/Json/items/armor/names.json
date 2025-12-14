@@ -1,9 +1,52 @@
-[
-  "Cuirass",
-  "Helm",
-  "Greaves",
-  "Gauntlets",
-  "Boots",
-  "Pauldrons",
-  "Shield"
-]
+{
+  "items": [
+    "Cuirass", "Helm", "Greaves", "Gauntlets", "Boots",
+    "Pauldrons", "Shield", "Breastplate", "Chestplate", "Hauberk",
+    "Chainmail", "Plate Mail", "Scale Mail", "Ring Mail", "Banded Mail",
+    "Helmet", "Great Helm", "Armet", "Sallet", "Barbute",
+    "Coif", "Cowl", "Hood", "Crown", "Circlet",
+    "Vambraces", "Bracers", "Armguards", "Gloves", "Mittens",
+    "Sabatons", "Sollerets", "Shoes", "Sandals", "Greaves",
+    "Spaulders", "Shoulderguards", "Mantle", "Cloak", "Cape"
+  ],
+  "components": {
+    "armor_types": {
+      "heavy": ["Plate", "Full Plate", "Field Plate", "Gothic Plate"],
+      "medium": ["Chainmail", "Scale Mail", "Banded Mail", "Splint Mail"],
+      "light": ["Leather", "Studded Leather", "Hide", "Padded"]
+    },
+    "piece_categories": {
+      "head": ["Helm", "Helmet", "Great Helm", "Coif", "Cowl", "Hood", "Crown", "Circlet"],
+      "chest": ["Cuirass", "Breastplate", "Chestplate", "Hauberk", "Vest", "Jerkin"],
+      "hands": ["Gauntlets", "Gloves", "Vambraces", "Bracers", "Mittens"],
+      "legs": ["Greaves", "Leggings", "Chausses", "Tassets"],
+      "feet": ["Boots", "Sabatons", "Sollerets", "Shoes", "Sandals"],
+      "shoulders": ["Pauldrons", "Spaulders", "Shoulderguards", "Mantle"],
+      "shield": ["Shield", "Buckler", "Tower Shield", "Kite Shield", "Heater"]
+    },
+    "prefixes_material": [
+      "Iron", "Steel", "Mithril", "Adamantine", "Dragon",
+      "Elven", "Dwarven", "Orcish", "Daedric", "Glass"
+    ],
+    "prefixes_quality": [
+      "Fine", "Superior", "Exceptional", "Masterwork", "Legendary",
+      "Ruined", "Worn", "Reinforced", "Enchanted", "Blessed"
+    ],
+    "suffixes_enchantment": [
+      "of Protection", "of Defense", "of the Guardian", "of Fortitude", "of Invulnerability",
+      "of Fire Resistance", "of Ice Resistance", "of Lightning Resistance", "of Magic Resistance", "of the Champion"
+    ]
+  },
+  "patterns": [
+    "material + piece (Iron Cuirass, Steel Helm)",
+    "quality + material + piece (Fine Steel Breastplate)",
+    "piece + suffix (Cuirass of Protection)",
+    "quality + piece + suffix (Masterwork Helm of the Guardian)",
+    "material + piece + suffix (Mithril Gauntlets of Strength)"
+  ],
+  "metadata": {
+    "base_pieces": 40,
+    "armor_weight_classes": 3,
+    "slot_categories": 7
+  }
+}

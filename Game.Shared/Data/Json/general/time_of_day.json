@@ -1,5 +1,25 @@
-[
-  "PLACEHOLDER_WORD_1",
-  "PLACEHOLDER_WORD_2",
-  "PLACEHOLDER_WORD_3"
-]
+{
+  "items": [
+    "dawn", "sunrise", "morning", "midday",
+    "afternoon", "dusk", "sunset", "twilight",
+    "evening", "night", "midnight", "witching hour"
+  ],
+  "components": {
+    "periods": [
+      "dawn", "morning", "midday", "afternoon",
+      "dusk", "evening", "night", "midnight"
+    ],
+    "modifiers": [
+      "early", "late", "deep", "high", "dead"
+    ],
+    "descriptors": [
+      "first light", "golden hour", "gloaming", "witching hour",
+      "twilight", "sunrise", "sunset", "small hours"
+    ]
+  },
+  "patterns": [
+    "period",
+    "modifier + period",
+    "descriptor"
+  ]
+}

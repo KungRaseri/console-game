@@ -1,5 +1,42 @@
-[
-  "PLACEHOLDER_WORD_1",
-  "PLACEHOLDER_WORD_2",
-  "PLACEHOLDER_WORD_3"
-]
+{
+  "items": [
+    "rough", "smooth", "slimy", "sticky", "silky",
+    "coarse", "grainy", "polished", "jagged", "sharp",
+    "soft", "plush", "velvety", "fuzzy", "fluffy",
+    "hard", "rigid", "brittle", "solid", "dense",
+    "wet", "damp", "moist", "dry", "parched",
+    "cold", "icy", "frozen", "warm", "hot",
+    "bumpy", "ridged", "grooved", "pitted", "cratered",
+    "slick", "oily", "greasy", "waxy", "glossy",
+    "gritty", "sandy", "powdery", "dusty", "chalky",
+    "leathery", "scaly", "feathery", "furry", "hairy"
+  ],
+  "components": {
+    "surface_quality": [
+      "rough", "smooth", "polished", "jagged", "bumpy",
+      "ridged", "pitted", "slick", "glossy", "gritty"
+    ],
+    "temperature": [
+      "cold", "icy", "frozen", "cool", "lukewarm",
+      "warm", "hot", "scalding", "burning", "searing"
+    ],
+    "moisture": [
+      "dry", "parched", "damp", "moist", "wet",
+      "soaked", "drenched", "slimy", "sticky", "oily"
+    ],
+    "hardness": [
+      "soft", "plush", "yielding", "firm", "hard",
+      "rigid", "solid", "brittle", "dense", "unyielding"
+    ],
+    "organic": [
+      "leathery", "scaly", "feathery", "furry", "hairy",
+      "silky", "velvety", "fuzzy", "fluffy", "woody"
+    ]
+  },
+  "patterns": [
+    "texture",
+    "surface_quality + moisture",
+    "temperature + texture",
+    "hardness + surface_quality"
+  ]
+}

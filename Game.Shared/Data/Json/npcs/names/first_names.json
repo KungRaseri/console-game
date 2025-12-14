@@ -1,68 +1,84 @@
 {
   "male": [
-    "Aldric",
-    "Theron",
-    "Cedric",
-    "Gareth",
-    "Roderick",
-    "Magnus",
-    "Thorin",
-    "Eldrin",
-    "Balthazar",
-    "Lucian",
-    "Darius",
-    "Fenris",
-    "Kael",
-    "Zephyr",
-    "Orion",
-    "Drake",
-    "Roran",
-    "Valen",
-    "Cassius",
-    "Thaddeus"
+    "Aldric", "Theron", "Cedric", "Gareth", "Roderick",
+    "Magnus", "Thorin", "Eldrin", "Balthazar", "Lucian",
+    "Darius", "Fenris", "Kael", "Zephyr", "Orion",
+    "Drake", "Roran", "Valen", "Cassius", "Thaddeus",
+    "Alaric", "Brennan", "Corvus", "Donovan", "Eamon",
+    "Finnian", "Gideon", "Hadrian", "Ignatius", "Jareth",
+    "Kieran", "Lorcan", "Matthias", "Nestor", "Octavius",
+    "Percival", "Quinlan", "Ragnar", "Silas", "Tristan",
+    "Ulric", "Vincent", "Wolfric", "Xavier", "Yorick",
+    "Alistair", "Bastian", "Caspian", "Dorian", "Edmund",
+    "Felix", "Gabriel", "Henrik", "Ivan", "Julian",
+    "Klaus", "Leopold", "Marcus", "Nikolai", "Otto",
+    "Preston", "Quentin", "Roland", "Sebastian", "Tobias",
+    "Ulysses", "Victor", "Wilhelm", "Xander", "Zachary",
+    "Aric", "Brynn", "Cole", "Dante", "Egan",
+    "Fallon", "Gannon", "Heath", "Isaiah", "Jace",
+    "Kyran", "Leif", "Maddox", "Nash", "Owen",
+    "Pierce", "Quinn", "Reese", "Stone", "Talon",
+    "Uri", "Vaughn", "Wade", "Wyatt", "Zane",
+    "Adrian", "Blake", "Conrad", "Damien", "Everett"
   ],
   "female": [
-    "Seraphina",
-    "Lyra",
-    "Elara",
-    "Morgana",
-    "Isolde",
-    "Rowena",
-    "Cassandra",
-    "Evangeline",
-    "Aurelia",
-    "Celestia",
-    "Ophelia",
-    "Meredith",
-    "Vivienne",
-    "Arabella",
-    "Lorelei",
-    "Selene",
-    "Cordelia",
-    "Rosalind",
-    "Tabitha",
-    "Gwendolyn"
+    "Seraphina", "Lyra", "Elara", "Morgana", "Isolde",
+    "Rowena", "Cassandra", "Evangeline", "Aurelia", "Celestia",
+    "Ophelia", "Meredith", "Vivienne", "Arabella", "Lorelei",
+    "Selene", "Cordelia", "Rosalind", "Tabitha", "Gwendolyn",
+    "Anastasia", "Beatrice", "Celia", "Delilah", "Eleanor",
+    "Fiona", "Genevieve", "Helena", "Imogen", "Josephine",
+    "Katerina", "Lillian", "Madeleine", "Natalia", "Octavia",
+    "Penelope", "Quintessa", "Rosamund", "Sabrina", "Theodora",
+    "Ursula", "Valentina", "Winifred", "Xanthe", "Yvonne",
+    "Adelaide", "Brielle", "Camille", "Diana", "Esmeralda",
+    "Freya", "Guinevere", "Harriet", "Isabella", "Jasmine",
+    "Kiera", "Lenora", "Margot", "Nadia", "Olivia",
+    "Priscilla", "Quinn", "Rhiannon", "Sophia", "Thalia",
+    "Una", "Veronica", "Willow", "Xiomara", "Yara",
+    "Adeline", "Bridget", "Clara", "Daphne", "Elise",
+    "Felicity", "Grace", "Holly", "Iris", "Jade",
+    "Kendra", "Luna", "Maya", "Nora", "Opal",
+    "Pearl", "Queenie", "Ruby", "Scarlett", "Tessa",
+    "Ulva", "Violet", "Wendy", "Xena", "Zara",
+    "Amelia", "Belle", "Charlotte", "Dawn", "Emma"
   ],
-  "surnames": [
-    "Ironforge",
-    "Stormwind",
-    "Blackthorn",
-    "Silverwood",
-    "Ashborne",
-    "Brightblade",
-    "Shadowmere",
-    "Goldleaf",
-    "Stoneheart",
-    "Ravencrest",
-    "Flameheart",
-    "Frostborne",
-    "Windwhisper",
-    "Thornwood",
-    "Nightshade",
-    "Dawnbringer",
-    "Moonbrook",
-    "Starfall",
-    "Wildrose",
-    "Oakenshield"
-  ]
+  "components": {
+    "male_prefixes": [
+      "Ald", "Thor", "Ced", "Gar", "Rod",
+      "Mag", "El", "Balth", "Luc", "Dar",
+      "Fen", "Kae", "Zeph", "Or", "Dr"
+    ],
+    "male_suffixes": [
+      "ric", "ron", "dric", "eth", "erick",
+      "nus", "rin", "azar", "ian", "ius",
+      "ris", "el", "yr", "ion", "ake"
+    ],
+    "female_prefixes": [
+      "Ser", "Ly", "El", "Mor", "Is",
+      "Row", "Cass", "Evan", "Aur", "Cel",
+      "Oph", "Mer", "Viv", "Ara", "Lor"
+    ],
+    "female_suffixes": [
+      "aphina", "ra", "ara", "gana", "olde",
+      "ena", "andra", "geline", "elia", "estia",
+      "elia", "edith", "ienne", "bella", "elei"
+    ],
+    "origins": [
+      "fantasy_traditional", "nordic", "celtic", "latin",
+      "greek", "germanic", "slavic", "romantic"
+    ]
+  },
+  "patterns": [
+    "prefix + suffix",
+    "classical + variant (Aldric → Alaric)",
+    "nature-inspired (Willow, Stone, Dawn)",
+    "virtue names (Grace, Felicity, Honor)",
+    "gem/jewel names (Ruby, Pearl, Jade, Opal)"
+  ],
+  "metadata": {
+    "male_count": 100,
+    "female_count": 100,
+    "cultural_mix": "60% fantasy-traditional, 20% classical, 20% nature/virtue"
+  }
 }
