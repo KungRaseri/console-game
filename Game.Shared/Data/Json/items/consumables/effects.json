@@ -1,8 +1,207 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add content here",
-    "rarity": "Common"
+{
+  "items": [
+    {
+      "name": "Restore Health",
+      "displayName": "Restore Health",
+      "description": "Heals wounds and restores vitality",
+      "rarity": "Common"
+    },
+    {
+      "name": "Restore Mana",
+      "displayName": "Restore Mana",
+      "description": "Replenishes magical energy",
+      "rarity": "Common"
+    },
+    {
+      "name": "Restore Stamina",
+      "displayName": "Restore Stamina",
+      "description": "Recovers endurance and vigor",
+      "rarity": "Common"
+    },
+    {
+      "name": "Cure Poison",
+      "displayName": "Cure Poison",
+      "description": "Removes toxic effects",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Cure Disease",
+      "displayName": "Cure Disease",
+      "description": "Eliminates illness and infection",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Remove Curse",
+      "displayName": "Remove Curse",
+      "description": "Dispels magical curses",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Increase Strength",
+      "displayName": "Increase Strength",
+      "description": "Temporarily boosts physical power",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Increase Agility",
+      "displayName": "Increase Agility",
+      "description": "Temporarily enhances speed and dexterity",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Increase Intelligence",
+      "displayName": "Increase Intelligence",
+      "description": "Temporarily amplifies magical ability",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Increase Constitution",
+      "displayName": "Increase Constitution",
+      "description": "Temporarily fortifies health and endurance",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Fire Resistance",
+      "displayName": "Fire Resistance",
+      "description": "Protects against flames",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Ice Resistance",
+      "displayName": "Ice Resistance",
+      "description": "Shields from cold",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Lightning Resistance",
+      "displayName": "Lightning Resistance",
+      "description": "Wards off electricity",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Magic Resistance",
+      "displayName": "Magic Resistance",
+      "description": "Reduces magical damage",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Invisibility",
+      "displayName": "Invisibility",
+      "description": "Renders the user unseen",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Levitation",
+      "displayName": "Levitation",
+      "description": "Allows floating and flight",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Water Breathing",
+      "displayName": "Water Breathing",
+      "description": "Enables breathing underwater",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Night Vision",
+      "displayName": "Night Vision",
+      "description": "Grants sight in darkness",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Detect Life",
+      "displayName": "Detect Life",
+      "description": "Reveals nearby living beings",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Detect Magic",
+      "displayName": "Detect Magic",
+      "description": "Senses magical auras",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Regeneration",
+      "displayName": "Regeneration",
+      "description": "Continuously heals over time",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Invulnerability",
+      "displayName": "Invulnerability",
+      "description": "Brief immunity to all damage",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Berserker Rage",
+      "displayName": "Berserker Rage",
+      "description": "Massively increases damage but reduces defense",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Haste",
+      "displayName": "Haste",
+      "description": "Greatly increases movement and attack speed",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Slow Time",
+      "displayName": "Slow Time",
+      "description": "Slows time around the user",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Teleportation",
+      "displayName": "Teleportation",
+      "description": "Instantly transports to a location",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Shapeshifting",
+      "displayName": "Shapeshifting",
+      "description": "Transform into another creature",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Resurrection",
+      "displayName": "Resurrection",
+      "description": "Revives upon death",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "Divine Blessing",
+      "displayName": "Divine Blessing",
+      "description": "Grants multiple beneficial effects",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Complete Restoration",
+      "displayName": "Complete Restoration",
+      "description": "Fully restores health, mana, and stamina",
+      "rarity": "Epic"
+    }
+  ],
+  "components": {
+    "restoration": ["Restore Health", "Restore Mana", "Restore Stamina", "Complete Restoration", "Regeneration"],
+    "curing": ["Cure Poison", "Cure Disease", "Remove Curse"],
+    "attribute_buffs": ["Increase Strength", "Increase Agility", "Increase Intelligence", "Increase Constitution"],
+    "resistances": ["Fire Resistance", "Ice Resistance", "Lightning Resistance", "Magic Resistance"],
+    "utility": ["Invisibility", "Levitation", "Water Breathing", "Night Vision", "Detect Life", "Detect Magic"],
+    "combat_buffs": ["Berserker Rage", "Haste", "Invulnerability"],
+    "advanced": ["Slow Time", "Teleportation", "Shapeshifting"],
+    "legendary": ["Resurrection", "Divine Blessing"]
+  },
+  "patterns": [
+    "quality + effect (Minor Restore Health)",
+    "effect + consumable type (Restore Health Potion)",
+    "multi-effect naming (Potion of Complete Restoration)"
+  ],
+  "rarity_distribution": {
+    "Common": 3,
+    "Uncommon": 12,
+    "Rare": 7,
+    "Epic": 5,
+    "Legendary": 3,
+    "Mythic": 1
   }
-]
+}

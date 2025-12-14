@@ -1,8 +1,210 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add content here",
-    "rarity": "Common"
+{
+  "items": [
+    {
+      "name": "Strength Boost",
+      "displayName": "Strength Boost",
+      "description": "Increases physical power",
+      "rarity": "Common"
+    },
+    {
+      "name": "Agility Boost",
+      "displayName": "Agility Boost",
+      "description": "Increases dexterity and speed",
+      "rarity": "Common"
+    },
+    {
+      "name": "Intelligence Boost",
+      "displayName": "Intelligence Boost",
+      "description": "Increases magical power",
+      "rarity": "Common"
+    },
+    {
+      "name": "Constitution Boost",
+      "displayName": "Constitution Boost",
+      "description": "Increases health and stamina",
+      "rarity": "Common"
+    },
+    {
+      "name": "Fire Damage",
+      "displayName": "Fire Damage",
+      "description": "Adds burning damage to attacks",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Ice Damage",
+      "displayName": "Ice Damage",
+      "description": "Adds freezing damage to attacks",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Lightning Damage",
+      "displayName": "Lightning Damage",
+      "description": "Adds shocking damage to attacks",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Poison Damage",
+      "displayName": "Poison Damage",
+      "description": "Inflicts toxic damage over time",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Holy Damage",
+      "displayName": "Holy Damage",
+      "description": "Deals radiant divine damage",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Shadow Damage",
+      "displayName": "Shadow Damage",
+      "description": "Deals dark necrotic damage",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Health Regeneration",
+      "displayName": "Health Regeneration",
+      "description": "Slowly heals wounds over time",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Mana Regeneration",
+      "displayName": "Mana Regeneration",
+      "description": "Restores magical energy over time",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Stamina Regeneration",
+      "displayName": "Stamina Regeneration",
+      "description": "Recovers endurance quickly",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Damage Reflection",
+      "displayName": "Damage Reflection",
+      "description": "Returns damage to attackers",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Critical Strike",
+      "displayName": "Critical Strike",
+      "description": "Increases chance for critical hits",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Life Steal",
+      "displayName": "Life Steal",
+      "description": "Drains health from enemies",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Mana Steal",
+      "displayName": "Mana Steal",
+      "description": "Drains mana from enemies",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Attack Speed",
+      "displayName": "Attack Speed",
+      "description": "Increases rate of attacks",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Movement Speed",
+      "displayName": "Movement Speed",
+      "description": "Increases travel speed",
+      "rarity": "Common"
+    },
+    {
+      "name": "Invisibility",
+      "displayName": "Invisibility",
+      "description": "Grants temporary invisibility",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Flight",
+      "displayName": "Flight",
+      "description": "Allows levitation or flying",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Teleportation",
+      "displayName": "Teleportation",
+      "description": "Short-range instant movement",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Shield Generation",
+      "displayName": "Shield Generation",
+      "description": "Creates protective barriers",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Soul Binding",
+      "displayName": "Soul Binding",
+      "description": "Prevents death once per day",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Time Dilation",
+      "displayName": "Time Dilation",
+      "description": "Slows time for enemies",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "Resurrection",
+      "displayName": "Resurrection",
+      "description": "Revives the wielder upon death",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "Invulnerability",
+      "displayName": "Invulnerability",
+      "description": "Brief immunity to all damage",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Elemental Immunity",
+      "displayName": "Elemental Immunity",
+      "description": "Immune to fire, ice, and lightning",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Magic Amplification",
+      "displayName": "Magic Amplification",
+      "description": "Greatly increases spell power",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Reality Warp",
+      "displayName": "Reality Warp",
+      "description": "Bends the fabric of existence",
+      "rarity": "Ancient"
+    }
+  ],
+  "components": {
+    "attribute_boosts": ["Strength Boost", "Agility Boost", "Intelligence Boost", "Constitution Boost"],
+    "elemental_damage": ["Fire Damage", "Ice Damage", "Lightning Damage", "Poison Damage"],
+    "alignment_damage": ["Holy Damage", "Shadow Damage"],
+    "regeneration": ["Health Regeneration", "Mana Regeneration", "Stamina Regeneration"],
+    "offensive": ["Critical Strike", "Damage Reflection", "Life Steal", "Mana Steal"],
+    "mobility": ["Movement Speed", "Attack Speed", "Flight", "Teleportation", "Invisibility"],
+    "defensive": ["Shield Generation", "Elemental Immunity", "Invulnerability"],
+    "legendary_effects": ["Soul Binding", "Resurrection", "Time Dilation", "Reality Warp"],
+    "magic": ["Magic Amplification"]
+  },
+  "patterns": [
+    "prefix + effect (Minor Strength Boost)",
+    "elemental prefix + damage (Flaming Fire Damage)",
+    "power level + legendary (Grand Resurrection)",
+    "special prefix + unique effect (Void Reality Warp)"
+  ],
+  "rarity_distribution": {
+    "Common": 5,
+    "Uncommon": 7,
+    "Rare": 8,
+    "Epic": 6,
+    "Legendary": 3,
+    "Mythic": 2,
+    "Ancient": 1
   }
-]
+}
