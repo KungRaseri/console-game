@@ -1,0 +1,49 @@
+{
+  "metals": [
+    "Iron",
+    "Steel",
+    "Bronze",
+    "Copper",
+    "Silver",
+    "Gold",
+    "Platinum",
+    "Mythril",
+    "Adamantine",
+    "Orichalcum"
+  ],
+  "precious": [
+    "Diamond",
+    "Ruby",
+    "Sapphire",
+    "Emerald",
+    "Amethyst",
+    "Topaz",
+    "Jade",
+    "Opal",
+    "Pearl",
+    "Crystal"
+  ],
+  "natural": [
+    "Wood",
+    "Stone",
+    "Bone",
+    "Leather",
+    "Cloth",
+    "Silk",
+    "Linen",
+    "Hemp",
+    "Cotton"
+  ],
+  "magical": [
+    "Ethereal",
+    "Astral",
+    "Void",
+    "Shadow",
+    "Light",
+    "Arcane",
+    "Divine",
+    "Infernal",
+    "Celestial",
+    "Primordial"
+  ]
+}

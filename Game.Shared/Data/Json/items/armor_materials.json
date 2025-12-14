@@ -1,0 +1,191 @@
+{
+  "common": {
+    "Cloth": {
+      "displayName": "Cloth",
+      "traits": {
+        "armorRating": { "value": 1, "type": "number" },
+        "weight": { "value": 2, "type": "number" },
+        "durability": { "value": 40, "type": "number" },
+        "movementSpeed": { "value": 0, "type": "number" }
+      }
+    },
+    "Leather": {
+      "displayName": "Leather",
+      "traits": {
+        "armorRating": { "value": 3, "type": "number" },
+        "weight": { "value": 5, "type": "number" },
+        "durability": { "value": 60, "type": "number" },
+        "dexterityBonus": { "value": 1, "type": "number" }
+      }
+    },
+    "Hide": {
+      "displayName": "Hide",
+      "traits": {
+        "armorRating": { "value": 4, "type": "number" },
+        "weight": { "value": 7, "type": "number" },
+        "durability": { "value": 70, "type": "number" },
+        "constitutionBonus": { "value": 1, "type": "number" }
+      }
+    }
+  },
+  "uncommon": {
+    "Studded Leather": {
+      "displayName": "Studded Leather",
+      "traits": {
+        "armorRating": { "value": 6, "type": "number" },
+        "weight": { "value": 10, "type": "number" },
+        "durability": { "value": 90, "type": "number" },
+        "dexterityBonus": { "value": 1, "type": "number" },
+        "dodgeChance": { "value": 3, "type": "number" }
+      }
+    },
+    "Chain": {
+      "displayName": "Chain",
+      "traits": {
+        "armorRating": { "value": 8, "type": "number" },
+        "weight": { "value": 15, "type": "number" },
+        "durability": { "value": 110, "type": "number" },
+        "resistPhysical": { "value": 5, "type": "number" }
+      }
+    },
+    "Scale": {
+      "displayName": "Scale",
+      "traits": {
+        "armorRating": { "value": 9, "type": "number" },
+        "weight": { "value": 18, "type": "number" },
+        "durability": { "value": 120, "type": "number" },
+        "constitutionBonus": { "value": 1, "type": "number" },
+        "resistPhysical": { "value": 7, "type": "number" }
+      }
+    }
+  },
+  "rare": {
+    "Steel": {
+      "displayName": "Steel",
+      "traits": {
+        "armorRating": { "value": 12, "type": "number" },
+        "weight": { "value": 25, "type": "number" },
+        "durability": { "value": 150, "type": "number" },
+        "defenseBonus": { "value": 5, "type": "number" },
+        "resistPhysical": { "value": 10, "type": "number" }
+      }
+    },
+    "Plate": {
+      "displayName": "Plate",
+      "traits": {
+        "armorRating": { "value": 15, "type": "number" },
+        "weight": { "value": 35, "type": "number" },
+        "durability": { "value": 180, "type": "number" },
+        "defenseBonus": { "value": 8, "type": "number" },
+        "constitutionBonus": { "value": 2, "type": "number" },
+        "resistPhysical": { "value": 15, "type": "number" },
+        "movementSpeed": { "value": -10, "type": "number" }
+      }
+    },
+    "Mithril": {
+      "displayName": "Mithril",
+      "traits": {
+        "armorRating": { "value": 13, "type": "number" },
+        "weight": { "value": 12, "type": "number" },
+        "durability": { "value": 200, "type": "number" },
+        "defenseBonus": { "value": 6, "type": "number" },
+        "dexterityBonus": { "value": 2, "type": "number" },
+        "resistPhysical": { "value": 12, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" }
+      }
+    }
+  },
+  "epic": {
+    "Dragon Scale": {
+      "displayName": "Dragon Scale",
+      "traits": {
+        "armorRating": { "value": 20, "type": "number" },
+        "weight": { "value": 20, "type": "number" },
+        "durability": { "value": 250, "type": "number" },
+        "defenseBonus": { "value": 12, "type": "number" },
+        "resistFire": { "value": 40, "type": "number" },
+        "resistPhysical": { "value": 20, "type": "number" },
+        "strengthBonus": { "value": 2, "type": "number" },
+        "constitutionBonus": { "value": 2, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" }
+      }
+    },
+    "Adamantine": {
+      "displayName": "Adamantine",
+      "traits": {
+        "armorRating": { "value": 22, "type": "number" },
+        "weight": { "value": 30, "type": "number" },
+        "durability": { "value": 300, "type": "number" },
+        "defenseBonus": { "value": 15, "type": "number" },
+        "resistPhysical": { "value": 30, "type": "number" },
+        "resistMagic": { "value": 15, "type": "number" },
+        "thorns": { "value": 10, "type": "number" }
+      }
+    },
+    "Celestial": {
+      "displayName": "Celestial",
+      "traits": {
+        "armorRating": { "value": 18, "type": "number" },
+        "weight": { "value": 15, "type": "number" },
+        "durability": { "value": 220, "type": "number" },
+        "defenseBonus": { "value": 10, "type": "number" },
+        "manaBonus": { "value": 20, "type": "number" },
+        "wisdomBonus": { "value": 3, "type": "number" },
+        "resistMagic": { "value": 25, "type": "number" },
+        "healthRegen": { "value": 2, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" }
+      }
+    }
+  },
+  "legendary": {
+    "Divine": {
+      "displayName": "Divine",
+      "traits": {
+        "armorRating": { "value": 30, "type": "number" },
+        "weight": { "value": 10, "type": "number" },
+        "durability": { "value": 500, "type": "number" },
+        "defenseBonus": { "value": 20, "type": "number" },
+        "resistFire": { "value": 50, "type": "number" },
+        "resistIce": { "value": 50, "type": "number" },
+        "resistLightning": { "value": 50, "type": "number" },
+        "resistPoison": { "value": 50, "type": "number" },
+        "resistMagic": { "value": 30, "type": "number" },
+        "healthRegen": { "value": 5, "type": "number" },
+        "manaRegen": { "value": 3, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" },
+        "visualColor": { "value": "holy_light", "type": "string" }
+      }
+    },
+    "Godforged": {
+      "displayName": "Godforged",
+      "traits": {
+        "armorRating": { "value": 35, "type": "number" },
+        "weight": { "value": 40, "type": "number" },
+        "durability": { "value": 9999, "type": "number" },
+        "defenseBonus": { "value": 25, "type": "number" },
+        "strengthBonus": { "value": 5, "type": "number" },
+        "constitutionBonus": { "value": 5, "type": "number" },
+        "resistPhysical": { "value": 50, "type": "number" },
+        "resistMagic": { "value": 40, "type": "number" },
+        "thorns": { "value": 20, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" }
+      }
+    },
+    "Ethereal": {
+      "displayName": "Ethereal",
+      "traits": {
+        "armorRating": { "value": 25, "type": "number" },
+        "weight": { "value": 1, "type": "number" },
+        "durability": { "value": 400, "type": "number" },
+        "defenseBonus": { "value": 18, "type": "number" },
+        "dodgeChance": { "value": 25, "type": "number" },
+        "movementSpeed": { "value": 20, "type": "number" },
+        "dexterityBonus": { "value": 5, "type": "number" },
+        "intelligenceBonus": { "value": 3, "type": "number" },
+        "resistMagic": { "value": 35, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" },
+        "visualColor": { "value": "ethereal_mist", "type": "string" }
+      }
+    }
+  }
+}

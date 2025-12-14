@@ -1,0 +1,62 @@
+{
+  "professions": [
+    "Bandit",
+    "Thug",
+    "Mercenary",
+    "Cultist",
+    "Raider",
+    "Brigand",
+    "Marauder",
+    "Assassin",
+    "Rogue",
+    "Outlaw",
+    "Highwayman",
+    "Pirate",
+    "Smuggler",
+    "Zealot"
+  ],
+  "roles": [
+    "Scout",
+    "Warrior",
+    "Archer",
+    "Mage",
+    "Berserker",
+    "Champion",
+    "Enforcer",
+    "Captain",
+    "Lieutenant",
+    "Brute",
+    "Sharpshooter",
+    "Spellblade"
+  ],
+  "factions": [
+    "Crimson Brotherhood",
+    "Shadow Guild",
+    "Iron Fist",
+    "Dark Covenant",
+    "Blood Ravens",
+    "Night Blades",
+    "Scarlet Hand",
+    "Void Cult"
+  ],
+  "variants": {
+    "bandit": [
+      "Outlaw Bandit",
+      "Desert Bandit",
+      "Forest Bandit",
+      "Mountain Bandit"
+    ],
+    "cultist": [
+      "Dark Cultist",
+      "Blood Cultist",
+      "Shadow Cultist",
+      "Chaos Cultist"
+    ],
+    "mercenary": [
+      "Hired Blade",
+      "Contract Killer",
+      "Sellsword",
+      "Free Company Merc"
+    ]
+  }
+}

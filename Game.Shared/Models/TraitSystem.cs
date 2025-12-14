@@ -1,4 +1,4 @@
-namespace Game.Models;
+namespace Game.Shared.Models;
 
 /// <summary>
 /// Represents a trait value that can be of various types.

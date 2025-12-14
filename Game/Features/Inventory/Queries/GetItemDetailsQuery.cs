@@ -1,4 +1,5 @@
 using Game.Models;
+using Game.Shared.Models;
 using MediatR;
 
 namespace Game.Features.Inventory.Queries;

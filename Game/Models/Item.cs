@@ -1,3 +1,5 @@
+using Game.Shared.Models;
+
 namespace Game.Models;
 
 /// <summary>

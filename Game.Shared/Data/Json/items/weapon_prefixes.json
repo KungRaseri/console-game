@@ -1,0 +1,158 @@
+{
+  "common": {
+    "Rusty": {
+      "displayName": "Rusty",
+      "traits": {
+        "damageMultiplier": { "value": 0.8, "type": "number" },
+        "durability": { "value": 50, "type": "number" }
+      }
+    },
+    "Old": {
+      "displayName": "Old",
+      "traits": {
+        "damageMultiplier": { "value": 0.9, "type": "number" },
+        "durability": { "value": 60, "type": "number" }
+      }
+    },
+    "Simple": {
+      "displayName": "Simple",
+      "traits": {
+        "damageMultiplier": { "value": 1.0, "type": "number" },
+        "durability": { "value": 80, "type": "number" }
+      }
+    }
+  },
+  "uncommon": {
+    "Iron": {
+      "displayName": "Iron",
+      "traits": {
+        "damageBonus": { "value": 2, "type": "number" },
+        "durability": { "value": 100, "type": "number" },
+        "weightMultiplier": { "value": 1.0, "type": "number" }
+      }
+    },
+    "Steel": {
+      "displayName": "Steel",
+      "traits": {
+        "damageBonus": { "value": 3, "type": "number" },
+        "durability": { "value": 120, "type": "number" },
+        "criticalChance": { "value": 5, "type": "number" }
+      }
+    },
+    "Sharp": {
+      "displayName": "Sharp",
+      "traits": {
+        "damageBonus": { "value": 4, "type": "number" },
+        "criticalMultiplier": { "value": 1.5, "type": "number" },
+        "durability": { "value": 90, "type": "number" }
+      }
+    }
+  },
+  "rare": {
+    "Mythril": {
+      "displayName": "Mythril",
+      "traits": {
+        "damageBonus": { "value": 5, "type": "number" },
+        "durability": { "value": 150, "type": "number" },
+        "weightMultiplier": { "value": 0.7, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" },
+        "visualColor": { "value": "silver", "type": "string" }
+      }
+    },
+    "Enchanted": {
+      "displayName": "Enchanted",
+      "traits": {
+        "damageBonus": { "value": 6, "type": "number" },
+        "magicDamage": { "value": 3, "type": "number" },
+        "manaBonus": { "value": 10, "type": "number" },
+        "durability": { "value": 130, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" }
+      }
+    },
+    "Blessed": {
+      "displayName": "Blessed",
+      "traits": {
+        "damageBonus": { "value": 4, "type": "number" },
+        "healthRegen": { "value": 2, "type": "number" },
+        "resistMagic": { "value": 10, "type": "number" },
+        "durability": { "value": 140, "type": "number" }
+      }
+    }
+  },
+  "epic": {
+    "Dragon": {
+      "displayName": "Dragon",
+      "traits": {
+        "damageBonus": { "value": 10, "type": "number" },
+        "damageMultiplier": { "value": 1.3, "type": "number" },
+        "resistFire": { "value": 25, "type": "number" },
+        "durability": { "value": 200, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" },
+        "visualColor": { "value": "crimson", "type": "string" }
+      }
+    },
+    "Ancient": {
+      "displayName": "Ancient",
+      "traits": {
+        "damageBonus": { "value": 8, "type": "number" },
+        "strengthBonus": { "value": 2, "type": "number" },
+        "wisdomBonus": { "value": 2, "type": "number" },
+        "durability": { "value": 250, "type": "number" },
+        "valueMultiplier": { "value": 2.0, "type": "number" }
+      }
+    },
+    "Celestial": {
+      "displayName": "Celestial",
+      "traits": {
+        "damageBonus": { "value": 9, "type": "number" },
+        "magicDamage": { "value": 7, "type": "number" },
+        "manaRegen": { "value": 3, "type": "number" },
+        "resistMagic": { "value": 20, "type": "number" },
+        "durability": { "value": 180, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" },
+        "visualColor": { "value": "gold", "type": "string" }
+      }
+    }
+  },
+  "legendary": {
+    "Godslayer": {
+      "displayName": "Godslayer",
+      "traits": {
+        "damageBonus": { "value": 20, "type": "number" },
+        "damageMultiplier": { "value": 1.5, "type": "number" },
+        "criticalChance": { "value": 15, "type": "number" },
+        "criticalMultiplier": { "value": 2.5, "type": "number" },
+        "strengthBonus": { "value": 5, "type": "number" },
+        "durability": { "value": 300, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" },
+        "visualColor": { "value": "divine_light", "type": "string" }
+      }
+    },
+    "Eternal": {
+      "displayName": "Eternal",
+      "traits": {
+        "damageBonus": { "value": 15, "type": "number" },
+        "damageMultiplier": { "value": 1.4, "type": "number" },
+        "healthRegen": { "value": 5, "type": "number" },
+        "manaRegen": { "value": 5, "type": "number" },
+        "durability": { "value": 9999, "type": "number" },
+        "constitutionBonus": { "value": 3, "type": "number" },
+        "wisdomBonus": { "value": 3, "type": "number" }
+      }
+    },
+    "Divine": {
+      "displayName": "Divine",
+      "traits": {
+        "damageBonus": { "value": 18, "type": "number" },
+        "magicDamage": { "value": 12, "type": "number" },
+        "resistFire": { "value": 50, "type": "number" },
+        "resistIce": { "value": 50, "type": "number" },
+        "resistLightning": { "value": 50, "type": "number" },
+        "lifeSteal": { "value": 10, "type": "number" },
+        "durability": { "value": 400, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" },
+        "visualColor": { "value": "holy_radiance", "type": "string" }
+      }
+    }
+  }
+}

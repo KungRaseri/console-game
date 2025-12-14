@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Game.Features.Inventory.Queries;
 using Game.Models;
+using Game.Shared.Models;
 using Xunit;
 
 namespace Game.Tests.Features.Inventory.Queries;

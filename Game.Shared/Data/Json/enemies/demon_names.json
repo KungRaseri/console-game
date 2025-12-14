@@ -1,0 +1,60 @@
+{
+  "prefixes": [
+    "Lesser",
+    "Greater",
+    "Infernal",
+    "Abyssal",
+    "Hellborn",
+    "Cursed",
+    "Dark",
+    "Shadow",
+    "Chaos",
+    "Corrupted",
+    "Vile",
+    "Malevolent",
+    "Sinister",
+    "Wicked"
+  ],
+  "creatures": [
+    "Demon",
+    "Devil",
+    "Fiend",
+    "Hellhound",
+    "Imp",
+    "Incubus",
+    "Succubus",
+    "Nightmare",
+    "Balor",
+    "Pit Fiend",
+    "Vrock",
+    "Marilith",
+    "Beholder",
+    "Shadow Demon"
+  ],
+  "variants": {
+    "demon": [
+      "Demon Lord",
+      "Demon Spawn",
+      "Demon Knight",
+      "Chaos Demon"
+    ],
+    "devil": [
+      "Horned Devil",
+      "Spined Devil",
+      "Barbed Devil",
+      "Ice Devil"
+    ],
+    "hellhound": [
+      "Infernal Hound",
+      "Fire Hound",
+      "Shadow Hound",
+      "Cerberus"
+    ],
+    "imp": [
+      "Fire Imp",
+      "Shadow Imp",
+      "Chaos Imp",
+      "Quasit"
+    ]
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "Kill": {
+    "Easy": {
+      "SlayBeasts": {
+        "displayName": "Slay the Beasts",
+        "traits": {
+          "questType": { "value": "kill", "type": "string" },
+          "difficulty": { "value": "easy", "type": "string" },
+          "targetType": { "value": "beast", "type": "string" },
+          "minQuantity": { "value": 3, "type": "number" },
+          "maxQuantity": { "value": 5, "type": "number" },
+          "baseGoldReward": { "value": 50, "type": "number" },
+          "baseXpReward": { "value": 100, "type": "number" },
+          "timeLimit": { "value": 0, "type": "number" },
+          "description": { "value": "Eliminate {quantity} {target} threatening the area", "type": "string" }
+        }
+      },
+      "ClearUndead": {
+        "displayName": "Clear the Undead",
+        "traits": {
+          "questType": { "value": "kill", "type": "string" },
+          "difficulty": { "value": "easy", "type": "string" },
+          "targetType": { "value": "undead", "type": "string" },
+          "minQuantity": { "value": 4, "type": "number" },
+          "maxQuantity": { "value": 6, "type": "number" },
+          "baseGoldReward": { "value": 75, "type": "number" },
+          "baseXpReward": { "value": 150, "type": "number" },
+          "timeLimit": { "value": 0, "type": "number" },
+          "description": { "value": "Cleanse {quantity} {target} from the graveyard", "type": "string" }
+        }
+      }
+    },
+    "Medium": {
+      "HuntDemons": {
+        "displayName": "Hunt the Demons",
+        "traits": {
+          "questType": { "value": "kill", "type": "string" },
+          "difficulty": { "value": "medium", "type": "string" },
+          "targetType": { "value": "demon", "type": "string" },
+          "minQuantity": { "value": 3, "type": "number" },
+          "maxQuantity": { "value": 4, "type": "number" },
+          "baseGoldReward": { "value": 200, "type": "number" },
+          "baseXpReward": { "value": 400, "type": "number" },
+          "timeLimit": { "value": 72, "type": "number" },
+          "failureConsequence": { "value": "Village destroyed", "type": "string" },
+          "description": { "value": "Hunt down {quantity} {target} before they summon reinforcements", "type": "string" }
+        }
+      },
+      "BanishElementals": {
+        "displayName": "Banish the Elementals",
+        "traits": {
+          "questType": { "value": "kill", "type": "string" },
+          "difficulty": { "value": "medium", "type": "string" },
+          "targetType": { "value": "elemental", "type": "string" },
+          "minQuantity": { "value": 2, "type": "number" },
+          "maxQuantity": { "value": 3, "type": "number" },
+          "baseGoldReward": { "value": 250, "type": "number" },
+          "baseXpReward": { "value": 500, "type": "number" },
+          "timeLimit": { "value": 0, "type": "number" },
+          "location": { "value": "Ancient Ruins", "type": "string" },
+          "description": { "value": "Banish {quantity} {target} from {location}", "type": "string" }
+        }
+      }
+    },
+    "Hard": {
+      "SlayDragons": {
+        "displayName": "Slay the Dragon",
+        "traits": {
+          "questType": { "value": "kill", "type": "string" },
+          "difficulty": { "value": "hard", "type": "string" },
+          "targetType": { "value": "dragon", "type": "string" },
+          "minQuantity": { "value": 1, "type": "number" },
+          "maxQuantity": { "value": 2, "type": "number" },
+          "baseGoldReward": { "value": 1000, "type": "number" },
+          "baseXpReward": { "value": 2000, "type": "number" },
+          "timeLimit": { "value": 168, "type": "number" },
+          "failureConsequence": { "value": "Kingdom falls", "type": "string" },
+          "bonusReward": { "value": "Dragon Scales", "type": "string" },
+          "legendary": { "value": true, "type": "boolean" },
+          "description": { "value": "Defeat the legendary {target} terrorizing the mountains", "type": "string" }
+        }
+      },
+      "DefeatChampions": {
+        "displayName": "Defeat the Champions",
+        "traits": {
+          "questType": { "value": "kill", "type": "string" },
+          "difficulty": { "value": "hard", "type": "string" },
+          "targetType": { "value": "humanoid", "type": "string" },
+          "minQuantity": { "value": 3, "type": "number" },
+          "maxQuantity": { "value": 5, "type": "number" },
+          "baseGoldReward": { "value": 800, "type": "number" },
+          "baseXpReward": { "value": 1500, "type": "number" },
+          "timeLimit": { "value": 96, "type": "number" },
+          "pvpQuest": { "value": true, "type": "boolean" },
+          "description": { "value": "Challenge {quantity} arena champions to prove your worth", "type": "string" }
+        }
+      }
+    }
+  },
+  "Fetch": {
+    "Easy": {
+      "GatherHerbs": {
+        "displayName": "Gather Herbs",
+        "traits": {
+          "questType": { "value": "fetch", "type": "string" },
+          "difficulty": { "value": "easy", "type": "string" },
+          "itemType": { "value": "consumable", "type": "string" },
+          "minQuantity": { "value": 5, "type": "number" },
+          "maxQuantity": { "value": 10, "type": "number" },
+          "baseGoldReward": { "value": 30, "type": "number" },
+          "baseXpReward": { "value": 50, "type": "number" },
+          "location": { "value": "Forest", "type": "string" },
+          "description": { "value": "Collect {quantity} healing herbs from {location}", "type": "string" }
+        }
+      },
+      "CollectMinerals": {
+        "displayName": "Collect Minerals",
+        "traits": {
+          "questType": { "value": "fetch", "type": "string" },
+          "difficulty": { "value": "easy", "type": "string" },
+          "itemType": { "value": "material", "type": "string" },
+          "minQuantity": { "value": 8, "type": "number" },
+          "maxQuantity": { "value": 12, "type": "number" },
+          "baseGoldReward": { "value": 40, "type": "number" },
+          "baseXpReward": { "value": 75, "type": "number" },
+          "location": { "value": "Mines", "type": "string" },
+          "description": { "value": "Mine {quantity} ore samples from {location}", "type": "string" }
+        }
+      }
+    },
+    "Medium": {
+      "RecoverArtifact": {
+        "displayName": "Recover the Artifact",
+        "traits": {
+          "questType": { "value": "fetch", "type": "string" },
+          "difficulty": { "value": "medium", "type": "string" },
+          "itemType": { "value": "questitem", "type": "string" },
+          "minQuantity": { "value": 1, "type": "number" },
+          "maxQuantity": { "value": 1, "type": "number" },
+          "baseGoldReward": { "value": 300, "type": "number" },
+          "baseXpReward": { "value": 600, "type": "number" },
+          "location": { "value": "Dungeon", "type": "string" },
+          "guardians": { "value": true, "type": "boolean" },
+          "timeLimit": { "value": 48, "type": "number" },
+          "description": { "value": "Retrieve the ancient {itemName} from {location}", "type": "string" }
+        }
+      },
+      "StealTreasure": {
+        "displayName": "Steal the Treasure",
+        "traits": {
+          "questType": { "value": "fetch", "type": "string" },
+          "difficulty": { "value": "medium", "type": "string" },
+          "itemType": { "value": "treasure", "type": "string" },
+          "minQuantity": { "value": 1, "type": "number" },
+          "maxQuantity": { "value": 3, "type": "number" },
+          "baseGoldReward": { "value": 400, "type": "number" },
+          "baseXpReward": { "value": 500, "type": "number" },
+          "stealthRequired": { "value": 70, "type": "number" },
+          "moralChoice": { "value": "evil", "type": "string" },
+          "description": { "value": "Steal {quantity} valuable items from the noble's vault", "type": "string" }
+        }
+      }
+    },
+    "Hard": {
+      "FindLegendaryWeapon": {
+        "displayName": "Find the Legendary Weapon",
+        "traits": {
+          "questType": { "value": "fetch", "type": "string" },
+          "difficulty": { "value": "hard", "type": "string" },
+          "itemType": { "value": "weapon", "type": "string" },
+          "itemRarity": { "value": "legendary", "type": "string" },
+          "minQuantity": { "value": 1, "type": "number" },
+          "maxQuantity": { "value": 1, "type": "number" },
+          "baseGoldReward": { "value": 500, "type": "number" },
+          "baseXpReward": { "value": 2500, "type": "number" },
+          "location": { "value": "Ancient Temple", "type": "string" },
+          "bossFight": { "value": true, "type": "boolean" },
+          "legendary": { "value": true, "type": "boolean" },
+          "description": { "value": "Seek the legendary {itemName} hidden in {location}", "type": "string" }
+        }
+      }
+    }
+  },
+  "Escort": {
+    "Easy": {
+      "EscortMerchant": {
+        "displayName": "Escort the Merchant",
+        "traits": {
+          "questType": { "value": "escort", "type": "string" },
+          "difficulty": { "value": "easy", "type": "string" },
+          "npcType": { "value": "merchant", "type": "string" },
+          "baseGoldReward": { "value": 60, "type": "number" },
+          "baseXpReward": { "value": 120, "type": "number" },
+          "distance": { "value": "short", "type": "string" },
+          "ambushChance": { "value": 30, "type": "number" },
+          "npcCanDie": { "value": false, "type": "boolean" },
+          "description": { "value": "Escort the merchant safely to the next town", "type": "string" }
+        }
+      }
+    },
+    "Medium": {
+      "ProtectNoble": {
+        "displayName": "Protect the Noble",
+        "traits": {
+          "questType": { "value": "escort", "type": "string" },
+          "difficulty": { "value": "medium", "type": "string" },
+          "npcType": { "value": "noble", "type": "string" },
+          "baseGoldReward": { "value": 350, "type": "number" },
+          "baseXpReward": { "value": 700, "type": "number" },
+          "distance": { "value": "medium", "type": "string" },
+          "ambushChance": { "value": 60, "type": "number" },
+          "npcCanDie": { "value": true, "type": "boolean" },
+          "failureConsequence": { "value": "War declared", "type": "string" },
+          "description": { "value": "Guard the noble on their journey through dangerous territory", "type": "string" }
+        }
+      }
+    },
+    "Hard": {
+      "EscortProphet": {
+        "displayName": "Escort the Prophet",
+        "traits": {
+          "questType": { "value": "escort", "type": "string" },
+          "difficulty": { "value": "hard", "type": "string" },
+          "npcType": { "value": "religious", "type": "string" },
+          "baseGoldReward": { "value": 700, "type": "number" },
+          "baseXpReward": { "value": 1800, "type": "number" },
+          "distance": { "value": "long", "type": "string" },
+          "ambushChance": { "value": 90, "type": "number" },
+          "npcCanDie": { "value": true, "type": "boolean" },
+          "timeLimit": { "value": 120, "type": "number" },
+          "legendary": { "value": true, "type": "boolean" },
+          "description": { "value": "Protect the prophet from assassins during their pilgrimage", "type": "string" }
+        }
+      }
+    }
+  },
+  "Investigate": {
+    "Easy": {
+      "FindClues": {
+        "displayName": "Find the Clues",
+        "traits": {
+          "questType": { "value": "investigate", "type": "string" },
+          "difficulty": { "value": "easy", "type": "string" },
+          "minClues": { "value": 3, "type": "number" },
+          "maxClues": { "value": 5, "type": "number" },
+          "baseGoldReward": { "value": 80, "type": "number" },
+          "baseXpReward": { "value": 150, "type": "number" },
+          "location": { "value": "Village", "type": "string" },
+          "combatOptional": { "value": true, "type": "boolean" },
+          "description": { "value": "Investigate the mysterious occurrences in {location}", "type": "string" }
+        }
+      }
+    },
+    "Medium": {
+      "SolveMystery": {
+        "displayName": "Solve the Mystery",
+        "traits": {
+          "questType": { "value": "investigate", "type": "string" },
+          "difficulty": { "value": "medium", "type": "string" },
+          "minClues": { "value": 5, "type": "number" },
+          "maxClues": { "value": 8, "type": "number" },
+          "baseGoldReward": { "value": 300, "type": "number" },
+          "baseXpReward": { "value": 550, "type": "number" },
+          "location": { "value": "Manor", "type": "string" },
+          "timeLimit": { "value": 72, "type": "number" },
+          "multipleEndings": { "value": true, "type": "boolean" },
+          "description": { "value": "Uncover the truth behind the strange events at {location}", "type": "string" }
+        }
+      }
+    },
+    "Hard": {
+      "UncoverConspiracy": {
+        "displayName": "Uncover the Conspiracy",
+        "traits": {
+          "questType": { "value": "investigate", "type": "string" },
+          "difficulty": { "value": "hard", "type": "string" },
+          "minClues": { "value": 10, "type": "number" },
+          "maxClues": { "value": 15, "type": "number" },
+          "baseGoldReward": { "value": 900, "type": "number" },
+          "baseXpReward": { "value": 2200, "type": "number" },
+          "timeLimit": { "value": 96, "type": "number" },
+          "stealth": { "value": 80, "type": "number" },
+          "betrayal": { "value": true, "type": "boolean" },
+          "legendary": { "value": true, "type": "boolean" },
+          "description": { "value": "Expose the conspiracy threatening the kingdom", "type": "string" }
+        }
+      }
+    }
+  },
+  "Delivery": {
+    "Easy": {
+      "DeliverMessage": {
+        "displayName": "Deliver the Message",
+        "traits": {
+          "questType": { "value": "delivery", "type": "string" },
+          "difficulty": { "value": "easy", "type": "string" },
+          "itemFragile": { "value": false, "type": "boolean" },
+          "baseGoldReward": { "value": 25, "type": "number" },
+          "baseXpReward": { "value": 40, "type": "number" },
+          "distance": { "value": "short", "type": "string" },
+          "urgent": { "value": false, "type": "boolean" },
+          "description": { "value": "Deliver this message to the recipient in the neighboring town", "type": "string" }
+        }
+      }
+    },
+    "Medium": {
+      "TransportGoods": {
+        "displayName": "Transport the Goods",
+        "traits": {
+          "questType": { "value": "delivery", "type": "string" },
+          "difficulty": { "value": "medium", "type": "string" },
+          "itemFragile": { "value": true, "type": "boolean" },
+          "baseGoldReward": { "value": 220, "type": "number" },
+          "baseXpReward": { "value": 450, "type": "number" },
+          "distance": { "value": "medium", "type": "string" },
+          "timeLimit": { "value": 48, "type": "number" },
+          "bandits": { "value": true, "type": "boolean" },
+          "description": { "value": "Transport fragile goods safely across dangerous roads", "type": "string" }
+        }
+      }
+    },
+    "Hard": {
+      "DeliverRelic": {
+        "displayName": "Deliver the Sacred Relic",
+        "traits": {
+          "questType": { "value": "delivery", "type": "string" },
+          "difficulty": { "value": "hard", "type": "string" },
+          "itemFragile": { "value": true, "type": "boolean" },
+          "baseGoldReward": { "value": 650, "type": "number" },
+          "baseXpReward": { "value": 1600, "type": "number" },
+          "distance": { "value": "long", "type": "string" },
+          "timeLimit": { "value": 72, "type": "number" },
+          "cursed": { "value": true, "type": "boolean" },
+          "pursued": { "value": true, "type": "boolean" },
+          "legendary": { "value": true, "type": "boolean" },
+          "description": { "value": "Deliver the cursed relic while evading those who hunt it", "type": "string" }
+        }
+      }
+    }
+  }
+}
