@@ -46,6 +46,42 @@
                                  FontSize="22" 
                                  FontWeight="Medium" />
                     </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" 
+                               HorizontalAlignment="Right"
+                               DockPanel.Dock="Right">
+                        <Button Content="PREVIEW"
+                               Command="{Binding ShowPreviewCommand}"
+                               Style="{StaticResource MaterialDesignRaisedButton}"
+                               Margin="0,0,8,0"
+                               ToolTip="Preview generated content using current JSON data">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="EyeOutline" 
+                                                               VerticalAlignment="Center"
+                                                               Margin="0,0,4,0"/>
+                                        <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
+                        <Button Content="EXIT"
+                               Command="{Binding ExitCommand}"
+                               Style="{StaticResource MaterialDesignOutlinedButton}"
+                               ToolTip="Close the application">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ExitToApp" 
+                                                               VerticalAlignment="Center"
+                                                               Margin="0,0,4,0"/>
+                                        <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
+                    </StackPanel>
                 </DockPanel>
             </materialDesign:ColorZone>
 

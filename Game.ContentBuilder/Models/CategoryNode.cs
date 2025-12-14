@@ -39,11 +39,8 @@ public class CategoryNode
 public enum EditorType
 {
     None,
-    ItemPrefix,
-    ItemSuffix,
-    FlatItem,      // For flat JSON structure (no rarity levels): metals, woods, leathers, gemstones
-    NameList,      // For array-based JSON structure: weapon_names
-    EnemyNames,
-    NpcNames,
-    Quest
+    ItemPrefix,    // 3-level hierarchy: rarity → item → traits (weapon_prefixes, armor_materials, etc.)
+    ItemSuffix,    // 3-level hierarchy: rarity → item → traits (enchantment_suffixes)
+    FlatItem,      // 2-level flat: item → traits (metals, woods, leathers, gemstones, dragon_colors)
+    NameList       // Array structure: category → string[] (weapon_names, beast_names, fantasy_names, dialogue_templates)
 }

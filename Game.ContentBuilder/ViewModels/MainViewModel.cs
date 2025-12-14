@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Game.ContentBuilder.Models;
 using Game.ContentBuilder.Services;
 using Game.ContentBuilder.Views;
+using Serilog;
 
 namespace Game.ContentBuilder.ViewModels;
 
@@ -81,10 +82,16 @@ public partial class MainViewModel : ObservableObject
                                 Icon = "FileEdit",
                                 EditorType = EditorType.ItemPrefix,
                                 Tag = "weapon_prefixes.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Names",
+                                Icon = "FormatListBulleted",
+                                EditorType = EditorType.NameList,
+                                Tag = "weapon_names.json"
                             }
                             // Note: weapon_suffixes.json doesn't exist yet
                             // Note: metals.json, woods.json have flat structure - using FlatItemEditor
-                            // Note: weapon_names.json has array structure - need NameListEditor
                         }
                     },
                     new CategoryNode
@@ -166,10 +173,142 @@ public partial class MainViewModel : ObservableObject
                 {
                     new CategoryNode
                     {
-                        Name = "Names",
-                        Icon = "FileEdit",
-                        EditorType = EditorType.EnemyNames,
-                        Tag = "enemy_names.json"
+                        Name = "Beasts",
+                        Icon = "Paw",
+                        Children = new ObservableCollection<CategoryNode>
+                        {
+                            new CategoryNode
+                            {
+                                Name = "Names",
+                                Icon = "FormatListBulleted",
+                                EditorType = EditorType.NameList,
+                                Tag = "enemies/beast_names.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Prefixes",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.ItemPrefix,
+                                Tag = "enemies/beast_prefixes.json"
+                            }
+                        }
+                    },
+                    new CategoryNode
+                    {
+                        Name = "Demons",
+                        Icon = "Fire",
+                        Children = new ObservableCollection<CategoryNode>
+                        {
+                            new CategoryNode
+                            {
+                                Name = "Names",
+                                Icon = "FormatListBulleted",
+                                EditorType = EditorType.NameList,
+                                Tag = "enemies/demon_names.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Prefixes",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.ItemPrefix,
+                                Tag = "enemies/demon_prefixes.json"
+                            }
+                        }
+                    },
+                    new CategoryNode
+                    {
+                        Name = "Dragons",
+                        Icon = "Creation",
+                        Children = new ObservableCollection<CategoryNode>
+                        {
+                            new CategoryNode
+                            {
+                                Name = "Names",
+                                Icon = "FormatListBulleted",
+                                EditorType = EditorType.NameList,
+                                Tag = "enemies/dragon_names.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Prefixes",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.ItemPrefix,
+                                Tag = "enemies/dragon_prefixes.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Colors",
+                                Icon = "Palette",
+                                EditorType = EditorType.FlatItem,
+                                Tag = "enemies/dragon_colors.json"
+                            }
+                        }
+                    },
+                    new CategoryNode
+                    {
+                        Name = "Elementals",
+                        Icon = "Water",
+                        Children = new ObservableCollection<CategoryNode>
+                        {
+                            new CategoryNode
+                            {
+                                Name = "Names",
+                                Icon = "FormatListBulleted",
+                                EditorType = EditorType.NameList,
+                                Tag = "enemies/elemental_names.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Prefixes",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.ItemPrefix,
+                                Tag = "enemies/elemental_prefixes.json"
+                            }
+                        }
+                    },
+                    new CategoryNode
+                    {
+                        Name = "Humanoids",
+                        Icon = "HumanGreeting",
+                        Children = new ObservableCollection<CategoryNode>
+                        {
+                            new CategoryNode
+                            {
+                                Name = "Names",
+                                Icon = "FormatListBulleted",
+                                EditorType = EditorType.NameList,
+                                Tag = "enemies/humanoid_names.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Prefixes",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.ItemPrefix,
+                                Tag = "enemies/humanoid_prefixes.json"
+                            }
+                        }
+                    },
+                    new CategoryNode
+                    {
+                        Name = "Undead",
+                        Icon = "Ghost",
+                        Children = new ObservableCollection<CategoryNode>
+                        {
+                            new CategoryNode
+                            {
+                                Name = "Names",
+                                Icon = "FormatListBulleted",
+                                EditorType = EditorType.NameList,
+                                Tag = "enemies/undead_names.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Prefixes",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.ItemPrefix,
+                                Tag = "enemies/undead_prefixes.json"
+                            }
+                        }
                     }
                 }
             },
@@ -181,10 +320,24 @@ public partial class MainViewModel : ObservableObject
                 {
                     new CategoryNode
                     {
-                        Name = "Names",
+                        Name = "Fantasy Names",
+                        Icon = "FormatListBulleted",
+                        EditorType = EditorType.NameList,
+                        Tag = "npcs/fantasy_names.json"
+                    },
+                    new CategoryNode
+                    {
+                        Name = "Occupations",
                         Icon = "FileEdit",
-                        EditorType = EditorType.NpcNames,
-                        Tag = "npc_names.json"
+                        EditorType = EditorType.ItemPrefix,
+                        Tag = "npcs/occupations.json"
+                    },
+                    new CategoryNode
+                    {
+                        Name = "Dialogue Templates",
+                        Icon = "FormatListBulleted",
+                        EditorType = EditorType.NameList,
+                        Tag = "npcs/dialogue_templates.json"
                     }
                 }
             },
@@ -198,8 +351,8 @@ public partial class MainViewModel : ObservableObject
                     {
                         Name = "Quest Templates",
                         Icon = "FileEdit",
-                        EditorType = EditorType.Quest,
-                        Tag = "quest_templates.json"
+                        EditorType = EditorType.ItemPrefix,
+                        Tag = "quests/quest_templates.json"
                     }
                 }
             }
@@ -224,13 +377,8 @@ public partial class MainViewModel : ObservableObject
                     LoadFlatItemEditor(value.Tag?.ToString() ?? "");
                     break;
                 
-                case EditorType.EnemyNames:
-                case EditorType.NpcNames:
-                case EditorType.Quest:
                 case EditorType.NameList:
-                    // TODO: Implement other editors in future tasks
-                    StatusMessage = $"Editor for {value.Name} not yet implemented";
-                    CurrentEditor = null;
+                    LoadNameListEditor(value.Tag?.ToString() ?? "");
                     break;
                 
                 default:
@@ -280,6 +428,43 @@ public partial class MainViewModel : ObservableObject
         {
             StatusMessage = $"Failed to load editor: {ex.Message}";
             CurrentEditor = null;
+        }
+    }
+
+    private void LoadNameListEditor(string fileName)
+    {
+        try
+        {
+            var viewModel = new NameListEditorViewModel(_jsonEditorService, fileName);
+            var view = new NameListEditorView
+            {
+                DataContext = viewModel
+            };
+            CurrentEditor = view;
+            StatusMessage = $"Loaded editor for {fileName}";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load editor: {ex.Message}";
+            CurrentEditor = null;
+        }
+    }
+
+    [RelayCommand]
+    private void ShowPreview()
+    {
+        try
+        {
+            var previewWindow = new Views.PreviewWindow
+            {
+                Owner = System.Windows.Application.Current.MainWindow
+            };
+            previewWindow.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to open preview: {ex.Message}";
+            Log.Error(ex, "Failed to open preview window");
         }
     }
 
