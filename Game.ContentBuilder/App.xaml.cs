@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using System.Windows;
+using Serilog;
 
 namespace Game.ContentBuilder;
 
@@ -22,7 +23,14 @@ public partial class App : Application
         // Ensure logs directory exists
         Directory.CreateDirectory(Path.GetDirectoryName(LogFilePath)!);
         
+        // Initialize Serilog
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.File(LogFilePath, rollingInterval: RollingInterval.Day)
+            .WriteTo.Console()
+            .CreateLogger();
+        
         // Log startup
+        Log.Information("Application starting...");
         LogMessage("Application starting...");
         
         // Handle any unhandled exceptions
@@ -35,6 +43,7 @@ public partial class App : Application
                              $"Inner Exception: {args.Exception.InnerException?.Message ?? "None"}\n" +
                              new string('-', 80);
             
+            Log.Error(args.Exception, "Unhandled dispatcher exception");
             LogMessage(errorMessage);
             
             MessageBox.Show(
