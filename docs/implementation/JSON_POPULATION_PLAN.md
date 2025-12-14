@@ -1,9 +1,192 @@
 # JSON Data Population Plan 📊
 
 **Date**: December 14, 2024  
+**Last Updated**: December 14, 2024 (after requirements review)  
 **Purpose**: Systematic plan to populate 70+ placeholder JSON files  
 **Current State**: 93 JSON files total, ~70 need content  
-**Strategy**: Prioritized approach - quick wins first, then expansive content
+**Strategy**: Hybrid approach with items + components + patterns for procedural generation  
+**Status**: ✅ Requirements finalized, ready for implementation
+
+---
+
+## 🎯 Key Design Decisions
+
+### Data Structure Pattern: Hybrid (Items + Components + Patterns)
+
+**All JSON files will use this structure:**
+```json
+{
+  "items": [
+    /* Pre-generated, curated content for immediate use */
+  ],
+  "components": {
+    /* Building blocks for procedural generation */
+  },
+  "patterns": [
+    /* Rules/templates for combining components */
+  ]
+}
+```
+
+**Philosophy**: 
+- **Items array**: Hand-crafted, high-quality content (100-150 entries typical)
+- **Components**: Foundation for future procedural generation (Phase 6)
+- **Patterns**: Documentation + future implementation guide
+- **Current usage**: Game uses `items` array only; components/patterns reserved for Phase 6
+
+---
+
+### Tier System: 7-Tier Rarity (Applied to ALL Items)
+
+**Rarity Tiers**: Common → Uncommon → Rare → Epic → Legendary → Mythic → Ancient
+
+**Application Scope**:
+- ✅ Weapons, Armor, Consumables
+- ✅ Enchantments (7 power tiers)
+- ✅ Enemy traits and suffixes
+- ✅ Quest objectives and rewards
+- ✅ All loot and content generation
+
+**Stat Scaling Philosophy**:
+- **Conservative base values** (+1-2 for common, +5-8 for rare, +10-15 for epic)
+- **Rarity multipliers** (higher tiers = exponentially better)
+- **Level scaling** (items scale with character level)
+- **Difficulty scaling** (harder content = better rewards)
+- **Formula**: `value = base * rarity_multiplier * level_scaling * difficulty_modifier`
+
+---
+
+### Enchantment Power System: Scaling + Tiers
+
+**Hybrid Approach (Option C + D)**:
+- Each tier has base damage + scaling coefficient
+- Higher tiers have better base AND better scaling
+- Example: "Flaming" enchantment
+  - Lesser (Lv1-15): 3 base + 0.3/level = 3-7.5 damage
+  - Standard (Lv10-30): 10 base + 0.5/level = 15-25 damage
+  - Greater (Lv25-50): 20 base + 0.8/level = 40-60 damage
+
+**Tier Names**: Mix of Classic/Fancy/Context-specific
+- Lesser, Standard, Greater, Superior (enchantments)
+- Minor, Major, Grand, Supreme (consumables)
+- Element-themed when appropriate (Spark/Inferno for fire)
+
+---
+
+### Enemy System: Separate Prefixes, Suffixes, and Traits
+
+**Design Philosophy**: Maximum flexibility through independent systems
+
+**Structure**:
+- **Prefixes**: Applied to names ("Ancient", "Corrupted", "Elite")
+- **Suffixes**: Titles + minor stats ("the Savage" +2 damage, "Alpha" +5 health)
+- **Traits**: Mechanical abilities ("Pack Hunter", "Regeneration", "Fire Immunity")
+
+**Generation**:
+- All three can combine freely (no compatibility restrictions in Phase 1-5)
+- Example: "Ancient Corrupted Shadow Wolf the Savage" with "Pack Hunter" trait
+- Phase 6 may add tag-based compatibility system to prevent odd combos
+
+**Trait Distribution** (per enemy type):
+- **Weighted by tier**: 6 common, 5 uncommon, 4 rare, 3 epic, 2 legendary, 1 mythic, 1 ancient
+- **Total per type**: ~22 traits
+- **Mix**: Simple stat boosts + conditional abilities
+
+---
+
+### NPC System: Personality-Dialogue Linking
+
+**Personality Components**:
+- **Traits**: Core characteristics (brave, cowardly, greedy)
+- **Quirks**: Unique behaviors (twitches nose, quotes poetry)
+- **Backgrounds**: Histories with optional skill bonuses (ex-soldier, reformed thief)
+
+**Dialogue Structure**:
+- **Metadata-rich**: Each line has tone, formality, personality_match tags
+- **Higher counts**: 50-80 greetings/farewells (distributed across formality levels)
+- **Quest integration**: Rumors include quest hooks with metadata (location, danger, type, tier)
+
+**Background Impact**: Hybrid approach
+- Flavor text for immersion
+- Optional mechanical effects for future implementation (ex-soldier = better weapon prices)
+
+---
+
+### Quest System: Full Metadata + Multi-Factor Scaling
+
+**Location Metadata** (Full):
+```json
+{
+  "name": "Darkwood Forest",
+  "tier": "uncommon",
+  "level_range": [5, 15],
+  "environment": "forest",
+  "danger": "medium",
+  "enemy_types": ["beasts", "plants"],
+  "tags": ["wilderness", "hunt", "exploration"]
+}
+```
+
+**Reward Scaling** (Triple Factor):
+- **Tier-based**: Common quests = lower rewards, Legendary = massive rewards
+- **Level-scaled**: Rewards scale with character level
+- **Difficulty-modified**: Harder quests = bonus multipliers
+- **Formula**: `reward = base * tier_mult * level_mult * difficulty_mult`
+
+**Hidden Objectives** (Tiered):
+- **Common**: Bonus objectives (visible after main completion)
+- **Rare**: Don't show in quest log until discovered
+- **Legendary**: Easter eggs and secret achievements
+
+**Quest-Location Linking** (Pre-assign + Tags):
+- Recommended locations for quest types (kill → wilderness, fetch → towns)
+- Tag system allows alternatives (any "hunt" tagged location works for kill quests)
+- Flexible but guided generation
+
+---
+
+### Target Counts: Higher End for Quality
+
+**Philosophy**: Aim for upper range to maximize variety
+
+| File Type | Target Count | Rationale |
+|-----------|--------------|-----------|
+| Colors, Sounds, Textures | 40-50 | High variety needed for descriptions |
+| Verbs | 50-60 | Mix of combat + general actions |
+| Last Names | 150-200 | Cultural diversity (40% fantasy, 30% Nordic/Celtic, 20% Eastern, 10% other) |
+| Item Prefixes/Suffixes | 40-60 | Distributed across 7 tiers |
+| Enemy Traits | 20-25 per type | Weighted distribution (6 common → 1 ancient) |
+| Dialogue | 50-80 | Account for formality/tone variations |
+| Quest Locations | 30-60 per type | Varied environments and difficulty levels |
+
+---
+
+### Backwards Compatibility: Convert All Existing Files
+
+**Scope**: ALL currently populated files will be converted to new hybrid structure
+- **No exceptions**: Consistency across entire data set
+- **Timing**: During Phase 1-2 implementation
+- **Examples**: 
+  - `weapon_prefixes.json` → Add components/patterns
+  - `beast_names.json` → Add components/patterns
+  - `first_names.json` → Add components/patterns
+
+---
+
+### Implementation Strategy
+
+**Population First, Code Second**:
+1. Populate all JSON files with new structure (Phases 1-5)
+2. Test that files load (build + basic validation)
+3. Update GameDataService to use `items` array (after Phase 1 complete)
+4. Implement procedural generation using components/patterns (Phase 6)
+
+**Testing Cadence**:
+- **After Phase 1**: Validate structure, update code for new format
+- **After Phase 2+3A**: Test item + enemy generation
+- **After Phase 3B+4**: Test NPC generation
+- **After Phase 5**: Full integration test
+- **Phase 6**: Procedural generation implementation + final polish
 
 ---
 
@@ -403,25 +586,72 @@ git commit -m "Phase 1: Populate foundation data (15 files)"
 
 ## 📊 Estimated Total Time
 
-| Phase | Files | Time | Priority |
-|-------|-------|------|----------|
-| Phase 1: Foundation | 15 | 1-2h | ⭐⭐⭐ |
-| Phase 2: Items | 12 | 2-3h | ⭐⭐ |
-| Phase 3A: Core Enemies | 14 | 2-3h | ⭐⭐ |
-| Phase 3B: New Enemies | 8 | 2-3h | ⭐ |
-| Phase 4: NPCs | 8 | 2-3h | ⭐ |
-| Phase 5: Quests | 9 | 2-3h | ⭐ |
-| Phase 6: Polish | 12 | 3-4h | (Optional) |
-| **TOTAL** | **70+** | **14-20h** | |
+**Updated after requirements review** (December 14, 2024)
+
+| Phase | Files | Original Est. | Updated Est. | Priority | Notes |
+|-------|-------|---------------|--------------|----------|-------|
+| Phase 1: Foundation | 15 | 1-2h | **2-3h** | ⭐⭐⭐ | Hybrid structure adds complexity |
+| Phase 2: Items | 12 | 2-3h | **3-4h** | ⭐⭐ | 7-tier system + metadata |
+| Phase 3A: Core Enemies | 14 | 2-3h | **3-4h** | ⭐⭐ | Weighted distribution + conditional abilities |
+| Phase 3B: New Enemies | 8 | 2-3h | **2-3h** | ⭐ | Standard complexity |
+| Phase 4: NPCs | 8 | 2-3h | **3-4h** | ⭐ | Higher counts (50-80) + metadata |
+| Phase 5: Quests | 9 | 2-3h | **3-4h** | ⭐ | Full metadata + triple scaling |
+| Phase 6: Polish | 12 | 3-4h | **4-5h** | (Optional) | Remaining enemy types + enhancement |
+| **TOTAL** | **70+** | **14-20h** | **18-25h** | | More ambitious scope |
 
 **Realistic Timeline**: 
-- **Minimum Viable** (Phases 1-3A): 5-8 hours (44 files, 63%)
-- **Feature Complete** (Phases 1-5): 10-14 hours (66 files, 94%)
-- **Full Polish** (All Phases): 14-20 hours (70+ files, 100%)
+- **Minimum Viable** (Phases 1-3A): **8-11 hours** (44 files, 63%)
+- **Feature Complete** (Phases 1-5): **18-25 hours** (66 files, 94%)
+- **Full Polish** (All Phases): **22-30 hours** (70+ files, 100%)
+
+**Why the increase?**
+- Hybrid structure (items + components + patterns) for ALL files
+- 7-tier rarity system across all content types
+- Higher target counts for variety (50-200 vs 25-40 original targets)
+- Full metadata for locations, objectives, rewards, dialogue
+- Converting existing populated files to new structure
+- More complex systems (scaling + tiers for enchantments, triple-factor reward scaling)
 
 ---
 
-## ✅ Next Steps
+## ✅ Requirements Review Complete
+
+### Design Decisions Finalized (December 14, 2024)
+
+All major design decisions have been confirmed through requirements review:
+
+✅ **Data Structure**: Hybrid pattern (items + components + patterns) for ALL files  
+✅ **Tier System**: 7-tier rarity system (Common → Ancient) across all content  
+✅ **Target Counts**: Higher end for quality (50-200 depending on file type)  
+✅ **Enchantments**: Scaling + Tiers (best of both worlds)  
+✅ **Enemy System**: Separate prefixes/suffixes/traits (maximum flexibility)  
+✅ **NPC System**: Personality-dialogue linking with metadata  
+✅ **Quest System**: Full metadata + triple-factor reward scaling  
+✅ **Backwards Compatibility**: Convert ALL existing files to new structure  
+
+### Ready for Implementation
+
+**Next Phase**: Begin Phase 1 - Foundation Data (15 files, 2-3 hours)
+
+**Starting with**:
+1. General category (7 files): colors, smells, sounds, textures, time_of_day, weather, verbs
+2. NPC names (1 file): last_names with cultural diversity
+3. Item basics (2 files): consumables/names, armor/names
+
+**Recommended Workflow**:
+1. **Populate**: Use AI to generate initial content with hybrid structure
+2. **Review**: Refine AI-generated content for quality and thematic fit
+3. **Convert**: Update existing populated files to new structure
+4. **Test**: Build + validate after Phase 1 complete
+5. **Code Update**: Modify GameDataService to use `items` array
+6. **Continue**: Proceed to Phase 2
+
+---
+
+## 📚 Reference: Original Next Steps (Pre-Review)
+
+<details>
+<summary>Click to expand original planning notes</summary>
 
 ### Immediate Actions
 1. **Review this plan** - Confirm approach and priorities
@@ -441,6 +671,8 @@ git commit -m "Phase 1: Populate foundation data (15 files)"
 3. Commit after completing each phase
 4. Test thoroughly before moving to next phase
 5. Focus on Phases 1-3A first (minimum viable)
+
+</details>
 
 ---
 
