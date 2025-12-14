@@ -1,8 +1,119 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add enemy modifiers here",
-    "rarity": "Common"
+{
+  "items": [
+    {
+      "name": "the Wyrm",
+      "displayName": "the Wyrm",
+      "description": "Ancient and massive dragon",
+      "rarity": "Epic"
+    },
+    {
+      "name": "the Drake",
+      "displayName": "the Drake",
+      "description": "Young but fierce dragon",
+      "rarity": "Common"
+    },
+    {
+      "name": "the Ancient",
+      "displayName": "the Ancient",
+      "description": "Lived for millennia",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "the Destroyer",
+      "displayName": "the Destroyer",
+      "description": "Lays waste to kingdoms",
+      "rarity": "Epic"
+    },
+    {
+      "name": "the Greedy",
+      "displayName": "the Greedy",
+      "description": "Hoards vast treasure",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "the Wise",
+      "displayName": "the Wise",
+      "description": "Possesses ancient knowledge",
+      "rarity": "Rare"
+    },
+    {
+      "name": "the Terrible",
+      "displayName": "the Terrible",
+      "description": "Inspires legendary fear",
+      "rarity": "Rare"
+    },
+    {
+      "name": "the Magnificent",
+      "displayName": "the Magnificent",
+      "description": "Awe-inspiring in power and beauty",
+      "rarity": "Epic"
+    },
+    {
+      "name": "the Cunning",
+      "displayName": "the Cunning",
+      "description": "Uses intelligence over brute force",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "the Devourer",
+      "displayName": "the Devourer",
+      "description": "Endless appetite for destruction",
+      "rarity": "Rare"
+    },
+    {
+      "name": "the Eternal",
+      "displayName": "the Eternal",
+      "description": "Seemingly immortal",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "the Worldbreaker",
+      "displayName": "the Worldbreaker",
+      "description": "Power to reshape continents",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "the Scaled King",
+      "displayName": "the Scaled King",
+      "description": "Rules over other dragons",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "the Firstborn",
+      "displayName": "the Firstborn",
+      "description": "Among the original dragons",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "the Shadowwing",
+      "displayName": "the Shadowwing",
+      "description": "Master of stealth and darkness",
+      "rarity": "Rare"
+    },
+    {
+      "name": "the Stormbringer",
+      "displayName": "the Stormbringer",
+      "description": "Commands weather and tempests",
+      "rarity": "Epic"
+    }
+  ],
+  "components": {
+    "age_descriptors": ["the Drake", "the Wyrm", "the Ancient", "the Eternal"],
+    "personality": ["the Greedy", "the Wise", "the Cunning"],
+    "power": ["the Destroyer", "the Terrible", "the Magnificent", "the Devourer"],
+    "elemental": ["the Shadowwing", "the Stormbringer"],
+    "legendary": ["the Worldbreaker", "the Scaled King", "the Firstborn"]
+  },
+  "patterns": [
+    "color + suffix (Red Dragon the Ancient)",
+    "name + suffix (Smaug the Terrible)"
+  ],
+  "rarity_distribution": {
+    "Common": 1,
+    "Uncommon": 2,
+    "Rare": 5,
+    "Epic": 4,
+    "Legendary": 3,
+    "Mythic": 2
   }
-]
+}

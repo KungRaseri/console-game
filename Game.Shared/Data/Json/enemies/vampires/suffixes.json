@@ -1,8 +1,114 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add enemy modifiers here",
-    "rarity": "Common"
+{
+  "items": [
+    {
+      "name": "the Bloodthirsty",
+      "displayName": "the Bloodthirsty",
+      "description": "Insatiable hunger for blood",
+      "rarity": "Common"
+    },
+    {
+      "name": "the Immortal",
+      "displayName": "the Immortal",
+      "description": "Survived for countless ages",
+      "rarity": "Rare"
+    },
+    {
+      "name": "the Ancient",
+      "displayName": "the Ancient",
+      "description": "Millennia of dark existence",
+      "rarity": "Epic"
+    },
+    {
+      "name": "the Seductive",
+      "displayName": "the Seductive",
+      "description": "Irresistibly charming",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "the Pale",
+      "displayName": "the Pale",
+      "description": "Drained of all color and warmth",
+      "rarity": "Common"
+    },
+    {
+      "name": "the Nightwalker",
+      "displayName": "the Nightwalker",
+      "description": "Master of darkness",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "the Aristocrat",
+      "displayName": "the Aristocrat",
+      "description": "Noble bloodline, refined predator",
+      "rarity": "Rare"
+    },
+    {
+      "name": "the Sire",
+      "displayName": "the Sire",
+      "description": "Creator of vampire spawn",
+      "rarity": "Rare"
+    },
+    {
+      "name": "the Lord",
+      "displayName": "the Lord",
+      "description": "Commands lesser vampires",
+      "rarity": "Epic"
+    },
+    {
+      "name": "the Crimson",
+      "displayName": "the Crimson",
+      "description": "Forever stained with blood",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "the Progenitor",
+      "displayName": "the Progenitor",
+      "description": "Among the first vampires",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "the Undying",
+      "displayName": "the Undying",
+      "description": "Impossible to truly destroy",
+      "rarity": "Epic"
+    },
+    {
+      "name": "the Cursed",
+      "displayName": "the Cursed",
+      "description": "Damned to eternal hunger",
+      "rarity": "Common"
+    },
+    {
+      "name": "the Shadowlord",
+      "displayName": "the Shadowlord",
+      "description": "Supreme master of night",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "the Eternal",
+      "displayName": "the Eternal",
+      "description": "Exists beyond time itself",
+      "rarity": "Mythic"
+    }
+  ],
+  "components": {
+    "hunger": ["the Bloodthirsty", "the Crimson"],
+    "appearance": ["the Pale", "the Cursed"],
+    "temporal": ["the Immortal", "the Ancient", "the Undying", "the Eternal"],
+    "personality": ["the Seductive", "the Aristocrat"],
+    "nocturnal": ["the Nightwalker", "the Shadowlord"],
+    "hierarchy": ["the Sire", "the Lord", "the Progenitor"]
+  },
+  "patterns": [
+    "vampire type + suffix (Vampire the Ancient)",
+    "name + suffix (Count Dracula the Progenitor)"
+  ],
+  "rarity_distribution": {
+    "Common": 3,
+    "Uncommon": 3,
+    "Rare": 3,
+    "Epic": 3,
+    "Legendary": 2,
+    "Mythic": 1
   }
-]
+}
