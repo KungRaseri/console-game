@@ -13,7 +13,7 @@ public class EnemyTraitTests
     public EnemyTraitTests()
     {
         // Initialize GameDataService for tests
-        var dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "Game", "Shared", "Data", "Json");
+        var dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "Game.Shared", "Data", "Json");
         if (Directory.Exists(dataPath))
         {
             GameDataService.Initialize(dataPath);
