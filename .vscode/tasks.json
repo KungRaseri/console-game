@@ -63,11 +63,10 @@
 		{
 			"label": "generate-coverage-report",
 			"type": "shell",
-			"command": "reportgenerator",
+			"command": "powershell",
 			"args": [
-				"-reports:Game.Tests\\TestResults\\*\\coverage.cobertura.xml",
-				"-targetdir:Game.Tests\\TestResults\\CoverageReport",
-				"-reporttypes:Html"
+				"-File",
+				"${workspaceFolder}/scripts/generate-coverage-report.ps1"
 			],
 			"presentation": {
 				"echo": true,
