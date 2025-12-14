@@ -1,8 +1,126 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add enemy modifiers here",
-    "rarity": "Common"
-  }
-]
+{
+  "items": [
+    {
+      "name": "SneakAttack",
+      "displayName": "Sneak Attack",
+      "description": "Deals extra damage when attacking from stealth",
+      "rarity": "Common"
+    },
+    {
+      "name": "PackTactics",
+      "displayName": "Pack Tactics",
+      "description": "Gains bonus when fighting alongside allies",
+      "rarity": "Common"
+    },
+    {
+      "name": "Cowardly",
+      "displayName": "Cowardly",
+      "description": "Flees when health drops below 30%",
+      "rarity": "Common"
+    },
+    {
+      "name": "TrapMaker",
+      "displayName": "Trap Maker",
+      "description": "Sets traps during combat",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "PoisonWeapons",
+      "displayName": "Poison Weapons",
+      "description": "Attacks inflict poison damage over time",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "QuickReflexes",
+      "displayName": "Quick Reflexes",
+      "description": "High dodge chance against melee attacks",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Scavenger",
+      "displayName": "Scavenger",
+      "description": "May loot random items during combat",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Berserker",
+      "displayName": "Berserker",
+      "description": "Enters rage when damaged, increasing damage output",
+      "rarity": "Rare"
+    },
+    {
+      "name": "TunnelFighter",
+      "displayName": "Tunnel Fighter",
+      "description": "Bonus defense in enclosed spaces",
+      "rarity": "Rare"
+    },
+    {
+      "name": "ShamanMagic",
+      "displayName": "Shaman Magic",
+      "description": "Can cast basic elemental spells",
+      "rarity": "Rare"
+    },
+    {
+      "name": "BombThrower",
+      "displayName": "Bomb Thrower",
+      "description": "Throws explosive devices that deal area damage",
+      "rarity": "Rare"
+    },
+    {
+      "name": "WarChief",
+      "displayName": "War Chief",
+      "description": "Commands nearby goblinoids and buffs their stats",
+      "rarity": "Epic"
+    },
+    {
+      "name": "ShadowStep",
+      "displayName": "Shadow Step",
+      "description": "Can teleport short distances in darkness",
+      "rarity": "Epic"
+    },
+    {
+      "name": "MechanicalGenius",
+      "displayName": "Mechanical Genius",
+      "description": "Deploys mechanical constructs to fight",
+      "rarity": "Epic"
+    },
+    {
+      "name": "VenomMaster",
+      "displayName": "Venom Master",
+      "description": "Advanced poison attacks that stack and spread",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "KingOfGoblins",
+      "displayName": "King of Goblins",
+      "description": "Supreme leader with all goblinoid abilities",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "CursedBloodline",
+      "displayName": "Cursed Bloodline",
+      "description": "Inflicts curses on attackers when damaged",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "DemonPact",
+      "displayName": "Demon Pact",
+      "description": "Enhanced by demonic power, regenerates health",
+      "rarity": "Mythic"
+    }
+  ],
+  "components": {
+    "basic_traits": ["SneakAttack", "PackTactics", "Cowardly"],
+    "tactical_traits": ["TrapMaker", "QuickReflexes", "TunnelFighter"],
+    "offensive_traits": ["PoisonWeapons", "Berserker", "BombThrower"],
+    "magical_traits": ["ShamanMagic", "ShadowStep", "VenomMaster"],
+    "leadership_traits": ["WarChief", "KingOfGoblins"],
+    "special_traits": ["Scavenger", "MechanicalGenius", "CursedBloodline", "DemonPact"]
+  },
+  "patterns": [
+    "Common: Basic goblinoid behaviors",
+    "Uncommon-Rare: Specialized combat roles",
+    "Epic+: Leader and elite variants",
+    "Combine with suffixes for unique enemies"
+  ]
+}
