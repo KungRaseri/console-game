@@ -7,11 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" MinWidth="200" MaxWidth="400"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*" MinWidth="400"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" MinWidth="200" MaxWidth="400"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" MinWidth="400"/>
+            </Grid.ColumnDefinitions>
 
         <!-- Left Panel: List of Items -->
         <Border Grid.Column="0" 
@@ -38,11 +44,25 @@
                     </StackPanel>
                 </materialDesign:ColorZone>
 
+                <!-- Action Buttons -->
+                <StackPanel DockPanel.Dock="Bottom" 
+                           Orientation="Horizontal" 
+                           Margin="0,8,0,0">
+                    <Button Content="ADD"
+                           Command="{Binding AddItemCommand}"
+                           Style="{StaticResource MaterialDesignOutlinedButton}"
+                           Margin="0,0,4,0"/>
+                    <Button Content="DELETE"
+                           Command="{Binding DeleteItemCommand}"
+                           Style="{StaticResource MaterialDesignOutlinedButton}"/>
+                </StackPanel>
+
                 <!-- List of Items -->
                 <ListBox ItemsSource="{Binding Items}"
                         SelectedItem="{Binding SelectedItem}"
                         DisplayMemberPath="Name"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        Margin="0,0,0,8"/>
             </DockPanel>
         </Border>
 
@@ -75,6 +95,29 @@
                                      FontSize="16"/>
                         </StackPanel>
                     </materialDesign:ColorZone>
+
+                    <!-- Validation Errors -->
+                    <Border Background="#FFEBEE" 
+                           BorderBrush="#F44336" 
+                           BorderThickness="1" 
+                           Padding="12"
+                           Margin="0,0,0,16"
+                           Visibility="{Binding HasValidationErrors, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <materialDesign:PackIcon Kind="AlertCircle" 
+                                                       Foreground="#F44336"
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,8,0"/>
+                                <TextBlock Text="Validation Errors" 
+                                         Foreground="#F44336"
+                                         FontWeight="Medium"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding ValidationErrors}" 
+                                     TextWrapping="Wrap"
+                                     Foreground="#D32F2F"/>
+                        </StackPanel>
+                    </Border>
 
                     <!-- Name Field -->
                     <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}"
@@ -140,5 +183,14 @@
                 </StackPanel>
             </ScrollViewer>
         </Border>
+        </Grid>
+
+        <!-- Status Bar -->
+        <materialDesign:ColorZone Grid.Row="1" 
+                                 Mode="PrimaryLight" 
+                                 Padding="8">
+            <TextBlock Text="{Binding StatusMessage}" 
+                      VerticalAlignment="Center"/>
+        </materialDesign:ColorZone>
     </Grid>
 </UserControl>

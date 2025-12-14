@@ -1,9 +1,11 @@
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Game.ContentBuilder.Models;
 using Game.ContentBuilder.Services;
+using Game.ContentBuilder.Views;
 
 namespace Game.ContentBuilder.ViewModels;
 
@@ -166,12 +168,50 @@ public partial class MainViewModel : ObservableObject
         if (value?.EditorType != EditorType.None && value is not null)
         {
             StatusMessage = $"Selected: {value.Name} ({value.Tag ?? "unknown"})";
-            // TODO: Load appropriate editor based on EditorType
-            CurrentEditor = null; // Will be set to actual editor in Task 5
+            
+            // Load appropriate editor based on EditorType
+            switch (value.EditorType)
+            {
+                case EditorType.ItemPrefix:
+                case EditorType.ItemSuffix:
+                    LoadItemEditor(value.Tag?.ToString() ?? "");
+                    break;
+                
+                case EditorType.EnemyNames:
+                case EditorType.NpcNames:
+                case EditorType.Quest:
+                    // TODO: Implement other editors in future tasks
+                    StatusMessage = $"Editor for {value.Name} not yet implemented";
+                    CurrentEditor = null;
+                    break;
+                
+                default:
+                    CurrentEditor = null;
+                    break;
+            }
         }
         else
         {
             StatusMessage = "Select an item to edit";
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadItemEditor(string fileName)
+    {
+        try
+        {
+            var viewModel = new ItemEditorViewModel(_jsonEditorService, fileName);
+            var view = new ItemEditorView
+            {
+                DataContext = viewModel
+            };
+            CurrentEditor = view;
+            StatusMessage = $"Loaded editor for {fileName}";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load editor: {ex.Message}";
             CurrentEditor = null;
         }
     }
