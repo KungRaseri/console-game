@@ -6,9 +6,9 @@ namespace Game.Features.Victory.Services;
 
 public class VictoryService
 {
-    private readonly SaveGameService _saveGameService;
+    private readonly ISaveGameService _saveGameService;
     
-    public VictoryService(SaveGameService saveGameService)
+    public VictoryService(ISaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
