@@ -83,7 +83,8 @@ public partial class MainViewModel : ObservableObject
                                 Tag = "weapon_prefixes.json"
                             }
                             // Note: weapon_suffixes.json doesn't exist yet
-                            // Note: metals.json, woods.json, weapon_names.json have different JSON structure - need different editor
+                            // Note: metals.json, woods.json have flat structure - using FlatItemEditor
+                            // Note: weapon_names.json has array structure - need NameListEditor
                         }
                     },
                     new CategoryNode
@@ -100,7 +101,7 @@ public partial class MainViewModel : ObservableObject
                                 Tag = "armor_materials.json"
                             }
                             // Note: armor_prefixes.json and armor_suffixes.json don't exist yet
-                            // Note: leathers.json has flat structure - need different editor
+                            // Note: leathers.json has flat structure - using FlatItemEditor
                         }
                     },
                     new CategoryNode
@@ -116,7 +117,43 @@ public partial class MainViewModel : ObservableObject
                                 EditorType = EditorType.ItemSuffix,
                                 Tag = "enchantment_suffixes.json"
                             }
-                            // Note: gemstones.json has flat structure - need different editor
+                            // Note: gemstones.json has flat structure - using FlatItemEditor
+                        }
+                    },
+                    new CategoryNode
+                    {
+                        Name = "Materials",
+                        Icon = "HammerWrench",
+                        Children = new ObservableCollection<CategoryNode>
+                        {
+                            new CategoryNode
+                            {
+                                Name = "Metals",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.FlatItem,
+                                Tag = "metals.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Woods",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.FlatItem,
+                                Tag = "woods.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Leathers",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.FlatItem,
+                                Tag = "leathers.json"
+                            },
+                            new CategoryNode
+                            {
+                                Name = "Gemstones",
+                                Icon = "FileEdit",
+                                EditorType = EditorType.FlatItem,
+                                Tag = "gemstones.json"
+                            }
                         }
                     }
                 }
@@ -183,9 +220,14 @@ public partial class MainViewModel : ObservableObject
                     LoadItemEditor(value.Tag?.ToString() ?? "");
                     break;
                 
+                case EditorType.FlatItem:
+                    LoadFlatItemEditor(value.Tag?.ToString() ?? "");
+                    break;
+                
                 case EditorType.EnemyNames:
                 case EditorType.NpcNames:
                 case EditorType.Quest:
+                case EditorType.NameList:
                     // TODO: Implement other editors in future tasks
                     StatusMessage = $"Editor for {value.Name} not yet implemented";
                     CurrentEditor = null;
@@ -209,6 +251,25 @@ public partial class MainViewModel : ObservableObject
         {
             var viewModel = new ItemEditorViewModel(_jsonEditorService, fileName);
             var view = new ItemEditorView
+            {
+                DataContext = viewModel
+            };
+            CurrentEditor = view;
+            StatusMessage = $"Loaded editor for {fileName}";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load editor: {ex.Message}";
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadFlatItemEditor(string fileName)
+    {
+        try
+        {
+            var viewModel = new FlatItemEditorViewModel(_jsonEditorService, fileName);
+            var view = new FlatItemEditorView
             {
                 DataContext = viewModel
             };

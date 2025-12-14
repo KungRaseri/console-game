@@ -41,6 +41,8 @@ public enum EditorType
     None,
     ItemPrefix,
     ItemSuffix,
+    FlatItem,      // For flat JSON structure (no rarity levels): metals, woods, leathers, gemstones
+    NameList,      // For array-based JSON structure: weapon_names
     EnemyNames,
     NpcNames,
     Quest
