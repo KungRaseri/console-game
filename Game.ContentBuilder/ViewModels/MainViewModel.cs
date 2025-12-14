@@ -81,14 +81,9 @@ public partial class MainViewModel : ObservableObject
                                 Icon = "FileEdit",
                                 EditorType = EditorType.ItemPrefix,
                                 Tag = "weapon_prefixes.json"
-                            },
-                            new CategoryNode
-                            {
-                                Name = "Suffixes",
-                                Icon = "FileEdit",
-                                EditorType = EditorType.ItemSuffix,
-                                Tag = "weapon_suffixes.json"
                             }
+                            // Note: weapon_suffixes.json doesn't exist yet
+                            // Note: metals.json, woods.json, weapon_names.json have different JSON structure - need different editor
                         }
                     },
                     new CategoryNode
@@ -99,18 +94,29 @@ public partial class MainViewModel : ObservableObject
                         {
                             new CategoryNode
                             {
-                                Name = "Prefixes",
+                                Name = "Materials",
                                 Icon = "FileEdit",
                                 EditorType = EditorType.ItemPrefix,
-                                Tag = "armor_prefixes.json"
-                            },
+                                Tag = "armor_materials.json"
+                            }
+                            // Note: armor_prefixes.json and armor_suffixes.json don't exist yet
+                            // Note: leathers.json has flat structure - need different editor
+                        }
+                    },
+                    new CategoryNode
+                    {
+                        Name = "Enchantments",
+                        Icon = "AutoFix",
+                        Children = new ObservableCollection<CategoryNode>
+                        {
                             new CategoryNode
                             {
                                 Name = "Suffixes",
                                 Icon = "FileEdit",
                                 EditorType = EditorType.ItemSuffix,
-                                Tag = "armor_suffixes.json"
+                                Tag = "enchantment_suffixes.json"
                             }
+                            // Note: gemstones.json has flat structure - need different editor
                         }
                     }
                 }
