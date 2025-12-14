@@ -1,7 +1,175 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add NPC content here"
+{
+  "items": [
+    {
+      "name": "FormerSoldier",
+      "displayName": "Former Soldier",
+      "description": "Served in the military and retired or deserted"
+    },
+    {
+      "name": "Merchant",
+      "displayName": "Merchant",
+      "description": "Trades goods and seeks profit"
+    },
+    {
+      "name": "Noble",
+      "displayName": "Noble",
+      "description": "Born into wealth and privilege"
+    },
+    {
+      "name": "Criminal",
+      "displayName": "Criminal",
+      "description": "Has a history of illegal activities"
+    },
+    {
+      "name": "Scholar",
+      "displayName": "Scholar",
+      "description": "Dedicated to learning and research"
+    },
+    {
+      "name": "Farmer",
+      "displayName": "Farmer",
+      "description": "Works the land for a living"
+    },
+    {
+      "name": "Sailor",
+      "displayName": "Sailor",
+      "description": "Spent years at sea"
+    },
+    {
+      "name": "Craftsman",
+      "displayName": "Craftsman",
+      "description": "Skilled artisan or tradesperson"
+    },
+    {
+      "name": "Priest",
+      "displayName": "Priest",
+      "description": "Devoted to religious service"
+    },
+    {
+      "name": "Refugee",
+      "displayName": "Refugee",
+      "description": "Fled from war or disaster"
+    },
+    {
+      "name": "Orphan",
+      "displayName": "Orphan",
+      "description": "Grew up without parents"
+    },
+    {
+      "name": "Adventurer",
+      "displayName": "Adventurer",
+      "description": "Explored dungeons and fought monsters"
+    },
+    {
+      "name": "Entertainer",
+      "displayName": "Entertainer",
+      "description": "Performed for crowds as actor, musician, or jester"
+    },
+    {
+      "name": "Hunter",
+      "displayName": "Hunter",
+      "description": "Tracked and hunted game in the wilderness"
+    },
+    {
+      "name": "Spy",
+      "displayName": "Spy",
+      "description": "Gathered intelligence for crown or guild"
+    },
+    {
+      "name": "Exile",
+      "displayName": "Exile",
+      "description": "Banished from their homeland"
+    },
+    {
+      "name": "Slave",
+      "displayName": "Former Slave",
+      "description": "Escaped or freed from bondage"
+    },
+    {
+      "name": "Wizard",
+      "displayName": "Wizard",
+      "description": "Studied arcane magic extensively"
+    },
+    {
+      "name": "Healer",
+      "displayName": "Healer",
+      "description": "Practiced medicine and herbalism"
+    },
+    {
+      "name": "Blacksmith",
+      "displayName": "Blacksmith",
+      "description": "Forged weapons and armor"
+    },
+    {
+      "name": "Innkeeper",
+      "displayName": "Innkeeper",
+      "description": "Ran a tavern or inn"
+    },
+    {
+      "name": "Miner",
+      "displayName": "Miner",
+      "description": "Extracted ore and gems underground"
+    },
+    {
+      "name": "Assassin",
+      "displayName": "Assassin",
+      "description": "Killed for coin or cause"
+    },
+    {
+      "name": "Ranger",
+      "displayName": "Ranger",
+      "description": "Protected wilderness and borders"
+    },
+    {
+      "name": "StreetUrchin",
+      "displayName": "Street Urchin",
+      "description": "Survived on city streets through cunning"
+    },
+    {
+      "name": "Gladiator",
+      "displayName": "Gladiator",
+      "description": "Fought in arenas for sport"
+    },
+    {
+      "name": "Alchemist",
+      "displayName": "Alchemist",
+      "description": "Created potions and studied chemistry"
+    },
+    {
+      "name": "Courtesan",
+      "displayName": "Courtesan",
+      "description": "Companion to the wealthy and powerful"
+    },
+    {
+      "name": "Cultist",
+      "displayName": "Former Cultist",
+      "description": "Member of forbidden religious sect"
+    },
+    {
+      "name": "Wanderer",
+      "displayName": "Wanderer",
+      "description": "Traveled without permanent home"
+    }
+  ],
+  "components": {
+    "military_backgrounds": ["FormerSoldier", "Ranger", "Gladiator"],
+    "trade_backgrounds": ["Merchant", "Craftsman", "Blacksmith", "Innkeeper", "Alchemist"],
+    "scholarly_backgrounds": ["Scholar", "Wizard", "Priest", "Healer"],
+    "criminal_backgrounds": ["Criminal", "Assassin", "Spy", "StreetUrchin"],
+    "labor_backgrounds": ["Farmer", "Miner", "Sailor", "Hunter"],
+    "social_backgrounds": ["Noble", "Entertainer", "Courtesan"],
+    "hardship_backgrounds": ["Refugee", "Orphan", "Exile", "Slave", "Wanderer"],
+    "adventuring_backgrounds": ["Adventurer", "Ranger", "Hunter"]
+  },
+  "patterns": [
+    "background influences dialogue and knowledge",
+    "Former Soldier might discuss tactics",
+    "Merchant knows trade routes and prices",
+    "Scholar provides lore and history"
+  ],
+  "metadata": {
+    "total_backgrounds": 30,
+    "categories": 8,
+    "usage": "Each NPC has exactly 1 background that shapes their worldview"
   }
-]
+}
