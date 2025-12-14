@@ -23,7 +23,7 @@ public class MainQuestService
         );
     }
     
-    public async Task<Models.Quest?> GetQuestByIdAsync(string questId)
+    public virtual async Task<Models.Quest?> GetQuestByIdAsync(string questId)
     {
         return await Task.FromResult(_allQuests.FirstOrDefault(q => q.Id == questId));
     }

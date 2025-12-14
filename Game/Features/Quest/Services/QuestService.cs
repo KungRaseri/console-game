@@ -6,10 +6,10 @@ namespace Game.Features.Quest.Services;
 
 public class QuestService
 {
-    private readonly SaveGameService _saveGameService;
+    private readonly ISaveGameService _saveGameService;
     private readonly MainQuestService _mainQuestService;
     
-    public QuestService(SaveGameService saveGameService, MainQuestService mainQuestService)
+    public QuestService(ISaveGameService saveGameService, MainQuestService mainQuestService)
     {
         _saveGameService = saveGameService;
         _mainQuestService = mainQuestService;
