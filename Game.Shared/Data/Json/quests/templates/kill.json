@@ -1,0 +1,98 @@
+{
+  "Easy": {
+    "SlayBeasts": {
+      "displayName": "Slay the Beasts",
+      "traits": {
+        "questType": { "value": "kill", "type": "string" },
+        "difficulty": { "value": "easy", "type": "string" },
+        "targetType": { "value": "beast", "type": "string" },
+        "minQuantity": { "value": 3, "type": "number" },
+        "maxQuantity": { "value": 5, "type": "number" },
+        "baseGoldReward": { "value": 50, "type": "number" },
+        "baseXpReward": { "value": 100, "type": "number" },
+        "timeLimit": { "value": 0, "type": "number" },
+        "description": { "value": "Eliminate {quantity} {target} threatening the area", "type": "string" }
+      }
+    },
+    "ClearUndead": {
+      "displayName": "Clear the Undead",
+      "traits": {
+        "questType": { "value": "kill", "type": "string" },
+        "difficulty": { "value": "easy", "type": "string" },
+        "targetType": { "value": "undead", "type": "string" },
+        "minQuantity": { "value": 4, "type": "number" },
+        "maxQuantity": { "value": 6, "type": "number" },
+        "baseGoldReward": { "value": 75, "type": "number" },
+        "baseXpReward": { "value": 150, "type": "number" },
+        "timeLimit": { "value": 0, "type": "number" },
+        "description": { "value": "Cleanse {quantity} {target} from the graveyard", "type": "string" }
+      }
+    }
+  },
+  "Medium": {
+    "HuntDemons": {
+      "displayName": "Hunt the Demons",
+      "traits": {
+        "questType": { "value": "kill", "type": "string" },
+        "difficulty": { "value": "medium", "type": "string" },
+        "targetType": { "value": "demon", "type": "string" },
+        "minQuantity": { "value": 3, "type": "number" },
+        "maxQuantity": { "value": 4, "type": "number" },
+        "baseGoldReward": { "value": 200, "type": "number" },
+        "baseXpReward": { "value": 400, "type": "number" },
+        "timeLimit": { "value": 72, "type": "number" },
+        "failureConsequence": { "value": "Village destroyed", "type": "string" },
+        "description": { "value": "Hunt down {quantity} {target} before they summon reinforcements", "type": "string" }
+      }
+    },
+    "BanishElementals": {
+      "displayName": "Banish the Elementals",
+      "traits": {
+        "questType": { "value": "kill", "type": "string" },
+        "difficulty": { "value": "medium", "type": "string" },
+        "targetType": { "value": "elemental", "type": "string" },
+        "minQuantity": { "value": 2, "type": "number" },
+        "maxQuantity": { "value": 3, "type": "number" },
+        "baseGoldReward": { "value": 250, "type": "number" },
+        "baseXpReward": { "value": 500, "type": "number" },
+        "timeLimit": { "value": 0, "type": "number" },
+        "location": { "value": "Ancient Ruins", "type": "string" },
+        "description": { "value": "Banish {quantity} {target} from {location}", "type": "string" }
+      }
+    }
+  },
+  "Hard": {
+    "SlayDragons": {
+      "displayName": "Slay the Dragon",
+      "traits": {
+        "questType": { "value": "kill", "type": "string" },
+        "difficulty": { "value": "hard", "type": "string" },
+        "targetType": { "value": "dragon", "type": "string" },
+        "minQuantity": { "value": 1, "type": "number" },
+        "maxQuantity": { "value": 2, "type": "number" },
+        "baseGoldReward": { "value": 1000, "type": "number" },
+        "baseXpReward": { "value": 2000, "type": "number" },
+        "timeLimit": { "value": 168, "type": "number" },
+        "failureConsequence": { "value": "Kingdom falls", "type": "string" },
+        "bonusReward": { "value": "Dragon Scales", "type": "string" },
+        "legendary": { "value": true, "type": "boolean" },
+        "description": { "value": "Defeat the legendary {target} terrorizing the mountains", "type": "string" }
+      }
+    },
+    "DefeatChampions": {
+      "displayName": "Defeat the Champions",
+      "traits": {
+        "questType": { "value": "kill", "type": "string" },
+        "difficulty": { "value": "hard", "type": "string" },
+        "targetType": { "value": "humanoid", "type": "string" },
+        "minQuantity": { "value": 3, "type": "number" },
+        "maxQuantity": { "value": 5, "type": "number" },
+        "baseGoldReward": { "value": 800, "type": "number" },
+        "baseXpReward": { "value": 1500, "type": "number" },
+        "timeLimit": { "value": 96, "type": "number" },
+        "pvpQuest": { "value": true, "type": "boolean" },
+        "description": { "value": "Challenge {quantity} arena champions to prove your worth", "type": "string" }
+      }
+    }
+  }
+}

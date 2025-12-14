@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Wizard",
+    "displayName": "Wizard",
+    "description": "A master of arcane magic",
+    "rarity": "Uncommon",
+    "socialClass": "magical"
+  },
+  {
+    "name": "Alchemist",
+    "displayName": "Alchemist",
+    "description": "A creator of potions and elixirs",
+    "rarity": "Common",
+    "socialClass": "magical"
+  },
+  {
+    "name": "Enchanter",
+    "displayName": "Enchanter",
+    "description": "A specialist in magical item creation",
+    "rarity": "Uncommon",
+    "socialClass": "magical"
+  },
+  {
+    "name": "Sorcerer",
+    "displayName": "Sorcerer",
+    "description": "A wielder of innate magical power",
+    "rarity": "Uncommon",
+    "socialClass": "magical"
+  },
+  {
+    "name": "Necromancer",
+    "displayName": "Necromancer",
+    "description": "A dark practitioner of death magic",
+    "rarity": "Rare",
+    "socialClass": "magical"
+  }
+]

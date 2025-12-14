@@ -1,0 +1,51 @@
+{
+  "Easy": {
+    "DeliverMessage": {
+      "displayName": "Deliver the Message",
+      "traits": {
+        "questType": { "value": "delivery", "type": "string" },
+        "difficulty": { "value": "easy", "type": "string" },
+        "itemFragile": { "value": false, "type": "boolean" },
+        "baseGoldReward": { "value": 25, "type": "number" },
+        "baseXpReward": { "value": 40, "type": "number" },
+        "distance": { "value": "short", "type": "string" },
+        "urgent": { "value": false, "type": "boolean" },
+        "description": { "value": "Deliver this message to the recipient in the neighboring town", "type": "string" }
+      }
+    }
+  },
+  "Medium": {
+    "TransportGoods": {
+      "displayName": "Transport the Goods",
+      "traits": {
+        "questType": { "value": "delivery", "type": "string" },
+        "difficulty": { "value": "medium", "type": "string" },
+        "itemFragile": { "value": true, "type": "boolean" },
+        "baseGoldReward": { "value": 220, "type": "number" },
+        "baseXpReward": { "value": 450, "type": "number" },
+        "distance": { "value": "medium", "type": "string" },
+        "timeLimit": { "value": 48, "type": "number" },
+        "bandits": { "value": true, "type": "boolean" },
+        "description": { "value": "Transport fragile goods safely across dangerous roads", "type": "string" }
+      }
+    }
+  },
+  "Hard": {
+    "DeliverRelic": {
+      "displayName": "Deliver the Sacred Relic",
+      "traits": {
+        "questType": { "value": "delivery", "type": "string" },
+        "difficulty": { "value": "hard", "type": "string" },
+        "itemFragile": { "value": true, "type": "boolean" },
+        "baseGoldReward": { "value": 650, "type": "number" },
+        "baseXpReward": { "value": 1600, "type": "number" },
+        "distance": { "value": "long", "type": "string" },
+        "timeLimit": { "value": 72, "type": "number" },
+        "cursed": { "value": true, "type": "boolean" },
+        "pursued": { "value": true, "type": "boolean" },
+        "legendary": { "value": true, "type": "boolean" },
+        "description": { "value": "Deliver the cursed relic while evading those who hunt it", "type": "string" }
+      }
+    }
+  }
+}

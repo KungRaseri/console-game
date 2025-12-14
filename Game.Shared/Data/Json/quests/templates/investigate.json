@@ -1,0 +1,53 @@
+{
+  "Easy": {
+    "FindClues": {
+      "displayName": "Find the Clues",
+      "traits": {
+        "questType": { "value": "investigate", "type": "string" },
+        "difficulty": { "value": "easy", "type": "string" },
+        "minClues": { "value": 3, "type": "number" },
+        "maxClues": { "value": 5, "type": "number" },
+        "baseGoldReward": { "value": 80, "type": "number" },
+        "baseXpReward": { "value": 150, "type": "number" },
+        "location": { "value": "Village", "type": "string" },
+        "combatOptional": { "value": true, "type": "boolean" },
+        "description": { "value": "Investigate the mysterious occurrences in {location}", "type": "string" }
+      }
+    }
+  },
+  "Medium": {
+    "SolveMystery": {
+      "displayName": "Solve the Mystery",
+      "traits": {
+        "questType": { "value": "investigate", "type": "string" },
+        "difficulty": { "value": "medium", "type": "string" },
+        "minClues": { "value": 5, "type": "number" },
+        "maxClues": { "value": 8, "type": "number" },
+        "baseGoldReward": { "value": 300, "type": "number" },
+        "baseXpReward": { "value": 550, "type": "number" },
+        "location": { "value": "Manor", "type": "string" },
+        "timeLimit": { "value": 72, "type": "number" },
+        "multipleEndings": { "value": true, "type": "boolean" },
+        "description": { "value": "Uncover the truth behind the strange events at {location}", "type": "string" }
+      }
+    }
+  },
+  "Hard": {
+    "UncoverConspiracy": {
+      "displayName": "Uncover the Conspiracy",
+      "traits": {
+        "questType": { "value": "investigate", "type": "string" },
+        "difficulty": { "value": "hard", "type": "string" },
+        "minClues": { "value": 10, "type": "number" },
+        "maxClues": { "value": 15, "type": "number" },
+        "baseGoldReward": { "value": 900, "type": "number" },
+        "baseXpReward": { "value": 2200, "type": "number" },
+        "timeLimit": { "value": 96, "type": "number" },
+        "stealth": { "value": 80, "type": "number" },
+        "betrayal": { "value": true, "type": "boolean" },
+        "legendary": { "value": true, "type": "boolean" },
+        "description": { "value": "Expose the conspiracy threatening the kingdom", "type": "string" }
+      }
+    }
+  }
+}

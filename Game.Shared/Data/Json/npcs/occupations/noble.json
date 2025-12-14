@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Duke",
+    "displayName": "Duke",
+    "description": "A noble of high rank",
+    "rarity": "Rare",
+    "socialClass": "nobility"
+  },
+  {
+    "name": "Baron",
+    "displayName": "Baron",
+    "description": "A lesser noble",
+    "rarity": "Uncommon",
+    "socialClass": "nobility"
+  },
+  {
+    "name": "Knight",
+    "displayName": "Knight",
+    "description": "A warrior of noble rank",
+    "rarity": "Uncommon",
+    "socialClass": "nobility"
+  },
+  {
+    "name": "Courtier",
+    "displayName": "Courtier",
+    "description": "A member of the royal court",
+    "rarity": "Common",
+    "socialClass": "nobility"
+  }
+]

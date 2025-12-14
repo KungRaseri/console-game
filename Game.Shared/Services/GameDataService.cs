@@ -114,44 +114,44 @@ public class GameDataService
         try
         {
             // Load item data
-            WeaponPrefixes = LoadJson<WeaponPrefixData>("items/weapon_prefixes.json");
-            WeaponNames = LoadJson<WeaponNameData>("items/weapon_names.json");
-            ArmorMaterials = LoadJson<ArmorMaterialData>("items/armor_materials.json");
-            EnchantmentSuffixes = LoadJson<EnchantmentSuffixData>("items/enchantment_suffixes.json");
+            WeaponPrefixes = LoadJson<WeaponPrefixData>("items/weapons/prefixes.json");
+            WeaponNames = LoadJson<WeaponNameData>("items/weapons/names.json");
+            ArmorMaterials = LoadJson<ArmorMaterialData>("items/armor/materials.json");
+            EnchantmentSuffixes = LoadJson<EnchantmentSuffixData>("items/enchantments/suffixes.json");
             
             // Load material properties
-            Metals = LoadJson<MetalData>("items/metals.json");
-            Leathers = LoadJson<LeatherData>("items/leathers.json");
-            Woods = LoadJson<WoodData>("items/woods.json");
-            Gemstones = LoadJson<GemstoneData>("items/gemstones.json");
+            Metals = LoadJson<MetalData>("items/materials/metals.json");
+            Leathers = LoadJson<LeatherData>("items/materials/leathers.json");
+            Woods = LoadJson<WoodData>("items/materials/woods.json");
+            Gemstones = LoadJson<GemstoneData>("items/materials/gemstones.json");
             
             // Load enemy data - names
-            BeastNames = LoadJson<EnemyNameData>("enemies/beast_names.json");
-            UndeadNames = LoadJson<EnemyNameData>("enemies/undead_names.json");
-            DemonNames = LoadJson<EnemyNameData>("enemies/demon_names.json");
-            ElementalNames = LoadJson<EnemyNameData>("enemies/elemental_names.json");
-            DragonNames = LoadJson<DragonNameData>("enemies/dragon_names.json");
-            HumanoidNames = LoadJson<HumanoidNameData>("enemies/humanoid_names.json");
+            BeastNames = LoadJson<EnemyNameData>("enemies/beasts/names.json");
+            UndeadNames = LoadJson<EnemyNameData>("enemies/undead/names.json");
+            DemonNames = LoadJson<EnemyNameData>("enemies/demons/names.json");
+            ElementalNames = LoadJson<EnemyNameData>("enemies/elementals/names.json");
+            DragonNames = LoadJson<DragonNameData>("enemies/dragons/names.json");
+            HumanoidNames = LoadJson<HumanoidNameData>("enemies/humanoids/names.json");
             
             // Load enemy data - prefixes with traits
-            BeastPrefixes = LoadJson<EnemyPrefixData>("enemies/beast_prefixes.json");
-            UndeadPrefixes = LoadJson<EnemyPrefixData>("enemies/undead_prefixes.json");
-            DemonPrefixes = LoadJson<EnemyPrefixData>("enemies/demon_prefixes.json");
-            ElementalPrefixes = LoadJson<EnemyPrefixData>("enemies/elemental_prefixes.json");
-            DragonPrefixes = LoadJson<EnemyPrefixData>("enemies/dragon_prefixes.json");
-            HumanoidPrefixes = LoadJson<EnemyPrefixData>("enemies/humanoid_prefixes.json");
+            BeastPrefixes = LoadJson<EnemyPrefixData>("enemies/beasts/prefixes.json");
+            UndeadPrefixes = LoadJson<EnemyPrefixData>("enemies/undead/prefixes.json");
+            DemonPrefixes = LoadJson<EnemyPrefixData>("enemies/demons/prefixes.json");
+            ElementalPrefixes = LoadJson<EnemyPrefixData>("enemies/elementals/prefixes.json");
+            DragonPrefixes = LoadJson<EnemyPrefixData>("enemies/dragons/prefixes.json");
+            HumanoidPrefixes = LoadJson<EnemyPrefixData>("enemies/humanoids/prefixes.json");
             
             // Load dragon color data
-            DragonColors = LoadJson<DragonColorData>("enemies/dragon_colors.json");
+            DragonColors = LoadJson<DragonColorData>("enemies/dragons/colors.json");
             
             // Load NPC data
-            FantasyNames = LoadJson<FantasyNameData>("npcs/fantasy_names.json");
-            Occupations = LoadJson<OccupationData>("npcs/occupations.json");
-            DialogueTemplates = LoadJson<DialogueTemplateData>("npcs/dialogue_templates.json");
-            DialogueTraits = LoadJson<DialogueTraitsData>("npcs/dialogue_traits.json");
+            FantasyNames = LoadJson<FantasyNameData>("npcs/names/first_names.json");
+            Occupations = LoadJson<OccupationData>("npcs/occupations/common.json");
+            DialogueTemplates = LoadJson<DialogueTemplateData>("npcs/dialogue/templates.json");
+            DialogueTraits = LoadJson<DialogueTraitsData>("npcs/dialogue/traits.json");
             
-            // Load quest data
-            QuestTemplates = LoadJson<QuestTemplatesData>("quests/quest_templates.json");
+            // Load quest data (now split into multiple files - load main one for now)
+            QuestTemplates = LoadJson<QuestTemplatesData>("quests/templates/kill.json");
             
             // Load general data
             Adjectives = LoadJson<AdjectiveData>("general/adjectives.json");

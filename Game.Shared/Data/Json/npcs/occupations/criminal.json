@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Thief",
+    "displayName": "Thief",
+    "description": "A skilled pickpocket and burglar",
+    "rarity": "Common",
+    "socialClass": "criminal"
+  },
+  {
+    "name": "Assassin",
+    "displayName": "Assassin",
+    "description": "A professional killer for hire",
+    "rarity": "Uncommon",
+    "socialClass": "criminal"
+  },
+  {
+    "name": "Smuggler",
+    "displayName": "Smuggler",
+    "description": "A dealer in contraband goods",
+    "rarity": "Common",
+    "socialClass": "criminal"
+  },
+  {
+    "name": "Bandit",
+    "displayName": "Bandit",
+    "description": "An outlaw and highway robber",
+    "rarity": "Common",
+    "socialClass": "criminal"
+  }
+]

@@ -1,0 +1,84 @@
+{
+  "Easy": {
+    "GatherHerbs": {
+      "displayName": "Gather Herbs",
+      "traits": {
+        "questType": { "value": "fetch", "type": "string" },
+        "difficulty": { "value": "easy", "type": "string" },
+        "itemType": { "value": "consumable", "type": "string" },
+        "minQuantity": { "value": 5, "type": "number" },
+        "maxQuantity": { "value": 10, "type": "number" },
+        "baseGoldReward": { "value": 30, "type": "number" },
+        "baseXpReward": { "value": 50, "type": "number" },
+        "location": { "value": "Forest", "type": "string" },
+        "description": { "value": "Collect {quantity} healing herbs from {location}", "type": "string" }
+      }
+    },
+    "CollectMinerals": {
+      "displayName": "Collect Minerals",
+      "traits": {
+        "questType": { "value": "fetch", "type": "string" },
+        "difficulty": { "value": "easy", "type": "string" },
+        "itemType": { "value": "material", "type": "string" },
+        "minQuantity": { "value": 8, "type": "number" },
+        "maxQuantity": { "value": 12, "type": "number" },
+        "baseGoldReward": { "value": 40, "type": "number" },
+        "baseXpReward": { "value": 75, "type": "number" },
+        "location": { "value": "Mines", "type": "string" },
+        "description": { "value": "Mine {quantity} ore samples from {location}", "type": "string" }
+      }
+    }
+  },
+  "Medium": {
+    "RecoverArtifact": {
+      "displayName": "Recover the Artifact",
+      "traits": {
+        "questType": { "value": "fetch", "type": "string" },
+        "difficulty": { "value": "medium", "type": "string" },
+        "itemType": { "value": "questitem", "type": "string" },
+        "minQuantity": { "value": 1, "type": "number" },
+        "maxQuantity": { "value": 1, "type": "number" },
+        "baseGoldReward": { "value": 300, "type": "number" },
+        "baseXpReward": { "value": 600, "type": "number" },
+        "location": { "value": "Dungeon", "type": "string" },
+        "guardians": { "value": true, "type": "boolean" },
+        "timeLimit": { "value": 48, "type": "number" },
+        "description": { "value": "Retrieve the ancient {itemName} from {location}", "type": "string" }
+      }
+    },
+    "StealTreasure": {
+      "displayName": "Steal the Treasure",
+      "traits": {
+        "questType": { "value": "fetch", "type": "string" },
+        "difficulty": { "value": "medium", "type": "string" },
+        "itemType": { "value": "treasure", "type": "string" },
+        "minQuantity": { "value": 1, "type": "number" },
+        "maxQuantity": { "value": 3, "type": "number" },
+        "baseGoldReward": { "value": 400, "type": "number" },
+        "baseXpReward": { "value": 500, "type": "number" },
+        "stealthRequired": { "value": 70, "type": "number" },
+        "moralChoice": { "value": "evil", "type": "string" },
+        "description": { "value": "Steal {quantity} valuable items from the noble's vault", "type": "string" }
+      }
+    }
+  },
+  "Hard": {
+    "FindLegendaryWeapon": {
+      "displayName": "Find the Legendary Weapon",
+      "traits": {
+        "questType": { "value": "fetch", "type": "string" },
+        "difficulty": { "value": "hard", "type": "string" },
+        "itemType": { "value": "weapon", "type": "string" },
+        "itemRarity": { "value": "legendary", "type": "string" },
+        "minQuantity": { "value": 1, "type": "number" },
+        "maxQuantity": { "value": 1, "type": "number" },
+        "baseGoldReward": { "value": 500, "type": "number" },
+        "baseXpReward": { "value": 2500, "type": "number" },
+        "location": { "value": "Ancient Temple", "type": "string" },
+        "bossFight": { "value": true, "type": "boolean" },
+        "legendary": { "value": true, "type": "boolean" },
+        "description": { "value": "Seek the legendary {itemName} hidden in {location}", "type": "string" }
+      }
+    }
+  }
+}
