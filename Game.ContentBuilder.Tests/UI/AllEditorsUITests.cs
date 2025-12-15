@@ -159,7 +159,7 @@ public class AllEditorsUITests : IDisposable
         var lists = _mainWindow.FindAllDescendants(cf => 
             cf.ByControlType(ControlType.List));
         
-        lists.Should().HaveCountGreaterOrEqualTo(1, "Should have at least category list");
+        lists.Should().HaveCountGreaterThanOrEqualTo(1, "Should have at least category list");
     }
 
     [Fact]
@@ -278,7 +278,7 @@ public class AllEditorsUITests : IDisposable
         Thread.Sleep(300);
 
         // Assert - Collapsed state
-        itemsNode.IsExpanded.Should().BeFalse();
+        itemsNode.ExpandCollapseState.Should().Be(FlaUI.Core.Definitions.ExpandCollapseState.Collapsed, "Items node should be collapsed after Collapse()");
     }
 
     #endregion

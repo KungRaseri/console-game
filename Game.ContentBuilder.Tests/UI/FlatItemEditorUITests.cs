@@ -107,8 +107,9 @@ public class FlatItemEditorUITests : IDisposable
                 items[0].Click();
                 Thread.Sleep(300);
 
-                // Assert
-                items[0].IsSelected.Should().BeTrue("Item should be selected");
+                // Assert - Use SelectionItemPattern to check if selected
+                var selectionPattern = items[0].Patterns.SelectionItem.Pattern;
+                selectionPattern.IsSelected.Value.Should().BeTrue("Item should be selected");
             }
         }
     }

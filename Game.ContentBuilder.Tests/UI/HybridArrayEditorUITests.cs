@@ -64,7 +64,7 @@ public class HybridArrayEditorUITests : IDisposable
         var tabs = GetAllTabItems();
 
         // Assert
-        tabs.Should().HaveCountGreaterOrEqualTo(3, "Should have Items, Components, and Patterns tabs");
+        tabs.Should().HaveCountGreaterThanOrEqualTo(3, "Should have Items, Components, and Patterns tabs");
         var tabNames = tabs.Select(t => t.Name).ToList();
         tabNames.Should().Contain("Items");
         tabNames.Should().Contain("Components");
@@ -176,7 +176,8 @@ public class HybridArrayEditorUITests : IDisposable
                 // Assert - First item should be selectable
                 items[0].Click();
                 Thread.Sleep(200);
-                items[0].IsSelected.Should().BeTrue("Item should be selected");
+                var selectionPattern = items[0].Patterns.SelectionItem.Pattern;
+                selectionPattern.IsSelected.Value.Should().BeTrue("Item should be selected");
             }
         }
     }

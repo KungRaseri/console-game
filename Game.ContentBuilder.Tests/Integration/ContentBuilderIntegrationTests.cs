@@ -324,7 +324,7 @@ public class ContentBuilderIntegrationTests : IDisposable
             if (previewWindow != null)
             {
                 previewWindow.Should().NotBeNull("Preview window should open");
-                previewWindow.Close();
+                previewWindow.AsWindow().Close();
             }
         }
     }

@@ -73,7 +73,7 @@ public class TreeNavigationUITests : IDisposable
 
         // Assert
         rootItems.Should().NotBeEmpty("Tree should have root categories");
-        rootItems.Length.Should().BeGreaterOrEqualTo(3, "Should have at least General, Items, and other categories");
+        rootItems.Length.Should().BeGreaterThanOrEqualTo(3, "Should have at least General, Items, and other categories");
     }
 
     [Fact]
@@ -154,7 +154,7 @@ public class TreeNavigationUITests : IDisposable
         Thread.Sleep(500);
 
         // Assert
-        generalItem.IsExpanded.Should().BeTrue("General category should be expanded");
+        generalItem.ExpandCollapseState.Should().Be(FlaUI.Core.Definitions.ExpandCollapseState.Expanded, "General category should be expanded");
         var children = generalItem.FindAllChildren();
         children.Should().NotBeEmpty("General category should have child items");
     }
@@ -175,7 +175,7 @@ public class TreeNavigationUITests : IDisposable
         Thread.Sleep(300);
 
         // Assert
-        generalItem.IsExpanded.Should().BeFalse("General category should be collapsed");
+        generalItem.ExpandCollapseState.Should().Be(FlaUI.Core.Definitions.ExpandCollapseState.Collapsed, "General category should be collapsed");
     }
 
     [Fact]
@@ -192,7 +192,7 @@ public class TreeNavigationUITests : IDisposable
         Thread.Sleep(500);
 
         // Assert
-        itemsItem.IsExpanded.Should().BeTrue("Items category should be expanded");
+        itemsItem.ExpandCollapseState.Should().Be(FlaUI.Core.Definitions.ExpandCollapseState.Expanded, "Items category should be expanded");
         var children = itemsItem.FindAllChildren();
         children.Should().NotBeEmpty("Items category should have child items");
     }
@@ -211,11 +211,11 @@ public class TreeNavigationUITests : IDisposable
         {
             generalItem!.Expand();
             Thread.Sleep(200);
-            generalItem.IsExpanded.Should().BeTrue($"Should be expanded on iteration {i}");
+            generalItem.ExpandCollapseState.Should().Be(FlaUI.Core.Definitions.ExpandCollapseState.Expanded, $"Should be expanded on iteration {i}");
 
             generalItem.Collapse();
             Thread.Sleep(200);
-            generalItem.IsExpanded.Should().BeFalse($"Should be collapsed on iteration {i}");
+            generalItem.ExpandCollapseState.Should().Be(FlaUI.Core.Definitions.ExpandCollapseState.Collapsed, $"Should be collapsed on iteration {i}");
         }
     }
 
@@ -274,7 +274,7 @@ public class TreeNavigationUITests : IDisposable
         var children = generalItem.FindAllChildren();
 
         // Assert
-        children.Should().HaveCountGreaterOrEqualTo(5, "General should have multiple files (Colors, Sounds, Smells, Adjectives, etc.)");
+        children.Should().HaveCountGreaterThanOrEqualTo(5, "General should have multiple files (Colors, Sounds, Smells, Adjectives, etc.)");
     }
 
     [Fact]
@@ -424,8 +424,8 @@ public class TreeNavigationUITests : IDisposable
         Thread.Sleep(300);
 
         // Assert
-        generalItem.IsExpanded.Should().BeTrue("General should remain expanded");
-        itemsItem.IsExpanded.Should().BeTrue("Items should be expanded");
+        generalItem.ExpandCollapseState.Should().Be(FlaUI.Core.Definitions.ExpandCollapseState.Expanded, "General should remain expanded");
+        itemsItem.ExpandCollapseState.Should().Be(FlaUI.Core.Definitions.ExpandCollapseState.Expanded, "Items should be expanded");
     }
 
     #endregion

@@ -132,8 +132,9 @@ public class NameListEditorUITests : IDisposable
                 categories[0].Click();
                 Thread.Sleep(300);
 
-                // Assert
-                categories[0].IsSelected.Should().BeTrue("First category should be selected");
+                // Assert - Use SelectionItemPattern to check if selected
+                var selectionPattern = categories[0].Patterns.SelectionItem.Pattern;
+                selectionPattern.IsSelected.Value.Should().BeTrue("First category should be selected");
             }
         }
     }
@@ -161,7 +162,7 @@ public class NameListEditorUITests : IDisposable
                 // Assert - Names list should be populated
                 var allLists = _mainWindow.FindAllDescendants(cf => 
                     cf.ByControlType(ControlType.List));
-                allLists.Should().HaveCountGreaterOrEqualTo(1, "Should have names list");
+                allLists.Should().HaveCountGreaterThanOrEqualTo(1, "Should have names list");
             }
         }
     }
@@ -276,7 +277,7 @@ public class NameListEditorUITests : IDisposable
             cf.ByControlType(ControlType.Edit));
 
         // Assert
-        textBoxes.Should().HaveCountGreaterOrEqualTo(1, "Should have at least one text input");
+        textBoxes.Should().HaveCountGreaterThanOrEqualTo(1, "Should have at least one text input");
     }
 
     #endregion
