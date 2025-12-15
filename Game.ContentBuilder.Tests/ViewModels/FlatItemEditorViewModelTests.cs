@@ -22,6 +22,7 @@ public class FlatItemEditorViewModelTests : IDisposable
     }
 
     [Fact]
+    [Trait("Category", "ViewModel")]
     public void Should_Load_FlatItem_Structure_Correctly()
     {
         // Arrange
@@ -69,6 +70,7 @@ public class FlatItemEditorViewModelTests : IDisposable
     }
 
     [Fact]
+    [Trait("Category", "ViewModel")]
     public void AddItem_Should_Add_New_Item_With_Default_Structure()
     {
         // Arrange
@@ -89,6 +91,7 @@ public class FlatItemEditorViewModelTests : IDisposable
     }
 
     [Fact]
+    [Trait("Category", "ViewModel")]
     public void DeleteItem_Should_Remove_Item()
     {
         // Arrange
@@ -104,6 +107,7 @@ public class FlatItemEditorViewModelTests : IDisposable
     }
 
     [Fact]
+    [Trait("Category", "ViewModel")]
     public void Save_Should_Persist_Changes_To_File()
     {
         // Arrange
@@ -124,6 +128,7 @@ public class FlatItemEditorViewModelTests : IDisposable
     }
 
     [Fact]
+    [Trait("Category", "ViewModel")]
     public void Should_Not_Add_Item_With_Empty_Key()
     {
         // Arrange
@@ -140,6 +145,7 @@ public class FlatItemEditorViewModelTests : IDisposable
     }
 
     [Fact]
+    [Trait("Category", "ViewModel")]
     public void Should_Not_Add_Duplicate_Item_Key()
     {
         // Arrange
