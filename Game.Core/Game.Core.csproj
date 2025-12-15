@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Game.Core</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Business Logic & CQRS -->
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    
+    <!-- Utilities -->
+    <PackageReference Include="Humanizer" Version="3.0.1" />
+    <PackageReference Include="Polly" Version="8.6.5" />
+    <PackageReference Include="Bogus" Version="35.6.5" />
+    
+    <!-- Logging -->
+    <PackageReference Include="Serilog" Version="4.3.0" />
+    
+    <!-- Configuration -->
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Game.Shared\Game.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

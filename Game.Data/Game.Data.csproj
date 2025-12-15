@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Game.Data</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Data Access -->
+    <PackageReference Include="LiteDB" Version="5.0.21" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    
+    <!-- Logging -->
+    <PackageReference Include="Serilog" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Game.Core\Game.Core.csproj" />
+    <ProjectReference Include="..\Game.Shared\Game.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
