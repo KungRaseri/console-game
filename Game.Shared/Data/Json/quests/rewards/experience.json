@@ -1,7 +1,86 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add quest content here"
+{
+  "items": [
+    {
+      "name": "MinimalXP",
+      "displayName": "Minimal XP",
+      "description": "25-50 XP",
+      "amount": "25-50",
+      "tier": "Trivial"
+    },
+    {
+      "name": "SmallXP",
+      "displayName": "Small XP",
+      "description": "50-100 XP",
+      "amount": "50-100",
+      "tier": "Low"
+    },
+    {
+      "name": "ModerateXP",
+      "displayName": "Moderate XP",
+      "description": "100-250 XP",
+      "amount": "100-250",
+      "tier": "Medium"
+    },
+    {
+      "name": "GoodXP",
+      "displayName": "Good XP",
+      "description": "250-500 XP",
+      "amount": "250-500",
+      "tier": "High"
+    },
+    {
+      "name": "GreatXP",
+      "displayName": "Great XP",
+      "description": "500-1000 XP",
+      "amount": "500-1000",
+      "tier": "Very High"
+    },
+    {
+      "name": "ExcellentXP",
+      "displayName": "Excellent XP",
+      "description": "1000-2000 XP",
+      "amount": "1000-2000",
+      "tier": "Epic"
+    },
+    {
+      "name": "MassiveXP",
+      "displayName": "Massive XP",
+      "description": "2000-4000 XP",
+      "amount": "2000-4000",
+      "tier": "Legendary"
+    },
+    {
+      "name": "ColossalXP",
+      "displayName": "Colossal XP",
+      "description": "4000-8000 XP",
+      "amount": "4000-8000",
+      "tier": "Mythic"
+    },
+    {
+      "name": "LevelUpGuarantee",
+      "displayName": "Level Up Guarantee",
+      "description": "Enough XP to guarantee a level up",
+      "amount": "dynamic",
+      "tier": "Ancient"
+    }
+  ],
+  "components": {
+    "early_quests": ["MinimalXP", "SmallXP", "ModerateXP"],
+    "mid_quests": ["GoodXP", "GreatXP"],
+    "late_quests": ["ExcellentXP", "MassiveXP"],
+    "end_quests": ["ColossalXP", "LevelUpGuarantee"]
+  },
+  "patterns": [
+    "Scale XP with quest difficulty and player level",
+    "Formula: base_xp × difficulty_multiplier × (1 + player_level × 0.1)",
+    "Secondary objectives add 25-50% bonus XP",
+    "Hidden objectives add 50-100% bonus XP",
+    "First-time completion bonus: +20% XP",
+    "Speed bonuses can add up to +50% XP"
+  ],
+  "metadata": {
+    "total_tiers": 9,
+    "scaling": "Exponential",
+    "usage": "Select tier based on quest difficulty, length, and player progression needs"
   }
-]
+}

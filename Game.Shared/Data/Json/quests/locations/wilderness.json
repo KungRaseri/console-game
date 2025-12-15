@@ -1,7 +1,165 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add quest content here"
+{
+  "items": [
+    {
+      "name": "DarkwoodForest",
+      "displayName": "Darkwood Forest",
+      "description": "Dense woods with little sunlight",
+      "terrain": "Forest",
+      "danger": "Medium"
+    },
+    {
+      "name": "CrimsonPeaks",
+      "displayName": "Crimson Peaks",
+      "description": "Treacherous mountain range",
+      "terrain": "Mountain",
+      "danger": "High"
+    },
+    {
+      "name": "EndlessDesert",
+      "displayName": "Endless Desert",
+      "description": "Vast wasteland of sand and heat",
+      "terrain": "Desert",
+      "danger": "Medium"
+    },
+    {
+      "name": "FrozenTundra",
+      "displayName": "Frozen Tundra",
+      "description": "Icy plains of eternal winter",
+      "terrain": "Tundra",
+      "danger": "High"
+    },
+    {
+      "name": "PoisonSwamp",
+      "displayName": "Poison Swamp",
+      "description": "Murky wetlands filled with toxic gases",
+      "terrain": "Swamp",
+      "danger": "High"
+    },
+    {
+      "name": "GoldenPlains",
+      "displayName": "Golden Plains",
+      "description": "Peaceful grasslands perfect for travel",
+      "terrain": "Plains",
+      "danger": "Low"
+    },
+    {
+      "name": "VolcanicWastelands",
+      "displayName": "Volcanic Wastelands",
+      "description": "Scorched earth with active lava flows",
+      "terrain": "Volcanic",
+      "danger": "Very High"
+    },
+    {
+      "name": "MistyHills",
+      "displayName": "Misty Hills",
+      "description": "Rolling hills shrouded in fog",
+      "terrain": "Hills",
+      "danger": "Low"
+    },
+    {
+      "name": "CrystalCaverns",
+      "displayName": "Crystal Caverns",
+      "description": "Underground cave network with glowing crystals",
+      "terrain": "Underground",
+      "danger": "Medium"
+    },
+    {
+      "name": "StormyCoast",
+      "displayName": "Stormy Coast",
+      "description": "Rocky shoreline battered by waves",
+      "terrain": "Coastal",
+      "danger": "Medium"
+    },
+    {
+      "name": "AncientBattlefield",
+      "displayName": "Ancient Battlefield",
+      "description": "Site of historic war, now haunted",
+      "terrain": "Plains",
+      "danger": "High"
+    },
+    {
+      "name": "WhisperingWoods",
+      "displayName": "Whispering Woods",
+      "description": "Enchanted forest with strange voices",
+      "terrain": "Forest",
+      "danger": "Medium"
+    },
+    {
+      "name": "ShatteredIsles",
+      "displayName": "Shattered Isles",
+      "description": "Archipelago of floating islands",
+      "terrain": "Sky Islands",
+      "danger": "High"
+    },
+    {
+      "name": "DeadLands",
+      "displayName": "Dead Lands",
+      "description": "Cursed region where nothing grows",
+      "terrain": "Wasteland",
+      "danger": "Very High"
+    },
+    {
+      "name": "JungleOfFangs",
+      "displayName": "Jungle of Fangs",
+      "description": "Tropical rainforest teeming with predators",
+      "terrain": "Jungle",
+      "danger": "High"
+    },
+    {
+      "name": "SilverLake",
+      "displayName": "Silver Lake",
+      "description": "Tranquil body of water reflecting moonlight",
+      "terrain": "Lake",
+      "danger": "Low"
+    },
+    {
+      "name": "TheGreatRift",
+      "displayName": "The Great Rift",
+      "description": "Massive canyon splitting the continent",
+      "terrain": "Canyon",
+      "danger": "High"
+    },
+    {
+      "name": "BloodMoors",
+      "displayName": "Blood Moors",
+      "description": "Crimson marshlands with carnivorous plants",
+      "terrain": "Swamp",
+      "danger": "Very High"
+    }
+  ],
+  "components": {
+    "by_danger": {
+      "low": ["GoldenPlains", "MistyHills", "SilverLake"],
+      "medium": ["DarkwoodForest", "EndlessDesert", "CrystalCaverns", "StormyCoast", "WhisperingWoods"],
+      "high": ["CrimsonPeaks", "FrozenTundra", "PoisonSwamp", "AncientBattlefield", "ShatteredIsles", "JungleOfFangs", "TheGreatRift"],
+      "very_high": ["VolcanicWastelands", "DeadLands", "BloodMoors"]
+    },
+    "by_terrain": {
+      "forest": ["DarkwoodForest", "WhisperingWoods"],
+      "mountain": ["CrimsonPeaks"],
+      "desert": ["EndlessDesert"],
+      "frozen": ["FrozenTundra"],
+      "swamp": ["PoisonSwamp", "BloodMoors"],
+      "plains": ["GoldenPlains", "AncientBattlefield"],
+      "volcanic": ["VolcanicWastelands"],
+      "water": ["StormyCoast", "SilverLake"],
+      "underground": ["CrystalCaverns"],
+      "magical": ["ShatteredIsles"],
+      "cursed": ["DeadLands"],
+      "jungle": ["JungleOfFangs"]
+    }
+  },
+  "patterns": [
+    "Use for travel quests and exploration",
+    "Environmental hazards match terrain type",
+    "Danger level affects encounter frequency",
+    "Low danger areas good for gathering quests",
+    "High danger areas for combat challenges"
+  ],
+  "metadata": {
+    "total_locations": 18,
+    "terrain_types": 14,
+    "danger_levels": 4,
+    "usage": "Travel destinations and exploration zones"
   }
-]
+}
