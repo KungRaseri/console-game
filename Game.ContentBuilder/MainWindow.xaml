@@ -116,10 +116,14 @@
                         <TreeView Grid.Row="1" 
                                 ItemsSource="{Binding Categories}"
                                 SelectedItemChanged="TreeView_SelectedItemChanged"
-                                Margin="8,0,8,8">
+                                Margin="8,0,8,8"
+                                AutomationProperties.AutomationId="CategoryTreeView"
+                                AutomationProperties.Name="Game Content Categories">
                             <TreeView.ItemContainerStyle>
                                 <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
                                     <Setter Property="IsExpanded" Value="True" />
+                                    <Setter Property="AutomationProperties.Name" Value="{Binding Name}" />
+                                    <Setter Property="AutomationProperties.AutomationId" Value="{Binding Name, StringFormat='TreeItem_{0}'}" />
                                 </Style>
                             </TreeView.ItemContainerStyle>
                             <TreeView.ItemTemplate>
