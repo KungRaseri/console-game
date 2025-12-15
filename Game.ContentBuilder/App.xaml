@@ -17,6 +17,8 @@
             
             <!-- Converters -->
             <converters:NotNullToBooleanConverter x:Key="NotNullToBooleanConverter"/>
+            <converters:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+            <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

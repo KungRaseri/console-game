@@ -47,28 +47,65 @@ public partial class NameListEditorViewModel : ObservableObject
     {
         try
         {
-            var filePath = System.IO.Path.Combine("items", _fileName);
+            var filePath = _fileName; // fileName already includes full path like "items/weapons/names.json"
             var json = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath));
             
-            // Parse the array-based JSON structure: { "category": ["name1", "name2", ...] }
-            var rawData = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(json);
+            // Parse the JSON structure which might have nested "items" wrapper
+            var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
             
-            if (rawData == null)
+            if (jsonObject == null)
             {
                 StatusMessage = "Failed to load data - file is empty or invalid";
                 Log.Warning("Failed to deserialize {FileName}", _fileName);
                 return;
             }
 
+            // Check if there's an "items" wrapper (new structure)
+            Dictionary<string, object>? sourceData = null;
+            if (jsonObject.ContainsKey("items"))
+            {
+                // New structure: { "items": { "swords": [...], "axes": [...] } }
+                var itemsJson = JsonConvert.SerializeObject(jsonObject["items"]);
+                sourceData = JsonConvert.DeserializeObject<Dictionary<string, object>>(itemsJson);
+            }
+            else
+            {
+                // Old structure: { "swords": [...], "axes": [...] }
+                sourceData = jsonObject;
+            }
+
+            if (sourceData == null)
+            {
+                StatusMessage = "Failed to parse data structure";
+                Log.Warning("Failed to parse nested structure in {FileName}", _fileName);
+                return;
+            }
+
             Categories.Clear();
 
-            // Convert dictionary to category list
-            foreach (var category in rawData)
+            // Convert dictionary to category list, only processing arrays
+            foreach (var kvp in sourceData)
             {
-                var categoryName = category.Key; // "swords", "axes", etc.
-                var names = category.Value;
+                var categoryName = kvp.Key;
+                var value = kvp.Value;
 
-                Categories.Add(new NameListCategory(categoryName, names));
+                // Try to deserialize as a list of strings
+                try
+                {
+                    var valueJson = value is string ? (string)value : JsonConvert.SerializeObject(value);
+                    var names = JsonConvert.DeserializeObject<List<string>>(valueJson);
+                    
+                    if (names != null)
+                    {
+                        Categories.Add(new NameListCategory(categoryName, names));
+                    }
+                }
+                catch (JsonSerializationException)
+                {
+                    // Skip entries that aren't string arrays (like "variants" which is a nested object)
+                    Log.Debug("Skipping non-array category '{CategoryName}' in {FileName}", categoryName, _fileName);
+                    continue;
+                }
             }
 
             StatusMessage = $"Loaded {Categories.Count} categories from {_fileName}";
@@ -90,12 +127,18 @@ public partial class NameListEditorViewModel : ObservableObject
         try
         {
             // Convert category list back to dictionary structure
-            var data = new Dictionary<string, List<string>>();
+            var categoryData = new Dictionary<string, List<string>>();
 
             foreach (var category in Categories)
             {
-                data[category.Name] = category.Names.ToList();
+                categoryData[category.Name] = category.Names.ToList();
             }
+
+            // Wrap in "items" object to match the expected structure
+            var data = new Dictionary<string, object>
+            {
+                ["items"] = categoryData
+            };
 
             var filePath = System.IO.Path.Combine("items", _fileName);
             _jsonEditorService.Save(filePath, data);

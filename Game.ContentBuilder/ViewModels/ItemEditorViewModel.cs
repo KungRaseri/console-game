@@ -60,7 +60,7 @@ public partial class ItemEditorViewModel : ObservableObject
     {
         try
         {
-            var filePath = System.IO.Path.Combine("items", _fileName);
+            var filePath = _fileName; // fileName already includes full path like "items/weapons/prefixes.json"
             var json = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath));
             
             // Parse the nested JSON structure
@@ -168,7 +168,7 @@ public partial class ItemEditorViewModel : ObservableObject
                 };
             }
 
-            var filePath = System.IO.Path.Combine("items", _fileName);
+            var filePath = _fileName; // fileName already includes full path
             _jsonEditorService.Save(filePath, data);
 
             StatusMessage = $"Saved changes to {_fileName}";

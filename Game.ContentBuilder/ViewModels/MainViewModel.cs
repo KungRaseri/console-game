@@ -37,8 +37,12 @@ public partial class MainViewModel : ObservableObject
         var dataPath = GetDataDirectory();
         _jsonEditorService = new JsonEditorService(dataPath);
         
+        Log.Information("MainViewModel initialized - Data directory: {DataPath}", dataPath);
+        
         InitializeCategories();
         StatusMessage = $"Content Builder initialized - Data: {dataPath}";
+        
+        Log.Information("Categories initialized - Total categories: {Count}", Categories.Count);
     }
 
     private string GetDataDirectory()
@@ -92,7 +96,7 @@ public partial class MainViewModel : ObservableObject
                         Icon = "SwordCross",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.HybridArray, Tag = "items/weapons/names.json" },
+                            new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "items/weapons/names.json" },
                             new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.FlatItem, Tag = "items/weapons/prefixes.json" },
                             new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "items/weapons/suffixes.json" }
                         }
@@ -332,7 +336,7 @@ public partial class MainViewModel : ObservableObject
                             new CategoryNode { Name = "Greetings", Icon = "HandWave", EditorType = EditorType.HybridArray, Tag = "npcs/dialogue/greetings.json" },
                             new CategoryNode { Name = "Farewells", Icon = "HandPeace", EditorType = EditorType.HybridArray, Tag = "npcs/dialogue/farewells.json" },
                             new CategoryNode { Name = "Rumors", Icon = "Microphone", EditorType = EditorType.HybridArray, Tag = "npcs/dialogue/rumors.json" },
-                            new CategoryNode { Name = "Templates", Icon = "FormatListBulleted", EditorType = EditorType.HybridArray, Tag = "npcs/dialogue/templates.json" },
+                            new CategoryNode { Name = "Templates", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "npcs/dialogue/templates.json" },
                             new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.FlatItem, Tag = "npcs/dialogue/traits.json" }
                         }
                     },
@@ -412,6 +416,8 @@ public partial class MainViewModel : ObservableObject
         if (value?.EditorType != EditorType.None && value is not null)
         {
             StatusMessage = $"Selected: {value.Name} ({value.Tag ?? "unknown"})";
+            Log.Information("Category selected: {CategoryName} - Type: {EditorType} - File: {FileName}", 
+                value.Name, value.EditorType, value.Tag ?? "unknown");
             
             // Load appropriate editor based on EditorType
             switch (value.EditorType)
@@ -449,6 +455,7 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
+            Log.Debug("Loading ItemEditor for {FileName}", fileName);
             var viewModel = new ItemEditorViewModel(_jsonEditorService, fileName);
             var view = new ItemEditorView
             {
@@ -456,10 +463,12 @@ public partial class MainViewModel : ObservableObject
             };
             CurrentEditor = view;
             StatusMessage = $"Loaded editor for {fileName}";
+            Log.Information("ItemEditor loaded successfully for {FileName}", fileName);
         }
         catch (Exception ex)
         {
             StatusMessage = $"Failed to load editor: {ex.Message}";
+            Log.Error(ex, "Failed to load ItemEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }
@@ -468,6 +477,7 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
+            Log.Debug("Loading FlatItemEditor for {FileName}", fileName);
             var viewModel = new FlatItemEditorViewModel(_jsonEditorService, fileName);
             var view = new FlatItemEditorView
             {
@@ -475,10 +485,12 @@ public partial class MainViewModel : ObservableObject
             };
             CurrentEditor = view;
             StatusMessage = $"Loaded editor for {fileName}";
+            Log.Information("FlatItemEditor loaded successfully for {FileName}", fileName);
         }
         catch (Exception ex)
         {
             StatusMessage = $"Failed to load editor: {ex.Message}";
+            Log.Error(ex, "Failed to load FlatItemEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }
@@ -487,6 +499,7 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
+            Log.Debug("Loading NameListEditor for {FileName}", fileName);
             var viewModel = new NameListEditorViewModel(_jsonEditorService, fileName);
             var view = new NameListEditorView
             {
@@ -494,10 +507,12 @@ public partial class MainViewModel : ObservableObject
             };
             CurrentEditor = view;
             StatusMessage = $"Loaded editor for {fileName}";
+            Log.Information("NameListEditor loaded successfully for {FileName}", fileName);
         }
         catch (Exception ex)
         {
             StatusMessage = $"Failed to load editor: {ex.Message}";
+            Log.Error(ex, "Failed to load NameListEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }
@@ -506,6 +521,7 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
+            Log.Debug("Loading HybridArrayEditor for {FileName}", fileName);
             var viewModel = new HybridArrayEditorViewModel(_jsonEditorService, fileName);
             var view = new HybridArrayEditorView
             {
@@ -513,11 +529,12 @@ public partial class MainViewModel : ObservableObject
             };
             CurrentEditor = view;
             StatusMessage = $"Loaded hybrid array editor for {fileName}";
+            Log.Information("HybridArrayEditor loaded successfully for {FileName}", fileName);
         }
         catch (Exception ex)
         {
             StatusMessage = $"Failed to load hybrid array editor: {ex.Message}";
-            Log.Error(ex, "Failed to load hybrid array editor for {FileName}", fileName);
+            Log.Error(ex, "Failed to load HybridArrayEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }
@@ -527,11 +544,13 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
+            Log.Information("Opening preview window");
             var previewWindow = new Views.PreviewWindow
             {
                 Owner = System.Windows.Application.Current.MainWindow
             };
             previewWindow.ShowDialog();
+            Log.Information("Preview window closed");
         }
         catch (Exception ex)
         {
@@ -543,6 +562,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Exit()
     {
+        Log.Information("Exit command invoked");
         System.Windows.Application.Current.Shutdown();
     }
 }

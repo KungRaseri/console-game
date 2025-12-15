@@ -46,7 +46,7 @@
                     </materialDesign:Chip>
                     <materialDesign:Chip Margin="4,0" IconBackground="{DynamicResource MaterialDesign.Brush.Tertiary}">
                         <materialDesign:Chip.Icon>
-                            <materialDesign:PackIcon Kind="Pattern"/>
+                            <materialDesign:PackIcon Kind="ShapeOutline"/>
                         </materialDesign:Chip.Icon>
                         <TextBlock Text="{Binding TotalPatternsCount, StringFormat='Patterns: {0}'}"/>
                     </materialDesign:Chip>

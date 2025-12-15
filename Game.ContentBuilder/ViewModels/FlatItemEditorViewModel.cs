@@ -52,7 +52,7 @@ public partial class FlatItemEditorViewModel : ObservableObject
     {
         try
         {
-            var filePath = System.IO.Path.Combine("items", _fileName);
+            var filePath = _fileName; // fileName already includes full path like "items/weapons/prefixes.json"
             var json = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath));
             
             // Parse the flat JSON structure: { "ItemName": { "displayName": "...", "traits": {...} } }

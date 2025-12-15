@@ -125,6 +125,84 @@
 			}
 		},
 		{
+			"label": "test-contentbuilder-unit",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"${workspaceFolder}/Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj",
+				"--filter",
+				"Category=ViewModel"
+			],
+			"problemMatcher": "$msCompile",
+			"group": "test",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"clear": true
+			}
+		},
+		{
+			"label": "test-contentbuilder-ui",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"${workspaceFolder}/Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj",
+				"--filter",
+				"Category=UI"
+			],
+			"problemMatcher": "$msCompile",
+			"group": "test",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"clear": true
+			}
+		},
+		{
+			"label": "test-contentbuilder-integration",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"${workspaceFolder}/Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj",
+				"--filter",
+				"Category=Integration"
+			],
+			"problemMatcher": "$msCompile",
+			"group": "test",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"clear": true
+			}
+		},
+		{
+			"label": "test-contentbuilder-all",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"${workspaceFolder}/Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj"
+			],
+			"problemMatcher": "$msCompile",
+			"group": "test",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"clear": true
+			}
+		},
+		{
 			"label": "test-with-coverage",
 			"type": "shell",
 			"command": "dotnet",
