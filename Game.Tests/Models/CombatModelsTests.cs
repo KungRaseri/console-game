@@ -1,5 +1,5 @@
 using FluentAssertions;
-using Game.Models;
+using Game.Core.Models;
 using Xunit;
 
 namespace Game.Tests.Models;

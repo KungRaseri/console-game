@@ -1,7 +1,7 @@
-﻿using FluentAssertions;
-using Game.Features.Quest.Services;
-using Game.Features.SaveLoad;
-using Game.Models;
+using FluentAssertions;
+using Game.Core.Features.Quest.Services;
+using Game.Core.Features.SaveLoad;
+using Game.Core.Models;
 using Moq;
 using Xunit;
 

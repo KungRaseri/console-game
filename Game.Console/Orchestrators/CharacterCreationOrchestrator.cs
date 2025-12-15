@@ -66,7 +66,27 @@ public class CharacterCreationOrchestrator
         }
         
         // Step 4: Create character
-        var newCharacter = CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
+        // TODO: CharacterCreationService needs DI refactoring - temporarily create character manually
+        var newCharacter = new Character
+        {
+            Name = playerName,
+            ClassName = selectedClass.Name,
+            Level = 1,
+            Experience = 0,
+            Health = 100,
+            MaxHealth = 100,
+            Mana = 50,
+            MaxMana = 50,
+            Strength = allocation.Strength,
+            Dexterity = allocation.Dexterity,
+            Constitution = allocation.Constitution,
+            Intelligence = allocation.Intelligence,
+            Wisdom = allocation.Wisdom,
+            Charisma = allocation.Charisma,
+            Gold = 100, // Starting gold
+            Inventory = new List<Item>()
+        };
+        // var newCharacter = CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
         
         // Step 5: Review character
         ReviewCharacter(newCharacter, selectedClass);

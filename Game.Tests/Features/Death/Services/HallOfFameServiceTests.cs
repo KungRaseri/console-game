@@ -1,32 +1,31 @@
-using Xunit;
 using FluentAssertions;
-using Game.Features.Death;
-using Game.Models;
-using Game.Shared.UI;
+using Game.Core.Models;
+using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Moq;
 
 namespace Game.Tests.Features.Death.Services;
 
 /// <summary>
-/// Comprehensive tests for HallOfFameService.
+/// Comprehensive tests for HallOfFameRepository.
 /// Targets 0% baseline coverage to achieve 80%+ line coverage.
 /// </summary>
-public class HallOfFameServiceTests : IDisposable
+public class HallOfFameRepositoryTests : IDisposable
 {
     private readonly string _testDbPath;
-    private readonly Mock<IConsoleUI> _mockConsoleUI;
-    private readonly HallOfFameService _hallOfFameService;
+    private readonly Mock<IGameUI> _mockConsoleUI;
+    private readonly HallOfFameRepository _HallOfFameRepository;
 
-    public HallOfFameServiceTests()
+    public HallOfFameRepositoryTests()
     {
         _testDbPath = $"test-halloffame-{Guid.NewGuid()}.db";
-        _mockConsoleUI = new Mock<IConsoleUI>();
-        _hallOfFameService = new HallOfFameService(_mockConsoleUI.Object, _testDbPath);
+        _mockConsoleUI = new Mock<IGameUI>();
+        _HallOfFameRepository = new HallOfFameRepository(_mockConsoleUI.Object, _testDbPath);
     }
 
     public void Dispose()
     {
-        _hallOfFameService?.Dispose();
+        _HallOfFameRepository?.Dispose();
 
         try
         {
@@ -51,10 +50,10 @@ public class HallOfFameServiceTests : IDisposable
         var entry = CreateTestEntry("Hero1", level: 10, isPermadeath: true);
 
         // Act
-        _hallOfFameService.AddEntry(entry);
+        _HallOfFameRepository.AddEntry(entry);
 
         // Assert
-        var allEntries = _hallOfFameService.GetAllEntries();
+        var allEntries = _HallOfFameRepository.GetAllEntries();
         allEntries.Should().ContainSingle();
         allEntries[0].CharacterName.Should().Be("Hero1");
     }
@@ -68,12 +67,12 @@ public class HallOfFameServiceTests : IDisposable
         var entry3 = CreateTestEntry("Hero3", level: 5, isPermadeath: true);
 
         // Act
-        _hallOfFameService.AddEntry(entry1);
-        _hallOfFameService.AddEntry(entry2);
-        _hallOfFameService.AddEntry(entry3);
+        _HallOfFameRepository.AddEntry(entry1);
+        _HallOfFameRepository.AddEntry(entry2);
+        _HallOfFameRepository.AddEntry(entry3);
 
         // Assert
-        var allEntries = _hallOfFameService.GetAllEntries();
+        var allEntries = _HallOfFameRepository.GetAllEntries();
         allEntries.Should().HaveCount(3);
         allEntries.Should().Contain(e => e.CharacterName == "Hero1");
         allEntries.Should().Contain(e => e.CharacterName == "Hero2");
@@ -99,10 +98,10 @@ public class HallOfFameServiceTests : IDisposable
         };
 
         // Act
-        _hallOfFameService.AddEntry(entry);
+        _HallOfFameRepository.AddEntry(entry);
 
         // Assert
-        var retrieved = _hallOfFameService.GetAllEntries().First();
+        var retrieved = _HallOfFameRepository.GetAllEntries().First();
         retrieved.CharacterName.Should().Be("TestHero");
         retrieved.ClassName.Should().Be("Warrior");
         retrieved.Level.Should().Be(15);
@@ -122,7 +121,7 @@ public class HallOfFameServiceTests : IDisposable
     public void GetAllEntries_Should_Return_Empty_List_When_No_Entries()
     {
         // Act
-        var entries = _hallOfFameService.GetAllEntries();
+        var entries = _HallOfFameRepository.GetAllEntries();
 
         // Assert
         entries.Should().BeEmpty();
@@ -136,12 +135,12 @@ public class HallOfFameServiceTests : IDisposable
         var highScore = CreateTestEntry("HighHero", level: 20, isPermadeath: true);
         var midScore = CreateTestEntry("MidHero", level: 10, isPermadeath: false);
 
-        _hallOfFameService.AddEntry(lowScore);
-        _hallOfFameService.AddEntry(highScore);
-        _hallOfFameService.AddEntry(midScore);
+        _HallOfFameRepository.AddEntry(lowScore);
+        _HallOfFameRepository.AddEntry(highScore);
+        _HallOfFameRepository.AddEntry(midScore);
 
         // Act
-        var entries = _hallOfFameService.GetAllEntries();
+        var entries = _HallOfFameRepository.GetAllEntries();
 
         // Assert
         entries.Should().HaveCount(3);
@@ -156,11 +155,11 @@ public class HallOfFameServiceTests : IDisposable
         // Arrange
         for (int i = 0; i < 15; i++)
         {
-            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i + 1, isPermadeath: false));
+            _HallOfFameRepository.AddEntry(CreateTestEntry($"Hero{i}", level: i + 1, isPermadeath: false));
         }
 
         // Act
-        var entries = _hallOfFameService.GetAllEntries(limit: 5);
+        var entries = _HallOfFameRepository.GetAllEntries(limit: 5);
 
         // Assert
         entries.Should().HaveCount(5, "should only return requested limit");
@@ -172,11 +171,11 @@ public class HallOfFameServiceTests : IDisposable
         // Arrange
         for (int i = 0; i < 150; i++)
         {
-            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i + 1, isPermadeath: false));
+            _HallOfFameRepository.AddEntry(CreateTestEntry($"Hero{i}", level: i + 1, isPermadeath: false));
         }
 
         // Act
-        var entries = _hallOfFameService.GetAllEntries();
+        var entries = _HallOfFameRepository.GetAllEntries();
 
         // Assert
         entries.Should().HaveCount(100, "default limit should be 100");
@@ -190,7 +189,7 @@ public class HallOfFameServiceTests : IDisposable
     public void GetTopHeroes_Should_Return_Empty_List_When_No_Entries()
     {
         // Act
-        var topHeroes = _hallOfFameService.GetTopHeroes();
+        var topHeroes = _HallOfFameRepository.GetTopHeroes();
 
         // Assert
         topHeroes.Should().BeEmpty();
@@ -202,11 +201,11 @@ public class HallOfFameServiceTests : IDisposable
         // Arrange
         for (int i = 1; i <= 20; i++)
         {
-            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
+            _HallOfFameRepository.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
         }
 
         // Act
-        var topHeroes = _hallOfFameService.GetTopHeroes(count: 10);
+        var topHeroes = _HallOfFameRepository.GetTopHeroes(count: 10);
 
         // Assert
         topHeroes.Should().HaveCount(10);
@@ -220,11 +219,11 @@ public class HallOfFameServiceTests : IDisposable
         // Arrange
         for (int i = 1; i <= 20; i++)
         {
-            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
+            _HallOfFameRepository.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
         }
 
         // Act
-        var topHeroes = _hallOfFameService.GetTopHeroes();
+        var topHeroes = _HallOfFameRepository.GetTopHeroes();
 
         // Assert
         topHeroes.Should().HaveCount(10, "default count should be 10");
@@ -234,11 +233,11 @@ public class HallOfFameServiceTests : IDisposable
     public void GetTopHeroes_Should_Handle_Request_For_More_Than_Available()
     {
         // Arrange
-        _hallOfFameService.AddEntry(CreateTestEntry("Hero1", level: 10, isPermadeath: false));
-        _hallOfFameService.AddEntry(CreateTestEntry("Hero2", level: 5, isPermadeath: false));
+        _HallOfFameRepository.AddEntry(CreateTestEntry("Hero1", level: 10, isPermadeath: false));
+        _HallOfFameRepository.AddEntry(CreateTestEntry("Hero2", level: 5, isPermadeath: false));
 
         // Act
-        var topHeroes = _hallOfFameService.GetTopHeroes(count: 10);
+        var topHeroes = _HallOfFameRepository.GetTopHeroes(count: 10);
 
         // Assert
         topHeroes.Should().HaveCount(2, "should return all available entries when requested count is higher");
@@ -252,7 +251,7 @@ public class HallOfFameServiceTests : IDisposable
     public void DisplayHallOfFame_Should_Show_No_Heroes_Message_When_Empty()
     {
         // Act
-        _hallOfFameService.DisplayHallOfFame();
+        _HallOfFameRepository.DisplayHallOfFame();
 
         // Assert
         _mockConsoleUI.Verify(x => x.Clear(), Times.Once);
@@ -265,11 +264,11 @@ public class HallOfFameServiceTests : IDisposable
     public void DisplayHallOfFame_Should_Display_Table_With_Entries()
     {
         // Arrange
-        _hallOfFameService.AddEntry(CreateTestEntry("Hero1", level: 10, isPermadeath: true));
-        _hallOfFameService.AddEntry(CreateTestEntry("Hero2", level: 20, isPermadeath: false));
+        _HallOfFameRepository.AddEntry(CreateTestEntry("Hero1", level: 10, isPermadeath: true));
+        _HallOfFameRepository.AddEntry(CreateTestEntry("Hero2", level: 20, isPermadeath: false));
 
         // Act
-        _hallOfFameService.DisplayHallOfFame();
+        _HallOfFameRepository.DisplayHallOfFame();
 
         // Assert
         _mockConsoleUI.Verify(x => x.Clear(), Times.Once);
@@ -288,11 +287,11 @@ public class HallOfFameServiceTests : IDisposable
         // Arrange
         for (int i = 1; i <= 5; i++)
         {
-            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
+            _HallOfFameRepository.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
         }
 
         // Act
-        _hallOfFameService.DisplayHallOfFame();
+        _HallOfFameRepository.DisplayHallOfFame();
 
         // Assert
         _mockConsoleUI.Verify(x => x.ShowTable(
@@ -311,11 +310,11 @@ public class HallOfFameServiceTests : IDisposable
     public void DisplayHallOfFame_Should_Show_Permadeath_Status()
     {
         // Arrange
-        _hallOfFameService.AddEntry(CreateTestEntry("Permadeath Hero", level: 10, isPermadeath: true));
-        _hallOfFameService.AddEntry(CreateTestEntry("Normal Hero", level: 5, isPermadeath: false));
+        _HallOfFameRepository.AddEntry(CreateTestEntry("Permadeath Hero", level: 10, isPermadeath: true));
+        _HallOfFameRepository.AddEntry(CreateTestEntry("Normal Hero", level: 5, isPermadeath: false));
 
         // Act
-        _hallOfFameService.DisplayHallOfFame();
+        _HallOfFameRepository.DisplayHallOfFame();
 
         // Assert
         _mockConsoleUI.Verify(x => x.ShowTable(
@@ -334,11 +333,11 @@ public class HallOfFameServiceTests : IDisposable
         // Arrange
         for (int i = 1; i <= 30; i++)
         {
-            _hallOfFameService.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
+            _HallOfFameRepository.AddEntry(CreateTestEntry($"Hero{i}", level: i, isPermadeath: false));
         }
 
         // Act
-        _hallOfFameService.DisplayHallOfFame();
+        _HallOfFameRepository.DisplayHallOfFame();
 
         // Assert
         _mockConsoleUI.Verify(x => x.ShowTable(
@@ -361,12 +360,12 @@ public class HallOfFameServiceTests : IDisposable
         var highEnemyHero = CreateTestEntry("SlayerHero", level: 15, isPermadeath: false, enemiesDefeated: 200);
         var lowStatsHero = CreateTestEntry("WeakHero", level: 5, isPermadeath: false, enemiesDefeated: 10);
 
-        _hallOfFameService.AddEntry(highQuestHero);
-        _hallOfFameService.AddEntry(highEnemyHero);
-        _hallOfFameService.AddEntry(lowStatsHero);
+        _HallOfFameRepository.AddEntry(highQuestHero);
+        _HallOfFameRepository.AddEntry(highEnemyHero);
+        _HallOfFameRepository.AddEntry(lowStatsHero);
 
         // Act
-        var topHeroes = _hallOfFameService.GetTopHeroes();
+        var topHeroes = _HallOfFameRepository.GetTopHeroes();
 
         // Assert
         topHeroes.Should().HaveCount(3);

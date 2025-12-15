@@ -1,11 +1,12 @@
 using FluentAssertions;
-using Game.Features.SaveLoad;
-using Game.Features.SaveLoad.Commands;
-using Game.Models;
-using Game.Shared.Services;
-using Game.Shared.UI;
+using Game.Core.Features.SaveLoad;
+using Game.Core.Features.SaveLoad.Commands;
+using Game.Core.Models;
+using Game.Core.Services;
+using Game.Console.UI;
+using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Moq;
-using Xunit;
 
 namespace Game.Tests.Features.SaveLoad.Commands;
 
@@ -15,16 +16,17 @@ namespace Game.Tests.Features.SaveLoad.Commands;
 public class LoadGameHandlerTests : IDisposable
 {
     private readonly string _testDbPath;
-    private readonly Mock<IConsoleUI> _mockConsoleUI;
+    private readonly Mock<IGameUI> _mockConsoleUI;
     private readonly ApocalypseTimer _apocalypseTimer;
     private readonly SaveGameService _saveGameService;
 
     public LoadGameHandlerTests()
     {
         _testDbPath = $"test-loadgame-{Guid.NewGuid()}.db";
-        _mockConsoleUI = new Mock<IConsoleUI>();
+        _mockConsoleUI = new Mock<IGameUI>();
         _apocalypseTimer = new ApocalypseTimer(_mockConsoleUI.Object);
-        _saveGameService = new SaveGameService(_apocalypseTimer, _testDbPath);
+        var repository = new SaveGameRepository(_testDbPath);
+        _saveGameService = new SaveGameService(repository, _apocalypseTimer);
     }
 
     [Fact]
@@ -122,7 +124,7 @@ public class LoadGameHandlerTests : IDisposable
             new Item { Name = "Health Potion", Type = ItemType.Consumable, Price = 25 },
             new Item { Name = "Leather Chest", Type = ItemType.Chest, Price = 75 }
         };
-        
+
         var saveGame = _saveGameService.CreateNewGame(player, DifficultySettings.Normal);
         _saveGameService.SaveGame(player, items, saveGame.Id);
 
@@ -184,7 +186,7 @@ public class LoadGameHandlerTests : IDisposable
         var handler = new LoadGameHandler(_saveGameService);
         var weapon = new Item { Name = "Legendary Sword", Type = ItemType.Weapon };
         var chest = new Item { Name = "Dragon Scale Chest", Type = ItemType.Chest };
-        
+
         var player = new Character
         {
             Name = "EquippedPlayer",
@@ -194,7 +196,7 @@ public class LoadGameHandlerTests : IDisposable
             EquippedMainHand = weapon,
             EquippedChest = chest
         };
-        
+
         var saveGame = _saveGameService.CreateNewGame(player, DifficultySettings.Normal);
         _saveGameService.SaveGame(player, new List<Item>(), saveGame.Id);
 
@@ -225,7 +227,7 @@ public class LoadGameHandlerTests : IDisposable
             Mana = 200,
             MaxMana = 200
         };
-        
+
         var saveGame = _saveGameService.CreateNewGame(mage, DifficultySettings.Normal);
         _saveGameService.SaveGame(mage, new List<Item>(), saveGame.Id);
 
@@ -254,7 +256,7 @@ public class LoadGameHandlerTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         var saveGame = _saveGameService.CreateNewGame(player, DifficultySettings.Normal);
         _saveGameService.SaveGame(player, new List<Item>(), saveGame.Id);
 
@@ -284,7 +286,7 @@ public class LoadGameHandlerTests : IDisposable
             {
                 File.Delete(_testDbPath);
             }
-            
+
             var logDbPath = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logDbPath))
             {

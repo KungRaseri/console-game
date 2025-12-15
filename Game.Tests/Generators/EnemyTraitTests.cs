@@ -1,9 +1,9 @@
 using FluentAssertions;
-using Game.Generators;
-using Game.Models;
-using Game.Services;
+using Game.Core.Generators;
+using Game.Core.Models;
+using Game.Core.Services;
 using Game.Shared.Services;
-using Game.Utilities;
+using Game.Core.Utilities;
 using Xunit;
 
 namespace Game.Tests.Generators;

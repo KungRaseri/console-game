@@ -1,9 +1,12 @@
 using FluentAssertions;
-using Game.Features.Achievement.Services;
-using Game.Features.SaveLoad;
-using Game.Models;
+using Game.Core.Features.Achievement.Services;
+using Game.Core.Features.SaveLoad;
+using Game.Core.Models;
+using Game.Core.Services;
 using Game.Shared.Services;
-using Game.Shared.UI;
+using Game.Console.UI;
+using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Spectre.Console.Testing;
 using Xunit;
 
@@ -15,7 +18,7 @@ namespace Game.Tests.Features.Achievement.Services;
 public class AchievementServiceTests : IDisposable
 {
     private readonly SaveGameService _saveService;
-    private readonly IConsoleUI _consoleUI;
+    private readonly IGameUI _consoleUI;
     private readonly AchievementService _achievementService;
     private readonly SaveGame _testSaveGame;
     private readonly string _testDbPath;
@@ -33,7 +36,8 @@ public class AchievementServiceTests : IDisposable
         }
 
         var apocalypseTimer = new ApocalypseTimer(_consoleUI);
-        _saveService = new SaveGameService(apocalypseTimer, _testDbPath);
+        var repository = new SaveGameRepository(_testDbPath);
+        _saveService = new SaveGameService(repository, apocalypseTimer);
 
         // Create test save game
         _testSaveGame = new SaveGame

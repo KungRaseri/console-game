@@ -1,4 +1,5 @@
 using Game.Core.Models;
+using Game.Core.Abstractions;
 using Game.Console.UI;
 using Game.Data.Repositories;
 using Game.Core.Utilities;
@@ -11,10 +12,12 @@ namespace Game.Shared.Services;
 public class CharacterViewService
 {
     private readonly IConsoleUI _console;
+    private readonly IEquipmentSetRepository _equipmentSetRepository;
     
-    public CharacterViewService(IConsoleUI console)
+    public CharacterViewService(IConsoleUI console, IEquipmentSetRepository equipmentSetRepository)
     {
         _console = console;
+        _equipmentSetRepository = equipmentSetRepository;
     }
     
     /// <summary>
@@ -165,7 +168,7 @@ public class CharacterViewService
         
         // D20 Attributes
         lines.Add("[underline yellow]Attributes[/]");
-        var allSets = EquipmentSetRepository.GetAllSets();
+        var allSets = _equipmentSetRepository.GetAll();
         lines.Add($"  [red]Strength (STR):[/]     {player.GetTotalStrength(allSets)} ([grey]{player.Strength} base[/])");
         lines.Add($"  [green]Dexterity (DEX):[/]    {player.GetTotalDexterity(allSets)} ([grey]{player.Dexterity} base[/])");
         lines.Add($"  [yellow]Constitution (CON):[/] {player.GetTotalConstitution(allSets)} ([grey]{player.Constitution} base[/])");

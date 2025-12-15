@@ -1,16 +1,18 @@
 using Xunit;
 using FluentAssertions;
-using Game.Services;
-using Game.Shared.UI;
+using Game.Core.Services;
+using Game.Console.UI;
+using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
-using Game.Features.Combat;
-using Game.Features.SaveLoad;
+using Game.Core.Features.Combat;
+using Game.Core.Features.SaveLoad;
 using Game.Shared.Services;
-using Game.Models;
+using Game.Core.Models;
 using MediatR;
 using Moq;
 using System.Reflection;
+using Game.Console.Orchestrators;
 
 namespace Game.Tests.Services;
 
@@ -67,7 +69,7 @@ public class CombatOrchestratorTests : IDisposable
     {
         // Dispose services to release database connections
         _saveGameService?.Dispose();
-        
+
         // Clean up test database
         try
         {

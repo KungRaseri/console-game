@@ -1,9 +1,10 @@
-using Game.Models;
-using Game.Services;
-using Game.Features.Exploration;
-using Game.Features.SaveLoad;
+using Game.Core.Models;
+using Game.Core.Services;
+using Game.Core.Features.Exploration;
+using Game.Core.Features.SaveLoad;
 using Game.Shared.Services;
-using Game.Shared.UI;
+using Game.Console.UI;
+using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using MediatR;
 using Xunit;
@@ -47,7 +48,7 @@ public class ExplorationServiceTests : IDisposable
         var services = new ServiceCollection();
         
         // Register services that MediatR handlers need
-        services.AddSingleton<IConsoleUI>(_consoleUI);
+        services.AddSingleton<IGameUI>(_consoleUI);
         services.AddSingleton(_saveGameService);
         services.AddSingleton(_gameStateService);
         
@@ -88,11 +89,11 @@ public class ExplorationServiceTests : IDisposable
     {
         // Arrange & Act
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
-        var consoleUI = new ConsoleUI(testConsole);
-        var apocalypseTimer = new ApocalypseTimer(consoleUI);
+        var ConsoleUI = new ConsoleUI(testConsole);
+        var apocalypseTimer = new ApocalypseTimer(ConsoleUI);
         var saveGameService = new SaveGameService(apocalypseTimer, $"test-temp-{Guid.NewGuid()}.db");
         var gameStateService = new GameStateService(saveGameService);
-        var service = new ExplorationService(_mediator, gameStateService, saveGameService, consoleUI);
+        var service = new ExplorationService(_mediator, gameStateService, saveGameService, ConsoleUI);
 
         // Assert
         service.Should().NotBeNull();

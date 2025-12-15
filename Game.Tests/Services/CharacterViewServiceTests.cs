@@ -1,7 +1,8 @@
 using FluentAssertions;
-using Game.Models;
+using Game.Core.Models;
 using Game.Shared.Services;
-using Game.Shared.UI;
+using Game.Console.UI;
+using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Xunit;
@@ -14,7 +15,7 @@ namespace Game.Tests.Services;
 public class CharacterViewServiceTests
 {
     private readonly TestConsole _testConsole;
-    private readonly IConsoleUI _consoleUI;
+    private readonly IGameUI _consoleUI;
     private readonly CharacterViewService _characterViewService;
 
     public CharacterViewServiceTests()

@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Features.Inventory.Commands;
-using Game.Models;
+using Game.Core.Features.Inventory.Commands;
+using Game.Core.Models;
 
 namespace Game.Tests.Features.Inventory.Commands;
 

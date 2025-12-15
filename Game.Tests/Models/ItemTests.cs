@@ -1,5 +1,5 @@
 using FluentAssertions;
-using Game.Models;
+using Game.Core.Models;
 
 namespace Game.Tests.Models;
 

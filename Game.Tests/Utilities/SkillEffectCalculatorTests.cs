@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Models;
-using Game.Utilities;
+using Game.Core.Models;
+using Game.Core.Utilities;
 using Xunit;
 
 namespace Game.Tests.Utilities;

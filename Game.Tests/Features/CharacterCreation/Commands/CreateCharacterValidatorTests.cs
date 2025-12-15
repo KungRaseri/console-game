@@ -1,7 +1,7 @@
 using FluentAssertions;
 using FluentValidation.TestHelper;
-using Game.Features.CharacterCreation.Commands;
-using Game.Models;
+using Game.Core.Features.CharacterCreation.Commands;
+using Game.Core.Models;
 using Xunit;
 
 namespace Game.Tests.Features.CharacterCreation.Commands;

@@ -1,6 +1,8 @@
 using FluentAssertions;
+using Game.Core.Services;
 using Game.Shared.Services;
-using Game.Shared.UI;
+using Game.Console.UI;
+using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Xunit;
@@ -14,7 +16,7 @@ namespace Game.Tests.Services;
 public class ApocalypseTimerTests
 {
     private readonly TestConsole _testConsole;
-    private readonly IConsoleUI _consoleUI;
+    private readonly IGameUI _consoleUI;
 
     public ApocalypseTimerTests()
     {
@@ -476,8 +478,8 @@ public class ApocalypseTimerTests
     {
         // Arrange - Timer that has already shown 1hr and 30min warnings
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
-        var consoleUI = new ConsoleUI(testConsole);
-        var timer = new ApocalypseTimer(consoleUI);
+        var ConsoleUI = new ConsoleUI(testConsole);
+        var timer = new ApocalypseTimer(ConsoleUI);
         
         // Trigger 1 hour warning
         var startTime1 = DateTime.Now.AddMinutes(-185); // 55 min remaining
@@ -505,8 +507,8 @@ public class ApocalypseTimerTests
     {
         // Arrange
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
-        var consoleUI = new ConsoleUI(testConsole);
-        var timer = new ApocalypseTimer(consoleUI);
+        var ConsoleUI = new ConsoleUI(testConsole);
+        var timer = new ApocalypseTimer(ConsoleUI);
         var startTime = DateTime.Now.AddMinutes(-235); // 5 minutes remaining
 
         // Act

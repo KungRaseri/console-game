@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Features.Death;
-using Game.Models;
+using Game.Core.Features.Death;
+using Game.Core.Models;
 using Xunit;
 
 namespace Game.Tests.Features.Death;

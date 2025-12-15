@@ -1,7 +1,7 @@
 using FluentAssertions;
-using Game.Models;
+using Game.Core.Models;
 using Game.Shared.Models;
-using Game.Utilities;
+using Game.Core.Utilities;
 using Xunit;
 
 namespace Game.Tests.Utilities;

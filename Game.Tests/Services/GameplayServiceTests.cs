@@ -1,10 +1,11 @@
-using Game.Models;
-using Game.Shared.UI;
+using Game.Core.Models;
+using Game.Console.UI;
+using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
-using Game.Services;
-using Game.Features.Exploration;
-using Game.Features.SaveLoad;
+using Game.Core.Services;
+using Game.Core.Features.Exploration;
+using Game.Core.Features.SaveLoad;
 using Game.Shared.Services;
 using Xunit;
 using FluentAssertions;

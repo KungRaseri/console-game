@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Features.Combat.Commands.UseCombatItem;
-using Game.Models;
+using Game.Core.Features.Combat.Commands.UseCombatItem;
+using Game.Core.Models;
 using MediatR;
 using Moq;
 using Xunit;

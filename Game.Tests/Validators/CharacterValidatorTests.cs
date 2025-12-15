@@ -1,7 +1,7 @@
 using FluentAssertions;
 using FluentValidation.TestHelper;
-using Game.Models;
-using Game.Validators;
+using Game.Core.Models;
+using Game.Core.Validators;
 using Xunit;
 
 namespace Game.Tests.Validators;

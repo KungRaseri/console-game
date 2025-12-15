@@ -1,10 +1,11 @@
-using Game.Models;
-using Game.Shared.UI;
+using Game.Core.Models;
+using Game.Console.UI;
+using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
-using Game.Services;
-using Game.Features.CharacterCreation;
-using Game.Features.SaveLoad;
+using Game.Core.Services;
+using Game.Core.Features.CharacterCreation;
+using Game.Core.Features.SaveLoad;
 using Game.Shared.Data;
 using Game.Shared.Services;
 using MediatR;
@@ -15,6 +16,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Game.Console.Orchestrators;
 
 namespace Game.Tests.Services;
 
@@ -35,22 +37,22 @@ public class CharacterCreationOrchestratorTests : IDisposable
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-charcreation-{Guid.NewGuid()}.db";
-        
+
         // Setup TestConsole
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
         _characterViewService = new CharacterViewService(_consoleUI);
-        
+
         // Setup MediatR
         var services = new ServiceCollection();
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(CharacterCreationOrchestrator).Assembly);
         });
-        
+
         var serviceProvider = services.BuildServiceProvider();
         _mediator = serviceProvider.GetRequiredService<IMediator>();
-        
+
         var apocalypseTimer = new ApocalypseTimer(_consoleUI);
         _saveGameService = new SaveGameService(apocalypseTimer, _testDbPath);
         _orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, apocalypseTimer, _consoleUI, _characterViewService);
@@ -60,13 +62,13 @@ public class CharacterCreationOrchestratorTests : IDisposable
     {
         // Dispose of SaveGameService first to release file locks
         _saveGameService?.Dispose();
-        
+
         // Clean up test database files
         try
         {
             if (File.Exists(_testDbPath))
                 File.Delete(_testDbPath);
-            
+
             var logFile = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logFile))
                 File.Delete(logFile);
@@ -102,7 +104,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Arrange
         var warriorClass = CharacterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Warrior");
-        
+
         warriorClass.Should().NotBeNull();
 
         // Act - Use reflection to call private method
@@ -112,13 +114,13 @@ public class CharacterCreationOrchestratorTests : IDisposable
 
         // Assert
         result.Should().NotBeNull();
-        
+
         // Warrior primary attributes are Strength and Constitution
         // They should be higher than other attributes
         var strength = result!.GetAttributeValue("Strength");
         var constitution = result.GetAttributeValue("Constitution");
         var intelligence = result.GetAttributeValue("Intelligence");
-        
+
         strength.Should().BeGreaterThan(10, "Strength is a primary attribute for Warrior");
         constitution.Should().BeGreaterThan(10, "Constitution is a primary attribute for Warrior");
         intelligence.Should().BeLessThanOrEqualTo(10, "Intelligence is not a primary attribute for Warrior");
@@ -130,7 +132,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Arrange
         var mageClass = CharacterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Mage");
-        
+
         mageClass.Should().NotBeNull();
 
         // Act
@@ -156,7 +158,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Arrange
         var characterClass = CharacterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == className);
-        
+
         characterClass.Should().NotBeNull();
 
         // Act
@@ -167,9 +169,9 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Assert
         result.Should().NotBeNull();
         var primaryValue = result!.GetAttributeValue(primaryAttr);
-        
+
         // Primary attributes should be at least 12 (14 is the target, but allow for distribution)
-        primaryValue.Should().BeGreaterThanOrEqualTo(12, 
+        primaryValue.Should().BeGreaterThanOrEqualTo(12,
             $"{primaryAttr} is a primary attribute for {className}");
     }
 
@@ -179,7 +181,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Arrange
         var warriorClass = CharacterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Warrior");
-        
+
         warriorClass.Should().NotBeNull();
 
         // Act
@@ -197,7 +199,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Arrange
         var mageClass = CharacterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Mage");
-        
+
         mageClass.Should().NotBeNull();
 
         // Act
@@ -230,7 +232,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Arrange
         var rogueClass = CharacterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Rogue");
-        
+
         rogueClass.Should().NotBeNull();
 
         // Act
@@ -240,11 +242,11 @@ public class CharacterCreationOrchestratorTests : IDisposable
 
         // Assert
         result.Should().NotBeNull();
-        
+
         var attributes = new[] { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" };
         foreach (var attr in attributes)
         {
-            result!.GetAttributeValue(attr).Should().BeGreaterThanOrEqualTo(8, 
+            result!.GetAttributeValue(attr).Should().BeGreaterThanOrEqualTo(8,
                 $"{attr} should be at least 8 (base value)");
         }
     }
@@ -262,11 +264,11 @@ public class CharacterCreationOrchestratorTests : IDisposable
         foreach (var characterClass in allClasses)
         {
             var result = method!.Invoke(_orchestrator, new object[] { characterClass }) as AttributeAllocation;
-            
+
             result.Should().NotBeNull($"Auto-allocation should work for {characterClass.Name}");
-            result!.GetPointsSpent().Should().BeGreaterThanOrEqualTo(26, 
+            result!.GetPointsSpent().Should().BeGreaterThanOrEqualTo(26,
                 $"Most or all points should be spent for {characterClass.Name}");
-            result.GetRemainingPoints().Should().BeLessThanOrEqualTo(1, 
+            result.GetRemainingPoints().Should().BeLessThanOrEqualTo(1,
                 $"At most 1 point should remain for {characterClass.Name}");
         }
     }
@@ -277,7 +279,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Arrange
         var mageClass = CharacterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Mage");
-        
+
         mageClass.Should().NotBeNull();
 
         var method = typeof(CharacterCreationOrchestrator)
@@ -286,19 +288,19 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Act & Assert
         ((int)method!.Invoke(_orchestrator, new object[] { mageClass!, "Strength" })!)
             .Should().Be(mageClass!.BonusStrength);
-        
+
         ((int)method.Invoke(_orchestrator, new object[] { mageClass, "Dexterity" })!)
             .Should().Be(mageClass.BonusDexterity);
-        
+
         ((int)method.Invoke(_orchestrator, new object[] { mageClass, "Constitution" })!)
             .Should().Be(mageClass.BonusConstitution);
-        
+
         ((int)method.Invoke(_orchestrator, new object[] { mageClass, "Intelligence" })!)
             .Should().Be(mageClass.BonusIntelligence);
-        
+
         ((int)method.Invoke(_orchestrator, new object[] { mageClass, "Wisdom" })!)
             .Should().Be(mageClass.BonusWisdom);
-        
+
         ((int)method.Invoke(_orchestrator, new object[] { mageClass, "Charisma" })!)
             .Should().Be(mageClass.BonusCharisma);
     }
@@ -316,12 +318,12 @@ public class CharacterCreationOrchestratorTests : IDisposable
 
         // Assert
         result.Should().NotBeNull();
-        
+
         var attributes = new[] { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" };
         foreach (var attr in attributes)
         {
             var value = result!.GetAttributeValue(attr);
-            value.Should().BeLessThanOrEqualTo(18, 
+            value.Should().BeLessThanOrEqualTo(18,
                 $"{attr} should not exceed maximum value of 18");
         }
     }

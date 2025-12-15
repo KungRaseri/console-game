@@ -1,9 +1,10 @@
-using Game.Services;
-using Game.Features.SaveLoad;
+using Game.Core.Services;
+using Game.Core.Features.SaveLoad;
 using Game.Shared.Services;
-using Game.Shared.UI;
+using Game.Console.UI;
+using Game.Core.Abstractions;
 using Game.Tests.Helpers;
-using Game.Models;
+using Game.Core.Models;
 using Xunit;
 using FluentAssertions;
 using System;
@@ -67,10 +68,10 @@ public class LoadGameServiceTests : IDisposable
     {
         // Arrange & Act
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
-        var consoleUI = new ConsoleUI(testConsole);
-        var apocalypseTimer = new ApocalypseTimer(consoleUI);
+        var ConsoleUI = new ConsoleUI(testConsole);
+        var apocalypseTimer = new ApocalypseTimer(ConsoleUI);
         var saveGameService = new SaveGameService(apocalypseTimer, $"test-temp-{Guid.NewGuid()}.db");
-        var service = new LoadGameService(saveGameService, apocalypseTimer, consoleUI);
+        var service = new LoadGameService(saveGameService, apocalypseTimer, ConsoleUI);
 
         // Assert
         service.Should().NotBeNull();

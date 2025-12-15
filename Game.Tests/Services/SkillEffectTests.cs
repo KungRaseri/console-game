@@ -1,7 +1,7 @@
 using FluentAssertions;
-using Game.Models;
-using Game.Services;
-using Game.Utilities;
+using Game.Core.Models;
+using Game.Core.Services;
+using Game.Core.Utilities;
 
 namespace Game.Tests.Services;
 

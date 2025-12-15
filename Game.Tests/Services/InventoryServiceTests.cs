@@ -1,6 +1,6 @@
-using Game.Models;
-using Game.Services;
-using Game.Features.Inventory;
+using Game.Core.Models;
+using Game.Core.Services;
+using Game.Core.Features.Inventory;
 using FluentAssertions;
 using MediatR;
 

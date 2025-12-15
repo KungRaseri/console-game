@@ -1,7 +1,7 @@
 using FluentAssertions;
 using FluentValidation.TestHelper;
-using Game.Features.Combat.Commands.DefendAction;
-using Game.Models;
+using Game.Core.Features.Combat.Commands.DefendAction;
+using Game.Core.Models;
 using Xunit;
 
 namespace Game.Tests.Features.Combat.Validators;

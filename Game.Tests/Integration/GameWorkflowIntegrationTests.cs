@@ -1,14 +1,15 @@
 using Xunit;
 using FluentAssertions;
-using Game.Services;
-using Game.Shared.UI;
+using Game.Core.Services;
+using Game.Console.UI;
+using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
-using Game.Features.Combat;
-using Game.Features.Exploration;
-using Game.Features.SaveLoad;
+using Game.Core.Features.Combat;
+using Game.Core.Features.Exploration;
+using Game.Core.Features.SaveLoad;
 using Game.Shared.Services;
-using Game.Models;
+using Game.Core.Models;
 
 namespace Game.Tests.Integration;
 

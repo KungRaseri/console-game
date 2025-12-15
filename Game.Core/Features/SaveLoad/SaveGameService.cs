@@ -43,14 +43,14 @@ public class SaveGameService : ISaveGameService, IDisposable
             ApocalypseBonusMinutes = 0,
             PlayTimeMinutes = 0
         };
-        
+
         _gameStartTime = DateTime.Now;
-        Log.Information("New game created for player {PlayerName} (Difficulty: {Difficulty}, Ironman: {Ironman}, Permadeath: {Permadeath}, Apocalypse: {Apocalypse})", 
+        Log.Information("New game created for player {PlayerName} (Difficulty: {Difficulty}, Ironman: {Ironman}, Permadeath: {Permadeath}, Apocalypse: {Apocalypse})",
             player.Name, difficulty.Name, difficulty.AutoSaveOnly, difficulty.IsPermadeath, difficulty.IsApocalypse);
-        
+
         return _currentSave;
     }
-    
+
     /// <summary>
     /// Get difficulty settings from current save.
     /// </summary>
@@ -58,7 +58,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     {
         if (_currentSave == null)
             return DifficultySettings.Normal;
-        
+
         return DifficultySettings.GetByName(_currentSave.DifficultyLevel);
     }
 
@@ -74,19 +74,19 @@ public class SaveGameService : ISaveGameService, IDisposable
             {
                 saveGame.PlayTimeMinutes = (int)(DateTime.Now - _gameStartTime).TotalMinutes;
             }
-            
+
             // Update apocalypse timer state if applicable
             if (saveGame.ApocalypseMode)
             {
                 saveGame.ApocalypseBonusMinutes = _apocalypseTimer.GetBonusMinutes();
                 // ApocalypseStartTime is already set during game creation
             }
-            
+
             saveGame.SaveDate = DateTime.Now;
             _repository.Save(saveGame);
             _currentSave = saveGame;
-            
-            Log.Information("Game saved for player {PlayerName} (Level {Level}, {QuestCount} active quests, {PlayTime}m playtime)", 
+
+            Log.Information("Game saved for player {PlayerName} (Level {Level}, {QuestCount} active quests, {PlayTime}m playtime)",
                 saveGame.PlayerName, saveGame.Character.Level, saveGame.ActiveQuests.Count, saveGame.PlayTimeMinutes);
         }
         catch (Exception ex)
@@ -102,15 +102,15 @@ public class SaveGameService : ISaveGameService, IDisposable
     public void SaveGame(Character player, List<Item> inventory, string? saveId = null)
     {
         // For legacy compatibility, always create a new SaveGame unless saveId is provided
-        var saveGame = saveId != null && _currentSave?.Id == saveId 
-            ? _currentSave 
+        var saveGame = saveId != null && _currentSave?.Id == saveId
+            ? _currentSave
             : new SaveGame
             {
                 Id = saveId ?? Guid.NewGuid().ToString(),
                 PlayerName = player.Name,
                 CreationDate = DateTime.Now
             };
-        
+
         saveGame.Character = player;
         saveGame.PlayerName = player.Name; // Update in case it changed
         // Transfer legacy inventory parameter to Character.Inventory for backwards compatibility
@@ -118,7 +118,7 @@ public class SaveGameService : ISaveGameService, IDisposable
         {
             saveGame.Character.Inventory = inventory;
         }
-        
+
         SaveGame(saveGame);
     }
 
@@ -134,8 +134,8 @@ public class SaveGameService : ISaveGameService, IDisposable
             {
                 _currentSave = save;
                 _gameStartTime = DateTime.Now.AddMinutes(-save.PlayTimeMinutes);
-                
-                Log.Information("Game loaded for player {PlayerName} (Level {Level}, {CompletionPercent:F1}% complete)", 
+
+                Log.Information("Game loaded for player {PlayerName} (Level {Level}, {CompletionPercent:F1}% complete)",
                     save.PlayerName, save.Character.Level, save.GetCompletionPercentage());
             }
             return save;
@@ -270,16 +270,16 @@ public class SaveGameService : ISaveGameService, IDisposable
         }
 
         _currentSave.DeathCount++;
-        
+
         // Track death in game flags for historical reference
         if (!_currentSave.GameFlags.ContainsKey("deaths"))
         {
             _currentSave.GameFlags["deaths"] = true;
         }
-        
-        Log.Warning("Player death #{Count} at {Location} by {Killer}", 
+
+        Log.Warning("Player death #{Count} at {Location} by {Killer}",
             _currentSave.DeathCount, location, killedBy);
-        
+
         // Auto-save in Ironman mode
         if (_currentSave.IronmanMode)
         {
@@ -289,7 +289,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     }
 
     // === Quest Management ===
-    
+
     /// <summary>
     /// Add a quest to available quests (offered but not accepted).
     /// </summary>
@@ -308,7 +308,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     public void AcceptQuest(string questId)
     {
         if (_currentSave == null) return;
-        
+
         var quest = _currentSave.AvailableQuests.FirstOrDefault(q => q.Id == questId);
         if (quest != null)
         {
@@ -326,7 +326,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     public void CompleteQuest(string questId)
     {
         if (_currentSave == null) return;
-        
+
         var quest = _currentSave.ActiveQuests.FirstOrDefault(q => q.Id == questId);
         if (quest != null)
         {
@@ -336,7 +336,7 @@ public class SaveGameService : ISaveGameService, IDisposable
             _currentSave.CompletedQuests.Add(quest);
             _currentSave.QuestsCompleted++;
             Log.Information("Quest '{QuestTitle}' completed!", quest.Title);
-            
+
             // Award bonus time in Apocalypse mode
             if (_currentSave.ApocalypseMode)
             {
@@ -347,9 +347,9 @@ public class SaveGameService : ISaveGameService, IDisposable
                     "hard" => 30,
                     _ => 15
                 };
-                
+
                 _apocalypseTimer.AddBonusTime(bonusMinutes, $"Completed quest: {quest.Title}");
-                
+
                 // Update save with new bonus time
                 _currentSave.ApocalypseBonusMinutes = _apocalypseTimer.GetBonusMinutes();
                 SaveGame(_currentSave);
@@ -363,7 +363,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     public void FailQuest(string questId, string reason = "Unknown")
     {
         if (_currentSave == null) return;
-        
+
         var quest = _currentSave.ActiveQuests.FirstOrDefault(q => q.Id == questId);
         if (quest != null)
         {
@@ -381,12 +381,12 @@ public class SaveGameService : ISaveGameService, IDisposable
     public void UpdateQuestProgress(string questId, int progress)
     {
         if (_currentSave == null) return;
-        
+
         var quest = _currentSave.ActiveQuests.FirstOrDefault(q => q.Id == questId);
         if (quest != null)
         {
             quest.Progress = progress;
-            
+
             // Auto-complete if progress meets quantity
             if (progress >= quest.Quantity)
             {
@@ -396,7 +396,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     }
 
     // === NPC Management ===
-    
+
     /// <summary>
     /// Record meeting an NPC for the first time.
     /// </summary>
@@ -416,12 +416,12 @@ public class SaveGameService : ISaveGameService, IDisposable
     public void ModifyNPCRelationship(string npcId, int change)
     {
         if (_currentSave == null) return;
-        
+
         if (_currentSave.NPCRelationships.ContainsKey(npcId))
         {
             _currentSave.NPCRelationships[npcId] = Math.Clamp(
-                _currentSave.NPCRelationships[npcId] + change, 
-                -100, 
+                _currentSave.NPCRelationships[npcId] + change,
+                -100,
                 100
             );
             Log.Debug("NPC relationship changed: {NpcId} {Change:+0;-0}", npcId, change);
@@ -429,13 +429,13 @@ public class SaveGameService : ISaveGameService, IDisposable
     }
 
     // === Location Management ===
-    
+
     /// <summary>
     /// Discover a new location (visible on map but not visited).
     /// </summary>
     public void DiscoverLocation(string locationName)
     {
-        if (_currentSave != null && !_currentSave.DiscoveredLocations.Contains(locationName) 
+        if (_currentSave != null && !_currentSave.DiscoveredLocations.Contains(locationName)
             && !_currentSave.VisitedLocations.Contains(locationName))
         {
             _currentSave.DiscoveredLocations.Add(locationName);
@@ -449,7 +449,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     public void VisitLocation(string locationName)
     {
         if (_currentSave == null) return;
-        
+
         if (!_currentSave.VisitedLocations.Contains(locationName))
         {
             _currentSave.VisitedLocations.Add(locationName);
@@ -459,16 +459,16 @@ public class SaveGameService : ISaveGameService, IDisposable
     }
 
     // === Combat Tracking ===
-    
+
     /// <summary>
     /// Record an enemy defeat.
     /// </summary>
     public void RecordEnemyDefeat(Enemy enemy)
     {
         if (_currentSave == null) return;
-        
+
         _currentSave.TotalEnemiesDefeated++;
-        
+
         // Track by type
         var enemyType = enemy.Type.ToString().ToLower();
         if (_currentSave.EnemiesDefeatedByType.ContainsKey(enemyType))
@@ -479,7 +479,7 @@ public class SaveGameService : ISaveGameService, IDisposable
         {
             _currentSave.EnemiesDefeatedByType[enemyType] = 1;
         }
-        
+
         // Track legendary enemies
         if (enemy.Traits.ContainsKey("legendary") && enemy.Traits["legendary"].AsBool())
         {
@@ -489,7 +489,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     }
 
     // === Statistics ===
-    
+
     /// <summary>
     /// Record gold earned.
     /// </summary>
@@ -521,7 +521,7 @@ public class SaveGameService : ISaveGameService, IDisposable
         {
             _currentSave.DeathCount++;
             Log.Warning("Player death recorded. Total deaths: {DeathCount}", _currentSave.DeathCount);
-            
+
             // Auto-delete save in Ironman mode
             if (_currentSave.IronmanMode)
             {

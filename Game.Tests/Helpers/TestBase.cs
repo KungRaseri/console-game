@@ -1,4 +1,5 @@
-using Game.Shared.UI;
+using Game.Console.UI;
+using Game.Core.Abstractions;
 using Spectre.Console.Testing;
 
 namespace Game.Tests.Helpers;
@@ -10,7 +11,7 @@ namespace Game.Tests.Helpers;
 public abstract class TestBase
 {
     protected TestConsole TestConsole { get; }
-    protected IConsoleUI ConsoleUI { get; }
+    protected IGameUI ConsoleUI { get; }
 
     protected TestBase()
     {

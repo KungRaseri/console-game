@@ -1,8 +1,8 @@
 using FluentAssertions;
-using Game.Features.SaveLoad;
-using Game.Features.Victory.Commands;
-using Game.Features.Victory.Services;
-using Game.Models;
+using Game.Core.Features.SaveLoad;
+using Game.Core.Features.Victory.Commands;
+using Game.Core.Features.Victory.Services;
+using Game.Core.Models;
 using Moq;
 using Xunit;
 

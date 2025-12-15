@@ -1,5 +1,5 @@
 using FluentAssertions;
-using Game.Features.CharacterCreation.Queries;
+using Game.Core.Features.CharacterCreation.Queries;
 using Xunit;
 
 namespace Game.Tests.Features.CharacterCreation.Queries;

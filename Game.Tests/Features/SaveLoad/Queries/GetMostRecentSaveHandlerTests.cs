@@ -1,9 +1,12 @@
 using FluentAssertions;
-using Game.Features.SaveLoad;
-using Game.Features.SaveLoad.Queries;
-using Game.Models;
+using Game.Core.Features.SaveLoad;
+using Game.Core.Features.SaveLoad.Queries;
+using Game.Core.Models;
+using Game.Core.Services;
 using Game.Shared.Services;
-using Game.Shared.UI;
+using Game.Console.UI;
+using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Moq;
 using Xunit;
 
@@ -15,16 +18,16 @@ namespace Game.Tests.Features.SaveLoad.Queries;
 public class GetMostRecentSaveHandlerTests : IDisposable
 {
     private readonly string _testDbPath;
-    private readonly Mock<IConsoleUI> _mockConsoleUI;
+    private readonly Mock<IGameUI> _mockConsoleUI;
     private readonly ApocalypseTimer _apocalypseTimer;
     private readonly SaveGameService _saveGameService;
 
     public GetMostRecentSaveHandlerTests()
     {
         _testDbPath = $"test-getrecent-{Guid.NewGuid()}.db";
-        _mockConsoleUI = new Mock<IConsoleUI>();
+        _mockConsoleUI = new Mock<IGameUI>();
         _apocalypseTimer = new ApocalypseTimer(_mockConsoleUI.Object);
-        _saveGameService = new SaveGameService(_apocalypseTimer, _testDbPath);
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
     }
 
     [Fact]

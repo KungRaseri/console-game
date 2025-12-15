@@ -1,11 +1,12 @@
 using FluentAssertions;
-using Game.Features.SaveLoad;
-using Game.Features.SaveLoad.Queries;
-using Game.Models;
-using Game.Shared.Services;
-using Game.Shared.UI;
+using Game.Core.Features.SaveLoad;
+using Game.Core.Features.SaveLoad.Queries;
+using Game.Core.Models;
+using Game.Console.UI;
+using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Moq;
-using Xunit;
+using Game.Core.Services;
 
 namespace Game.Tests.Features.SaveLoad.Queries;
 
@@ -15,16 +16,16 @@ namespace Game.Tests.Features.SaveLoad.Queries;
 public class GetAllSavesHandlerTests : IDisposable
 {
     private readonly string _testDbPath;
-    private readonly Mock<IConsoleUI> _mockConsoleUI;
+    private readonly Mock<IGameUI> _mockConsoleUI;
     private readonly ApocalypseTimer _apocalypseTimer;
     private readonly SaveGameService _saveGameService;
 
     public GetAllSavesHandlerTests()
     {
         _testDbPath = $"test-getallsaves-{Guid.NewGuid()}.db";
-        _mockConsoleUI = new Mock<IConsoleUI>();
+        _mockConsoleUI = new Mock<IGameUI>();
         _apocalypseTimer = new ApocalypseTimer(_mockConsoleUI.Object);
-        _saveGameService = new SaveGameService(_apocalypseTimer, _testDbPath);
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
     }
 
     [Fact]
@@ -32,7 +33,7 @@ public class GetAllSavesHandlerTests : IDisposable
     {
         // Arrange
         var handler = new GetAllSavesHandler(_saveGameService);
-        
+
         // Create multiple saves
         var player1 = new Character { Name = "Player1", Level = 5, Health = 100, MaxHealth = 100 };
         var save1 = _saveGameService.CreateNewGame(player1, DifficultySettings.Normal);
@@ -165,7 +166,7 @@ public class GetAllSavesHandlerTests : IDisposable
     {
         // Arrange
         var handler = new GetAllSavesHandler(_saveGameService);
-        
+
         // Create two different saves with same player name
         var player1 = new Character { Name = "MultiSave", Level = 1, Health = 100, MaxHealth = 100 };
         var save1 = _saveGameService.CreateNewGame(player1, DifficultySettings.Normal);
@@ -224,7 +225,7 @@ public class GetAllSavesHandlerTests : IDisposable
             {
                 File.Delete(_testDbPath);
             }
-            
+
             var logDbPath = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logDbPath))
             {
