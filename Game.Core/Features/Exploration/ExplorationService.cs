@@ -50,18 +50,7 @@ public class ExplorationService
 
         // Simulate exploration
         _console.ShowMessage("Exploring...");
-        // TODO: Restore progress bar - temporarily disabled
-        /*
-        _console.ShowProgress("Exploring...", task =>
-        {
-            task.MaxValue = 100;
-            for (int i = 0; i <= 100; i += 10)
-            {
-                task.Value = i;
-                Thread.Sleep(100);
-            }
-        });
-        */
+        await Task.Delay(500); // Brief pause for immersion
 
         // 60% chance of combat encounter, 40% chance of peaceful exploration
         var encounterRoll = Random.Shared.Next(100);

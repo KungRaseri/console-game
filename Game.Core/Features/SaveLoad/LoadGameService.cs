@@ -92,18 +92,6 @@ public class LoadGameService
 
             // Load the save
             _console.ShowMessage("Loading game...");
-            // TODO: Restore progress bar - temporarily disabled
-            /*
-            _console.ShowProgress("Loading game...", task =>
-            {
-                task.MaxValue = 100;
-                for (int i = 0; i <= 100; i += 20)
-                {
-                    task.Value = i;
-                    Thread.Sleep(150);
-                }
-            });
-            */
 
             _console.ShowSuccess($"Welcome back, {selectedSave.Character.Name}!");
             Log.Information("Game loaded for player {PlayerName}", selectedSave.Character.Name);
