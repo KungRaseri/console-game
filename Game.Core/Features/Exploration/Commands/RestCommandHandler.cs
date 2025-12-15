@@ -1,4 +1,3 @@
-using Game.Shared.Services;
 using Game.Core.Abstractions;
 using MediatR;
 using Serilog;

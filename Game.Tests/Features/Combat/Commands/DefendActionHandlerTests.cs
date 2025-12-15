@@ -1,8 +1,6 @@
 using FluentAssertions;
 using Game.Core.Features.Combat.Commands.DefendAction;
 using Game.Core.Models;
-using Game.Core.Services;
-using Xunit;
 
 namespace Game.Tests.Features.Combat.Commands;
 

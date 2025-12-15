@@ -2,17 +2,13 @@ using Game.Core.Models;
 using Game.Core.Services;
 using Game.Core.Features.Exploration;
 using Game.Core.Features.SaveLoad;
-using Game.Shared.Services;
 using Game.Console.UI;
 using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using MediatR;
-using Xunit;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
-using System;
-using System.IO;
 using Spectre.Console.Testing;
 
 namespace Game.Tests.Services;
@@ -41,7 +37,7 @@ public class ExplorationServiceTests : IDisposable
         _consoleUI = new ConsoleUI(_testConsole);
         
         _apocalypseTimer = new ApocalypseTimer(_consoleUI);
-        _saveGameService = new SaveGameService(_apocalypseTimer, _testDbPath);
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
         _gameStateService = new GameStateService(_saveGameService);
         
         // Setup MediatR with all required services for handlers
@@ -89,7 +85,7 @@ public class ExplorationServiceTests : IDisposable
     {
         // Arrange & Act
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
-        var ConsoleUI = new ConsoleUI(testConsole);
+        IGameUI ConsoleUI = new ConsoleUI(testConsole);
         var apocalypseTimer = new ApocalypseTimer(ConsoleUI);
         var saveGameService = new SaveGameService(apocalypseTimer, $"test-temp-{Guid.NewGuid()}.db");
         var gameStateService = new GameStateService(saveGameService);

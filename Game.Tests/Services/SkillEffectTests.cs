@@ -1,6 +1,5 @@
 using FluentAssertions;
 using Game.Core.Models;
-using Game.Core.Services;
 using Game.Core.Utilities;
 
 namespace Game.Tests.Services;

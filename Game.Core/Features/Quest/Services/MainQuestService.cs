@@ -1,5 +1,3 @@
-using Game.Core.Models;
-
 namespace Game.Core.Features.Quest.Services;
 
 /// <summary>

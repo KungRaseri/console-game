@@ -1,14 +1,11 @@
 using Game.Core.Services;
 using Game.Core.Features.SaveLoad;
-using Game.Shared.Services;
 using Game.Console.UI;
 using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using Game.Core.Models;
-using Xunit;
 using FluentAssertions;
-using System;
-using System.IO;
 using Spectre.Console.Testing;
 
 namespace Game.Tests.Services;
@@ -37,8 +34,8 @@ public class LoadGameServiceTests : IDisposable
         _consoleUI = new ConsoleUI(_testConsole);
         
         // Create services with TestConsole
-        _apocalypseTimer = new ApocalypseTimer(_consoleUI);
-        _saveGameService = new SaveGameService(_apocalypseTimer, _testDbPath);
+        _apocalypseTimer = new ApocalypseTimer((IGameUI)_consoleUI);
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
         _loadGameService = new LoadGameService(_saveGameService, _apocalypseTimer, _consoleUI);
     }
 
@@ -68,8 +65,8 @@ public class LoadGameServiceTests : IDisposable
     {
         // Arrange & Act
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
-        var ConsoleUI = new ConsoleUI(testConsole);
-        var apocalypseTimer = new ApocalypseTimer(ConsoleUI);
+        IGameUI ConsoleUI = new ConsoleUI(testConsole);
+        var apocalypseTimer = new ApocalypseTimer((IGameUI)ConsoleUI);
         var saveGameService = new SaveGameService(apocalypseTimer, $"test-temp-{Guid.NewGuid()}.db");
         var service = new LoadGameService(saveGameService, apocalypseTimer, ConsoleUI);
 

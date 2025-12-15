@@ -1,6 +1,5 @@
 using Game.Core.Generators;
 using Game.Core.Models;
-using Game.Shared.Data.Models;
 using Serilog;
 
 namespace Game.ContentBuilder.Services;

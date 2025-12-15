@@ -1,17 +1,13 @@
 using Game.Core.Models;
 using Game.Console.UI;
 using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Game.Core.Services;
 using Game.Core.Features.Exploration;
 using Game.Core.Features.SaveLoad;
-using Game.Shared.Services;
-using Xunit;
 using FluentAssertions;
-using System;
-using System.IO;
-using System.Collections.Generic;
 
 namespace Game.Tests.Services;
 
@@ -34,8 +30,8 @@ public class GameplayServiceTests : IDisposable
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
         
-        _saveGameService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbPath);
-        _gameplayService = new GameplayService(_saveGameService, _consoleUI);
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), new ApocalypseTimer((IGameUI)_consoleUI));
+        _gameplayService = new GameplayService(_saveGameService, (IGameUI)_consoleUI);
     }
 
     public void Dispose()
@@ -63,7 +59,7 @@ public class GameplayServiceTests : IDisposable
     public void GameplayService_Should_Be_Instantiable()
     {
         // Arrange & Act
-        var service = new GameplayService(_saveGameService, _consoleUI);
+        var service = new GameplayService(_saveGameService, (IGameUI)_consoleUI);
 
         // Assert
         service.Should().NotBeNull();

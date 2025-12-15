@@ -1,4 +1,3 @@
-using Game.Core.Models;
 using MediatR;
 using Serilog;
 

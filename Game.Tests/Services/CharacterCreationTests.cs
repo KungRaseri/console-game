@@ -1,8 +1,5 @@
 using FluentAssertions;
 using Game.Core.Models;
-using Game.Shared.Data;
-using Game.Core.Services;
-using Game.Core.Features.CharacterCreation;
 
 namespace Game.Tests.Services;
 

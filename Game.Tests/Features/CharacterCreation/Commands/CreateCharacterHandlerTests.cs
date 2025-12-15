@@ -1,17 +1,12 @@
 using FluentAssertions;
-using Game.Core.Features.CharacterCreation;
 using Game.Core.Features.CharacterCreation.Commands;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Models;
 using Game.Core.Services;
-using Game.Shared.Data;
-using Game.Shared.Events;
-using Game.Shared.Services;
-using Game.Console.UI;
 using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using MediatR;
 using Moq;
-using Xunit;
 
 namespace Game.Tests.Features.CharacterCreation.Commands;
 
@@ -32,7 +27,8 @@ public class CreateCharacterHandlerTests : IDisposable
         _mockMediator = new Mock<IMediator>();
         _mockConsoleUI = new Mock<IGameUI>();
         _apocalypseTimer = new ApocalypseTimer(_mockConsoleUI.Object);
-        _saveGameService = new SaveGameService(_apocalypseTimer, _testDbPath);
+        var repository = new SaveGameRepository(_testDbPath);
+        _saveGameService = new SaveGameService(repository, _apocalypseTimer);
     }
 
     /// <summary>

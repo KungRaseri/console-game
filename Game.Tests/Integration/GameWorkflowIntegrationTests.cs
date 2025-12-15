@@ -1,14 +1,13 @@
-using Xunit;
 using FluentAssertions;
 using Game.Core.Services;
 using Game.Console.UI;
 using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Game.Core.Features.Combat;
 using Game.Core.Features.Exploration;
 using Game.Core.Features.SaveLoad;
-using Game.Shared.Services;
 using Game.Core.Models;
 
 namespace Game.Tests.Integration;
@@ -33,9 +32,11 @@ public class GameWorkflowIntegrationTests : IDisposable
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
         
-        _saveGameService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbFile);
+        var apocalypseTimer = new ApocalypseTimer((IGameUI)_consoleUI);
+        var repository = new SaveGameRepository(_testDbFile);
+        _saveGameService = new SaveGameService(repository, apocalypseTimer);
         _combatService = new CombatService(_saveGameService);
-        _gameplayService = new GameplayService(_saveGameService, _consoleUI);
+        _gameplayService = new GameplayService(_saveGameService, (IGameUI)_consoleUI);
     }
 
     public void Dispose()

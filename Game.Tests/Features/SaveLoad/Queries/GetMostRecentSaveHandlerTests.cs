@@ -3,12 +3,9 @@ using Game.Core.Features.SaveLoad;
 using Game.Core.Features.SaveLoad.Queries;
 using Game.Core.Models;
 using Game.Core.Services;
-using Game.Shared.Services;
-using Game.Console.UI;
 using Game.Core.Abstractions;
 using Game.Data.Repositories;
 using Moq;
-using Xunit;
 
 namespace Game.Tests.Features.SaveLoad.Queries;
 

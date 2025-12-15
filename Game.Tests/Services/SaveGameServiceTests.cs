@@ -2,9 +2,9 @@ using FluentAssertions;
 using Game.Core.Models;
 using Game.Core.Services;
 using Game.Core.Features.SaveLoad;
-using Game.Shared.Services;
 using Game.Console.UI;
 using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 
@@ -27,7 +27,7 @@ public class SaveGameServiceTests : IDisposable
         
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
-        _saveService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbPath);
+        _saveService = new SaveGameService(new SaveGameRepository(_testDbPath), new ApocalypseTimer((IGameUI)_consoleUI));
     } 
 
     [Fact]

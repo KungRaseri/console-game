@@ -1,7 +1,5 @@
 using FluentAssertions;
 using Game.Core.Generators;
-using Game.Core.Models;
-using Xunit;
 
 namespace Game.Tests.Generators;
 

@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using FluentValidation;
 using Game.ContentBuilder.Models;
 using Game.ContentBuilder.Services;
 using Game.ContentBuilder.Validators;

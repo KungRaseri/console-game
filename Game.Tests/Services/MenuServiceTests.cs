@@ -4,11 +4,9 @@ using Game.Core.Features.SaveLoad;
 using Game.Shared.Services;
 using Game.Console.UI;
 using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Game.Tests.Helpers;
-using Xunit;
 using FluentAssertions;
-using System;
-using System.IO;
 using Spectre.Console.Testing;
 
 namespace Game.Tests.Services;
@@ -33,7 +31,7 @@ public class MenuServiceTests : IDisposable
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
         
-        _saveGameService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbPath);
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), new ApocalypseTimer((IGameUI)_consoleUI));
         _gameStateService = new GameStateService(_saveGameService);
         _menuService = new MenuService(_gameStateService, _saveGameService, _consoleUI);
     }

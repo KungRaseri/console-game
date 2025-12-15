@@ -3,7 +3,6 @@ using Game.Core.Features.Combat.Commands.UseCombatItem;
 using Game.Core.Models;
 using MediatR;
 using Moq;
-using Xunit;
 
 namespace Game.Tests.Features.Combat.Commands;
 

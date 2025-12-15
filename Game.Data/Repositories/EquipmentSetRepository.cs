@@ -1,4 +1,3 @@
-using Game.Shared.Models;
 using Game.Core.Models;
 using Game.Core.Abstractions;
 

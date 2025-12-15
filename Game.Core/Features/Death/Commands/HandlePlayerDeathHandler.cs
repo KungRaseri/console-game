@@ -1,4 +1,3 @@
-using Game.Core.Features.Death;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Models;
 using Game.Core.Abstractions;

@@ -1,8 +1,6 @@
-using FluentAssertions;
 using FluentValidation.TestHelper;
 using Game.Core.Features.Combat.Commands.FleeFromCombat;
 using Game.Core.Models;
-using Xunit;
 
 namespace Game.Tests.Features.Combat.Validators;
 

@@ -2,10 +2,9 @@ using FluentAssertions;
 using Game.Core.Models;
 using Game.Shared.Services;
 using Game.Console.UI;
-using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
-using Xunit;
 
 namespace Game.Tests.Services;
 
@@ -15,14 +14,15 @@ namespace Game.Tests.Services;
 public class CharacterViewServiceTests
 {
     private readonly TestConsole _testConsole;
-    private readonly IGameUI _consoleUI;
+    private readonly IConsoleUI _consoleUI;
     private readonly CharacterViewService _characterViewService;
 
     public CharacterViewServiceTests()
     {
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
-        _characterViewService = new CharacterViewService(_consoleUI);
+        var equipmentSetRepository = new EquipmentSetRepository();
+        _characterViewService = new CharacterViewService(_consoleUI, equipmentSetRepository);
     }
 
     [Fact]

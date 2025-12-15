@@ -1,7 +1,6 @@
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using Game.Core.Settings;
-using Xunit;
 
 namespace Game.Tests.Settings;
 

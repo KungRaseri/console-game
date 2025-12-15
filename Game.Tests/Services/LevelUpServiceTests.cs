@@ -5,7 +5,6 @@ using Game.Console.UI;
 using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
-using Xunit;
 
 namespace Game.Tests.Services;
 

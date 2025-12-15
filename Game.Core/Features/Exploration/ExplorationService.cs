@@ -1,11 +1,9 @@
 using Game.Core.Models;
 using Game.Core.Abstractions;
-using Game.Shared.Services;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Features.Death.Queries;
 using Game.Core.Generators;
 using MediatR;
-using Serilog;
 
 using Game.Core.Services;
 namespace Game.Core.Features.Exploration;

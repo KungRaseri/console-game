@@ -2,14 +2,12 @@ using FluentAssertions;
 using Game.Core.Models;
 using Game.Console.UI;
 using Game.Core.Abstractions;
+using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Game.Core.Services;
 using Game.Core.Features.Combat;
 using Game.Core.Features.SaveLoad;
-using Game.Shared.Services;
-using System;
-using System.IO;
 
 namespace Game.Tests.Services;
 
@@ -29,7 +27,7 @@ public class CombatServiceTests : IDisposable
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
         
-        _saveGameService = new SaveGameService(new ApocalypseTimer(_consoleUI), _testDbPath);
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), new ApocalypseTimer((IGameUI)_consoleUI));
         
         // Create a test save game with normal difficulty
         var testSave = new SaveGame 

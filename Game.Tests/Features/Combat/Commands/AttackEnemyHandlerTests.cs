@@ -8,10 +8,8 @@ using Game.Core.Features.Combat.Commands.AttackEnemy;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Models;
 using Game.Core.Services;
-using Game.Shared.Services;
 using MediatR;
 using Moq;
-using Xunit;
 
 namespace Game.Tests.Features.Combat.Commands;
 
@@ -36,7 +34,7 @@ public class AttackEnemyHandlerTests : IDisposable
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
         
-        var apocalypseTimer = new ApocalypseTimer(_consoleUI);
+        var apocalypseTimer = new ApocalypseTimer((IGameUI)_consoleUI);
         
         // Create a single mock instance to avoid creating multiple database connections
         _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, apocalypseTimer, _testDbPath);

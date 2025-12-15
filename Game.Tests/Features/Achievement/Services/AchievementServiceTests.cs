@@ -3,12 +3,10 @@ using Game.Core.Features.Achievement.Services;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Models;
 using Game.Core.Services;
-using Game.Shared.Services;
 using Game.Console.UI;
 using Game.Core.Abstractions;
 using Game.Data.Repositories;
 using Spectre.Console.Testing;
-using Xunit;
 
 namespace Game.Tests.Features.Achievement.Services;
 
@@ -26,7 +24,7 @@ public class AchievementServiceTests : IDisposable
     public AchievementServiceTests()
     {
         var testConsole = new TestConsole();
-        _consoleUI = new ConsoleUI(testConsole);
+        _consoleUI = (IGameUI)new ConsoleUI(testConsole);
 
         // Use unique temporary file for each test
         _testDbPath = $"test-achievement-{Guid.NewGuid()}.db";

@@ -1,20 +1,13 @@
 using Game.Core.Models;
 using Game.Console.UI;
-using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Game.Core.Services;
-using Game.Core.Features.CharacterCreation;
 using Game.Core.Features.SaveLoad;
-using Game.Shared.Data;
 using Game.Shared.Services;
 using MediatR;
-using Xunit;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using Game.Console.Orchestrators;
 
@@ -41,7 +34,8 @@ public class CharacterCreationOrchestratorTests : IDisposable
         // Setup TestConsole
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
-        _characterViewService = new CharacterViewService(_consoleUI);
+        var equipmentSetRepository = new EquipmentSetRepository();
+        _characterViewService = new CharacterViewService(_consoleUI, equipmentSetRepository);
 
         // Setup MediatR
         var services = new ServiceCollection();
@@ -53,9 +47,11 @@ public class CharacterCreationOrchestratorTests : IDisposable
         var serviceProvider = services.BuildServiceProvider();
         _mediator = serviceProvider.GetRequiredService<IMediator>();
 
-        var apocalypseTimer = new ApocalypseTimer(_consoleUI);
-        _saveGameService = new SaveGameService(apocalypseTimer, _testDbPath);
-        _orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, apocalypseTimer, _consoleUI, _characterViewService);
+        var apocalypseTimer = new ApocalypseTimer((IGameUI)_consoleUI);
+        var repository = new SaveGameRepository(_testDbPath);
+        _saveGameService = new SaveGameService(repository, apocalypseTimer);
+        var classRepository = new CharacterClassRepository();
+        _orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, apocalypseTimer, _consoleUI, _characterViewService, classRepository);
     }
 
     public void Dispose()

@@ -1,7 +1,6 @@
 using FluentAssertions;
 using Game.Core.Features.Combat.Queries.GetEnemyInfo;
 using Game.Core.Models;
-using Xunit;
 
 namespace Game.Tests.Features.Combat.Queries;
 

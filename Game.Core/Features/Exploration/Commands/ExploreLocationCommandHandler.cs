@@ -1,6 +1,5 @@
 using Game.Core.Models;
 using Game.Core.Abstractions;
-using Game.Shared.Services;
 using Game.Core.Generators;
 using MediatR;
 using Serilog;

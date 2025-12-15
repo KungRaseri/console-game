@@ -1,6 +1,6 @@
 using FluentAssertions;
 using Game.Core.Features.CharacterCreation.Queries;
-using Xunit;
+using Game.Data.Repositories;
 
 namespace Game.Tests.Features.CharacterCreation.Queries;
 
@@ -13,7 +13,8 @@ public class GetCharacterClassHandlerTests
     public async Task Handle_Should_Return_Found_True_For_Valid_Class()
     {
         // Arrange
-        var handler = new GetCharacterClassHandler();
+        var repository = new CharacterClassRepository();
+        var handler = new GetCharacterClassHandler(repository);
         var query = new GetCharacterClassQuery { ClassName = "Warrior" };
 
         // Act
@@ -30,7 +31,7 @@ public class GetCharacterClassHandlerTests
     public async Task Handle_Should_Return_Found_False_For_Invalid_Class()
     {
         // Arrange
-        var handler = new GetCharacterClassHandler();
+        var repository = new CharacterClassRepository(); var handler = new GetCharacterClassHandler(repository);
         var query = new GetCharacterClassQuery { ClassName = "InvalidClass" };
 
         // Act
@@ -49,7 +50,7 @@ public class GetCharacterClassHandlerTests
     public async Task Handle_Should_Return_Valid_Class_Data(string className)
     {
         // Arrange
-        var handler = new GetCharacterClassHandler();
+        var repository = new CharacterClassRepository(); var handler = new GetCharacterClassHandler(repository);
         var query = new GetCharacterClassQuery { ClassName = className };
 
         // Act
@@ -66,7 +67,7 @@ public class GetCharacterClassHandlerTests
     public async Task Handle_Should_Be_Case_Sensitive()
     {
         // Arrange
-        var handler = new GetCharacterClassHandler();
+        var repository = new CharacterClassRepository(); var handler = new GetCharacterClassHandler(repository);
         var query = new GetCharacterClassQuery { ClassName = "warrior" }; // lowercase
 
         // Act
@@ -81,7 +82,7 @@ public class GetCharacterClassHandlerTests
     public async Task Handle_Should_Return_Null_CharacterClass_When_Not_Found()
     {
         // Arrange
-        var handler = new GetCharacterClassHandler();
+        var repository = new CharacterClassRepository(); var handler = new GetCharacterClassHandler(repository);
         var query = new GetCharacterClassQuery { ClassName = "NonExistentClass" };
 
         // Act

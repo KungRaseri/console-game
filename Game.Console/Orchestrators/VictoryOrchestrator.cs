@@ -1,6 +1,5 @@
 using MediatR;
 using Game.Console.UI;
-using Game.Core.Models;
 using Game.Core.Features.Achievement.Queries;
 using Serilog;
 using Game.Core.Features.Victory.Commands;

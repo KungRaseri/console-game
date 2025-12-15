@@ -1,11 +1,9 @@
 using FluentAssertions;
 using Game.Core.Services;
-using Game.Shared.Services;
 using Game.Console.UI;
 using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
-using Xunit;
 
 namespace Game.Tests.Services;
 
@@ -21,7 +19,7 @@ public class ApocalypseTimerTests
     public ApocalypseTimerTests()
     {
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
-        _consoleUI = new ConsoleUI(_testConsole);
+        _consoleUI = (IGameUI)new ConsoleUI(_testConsole);
     }
 
     #region Start Tests
@@ -457,7 +455,7 @@ public class ApocalypseTimerTests
 
         // Second check at 25 minutes (will show 30 minute warning)
         var testConsole2 = TestConsoleHelper.CreateInteractiveConsole();
-        var consoleUI2 = new ConsoleUI(testConsole2);
+        IGameUI consoleUI2 = (IGameUI)new ConsoleUI(testConsole2);
         var timer2 = new ApocalypseTimer(consoleUI2);
         
         var startTime2 = DateTime.Now.AddMinutes(-185); // Start at 55 min
@@ -478,7 +476,7 @@ public class ApocalypseTimerTests
     {
         // Arrange - Timer that has already shown 1hr and 30min warnings
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
-        var ConsoleUI = new ConsoleUI(testConsole);
+        IGameUI ConsoleUI = (IGameUI)new ConsoleUI(testConsole);
         var timer = new ApocalypseTimer(ConsoleUI);
         
         // Trigger 1 hour warning
@@ -507,7 +505,7 @@ public class ApocalypseTimerTests
     {
         // Arrange
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
-        var ConsoleUI = new ConsoleUI(testConsole);
+        IGameUI ConsoleUI = (IGameUI)new ConsoleUI(testConsole);
         var timer = new ApocalypseTimer(ConsoleUI);
         var startTime = DateTime.Now.AddMinutes(-235); // 5 minutes remaining
 
@@ -518,7 +516,7 @@ public class ApocalypseTimerTests
         
         // Create new console to track second call output
         var testConsole2 = TestConsoleHelper.CreateInteractiveConsole();
-        var consoleUI2 = new ConsoleUI(testConsole2);
+        IGameUI consoleUI2 = (IGameUI)new ConsoleUI(testConsole2);
         var timer2 = new ApocalypseTimer(consoleUI2);
         timer2.StartFromSave(startTime, 0);
         timer2.CheckTimeWarnings(); // First call for this timer

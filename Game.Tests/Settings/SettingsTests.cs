@@ -1,6 +1,5 @@
 using FluentAssertions;
 using Game.Core.Settings;
-using Xunit;
 
 namespace Game.Tests.Settings;
 

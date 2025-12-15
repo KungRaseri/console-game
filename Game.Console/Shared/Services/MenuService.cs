@@ -3,7 +3,6 @@ using Game.Core.Services;
 using Game.Core.Features.SaveLoad;
 using Game.Console.UI;
 using Spectre.Console;
-using Serilog;
 
 namespace Game.Shared.Services;
 

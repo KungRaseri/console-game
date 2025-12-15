@@ -16,6 +16,6 @@ public abstract class TestBase
     protected TestBase()
     {
         TestConsole = TestConsoleHelper.CreateInteractiveConsole();
-        ConsoleUI = new ConsoleUI(TestConsole);
+        ConsoleUI = (IGameUI)new ConsoleUI(TestConsole);
     }
 }
