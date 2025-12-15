@@ -74,7 +74,7 @@ try
     services.AddMediatR(cfg =>
     {
         cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-        
+
         // Add pipeline behaviors (order matters!)
         cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
         cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
@@ -86,52 +86,52 @@ try
     services.AddSingleton<GameStateService>();
     services.AddSingleton<CombatService>();
     services.AddSingleton<LevelUpService>();
-    
+
     // Register UI services
-    services.AddSingleton<IAnsiConsole>(AnsiConsole.Console);
-    services.AddSingleton<IConsoleUI, ConsoleUI>();
-    
+    services.AddSingleton(AnsiConsole.Console);
+    services.AddSingleton<IGameUI, ConsoleUI>();
+
     // Apocalypse timer (shared service)
     services.AddSingleton<ApocalypseTimer>();
-    
+
     // Death system services (Phase 2)
     services.AddSingleton<DeathService>();
     services.AddSingleton<HallOfFameRepository>();
-    
+
     // Register repositories
     services.AddSingleton<ISaveGameRepository>(sp => new SaveGameRepository("savegames.db"));
     services.AddSingleton<IHallOfFameRepository>(sp => new HallOfFameRepository("halloffame.db"));
     services.AddTransient<ICharacterClassRepository, CharacterClassRepository>();
     services.AddTransient<IEquipmentSetRepository, EquipmentSetRepository>();
-    
+
     // Quest system services (Phase 4) - COMMENTED OUT - moved to Game.Core
     // services.AddScoped<Game.Core.Features.Quest.Services.QuestService>();
     // services.AddScoped<Game.Core.Features.Quest.Services.MainQuestService>();
     // services.AddScoped<Game.Core.Features.Quest.Services.QuestProgressService>();
-    
+
     // Achievement system services (Phase 4) - COMMENTED OUT - moved to Game.Core
     // services.AddScoped<Game.Core.Features.Achievement.Services.AchievementService>();
-    
+
     // Victory system services (Phase 4) - COMMENTED OUT - moved to Game.Core
     // services.AddScoped<Game.Core.Features.Victory.Services.VictoryService>();
     // services.AddScoped<Game.Core.Features.Victory.Services.NewGamePlusService>();
     // services.AddScoped<Game.Core.Features.Victory.Orchestrators.VictoryOrchestrator>();
-    
+
     // Register UI and interaction services
     services.AddTransient<MenuService>();
     services.AddTransient<CharacterViewService>();
     services.AddTransient<ExplorationService>();
-    
+
     // Register orchestrator services
     services.AddTransient<CharacterCreationOrchestrator>();
     services.AddTransient<LoadGameService>();
     services.AddTransient<GameplayService>();
     services.AddTransient<CombatOrchestrator>();
     services.AddTransient<InventoryOrchestrator>();
-    
+
     // Register GameEngine service aggregator (reduces constructor complexity)
     services.AddScoped<GameEngineServices>();
-    
+
     // Register the game engine
     services.AddSingleton<GameEngine>();
 
@@ -161,14 +161,14 @@ static void ValidateSettings<T>(ServiceProvider provider) where T : class
 {
     var settings = provider.GetRequiredService<IOptions<T>>().Value;
     var validator = provider.GetRequiredService<IValidator<T>>();
-    
+
     var validationResult = validator.Validate(settings);
-    
+
     if (!validationResult.IsValid)
     {
         var errors = string.Join(Environment.NewLine, validationResult.Errors.Select(e => $"  - {e.PropertyName}: {e.ErrorMessage}"));
         throw new InvalidOperationException($"Configuration validation failed for {typeof(T).Name}:{Environment.NewLine}{errors}");
     }
-    
+
     Log.Debug("{SettingsType} validation passed", typeof(T).Name);
 }

@@ -23,29 +23,29 @@ public class AttackEnemyHandlerTests : IDisposable
     private readonly Mock<SaveGameService> _saveGameServiceMock;
     private readonly AttackEnemyHandler _handler;
     private readonly TestConsole _testConsole;
-    private readonly ConsoleUI _consoleUI;
+    private readonly IGameUI _consoleUI;
     private readonly string _testDbPath;
 
     public AttackEnemyHandlerTests()
     {
         // Use unique database path for each test instance to avoid file locking
         _testDbPath = $"test_attack_{Guid.NewGuid()}.db";
-        
+
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
-        
-        var apocalypseTimer = new ApocalypseTimer((IGameUI)_consoleUI);
-        
+
+        var apocalypseTimer = new ApocalypseTimer(_consoleUI);
+
         // Create a single mock instance to avoid creating multiple database connections
         _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, apocalypseTimer, _testDbPath);
         _combatServiceMock = new Mock<CombatService>(MockBehavior.Loose, _saveGameServiceMock.Object);
         _mediatorMock = new Mock<IMediator>();
-        
+
         // Setup default difficulty settings
         _saveGameServiceMock
             .Setup(x => x.GetDifficultySettings())
             .Returns(DifficultySettings.Normal);
-        
+
         _handler = new AttackEnemyHandler(_combatServiceMock.Object, _mediatorMock.Object, _saveGameServiceMock.Object);
     }
 
@@ -53,13 +53,13 @@ public class AttackEnemyHandlerTests : IDisposable
     {
         // Dispose of the real SaveGameService instance created in the mock
         _saveGameServiceMock?.Object?.Dispose();
-        
+
         // Clean up test database files
         try
         {
             if (File.Exists(_testDbPath))
                 File.Delete(_testDbPath);
-            
+
             var logFile = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logFile))
                 File.Delete(logFile);
@@ -77,16 +77,16 @@ public class AttackEnemyHandlerTests : IDisposable
         var player = new Character { Name = "Hero", Strength = 10 };
         var enemy = new Enemy { Name = "Goblin", Health = 50, MaxHealth = 50 };
         var combatLog = new CombatLog();
-        
+
         _combatServiceMock
             .Setup(x => x.ExecutePlayerAttack(player, enemy, false))
             .Returns(new CombatResult { Damage = 20, IsCritical = false });
 
-        var command = new AttackEnemyCommand 
-        { 
-            Player = player, 
-            Enemy = enemy, 
-            CombatLog = combatLog 
+        var command = new AttackEnemyCommand
+        {
+            Player = player,
+            Enemy = enemy,
+            CombatLog = combatLog
         };
 
         // Act
@@ -104,32 +104,32 @@ public class AttackEnemyHandlerTests : IDisposable
     public async Task Handle_Should_Mark_Enemy_As_Defeated_When_Health_Reaches_Zero()
     {
         // Arrange
-        var player = new Character 
-        { 
-            Name = "Hero", 
-            Strength = 20, 
-            Experience = 0, 
-            Gold = 0 
+        var player = new Character
+        {
+            Name = "Hero",
+            Strength = 20,
+            Experience = 0,
+            Gold = 0
         };
-        var enemy = new Enemy 
-        { 
-            Name = "Goblin", 
-            Health = 10, 
+        var enemy = new Enemy
+        {
+            Name = "Goblin",
+            Health = 10,
             MaxHealth = 50,
             XPReward = 50,
             GoldReward = 25
         };
         var combatLog = new CombatLog();
-        
+
         _combatServiceMock
             .Setup(x => x.ExecutePlayerAttack(player, enemy, false))
             .Returns(new CombatResult { Damage = 15, IsCritical = false });
 
-        var command = new AttackEnemyCommand 
-        { 
-            Player = player, 
-            Enemy = enemy, 
-            CombatLog = combatLog 
+        var command = new AttackEnemyCommand
+        {
+            Player = player,
+            Enemy = enemy,
+            CombatLog = combatLog
         };
 
         // Act
@@ -151,15 +151,15 @@ public class AttackEnemyHandlerTests : IDisposable
         // Arrange
         var player = new Character { Name = "Hero", Strength = 10 };
         var enemy = new Enemy { Name = "Goblin", Health = 50, MaxHealth = 50 };
-        
+
         _combatServiceMock
             .Setup(x => x.ExecutePlayerAttack(player, enemy, false))
             .Returns(new CombatResult { Damage = 30, IsCritical = true });
 
-        var command = new AttackEnemyCommand 
-        { 
-            Player = player, 
-            Enemy = enemy 
+        var command = new AttackEnemyCommand
+        {
+            Player = player,
+            Enemy = enemy
         };
 
         // Act
@@ -174,30 +174,30 @@ public class AttackEnemyHandlerTests : IDisposable
     public async Task Handle_Should_Publish_Events_When_Enemy_Defeated()
     {
         // Arrange
-        var player = new Character 
-        { 
-            Name = "Hero", 
-            Strength = 20, 
-            Experience = 0, 
-            Gold = 0 
+        var player = new Character
+        {
+            Name = "Hero",
+            Strength = 20,
+            Experience = 0,
+            Gold = 0
         };
-        var enemy = new Enemy 
-        { 
-            Name = "Goblin", 
-            Health = 5, 
+        var enemy = new Enemy
+        {
+            Name = "Goblin",
+            Health = 5,
             MaxHealth = 50,
             XPReward = 50,
             GoldReward = 25
         };
-        
+
         _combatServiceMock
             .Setup(x => x.ExecutePlayerAttack(player, enemy, false))
             .Returns(new CombatResult { Damage = 10, IsCritical = false });
 
-        var command = new AttackEnemyCommand 
-        { 
-            Player = player, 
-            Enemy = enemy 
+        var command = new AttackEnemyCommand
+        {
+            Player = player,
+            Enemy = enemy
         };
 
         // Act
@@ -205,10 +205,10 @@ public class AttackEnemyHandlerTests : IDisposable
 
         // Assert
         _mediatorMock.Verify(
-            x => x.Publish(It.IsAny<EnemyDefeated>(), It.IsAny<CancellationToken>()), 
+            x => x.Publish(It.IsAny<EnemyDefeated>(), It.IsAny<CancellationToken>()),
             Times.Once);
         _mediatorMock.Verify(
-            x => x.Publish(It.IsAny<GoldGained>(), It.IsAny<CancellationToken>()), 
+            x => x.Publish(It.IsAny<GoldGained>(), It.IsAny<CancellationToken>()),
             Times.Once);
     }
 }

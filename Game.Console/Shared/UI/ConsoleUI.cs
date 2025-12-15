@@ -1,6 +1,7 @@
 using Spectre.Console;
 using Spectre.Console.Rendering;
 using Game.Core.Models;
+using Game.Core.Abstractions;
 
 namespace Game.Console.UI;
 
@@ -9,7 +10,7 @@ namespace Game.Console.UI;
 /// Provides rich console UI features with security best practices.
 /// All user input is automatically escaped to prevent markup injection.
 /// </summary>
-public class ConsoleUI : IConsoleUI
+public class ConsoleUI : IGameUI, IConsoleUI
 {
     private readonly IAnsiConsole _console;
     
@@ -719,6 +720,16 @@ public class ConsoleUI : IConsoleUI
     {
         var width = System.Console.WindowWidth;
         _console.MarkupLine($"[{color}]{new string(character[0], width)}[/]");
+    }
+
+    public void ShowMessage(string message)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ShowProgress(string title, Action<object> work)
+    {
+        throw new NotImplementedException();
     }
 
     #endregion

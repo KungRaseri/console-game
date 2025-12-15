@@ -12,6 +12,7 @@ using MediatR;
 using Moq;
 using System.Reflection;
 using Game.Console.Orchestrators;
+using Game.Data.Repositories;
 
 namespace Game.Tests.Services;
 
@@ -46,11 +47,11 @@ public class CombatOrchestratorTests : IDisposable
         _mockMediator = new Mock<IMediator>();
 
         // Create real dependencies with correct constructors
-        _saveGameService = new SaveGameService(new ApocalypseTimer((IGameUI)_consoleUI), _testDbFile);
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbFile), new ApocalypseTimer((IGameUI)_consoleUI));
         _combatService = new CombatService(_saveGameService);
         _gameStateService = new GameStateService(_saveGameService);
         _menuService = new MenuService(_gameStateService, _saveGameService, _consoleUI);
-        _levelUpService = new LevelUpService(_consoleUI);
+        _levelUpService = new LevelUpService((IGameUI)_consoleUI);
 
         // Create CombatOrchestrator
         _combatOrchestrator = new CombatOrchestrator(

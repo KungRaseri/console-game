@@ -32,11 +32,11 @@ public class GameWorkflowIntegrationTests : IDisposable
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
         
-        var apocalypseTimer = new ApocalypseTimer((IGameUI)_consoleUI);
+        var apocalypseTimer = new ApocalypseTimer(_consoleUI);
         var repository = new SaveGameRepository(_testDbFile);
         _saveGameService = new SaveGameService(repository, apocalypseTimer);
         _combatService = new CombatService(_saveGameService);
-        _gameplayService = new GameplayService(_saveGameService, (IGameUI)_consoleUI);
+        _gameplayService = new GameplayService(_saveGameService, _consoleUI);
     }
 
     public void Dispose()

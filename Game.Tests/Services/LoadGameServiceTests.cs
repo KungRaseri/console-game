@@ -34,7 +34,7 @@ public class LoadGameServiceTests : IDisposable
         _consoleUI = new ConsoleUI(_testConsole);
         
         // Create services with TestConsole
-        _apocalypseTimer = new ApocalypseTimer((IGameUI)_consoleUI);
+        _apocalypseTimer = new ApocalypseTimer(_consoleUI);
         _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
         _loadGameService = new LoadGameService(_saveGameService, _apocalypseTimer, _consoleUI);
     }
@@ -66,8 +66,9 @@ public class LoadGameServiceTests : IDisposable
         // Arrange & Act
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
         IGameUI ConsoleUI = new ConsoleUI(testConsole);
-        var apocalypseTimer = new ApocalypseTimer((IGameUI)ConsoleUI);
-        var saveGameService = new SaveGameService(apocalypseTimer, $"test-temp-{Guid.NewGuid()}.db");
+        var apocalypseTimer = new ApocalypseTimer(ConsoleUI);
+        var repository = new SaveGameRepository($"test-temp-{Guid.NewGuid()}.db");
+        var saveGameService = new SaveGameService(repository, apocalypseTimer);
         var service = new LoadGameService(saveGameService, apocalypseTimer, ConsoleUI);
 
         // Assert

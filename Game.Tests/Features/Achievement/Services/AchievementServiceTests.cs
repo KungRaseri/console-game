@@ -24,7 +24,7 @@ public class AchievementServiceTests : IDisposable
     public AchievementServiceTests()
     {
         var testConsole = new TestConsole();
-        _consoleUI = (IGameUI)new ConsoleUI(testConsole);
+        _consoleUI = new ConsoleUI(testConsole);
 
         // Use unique temporary file for each test
         _testDbPath = $"test-achievement-{Guid.NewGuid()}.db";

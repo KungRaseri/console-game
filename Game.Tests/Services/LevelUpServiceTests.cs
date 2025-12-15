@@ -77,9 +77,9 @@ public class LevelUpServiceTests
             UnspentSkillPoints = 0,
             PendingLevelUps = new List<LevelUpInfo>
             {
-                new LevelUpInfo 
-                { 
-                    NewLevel = 6, 
+                new LevelUpInfo
+                {
+                    NewLevel = 6,
                     IsProcessed = false,
                     AttributePointsGained = 5,
                     SkillPointsGained = 1
@@ -127,7 +127,7 @@ public class LevelUpServiceTests
         // Assert
         character.PendingLevelUps.Should().HaveCount(3);
         character.PendingLevelUps.Should().OnlyContain(l => l.IsProcessed);
-        
+
         // Verify they were processed in order (6, 7, 8)
         var output = _testConsole.Output;
         output.Should().Contain("LEVEL 6");

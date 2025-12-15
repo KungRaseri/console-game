@@ -10,6 +10,10 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Game.Console.Orchestrators;
+using Game.Data.Repositories;
+using Game.Core.Abstractions;
+using Game.Core.Features.CharacterCreation;
+using Game.Shared.Data;
 
 namespace Game.Tests.Services;
 
@@ -25,6 +29,8 @@ public class CharacterCreationOrchestratorTests : IDisposable
     private readonly ConsoleUI _consoleUI;
     private readonly CharacterViewService _characterViewService;
     private readonly string _testDbPath;
+    private readonly ICharacterClassRepository _characterClassRepository;
+
 
     public CharacterCreationOrchestratorTests()
     {
@@ -47,12 +53,13 @@ public class CharacterCreationOrchestratorTests : IDisposable
         var serviceProvider = services.BuildServiceProvider();
         _mediator = serviceProvider.GetRequiredService<IMediator>();
 
-        var apocalypseTimer = new ApocalypseTimer((IGameUI)_consoleUI);
+        var apocalypseTimer = new ApocalypseTimer(_consoleUI);
         var repository = new SaveGameRepository(_testDbPath);
         _saveGameService = new SaveGameService(repository, apocalypseTimer);
-        var classRepository = new CharacterClassRepository();
-        _orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, apocalypseTimer, _consoleUI, _characterViewService, classRepository);
+        _characterClassRepository = new CharacterClassRepository();
+        _orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, apocalypseTimer, _consoleUI, _characterViewService, _characterClassRepository);
     }
+
 
     public void Dispose()
     {
@@ -79,7 +86,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void CharacterCreationOrchestrator_Should_Be_Instantiable()
     {
         // Arrange & Act
-        var orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, new ApocalypseTimer(_consoleUI), _consoleUI, _characterViewService);
+        var orchestrator = new CharacterCreationOrchestrator(_mediator, _saveGameService, new ApocalypseTimer(_consoleUI), _consoleUI, _characterViewService, _characterClassRepository);
 
         // Assert
         orchestrator.Should().NotBeNull();
@@ -98,7 +105,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void AutoAllocateAttributes_Should_Prioritize_Primary_Attributes()
     {
         // Arrange
-        var warriorClass = CharacterClassRepository.GetAllClasses()
+        var warriorClass = _characterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Warrior");
 
         warriorClass.Should().NotBeNull();
@@ -126,7 +133,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void AutoAllocateAttributes_Should_Use_All_27_Points()
     {
         // Arrange
-        var mageClass = CharacterClassRepository.GetAllClasses()
+        var mageClass = _characterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Mage");
 
         mageClass.Should().NotBeNull();
@@ -152,7 +159,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void AutoAllocateAttributes_Should_Favor_Class_Primary_Attributes(string className, string primaryAttr)
     {
         // Arrange
-        var characterClass = CharacterClassRepository.GetAllClasses()
+        var characterClass = _characterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == className);
 
         characterClass.Should().NotBeNull();
@@ -175,7 +182,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void GetClassBonus_Should_Return_Correct_Strength_Bonus()
     {
         // Arrange
-        var warriorClass = CharacterClassRepository.GetAllClasses()
+        var warriorClass = _characterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Warrior");
 
         warriorClass.Should().NotBeNull();
@@ -193,7 +200,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void GetClassBonus_Should_Return_Correct_Intelligence_Bonus()
     {
         // Arrange
-        var mageClass = CharacterClassRepository.GetAllClasses()
+        var mageClass = _characterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Mage");
 
         mageClass.Should().NotBeNull();
@@ -211,7 +218,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void GetClassBonus_Should_Return_Zero_For_Invalid_Attribute()
     {
         // Arrange
-        var anyClass = CharacterClassRepository.GetAllClasses().First();
+        var anyClass = _characterClassRepository.GetAllClasses().First();
 
         // Act
         var method = typeof(CharacterCreationOrchestrator)
@@ -226,7 +233,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void AutoAllocateAttributes_Should_Set_All_Attributes_To_At_Least_8()
     {
         // Arrange
-        var rogueClass = CharacterClassRepository.GetAllClasses()
+        var rogueClass = _characterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Rogue");
 
         rogueClass.Should().NotBeNull();
@@ -251,7 +258,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void AutoAllocateAttributes_Should_Handle_All_Classes()
     {
         // Arrange
-        var allClasses = CharacterClassRepository.GetAllClasses();
+        var allClasses = _characterClassRepository.GetAllClasses();
 
         // Act & Assert
         var method = typeof(CharacterCreationOrchestrator)
@@ -273,7 +280,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void GetClassBonus_Should_Return_All_Attribute_Bonuses_Correctly()
     {
         // Arrange
-        var mageClass = CharacterClassRepository.GetAllClasses()
+        var mageClass = _characterClassRepository.GetAllClasses()
             .FirstOrDefault(c => c.Name == "Mage");
 
         mageClass.Should().NotBeNull();
@@ -305,7 +312,7 @@ public class CharacterCreationOrchestratorTests : IDisposable
     public void AutoAllocateAttributes_Should_Not_Exceed_Maximum_Attribute_Value()
     {
         // Arrange
-        var anyClass = CharacterClassRepository.GetAllClasses().First();
+        var anyClass = _characterClassRepository.GetAllClasses().First();
 
         // Act
         var method = typeof(CharacterCreationOrchestrator)

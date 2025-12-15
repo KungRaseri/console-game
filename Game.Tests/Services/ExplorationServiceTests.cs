@@ -23,7 +23,7 @@ public class ExplorationServiceTests : IDisposable
     private readonly SaveGameService _saveGameService;
     private readonly IMediator _mediator;
     private readonly TestConsole _testConsole;
-    private readonly ConsoleUI _consoleUI;
+    private readonly IGameUI _consoleUI;
     private readonly ApocalypseTimer _apocalypseTimer;
     private readonly string _testDbPath;
 
@@ -31,31 +31,31 @@ public class ExplorationServiceTests : IDisposable
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-exploration-{Guid.NewGuid()}.db";
-        
+
         // Create TestConsole for UI testing
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
-        
+
         _apocalypseTimer = new ApocalypseTimer(_consoleUI);
         _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
         _gameStateService = new GameStateService(_saveGameService);
-        
+
         // Setup MediatR with all required services for handlers
         var services = new ServiceCollection();
-        
+
         // Register services that MediatR handlers need
-        services.AddSingleton<IGameUI>(_consoleUI);
+        services.AddSingleton(_consoleUI);
         services.AddSingleton(_saveGameService);
         services.AddSingleton(_gameStateService);
-        
+
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(ExplorationService).Assembly);
         });
-        
+
         var serviceProvider = services.BuildServiceProvider();
         _mediator = serviceProvider.GetRequiredService<IMediator>();
-        
+
         _explorationService = new ExplorationService(_mediator, _gameStateService, _saveGameService, _consoleUI);
     }
 
@@ -63,13 +63,13 @@ public class ExplorationServiceTests : IDisposable
     {
         // Dispose of SaveGameService first to release file locks
         _saveGameService?.Dispose();
-        
+
         // Clean up test database files
         try
         {
             if (File.Exists(_testDbPath))
                 File.Delete(_testDbPath);
-            
+
             var logFile = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logFile))
                 File.Delete(logFile);
@@ -87,13 +87,14 @@ public class ExplorationServiceTests : IDisposable
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
         IGameUI ConsoleUI = new ConsoleUI(testConsole);
         var apocalypseTimer = new ApocalypseTimer(ConsoleUI);
-        var saveGameService = new SaveGameService(apocalypseTimer, $"test-temp-{Guid.NewGuid()}.db");
+        var repository = new SaveGameRepository($"test-temp-{Guid.NewGuid()}.db");
+        var saveGameService = new SaveGameService(repository, apocalypseTimer);
         var gameStateService = new GameStateService(saveGameService);
         var service = new ExplorationService(_mediator, gameStateService, saveGameService, ConsoleUI);
 
         // Assert
         service.Should().NotBeNull();
-        
+
         // Cleanup
         saveGameService.Dispose();
     }
@@ -123,7 +124,7 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
@@ -148,7 +149,7 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
@@ -170,7 +171,7 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Simulate user selecting a location (e.g., index 0 for first location)
@@ -194,7 +195,7 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
@@ -217,7 +218,7 @@ public class ExplorationServiceTests : IDisposable
             Strength = 15,
             Dexterity = 12
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
@@ -240,7 +241,7 @@ public class ExplorationServiceTests : IDisposable
             MaxHealth = 100,
             Inventory = new List<Item>()
         };
-        
+
         var initialInventorySize = character.Inventory.Count;
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
@@ -262,7 +263,7 @@ public class ExplorationServiceTests : IDisposable
         locations.Should().NotBeNull();
         locations.Should().NotBeEmpty();
         locations.Count.Should().BeGreaterThan(0);
-        
+
         // Verify expected locations exist
         locations.Should().Contain("Hub Town");
         locations.Should().Contain("Dark Forest");
@@ -290,7 +291,7 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
         var initialLocation = _gameStateService.CurrentLocation;
 
@@ -317,7 +318,7 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
         var initialXP = character.Experience;
 
@@ -343,7 +344,7 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
         var initialGold = character.Gold;
 
@@ -368,13 +369,13 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
-        
+
         // Get the first available location (not current)
         var locations = _explorationService.GetKnownLocations();
         var initialLocation = _gameStateService.CurrentLocation;
-        
+
         // Simulate selecting the first available location
         TestConsoleHelper.SelectMenuOption(_testConsole, 0);
 
@@ -398,7 +399,7 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
         var initialLevel = character.Level;
 
@@ -425,7 +426,7 @@ public class ExplorationServiceTests : IDisposable
             Gold = 0,
             Experience = 0
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act - Perform multiple explorations
@@ -440,7 +441,7 @@ public class ExplorationServiceTests : IDisposable
         results.Should().HaveCount(20, "All explorations should complete");
         character.Gold.Should().BeGreaterThan(0, "Should have found some gold");
         character.Experience.Should().BeGreaterThan(0, "Should have gained some experience");
-        
+
         // Should have mix of combat and peaceful encounters (statistically)
         var combatCount = results.Count(r => r);
         var peacefulCount = results.Count(r => !r);
@@ -483,18 +484,18 @@ public class ExplorationServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act & Assert - Travel to multiple locations in sequence
         for (int i = 0; i < 3; i++)
         {
             var currentLocation = _gameStateService.CurrentLocation;
-            
+
             // Select first available location
             TestConsoleHelper.SelectMenuOption(_testConsole, 0);
             await _explorationService.TravelToLocation();
-            
+
             var newLocation = _gameStateService.CurrentLocation;
             newLocation.Should().NotBe(currentLocation, $"Should move to different location on travel #{i + 1}");
         }
