@@ -70,13 +70,13 @@ public partial class MainViewModel : ObservableObject
                 Icon = "Earth",
                 Children = new ObservableCollection<CategoryNode>
                 {
-                    new CategoryNode { Name = "Colors", Icon = "Palette", EditorType = EditorType.NameList, Tag = "general/colors.json" },
-                    new CategoryNode { Name = "Smells", Icon = "Flower", EditorType = EditorType.NameList, Tag = "general/smells.json" },
-                    new CategoryNode { Name = "Sounds", Icon = "VolumeHigh", EditorType = EditorType.NameList, Tag = "general/sounds.json" },
-                    new CategoryNode { Name = "Textures", Icon = "Texture", EditorType = EditorType.NameList, Tag = "general/textures.json" },
-                    new CategoryNode { Name = "Time of Day", Icon = "ClockOutline", EditorType = EditorType.NameList, Tag = "general/time_of_day.json" },
-                    new CategoryNode { Name = "Weather", Icon = "WeatherPartlyCloudy", EditorType = EditorType.NameList, Tag = "general/weather.json" },
-                    new CategoryNode { Name = "Verbs", Icon = "Run", EditorType = EditorType.NameList, Tag = "general/verbs.json" },
+                    new CategoryNode { Name = "Colors", Icon = "Palette", EditorType = EditorType.HybridArray, Tag = "general/colors.json" },
+                    new CategoryNode { Name = "Smells", Icon = "Flower", EditorType = EditorType.HybridArray, Tag = "general/smells.json" },
+                    new CategoryNode { Name = "Sounds", Icon = "VolumeHigh", EditorType = EditorType.HybridArray, Tag = "general/sounds.json" },
+                    new CategoryNode { Name = "Textures", Icon = "Texture", EditorType = EditorType.HybridArray, Tag = "general/textures.json" },
+                    new CategoryNode { Name = "Time of Day", Icon = "ClockOutline", EditorType = EditorType.HybridArray, Tag = "general/time_of_day.json" },
+                    new CategoryNode { Name = "Weather", Icon = "WeatherPartlyCloudy", EditorType = EditorType.HybridArray, Tag = "general/weather.json" },
+                    new CategoryNode { Name = "Verbs", Icon = "Run", EditorType = EditorType.HybridArray, Tag = "general/verbs.json" },
                     new CategoryNode { Name = "Adjectives", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "general/adjectives.json" },
                     new CategoryNode { Name = "Materials", Icon = "HammerWrench", EditorType = EditorType.NameList, Tag = "general/materials.json" }
                 }
@@ -93,9 +93,9 @@ public partial class MainViewModel : ObservableObject
                         Icon = "SwordCross",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "items/weapons/names.json" },
+                            new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.HybridArray, Tag = "items/weapons/names.json" },
                             new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.FlatItem, Tag = "items/weapons/prefixes.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "items/weapons/suffixes.json" }
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "items/weapons/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -104,9 +104,9 @@ public partial class MainViewModel : ObservableObject
                         Icon = "ShieldOutline",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "items/armor/names.json" },
-                            new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "items/armor/prefixes.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "items/armor/suffixes.json" },
+                            new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.HybridArray, Tag = "items/armor/names.json" },
+                            new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "items/armor/prefixes.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "items/armor/suffixes.json" },
                             new CategoryNode { Name = "Materials", Icon = "HammerWrench", EditorType = EditorType.FlatItem, Tag = "items/armor/materials.json" }
                         }
                     },
@@ -116,9 +116,9 @@ public partial class MainViewModel : ObservableObject
                         Icon = "BottleTonicPlus",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "items/consumables/names.json" },
-                            new CategoryNode { Name = "Effects", Icon = "AutoFix", EditorType = EditorType.NameList, Tag = "items/consumables/effects.json" },
-                            new CategoryNode { Name = "Rarities", Icon = "Star", EditorType = EditorType.NameList, Tag = "items/consumables/rarities.json" }
+                            new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.HybridArray, Tag = "items/consumables/names.json" },
+                            new CategoryNode { Name = "Effects", Icon = "AutoFix", EditorType = EditorType.HybridArray, Tag = "items/consumables/effects.json" },
+                            new CategoryNode { Name = "Rarities", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "items/consumables/rarities.json" }
                         }
                     },
                     new CategoryNode
@@ -127,8 +127,8 @@ public partial class MainViewModel : ObservableObject
                         Icon = "AutoFix",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "items/enchantments/prefixes.json" },
-                            new CategoryNode { Name = "Effects", Icon = "Sparkles", EditorType = EditorType.NameList, Tag = "items/enchantments/effects.json" },
+                            new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "items/enchantments/prefixes.json" },
+                            new CategoryNode { Name = "Effects", Icon = "Sparkles", EditorType = EditorType.HybridArray, Tag = "items/enchantments/effects.json" },
                             new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.FlatItem, Tag = "items/enchantments/suffixes.json" }
                         }
                     },
@@ -160,8 +160,8 @@ public partial class MainViewModel : ObservableObject
                         {
                             new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "enemies/beasts/names.json" },
                             new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.FlatItem, Tag = "enemies/beasts/prefixes.json" },
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/beasts/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/beasts/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/beasts/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/beasts/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -172,8 +172,8 @@ public partial class MainViewModel : ObservableObject
                         {
                             new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "enemies/demons/names.json" },
                             new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.FlatItem, Tag = "enemies/demons/prefixes.json" },
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/demons/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/demons/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/demons/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/demons/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -185,8 +185,8 @@ public partial class MainViewModel : ObservableObject
                             new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "enemies/dragons/names.json" },
                             new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.FlatItem, Tag = "enemies/dragons/prefixes.json" },
                             new CategoryNode { Name = "Colors", Icon = "Palette", EditorType = EditorType.FlatItem, Tag = "enemies/dragons/colors.json" },
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/dragons/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/dragons/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/dragons/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/dragons/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -197,8 +197,8 @@ public partial class MainViewModel : ObservableObject
                         {
                             new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "enemies/elementals/names.json" },
                             new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.FlatItem, Tag = "enemies/elementals/prefixes.json" },
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/elementals/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/elementals/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/elementals/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/elementals/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -209,8 +209,8 @@ public partial class MainViewModel : ObservableObject
                         {
                             new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "enemies/humanoids/names.json" },
                             new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.FlatItem, Tag = "enemies/humanoids/prefixes.json" },
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/humanoids/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/humanoids/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/humanoids/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/humanoids/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -221,8 +221,8 @@ public partial class MainViewModel : ObservableObject
                         {
                             new CategoryNode { Name = "Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "enemies/undead/names.json" },
                             new CategoryNode { Name = "Prefixes", Icon = "FileEdit", EditorType = EditorType.FlatItem, Tag = "enemies/undead/prefixes.json" },
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/undead/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/undead/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/undead/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/undead/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -231,8 +231,8 @@ public partial class MainViewModel : ObservableObject
                         Icon = "VampireFangs",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/vampires/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/vampires/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/vampires/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/vampires/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -241,8 +241,8 @@ public partial class MainViewModel : ObservableObject
                         Icon = "MonsterGoblin",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/goblinoids/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/goblinoids/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/goblinoids/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/goblinoids/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -251,8 +251,8 @@ public partial class MainViewModel : ObservableObject
                         Icon = "MonsterOrc",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/orcs/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/orcs/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/orcs/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/orcs/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -261,8 +261,8 @@ public partial class MainViewModel : ObservableObject
                         Icon = "Bug",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/insects/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/insects/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/insects/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/insects/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -271,8 +271,8 @@ public partial class MainViewModel : ObservableObject
                         Icon = "Sprout",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/plants/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/plants/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/plants/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/plants/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -281,8 +281,8 @@ public partial class MainViewModel : ObservableObject
                         Icon = "Snake",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/reptilians/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/reptilians/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/reptilians/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/reptilians/suffixes.json" }
                         }
                     },
                     new CategoryNode
@@ -291,8 +291,8 @@ public partial class MainViewModel : ObservableObject
                         Icon = "MonsterTroll",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "enemies/trolls/traits.json" },
-                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.NameList, Tag = "enemies/trolls/suffixes.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "enemies/trolls/traits.json" },
+                            new CategoryNode { Name = "Suffixes", Icon = "FileEdit", EditorType = EditorType.HybridArray, Tag = "enemies/trolls/suffixes.json" }
                         }
                     }
                 }
@@ -309,8 +309,8 @@ public partial class MainViewModel : ObservableObject
                         Icon = "CardAccountDetails",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "First Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "npcs/names/first_names.json" },
-                            new CategoryNode { Name = "Last Names", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "npcs/names/last_names.json" }
+                            new CategoryNode { Name = "First Names", Icon = "FormatListBulleted", EditorType = EditorType.HybridArray, Tag = "npcs/names/first_names.json" },
+                            new CategoryNode { Name = "Last Names", Icon = "FormatListBulleted", EditorType = EditorType.HybridArray, Tag = "npcs/names/last_names.json" }
                         }
                     },
                     new CategoryNode
@@ -319,9 +319,9 @@ public partial class MainViewModel : ObservableObject
                         Icon = "EmoticonHappy",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.NameList, Tag = "npcs/personalities/traits.json" },
-                            new CategoryNode { Name = "Quirks", Icon = "Puzzle", EditorType = EditorType.NameList, Tag = "npcs/personalities/quirks.json" },
-                            new CategoryNode { Name = "Backgrounds", Icon = "Book", EditorType = EditorType.NameList, Tag = "npcs/personalities/backgrounds.json" }
+                            new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.HybridArray, Tag = "npcs/personalities/traits.json" },
+                            new CategoryNode { Name = "Quirks", Icon = "Puzzle", EditorType = EditorType.HybridArray, Tag = "npcs/personalities/quirks.json" },
+                            new CategoryNode { Name = "Backgrounds", Icon = "Book", EditorType = EditorType.HybridArray, Tag = "npcs/personalities/backgrounds.json" }
                         }
                     },
                     new CategoryNode
@@ -330,10 +330,10 @@ public partial class MainViewModel : ObservableObject
                         Icon = "CommentText",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Greetings", Icon = "HandWave", EditorType = EditorType.NameList, Tag = "npcs/dialogue/greetings.json" },
-                            new CategoryNode { Name = "Farewells", Icon = "HandPeace", EditorType = EditorType.NameList, Tag = "npcs/dialogue/farewells.json" },
-                            new CategoryNode { Name = "Rumors", Icon = "Microphone", EditorType = EditorType.NameList, Tag = "npcs/dialogue/rumors.json" },
-                            new CategoryNode { Name = "Templates", Icon = "FormatListBulleted", EditorType = EditorType.NameList, Tag = "npcs/dialogue/templates.json" },
+                            new CategoryNode { Name = "Greetings", Icon = "HandWave", EditorType = EditorType.HybridArray, Tag = "npcs/dialogue/greetings.json" },
+                            new CategoryNode { Name = "Farewells", Icon = "HandPeace", EditorType = EditorType.HybridArray, Tag = "npcs/dialogue/farewells.json" },
+                            new CategoryNode { Name = "Rumors", Icon = "Microphone", EditorType = EditorType.HybridArray, Tag = "npcs/dialogue/rumors.json" },
+                            new CategoryNode { Name = "Templates", Icon = "FormatListBulleted", EditorType = EditorType.HybridArray, Tag = "npcs/dialogue/templates.json" },
                             new CategoryNode { Name = "Traits", Icon = "Star", EditorType = EditorType.FlatItem, Tag = "npcs/dialogue/traits.json" }
                         }
                     },
@@ -363,9 +363,9 @@ public partial class MainViewModel : ObservableObject
                         Icon = "ChecklistCheck",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Primary", Icon = "Numeric1Circle", EditorType = EditorType.NameList, Tag = "quests/objectives/primary.json" },
-                            new CategoryNode { Name = "Secondary", Icon = "Numeric2Circle", EditorType = EditorType.NameList, Tag = "quests/objectives/secondary.json" },
-                            new CategoryNode { Name = "Hidden", Icon = "EyeOff", EditorType = EditorType.NameList, Tag = "quests/objectives/hidden.json" }
+                            new CategoryNode { Name = "Primary", Icon = "Numeric1Circle", EditorType = EditorType.HybridArray, Tag = "quests/objectives/primary.json" },
+                            new CategoryNode { Name = "Secondary", Icon = "Numeric2Circle", EditorType = EditorType.HybridArray, Tag = "quests/objectives/secondary.json" },
+                            new CategoryNode { Name = "Hidden", Icon = "EyeOff", EditorType = EditorType.HybridArray, Tag = "quests/objectives/hidden.json" }
                         }
                     },
                     new CategoryNode
@@ -374,9 +374,9 @@ public partial class MainViewModel : ObservableObject
                         Icon = "TreasureChest",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Gold", Icon = "CurrencyUsd", EditorType = EditorType.NameList, Tag = "quests/rewards/gold.json" },
-                            new CategoryNode { Name = "Experience", Icon = "ChartLine", EditorType = EditorType.NameList, Tag = "quests/rewards/experience.json" },
-                            new CategoryNode { Name = "Items", Icon = "Gift", EditorType = EditorType.NameList, Tag = "quests/rewards/items.json" }
+                            new CategoryNode { Name = "Gold", Icon = "CurrencyUsd", EditorType = EditorType.HybridArray, Tag = "quests/rewards/gold.json" },
+                            new CategoryNode { Name = "Experience", Icon = "ChartLine", EditorType = EditorType.HybridArray, Tag = "quests/rewards/experience.json" },
+                            new CategoryNode { Name = "Items", Icon = "Gift", EditorType = EditorType.HybridArray, Tag = "quests/rewards/items.json" }
                         }
                     },
                     new CategoryNode
@@ -385,9 +385,9 @@ public partial class MainViewModel : ObservableObject
                         Icon = "MapMarker",
                         Children = new ObservableCollection<CategoryNode>
                         {
-                            new CategoryNode { Name = "Towns", Icon = "TownHall", EditorType = EditorType.NameList, Tag = "quests/locations/towns.json" },
-                            new CategoryNode { Name = "Dungeons", Icon = "CastleOutline", EditorType = EditorType.NameList, Tag = "quests/locations/dungeons.json" },
-                            new CategoryNode { Name = "Wilderness", Icon = "Forest", EditorType = EditorType.NameList, Tag = "quests/locations/wilderness.json" }
+                            new CategoryNode { Name = "Towns", Icon = "TownHall", EditorType = EditorType.HybridArray, Tag = "quests/locations/towns.json" },
+                            new CategoryNode { Name = "Dungeons", Icon = "CastleOutline", EditorType = EditorType.HybridArray, Tag = "quests/locations/dungeons.json" },
+                            new CategoryNode { Name = "Wilderness", Icon = "Forest", EditorType = EditorType.HybridArray, Tag = "quests/locations/wilderness.json" }
                         }
                     },
                     new CategoryNode
@@ -428,6 +428,10 @@ public partial class MainViewModel : ObservableObject
                 
                 case EditorType.NameList:
                     LoadNameListEditor(value.Tag?.ToString() ?? "");
+                    break;
+                
+                case EditorType.HybridArray:
+                    LoadHybridArrayEditor(value.Tag?.ToString() ?? "");
                     break;
                 
                 default:
@@ -495,6 +499,26 @@ public partial class MainViewModel : ObservableObject
         catch (Exception ex)
         {
             StatusMessage = $"Failed to load editor: {ex.Message}";
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadHybridArrayEditor(string fileName)
+    {
+        try
+        {
+            var viewModel = new HybridArrayEditorViewModel(_jsonEditorService, fileName);
+            var view = new HybridArrayEditorView
+            {
+                DataContext = viewModel
+            };
+            CurrentEditor = view;
+            StatusMessage = $"Loaded hybrid array editor for {fileName}";
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load hybrid array editor: {ex.Message}";
+            Log.Error(ex, "Failed to load hybrid array editor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }

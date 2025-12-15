@@ -1,0 +1,360 @@
+<UserControl x:Class="Game.ContentBuilder.Views.HybridArrayEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <materialDesign:Card Grid.Row="0" Margin="0,0,0,16" Padding="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{Binding FileDisplayName}" 
+                               FontSize="20" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,8"/>
+                    <TextBlock Text="{Binding StatusMessage}" 
+                               FontSize="12"
+                               Opacity="0.7"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <materialDesign:Chip Margin="4,0" IconBackground="{DynamicResource MaterialDesign.Brush.Primary}">
+                        <materialDesign:Chip.Icon>
+                            <materialDesign:PackIcon Kind="FormatListBulleted"/>
+                        </materialDesign:Chip.Icon>
+                        <TextBlock Text="{Binding TotalItemsCount, StringFormat='Items: {0}'}"/>
+                    </materialDesign:Chip>
+                    <materialDesign:Chip Margin="4,0" IconBackground="{DynamicResource MaterialDesign.Brush.Secondary}">
+                        <materialDesign:Chip.Icon>
+                            <materialDesign:PackIcon Kind="Puzzle"/>
+                        </materialDesign:Chip.Icon>
+                        <TextBlock Text="{Binding TotalComponentsCount, StringFormat='Components: {0}'}"/>
+                    </materialDesign:Chip>
+                    <materialDesign:Chip Margin="4,0" IconBackground="{DynamicResource MaterialDesign.Brush.Tertiary}">
+                        <materialDesign:Chip.Icon>
+                            <materialDesign:PackIcon Kind="Pattern"/>
+                        </materialDesign:Chip.Icon>
+                        <TextBlock Text="{Binding TotalPatternsCount, StringFormat='Patterns: {0}'}"/>
+                    </materialDesign:Chip>
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+
+        <!-- Main Content - Tabs -->
+        <TabControl Grid.Row="1" 
+                    Style="{StaticResource MaterialDesignFilledTabControl}"
+                    materialDesign:ColorZoneAssist.Mode="PrimaryMid">
+            
+            <!-- Items Tab -->
+            <TabItem Header="Items">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FormatListBulleted" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Items" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+                
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Add Item -->
+                    <materialDesign:Card Grid.Row="0" Padding="16" Margin="0,0,0,16">
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right" 
+                                    Command="{Binding AddItemCommand}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Margin="8,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Plus" Margin="0,0,4,0"/>
+                                    <TextBlock Text="Add"/>
+                                </StackPanel>
+                            </Button>
+                            <TextBox Text="{Binding NewItemInput, UpdateSourceTrigger=PropertyChanged}"
+                                     materialDesign:HintAssist.Hint="New item..."
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                        </DockPanel>
+                    </materialDesign:Card>
+
+                    <!-- Items List -->
+                    <materialDesign:Card Grid.Row="1">
+                        <Grid>
+                            <ListBox ItemsSource="{Binding Items}"
+                                     SelectedItem="{Binding SelectedItem}"
+                                     VirtualizingPanel.IsVirtualizing="True"
+                                     VirtualizingPanel.VirtualizationMode="Recycling">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" 
+                                                       Text="{Binding}" 
+                                                       VerticalAlignment="Center"
+                                                       TextTrimming="CharacterEllipsis"/>
+                                            <Button Grid.Column="1" 
+                                                    Style="{StaticResource MaterialDesignIconButton}"
+                                                    Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                    ToolTip="Delete">
+                                                <materialDesign:PackIcon Kind="Delete" Foreground="{DynamicResource MaterialDesign.Brush.Validation.Error}"/>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <!-- Empty state -->
+                            <StackPanel HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        Visibility="{Binding Items.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+                                <materialDesign:PackIcon Kind="FormatListBulleted" 
+                                                         Width="64" 
+                                                         Height="64" 
+                                                         Opacity="0.3"
+                                                         HorizontalAlignment="Center"/>
+                                <TextBlock Text="No items yet" 
+                                           FontSize="16" 
+                                           Opacity="0.5" 
+                                           Margin="0,8,0,0"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+            </TabItem>
+
+            <!-- Components Tab -->
+            <TabItem Header="Components">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Puzzle" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Components" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Component Groups List -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Add Group -->
+                        <materialDesign:Card Grid.Row="0" Padding="16" Margin="0,0,0,16">
+                            <DockPanel>
+                                <Button DockPanel.Dock="Right" 
+                                        Command="{Binding AddComponentGroupCommand}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Margin="8,0,0,0">
+                                    <materialDesign:PackIcon Kind="Plus"/>
+                                </Button>
+                                <TextBox Text="{Binding NewComponentGroupName, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="New group..."
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            </DockPanel>
+                        </materialDesign:Card>
+
+                        <!-- Groups List -->
+                        <materialDesign:Card Grid.Row="1">
+                            <ListBox ItemsSource="{Binding ComponentGroups}"
+                                     SelectedItem="{Binding SelectedComponentGroup}"
+                                     DisplayMemberPath="Name">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                        <Setter Property="Padding" Value="16,8"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                            </ListBox>
+                        </materialDesign:Card>
+                    </Grid>
+
+                    <!-- Components in Selected Group -->
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Add Component -->
+                        <materialDesign:Card Grid.Row="0" Padding="16" Margin="0,0,0,16">
+                            <DockPanel>
+                                <Button DockPanel.Dock="Right" 
+                                        Command="{Binding AddComponentCommand}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Margin="8,0,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Plus" Margin="0,0,4,0"/>
+                                        <TextBlock Text="Add"/>
+                                    </StackPanel>
+                                </Button>
+                                <TextBox Text="{Binding NewComponentInput, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="New component..."
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         IsEnabled="{Binding SelectedComponentGroup, Converter={StaticResource NotNullToBooleanConverter}}"/>
+                            </DockPanel>
+                        </materialDesign:Card>
+
+                        <!-- Components List -->
+                        <materialDesign:Card Grid.Row="1">
+                            <Grid>
+                                <ListBox ItemsSource="{Binding SelectedComponentGroup.Components}"
+                                         Visibility="{Binding SelectedComponentGroup, Converter={StaticResource NotNullToVisibilityConverter}}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
+                                <!-- Empty state -->
+                                <StackPanel HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center" 
+                                            Visibility="{Binding SelectedComponentGroup, Converter={StaticResource NullToVisibilityConverter}}">
+                                    <materialDesign:PackIcon Kind="ArrowLeft" 
+                                                             Width="48" 
+                                                             Height="48" 
+                                                             Opacity="0.3"
+                                                             HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Select a component group" 
+                                               FontSize="14" 
+                                               Opacity="0.5" 
+                                               Margin="0,8,0,0"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- Patterns Tab -->
+            <TabItem Header="Patterns">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Pattern" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Patterns" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
+
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Add Pattern -->
+                    <materialDesign:Card Grid.Row="0" Padding="16" Margin="0,0,0,16">
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right" 
+                                    Command="{Binding AddPatternCommand}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Margin="8,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Plus" Margin="0,0,4,0"/>
+                                    <TextBlock Text="Add"/>
+                                </StackPanel>
+                            </Button>
+                            <TextBox Text="{Binding NewPatternInput, UpdateSourceTrigger=PropertyChanged}"
+                                     materialDesign:HintAssist.Hint="New pattern (e.g., 'modifier + base_color')..."
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                        </DockPanel>
+                    </materialDesign:Card>
+
+                    <!-- Patterns List -->
+                    <materialDesign:Card Grid.Row="1">
+                        <Grid>
+                            <ListBox ItemsSource="{Binding Patterns}"
+                                     SelectedItem="{Binding SelectedPattern}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" 
+                                                       Text="{Binding}" 
+                                                       VerticalAlignment="Center"
+                                                       TextWrapping="Wrap"/>
+                                            <Button Grid.Column="1" 
+                                                    Style="{StaticResource MaterialDesignIconButton}"
+                                                    Command="{Binding DataContext.DeletePatternCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                    ToolTip="Delete">
+                                                <materialDesign:PackIcon Kind="Delete" Foreground="{DynamicResource MaterialDesign.Brush.Validation.Error}"/>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <!-- Empty state -->
+                            <StackPanel HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        Visibility="{Binding Patterns.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
+                                <materialDesign:PackIcon Kind="Pattern" 
+                                                         Width="64" 
+                                                         Height="64" 
+                                                         Opacity="0.3"
+                                                         HorizontalAlignment="Center"/>
+                                <TextBlock Text="No patterns yet" 
+                                           FontSize="16" 
+                                           Opacity="0.5" 
+                                           Margin="0,8,0,0"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Footer Actions -->
+        <materialDesign:Card Grid.Row="2" Margin="0,16,0,0" Padding="16">
+            <DockPanel>
+                <Button DockPanel.Dock="Right"
+                        Command="{Binding SaveCommand}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Margin="8,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,8,0"/>
+                        <TextBlock Text="Save Changes"/>
+                    </StackPanel>
+                </Button>
+                <TextBlock Text="{Binding StatusMessage}" 
+                           VerticalAlignment="Center"
+                           Opacity="0.7"/>
+            </DockPanel>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
