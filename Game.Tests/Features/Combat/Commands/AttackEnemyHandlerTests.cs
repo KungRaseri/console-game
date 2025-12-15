@@ -8,6 +8,7 @@ using Game.Core.Features.Combat.Commands.AttackEnemy;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Models;
 using Game.Core.Services;
+using Game.Data.Repositories;
 using MediatR;
 using Moq;
 
@@ -20,6 +21,7 @@ public class AttackEnemyHandlerTests : IDisposable
 {
     private readonly Mock<CombatService> _combatServiceMock;
     private readonly Mock<IMediator> _mediatorMock;
+    private readonly Mock<ISaveGameRepository> _saveGameRepositoryMock;
     private readonly Mock<SaveGameService> _saveGameServiceMock;
     private readonly AttackEnemyHandler _handler;
     private readonly TestConsole _testConsole;
@@ -36,8 +38,11 @@ public class AttackEnemyHandlerTests : IDisposable
 
         var apocalypseTimer = new ApocalypseTimer(_consoleUI);
 
+        // Create mock repository
+        _saveGameRepositoryMock = new Mock<ISaveGameRepository>();
+        
         // Create a single mock instance to avoid creating multiple database connections
-        _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, apocalypseTimer, _testDbPath);
+        _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, _saveGameRepositoryMock.Object, apocalypseTimer);
         _combatServiceMock = new Mock<CombatService>(MockBehavior.Loose, _saveGameServiceMock.Object);
         _mediatorMock = new Mock<IMediator>();
 

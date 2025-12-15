@@ -5,16 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "Console Game (Debug)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Game/bin/Debug/net9.0/Game.dll",
+            "preLaunchTask": "build-console",
+            "program": "${workspaceFolder}/Game.Console/bin/Debug/net9.0/Game.Console.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Game",
+            "cwd": "${workspaceFolder}/Game.Console",
             "console": "integratedTerminal",
             "stopAtEntry": false,
             "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Content Builder (Debug)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-contentbuilder",
+            "program": "${workspaceFolder}/Game.ContentBuilder/bin/Debug/net9.0-windows/Game.ContentBuilder.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Game.ContentBuilder",
+            "console": "internalConsole",
+            "stopAtEntry": false
         },
         {
             "name": ".NET Core Attach",

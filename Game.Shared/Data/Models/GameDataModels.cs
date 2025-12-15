@@ -7,6 +7,11 @@ namespace Game.Shared.Data.Models;
 // Item-related data models
 public class WeaponNameData
 {
+    public WeaponNameItems Items { get; set; } = new();
+}
+
+public class WeaponNameItems
+{
     public List<string> Swords { get; set; } = new();
     public List<string> Axes { get; set; } = new();
     public List<string> Bows { get; set; } = new();

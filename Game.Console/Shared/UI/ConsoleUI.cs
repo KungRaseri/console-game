@@ -724,12 +724,14 @@ public class ConsoleUI : IGameUI, IConsoleUI
 
     public void ShowMessage(string message)
     {
-        throw new NotImplementedException();
+        // Simple neutral message output (escaped for safety)
+        _console.WriteLine(EscapeMarkup(message));
     }
 
     public void ShowProgress(string title, Action<object> work)
     {
-        throw new NotImplementedException();
+        // Delegate to the typed ShowProgress method
+        ShowProgress(title, task => work(task));
     }
 
     #endregion

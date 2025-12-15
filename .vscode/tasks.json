@@ -7,7 +7,7 @@
 			"command": "dotnet",
 			"args": [
 				"build",
-				"${workspaceFolder}/Game/Game.csproj",
+				"${workspaceFolder}/Game.sln",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary"
 			],
@@ -18,29 +18,111 @@
 			}
 		},
 		{
-			"label": "publish",
+			"label": "build-console",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [
-				"publish",
-				"${workspaceFolder}/Game/Game.csproj",
+				"build",
+				"${workspaceFolder}/Game.Console/Game.Console.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary"
 			],
-			"problemMatcher": "$msCompile"
+			"problemMatcher": "$msCompile",
+			"group": "build"
 		},
 		{
-			"label": "watch",
+			"label": "build-contentbuilder",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"${workspaceFolder}/Game.ContentBuilder/Game.ContentBuilder.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile",
+			"group": "build"
+		},
+		{
+			"label": "run-console",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"run",
+				"--project",
+				"${workspaceFolder}/Game.Console/Game.Console.csproj"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": "build-console",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated",
+				"clear": true
+			},
+			"group": {
+				"kind": "test",
+				"isDefault": false
+			}
+		},
+		{
+			"label": "run-contentbuilder",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"run",
+				"--project",
+				"${workspaceFolder}/Game.ContentBuilder/Game.ContentBuilder.csproj"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": "build-contentbuilder",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated",
+				"clear": true
+			}
+		},
+		{
+			"label": "watch-console",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [
 				"watch",
 				"run",
 				"--project",
-				"${workspaceFolder}/Game/Game.csproj"
+				"${workspaceFolder}/Game.Console/Game.Console.csproj"
 			],
 			"problemMatcher": "$msCompile",
-			"isBackground": true
+			"isBackground": true,
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "test",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"${workspaceFolder}/Game.Tests/Game.Tests.csproj"
+			],
+			"problemMatcher": "$msCompile",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
 		},
 		{
 			"label": "test-with-coverage",
@@ -48,6 +130,7 @@
 			"command": "dotnet",
 			"args": [
 				"test",
+				"${workspaceFolder}/Game.Tests/Game.Tests.csproj",
 				"--collect:XPlat Code Coverage",
 				"--settings",
 				"coverage.runsettings"
@@ -80,6 +163,25 @@
 			"dependsOn": [
 				"test-with-coverage",
 				"generate-coverage-report"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": []
+		},
+		{
+			"label": "clean",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"clean",
+				"${workspaceFolder}/Game.sln"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "rebuild",
+			"dependsOn": [
+				"clean",
+				"build"
 			],
 			"dependsOrder": "sequence",
 			"problemMatcher": []

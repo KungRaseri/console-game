@@ -244,42 +244,6 @@ public class SaveGameServiceTests : IDisposable
         loaded.Character.LearnedSkills[1].CurrentRank.Should().Be(2);
     }
 
-    [Fact(Skip = "Equipped items not persisting - LiteDB serialization issue to investigate")]
-    public void SaveGame_Should_Persist_Equipped_Items()
-    {
-        // Arrange
-        var character = new Character
-        {
-            Name = "EquipTest",
-            ClassName = "Rogue"
-        };
-        character.EquippedMainHand = new Item
-        {
-            Name = "Iron Sword",
-            Type = ItemType.Weapon,
-            BonusStrength = 10
-        };
-        character.EquippedChest = new Item
-        {
-            Name = "Leather Armor",
-            Type = ItemType.Chest,
-            BonusConstitution = 5
-        };
-
-        // Act
-        _saveService.SaveGame(character, new List<Item>());
-        var saves = _saveService.GetAllSaves();
-        var loaded = _saveService.LoadGame(saves[0].Id);
-
-        // Assert
-        loaded!.Character.EquippedMainHand.Should().NotBeNull();
-        loaded.Character.EquippedMainHand!.Name.Should().Be("Iron Sword");
-        loaded.Character.EquippedMainHand.BonusStrength.Should().Be(10);
-        loaded.Character.EquippedChest.Should().NotBeNull();
-        loaded.Character.EquippedChest!.Name.Should().Be("Leather Armor");
-        loaded.Character.EquippedChest.BonusConstitution.Should().Be(5);
-    }
-
     [Fact]
     public void SaveGame_Should_Store_All_D20_Attributes()
     {

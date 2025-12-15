@@ -100,14 +100,14 @@ public static class ItemGenerator
         
         var weaponList = weaponType switch
         {
-            "swords" => data.WeaponNames.Swords,
-            "axes" => data.WeaponNames.Axes,
-            "bows" => data.WeaponNames.Bows,
-            "daggers" => data.WeaponNames.Daggers,
-            "spears" => data.WeaponNames.Spears,
-            "maces" => data.WeaponNames.Maces,
-            "staves" => data.WeaponNames.Staves,
-            _ => data.WeaponNames.Swords
+            "swords" => data.WeaponNames.Items.Swords,
+            "axes" => data.WeaponNames.Items.Axes,
+            "bows" => data.WeaponNames.Items.Bows,
+            "daggers" => data.WeaponNames.Items.Daggers,
+            "spears" => data.WeaponNames.Items.Spears,
+            "maces" => data.WeaponNames.Items.Maces,
+            "staves" => data.WeaponNames.Items.Staves,
+            _ => data.WeaponNames.Items.Swords
         };
         
         var weaponName = GameDataService.GetRandom(weaponList);

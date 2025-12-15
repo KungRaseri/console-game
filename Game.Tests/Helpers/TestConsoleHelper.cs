@@ -69,6 +69,15 @@ public static class TestConsoleHelper
     }
 
     /// <summary>
+    /// Simulates pressing any key (for PressAnyKey prompts).
+    /// </summary>
+    /// <param name="console">The TestConsole instance</param>
+    public static void PressAnyKey(TestConsole console)
+    {
+        console.Input.PushKey(ConsoleKey.Enter);
+    }
+
+    /// <summary>
     /// Simulates selecting multiple items from a multi-select menu.
     /// </summary>
     /// <param name="console">The TestConsole instance</param>

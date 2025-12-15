@@ -46,6 +46,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -78,6 +81,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -116,6 +122,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -161,6 +170,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -188,6 +200,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert - Should not crash, just not show skills section
@@ -215,6 +230,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -238,6 +256,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert - Console should have been cleared (output should start fresh)
@@ -257,6 +278,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Spacebar);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert - Method should complete after key press
@@ -278,6 +302,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -303,6 +330,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -328,6 +358,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -352,6 +385,9 @@ public class CharacterViewServiceTests
         _testConsole.Input.PushKey(ConsoleKey.Enter);
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert

@@ -42,6 +42,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -75,6 +78,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -107,6 +113,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -131,6 +140,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -168,6 +180,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -191,6 +206,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -222,6 +240,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -255,6 +276,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -275,6 +299,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -299,6 +326,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -330,6 +360,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -356,6 +389,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
@@ -377,6 +413,9 @@ public class CharacterViewServiceTests
         };
 
         // Act
+
+
+        TestConsoleHelper.PressAnyKey(_testConsole); // Simulate user pressing any key after viewing
         _characterViewService.ViewCharacter(character);
 
         // Assert
