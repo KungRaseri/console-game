@@ -1,7 +1,171 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add NPC content here"
+{
+  "items": [
+    {
+      "name": "NervousTic",
+      "displayName": "Nervous Tic",
+      "description": "Constantly fidgets or twitches"
+    },
+    {
+      "name": "CollectsTrinkets",
+      "displayName": "Collects Trinkets",
+      "description": "Obsessively gathers small objects"
+    },
+    {
+      "name": "SpeaksInRhymes",
+      "displayName": "Speaks in Rhymes",
+      "description": "Often talks in verse"
+    },
+    {
+      "name": "ExcessivelyPolite",
+      "displayName": "Excessively Polite",
+      "description": "Uses formal language to a fault"
+    },
+    {
+      "name": "LoudLaugher",
+      "displayName": "Loud Laugher",
+      "description": "Laughs boisterously at everything"
+    },
+    {
+      "name": "WhispersSecrets",
+      "displayName": "Whispers Secrets",
+      "description": "Speaks in hushed tones as if sharing secrets"
+    },
+    {
+      "name": "QuotesPoverbs",
+      "displayName": "Quotes Proverbs",
+      "description": "Constantly cites old sayings"
+    },
+    {
+      "name": "ForgetfulMind",
+      "displayName": "Forgetful Mind",
+      "description": "Often loses train of thought mid-conversation"
+    },
+    {
+      "name": "StoryTeller",
+      "displayName": "Story Teller",
+      "description": "Relates everything to long-winded tales"
+    },
+    {
+      "name": "SuspiciousEyes",
+      "displayName": "Suspicious Eyes",
+      "description": "Constantly glances around nervously"
+    },
+    {
+      "name": "HumsSongs",
+      "displayName": "Hums Songs",
+      "description": "Frequently hums or sings to themselves"
+    },
+    {
+      "name": "CountsThings",
+      "displayName": "Counts Things",
+      "description": "Compulsively counts objects"
+    },
+    {
+      "name": "NamesObjects",
+      "displayName": "Names Objects",
+      "description": "Gives names to inanimate objects"
+    },
+    {
+      "name": "TalksToAnimals",
+      "displayName": "Talks to Animals",
+      "description": "Converses with pets and wildlife"
+    },
+    {
+      "name": "ExaggeratesStories",
+      "displayName": "Exaggerates Stories",
+      "description": "Embellishes tales to absurd degrees"
+    },
+    {
+      "name": "RepeatsLastWord",
+      "displayName": "Repeats Last Word",
+      "description": "Echoes the final word they say... say"
+    },
+    {
+      "name": "SniffsFrequently",
+      "displayName": "Sniffs Frequently",
+      "description": "Has a persistent sniffing habit"
+    },
+    {
+      "name": "CracksKnuckles",
+      "displayName": "Cracks Knuckles",
+      "description": "Constantly pops their joints"
+    },
+    {
+      "name": "AfraidOfDark",
+      "displayName": "Afraid of Dark",
+      "description": "Carries a lantern at all times"
+    },
+    {
+      "name": "SuperstitiousBeliefs",
+      "displayName": "Superstitious Beliefs",
+      "description": "Follows elaborate rituals for luck"
+    },
+    {
+      "name": "CleanlinessObsessed",
+      "displayName": "Cleanliness Obsessed",
+      "description": "Constantly wiping and tidying"
+    },
+    {
+      "name": "LongPauses",
+      "displayName": "Long Pauses",
+      "description": "Takes extended breaks mid-sentence"
+    },
+    {
+      "name": "UsesNicknames",
+      "displayName": "Uses Nicknames",
+      "description": "Gives everyone creative nicknames"
+    },
+    {
+      "name": "OverlyDramatic",
+      "displayName": "Overly Dramatic",
+      "description": "Makes grand gestures and proclamations"
+    },
+    {
+      "name": "StaresIntently",
+      "displayName": "Stares Intently",
+      "description": "Makes uncomfortable eye contact"
+    },
+    {
+      "name": "TapsFingers",
+      "displayName": "Taps Fingers",
+      "description": "Drums fingers on surfaces rhythmically"
+    },
+    {
+      "name": "MispronounsWords",
+      "displayName": "Mispronounces Words",
+      "description": "Consistently says words incorrectly"
+    },
+    {
+      "name": "HoardsFood",
+      "displayName": "Hoards Food",
+      "description": "Keeps snacks in every pocket"
+    },
+    {
+      "name": "DrawsDoodles",
+      "displayName": "Draws Doodles",
+      "description": "Constantly sketching on any surface"
+    },
+    {
+      "name": "SmellsEverything",
+      "displayName": "Smells Everything",
+      "description": "Sniffs objects before touching them"
+    }
+  ],
+  "components": {
+    "verbal_quirks": ["SpeaksInRhymes", "ExcessivelyPolite", "QuotesPoverbs", "RepeatsLastWord", "MispronounsWords", "WhispersSecrets"],
+    "physical_quirks": ["NervousTic", "CracksKnuckles", "SniffsFrequently", "TapsFingers", "StaresIntently", "LongPauses"],
+    "behavioral_quirks": ["CollectsTrinkets", "CountsThings", "NamesObjects", "HoardsFood", "DrawsDoodles", "SmellsEverything"],
+    "social_quirks": ["LoudLaugher", "StoryTeller", "ExaggeratesStories", "UsesNicknames", "OverlyDramatic"],
+    "psychological_quirks": ["ForgetfulMind", "SuspiciousEyes", "AfraidOfDark", "SuperstitiousBeliefs", "CleanlinessObsessed"]
+  },
+  "patterns": [
+    "single quirk for memorable NPCs",
+    "multiple quirks for eccentric characters",
+    "quirks can match or contrast personality traits"
+  ],
+  "metadata": {
+    "total_quirks": 30,
+    "categories": 5,
+    "usage": "NPCs can have 0-2 quirks; major NPCs may have more"
   }
-]
+}

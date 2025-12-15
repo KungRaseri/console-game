@@ -1,7 +1,133 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add quest content here"
+{
+  "items": [
+    {
+      "name": "DiscoverSecretRoom",
+      "displayName": "Discover Secret Room",
+      "description": "Find the hidden chamber in {location}",
+      "category": "Exploration",
+      "reveal": "Discovered upon entering secret area"
+    },
+    {
+      "name": "ReadAllLore",
+      "displayName": "Read All Lore",
+      "description": "Read all {count} lore books scattered throughout the quest",
+      "category": "Lore",
+      "reveal": "Unlocked after reading first book"
+    },
+    {
+      "name": "DefeatTrueBoss",
+      "displayName": "Defeat True Boss",
+      "description": "Find and defeat the real mastermind behind the quest",
+      "category": "Combat",
+      "reveal": "Triggered by finding secret evidence"
+    },
+    {
+      "name": "UnlockGoodEnding",
+      "displayName": "Unlock Good Ending",
+      "description": "Make choices that lead to the best outcome",
+      "category": "Branching",
+      "reveal": "Revealed at quest completion"
+    },
+    {
+      "name": "CollectAllRelics",
+      "displayName": "Collect All Relics",
+      "description": "Gather all {count} ancient relics hidden in the area",
+      "category": "Collection",
+      "reveal": "Appears after finding first relic"
+    },
+    {
+      "name": "SolveAncientPuzzle",
+      "displayName": "Solve Ancient Puzzle",
+      "description": "Decipher the cryptic symbols to unlock a hidden path",
+      "category": "Puzzle",
+      "reveal": "Found by examining inscriptions"
+    },
+    {
+      "name": "SaveSecretNPC",
+      "displayName": "Save Secret NPC",
+      "description": "Rescue {npc_name} who is not mentioned in the main quest",
+      "category": "Rescue",
+      "reveal": "Discovered by exploring off the main path"
+    },
+    {
+      "name": "DiscoverTruth",
+      "displayName": "Discover Truth",
+      "description": "Uncover the real story behind the quest events",
+      "category": "Investigation",
+      "reveal": "Piece together clues found throughout"
+    },
+    {
+      "name": "ForgeSecretAlliance",
+      "displayName": "Forge Secret Alliance",
+      "description": "Ally with an unexpected faction",
+      "category": "Diplomacy",
+      "reveal": "Available through specific dialogue choices"
+    },
+    {
+      "name": "FindHiddenTreasure",
+      "displayName": "Find Hidden Treasure",
+      "description": "Locate the legendary treasure of {npc_name}",
+      "category": "Exploration",
+      "reveal": "Hinted at in optional dialogue"
+    },
+    {
+      "name": "PreventBadOutcome",
+      "displayName": "Prevent Bad Outcome",
+      "description": "Stop the tragic event from occurring",
+      "category": "Timed",
+      "reveal": "Must act within hidden time limit"
+    },
+    {
+      "name": "RedeemVillain",
+      "displayName": "Redeem Villain",
+      "description": "Convince {npc_name} to abandon their evil ways",
+      "category": "Diplomacy",
+      "reveal": "Only available with high charisma/reputation"
+    },
+    {
+      "name": "BreakSecretCurse",
+      "displayName": "Break Secret Curse",
+      "description": "Lift the hidden curse affecting the questgiver",
+      "category": "Purification",
+      "reveal": "Requires finding specific item"
+    },
+    {
+      "name": "UnlockSecretEnding",
+      "displayName": "Unlock Secret Ending",
+      "description": "Discover the alternate conclusion",
+      "category": "Branching",
+      "reveal": "Multiple hidden conditions must be met"
+    },
+    {
+      "name": "DefeatAllMimics",
+      "displayName": "Defeat All Mimics",
+      "description": "Identify and destroy all {count} disguised enemies",
+      "category": "Combat",
+      "reveal": "Counter appears after first mimic encounter"
+    }
+  ],
+  "components": {
+    "exploration_hidden": ["DiscoverSecretRoom", "FindHiddenTreasure"],
+    "lore_hidden": ["ReadAllLore", "DiscoverTruth"],
+    "combat_hidden": ["DefeatTrueBoss", "DefeatAllMimics"],
+    "collection_hidden": ["CollectAllRelics"],
+    "branching_hidden": ["UnlockGoodEnding", "UnlockSecretEnding"],
+    "rescue_hidden": ["SaveSecretNPC"],
+    "diplomacy_hidden": ["ForgeSecretAlliance", "RedeemVillain"],
+    "puzzle_hidden": ["SolveAncientPuzzle"],
+    "timed_hidden": ["PreventBadOutcome"],
+    "purification_hidden": ["BreakSecretCurse"]
+  },
+  "patterns": [
+    "Hidden objectives don't appear in quest log initially",
+    "Revealed through exploration, dialogue, or specific actions",
+    "Provide substantial bonus rewards",
+    "Often unlock alternate story paths or endings",
+    "Encourage thorough exploration and experimentation"
+  ],
+  "metadata": {
+    "total_objectives": 15,
+    "categories": 10,
+    "usage": "Add 0-2 hidden objectives for secrets and alternate paths"
   }
-]
+}

@@ -1,8 +1,132 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add enemy modifiers here",
-    "rarity": "Common"
+{
+  "items": [
+    {
+      "name": "Skilled Fighter",
+      "displayName": "Skilled Fighter",
+      "description": "Trained in combat techniques",
+      "rarity": "Common"
+    },
+    {
+      "name": "Tactical Mind",
+      "displayName": "Tactical Mind",
+      "description": "Uses advanced combat strategies",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Shield Mastery",
+      "displayName": "Shield Mastery",
+      "description": "Expert at blocking and parrying",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Dual Wielding",
+      "displayName": "Dual Wielding",
+      "description": "Fights with two weapons simultaneously",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Battle Cry",
+      "displayName": "Battle Cry",
+      "description": "Rallies allies and intimidates foes",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Opportunist",
+      "displayName": "Opportunist",
+      "description": "Takes advantage of enemy mistakes",
+      "rarity": "Common"
+    },
+    {
+      "name": "Marksman",
+      "displayName": "Marksman",
+      "description": "Deadly accurate with ranged weapons",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Berserker",
+      "displayName": "Berserker",
+      "description": "Enters rage state, trading defense for offense",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Magic Resistance",
+      "displayName": "Magic Resistance",
+      "description": "Natural resistance to spells",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Leadership",
+      "displayName": "Leadership",
+      "description": "Commands and coordinates allies",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Assassin Training",
+      "displayName": "Assassin Training",
+      "description": "Deadly from stealth, critical hit specialist",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Veteran Fighter",
+      "displayName": "Veteran Fighter",
+      "description": "Years of experience make them formidable",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Armor Expert",
+      "displayName": "Armor Expert",
+      "description": "Maximizes protection from armor",
+      "rarity": "Common"
+    },
+    {
+      "name": "Weapon Master",
+      "displayName": "Weapon Master",
+      "description": "Proficient with all weapon types",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Spellsword",
+      "displayName": "Spellsword",
+      "description": "Combines magic and melee combat",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Champion",
+      "displayName": "Champion",
+      "description": "Elite warrior of legendary skill",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "Coordinated Strike",
+      "displayName": "Coordinated Strike",
+      "description": "Works seamlessly with allies",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Revenge",
+      "displayName": "Revenge",
+      "description": "Becomes more dangerous as allies fall",
+      "rarity": "Rare"
+    }
+  ],
+  "components": {
+    "combat_styles": ["Skilled Fighter", "Dual Wielding", "Shield Mastery", "Marksman", "Weapon Master"],
+    "tactical": ["Tactical Mind", "Opportunist", "Coordinated Strike"],
+    "aggression": ["Battle Cry", "Berserker", "Revenge"],
+    "defensive": ["Armor Expert", "Magic Resistance"],
+    "specialized": ["Assassin Training", "Spellsword", "Veteran Fighter"],
+    "elite": ["Leadership", "Champion"]
+  },
+  "patterns": [
+    "trait + class (Skilled Fighter Bandit)",
+    "multiple traits for elite (Champion + Weapon Master)",
+    "class-specific traits (Assassin Training Rogue)"
+  ],
+  "rarity_distribution": {
+    "Common": 3,
+    "Uncommon": 7,
+    "Rare": 5,
+    "Epic": 3,
+    "Legendary": 1
   }
-]
+}

@@ -1,8 +1,120 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add enemy modifiers here",
-    "rarity": "Common"
-  }
-]
+{
+  "items": [
+    {
+      "name": "theRegenerated",
+      "displayName": "the Regenerated",
+      "description": "Heals impossibly fast",
+      "rarity": "Common"
+    },
+    {
+      "name": "theGiant",
+      "displayName": "the Giant",
+      "description": "Towering over others",
+      "rarity": "Common"
+    },
+    {
+      "name": "theBrute",
+      "displayName": "the Brute",
+      "description": "Savage and brutal fighter",
+      "rarity": "Common"
+    },
+    {
+      "name": "theCaveborn",
+      "displayName": "the Caveborn",
+      "description": "Dwells in deep caverns",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theRockThrower",
+      "displayName": "the Rock-Thrower",
+      "description": "Hurls massive boulders",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theStoneSkin",
+      "displayName": "the Stone-Skin",
+      "description": "Turns to stone in daylight",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theClubber",
+      "displayName": "the Clubber",
+      "description": "Master of the great club",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theEnraged",
+      "displayName": "the Enraged",
+      "description": "Constantly in berserk fury",
+      "rarity": "Rare"
+    },
+    {
+      "name": "theMountain",
+      "displayName": "the Mountain",
+      "description": "Strong as the peaks themselves",
+      "rarity": "Rare"
+    },
+    {
+      "name": "theIcebound",
+      "displayName": "the Icebound",
+      "description": "Frozen troll of the north",
+      "rarity": "Rare"
+    },
+    {
+      "name": "theChieftain",
+      "displayName": "the Chieftain",
+      "description": "Leader of the tribe",
+      "rarity": "Epic"
+    },
+    {
+      "name": "theLavaborn",
+      "displayName": "the Lavaborn",
+      "description": "Born in volcanic fires",
+      "rarity": "Epic"
+    },
+    {
+      "name": "theTerror",
+      "displayName": "the Terror",
+      "description": "Feared by all who meet them",
+      "rarity": "Epic"
+    },
+    {
+      "name": "theColossus",
+      "displayName": "the Colossus",
+      "description": "Gigantic beyond measure",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "theKing",
+      "displayName": "the King",
+      "description": "Ruler of all trollkind",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "thePrimal",
+      "displayName": "the Primal",
+      "description": "Ancient and unstoppable",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "theWorldEater",
+      "displayName": "the World-Eater",
+      "description": "Devours all in its path",
+      "rarity": "Mythic"
+    }
+  ],
+  "components": {
+    "basic_suffixes": ["theRegenerated", "theGiant", "theBrute"],
+    "environmental_suffixes": ["theCaveborn", "theStoneSkin", "theIcebound", "theLavaborn"],
+    "combat_suffixes": ["theRockThrower", "theClubber", "theEnraged"],
+    "power_suffixes": ["theMountain", "theTerror"],
+    "leadership_suffixes": ["theChieftain", "theKing"],
+    "legendary_suffixes": ["theColossus", "thePrimal", "theWorldEater"]
+  },
+  "patterns": [
+    "Size emphasis (the Giant, the Colossus)",
+    "Combat style (the Clubber, the Rock-Thrower)",
+    "Environmental adaptation (the Icebound, the Lavaborn)",
+    "Power level (the King, the World-Eater)"
+  ]
+}

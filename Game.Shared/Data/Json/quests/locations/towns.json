@@ -1,7 +1,138 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add quest content here"
+{
+  "items": [
+    {
+      "name": "Riverside",
+      "displayName": "Riverside",
+      "description": "Peaceful farming village by the river",
+      "size": "Village",
+      "population": "Small"
+    },
+    {
+      "name": "Ironforge",
+      "displayName": "Ironforge",
+      "description": "Dwarven mining town in the mountains",
+      "size": "Town",
+      "population": "Medium"
+    },
+    {
+      "name": "Silverport",
+      "displayName": "Silverport",
+      "description": "Bustling coastal trading city",
+      "size": "City",
+      "population": "Large"
+    },
+    {
+      "name": "Ravenhollow",
+      "displayName": "Ravenhollow",
+      "description": "Mysterious town shrouded in perpetual mist",
+      "size": "Town",
+      "population": "Small"
+    },
+    {
+      "name": "GoldenSpire",
+      "displayName": "Golden Spire",
+      "description": "Capital city with towering cathedral",
+      "size": "Capital",
+      "population": "Massive"
+    },
+    {
+      "name": "Crossroads",
+      "displayName": "Crossroads",
+      "description": "Trading outpost at intersection of major roads",
+      "size": "Outpost",
+      "population": "Tiny"
+    },
+    {
+      "name": "Oakshire",
+      "displayName": "Oakshire",
+      "description": "Woodland village of elven inhabitants",
+      "size": "Village",
+      "population": "Small"
+    },
+    {
+      "name": "Stormhaven",
+      "displayName": "Stormhaven",
+      "description": "Fortified city that withstands constant attacks",
+      "size": "City",
+      "population": "Large"
+    },
+    {
+      "name": "Sandstone",
+      "displayName": "Sandstone",
+      "description": "Desert oasis town",
+      "size": "Town",
+      "population": "Medium"
+    },
+    {
+      "name": "FrostPeak",
+      "displayName": "Frost Peak",
+      "description": "Mountain settlement in eternal winter",
+      "size": "Village",
+      "population": "Small"
+    },
+    {
+      "name": "Ashborough",
+      "displayName": "Ashborough",
+      "description": "Town rebuilt after volcanic destruction",
+      "size": "Town",
+      "population": "Medium"
+    },
+    {
+      "name": "TheNexus",
+      "displayName": "The Nexus",
+      "description": "Magical city floating in the sky",
+      "size": "City",
+      "population": "Large"
+    },
+    {
+      "name": "DeadwoodGrove",
+      "displayName": "Deadwood Grove",
+      "description": "Abandoned village slowly being reclaimed by forest",
+      "size": "Village",
+      "population": "Abandoned"
+    },
+    {
+      "name": "CrimsonHarbor",
+      "displayName": "Crimson Harbor",
+      "description": "Pirate haven and black market hub",
+      "size": "Town",
+      "population": "Medium"
+    },
+    {
+      "name": "Sanctuary",
+      "displayName": "Sanctuary",
+      "description": "Holy city of temples and shrines",
+      "size": "City",
+      "population": "Large"
+    }
+  ],
+  "components": {
+    "villages": ["Riverside", "Oakshire", "FrostPeak", "DeadwoodGrove"],
+    "towns": ["Ironforge", "Ravenhollow", "Sandstone", "Ashborough", "CrimsonHarbor"],
+    "cities": ["Silverport", "Stormhaven", "TheNexus", "Sanctuary"],
+    "capitals": ["GoldenSpire"],
+    "outposts": ["Crossroads"],
+    "by_environment": {
+      "river": ["Riverside"],
+      "mountain": ["Ironforge", "FrostPeak"],
+      "coastal": ["Silverport", "CrimsonHarbor"],
+      "forest": ["Oakshire", "DeadwoodGrove"],
+      "desert": ["Sandstone"],
+      "volcanic": ["Ashborough"],
+      "magical": ["TheNexus"],
+      "holy": ["Sanctuary"]
+    }
+  },
+  "patterns": [
+    "Vary town size for different quest scopes",
+    "Environment affects quest types available",
+    "Larger settlements offer more complex quests",
+    "Abandoned locations for exploration quests"
+  ],
+  "metadata": {
+    "total_locations": 15,
+    "size_categories": 5,
+    "environments": 8,
+    "usage": "Starting point or destination for quests"
   }
-]
+}

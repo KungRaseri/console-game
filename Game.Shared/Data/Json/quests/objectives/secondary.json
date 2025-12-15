@@ -1,7 +1,152 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add quest content here"
+{
+  "items": [
+    {
+      "name": "AvoidDetection",
+      "displayName": "Avoid Detection",
+      "description": "Complete the quest without being detected",
+      "category": "Stealth",
+      "bonus": "50% bonus XP"
+    },
+    {
+      "name": "NoDeaths",
+      "displayName": "No Deaths",
+      "description": "Complete without any party members dying",
+      "category": "Survival",
+      "bonus": "Bonus item reward"
+    },
+    {
+      "name": "TimeLimit",
+      "displayName": "Time Limit",
+      "description": "Complete within {time_limit}",
+      "category": "Speed",
+      "bonus": "Double gold reward"
+    },
+    {
+      "name": "CollectAll",
+      "displayName": "Collect All",
+      "description": "Find all {count} hidden items in the area",
+      "category": "Collection",
+      "bonus": "Rare item reward"
+    },
+    {
+      "name": "SpareEnemy",
+      "displayName": "Spare Enemy",
+      "description": "Complete without killing {npc_name}",
+      "category": "Mercy",
+      "bonus": "Reputation increase"
+    },
+    {
+      "name": "PerfectStealth",
+      "displayName": "Perfect Stealth",
+      "description": "Reach the objective without alerting any guards",
+      "category": "Stealth",
+      "bonus": "Stealth gear reward"
+    },
+    {
+      "name": "MinimalDamage",
+      "displayName": "Minimal Damage",
+      "description": "Complete with party health above 80%",
+      "category": "Survival",
+      "bonus": "Healing items"
+    },
+    {
+      "name": "FindSecrets",
+      "displayName": "Find Secrets",
+      "description": "Discover the hidden {secret_type} in {location}",
+      "category": "Exploration",
+      "bonus": "Secret knowledge or item"
+    },
+    {
+      "name": "DefeatOptionalBoss",
+      "displayName": "Defeat Optional Boss",
+      "description": "Find and defeat the hidden {boss_name}",
+      "category": "Combat",
+      "bonus": "Legendary item"
+    },
+    {
+      "name": "UseNoMagic",
+      "displayName": "Use No Magic",
+      "description": "Complete using only physical attacks",
+      "category": "Challenge",
+      "bonus": "Warrior gear"
+    },
+    {
+      "name": "UseOnlyMagic",
+      "displayName": "Use Only Magic",
+      "description": "Complete using only spells and magic",
+      "category": "Challenge",
+      "bonus": "Mage gear"
+    },
+    {
+      "name": "SaveAllHostages",
+      "displayName": "Save All Hostages",
+      "description": "Rescue all {count} hostages, not just the required ones",
+      "category": "Rescue",
+      "bonus": "Town gratitude rewards"
+    },
+    {
+      "name": "NoAlarms",
+      "displayName": "No Alarms",
+      "description": "Complete without triggering any alarms or traps",
+      "category": "Stealth",
+      "bonus": "Thief tools"
+    },
+    {
+      "name": "PreserveEnvironment",
+      "displayName": "Preserve Environment",
+      "description": "Complete without destroying any environmental objects",
+      "category": "Precision",
+      "bonus": "Nature's blessing"
+    },
+    {
+      "name": "TalkToEveryone",
+      "displayName": "Talk to Everyone",
+      "description": "Speak with all NPCs in the area for additional lore",
+      "category": "Social",
+      "bonus": "Lore book or secret information"
+    },
+    {
+      "name": "SoloPerfection",
+      "displayName": "Solo Perfection",
+      "description": "Complete the quest alone without companions",
+      "category": "Challenge",
+      "bonus": "Legendary solo achievement"
+    },
+    {
+      "name": "NoItems",
+      "displayName": "No Items",
+      "description": "Complete without using any consumable items",
+      "category": "Challenge",
+      "bonus": "Master achievement"
+    },
+    {
+      "name": "PacifistRoute",
+      "displayName": "Pacifist Route",
+      "description": "Complete without killing any enemies",
+      "category": "Mercy",
+      "bonus": "Peace achievement, unique dialogue"
+    }
+  ],
+  "components": {
+    "stealth_objectives": ["AvoidDetection", "PerfectStealth", "NoAlarms"],
+    "survival_objectives": ["NoDeaths", "MinimalDamage"],
+    "speed_objectives": ["TimeLimit"],
+    "collection_objectives": ["CollectAll", "FindSecrets"],
+    "combat_objectives": ["DefeatOptionalBoss"],
+    "challenge_objectives": ["UseNoMagic", "UseOnlyMagic", "SoloPerfection", "NoItems"],
+    "mercy_objectives": ["SpareEnemy", "PacifistRoute"],
+    "rescue_objectives": ["SaveAllHostages"],
+    "social_objectives": ["TalkToEveryone"]
+  },
+  "patterns": [
+    "Secondary objectives are optional",
+    "Provide bonus rewards for skilled play",
+    "Enable different playstyles (stealth, combat, diplomacy)",
+    "Can combine multiple secondaries per quest"
+  ],
+  "metadata": {
+    "total_objectives": 18,
+    "categories": 9,
+    "usage": "Add 1-3 secondary objectives per quest for replay value"
   }
-]
+}

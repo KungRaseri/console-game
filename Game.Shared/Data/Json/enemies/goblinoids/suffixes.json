@@ -1,8 +1,112 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add enemy modifiers here",
-    "rarity": "Common"
-  }
-]
+{
+  "items": [
+    {
+      "name": "theScavenger",
+      "displayName": "the Scavenger",
+      "description": "Known for looting and collecting",
+      "rarity": "Common"
+    },
+    {
+      "name": "theSneaky",
+      "displayName": "the Sneaky",
+      "description": "Master of stealth attacks",
+      "rarity": "Common"
+    },
+    {
+      "name": "theCoward",
+      "displayName": "the Coward",
+      "description": "Flees at the first sign of danger",
+      "rarity": "Common"
+    },
+    {
+      "name": "theSwift",
+      "displayName": "the Swift",
+      "description": "Incredibly fast and agile",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theTrapmaker",
+      "displayName": "the Trapmaker",
+      "description": "Expert at setting deadly traps",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "thePoisoner",
+      "displayName": "the Poisoner",
+      "description": "Skilled with venoms and toxins",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theRaider",
+      "displayName": "the Raider",
+      "description": "Leads attacks on settlements",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theSaboteur",
+      "displayName": "the Saboteur",
+      "description": "Destroys equipment and supplies",
+      "rarity": "Rare"
+    },
+    {
+      "name": "theShaman",
+      "displayName": "the Shaman",
+      "description": "Wields tribal magic",
+      "rarity": "Rare"
+    },
+    {
+      "name": "theBerserker",
+      "displayName": "the Berserker",
+      "description": "Fights with reckless fury",
+      "rarity": "Rare"
+    },
+    {
+      "name": "theWarchief",
+      "displayName": "the Warchief",
+      "description": "Commands goblinoid warbands",
+      "rarity": "Epic"
+    },
+    {
+      "name": "theAssassin",
+      "displayName": "the Assassin",
+      "description": "Elite killer trained in dark arts",
+      "rarity": "Epic"
+    },
+    {
+      "name": "theTinkerer",
+      "displayName": "the Tinkerer",
+      "description": "Creates deadly mechanical devices",
+      "rarity": "Epic"
+    },
+    {
+      "name": "theKing",
+      "displayName": "the King",
+      "description": "Sovereign ruler of goblinoid tribes",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "theCursed",
+      "displayName": "the Cursed",
+      "description": "Afflicted by dark magic",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "theDemonTouched",
+      "displayName": "the Demon-Touched",
+      "description": "Corrupted by infernal power",
+      "rarity": "Mythic"
+    }
+  ],
+  "components": {
+    "common_suffixes": ["theScavenger", "theSneaky", "theCoward"],
+    "specialist_suffixes": ["theSwift", "theTrapmaker", "thePoisoner", "theRaider"],
+    "elite_suffixes": ["theSaboteur", "theShaman", "theBerserker"],
+    "leader_suffixes": ["theWarchief", "theKing"],
+    "unique_suffixes": ["theAssassin", "theTinkerer", "theCursed", "theDemonTouched"]
+  },
+  "patterns": [
+    "Combine with traits for variety (Berserker the Warchief)",
+    "Rarity determines encounter difficulty",
+    "Leaders (Warchief, King) spawn with minions"
+  ]
+}

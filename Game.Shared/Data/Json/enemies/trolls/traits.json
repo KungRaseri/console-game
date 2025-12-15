@@ -1,8 +1,126 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add enemy modifiers here",
-    "rarity": "Common"
-  }
-]
+{
+  "items": [
+    {
+      "name": "Regeneration",
+      "displayName": "Regeneration",
+      "description": "Rapidly heals wounds unless burned",
+      "rarity": "Common"
+    },
+    {
+      "name": "ThickSkin",
+      "displayName": "Thick Skin",
+      "description": "Natural damage resistance",
+      "rarity": "Common"
+    },
+    {
+      "name": "Massive",
+      "displayName": "Massive",
+      "description": "Large size with increased health and damage",
+      "rarity": "Common"
+    },
+    {
+      "name": "FireWeakness",
+      "displayName": "Fire Weakness",
+      "description": "Takes extra damage from fire and stops regeneration",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "RockThrow",
+      "displayName": "Rock Throw",
+      "description": "Hurls boulders at enemies",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Smash",
+      "displayName": "Smash",
+      "description": "Devastating ground pound attack",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "StoneForm",
+      "displayName": "Stone Form",
+      "description": "Turns to stone in sunlight, becoming immobile but invincible",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "Rage",
+      "displayName": "Rage",
+      "description": "Enters berserk state when injured",
+      "rarity": "Rare"
+    },
+    {
+      "name": "ClubMaster",
+      "displayName": "Club Master",
+      "description": "Expertise with massive clubs and mauls",
+      "rarity": "Rare"
+    },
+    {
+      "name": "MountainStrength",
+      "displayName": "Mountain Strength",
+      "description": "Incredible physical power",
+      "rarity": "Rare"
+    },
+    {
+      "name": "CaveAdaptation",
+      "displayName": "Cave Adaptation",
+      "description": "Bonus stats in underground environments",
+      "rarity": "Rare"
+    },
+    {
+      "name": "IceTroll",
+      "displayName": "Ice Troll",
+      "description": "Frost-resistant variant with ice attacks",
+      "rarity": "Epic"
+    },
+    {
+      "name": "LavaImmunity",
+      "displayName": "Lava Immunity",
+      "description": "Immune to fire, adapted to volcanic regions",
+      "rarity": "Epic"
+    },
+    {
+      "name": "ChieftainCommand",
+      "displayName": "Chieftain Command",
+      "description": "Leads troll tribes and buffs allies",
+      "rarity": "Epic"
+    },
+    {
+      "name": "Colossus",
+      "displayName": "Colossus",
+      "description": "Gigantic troll of legendary size",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "TrollKing",
+      "displayName": "Troll King",
+      "description": "Sovereign ruler of all trolls",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "PrimalTitan",
+      "displayName": "Primal Titan",
+      "description": "Ancient troll of unimaginable power",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "WorldEater",
+      "displayName": "World Eater",
+      "description": "Mythical troll that devours mountains",
+      "rarity": "Mythic"
+    }
+  ],
+  "components": {
+    "basic_traits": ["Regeneration", "ThickSkin", "Massive", "FireWeakness"],
+    "combat_traits": ["RockThrow", "Smash", "ClubMaster"],
+    "environmental_traits": ["StoneForm", "CaveAdaptation", "IceTroll", "LavaImmunity"],
+    "power_traits": ["Rage", "MountainStrength"],
+    "leadership_traits": ["ChieftainCommand", "TrollKing"],
+    "colossal_traits": ["Colossus", "PrimalTitan", "WorldEater"]
+  },
+  "patterns": [
+    "Common: Core troll features (regeneration + fire weakness)",
+    "Uncommon-Rare: Combat specializations",
+    "Epic: Environmental adaptations",
+    "Legendary+: Gigantic and ancient variants"
+  ]
+}

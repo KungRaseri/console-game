@@ -1,8 +1,213 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add content here",
-    "rarity": "Common"
+{
+  "items": [
+    {
+      "name": "of Protection",
+      "displayName": "of Protection",
+      "description": "Grants enhanced defensive capabilities",
+      "rarity": "Common"
+    },
+    {
+      "name": "of Defense",
+      "displayName": "of Defense",
+      "description": "Improves armor rating",
+      "rarity": "Common"
+    },
+    {
+      "name": "of the Guardian",
+      "displayName": "of the Guardian",
+      "description": "Shields the wearer from harm",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "of Fortitude",
+      "displayName": "of Fortitude",
+      "description": "Increases constitution and endurance",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "of the Bear",
+      "displayName": "of the Bear",
+      "description": "Grants the strength and resilience of a bear",
+      "rarity": "Rare"
+    },
+    {
+      "name": "of the Turtle",
+      "displayName": "of the Turtle",
+      "description": "Provides exceptional defensive bonuses",
+      "rarity": "Rare"
+    },
+    {
+      "name": "of Fire Resistance",
+      "displayName": "of Fire Resistance",
+      "description": "Protects against flames and heat",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "of Ice Resistance",
+      "displayName": "of Ice Resistance",
+      "description": "Wards off cold and frost",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "of Lightning Resistance",
+      "displayName": "of Lightning Resistance",
+      "description": "Deflects electrical attacks",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "of Magic Resistance",
+      "displayName": "of Magic Resistance",
+      "description": "Reduces magical damage taken",
+      "rarity": "Rare"
+    },
+    {
+      "name": "of Invulnerability",
+      "displayName": "of Invulnerability",
+      "description": "Makes the wearer nearly immune to damage",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "of the Champion",
+      "displayName": "of the Champion",
+      "description": "Worn by legendary warriors",
+      "rarity": "Epic"
+    },
+    {
+      "name": "of the Crusader",
+      "displayName": "of the Crusader",
+      "description": "Blessed for holy warriors",
+      "rarity": "Rare"
+    },
+    {
+      "name": "of the Paladin",
+      "displayName": "of the Paladin",
+      "description": "Radiates divine protection",
+      "rarity": "Epic"
+    },
+    {
+      "name": "of the Mountain",
+      "displayName": "of the Mountain",
+      "description": "Immovable as stone",
+      "rarity": "Epic"
+    },
+    {
+      "name": "of the Aegis",
+      "displayName": "of the Aegis",
+      "description": "Shields like the gods themselves",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "of Regeneration",
+      "displayName": "of Regeneration",
+      "description": "Slowly heals wounds over time",
+      "rarity": "Rare"
+    },
+    {
+      "name": "of Vitality",
+      "displayName": "of Vitality",
+      "description": "Increases maximum health",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "of Stamina",
+      "displayName": "of Stamina",
+      "description": "Boosts endurance and vigor",
+      "rarity": "Common"
+    },
+    {
+      "name": "of Thorns",
+      "displayName": "of Thorns",
+      "description": "Reflects damage back to attackers",
+      "rarity": "Rare"
+    },
+    {
+      "name": "of the Dragon",
+      "displayName": "of the Dragon",
+      "description": "Grants draconic resilience",
+      "rarity": "Epic"
+    },
+    {
+      "name": "of the Phoenix",
+      "displayName": "of the Phoenix",
+      "description": "Resurrects the wearer once per day",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "of Absorption",
+      "displayName": "of Absorption",
+      "description": "Absorbs a portion of incoming damage",
+      "rarity": "Rare"
+    },
+    {
+      "name": "of Deflection",
+      "displayName": "of Deflection",
+      "description": "Increases chance to dodge attacks",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "of Warding",
+      "displayName": "of Warding",
+      "description": "Creates protective magical barriers",
+      "rarity": "Rare"
+    },
+    {
+      "name": "of Shadows",
+      "displayName": "of Shadows",
+      "description": "Cloaks the wearer in darkness",
+      "rarity": "Epic"
+    },
+    {
+      "name": "of Light",
+      "displayName": "of Light",
+      "description": "Radiates holy illumination",
+      "rarity": "Rare"
+    },
+    {
+      "name": "of the Void",
+      "displayName": "of the Void",
+      "description": "Channels void energies for protection",
+      "rarity": "Mythic"
+    },
+    {
+      "name": "of Eternity",
+      "displayName": "of Eternity",
+      "description": "Never degrades or breaks",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "of the Gods",
+      "displayName": "of the Gods",
+      "description": "Blessed by divine beings",
+      "rarity": "Ancient"
+    }
+  ],
+  "components": {
+    "protection_types": {
+      "basic": ["of Protection", "of Defense", "of Stamina"],
+      "elemental": ["of Fire Resistance", "of Ice Resistance", "of Lightning Resistance", "of Magic Resistance"],
+      "advanced": ["of the Guardian", "of Fortitude", "of Vitality", "of Deflection"],
+      "animal_totems": ["of the Bear", "of the Turtle"],
+      "warrior_class": ["of the Champion", "of the Crusader", "of the Paladin"],
+      "legendary": ["of Invulnerability", "of the Aegis", "of the Dragon", "of the Phoenix"],
+      "special_abilities": ["of Regeneration", "of Thorns", "of Absorption", "of Warding"],
+      "alignment": ["of Shadows", "of Light", "of the Void"],
+      "divine": ["of Eternity", "of the Gods"]
+    }
+  },
+  "patterns": [
+    "piece + basic (Helm of Protection)",
+    "piece + elemental (Cuirass of Fire Resistance)",
+    "piece + animal (Gauntlets of the Bear)",
+    "piece + warrior (Breastplate of the Champion)",
+    "piece + legendary (Shield of the Dragon)"
+  ],
+  "rarity_distribution": {
+    "Common": 3,
+    "Uncommon": 6,
+    "Rare": 10,
+    "Epic": 6,
+    "Legendary": 3,
+    "Mythic": 2,
+    "Ancient": 1
   }
-]
+}

@@ -1,7 +1,231 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add NPC content here"
+{
+  "items": [
+    {
+      "name": "GenericWelcome",
+      "displayName": "Generic Welcome",
+      "description": "Hello there, traveler!",
+      "personality": "Friendly",
+      "formality": "Casual"
+    },
+    {
+      "name": "FormalGreeting",
+      "displayName": "Formal Greeting",
+      "description": "Greetings. How may I assist you?",
+      "personality": "Serious",
+      "formality": "Formal"
+    },
+    {
+      "name": "WarmWelcome",
+      "displayName": "Warm Welcome",
+      "description": "Welcome, friend! It's wonderful to see you!",
+      "personality": "Cheerful",
+      "formality": "Casual"
+    },
+    {
+      "name": "GruffAcknowledgment",
+      "displayName": "Gruff Acknowledgment",
+      "description": "What do you want?",
+      "personality": "Gruff",
+      "formality": "Informal"
+    },
+    {
+      "name": "SuspiciousQuestion",
+      "displayName": "Suspicious Question",
+      "description": "Who are you? What brings you here?",
+      "personality": "Suspicious",
+      "formality": "Cautious"
+    },
+    {
+      "name": "EnthusiasticHello",
+      "displayName": "Enthusiastic Hello",
+      "description": "Well met! What adventures bring you to these parts?",
+      "personality": "Cheerful",
+      "formality": "Casual"
+    },
+    {
+      "name": "WearyGreeting",
+      "displayName": "Weary Greeting",
+      "description": "Another traveler... What is it you need?",
+      "personality": "Gloomy",
+      "formality": "Tired"
+    },
+    {
+      "name": "HumbleWelcome",
+      "displayName": "Humble Welcome",
+      "description": "Oh, hello. I'm nobody important, but how can I help?",
+      "personality": "Humble",
+      "formality": "Polite"
+    },
+    {
+      "name": "ArrogantAcknowledgment",
+      "displayName": "Arrogant Acknowledgment",
+      "description": "Ah, someone seeking my expertise, no doubt.",
+      "personality": "Arrogant",
+      "formality": "Condescending"
+    },
+    {
+      "name": "NervousStammer",
+      "displayName": "Nervous Stammer",
+      "description": "Oh! Um, h-hello... Can I... help you?",
+      "personality": "Shy",
+      "formality": "Awkward"
+    },
+    {
+      "name": "MysteriousWhisper",
+      "displayName": "Mysterious Whisper",
+      "description": "Ah, fate brings us together... How curious.",
+      "personality": "Mysterious",
+      "formality": "Cryptic"
+    },
+    {
+      "name": "LoudHail",
+      "displayName": "Loud Hail",
+      "description": "HO THERE, FRIEND! WELCOME!",
+      "personality": "Outgoing",
+      "formality": "Very Casual"
+    },
+    {
+      "name": "BusinessLike",
+      "displayName": "Business-like",
+      "description": "State your business.",
+      "personality": "Serious",
+      "formality": "Curt"
+    },
+    {
+      "name": "WittyRemark",
+      "displayName": "Witty Remark",
+      "description": "Well, well! Another hero looking for glory or gold?",
+      "personality": "Witty",
+      "formality": "Playful"
+    },
+    {
+      "name": "GuardedResponse",
+      "displayName": "Guarded Response",
+      "description": "I don't know you. Keep your distance.",
+      "personality": "Suspicious",
+      "formality": "Defensive"
+    },
+    {
+      "name": "ReligiousBlessing",
+      "displayName": "Religious Blessing",
+      "description": "May the gods smile upon you, traveler.",
+      "personality": "Priest",
+      "formality": "Reverent"
+    },
+    {
+      "name": "ScholarlyInquiry",
+      "displayName": "Scholarly Inquiry",
+      "description": "Greetings! Might you have any knowledge to share?",
+      "personality": "Curious",
+      "formality": "Academic"
+    },
+    {
+      "name": "MilitarySharpness",
+      "displayName": "Military Sharpness",
+      "description": "Stand and state your purpose!",
+      "personality": "FormerSoldier",
+      "formality": "Command"
+    },
+    {
+      "name": "MerchantPitch",
+      "displayName": "Merchant Pitch",
+      "description": "Welcome, welcome! Looking to buy or sell today?",
+      "personality": "Merchant",
+      "formality": "Opportunistic"
+    },
+    {
+      "name": "ExhaustedSigh",
+      "displayName": "Exhausted Sigh",
+      "description": "*sigh* Yes? What is it?",
+      "personality": "Apathetic",
+      "formality": "Resigned"
+    },
+    {
+      "name": "NobleGreeting",
+      "displayName": "Noble Greeting",
+      "description": "Good day. I trust you come with good intentions?",
+      "personality": "Noble",
+      "formality": "Refined"
+    },
+    {
+      "name": "StreetSmart",
+      "displayName": "Street Smart",
+      "description": "Hey there, stranger. You new around here?",
+      "personality": "StreetUrchin",
+      "formality": "Urban"
+    },
+    {
+      "name": "KindlyOffer",
+      "displayName": "Kindly Offer",
+      "description": "Hello, dear. You look like you could use some help.",
+      "personality": "Compassionate",
+      "formality": "Caring"
+    },
+    {
+      "name": "BrusqueDismissal",
+      "displayName": "Brusque Dismissal",
+      "description": "I'm busy. Make it quick.",
+      "personality": "Hot-Tempered",
+      "formality": "Impatient"
+    },
+    {
+      "name": "PhilosophicalMusing",
+      "displayName": "Philosophical Musing",
+      "description": "Ah, another soul wandering this strange world...",
+      "personality": "Wise",
+      "formality": "Thoughtful"
+    },
+    {
+      "name": "DrunkSlur",
+      "displayName": "Drunk Slur",
+      "description": "Heeey there, pal! *hic* How'sh it goin'?",
+      "personality": "Cheerful",
+      "formality": "Intoxicated"
+    },
+    {
+      "name": "ChildlikeWonder",
+      "displayName": "Childlike Wonder",
+      "description": "Ooh! A real adventurer! Are you here to save us?",
+      "personality": "Curious",
+      "formality": "Innocent"
+    },
+    {
+      "name": "CynicalRemark",
+      "displayName": "Cynical Remark",
+      "description": "Let me guess... you need something.",
+      "personality": "Gloomy",
+      "formality": "Jaded"
+    },
+    {
+      "name": "VeteranRespect",
+      "displayName": "Veteran Respect",
+      "description": "I can see you've seen battle. Welcome, warrior.",
+      "personality": "FormerSoldier",
+      "formality": "Respectful"
+    },
+    {
+      "name": "SecretiveWhisper",
+      "displayName": "Secretive Whisper",
+      "description": "Pssst... over here. I have something to tell you...",
+      "personality": "Mysterious",
+      "formality": "Conspiratorial"
+    }
+  ],
+  "components": {
+    "friendly_greetings": ["GenericWelcome", "WarmWelcome", "EnthusiasticHello", "KindlyOffer"],
+    "formal_greetings": ["FormalGreeting", "NobleGreeting", "ReligiousBlessing"],
+    "hostile_greetings": ["GruffAcknowledgment", "SuspiciousQuestion", "GuardedResponse", "BrusqueDismissal"],
+    "personality_specific": ["ArrogantAcknowledgment", "NervousStammer", "WittyRemark", "MysteriousWhisper"],
+    "background_specific": ["MilitarySharpness", "MerchantPitch", "ScholarlyInquiry", "StreetSmart"]
+  },
+  "patterns": [
+    "select greeting based on NPC personality trait",
+    "combine personality + formality for variety",
+    "background influences greeting style (soldier vs merchant)"
+  ],
+  "metadata": {
+    "total_greetings": 30,
+    "formality_levels": 15,
+    "usage": "Select greeting matching NPC's primary personality trait and background"
   }
-]
+}

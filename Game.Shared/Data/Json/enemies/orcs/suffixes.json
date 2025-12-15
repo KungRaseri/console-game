@@ -1,8 +1,113 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add enemy modifiers here",
-    "rarity": "Common"
-  }
-]
+{
+  "items": [
+    {
+      "name": "theStrong",
+      "displayName": "the Strong",
+      "description": "Renowned for great strength",
+      "rarity": "Common"
+    },
+    {
+      "name": "theBrutal",
+      "displayName": "the Brutal",
+      "description": "Known for savage combat",
+      "rarity": "Common"
+    },
+    {
+      "name": "theFearless",
+      "displayName": "the Fearless",
+      "description": "Never retreats from battle",
+      "rarity": "Common"
+    },
+    {
+      "name": "theWarrior",
+      "displayName": "the Warrior",
+      "description": "Dedicated fighter",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theDestroyer",
+      "displayName": "the Destroyer",
+      "description": "Leaves ruin in their wake",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theIronbound",
+      "displayName": "the Ironbound",
+      "description": "Encased in heavy armor",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theRaider",
+      "displayName": "the Raider",
+      "description": "Leads pillaging expeditions",
+      "rarity": "Uncommon"
+    },
+    {
+      "name": "theExecutioner",
+      "displayName": "the Executioner",
+      "description": "Delivers killing blows",
+      "rarity": "Rare"
+    },
+    {
+      "name": "theBloodthirsty",
+      "displayName": "the Bloodthirsty",
+      "description": "Craves battle and carnage",
+      "rarity": "Rare"
+    },
+    {
+      "name": "theConqueror",
+      "displayName": "the Conqueror",
+      "description": "Claims victory after victory",
+      "rarity": "Rare"
+    },
+    {
+      "name": "theWarlord",
+      "displayName": "the Warlord",
+      "description": "Commands armies in battle",
+      "rarity": "Epic"
+    },
+    {
+      "name": "theUnbreakable",
+      "displayName": "the Unbreakable",
+      "description": "Cannot be defeated easily",
+      "rarity": "Epic"
+    },
+    {
+      "name": "theChampion",
+      "displayName": "the Champion",
+      "description": "Greatest warrior of their tribe",
+      "rarity": "Epic"
+    },
+    {
+      "name": "theImmortal",
+      "displayName": "the Immortal",
+      "description": "Defies death itself",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "theDemonBorn",
+      "displayName": "the Demon-Born",
+      "description": "Infused with demonic essence",
+      "rarity": "Legendary"
+    },
+    {
+      "name": "theGodSlayer",
+      "displayName": "the God-Slayer",
+      "description": "Has killed divine beings",
+      "rarity": "Mythic"
+    }
+  ],
+  "components": {
+    "basic_suffixes": ["theStrong", "theBrutal", "theFearless"],
+    "warrior_suffixes": ["theWarrior", "theDestroyer", "theExecutioner", "theConqueror"],
+    "armored_suffixes": ["theIronbound", "theUnbreakable"],
+    "leader_suffixes": ["theRaider", "theWarlord", "theChampion"],
+    "legendary_suffixes": ["theBloodthirsty", "theImmortal", "theDemonBorn", "theGodSlayer"]
+  },
+  "patterns": [
+    "Strength-based naming (the Strong, the Brutal)",
+    "Combat prowess (the Warrior, the Champion)",
+    "Leadership titles (the Warlord, the Conqueror)",
+    "Supernatural power (the Immortal, the God-Slayer)"
+  ]
+}

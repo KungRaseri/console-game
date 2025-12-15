@@ -1,7 +1,172 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add NPC content here"
+{
+  "items": [
+    {
+      "name": "Friendly",
+      "displayName": "Friendly",
+      "description": "Warm and welcoming to strangers"
+    },
+    {
+      "name": "Gruff",
+      "displayName": "Gruff",
+      "description": "Rough-mannered but not necessarily hostile"
+    },
+    {
+      "name": "Suspicious",
+      "displayName": "Suspicious",
+      "description": "Distrusts newcomers and outsiders"
+    },
+    {
+      "name": "Cheerful",
+      "displayName": "Cheerful",
+      "description": "Always optimistic and upbeat"
+    },
+    {
+      "name": "Gloomy",
+      "displayName": "Gloomy",
+      "description": "Pessimistic and melancholic"
+    },
+    {
+      "name": "Arrogant",
+      "displayName": "Arrogant",
+      "description": "Considers themselves superior to others"
+    },
+    {
+      "name": "Humble",
+      "displayName": "Humble",
+      "description": "Modest and unassuming"
+    },
+    {
+      "name": "Brave",
+      "displayName": "Brave",
+      "description": "Courageous and fearless"
+    },
+    {
+      "name": "Cowardly",
+      "displayName": "Cowardly",
+      "description": "Easily frightened and cautious"
+    },
+    {
+      "name": "Honest",
+      "displayName": "Honest",
+      "description": "Truthful and straightforward"
+    },
+    {
+      "name": "Deceitful",
+      "displayName": "Deceitful",
+      "description": "Often lies and misleads"
+    },
+    {
+      "name": "Generous",
+      "displayName": "Generous",
+      "description": "Freely gives and helps others"
+    },
+    {
+      "name": "Greedy",
+      "displayName": "Greedy",
+      "description": "Obsessed with wealth and possessions"
+    },
+    {
+      "name": "Wise",
+      "displayName": "Wise",
+      "description": "Thoughtful and insightful"
+    },
+    {
+      "name": "Foolish",
+      "displayName": "Foolish",
+      "description": "Lacks good judgment"
+    },
+    {
+      "name": "Calm",
+      "displayName": "Calm",
+      "description": "Level-headed and composed"
+    },
+    {
+      "name": "Hot-Tempered",
+      "displayName": "Hot-Tempered",
+      "description": "Quick to anger"
+    },
+    {
+      "name": "Curious",
+      "displayName": "Curious",
+      "description": "Eager to learn and explore"
+    },
+    {
+      "name": "Apathetic",
+      "displayName": "Apathetic",
+      "description": "Indifferent to most things"
+    },
+    {
+      "name": "Compassionate",
+      "displayName": "Compassionate",
+      "description": "Deeply empathetic and caring"
+    },
+    {
+      "name": "Cruel",
+      "displayName": "Cruel",
+      "description": "Takes pleasure in others' suffering"
+    },
+    {
+      "name": "Witty",
+      "displayName": "Witty",
+      "description": "Quick with clever remarks"
+    },
+    {
+      "name": "Serious",
+      "displayName": "Serious",
+      "description": "Rarely jokes or relaxes"
+    },
+    {
+      "name": "Loyal",
+      "displayName": "Loyal",
+      "description": "Devoted to friends and causes"
+    },
+    {
+      "name": "Fickle",
+      "displayName": "Fickle",
+      "description": "Changes allegiances easily"
+    },
+    {
+      "name": "Mysterious",
+      "displayName": "Mysterious",
+      "description": "Secretive and enigmatic"
+    },
+    {
+      "name": "Outgoing",
+      "displayName": "Outgoing",
+      "description": "Sociable and talkative"
+    },
+    {
+      "name": "Shy",
+      "displayName": "Shy",
+      "description": "Introverted and reserved"
+    },
+    {
+      "name": "Ambitious",
+      "displayName": "Ambitious",
+      "description": "Driven to succeed and advance"
+    },
+    {
+      "name": "Content",
+      "displayName": "Content",
+      "description": "Satisfied with their current life"
+    }
+  ],
+  "components": {
+    "social_traits": ["Friendly", "Gruff", "Outgoing", "Shy", "Mysterious"],
+    "emotional_traits": ["Cheerful", "Gloomy", "Calm", "Hot-Tempered", "Apathetic"],
+    "moral_traits": ["Honest", "Deceitful", "Compassionate", "Cruel", "Loyal", "Fickle"],
+    "intellectual_traits": ["Wise", "Foolish", "Curious", "Witty", "Serious"],
+    "behavioral_traits": ["Brave", "Cowardly", "Generous", "Greedy", "Humble", "Arrogant"],
+    "motivational_traits": ["Ambitious", "Content", "Suspicious"]
+  },
+  "patterns": [
+    "single trait (Friendly Merchant)",
+    "combined traits (Gruff but Loyal Guard)",
+    "contrasting traits for depth (Arrogant yet Brave Knight)"
+  ],
+  "metadata": {
+    "total_traits": 30,
+    "categories": 6,
+    "usage": "NPCs can have 1-3 personality traits for variety"
   }
-]
+}

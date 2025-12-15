@@ -1,5 +1,37 @@
-[
-  "PLACEHOLDER_WORD_1",
-  "PLACEHOLDER_WORD_2",
-  "PLACEHOLDER_WORD_3"
-]
+{
+  "items": [
+    "musty", "fragrant", "acrid", "pungent", "sweet",
+    "earthy", "smoky", "fresh", "stale", "damp",
+    "floral", "herbal", "spicy", "minty", "citrus",
+    "sulfurous", "metallic", "bloody", "putrid", "rotten",
+    "perfumed", "aromatic", "incense", "sandalwood", "pine",
+    "briny", "salty", "oceanic", "fishy", "seaweed",
+    "leathery", "woody", "mossy", "moldy", "fungal",
+    "medicinal", "antiseptic", "chemical", "acidic", "bitter",
+    "vanilla", "cinnamon", "clove", "ginger", "peppery",
+    "ashen", "charred", "burnt", "roasted", "smoky"
+  ],
+  "components": {
+    "pleasant": [
+      "fragrant", "fresh", "floral", "herbal", "spicy",
+      "perfumed", "aromatic", "sweet", "vanilla", "citrus"
+    ],
+    "unpleasant": [
+      "musty", "acrid", "pungent", "stale", "putrid",
+      "rotten", "sulfurous", "bloody", "moldy", "burnt"
+    ],
+    "natural": [
+      "earthy", "woody", "mossy", "pine", "oceanic",
+      "floral", "herbal", "briny", "fungal", "leathery"
+    ],
+    "intensity": [
+      "faint", "mild", "strong", "overpowering", "subtle",
+      "sharp", "heavy", "light", "lingering", "piercing"
+    ]
+  },
+  "patterns": [
+    "smell",
+    "intensity + smell",
+    "smell + smell (combination)"
+  ]
+}

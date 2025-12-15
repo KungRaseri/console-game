@@ -1,7 +1,165 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add quest content here"
+{
+  "items": [
+    {
+      "name": "DefeatBoss",
+      "displayName": "Defeat Boss",
+      "description": "Defeat {enemy_name} in {location}",
+      "category": "Combat",
+      "difficulty": "Hard"
+    },
+    {
+      "name": "ClearDungeon",
+      "displayName": "Clear Dungeon",
+      "description": "Clear all enemies from {location}",
+      "category": "Combat",
+      "difficulty": "Medium"
+    },
+    {
+      "name": "RetrieveArtifact",
+      "displayName": "Retrieve Artifact",
+      "description": "Recover the {item_name} from {location}",
+      "category": "Retrieval",
+      "difficulty": "Medium"
+    },
+    {
+      "name": "RescueHostage",
+      "displayName": "Rescue Hostage",
+      "description": "Rescue {npc_name} from {location}",
+      "category": "Rescue",
+      "difficulty": "Medium"
+    },
+    {
+      "name": "DestroyEvil",
+      "displayName": "Destroy Evil",
+      "description": "Destroy the source of evil in {location}",
+      "category": "Purification",
+      "difficulty": "Hard"
+    },
+    {
+      "name": "DefendTown",
+      "displayName": "Defend Town",
+      "description": "Protect {location} from the {enemy_type} invasion",
+      "category": "Defense",
+      "difficulty": "Hard"
+    },
+    {
+      "name": "SealPortal",
+      "displayName": "Seal Portal",
+      "description": "Close the dimensional rift in {location}",
+      "category": "Purification",
+      "difficulty": "Very Hard"
+    },
+    {
+      "name": "SlayDragon",
+      "displayName": "Slay Dragon",
+      "description": "Kill the dragon terrorizing {location}",
+      "category": "Combat",
+      "difficulty": "Very Hard"
+    },
+    {
+      "name": "RecoverRelic",
+      "displayName": "Recover Relic",
+      "description": "Find the legendary {item_name}",
+      "category": "Retrieval",
+      "difficulty": "Hard"
+    },
+    {
+      "name": "StopRitual",
+      "displayName": "Stop Ritual",
+      "description": "Prevent the cultists from completing their ritual in {location}",
+      "category": "Timed",
+      "difficulty": "Very Hard"
+    },
+    {
+      "name": "DestroyNecromancer",
+      "displayName": "Destroy Necromancer",
+      "description": "Defeat the necromancer and end the undead plague",
+      "category": "Combat",
+      "difficulty": "Very Hard"
+    },
+    {
+      "name": "SaveKingdom",
+      "displayName": "Save Kingdom",
+      "description": "Stop the {enemy_type} army before they reach the capital",
+      "category": "Defense",
+      "difficulty": "Epic"
+    },
+    {
+      "name": "BanishDemon",
+      "displayName": "Banish Demon",
+      "description": "Send the demon lord back to the abyss",
+      "category": "Purification",
+      "difficulty": "Epic"
+    },
+    {
+      "name": "RestoreBalance",
+      "displayName": "Restore Balance",
+      "description": "Restore the natural order disturbed by {enemy_name}",
+      "category": "Purification",
+      "difficulty": "Hard"
+    },
+    {
+      "name": "RecoverAncientKnowledge",
+      "displayName": "Recover Ancient Knowledge",
+      "description": "Retrieve the lost knowledge from {location}",
+      "category": "Retrieval",
+      "difficulty": "Medium"
+    },
+    {
+      "name": "BreakCurse",
+      "displayName": "Break Curse",
+      "description": "Lift the curse afflicting {location} or {npc_name}",
+      "category": "Purification",
+      "difficulty": "Hard"
+    },
+    {
+      "name": "UniteTribes",
+      "displayName": "Unite Tribes",
+      "description": "Convince the warring factions to unite against a common threat",
+      "category": "Diplomacy",
+      "difficulty": "Medium"
+    },
+    {
+      "name": "ExposeTraitor",
+      "displayName": "Expose Traitor",
+      "description": "Find evidence of {npc_name}'s betrayal",
+      "category": "Investigation",
+      "difficulty": "Medium"
+    },
+    {
+      "name": "PreventWar",
+      "displayName": "Prevent War",
+      "description": "Stop the war between {faction_1} and {faction_2}",
+      "category": "Diplomacy",
+      "difficulty": "Hard"
+    },
+    {
+      "name": "SaveWorld",
+      "displayName": "Save World",
+      "description": "Prevent the apocalypse and save all life",
+      "category": "Defense",
+      "difficulty": "Legendary"
+    }
+  ],
+  "components": {
+    "combat_objectives": ["DefeatBoss", "ClearDungeon", "SlayDragon", "DestroyNecromancer"],
+    "retrieval_objectives": ["RetrieveArtifact", "RecoverRelic", "RecoverAncientKnowledge"],
+    "rescue_objectives": ["RescueHostage"],
+    "purification_objectives": ["DestroyEvil", "SealPortal", "BanishDemon", "BreakCurse", "RestoreBalance"],
+    "defense_objectives": ["DefendTown", "SaveKingdom", "SaveWorld"],
+    "social_objectives": ["UniteTribes", "ExposeTraitor", "PreventWar"],
+    "timed_objectives": ["StopRitual"]
+  },
+  "patterns": [
+    "Use {location}, {enemy_name}, {item_name}, {npc_name} placeholders",
+    "Difficulty scales rewards: Medium < Hard < Very Hard < Epic < Legendary",
+    "Combat objectives are most common",
+    "Timed objectives create urgency"
+  ],
+  "metadata": {
+    "total_objectives": 20,
+    "categories": 7,
+    "difficulty_levels": 5,
+    "usage": "Primary objectives define the main quest goal"
   }
-]
+}

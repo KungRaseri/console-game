@@ -1,7 +1,236 @@
-[
-  {
-    "name": "PLACEHOLDER",
-    "displayName": "Placeholder Entry",
-    "description": "Future: Add NPC content here"
+{
+  "items": [
+    {
+      "name": "DragonSighting",
+      "displayName": "Dragon Sighting",
+      "description": "They say a {color} dragon was spotted near {location} last week.",
+      "category": "Monster Sighting",
+      "reliability": "Medium"
+    },
+    {
+      "name": "HauntedRuins",
+      "displayName": "Haunted Ruins",
+      "description": "I heard the old {location} is haunted by restless spirits.",
+      "category": "Supernatural",
+      "reliability": "Low"
+    },
+    {
+      "name": "BanditActivity",
+      "displayName": "Bandit Activity",
+      "description": "Bandits have been raiding caravans on the road to {location}.",
+      "category": "Danger Warning",
+      "reliability": "High"
+    },
+    {
+      "name": "TreasureHoard",
+      "displayName": "Treasure Hoard",
+      "description": "Legend speaks of a vast treasure hidden in {location}.",
+      "category": "Treasure",
+      "reliability": "Low"
+    },
+    {
+      "name": "MissingPerson",
+      "displayName": "Missing Person",
+      "description": "{name} vanished without a trace near {location}.",
+      "category": "Quest Hook",
+      "reliability": "High"
+    },
+    {
+      "name": "PlagueOutbreak",
+      "displayName": "Plague Outbreak",
+      "description": "A strange sickness is spreading through {location}.",
+      "category": "Danger Warning",
+      "reliability": "Medium"
+    },
+    {
+      "name": "NobleScandal",
+      "displayName": "Noble Scandal",
+      "description": "Rumor has it that Lord {name} is involved in dark dealings.",
+      "category": "Politics",
+      "reliability": "Low"
+    },
+    {
+      "name": "AncientProphecy",
+      "displayName": "Ancient Prophecy",
+      "description": "The old texts speak of a {hero_type} who will save us all.",
+      "category": "Lore",
+      "reliability": "Low"
+    },
+    {
+      "name": "MagicArtifact",
+      "displayName": "Magic Artifact",
+      "description": "A {item_type} of great power is said to be lost in {location}.",
+      "category": "Treasure",
+      "reliability": "Medium"
+    },
+    {
+      "name": "WarPreparations",
+      "displayName": "War Preparations",
+      "description": "The kingdom is preparing for war. Soldiers are being recruited.",
+      "category": "Politics",
+      "reliability": "High"
+    },
+    {
+      "name": "CultActivity",
+      "displayName": "Cult Activity",
+      "description": "Strange robed figures have been seen gathering at {location}.",
+      "category": "Supernatural",
+      "reliability": "Medium"
+    },
+    {
+      "name": "MerchantGossip",
+      "displayName": "Merchant Gossip",
+      "description": "I heard {name} the merchant is selling rare {item_type} from distant lands.",
+      "category": "Trade",
+      "reliability": "High"
+    },
+    {
+      "name": "GhostShip",
+      "displayName": "Ghost Ship",
+      "description": "Sailors speak of a phantom vessel sailing near {location}.",
+      "category": "Supernatural",
+      "reliability": "Low"
+    },
+    {
+      "name": "GiantFootprints",
+      "displayName": "Giant Footprints",
+      "description": "Enormous footprints were found near {location}. Something huge is out there.",
+      "category": "Monster Sighting",
+      "reliability": "Medium"
+    },
+    {
+      "name": "ForbiddenKnowledge",
+      "displayName": "Forbidden Knowledge",
+      "description": "They say there's a library of forbidden spells hidden in {location}.",
+      "category": "Lore",
+      "reliability": "Low"
+    },
+    {
+      "name": "RoyalBirth",
+      "displayName": "Royal Birth",
+      "description": "The queen gave birth to an heir. The kingdom celebrates!",
+      "category": "Politics",
+      "reliability": "High"
+    },
+    {
+      "name": "CorruptGuard",
+      "displayName": "Corrupt Guard",
+      "description": "Be careful. Some of the city guards are taking bribes.",
+      "category": "Danger Warning",
+      "reliability": "Medium"
+    },
+    {
+      "name": "WitchInWoods",
+      "displayName": "Witch in Woods",
+      "description": "An old witch lives in {location}. She can cure any ailment... for a price.",
+      "category": "Quest Hook",
+      "reliability": "Medium"
+    },
+    {
+      "name": "UndeadArmy",
+      "displayName": "Undead Army",
+      "description": "I heard a necromancer is raising an army of undead near {location}!",
+      "category": "Danger Warning",
+      "reliability": "Low"
+    },
+    {
+      "name": "FallenStar",
+      "displayName": "Fallen Star",
+      "description": "A star fell from the sky and crashed in {location}. Some say it's an omen.",
+      "category": "Supernatural",
+      "reliability": "Medium"
+    },
+    {
+      "name": "RebelMovement",
+      "displayName": "Rebel Movement",
+      "description": "There's talk of rebellion against the crown. Keep it quiet.",
+      "category": "Politics",
+      "reliability": "Low"
+    },
+    {
+      "name": "HealingSpring",
+      "displayName": "Healing Spring",
+      "description": "They say there's a magical spring in {location} that heals all wounds.",
+      "category": "Lore",
+      "reliability": "Low"
+    },
+    {
+      "name": "CursedItem",
+      "displayName": "Cursed Item",
+      "description": "Don't touch any {item_type} you find in {location}. It's cursed!",
+      "category": "Danger Warning",
+      "reliability": "Medium"
+    },
+    {
+      "name": "FamousAdventurer",
+      "displayName": "Famous Adventurer",
+      "description": "{name} the adventurer cleared out {location} single-handedly!",
+      "category": "Hero Tales",
+      "reliability": "Medium"
+    },
+    {
+      "name": "DrinkingContest",
+      "displayName": "Drinking Contest",
+      "description": "The tavern is holding a drinking contest tonight. Grand prize is {reward}!",
+      "category": "Event",
+      "reliability": "High"
+    },
+    {
+      "name": "MysteriousStranger",
+      "displayName": "Mysterious Stranger",
+      "description": "A hooded figure has been asking about {topic}. Very suspicious.",
+      "category": "Quest Hook",
+      "reliability": "High"
+    },
+    {
+      "name": "MarketDay",
+      "displayName": "Market Day",
+      "description": "The grand market is tomorrow. Merchants from all over will be here!",
+      "category": "Event",
+      "reliability": "High"
+    },
+    {
+      "name": "WerewolfPack",
+      "displayName": "Werewolf Pack",
+      "description": "On full moon nights, werewolves prowl near {location}.",
+      "category": "Monster Sighting",
+      "reliability": "Medium"
+    },
+    {
+      "name": "LostChild",
+      "displayName": "Lost Child",
+      "description": "A child wandered into {location} and hasn't returned. The family is desperate.",
+      "category": "Quest Hook",
+      "reliability": "High"
+    },
+    {
+      "name": "PirateFleet",
+      "displayName": "Pirate Fleet",
+      "description": "A pirate fleet was spotted off the coast near {location}.",
+      "category": "Danger Warning",
+      "reliability": "Medium"
+    }
+  ],
+  "components": {
+    "danger_rumors": ["BanditActivity", "PlagueOutbreak", "UndeadArmy", "CorruptGuard", "CursedItem", "PirateFleet"],
+    "quest_hooks": ["MissingPerson", "WitchInWoods", "MysteriousStranger", "LostChild"],
+    "treasure_rumors": ["TreasureHoard", "MagicArtifact", "ForbiddenKnowledge", "HealingSpring"],
+    "monster_sightings": ["DragonSighting", "GiantFootprints", "WerewolfPack"],
+    "supernatural_rumors": ["HauntedRuins", "CultActivity", "GhostShip", "FallenStar"],
+    "political_rumors": ["NobleScandal", "WarPreparations", "RoyalBirth", "RebelMovement"],
+    "events": ["DrinkingContest", "MarketDay"],
+    "hero_tales": ["FamousAdventurer"]
+  },
+  "patterns": [
+    "use {location} placeholder for procedural generation",
+    "use {name} for character references",
+    "use {item_type} for item categories",
+    "reliability affects quest generation chance"
+  ],
+  "metadata": {
+    "total_rumors": 30,
+    "categories": 8,
+    "placeholder_types": ["location", "name", "item_type", "color", "hero_type", "reward", "topic"],
+    "usage": "Select rumor based on NPC background and location, then replace placeholders with game data"
   }
-]
+}

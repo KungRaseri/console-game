@@ -1,5 +1,36 @@
-[
-  "PLACEHOLDER_WORD_1",
-  "PLACEHOLDER_WORD_2",
-  "PLACEHOLDER_WORD_3"
-]
+{
+  "items": [
+    "crimson", "scarlet", "ruby", "blood-red", "vermillion",
+    "azure", "sapphire", "navy", "cobalt", "cerulean",
+    "emerald", "jade", "forest-green", "viridian", "olive",
+    "golden", "amber", "saffron", "honey", "brass",
+    "violet", "purple", "amethyst", "lavender", "plum",
+    "ebony", "obsidian", "charcoal", "coal-black", "jet",
+    "ivory", "pearl", "bone-white", "alabaster", "snow-white",
+    "silver", "platinum", "steel-grey", "ash", "slate",
+    "bronze", "copper", "rust", "terracotta", "clay",
+    "indigo", "midnight-blue", "royal-blue", "teal", "turquoise"
+  ],
+  "components": {
+    "base_colors": [
+      "red", "blue", "green", "yellow", "orange",
+      "purple", "brown", "black", "white", "grey",
+      "pink", "cyan", "magenta", "gold", "silver"
+    ],
+    "modifiers": [
+      "dark", "light", "bright", "pale", "deep",
+      "vivid", "dull", "faded", "rich", "muted",
+      "brilliant", "dim", "glowing", "shadowy", "radiant"
+    ],
+    "materials": [
+      "crimson", "scarlet", "azure", "emerald", "golden",
+      "ebony", "ivory", "silver", "bronze", "copper",
+      "ruby", "sapphire", "jade", "amethyst", "obsidian"
+    ]
+  },
+  "patterns": [
+    "base_color",
+    "modifier + base_color",
+    "material (gemstone/metal colors)"
+  ]
+}
