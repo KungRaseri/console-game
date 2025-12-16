@@ -197,11 +197,11 @@
     "magical_nature": ["Enchanted", "Arcane", "Runic", "Blessed", "Cursed", "Consecrated"]
   },
   "patterns": [
-    "quality + piece (Sturdy Cuirass)",
-    "racial + piece (Elven Chainmail)",
-    "elemental + piece (Shadow Helm)",
-    "material + piece (Crystal Gauntlets)",
-    "magical + piece (Runic Breastplate)"
+    "quality + piece",
+    "racial + piece",
+    "elemental + piece",
+    "material + piece",
+    "magical + piece"
   ],
   "rarity_distribution": {
     "Common": 2,

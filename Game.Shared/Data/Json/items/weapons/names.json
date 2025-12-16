@@ -1,53 +1,72 @@
 {
-  "items": {
-    "swords": [
-      "Longsword", "Shortsword", "Greatsword", "Scimitar", "Rapier",
-      "Katana", "Broadsword", "Claymore", "Saber", "Gladius"
-    ],
-    "axes": [
-      "Battleaxe", "Handaxe", "Greataxe", "Waraxe", "Hatchet",
-      "Tomahawk", "Cleaver", "Poleaxe"
-    ],
-    "bows": [
-      "Longbow", "Shortbow", "Composite Bow", "Recurve Bow", "Crossbow",
-      "Heavy Crossbow", "Warbow", "Hunting Bow"
-    ],
-    "daggers": [
-      "Dagger", "Dirk", "Stiletto", "Kris", "Tanto",
-      "Kukri", "Rondel", "Main Gauche"
-    ],
-    "spears": [
-      "Spear", "Lance", "Javelin", "Pike", "Halberd",
-      "Trident", "Partisan", "Glaive"
-    ],
-    "maces": [
-      "Mace", "Warhammer", "Flail", "Morning Star", "Club",
-      "Maul", "Cudgel", "Scepter"
-    ],
-    "staves": [
-      "Staff", "Quarterstaff", "War Staff", "Battle Staff", "Rod",
-      "Scepter Staff"
-    ]
-  },
+  "items": [
+    "Longsword", "Shortsword", "Greatsword", "Scimitar", "Rapier",
+    "Katana", "Broadsword", "Claymore", "Saber", "Gladius",
+    "Battleaxe", "Handaxe", "Greataxe", "Waraxe", "Hatchet",
+    "Tomahawk", "Cleaver", "Poleaxe",
+    "Longbow", "Shortbow", "Composite Bow", "Recurve Bow", "Crossbow",
+    "Heavy Crossbow", "Warbow", "Hunting Bow",
+    "Dagger", "Dirk", "Stiletto", "Kris", "Tanto",
+    "Kukri", "Rondel", "Main Gauche",
+    "Spear", "Lance", "Javelin", "Pike", "Halberd",
+    "Trident", "Partisan", "Glaive",
+    "Mace", "Warhammer", "Flail", "Morning Star", "Club",
+    "Maul", "Cudgel", "Scepter",
+    "Staff", "Quarterstaff", "War Staff", "Battle Staff", "Rod",
+    "Scepter Staff"
+  ],
   "components": {
-    "prefixes_material": [
+    "material": [
       "Iron", "Steel", "Mithril", "Adamantine", "Silver",
       "Elven", "Dwarven", "Orcish", "Daedric", "Glass",
       "Dragonbone", "Ebony", "Obsidian", "Crystal", "Runic"
     ],
-    "prefixes_quality": [
+    "quality": [
       "Fine", "Superior", "Exceptional", "Masterwork", "Legendary",
       "Ruined", "Worn", "Sharpened", "Balanced", "Blessed"
     ],
-    "prefixes_descriptive": [
+    "descriptive": [
       "Ancient", "Enchanted", "Cursed", "Holy", "Demonic",
       "Flaming", "Frozen", "Lightning", "Venomous", "Ethereal"
     ],
-    "suffixes_enchantment": [
+    "enchantment": [
       "of Slaying", "of Sharpness", "of Power", "of Speed", "of Accuracy",
-      "of Fire", "of Ice", "of Lightning", "of Venom", "of Destruction",
-      "of the Warrior", "of the Hero", "of the Champion", "of the Dragon", "of the Phoenix"
+      "of Fire", "of Ice", "of Lightning", "of Venom", "of Destruction"
     ],
+    "title": [
+      "of the Warrior", "of the Hero", "of the Champion", "of the Dragon", "of the Phoenix",
+      "of the Ancients", "of the Gods", "of the Titans", "of the Elements", "of Legends"
+    ],
+    "weapon_types": {
+      "swords": [
+        "Longsword", "Shortsword", "Greatsword", "Scimitar", "Rapier",
+        "Katana", "Broadsword", "Claymore", "Saber", "Gladius"
+      ],
+      "axes": [
+        "Battleaxe", "Handaxe", "Greataxe", "Waraxe", "Hatchet",
+        "Tomahawk", "Cleaver", "Poleaxe"
+      ],
+      "bows": [
+        "Longbow", "Shortbow", "Composite Bow", "Recurve Bow", "Crossbow",
+        "Heavy Crossbow", "Warbow", "Hunting Bow"
+      ],
+      "daggers": [
+        "Dagger", "Dirk", "Stiletto", "Kris", "Tanto",
+        "Kukri", "Rondel", "Main Gauche"
+      ],
+      "spears": [
+        "Spear", "Lance", "Javelin", "Pike", "Halberd",
+        "Trident", "Partisan", "Glaive"
+      ],
+      "maces": [
+        "Mace", "Warhammer", "Flail", "Morning Star", "Club",
+        "Maul", "Cudgel", "Scepter"
+      ],
+      "staves": [
+        "Staff", "Quarterstaff", "War Staff", "Battle Staff", "Rod",
+        "Scepter Staff"
+      ]
+    },
     "weapon_categories": {
       "melee_one_handed": ["swords", "axes", "maces", "daggers"],
       "melee_two_handed": ["greatswords", "greataxes", "polearms", "staves"],
@@ -55,15 +74,25 @@
     }
   },
   "patterns": [
-    "material + base (Iron Longsword, Steel Battleaxe)",
-    "quality + material + base (Fine Steel Rapier)",
-    "base + suffix (Longsword of Slaying)",
-    "descriptive + base (Flaming Greatsword)",
-    "quality + descriptive + base + suffix (Legendary Flaming Longsword of the Dragon)"
+    "base",
+    "material + base",
+    "quality + base",
+    "descriptive + base",
+    "quality + material + base",
+    "descriptive + material + base",
+    "base + enchantment",
+    "base + title",
+    "material + base + enchantment",
+    "quality + material + base + enchantment",
+    "descriptive + base + title"
   ],
   "metadata": {
+    "description": "Weapon names with pattern-based generation",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
     "total_base_weapons": 59,
     "weapon_types": 7,
-    "typical_naming": "material + base for common, full pattern for legendary"
+    "component_keys": ["material", "quality", "descriptive", "enchantment", "title"],
+    "pattern_tokens": ["base", "material", "quality", "descriptive", "enchantment", "title"]
   }
 }

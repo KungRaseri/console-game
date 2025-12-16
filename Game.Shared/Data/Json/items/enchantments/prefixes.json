@@ -128,10 +128,10 @@
     "special": ["Arcane", "Vampiric", "Ethereal", "Prismatic", "Void"]
   },
   "patterns": [
-    "power + enchantment (Minor Enchantment)",
-    "elemental + enchantment (Flaming Enchantment)",
-    "alignment + enchantment (Divine Enchantment)",
-    "special + enchantment (Vampiric Enchantment)"
+    "power + enchantment",
+    "elemental + enchantment",
+    "alignment + enchantment",
+    "special + enchantment"
   ],
   "rarity_distribution": {
     "Common": 2,

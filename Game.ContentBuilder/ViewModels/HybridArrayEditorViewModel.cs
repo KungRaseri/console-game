@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Game.ContentBuilder.Models;
 using Game.ContentBuilder.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -16,6 +17,8 @@ public partial class HybridArrayEditorViewModel : ObservableObject
 {
     private readonly JsonEditorService _jsonEditorService;
     private readonly string _fileName;
+    private JArray? _itemsData;
+    private JObject? _componentsData;
 
     [ObservableProperty]
     private ObservableCollection<string> _items = new();
@@ -24,30 +27,35 @@ public partial class HybridArrayEditorViewModel : ObservableObject
     private ObservableCollection<ComponentGroup> _componentGroups = new();
 
     [ObservableProperty]
-    private ObservableCollection<string> _patterns = new();
+    private ObservableCollection<PatternItem> _patterns = new();
 
     [ObservableProperty]
     private string? _selectedItem;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(AddComponentCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DeleteComponentGroupCommand))]
     private ComponentGroup? _selectedComponentGroup;
 
     [ObservableProperty]
-    private string? _selectedPattern;
+    private PatternItem? _selectedPattern;
 
     [ObservableProperty]
     private string _statusMessage = "Ready";
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(AddItemCommand))]
     private string _newItemInput = string.Empty;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(AddPatternCommand))]
     private string _newPatternInput = string.Empty;
 
     [ObservableProperty]
     private string _newComponentGroupName = string.Empty;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(AddComponentCommand))]
     private string _newComponentInput = string.Empty;
 
     [ObservableProperty]
@@ -81,6 +89,10 @@ public partial class HybridArrayEditorViewModel : ObservableObject
             Items.Clear();
             ComponentGroups.Clear();
             Patterns.Clear();
+
+            // Store raw JSON for pattern example generation
+            _itemsData = data["items"] as JArray;
+            _componentsData = data["components"] as JObject;
 
             // Load items array
             if (data["items"] is JArray itemsArray)
@@ -129,14 +141,16 @@ public partial class HybridArrayEditorViewModel : ObservableObject
                 }
             }
 
-            // Load patterns array
+            // Load patterns array with examples
             if (data["patterns"] is JArray patternsArray)
             {
                 foreach (var pattern in patternsArray)
                 {
                     if (pattern.Type == JTokenType.String)
                     {
-                        Patterns.Add(pattern.ToString());
+                        var patternStr = pattern.ToString();
+                        var example = PatternExampleGenerator.GenerateExample(patternStr, _itemsData, _componentsData);
+                        Patterns.Add(new PatternItem(patternStr, example));
                     }
                 }
             }
@@ -218,8 +232,8 @@ public partial class HybridArrayEditorViewModel : ObservableObject
             }
             data["components"] = componentsObj;
 
-            // Save patterns array
-            var patternsArray = new JArray(Patterns);
+            // Save patterns array (extract pattern strings only, not examples)
+            var patternsArray = new JArray(Patterns.Select(p => p.Pattern));
             data["patterns"] = patternsArray;
 
             // Save metadata (preserve if exists)
@@ -261,19 +275,18 @@ public partial class HybridArrayEditorViewModel : ObservableObject
 
     private bool CanAddItem() => !string.IsNullOrWhiteSpace(NewItemInput);
 
-    [RelayCommand(CanExecute = nameof(CanDeleteItem))]
-    private void DeleteItem()
+    [RelayCommand]
+    private void DeleteItem(string? item)
     {
-        if (SelectedItem != null)
+        if (item != null && Items.Contains(item))
         {
-            Items.Remove(SelectedItem);
-            SelectedItem = null;
+            Items.Remove(item);
+            if (SelectedItem == item)
+                SelectedItem = null;
             UpdateCounts();
             StatusMessage = $"Deleted item. Total: {Items.Count}";
         }
     }
-
-    private bool CanDeleteItem() => SelectedItem != null;
 
     #endregion
 
@@ -326,6 +339,17 @@ public partial class HybridArrayEditorViewModel : ObservableObject
 
     private bool CanAddComponent() => SelectedComponentGroup != null && !string.IsNullOrWhiteSpace(NewComponentInput);
 
+    [RelayCommand]
+    private void DeleteComponent(string? component)
+    {
+        if (SelectedComponentGroup != null && component != null && SelectedComponentGroup.Components.Contains(component))
+        {
+            SelectedComponentGroup.Components.Remove(component);
+            UpdateCounts();
+            StatusMessage = $"Deleted component from {SelectedComponentGroup.Name}. Total: {SelectedComponentGroup.Components.Count}";
+        }
+    }
+
     #endregion
 
     #region Patterns Commands
@@ -335,7 +359,9 @@ public partial class HybridArrayEditorViewModel : ObservableObject
     {
         if (!string.IsNullOrWhiteSpace(NewPatternInput))
         {
-            Patterns.Add(NewPatternInput.Trim());
+            var patternStr = NewPatternInput.Trim();
+            var example = PatternExampleGenerator.GenerateExample(patternStr, _itemsData, _componentsData);
+            Patterns.Add(new PatternItem(patternStr, example));
             NewPatternInput = string.Empty;
             UpdateCounts();
             StatusMessage = $"Added pattern. Total: {Patterns.Count}";
@@ -344,19 +370,18 @@ public partial class HybridArrayEditorViewModel : ObservableObject
 
     private bool CanAddPattern() => !string.IsNullOrWhiteSpace(NewPatternInput);
 
-    [RelayCommand(CanExecute = nameof(CanDeletePattern))]
-    private void DeletePattern()
+    [RelayCommand]
+    private void DeletePattern(PatternItem? pattern)
     {
-        if (SelectedPattern != null)
+        if (pattern != null && Patterns.Contains(pattern))
         {
-            Patterns.Remove(SelectedPattern);
-            SelectedPattern = null;
+            Patterns.Remove(pattern);
+            if (SelectedPattern == pattern)
+                SelectedPattern = null;
             UpdateCounts();
             StatusMessage = $"Deleted pattern. Total: {Patterns.Count}";
         }
     }
-
-    private bool CanDeletePattern() => SelectedPattern != null;
 
     #endregion
 }
@@ -364,11 +389,20 @@ public partial class HybridArrayEditorViewModel : ObservableObject
 /// <summary>
 /// Model for a component group (e.g., "base_colors", "modifiers")
 /// </summary>
-public partial class ComponentGroup : ObservableObject
+public class ComponentGroup : ObservableObject
 {
-    [ObservableProperty]
     private string _name = string.Empty;
-
-    [ObservableProperty]
     private ObservableCollection<string> _components = new();
+
+    public string Name
+    {
+        get => _name;
+        set => SetProperty(ref _name, value);
+    }
+
+    public ObservableCollection<string> Components
+    {
+        get => _components;
+        set => SetProperty(ref _components, value);
+    }
 }

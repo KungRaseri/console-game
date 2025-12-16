@@ -192,9 +192,9 @@
     "legendary": ["Resurrection", "Divine Blessing"]
   },
   "patterns": [
-    "quality + effect (Minor Restore Health)",
-    "effect + consumable type (Restore Health Potion)",
-    "multi-effect naming (Potion of Complete Restoration)"
+    "quality + effect",
+    "effect + consumable type",
+    "multi-effect naming"
   ],
   "rarity_distribution": {
     "Common": 3,

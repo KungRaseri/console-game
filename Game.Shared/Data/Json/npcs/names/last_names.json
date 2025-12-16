@@ -87,11 +87,11 @@
   },
   "patterns": [
     "prefix + suffix",
-    "metal + occupation (Ironsmith, Goldwright)",
-    "nature + suffix (Oakenshield, Thornweaver)",
-    "element + descriptive (Flameheart, Stormborn)",
-    "patronymic (Name + son/sen)",
-    "location-based (Place + ford/bridge/hill)"
+    "metal + occupation",
+    "nature + suffix",
+    "element + descriptive",
+    "patronymic",
+    "location-based"
   ],
   "cultural_distribution": {
     "fantasy_traditional": "40% (80 names)",

@@ -115,6 +115,7 @@
                                             <Button Grid.Column="1" 
                                                     Style="{StaticResource MaterialDesignIconButton}"
                                                     Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                    CommandParameter="{Binding}"
                                                     ToolTip="Delete">
                                                 <materialDesign:PackIcon Kind="Delete" Foreground="{DynamicResource MaterialDesign.Brush.Validation.Error}"/>
                                             </Button>
@@ -230,7 +231,23 @@
                                          Visibility="{Binding SelectedComponentGroup, Converter={StaticResource NotNullToVisibilityConverter}}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                                            <Grid Margin="0,4">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" 
+                                                           Text="{Binding}" 
+                                                           VerticalAlignment="Center"
+                                                           TextTrimming="CharacterEllipsis"/>
+                                                <Button Grid.Column="1" 
+                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                        Command="{Binding DataContext.DeleteComponentCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                        CommandParameter="{Binding}"
+                                                        ToolTip="Delete">
+                                                    <materialDesign:PackIcon Kind="Delete" Foreground="{DynamicResource MaterialDesign.Brush.Validation.Error}"/>
+                                                </Button>
+                                            </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
@@ -261,7 +278,7 @@
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Pattern" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Kind="ShapeOutline" Margin="0,0,8,0" VerticalAlignment="Center"/>
                             <TextBlock Text="Patterns" VerticalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
@@ -303,13 +320,37 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" 
-                                                       Text="{Binding}" 
-                                                       VerticalAlignment="Center"
-                                                       TextWrapping="Wrap"/>
+                                            
+                                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Pattern}" 
+                                                           FontWeight="SemiBold"
+                                                           TextWrapping="Wrap"
+                                                           Margin="0,0,0,4"/>
+                                                <TextBlock Text="{Binding Example}" 
+                                                           FontSize="11"
+                                                           Opacity="0.7"
+                                                           FontStyle="Italic"
+                                                           TextWrapping="Wrap">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Foreground}"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Example}" Value="(no data available)">
+                                                                    <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Validation.Warning}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Example}" Value="(invalid pattern)">
+                                                                    <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Validation.Error}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            
                                             <Button Grid.Column="1" 
                                                     Style="{StaticResource MaterialDesignIconButton}"
                                                     Command="{Binding DataContext.DeletePatternCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                    CommandParameter="{Binding}"
                                                     ToolTip="Delete">
                                                 <materialDesign:PackIcon Kind="Delete" Foreground="{DynamicResource MaterialDesign.Brush.Validation.Error}"/>
                                             </Button>

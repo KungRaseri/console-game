@@ -160,9 +160,9 @@
     "motivational_traits": ["Ambitious", "Content", "Suspicious"]
   },
   "patterns": [
-    "single trait (Friendly Merchant)",
-    "combined traits (Gruff but Loyal Guard)",
-    "contrasting traits for depth (Arrogant yet Brave Knight)"
+    "single trait",
+    "combined traits",
+    "contrasting traits for depth"
   ],
   "metadata": {
     "total_traits": 30,

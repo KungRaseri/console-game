@@ -198,11 +198,11 @@
     "metaphysical": ["of the Void", "of Souls", "of Eternity"]
   },
   "patterns": [
-    "weapon + basic (Longsword of Slaying)",
-    "weapon + elemental (Greatsword of Fire)",
-    "weapon + warrior (Battleaxe of the Champion)",
-    "weapon + legendary (Spear of the Dragon)",
-    "weapon + special (Dagger of Life Stealing)"
+    "weapon + basic",
+    "weapon + elemental",
+    "weapon + warrior",
+    "weapon + legendary",
+    "weapon + special"
   ],
   "rarity_distribution": {
     "Common": 2,

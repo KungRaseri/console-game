@@ -193,10 +193,10 @@
     "magic": ["Magic Amplification"]
   },
   "patterns": [
-    "prefix + effect (Minor Strength Boost)",
-    "elemental prefix + damage (Flaming Fire Damage)",
-    "power level + legendary (Grand Resurrection)",
-    "special prefix + unique effect (Void Reality Warp)"
+    "prefix + effect",
+    "elemental prefix + damage",
+    "power level + legendary",
+    "special prefix + unique effect"
   ],
   "rarity_distribution": {
     "Common": 5,

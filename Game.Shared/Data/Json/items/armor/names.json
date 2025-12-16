@@ -38,11 +38,11 @@
     ]
   },
   "patterns": [
-    "material + piece (Iron Cuirass, Steel Helm)",
-    "quality + material + piece (Fine Steel Breastplate)",
-    "piece + suffix (Cuirass of Protection)",
-    "quality + piece + suffix (Masterwork Helm of the Guardian)",
-    "material + piece + suffix (Mithril Gauntlets of Strength)"
+    "material + piece",
+    "quality + material + piece",
+    "piece + suffix",
+    "quality + piece + suffix",
+    "material + piece + suffix"
   ],
   "metadata": {
     "base_pieces": 40,

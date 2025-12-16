@@ -71,10 +71,10 @@
   },
   "patterns": [
     "prefix + suffix",
-    "classical + variant (Aldric → Alaric)",
-    "nature-inspired (Willow, Stone, Dawn)",
-    "virtue names (Grace, Felicity, Honor)",
-    "gem/jewel names (Ruby, Pearl, Jade, Opal)"
+    "classical + variant",
+    "nature-inspired",
+    "virtue names",
+    "gem/jewel names"
   ],
   "metadata": {
     "male_count": 100,

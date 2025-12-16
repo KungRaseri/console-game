@@ -195,11 +195,11 @@
     }
   },
   "patterns": [
-    "piece + basic (Helm of Protection)",
-    "piece + elemental (Cuirass of Fire Resistance)",
-    "piece + animal (Gauntlets of the Bear)",
-    "piece + warrior (Breastplate of the Champion)",
-    "piece + legendary (Shield of the Dragon)"
+    "piece + basic",
+    "piece + elemental",
+    "piece + animal",
+    "piece + warrior",
+    "piece + legendary"
   ],
   "rarity_distribution": {
     "Common": 3,

@@ -49,7 +49,7 @@
   },
   "patterns": [
     "verb",
-    "adverb + verb (quickly attacks)",
-    "verb + preposition (strikes at, casts upon)"
+    "adverb + verb",
+    "verb + preposition"
   ]
 }
