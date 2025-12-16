@@ -82,8 +82,9 @@ In the initial weight-based rarity system documentation, I incorrectly showed `i
 ```
 
 **Key Points:**
+
 - Contains `items` array with individual weapon stats
-- Each item has a `rarityWeight` field (separate from physical `weight`)
+- Each item has a `rarityWeight` field (separate from physical `weight` for encumbrance)
 - Includes `traits` shared by all items in the type
 - `base` token resolves from these items
 
@@ -128,8 +129,9 @@ In the initial weight-based rarity system documentation, I incorrectly showed `i
 ```
 
 **Key Points:**
+
 - ❌ **NO items array** (items live in types.json)
-- ✅ Contains `components` with weights
+- ✅ Contains `components` with rarityWeights
 - ✅ Contains `patterns` for name generation
 - ✅ `base` token references types.json
 
@@ -139,7 +141,7 @@ In the initial weight-based rarity system documentation, I incorrectly showed `i
 
 ### Correct Flow with types.json
 
-```
+```text
 1. Load names.json (components + patterns)
 2. Load types.json (base items)
 3. Load prefixes.json (modifiers)
@@ -148,12 +150,12 @@ In the initial weight-based rarity system documentation, I incorrectly showed `i
 5. Select pattern: "quality + material + base + enchantment"
 
 6. Execute pattern:
-   - "quality" → Pick from names.json.components.quality → "Masterwork" (weight 40)
-   - "material" → Pick from names.json.components.material → "Mythril" (weight 50)
+   - "quality" → Pick from names.json.components.quality → "Masterwork" (rarityWeight 40)
+   - "material" → Pick from names.json.components.material → "Mythril" (rarityWeight 50)
    - "base" → Pick from types.json.weapon_types.swords.items → "Longsword" (rarityWeight 10)
-   - "enchantment" → Pick from names.json.components.enchantment → "of Fire" (weight 40)
+   - "enchantment" → Pick from names.json.components.enchantment → "of Fire" (rarityWeight 40)
 
-7. Calculate total weight:
+7. Calculate total rarityWeight:
    quality:    40 × 1.2 (multiplier) = 48
    material:   50 × 1.0 (multiplier) = 50
    base:       10 × 0.5 (multiplier) = 5
@@ -207,8 +209,8 @@ In the initial weight-based rarity system documentation, I incorrectly showed `i
 **For Each names.json File:**
 
 1. ✅ **VERIFY NO items array exists** (if it does, REMOVE it - items belong in types.json)
-2. ✅ Convert component arrays to objects with weights
-3. ✅ Assign weights based on component tier
+2. ✅ Convert component arrays to objects with rarityWeights
+3. ✅ Assign rarityWeights based on component tier
 4. ✅ Test pattern execution
 
 **Example Update:**
@@ -225,9 +227,9 @@ In the initial weight-based rarity system documentation, I incorrectly showed `i
 {
   "components": {
     "material": [
-      { "name": "Iron", "weight": 5 },
-      { "name": "Steel", "weight": 10 },
-      { "name": "Mythril", "weight": 50 }
+      { "name": "Iron", "rarityWeight": 5 },
+      { "name": "Steel", "rarityWeight": 10 },
+      { "name": "Mythril", "rarityWeight": 50 }
     ]
   }
 }
@@ -313,6 +315,7 @@ Use this to verify documentation correctness:
 ✅ **Ready for implementation**
 
 The documentation now correctly reflects that:
+
 - Base items live in **types.json** with `rarityWeight`
 - Pattern components live in **names.json** with `weight`
 - The `base` token resolves from **types.json items**

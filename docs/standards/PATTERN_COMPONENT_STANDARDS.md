@@ -2915,24 +2915,24 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
 {
   "components": {
     "material": [
-      { "name": "Iron", "weight": 5 },
-      { "name": "Steel", "weight": 10 },
-      { "name": "Mythril", "weight": 50 },
-      { "name": "Adamantine", "weight": 75 },
-      { "name": "Void Crystal", "weight": 250 }
+      { "name": "Iron", "rarityWeight": 5 },
+      { "name": "Steel", "rarityWeight": 10 },
+      { "name": "Mythril", "rarityWeight": 50 },
+      { "name": "Adamantine", "rarityWeight": 75 },
+      { "name": "Void Crystal", "rarityWeight": 250 }
     ],
     "quality": [
-      { "name": "Ruined", "weight": 2 },
-      { "name": "Fine", "weight": 10 },
-      { "name": "Superior", "weight": 25 },
-      { "name": "Masterwork", "weight": 40 },
-      { "name": "Legendary", "weight": 90 }
+      { "name": "Ruined", "rarityWeight": 2 },
+      { "name": "Fine", "rarityWeight": 10 },
+      { "name": "Superior", "rarityWeight": 25 },
+      { "name": "Masterwork", "rarityWeight": 40 },
+      { "name": "Legendary", "rarityWeight": 90 }
     ],
     "enchantment": [
-      { "name": "of Sharpness", "weight": 15 },
-      { "name": "of Fire", "weight": 40 },
-      { "name": "of the Dragon", "weight": 85 },
-      { "name": "of Divine Power", "weight": 200 }
+      { "name": "of Sharpness", "rarityWeight": 15 },
+      { "name": "of Fire", "rarityWeight": 40 },
+      { "name": "of the Dragon", "rarityWeight": 85 },
+      { "name": "of Divine Power", "rarityWeight": 200 }
     ]
   },
   "patterns": [
@@ -2942,7 +2942,7 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
     "quality + material + base + enchantment"
   ],
   "metadata": {
-    "description": "Weapon name patterns with weight-based components",
+    "description": "Weapon name patterns with rarityWeight-based components",
     "version": "2.0",
     "component_keys": ["material", "quality", "enchantment"],
     "pattern_tokens": ["base", "material", "quality", "enchantment"]
@@ -2982,7 +2982,7 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
   "prefixes": {
     "Rusty": {
       "displayName": "Rusty",
-      "weight": 2,
+      "rarityWeight": 2,
       "traits": {
         "damageMultiplier": { "value": 0.8, "type": "number" },
         "durability": { "value": 50, "type": "number" }
@@ -2990,7 +2990,7 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
     },
     "Steel": {
       "displayName": "Steel",
-      "weight": 10,
+      "rarityWeight": 10,
       "traits": {
         "damageBonus": { "value": 3, "type": "number" },
         "durability": { "value": 120, "type": "number" }
@@ -2998,7 +2998,7 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
     },
     "Mythril": {
       "displayName": "Mythril",
-      "weight": 50,
+      "rarityWeight": 50,
       "traits": {
         "damageBonus": { "value": 5, "type": "number" },
         "durability": { "value": 150, "type": "number" },
@@ -3007,7 +3007,7 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
     },
     "Dragonbone": {
       "displayName": "Dragonbone",
-      "weight": 80,
+      "rarityWeight": 80,
       "traits": {
         "damageBonus": { "value": 10, "type": "number" },
         "fireResist": { "value": 25, "type": "number" },
@@ -3016,7 +3016,7 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
     }
   },
   "metadata": {
-    "description": "Weapon prefixes with weight-based rarity and stat modifiers",
+    "description": "Weapon prefixes with rarityWeight-based rarity and stat modifiers",
     "version": "2.0",
     "last_updated": "2025-12-16"
   }
@@ -3028,6 +3028,67 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
 - ✅ **Added** `weight` field to each prefix/suffix
 - ✅ **Flattened** structure (all prefixes at same level)
 - ✅ **Kept** trait system with `{ value, type }` objects
+
+---
+
+### IMPORTANT: Weight vs RarityWeight Naming Convention
+
+**Consistent Property Name: `rarityWeight`**
+
+ALL rarity-related weight fields use the property name `rarityWeight` for consistency:
+
+| Location | Property Name | Purpose |
+|----------|---------------|---------|
+| **types.json** items | `rarityWeight` | Base item rarity contribution |
+| **names.json** components | `rarityWeight` | Component rarity contribution |
+| **prefixes.json** | `rarityWeight` | Prefix rarity contribution |
+| **suffixes.json** | `rarityWeight` | Suffix rarity contribution |
+
+**Physical Weight vs Rarity Weight:**
+
+```json
+// types.json - Base items have BOTH
+{
+  "items": [
+    {
+      "name": "Longsword",
+      "weight": 3.0,           // Physical weight (encumbrance, kg)
+      "rarityWeight": 10       // Rarity contribution (number)
+    }
+  ]
+}
+
+// names.json - Components have ONLY rarityWeight
+{
+  "components": {
+    "material": [
+      {
+        "name": "Mythril",
+        "rarityWeight": 50      // Rarity contribution only
+      }
+    ]
+  }
+}
+```
+
+**Why `rarityWeight` everywhere?**
+- ✅ Consistent property name across all files
+- ✅ Clear distinction from physical `weight` (encumbrance)
+- ✅ Explicit purpose (rarity calculation, not physics)
+- ✅ Prevents confusion in code (`item.rarityWeight` always means rarity)
+
+**Algorithm Usage:**
+
+```pseudocode
+// Components from names.json
+totalWeight += component.rarityWeight * multiplier
+
+// Base items from types.json
+totalWeight += item.rarityWeight * multiplier
+
+// Prefixes/Suffixes
+totalWeight += prefix.rarityWeight * multiplier
+```
 
 ---
 
@@ -3123,7 +3184,7 @@ function executePattern(pattern, components, typesJson, prefixes, suffixes):
             // Pick random component from names.json components
             component = selectRandom(components[token])
             name += component.name + " "
-            totalWeight += component.weight * config.multipliers[token]
+            totalWeight += component.rarityWeight * config.multipliers[token]
             
             // If this component has a matching prefix/suffix with traits
             if prefixes[component.name] exists:
@@ -3250,12 +3311,12 @@ function generateLoot(lootTable):
     return item
 
 function selectClosestWeight(componentArray, targetWeight):
-    // Find component with weight closest to target
+    // Find component with rarityWeight closest to target
     closest = componentArray[0]
-    minDiff = abs(closest.weight - targetWeight)
+    minDiff = abs(closest.rarityWeight - targetWeight)
     
     for each component in componentArray:
-        diff = abs(component.weight - targetWeight)
+        diff = abs(component.rarityWeight - targetWeight)
         if diff < minDiff:
             closest = component
             minDiff = diff
