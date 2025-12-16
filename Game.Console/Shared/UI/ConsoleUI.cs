@@ -2,6 +2,7 @@ using Spectre.Console;
 using Spectre.Console.Rendering;
 using Game.Core.Models;
 using Game.Core.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Game.Console.UI;
 
@@ -13,20 +14,23 @@ namespace Game.Console.UI;
 public class ConsoleUI : IGameUI, IConsoleUI
 {
     private readonly IAnsiConsole _console;
+    private readonly ILogger<ConsoleUI>? _logger;
     
     /// <summary>
-    /// Constructor for dependency injection.
+    /// Constructor for dependency injection with logging.
     /// </summary>
     /// <param name="console">The IAnsiConsole implementation to use (real or mock)</param>
-    public ConsoleUI(IAnsiConsole console)
+    /// <param name="logger">Optional logger for UI interactions</param>
+    public ConsoleUI(IAnsiConsole console, ILogger<ConsoleUI>? logger = null)
     {
         _console = console ?? throw new ArgumentNullException(nameof(console));
+        _logger = logger;
     }
     
     /// <summary>
     /// Default constructor using the real AnsiConsole.
     /// </summary>
-    public ConsoleUI() : this(AnsiConsole.Console)
+    public ConsoleUI() : this(AnsiConsole.Console, null)
     {
     }
     #region Private Helpers
@@ -141,7 +145,10 @@ public class ConsoleUI : IGameUI, IConsoleUI
     /// </summary>
     public string AskForInput(string prompt)
     {
-        return _console.Ask<string>($"[green]{EscapeMarkup(prompt)}[/]");
+        _logger?.LogDebug("AskForInput: {Prompt}", prompt);
+        var input = _console.Ask<string>($"[green]{EscapeMarkup(prompt)}[/]");
+        _logger?.LogInformation("User input received for '{Prompt}': {InputLength} characters", prompt, input.Length);
+        return input;
     }
 
     /// <summary>
@@ -149,16 +156,21 @@ public class ConsoleUI : IGameUI, IConsoleUI
     /// </summary>
     public int AskForNumber(string prompt, int min = int.MinValue, int max = int.MaxValue)
     {
+        _logger?.LogDebug("AskForNumber: {Prompt} (min: {Min}, max: {Max})", prompt, min, max);
+        
         // Escape markup in prompt to prevent injection
         var safePrompt = prompt.Replace("[", "[[").Replace("]", "]]");
         
-        return _console.Prompt(
+        var number = _console.Prompt(
             new TextPrompt<int>($"[green]{safePrompt}[/]")
                 .ValidationErrorMessage($"[red]Please enter a number between {min} and {max}[/]")
                 .Validate(n => n >= min && n <= max
                     ? ValidationResult.Success()
                     : ValidationResult.Error($"Number must be between {min} and {max}"))
         );
+        
+        _logger?.LogInformation("User entered number: {Number} for prompt: {Prompt}", number, prompt);
+        return number;
     }
 
     /// <summary>
@@ -166,16 +178,21 @@ public class ConsoleUI : IGameUI, IConsoleUI
     /// </summary>
     public string ShowMenu(string title, params string[] choices)
     {
+        _logger?.LogDebug("ShowMenu: {Title} with {ChoiceCount} choices", title, choices.Length);
+        
         // Escape markup in title to prevent injection
         var safeTitle = title.Replace("[", "[[").Replace("]", "]]");
         
-        return _console.Prompt(
+        var selection = _console.Prompt(
             new SelectionPrompt<string>()
                 .Title($"[yellow]{safeTitle}[/]")
                 .PageSize(10)
                 .MoreChoicesText("[grey](Move up and down to reveal more options)[/]")
                 .AddChoices(choices)
         );
+        
+        _logger?.LogInformation("User selected: {Selection} from menu: {Title}", selection, title);
+        return selection;
     }
 
     /// <summary>
@@ -201,9 +218,14 @@ public class ConsoleUI : IGameUI, IConsoleUI
     /// </summary>
     public bool Confirm(string question)
     {
+        _logger?.LogDebug("Confirm: {Question}", question);
+        
         // Escape markup in question to prevent injection
         var safeQuestion = question.Replace("[", "[[").Replace("]", "]]");
-        return _console.Confirm($"[yellow]{safeQuestion}[/]");
+        var result = _console.Confirm($"[yellow]{safeQuestion}[/]");
+        
+        _logger?.LogInformation("User confirmed: {Result} for question: {Question}", result, question);
+        return result;
     }
 
     /// <summary>
