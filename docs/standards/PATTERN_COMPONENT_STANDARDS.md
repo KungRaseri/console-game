@@ -43,8 +43,9 @@ These typically start with "of" and add flavor:
 
 | Token | Resolves To | Description |
 |-------|-------------|-------------|
-| `base` | items array | The core item/name from the items list |
-| `item` | items array | Alias for `base` |
+| `base` | types.json items array | Picks random item.name from corresponding types.json file |
+
+**Note:** The `base` token is the **only** special token. It always resolves to a random item from the corresponding `types.json` file's items array.
 
 ### Category-Specific Components
 
@@ -672,9 +673,105 @@ var finalStats = baseWeapon.traits + suffix.traits; // Additive
 
 ### File Relationships & Data Flow
 
-**Pattern-Based Name Generation Flow:**
+**Visual Data Flow Diagram:**
 
 ```
+┌─────────────────────────────────────────────────────────────┐
+│                    Pattern-Based Generation                  │
+└─────────────────────────────────────────────────────────────┘
+
+Step 1: Load Base Items
+┌──────────────────┐
+│  types.json      │  Pick random type (e.g., "swords")
+│  ┌──────────┐    │    ↓
+│  │ swords   │───────→ Pick random item object
+│  │ axes     │    │    ↓
+│  │ bows     │    │  { name: "Longsword", damage: "1d8", ... }
+│  └──────────┘    │
+└──────────────────┘
+         │
+         ↓
+Step 2: Select Pattern
+┌──────────────────┐
+│  names.json      │  Pick random pattern
+│  ┌──────────┐    │    ↓
+│  │ patterns │───────→ "quality + material + base + enchantment"
+│  └──────────┘    │
+└──────────────────┘
+         │
+         ↓
+Step 3: Resolve Pattern Tokens
+┌──────────────────┐
+│  names.json      │  For each token in pattern:
+│  ┌──────────┐    │  • "quality"     → Pick from components.quality
+│  │components│───────→ "material"    → Pick from components.material
+│  │  quality │    │  • "base"        → Use item.name from Step 1
+│  │  material│    │  • "enchantment" → Pick from components.enchantment
+│  │  ...     │    │
+│  └──────────┘    │
+└──────────────────┘
+         │
+         ↓
+Step 4: Assemble Final Name
+    "Fine Steel Longsword of Slaying"
+         │
+         ↓
+Step 5: Inherit Stats & Traits
+┌─────────────────────────────────────────────────┐
+│ Final Item:                                     │
+│   name: "Fine Steel Longsword of Slaying"      │
+│   damage: "1d8"          (from types.json)      │
+│   weight: 3.0            (from types.json)      │
+│   value: 15              (from types.json)      │
+│   damageType: "slashing" (from types.json)      │
+│   slot: "mainhand"       (from types.json)      │
+└─────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│                   Stat-Based Modifiers                       │
+└─────────────────────────────────────────────────────────────┘
+
+Step 1: Base Item (from types.json)
+    Longsword: damage: "1d8", value: 15
+         │
+         ↓
+Step 2: Roll Rarity → Rare
+         │
+         ↓
+Step 3: Apply Prefix (optional)
+┌──────────────────┐
+│ prefixes.json    │  Pick "Flaming"
+│  ┌──────────┐    │    ↓
+│  │ Flaming  │───────→ bonusDamage: +5, damageType: "fire", value: +50
+│  │ Keen     │    │
+│  └──────────┘    │
+└──────────────────┘
+         │
+         ↓
+Step 4: Apply Suffix (optional)
+┌──────────────────┐
+│ suffixes.json    │  Pick "of Slaying"
+│  ┌──────────┐    │    ↓
+│  │of Slaying│───────→ bonusDamage: +10 (vs undead), value: +100
+│  │of Power  │    │
+│  └──────────┘    │
+└──────────────────┘
+         │
+         ↓
+Step 5: Calculate Final Stats
+┌─────────────────────────────────────────────────┐
+│ Final Item:                                     │
+│   name: "Flaming Longsword of Slaying"         │
+│   damage: 1d8+5 (fire)   (base + prefix)       │
+│   bonusVsUndead: +10     (suffix)               │
+│   value: 165             (15 + 50 + 100)        │
+│   slot: "mainhand"       (base)                 │
+└─────────────────────────────────────────────────┘
+```
+
+**Pattern-Based Name Generation Flow:**
+
+```text
 1. Pick item type from types.json
    ↓
 2. Pick random item object from that type's items array
@@ -799,52 +896,30 @@ You can use BOTH:
 
 ## Category-by-Category Standards
 
-### 1. General Category
+### 1. General Category ✅ COMPLETE (9/9 files)
 
-#### Colors (`general/colors.json`)
+**Standardization Date:** December 16, 2025  
+**File Types:** Component Library (3), Pattern Generation (6)
 
-**Current Structure:** Mixed (has items, components, AND patterns)  
-**Action Required:** ⚠️ NEEDS REVIEW - Inconsistent structure
+---
 
-**Current Issues:**
-1. ❌ Pattern "material (gemstone/metal colors)" has comments - not parseable!
-2. ❌ Token mismatch - Pattern uses `"base_color"` but component is `"base_colors"` (plural)
-3. ❌ Unclear if this is reference data or name generation
+#### Component Library Files (3)
 
-**Decision Needed:** Is this file for:
-- **Option A:** Reference data (colors used by other files)
-- **Option B:** Color name generation (procedural color names)
+These files provide categorized reference data used by other files. They do NOT generate procedural content.
 
-**Recommended Structure (Option A - Reference Data):**
+##### Adjectives (`general/adjectives.json`) ✅
 
-```json
-{
-  "components": {
-    "base_colors": ["red", "blue", "green", "yellow", ...],
-    "modifiers": ["dark", "light", "bright", "pale", ...],
-    "materials": ["crimson", "scarlet", "azure", "emerald", ...]
-  },
-  "metadata": {
-    "description": "Color components for use in other files",
-    "version": "1.0",
-    "type": "reference_data"
-  }
-}
-```
+**Structure:** Component Library  
+**Status:** ✅ STANDARDIZED
 
-**Status:** ⏳ Needs standardization
+**Component Keys:**
+- `positive` - Positive adjectives (Magnificent, Exquisite, Pristine)
+- `negative` - Negative adjectives (Broken, Damaged, Ruined)
+- `size` - Size descriptors (Tiny, Small, Large, Huge)
+- `appearance` - Appearance adjectives (Shining, Glowing, Sparkling)
+- `condition` - Condition states (New, Old, Ancient, Pristine)
 
-#### Adjectives (`general/adjectives.json`)
-
-**Current Structure:** Categorized lists (no standard wrapper)  
-**Action Required:** ⚠️ NEEDS STANDARDIZATION
-
-**Current Issues:**
-
-1. ❌ Missing standard structure (no `components` wrapper, no `metadata`)
-2. ✅ IS reference data - these ARE components used by other files
-
-**Recommended Structure:**
+**Current Structure:**
 
 ```json
 {
@@ -856,40 +931,321 @@ You can use BOTH:
     "condition": ["New", "Old", "Ancient", "Pristine", ...]
   },
   "metadata": {
-    "description": "Adjective components for use in other files",
+    "description": "Adjective components for descriptive text generation",
     "version": "1.0",
-    "type": "reference_data"
+    "type": "component_library",
+    "last_updated": "2025-12-16",
+    "component_keys": ["positive", "negative", "size", "appearance", "condition"],
+    "component_counts": {
+      "positive": 10,
+      "negative": 10,
+      "size": 8,
+      "appearance": 10,
+      "condition": 8
+    }
   }
 }
 ```
 
-**Status:** ⏳ Needs standardization
+**Usage:** Referenced by items, enemies, NPCs for descriptive text
 
-#### Materials (`general/materials.json`)
+---
 
-**Current Structure:** Unknown (needs review)  
-**Action Required:** 📋 To be reviewed
+##### Materials (`general/materials.json`) ✅
 
-**Expected:** Reference data (components for other files)
+**Structure:** Component Library  
+**Status:** ✅ STANDARDIZED
 
-**Recommended Structure:**
+**Component Keys:**
+- `metals` - Metallic materials (Iron, Steel, Gold, Silver)
+- `precious` - Precious materials (Diamond, Ruby, Emerald, Sapphire)
+- `natural` - Natural materials (Wood, Stone, Leather, Bone)
+- `magical` - Magical materials (Ethereal, Astral, Void, Shadow)
+
+**Current Structure:**
 
 ```json
 {
   "components": {
-    "metals": ["Iron", "Steel", "Gold", "Silver", ...],
-    "precious": ["Diamond", "Ruby", "Emerald", "Sapphire", ...],
-    "natural": ["Wood", "Stone", "Leather", "Bone", ...]
+    "metals": ["Iron", "Steel", "Bronze", "Copper", ...],
+    "precious": ["Diamond", "Ruby", "Sapphire", "Emerald", ...],
+    "natural": ["Wood", "Stone", "Bone", "Leather", ...],
+    "magical": ["Ethereal", "Astral", "Void", "Shadow", ...]
   },
   "metadata": {
-    "description": "Material components for use in other files",
+    "description": "Material components for item crafting and descriptions",
     "version": "1.0",
-    "type": "reference_data"
+    "type": "component_library",
+    "last_updated": "2025-12-16",
+    "component_keys": ["metals", "precious", "natural", "magical"],
+    "component_counts": {
+      "metals": 10,
+      "precious": 10,
+      "natural": 9,
+      "magical": 10
+    }
   }
 }
 ```
 
-**Status:** ⏳ Needs review and standardization
+**Usage:** Referenced by items for material-based generation
+
+---
+
+##### Verbs (`general/verbs.json`) ✅
+
+**Structure:** Component Library (converted from broken Pattern Generation)  
+**Status:** ✅ STANDARDIZED
+
+**Component Keys:**
+- `combat_offensive` - Offensive combat actions (attacks, strikes, slashes)
+- `combat_defensive` - Defensive combat actions (blocks, parries, dodges)
+- `magic` - Magical actions (casts, conjures, summons)
+- `healing` - Healing actions (heals, mends, restores)
+- `movement` - Movement actions (moves, walks, runs)
+- `stealth` - Stealth actions (sneaks, creeps, stalks)
+- `interaction` - Interaction actions (opens, closes, examines)
+- `communication` - Communication actions (speaks, shouts, whispers)
+
+**Current Structure:**
+
+```json
+{
+  "components": {
+    "combat_offensive": ["attacks", "strikes", "slashes", ...],
+    "combat_defensive": ["blocks", "parries", "dodges", ...],
+    "magic": ["casts", "conjures", "summons", ...],
+    "healing": ["heals", "mends", "restores", ...],
+    "movement": ["moves", "walks", "runs", ...],
+    "stealth": ["sneaks", "creeps", "stalks", ...],
+    "interaction": ["opens", "closes", "examines", ...],
+    "communication": ["speaks", "shouts", "whispers", ...]
+  },
+  "metadata": {
+    "description": "Categorized action verbs for combat, magic, and interactions",
+    "version": "1.0",
+    "type": "component_library",
+    "last_updated": "2025-12-16",
+    "component_keys": [...],
+    "component_counts": {...}
+  }
+}
+```
+
+**Usage:** Referenced by combat, NPCs, and narrative systems
+
+**Note:** Previously had broken patterns referencing non-existent components (`verb`, `adverb`, `preposition`). Converted to Component Library type.
+
+---
+
+#### Pattern Generation Files (6)
+
+These files generate procedural descriptions using pattern-based templates. They can also serve as component sources for other files.
+
+##### Colors (`general/colors.json`) ✅
+
+**Structure:** Pattern Generation  
+**Status:** ✅ STANDARDIZED
+
+**Component Keys:**
+- `base_color` - Primary colors (red, blue, green, yellow)
+- `modifier` - Color modifiers (dark, light, bright, pale)
+- `material` - Material-based colors (crimson, scarlet, azure, emerald)
+
+**Patterns:**
+- `base_color` → "red"
+- `modifier + base_color` → "dark red"
+- `material` → "crimson"
+
+**Current Structure:**
+
+```json
+{
+  "components": {
+    "base_color": ["red", "blue", "green", "yellow", ...],
+    "modifier": ["dark", "light", "bright", "pale", ...],
+    "material": ["crimson", "scarlet", "azure", "emerald", ...]
+  },
+  "patterns": [
+    "base_color",
+    "modifier + base_color",
+    "material"
+  ],
+  "metadata": {
+    "description": "Color name generation with base colors, modifiers, and materials",
+    "version": "1.0",
+    "type": "pattern_generation",
+    "last_updated": "2025-12-16",
+    "component_keys": ["base_color", "modifier", "material"],
+    "pattern_count": 3,
+    "pattern_tokens": ["base_color", "modifier", "material"],
+    "component_counts": {...}
+  }
+}
+```
+
+**Usage:** Generate dynamic color descriptions for items, enemies, environments
+
+**Fixed Issues:**
+- ✅ Removed pattern comment: `"material (gemstone/metal colors)"` → `"material"`
+- ✅ Fixed component keys: `base_colors` → `base_color` (singular)
+- ✅ Removed duplicate `items` array
+
+---
+
+##### Smells (`general/smells.json`) ✅
+
+**Structure:** Pattern Generation  
+**Status:** ✅ STANDARDIZED
+
+**Component Keys:**
+- `pleasant` - Pleasant smells (fragrant, fresh, floral)
+- `unpleasant` - Unpleasant smells (musty, acrid, pungent)
+- `natural` - Natural smells (earthy, woody, mossy)
+- `intensity` - Intensity modifiers (faint, mild, strong)
+
+**Patterns:**
+- `pleasant` → "fragrant"
+- `unpleasant` → "musty"
+- `natural` → "earthy"
+- `intensity + pleasant` → "faint fragrant"
+- `intensity + unpleasant` → "strong acrid"
+
+**Usage:** Generate environmental and atmospheric descriptions
+
+**Fixed Issues:**
+- ✅ Removed broken pattern: `"smell + smell (combination)"`
+- ✅ Fixed token references to actual component keys
+- ✅ Removed `items` array
+
+---
+
+##### Sounds (`general/sounds.json`) ✅
+
+**Structure:** Pattern Generation  
+**Status:** ✅ STANDARDIZED
+
+**Component Keys:**
+- `base_sound` - Core sounds (echoing, whisper, roar, clang)
+- `volume` - Volume levels (silent, quiet, loud, thunderous)
+- `nature` - Sound nature (metallic, wooden, liquid, magical)
+- `combat` - Combat sounds (clang, crash, clash, thud)
+- `ambient` - Ambient sounds (rustle, whisper, murmur, chirp)
+- `intensity` - Intensity descriptors (gentle, harsh, sharp)
+
+**Patterns:**
+- `base_sound` → "whisper"
+- `volume + base_sound` → "loud roar"
+- `nature + base_sound` → "metallic clang"
+- `combat` → "crash"
+- `ambient` → "rustle"
+
+**Usage:** Generate combat and environmental sound descriptions
+
+**Fixed Issues:**
+- ✅ Added `base_sound` component (was missing)
+- ✅ Fixed token mismatch: `sound` → `base_sound`
+- ✅ Removed `items` array
+
+---
+
+##### Textures (`general/textures.json`) ✅
+
+**Structure:** Pattern Generation  
+**Status:** ✅ STANDARDIZED
+
+**Component Keys:**
+- `surface_quality` - Surface feel (rough, smooth, polished)
+- `temperature` - Temperature feel (cold, warm, hot)
+- `moisture` - Moisture level (dry, damp, wet, slimy)
+- `hardness` - Hardness level (soft, firm, hard, brittle)
+- `organic` - Organic textures (leathery, scaly, furry)
+
+**Patterns:**
+- `surface_quality` → "smooth"
+- `surface_quality + moisture` → "smooth damp"
+- `temperature + surface_quality` → "cold smooth"
+- `organic` → "leathery"
+
+**Usage:** Generate tactile item and environmental descriptions
+
+**Fixed Issues:**
+- ✅ Fixed token: `texture` → `surface_quality`
+- ✅ Removed `items` array
+
+---
+
+##### Time of Day (`general/time_of_day.json`) ✅
+
+**Structure:** Pattern Generation  
+**Status:** ✅ STANDARDIZED
+
+**Component Keys:**
+- `period` - Time periods (dawn, morning, midday, evening)
+- `modifier` - Time modifiers (early, late, deep, high)
+- `descriptor` - Descriptive phrases (first light, golden hour)
+
+**Patterns:**
+- `period` → "dawn"
+- `modifier + period` → "early morning"
+- `descriptor` → "first light"
+
+**Usage:** Generate time-based narrative and environmental descriptions
+
+**Fixed Issues:**
+- ✅ Fixed component keys: `periods`, `modifiers`, `descriptors` → singular
+- ✅ Removed `items` array
+
+---
+
+##### Weather (`general/weather.json`) ✅
+
+**Structure:** Pattern Generation  
+**Status:** ✅ STANDARDIZED
+
+**Component Keys:**
+- `precipitation` - Precipitation types (clear, rainy, snowy)
+- `wind` - Wind levels (calm, breezy, gusty)
+- `sky_condition` - Sky states (clear, cloudy, overcast)
+- `temperature` - Temperature levels (freezing, cold, warm)
+- `severity` - Weather severity (mild, severe, extreme)
+- `special` - Special weather (stormy, thunderous, blizzard)
+
+**Patterns:**
+- `precipitation` → "rainy"
+- `sky_condition` → "cloudy"
+- `temperature + precipitation` → "cold rainy"
+- `severity + precipitation` → "severe snowy"
+- `special` → "stormy"
+
+**Usage:** Generate dynamic weather and environmental conditions
+
+**Fixed Issues:**
+- ✅ Fixed token: `condition` → `precipitation` / `sky_condition`
+- ✅ Removed `items` array
+
+---
+
+#### General Category Summary
+
+**Files Standardized:** 9/9 ✅  
+**Component Library:** 3 files (adjectives, materials, verbs)  
+**Pattern Generation:** 6 files (colors, smells, sounds, textures, time_of_day, weather)  
+**Total Components:** 41 component keys  
+**Total Patterns:** 29 patterns  
+**Metadata Fields:** All files have auto-generated metadata
+
+**Key Changes Applied:**
+- ✅ Removed all `items` arrays from Pattern Generation files (7 files)
+- ✅ Fixed all broken patterns (removed comments, fixed token mismatches)
+- ✅ Standardized component keys (singular, match pattern tokens)
+- ✅ Added metadata to all files
+- ✅ Converted verbs.json from broken Pattern Generation to Component Library
+
+**Documentation:**
+- See `docs/standards/GENERAL_FILES_AUDIT.md` for detailed analysis
+- See `docs/standards/GENERAL_FILES_COMPLETE.md` for completion summary
+- See `docs/standards/GENERAL_FILES_IMPLEMENTATION_PLAN.md` for implementation details
 
 ---
 
@@ -929,118 +1285,856 @@ You can use BOTH:
 
 **Status:** ✅ Standardized on 2025-12-16
 
-#### Weapons - Prefixes (`items/weapons/prefixes.json`)
+---
 
-**Current Structure:** ItemPrefix (prefix/suffix pairs with traits)  
-**Action Required:** ⏳ Review structure
+#### Weapons - Prefixes/Suffixes (`items/weapons/prefixes.json`, `suffixes.json`) ✅ FINALIZED
 
-**Expected Structure:**
+**Current Structure:** Rarity-organized stat modifiers  
+**File Type:** Stat Modifiers (not pattern-based)
+
+**Actual Structure:**
+
+```json
+{
+  "common": {
+    "Rusty": {
+      "displayName": "Rusty",
+      "traits": {
+        "damageMultiplier": { "value": 0.8, "type": "number" },
+        "durability": { "value": 50, "type": "number" }
+      }
+    }
+  },
+  "uncommon": {
+    "Iron": {
+      "displayName": "Iron",
+      "traits": {
+        "damageBonus": { "value": 2, "type": "number" },
+        "durability": { "value": 100, "type": "number" }
+      }
+    }
+  },
+  "rare": {
+    "Flame-Blessed": {
+      "displayName": "Flame-Blessed",
+      "traits": {
+        "damageBonus": { "value": 10, "type": "number" },
+        "fireDamage": { "value": 5, "type": "number" }
+      }
+    }
+  }
+}
+```
+
+**Key Features:**
+
+- **Rarity-based organization** - Prefixes organized by rarity tier
+- **Stat modifiers only** - No pattern generation, pure stat bonuses
+- **Trait system** - All values wrapped in `{ value, type }` objects
+- **No metadata needed** - Structure is self-explanatory
+
+**Standard:**
+- ✅ Keep current structure (rarity-organized)
+- ✅ No patterns (these are stat modifiers, not generators)
+- ✅ No metadata needed (simple lookup structure)
+- ✅ Runtime picks from rarity tier matching item rarity
+
+**Status:** ✅ Finalized - structure matches existing files, no changes needed
+
+---
+
+#### Armor - Materials (`items/armor/materials.json`) ✅ FINALIZED
+
+**Current Structure:** Rarity-organized material modifiers  
+**File Type:** Material Modifiers (similar to prefixes, but for armor materials)
+
+**Actual Structure:**
+
+```json
+{
+  "common": {
+    "Cloth": {
+      "displayName": "Cloth",
+      "traits": {
+        "armorRating": { "value": 1, "type": "number" },
+        "weight": { "value": 2, "type": "number" },
+        "durability": { "value": 40, "type": "number" }
+      }
+    },
+    "Leather": {
+      "displayName": "Leather",
+      "traits": {
+        "armorRating": { "value": 3, "type": "number" },
+        "weight": { "value": 5, "type": "number" },
+        "dexterityBonus": { "value": 1, "type": "number" }
+      }
+    }
+  },
+  "rare": {
+    "Steel": {
+      "displayName": "Steel",
+      "traits": {
+        "armorRating": { "value": 12, "type": "number" },
+        "defenseBonus": { "value": 5, "type": "number" }
+      }
+    }
+  }
+}
+```
+
+**Key Features:**
+
+- **Stat modifiers only** - No pattern generation, pure stat bonuses
+- **Applied before base name** - "Flaming" + "Longsword" = "Flaming Longsword"
+- **Rarity-based selection** - Runtime picks prefix based on item rarity
+- **Additive bonuses** - bonusDamage: +5 adds to base weapon damage
+
+**Usage:**
+
+```csharp
+var prefix = prefixData.PickRandom();
+var baseWeapon = typesData.PickRandom();
+var finalName = $"{prefix.displayName} {baseWeapon.name}";
+var finalStats = baseWeapon.stats + prefix.traits; // Merge stats
+```
+
+**Status:** 📋 Draft proposal - confirm this matches actual file structure
+
+---
+
+#### Armor - Names (`items/armor/names.json`) 📋 DRAFT
+
+**Current Structure:** Unknown  
+**Action Required:** Create pattern generation file for armor names
+
+**Proposed Structure:** names.json - Pattern Generation
+
+**Component Keys:**
+
+- `material` - Armor materials (Cloth, Leather, Iron, Steel, Mithril, Dragonscale)
+- `quality` - Craftsmanship levels (Crude, Standard, Fine, Superior, Masterwork, Legendary)
+- `descriptive` - Special attributes (Reinforced, Blessed, Cursed, Ancient, Enchanted)
+- `enchantment` - Magical properties (of Protection, of Resistance, of the Guardian)
+- `title` - Named armor (of the Paladin, of the Dragon Knight, of Legends)
+- `armor_types` - Category organization (helmets, chest, legs, boots, gloves, shields)
+
+**Proposed Patterns:**
+
+```json
+{
+  "components": {
+    "material": ["Cloth", "Leather", "Iron", "Steel", "Mithril", "Dragonscale"],
+    "quality": ["Crude", "Standard", "Fine", "Superior", "Masterwork", "Legendary"],
+    "descriptive": ["Reinforced", "Blessed", "Cursed", "Ancient", "Enchanted"],
+    "enchantment": ["of Protection", "of Resistance", "of the Guardian", "of Warding"],
+    "title": ["of the Paladin", "of the Dragon Knight", "of Legends"],
+    "armor_types": {
+      "helmets": ["Helm", "Cap", "Crown", "Circlet"],
+      "chest": ["Tunic", "Vest", "Breastplate", "Cuirass"],
+      "legs": ["Pants", "Greaves", "Leggings"],
+      "boots": ["Boots", "Shoes", "Sabatons"],
+      "gloves": ["Gloves", "Gauntlets", "Bracers"],
+      "shields": ["Buckler", "Shield", "Tower Shield", "Kite Shield"]
+    }
+  },
+  "patterns": [
+    "base",
+    "material + base",
+    "quality + base",
+    "quality + material + base",
+    "descriptive + base",
+    "descriptive + material + base",
+    "base + enchantment",
+    "material + base + enchantment",
+    "quality + material + base + enchantment",
+    "descriptive + material + base + title"
+  ],
+  "metadata": {
+    "description": "Armor name generation with pattern-based system",
+    "version": "1.0"
+  }
+}
+```
+
+**Example Outputs:**
+
+- Common: "Leather Tunic", "Iron Helm"
+- Uncommon: "Fine Steel Breastplate"
+- Rare: "Reinforced Mithril Breastplate of Protection"
+- Legendary: "Masterwork Ancient Dragonscale Cuirass of the Dragon Knight"
+
+**Status:** 📋 Draft proposal - create this file during Items category standardization
+
+---
+
+#### Armor - Types (`items/armor/types.json`) 📋 DRAFT
+
+**Current Structure:** Unknown  
+**Action Required:** Create item catalog for armor types
+
+**Proposed Structure:** types.json - Item Catalog
+
+```json
+{
+  "armor_types": {
+    "helmets": {
+      "items": [
+        { "name": "Cap", "armor": 1, "weight": 0.5, "value": 5, "rarity": "common" },
+        { "name": "Helm", "armor": 3, "weight": 2.0, "value": 25, "rarity": "common" },
+        { "name": "Crown", "armor": 2, "weight": 1.0, "value": 100, "rarity": "rare" }
+      ],
+      "traits": {
+        "slot": "head",
+        "armorType": "helmet"
+      }
+    },
+    "chest": {
+      "items": [
+        { "name": "Tunic", "armor": 2, "weight": 1.0, "value": 10, "rarity": "common" },
+        { "name": "Breastplate", "armor": 6, "weight": 15.0, "value": 100, "rarity": "uncommon" },
+        { "name": "Cuirass", "armor": 8, "weight": 20.0, "value": 200, "rarity": "rare" }
+      ],
+      "traits": {
+        "slot": "chest",
+        "armorType": "body"
+      }
+    }
+  }
+}
+```
+
+**Status:** 📋 Draft proposal
+
+---
+
+#### Enchantments - Suffixes (`items/enchantments/suffixes.json`) 📋 DRAFT
+
+**Current Structure:** Unknown  
+**Action Required:** Standardize as stat modifiers
+
+**Proposed Structure:** suffixes.json - Stat Modifiers (After Base Name)
 
 ```json
 {
   "items": [
     {
-      "name": "flaming",
-      "displayName": "Flaming",
+      "name": "of_slaying",
+      "displayName": "of Slaying",
       "traits": {
-        "bonusDamage": 5,
-        "damageType": "fire"
+        "bonusDamage": 10,
+        "damageVs": "all",
+        "value": 100,
+        "rarity": "rare"
+      }
+    },
+    {
+      "name": "of_the_dragon",
+      "displayName": "of the Dragon",
+      "traits": {
+        "bonusDamage": 15,
+        "damageType": "fire",
+        "legendary": true,
+        "value": 500,
+        "rarity": "legendary"
+      }
+    },
+    {
+      "name": "of_protection",
+      "displayName": "of Protection",
+      "traits": {
+        "bonusArmor": 5,
+        "value": 75,
+        "rarity": "uncommon"
+      }
+    },
+    {
+      "name": "of_speed",
+      "displayName": "of Speed",
+      "traits": {
+        "attackSpeed": 15,
+        "movementSpeed": 10,
+        "value": 80,
+        "rarity": "uncommon"
       }
     }
-  ]
+  ],
+  "metadata": {
+    "description": "Enchantment suffix modifiers for items",
+    "version": "1.0"
+  }
 }
 ```
 
-**Status:** ⏳ Needs review - check if this should have patterns or stay as ItemPrefix
+**Key Features:**
 
-#### Armor - Materials (`items/armor/materials.json`)
+- **Stat modifiers only** - Applied after base name
+- **Magical properties** - bonusDamage, special effects
+- **Rarity-based** - Higher rarity = stronger bonuses
 
-**Current Structure:** Unknown  
-**Action Required:** 📋 To be reviewed
+**Usage:**
 
-**Proposed Component Keys:**
+```csharp
+var suffix = suffixData.PickRandom();
+var baseWeapon = typesData.PickRandom();
+var finalName = $"{baseWeapon.name} {suffix.displayName}";
+var finalStats = baseWeapon.stats + suffix.traits; // Merge stats
+```
 
-- `material` - Armor materials (Cloth, Leather, Chainmail, Plate)
-- `quality` - Craftsmanship levels
-- `descriptive` - Special attributes
-- `enchantment` - Magical properties
-- `armor_types` - Category organization (helmets, chest, legs)
+**Status:** 📋 Draft proposal
 
-**Status:** 📋 Awaiting review
+---
 
-#### Enchantments - Suffixes (`items/enchantments/suffixes.json`)
-
-**Current Structure:** Unknown  
-**Action Required:** 📋 To be reviewed
-
-**Expected Structure:** ItemSuffix (similar to prefixes)
-
-**Status:** 📋 Awaiting review
-
-#### Materials (`items/materials/*.json`)
+#### Materials (`items/materials/*.json`) 📋 DRAFT
 
 Files: `metals.json`, `leathers.json`, `woods.json`, `gemstones.json`
 
 **Current Structure:** Unknown  
-**Action Required:** 📋 To be reviewed
+**Action Required:** Likely Component Library (reference data)
 
-**Expected:** These are likely FlatItem or NameList (component sources, not generated)
+**Expected:** These should be Component Library files (no patterns), providing categorized material lists
 
-**Status:** 📋 Awaiting review
+**Proposed Consolidation:** Consider merging into `general/materials.json` as:
+
+```json
+{
+  "components": {
+    "metals": ["Iron", "Steel", "Bronze", "Copper", "Mithril", "Adamantine"],
+    "precious": ["Diamond", "Ruby", "Sapphire", "Emerald", "Amethyst"],
+    "natural": ["Wood", "Stone", "Bone", "Leather", "Hide"],
+    "magical": ["Ethereal", "Astral", "Void", "Shadow", "Celestial"]
+  }
+}
+```
+
+**Status:** 📋 Needs review - check if separate files needed or can consolidate
 
 ---
 
-### 3. Enemies Category
+### 3. Enemies Category 📋 DRAFT
 
-#### Beasts - Names (`enemies/beasts/names.json`)
+#### Beasts - Names (`enemies/beasts/names.json`) 📋 DRAFT
 
 **Current Structure:** Unknown  
-**Action Required:** 📋 To be reviewed
+**Action Required:** Create pattern generation file
 
 **Proposed Component Keys:**
 
-- `size` - Size descriptors (Giant, Dire, Alpha)
-- `color` - Color variants (Black, White, Red)
-- `descriptive` - Special attributes (Ancient, Rabid, Enraged)
-- `origin` - Regional origin (Mountain, Forest, Desert)
-- `title` - Named beasts (of the Night, of the Wild)
-- `beast_types` - Category organization (wolves, bears, cats)
+- `size` - Size descriptors (Giant, Dire, Alpha, Elder, Young)
+- `color` - Color variants (Black, White, Red, Gray, Brown, Golden)
+- `descriptive` - Special attributes (Ancient, Rabid, Enraged, Feral, Savage, Wild)
+- `origin` - Regional origin (Mountain, Forest, Desert, Arctic, Swamp)
+- `title` - Named beasts (of the Night, of the Wild, of the Hunt)
+- `beast_types` - Category organization (wolves, bears, cats, boars, etc.)
+
+**Proposed Patterns:**
+
+```json
+{
+  "components": {
+    "size": ["Giant", "Dire", "Alpha", "Elder", "Young", "Massive"],
+    "color": ["Black", "White", "Red", "Gray", "Brown", "Golden", "Silver"],
+    "descriptive": ["Ancient", "Rabid", "Enraged", "Feral", "Savage", "Wild", "Cursed"],
+    "origin": ["Mountain", "Forest", "Desert", "Arctic", "Swamp", "Plains"],
+    "title": ["of the Night", "of the Wild", "of the Hunt", "of the Moon"],
+    "beast_types": {
+      "wolves": ["Wolf", "Hound", "Jackal"],
+      "bears": ["Bear", "Grizzly", "Cave Bear"],
+      "cats": ["Panther", "Lion", "Tiger", "Leopard"],
+      "boars": ["Boar", "Hog", "Razorback"]
+    }
+  },
+  "patterns": [
+    "base",
+    "size + base",
+    "color + base",
+    "descriptive + base",
+    "origin + base",
+    "size + color + base",
+    "size + descriptive + base",
+    "descriptive + color + base",
+    "base + title",
+    "size + descriptive + base + title"
+  ]
+}
+```
+
+**Example Outputs:**
+
+- Common: "Wolf", "Giant Wolf"
+- Uncommon: "Black Wolf", "Dire Wolf"
+- Rare: "Ancient Mountain Wolf"
+- Legendary: "Elder Savage Black Wolf of the Night"
+
+**Status:** 📋 Draft proposal
+
+---
+
+#### Beasts - Types (`enemies/beasts/types.json`) 📋 DRAFT
+
+**Proposed Structure:**
+
+```json
+{
+  "beast_types": {
+    "wolves": {
+      "items": [
+        { "name": "Wolf", "health": 25, "damage": "1d6", "speed": 40, "level": 3 },
+        { "name": "Dire Wolf", "health": 50, "damage": "2d6", "speed": 45, "level": 8 }
+      ],
+      "traits": {
+        "category": "beast",
+        "classification": "wolf",
+        "abilities": ["pack_tactics", "keen_hearing"]
+      }
+    }
+  }
+}
+```
+
+**Status:** 📋 Draft proposal
+
+---
+
+#### Undead - Names (`enemies/undead/names.json`) 📋 DRAFT
+
+**Proposed Component Keys:**
+
+- `descriptive` - Undead attributes (Risen, Cursed, Ancient, Restless, Vengeful, Hollow)
+- `origin` - Former identity (Warrior, Mage, King, Knight, Priest, Noble)
+- `title` - Named undead (of the Crypt, of Darkness, of the Grave, of Despair)
+- `condition` - State (Decaying, Skeletal, Spectral, Withered, Rotting)
+- `undead_types` - Category organization (skeleton, zombie, ghost, wraith, vampire)
+
+**Proposed Patterns:**
+
+```json
+{
+  "components": {
+    "descriptive": ["Risen", "Cursed", "Ancient", "Restless", "Vengeful", "Hollow"],
+    "origin": ["Warrior", "Mage", "King", "Knight", "Priest", "Noble", "Peasant"],
+    "title": ["of the Crypt", "of Darkness", "of the Grave", "of Despair"],
+    "condition": ["Decaying", "Skeletal", "Spectral", "Withered", "Rotting"],
+    "undead_types": {
+      "skeletons": ["Skeleton", "Bones", "Skeletal Warrior"],
+      "zombies": ["Zombie", "Ghoul", "Corpse"],
+      "ghosts": ["Ghost", "Wraith", "Specter", "Shade"],
+      "vampires": ["Vampire", "Vampire Lord", "Bloodsucker"]
+    }
+  },
+  "patterns": [
+    "base",
+    "descriptive + base",
+    "condition + base",
+    "origin + base",
+    "descriptive + origin + base",
+    "base + title",
+    "descriptive + base + title",
+    "condition + origin + base + title"
+  ]
+}
+```
+
+**Example Outputs:**
+
+- Common: "Skeleton", "Zombie"
+- Uncommon: "Risen Skeleton", "Cursed Zombie"
+- Rare: "Ancient Warrior Skeleton", "Spectral Knight"
+- Legendary: "Cursed Vampire Lord of Darkness"
+
+**Status:** 📋 Draft proposal
+
+---
+
+#### Demons - Names (`enemies/demons/names.json`) 📋 DRAFT
+
+**Proposed Component Keys:**
+
+- `rank` - Demonic hierarchy (Lesser, Greater, Arch, Prime, Lord)
+- `aspect` - Demonic nature (Fire, Shadow, Blood, Chaos, Corruption)
+- `descriptive` - Attributes (Twisted, Infernal, Vile, Malevolent, Wrathful)
+- `title` - Named demons (of the Abyss, of Torment, of Destruction)
+- `demon_types` - Category organization (imp, fiend, demon, devil, archfiend)
 
 **Proposed Patterns:**
 
 ```json
 [
   "base",
-  "size + base",
-  "color + base",
+  "rank + base",
+  "aspect + base",
   "descriptive + base",
-  "size + descriptive + base",
-  "base + title"
+  "rank + aspect + base",
+  "descriptive + rank + base",
+  "base + title",
+  "rank + aspect + base + title"
 ]
 ```
 
-**Status:** 📋 Awaiting review
+**Status:** 📋 Draft proposal
 
-#### Undead - Names (`enemies/undead/names.json`)
+---
 
-**Current Structure:** Unknown  
-**Action Required:** 📋 To be reviewed
+#### Elementals - Names (`enemies/elementals/names.json`) 📋 DRAFT
 
 **Proposed Component Keys:**
 
-- `descriptive` - Undead attributes (Risen, Cursed, Ancient)
-- `origin` - Former identity (Warrior, Mage, King)
-- `title` - Named undead (of the Crypt, of Darkness)
-- `undead_types` - Category organization (skeleton, zombie, ghost)
+- `element` - Element type (Fire, Water, Earth, Air, Lightning, Ice, Storm)
+- `size` - Size modifier (Lesser, Greater, Prime, Elder, Primal)
+- `descriptive` - Attributes (Raging, Ancient, Bound, Enraged, Calm)
+- `title` - Named elementals (of the Volcano, of the Storm, of the Deep)
+- `elemental_types` - Category organization
 
-**Status:** 📋 Awaiting review
+**Proposed Patterns:**
 
-#### Demons - Names (`enemies/demons/names.json`)
+```json
+[
+  "element + base",
+  "size + element + base",
+  "descriptive + element + base",
+  "size + descriptive + element + base",
+  "element + base + title"
+]
+```
+
+**Example Outputs:**
+
+- "Fire Elemental"
+- "Greater Fire Elemental"
+- "Raging Fire Elemental"
+- "Elder Raging Fire Elemental of the Volcano"
+
+**Status:** 📋 Draft proposal
+
+---
+
+#### Dragons - Names (`enemies/dragons/names.json`) 📋 DRAFT
+
+**Proposed Component Keys:**
+
+- `color` - Dragon color (Red, Blue, Black, Green, White, Gold, Silver, Bronze)
+- `age` - Age category (Wyrmling, Young, Adult, Ancient, Primordial)
+- `descriptive` - Attributes (Wise, Cruel, Mighty, Cunning, Greedy)
+- `title` - Named dragons (of the Mountain, of Destruction, Worldeater)
+
+**Proposed Patterns:**
+
+```json
+[
+  "color + base",
+  "age + color + base",
+  "descriptive + color + base",
+  "age + descriptive + color + base",
+  "base + title",
+  "age + color + base + title"
+]
+```
+
+**Example Outputs:**
+
+- "Red Dragon"
+- "Ancient Red Dragon"
+- "Cruel Red Dragon"
+- "Ancient Wise Gold Dragon of the Mountain"
+
+**Status:** 📋 Draft proposal
+
+---
+
+#### Dragons - Colors (`enemies/dragons/colors.json`) 📋 DRAFT
+
+**Expected:** Component Library or types.json with dragon properties by color
+
+**Proposed Structure:**
+
+```json
+{
+  "components": {
+    "chromatic": ["Red", "Blue", "Black", "Green", "White"],
+    "metallic": ["Gold", "Silver", "Bronze", "Copper", "Brass"],
+    "gem": ["Amethyst", "Emerald", "Sapphire", "Topaz", "Crystal"]
+  }
+}
+```
+
+**OR as types.json:**
+
+```json
+{
+  "dragon_colors": {
+    "red": {
+      "breathWeapon": "fire",
+      "damageType": "fire",
+      "alignment": "evil"
+    },
+    "gold": {
+      "breathWeapon": "fire",
+      "damageType": "fire",
+      "alignment": "good"
+    }
+  }
+}
+```
+
+**Status:** 📋 Draft proposal - needs review
+
+---
+
+#### Humanoids - Names (`enemies/humanoids/names.json`) 📋 DRAFT
+
+**Proposed Component Keys:**
+
+- `profession` - Role/job (Warrior, Mage, Assassin, Archer, Berserker, Cleric)
+- `faction` - Group affiliation (Bandit, Guard, Cultist, Mercenary, Raider)
+- `rank` - Hierarchy (Captain, Chief, Elite, Veteran, Novice, Master)
+- `descriptive` - Attributes (Veteran, Rogue, Fallen, Corrupt, Zealous)
+- `title` - Named humanoids (the Bloodthirsty, the Wise, the Brave)
+
+**Proposed Patterns:**
+
+```json
+[
+  "profession",
+  "rank + profession",
+  "faction + profession",
+  "descriptive + profession",
+  "rank + faction + profession",
+  "descriptive + rank + profession",
+  "profession + title"
+]
+```
+
+**Example Outputs:**
+
+- "Warrior"
+- "Captain Warrior"
+- "Bandit Warrior"
+- "Veteran Captain Guard"
+- "Warrior the Bloodthirsty"
+
+**Status:** 📋 Draft proposal
+
+---
+
+#### Enemy Prefixes (`enemies/*/prefixes.json`) 📋 DRAFT
+
+**Expected:** Stat modifiers for enemies (similar to weapon prefixes)
+
+**Proposed Structure:**
+
+```json
+{
+  "items": [
+    {
+      "name": "enraged",
+      "displayName": "Enraged",
+      "traits": {
+        "bonusDamage": 5,
+        "health": -10,
+        "attackSpeed": 10
+      }
+    },
+    {
+      "name": "armored",
+      "displayName": "Armored",
+      "traits": {
+        "bonusArmor": 5,
+        "movementSpeed": -5
+      }
+    }
+  ]
+}
+```
+
+**Status:** 📋 Draft proposal - check if enemies use prefixes
+
+---
+
+### 4. NPCs Category 📋 DRAFT
+
+#### Names - First Names (`npcs/names/first_names.json`) 📋 DRAFT
 
 **Current Structure:** Unknown  
-**Action Required:** 📋 To be reviewed
+**Action Required:** Likely Component Library (no patterns)
 
-**Status:** 📋 Awaiting review
+**Expected Structure:** Component Library - Name Lists
+
+```json
+{
+  "components": {
+    "male": ["John", "William", "Robert", "James", "Michael", "David"],
+    "female": ["Mary", "Elizabeth", "Sarah", "Jennifer", "Linda", "Patricia"],
+    "surnames": ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller"],
+    "fantasy_male": ["Thorin", "Aragorn", "Gandalf", "Elrond"],
+    "fantasy_female": ["Arwen", "Galadriel", "Eowyn", "Luthien"]
+  },
+  "metadata": {
+    "description": "NPC name components by gender and style",
+    "version": "1.0",
+    "type": "component_library"
+  }
+}
+```
+
+**Key Features:**
+
+- **No patterns** - This is a component source, not generation
+- **Categorized** - By gender and naming style
+- **Referenced by** - NPC generators for character creation
+
+**Status:** 📋 Draft proposal - likely no patterns needed
+
+---
+
+#### Occupations (`npcs/occupations/common.json`) 📋 DRAFT
+
+**Expected:** Component Library - Occupation Lists
+
+```json
+{
+  "components": {
+    "merchant": ["Shopkeeper", "Trader", "Merchant", "Vendor", "Peddler"],
+    "craftsman": ["Blacksmith", "Carpenter", "Tailor", "Cobbler", "Mason"],
+    "service": ["Innkeeper", "Bartender", "Cook", "Servant", "Cleaner"],
+    "guard": ["Guard", "Soldier", "Watchman", "Sentry"],
+    "scholar": ["Scribe", "Librarian", "Scholar", "Teacher", "Sage"],
+    "religious": ["Priest", "Monk", "Cleric", "Acolyte", "Bishop"]
+  }
+}
+```
+
+**Status:** 📋 Draft proposal
+
+---
+
+#### Dialogue Templates (`npcs/dialogue/templates.json`) 📋 DRAFT
+
+**Expected:** Pattern Generation for dialogue
+
+```json
+{
+  "components": {
+    "greeting": ["Hello", "Greetings", "Welcome", "Good day"],
+    "farewell": ["Goodbye", "Farewell", "Safe travels", "May the gods watch over you"],
+    "quest_intro": ["I have a task for you", "Can you help me?", "I need your assistance"],
+    "shop_greeting": ["What can I get you?", "Browse my wares", "Looking to buy or sell?"]
+  },
+  "patterns": [
+    "greeting",
+    "greeting + quest_intro",
+    "shop_greeting"
+  ]
+}
+```
+
+**Status:** 📋 Draft proposal - may not need patterns
+
+---
+
+#### Dialogue Traits (`npcs/dialogue/traits.json`) 📋 DRAFT
+
+**Expected:** Component Library - Personality traits
+
+```json
+{
+  "components": {
+    "friendly": ["cheerful", "warm", "welcoming", "kind"],
+    "hostile": ["cold", "angry", "dismissive", "rude"],
+    "neutral": ["businesslike", "professional", "formal"],
+    "quirky": ["eccentric", "odd", "peculiar", "strange"]
+  }
+}
+```
+
+**Status:** 📋 Draft proposal
+
+---
+
+#### Titles (`npcs/titles/titles.json`) 📋 DRAFT
+
+**Expected:** Pattern Generation OR Component Library
+
+**Option A: Component Library (Simple)**
+
+```json
+{
+  "components": {
+    "nobility": ["Lord", "Lady", "Duke", "Duchess", "Baron", "Baroness"],
+    "military": ["Captain", "General", "Commander", "Sergeant"],
+    "religious": ["Father", "Mother", "Bishop", "Cardinal"],
+    "academic": ["Professor", "Doctor", "Master", "Scholar"]
+  }
+}
+```
+
+**Option B: Pattern Generation (Complex)**
+
+```json
+{
+  "components": {
+    "rank": ["Lord", "Lady", "Sir", "Dame"],
+    "profession": ["Master", "Grand Master", "Arch"],
+    "origin": ["of the North", "of Winterfell", "of the Mountain"],
+    "achievement": ["Dragonslayer", "Kingmaker", "the Wise", "the Brave"]
+  },
+  "patterns": [
+    "rank",
+    "profession",
+    "rank + origin",
+    "rank + achievement",
+    "profession + achievement"
+  ]
+}
+```
+
+**Example Outputs:**
+
+- "Lord"
+- "Master"
+- "Lord of the North"
+- "Sir Dragonslayer"
+- "Grand Master the Wise"
+
+**Status:** 📋 Draft proposal - decide on simple vs pattern-based
+
+---
+
+### 5. Quests Category 📋 DRAFT
+
+#### Templates (`quests/templates.json`) 📋 DRAFT
+
+**Current Structure:** Unknown  
+**Action Required:** Likely complex structured data (not pattern-based)
+
+**Expected:** Quest templates with structure, not simple patterns
+
+```json
+{
+  "quest_templates": {
+    "fetch": {
+      "title": "Retrieve [item] from [location]",
+      "description": "Bring me [item] from [location] and I'll reward you.",
+      "objectives": ["obtain_item", "return_to_quest_giver"],
+      "rewards": ["gold", "experience", "item"]
+    },
+    "kill": {
+      "title": "Slay [enemy_count] [enemy_type]",
+      "description": "[enemy_type] are threatening [location]. Kill [enemy_count] of them.",
+      "objectives": ["kill_enemies"],
+      "rewards": ["gold", "experience"]
+    }
+  }
+}
+```
+
+**Key Features:**
+
+- **Structured templates** - Not simple name generation
+- **Variable substitution** - [item], [location], [enemy_type]
+- **Complex logic** - Objectives, rewards, conditionals
+
+**Status:** 📋 Draft proposal - may need separate specification document
+
+**Note:** Quest system may be too complex for simple pattern system. Consider dedicated quest generation system.
 
 #### Elementals - Names (`enemies/elementals/names.json`)
 
@@ -1181,17 +2275,33 @@ Files: `metals.json`, `leathers.json`, `woods.json`, `gemstones.json`
 
 ## Migration Checklist
 
-### Phase 1: Review Current State ⏳
+### Phase 1: Review Current State
 
-- [x] ✅ General/Colors - No changes needed
-- [x] ✅ General/Adjectives - No changes needed
-- [x] ✅ General/Materials - No changes needed
-- [x] ✅ Items/Weapons/Names - Standardized
+**General Category:** ✅ COMPLETE (9/9 files standardized)
+
+- [x] ✅ General/Colors - Standardized as Pattern Generation
+- [x] ✅ General/Adjectives - Standardized as Component Library
+- [x] ✅ General/Materials - Standardized as Component Library
+- [x] ✅ General/Smells - Standardized as Pattern Generation
+- [x] ✅ General/Sounds - Standardized as Pattern Generation
+- [x] ✅ General/Textures - Standardized as Pattern Generation
+- [x] ✅ General/TimeOfDay - Standardized as Pattern Generation
+- [x] ✅ General/Verbs - Converted to Component Library
+- [x] ✅ General/Weather - Standardized as Pattern Generation
+
+**Items Category:** ⏳ IN PROGRESS (1/~25 files)
+
+- [x] ✅ Items/Weapons/Names - Standardized as Pattern Generation
+- [ ] 📋 Items/Weapons/Types - Review structure
 - [ ] 📋 Items/Weapons/Prefixes - Review structure
 - [ ] 📋 Items/Armor/Materials - Review structure
 - [ ] 📋 Items/Enchantments/Suffixes - Review structure
-- [ ] 📋 Items/Materials/* - Review structure
+- [ ] 📋 Items/Materials/* - Review structure (metals, leathers, woods, gemstones)
+
+**Enemies Category:** 📋 PENDING
+
 - [ ] 📋 Enemies/Beasts/Names - Review structure
+- [ ] 📋 Enemies/Beasts/Types - Review structure
 - [ ] 📋 Enemies/Undead/Names - Review structure
 - [ ] 📋 Enemies/Demons/Names - Review structure
 - [ ] 📋 Enemies/Elementals/Names - Review structure
@@ -1199,16 +2309,34 @@ Files: `metals.json`, `leathers.json`, `woods.json`, `gemstones.json`
 - [ ] 📋 Enemies/Dragons/Colors - Review structure
 - [ ] 📋 Enemies/Humanoids/Names - Review structure
 - [ ] 📋 Enemies/*/Prefixes - Review structure
+
+**NPCs Category:** 📋 PENDING
+
 - [ ] 📋 NPCs/Names/FirstNames - Review structure
 - [ ] 📋 NPCs/Occupations - Review structure
 - [ ] 📋 NPCs/Dialogue/Templates - Review structure
 - [ ] 📋 NPCs/Dialogue/Traits - Review structure
 - [ ] 📋 NPCs/Titles - Review structure
+
+**Quests Category:** 📋 PENDING
+
 - [ ] 📋 Quests/Templates - Review structure
+
+**Progress:** 10/93 files standardized (10.8%)
 
 ### Phase 2: Standardize Files
 
-Will be populated as we review each file.
+**Completed:**
+
+- ✅ General Category (9 files) - December 16, 2025
+- ✅ Items/Weapons/Names (1 file) - December 16, 2025
+
+**Next Steps:**
+
+- [ ] Items Category (remaining ~24 files)
+- [ ] Enemies Category (~15 files)
+- [ ] NPCs Category (~15 files)
+- [ ] Quests Category (~10 files)
 
 ### Phase 3: Update ContentBuilder
 
@@ -1320,6 +2448,1162 @@ Will be populated as we review each file.
     }
   }
   ```
+
+**Decision 6:** General Files - Remove `items` arrays, use Pattern Generation
+
+- **Date:** December 16, 2025
+- **Context:** General files (colors, smells, sounds, etc.) had duplicate `items` arrays
+- **Decision:** Remove `items` arrays entirely, use components directly for pattern generation
+- **Rationale:** 
+  - ✅ Eliminates duplication between `items` and `components`
+  - ✅ Components ARE the data source - no need for separate list
+  - ✅ Consistent with names.json approach (`base` token resolves from types.json)
+  - ✅ Simpler structure, easier to maintain
+- **Applied To:** colors, smells, sounds, textures, time_of_day, weather (6 files)
+- **Exception:** verbs.json converted to Component Library (no patterns)
+
+**Decision 7:** General Files - Component Library vs Pattern Generation
+
+- **Date:** December 16, 2025
+- **Component Library:** Reference data only, no procedural generation
+  - Files: adjectives, materials, verbs
+  - Purpose: Provide categorized lists for other files to reference
+  - Structure: Components only, no patterns
+  - metadata.type: "component_library"
+- **Pattern Generation:** Procedural content generation
+  - Files: colors, smells, sounds, textures, time_of_day, weather
+  - Purpose: Generate dynamic descriptive text via patterns
+  - Structure: Components + patterns
+  - metadata.type: "pattern_generation"
+- **Rationale:** Different purposes require different structures
+
+**Decision 8:** General Files - Convert verbs.json to Component Library
+
+- **Date:** December 16, 2025
+- **Context:** verbs.json had broken patterns referencing non-existent components (`verb`, `adverb`, `preposition`)
+- **Decision:** Convert from Pattern Generation to Component Library
+- **Rationale:**
+  - ✅ Patterns were completely broken and meaningless
+  - ✅ Verbs are better used as categorized reference data
+  - ✅ Combat/magic/movement categories are more useful than pattern generation
+  - ✅ Runtime can pick specific verb types (offensive, defensive, etc.)
+- **Result:** Removed `items` and `patterns`, kept categorized `components`
+
+**Decision 9:** General Files - Singular component keys for Pattern Generation
+
+- **Date:** December 16, 2025
+- **Context:** Some files had plural keys (`periods`, `modifiers`) that didn't match singular tokens in patterns
+- **Decision:** All component keys in Pattern Generation files must be singular and match pattern tokens EXACTLY
+- **Examples:**
+  - ❌ Component: `base_colors`, Pattern: `base_color` (mismatch)
+  - ✅ Component: `base_color`, Pattern: `base_color` (match)
+  - ❌ Component: `periods`, Pattern: `period` (mismatch)
+  - ✅ Component: `period`, Pattern: `period` (match)
+- **Applied To:** colors, time_of_day (fixed plural keys)
+- **Rationale:** Eliminates token resolution errors, makes patterns more predictable
+
+---
+
+---
+
+## Cross-File Component References
+
+### Overview
+
+Files can reference components from other files to avoid duplication and maintain consistency across the game data. This is especially useful for shared data like materials, colors, and adjectives.
+
+### Reference Syntax
+
+**Format:** `@category/filename:component_key`
+
+**Structure:**
+- `@` - Indicates a cross-file reference
+- `category/filename` - Path to the source file (relative to Data/Json folder)
+- `:component_key` - Specific component array to reference
+
+### Examples
+
+**Basic Reference:**
+
+```json
+{
+  "components": {
+    "material": "@general/materials:metals",
+    "color": "@general/colors:base_color",
+    "quality": ["Fine", "Superior", "Masterwork"]
+  }
+}
+```
+
+**Multiple References:**
+
+```json
+{
+  "components": {
+    "metal_material": "@general/materials:metals",
+    "natural_material": "@general/materials:natural",
+    "positive_adjective": "@general/adjectives:positive",
+    "size": "@general/adjectives:size"
+  }
+}
+```
+
+### When to Use References
+
+**✅ Good Use Cases:**
+
+- **Shared vocabularies** - Materials, colors, sizes used across multiple categories
+- **Consistency enforcement** - All weapons use same material list
+- **Centralized updates** - Change materials.json once, affects all referencing files
+- **Reducing duplication** - Don't copy ["Iron", "Steel", ...] 20 times
+
+**❌ Avoid References For:**
+
+- **Category-specific data** - Weapon types, spell schools, enemy abilities
+- **Highly customized lists** - When you need a subset or modified version
+- **Performance-critical paths** - References add a lookup step
+
+### Resolution Behavior
+
+**At Runtime (Game):**
+
+1. PatternExecutor loads referenced file
+2. Extracts specified component array
+3. Caches result for performance
+4. Uses cached data for pattern resolution
+
+**In ContentBuilder:**
+
+1. On file load, detect `@` references
+2. Load referenced files automatically
+3. Display referenced data as read-only
+4. Show warning if referenced file missing
+5. Allow "inline" action to convert reference to local copy
+
+### Reference Validation
+
+**Valid References:**
+
+- ✅ `@general/materials:metals` - Exists in general/materials.json
+- ✅ `@items/weapons/names:material` - Cross-category reference
+- ✅ `@general/adjectives:positive` - Standard reference
+
+**Invalid References:**
+
+- ❌ `@general/materials:invalid_key` - Component key doesn't exist
+- ❌ `@missing/file:key` - Referenced file doesn't exist
+- ❌ `general/materials:metals` - Missing `@` prefix
+- ❌ `@general/materials` - Missing `:component_key`
+
+**ContentBuilder Validation:**
+
+- Warn on file load if reference invalid
+- Show "broken reference" indicator in UI
+- Offer "fix" action to inline the data or correct path
+- Prevent save if critical references broken
+
+### Example Use Case: Weapon Names
+
+**Before (Duplication):**
+
+```json
+// items/weapons/names.json
+{
+  "components": {
+    "material": ["Iron", "Steel", "Bronze", "Mithril", "Adamantine"],
+    "quality": ["Fine", "Superior", "Masterwork"]
+  }
+}
+
+// items/armor/names.json
+{
+  "components": {
+    "material": ["Iron", "Steel", "Bronze", "Mithril", "Adamantine"],
+    "quality": ["Fine", "Superior", "Masterwork"]
+  }
+}
+```
+
+**After (References):**
+
+```json
+// general/materials.json
+{
+  "components": {
+    "metals": ["Iron", "Steel", "Bronze", "Mithril", "Adamantine"]
+  }
+}
+
+// items/weapons/names.json
+{
+  "components": {
+    "material": "@general/materials:metals",
+    "quality": ["Fine", "Superior", "Masterwork"]
+  }
+}
+
+// items/armor/names.json
+{
+  "components": {
+    "material": "@general/materials:metals",
+    "quality": ["Fine", "Superior", "Masterwork"]
+  }
+}
+```
+
+**Benefits:**
+- ✅ Update materials once, applies everywhere
+- ✅ Consistent material lists across all items
+- ✅ Smaller file sizes (references vs full arrays)
+- ✅ Clear source of truth (general/materials.json)
+
+### ContentBuilder UI Support
+
+**Reference Display:**
+
+```
+┌─ Components ────────────────────────────────┐
+│ material: @general/materials:metals [📎]    │
+│   → [Iron, Steel, Bronze, ...] (10 items)  │
+│   [View Source] [Inline]                    │
+│                                              │
+│ quality: Local Data                         │
+│   [Fine, Superior, Masterwork]              │
+│   [+] Add  [-] Remove                       │
+└──────────────────────────────────────────────┘
+```
+
+**Actions:**
+- **[📎] Reference Icon** - Indicates this is a reference
+- **[View Source]** - Opens the referenced file
+- **[Inline]** - Converts reference to local copy (for customization)
+- **[Change Reference]** - Update the reference path
+
+### Implementation Notes
+
+**File Format:**
+
+References are stored as strings in the JSON:
+
+```json
+{
+  "components": {
+    "material": "@general/materials:metals"
+  }
+}
+```
+
+**Runtime Loading:**
+
+```csharp
+public class ComponentResolver
+{
+    private Dictionary<string, List<string>> _cache = new();
+    
+    public List<string> Resolve(string componentValue)
+    {
+        // Check if it's a reference
+        if (componentValue.StartsWith("@"))
+        {
+            return LoadReference(componentValue);
+        }
+        
+        // It's an array, parse normally
+        return JsonConvert.DeserializeObject<List<string>>(componentValue);
+    }
+    
+    private List<string> LoadReference(string reference)
+    {
+        // Cache check
+        if (_cache.TryGetValue(reference, out var cached))
+            return cached;
+        
+        // Parse: @category/file:key
+        var parts = reference.TrimStart('@').Split(':');
+        var filePath = parts[0]; // "general/materials"
+        var componentKey = parts[1]; // "metals"
+        
+        // Load and cache
+        var data = LoadJsonFile(filePath);
+        var component = data["components"][componentKey].ToObject<List<string>>();
+        _cache[reference] = component;
+        
+        return component;
+    }
+}
+```
+
+### Migration Strategy
+
+**Phase 1: Identify Duplicates**
+
+- Scan all JSON files for duplicate component arrays
+- Report: "material array appears in 15 files"
+- Suggest: "Move to general/materials.json"
+
+**Phase 2: Create Reference Files**
+
+- Create general/materials.json with all unique materials
+- Create general/colors.json with all unique colors
+- Create general/adjectives.json with all unique adjectives
+
+**Phase 3: Replace with References**
+
+- Update each file to use `@general/materials:metals` instead of local array
+- Validate all references resolve correctly
+- Test in ContentBuilder and runtime
+
+**Phase 4: Gradual Adoption**
+
+- Start with General category (already done)
+- Migrate Items category next
+- Enemies, NPCs, Quests follow
+- Monitor for issues, rollback if needed
+
+### Future Enhancements
+
+**Potential Features:**
+
+- **Reference Chains** - `@file1:key1` references `@file2:key2`
+- **Partial References** - `@file:key[0:5]` (first 5 items only)
+- **Combined References** - `["@file:key1", "@file:key2"]` (merge two sources)
+- **Reference Filtering** - `@file:key[rarity>2]` (advanced queries)
+- **Bidirectional Linking** - ContentBuilder shows "used by 12 files"
+
+**For Now:**
+
+Keep it simple: Direct references only, no chaining or filtering.
+
+---
+
+## Weight-Based Rarity System
+
+### Overview
+
+Rarity in this game is **emergent** - it's calculated from the **combined weights** of all components used to create an item. This creates a flexible, realistic system where:
+
+- Materials contribute to rarity (rare materials = rare items)
+- Prefixes/suffixes add rarity weight (powerful modifiers = rarer)
+- Base items have minimal rarity impact (anyone can craft a "Longsword")
+- Combinations determine final rarity (Mythril + Dragonbone + Fire = Epic)
+
+### Rarity Weight Thresholds
+
+**Master Rarity Table:**
+
+| Rarity | Weight Range | Color | Hex Code | Drop Rate | Description |
+|--------|--------------|-------|----------|-----------|-------------|
+| **Common** | 0-20 | Gray | `#808080` | 60% | Basic materials, simple items |
+| **Uncommon** | 21-50 | Green | `#00FF00` | 25% | Quality materials, minor enchantments |
+| **Rare** | 51-100 | Blue | `#0000FF` | 10% | Exotic materials, notable enchantments |
+| **Epic** | 101-200 | Purple | `#A020F0` | 4% | Legendary materials, powerful magic |
+| **Legendary** | 201+ | Orange | `#FFA500` | 1% | Mythical materials, artifact-level |
+
+**Note:** These thresholds are configurable and can be adjusted based on game balance testing.
+
+---
+
+### Component Weight Multipliers
+
+Different component types contribute differently to final rarity:
+
+| Component Type | Multiplier | Rationale |
+|----------------|------------|-----------|
+| `material` | 1.0× | Materials have full impact (Mythril vs Iron matters) |
+| `prefix` | 1.0× | Prefixes define power level (Dragonbone is epic-tier) |
+| `suffix` | 0.8× | Suffixes add flavor but less power impact |
+| `base` | 0.5× | Base items have minimal rarity (Longsword vs Shortsword) |
+| `quality` | 1.2× | Quality matters MORE (Masterwork vs Ruined) |
+| `descriptive` | 1.0× | Special attributes (Ancient, Cursed, etc.) |
+
+**Example Calculation:**
+
+```
+"Masterwork Mythril Longsword of Fire"
+
+Components:
+  quality:    "Masterwork" (weight 40) × 1.2 = 48
+  material:   "Mythril" (weight 50) × 1.0    = 50
+  base:       "Longsword" (weight 10) × 0.5  = 5
+  suffix:     "of Fire" (weight 40) × 0.8    = 32
+                                              ───
+Total Weight: 135
+
+Rarity Mapping: 135 → Epic tier (101-200 range)
+Result: "Masterwork Mythril Longsword of Fire" (Epic)
+```
+
+---
+
+### JSON Structure Changes
+
+#### types.json - Add Weights to Base Items
+
+**OLD Structure:**
+
+```json
+{
+  "weapon_types": {
+    "swords": {
+      "items": [
+        { "name": "Shortsword", "damage": "1d6", "weight": 2.0 },
+        { "name": "Longsword", "damage": "1d8", "weight": 3.0 }
+      ],
+      "traits": {
+        "damageType": "slashing",
+        "slot": "mainhand"
+      }
+    }
+  }
+}
+```
+
+**NEW Structure (with rarity weights):**
+
+```json
+{
+  "weapon_types": {
+    "swords": {
+      "items": [
+        {
+          "name": "Shortsword",
+          "damage": "1d6",
+          "weight": 2.0,
+          "rarityWeight": 5
+        },
+        {
+          "name": "Longsword",
+          "damage": "1d8",
+          "weight": 3.0,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Katana",
+          "damage": "1d10",
+          "weight": 2.5,
+          "rarityWeight": 35
+        }
+      ],
+      "traits": {
+        "damageType": "slashing",
+        "slot": "mainhand"
+      }
+    }
+  }
+}
+```
+
+**Note:** Added `rarityWeight` field to track rarity contribution (separate from physical `weight`)
+
+---
+
+#### names.json - Components Get Weights (NO items array)
+
+**OLD Structure (simple arrays):**
+
+```json
+{
+  "components": {
+    "material": ["Iron", "Steel", "Mythril"]
+  }
+}
+```
+
+**NEW Structure (objects with weights):**
+
+```json
+{
+  "components": {
+    "material": [
+      { "name": "Iron", "weight": 5 },
+      { "name": "Steel", "weight": 10 },
+      { "name": "Mythril", "weight": 50 },
+      { "name": "Adamantine", "weight": 75 },
+      { "name": "Void Crystal", "weight": 250 }
+    ],
+    "quality": [
+      { "name": "Ruined", "weight": 2 },
+      { "name": "Fine", "weight": 10 },
+      { "name": "Superior", "weight": 25 },
+      { "name": "Masterwork", "weight": 40 },
+      { "name": "Legendary", "weight": 90 }
+    ],
+    "enchantment": [
+      { "name": "of Sharpness", "weight": 15 },
+      { "name": "of Fire", "weight": 40 },
+      { "name": "of the Dragon", "weight": 85 },
+      { "name": "of Divine Power", "weight": 200 }
+    ]
+  },
+  "patterns": [
+    "base",
+    "material + base",
+    "quality + material + base",
+    "quality + material + base + enchantment"
+  ],
+  "metadata": {
+    "description": "Weapon name patterns with weight-based components",
+    "version": "2.0",
+    "component_keys": ["material", "quality", "enchantment"],
+    "pattern_tokens": ["base", "material", "quality", "enchantment"]
+  }
+}
+```
+
+**IMPORTANT:** names.json does NOT contain an items array. Base items are stored in types.json. The `base` token resolves from types.json.
+
+---
+
+#### prefixes.json / suffixes.json - Flatten Structure + Add Weights
+
+**OLD Structure (rarity-organized tiers):**
+
+```json
+{
+  "common": {
+    "Rusty": {
+      "displayName": "Rusty",
+      "traits": { "damageMultiplier": { "value": 0.8, "type": "number" } }
+    }
+  },
+  "rare": {
+    "Mythril": {
+      "displayName": "Mythril",
+      "traits": { "damageBonus": { "value": 5, "type": "number" } }
+    }
+  }
+}
+```
+
+**NEW Structure (flat with weights):**
+
+```json
+{
+  "prefixes": {
+    "Rusty": {
+      "displayName": "Rusty",
+      "weight": 2,
+      "traits": {
+        "damageMultiplier": { "value": 0.8, "type": "number" },
+        "durability": { "value": 50, "type": "number" }
+      }
+    },
+    "Steel": {
+      "displayName": "Steel",
+      "weight": 10,
+      "traits": {
+        "damageBonus": { "value": 3, "type": "number" },
+        "durability": { "value": 120, "type": "number" }
+      }
+    },
+    "Mythril": {
+      "displayName": "Mythril",
+      "weight": 50,
+      "traits": {
+        "damageBonus": { "value": 5, "type": "number" },
+        "durability": { "value": 150, "type": "number" },
+        "glowEffect": { "value": true, "type": "boolean" }
+      }
+    },
+    "Dragonbone": {
+      "displayName": "Dragonbone",
+      "weight": 80,
+      "traits": {
+        "damageBonus": { "value": 10, "type": "number" },
+        "fireResist": { "value": 25, "type": "number" },
+        "durability": { "value": 200, "type": "number" }
+      }
+    }
+  },
+  "metadata": {
+    "description": "Weapon prefixes with weight-based rarity and stat modifiers",
+    "version": "2.0",
+    "last_updated": "2025-12-16"
+  }
+}
+```
+
+**Key Changes:**
+- ❌ **Removed** rarity tier organization (common/rare/epic)
+- ✅ **Added** `weight` field to each prefix/suffix
+- ✅ **Flattened** structure (all prefixes at same level)
+- ✅ **Kept** trait system with `{ value, type }` objects
+
+---
+
+### Rarity Configuration File
+
+**New File: `general/rarity_config.json`**
+
+```json
+{
+  "thresholds": {
+    "common": {
+      "min": 0,
+      "max": 20,
+      "color": "#808080",
+      "displayName": "Common",
+      "dropRate": 0.60,
+      "glowEffect": false
+    },
+    "uncommon": {
+      "min": 21,
+      "max": 50,
+      "color": "#00FF00",
+      "displayName": "Uncommon",
+      "dropRate": 0.25,
+      "glowEffect": false
+    },
+    "rare": {
+      "min": 51,
+      "max": 100,
+      "color": "#0000FF",
+      "displayName": "Rare",
+      "dropRate": 0.10,
+      "glowEffect": true
+    },
+    "epic": {
+      "min": 101,
+      "max": 200,
+      "color": "#A020F0",
+      "displayName": "Epic",
+      "dropRate": 0.04,
+      "glowEffect": true
+    },
+    "legendary": {
+      "min": 201,
+      "max": 999,
+      "color": "#FFA500",
+      "displayName": "Legendary",
+      "dropRate": 0.01,
+      "glowEffect": true
+    }
+  },
+  "weight_multipliers": {
+    "material": 1.0,
+    "prefix": 1.0,
+    "suffix": 0.8,
+    "base": 0.5,
+    "quality": 1.2,
+    "descriptive": 1.0,
+    "enchantment": 0.8,
+    "title": 0.6
+  },
+  "metadata": {
+    "description": "Rarity system configuration with weight thresholds, colors, and drop rates",
+    "version": "1.0",
+    "last_updated": "2025-12-16"
+  }
+}
+```
+
+---
+
+### Weight-Based Pattern Execution Algorithm
+
+**Updated Pattern Execution with Weight Calculation:**
+
+```pseudocode
+function executePattern(pattern, components, typesJson, prefixes, suffixes):
+    let name = ""
+    let totalWeight = 0
+    let appliedTraits = {}
+    
+    // Parse pattern: "quality + material + base + enchantment"
+    tokens = pattern.split(" + ").map(trim)
+    
+    for each token in tokens:
+        if token == "base":
+            // Pick random base item from types.json
+            item = selectRandomFromTypes(typesJson)
+            name += item.name + " "
+            totalWeight += item.rarityWeight * config.multipliers.base
+            
+        else if components[token] exists:
+            // Pick random component from names.json components
+            component = selectRandom(components[token])
+            name += component.name + " "
+            totalWeight += component.weight * config.multipliers[token]
+            
+            // If this component has a matching prefix/suffix with traits
+            if prefixes[component.name] exists:
+                appliedTraits = mergeTraits(appliedTraits, prefixes[component.name].traits)
+            
+        else:
+            // Invalid token - skip with warning
+            log.warn("Unknown token: " + token)
+    
+    // Calculate final rarity tier from total weight
+    rarity = getRarityTier(totalWeight)
+    
+    return {
+        name: name.trim(),
+        weight: totalWeight,
+        rarity: rarity,
+        traits: appliedTraits,
+        color: config.thresholds[rarity].color,
+        glowEffect: config.thresholds[rarity].glowEffect
+    }
+
+function selectRandomFromTypes(typesJson):
+    // Select random type category (e.g., "swords")
+    typeCategory = selectRandom(typesJson.weapon_types)
+    // Select random item from that category's items array
+    item = selectRandom(typeCategory.items)
+    return item
+
+function getRarityTier(weight):
+    for each tier in config.thresholds:
+        if weight >= tier.min AND weight <= tier.max:
+            return tier.name
+    
+    // Fallback
+    return "common"
+
+function mergeTraits(existing, new):
+    // Combine trait values (sum bonuses, override booleans, etc.)
+    merged = existing.clone()
+    
+    for each trait in new:
+        if merged[trait] exists:
+            if trait.type == "number":
+                merged[trait].value += new[trait].value  // Stack bonuses
+            else:
+                merged[trait] = new[trait]  // Override
+        else:
+            merged[trait] = new[trait]
+    
+    return merged
+```
+
+---
+
+### Loot Generation with Weight Targeting
+
+**Loot Table Configuration:**
+
+```json
+{
+  "loot_tables": {
+    "common_chest": {
+      "targetWeight": { "min": 5, "max": 25 },
+      "allowedComponents": ["all"],
+      "count": { "min": 1, "max": 3 }
+    },
+    "rare_chest": {
+      "targetWeight": { "min": 60, "max": 120 },
+      "allowedComponents": ["all"],
+      "count": { "min": 1, "max": 2 }
+    },
+    "boss_drop_epic": {
+      "targetWeight": { "min": 120, "max": 180 },
+      "allowedComponents": ["all"],
+      "count": 1
+    },
+    "legendary_quest_reward": {
+      "targetWeight": { "min": 220, "max": 400 },
+      "allowedComponents": ["legendary_only"],
+      "count": 1
+    }
+  }
+}
+```
+
+**Loot Generation Algorithm:**
+
+```pseudocode
+function generateLoot(lootTable):
+    targetMin = lootTable.targetWeight.min
+    targetMax = lootTable.targetWeight.max
+    targetWeight = random(targetMin, targetMax)
+    
+    // Build item to approximately match target weight
+    remainingWeight = targetWeight
+    selectedComponents = []
+    
+    // Strategy: Pick components whose weights sum near target
+    
+    // 1. Pick material (usually highest weight contributor)
+    materialWeight = remainingWeight * 0.4  // Allocate 40% to material
+    material = selectClosestWeight(components.material, materialWeight)
+    selectedComponents.add(material)
+    remainingWeight -= material.weight * multipliers.material
+    
+    // 2. Pick quality
+    qualityWeight = remainingWeight * 0.3
+    quality = selectClosestWeight(components.quality, qualityWeight)
+    selectedComponents.add(quality)
+    remainingWeight -= quality.weight * multipliers.quality
+    
+    // 3. Pick enchantment if weight remaining
+    if remainingWeight > 20:
+        enchantment = selectClosestWeight(components.enchantment, remainingWeight)
+        selectedComponents.add(enchantment)
+    
+    // 4. Pick base item (low weight, any will do)
+    base = selectRandom(items)
+    
+    // 5. Generate name via pattern
+    pattern = selectPattern(selectedComponents)  // e.g., "quality + material + base + enchantment"
+    item = executePattern(pattern, selectedComponents, base)
+    
+    return item
+
+function selectClosestWeight(componentArray, targetWeight):
+    // Find component with weight closest to target
+    closest = componentArray[0]
+    minDiff = abs(closest.weight - targetWeight)
+    
+    for each component in componentArray:
+        diff = abs(component.weight - targetWeight)
+        if diff < minDiff:
+            closest = component
+            minDiff = diff
+    
+    return closest
+```
+
+---
+
+### Weight Ranges by Component Type
+
+**Recommended Weight Ranges:**
+
+| Component Type | Common | Uncommon | Rare | Epic | Legendary |
+|----------------|--------|----------|------|------|-----------|
+| **Materials** | 2-10 | 11-30 | 31-70 | 71-150 | 151+ |
+| **Prefixes** | 2-10 | 11-30 | 31-70 | 71-150 | 151+ |
+| **Suffixes** | 5-15 | 16-35 | 36-65 | 66-120 | 121+ |
+| **Quality** | 2-12 | 13-28 | 29-50 | 51-90 | 91+ |
+| **Base Items** | 5-10 | 11-20 | 21-40 | 41-80 | 81+ |
+| **Enchantments** | 10-18 | 19-40 | 41-75 | 76-140 | 141+ |
+
+**Examples:**
+
+**Common Materials:** Iron (5), Copper (3), Wood (4), Leather (6)  
+**Rare Materials:** Mythril (50), Adamantine (65), Crystal (55)  
+**Legendary Materials:** Void Crystal (250), Divine Essence (300), Dragon Heart (275)
+
+**Common Prefixes:** Rusty (2), Old (3), Simple (5)  
+**Epic Prefixes:** Dragonbone (80), Ancient (75), Celestial (100)  
+**Legendary Prefixes:** Godforged (220), Eternal (250), Void-Blessed (280)
+Rare:       "Fine Steel Longsword"
+Epic:       "Masterwork Ancient Steel Longsword"
+Legendary:  "Masterwork Enchanted Mithril Longsword of the Dragon"
+```
+
+**Bad Pattern Progression:**
+
+```text
+Common:     "Longsword"
+Uncommon:   "Small Small Longsword" ❌ (duplicate token)
+Rare:       "Steel Small Small Longsword" ❌ (meaningless complexity)
+Epic:       "Steel Steel Steel Longsword" ❌ (repetitive)
+Legendary:  "Longsword Steel" ❌ (backwards grammar)
+```
+
+### Rarity Weighting (Future Enhancement)
+
+**Optional: Weight patterns by rarity:**
+
+```json
+{
+  "patterns": [
+    {
+      "pattern": "base",
+      "weight": 100,
+      "rarity": "common"
+    },
+    {
+      "pattern": "quality + material + base + enchantment + title",
+      "weight": 1,
+      "rarity": "legendary"
+    }
+  ]
+}
+```
+
+**For Now:** Keep patterns as simple strings. Rarity is determined by token count.
+
+---
+
+## Pattern Execution Algorithm
+
+### Runtime Pattern Resolution
+
+**High-Level Overview:**
+
+The pattern system takes a pattern string (e.g., `"quality + material + base"`) and resolves it into a final name by picking random values from component arrays.
+
+### Pseudocode Algorithm
+
+```pseudocode
+function ExecutePattern(pattern, items, components, random):
+    // Step 1: Parse pattern into tokens
+    tokens = pattern.split(" + ").map(trim)
+    
+    // Step 2: Resolve each token to a value
+    parts = []
+    for each token in tokens:
+        value = ResolveToken(token, items, components, random)
+        if value is not null:
+            parts.add(value)
+    
+    // Step 3: Assemble final name
+    if parts.isEmpty():
+        // Fallback: random base item
+        return random.pick(items)
+    
+    return parts.join(" ")
+
+function ResolveToken(token, items, components, random):
+    // Special token: "base"
+    if token == "base":
+        if items.isEmpty():
+            return null
+        return random.pick(items)
+    
+    // Component lookup
+    if components.contains(token):
+        componentArray = components[token]
+        if componentArray.isEmpty():
+            warn("Component '{token}' is empty")
+            return null
+        return random.pick(componentArray)
+    
+    // Cross-file reference (if supported)
+    if token.startsWith("@"):
+        return ResolveReference(token, random)
+    
+    // Token not found
+    warn("Pattern token '{token}' not found in components")
+    return null
+
+function ResolveReference(reference, random):
+    // Parse: @category/file:key
+    parts = reference.removePrefix("@").split(":")
+    filePath = parts[0]  // "general/materials"
+    componentKey = parts[1]  // "metals"
+    
+    // Load referenced file (with caching)
+    data = LoadJsonFile(filePath)
+    componentArray = data.components[componentKey]
+    
+    if componentArray.isEmpty():
+        warn("Referenced component '{reference}' is empty")
+        return null
+    
+    return random.pick(componentArray)
+```
+
+### Detailed Implementation Steps
+
+**Step 1: Pattern Parsing**
+
+```text
+Input:  "quality + material + base + enchantment"
+Output: ["quality", "material", "base", "enchantment"]
+
+Logic:
+- Split by " + " delimiter (note: space + plus + space)
+- Trim whitespace from each token
+- Validate: no empty tokens
+```
+
+**Step 2: Token Resolution**
+
+```text
+For each token:
+  1. Check if token == "base"
+     → Yes: Pick random from items array
+     → No: Continue to step 2
+  
+  2. Check if token exists in components object
+     → Yes: Pick random from components[token] array
+     → No: Continue to step 3
+  
+  3. Check if token starts with "@" (cross-file reference)
+     → Yes: Load referenced file and resolve
+     → No: Continue to step 4
+  
+  4. Token not found
+     → Log warning: "Token 'xyz' not found"
+     → Skip this token (graceful degradation)
+     → Continue with remaining tokens
+```
+
+**Step 3: Name Assembly**
+
+```text
+Input:  ["Fine", "Steel", "Longsword", "of Slaying"]
+Output: "Fine Steel Longsword of Slaying"
+
+Logic:
+- Join all parts with single space
+- No special formatting needed
+- Return final string
+```
+
+### Error Handling & Fallbacks
+
+**Graceful Degradation:**
+
+```text
+Pattern: "invalid1 + quality + invalid2 + base"
+
+Resolution:
+- invalid1 → Not found, skip (log warning)
+- quality  → "Fine"
+- invalid2 → Not found, skip (log warning)
+- base     → "Longsword"
+
+Result: "Fine Longsword"
+```
+
+**Empty Components:**
+
+```text
+Pattern: "quality + material + base"
+Components: { quality: [], material: ["Steel"], ... }
+
+Resolution:
+- quality → Empty array, skip
+- material → "Steel"
+- base → "Longsword"
+
+Result: "Steel Longsword"
+```
+
+**All Tokens Invalid:**
+
+```text
+Pattern: "invalid1 + invalid2 + invalid3"
+
+Resolution:
+- All tokens fail to resolve
+- parts array is empty
+- Fallback: Return random item from items array
+
+Result: "Longsword" (random base item)
+```
+
+### Performance Considerations
+
+**Optimization Strategies:**
+
+1. **Pattern Caching** - Pre-parse patterns into token arrays
+2. **Component Caching** - Cache referenced file data
+3. **Fast Path** - Special handling for "base" token
+4. **Lazy Loading** - Only load referenced files when first needed
+
+**Expected Performance:**
+
+- Simple pattern (1-2 tokens): <0.1ms
+- Complex pattern (5+ tokens): <0.5ms
+- With cross-file references: <1ms (after caching)
+- Target: 10,000 names per second on modern hardware
+
+### Implementation in C#
+
+For the complete C# implementation details, see:
+
+- **#file:PATTERN_STANDARDIZATION_PLAN.md** - Phase 4: Runtime Implementation
+- Includes: `PatternExecutor` class with full code
+- Includes: Unit tests and integration tests
+- Includes: Performance benchmarks
+
+### ContentBuilder Pattern Validation
+
+ContentBuilder should validate patterns in real-time using the same algorithm:
+
+1. Parse pattern into tokens
+2. Check each token exists in components
+3. Show warnings for invalid tokens
+4. Generate live examples to verify output
+5. Display token count and suggested rarity
+
+**For detailed ContentBuilder implementation, see:**
+
+- **#file:PATTERN_STANDARDIZATION_PLAN.md** - Phase 3: Update ContentBuilder
+
+---
+
+## Metadata Auto-Generation Specification
+
+### Overview
+
+Metadata should be automatically generated by ContentBuilder on file save to eliminate manual maintenance errors and ensure consistency.
+
+### User-Editable Fields
+
+These fields are managed by the user in the ContentBuilder UI:
+
+| Field | Type | Description | Example |
+|-------|------|-------------|---------|
+| `description` | string | Human-written explanation of file purpose | "Weapon name generation with pattern-based system" |
+| `version` | string | Schema version (user increments on breaking changes) | "1.0", "2.0", "2.1" |
+
+### Auto-Generated Fields
+
+These fields are computed by ContentBuilder on every save:
+
+| Field | Type | Description | Source |
+|-------|------|-------------|--------|
+| `last_updated` | string | Timestamp of last save (YYYY-MM-DD) | Current date |
+| `component_keys` | string[] | Array of component object keys | Extract from `components` object |
+| `pattern_tokens` | string[] | Array of unique tokens used in patterns | Parse all `patterns` + add "base" |
+| `total_patterns` | number | Count of patterns | `patterns.length` |
+| `total_items` | number | Count of items (if applicable) | `items.length` |
+| `type` | string | File type classification | Inferred from structure |
+
+### ContentBuilder UI Design
+
+```text
+┌─ Metadata ─────────────────────────────────────────────┐
+│ Description: [Weapon name generation...             ] │ ← User editable
+│ Version:     [2.0                                    ] │ ← User editable
+│                                                         │
+│ Auto-Generated (read-only):                            │
+│   Last Updated:     2025-12-16                         │
+│   Component Keys:   material, quality, descriptive,... │
+│   Pattern Tokens:   base, material, quality, ...       │
+│   Total Patterns:   11                                 │
+│   Total Items:      59                                 │
+│   File Type:        pattern_generation                 │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Auto-Generation Process
+
+**Trigger:** On file save in ContentBuilder
+
+**Process:**
+
+1. Extract component keys from `components` object
+2. Parse all patterns and extract unique tokens
+3. Add "base" token to `pattern_tokens` if patterns exist
+4. Count arrays and objects for statistics
+5. Set `last_updated` to current UTC date (YYYY-MM-DD)
+6. Preserve user-defined `description` and `version`
+7. Generate complete metadata object
+8. Save JSON with auto-generated metadata
+
+**User Manual Edits:**
+
+- ✅ **Allowed:** User can edit `description` and `version` in JSON
+- ⚠️ **Warning:** All other metadata fields will be overwritten on next save in ContentBuilder
+- 💡 **Recommendation:** Only edit metadata through ContentBuilder UI
+
+### Implementation Details
+
+For detailed implementation of metadata auto-generation, including:
+
+- C# `MetadataGenerator` class
+- ViewModel integration
+- UI bindings
+- Validation rules
+
+See **#file:PATTERN_STANDARDIZATION_PLAN.md** - Section 3.1: Auto-Generated Metadata System
 
 ---
 
