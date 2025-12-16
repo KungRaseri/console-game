@@ -153,10 +153,11 @@ public class GameEngine
 
         _services.Console.ShowProgress("Initializing...", task =>
         {
-            task.MaxValue = 100;
+            dynamic t = task; // Cast to dynamic to access ProgressTask properties
+            t.MaxValue = 100;
             for (int i = 0; i <= 100; i += 10)
             {
-                task.Value = i;
+                t.Value = i;
                 Thread.Sleep(100);
             }
         });

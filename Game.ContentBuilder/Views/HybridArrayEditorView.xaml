@@ -322,7 +322,7 @@
                             <StackPanel HorizontalAlignment="Center" 
                                         VerticalAlignment="Center" 
                                         Visibility="{Binding Patterns.Count, Converter={StaticResource ZeroToVisibilityConverter}}">
-                                <materialDesign:PackIcon Kind="Pattern" 
+                                <materialDesign:PackIcon Kind="FormatListBulleted" 
                                                          Width="64" 
                                                          Height="64" 
                                                          Opacity="0.3"

@@ -48,12 +48,11 @@ try
     var services = new ServiceCollection();
 
     // Register configuration sections as strongly-typed options
-    // TODO: Fix configuration binding - requires Microsoft.Extensions.Configuration.Binder package
-    // services.Configure<GameSettings>(opts => configuration.GetSection("Game").Bind(opts));
-    // services.Configure<AudioSettings>(opts => configuration.GetSection("Audio").Bind(opts));
-    // services.Configure<UISettings>(opts => configuration.GetSection("UI").Bind(opts));
-    // services.Configure<LoggingSettings>(opts => configuration.GetSection("Logging").Bind(opts));
-    // services.Configure<GameplaySettings>(opts => configuration.GetSection("Gameplay").Bind(opts));
+    services.Configure<GameSettings>(opts => configuration.GetSection("Game").Bind(opts));
+    services.Configure<AudioSettings>(opts => configuration.GetSection("Audio").Bind(opts));
+    services.Configure<UISettings>(opts => configuration.GetSection("UI").Bind(opts));
+    services.Configure<LoggingSettings>(opts => configuration.GetSection("Logging").Bind(opts));
+    services.Configure<GameplaySettings>(opts => configuration.GetSection("Gameplay").Bind(opts));
 
     // Register validators
     services.AddSingleton<IValidator<GameSettings>, GameSettingsValidator>();

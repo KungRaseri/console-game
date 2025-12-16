@@ -2,7 +2,7 @@ using Game.Core.Features.Combat;
 using Game.Core.Features.Exploration;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Services;
-using Game.Console.UI;
+using Game.Core.Abstractions;
 using Game.Console.Orchestrators;
 using Game.Data.Repositories;
 using MediatR;
@@ -19,7 +19,7 @@ public class GameEngineServices
     public IMediator Mediator { get; }
     
     // UI services
-    public IConsoleUI Console { get; }
+    public IGameUI Console { get; }
     public MenuService Menu { get; }
     public CharacterViewService CharacterView { get; }
     
@@ -47,7 +47,7 @@ public class GameEngineServices
 #pragma warning disable S107
     public GameEngineServices(
         IMediator mediator,
-        IConsoleUI console,
+        IGameUI console,
         CharacterViewService characterView,
         LevelUpService levelUpService,
         CharacterCreationOrchestrator characterCreation,

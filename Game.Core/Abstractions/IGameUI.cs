@@ -23,4 +23,9 @@ public interface IGameUI
     void ShowPanel(string title, string content, string color = "white");
     void Clear();
     void PressAnyKey(string message = "Press any key to continue...");
+    
+    /// <summary>
+    /// Utility method to strip markup from text for length calculations.
+    /// </summary>
+    string StripMarkup(string text);
 }
