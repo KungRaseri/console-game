@@ -1,12 +1,4 @@
 {
-  "items": [
-    "clear", "cloudy", "overcast", "foggy", "misty",
-    "rainy", "drizzling", "stormy", "thunderous", "lightning",
-    "snowy", "blizzard", "sleeting", "hailing", "icy",
-    "windy", "breezy", "calm", "gusty", "howling",
-    "humid", "muggy", "dry", "arid", "scorching",
-    "freezing", "frigid", "chilly", "mild", "warm"
-  ],
   "components": {
     "precipitation": [
       "clear", "rainy", "drizzling", "snowy", "sleeting",
@@ -34,9 +26,28 @@
     ]
   },
   "patterns": [
-    "condition",
+    "precipitation",
+    "sky_condition",
     "temperature + precipitation",
-    "severity + condition",
-    "wind + precipitation"
-  ]
+    "severity + precipitation",
+    "wind + precipitation",
+    "special"
+  ],
+  "metadata": {
+    "description": "Weather condition descriptions for dynamic environments and atmospheric gameplay",
+    "version": "1.0",
+    "type": "pattern_generation",
+    "last_updated": "2025-12-16",
+    "component_keys": ["precipitation", "wind", "sky_condition", "temperature", "severity", "special"],
+    "pattern_count": 6,
+    "pattern_tokens": ["precipitation", "sky_condition", "temperature", "severity", "wind", "special"],
+    "component_counts": {
+      "precipitation": 8,
+      "wind": 8,
+      "sky_condition": 8,
+      "temperature": 10,
+      "severity": 9,
+      "special": 9
+    }
+  }
 }

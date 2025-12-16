@@ -1,18 +1,4 @@
 {
-  "items": [
-    "attacks", "strikes", "slashes", "stabs", "pierces",
-    "crushes", "smashes", "pounds", "hammers", "batters",
-    "blocks", "parries", "dodges", "evades", "deflects",
-    "casts", "conjures", "summons", "channels", "invokes",
-    "heals", "mends", "restores", "revives", "cures",
-    "curses", "hexes", "blights", "corrupts", "weakens",
-    "moves", "walks", "runs", "sprints", "dashes",
-    "jumps", "leaps", "bounds", "vaults", "climbs",
-    "sneaks", "creeps", "stalks", "prowls", "lurks",
-    "speaks", "shouts", "whispers", "murmurs", "declares",
-    "examines", "inspects", "searches", "investigates", "studies",
-    "opens", "closes", "locks", "unlocks", "breaks"
-  ],
   "components": {
     "combat_offensive": [
       "attacks", "strikes", "slashes", "stabs", "pierces",
@@ -47,9 +33,21 @@
       "asks", "answers", "commands", "requests"
     ]
   },
-  "patterns": [
-    "verb",
-    "adverb + verb",
-    "verb + preposition"
-  ]
+  "metadata": {
+    "description": "Categorized action verbs for combat, magic, movement, and interactions",
+    "version": "1.0",
+    "type": "component_library",
+    "last_updated": "2025-12-16",
+    "component_keys": ["combat_offensive", "combat_defensive", "magic", "healing", "movement", "stealth", "interaction", "communication"],
+    "component_counts": {
+      "combat_offensive": 10,
+      "combat_defensive": 10,
+      "magic": 10,
+      "healing": 9,
+      "movement": 10,
+      "stealth": 9,
+      "interaction": 9,
+      "communication": 9
+    }
+  }
 }

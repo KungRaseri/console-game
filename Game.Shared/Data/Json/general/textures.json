@@ -1,16 +1,4 @@
 {
-  "items": [
-    "rough", "smooth", "slimy", "sticky", "silky",
-    "coarse", "grainy", "polished", "jagged", "sharp",
-    "soft", "plush", "velvety", "fuzzy", "fluffy",
-    "hard", "rigid", "brittle", "solid", "dense",
-    "wet", "damp", "moist", "dry", "parched",
-    "cold", "icy", "frozen", "warm", "hot",
-    "bumpy", "ridged", "grooved", "pitted", "cratered",
-    "slick", "oily", "greasy", "waxy", "glossy",
-    "gritty", "sandy", "powdery", "dusty", "chalky",
-    "leathery", "scaly", "feathery", "furry", "hairy"
-  ],
   "components": {
     "surface_quality": [
       "rough", "smooth", "polished", "jagged", "bumpy",
@@ -34,9 +22,26 @@
     ]
   },
   "patterns": [
-    "texture",
+    "surface_quality",
     "surface_quality + moisture",
-    "temperature + texture",
-    "hardness + surface_quality"
-  ]
+    "temperature + surface_quality",
+    "hardness + surface_quality",
+    "organic"
+  ],
+  "metadata": {
+    "description": "Texture descriptions for tactile immersion, item details, and environmental richness",
+    "version": "1.0",
+    "type": "pattern_generation",
+    "last_updated": "2025-12-16",
+    "component_keys": ["surface_quality", "temperature", "moisture", "hardness", "organic"],
+    "pattern_count": 5,
+    "pattern_tokens": ["surface_quality", "temperature", "moisture", "hardness", "organic"],
+    "component_counts": {
+      "surface_quality": 10,
+      "temperature": 10,
+      "moisture": 10,
+      "hardness": 10,
+      "organic": 10
+    }
+  }
 }

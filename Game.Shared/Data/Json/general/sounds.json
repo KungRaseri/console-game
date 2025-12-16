@@ -1,17 +1,17 @@
 {
-  "items": [
-    "echoing", "whisper", "roar", "clang", "hiss",
-    "creak", "thud", "crash", "tinkle", "rustle",
-    "howl", "screech", "murmur", "rumble", "chime",
-    "splash", "drip", "gurgle", "whoosh", "buzz",
-    "crackle", "snap", "pop", "sizzle", "hum",
-    "clatter", "rattle", "jingle", "clank", "scrape",
-    "shriek", "wail", "moan", "groan", "sigh",
-    "thump", "boom", "bang", "crack", "thunder",
-    "chirp", "trill", "song", "cry", "call",
-    "grinding", "grating", "squeaking", "creaking", "groaning"
-  ],
   "components": {
+    "base_sound": [
+      "echoing", "whisper", "roar", "clang", "hiss",
+      "creak", "thud", "crash", "tinkle", "rustle",
+      "howl", "screech", "murmur", "rumble", "chime",
+      "splash", "drip", "gurgle", "whoosh", "buzz",
+      "crackle", "snap", "pop", "sizzle", "hum",
+      "clatter", "rattle", "jingle", "clank", "scrape",
+      "shriek", "wail", "moan", "groan", "sigh",
+      "thump", "boom", "bang", "crack", "thunder",
+      "chirp", "trill", "song", "cry", "call",
+      "grinding", "grating", "squeaking", "creaking", "groaning"
+    ],
     "volume": [
       "silent", "quiet", "soft", "muffled", "faint",
       "moderate", "loud", "thunderous", "deafening", "ear-splitting"
@@ -34,9 +34,28 @@
     ]
   },
   "patterns": [
-    "sound",
-    "volume + sound",
-    "nature + sound",
-    "intensity + sound"
-  ]
+    "base_sound",
+    "volume + base_sound",
+    "nature + base_sound",
+    "intensity + base_sound",
+    "combat",
+    "ambient"
+  ],
+  "metadata": {
+    "description": "Sound descriptions for combat, environmental atmosphere, and immersive audio narratives",
+    "version": "1.0",
+    "type": "pattern_generation",
+    "last_updated": "2025-12-16",
+    "component_keys": ["base_sound", "volume", "nature", "combat", "ambient", "intensity"],
+    "pattern_count": 6,
+    "pattern_tokens": ["base_sound", "volume", "nature", "combat", "ambient", "intensity"],
+    "component_counts": {
+      "base_sound": 50,
+      "volume": 10,
+      "nature": 10,
+      "combat": 10,
+      "ambient": 10,
+      "intensity": 10
+    }
+  }
 }

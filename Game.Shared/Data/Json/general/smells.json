@@ -1,16 +1,4 @@
 {
-  "items": [
-    "musty", "fragrant", "acrid", "pungent", "sweet",
-    "earthy", "smoky", "fresh", "stale", "damp",
-    "floral", "herbal", "spicy", "minty", "citrus",
-    "sulfurous", "metallic", "bloody", "putrid", "rotten",
-    "perfumed", "aromatic", "incense", "sandalwood", "pine",
-    "briny", "salty", "oceanic", "fishy", "seaweed",
-    "leathery", "woody", "mossy", "moldy", "fungal",
-    "medicinal", "antiseptic", "chemical", "acidic", "bitter",
-    "vanilla", "cinnamon", "clove", "ginger", "peppery",
-    "ashen", "charred", "burnt", "roasted", "smoky"
-  ],
   "components": {
     "pleasant": [
       "fragrant", "fresh", "floral", "herbal", "spicy",
@@ -30,8 +18,26 @@
     ]
   },
   "patterns": [
-    "smell",
-    "intensity + smell",
-    "smell + smell (combination)"
-  ]
+    "pleasant",
+    "unpleasant",
+    "natural",
+    "intensity + pleasant",
+    "intensity + unpleasant",
+    "intensity + natural"
+  ],
+  "metadata": {
+    "description": "Smell descriptions for environmental atmosphere, items, and narrative immersion",
+    "version": "1.0",
+    "type": "pattern_generation",
+    "last_updated": "2025-12-16",
+    "component_keys": ["pleasant", "unpleasant", "natural", "intensity"],
+    "pattern_count": 6,
+    "pattern_tokens": ["pleasant", "unpleasant", "natural", "intensity"],
+    "component_counts": {
+      "pleasant": 10,
+      "unpleasant": 10,
+      "natural": 10,
+      "intensity": 10
+    }
+  }
 }

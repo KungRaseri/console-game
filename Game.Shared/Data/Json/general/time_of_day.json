@@ -1,18 +1,13 @@
 {
-  "items": [
-    "dawn", "sunrise", "morning", "midday",
-    "afternoon", "dusk", "sunset", "twilight",
-    "evening", "night", "midnight", "witching hour"
-  ],
   "components": {
-    "periods": [
+    "period": [
       "dawn", "morning", "midday", "afternoon",
       "dusk", "evening", "night", "midnight"
     ],
-    "modifiers": [
+    "modifier": [
       "early", "late", "deep", "high", "dead"
     ],
-    "descriptors": [
+    "descriptor": [
       "first light", "golden hour", "gloaming", "witching hour",
       "twilight", "sunrise", "sunset", "small hours"
     ]
@@ -21,5 +16,19 @@
     "period",
     "modifier + period",
     "descriptor"
-  ]
+  ],
+  "metadata": {
+    "description": "Time of day descriptions for narrative and environmental atmosphere",
+    "version": "1.0",
+    "type": "pattern_generation",
+    "last_updated": "2025-12-16",
+    "component_keys": ["period", "modifier", "descriptor"],
+    "pattern_count": 3,
+    "pattern_tokens": ["period", "modifier", "descriptor"],
+    "component_counts": {
+      "period": 8,
+      "modifier": 5,
+      "descriptor": 8
+    }
+  }
 }
