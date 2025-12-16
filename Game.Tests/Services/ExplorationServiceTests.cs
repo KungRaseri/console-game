@@ -38,7 +38,7 @@ public class ExplorationServiceTests : IDisposable
 
         _apocalypseTimer = new ApocalypseTimer(_consoleUI);
         _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
-        _gameStateService = new GameStateService(_saveGameService);
+        _gameStateService = new GameStateService(_saveGameService, LoggerHelper.CreateNullLogger<GameStateService>());
 
         // Setup MediatR with all required services for handlers
         var services = new ServiceCollection();
@@ -89,7 +89,7 @@ public class ExplorationServiceTests : IDisposable
         var apocalypseTimer = new ApocalypseTimer(ConsoleUI);
         var repository = new SaveGameRepository($"test-temp-{Guid.NewGuid()}.db");
         var saveGameService = new SaveGameService(repository, apocalypseTimer);
-        var gameStateService = new GameStateService(saveGameService);
+        var gameStateService = new GameStateService(saveGameService, LoggerHelper.CreateNullLogger<GameStateService>());
         var service = new ExplorationService(_mediator, gameStateService, saveGameService, ConsoleUI);
 
         // Assert

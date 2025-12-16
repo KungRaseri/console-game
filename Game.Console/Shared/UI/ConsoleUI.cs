@@ -730,8 +730,9 @@ public class ConsoleUI : IGameUI, IConsoleUI
 
     public void ShowProgress(string title, Action<object> work)
     {
-        // Delegate to the typed ShowProgress method
-        ShowProgress(title, task => work(task));
+        // Use the strongly-typed Action<ProgressTask> overload to avoid infinite recursion
+        Action<ProgressTask> typedAction = task => work(task);
+        ShowProgress(title, typedAction);
     }
 
     #endregion

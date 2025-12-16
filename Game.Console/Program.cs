@@ -15,6 +15,7 @@ using Serilog;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using System.Reflection;
 using DotNetEnv;
 using FluentValidation;
@@ -69,6 +70,13 @@ try
     ValidateSettings<LoggingSettings>(tempProvider);
     ValidateSettings<GameplaySettings>(tempProvider);
 
+    // Register logging with Serilog
+    services.AddLogging(loggingBuilder =>
+    {
+        loggingBuilder.ClearProviders();
+        loggingBuilder.AddSerilog(dispose: true);
+    });
+
     // Register MediatR for event-driven architecture (v12.4.1 - no license required)
     services.AddMediatR(cfg =>
     {
@@ -88,7 +96,9 @@ try
 
     // Register UI services
     services.AddSingleton(AnsiConsole.Console);
-    services.AddSingleton<IGameUI, ConsoleUI>();
+    services.AddSingleton<ConsoleUI>(); // Register ConsoleUI as itself first
+    services.AddSingleton<IGameUI>(sp => sp.GetRequiredService<ConsoleUI>()); // Then as IGameUI
+    services.AddSingleton<IConsoleUI>(sp => sp.GetRequiredService<ConsoleUI>()); // And as IConsoleUI
 
     // Apocalypse timer (shared service)
     services.AddSingleton<ApocalypseTimer>();
@@ -97,9 +107,12 @@ try
     services.AddSingleton<DeathService>();
     services.AddSingleton<HallOfFameRepository>();
 
-    // Register repositories
-    services.AddSingleton<ISaveGameRepository>(sp => new SaveGameRepository("savegames.db"));
-    services.AddSingleton<IHallOfFameRepository>(sp => new HallOfFameRepository("halloffame.db"));
+    // Register repositories - databases stored in Data folder
+    var dbBasePath = Path.Combine(AppContext.BaseDirectory, "Data/");
+    services.AddSingleton<ISaveGameRepository>(sp =>
+        new SaveGameRepository(Path.Combine(dbBasePath, "savegames.db")));
+    services.AddSingleton<IHallOfFameRepository>(sp =>
+        new HallOfFameRepository(Path.Combine(dbBasePath, "halloffame.db")));
     services.AddTransient<ICharacterClassRepository, CharacterClassRepository>();
     services.AddTransient<IEquipmentSetRepository, EquipmentSetRepository>();
 

@@ -10,9 +10,13 @@ public static class LoggingService
 {
     /// <summary>
     /// Initialize Serilog with console and file sinks.
+    /// Logs are written to the application's base directory (bin folder when running).
     /// </summary>
     public static void Initialize()
     {
+        // Use AppContext.BaseDirectory to ensure logs go to bin folder
+        var logPath = Path.Combine(AppContext.BaseDirectory, "logs", "game-.log");
+
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -20,12 +24,12 @@ public static class LoggingService
             .WriteTo.Console(
                 outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
             .WriteTo.File(
-                path: "logs/game-.txt",
+                path: logPath,
                 rollingInterval: RollingInterval.Day,
                 outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level:u3}] {Message:lj}{NewLine}{Exception}")
             .CreateLogger();
 
-        Log.Information("Game logging initialized");
+        Log.Information("Game logging initialized to {LogPath}", Path.GetDirectoryName(logPath));
     }
 
     /// <summary>

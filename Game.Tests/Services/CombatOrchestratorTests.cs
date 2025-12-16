@@ -49,7 +49,7 @@ public class CombatOrchestratorTests : IDisposable
         // Create real dependencies with correct constructors
         _saveGameService = new SaveGameService(new SaveGameRepository(_testDbFile), new ApocalypseTimer((IGameUI)_consoleUI));
         _combatService = new CombatService(_saveGameService);
-        _gameStateService = new GameStateService(_saveGameService);
+        _gameStateService = new GameStateService(_saveGameService, LoggerHelper.CreateNullLogger<GameStateService>());
         _menuService = new MenuService(_gameStateService, _saveGameService, _consoleUI);
         _levelUpService = new LevelUpService((IGameUI)_consoleUI);
 

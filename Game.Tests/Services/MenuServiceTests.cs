@@ -32,7 +32,7 @@ public class MenuServiceTests : IDisposable
         _consoleUI = new ConsoleUI(_testConsole);
         
         _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), new ApocalypseTimer(_consoleUI));
-        _gameStateService = new GameStateService(_saveGameService);
+        _gameStateService = new GameStateService(_saveGameService, LoggerHelper.CreateNullLogger<GameStateService>());
         _menuService = new MenuService(_gameStateService, _saveGameService, _consoleUI);
     }
 

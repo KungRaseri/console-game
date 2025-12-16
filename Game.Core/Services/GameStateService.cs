@@ -1,6 +1,6 @@
 using Game.Core.Models;
 using Game.Core.Features.SaveLoad;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace Game.Core.Services;
 
@@ -11,15 +11,17 @@ namespace Game.Core.Services;
 public class GameStateService
 {
     private readonly SaveGameService _saveGameService;
+    private readonly ILogger<GameStateService> _logger;
     
     /// <summary>
     /// Current location in the game world.
     /// </summary>
     public string CurrentLocation { get; set; } = "Hub Town";
     
-    public GameStateService(SaveGameService saveGameService)
+    public GameStateService(SaveGameService saveGameService, ILogger<GameStateService> logger)
     {
         _saveGameService = saveGameService;
+        _logger = logger;
     }
     
     /// <summary>
@@ -57,7 +59,7 @@ public class GameStateService
         if (save != null && !save.VisitedLocations.Contains(location))
         {
             save.VisitedLocations.Add(location);
-            Log.Information("Player visited {Location} for the first time", location);
+            _logger.LogInformation("Player visited {Location} for the first time", location);
         }
     }
     
