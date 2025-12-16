@@ -330,6 +330,7 @@ Different file types have different structures based on their purpose:
 #### ContentBuilder Implementation
 
 **On Save:**
+
 1. Extract component keys from `components` object
 2. Parse all patterns and extract unique tokens
 3. Add "base" token to pattern_tokens if patterns exist
@@ -340,6 +341,7 @@ Different file types have different structures based on their purpose:
 8. Save JSON with auto-generated metadata
 
 **UI Design:**
+
 ```
 ┌─ Metadata ─────────────────────────────────────┐
 │ Description: [Weapon name generation...      ] │ ← User editable
@@ -369,6 +371,7 @@ Different file types have different structures based on their purpose:
 ```
 
 **Benefits:**
+
 - ✅ No manual maintenance required
 - ✅ Always accurate and up-to-date
 - ✅ Real-time pattern validation
@@ -837,6 +840,7 @@ You can use BOTH:
 **Action Required:** ⚠️ NEEDS STANDARDIZATION
 
 **Current Issues:**
+
 1. ❌ Missing standard structure (no `components` wrapper, no `metadata`)
 2. ✅ IS reference data - these ARE components used by other files
 

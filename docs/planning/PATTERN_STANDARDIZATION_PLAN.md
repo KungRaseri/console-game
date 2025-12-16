@@ -46,6 +46,7 @@ token   ::= "base" | component_key
 ```
 
 **Examples:**
+
 - `"base"` → "Longsword"
 - `"material + base"` → "Iron Longsword"
 - `"quality + material + base"` → "Fine Steel Longsword"
@@ -65,12 +66,14 @@ token   ::= "base" | component_key
 ### Files to Update (HybridArray Structure)
 
 #### Items
+
 - [x] `items/weapons/names.json` - Already has structure, needs cleanup
 - [ ] `items/armor/names.json` - Needs standardization
 - [ ] `items/accessories/names.json` - Needs standardization
 - [ ] `items/consumables/names.json` - Needs standardization
 
 #### Enemies
+
 - [ ] `enemies/beasts/names.json`
 - [ ] `enemies/undead/names.json`
 - [ ] `enemies/demons/names.json`
@@ -79,6 +82,7 @@ token   ::= "base" | component_key
 - [ ] `enemies/humanoids/names.json`
 
 #### NPCs
+
 - [ ] `npcs/names/first_names.json`
 - [ ] `npcs/titles/titles.json`
 
@@ -118,11 +122,13 @@ token   ::= "base" | component_key
 ### weapons/names.json Cleanup
 
 **Current issues:**
+
 - Components use `prefixes_*` and `suffixes_*` naming
 - Patterns use abbreviated tokens that don't match
 - Categories OK (weapon_types)
 
 **Changes needed:**
+
 1. Rename `prefixes_material` → `material`
 2. Rename `prefixes_quality` → `quality`
 3. Rename `prefixes_descriptive` → `descriptive`
@@ -132,36 +138,211 @@ token   ::= "base" | component_key
 
 ## Phase 3: Update ContentBuilder 🔧
 
-### PatternExampleGenerator Updates
+### 3.1 Auto-Generated Metadata System ⭐ NEW
+
+**File:** `Game.ContentBuilder/Services/MetadataGenerator.cs` (NEW)
+
+**Purpose:** Automatically generate metadata on save to eliminate manual maintenance.
+
+**Implementation:**
+
+```csharp
+public class MetadataGenerator
+{
+    public static Dictionary<string, object> Generate(
+        string userDescription,
+        string userVersion,
+        Dictionary<string, object> components,
+        List<string> patterns,
+        List<object>? items = null,
+        Dictionary<string, object>? categoryTypes = null)
+    {
+        var metadata = new Dictionary<string, object>
+        {
+            // User-defined fields (preserved from UI)
+            ["description"] = userDescription,
+            ["version"] = userVersion,
+            
+            // Auto-generated fields
+            ["last_updated"] = DateTime.Now.ToString("yyyy-MM-dd"),
+            ["component_keys"] = ExtractComponentKeys(components),
+            ["pattern_tokens"] = ExtractPatternTokens(patterns)
+        };
+        
+        // Optional auto-generated fields
+        if (patterns?.Count > 0)
+            metadata["total_patterns"] = patterns.Count;
+            
+        if (items?.Count > 0)
+            metadata["total_items"] = items.Count;
+            
+        if (categoryTypes != null)
+        {
+            foreach (var kvp in categoryTypes)
+            {
+                if (kvp.Value is ICollection collection)
+                    metadata[$"{kvp.Key}_count"] = collection.Count;
+            }
+        }
+        
+        return metadata;
+    }
+    
+    private static string[] ExtractComponentKeys(Dictionary<string, object> components)
+    {
+        return components.Keys
+            .Where(k => !k.EndsWith("_types")) // Exclude category types
+            .OrderBy(k => k)
+            .ToArray();
+    }
+    
+    private static string[] ExtractPatternTokens(List<string> patterns)
+    {
+        var tokens = new HashSet<string> { "base" }; // Always include "base"
+        
+        foreach (var pattern in patterns)
+        {
+            var parts = pattern.Split(new[] { " + " }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var part in parts)
+            {
+                tokens.Add(part.Trim());
+            }
+        }
+        
+        return tokens.OrderBy(t => t).ToArray();
+    }
+}
+```
+
+**ViewModel Updates:**
+
+```csharp
+// HybridArrayEditorViewModel.cs
+public class HybridArrayEditorViewModel : ObservableObject
+{
+    // User-editable metadata fields
+    [ObservableProperty]
+    private string metadataDescription = "";
+    
+    [ObservableProperty]
+    private string metadataVersion = "1.0";
+    
+    // Auto-generated metadata (read-only, for display)
+    public string LastUpdated => DateTime.Now.ToString("yyyy-MM-dd");
+    public string[] ComponentKeys => Components.Keys.OrderBy(k => k).ToArray();
+    public string[] PatternTokens => ExtractPatternTokens();
+    public int TotalPatterns => Patterns.Count;
+    
+    private void SaveFile()
+    {
+        var metadata = MetadataGenerator.Generate(
+            MetadataDescription,
+            MetadataVersion,
+            Components,
+            Patterns.Select(p => p.Pattern).ToList(),
+            Items?.ToList(),
+            // Extract category types from components
+            Components.Where(kvp => kvp.Key.EndsWith("_types")).ToDictionary()
+        );
+        
+        var data = new
+        {
+            items = Items,
+            components = Components,
+            patterns = Patterns.Select(p => p.Pattern),
+            metadata = metadata
+        };
+        
+        File.WriteAllText(FilePath, JsonConvert.SerializeObject(data, Formatting.Indented));
+    }
+}
+```
+
+**UI Updates:**
+
+Add to `HybridArrayEditorView.xaml`:
+
+```xml
+<!-- Metadata Section -->
+<Expander Header="Metadata" IsExpanded="True" Margin="0,10,0,0">
+    <StackPanel>
+        <!-- User-Editable Fields -->
+        <TextBox 
+            Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"
+            materialDesign:HintAssist.Hint="Description"
+            Margin="0,5"/>
+        <TextBox 
+            Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"
+            materialDesign:HintAssist.Hint="Version"
+            Margin="0,5"/>
+        
+        <!-- Auto-Generated Fields (Read-Only) -->
+        <Separator Margin="0,10"/>
+        <TextBlock Text="Auto-Generated (Read-Only)" 
+                   FontWeight="Bold" 
+                   Margin="0,5"/>
+        <TextBlock Text="{Binding LastUpdated, StringFormat='Last Updated: {0}'}" 
+                   Margin="0,2"/>
+        <TextBlock Text="{Binding ComponentKeys, StringFormat='Component Keys: {0}'}" 
+                   Margin="0,2"/>
+        <TextBlock Text="{Binding PatternTokens, StringFormat='Pattern Tokens: {0}'}" 
+                   Margin="0,2"/>
+        <TextBlock Text="{Binding TotalPatterns, StringFormat='Total Patterns: {0}'}" 
+                   Margin="0,2"/>
+    </StackPanel>
+</Expander>
+```
+
+**Benefits:**
+
+- ✅ No manual metadata maintenance
+- ✅ Always accurate and synchronized
+- ✅ Real-time validation of patterns
+- ✅ User only maintains description and version
+- ✅ Eliminates common errors
+
+---
+
+### 3.2 PatternExampleGenerator Updates
 
 **File:** `Game.ContentBuilder/Services/PatternExampleGenerator.cs`
 
 **Changes:**
+
 1. Simplify token resolution logic
 2. Remove fuzzy matching and prefixes_/suffixes_ attempts
 3. Direct mapping: token → components[token]
 4. Special case: `base` or `item` → items array
 5. Better error messages for invalid tokens
 
-### HybridArrayEditorViewModel Updates
+---
+
+### 3.3 HybridArrayEditorViewModel Updates
 
 **File:** `Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs`
 
 **Features to add:**
+
 1. Pattern validation on add/edit
 2. Real-time pattern testing (show 5 examples)
 3. Token autocomplete/suggestion
 4. Warning if token doesn't match any component
 
-### UI Enhancements
+---
+
+### 3.4 UI Enhancements
 
 **File:** `Game.ContentBuilder/Views/HybridArrayEditorView.xaml`
 
 **Features:**
+
 1. Pattern validation indicator (✓ valid, ⚠ warning, ✗ invalid)
 2. Live example preview (regenerate on keystroke)
 3. Component key reference panel
 4. Pattern syntax helper tooltip
+5. Metadata section with user-editable and auto-generated fields
+
+---
 
 ## Phase 4: Runtime Implementation 🎮
 
@@ -271,6 +452,7 @@ private static string GenerateWeaponName(Faker f, Item item)
 ```
 
 **Similar updates for:**
+
 - `EnemyGenerator.cs` - Use patterns for enemy names
 - `NpcGenerator.cs` - Use patterns for NPC names/titles
 
@@ -403,6 +585,7 @@ The pattern system generates dynamic names by combining components using pattern
 ## Execution Timeline
 
 ### Day 1: Standardization ✅
+
 - [x] Define standard (this document)
 - [ ] Update weapons/names.json
 - [ ] Update armor/names.json
@@ -410,6 +593,7 @@ The pattern system generates dynamic names by combining components using pattern
 - [ ] Test in ContentBuilder
 
 ### Day 2: ContentBuilder Updates
+
 - [ ] Update PatternExampleGenerator
 - [ ] Add pattern validation
 - [ ] Add live example preview
@@ -417,6 +601,7 @@ The pattern system generates dynamic names by combining components using pattern
 - [ ] Test all updated files
 
 ### Day 3: Runtime Implementation
+
 - [ ] Create PatternExecutor service
 - [ ] Update data models
 - [ ] Update ItemGenerator
@@ -425,6 +610,7 @@ The pattern system generates dynamic names by combining components using pattern
 - [ ] Integration testing
 
 ### Day 4: Polish & Documentation
+
 - [ ] Write pattern system guide
 - [ ] Update GDD
 - [ ] Create migration guide
@@ -434,23 +620,27 @@ The pattern system generates dynamic names by combining components using pattern
 ## Success Criteria
 
 ✅ **Data Standardization**
+
 - All JSON files use consistent component keys
 - All patterns use tokens that match component keys
 - No hardcoded abbreviations or aliases
 
 ✅ **ContentBuilder**
+
 - Pattern validation works
 - Live examples generate correctly
 - Invalid patterns show warnings
 - Save/load preserves structure
 
 ✅ **Runtime**
+
 - PatternExecutor generates valid names
 - Generators use patterns from JSON
 - No crashes on invalid patterns
 - Graceful degradation
 
 ✅ **Quality**
+
 - Unit test coverage >80%
 - Integration tests pass
 - No performance regressions
@@ -459,6 +649,7 @@ The pattern system generates dynamic names by combining components using pattern
 ## Rollback Plan
 
 If issues arise:
+
 1. Keep old generator code in comments
 2. Feature flag: `USE_PATTERN_EXECUTION` (default: false)
 3. Gradual rollout: Enable for one category at a time
