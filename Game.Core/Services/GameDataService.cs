@@ -113,11 +113,13 @@ public class GameDataService
     {
         try
         {
-            // Load item data
-            WeaponPrefixes = LoadJson<WeaponPrefixData>("items/weapons/prefixes.json");
+            // Load item data - v4.0 unified naming system
+            // NOTE: WeaponPrefixes and EnchantmentSuffixes now loaded from unified names.json files
+            // TODO: Update generators to use new v4.0 structure
+            // WeaponPrefixes = LoadJson<WeaponPrefixData>("items/weapons/prefixes.json"); // DEPRECATED - use names.json
             WeaponNames = LoadJson<WeaponNameData>("items/weapons/names.json");
             ArmorMaterials = LoadJson<ArmorMaterialData>("items/armor/materials.json");
-            EnchantmentSuffixes = LoadJson<EnchantmentSuffixData>("items/enchantments/suffixes.json");
+            // EnchantmentSuffixes = LoadJson<EnchantmentSuffixData>("items/enchantments/suffixes.json"); // DEPRECATED - use names.json
             
             // Load material properties
             Metals = LoadJson<MetalData>("items/materials/metals.json");

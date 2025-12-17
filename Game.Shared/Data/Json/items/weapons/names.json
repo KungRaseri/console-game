@@ -1,369 +1,1427 @@
-﻿{
-    "metadata": {
-        "description": "Weapon name generation with pattern-based system and weight-based rarity",
-        "version": "3.0",
-        "last_updated": "2025-12-16",
-        "type": "pattern_generation",
-        "weapon_types": 7,
-        "component_keys": [
-            "material",
-            "quality",
-            "descriptive",
-            "enchantment",
-            "title"
-        ],
-        "pattern_tokens": [
-            "base",
-            "material",
-            "quality",
-            "descriptive",
-            "enchantment",
-            "title"
-        ],
-        "total_patterns": 11,
-        "rarity_system": "weight-based",
-        "notes": [
-            "Base token resolves from items/weapons/types.json",
-            "All components have rarityWeight for emergent rarity calculation",
-            "Component weights combine via multipliers from general/rarity_config.json"
-        ]
-    },
-    "components": {
-        "material": [
-            {
-                "value": "Iron",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Steel",
-                "rarityWeight": 20
-            },
-            {
-                "value": "Mithril",
-                "rarityWeight": 50
-            },
-            {
-                "value": "Adamantine",
-                "rarityWeight": 80
-            },
-            {
-                "value": "Silver",
-                "rarityWeight": 30
-            },
-            {
-                "value": "Elven",
-                "rarityWeight": 60
-            },
-            {
-                "value": "Dwarven",
-                "rarityWeight": 55
-            },
-            {
-                "value": "Orcish",
-                "rarityWeight": 25
-            },
-            {
-                "value": "Daedric",
-                "rarityWeight": 90
-            },
-            {
-                "value": "Glass",
-                "rarityWeight": 45
-            },
-            {
-                "value": "Dragonbone",
-                "rarityWeight": 100
-            },
-            {
-                "value": "Ebony",
-                "rarityWeight": 70
-            },
-            {
-                "value": "Obsidian",
-                "rarityWeight": 40
-            },
-            {
-                "value": "Crystal",
-                "rarityWeight": 65
-            },
-            {
-                "value": "Runic",
-                "rarityWeight": 75
-            }
-        ],
-        "quality": [
-            {
-                "value": "Fine",
-                "rarityWeight": 15
-            },
-            {
-                "value": "Superior",
-                "rarityWeight": 25
-            },
-            {
-                "value": "Exceptional",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Masterwork",
-                "rarityWeight": 50
-            },
-            {
-                "value": "Legendary",
-                "rarityWeight": 80
-            },
-            {
-                "value": "Ruined",
-                "rarityWeight": 5
-            },
-            {
-                "value": "Worn",
-                "rarityWeight": 8
-            },
-            {
-                "value": "Sharpened",
-                "rarityWeight": 12
-            },
-            {
-                "value": "Balanced",
-                "rarityWeight": 18
-            },
-            {
-                "value": "Blessed",
-                "rarityWeight": 45
-            }
-        ],
-        "descriptive": [
-            {
-                "value": "Ancient",
-                "rarityWeight": 40
-            },
-            {
-                "value": "Enchanted",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Cursed",
-                "rarityWeight": 30
-            },
-            {
-                "value": "Holy",
-                "rarityWeight": 50
-            },
-            {
-                "value": "Demonic",
-                "rarityWeight": 55
-            },
-            {
-                "value": "Flaming",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Frozen",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Lightning",
-                "rarityWeight": 38
-            },
-            {
-                "value": "Venomous",
-                "rarityWeight": 32
-            },
-            {
-                "value": "Ethereal",
-                "rarityWeight": 60
-            }
-        ],
-        "enchantment": [
-            {
-                "value": "of Slaying",
-                "rarityWeight": 30
-            },
-            {
-                "value": "of Sharpness",
-                "rarityWeight": 25
-            },
-            {
-                "value": "of Power",
-                "rarityWeight": 35
-            },
-            {
-                "value": "of Speed",
-                "rarityWeight": 28
-            },
-            {
-                "value": "of Accuracy",
-                "rarityWeight": 22
-            },
-            {
-                "value": "of Fire",
-                "rarityWeight": 30
-            },
-            {
-                "value": "of Ice",
-                "rarityWeight": 30
-            },
-            {
-                "value": "of Lightning",
-                "rarityWeight": 32
-            },
-            {
-                "value": "of Venom",
-                "rarityWeight": 28
-            },
-            {
-                "value": "of Destruction",
-                "rarityWeight": 50
-            }
-        ],
-        "title": [
-            {
-                "value": "of the Warrior",
-                "rarityWeight": 40
-            },
-            {
-                "value": "of the Hero",
-                "rarityWeight": 60
-            },
-            {
-                "value": "of the Champion",
-                "rarityWeight": 70
-            },
-            {
-                "value": "of the Dragon",
-                "rarityWeight": 80
-            },
-            {
-                "value": "of the Phoenix",
-                "rarityWeight": 75
-            },
-            {
-                "value": "of the Ancients",
-                "rarityWeight": 65
-            },
-            {
-                "value": "of the Gods",
-                "rarityWeight": 90
-            },
-            {
-                "value": "of the Titans",
-                "rarityWeight": 85
-            },
-            {
-                "value": "of the Elements",
-                "rarityWeight": 55
-            },
-            {
-                "value": "of Legends",
-                "rarityWeight": 95
-            }
-        ],
-        "weapon_types": {
-            "swords": [
-                "Longsword",
-                "Shortsword",
-                "Greatsword",
-                "Scimitar",
-                "Rapier",
-                "Katana",
-                "Broadsword",
-                "Claymore",
-                "Saber",
-                "Gladius"
-            ],
-            "axes": [
-                "Battleaxe",
-                "Handaxe",
-                "Greataxe",
-                "Waraxe",
-                "Hatchet",
-                "Tomahawk",
-                "Cleaver",
-                "Poleaxe"
-            ],
-            "bows": [
-                "Longbow",
-                "Shortbow",
-                "Composite Bow",
-                "Recurve Bow",
-                "Crossbow",
-                "Heavy Crossbow",
-                "Warbow",
-                "Hunting Bow"
-            ],
-            "daggers": [
-                "Dagger",
-                "Dirk",
-                "Stiletto",
-                "Kris",
-                "Tanto",
-                "Kukri",
-                "Rondel",
-                "Main Gauche"
-            ],
-            "spears": [
-                "Spear",
-                "Lance",
-                "Javelin",
-                "Pike",
-                "Halberd",
-                "Trident",
-                "Partisan",
-                "Glaive"
-            ],
-            "maces": [
-                "Mace",
-                "Warhammer",
-                "Flail",
-                "Morning Star",
-                "Club",
-                "Maul",
-                "Cudgel",
-                "Scepter"
-            ],
-            "staves": [
-                "Staff",
-                "Quarterstaff",
-                "War Staff",
-                "Battle Staff",
-                "Rod",
-                "Scepter Staff"
-            ]
-        },
-        "weapon_categories": {
-            "melee_one_handed": [
-                "swords",
-                "axes",
-                "maces",
-                "daggers"
-            ],
-            "melee_two_handed": [
-                "greatswords",
-                "greataxes",
-                "polearms",
-                "staves"
-            ],
-            "ranged": [
-                "bows",
-                "crossbows"
-            ]
-        }
-    },
-    "patterns": [
-        "base",
-        "material + base",
-        "quality + base",
-        "descriptive + base",
-        "quality + material + base",
-        "descriptive + material + base",
-        "base + enchantment",
-        "base + title",
-        "material + base + enchantment",
-        "quality + material + base + enchantment",
-        "descriptive + base + title"
+{
+  "metadata": {
+    "description": "Unified weapon naming system with prefix/suffix support and trait assignment (v4.0)",
+    "version": "4.0",
+    "last_updated": "2025-12-17",
+    "type": "pattern_generation",
+    "supports_traits": true,
+    "component_keys": [
+      "prefix",
+      "material",
+      "quality",
+      "descriptive",
+      "suffix"
     ],
-    "notes": {
-        "usage": "Pattern-based name generation for weapons. Pick components by rarityWeight and apply patterns to generate procedural names."
+    "pattern_tokens": [
+      "base",
+      "prefix",
+      "material",
+      "quality",
+      "descriptive",
+      "suffix"
+    ],
+    "total_patterns": 18,
+    "rarity_system": "weight-based",
+    "notes": [
+      "Base token resolves from items/weapons/types.json",
+      "Prefixes and suffixes merged from separate files (deprecated in v4.0)",
+      "Traits are applied when components are selected in patterns",
+      "Trait merging: numbers take highest, strings take last, booleans use OR",
+      "Emergent rarity calculated from combined component weights"
+    ]
+  },
+  "components": {
+    "prefix": [
+      {
+        "value": "Rusty",
+        "rarityWeight": 50,
+        "traits": {
+          "durability": {
+            "value": 50,
+            "type": "number"
+          },
+          "damageMultiplier": {
+            "value": 0.8,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Old",
+        "rarityWeight": 50,
+        "traits": {
+          "durability": {
+            "value": 60,
+            "type": "number"
+          },
+          "damageMultiplier": {
+            "value": 0.9,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Simple",
+        "rarityWeight": 50,
+        "traits": {
+          "durability": {
+            "value": 80,
+            "type": "number"
+          },
+          "damageMultiplier": {
+            "value": 1.0,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Sharp",
+        "rarityWeight": 30,
+        "traits": {
+          "damageBonus": {
+            "value": 4,
+            "type": "number"
+          },
+          "criticalMultiplier": {
+            "value": 1.5,
+            "type": "number"
+          },
+          "durability": {
+            "value": 90,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Enchanted",
+        "rarityWeight": 15,
+        "traits": {
+          "magicDamage": {
+            "value": 3,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 6,
+            "type": "number"
+          },
+          "manaBonus": {
+            "value": 10,
+            "type": "number"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "durability": {
+            "value": 130,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Blessed",
+        "rarityWeight": 15,
+        "traits": {
+          "damageBonus": {
+            "value": 4,
+            "type": "number"
+          },
+          "healthRegen": {
+            "value": 2,
+            "type": "number"
+          },
+          "resistMagic": {
+            "value": 10,
+            "type": "number"
+          },
+          "durability": {
+            "value": 140,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Dragon",
+        "rarityWeight": 4,
+        "traits": {
+          "visualColor": {
+            "value": "crimson",
+            "type": "string"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "resistFire": {
+            "value": 25,
+            "type": "number"
+          },
+          "durability": {
+            "value": 200,
+            "type": "number"
+          },
+          "damageMultiplier": {
+            "value": 1.3,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Ancient",
+        "rarityWeight": 4,
+        "traits": {
+          "wisdomBonus": {
+            "value": 2,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 8,
+            "type": "number"
+          },
+          "strengthBonus": {
+            "value": 2,
+            "type": "number"
+          },
+          "valueMultiplier": {
+            "value": 2.0,
+            "type": "number"
+          },
+          "durability": {
+            "value": 250,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Celestial",
+        "rarityWeight": 4,
+        "traits": {
+          "visualColor": {
+            "value": "gold",
+            "type": "string"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "resistMagic": {
+            "value": 20,
+            "type": "number"
+          },
+          "magicDamage": {
+            "value": 7,
+            "type": "number"
+          },
+          "durability": {
+            "value": 180,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 9,
+            "type": "number"
+          },
+          "manaRegen": {
+            "value": 3,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Godslayer",
+        "rarityWeight": 1,
+        "traits": {
+          "visualColor": {
+            "value": "divine_light",
+            "type": "string"
+          },
+          "criticalChance": {
+            "value": 15,
+            "type": "number"
+          },
+          "strengthBonus": {
+            "value": 5,
+            "type": "number"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "criticalMultiplier": {
+            "value": 2.5,
+            "type": "number"
+          },
+          "durability": {
+            "value": 300,
+            "type": "number"
+          },
+          "damageMultiplier": {
+            "value": 1.5,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 20,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Eternal",
+        "rarityWeight": 1,
+        "traits": {
+          "healthRegen": {
+            "value": 5,
+            "type": "number"
+          },
+          "wisdomBonus": {
+            "value": 3,
+            "type": "number"
+          },
+          "constitutionBonus": {
+            "value": 3,
+            "type": "number"
+          },
+          "durability": {
+            "value": 9999,
+            "type": "number"
+          },
+          "damageMultiplier": {
+            "value": 1.4,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 15,
+            "type": "number"
+          },
+          "manaRegen": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Divine",
+        "rarityWeight": 1,
+        "traits": {
+          "lifeSteal": {
+            "value": 10,
+            "type": "number"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "magicDamage": {
+            "value": 12,
+            "type": "number"
+          },
+          "visualColor": {
+            "value": "holy_radiance",
+            "type": "string"
+          },
+          "resistFire": {
+            "value": 50,
+            "type": "number"
+          },
+          "durability": {
+            "value": 400,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 18,
+            "type": "number"
+          },
+          "resistIce": {
+            "value": 50,
+            "type": "number"
+          },
+          "resistLightning": {
+            "value": 50,
+            "type": "number"
+          }
+        }
+      }
+    ],
+    "material": [
+      {
+        "value": "Iron",
+        "rarityWeight": 10,
+        "traits": {
+          "weightMultiplier": {
+            "value": 1.0,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 2,
+            "type": "number"
+          },
+          "durability": {
+            "value": 100,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Steel",
+        "rarityWeight": 20,
+        "traits": {
+          "damageBonus": {
+            "value": 3,
+            "type": "number"
+          },
+          "criticalChance": {
+            "value": 5,
+            "type": "number"
+          },
+          "durability": {
+            "value": 120,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Silver",
+        "rarityWeight": 30,
+        "traits": {
+          "damageVsUndead": {
+            "value": 10,
+            "type": "number"
+          },
+          "damageVsDemonic": {
+            "value": 10,
+            "type": "number"
+          },
+          "visualColor": {
+            "value": "silver",
+            "type": "string"
+          },
+          "durability": {
+            "value": 90,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Mithril",
+        "rarityWeight": 50,
+        "traits": {
+          "weightMultiplier": {
+            "value": 0.7,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 5,
+            "type": "number"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "visualColor": {
+            "value": "silver",
+            "type": "string"
+          },
+          "durability": {
+            "value": 150,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Adamantine",
+        "rarityWeight": 80,
+        "traits": {
+          "damageBonus": {
+            "value": 8,
+            "type": "number"
+          },
+          "armorPiercing": {
+            "value": 20,
+            "type": "number"
+          },
+          "durability": {
+            "value": 250,
+            "type": "number"
+          },
+          "visualColor": {
+            "value": "deep_green",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Dragonbone",
+        "rarityWeight": 100,
+        "traits": {
+          "damageBonus": {
+            "value": 12,
+            "type": "number"
+          },
+          "resistFire": {
+            "value": 30,
+            "type": "number"
+          },
+          "damageMultiplier": {
+            "value": 1.2,
+            "type": "number"
+          },
+          "durability": {
+            "value": 300,
+            "type": "number"
+          },
+          "visualColor": {
+            "value": "bone_white",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Elven",
+        "rarityWeight": 60,
+        "traits": {
+          "weightMultiplier": {
+            "value": 0.8,
+            "type": "number"
+          },
+          "criticalChance": {
+            "value": 10,
+            "type": "number"
+          },
+          "dexterityBonus": {
+            "value": 2,
+            "type": "number"
+          },
+          "durability": {
+            "value": 140,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Dwarven",
+        "rarityWeight": 55,
+        "traits": {
+          "damageBonus": {
+            "value": 6,
+            "type": "number"
+          },
+          "strengthBonus": {
+            "value": 2,
+            "type": "number"
+          },
+          "durability": {
+            "value": 200,
+            "type": "number"
+          },
+          "weightMultiplier": {
+            "value": 1.2,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Obsidian",
+        "rarityWeight": 40,
+        "traits": {
+          "damageBonus": {
+            "value": 7,
+            "type": "number"
+          },
+          "criticalMultiplier": {
+            "value": 2.0,
+            "type": "number"
+          },
+          "durability": {
+            "value": 80,
+            "type": "number"
+          },
+          "visualColor": {
+            "value": "black",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Crystal",
+        "rarityWeight": 65,
+        "traits": {
+          "magicDamage": {
+            "value": 8,
+            "type": "number"
+          },
+          "manaBonus": {
+            "value": 20,
+            "type": "number"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "durability": {
+            "value": 110,
+            "type": "number"
+          },
+          "visualColor": {
+            "value": "rainbow",
+            "type": "string"
+          }
+        }
+      }
+    ],
+    "quality": [
+      {
+        "value": "Fine",
+        "rarityWeight": 15,
+        "traits": {
+          "durability": {
+            "value": 120,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 1,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Superior",
+        "rarityWeight": 25,
+        "traits": {
+          "durability": {
+            "value": 150,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 2,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Exceptional",
+        "rarityWeight": 35,
+        "traits": {
+          "durability": {
+            "value": 180,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 3,
+            "type": "number"
+          },
+          "criticalChance": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Masterwork",
+        "rarityWeight": 50,
+        "traits": {
+          "durability": {
+            "value": 220,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 5,
+            "type": "number"
+          },
+          "criticalChance": {
+            "value": 10,
+            "type": "number"
+          },
+          "valueMultiplier": {
+            "value": 1.5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Legendary",
+        "rarityWeight": 80,
+        "traits": {
+          "durability": {
+            "value": 300,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 10,
+            "type": "number"
+          },
+          "criticalChance": {
+            "value": 15,
+            "type": "number"
+          },
+          "valueMultiplier": {
+            "value": 2.0,
+            "type": "number"
+          },
+          "allStatsBonus": {
+            "value": 1,
+            "type": "number"
+          }
+        }
+      }
+    ],
+    "descriptive": [
+      {
+        "value": "Flaming",
+        "rarityWeight": 35,
+        "traits": {
+          "fireDamage": {
+            "value": 6,
+            "type": "number"
+          },
+          "element": {
+            "value": "fire",
+            "type": "string"
+          },
+          "visualColor": {
+            "value": "orange_red",
+            "type": "string"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "value": "Frozen",
+        "rarityWeight": 35,
+        "traits": {
+          "iceDamage": {
+            "value": 6,
+            "type": "number"
+          },
+          "element": {
+            "value": "ice",
+            "type": "string"
+          },
+          "slowEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "visualColor": {
+            "value": "icy_blue",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Lightning",
+        "rarityWeight": 38,
+        "traits": {
+          "lightningDamage": {
+            "value": 7,
+            "type": "number"
+          },
+          "element": {
+            "value": "lightning",
+            "type": "string"
+          },
+          "stunChance": {
+            "value": 10,
+            "type": "number"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "value": "Venomous",
+        "rarityWeight": 32,
+        "traits": {
+          "poisonDamage": {
+            "value": 5,
+            "type": "number"
+          },
+          "poisonDuration": {
+            "value": 10,
+            "type": "number"
+          },
+          "element": {
+            "value": "poison",
+            "type": "string"
+          },
+          "visualColor": {
+            "value": "toxic_green",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Holy",
+        "rarityWeight": 50,
+        "traits": {
+          "holyDamage": {
+            "value": 8,
+            "type": "number"
+          },
+          "damageVsUndead": {
+            "value": 15,
+            "type": "number"
+          },
+          "damageVsDemonic": {
+            "value": 15,
+            "type": "number"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "visualColor": {
+            "value": "golden_white",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Demonic",
+        "rarityWeight": 55,
+        "traits": {
+          "darkDamage": {
+            "value": 10,
+            "type": "number"
+          },
+          "lifeSteal": {
+            "value": 5,
+            "type": "number"
+          },
+          "corruptionEffect": {
+            "value": true,
+            "type": "boolean"
+          },
+          "visualColor": {
+            "value": "dark_purple",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Ethereal",
+        "rarityWeight": 60,
+        "traits": {
+          "magicDamage": {
+            "value": 12,
+            "type": "number"
+          },
+          "ignoreArmor": {
+            "value": true,
+            "type": "boolean"
+          },
+          "weightMultiplier": {
+            "value": 0.5,
+            "type": "number"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "value": "Cursed",
+        "rarityWeight": 30,
+        "traits": {
+          "damageBonus": {
+            "value": 15,
+            "type": "number"
+          },
+          "healthDrain": {
+            "value": -1,
+            "type": "number"
+          },
+          "cannotUnequip": {
+            "value": true,
+            "type": "boolean"
+          },
+          "visualColor": {
+            "value": "sickly_green",
+            "type": "string"
+          }
+        }
+      }
+    ],
+    "suffix": [
+      {
+        "value": "of Slaying",
+        "rarityWeight": 50,
+        "traits": {
+          "damageBonus": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Sharpness",
+        "rarityWeight": 50,
+        "traits": {
+          "criticalChance": {
+            "value": 8,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 3,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Power",
+        "rarityWeight": 30,
+        "traits": {
+          "damageMultiplier": {
+            "value": 1.15,
+            "type": "number"
+          },
+          "strengthBonus": {
+            "value": 1,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Speed",
+        "rarityWeight": 30,
+        "traits": {
+          "attackSpeed": {
+            "value": 1.2,
+            "type": "number"
+          },
+          "dexterityBonus": {
+            "value": 2,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Accuracy",
+        "rarityWeight": 15,
+        "traits": {
+          "hitBonus": {
+            "value": 10,
+            "type": "number"
+          },
+          "criticalChance": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Fire",
+        "rarityWeight": 30,
+        "traits": {
+          "fireDamage": {
+            "value": 8,
+            "type": "number"
+          },
+          "element": {
+            "value": "fire",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "of Ice",
+        "rarityWeight": 30,
+        "traits": {
+          "iceDamage": {
+            "value": 8,
+            "type": "number"
+          },
+          "element": {
+            "value": "ice",
+            "type": "string"
+          },
+          "slowEffect": {
+            "value": true,
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "value": "of Lightning",
+        "rarityWeight": 30,
+        "traits": {
+          "lightningDamage": {
+            "value": 9,
+            "type": "number"
+          },
+          "element": {
+            "value": "lightning",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "of Venom",
+        "rarityWeight": 15,
+        "traits": {
+          "poisonDamage": {
+            "value": 6,
+            "type": "number"
+          },
+          "poisonDuration": {
+            "value": 8,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Destruction",
+        "rarityWeight": 4,
+        "traits": {
+          "damageMultiplier": {
+            "value": 1.5,
+            "type": "number"
+          },
+          "armorPiercing": {
+            "value": 30,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 15,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Warrior",
+        "rarityWeight": 30,
+        "traits": {
+          "strengthBonus": {
+            "value": 2,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 4,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Hero",
+        "rarityWeight": 15,
+        "traits": {
+          "allStatsBonus": {
+            "value": 1,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 6,
+            "type": "number"
+          },
+          "healthBonus": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Champion",
+        "rarityWeight": 4,
+        "traits": {
+          "allStatsBonus": {
+            "value": 2,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 10,
+            "type": "number"
+          },
+          "criticalChance": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Dragon",
+        "rarityWeight": 4,
+        "traits": {
+          "damageVsDragons": {
+            "value": 50,
+            "type": "number"
+          },
+          "resistFire": {
+            "value": 20,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 12,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Phoenix",
+        "rarityWeight": 2,
+        "traits": {
+          "fireDamage": {
+            "value": 20,
+            "type": "number"
+          },
+          "healthRegen": {
+            "value": 5,
+            "type": "number"
+          },
+          "resurrectOnDeath": {
+            "value": true,
+            "type": "boolean"
+          },
+          "resistFire": {
+            "value": 50,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Bloodletting",
+        "rarityWeight": 15,
+        "traits": {
+          "bleedDamage": {
+            "value": 5,
+            "type": "number"
+          },
+          "bleedDuration": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Piercing",
+        "rarityWeight": 30,
+        "traits": {
+          "armorPiercing": {
+            "value": 20,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 4,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Sundering",
+        "rarityWeight": 15,
+        "traits": {
+          "armorBreak": {
+            "value": 15,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 8,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Crushing",
+        "rarityWeight": 30,
+        "traits": {
+          "damageVsArmored": {
+            "value": 15,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Life Stealing",
+        "rarityWeight": 4,
+        "traits": {
+          "lifeSteal": {
+            "value": 8,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 6,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Maiming",
+        "rarityWeight": 15,
+        "traits": {
+          "crippleChance": {
+            "value": 15,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 7,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Quickness",
+        "rarityWeight": 15,
+        "traits": {
+          "attackSpeed": {
+            "value": 1.3,
+            "type": "number"
+          },
+          "dexterityBonus": {
+            "value": 3,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Assassin",
+        "rarityWeight": 4,
+        "traits": {
+          "backstabDamage": {
+            "value": 50,
+            "type": "number"
+          },
+          "criticalMultiplier": {
+            "value": 3.0,
+            "type": "number"
+          },
+          "dexterityBonus": {
+            "value": 4,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Berserker",
+        "rarityWeight": 15,
+        "traits": {
+          "damageWhenLowHealth": {
+            "value": 30,
+            "type": "number"
+          },
+          "strengthBonus": {
+            "value": 3,
+            "type": "number"
+          },
+          "resistPain": {
+            "value": 20,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Demon",
+        "rarityWeight": 4,
+        "traits": {
+          "darkDamage": {
+            "value": 15,
+            "type": "number"
+          },
+          "lifeSteal": {
+            "value": 10,
+            "type": "number"
+          },
+          "corruptionAura": {
+            "value": true,
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "value": "of the Gods",
+        "rarityWeight": 1,
+        "traits": {
+          "allStatsBonus": {
+            "value": 5,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 25,
+            "type": "number"
+          },
+          "divineProtection": {
+            "value": true,
+            "type": "boolean"
+          },
+          "glowEffect": {
+            "value": true,
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "value": "of Souls",
+        "rarityWeight": 2,
+        "traits": {
+          "soulTrap": {
+            "value": true,
+            "type": "boolean"
+          },
+          "magicDamage": {
+            "value": 10,
+            "type": "number"
+          },
+          "manaOnKill": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Eternity",
+        "rarityWeight": 1,
+        "traits": {
+          "durability": {
+            "value": 9999,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 20,
+            "type": "number"
+          },
+          "ageless": {
+            "value": true,
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "value": "of the Void",
+        "rarityWeight": 2,
+        "traits": {
+          "voidDamage": {
+            "value": 25,
+            "type": "number"
+          },
+          "ignoreResistances": {
+            "value": true,
+            "type": "boolean"
+          },
+          "existenceErasure": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Annihilation",
+        "rarityWeight": 1,
+        "traits": {
+          "damageMultiplier": {
+            "value": 2.0,
+            "type": "number"
+          },
+          "instantKillChance": {
+            "value": 1,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 50,
+            "type": "number"
+          }
+        }
+      }
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "base",
+      "weight": 100,
+      "example": "Longsword"
+    },
+    {
+      "pattern": "material + base",
+      "weight": 50,
+      "example": "Iron Longsword"
+    },
+    {
+      "pattern": "quality + base",
+      "weight": 40,
+      "example": "Fine Longsword"
+    },
+    {
+      "pattern": "prefix + base",
+      "weight": 30,
+      "example": "Rusty Longsword"
+    },
+    {
+      "pattern": "descriptive + base",
+      "weight": 35,
+      "example": "Flaming Longsword"
+    },
+    {
+      "pattern": "base + suffix",
+      "weight": 30,
+      "example": "Longsword of Slaying"
+    },
+    {
+      "pattern": "material + base + suffix",
+      "weight": 20,
+      "example": "Mithril Longsword of Fire"
+    },
+    {
+      "pattern": "quality + material + base",
+      "weight": 15,
+      "example": "Fine Iron Longsword"
+    },
+    {
+      "pattern": "prefix + material + base",
+      "weight": 10,
+      "example": "Blessed Mithril Longsword"
+    },
+    {
+      "pattern": "descriptive + base + suffix",
+      "weight": 12,
+      "example": "Flaming Longsword of Power"
+    },
+    {
+      "pattern": "quality + base + suffix",
+      "weight": 15,
+      "example": "Masterwork Longsword of the Hero"
+    },
+    {
+      "pattern": "prefix + base + suffix",
+      "weight": 8,
+      "example": "Ancient Longsword of the Dragon"
+    },
+    {
+      "pattern": "quality + material + base + suffix",
+      "weight": 5,
+      "example": "Exceptional Mithril Longsword of Fire"
+    },
+    {
+      "pattern": "prefix + material + base + suffix",
+      "weight": 3,
+      "example": "Blessed Dragonbone Longsword of the Phoenix"
+    },
+    {
+      "pattern": "descriptive + material + base + suffix",
+      "weight": 4,
+      "example": "Holy Adamantine Longsword of the Gods"
+    },
+    {
+      "pattern": "prefix + quality + material + base",
+      "weight": 2,
+      "example": "Ancient Masterwork Dragonbone Longsword"
+    },
+    {
+      "pattern": "prefix + descriptive + base + suffix",
+      "weight": 2,
+      "example": "Divine Holy Longsword of Annihilation"
+    },
+    {
+      "pattern": "prefix + quality + material + base + suffix",
+      "weight": 1,
+      "example": "Eternal Legendary Dragonbone Longsword of the Gods"
     }
+  ]
 }
