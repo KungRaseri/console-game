@@ -1,8 +1,64 @@
 # Pattern System Component Standards
 
 **Date:** December 16, 2025  
-**Version:** 1.0  
-**Status:** 📋 Definition Phase
+**Version:** 1.1  
+**Status:** ✅ Phase 1 Complete - Ready for Phase 2 Implementation
+
+## Executive Summary
+
+**All 113 JSON data files have been standardized** with consistent metadata, proper structure, and weight-based rarity system.
+
+### Completion Status
+
+| Category | Files | Status | Structure Types |
+|----------|-------|--------|-----------------|
+| **General** | 9 | ✅ Complete | Component Library, Pattern Generation, Configuration |
+| **Items** | 17 | ✅ Complete | Catalogs, Names, Prefixes, Suffixes, Materials |
+| **Enemies** | 59 | ✅ Complete | 13 enemy types with full trait systems |
+| **NPCs** | 14 | ✅ Complete | Names, Occupations, Personalities, Dialogue |
+| **Quests** | 14 | ✅ Complete | Templates, Objectives, Rewards, Locations |
+| **TOTAL** | **113** | **✅ 100%** | All files standardized |
+
+### Next Phase
+
+**Phase 2: ContentBuilder Integration** - Update the WPF tool to support all standardized file types:
+
+- Pattern validation for names.json files
+- Live example preview with weight-based rarity
+- Auto-generated metadata on save
+- Support for all 113 files
+
+### What Was Standardized
+
+**Every JSON file now includes:**
+
+1. **Metadata Block** - Consistent metadata with auto-generated fields:
+   - `description` - Human-readable file purpose
+   - `version` - Schema version number
+   - `last_updated` - Timestamp (YYYY-MM-DD)
+   - `type` - File type classification
+   - Auto-generated counts (component_keys, pattern_tokens, total_items, etc.)
+
+2. **Structure Standardization** - All files follow one of these patterns:
+   - **Pattern Generation** (names.json) - components + patterns for procedural generation
+   - **Item/Enemy Catalogs** (types.json) - type-level traits + item arrays with stats
+   - **Prefix/Suffix Modifiers** - rarity-organized stat modifiers
+   - **Component Libraries** - categorized reference data (no patterns)
+   - **Configuration Files** - game settings and rules
+
+3. **Weight-Based Rarity** - All components and items have `rarityWeight` values:
+   - Components contribute to emergent rarity calculation
+   - No hardcoded rarity tiers in most files
+   - Rarity emerges from combined component weights
+   - Configured via `general/rarity_config.json`
+
+4. **Consistent Naming** - Component keys match pattern tokens exactly:
+   - Singular keys (material, not materials)
+   - Semantic names (descriptive, not prefix_desc)
+   - Universal components (material, quality, descriptive) work across categories
+   - Category-specific components only where needed
+
+---
 
 ## Purpose
 
@@ -957,6 +1013,7 @@ These files provide categorized reference data used by other files. They do NOT 
 **Status:** ✅ STANDARDIZED
 
 **Component Keys:**
+
 - `metals` - Metallic materials (Iron, Steel, Gold, Silver)
 - `precious` - Precious materials (Diamond, Ruby, Emerald, Sapphire)
 - `natural` - Natural materials (Wood, Stone, Leather, Bone)
@@ -998,6 +1055,7 @@ These files provide categorized reference data used by other files. They do NOT 
 **Status:** ✅ STANDARDIZED
 
 **Component Keys:**
+
 - `combat_offensive` - Offensive combat actions (attacks, strikes, slashes)
 - `combat_defensive` - Defensive combat actions (blocks, parries, dodges)
 - `magic` - Magical actions (casts, conjures, summons)
@@ -1048,11 +1106,13 @@ These files generate procedural descriptions using pattern-based templates. They
 **Status:** ✅ STANDARDIZED
 
 **Component Keys:**
+
 - `base_color` - Primary colors (red, blue, green, yellow)
 - `modifier` - Color modifiers (dark, light, bright, pale)
 - `material` - Material-based colors (crimson, scarlet, azure, emerald)
 
 **Patterns:**
+
 - `base_color` → "red"
 - `modifier + base_color` → "dark red"
 - `material` → "crimson"
@@ -1087,6 +1147,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Usage:** Generate dynamic color descriptions for items, enemies, environments
 
 **Fixed Issues:**
+
 - ✅ Removed pattern comment: `"material (gemstone/metal colors)"` → `"material"`
 - ✅ Fixed component keys: `base_colors` → `base_color` (singular)
 - ✅ Removed duplicate `items` array
@@ -1099,12 +1160,14 @@ These files generate procedural descriptions using pattern-based templates. They
 **Status:** ✅ STANDARDIZED
 
 **Component Keys:**
+
 - `pleasant` - Pleasant smells (fragrant, fresh, floral)
 - `unpleasant` - Unpleasant smells (musty, acrid, pungent)
 - `natural` - Natural smells (earthy, woody, mossy)
 - `intensity` - Intensity modifiers (faint, mild, strong)
 
 **Patterns:**
+
 - `pleasant` → "fragrant"
 - `unpleasant` → "musty"
 - `natural` → "earthy"
@@ -1114,6 +1177,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Usage:** Generate environmental and atmospheric descriptions
 
 **Fixed Issues:**
+
 - ✅ Removed broken pattern: `"smell + smell (combination)"`
 - ✅ Fixed token references to actual component keys
 - ✅ Removed `items` array
@@ -1126,6 +1190,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Status:** ✅ STANDARDIZED
 
 **Component Keys:**
+
 - `base_sound` - Core sounds (echoing, whisper, roar, clang)
 - `volume` - Volume levels (silent, quiet, loud, thunderous)
 - `nature` - Sound nature (metallic, wooden, liquid, magical)
@@ -1134,6 +1199,7 @@ These files generate procedural descriptions using pattern-based templates. They
 - `intensity` - Intensity descriptors (gentle, harsh, sharp)
 
 **Patterns:**
+
 - `base_sound` → "whisper"
 - `volume + base_sound` → "loud roar"
 - `nature + base_sound` → "metallic clang"
@@ -1143,6 +1209,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Usage:** Generate combat and environmental sound descriptions
 
 **Fixed Issues:**
+
 - ✅ Added `base_sound` component (was missing)
 - ✅ Fixed token mismatch: `sound` → `base_sound`
 - ✅ Removed `items` array
@@ -1155,6 +1222,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Status:** ✅ STANDARDIZED
 
 **Component Keys:**
+
 - `surface_quality` - Surface feel (rough, smooth, polished)
 - `temperature` - Temperature feel (cold, warm, hot)
 - `moisture` - Moisture level (dry, damp, wet, slimy)
@@ -1162,6 +1230,7 @@ These files generate procedural descriptions using pattern-based templates. They
 - `organic` - Organic textures (leathery, scaly, furry)
 
 **Patterns:**
+
 - `surface_quality` → "smooth"
 - `surface_quality + moisture` → "smooth damp"
 - `temperature + surface_quality` → "cold smooth"
@@ -1170,6 +1239,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Usage:** Generate tactile item and environmental descriptions
 
 **Fixed Issues:**
+
 - ✅ Fixed token: `texture` → `surface_quality`
 - ✅ Removed `items` array
 
@@ -1181,11 +1251,13 @@ These files generate procedural descriptions using pattern-based templates. They
 **Status:** ✅ STANDARDIZED
 
 **Component Keys:**
+
 - `period` - Time periods (dawn, morning, midday, evening)
 - `modifier` - Time modifiers (early, late, deep, high)
 - `descriptor` - Descriptive phrases (first light, golden hour)
 
 **Patterns:**
+
 - `period` → "dawn"
 - `modifier + period` → "early morning"
 - `descriptor` → "first light"
@@ -1193,6 +1265,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Usage:** Generate time-based narrative and environmental descriptions
 
 **Fixed Issues:**
+
 - ✅ Fixed component keys: `periods`, `modifiers`, `descriptors` → singular
 - ✅ Removed `items` array
 
@@ -1204,6 +1277,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Status:** ✅ STANDARDIZED
 
 **Component Keys:**
+
 - `precipitation` - Precipitation types (clear, rainy, snowy)
 - `wind` - Wind levels (calm, breezy, gusty)
 - `sky_condition` - Sky states (clear, cloudy, overcast)
@@ -1212,6 +1286,7 @@ These files generate procedural descriptions using pattern-based templates. They
 - `special` - Special weather (stormy, thunderous, blizzard)
 
 **Patterns:**
+
 - `precipitation` → "rainy"
 - `sky_condition` → "cloudy"
 - `temperature + precipitation` → "cold rainy"
@@ -1221,6 +1296,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Usage:** Generate dynamic weather and environmental conditions
 
 **Fixed Issues:**
+
 - ✅ Fixed token: `condition` → `precipitation` / `sky_condition`
 - ✅ Removed `items` array
 
@@ -1236,6 +1312,7 @@ These files generate procedural descriptions using pattern-based templates. They
 **Metadata Fields:** All files have auto-generated metadata
 
 **Key Changes Applied:**
+
 - ✅ Removed all `items` arrays from Pattern Generation files (7 files)
 - ✅ Fixed all broken patterns (removed comments, fixed token mismatches)
 - ✅ Standardized component keys (singular, match pattern tokens)
@@ -1243,6 +1320,7 @@ These files generate procedural descriptions using pattern-based templates. They
 - ✅ Converted verbs.json from broken Pattern Generation to Component Library
 
 **Documentation:**
+
 - See `docs/standards/GENERAL_FILES_AUDIT.md` for detailed analysis
 - See `docs/standards/GENERAL_FILES_COMPLETE.md` for completion summary
 - See `docs/standards/GENERAL_FILES_IMPLEMENTATION_PLAN.md` for implementation details
@@ -1334,6 +1412,7 @@ These files generate procedural descriptions using pattern-based templates. They
 - **No metadata needed** - Structure is self-explanatory
 
 **Standard:**
+
 - ✅ Keep current structure (rarity-organized)
 - ✅ No patterns (these are stat modifiers, not generators)
 - ✅ No metadata needed (simple lookup structure)
@@ -2275,82 +2354,130 @@ Files: `metals.json`, `leathers.json`, `woods.json`, `gemstones.json`
 
 ## Migration Checklist
 
-### Phase 1: Review Current State
+### Phase 1: Review Current State ✅ COMPLETE
 
-**General Category:** ✅ COMPLETE (9/9 files standardized)
+**All JSON files have been standardized with metadata, proper structure, and weight-based rarity system.**
 
-- [x] ✅ General/Colors - Standardized as Pattern Generation
-- [x] ✅ General/Adjectives - Standardized as Component Library
-- [x] ✅ General/Materials - Standardized as Component Library
-- [x] ✅ General/Smells - Standardized as Pattern Generation
-- [x] ✅ General/Sounds - Standardized as Pattern Generation
-- [x] ✅ General/Textures - Standardized as Pattern Generation
-- [x] ✅ General/TimeOfDay - Standardized as Pattern Generation
-- [x] ✅ General/Verbs - Converted to Component Library
-- [x] ✅ General/Weather - Standardized as Pattern Generation
+**General Category:** ✅ COMPLETE (9/9 files)
 
-**Items Category:** ⏳ IN PROGRESS (1/~25 files)
+- [x] ✅ general/adjectives.json - Component Library
+- [x] ✅ general/colors.json - Pattern Generation
+- [x] ✅ general/rarity_config.json - Configuration File
+- [x] ✅ general/smells.json - Pattern Generation
+- [x] ✅ general/sounds.json - Pattern Generation
+- [x] ✅ general/textures.json - Pattern Generation
+- [x] ✅ general/time_of_day.json - Pattern Generation
+- [x] ✅ general/verbs.json - Component Library
+- [x] ✅ general/weather.json - Pattern Generation
 
-- [x] ✅ Items/Weapons/Names - Standardized as Pattern Generation
-- [ ] 📋 Items/Weapons/Types - Review structure
-- [ ] 📋 Items/Weapons/Prefixes - Review structure
-- [ ] 📋 Items/Armor/Materials - Review structure
-- [ ] 📋 Items/Enchantments/Suffixes - Review structure
-- [ ] 📋 Items/Materials/* - Review structure (metals, leathers, woods, gemstones)
+**Items Category:** ✅ COMPLETE (17/17 files)
 
-**Enemies Category:** 📋 PENDING
+- [x] ✅ items/armor/names.json - Pattern Generation
+- [x] ✅ items/armor/prefixes.json - Prefix Modifiers
+- [x] ✅ items/armor/suffixes.json - Suffix Modifiers
+- [x] ✅ items/armor/types.json - Item Catalog
+- [x] ✅ items/consumables/effects.json - Component Library
+- [x] ✅ items/consumables/names.json - Pattern Generation
+- [x] ✅ items/consumables/rarities.json - Configuration
+- [x] ✅ items/consumables/types.json - Item Catalog
+- [x] ✅ items/enchantments/effects.json - Component Library
+- [x] ✅ items/enchantments/prefixes.json - Prefix Modifiers
+- [x] ✅ items/enchantments/suffixes.json - Suffix Modifiers
+- [x] ✅ items/materials/names.json - Pattern Generation
+- [x] ✅ items/materials/types.json - Item Catalog
+- [x] ✅ items/weapons/names.json - Pattern Generation
+- [x] ✅ items/weapons/prefixes.json - Prefix Modifiers
+- [x] ✅ items/weapons/suffixes.json - Suffix Modifiers
+- [x] ✅ items/weapons/types.json - Item Catalog
 
-- [ ] 📋 Enemies/Beasts/Names - Review structure
-- [ ] 📋 Enemies/Beasts/Types - Review structure
-- [ ] 📋 Enemies/Undead/Names - Review structure
-- [ ] 📋 Enemies/Demons/Names - Review structure
-- [ ] 📋 Enemies/Elementals/Names - Review structure
-- [ ] 📋 Enemies/Dragons/Names - Review structure
-- [ ] 📋 Enemies/Dragons/Colors - Review structure
-- [ ] 📋 Enemies/Humanoids/Names - Review structure
-- [ ] 📋 Enemies/*/Prefixes - Review structure
+**Enemies Category:** ✅ COMPLETE (59/59 files)
 
-**NPCs Category:** 📋 PENDING
+- [x] ✅ enemies/beasts/* (5 files: names, prefixes, suffixes, traits, types)
+- [x] ✅ enemies/demons/* (5 files: names, prefixes, suffixes, traits, types)
+- [x] ✅ enemies/dragons/* (6 files: colors, names, prefixes, suffixes, traits, types)
+- [x] ✅ enemies/elementals/* (5 files: names, prefixes, suffixes, traits, types)
+- [x] ✅ enemies/goblinoids/* (4 files: names, suffixes, traits, types)
+- [x] ✅ enemies/humanoids/* (5 files: names, prefixes, suffixes, traits, types)
+- [x] ✅ enemies/insects/* (4 files: names, suffixes, traits, types)
+- [x] ✅ enemies/orcs/* (4 files: names, suffixes, traits, types)
+- [x] ✅ enemies/plants/* (4 files: names, suffixes, traits, types)
+- [x] ✅ enemies/reptilians/* (4 files: names, suffixes, traits, types)
+- [x] ✅ enemies/trolls/* (4 files: names, suffixes, traits, types)
+- [x] ✅ enemies/undead/* (5 files: names, prefixes, suffixes, traits, types)
+- [x] ✅ enemies/vampires/* (4 files: names, suffixes, traits, types)
 
-- [ ] 📋 NPCs/Names/FirstNames - Review structure
-- [ ] 📋 NPCs/Occupations - Review structure
-- [ ] 📋 NPCs/Dialogue/Templates - Review structure
-- [ ] 📋 NPCs/Dialogue/Traits - Review structure
-- [ ] 📋 NPCs/Titles - Review structure
+**NPCs Category:** ✅ COMPLETE (14/14 files)
 
-**Quests Category:** 📋 PENDING
+- [x] ✅ npcs/dialogue/farewells.json - Component Library
+- [x] ✅ npcs/dialogue/greetings.json - Component Library
+- [x] ✅ npcs/dialogue/rumors.json - Component Library
+- [x] ✅ npcs/dialogue/templates.json - Template Library
+- [x] ✅ npcs/dialogue/traits.json - Component Library
+- [x] ✅ npcs/names/first_names.json - Name Catalog
+- [x] ✅ npcs/names/last_names.json - Name Catalog
+- [x] ✅ npcs/occupations/common.json - Component Library
+- [x] ✅ npcs/occupations/criminal.json - Component Library
+- [x] ✅ npcs/occupations/magical.json - Component Library
+- [x] ✅ npcs/occupations/noble.json - Component Library
+- [x] ✅ npcs/personalities/backgrounds.json - Component Library
+- [x] ✅ npcs/personalities/quirks.json - Component Library
+- [x] ✅ npcs/personalities/traits.json - Component Library
 
-- [ ] 📋 Quests/Templates - Review structure
+**Quests Category:** ✅ COMPLETE (14/14 files)
 
-**Progress:** 10/93 files standardized (10.8%)
+- [x] ✅ quests/locations/dungeons.json - Component Library
+- [x] ✅ quests/locations/towns.json - Component Library
+- [x] ✅ quests/locations/wilderness.json - Component Library
+- [x] ✅ quests/objectives/hidden.json - Component Library
+- [x] ✅ quests/objectives/primary.json - Component Library
+- [x] ✅ quests/objectives/secondary.json - Component Library
+- [x] ✅ quests/rewards/experience.json - Configuration
+- [x] ✅ quests/rewards/gold.json - Configuration
+- [x] ✅ quests/rewards/items.json - Component Library
+- [x] ✅ quests/templates/delivery.json - Quest Templates
+- [x] ✅ quests/templates/escort.json - Quest Templates
+- [x] ✅ quests/templates/fetch.json - Quest Templates
+- [x] ✅ quests/templates/investigate.json - Quest Templates
+- [x] ✅ quests/templates/kill.json - Quest Templates
 
-### Phase 2: Standardize Files
+**Overall Progress:** 113/113 files standardized (100%) ✅
 
-**Completed:**
+### Phase 2: Standardize Files ✅ COMPLETE
 
-- ✅ General Category (9 files) - December 16, 2025
-- ✅ Items/Weapons/Names (1 file) - December 16, 2025
+**All categories standardized - December 16, 2025**
 
-**Next Steps:**
+- ✅ General Category (9 files) - Component libraries and pattern generation
+- ✅ Items Category (17 files) - Names, types, prefixes, suffixes, materials
+- ✅ Enemies Category (59 files) - All enemy types with full trait systems
+- ✅ NPCs Category (14 files) - Names, occupations, personalities, dialogue
+- ✅ Quests Category (14 files) - Templates, objectives, rewards, locations
 
-- [ ] Items Category (remaining ~24 files)
-- [ ] Enemies Category (~15 files)
-- [ ] NPCs Category (~15 files)
-- [ ] Quests Category (~10 files)
+**Key Achievements:**
 
-### Phase 3: Update ContentBuilder
+- ✅ All files have standardized metadata (description, version, last_updated, type)
+- ✅ Pattern Generation files use components + patterns structure
+- ✅ Item/Enemy Catalogs use type-level traits + item arrays
+- ✅ Prefix/Suffix Modifiers use rarity-organized trait structure
+- ✅ Weight-based rarity system implemented across all categories
+- ✅ Auto-generated metadata fields (component_keys, pattern_tokens, totals)
 
-- [ ] Update PatternExampleGenerator (if needed)
-- [ ] Add pattern validation
-- [ ] Add live example preview
-- [ ] Test all standardized files
+### Phase 3: Update ContentBuilder 📋 NEXT PHASE
 
-### Phase 4: Runtime Implementation
+- [ ] Update file type detection to recognize all standard structures
+- [ ] Add pattern validation for names.json files
+- [ ] Add live example preview for pattern-based generation
+- [ ] Support weight-based rarity visualization
+- [ ] Add metadata auto-generation on save
+- [ ] Test all 113 standardized files
 
-- [ ] Create PatternExecutor service
-- [ ] Update data models
-- [ ] Update generators
-- [ ] Write tests
+### Phase 4: Runtime Implementation 📋 PLANNED
+
+- [ ] Create PatternExecutor service for runtime pattern resolution
+- [ ] Update ItemGenerator to use types.json catalogs
+- [ ] Update EnemyGenerator to use types.json catalogs
+- [ ] Implement weight-based rarity calculation
+- [ ] Update all generators to use new data structures
+- [ ] Write comprehensive integration tests
 
 ---
 
@@ -2454,7 +2581,7 @@ Files: `metals.json`, `leathers.json`, `woods.json`, `gemstones.json`
 - **Date:** December 16, 2025
 - **Context:** General files (colors, smells, sounds, etc.) had duplicate `items` arrays
 - **Decision:** Remove `items` arrays entirely, use components directly for pattern generation
-- **Rationale:** 
+- **Rationale:**
   - ✅ Eliminates duplication between `items` and `components`
   - ✅ Components ARE the data source - no need for separate list
   - ✅ Consistent with names.json approach (`base` token resolves from types.json)
@@ -2517,6 +2644,7 @@ Files can reference components from other files to avoid duplication and maintai
 **Format:** `@category/filename:component_key`
 
 **Structure:**
+
 - `@` - Indicates a cross-file reference
 - `category/filename` - Path to the source file (relative to Data/Json folder)
 - `:component_key` - Specific component array to reference
@@ -2652,6 +2780,7 @@ Files can reference components from other files to avoid duplication and maintai
 ```
 
 **Benefits:**
+
 - ✅ Update materials once, applies everywhere
 - ✅ Consistent material lists across all items
 - ✅ Smaller file sizes (references vs full arrays)
@@ -2674,6 +2803,7 @@ Files can reference components from other files to avoid duplication and maintai
 ```
 
 **Actions:**
+
 - **[📎] Reference Icon** - Indicates this is a reference
 - **[View Source]** - Opens the referenced file
 - **[Inline]** - Converts reference to local copy (for customization)
@@ -3024,6 +3154,7 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
 ```
 
 **Key Changes:**
+
 - ❌ **Removed** rarity tier organization (common/rare/epic)
 - ✅ **Added** `weight` field to each prefix/suffix
 - ✅ **Flattened** structure (all prefixes at same level)
@@ -3072,6 +3203,7 @@ ALL rarity-related weight fields use the property name `rarityWeight` for consis
 ```
 
 **Why `rarityWeight` everywhere?**
+
 - ✅ Consistent property name across all files
 - ✅ Clear distinction from physical `weight` (encumbrance)
 - ✅ Explicit purpose (rarity calculation, not physics)
@@ -3351,6 +3483,7 @@ function selectClosestWeight(componentArray, targetWeight):
 Rare:       "Fine Steel Longsword"
 Epic:       "Masterwork Ancient Steel Longsword"
 Legendary:  "Masterwork Enchanted Mithril Longsword of the Dragon"
+
 ```
 
 **Bad Pattern Progression:**
@@ -3564,7 +3697,7 @@ Result: "Longsword" (random base item)
 - With cross-file references: <1ms (after caching)
 - Target: 10,000 names per second on modern hardware
 
-### Implementation in C#
+### Implementation in C #
 
 For the complete C# implementation details, see:
 
@@ -3677,6 +3810,59 @@ When testing a pattern in ContentBuilder:
 3. **Test edge cases** - Empty components, missing tokens
 4. **Validate output** - Names should be grammatically correct and logical
 5. **Check variety** - Multiple examples should be different
+
+---
+
+## Quick Reference
+
+### Document Sections
+
+- **Executive Summary** - Current status and next phase (top of document)
+- **Standard Component Keys** - Universal components usable across all categories
+- **Pattern Syntax** - How to write patterns (token + token format)
+- **Standard File Structure** - File types and when to use each
+- **File Type Guide** - When to use types.json vs names.json vs prefixes.json
+- **Category Standards** - Detailed breakdown for General, Items, Enemies, NPCs, Quests
+- **Migration Checklist** - Complete list of all 113 files and their status
+- **Cross-File References** - How to reference components from other files
+- **Weight-Based Rarity** - How the emergent rarity system works
+- **Pattern Testing Guide** - How to validate patterns work correctly
+
+### File Type Quick Reference
+
+| File Type | Extension | Purpose | Example |
+|-----------|-----------|---------|---------|
+| **Pattern Generation** | names.json | Procedural name generation | items/weapons/names.json |
+| **Item Catalog** | types.json | Base items with stats | items/weapons/types.json |
+| **Prefix Modifiers** | prefixes.json | Stat bonuses (before name) | items/weapons/prefixes.json |
+| **Suffix Modifiers** | suffixes.json | Stat bonuses (after name) | items/enchantments/suffixes.json |
+| **Component Library** | *.json | Reference data (no patterns) | general/adjectives.json |
+| **Configuration** | *_config.json | Game rules and settings | general/rarity_config.json |
+
+### Pattern Token Quick Reference
+
+| Token | Resolves To | Example |
+|-------|-------------|---------|
+| `base` | Random item from types.json | "Longsword" |
+| `material` | Material component | "Steel" |
+| `quality` | Quality component | "Fine" |
+| `descriptive` | Descriptive component | "Ancient" |
+| `enchantment` | Enchantment component | "of Slaying" |
+| `title` | Title component | "of the Dragon" |
+
+### All 113 Files Status
+
+✅ **100% Complete** - All files standardized with metadata, proper structure, and weight-based rarity
+
+- ✅ General: 9 files
+- ✅ Items: 17 files
+- ✅ Enemies: 59 files (13 types: beasts, demons, dragons, elementals, goblinoids, humanoids, insects, orcs, plants, reptilians, trolls, undead, vampires)
+- ✅ NPCs: 14 files
+- ✅ Quests: 14 files
+
+---
+
+**End of Pattern System Component Standards v1.1**
 
 **Good Pattern Examples:**
 
