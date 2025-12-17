@@ -14,9 +14,11 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" MinWidth="200" MaxWidth="400"/>
+                <ColumnDefinition Width="250" MinWidth="200" MaxWidth="400"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*" MinWidth="400"/>
+                <ColumnDefinition Width="7*" MinWidth="400"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*" MinWidth="250"/>
             </Grid.ColumnDefinitions>
 
         <!-- Left Panel: List of Items -->
@@ -174,6 +176,139 @@
                                Command="{Binding SaveCommand}"
                                Style="{StaticResource MaterialDesignRaisedButton}"/>
                     </StackPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- GridSplitter (between editor and metadata) -->
+        <GridSplitter Grid.Column="3" 
+                     Width="5" 
+                     HorizontalAlignment="Center" 
+                     VerticalAlignment="Stretch"
+                     Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"/>
+
+        <!-- Right Panel: Metadata & Notes -->
+        <Border Grid.Column="4" 
+                Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
+                Padding="12"
+                materialDesign:ElevationAssist.Elevation="Dp2">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <!-- Header -->
+                    <materialDesign:ColorZone Mode="PrimaryMid"
+                                             Padding="10"
+                                             Margin="0,0,0,12">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Information" 
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,6,0"/>
+                            <TextBlock Text="Metadata &amp; Notes" 
+                                     VerticalAlignment="Center"
+                                     FontWeight="Medium"
+                                     FontSize="14"/>
+                        </StackPanel>
+                    </materialDesign:ColorZone>
+
+                    <!-- User-Editable Metadata -->
+                    <materialDesign:Card Padding="12" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="File Information" 
+                                     FontWeight="Medium" 
+                                     FontSize="13"
+                                     Margin="0,0,0,12"/>
+                            
+                            <!-- Description -->
+                            <TextBox Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"
+                                    materialDesign:HintAssist.Hint="Description"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True"
+                                    MinLines="2"
+                                    MaxLines="4"
+                                    Margin="0,0,0,12"/>
+
+                            <!-- Version -->
+                            <TextBox Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"
+                                    materialDesign:HintAssist.Hint="Version"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    Margin="0,0,0,12"/>
+
+                            <!-- Tags -->
+                            <TextBox Text="{Binding MetadataTags, UpdateSourceTrigger=PropertyChanged}"
+                                    materialDesign:HintAssist.Hint="Tags (comma-separated)"
+                                    materialDesign:HintAssist.HelperText="e.g., metal, crafting, common"
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    Margin="0,0,0,0"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <!-- Auto-Generated Metadata (Read-Only) -->
+                    <materialDesign:Card Padding="12" Margin="0,0,0,12"
+                                        Background="{DynamicResource MaterialDesign.Brush.Background}">
+                        <StackPanel>
+                            <TextBlock Text="Auto-Generated" 
+                                     FontWeight="Medium" 
+                                     FontSize="13"
+                                     Margin="0,0,0,12"/>
+
+                            <!-- Last Updated -->
+                            <StackPanel Margin="0,0,0,8">
+                                <TextBlock Text="Last Updated" 
+                                         FontSize="11" 
+                                         Opacity="0.7"
+                                         Margin="0,0,0,2"/>
+                                <TextBlock Text="{Binding MetadataLastUpdated}" 
+                                         FontSize="12"/>
+                            </StackPanel>
+
+                            <!-- File Type -->
+                            <StackPanel Margin="0,0,0,8">
+                                <TextBlock Text="File Type" 
+                                         FontSize="11" 
+                                         Opacity="0.7"
+                                         Margin="0,0,0,2"/>
+                                <TextBlock Text="{Binding MetadataFileType}" 
+                                         FontSize="12"/>
+                            </StackPanel>
+
+                            <!-- Total Items -->
+                            <StackPanel>
+                                <TextBlock Text="Total Items" 
+                                         FontSize="11" 
+                                         Opacity="0.7"
+                                         Margin="0,0,0,2"/>
+                                <TextBlock Text="{Binding MetadataTotalItems}" 
+                                         FontSize="12"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <!-- Notes Section -->
+                    <materialDesign:Card Padding="12">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                <materialDesign:PackIcon Kind="NoteText" 
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,6,0"
+                                                       Width="16"
+                                                       Height="16"/>
+                                <TextBlock Text="Notes" 
+                                         FontWeight="Medium" 
+                                         FontSize="13"
+                                         VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <TextBox Text="{Binding MetadataNotes, UpdateSourceTrigger=PropertyChanged}"
+                                    materialDesign:HintAssist.Hint="Development notes, TODOs, etc."
+                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True"
+                                    MinLines="6"
+                                    MaxLines="12"
+                                    VerticalScrollBarVisibility="Auto"/>
+                        </StackPanel>
+                    </materialDesign:Card>
 
                 </StackPanel>
             </ScrollViewer>

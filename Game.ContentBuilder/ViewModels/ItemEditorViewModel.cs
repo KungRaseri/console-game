@@ -6,6 +6,7 @@ using Game.ContentBuilder.Models;
 using Game.ContentBuilder.Services;
 using Game.ContentBuilder.Validators;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Serilog;
 
 namespace Game.ContentBuilder.ViewModels;
@@ -44,6 +45,29 @@ public partial class ItemEditorViewModel : ObservableObject
     [ObservableProperty]
     private bool _hasValidationErrors = false;
 
+    // Metadata properties (user-editable)
+    [ObservableProperty]
+    private string _metadataDescription = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataVersion = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataTags = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataNotes = string.Empty;
+
+    // Metadata properties (auto-generated, read-only display)
+    [ObservableProperty]
+    private string _metadataLastUpdated = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataFileType = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataTotalItems = string.Empty;
+
     public ItemEditorViewModel(JsonEditorService jsonEditorService, string fileName)
     {
         _jsonEditorService = jsonEditorService;
@@ -63,53 +87,102 @@ public partial class ItemEditorViewModel : ObservableObject
             var filePath = _fileName; // fileName already includes full path like "items/weapons/prefixes.json"
             var json = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath));
             
-            // Parse the nested JSON structure
-            var rawData = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, ItemPrefixRaw>>>(json);
+            // Parse as JObject to extract metadata
+            var root = JObject.Parse(json);
             
-            if (rawData == null)
+            // Extract metadata if present
+            if (root["_metadata"] is JObject metadata)
             {
-                StatusMessage = "Failed to load data - file is empty or invalid";
-                Log.Warning("Failed to deserialize {FileName}", _fileName);
-                return;
+                MetadataDescription = metadata["description"]?.ToString() ?? string.Empty;
+                MetadataVersion = metadata["version"]?.ToString() ?? string.Empty;
+                MetadataLastUpdated = metadata["last_updated"]?.ToString() ?? string.Empty;
+                MetadataFileType = metadata["type"]?.ToString() ?? string.Empty;
+                
+                // Tags (comma-separated string)
+                if (metadata["tags"] is JArray tagsArray)
+                {
+                    MetadataTags = string.Join(", ", tagsArray.Select(t => t.ToString()));
+                }
+                else
+                {
+                    MetadataTags = string.Empty;
+                }
+                
+                // Notes (handle both string and array formats)
+                if (metadata["notes"] is JArray notesArray)
+                {
+                    MetadataNotes = string.Join("\n", notesArray.Select(n => n.ToString()));
+                }
+                else if (metadata["notes"] is JValue notesValue)
+                {
+                    MetadataNotes = notesValue.ToString() ?? string.Empty;
+                }
+                else
+                {
+                    MetadataNotes = string.Empty;
+                }
+                
+                // Totals (for display)
+                if (metadata["totals"] is JObject totals)
+                {
+                    MetadataTotalItems = totals["total_items"]?.ToString() ?? "0";
+                }
+                else
+                {
+                    MetadataTotalItems = "0";
+                }
             }
 
             Items.Clear();
 
             // Convert the nested dictionary structure to flat list
-            foreach (var rarityGroup in rawData)
+            foreach (var rarityProp in root.Properties().Where(p => p.Name != "_metadata"))
             {
-                var rarity = rarityGroup.Key; // "common", "uncommon", etc.
+                var rarity = rarityProp.Name; // "common", "uncommon", etc.
                 
-                foreach (var item in rarityGroup.Value)
+                if (rarityProp.Value is JObject rarityObj)
                 {
-                    var name = item.Key; // "Rusty", "Steel", etc.
-                    var data = item.Value;
-
-                    var prefixSuffix = new ItemPrefixSuffix(name, data.DisplayName ?? name, rarity);
-
-                    // Convert traits
-                    if (data.Traits != null)
+                    foreach (var itemProp in rarityObj.Properties())
                     {
-                        foreach (var trait in data.Traits)
+                        var name = itemProp.Name; // "Rusty", "Steel", etc.
+                        var itemObj = itemProp.Value as JObject;
+                        
+                        if (itemObj == null) continue;
+
+                        var displayName = itemObj["displayName"]?.ToString() ?? name;
+                        var prefixSuffix = new ItemPrefixSuffix(name, displayName, rarity);
+
+                        // Convert traits
+                        if (itemObj["traits"] is JObject traitsObj)
                         {
-                            prefixSuffix.Traits.Add(new ItemTrait(
-                                trait.Key,
-                                trait.Value.Value ?? 0,
-                                trait.Value.Type ?? "number"
-                            ));
+                            foreach (var traitProp in traitsObj.Properties())
+                            {
+                                var traitObj = traitProp.Value as JObject;
+                                if (traitObj != null)
+                                {
+                                    var traitValue = traitObj["value"]?.ToObject<object>() ?? 0;
+                                    var traitType = traitObj["type"]?.ToString() ?? "number";
+                                    
+                                    prefixSuffix.Traits.Add(new ItemTrait(
+                                        traitProp.Name,
+                                        traitValue,
+                                        traitType
+                                    ));
+                                }
+                            }
                         }
+
+                        // Subscribe to property changes for validation
+                        prefixSuffix.PropertyChanged += (s, e) =>
+                        {
+                            if (s == SelectedItem && SelectedItem != null)
+                            {
+                                ValidateItem(SelectedItem);
+                            }
+                        };
+
+                        Items.Add(prefixSuffix);
                     }
-
-                    // Subscribe to property changes for validation
-                    prefixSuffix.PropertyChanged += (s, e) =>
-                    {
-                        if (s == SelectedItem && SelectedItem != null)
-                        {
-                            ValidateItem(SelectedItem);
-                        }
-                    };
-
-                    Items.Add(prefixSuffix);
                 }
             }
 
@@ -138,38 +211,73 @@ public partial class ItemEditorViewModel : ObservableObject
                 return;
             }
 
-            // Convert flat list back to nested dictionary structure
-            var data = new Dictionary<string, Dictionary<string, ItemPrefixRaw>>();
+            // Build root JObject
+            var root = new JObject();
 
-            foreach (var item in Items)
+            // Add metadata first
+            var metadata = new JObject
             {
-                // Ensure rarity group exists
-                if (!data.ContainsKey(item.Rarity))
-                {
-                    data[item.Rarity] = new Dictionary<string, ItemPrefixRaw>();
-                }
+                ["description"] = MetadataDescription,
+                ["version"] = MetadataVersion,
+                ["last_updated"] = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+                ["type"] = "item_modifiers"
+            };
 
-                // Convert traits back to dictionary format
-                var traits = new Dictionary<string, TraitValue>();
-                foreach (var trait in item.Traits)
+            // Add tags (convert comma-separated string to array)
+            if (!string.IsNullOrWhiteSpace(MetadataTags))
+            {
+                var tagsArray = new JArray(MetadataTags.Split(',').Select(t => t.Trim()).Where(t => !string.IsNullOrEmpty(t)));
+                metadata["tags"] = tagsArray;
+            }
+
+            // Add notes (convert multi-line string to array)
+            if (!string.IsNullOrWhiteSpace(MetadataNotes))
+            {
+                var notesArray = new JArray(MetadataNotes.Split('\n').Select(n => n.Trim()).Where(n => !string.IsNullOrEmpty(n)));
+                metadata["notes"] = notesArray;
+            }
+
+            // Add totals
+            var rarityBreakdown = Items.GroupBy(i => i.Rarity).ToDictionary(g => g.Key, g => g.Count());
+            metadata["totals"] = new JObject
+            {
+                ["total_items"] = Items.Count,
+                ["by_rarity"] = JObject.FromObject(rarityBreakdown)
+            };
+
+            root["_metadata"] = metadata;
+
+            // Convert flat list back to nested rarity structure
+            foreach (var rarityGroup in Items.GroupBy(i => i.Rarity))
+            {
+                var rarityObj = new JObject();
+                
+                foreach (var item in rarityGroup)
                 {
-                    traits[trait.Key] = new TraitValue
+                    // Convert traits to JObject
+                    var traits = new JObject();
+                    foreach (var trait in item.Traits)
                     {
-                        Value = trait.Value,
-                        Type = trait.Type
+                        traits[trait.Key] = new JObject
+                        {
+                            ["value"] = JToken.FromObject(trait.Value),
+                            ["type"] = trait.Type
+                        };
+                    }
+
+                    rarityObj[item.Name] = new JObject
+                    {
+                        ["displayName"] = item.DisplayName,
+                        ["traits"] = traits
                     };
                 }
 
-                // Add item to rarity group
-                data[item.Rarity][item.Name] = new ItemPrefixRaw
-                {
-                    DisplayName = item.DisplayName,
-                    Traits = traits
-                };
+                root[rarityGroup.Key] = rarityObj;
             }
 
             var filePath = _fileName; // fileName already includes full path
-            _jsonEditorService.Save(filePath, data);
+            var json = root.ToString(Formatting.Indented);
+            System.IO.File.WriteAllText(_jsonEditorService.GetFilePath(filePath), json);
 
             StatusMessage = $"Saved changes to {_fileName}";
             Log.Information("Saved {FileName} successfully", _fileName);

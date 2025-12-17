@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using Game.ContentBuilder.Models;
 using Game.ContentBuilder.Services;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Serilog;
 
 namespace Game.ContentBuilder.ViewModels;
@@ -32,6 +33,29 @@ public partial class NameListEditorViewModel : ObservableObject
     [ObservableProperty]
     private string _newNameInput = string.Empty;
 
+    // Metadata properties (user-editable)
+    [ObservableProperty]
+    private string _metadataDescription = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataVersion = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataTags = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataNotes = string.Empty;
+
+    // Metadata properties (auto-generated, read-only display)
+    [ObservableProperty]
+    private string _metadataLastUpdated = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataFileType = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataTotalItems = string.Empty;
+
     public NameListEditorViewModel(JsonEditorService jsonEditorService, string fileName)
     {
         _jsonEditorService = jsonEditorService;
@@ -50,28 +74,65 @@ public partial class NameListEditorViewModel : ObservableObject
             var filePath = _fileName; // fileName already includes full path like "items/weapons/names.json"
             var json = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath));
             
-            // Parse the JSON structure which might have nested "items" wrapper
-            var jsonObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+            // Parse as JObject to extract metadata
+            var root = JObject.Parse(json);
             
-            if (jsonObject == null)
+            // Extract metadata if present
+            if (root["_metadata"] is JObject metadata)
             {
-                StatusMessage = "Failed to load data - file is empty or invalid";
-                Log.Warning("Failed to deserialize {FileName}", _fileName);
-                return;
+                MetadataDescription = metadata["description"]?.ToString() ?? string.Empty;
+                MetadataVersion = metadata["version"]?.ToString() ?? string.Empty;
+                MetadataLastUpdated = metadata["last_updated"]?.ToString() ?? string.Empty;
+                MetadataFileType = metadata["type"]?.ToString() ?? string.Empty;
+                
+                // Tags (comma-separated string)
+                if (metadata["tags"] is JArray tagsArray)
+                {
+                    MetadataTags = string.Join(", ", tagsArray.Select(t => t.ToString()));
+                }
+                else
+                {
+                    MetadataTags = string.Empty;
+                }
+                
+                // Notes (handle both string and array formats)
+                if (metadata["notes"] is JArray notesArray)
+                {
+                    MetadataNotes = string.Join("\n", notesArray.Select(n => n.ToString()));
+                }
+                else if (metadata["notes"] is JValue notesValue)
+                {
+                    MetadataNotes = notesValue.ToString() ?? string.Empty;
+                }
+                else
+                {
+                    MetadataNotes = string.Empty;
+                }
+                
+                // Totals (for display)
+                if (metadata["totals"] is JObject totals)
+                {
+                    MetadataTotalItems = totals["total_items"]?.ToString() ?? "0";
+                }
+                else
+                {
+                    MetadataTotalItems = "0";
+                }
             }
 
-            // Check if there's an "items" wrapper (new structure)
-            Dictionary<string, object>? sourceData = null;
-            if (jsonObject.ContainsKey("items"))
+            Categories.Clear();
+
+            // Determine data source (items wrapper or direct)
+            JObject? sourceData = null;
+            if (root["items"] is JObject itemsObj)
             {
                 // New structure: { "items": { "swords": [...], "axes": [...] } }
-                var itemsJson = JsonConvert.SerializeObject(jsonObject["items"]);
-                sourceData = JsonConvert.DeserializeObject<Dictionary<string, object>>(itemsJson);
+                sourceData = itemsObj;
             }
             else
             {
-                // Old structure: { "swords": [...], "axes": [...] }
-                sourceData = jsonObject;
+                // Old structure: { "swords": [...], "axes": [...] } - exclude _metadata
+                sourceData = root;
             }
 
             if (sourceData == null)
@@ -81,30 +142,21 @@ public partial class NameListEditorViewModel : ObservableObject
                 return;
             }
 
-            Categories.Clear();
-
             // Convert dictionary to category list, only processing arrays
-            foreach (var kvp in sourceData)
+            foreach (var prop in sourceData.Properties().Where(p => p.Name != "_metadata"))
             {
-                var categoryName = kvp.Key;
-                var value = kvp.Value;
-
-                // Try to deserialize as a list of strings
-                try
+                var categoryName = prop.Name;
+                
+                // Only process if the value is an array
+                if (prop.Value is JArray namesArray)
                 {
-                    var valueJson = value is string ? (string)value : JsonConvert.SerializeObject(value);
-                    var names = JsonConvert.DeserializeObject<List<string>>(valueJson);
-                    
-                    if (names != null)
-                    {
-                        Categories.Add(new NameListCategory(categoryName, names));
-                    }
+                    var names = namesArray.Select(t => t.ToString()).ToList();
+                    Categories.Add(new NameListCategory(categoryName, names));
                 }
-                catch (JsonSerializationException)
+                else
                 {
                     // Skip entries that aren't string arrays (like "variants" which is a nested object)
                     Log.Debug("Skipping non-array category '{CategoryName}' in {FileName}", categoryName, _fileName);
-                    continue;
                 }
             }
 
@@ -126,22 +178,54 @@ public partial class NameListEditorViewModel : ObservableObject
     {
         try
         {
-            // Convert category list back to dictionary structure
-            var categoryData = new Dictionary<string, List<string>>();
+            // Build root JObject
+            var root = new JObject();
 
-            foreach (var category in Categories)
+            // Add metadata first
+            var metadata = new JObject
             {
-                categoryData[category.Name] = category.Names.ToList();
-            }
-
-            // Wrap in "items" object to match the expected structure
-            var data = new Dictionary<string, object>
-            {
-                ["items"] = categoryData
+                ["description"] = MetadataDescription,
+                ["version"] = MetadataVersion,
+                ["last_updated"] = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+                ["type"] = "name_list"
             };
 
-            var filePath = System.IO.Path.Combine("items", _fileName);
-            _jsonEditorService.Save(filePath, data);
+            // Add tags (convert comma-separated string to array)
+            if (!string.IsNullOrWhiteSpace(MetadataTags))
+            {
+                var tagsArray = new JArray(MetadataTags.Split(',').Select(t => t.Trim()).Where(t => !string.IsNullOrEmpty(t)));
+                metadata["tags"] = tagsArray;
+            }
+
+            // Add notes (convert multi-line string to array)
+            if (!string.IsNullOrWhiteSpace(MetadataNotes))
+            {
+                var notesArray = new JArray(MetadataNotes.Split('\n').Select(n => n.Trim()).Where(n => !string.IsNullOrEmpty(n)));
+                metadata["notes"] = notesArray;
+            }
+
+            // Add totals
+            var totalNames = Categories.Sum(c => c.Names.Count);
+            metadata["totals"] = new JObject
+            {
+                ["total_items"] = totalNames,
+                ["total_categories"] = Categories.Count
+            };
+
+            root["_metadata"] = metadata;
+
+            // Add items (categories with name arrays)
+            var itemsObj = new JObject();
+            foreach (var category in Categories)
+            {
+                itemsObj[category.Name] = new JArray(category.Names);
+            }
+            root["items"] = itemsObj;
+
+            // Write to file
+            var filePath = _fileName; // fileName already includes full path
+            var json = root.ToString(Formatting.Indented);
+            System.IO.File.WriteAllText(_jsonEditorService.GetFilePath(filePath), json);
 
             StatusMessage = $"Saved changes to {_fileName}";
             Log.Information("Saved {FileName} successfully", _fileName);

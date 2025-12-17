@@ -6,6 +6,7 @@ using Game.ContentBuilder.Models;
 using Game.ContentBuilder.Services;
 using Game.ContentBuilder.Validators;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Serilog;
 
 namespace Game.ContentBuilder.ViewModels;
@@ -36,6 +37,27 @@ public partial class FlatItemEditorViewModel : ObservableObject
     [ObservableProperty]
     private bool _hasValidationErrors = false;
 
+    #region Metadata Properties
+
+    // User-editable metadata fields
+    [ObservableProperty]
+    private string _metadataDescription = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataVersion = "1.0";
+
+    [ObservableProperty]
+    private string _notes = string.Empty;
+
+    // Auto-generated read-only fields (displayed but not editable)
+    [ObservableProperty]
+    private string _lastUpdated = DateTime.Now.ToString("yyyy-MM-dd");
+
+    [ObservableProperty]
+    private string _fileType = string.Empty;
+
+    #endregion
+
     public FlatItemEditorViewModel(JsonEditorService jsonEditorService, string fileName)
     {
         _jsonEditorService = jsonEditorService;
@@ -55,10 +77,23 @@ public partial class FlatItemEditorViewModel : ObservableObject
             var filePath = _fileName; // fileName already includes full path like "items/weapons/prefixes.json"
             var json = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath));
             
-            // Parse the flat JSON structure: { "ItemName": { "displayName": "...", "traits": {...} } }
-            var rawData = JsonConvert.DeserializeObject<Dictionary<string, ItemPrefixRaw>>(json);
+            // Parse using JObject to handle metadata
+            var data = JObject.Parse(json);
             
-            if (rawData == null)
+            // Extract the item data (skip metadata)
+            var rawData = new Dictionary<string, ItemPrefixRaw>();
+            foreach (var prop in data.Properties())
+            {
+                if (prop.Name == "metadata") continue; // Skip metadata
+                
+                var itemData = prop.Value.ToObject<ItemPrefixRaw>();
+                if (itemData != null)
+                {
+                    rawData[prop.Name] = itemData;
+                }
+            }
+            
+            if (rawData.Count == 0)
             {
                 StatusMessage = "Failed to load data - file is empty or invalid";
                 Log.Warning("Failed to deserialize {FileName}", _fileName);
@@ -71,15 +106,15 @@ public partial class FlatItemEditorViewModel : ObservableObject
             foreach (var item in rawData)
             {
                 var name = item.Key; // "Iron", "Oak", etc.
-                var data = item.Value;
+                var itemData = item.Value;
 
                 // Use "material" as default rarity for flat items (not displayed, just for compatibility)
-                var flatItem = new ItemPrefixSuffix(name, data.DisplayName ?? name, "material");
+                var flatItem = new ItemPrefixSuffix(name, itemData.DisplayName ?? name, "material");
 
                 // Convert traits
-                if (data.Traits != null)
+                if (itemData.Traits != null)
                 {
-                    foreach (var trait in data.Traits)
+                    foreach (var trait in itemData.Traits)
                     {
                         flatItem.Traits.Add(new ItemTrait(
                             trait.Key,
@@ -99,6 +134,26 @@ public partial class FlatItemEditorViewModel : ObservableObject
                 };
 
                 Items.Add(flatItem);
+            }
+
+            // Load metadata
+            if (data["metadata"] is JObject metadataObj)
+            {
+                MetadataDescription = metadataObj["description"]?.ToString() ?? string.Empty;
+                MetadataVersion = metadataObj["version"]?.ToString() ?? "1.0";
+                
+                // Handle notes - can be string or array
+                if (metadataObj["notes"] is JArray notesArray)
+                {
+                    Notes = string.Join(Environment.NewLine, notesArray.Select(n => n.ToString()));
+                }
+                else
+                {
+                    Notes = metadataObj["notes"]?.ToString() ?? string.Empty;
+                }
+                
+                LastUpdated = metadataObj["last_updated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
+                FileType = metadataObj["type"]?.ToString() ?? string.Empty;
             }
 
             StatusMessage = $"Loaded {Items.Count} items from {_fileName}";
@@ -126,32 +181,56 @@ public partial class FlatItemEditorViewModel : ObservableObject
                 return;
             }
 
-            // Convert list back to flat dictionary structure (no rarity levels)
-            var data = new Dictionary<string, ItemPrefixRaw>();
+            // Create root JObject
+            var root = new JObject();
 
+            // Convert list to flat dictionary structure (no rarity levels)
             foreach (var item in Items)
             {
-                // Convert traits back to dictionary format
-                var traits = new Dictionary<string, TraitValue>();
+                // Convert traits to dictionary format
+                var traits = new JObject();
                 foreach (var trait in item.Traits)
                 {
-                    traits[trait.Key] = new TraitValue
+                    traits[trait.Key] = new JObject
                     {
-                        Value = trait.Value,
-                        Type = trait.Type
+                        ["value"] = JToken.FromObject(trait.Value),
+                        ["type"] = trait.Type
                     };
                 }
 
                 // Add item directly to root (no rarity grouping)
-                data[item.Name] = new ItemPrefixRaw
+                root[item.Name] = new JObject
                 {
-                    DisplayName = item.DisplayName,
-                    Traits = traits
+                    ["displayName"] = item.DisplayName,
+                    ["traits"] = traits
                 };
             }
 
-            var filePath = System.IO.Path.Combine("items", _fileName);
-            _jsonEditorService.Save(filePath, data);
+            // Generate and add metadata
+            var metadata = new JObject
+            {
+                ["description"] = MetadataDescription,
+                ["version"] = MetadataVersion,
+                ["last_updated"] = DateTime.Now.ToString("yyyy-MM-dd"),
+                ["type"] = "item_catalog",
+                ["total_items"] = Items.Count
+            };
+
+            if (!string.IsNullOrWhiteSpace(Notes))
+            {
+                metadata["notes"] = Notes;
+            }
+
+            root["metadata"] = metadata;
+
+            // Update read-only properties
+            LastUpdated = metadata["last_updated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
+            FileType = metadata["type"]?.ToString() ?? string.Empty;
+
+            // Save to file
+            var json = root.ToString(Formatting.Indented);
+            var filePath = _jsonEditorService.GetFilePath(_fileName);
+            System.IO.File.WriteAllText(filePath, json);
 
             StatusMessage = $"Saved changes to {_fileName}";
             Log.Information("Saved {FileName} successfully", _fileName);
