@@ -5,7 +5,7 @@
     "last_updated": "2025-12-16",
     "type": "enemy_catalog",
     "total_types": 12,
-    "categories": ["goblins", "hobgoblins", "bugbears", "special"]
+    "categories": ["goblins", "hobgoblins", "bugbears", "special_goblinoids"]
   },
   "goblinoid_types": {
     "goblins": {
@@ -156,7 +156,7 @@
         }
       ]
     },
-    "special": {
+    "special_goblinoids": {
       "traits": {
         "category": "goblinoid",
         "intelligence": "medium",

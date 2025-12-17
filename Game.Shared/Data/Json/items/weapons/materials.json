@@ -1,0 +1,211 @@
+{
+  "metadata": {
+    "description": "Weapon material modifiers with stat bonuses and visual properties",
+    "version": "1.0",
+    "last_updated": "2025-12-16",
+    "type": "stat_modifiers",
+    "total_materials": 13,
+    "categories": ["common", "uncommon", "rare", "epic", "legendary"]
+  },
+  "common": {
+    "Iron": {
+      "displayName": "Iron",
+      "rarityWeight": 5,
+      "traits": {
+        "damage": 2,
+        "weight": 1.5,
+        "durability": 80,
+        "value": 10
+      }
+    },
+    "Bronze": {
+      "displayName": "Bronze",
+      "rarityWeight": 6,
+      "traits": {
+        "damage": 1,
+        "weight": 1.2,
+        "durability": 60,
+        "value": 8
+      }
+    },
+    "Wood": {
+      "displayName": "Wood",
+      "rarityWeight": 3,
+      "traits": {
+        "damage": 0,
+        "weight": -2.0,
+        "durability": 40,
+        "value": 2
+      }
+    }
+  },
+  "uncommon": {
+    "Steel": {
+      "displayName": "Steel",
+      "rarityWeight": 12,
+      "traits": {
+        "damage": 4,
+        "weight": 1.0,
+        "durability": 120,
+        "value": 30,
+        "critChance": 2
+      }
+    },
+    "Silver": {
+      "displayName": "Silver",
+      "rarityWeight": 15,
+      "traits": {
+        "damage": 3,
+        "weight": 0.8,
+        "durability": 70,
+        "value": 50,
+        "bonusVsUndead": 10,
+        "bonusVsLycanthropes": 15
+      }
+    },
+    "Cold Iron": {
+      "displayName": "Cold Iron",
+      "rarityWeight": 18,
+      "traits": {
+        "damage": 4,
+        "weight": 1.8,
+        "durability": 100,
+        "value": 40,
+        "bonusVsFey": 12,
+        "bonusVsDemons": 10
+      }
+    }
+  },
+  "rare": {
+    "Mithril": {
+      "displayName": "Mithril",
+      "rarityWeight": 30,
+      "traits": {
+        "damage": 6,
+        "weight": -1.5,
+        "durability": 200,
+        "value": 100,
+        "critChance": 5,
+        "attackSpeed": 10,
+        "glowEffect": true
+      }
+    },
+    "Adamantine": {
+      "displayName": "Adamantine",
+      "rarityWeight": 35,
+      "traits": {
+        "damage": 8,
+        "weight": 2.0,
+        "durability": 300,
+        "value": 150,
+        "armorPenetration": 20,
+        "critDamage": 25
+      }
+    },
+    "Darksteel": {
+      "displayName": "Darksteel",
+      "rarityWeight": 32,
+      "traits": {
+        "damage": 7,
+        "weight": 1.5,
+        "durability": 250,
+        "value": 120,
+        "lifesteal": 3,
+        "bonusVsHoly": 15,
+        "visualColor": "dark_purple"
+      }
+    }
+  },
+  "epic": {
+    "Dragon Bone": {
+      "displayName": "Dragon Bone",
+      "rarityWeight": 60,
+      "traits": {
+        "damage": 12,
+        "weight": 0.5,
+        "durability": 350,
+        "value": 300,
+        "bonusFireDamage": 15,
+        "resistFire": 25,
+        "critChance": 8,
+        "strengthBonus": 2,
+        "glowEffect": true
+      }
+    },
+    "Starmetal": {
+      "displayName": "Starmetal",
+      "rarityWeight": 70,
+      "traits": {
+        "damage": 15,
+        "weight": 0.0,
+        "durability": 400,
+        "value": 400,
+        "bonusLightningDamage": 20,
+        "attackSpeed": 15,
+        "critChance": 10,
+        "manaBonus": 30,
+        "glowEffect": true,
+        "visualColor": "starlight_blue"
+      }
+    },
+    "Voidstone": {
+      "displayName": "Voidstone",
+      "rarityWeight": 65,
+      "traits": {
+        "damage": 14,
+        "weight": 1.0,
+        "durability": 380,
+        "value": 350,
+        "bonusShadowDamage": 18,
+        "lifesteal": 8,
+        "bonusVsDivine": 25,
+        "intelligenceBonus": 3,
+        "glowEffect": true,
+        "visualColor": "void_black"
+      }
+    }
+  },
+  "legendary": {
+    "Godforged": {
+      "displayName": "Godforged",
+      "rarityWeight": 120,
+      "traits": {
+        "damage": 25,
+        "weight": 0.0,
+        "durability": 9999,
+        "value": 1000,
+        "bonusAllDamage": 30,
+        "critChance": 15,
+        "critDamage": 50,
+        "attackSpeed": 20,
+        "allStatsBonus": 5,
+        "bonusVsAll": 20,
+        "glowEffect": true,
+        "visualColor": "divine_gold"
+      }
+    },
+    "Soulsteel": {
+      "displayName": "Soulsteel",
+      "rarityWeight": 100,
+      "traits": {
+        "damage": 20,
+        "weight": 1.0,
+        "durability": 800,
+        "value": 900,
+        "lifesteal": 15,
+        "bonusShadowDamage": 35,
+        "critChance": 12,
+        "onKillSoulAbsorb": true,
+        "intelligenceBonus": 5,
+        "wisdomBonus": 5,
+        "glowEffect": true,
+        "visualColor": "soul_purple"
+      }
+    }
+  },
+  "notes": {
+    "usage": "Material modifiers for weapons. Applied at runtime based on item rarity. Traits are additive with base weapon stats. Not used in pattern generation (use items/materials/metals.json for pattern components).",
+    "cross_references": "See items/materials/metals.json for pattern-based material components. See weapons/types.json for base weapon stats.",
+    "application": "Runtime: Pick material based on rarity → Apply trait modifiers to base weapon → Calculate final stats → Prepend material name to weapon (e.g., 'Mithril Longsword')."
+  }
+}

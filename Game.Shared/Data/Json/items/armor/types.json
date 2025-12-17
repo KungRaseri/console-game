@@ -5,7 +5,8 @@
     "last_updated": "2025-12-16",
     "type": "item_catalog",
     "total_armor_types": 7,
-    "total_pieces": 40
+    "total_pieces": 40,
+    "material_refs": ["items/materials/metals.json", "items/materials/leathers.json", "items/armor/materials.json"]
   },
   "armor_types": {
     "head": {
