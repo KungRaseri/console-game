@@ -1,4 +1,4 @@
-{
+﻿{
   "components": {
     "positive": [
       "Magnificent",
@@ -71,4 +71,7 @@
       "condition": 8
     }
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for general adjectives. Used as component source in name generation and stat calculations."
+  }}

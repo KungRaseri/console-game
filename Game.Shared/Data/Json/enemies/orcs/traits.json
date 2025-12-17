@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "BrutalStrength",
@@ -123,4 +123,7 @@
     "Epic: Elite warriors and commanders",
     "Legendary+: Supernatural power levels"
   ]
-}
+,
+  "notes": {
+    "usage": "Special traits and modifiers for orcs. Used to add unique characteristics and stat bonuses."
+  }}

@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "Pack Hunter",
@@ -129,4 +129,7 @@
     "Epic": 2,
     "Legendary": 1
   }
-}
+,
+  "notes": {
+    "usage": "Special traits and modifiers for beasts. Used to add unique characteristics and stat bonuses."
+  }}

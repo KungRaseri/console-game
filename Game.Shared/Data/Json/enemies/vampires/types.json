@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Vampire enemy type catalog with base stats and rarityWeight values",
     "version": "1.0",
@@ -172,4 +172,7 @@
       ]
     }
   }
-}
+,
+  "notes": {
+    "usage": "Base catalog of vampires with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+  }}

@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "theScavenger",
@@ -109,4 +109,7 @@
     "Rarity determines encounter difficulty",
     "Leaders (Warchief, King) spawn with minions"
   ]
-}
+,
+  "notes": {
+    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+  }}

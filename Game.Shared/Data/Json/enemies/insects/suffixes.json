@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "theSwarm",
@@ -117,4 +117,7 @@
     "Hive hierarchy (the Queen, the Swarm Lord)",
     "Ancient power (the Primordial, the Eldritch)"
   ]
-}
+,
+  "notes": {
+    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+  }}

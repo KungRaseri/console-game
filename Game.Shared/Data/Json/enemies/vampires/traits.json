@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "Blood Drain",
@@ -130,4 +130,7 @@
     "Legendary": 1,
     "Mythic": 1
   }
-}
+,
+  "notes": {
+    "usage": "Special traits and modifiers for vampires. Used to add unique characteristics and stat bonuses."
+  }}

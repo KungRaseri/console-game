@@ -1,4 +1,4 @@
-{
+﻿{
   "components": {
     "period": [
       "dawn", "morning", "midday", "afternoon",
@@ -31,4 +31,7 @@
       "descriptor": 8
     }
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for general time_of_day. Used as component source in name generation and stat calculations."
+  }}

@@ -1,4 +1,4 @@
-{
+﻿{
   "components": {
     "surface_quality": [
       "rough", "smooth", "polished", "jagged", "bumpy",
@@ -44,4 +44,7 @@
       "organic": 10
     }
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for general textures. Used as component source in name generation and stat calculations."
+  }}

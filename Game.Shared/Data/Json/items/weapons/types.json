@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Weapon type catalog with base stats and traits",
     "version": "1.0",
@@ -139,4 +139,7 @@
       ]
     }
   }
-}
+,
+  "notes": {
+    "usage": "Base catalog of weapons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+  }}

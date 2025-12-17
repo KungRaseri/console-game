@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "Cloth": {
       "displayName": "Cloth",
@@ -188,4 +188,7 @@
       }
     }
   }
-}
+,
+  "notes": {
+    "usage": "Material definitions with stat modifiers and visual properties for armor items."
+  }}

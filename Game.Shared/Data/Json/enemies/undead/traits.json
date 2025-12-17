@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "Undying",
@@ -132,4 +132,7 @@
     "Legendary": 2,
     "Mythic": 1
   }
-}
+,
+  "notes": {
+    "usage": "Special traits and modifiers for undead. Used to add unique characteristics and stat bonuses."
+  }}

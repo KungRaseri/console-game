@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "the Bloodthirsty",
@@ -111,4 +111,7 @@
     "Legendary": 2,
     "Mythic": 1
   }
-}
+,
+  "notes": {
+    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+  }}

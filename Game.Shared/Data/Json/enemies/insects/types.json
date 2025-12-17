@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Giant insect enemy type catalog with base stats and rarityWeight values",
     "version": "1.0",
@@ -213,4 +213,7 @@
       ]
     }
   }
-}
+,
+  "notes": {
+    "usage": "Base catalog of insects with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+  }}

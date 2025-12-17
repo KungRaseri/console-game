@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "theRegenerated",
@@ -117,4 +117,7 @@
     "Environmental adaptation (the Icebound, the Lavaborn)",
     "Power level (the King, the World-Eater)"
   ]
-}
+,
+  "notes": {
+    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+  }}

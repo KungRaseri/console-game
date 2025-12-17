@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "Dragon Breath",
@@ -131,4 +131,7 @@
     "Legendary": 3,
     "Mythic": 1
   }
-}
+,
+  "notes": {
+    "usage": "Special traits and modifiers for dragons. Used to add unique characteristics and stat bonuses."
+  }}

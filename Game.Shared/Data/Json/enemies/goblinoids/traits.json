@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "SneakAttack",
@@ -123,4 +123,7 @@
     "Epic+: Leader and elite variants",
     "Combine with suffixes for unique enemies"
   ]
-}
+,
+  "notes": {
+    "usage": "Special traits and modifiers for goblinoids. Used to add unique characteristics and stat bonuses."
+  }}

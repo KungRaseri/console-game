@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "Infernal Flames",
@@ -130,4 +130,7 @@
     "Legendary": 2,
     "Mythic": 1
   }
-}
+,
+  "notes": {
+    "usage": "Special traits and modifiers for demons. Used to add unique characteristics and stat bonuses."
+  }}

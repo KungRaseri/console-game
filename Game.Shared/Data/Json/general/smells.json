@@ -1,4 +1,4 @@
-{
+﻿{
   "components": {
     "pleasant": [
       "fragrant", "fresh", "floral", "herbal", "spicy",
@@ -40,4 +40,7 @@
       "intensity": 10
     }
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for general smells. Used as component source in name generation and stat calculations."
+  }}

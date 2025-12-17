@@ -1,4 +1,4 @@
-{
+﻿{
   "components": {
     "base_color": [
       "red", "blue", "green", "yellow", "orange",
@@ -36,4 +36,7 @@
       "material": 20
     }
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for general colors. Used as component source in name generation and stat calculations."
+  }}

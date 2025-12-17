@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "Common",
@@ -79,4 +79,7 @@
     "rarity_count": 7,
     "note": "Drop rates represent percentage chance for loot generation"
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for consumables rarities. Used as component source in name generation and stat calculations."
+  }}

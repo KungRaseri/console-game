@@ -1,4 +1,4 @@
-{
+﻿{
   "Red": {
     "displayName": "Red",
     "traits": {
@@ -175,4 +175,7 @@
       "canPlaneShift": { "value": true, "type": "boolean" }
     }
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for dragons colors. Used as component source in name generation and stat calculations."
+  }}

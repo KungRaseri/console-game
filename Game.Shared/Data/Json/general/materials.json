@@ -1,4 +1,4 @@
-{
+﻿{
   "components": {
     "metals": [
       "Iron",
@@ -61,4 +61,7 @@
       "magical": 10
     }
   }
-}
+,
+  "notes": {
+    "usage": "Material definitions with stat modifiers and visual properties for general items."
+  }}

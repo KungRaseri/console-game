@@ -1,4 +1,4 @@
-{
+﻿{
   "components": {
     "base_sound": [
       "echoing", "whisper", "roar", "clang", "hiss",
@@ -58,4 +58,7 @@
       "intensity": 10
     }
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for general sounds. Used as component source in name generation and stat calculations."
+  }}

@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "the Risen",
@@ -116,4 +116,7 @@
     "Epic": 3,
     "Legendary": 2
   }
-}
+,
+  "notes": {
+    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+  }}

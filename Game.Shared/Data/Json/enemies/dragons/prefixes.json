@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "Hatchling": {
       "displayName": "Hatchling",
@@ -290,4 +290,7 @@
       }
     }
   }
-}
+,
+  "notes": {
+    "usage": "Stat modifiers applied BEFORE base name. Used at runtime based on item rarity. Not used in pattern generation."
+  }}

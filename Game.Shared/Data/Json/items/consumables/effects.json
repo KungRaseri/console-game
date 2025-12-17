@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "Restore Health",
@@ -204,4 +204,7 @@
     "Legendary": 3,
     "Mythic": 1
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for consumables effects. Used as component source in name generation and stat calculations."
+  }}

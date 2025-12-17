@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "Rooted",
@@ -124,4 +124,7 @@
     "Epic: Area control and spawning",
     "Legendary+: Nature spirits and ancient beings"
   ]
-}
+,
+  "notes": {
+    "usage": "Special traits and modifiers for plants. Used to add unique characteristics and stat bonuses."
+  }}

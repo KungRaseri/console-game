@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "Regeneration",
@@ -123,4 +123,7 @@
     "Epic: Environmental adaptations",
     "Legendary+: Gigantic and ancient variants"
   ]
-}
+,
+  "notes": {
+    "usage": "Special traits and modifiers for trolls. Used to add unique characteristics and stat bonuses."
+  }}

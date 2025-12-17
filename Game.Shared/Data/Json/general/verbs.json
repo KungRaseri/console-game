@@ -1,4 +1,4 @@
-{
+﻿{
   "components": {
     "combat_offensive": [
       "attacks", "strikes", "slashes", "stabs", "pierces",
@@ -50,4 +50,7 @@
       "communication": 9
     }
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for general verbs. Used as component source in name generation and stat calculations."
+  }}

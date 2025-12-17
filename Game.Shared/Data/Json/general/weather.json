@@ -1,4 +1,4 @@
-{
+﻿{
   "components": {
     "precipitation": [
       "clear", "rainy", "drizzling", "snowy", "sleeting",
@@ -50,4 +50,7 @@
       "special": 9
     }
   }
-}
+,
+  "notes": {
+    "usage": "Reference data for general weather. Used as component source in name generation and stat calculations."
+  }}

@@ -1,4 +1,4 @@
-{
+﻿{
   "items": [
     {
       "name": "theThorned",
@@ -118,4 +118,7 @@
     "Mystical naming (the Radiant, the World Tree)",
     "Guardian role (the Forest Guardian)"
   ]
-}
+,
+  "notes": {
+    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+  }}
