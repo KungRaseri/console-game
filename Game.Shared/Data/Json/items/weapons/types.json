@@ -4,8 +4,9 @@
     "version": "1.0",
     "last_updated": "2025-12-16",
     "type": "item_catalog",
-    "total_weapon_types": 7,
-    "total_weapons": 59
+    "total_weapon_types": 6,
+    "total_weapons": 69,
+    "usage": "Base catalog of weapons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
   },
   "weapon_types": {
     "swords": {
@@ -139,7 +140,4 @@
       ]
     }
   }
-,
-  "notes": {
-    "usage": "Base catalog of weapons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-  }}
+}

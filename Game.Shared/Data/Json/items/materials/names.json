@@ -1,4 +1,23 @@
 {
+  "metadata": {
+    "description": "Comprehensive material name components for pattern-based item generation across all material types",
+    "version": "3.0",
+    "last_updated": "2025-12-17",
+    "type": "pattern_components",
+    "component_keys": ["metals", "leathers", "woods", "gemstones", "magical", "qualities", "fabrics"],
+    "pattern_tokens": ["material", "quality", "base"],
+    "total_patterns": 6,
+    "total_components": 91,
+    "usage": "Material name components for pattern-based generation. Use 'material' token in patterns to pick from these components. rarityWeight determines selection probability and contributes to final item rarity calculation.",
+    "examples": [
+      "Mithril Longsword (metals + base)",
+      "Flawless Ruby Ring (qualities + gemstones + base)",
+      "Dragon Leather Armor (leathers + base)",
+      "Elder Wood Bow (woods + base)",
+      "Divine-forged Plate (magical + pattern + base)",
+      "Silk Robe (fabrics + base)"
+    ]
+  },
   "components": {
     "metals": [
       { "value": "Iron", "rarityWeight": 5 },
@@ -116,26 +135,5 @@
     "material-crafted + base",
     "material-bound + base",
     "material-forged + base"
-  ],
-  "metadata": {
-    "description": "Comprehensive material name components for pattern-based item generation across all material types",
-    "version": "3.0",
-    "last_updated": "2025-12-16",
-    "type": "pattern_components",
-    "component_keys": ["metals", "leathers", "woods", "gemstones", "magical", "qualities", "fabrics"],
-    "pattern_tokens": ["material", "quality", "base"],
-    "total_patterns": 6,
-    "total_components": 91
-  },
-  "notes": {
-    "usage": "Material name components for pattern-based generation. Use 'material' token in patterns to pick from these components. rarityWeight determines selection probability and contributes to final item rarity calculation.",
-    "examples": [
-      "Mithril Longsword (metals + base)",
-      "Flawless Ruby Ring (qualities + gemstones + base)",
-      "Dragon Leather Armor (leathers + base)",
-      "Elder Wood Bow (woods + base)",
-      "Divine-forged Plate (magical + pattern + base)",
-      "Silk Robe (fabrics + base)"
-    ]
-  }
+  ]
 }

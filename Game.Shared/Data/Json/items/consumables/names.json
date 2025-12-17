@@ -26,7 +26,8 @@
       "All components have rarityWeight for emergent rarity calculation",
       "Traits define actual gameplay effects (healing power, duration, buffs, etc.)",
       "Trait merging: numbers take highest, strings take last, booleans use OR"
-    ]
+    ],
+    "usage": "Pattern-based name generation for consumables. Pick components by rarityWeight and apply patterns to generate procedural names with trait stacking."
   },
   "components": {
     "quality": [
@@ -682,8 +683,5 @@
       "weight": 8,
       "example": "Legendary Restoration Potion of the Dragon"
     }
-  ],
-  "notes": {
-    "usage": "Pattern-based name generation for consumables. Pick components by rarityWeight and apply patterns to generate procedural names with trait stacking."
-  }
+  ]
 }

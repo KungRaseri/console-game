@@ -5,7 +5,8 @@
     "last_updated": "2025-12-16",
     "type": "item_catalog",
     "total_armor_types": 7,
-    "total_pieces": 40
+    "total_pieces": 40,
+    "usage": "Base catalog of armor with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
   },
   "armor_types": {
     "head": {
@@ -118,7 +119,4 @@
       ]
     }
   }
-,
-  "notes": {
-    "usage": "Base catalog of armor with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-  }}
+}
