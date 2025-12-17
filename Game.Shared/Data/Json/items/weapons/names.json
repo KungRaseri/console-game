@@ -1,369 +1,369 @@
 ﻿{
-    "metadata":  {
-                     "description":  "Weapon name generation with pattern-based system and weight-based rarity",
-                     "version":  "3.0",
-                     "last_updated":  "2025-12-16",
-                     "type":  "pattern_generation",
-                     "weapon_types":  7,
-                     "component_keys":  [
-                                            "material",
-                                            "quality",
-                                            "descriptive",
-                                            "enchantment",
-                                            "title"
-                                        ],
-                     "pattern_tokens":  [
-                                            "base",
-                                            "material",
-                                            "quality",
-                                            "descriptive",
-                                            "enchantment",
-                                            "title"
-                                        ],
-                     "total_patterns":  11,
-                     "rarity_system":  "weight-based",
-                     "notes":  [
-                                   "Base token resolves from items/weapons/types.json",
-                                   "All components have rarityWeight for emergent rarity calculation",
-                                   "Component weights combine via multipliers from general/rarity_config.json"
-                               ]
-                 },
-    "components":  {
-                       "material":  [
-                                        {
-                                            "value":  "Iron",
-                                            "rarityWeight":  10
-                                        },
-                                        {
-                                            "value":  "Steel",
-                                            "rarityWeight":  20
-                                        },
-                                        {
-                                            "value":  "Mithril",
-                                            "rarityWeight":  50
-                                        },
-                                        {
-                                            "value":  "Adamantine",
-                                            "rarityWeight":  80
-                                        },
-                                        {
-                                            "value":  "Silver",
-                                            "rarityWeight":  30
-                                        },
-                                        {
-                                            "value":  "Elven",
-                                            "rarityWeight":  60
-                                        },
-                                        {
-                                            "value":  "Dwarven",
-                                            "rarityWeight":  55
-                                        },
-                                        {
-                                            "value":  "Orcish",
-                                            "rarityWeight":  25
-                                        },
-                                        {
-                                            "value":  "Daedric",
-                                            "rarityWeight":  90
-                                        },
-                                        {
-                                            "value":  "Glass",
-                                            "rarityWeight":  45
-                                        },
-                                        {
-                                            "value":  "Dragonbone",
-                                            "rarityWeight":  100
-                                        },
-                                        {
-                                            "value":  "Ebony",
-                                            "rarityWeight":  70
-                                        },
-                                        {
-                                            "value":  "Obsidian",
-                                            "rarityWeight":  40
-                                        },
-                                        {
-                                            "value":  "Crystal",
-                                            "rarityWeight":  65
-                                        },
-                                        {
-                                            "value":  "Runic",
-                                            "rarityWeight":  75
-                                        }
-                                    ],
-                       "quality":  [
-                                       {
-                                           "value":  "Fine",
-                                           "rarityWeight":  15
-                                       },
-                                       {
-                                           "value":  "Superior",
-                                           "rarityWeight":  25
-                                       },
-                                       {
-                                           "value":  "Exceptional",
-                                           "rarityWeight":  35
-                                       },
-                                       {
-                                           "value":  "Masterwork",
-                                           "rarityWeight":  50
-                                       },
-                                       {
-                                           "value":  "Legendary",
-                                           "rarityWeight":  80
-                                       },
-                                       {
-                                           "value":  "Ruined",
-                                           "rarityWeight":  5
-                                       },
-                                       {
-                                           "value":  "Worn",
-                                           "rarityWeight":  8
-                                       },
-                                       {
-                                           "value":  "Sharpened",
-                                           "rarityWeight":  12
-                                       },
-                                       {
-                                           "value":  "Balanced",
-                                           "rarityWeight":  18
-                                       },
-                                       {
-                                           "value":  "Blessed",
-                                           "rarityWeight":  45
-                                       }
-                                   ],
-                       "descriptive":  [
-                                           {
-                                               "value":  "Ancient",
-                                               "rarityWeight":  40
-                                           },
-                                           {
-                                               "value":  "Enchanted",
-                                               "rarityWeight":  35
-                                           },
-                                           {
-                                               "value":  "Cursed",
-                                               "rarityWeight":  30
-                                           },
-                                           {
-                                               "value":  "Holy",
-                                               "rarityWeight":  50
-                                           },
-                                           {
-                                               "value":  "Demonic",
-                                               "rarityWeight":  55
-                                           },
-                                           {
-                                               "value":  "Flaming",
-                                               "rarityWeight":  35
-                                           },
-                                           {
-                                               "value":  "Frozen",
-                                               "rarityWeight":  35
-                                           },
-                                           {
-                                               "value":  "Lightning",
-                                               "rarityWeight":  38
-                                           },
-                                           {
-                                               "value":  "Venomous",
-                                               "rarityWeight":  32
-                                           },
-                                           {
-                                               "value":  "Ethereal",
-                                               "rarityWeight":  60
-                                           }
-                                       ],
-                       "enchantment":  [
-                                           {
-                                               "value":  "of Slaying",
-                                               "rarityWeight":  30
-                                           },
-                                           {
-                                               "value":  "of Sharpness",
-                                               "rarityWeight":  25
-                                           },
-                                           {
-                                               "value":  "of Power",
-                                               "rarityWeight":  35
-                                           },
-                                           {
-                                               "value":  "of Speed",
-                                               "rarityWeight":  28
-                                           },
-                                           {
-                                               "value":  "of Accuracy",
-                                               "rarityWeight":  22
-                                           },
-                                           {
-                                               "value":  "of Fire",
-                                               "rarityWeight":  30
-                                           },
-                                           {
-                                               "value":  "of Ice",
-                                               "rarityWeight":  30
-                                           },
-                                           {
-                                               "value":  "of Lightning",
-                                               "rarityWeight":  32
-                                           },
-                                           {
-                                               "value":  "of Venom",
-                                               "rarityWeight":  28
-                                           },
-                                           {
-                                               "value":  "of Destruction",
-                                               "rarityWeight":  50
-                                           }
-                                       ],
-                       "title":  [
-                                     {
-                                         "value":  "of the Warrior",
-                                         "rarityWeight":  40
-                                     },
-                                     {
-                                         "value":  "of the Hero",
-                                         "rarityWeight":  60
-                                     },
-                                     {
-                                         "value":  "of the Champion",
-                                         "rarityWeight":  70
-                                     },
-                                     {
-                                         "value":  "of the Dragon",
-                                         "rarityWeight":  80
-                                     },
-                                     {
-                                         "value":  "of the Phoenix",
-                                         "rarityWeight":  75
-                                     },
-                                     {
-                                         "value":  "of the Ancients",
-                                         "rarityWeight":  65
-                                     },
-                                     {
-                                         "value":  "of the Gods",
-                                         "rarityWeight":  90
-                                     },
-                                     {
-                                         "value":  "of the Titans",
-                                         "rarityWeight":  85
-                                     },
-                                     {
-                                         "value":  "of the Elements",
-                                         "rarityWeight":  55
-                                     },
-                                     {
-                                         "value":  "of Legends",
-                                         "rarityWeight":  95
-                                     }
-                                 ],
-                       "weapon_types":  {
-                                            "swords":  [
-                                                           "Longsword",
-                                                           "Shortsword",
-                                                           "Greatsword",
-                                                           "Scimitar",
-                                                           "Rapier",
-                                                           "Katana",
-                                                           "Broadsword",
-                                                           "Claymore",
-                                                           "Saber",
-                                                           "Gladius"
-                                                       ],
-                                            "axes":  [
-                                                         "Battleaxe",
-                                                         "Handaxe",
-                                                         "Greataxe",
-                                                         "Waraxe",
-                                                         "Hatchet",
-                                                         "Tomahawk",
-                                                         "Cleaver",
-                                                         "Poleaxe"
-                                                     ],
-                                            "bows":  [
-                                                         "Longbow",
-                                                         "Shortbow",
-                                                         "Composite Bow",
-                                                         "Recurve Bow",
-                                                         "Crossbow",
-                                                         "Heavy Crossbow",
-                                                         "Warbow",
-                                                         "Hunting Bow"
-                                                     ],
-                                            "daggers":  [
-                                                            "Dagger",
-                                                            "Dirk",
-                                                            "Stiletto",
-                                                            "Kris",
-                                                            "Tanto",
-                                                            "Kukri",
-                                                            "Rondel",
-                                                            "Main Gauche"
-                                                        ],
-                                            "spears":  [
-                                                           "Spear",
-                                                           "Lance",
-                                                           "Javelin",
-                                                           "Pike",
-                                                           "Halberd",
-                                                           "Trident",
-                                                           "Partisan",
-                                                           "Glaive"
-                                                       ],
-                                            "maces":  [
-                                                          "Mace",
-                                                          "Warhammer",
-                                                          "Flail",
-                                                          "Morning Star",
-                                                          "Club",
-                                                          "Maul",
-                                                          "Cudgel",
-                                                          "Scepter"
-                                                      ],
-                                            "staves":  [
-                                                           "Staff",
-                                                           "Quarterstaff",
-                                                           "War Staff",
-                                                           "Battle Staff",
-                                                           "Rod",
-                                                           "Scepter Staff"
-                                                       ]
-                                        },
-                       "weapon_categories":  {
-                                                 "melee_one_handed":  [
-                                                                          "swords",
-                                                                          "axes",
-                                                                          "maces",
-                                                                          "daggers"
-                                                                      ],
-                                                 "melee_two_handed":  [
-                                                                          "greatswords",
-                                                                          "greataxes",
-                                                                          "polearms",
-                                                                          "staves"
-                                                                      ],
-                                                 "ranged":  [
-                                                                "bows",
-                                                                "crossbows"
-                                                            ]
-                                             }
-                   },
-    "patterns":  [
-                     "base",
-                     "material + base",
-                     "quality + base",
-                     "descriptive + base",
-                     "quality + material + base",
-                     "descriptive + material + base",
-                     "base + enchantment",
-                     "base + title",
-                     "material + base + enchantment",
-                     "quality + material + base + enchantment",
-                     "descriptive + base + title"
-                 ],
-    "notes":  {
-                  "usage":  "Pattern-based name generation for weapons. Pick components by rarityWeight and apply patterns to generate procedural names."
-              }
+    "metadata": {
+        "description": "Weapon name generation with pattern-based system and weight-based rarity",
+        "version": "3.0",
+        "last_updated": "2025-12-16",
+        "type": "pattern_generation",
+        "weapon_types": 7,
+        "component_keys": [
+            "material",
+            "quality",
+            "descriptive",
+            "enchantment",
+            "title"
+        ],
+        "pattern_tokens": [
+            "base",
+            "material",
+            "quality",
+            "descriptive",
+            "enchantment",
+            "title"
+        ],
+        "total_patterns": 11,
+        "rarity_system": "weight-based",
+        "notes": [
+            "Base token resolves from items/weapons/types.json",
+            "All components have rarityWeight for emergent rarity calculation",
+            "Component weights combine via multipliers from general/rarity_config.json"
+        ]
+    },
+    "components": {
+        "material": [
+            {
+                "value": "Iron",
+                "rarityWeight": 10
+            },
+            {
+                "value": "Steel",
+                "rarityWeight": 20
+            },
+            {
+                "value": "Mithril",
+                "rarityWeight": 50
+            },
+            {
+                "value": "Adamantine",
+                "rarityWeight": 80
+            },
+            {
+                "value": "Silver",
+                "rarityWeight": 30
+            },
+            {
+                "value": "Elven",
+                "rarityWeight": 60
+            },
+            {
+                "value": "Dwarven",
+                "rarityWeight": 55
+            },
+            {
+                "value": "Orcish",
+                "rarityWeight": 25
+            },
+            {
+                "value": "Daedric",
+                "rarityWeight": 90
+            },
+            {
+                "value": "Glass",
+                "rarityWeight": 45
+            },
+            {
+                "value": "Dragonbone",
+                "rarityWeight": 100
+            },
+            {
+                "value": "Ebony",
+                "rarityWeight": 70
+            },
+            {
+                "value": "Obsidian",
+                "rarityWeight": 40
+            },
+            {
+                "value": "Crystal",
+                "rarityWeight": 65
+            },
+            {
+                "value": "Runic",
+                "rarityWeight": 75
+            }
+        ],
+        "quality": [
+            {
+                "value": "Fine",
+                "rarityWeight": 15
+            },
+            {
+                "value": "Superior",
+                "rarityWeight": 25
+            },
+            {
+                "value": "Exceptional",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Masterwork",
+                "rarityWeight": 50
+            },
+            {
+                "value": "Legendary",
+                "rarityWeight": 80
+            },
+            {
+                "value": "Ruined",
+                "rarityWeight": 5
+            },
+            {
+                "value": "Worn",
+                "rarityWeight": 8
+            },
+            {
+                "value": "Sharpened",
+                "rarityWeight": 12
+            },
+            {
+                "value": "Balanced",
+                "rarityWeight": 18
+            },
+            {
+                "value": "Blessed",
+                "rarityWeight": 45
+            }
+        ],
+        "descriptive": [
+            {
+                "value": "Ancient",
+                "rarityWeight": 40
+            },
+            {
+                "value": "Enchanted",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Cursed",
+                "rarityWeight": 30
+            },
+            {
+                "value": "Holy",
+                "rarityWeight": 50
+            },
+            {
+                "value": "Demonic",
+                "rarityWeight": 55
+            },
+            {
+                "value": "Flaming",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Frozen",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Lightning",
+                "rarityWeight": 38
+            },
+            {
+                "value": "Venomous",
+                "rarityWeight": 32
+            },
+            {
+                "value": "Ethereal",
+                "rarityWeight": 60
+            }
+        ],
+        "enchantment": [
+            {
+                "value": "of Slaying",
+                "rarityWeight": 30
+            },
+            {
+                "value": "of Sharpness",
+                "rarityWeight": 25
+            },
+            {
+                "value": "of Power",
+                "rarityWeight": 35
+            },
+            {
+                "value": "of Speed",
+                "rarityWeight": 28
+            },
+            {
+                "value": "of Accuracy",
+                "rarityWeight": 22
+            },
+            {
+                "value": "of Fire",
+                "rarityWeight": 30
+            },
+            {
+                "value": "of Ice",
+                "rarityWeight": 30
+            },
+            {
+                "value": "of Lightning",
+                "rarityWeight": 32
+            },
+            {
+                "value": "of Venom",
+                "rarityWeight": 28
+            },
+            {
+                "value": "of Destruction",
+                "rarityWeight": 50
+            }
+        ],
+        "title": [
+            {
+                "value": "of the Warrior",
+                "rarityWeight": 40
+            },
+            {
+                "value": "of the Hero",
+                "rarityWeight": 60
+            },
+            {
+                "value": "of the Champion",
+                "rarityWeight": 70
+            },
+            {
+                "value": "of the Dragon",
+                "rarityWeight": 80
+            },
+            {
+                "value": "of the Phoenix",
+                "rarityWeight": 75
+            },
+            {
+                "value": "of the Ancients",
+                "rarityWeight": 65
+            },
+            {
+                "value": "of the Gods",
+                "rarityWeight": 90
+            },
+            {
+                "value": "of the Titans",
+                "rarityWeight": 85
+            },
+            {
+                "value": "of the Elements",
+                "rarityWeight": 55
+            },
+            {
+                "value": "of Legends",
+                "rarityWeight": 95
+            }
+        ],
+        "weapon_types": {
+            "swords": [
+                "Longsword",
+                "Shortsword",
+                "Greatsword",
+                "Scimitar",
+                "Rapier",
+                "Katana",
+                "Broadsword",
+                "Claymore",
+                "Saber",
+                "Gladius"
+            ],
+            "axes": [
+                "Battleaxe",
+                "Handaxe",
+                "Greataxe",
+                "Waraxe",
+                "Hatchet",
+                "Tomahawk",
+                "Cleaver",
+                "Poleaxe"
+            ],
+            "bows": [
+                "Longbow",
+                "Shortbow",
+                "Composite Bow",
+                "Recurve Bow",
+                "Crossbow",
+                "Heavy Crossbow",
+                "Warbow",
+                "Hunting Bow"
+            ],
+            "daggers": [
+                "Dagger",
+                "Dirk",
+                "Stiletto",
+                "Kris",
+                "Tanto",
+                "Kukri",
+                "Rondel",
+                "Main Gauche"
+            ],
+            "spears": [
+                "Spear",
+                "Lance",
+                "Javelin",
+                "Pike",
+                "Halberd",
+                "Trident",
+                "Partisan",
+                "Glaive"
+            ],
+            "maces": [
+                "Mace",
+                "Warhammer",
+                "Flail",
+                "Morning Star",
+                "Club",
+                "Maul",
+                "Cudgel",
+                "Scepter"
+            ],
+            "staves": [
+                "Staff",
+                "Quarterstaff",
+                "War Staff",
+                "Battle Staff",
+                "Rod",
+                "Scepter Staff"
+            ]
+        },
+        "weapon_categories": {
+            "melee_one_handed": [
+                "swords",
+                "axes",
+                "maces",
+                "daggers"
+            ],
+            "melee_two_handed": [
+                "greatswords",
+                "greataxes",
+                "polearms",
+                "staves"
+            ],
+            "ranged": [
+                "bows",
+                "crossbows"
+            ]
+        }
+    },
+    "patterns": [
+        "base",
+        "material + base",
+        "quality + base",
+        "descriptive + base",
+        "quality + material + base",
+        "descriptive + material + base",
+        "base + enchantment",
+        "base + title",
+        "material + base + enchantment",
+        "quality + material + base + enchantment",
+        "descriptive + base + title"
+    ],
+    "notes": {
+        "usage": "Pattern-based name generation for weapons. Pick components by rarityWeight and apply patterns to generate procedural names."
+    }
 }

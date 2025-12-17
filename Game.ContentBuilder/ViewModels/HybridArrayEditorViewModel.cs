@@ -29,6 +29,10 @@ public partial class HybridArrayEditorViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<PatternItem> _patterns = new();
 
+    // Track whether this file type has items (some files like names.json don't have items)
+    [ObservableProperty]
+    private bool _hasItemsArray = true;
+
     [ObservableProperty]
     private string? _selectedItem;
 
@@ -75,6 +79,11 @@ public partial class HybridArrayEditorViewModel : ObservableObject
 
     [ObservableProperty]
     private int _totalPatternsCount;
+
+    // Selected tab index (0=Items, 1=Components, 2=Patterns)
+    // For pattern_generation files (no items), default to Components tab (index 1)
+    [ObservableProperty]
+    private int _selectedTabIndex;
 
     #region Metadata Properties
 
@@ -127,9 +136,18 @@ public partial class HybridArrayEditorViewModel : ObservableObject
             _itemsData = data["items"] as JArray;
             _componentsData = data["components"] as JObject;
 
-            // Load items array
-            if (data["items"] is JArray itemsArray)
+            // Determine if this file type has items array
+            // Pattern generation files (names.json) don't have items - base token resolves from types.json
+            var metadataType = data["metadata"]?["type"]?.ToString() ?? data["_metadata"]?["type"]?.ToString();
+            HasItemsArray = metadataType != "pattern_generation" && metadataType != "component_library";
+
+            // Set default tab: Components tab (1) for pattern_generation files, Items tab (0) for others
+            SelectedTabIndex = HasItemsArray ? 0 : 1;
+
+            // Load items array (if present)
+            if (data["items"] is JArray itemsArray && itemsArray.Count > 0)
             {
+                HasItemsArray = true; // Override if items actually exist
                 foreach (var item in itemsArray)
                 {
                     if (item.Type == JTokenType.String)
@@ -142,6 +160,11 @@ public partial class HybridArrayEditorViewModel : ObservableObject
                         Items.Add(item.ToString(Formatting.None));
                     }
                 }
+            }
+            else
+            {
+                // No items in file - likely a pattern generation file
+                HasItemsArray = false;
             }
 
             // Load components object
@@ -161,7 +184,22 @@ public partial class HybridArrayEditorViewModel : ObservableObject
                             }
                             else if (component.Type == JTokenType.Object)
                             {
-                                componentList.Add(component.ToString(Formatting.None));
+                                // Handle object components (e.g., {value: "Iron", rarityWeight: 10})
+                                var obj = component as JObject;
+                                
+                                // Try to get the display value
+                                if (obj?["value"] != null)
+                                {
+                                    // Weight-based component: display as "Value (weight: N)"
+                                    var value = obj["value"]?.ToString();
+                                    var weight = obj["rarityWeight"]?.ToString();
+                                    componentList.Add(weight != null ? $"{value} (weight: {weight})" : value ?? "");
+                                }
+                                else
+                                {
+                                    // Unknown structure: show as JSON
+                                    componentList.Add(component.ToString(Formatting.None));
+                                }
                             }
                         }
                     }
@@ -245,28 +283,31 @@ public partial class HybridArrayEditorViewModel : ObservableObject
         {
             var data = new JObject();
 
-            // Save items array
-            var itemsArray = new JArray();
-            foreach (var item in Items)
+            // Save items array (only if not empty)
+            if (Items.Count > 0)
             {
-                // Try to parse as JSON object, otherwise treat as string
-                if (item.TrimStart().StartsWith("{"))
+                var itemsArray = new JArray();
+                foreach (var item in Items)
                 {
-                    try
+                    // Try to parse as JSON object, otherwise treat as string
+                    if (item.TrimStart().StartsWith('{'))
                     {
-                        itemsArray.Add(JObject.Parse(item));
+                        try
+                        {
+                            itemsArray.Add(JObject.Parse(item));
+                        }
+                        catch
+                        {
+                            itemsArray.Add(item);
+                        }
                     }
-                    catch
+                    else
                     {
                         itemsArray.Add(item);
                     }
                 }
-                else
-                {
-                    itemsArray.Add(item);
-                }
+                data["items"] = itemsArray;
             }
-            data["items"] = itemsArray;
 
             // Save components object
             var componentsObj = new JObject();

@@ -112,8 +112,13 @@ public class PatternExampleGenerator
 
         if (item.Type == JTokenType.Object)
         {
-            // Try to get a name or displayName property
             var obj = item as JObject;
+            
+            // Try weight-based component format first: {value: "Iron", rarityWeight: 10}
+            if (obj?["value"] != null)
+                return obj["value"]?.ToString();
+            
+            // Try to get a name or displayName property
             if (obj?["name"] != null)
                 return obj["name"]?.ToString();
             if (obj?["displayName"] != null)

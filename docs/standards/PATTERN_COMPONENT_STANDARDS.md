@@ -271,9 +271,257 @@ Different file types have different structures based on their purpose:
 
 ---
 
-#### 3. prefixes.json / suffixes.json - Stat Modifiers
+#### 3. names.json - Unified Naming with Traits (RECOMMENDED v4.0+)
 
-**Purpose:** Item modifiers with stat bonuses/penalties
+**Purpose:** **Unified pattern-based name generation with prefix/suffix support and trait assignment**
+
+**Philosophy:** Merge prefixes, suffixes, and base names into a single file. Traits are assigned to components and applied when patterns are resolved.
+
+**Structure:**
+
+```json
+{
+  "components": {
+    "prefix": [
+      {
+        "value": "Component Name",
+        "rarityWeight": 50,
+        "traits": {
+          "stat1": { "value": 5, "type": "number" },
+          "stat2": { "value": "text", "type": "string" }
+        }
+      }
+    ],
+    "material": [...],
+    "quality": [...],
+    "suffix": [...]
+  },
+  "patterns": [
+    {
+      "pattern": "base",
+      "weight": 100,
+      "example": "Longsword"
+    },
+    {
+      "pattern": "prefix + material + base + suffix",
+      "weight": 10,
+      "example": "Blessed Mithril Longsword of Fire"
+    }
+  ],
+  "metadata": {
+    "description": "Unified naming system with traits",
+    "version": "4.0",
+    "type": "pattern_generation",
+    "supports_traits": true,
+    "component_keys": ["prefix", "material", "quality", "suffix"],
+    "pattern_tokens": ["base", "prefix", "material", "quality", "suffix"]
+  }
+}
+```
+
+**Component Structure:**
+
+Each component in ANY component group can have:
+- `value` (string, required) - The actual text (e.g., "Iron", "Blessed", "of Fire")
+- `rarityWeight` (number, required) - Rarity contribution (1-100, higher = rarer)
+- `traits` (object, optional) - Stat modifiers applied when this component is selected
+
+**Trait Object Format:**
+
+```json
+"traits": {
+  "durability": { "value": 100, "type": "number" },
+  "damageBonus": { "value": 5, "type": "number" },
+  "element": { "value": "fire", "type": "string" },
+  "isLegendary": { "value": true, "type": "boolean" }
+}
+```
+
+**Trait Types:**
+- `number` - Numeric stats (damage, durability, weight, etc.)
+- `string` - Text values (element types, categories, etc.)
+- `boolean` - Flags (isLegendary, isCursed, etc.)
+
+**Trait Merging Rules (when pattern has multiple components):**
+
+1. **Numbers**: Take HIGHEST value
+   - Example: durability 100 + durability 200 = durability 200
+2. **Strings**: LAST WINS (right-to-left in pattern)
+   - Example: element "fire" + element "ice" = element "ice"
+3. **Booleans**: OR logic (true if ANY component has true)
+   - Example: isCursed false + isCursed true = isCursed true
+4. **Arrays**: CONCAT unique values
+   - Example: tags ["melee"] + tags ["magic"] = tags ["melee", "magic"]
+
+**Example (weapons/names.json v4.0):**
+
+```json
+{
+  "components": {
+    "prefix": [
+      {
+        "value": "Rusty",
+        "rarityWeight": 50,
+        "traits": {
+          "durability": { "value": 50, "type": "number" },
+          "damageMultiplier": { "value": 0.8, "type": "number" }
+        }
+      },
+      {
+        "value": "Blessed",
+        "rarityWeight": 15,
+        "traits": {
+          "holyDamage": { "value": 5, "type": "number" },
+          "damageVsUndead": { "value": 10, "type": "number" }
+        }
+      }
+    ],
+    "material": [
+      {
+        "value": "Iron",
+        "rarityWeight": 10,
+        "traits": {
+          "weightMultiplier": { "value": 1.0, "type": "number" },
+          "durability": { "value": 100, "type": "number" }
+        }
+      },
+      {
+        "value": "Mithril",
+        "rarityWeight": 50,
+        "traits": {
+          "weightMultiplier": { "value": 0.5, "type": "number" },
+          "durability": { "value": 300, "type": "number" },
+          "damageBonus": { "value": 5, "type": "number" }
+        }
+      }
+    ],
+    "quality": [
+      {
+        "value": "Fine",
+        "rarityWeight": 15,
+        "traits": {
+          "durability": { "value": 120, "type": "number" }
+        }
+      }
+    ],
+    "suffix": [
+      {
+        "value": "of Slaying",
+        "rarityWeight": 50,
+        "traits": {
+          "damageBonus": { "value": 5, "type": "number" }
+        }
+      },
+      {
+        "value": "of Fire",
+        "rarityWeight": 30,
+        "traits": {
+          "fireDamage": { "value": 8, "type": "number" },
+          "element": { "value": "fire", "type": "string" }
+        }
+      }
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "base",
+      "weight": 100,
+      "example": "Longsword"
+    },
+    {
+      "pattern": "material + base",
+      "weight": 50,
+      "example": "Iron Longsword"
+    },
+    {
+      "pattern": "prefix + base",
+      "weight": 30,
+      "example": "Rusty Longsword"
+    },
+    {
+      "pattern": "base + suffix",
+      "weight": 30,
+      "example": "Longsword of Slaying"
+    },
+    {
+      "pattern": "material + base + suffix",
+      "weight": 20,
+      "example": "Mithril Longsword of Fire"
+    },
+    {
+      "pattern": "prefix + material + base + suffix",
+      "weight": 5,
+      "example": "Blessed Mithril Longsword of Fire"
+    }
+  ],
+  "metadata": {
+    "description": "Unified weapon naming with traits",
+    "version": "4.0",
+    "type": "pattern_generation",
+    "supports_traits": true,
+    "component_keys": ["prefix", "material", "quality", "suffix"],
+    "pattern_tokens": ["base", "prefix", "material", "quality", "suffix"],
+    "total_patterns": 6,
+    "notes": [
+      "Base token resolves from items/weapons/types.json",
+      "Traits are merged when pattern is resolved",
+      "Emergent rarity from combined component weights"
+    ]
+  }
+}
+```
+
+**Generated Name Example:**
+
+Pattern: `"prefix + material + base + suffix"` → `"Blessed Mithril Longsword of Fire"`
+
+**Applied Traits (merged):**
+
+```json
+{
+  "holyDamage": 5,           // from "Blessed" prefix
+  "damageVsUndead": 10,      // from "Blessed" prefix
+  "weightMultiplier": 0.5,   // from "Mithril" material
+  "durability": 300,         // from "Mithril" material (highest of 50, 100, 300)
+  "damageBonus": 5,          // from "Mithril" material
+  "fireDamage": 8,           // from "of Fire" suffix
+  "element": "fire"          // from "of Fire" suffix
+}
+```
+
+**Emergent Rarity Calculation:**
+
+- Blessed (weight 15) × Mithril (weight 50) × of Fire (weight 30) = Combined weight score
+- Maps to rarity tier via `general/rarity_config.json`
+- Result: **Epic** or **Legendary** tier item
+
+**Benefits of Unified System:**
+
+✅ **One file** instead of three (names.json, prefixes.json, suffixes.json)  
+✅ **Consistent structure** - All components use same format  
+✅ **Trait ownership** - Clear which component provides which stats  
+✅ **Pattern flexibility** - Same component can be prefix OR material in different patterns  
+✅ **Better ContentBuilder UX** - See all naming parts in one view  
+✅ **Emergent complexity** - Traits and rarity emerge from combinations  
+
+**Migration from v3.0 (separate files):**
+
+If you have existing separate prefix/suffix files:
+
+1. Add `prefix` and `suffix` component groups to names.json
+2. Convert prefix items: `{name, traits, rarityWeight}` → `{value, rarityWeight, traits}`
+3. Convert suffix items: same conversion
+4. Add patterns that use prefix/suffix tokens
+5. Mark old prefix/suffix files as deprecated
+6. Update metadata: `version: "4.0"`, `supports_traits: true`
+
+---
+
+#### 4. prefixes.json / suffixes.json - Stat Modifiers (LEGACY - Deprecated in v4.0+)
+
+**⚠️ NOTE:** This structure is **deprecated** as of v4.0. New implementations should use the unified naming system (see section 3 above).
+
+**Purpose:** Item modifiers with stat bonuses/penalties (legacy separate file approach)
 
 **Structure:**
 
@@ -283,21 +531,22 @@ Different file types have different structures based on their purpose:
     {
       "name": "internal_name",
       "displayName": "Display Name",
+      "rarityWeight": 50,
       "traits": {
-        "stat1": 5,
-        "stat2": "value",
-        "stat3": true
+        "stat1": { "value": 5, "type": "number" },
+        "stat2": { "value": "text", "type": "string" }
       }
     }
   ],
   "metadata": {
     "description": "Prefix/suffix modifiers",
-    "version": "1.0"
+    "version": "1.0",
+    "type": "prefix_modifier"
   }
 }
 ```
 
-**Example (weapons/prefixes.json):**
+**Example (weapons/prefixes.json - LEGACY):**
 
 ```json
 {
@@ -305,16 +554,18 @@ Different file types have different structures based on their purpose:
     {
       "name": "flaming",
       "displayName": "Flaming",
+      "rarityWeight": 30,
       "traits": {
-        "bonusDamage": 5,
-        "damageType": "fire",
-        "value": 50
+        "bonusDamage": { "value": 5, "type": "number" },
+        "damageType": { "value": "fire", "type": "string" },
+        "value": { "value": 50, "type": "number" }
       }
     }
   ],
   "metadata": {
     "description": "Weapon prefix modifiers",
-    "version": "1.0"
+    "version": "1.0",
+    "type": "prefix_modifier"
   }
 }
 ```

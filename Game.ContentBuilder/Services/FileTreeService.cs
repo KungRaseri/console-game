@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using Game.ContentBuilder.Models;
+using Newtonsoft.Json.Linq;
 using Serilog;
 
 namespace Game.ContentBuilder.Services;
@@ -225,43 +226,62 @@ public class FileTreeService
     {
         try
         {
-            // Read first few lines to determine structure
+            // Read file content to determine structure
             var fileContent = File.ReadAllText(filePath);
+            var data = JObject.Parse(fileContent);
             
-            // Quick heuristic checks based on content
-            if (fileContent.Contains("\"components\""))
+            // Check metadata type field first (most reliable)
+            var metadataType = data["metadata"]?["type"]?.ToString() ?? data["_metadata"]?["type"]?.ToString();
+            if (!string.IsNullOrEmpty(metadataType))
             {
-                // Enchantments or other component-based files
-                if (fileName.Contains("prefix", StringComparison.OrdinalIgnoreCase))
-                    return EditorType.ItemPrefix;
-                if (fileName.Contains("suffix", StringComparison.OrdinalIgnoreCase))
-                    return EditorType.ItemSuffix;
+                return metadataType.ToLowerInvariant() switch
+                {
+                    "pattern_generation" => EditorType.HybridArray, // names.json files
+                    "item_catalog" => EditorType.FlatItem, // types.json files (nested categories)
+                    "prefix_modifier" => EditorType.ItemPrefix,
+                    "suffix_modifier" => EditorType.ItemSuffix,
+                    "reference_data" => EditorType.HybridArray, // component libraries
+                    "component_library" => EditorType.HybridArray,
+                    _ => EditorType.HybridArray
+                };
+            }
+            
+            // Fallback to structure-based detection
+            
+            // Check for pattern generation files (names.json)
+            if (data["components"] != null && data["patterns"] != null)
+            {
                 return EditorType.HybridArray;
             }
             
-            if (fileContent.Contains("\"categories\""))
+            // Check for types.json structure (nested categories with items)
+            if (fileName.Equals("types.json", StringComparison.OrdinalIgnoreCase))
             {
-                // Name lists with categories
-                return EditorType.NameList;
+                // Has weapon_types, armor_types, enemy_types, etc.
+                foreach (var prop in data.Properties())
+                {
+                    if (prop.Name.EndsWith("_types") && prop.Value is JObject)
+                    {
+                        return EditorType.FlatItem; // Using FlatItem for now, could create TypesEditor later
+                    }
+                }
             }
             
-            if (fileName.Contains("prefix", StringComparison.OrdinalIgnoreCase))
+            // Check for prefix/suffix modifier files
+            if (data["items"] != null && fileName.Contains("prefix", StringComparison.OrdinalIgnoreCase))
             {
                 return EditorType.ItemPrefix;
             }
             
-            if (fileName.Contains("suffix", StringComparison.OrdinalIgnoreCase))
+            if (data["items"] != null && fileName.Contains("suffix", StringComparison.OrdinalIgnoreCase))
             {
                 return EditorType.ItemSuffix;
             }
             
-            // Check for flat item structure (materials, occupations, etc.)
-            if (fileContent.Contains("\"durability\"") || 
-                fileContent.Contains("\"hardness\"") ||
-                fileContent.Contains("\"income\"") ||
-                fileContent.Contains("\"socialStatus\""))
+            // Check for component-only files (reference data)
+            if (data["components"] != null && data["patterns"] == null && data["items"] == null)
             {
-                return EditorType.FlatItem;
+                return EditorType.HybridArray; // Component library
             }
             
             // Default to HybridArray for most files
