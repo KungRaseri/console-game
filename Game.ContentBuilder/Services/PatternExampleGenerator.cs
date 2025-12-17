@@ -46,6 +46,34 @@ public class PatternExampleGenerator
         }
     }
 
+    /// <summary>
+    /// Generate multiple unique examples for a pattern (for preview)
+    /// </summary>
+    public static List<string> GenerateMultipleExamples(string pattern, JArray? items, JObject? components, int count = 5)
+    {
+        var examples = new HashSet<string>(); // Use HashSet to avoid duplicates
+        var maxAttempts = count * 10; // Try up to 10x the requested count to find unique examples
+        var attempts = 0;
+
+        while (examples.Count < count && attempts < maxAttempts)
+        {
+            attempts++;
+            var example = GenerateExample(pattern, items, components);
+            
+            // Only add if it's not a placeholder/error message
+            if (!string.IsNullOrWhiteSpace(example) && 
+                !example.Contains("(no data available)") && 
+                !example.Contains("(invalid pattern)") &&
+                !example.Contains("[") && // Skip placeholders like "[material?]"
+                !example.Contains("?]"))
+            {
+                examples.Add(example);
+            }
+        }
+
+        return examples.ToList();
+    }
+
     private static string? ResolveToken(string token, JArray? items, JObject? components)
     {
         var tokenLower = token.ToLowerInvariant();
@@ -55,7 +83,7 @@ public class PatternExampleGenerator
         {
             if (items != null && items.Count > 0)
             {
-                return GetFirstStringValue(items);
+                return GetRandomStringValue(items);
             }
             return "[no items]";
         }
@@ -63,26 +91,29 @@ public class PatternExampleGenerator
         // Direct component lookup (exact match)
         if (components != null && components[token] is JArray directArray && directArray.Count > 0)
         {
-            return GetFirstStringValue(directArray);
+            return GetRandomStringValue(directArray);
         }
 
         // Component not found - return placeholder
         return $"[{token}?]";
     }
 
-    private static string? GetFirstStringValue(JArray array)
+    private static string? GetRandomStringValue(JArray array)
     {
-        var first = array.FirstOrDefault();
-        if (first == null)
+        if (array.Count == 0)
             return null;
 
-        if (first.Type == JTokenType.String)
-            return first.ToString();
+        // Pick a random item from the array
+        var randomIndex = Random.Shared.Next(0, array.Count);
+        var item = array[randomIndex];
 
-        if (first.Type == JTokenType.Object)
+        if (item.Type == JTokenType.String)
+            return item.ToString();
+
+        if (item.Type == JTokenType.Object)
         {
             // Try to get a name or displayName property
-            var obj = first as JObject;
+            var obj = item as JObject;
             if (obj?["name"] != null)
                 return obj["name"]?.ToString();
             if (obj?["displayName"] != null)
@@ -93,6 +124,6 @@ public class PatternExampleGenerator
             return firstProp?.Value?.ToString();
         }
 
-        return first.ToString();
+        return item.ToString();
     }
 }

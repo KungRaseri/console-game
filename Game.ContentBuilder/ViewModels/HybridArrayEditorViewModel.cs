@@ -52,6 +52,12 @@ public partial class HybridArrayEditorViewModel : ObservableObject
     private string _newPatternInput = string.Empty;
 
     [ObservableProperty]
+    private ValidationResult? _newPatternValidation;
+
+    [ObservableProperty]
+    private ObservableCollection<string> _liveExamples = new();
+
+    [ObservableProperty]
     private string _newComponentGroupName = string.Empty;
 
     [ObservableProperty]
@@ -168,7 +174,7 @@ public partial class HybridArrayEditorViewModel : ObservableObject
                 }
             }
 
-            // Load patterns array with examples
+            // Load patterns array with examples and validation
             if (data["patterns"] is JArray patternsArray)
             {
                 foreach (var pattern in patternsArray)
@@ -176,8 +182,9 @@ public partial class HybridArrayEditorViewModel : ObservableObject
                     if (pattern.Type == JTokenType.String)
                     {
                         var patternStr = pattern.ToString();
+                        var validation = PatternValidator.Validate(patternStr, ComponentGroups);
                         var example = PatternExampleGenerator.GenerateExample(patternStr, _itemsData, _componentsData);
-                        Patterns.Add(new PatternItem(patternStr, example));
+                        Patterns.Add(new PatternItem(patternStr, example, validation));
                     }
                 }
             }
@@ -424,21 +431,63 @@ public partial class HybridArrayEditorViewModel : ObservableObject
 
     #region Patterns Commands
 
+    // Real-time validation and live examples as user types
+    partial void OnNewPatternInputChanged(string value)
+    {
+        // Validate pattern
+        NewPatternValidation = PatternValidator.Validate(value, ComponentGroups);
+        
+        // Generate live examples
+        GenerateLiveExamples();
+    }
+
+    private void GenerateLiveExamples()
+    {
+        if (string.IsNullOrWhiteSpace(NewPatternInput))
+        {
+            LiveExamples.Clear();
+            return;
+        }
+
+        var examples = PatternExampleGenerator.GenerateMultipleExamples(
+            NewPatternInput,
+            _itemsData,
+            _componentsData,
+            count: 5
+        );
+
+        LiveExamples.Clear();
+        foreach (var example in examples)
+        {
+            LiveExamples.Add(example);
+        }
+    }
+
+    [RelayCommand]
+    private void RefreshExamples()
+    {
+        GenerateLiveExamples();
+    }
+
     [RelayCommand(CanExecute = nameof(CanAddPattern))]
     private void AddPattern()
     {
         if (!string.IsNullOrWhiteSpace(NewPatternInput))
         {
             var patternStr = NewPatternInput.Trim();
+            var validation = PatternValidator.Validate(patternStr, ComponentGroups);
             var example = PatternExampleGenerator.GenerateExample(patternStr, _itemsData, _componentsData);
-            Patterns.Add(new PatternItem(patternStr, example));
+            Patterns.Add(new PatternItem(patternStr, example, validation));
             NewPatternInput = string.Empty;
+            LiveExamples.Clear(); // Clear examples when pattern is added
             UpdateCounts();
             StatusMessage = $"Added pattern. Total: {Patterns.Count}";
         }
     }
 
-    private bool CanAddPattern() => !string.IsNullOrWhiteSpace(NewPatternInput);
+    private bool CanAddPattern() => 
+        !string.IsNullOrWhiteSpace(NewPatternInput) &&
+        (NewPatternValidation == null || NewPatternValidation.Level != ValidationLevel.Error);
 
     [RelayCommand]
     private void DeletePattern(PatternItem? pattern)

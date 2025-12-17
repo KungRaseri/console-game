@@ -295,29 +295,140 @@
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Add Pattern -->
+                    <!-- Add Pattern with Validation -->
                     <materialDesign:Card Grid.Row="0" Padding="16" Margin="0,0,0,16">
-                        <DockPanel>
-                            <Button DockPanel.Dock="Right" 
-                                    Command="{Binding AddPatternCommand}"
-                                    Style="{StaticResource MaterialDesignRaisedButton}"
-                                    Margin="8,0,0,0">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Plus" Margin="0,0,4,0"/>
-                                    <TextBlock Text="Add"/>
-                                </StackPanel>
-                            </Button>
-                            <TextBox Text="{Binding NewPatternInput, UpdateSourceTrigger=PropertyChanged}"
-                                     materialDesign:HintAssist.Hint="New pattern (e.g., 'modifier + base_color')..."
-                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-                        </DockPanel>
+                        <StackPanel>
+                            <!-- Pattern Input with Validation Icon -->
+                            <DockPanel Margin="0,0,0,8">
+                                <Button DockPanel.Dock="Right" 
+                                        Command="{Binding AddPatternCommand}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Margin="8,0,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Plus" Margin="0,0,4,0"/>
+                                        <TextBlock Text="Add"/>
+                                    </StackPanel>
+                                </Button>
+                                
+                                <!-- Validation Icon in TextBox -->
+                                <Grid>
+                                    <TextBox Text="{Binding NewPatternInput, UpdateSourceTrigger=PropertyChanged}"
+                                             materialDesign:HintAssist.Hint="New pattern (e.g., 'material + base')..."
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                             Padding="8,8,40,8"/>
+                                    
+                                    <!-- Validation Icon Overlay -->
+                                    <materialDesign:PackIcon HorizontalAlignment="Right" 
+                                                             VerticalAlignment="Center"
+                                                             Margin="0,0,12,0"
+                                                             Width="20"
+                                                             Height="20">
+                                        <materialDesign:PackIcon.Style>
+                                            <Style TargetType="materialDesign:PackIcon">
+                                                <Setter Property="Kind" Value="HelpCircle"/>
+                                                <Setter Property="Foreground" Value="Gray"/>
+                                                <Setter Property="ToolTip" Value="Enter a pattern to validate"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding NewPatternValidation.Level}" Value="Valid">
+                                                        <Setter Property="Kind" Value="CheckCircle"/>
+                                                        <Setter Property="Foreground" Value="Green"/>
+                                                        <Setter Property="ToolTip" Value="{Binding NewPatternValidation.Message}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding NewPatternValidation.Level}" Value="Warning">
+                                                        <Setter Property="Kind" Value="AlertCircle"/>
+                                                        <Setter Property="Foreground" Value="Orange"/>
+                                                        <Setter Property="ToolTip" Value="{Binding NewPatternValidation.Message}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding NewPatternValidation.Level}" Value="Error">
+                                                        <Setter Property="Kind" Value="CloseCircle"/>
+                                                        <Setter Property="Foreground" Value="Red"/>
+                                                        <Setter Property="ToolTip" Value="{Binding NewPatternValidation.Message}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </materialDesign:PackIcon.Style>
+                                    </materialDesign:PackIcon>
+                                </Grid>
+                            </DockPanel>
+                            
+                            <!-- Validation Message -->
+                            <TextBlock Margin="0,0,0,8"
+                                       FontSize="11"
+                                       TextWrapping="Wrap">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value=""/>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding NewPatternValidation.Level}" Value="Valid">
+                                                <Setter Property="Text" Value="{Binding NewPatternValidation.Message}"/>
+                                                <Setter Property="Foreground" Value="Green"/>
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding NewPatternValidation.Level}" Value="Warning">
+                                                <Setter Property="Text" Value="{Binding NewPatternValidation.Message}"/>
+                                                <Setter Property="Foreground" Value="Orange"/>
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding NewPatternValidation.Level}" Value="Error">
+                                                <Setter Property="Text" Value="{Binding NewPatternValidation.Message}"/>
+                                                <Setter Property="Foreground" Value="Red"/>
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
                     </materialDesign:Card>
 
-                    <!-- Patterns List -->
-                    <materialDesign:Card Grid.Row="1">
+                    <!-- Live Examples Preview -->
+                    <materialDesign:Card Grid.Row="1" Padding="16" Margin="0,0,0,16">
+                        <materialDesign:Card.Style>
+                            <Style TargetType="materialDesign:Card" BasedOn="{StaticResource {x:Type materialDesign:Card}}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding LiveExamples.Count, Converter={StaticResource GreaterThanZeroConverter}}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:Card.Style>
+                        
+                        <StackPanel>
+                            <DockPanel Margin="0,0,0,8">
+                                <Button DockPanel.Dock="Right"
+                                        Command="{Binding RefreshExamplesCommand}"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        ToolTip="Refresh examples">
+                                    <materialDesign:PackIcon Kind="Refresh"/>
+                                </Button>
+                                <TextBlock Text="Live Examples:" 
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center"/>
+                            </DockPanel>
+                            
+                            <ItemsControl ItemsSource="{Binding LiveExamples}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" 
+                                                   FontSize="11"
+                                                   Opacity="0.8"
+                                                   FontStyle="Italic"
+                                                   Margin="0,2"
+                                                   Foreground="{DynamicResource MaterialDesign.Brush.Primary}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <!-- Patterns List with Validation Icons -->
+                    <materialDesign:Card Grid.Row="2">
                         <Grid>
                             <ListBox ItemsSource="{Binding Patterns}"
                                      SelectedItem="{Binding SelectedPattern}">
@@ -325,11 +436,40 @@
                                     <DataTemplate>
                                         <Grid Margin="0,4">
                                             <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
                                             
-                                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                            <!-- Validation Icon -->
+                                            <materialDesign:PackIcon Grid.Column="0"
+                                                                     VerticalAlignment="Center"
+                                                                     Margin="0,0,8,0"
+                                                                     Width="16"
+                                                                     Height="16">
+                                                <materialDesign:PackIcon.Style>
+                                                    <Style TargetType="materialDesign:PackIcon">
+                                                        <Setter Property="Kind" Value="{Binding ValidationIcon}"/>
+                                                        <Setter Property="ToolTip" Value="{Binding ValidationResult.Message}"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ValidationColor}" Value="Green">
+                                                                <Setter Property="Foreground" Value="Green"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ValidationColor}" Value="Orange">
+                                                                <Setter Property="Foreground" Value="Orange"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ValidationColor}" Value="Red">
+                                                                <Setter Property="Foreground" Value="Red"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ValidationColor}" Value="Gray">
+                                                                <Setter Property="Foreground" Value="Gray"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </materialDesign:PackIcon.Style>
+                                            </materialDesign:PackIcon>
+                                            
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                                 <TextBlock Text="{Binding Pattern}" 
                                                            FontWeight="SemiBold"
                                                            TextWrapping="Wrap"
@@ -355,7 +495,7 @@
                                                 </TextBlock>
                                             </StackPanel>
                                             
-                                            <Button Grid.Column="1" 
+                                            <Button Grid.Column="2" 
                                                     Style="{StaticResource MaterialDesignIconButton}"
                                                     Command="{Binding DataContext.DeletePatternCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                                     CommandParameter="{Binding}"
