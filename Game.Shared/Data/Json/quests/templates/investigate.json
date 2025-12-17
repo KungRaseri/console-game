@@ -1,53 +1,105 @@
-{
-  "Easy": {
-    "FindClues": {
-      "displayName": "Find the Clues",
-      "traits": {
-        "questType": { "value": "investigate", "type": "string" },
-        "difficulty": { "value": "easy", "type": "string" },
-        "minClues": { "value": 3, "type": "number" },
-        "maxClues": { "value": 5, "type": "number" },
-        "baseGoldReward": { "value": 80, "type": "number" },
-        "baseXpReward": { "value": 150, "type": "number" },
-        "location": { "value": "Village", "type": "string" },
-        "combatOptional": { "value": true, "type": "boolean" },
-        "description": { "value": "Investigate the mysterious occurrences in {location}", "type": "string" }
-      }
-    }
+﻿{
+  "metadata": {
+    "version": "2.0",
+    "last_updated": "2025-01-27",
+    "type": "quest_templates_investigate",
+    "total_quests": 5,
+    "categories": ["easy_investigation", "medium_investigation", "hard_investigation"]
   },
-  "Medium": {
-    "SolveMystery": {
-      "displayName": "Solve the Mystery",
-      "traits": {
-        "questType": { "value": "investigate", "type": "string" },
-        "difficulty": { "value": "medium", "type": "string" },
-        "minClues": { "value": 5, "type": "number" },
-        "maxClues": { "value": 8, "type": "number" },
-        "baseGoldReward": { "value": 300, "type": "number" },
-        "baseXpReward": { "value": 550, "type": "number" },
-        "location": { "value": "Manor", "type": "string" },
-        "timeLimit": { "value": 72, "type": "number" },
-        "multipleEndings": { "value": true, "type": "boolean" },
-        "description": { "value": "Uncover the truth behind the strange events at {location}", "type": "string" }
+  "components": {
+    "easy_investigation": [
+      {
+        "name": "FindClues",
+        "displayName": "Find the Clues",
+        "rarityWeight": 15,
+        "questType": "investigate",
+        "difficulty": "easy",
+        "minClues": 3,
+        "maxClues": 5,
+        "baseGoldReward": 80,
+        "baseXpReward": 150,
+        "location": "Village",
+        "combatOptional": true,
+        "description": "Investigate the mysterious occurrences in {location}"
+      },
+      {
+        "name": "TrackThief",
+        "displayName": "Track the Thief",
+        "rarityWeight": 12,
+        "questType": "investigate",
+        "difficulty": "easy",
+        "minClues": 4,
+        "maxClues": 6,
+        "baseGoldReward": 100,
+        "baseXpReward": 180,
+        "location": "Town",
+        "combatOptional": true,
+        "description": "Follow the clues to catch the thief who stole from the market"
       }
-    }
+    ],
+    "medium_investigation": [
+      {
+        "name": "SolveMystery",
+        "displayName": "Solve the Mystery",
+        "rarityWeight": 35,
+        "questType": "investigate",
+        "difficulty": "medium",
+        "minClues": 5,
+        "maxClues": 8,
+        "baseGoldReward": 300,
+        "baseXpReward": 550,
+        "location": "Manor",
+        "timeLimit": 72,
+        "multipleEndings": true,
+        "description": "Uncover the truth behind the strange events at {location}"
+      },
+      {
+        "name": "InvestigateMurder",
+        "displayName": "Investigate the Murder",
+        "rarityWeight": 40,
+        "questType": "investigate",
+        "difficulty": "medium",
+        "minClues": 6,
+        "maxClues": 10,
+        "baseGoldReward": 350,
+        "baseXpReward": 650,
+        "location": "City",
+        "timeLimit": 48,
+        "multipleEndings": true,
+        "description": "Solve the murder case before the trail goes cold"
+      }
+    ],
+    "hard_investigation": [
+      {
+        "name": "UncoverConspiracy",
+        "displayName": "Uncover the Conspiracy",
+        "rarityWeight": 70,
+        "questType": "investigate",
+        "difficulty": "hard",
+        "minClues": 10,
+        "maxClues": 15,
+        "baseGoldReward": 900,
+        "baseXpReward": 2200,
+        "timeLimit": 96,
+        "stealth": 80,
+        "betrayal": true,
+        "legendary": true,
+        "description": "Expose the conspiracy threatening the kingdom"
+      }
+    ]
   },
-  "Hard": {
-    "UncoverConspiracy": {
-      "displayName": "Uncover the Conspiracy",
-      "traits": {
-        "questType": { "value": "investigate", "type": "string" },
-        "difficulty": { "value": "hard", "type": "string" },
-        "minClues": { "value": 10, "type": "number" },
-        "maxClues": { "value": 15, "type": "number" },
-        "baseGoldReward": { "value": 900, "type": "number" },
-        "baseXpReward": { "value": 2200, "type": "number" },
-        "timeLimit": { "value": 96, "type": "number" },
-        "stealth": { "value": 80, "type": "number" },
-        "betrayal": { "value": true, "type": "boolean" },
-        "legendary": { "value": true, "type": "boolean" },
-        "description": { "value": "Expose the conspiracy threatening the kingdom", "type": "string" }
-      }
-    }
+  "notes": {
+    "rarity_system": "Weight determines quest appearance probability - higher weight = rarer quests",
+    "component_keys": ["easy_investigation", "medium_investigation", "hard_investigation"],
+    "weight_ranges": {
+      "easy_investigation": "12-18 (Simple mysteries, 3-6 clues)",
+      "medium_investigation": "35-45 (Complex mysteries, time limits, multiple endings)",
+      "hard_investigation": "70+ (Conspiracies, stealth, betrayals)"
+    },
+    "usage": "Investigation quests involve gathering clues and solving mysteries. Easy investigations have few clues and optional combat, medium investigations feature time limits and multiple endings, hard investigations require stealth and may involve betrayals.",
+    "variables": ["{location}", "{suspect}", "{victim}", "{evidence}"],
+    "clues": "Number of clues to discover before quest conclusion",
+    "multiple_endings": "Quest outcome varies based on player choices and clues found",
+    "stealth": "Required stealth skill level to avoid detection during investigation"
   }
 }

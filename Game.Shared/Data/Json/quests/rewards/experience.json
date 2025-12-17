@@ -1,86 +1,136 @@
-{
-  "items": [
-    {
-      "name": "MinimalXP",
-      "displayName": "Minimal XP",
-      "description": "25-50 XP",
-      "amount": "25-50",
-      "tier": "Trivial"
-    },
-    {
-      "name": "SmallXP",
-      "displayName": "Small XP",
-      "description": "50-100 XP",
-      "amount": "50-100",
-      "tier": "Low"
-    },
-    {
-      "name": "ModerateXP",
-      "displayName": "Moderate XP",
-      "description": "100-250 XP",
-      "amount": "100-250",
-      "tier": "Medium"
-    },
-    {
-      "name": "GoodXP",
-      "displayName": "Good XP",
-      "description": "250-500 XP",
-      "amount": "250-500",
-      "tier": "High"
-    },
-    {
-      "name": "GreatXP",
-      "displayName": "Great XP",
-      "description": "500-1000 XP",
-      "amount": "500-1000",
-      "tier": "Very High"
-    },
-    {
-      "name": "ExcellentXP",
-      "displayName": "Excellent XP",
-      "description": "1000-2000 XP",
-      "amount": "1000-2000",
-      "tier": "Epic"
-    },
-    {
-      "name": "MassiveXP",
-      "displayName": "Massive XP",
-      "description": "2000-4000 XP",
-      "amount": "2000-4000",
-      "tier": "Legendary"
-    },
-    {
-      "name": "ColossalXP",
-      "displayName": "Colossal XP",
-      "description": "4000-8000 XP",
-      "amount": "4000-8000",
-      "tier": "Mythic"
-    },
-    {
-      "name": "LevelUpGuarantee",
-      "displayName": "Level Up Guarantee",
-      "description": "Enough XP to guarantee a level up",
-      "amount": "dynamic",
-      "tier": "Ancient"
-    }
-  ],
-  "components": {
-    "early_quests": ["MinimalXP", "SmallXP", "ModerateXP"],
-    "mid_quests": ["GoodXP", "GreatXP"],
-    "late_quests": ["ExcellentXP", "MassiveXP"],
-    "end_quests": ["ColossalXP", "LevelUpGuarantee"]
-  },
-  "patterns": [
-    "Scale XP with quest difficulty and player level",
-    "Formula: base_xp × difficulty_multiplier × (1 + player_level × 0.1)",
-    "Secondary objectives add 25-50% bonus XP",
-    "Hidden objectives add 50-100% bonus XP",
-    "First-time completion bonus: +20% XP",
-    "Speed bonuses can add up to +50% XP"
-  ],
+﻿{
   "metadata": {
+    "version": "2.0",
+    "last_updated": "2025-01-27",
+    "type": "quest_rewards_experience",
     "total_tiers": 9,
-    "scaling": "Exponential",
-    "usage": "Select tier based on quest difficulty, length, and player progression needs"
+    "categories": ["trivial_xp", "low_xp", "medium_xp", "high_xp", "very_high_xp", "epic_xp", "legendary_xp", "mythic_xp", "ancient_xp"]
+  },
+  "components": {
+    "trivial_xp": [
+      {
+        "name": "MinimalXP",
+        "displayName": "Minimal XP",
+        "rarityWeight": 5,
+        "description": "25-50 XP",
+        "minAmount": 25,
+        "maxAmount": 50,
+        "tier": "Trivial"
+      }
+    ],
+    "low_xp": [
+      {
+        "name": "SmallXP",
+        "displayName": "Small XP",
+        "rarityWeight": 12,
+        "description": "50-100 XP",
+        "minAmount": 50,
+        "maxAmount": 100,
+        "tier": "Low"
+      }
+    ],
+    "medium_xp": [
+      {
+        "name": "ModerateXP",
+        "displayName": "Moderate XP",
+        "rarityWeight": 20,
+        "description": "100-250 XP",
+        "minAmount": 100,
+        "maxAmount": 250,
+        "tier": "Medium"
+      }
+    ],
+    "high_xp": [
+      {
+        "name": "GoodXP",
+        "displayName": "Good XP",
+        "rarityWeight": 35,
+        "description": "250-500 XP",
+        "minAmount": 250,
+        "maxAmount": 500,
+        "tier": "High"
+      }
+    ],
+    "very_high_xp": [
+      {
+        "name": "GreatXP",
+        "displayName": "Great XP",
+        "rarityWeight": 50,
+        "description": "500-1000 XP",
+        "minAmount": 500,
+        "maxAmount": 1000,
+        "tier": "Very High"
+      }
+    ],
+    "epic_xp": [
+      {
+        "name": "ExcellentXP",
+        "displayName": "Excellent XP",
+        "rarityWeight": 80,
+        "description": "1000-2000 XP",
+        "minAmount": 1000,
+        "maxAmount": 2000,
+        "tier": "Epic"
+      }
+    ],
+    "legendary_xp": [
+      {
+        "name": "MassiveXP",
+        "displayName": "Massive XP",
+        "rarityWeight": 120,
+        "description": "2000-4000 XP",
+        "minAmount": 2000,
+        "maxAmount": 4000,
+        "tier": "Legendary"
+      }
+    ],
+    "mythic_xp": [
+      {
+        "name": "ColossalXP",
+        "displayName": "Colossal XP",
+        "rarityWeight": 180,
+        "description": "4000-8000 XP",
+        "minAmount": 4000,
+        "maxAmount": 8000,
+        "tier": "Mythic"
+      }
+    ],
+    "ancient_xp": [
+      {
+        "name": "LevelUpGuarantee",
+        "displayName": "Level Up Guarantee",
+        "rarityWeight": 250,
+        "description": "Enough XP to guarantee a level up",
+        "minAmount": 0,
+        "maxAmount": 0,
+        "dynamicAmount": true,
+        "tier": "Ancient"
+      }
+    ]
+  },
+  "notes": {
+    "rarity_system": "Weight reflects XP tier - higher amounts have higher weights",
+    "component_keys": ["trivial_xp", "low_xp", "medium_xp", "high_xp", "very_high_xp", "epic_xp", "legendary_xp", "mythic_xp", "ancient_xp"],
+    "weight_ranges": {
+      "trivial": "5 (25-50 XP, tutorial quests)",
+      "low": "12 (50-100 XP, simple tasks)",
+      "medium": "20 (100-250 XP, standard quests)",
+      "high": "35 (250-500 XP, important quests)",
+      "very_high": "50 (500-1000 XP, major quests)",
+      "epic": "80 (1000-2000 XP, epic quests)",
+      "legendary": "120 (2000-4000 XP, legendary quests)",
+      "mythic": "180 (4000-8000 XP, mythic quests)",
+      "ancient": "250 (Dynamic level-up, ancient quests)"
+    },
+    "usage": "XP rewards scale with quest difficulty and player level. Easy quests = trivial-medium, Medium = medium-high, Hard = high-very_high, Very Hard = epic-legendary, Epic/Legendary = mythic-ancient.",
+    "scaling_formula": "base_xp  difficulty_multiplier  (1 + player_level  0.1)",
+    "bonuses": {
+      "secondary_objectives": "Add 25-50% bonus XP",
+      "hidden_objectives": "Add 50-100% bonus XP",
+      "first_time_completion": "Add 20% bonus XP",
+      "speed_bonus": "Complete within time limit for up to 50% bonus XP",
+      "perfect_completion": "All objectives done = 100% bonus XP"
+    },
+    "level_up_guarantee": "Dynamically calculates remaining XP needed for next level. Only awarded for ancient-tier legendary quests."
   }
 }

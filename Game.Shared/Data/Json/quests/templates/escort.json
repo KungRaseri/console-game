@@ -1,53 +1,104 @@
-{
-  "Easy": {
-    "EscortMerchant": {
-      "displayName": "Escort the Merchant",
-      "traits": {
-        "questType": { "value": "escort", "type": "string" },
-        "difficulty": { "value": "easy", "type": "string" },
-        "npcType": { "value": "merchant", "type": "string" },
-        "baseGoldReward": { "value": 60, "type": "number" },
-        "baseXpReward": { "value": 120, "type": "number" },
-        "distance": { "value": "short", "type": "string" },
-        "ambushChance": { "value": 30, "type": "number" },
-        "npcCanDie": { "value": false, "type": "boolean" },
-        "description": { "value": "Escort the merchant safely to the next town", "type": "string" }
-      }
-    }
+﻿{
+  "metadata": {
+    "version": "2.0",
+    "last_updated": "2025-01-27",
+    "type": "quest_templates_escort",
+    "total_quests": 5,
+    "categories": ["easy_escort", "medium_escort", "hard_escort"]
   },
-  "Medium": {
-    "ProtectNoble": {
-      "displayName": "Protect the Noble",
-      "traits": {
-        "questType": { "value": "escort", "type": "string" },
-        "difficulty": { "value": "medium", "type": "string" },
-        "npcType": { "value": "noble", "type": "string" },
-        "baseGoldReward": { "value": 350, "type": "number" },
-        "baseXpReward": { "value": 700, "type": "number" },
-        "distance": { "value": "medium", "type": "string" },
-        "ambushChance": { "value": 60, "type": "number" },
-        "npcCanDie": { "value": true, "type": "boolean" },
-        "failureConsequence": { "value": "War declared", "type": "string" },
-        "description": { "value": "Guard the noble on their journey through dangerous territory", "type": "string" }
+  "components": {
+    "easy_escort": [
+      {
+        "name": "EscortMerchant",
+        "displayName": "Escort the Merchant",
+        "rarityWeight": 12,
+        "questType": "escort",
+        "difficulty": "easy",
+        "npcType": "merchant",
+        "baseGoldReward": 60,
+        "baseXpReward": 120,
+        "distance": "short",
+        "ambushChance": 30,
+        "npcCanDie": false,
+        "description": "Escort the merchant safely to the next town"
+      },
+      {
+        "name": "GuideTraveler",
+        "displayName": "Guide the Traveler",
+        "rarityWeight": 10,
+        "questType": "escort",
+        "difficulty": "easy",
+        "npcType": "civilian",
+        "baseGoldReward": 40,
+        "baseXpReward": 80,
+        "distance": "short",
+        "ambushChance": 20,
+        "npcCanDie": false,
+        "description": "Guide the lost traveler back to civilization"
       }
-    }
+    ],
+    "medium_escort": [
+      {
+        "name": "ProtectNoble",
+        "displayName": "Protect the Noble",
+        "rarityWeight": 32,
+        "questType": "escort",
+        "difficulty": "medium",
+        "npcType": "noble",
+        "baseGoldReward": 350,
+        "baseXpReward": 700,
+        "distance": "medium",
+        "ambushChance": 60,
+        "npcCanDie": true,
+        "failureConsequence": "War declared",
+        "description": "Guard the noble on their journey through dangerous territory"
+      },
+      {
+        "name": "EscortWizard",
+        "displayName": "Escort the Wizard",
+        "rarityWeight": 38,
+        "questType": "escort",
+        "difficulty": "medium",
+        "npcType": "magical",
+        "baseGoldReward": 400,
+        "baseXpReward": 800,
+        "distance": "medium",
+        "ambushChance": 70,
+        "npcCanDie": true,
+        "failureConsequence": "Knowledge lost",
+        "description": "Protect the wizard carrying dangerous artifacts to the academy"
+      }
+    ],
+    "hard_escort": [
+      {
+        "name": "EscortProphet",
+        "displayName": "Escort the Prophet",
+        "rarityWeight": 65,
+        "questType": "escort",
+        "difficulty": "hard",
+        "npcType": "religious",
+        "baseGoldReward": 700,
+        "baseXpReward": 1800,
+        "distance": "long",
+        "ambushChance": 90,
+        "npcCanDie": true,
+        "timeLimit": 120,
+        "legendary": true,
+        "description": "Protect the prophet from assassins during their pilgrimage"
+      }
+    ]
   },
-  "Hard": {
-    "EscortProphet": {
-      "displayName": "Escort the Prophet",
-      "traits": {
-        "questType": { "value": "escort", "type": "string" },
-        "difficulty": { "value": "hard", "type": "string" },
-        "npcType": { "value": "religious", "type": "string" },
-        "baseGoldReward": { "value": 700, "type": "number" },
-        "baseXpReward": { "value": 1800, "type": "number" },
-        "distance": { "value": "long", "type": "string" },
-        "ambushChance": { "value": 90, "type": "number" },
-        "npcCanDie": { "value": true, "type": "boolean" },
-        "timeLimit": { "value": 120, "type": "number" },
-        "legendary": { "value": true, "type": "boolean" },
-        "description": { "value": "Protect the prophet from assassins during their pilgrimage", "type": "string" }
-      }
-    }
+  "notes": {
+    "rarity_system": "Weight determines quest appearance probability - higher weight = rarer quests",
+    "component_keys": ["easy_escort", "medium_escort", "hard_escort"],
+    "weight_ranges": {
+      "easy_escort": "10-15 (Short trips, low danger)",
+      "medium_escort": "32-40 (Important NPCs, moderate danger, consequences)",
+      "hard_escort": "65+ (Critical NPCs, high danger, time limits)"
+    },
+    "usage": "Escort quests involve protecting NPCs during travel. Easy escorts have low ambush chance and immortal NPCs, medium escorts involve important figures with consequences, hard escorts feature legendary NPCs with high danger and time limits.",
+    "variables": ["{npcName}", "{destination}", "{enemies}"],
+    "ambush_chance": "Percentage chance of encounter during escort (20-90%)",
+    "npc_can_die": "If true, quest fails if NPC dies; if false, NPC is immortal"
   }
 }

@@ -1,167 +1,202 @@
-{
-  "items": [
-    {
-      "name": "CommonConsumables",
-      "displayName": "Common Consumables",
-      "description": "1-3 common health/mana potions",
-      "rarity": "Common",
-      "category": "Consumables"
-    },
-    {
-      "name": "UncommonWeapon",
-      "displayName": "Uncommon Weapon",
-      "description": "Random uncommon quality weapon",
-      "rarity": "Uncommon",
-      "category": "Weapon"
-    },
-    {
-      "name": "UncommonArmor",
-      "displayName": "Uncommon Armor",
-      "description": "Random uncommon quality armor piece",
-      "rarity": "Uncommon",
-      "category": "Armor"
-    },
-    {
-      "name": "RareWeapon",
-      "displayName": "Rare Weapon",
-      "description": "Random rare quality weapon",
-      "rarity": "Rare",
-      "category": "Weapon"
-    },
-    {
-      "name": "RareArmor",
-      "displayName": "Rare Armor",
-      "description": "Random rare quality armor piece",
-      "rarity": "Rare",
-      "category": "Armor"
-    },
-    {
-      "name": "EnchantmentScroll",
-      "displayName": "Enchantment Scroll",
-      "description": "Scroll to add enchantment to equipment",
-      "rarity": "Rare",
-      "category": "Enchantment"
-    },
-    {
-      "name": "EpicWeapon",
-      "displayName": "Epic Weapon",
-      "description": "Random epic quality weapon",
-      "rarity": "Epic",
-      "category": "Weapon"
-    },
-    {
-      "name": "EpicArmor",
-      "displayName": "Epic Armor",
-      "description": "Random epic quality armor piece",
-      "rarity": "Epic",
-      "category": "Armor"
-    },
-    {
-      "name": "QuestSpecificItem",
-      "displayName": "Quest Specific Item",
-      "description": "Unique item tied to quest story",
-      "rarity": "Epic",
-      "category": "Unique"
-    },
-    {
-      "name": "LegendaryWeapon",
-      "displayName": "Legendary Weapon",
-      "description": "Named legendary weapon with unique abilities",
-      "rarity": "Legendary",
-      "category": "Weapon"
-    },
-    {
-      "name": "LegendaryArmor",
-      "displayName": "Legendary Armor",
-      "description": "Named legendary armor with set bonuses",
-      "rarity": "Legendary",
-      "category": "Armor"
-    },
-    {
-      "name": "AncientRelic",
-      "displayName": "Ancient Relic",
-      "description": "Powerful artifact from ancient times",
-      "rarity": "Legendary",
-      "category": "Artifact"
-    },
-    {
-      "name": "SkillBook",
-      "displayName": "Skill Book",
-      "description": "Teaches a new ability or spell",
-      "rarity": "Rare",
-      "category": "Skill"
-    },
-    {
-      "name": "MythicTreasure",
-      "displayName": "Mythic Treasure",
-      "description": "One-of-a-kind mythic item",
-      "rarity": "Mythic",
-      "category": "Unique"
-    },
-    {
-      "name": "CraftingMaterials",
-      "displayName": "Crafting Materials",
-      "description": "Rare crafting components",
-      "rarity": "Uncommon",
-      "category": "Materials"
-    },
-    {
-      "name": "PlayerChoiceReward",
-      "displayName": "Player Choice Reward",
-      "description": "Player selects from 3 reward options",
-      "rarity": "Variable",
-      "category": "Choice"
-    },
-    {
-      "name": "CompletionToken",
-      "displayName": "Completion Token",
-      "description": "Token to exchange for items at quest hub",
-      "rarity": "Common",
-      "category": "Currency"
-    },
-    {
-      "name": "MountOrPet",
-      "displayName": "Mount or Pet",
-      "description": "Companion creature",
-      "rarity": "Epic",
-      "category": "Companion"
-    },
-    {
-      "name": "HousingDecoration",
-      "displayName": "Housing Decoration",
-      "description": "Decorative item for player housing",
-      "rarity": "Uncommon",
-      "category": "Cosmetic"
-    },
-    {
-      "name": "TitleOrAchievement",
-      "displayName": "Title or Achievement",
-      "description": "Prestigious title or achievement",
-      "rarity": "Rare",
-      "category": "Cosmetic"
-    }
-  ],
-  "components": {
-    "consumable_rewards": ["CommonConsumables", "CraftingMaterials"],
-    "equipment_rewards": ["UncommonWeapon", "UncommonArmor", "RareWeapon", "RareArmor", "EpicWeapon", "EpicArmor", "LegendaryWeapon", "LegendaryArmor"],
-    "unique_rewards": ["QuestSpecificItem", "AncientRelic", "MythicTreasure"],
-    "progression_rewards": ["SkillBook", "EnchantmentScroll"],
-    "choice_rewards": ["PlayerChoiceReward"],
-    "cosmetic_rewards": ["HousingDecoration", "TitleOrAchievement", "MountOrPet"],
-    "currency_rewards": ["CompletionToken"]
-  },
-  "patterns": [
-    "Match item rarity to quest difficulty",
-    "Quest-specific items for story quests",
-    "Player choice rewards for major quests",
-    "Cosmetic rewards for achievements",
-    "Scale item level to player level",
-    "Bonus objectives unlock better item variants"
-  ],
+﻿{
   "metadata": {
+    "version": "2.0",
+    "last_updated": "2025-01-27",
+    "type": "quest_rewards_items",
     "total_rewards": 20,
-    "categories": 10,
-    "rarity_levels": 6,
-    "usage": "Select 1-3 item rewards based on quest tier and completion"
+    "categories": ["consumable_rewards", "common_equipment", "uncommon_equipment", "rare_equipment", "epic_equipment", "legendary_equipment", "progression_rewards", "unique_rewards", "cosmetic_rewards", "currency_rewards"]
+  },
+  "components": {
+    "consumable_rewards": [
+      {
+        "name": "CommonConsumables",
+        "displayName": "Common Consumables",
+        "rarityWeight": 10,
+        "description": "1-3 common health/mana potions",
+        "rarity": "Common",
+        "category": "Consumables"
+      },
+      {
+        "name": "CraftingMaterials",
+        "displayName": "Crafting Materials",
+        "rarityWeight": 20,
+        "description": "Rare crafting components",
+        "rarity": "Uncommon",
+        "category": "Materials"
+      }
+    ],
+    "common_equipment": [
+      {
+        "name": "CompletionToken",
+        "displayName": "Completion Token",
+        "rarityWeight": 8,
+        "description": "Token to exchange for items at quest hub",
+        "rarity": "Common",
+        "category": "Currency"
+      }
+    ],
+    "uncommon_equipment": [
+      {
+        "name": "UncommonWeapon",
+        "displayName": "Uncommon Weapon",
+        "rarityWeight": 25,
+        "description": "Random uncommon quality weapon",
+        "rarity": "Uncommon",
+        "category": "Weapon"
+      },
+      {
+        "name": "UncommonArmor",
+        "displayName": "Uncommon Armor",
+        "rarityWeight": 25,
+        "description": "Random uncommon quality armor piece",
+        "rarity": "Uncommon",
+        "category": "Armor"
+      },
+      {
+        "name": "HousingDecoration",
+        "displayName": "Housing Decoration",
+        "rarityWeight": 22,
+        "description": "Decorative item for player housing",
+        "rarity": "Uncommon",
+        "category": "Cosmetic"
+      }
+    ],
+    "rare_equipment": [
+      {
+        "name": "RareWeapon",
+        "displayName": "Rare Weapon",
+        "rarityWeight": 45,
+        "description": "Random rare quality weapon",
+        "rarity": "Rare",
+        "category": "Weapon"
+      },
+      {
+        "name": "RareArmor",
+        "displayName": "Rare Armor",
+        "rarityWeight": 45,
+        "description": "Random rare quality armor piece",
+        "rarity": "Rare",
+        "category": "Armor"
+      },
+      {
+        "name": "EnchantmentScroll",
+        "displayName": "Enchantment Scroll",
+        "rarityWeight": 50,
+        "description": "Scroll to add enchantment to equipment",
+        "rarity": "Rare",
+        "category": "Enchantment"
+      },
+      {
+        "name": "SkillBook",
+        "displayName": "Skill Book",
+        "rarityWeight": 55,
+        "description": "Teaches a new ability or spell",
+        "rarity": "Rare",
+        "category": "Skill"
+      },
+      {
+        "name": "TitleOrAchievement",
+        "displayName": "Title or Achievement",
+        "rarityWeight": 48,
+        "description": "Prestigious title or achievement",
+        "rarity": "Rare",
+        "category": "Cosmetic"
+      }
+    ],
+    "epic_equipment": [
+      {
+        "name": "EpicWeapon",
+        "displayName": "Epic Weapon",
+        "rarityWeight": 80,
+        "description": "Random epic quality weapon",
+        "rarity": "Epic",
+        "category": "Weapon"
+      },
+      {
+        "name": "EpicArmor",
+        "displayName": "Epic Armor",
+        "rarityWeight": 80,
+        "description": "Random epic quality armor piece",
+        "rarity": "Epic",
+        "category": "Armor"
+      },
+      {
+        "name": "QuestSpecificItem",
+        "displayName": "Quest Specific Item",
+        "rarityWeight": 90,
+        "description": "Unique item tied to quest story",
+        "rarity": "Epic",
+        "category": "Unique"
+      },
+      {
+        "name": "MountOrPet",
+        "displayName": "Mount or Pet",
+        "rarityWeight": 95,
+        "description": "Companion creature",
+        "rarity": "Epic",
+        "category": "Companion"
+      }
+    ],
+    "legendary_equipment": [
+      {
+        "name": "LegendaryWeapon",
+        "displayName": "Legendary Weapon",
+        "rarityWeight": 140,
+        "description": "Named legendary weapon with unique abilities",
+        "rarity": "Legendary",
+        "category": "Weapon"
+      },
+      {
+        "name": "LegendaryArmor",
+        "displayName": "Legendary Armor",
+        "rarityWeight": 140,
+        "description": "Named legendary armor with set bonuses",
+        "rarity": "Legendary",
+        "category": "Armor"
+      },
+      {
+        "name": "AncientRelic",
+        "displayName": "Ancient Relic",
+        "rarityWeight": 150,
+        "description": "Powerful artifact from ancient times",
+        "rarity": "Legendary",
+        "category": "Artifact"
+      }
+    ],
+    "mythic_equipment": [
+      {
+        "name": "MythicTreasure",
+        "displayName": "Mythic Treasure",
+        "rarityWeight": 250,
+        "description": "One-of-a-kind mythic item",
+        "rarity": "Mythic",
+        "category": "Unique"
+      }
+    ],
+    "choice_rewards": [
+      {
+        "name": "PlayerChoiceReward",
+        "displayName": "Player Choice Reward",
+        "rarityWeight": 60,
+        "description": "Player selects from 3 reward options",
+        "rarity": "Variable",
+        "category": "Choice"
+      }
+    ]
+  },
+  "notes": {
+    "rarity_system": "Weight determines reward rarity - match to quest difficulty tier",
+    "component_keys": ["consumable_rewards", "common_equipment", "uncommon_equipment", "rare_equipment", "epic_equipment", "legendary_equipment", "mythic_equipment", "choice_rewards"],
+    "weight_ranges": {
+      "common": "8-10 (Consumables, tokens)",
+      "uncommon": "20-25 (Basic weapons/armor, crafting materials)",
+      "rare": "45-55 (Quality gear, skill books, enchantments)",
+      "epic": "80-95 (Powerful gear, quest items, companions)",
+      "legendary": "140-150 (Named weapons/armor, ancient relics)",
+      "mythic": "250 (One-of-a-kind treasures)"
+    },
+    "usage": "Select 1-3 item rewards based on quest tier. Easy quests = common/uncommon, Medium = uncommon/rare, Hard = rare/epic, Very Hard = epic/legendary, Epic/Legendary quests = legendary/mythic.",
+    "reward_scaling": "Item level should scale to player level. Quest-specific items have unique models/effects.",
+    "bonus_objectives": "Completing secondary/hidden objectives upgrades reward tier by one level"
   }
 }
