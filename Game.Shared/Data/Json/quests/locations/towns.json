@@ -1,138 +1,165 @@
-{
-  "items": [
-    {
-      "name": "Riverside",
-      "displayName": "Riverside",
-      "description": "Peaceful farming village by the river",
-      "size": "Village",
-      "population": "Small"
-    },
-    {
-      "name": "Ironforge",
-      "displayName": "Ironforge",
-      "description": "Dwarven mining town in the mountains",
-      "size": "Town",
-      "population": "Medium"
-    },
-    {
-      "name": "Silverport",
-      "displayName": "Silverport",
-      "description": "Bustling coastal trading city",
-      "size": "City",
-      "population": "Large"
-    },
-    {
-      "name": "Ravenhollow",
-      "displayName": "Ravenhollow",
-      "description": "Mysterious town shrouded in perpetual mist",
-      "size": "Town",
-      "population": "Small"
-    },
-    {
-      "name": "GoldenSpire",
-      "displayName": "Golden Spire",
-      "description": "Capital city with towering cathedral",
-      "size": "Capital",
-      "population": "Massive"
-    },
-    {
-      "name": "Crossroads",
-      "displayName": "Crossroads",
-      "description": "Trading outpost at intersection of major roads",
-      "size": "Outpost",
-      "population": "Tiny"
-    },
-    {
-      "name": "Oakshire",
-      "displayName": "Oakshire",
-      "description": "Woodland village of elven inhabitants",
-      "size": "Village",
-      "population": "Small"
-    },
-    {
-      "name": "Stormhaven",
-      "displayName": "Stormhaven",
-      "description": "Fortified city that withstands constant attacks",
-      "size": "City",
-      "population": "Large"
-    },
-    {
-      "name": "Sandstone",
-      "displayName": "Sandstone",
-      "description": "Desert oasis town",
-      "size": "Town",
-      "population": "Medium"
-    },
-    {
-      "name": "FrostPeak",
-      "displayName": "Frost Peak",
-      "description": "Mountain settlement in eternal winter",
-      "size": "Village",
-      "population": "Small"
-    },
-    {
-      "name": "Ashborough",
-      "displayName": "Ashborough",
-      "description": "Town rebuilt after volcanic destruction",
-      "size": "Town",
-      "population": "Medium"
-    },
-    {
-      "name": "TheNexus",
-      "displayName": "The Nexus",
-      "description": "Magical city floating in the sky",
-      "size": "City",
-      "population": "Large"
-    },
-    {
-      "name": "DeadwoodGrove",
-      "displayName": "Deadwood Grove",
-      "description": "Abandoned village slowly being reclaimed by forest",
-      "size": "Village",
-      "population": "Abandoned"
-    },
-    {
-      "name": "CrimsonHarbor",
-      "displayName": "Crimson Harbor",
-      "description": "Pirate haven and black market hub",
-      "size": "Town",
-      "population": "Medium"
-    },
-    {
-      "name": "Sanctuary",
-      "displayName": "Sanctuary",
-      "description": "Holy city of temples and shrines",
-      "size": "City",
-      "population": "Large"
-    }
-  ],
-  "components": {
-    "villages": ["Riverside", "Oakshire", "FrostPeak", "DeadwoodGrove"],
-    "towns": ["Ironforge", "Ravenhollow", "Sandstone", "Ashborough", "CrimsonHarbor"],
-    "cities": ["Silverport", "Stormhaven", "TheNexus", "Sanctuary"],
-    "capitals": ["GoldenSpire"],
-    "outposts": ["Crossroads"],
-    "by_environment": {
-      "river": ["Riverside"],
-      "mountain": ["Ironforge", "FrostPeak"],
-      "coastal": ["Silverport", "CrimsonHarbor"],
-      "forest": ["Oakshire", "DeadwoodGrove"],
-      "desert": ["Sandstone"],
-      "volcanic": ["Ashborough"],
-      "magical": ["TheNexus"],
-      "holy": ["Sanctuary"]
-    }
-  },
-  "patterns": [
-    "Vary town size for different quest scopes",
-    "Environment affects quest types available",
-    "Larger settlements offer more complex quests",
-    "Abandoned locations for exploration quests"
-  ],
+﻿{
   "metadata": {
+    "version": "2.0",
+    "last_updated": "2025-01-27",
+    "type": "quest_locations_towns",
     "total_locations": 15,
-    "size_categories": 5,
-    "environments": 8,
-    "usage": "Starting point or destination for quests"
+    "categories": ["outposts", "villages", "towns", "cities", "capitals", "special_locations"]
+  },
+  "components": {
+    "outposts": [
+      {
+        "name": "Crossroads",
+        "displayName": "Crossroads",
+        "rarityWeight": 8,
+        "description": "Trading outpost at intersection of major roads",
+        "size": "Outpost",
+        "population": "Tiny"
+      }
+    ],
+    "villages": [
+      {
+        "name": "Riverside",
+        "displayName": "Riverside",
+        "rarityWeight": 10,
+        "description": "Peaceful farming village by the river",
+        "size": "Village",
+        "population": "Small"
+      },
+      {
+        "name": "Oakshire",
+        "displayName": "Oakshire",
+        "rarityWeight": 15,
+        "description": "Woodland village of elven inhabitants",
+        "size": "Village",
+        "population": "Small"
+      },
+      {
+        "name": "FrostPeak",
+        "displayName": "Frost Peak",
+        "rarityWeight": 18,
+        "description": "Mountain settlement in eternal winter",
+        "size": "Village",
+        "population": "Small"
+      }
+    ],
+    "towns": [
+      {
+        "name": "Ironforge",
+        "displayName": "Ironforge",
+        "rarityWeight": 25,
+        "description": "Dwarven mining town in the mountains",
+        "size": "Town",
+        "population": "Medium"
+      },
+      {
+        "name": "Ravenhollow",
+        "displayName": "Ravenhollow",
+        "rarityWeight": 35,
+        "description": "Mysterious town shrouded in perpetual mist",
+        "size": "Town",
+        "population": "Small"
+      },
+      {
+        "name": "Sandstone",
+        "displayName": "Sandstone",
+        "rarityWeight": 28,
+        "description": "Desert oasis town",
+        "size": "Town",
+        "population": "Medium"
+      },
+      {
+        "name": "Ashborough",
+        "displayName": "Ashborough",
+        "rarityWeight": 32,
+        "description": "Town rebuilt after volcanic destruction",
+        "size": "Town",
+        "population": "Medium"
+      },
+      {
+        "name": "CrimsonHarbor",
+        "displayName": "Crimson Harbor",
+        "rarityWeight": 40,
+        "description": "Pirate haven and black market hub",
+        "size": "Town",
+        "population": "Medium"
+      }
+    ],
+    "cities": [
+      {
+        "name": "Silverport",
+        "displayName": "Silverport",
+        "rarityWeight": 50,
+        "description": "Bustling coastal trading city",
+        "size": "City",
+        "population": "Large"
+      },
+      {
+        "name": "Stormhaven",
+        "displayName": "Stormhaven",
+        "rarityWeight": 55,
+        "description": "Fortified city that withstands constant attacks",
+        "size": "City",
+        "population": "Large"
+      },
+      {
+        "name": "TheNexus",
+        "displayName": "The Nexus",
+        "rarityWeight": 80,
+        "description": "Magical city floating in the sky",
+        "size": "City",
+        "population": "Large"
+      },
+      {
+        "name": "Sanctuary",
+        "displayName": "Sanctuary",
+        "rarityWeight": 70,
+        "description": "Holy city of temples and shrines",
+        "size": "City",
+        "population": "Large"
+      }
+    ],
+    "capitals": [
+      {
+        "name": "GoldenSpire",
+        "displayName": "Golden Spire",
+        "rarityWeight": 100,
+        "description": "Capital city with towering cathedral",
+        "size": "Capital",
+        "population": "Massive"
+      }
+    ],
+    "special_locations": [
+      {
+        "name": "DeadwoodGrove",
+        "displayName": "Deadwood Grove",
+        "rarityWeight": 60,
+        "description": "Abandoned village slowly being reclaimed by forest",
+        "size": "Village",
+        "population": "Abandoned"
+      }
+    ]
+  },
+  "notes": {
+    "rarity_system": "Weight reflects settlement size and importance - larger/rarer locations have higher weights",
+    "component_keys": ["outposts", "villages", "towns", "cities", "capitals", "special_locations"],
+    "weight_ranges": {
+      "outposts": "8 (Tiny waypoints, simple quests)",
+      "villages": "10-18 (Small settlements, gathering/escort quests)",
+      "towns": "25-40 (Medium hubs, standard quest variety)",
+      "cities": "50-80 (Major hubs, complex quests, magical/holy cities rarer)",
+      "capitals": "100 (Primary quest hub, epic storylines)",
+      "special": "60+ (Abandoned/unique locations, exploration quests)"
+    },
+    "usage": "Settlement locations for quest start/end points. Outposts/villages for early game, towns for mid-game, cities/capitals for late-game content.",
+    "quest_variety": {
+      "outposts": "Delivery, escort",
+      "villages": "Gathering, rescue, simple fetch",
+      "towns": "Investigation, diplomacy, trade",
+      "cities": "Complex multi-stage, political intrigue",
+      "capitals": "Epic storyline, kingdom-saving",
+      "abandoned": "Exploration, horror, mystery"
+    },
+    "population_scale": "Tiny < 50, Small 50-200, Medium 200-1000, Large 1000-10000, Massive 10000+"
   }
 }
