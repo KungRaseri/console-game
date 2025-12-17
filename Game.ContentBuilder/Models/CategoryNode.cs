@@ -23,6 +23,21 @@ public class CategoryNode
     public ObservableCollection<CategoryNode> Children { get; set; } = new();
 
     /// <summary>
+    /// Number of direct file children (not including subdirectories)
+    /// </summary>
+    public int FileCount { get; set; } = 0;
+
+    /// <summary>
+    /// Total number of files including all subdirectories
+    /// </summary>
+    public int TotalFileCount { get; set; } = 0;
+
+    /// <summary>
+    /// Display name with file count
+    /// </summary>
+    public string DisplayNameWithCount => TotalFileCount > 0 ? $"{Name} ({TotalFileCount})" : Name;
+
+    /// <summary>
     /// Optional data associated with this node (e.g., file path, data object)
     /// </summary>
     public object? Tag { get; set; }

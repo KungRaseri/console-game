@@ -50,6 +50,22 @@
                     <StackPanel Orientation="Horizontal" 
                                HorizontalAlignment="Right"
                                DockPanel.Dock="Right">
+                        <Button Content="REFRESH"
+                               Command="{Binding RefreshCommand}"
+                               Style="{StaticResource MaterialDesignFlatButton}"
+                               Margin="0,0,8,0"
+                               ToolTip="Reload file tree from disk to pick up new/deleted files">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Refresh" 
+                                                               VerticalAlignment="Center"
+                                                               Margin="0,0,4,0"/>
+                                        <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
                         <Button Content="PREVIEW"
                                Command="{Binding ShowPreviewCommand}"
                                Style="{StaticResource MaterialDesignRaisedButton}"
@@ -134,7 +150,7 @@
                                                                Height="16" 
                                                                VerticalAlignment="Center" 
                                                                Margin="0,0,8,0" />
-                                        <TextBlock Text="{Binding Name}" 
+                                        <TextBlock Text="{Binding DisplayNameWithCount}" 
                                                  VerticalAlignment="Center" />
                                     </StackPanel>
                                 </HierarchicalDataTemplate>

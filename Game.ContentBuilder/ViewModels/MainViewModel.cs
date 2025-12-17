@@ -219,6 +219,31 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private void Refresh()
+    {
+        try
+        {
+            Log.Information("Refreshing file tree");
+            
+            // Clear current editor
+            CurrentEditor = null;
+            SelectedCategory = null;
+            
+            // Rebuild category tree
+            Categories = _fileTreeService.BuildCategoryTree();
+            
+            StatusMessage = $"File tree refreshed - {Categories.Sum(c => c.TotalFileCount)} files found";
+            Log.Information("File tree refreshed successfully - {FileCount} files", 
+                Categories.Sum(c => c.TotalFileCount));
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to refresh: {ex.Message}";
+            Log.Error(ex, "Failed to refresh file tree");
+        }
+    }
+
+    [RelayCommand]
     private void Exit()
     {
         Log.Information("Exit command invoked");

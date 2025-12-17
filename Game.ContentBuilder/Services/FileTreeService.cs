@@ -154,6 +154,7 @@ public class FileTreeService
 
         // Get all JSON files in this directory
         var jsonFiles = Directory.GetFiles(directoryPath, "*.json");
+        node.FileCount = jsonFiles.Length;
         
         foreach (var file in jsonFiles.OrderBy(f => f))
         {
@@ -165,7 +166,9 @@ public class FileTreeService
                 Name = FormatDisplayName(fileName),
                 Icon = GetIcon(fileName, isDirectory: false),
                 EditorType = DetermineEditorType(file, fileName),
-                Tag = relativeFilePath
+                Tag = relativeFilePath,
+                FileCount = 0,
+                TotalFileCount = 0  // Files don't have children
             };
             
             node.Children.Add(fileNode);
@@ -183,6 +186,11 @@ public class FileTreeService
                 node.Children.Add(childNode);
             }
         }
+
+        // Calculate total file count (this directory + all subdirectories)
+        node.TotalFileCount = node.FileCount + node.Children
+            .Where(c => c.Tag == null) // Only count directory nodes
+            .Sum(c => c.TotalFileCount);
 
         return node;
     }
