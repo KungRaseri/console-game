@@ -1,0 +1,68 @@
+{
+  "components": {
+    "metals": [
+      { "value": "Iron", "rarityWeight": 5 },
+      { "value": "Bronze", "rarityWeight": 6 },
+      { "value": "Copper", "rarityWeight": 4 },
+      { "value": "Steel", "rarityWeight": 12 },
+      { "value": "Silver", "rarityWeight": 15 },
+      { "value": "Gold", "rarityWeight": 20 },
+      { "value": "Platinum", "rarityWeight": 25 },
+      { "value": "Mithril", "rarityWeight": 30 },
+      { "value": "Adamantine", "rarityWeight": 35 },
+      { "value": "Orichalcum", "rarityWeight": 40 }
+    ],
+    "precious": [
+      { "value": "Diamond", "rarityWeight": 50 },
+      { "value": "Ruby", "rarityWeight": 45 },
+      { "value": "Sapphire", "rarityWeight": 45 },
+      { "value": "Emerald", "rarityWeight": 45 },
+      { "value": "Amethyst", "rarityWeight": 35 },
+      { "value": "Topaz", "rarityWeight": 35 },
+      { "value": "Jade", "rarityWeight": 30 },
+      { "value": "Opal", "rarityWeight": 40 },
+      { "value": "Pearl", "rarityWeight": 30 },
+      { "value": "Crystal", "rarityWeight": 25 }
+    ],
+    "natural": [
+      { "value": "Wood", "rarityWeight": 3 },
+      { "value": "Stone", "rarityWeight": 4 },
+      { "value": "Bone", "rarityWeight": 8 },
+      { "value": "Leather", "rarityWeight": 4 },
+      { "value": "Cloth", "rarityWeight": 2 },
+      { "value": "Silk", "rarityWeight": 18 },
+      { "value": "Linen", "rarityWeight": 6 },
+      { "value": "Hemp", "rarityWeight": 5 },
+      { "value": "Cotton", "rarityWeight": 5 }
+    ],
+    "magical": [
+      { "value": "Ethereal", "rarityWeight": 100 },
+      { "value": "Astral", "rarityWeight": 90 },
+      { "value": "Void", "rarityWeight": 80 },
+      { "value": "Shadow", "rarityWeight": 70 },
+      { "value": "Light", "rarityWeight": 75 },
+      { "value": "Arcane", "rarityWeight": 85 },
+      { "value": "Divine", "rarityWeight": 150 },
+      { "value": "Infernal", "rarityWeight": 95 },
+      { "value": "Celestial", "rarityWeight": 80 },
+      { "value": "Primordial", "rarityWeight": 120 }
+    ]
+  },
+  "patterns": [
+    "material + base",
+    "material + quality + base"
+  ],
+  "metadata": {
+    "description": "Material name components for pattern-based item generation",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "pattern_components",
+    "component_keys": ["metals", "precious", "natural", "magical"],
+    "pattern_tokens": ["material", "quality", "base"],
+    "total_patterns": 2,
+    "total_components": 39
+  },
+  "notes": {
+    "usage": "Material name components for pattern-based generation. Use 'material' token in patterns to pick from these components. rarityWeight determines selection probability and contributes to final item rarity calculation."
+  }
+}

@@ -5,8 +5,7 @@
     "last_updated": "2025-12-16",
     "type": "item_catalog",
     "total_weapon_types": 7,
-    "total_weapons": 59,
-    "material_refs": ["items/materials/metals.json"]
+    "total_weapons": 59
   },
   "weapon_types": {
     "swords": {

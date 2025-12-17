@@ -1,0 +1,533 @@
+{
+  "metadata": {
+    "description": "Material catalog with base properties and item-type-specific stat modifiers",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "material_catalog",
+    "total_materials": 15,
+    "categories": ["metals", "natural", "magical"],
+    "item_types": ["weapon", "armor", "shield", "accessory"]
+  },
+  "material_types": {
+    "metals": {
+      "traits": {
+        "category": "metal",
+        "conductivity": "high"
+      },
+      "items": [
+        {
+          "name": "Iron",
+          "displayName": "Iron",
+          "rarityWeight": 5,
+          "traits": {
+            "durability": 80,
+            "weight": 1.5
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 2,
+              "value": 10
+            },
+            "armor": {
+              "armorRating": 5,
+              "defense": 2,
+              "value": 15
+            }
+          }
+        },
+        {
+          "name": "Bronze",
+          "displayName": "Bronze",
+          "rarityWeight": 6,
+          "traits": {
+            "durability": 60,
+            "weight": 1.2
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 1,
+              "value": 8
+            },
+            "armor": {
+              "armorRating": 4,
+              "defense": 1,
+              "value": 10
+            }
+          }
+        },
+        {
+          "name": "Steel",
+          "displayName": "Steel",
+          "rarityWeight": 12,
+          "traits": {
+            "durability": 120,
+            "weight": 1.0
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 4,
+              "critChance": 2,
+              "value": 30
+            },
+            "armor": {
+              "armorRating": 12,
+              "defenseBonus": 5,
+              "resistPhysical": 10,
+              "value": 50
+            }
+          }
+        },
+        {
+          "name": "Silver",
+          "displayName": "Silver",
+          "rarityWeight": 15,
+          "traits": {
+            "durability": 70,
+            "weight": 0.8
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 3,
+              "bonusVsUndead": 10,
+              "bonusVsLycanthropes": 15,
+              "value": 50
+            },
+            "armor": {
+              "armorRating": 8,
+              "resistMagic": 5,
+              "bonusVsUndead": 5,
+              "value": 60
+            }
+          }
+        },
+        {
+          "name": "Cold Iron",
+          "displayName": "Cold Iron",
+          "rarityWeight": 18,
+          "traits": {
+            "durability": 100,
+            "weight": 1.8
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 4,
+              "bonusVsFey": 12,
+              "bonusVsDemons": 10,
+              "value": 40
+            },
+            "armor": {
+              "armorRating": 10,
+              "resistMagic": 8,
+              "bonusVsFey": 8,
+              "value": 55
+            }
+          }
+        },
+        {
+          "name": "Mithril",
+          "displayName": "Mithril",
+          "rarityWeight": 30,
+          "traits": {
+            "durability": 200,
+            "weight": -1.5,
+            "glowEffect": true
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 6,
+              "critChance": 5,
+              "attackSpeed": 10,
+              "value": 100
+            },
+            "armor": {
+              "armorRating": 13,
+              "defenseBonus": 6,
+              "dexterityBonus": 2,
+              "resistPhysical": 12,
+              "value": 150
+            }
+          }
+        },
+        {
+          "name": "Adamantine",
+          "displayName": "Adamantine",
+          "rarityWeight": 35,
+          "traits": {
+            "durability": 300,
+            "weight": 2.0
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 8,
+              "armorPenetration": 20,
+              "critDamage": 25,
+              "value": 150
+            },
+            "armor": {
+              "armorRating": 22,
+              "defenseBonus": 15,
+              "resistPhysical": 30,
+              "resistMagic": 15,
+              "thorns": 10,
+              "value": 200
+            }
+          }
+        },
+        {
+          "name": "Darksteel",
+          "displayName": "Darksteel",
+          "rarityWeight": 32,
+          "traits": {
+            "durability": 250,
+            "weight": 1.5,
+            "visualColor": "dark_purple"
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 7,
+              "lifesteal": 3,
+              "bonusVsHoly": 15,
+              "value": 120
+            },
+            "armor": {
+              "armorRating": 16,
+              "defenseBonus": 8,
+              "resistShadow": 20,
+              "lifesteal": 2,
+              "value": 140
+            }
+          }
+        },
+        {
+          "name": "Godforged",
+          "displayName": "Godforged",
+          "rarityWeight": 120,
+          "traits": {
+            "durability": 9999,
+            "weight": 0.0,
+            "glowEffect": true,
+            "visualColor": "divine_gold"
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 25,
+              "bonusAllDamage": 30,
+              "critChance": 15,
+              "critDamage": 50,
+              "attackSpeed": 20,
+              "allStatsBonus": 5,
+              "bonusVsAll": 20,
+              "value": 1000
+            },
+            "armor": {
+              "armorRating": 35,
+              "defenseBonus": 25,
+              "strengthBonus": 5,
+              "constitutionBonus": 5,
+              "resistPhysical": 50,
+              "resistMagic": 40,
+              "thorns": 20,
+              "value": 1500
+            }
+          }
+        }
+      ]
+    },
+    "natural": {
+      "traits": {
+        "category": "natural",
+        "renewable": true
+      },
+      "items": [
+        {
+          "name": "Wood",
+          "displayName": "Wood",
+          "rarityWeight": 3,
+          "traits": {
+            "durability": 40,
+            "weight": -2.0
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 0,
+              "value": 2
+            },
+            "armor": {
+              "armorRating": 1,
+              "movementSpeed": 5,
+              "value": 3
+            }
+          }
+        },
+        {
+          "name": "Leather",
+          "displayName": "Leather",
+          "rarityWeight": 4,
+          "traits": {
+            "durability": 60,
+            "weight": 0.8
+          },
+          "itemTypeTraits": {
+            "armor": {
+              "armorRating": 3,
+              "dexterityBonus": 1,
+              "value": 8
+            }
+          }
+        },
+        {
+          "name": "Hide",
+          "displayName": "Hide",
+          "rarityWeight": 6,
+          "traits": {
+            "durability": 70,
+            "weight": 1.2
+          },
+          "itemTypeTraits": {
+            "armor": {
+              "armorRating": 4,
+              "constitutionBonus": 1,
+              "value": 12
+            }
+          }
+        },
+        {
+          "name": "Cloth",
+          "displayName": "Cloth",
+          "rarityWeight": 2,
+          "traits": {
+            "durability": 40,
+            "weight": 0.5
+          },
+          "itemTypeTraits": {
+            "armor": {
+              "armorRating": 1,
+              "movementSpeed": 10,
+              "value": 5
+            }
+          }
+        },
+        {
+          "name": "Studded Leather",
+          "displayName": "Studded Leather",
+          "rarityWeight": 10,
+          "traits": {
+            "durability": 90,
+            "weight": 1.5
+          },
+          "itemTypeTraits": {
+            "armor": {
+              "armorRating": 6,
+              "dexterityBonus": 1,
+              "dodgeChance": 3,
+              "value": 25
+            }
+          }
+        },
+        {
+          "name": "Dragon Bone",
+          "displayName": "Dragon Bone",
+          "rarityWeight": 60,
+          "traits": {
+            "durability": 350,
+            "weight": 0.5,
+            "glowEffect": true
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 12,
+              "bonusFireDamage": 15,
+              "resistFire": 25,
+              "critChance": 8,
+              "strengthBonus": 2,
+              "value": 300
+            },
+            "armor": {
+              "armorRating": 20,
+              "defenseBonus": 12,
+              "resistFire": 40,
+              "resistPhysical": 20,
+              "strengthBonus": 2,
+              "constitutionBonus": 2,
+              "value": 400
+            }
+          }
+        }
+      ]
+    },
+    "magical": {
+      "traits": {
+        "category": "magical",
+        "enchantable": true,
+        "glowEffect": true
+      },
+      "items": [
+        {
+          "name": "Starmetal",
+          "displayName": "Starmetal",
+          "rarityWeight": 70,
+          "traits": {
+            "durability": 400,
+            "weight": 0.0,
+            "visualColor": "starlight_blue"
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 15,
+              "bonusLightningDamage": 20,
+              "attackSpeed": 15,
+              "critChance": 10,
+              "manaBonus": 30,
+              "value": 400
+            },
+            "armor": {
+              "armorRating": 18,
+              "defenseBonus": 10,
+              "intelligenceBonus": 4,
+              "manaBonus": 50,
+              "resistLightning": 30,
+              "value": 500
+            }
+          }
+        },
+        {
+          "name": "Voidstone",
+          "displayName": "Voidstone",
+          "rarityWeight": 65,
+          "traits": {
+            "durability": 380,
+            "weight": 1.0,
+            "visualColor": "void_black"
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 14,
+              "bonusShadowDamage": 18,
+              "lifesteal": 8,
+              "bonusVsDivine": 25,
+              "intelligenceBonus": 3,
+              "value": 350
+            },
+            "armor": {
+              "armorRating": 16,
+              "defenseBonus": 8,
+              "resistShadow": 40,
+              "healthRegen": 3,
+              "intelligenceBonus": 3,
+              "value": 450
+            }
+          }
+        },
+        {
+          "name": "Ethereal",
+          "displayName": "Ethereal",
+          "rarityWeight": 100,
+          "traits": {
+            "durability": 400,
+            "weight": 0.1,
+            "visualColor": "ethereal_mist"
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 10,
+              "attackSpeed": 25,
+              "dodgeChance": 15,
+              "dexterityBonus": 4,
+              "value": 500
+            },
+            "armor": {
+              "armorRating": 25,
+              "defenseBonus": 18,
+              "dodgeChance": 25,
+              "movementSpeed": 20,
+              "dexterityBonus": 5,
+              "intelligenceBonus": 3,
+              "resistMagic": 35,
+              "value": 800
+            }
+          }
+        },
+        {
+          "name": "Celestial",
+          "displayName": "Celestial",
+          "rarityWeight": 80,
+          "traits": {
+            "durability": 220,
+            "weight": 0.3,
+            "visualColor": "holy_light"
+          },
+          "itemTypeTraits": {
+            "armor": {
+              "armorRating": 18,
+              "defenseBonus": 10,
+              "manaBonus": 20,
+              "wisdomBonus": 3,
+              "resistMagic": 25,
+              "healthRegen": 2,
+              "value": 300
+            }
+          }
+        },
+        {
+          "name": "Divine",
+          "displayName": "Divine",
+          "rarityWeight": 150,
+          "traits": {
+            "durability": 500,
+            "weight": 0.5,
+            "visualColor": "holy_light"
+          },
+          "itemTypeTraits": {
+            "armor": {
+              "armorRating": 30,
+              "defenseBonus": 20,
+              "resistFire": 50,
+              "resistIce": 50,
+              "resistLightning": 50,
+              "resistPoison": 50,
+              "resistMagic": 30,
+              "healthRegen": 5,
+              "manaRegen": 3,
+              "value": 1200
+            }
+          }
+        },
+        {
+          "name": "Soulsteel",
+          "displayName": "Soulsteel",
+          "rarityWeight": 100,
+          "traits": {
+            "durability": 800,
+            "weight": 1.0,
+            "visualColor": "soul_purple"
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 20,
+              "lifesteal": 15,
+              "bonusShadowDamage": 35,
+              "critChance": 12,
+              "onKillSoulAbsorb": true,
+              "intelligenceBonus": 5,
+              "wisdomBonus": 5,
+              "value": 900
+            },
+            "armor": {
+              "armorRating": 28,
+              "defenseBonus": 18,
+              "lifesteal": 10,
+              "resistShadow": 45,
+              "intelligenceBonus": 4,
+              "wisdomBonus": 4,
+              "value": 1000
+            }
+          }
+        }
+      ]
+    }
+  },
+  "notes": {
+    "usage": "Base material catalog with item-type-specific traits. Shared traits (durability, weight, visual) apply to all item types. itemTypeTraits define specific stat modifiers per item category (weapon, armor, shield, etc.). rarityWeight determines rarity tier automatically.",
+    "application": "Runtime: Pick material by rarityWeight-based rarity roll → Apply shared traits + itemTypeTraits[itemType] → Calculate final stats → Prepend material name to item (e.g., 'Mithril Longsword', 'Steel Plate')."
+  }
+}
