@@ -9,6 +9,12 @@
     "total_patterns": 6,
     "total_components": 91,
     "usage": "Material name components for pattern-based generation. Use 'material' token in patterns to pick from these components. rarityWeight determines selection probability and contributes to final item rarity calculation.",
+    "notes": [
+      "Material components combine with base items from types.json using patterns",
+      "rarityWeight affects both selection probability and final item rarity tier",
+      "7 component groups: metals, leathers, woods, gemstones, magical, qualities, fabrics",
+      "Patterns like 'material + base' or 'quality + material + base' generate diverse names"
+    ],
     "examples": [
       "Mithril Longsword (metals + base)",
       "Flawless Ruby Ring (qualities + gemstones + base)",

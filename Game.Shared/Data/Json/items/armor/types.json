@@ -6,7 +6,13 @@
     "type": "item_catalog",
     "total_armor_types": 7,
     "total_pieces": 40,
-    "usage": "Base catalog of armor with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+    "usage": "Base catalog of armor with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
+    "notes": [
+      "Base items used in pattern generation with names.json",
+      "Each armor piece has defense, weight, value, and slot-specific stats",
+      "Type-level traits (slot, category) apply to all items in that armor type",
+      "Special shield mechanics: blockChance property"
+    ]
   },
   "armor_types": {
     "head": {
