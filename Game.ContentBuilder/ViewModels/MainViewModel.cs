@@ -98,6 +98,22 @@ public partial class MainViewModel : ObservableObject
                     LoadHybridArrayEditor(value.Tag?.ToString() ?? "");
                     break;
                 
+                case EditorType.NamesEditor:
+                    LoadNamesEditor(value.Tag?.ToString() ?? "");
+                    break;
+                
+                case EditorType.TypesEditor:
+                    LoadTypesEditor(value.Tag?.ToString() ?? "");
+                    break;
+                
+                case EditorType.ComponentEditor:
+                case EditorType.MaterialEditor:
+                case EditorType.TraitEditor:
+                    // TODO: Implement these specialized editors
+                    StatusMessage = $"Editor for {value.EditorType} not yet implemented";
+                    CurrentEditor = null;
+                    break;
+                
                 default:
                     CurrentEditor = null;
                     break;
@@ -194,6 +210,60 @@ public partial class MainViewModel : ObservableObject
         {
             StatusMessage = $"Failed to load hybrid array editor: {ex.Message}";
             Log.Error(ex, "Failed to load HybridArrayEditor for {FileName}", fileName);
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadNamesEditor(string fileName)
+    {
+        try
+        {
+            Log.Debug("Loading NamesEditor for {FileName}", fileName);
+            
+            var fullPath = Path.Combine(GetDataDirectory(), fileName);
+            var viewModel = new NamesEditorViewModel();
+            viewModel.LoadFile(fullPath);
+            
+            var view = new NamesEditorView
+            {
+                DataContext = viewModel
+            };
+            
+            CurrentEditor = view;
+            StatusMessage = $"Loaded names editor for {fileName}";
+            Log.Information("NamesEditor loaded successfully for {FileName}", fileName);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load names editor: {ex.Message}";
+            Log.Error(ex, "Failed to load NamesEditor for {FileName}", fileName);
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadTypesEditor(string fileName)
+    {
+        try
+        {
+            Log.Debug("Loading TypesEditor for {FileName}", fileName);
+            
+            var fullPath = Path.Combine(GetDataDirectory(), fileName);
+            var viewModel = new TypesEditorViewModel();
+            viewModel.LoadFile(fullPath);
+            
+            var view = new TypesEditorView
+            {
+                DataContext = viewModel
+            };
+            
+            CurrentEditor = view;
+            StatusMessage = $"Loaded types editor for {fileName}";
+            Log.Information("TypesEditor loaded successfully for {FileName}", fileName);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load types editor: {ex.Message}";
+            Log.Error(ex, "Failed to load TypesEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }

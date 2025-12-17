@@ -1,0 +1,14 @@
+{
+  "icon": "BookOpenPageVariant",
+  "displayName": "Quests",
+  "description": "Quest definitions - locations, objectives, rewards, and templates for procedural generation",
+  "sortOrder": 40,
+  "fileIcons": {
+    "locations": "MapMarker",
+    "objectives": "Target",
+    "rewards": "TreasureChest",
+    "templates": "FileDocument"
+  },
+  "defaultFileIcon": "Scroll",
+  "showFileCount": true
+}

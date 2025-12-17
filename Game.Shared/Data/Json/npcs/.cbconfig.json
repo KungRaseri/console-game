@@ -1,0 +1,14 @@
+{
+  "icon": "AccountGroup",
+  "displayName": "NPCs",
+  "description": "Non-player character data - dialogue, names, occupations, and personality traits",
+  "sortOrder": 30,
+  "fileIcons": {
+    "names": "FormatListBulleted",
+    "dialogue": "MessageText",
+    "occupations": "Briefcase",
+    "personalities": "EmoticonHappy"
+  },
+  "defaultFileIcon": "Account",
+  "showFileCount": true
+}
