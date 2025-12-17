@@ -1,267 +1,267 @@
 ﻿{
-    "metadata":  {
-                     "description":  "weapons suffix modifiers with stat bonuses/penalties",
-                     "version":  "1.0",
-                     "last_updated":  "2025-12-16",
-                     "type":  "suffix_modifier",
-                     "total_items":  30
-                 },
-    "items":  [
-                  {
-                      "name":  "of Slaying",
-                      "displayName":  "of Slaying",
-                      "description":  "Deals extra damage to all foes",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "of Sharpness",
-                      "displayName":  "of Sharpness",
-                      "description":  "Exceptionally keen edge",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "of Power",
-                      "displayName":  "of Power",
-                      "description":  "Increases damage output",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "of Speed",
-                      "displayName":  "of Speed",
-                      "description":  "Strikes faster than normal",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "of Accuracy",
-                      "displayName":  "of Accuracy",
-                      "description":  "Never misses its mark",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "of Fire",
-                      "displayName":  "of Fire",
-                      "description":  "Burns enemies with flames",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "of Ice",
-                      "displayName":  "of Ice",
-                      "description":  "Freezes foes in their tracks",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "of Lightning",
-                      "displayName":  "of Lightning",
-                      "description":  "Shocks targets with electricity",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "of Venom",
-                      "displayName":  "of Venom",
-                      "description":  "Poisons struck enemies",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "of Destruction",
-                      "displayName":  "of Destruction",
-                      "description":  "Obliterates everything it touches",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "of the Warrior",
-                      "displayName":  "of the Warrior",
-                      "description":  "Favored by great warriors",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "of the Hero",
-                      "displayName":  "of the Hero",
-                      "description":  "Wielded by legendary heroes",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "of the Champion",
-                      "displayName":  "of the Champion",
-                      "description":  "Carried by arena champions",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "of the Dragon",
-                      "displayName":  "of the Dragon",
-                      "description":  "Forged to slay dragons",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "of the Phoenix",
-                      "displayName":  "of the Phoenix",
-                      "description":  "Reborn in flames, strikes eternally",
-                      "rarity":  "Mythic"
-                  },
-                  {
-                      "name":  "of Bloodletting",
-                      "displayName":  "of Bloodletting",
-                      "description":  "Causes severe bleeding wounds",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "of Piercing",
-                      "displayName":  "of Piercing",
-                      "description":  "Penetrates armor effortlessly",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "of Sundering",
-                      "displayName":  "of Sundering",
-                      "description":  "Shatters enemy defenses",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "of Crushing",
-                      "displayName":  "of Crushing",
-                      "description":  "Devastates heavily armored foes",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "of Life Stealing",
-                      "displayName":  "of Life Stealing",
-                      "description":  "Drains life from enemies",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "of Maiming",
-                      "displayName":  "of Maiming",
-                      "description":  "Cripples and disables opponents",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "of Quickness",
-                      "displayName":  "of Quickness",
-                      "description":  "Allows rapid successive strikes",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "of the Assassin",
-                      "displayName":  "of the Assassin",
-                      "description":  "Delivers silent, deadly strikes",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "of the Berserker",
-                      "displayName":  "of the Berserker",
-                      "description":  "Channels rage into devastating blows",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "of the Demon",
-                      "displayName":  "of the Demon",
-                      "description":  "Corrupted by demonic power",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "of the Gods",
-                      "displayName":  "of the Gods",
-                      "description":  "Blessed by divine entities",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "of Souls",
-                      "displayName":  "of Souls",
-                      "description":  "Traps the souls of the slain",
-                      "rarity":  "Mythic"
-                  },
-                  {
-                      "name":  "of Eternity",
-                      "displayName":  "of Eternity",
-                      "description":  "Never dulls or breaks",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "of the Void",
-                      "displayName":  "of the Void",
-                      "description":  "Channels entropic energies",
-                      "rarity":  "Mythic"
-                  },
-                  {
-                      "name":  "of Annihilation",
-                      "displayName":  "of Annihilation",
-                      "description":  "Erases enemies from existence",
-                      "rarity":  "Ancient"
-                  }
-              ],
-    "components":  {
-                       "damage_types":  {
-                                            "physical":  [
-                                                             "of Slaying",
-                                                             "of Sharpness",
-                                                             "of Power",
-                                                             "of Piercing",
-                                                             "of Crushing",
-                                                             "of Sundering"
-                                                         ],
-                                            "elemental":  [
-                                                              "of Fire",
-                                                              "of Ice",
-                                                              "of Lightning"
-                                                          ],
-                                            "status":  [
-                                                           "of Venom",
-                                                           "of Bloodletting",
-                                                           "of Maiming"
-                                                       ],
-                                            "special":  [
-                                                            "of Life Stealing",
-                                                            "of Souls"
-                                                        ]
-                                        },
-                       "performance_boosts":  {
-                                                  "attack":  [
-                                                                 "of Speed",
-                                                                 "of Quickness"
-                                                             ],
-                                                  "precision":  [
-                                                                    "of Accuracy"
-                                                                ],
-                                                  "devastation":  [
-                                                                      "of Destruction",
-                                                                      "of Annihilation"
-                                                                  ]
-                                              },
-                       "warrior_class":  [
-                                             "of the Warrior",
-                                             "of the Hero",
-                                             "of the Champion",
-                                             "of the Berserker",
-                                             "of the Assassin"
-                                         ],
-                       "legendary_beings":  [
-                                                "of the Dragon",
-                                                "of the Phoenix",
-                                                "of the Demon",
-                                                "of the Gods"
-                                            ],
-                       "metaphysical":  [
-                                            "of the Void",
-                                            "of Souls",
-                                            "of Eternity"
-                                        ]
-                   },
-    "patterns":  [
-                     "weapon + basic",
-                     "weapon + elemental",
-                     "weapon + warrior",
-                     "weapon + legendary",
-                     "weapon + special"
-                 ],
-    "rarity_distribution":  {
-                                "Common":  2,
-                                "Uncommon":  7,
-                                "Rare":  9,
-                                "Epic":  7,
-                                "Legendary":  2,
-                                "Mythic":  3,
-                                "Ancient":  1
-                            },
-    "notes":  {
-                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-              }
+    "metadata": {
+        "description": "weapons suffix modifiers with stat bonuses/penalties",
+        "version": "1.0",
+        "last_updated": "2025-12-16",
+        "type": "suffix_modifier",
+        "total_items": 30
+    },
+    "items": [
+        {
+            "name": "of Slaying",
+            "displayName": "of Slaying",
+            "description": "Deals extra damage to all foes",
+            "rarity": "Common"
+        },
+        {
+            "name": "of Sharpness",
+            "displayName": "of Sharpness",
+            "description": "Exceptionally keen edge",
+            "rarity": "Common"
+        },
+        {
+            "name": "of Power",
+            "displayName": "of Power",
+            "description": "Increases damage output",
+            "rarity": "Uncommon"
+        },
+        {
+            "name": "of Speed",
+            "displayName": "of Speed",
+            "description": "Strikes faster than normal",
+            "rarity": "Uncommon"
+        },
+        {
+            "name": "of Accuracy",
+            "displayName": "of Accuracy",
+            "description": "Never misses its mark",
+            "rarity": "Rare"
+        },
+        {
+            "name": "of Fire",
+            "displayName": "of Fire",
+            "description": "Burns enemies with flames",
+            "rarity": "Uncommon"
+        },
+        {
+            "name": "of Ice",
+            "displayName": "of Ice",
+            "description": "Freezes foes in their tracks",
+            "rarity": "Uncommon"
+        },
+        {
+            "name": "of Lightning",
+            "displayName": "of Lightning",
+            "description": "Shocks targets with electricity",
+            "rarity": "Uncommon"
+        },
+        {
+            "name": "of Venom",
+            "displayName": "of Venom",
+            "description": "Poisons struck enemies",
+            "rarity": "Rare"
+        },
+        {
+            "name": "of Destruction",
+            "displayName": "of Destruction",
+            "description": "Obliterates everything it touches",
+            "rarity": "Epic"
+        },
+        {
+            "name": "of the Warrior",
+            "displayName": "of the Warrior",
+            "description": "Favored by great warriors",
+            "rarity": "Uncommon"
+        },
+        {
+            "name": "of the Hero",
+            "displayName": "of the Hero",
+            "description": "Wielded by legendary heroes",
+            "rarity": "Rare"
+        },
+        {
+            "name": "of the Champion",
+            "displayName": "of the Champion",
+            "description": "Carried by arena champions",
+            "rarity": "Epic"
+        },
+        {
+            "name": "of the Dragon",
+            "displayName": "of the Dragon",
+            "description": "Forged to slay dragons",
+            "rarity": "Epic"
+        },
+        {
+            "name": "of the Phoenix",
+            "displayName": "of the Phoenix",
+            "description": "Reborn in flames, strikes eternally",
+            "rarity": "Mythic"
+        },
+        {
+            "name": "of Bloodletting",
+            "displayName": "of Bloodletting",
+            "description": "Causes severe bleeding wounds",
+            "rarity": "Rare"
+        },
+        {
+            "name": "of Piercing",
+            "displayName": "of Piercing",
+            "description": "Penetrates armor effortlessly",
+            "rarity": "Uncommon"
+        },
+        {
+            "name": "of Sundering",
+            "displayName": "of Sundering",
+            "description": "Shatters enemy defenses",
+            "rarity": "Rare"
+        },
+        {
+            "name": "of Crushing",
+            "displayName": "of Crushing",
+            "description": "Devastates heavily armored foes",
+            "rarity": "Uncommon"
+        },
+        {
+            "name": "of Life Stealing",
+            "displayName": "of Life Stealing",
+            "description": "Drains life from enemies",
+            "rarity": "Epic"
+        },
+        {
+            "name": "of Maiming",
+            "displayName": "of Maiming",
+            "description": "Cripples and disables opponents",
+            "rarity": "Rare"
+        },
+        {
+            "name": "of Quickness",
+            "displayName": "of Quickness",
+            "description": "Allows rapid successive strikes",
+            "rarity": "Rare"
+        },
+        {
+            "name": "of the Assassin",
+            "displayName": "of the Assassin",
+            "description": "Delivers silent, deadly strikes",
+            "rarity": "Epic"
+        },
+        {
+            "name": "of the Berserker",
+            "displayName": "of the Berserker",
+            "description": "Channels rage into devastating blows",
+            "rarity": "Rare"
+        },
+        {
+            "name": "of the Demon",
+            "displayName": "of the Demon",
+            "description": "Corrupted by demonic power",
+            "rarity": "Epic"
+        },
+        {
+            "name": "of the Gods",
+            "displayName": "of the Gods",
+            "description": "Blessed by divine entities",
+            "rarity": "Legendary"
+        },
+        {
+            "name": "of Souls",
+            "displayName": "of Souls",
+            "description": "Traps the souls of the slain",
+            "rarity": "Mythic"
+        },
+        {
+            "name": "of Eternity",
+            "displayName": "of Eternity",
+            "description": "Never dulls or breaks",
+            "rarity": "Legendary"
+        },
+        {
+            "name": "of the Void",
+            "displayName": "of the Void",
+            "description": "Channels entropic energies",
+            "rarity": "Mythic"
+        },
+        {
+            "name": "of Annihilation",
+            "displayName": "of Annihilation",
+            "description": "Erases enemies from existence",
+            "rarity": "Ancient"
+        }
+    ],
+    "components": {
+        "damage_types": {
+            "physical": [
+                "of Slaying",
+                "of Sharpness",
+                "of Power",
+                "of Piercing",
+                "of Crushing",
+                "of Sundering"
+            ],
+            "elemental": [
+                "of Fire",
+                "of Ice",
+                "of Lightning"
+            ],
+            "status": [
+                "of Venom",
+                "of Bloodletting",
+                "of Maiming"
+            ],
+            "special": [
+                "of Life Stealing",
+                "of Souls"
+            ]
+        },
+        "performance_boosts": {
+            "attack": [
+                "of Speed",
+                "of Quickness"
+            ],
+            "precision": [
+                "of Accuracy"
+            ],
+            "devastation": [
+                "of Destruction",
+                "of Annihilation"
+            ]
+        },
+        "warrior_class": [
+            "of the Warrior",
+            "of the Hero",
+            "of the Champion",
+            "of the Berserker",
+            "of the Assassin"
+        ],
+        "legendary_beings": [
+            "of the Dragon",
+            "of the Phoenix",
+            "of the Demon",
+            "of the Gods"
+        ],
+        "metaphysical": [
+            "of the Void",
+            "of Souls",
+            "of Eternity"
+        ]
+    },
+    "patterns": [
+        "weapon + basic",
+        "weapon + elemental",
+        "weapon + warrior",
+        "weapon + legendary",
+        "weapon + special"
+    ],
+    "rarity_distribution": {
+        "Common": 2,
+        "Uncommon": 7,
+        "Rare": 9,
+        "Epic": 7,
+        "Legendary": 2,
+        "Mythic": 3,
+        "Ancient": 1
+    },
+    "notes": {
+        "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+    }
 }

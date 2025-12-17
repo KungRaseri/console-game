@@ -1,771 +1,387 @@
 ﻿{
-    "metadata":  {
-                     "description":  "demons prefix modifiers with stat bonuses/penalties",
-                     "version":  "1.0",
-                     "last_updated":  "2025-12-16",
-                     "type":  "prefix_modifier"
-                 },
-    "common":  {
-                   "Lesser":  {
-                                  "displayName":  "Lesser",
-                                  "description":  "Low-ranking demon of limited power",
-                                  "traits":  {
-                                                 "healthMultiplier":  {
-                                                                          "value":  0.9,
-                                                                          "type":  "Multiplier"
-                                                                      },
-                                                 "damageMultiplier":  {
-                                                                          "value":  1.0,
-                                                                          "type":  "Multiplier"
-                                                                      },
-                                                 "fireDamage":  {
-                                                                    "value":  5,
-                                                                    "type":  "Flat"
-                                                                },
-                                                 "resistFire":  {
-                                                                    "value":  50,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                 "resistHoly":  {
-                                                                    "value":  -25,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                 "demonAura":  {
-                                                                   "value":  true,
-                                                                   "type":  "Boolean"
-                                                               }
-                                             }
-                              },
-                   "Imp":  {
-                               "displayName":  "Imp",
-                               "description":  "Mischievous minor demon",
-                               "traits":  {
-                                              "healthMultiplier":  {
-                                                                       "value":  0.8,
-                                                                       "type":  "Multiplier"
-                                                                   },
-                                              "damageMultiplier":  {
-                                                                       "value":  1.1,
-                                                                       "type":  "Multiplier"
-                                                                   },
-                                              "fireDamage":  {
-                                                                 "value":  8,
-                                                                 "type":  "Flat"
-                                                             },
-                                              "evadeChance":  {
-                                                                  "value":  15,
-                                                                  "type":  "Percentage"
-                                                              },
-                                              "resistFire":  {
-                                                                 "value":  75,
-                                                                 "type":  "Percentage"
-                                                             },
-                                              "resistHoly":  {
-                                                                 "value":  -30,
-                                                                 "type":  "Percentage"
-                                                             },
-                                              "teleportShort":  {
-                                                                    "value":  true,
-                                                                    "type":  "Boolean"
-                                                                }
-                                          }
-                           },
-                   "Corrupted":  {
-                                     "displayName":  "Corrupted",
-                                     "description":  "Demon tainted by dark corruption",
-                                     "traits":  {
-                                                    "healthMultiplier":  {
-                                                                             "value":  1.0,
-                                                                             "type":  "Multiplier"
-                                                                         },
-                                                    "damageMultiplier":  {
-                                                                             "value":  1.1,
-                                                                             "type":  "Multiplier"
-                                                                         },
-                                                    "corruptionDamage":  {
-                                                                             "value":  10,
-                                                                             "type":  "Flat"
-                                                                         },
-                                                    "corruptionChance":  {
-                                                                             "value":  15,
-                                                                             "type":  "Percentage"
-                                                                         },
-                                                    "resistFire":  {
-                                                                       "value":  40,
-                                                                       "type":  "Percentage"
-                                                                   },
-                                                    "resistHoly":  {
-                                                                       "value":  -20,
-                                                                       "type":  "Percentage"
-                                                                   }
-                                                }
-                                 }
-               },
-    "uncommon":  {
-                     "Fiend":  {
-                                   "displayName":  "Fiend",
-                                   "description":  "Malevolent demon of considerable power",
-                                   "traits":  {
-                                                  "healthMultiplier":  {
-                                                                           "value":  1.4,
-                                                                           "type":  "Multiplier"
-                                                                       },
-                                                  "damageMultiplier":  {
-                                                                           "value":  1.5,
-                                                                           "type":  "Multiplier"
-                                                                       },
-                                                  "fireDamage":  {
-                                                                     "value":  20,
-                                                                     "type":  "Flat"
-                                                                 },
-                                                  "darkMagic":  {
-                                                                    "value":  15,
-                                                                    "type":  "Flat"
-                                                                },
-                                                  "resistFire":  {
-                                                                     "value":  60,
-                                                                     "type":  "Percentage"
-                                                                 },
-                                                  "resistMagic":  {
-                                                                      "value":  20,
-                                                                      "type":  "Percentage"
-                                                                  },
-                                                  "resistHoly":  {
-                                                                     "value":  -35,
-                                                                     "type":  "Percentage"
-                                                                 },
-                                                  "corruptionAura":  {
-                                                                         "value":  10,
-                                                                         "type":  "Percentage"
-                                                                     },
-                                                  "fearOnHit":  {
-                                                                    "value":  15,
-                                                                    "type":  "Percentage"
-                                                                }
-                                              }
-                               },
-                     "Infernal":  {
-                                      "displayName":  "Infernal",
-                                      "description":  "Demon wreathed in hellfire",
-                                      "traits":  {
-                                                     "healthMultiplier":  {
-                                                                              "value":  1.5,
-                                                                              "type":  "Multiplier"
-                                                                          },
-                                                     "damageMultiplier":  {
-                                                                              "value":  1.6,
-                                                                              "type":  "Multiplier"
-                                                                          },
-                                                     "fireDamage":  {
-                                                                        "value":  30,
-                                                                        "type":  "Flat"
-                                                                    },
-                                                     "fireAura":  {
-                                                                      "value":  15,
-                                                                      "type":  "Flat"
-                                                                  },
-                                                     "igniteChance":  {
-                                                                          "value":  25,
-                                                                          "type":  "Percentage"
-                                                                      },
-                                                     "resistFire":  {
-                                                                        "value":  100,
-                                                                        "type":  "Percentage"
-                                                                    },
-                                                     "resistCold":  {
-                                                                        "value":  -50,
-                                                                        "type":  "Percentage"
-                                                                    },
-                                                     "resistHoly":  {
-                                                                        "value":  -40,
-                                                                        "type":  "Percentage"
-                                                                    }
-                                                 }
-                                  },
-                     "Vile":  {
-                                  "displayName":  "Vile",
-                                  "description":  "Demon spreading corruption and disease",
-                                  "traits":  {
-                                                 "healthMultiplier":  {
-                                                                          "value":  1.3,
-                                                                          "type":  "Multiplier"
-                                                                      },
-                                                 "damageMultiplier":  {
-                                                                          "value":  1.4,
-                                                                          "type":  "Multiplier"
-                                                                      },
-                                                 "corruptionDamage":  {
-                                                                          "value":  20,
-                                                                          "type":  "Flat"
-                                                                      },
-                                                 "poisonDamage":  {
-                                                                      "value":  15,
-                                                                      "type":  "Flat"
-                                                                  },
-                                                 "corruptionAura":  {
-                                                                        "value":  15,
-                                                                        "type":  "Percentage"
-                                                                    },
-                                                 "diseaseChance":  {
-                                                                       "value":  30,
-                                                                       "type":  "Percentage"
-                                                                   },
-                                                 "resistFire":  {
-                                                                    "value":  50,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                 "resistPoison":  {
-                                                                      "value":  75,
-                                                                      "type":  "Percentage"
-                                                                  },
-                                                 "resistHoly":  {
-                                                                    "value":  -45,
-                                                                    "type":  "Percentage"
-                                                                }
-                                             }
-                              }
-                 },
-    "rare":  {
-                 "Greater":  {
-                                 "displayName":  "Greater",
-                                 "description":  "Powerful demon commanding lesser fiends",
-                                 "traits":  {
-                                                "healthMultiplier":  {
-                                                                         "value":  2.0,
-                                                                         "type":  "Multiplier"
-                                                                     },
-                                                "damageMultiplier":  {
-                                                                         "value":  2.0,
-                                                                         "type":  "Multiplier"
-                                                                     },
-                                                "fireDamage":  {
-                                                                   "value":  40,
-                                                                   "type":  "Flat"
-                                                               },
-                                                "darkMagic":  {
-                                                                  "value":  35,
-                                                                  "type":  "Flat"
-                                                              },
-                                                "summonDemons":  {
-                                                                     "value":  2,
-                                                                     "type":  "Flat"
-                                                                 },
-                                                "resistFire":  {
-                                                                   "value":  75,
-                                                                   "type":  "Percentage"
-                                                               },
-                                                "resistMagic":  {
-                                                                    "value":  35,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                "resistHoly":  {
-                                                                   "value":  -50,
-                                                                   "type":  "Percentage"
-                                                               },
-                                                "corruptionAura":  {
-                                                                       "value":  20,
-                                                                       "type":  "Percentage"
-                                                                   },
-                                                "fearAura":  {
-                                                                 "value":  20,
-                                                                 "type":  "Percentage"
-                                                             },
-                                                "teleport":  {
-                                                                 "value":  true,
-                                                                 "type":  "Boolean"
-                                                             }
-                                            }
-                             },
-                 "Hellborn":  {
-                                  "displayName":  "Hellborn",
-                                  "description":  "Demon born in the deepest pits of hell",
-                                  "traits":  {
-                                                 "healthMultiplier":  {
-                                                                          "value":  2.2,
-                                                                          "type":  "Multiplier"
-                                                                      },
-                                                 "damageMultiplier":  {
-                                                                          "value":  2.1,
-                                                                          "type":  "Multiplier"
-                                                                      },
-                                                 "fireDamage":  {
-                                                                    "value":  50,
-                                                                    "type":  "Flat"
-                                                                },
-                                                 "fireAura":  {
-                                                                  "value":  25,
-                                                                  "type":  "Flat"
-                                                              },
-                                                 "hellfire":  {
-                                                                  "value":  true,
-                                                                  "type":  "Boolean"
-                                                              },
-                                                 "hellfireDamage":  {
-                                                                        "value":  40,
-                                                                        "type":  "Flat"
-                                                                    },
-                                                 "resistFire":  {
-                                                                    "value":  100,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                 "resistPhysical":  {
-                                                                        "value":  25,
-                                                                        "type":  "Percentage"
-                                                                    },
-                                                 "resistCold":  {
-                                                                    "value":  -75,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                 "resistHoly":  {
-                                                                    "value":  -60,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                 "lifeSteal":  {
-                                                                   "value":  15,
-                                                                   "type":  "Percentage"
-                                                               }
-                                             }
-                              },
-                 "Shadow":  {
-                                "displayName":  "Shadow",
-                                "description":  "Demon lurking in darkness and void",
-                                "traits":  {
-                                               "healthMultiplier":  {
-                                                                        "value":  1.8,
-                                                                        "type":  "Multiplier"
-                                                                    },
-                                               "damageMultiplier":  {
-                                                                        "value":  2.2,
-                                                                        "type":  "Multiplier"
-                                                                    },
-                                               "darkMagic":  {
-                                                                 "value":  45,
-                                                                 "type":  "Flat"
-                                                             },
-                                               "shadowDamage":  {
-                                                                    "value":  35,
-                                                                    "type":  "Flat"
-                                                                },
-                                               "stealth":  {
-                                                               "value":  40,
-                                                               "type":  "Flat"
-                                                           },
-                                               "evadeChance":  {
-                                                                   "value":  30,
-                                                                   "type":  "Percentage"
-                                                               },
-                                               "criticalChance":  {
-                                                                      "value":  25,
-                                                                      "type":  "Percentage"
-                                                                  },
-                                               "teleport":  {
-                                                                "value":  true,
-                                                                "type":  "Boolean"
-                                                            },
-                                               "resistMagic":  {
-                                                                   "value":  40,
-                                                                   "type":  "Percentage"
-                                                               },
-                                               "resistHoly":  {
-                                                                  "value":  -55,
-                                                                  "type":  "Percentage"
-                                                              }
-                                           }
-                            }
-             },
-    "elite":  {
-                  "Archfiend":  {
-                                    "displayName":  "Archfiend",
-                                    "description":  "High-ranking demon of terrible power",
-                                    "traits":  {
-                                                   "healthMultiplier":  {
-                                                                            "value":  2.8,
-                                                                            "type":  "Multiplier"
-                                                                        },
-                                                   "damageMultiplier":  {
-                                                                            "value":  2.5,
-                                                                            "type":  "Multiplier"
-                                                                        },
-                                                   "fireDamage":  {
-                                                                      "value":  60,
-                                                                      "type":  "Flat"
-                                                                  },
-                                                   "darkMagic":  {
-                                                                     "value":  55,
-                                                                     "type":  "Flat"
-                                                                 },
-                                                   "summonDemons":  {
-                                                                        "value":  3,
-                                                                        "type":  "Flat"
-                                                                    },
-                                                   "commandAura":  {
-                                                                       "value":  true,
-                                                                       "type":  "Boolean"
-                                                                   },
-                                                   "alliesBuffed":  {
-                                                                        "value":  40,
-                                                                        "type":  "Percentage"
-                                                                    },
-                                                   "resistFire":  {
-                                                                      "value":  80,
-                                                                      "type":  "Percentage"
-                                                                  },
-                                                   "resistMagic":  {
-                                                                       "value":  50,
-                                                                       "type":  "Percentage"
-                                                                   },
-                                                   "resistPhysical":  {
-                                                                          "value":  30,
-                                                                          "type":  "Percentage"
-                                                                      },
-                                                   "resistHoly":  {
-                                                                      "value":  -70,
-                                                                      "type":  "Percentage"
-                                                                  },
-                                                   "corruptionAura":  {
-                                                                          "value":  30,
-                                                                          "type":  "Percentage"
-                                                                      },
-                                                   "fearAura":  {
-                                                                    "value":  35,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                   "teleport":  {
-                                                                    "value":  true,
-                                                                    "type":  "Boolean"
-                                                                },
-                                                   "lifeSteal":  {
-                                                                     "value":  25,
-                                                                     "type":  "Percentage"
-                                                                 }
-                                               }
-                                },
-                  "Abyssal":  {
-                                  "displayName":  "Abyssal",
-                                  "description":  "Demon from the infinite abyss",
-                                  "traits":  {
-                                                 "healthMultiplier":  {
-                                                                          "value":  3.0,
-                                                                          "type":  "Multiplier"
-                                                                      },
-                                                 "damageMultiplier":  {
-                                                                          "value":  2.6,
-                                                                          "type":  "Multiplier"
-                                                                      },
-                                                 "darkMagic":  {
-                                                                   "value":  65,
-                                                                   "type":  "Flat"
-                                                               },
-                                                 "voidDamage":  {
-                                                                    "value":  50,
-                                                                    "type":  "Flat"
-                                                                },
-                                                 "voidAura":  {
-                                                                  "value":  20,
-                                                                  "type":  "Flat"
-                                                              },
-                                                 "drainLife":  {
-                                                                   "value":  20,
-                                                                   "type":  "Flat"
-                                                               },
-                                                 "drainMana":  {
-                                                                   "value":  15,
-                                                                   "type":  "Flat"
-                                                               },
-                                                 "resistAll":  {
-                                                                   "value":  35,
-                                                                   "type":  "Percentage"
-                                                               },
-                                                 "resistHoly":  {
-                                                                    "value":  -65,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                 "teleport":  {
-                                                                  "value":  true,
-                                                                  "type":  "Boolean"
-                                                              },
-                                                 "summonDemons":  {
-                                                                      "value":  4,
-                                                                      "type":  "Flat"
-                                                                  },
-                                                 "unstoppable":  {
-                                                                     "value":  true,
-                                                                     "type":  "Boolean"
-                                                                 }
-                                             }
-                              },
-                  "Chaos":  {
-                                "displayName":  "Chaos",
-                                "description":  "Demon embodying pure chaos and entropy",
-                                "traits":  {
-                                               "healthMultiplier":  {
-                                                                        "value":  2.5,
-                                                                        "type":  "Multiplier"
-                                                                    },
-                                               "damageMultiplier":  {
-                                                                        "value":  2.8,
-                                                                        "type":  "Multiplier"
-                                                                    },
-                                               "chaosDamage":  {
-                                                                   "value":  55,
-                                                                   "type":  "Flat"
-                                                               },
-                                               "randomEffects":  {
-                                                                     "value":  true,
-                                                                     "type":  "Boolean"
-                                                                 },
-                                               "criticalChance":  {
-                                                                      "value":  30,
-                                                                      "type":  "Percentage"
-                                                                  },
-                                               "criticalDamage":  {
-                                                                      "value":  150,
-                                                                      "type":  "Percentage"
-                                                                  },
-                                               "evadeChance":  {
-                                                                   "value":  25,
-                                                                   "type":  "Percentage"
-                                                               },
-                                               "resistFire":  {
-                                                                  "value":  50,
-                                                                  "type":  "Percentage"
-                                                              },
-                                               "resistCold":  {
-                                                                  "value":  50,
-                                                                  "type":  "Percentage"
-                                                              },
-                                               "resistLightning":  {
-                                                                       "value":  50,
-                                                                       "type":  "Percentage"
-                                                                   },
-                                               "resistHoly":  {
-                                                                  "value":  -75,
-                                                                  "type":  "Percentage"
-                                                              },
-                                               "teleport":  {
-                                                                "value":  true,
-                                                                "type":  "Boolean"
-                                                            }
-                                           }
-                            }
-              },
-    "boss":  {
-                 "Demon Lord":  {
-                                    "displayName":  "Demon Lord",
-                                    "description":  "Supreme ruler of demonic legions",
-                                    "traits":  {
-                                                   "healthMultiplier":  {
-                                                                            "value":  4.0,
-                                                                            "type":  "Multiplier"
-                                                                        },
-                                                   "damageMultiplier":  {
-                                                                            "value":  3.2,
-                                                                            "type":  "Multiplier"
-                                                                        },
-                                                   "fireDamage":  {
-                                                                      "value":  80,
-                                                                      "type":  "Flat"
-                                                                  },
-                                                   "darkMagic":  {
-                                                                     "value":  85,
-                                                                     "type":  "Flat"
-                                                                 },
-                                                   "summonDemons":  {
-                                                                        "value":  6,
-                                                                        "type":  "Flat"
-                                                                    },
-                                                   "commandAura":  {
-                                                                       "value":  true,
-                                                                       "type":  "Boolean"
-                                                                   },
-                                                   "alliesBuffed":  {
-                                                                        "value":  75,
-                                                                        "type":  "Percentage"
-                                                                    },
-                                                   "fearAura":  {
-                                                                    "value":  50,
-                                                                    "type":  "Percentage"
-                                                                },
-                                                   "corruptionAura":  {
-                                                                          "value":  40,
-                                                                          "type":  "Percentage"
-                                                                      },
-                                                   "resistAll":  {
-                                                                     "value":  50,
-                                                                     "type":  "Percentage"
-                                                                 },
-                                                   "resistHoly":  {
-                                                                      "value":  -80,
-                                                                      "type":  "Percentage"
-                                                                  },
-                                                   "teleport":  {
-                                                                    "value":  true,
-                                                                    "type":  "Boolean"
-                                                                },
-                                                   "lifeSteal":  {
-                                                                     "value":  40,
-                                                                     "type":  "Percentage"
-                                                                 },
-                                                   "healthRegeneration":  {
-                                                                              "value":  30,
-                                                                              "type":  "Flat"
-                                                                          },
-                                                   "legendaryResistance":  {
-                                                                               "value":  5,
-                                                                               "type":  "Flat"
-                                                                           },
-                                                   "demonicPower":  {
-                                                                        "value":  true,
-                                                                        "type":  "Boolean"
-                                                                    }
-                                               }
-                                },
-                 "Inferno Prince":  {
-                                        "displayName":  "Inferno Prince",
-                                        "description":  "Prince of the burning hells",
-                                        "traits":  {
-                                                       "healthMultiplier":  {
-                                                                                "value":  4.5,
-                                                                                "type":  "Multiplier"
-                                                                            },
-                                                       "damageMultiplier":  {
-                                                                                "value":  3.5,
-                                                                                "type":  "Multiplier"
-                                                                            },
-                                                       "fireDamage":  {
-                                                                          "value":  100,
-                                                                          "type":  "Flat"
-                                                                      },
-                                                       "hellfire":  {
-                                                                        "value":  true,
-                                                                        "type":  "Boolean"
-                                                                    },
-                                                       "hellfireDamage":  {
-                                                                              "value":  80,
-                                                                              "type":  "Flat"
-                                                                          },
-                                                       "fireAura":  {
-                                                                        "value":  40,
-                                                                        "type":  "Flat"
-                                                                    },
-                                                       "meteorStrike":  {
-                                                                            "value":  true,
-                                                                            "type":  "Boolean"
-                                                                        },
-                                                       "meteorDamage":  {
-                                                                            "value":  150,
-                                                                            "type":  "Flat"
-                                                                        },
-                                                       "resistFire":  {
-                                                                          "value":  100,
-                                                                          "type":  "Percentage"
-                                                                      },
-                                                       "resistPhysical":  {
-                                                                              "value":  40,
-                                                                              "type":  "Percentage"
-                                                                          },
-                                                       "resistMagic":  {
-                                                                           "value":  45,
-                                                                           "type":  "Percentage"
-                                                                       },
-                                                       "resistCold":  {
-                                                                          "value":  -100,
-                                                                          "type":  "Percentage"
-                                                                      },
-                                                       "resistHoly":  {
-                                                                          "value":  -90,
-                                                                          "type":  "Percentage"
-                                                                      },
-                                                       "summonDemons":  {
-                                                                            "value":  5,
-                                                                            "type":  "Flat"
-                                                                        },
-                                                       "lifeSteal":  {
-                                                                         "value":  35,
-                                                                         "type":  "Percentage"
-                                                                     },
-                                                       "unstoppable":  {
-                                                                           "value":  true,
-                                                                           "type":  "Boolean"
-                                                                       }
-                                                   }
-                                    },
-                 "Void Emperor":  {
-                                      "displayName":  "Void Emperor",
-                                      "description":  "Emperor of the endless void",
-                                      "traits":  {
-                                                     "healthMultiplier":  {
-                                                                              "value":  3.8,
-                                                                              "type":  "Multiplier"
-                                                                          },
-                                                     "damageMultiplier":  {
-                                                                              "value":  3.0,
-                                                                              "type":  "Multiplier"
-                                                                          },
-                                                     "voidDamage":  {
-                                                                        "value":  90,
-                                                                        "type":  "Flat"
-                                                                    },
-                                                     "darkMagic":  {
-                                                                       "value":  100,
-                                                                       "type":  "Flat"
-                                                                   },
-                                                     "voidAura":  {
-                                                                      "value":  35,
-                                                                      "type":  "Flat"
-                                                                  },
-                                                     "drainLife":  {
-                                                                       "value":  40,
-                                                                       "type":  "Flat"
-                                                                   },
-                                                     "drainMana":  {
-                                                                       "value":  30,
-                                                                       "type":  "Flat"
-                                                                   },
-                                                     "summonDemons":  {
-                                                                          "value":  7,
-                                                                          "type":  "Flat"
-                                                                      },
-                                                     "teleport":  {
-                                                                      "value":  true,
-                                                                      "type":  "Boolean"
-                                                                  },
-                                                     "voidRift":  {
-                                                                      "value":  true,
-                                                                      "type":  "Boolean"
-                                                                  },
-                                                     "resistAll":  {
-                                                                       "value":  60,
-                                                                       "type":  "Percentage"
-                                                                   },
-                                                     "resistHoly":  {
-                                                                        "value":  -85,
-                                                                        "type":  "Percentage"
-                                                                    },
-                                                     "healthRegeneration":  {
-                                                                                "value":  25,
-                                                                                "type":  "Flat"
-                                                                            },
-                                                     "manaRegeneration":  {
-                                                                              "value":  40,
-                                                                              "type":  "Flat"
-                                                                          },
-                                                     "legendaryResistance":  {
-                                                                                 "value":  8,
-                                                                                 "type":  "Flat"
-                                                                             },
-                                                     "unstoppable":  {
-                                                                         "value":  true,
-                                                                         "type":  "Boolean"
-                                                                     },
-                                                     "voidImmunity":  {
-                                                                          "value":  true,
-                                                                          "type":  "Boolean"
-                                                                      }
-                                                 }
-                                  }
-             },
-    "notes":  {
-                  "usage":  "Stat modifiers applied BEFORE base name. Used at runtime based on item rarity. Not used in pattern generation."
-              }
+    "_metadata": {
+        "totals": {
+            "total_items": 9
+        },
+        "description": "demons prefix modifiers with stat bonuses/penalties",
+        "type": "prefix_modifier",
+        "version": "1.0",
+        "last_updated": "2025-12-16"
+    },
+    "items": [
+        {
+            "rarityWeight": 50,
+            "name": "Lesser",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 0.9,
+                    "type": "Multiplier"
+                },
+                "demonAura": {
+                    "value": true,
+                    "type": "Boolean"
+                },
+                "fireDamage": {
+                    "value": 5,
+                    "type": "Flat"
+                },
+                "resistFire": {
+                    "value": 50,
+                    "type": "Percentage"
+                },
+                "resistHoly": {
+                    "value": -25,
+                    "type": "Percentage"
+                },
+                "damageMultiplier": {
+                    "value": 1.0,
+                    "type": "Multiplier"
+                }
+            },
+            "displayName": "Lesser"
+        },
+        {
+            "rarityWeight": 50,
+            "name": "Imp",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 0.8,
+                    "type": "Multiplier"
+                },
+                "teleportShort": {
+                    "value": true,
+                    "type": "Boolean"
+                },
+                "resistHoly": {
+                    "value": -30,
+                    "type": "Percentage"
+                },
+                "evadeChance": {
+                    "value": 15,
+                    "type": "Percentage"
+                },
+                "resistFire": {
+                    "value": 75,
+                    "type": "Percentage"
+                },
+                "damageMultiplier": {
+                    "value": 1.1,
+                    "type": "Multiplier"
+                },
+                "fireDamage": {
+                    "value": 8,
+                    "type": "Flat"
+                }
+            },
+            "displayName": "Imp"
+        },
+        {
+            "rarityWeight": 50,
+            "name": "Corrupted",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 1.0,
+                    "type": "Multiplier"
+                },
+                "corruptionChance": {
+                    "value": 15,
+                    "type": "Percentage"
+                },
+                "corruptionDamage": {
+                    "value": 10,
+                    "type": "Flat"
+                },
+                "resistHoly": {
+                    "value": -20,
+                    "type": "Percentage"
+                },
+                "resistFire": {
+                    "value": 40,
+                    "type": "Percentage"
+                },
+                "damageMultiplier": {
+                    "value": 1.1,
+                    "type": "Multiplier"
+                }
+            },
+            "displayName": "Corrupted"
+        },
+        {
+            "rarityWeight": 30,
+            "name": "Fiend",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 1.4,
+                    "type": "Multiplier"
+                },
+                "corruptionAura": {
+                    "value": 10,
+                    "type": "Percentage"
+                },
+                "resistHoly": {
+                    "value": -35,
+                    "type": "Percentage"
+                },
+                "resistMagic": {
+                    "value": 20,
+                    "type": "Percentage"
+                },
+                "fearOnHit": {
+                    "value": 15,
+                    "type": "Percentage"
+                },
+                "fireDamage": {
+                    "value": 20,
+                    "type": "Flat"
+                },
+                "resistFire": {
+                    "value": 60,
+                    "type": "Percentage"
+                },
+                "damageMultiplier": {
+                    "value": 1.5,
+                    "type": "Multiplier"
+                },
+                "darkMagic": {
+                    "value": 15,
+                    "type": "Flat"
+                }
+            },
+            "displayName": "Fiend"
+        },
+        {
+            "rarityWeight": 30,
+            "name": "Infernal",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 1.5,
+                    "type": "Multiplier"
+                },
+                "resistHoly": {
+                    "value": -40,
+                    "type": "Percentage"
+                },
+                "fireDamage": {
+                    "value": 30,
+                    "type": "Flat"
+                },
+                "fireAura": {
+                    "value": 15,
+                    "type": "Flat"
+                },
+                "resistFire": {
+                    "value": 100,
+                    "type": "Percentage"
+                },
+                "damageMultiplier": {
+                    "value": 1.6,
+                    "type": "Multiplier"
+                },
+                "igniteChance": {
+                    "value": 25,
+                    "type": "Percentage"
+                },
+                "resistCold": {
+                    "value": -50,
+                    "type": "Percentage"
+                }
+            },
+            "displayName": "Infernal"
+        },
+        {
+            "rarityWeight": 30,
+            "name": "Vile",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 1.3,
+                    "type": "Multiplier"
+                },
+                "diseaseChance": {
+                    "value": 30,
+                    "type": "Percentage"
+                },
+                "corruptionDamage": {
+                    "value": 20,
+                    "type": "Flat"
+                },
+                "resistPoison": {
+                    "value": 75,
+                    "type": "Percentage"
+                },
+                "resistFire": {
+                    "value": 50,
+                    "type": "Percentage"
+                },
+                "corruptionAura": {
+                    "value": 15,
+                    "type": "Percentage"
+                },
+                "poisonDamage": {
+                    "value": 15,
+                    "type": "Flat"
+                },
+                "damageMultiplier": {
+                    "value": 1.4,
+                    "type": "Multiplier"
+                },
+                "resistHoly": {
+                    "value": -45,
+                    "type": "Percentage"
+                }
+            },
+            "displayName": "Vile"
+        },
+        {
+            "rarityWeight": 15,
+            "name": "Greater",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 2.0,
+                    "type": "Multiplier"
+                },
+                "corruptionAura": {
+                    "value": 20,
+                    "type": "Percentage"
+                },
+                "resistHoly": {
+                    "value": -50,
+                    "type": "Percentage"
+                },
+                "teleport": {
+                    "value": true,
+                    "type": "Boolean"
+                },
+                "resistMagic": {
+                    "value": 35,
+                    "type": "Percentage"
+                },
+                "fireDamage": {
+                    "value": 40,
+                    "type": "Flat"
+                },
+                "fearAura": {
+                    "value": 20,
+                    "type": "Percentage"
+                },
+                "resistFire": {
+                    "value": 75,
+                    "type": "Percentage"
+                },
+                "summonDemons": {
+                    "value": 2,
+                    "type": "Flat"
+                },
+                "damageMultiplier": {
+                    "value": 2.0,
+                    "type": "Multiplier"
+                },
+                "darkMagic": {
+                    "value": 35,
+                    "type": "Flat"
+                }
+            },
+            "displayName": "Greater"
+        },
+        {
+            "rarityWeight": 15,
+            "name": "Hellborn",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 2.2,
+                    "type": "Multiplier"
+                },
+                "hellfireDamage": {
+                    "value": 40,
+                    "type": "Flat"
+                },
+                "resistHoly": {
+                    "value": -60,
+                    "type": "Percentage"
+                },
+                "resistPhysical": {
+                    "value": 25,
+                    "type": "Percentage"
+                },
+                "fireDamage": {
+                    "value": 50,
+                    "type": "Flat"
+                },
+                "lifeSteal": {
+                    "value": 15,
+                    "type": "Percentage"
+                },
+                "fireAura": {
+                    "value": 25,
+                    "type": "Flat"
+                },
+                "resistFire": {
+                    "value": 100,
+                    "type": "Percentage"
+                },
+                "damageMultiplier": {
+                    "value": 2.1,
+                    "type": "Multiplier"
+                },
+                "resistCold": {
+                    "value": -75,
+                    "type": "Percentage"
+                },
+                "hellfire": {
+                    "value": true,
+                    "type": "Boolean"
+                }
+            },
+            "displayName": "Hellborn"
+        },
+        {
+            "rarityWeight": 15,
+            "name": "Shadow",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 1.8,
+                    "type": "Multiplier"
+                },
+                "teleport": {
+                    "value": true,
+                    "type": "Boolean"
+                },
+                "resistMagic": {
+                    "value": 40,
+                    "type": "Percentage"
+                },
+                "shadowDamage": {
+                    "value": 35,
+                    "type": "Flat"
+                },
+                "evadeChance": {
+                    "value": 30,
+                    "type": "Percentage"
+                },
+                "criticalChance": {
+                    "value": 25,
+                    "type": "Percentage"
+                },
+                "stealth": {
+                    "value": 40,
+                    "type": "Flat"
+                },
+                "resistHoly": {
+                    "value": -55,
+                    "type": "Percentage"
+                },
+                "damageMultiplier": {
+                    "value": 2.2,
+                    "type": "Multiplier"
+                },
+                "darkMagic": {
+                    "value": 45,
+                    "type": "Flat"
+                }
+            },
+            "displayName": "Shadow"
+        }
+    ],
+    "notes": {
+        "usage": "Stat modifiers applied BEFORE base name. Used at runtime based on item rarity. Not used in pattern generation."
+    }
 }

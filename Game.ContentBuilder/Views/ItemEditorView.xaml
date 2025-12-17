@@ -194,130 +194,111 @@
                      Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"/>
 
         <!-- Right Panel: Metadata & Notes -->
-        <Border Grid.Column="4" 
-                Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
-                Padding="12"
-                materialDesign:ElevationAssist.Elevation="Dp2">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="4" 
+                      VerticalScrollBarVisibility="Auto"
+                      Margin="8,0,0,0">
+            <materialDesign:Card Padding="16">
                 <StackPanel>
-                    <!-- Header -->
-                    <materialDesign:ColorZone Mode="PrimaryMid"
-                                             Padding="10"
-                                             Margin="0,0,0,12">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Information" 
-                                                   VerticalAlignment="Center"
-                                                   Margin="0,0,6,0"/>
-                            <TextBlock Text="Metadata &amp; Notes" 
-                                     VerticalAlignment="Center"
-                                     FontWeight="Medium"
-                                     FontSize="14"/>
-                        </StackPanel>
-                    </materialDesign:ColorZone>
+                    <!-- Panel Header -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                        <materialDesign:PackIcon Kind="Information" 
+                                                 VerticalAlignment="Center" 
+                                                 Margin="0,0,8,0"
+                                                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"/>
+                        <TextBlock Text="Metadata &amp; Notes" 
+                                   FontSize="16" 
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
 
-                    <!-- User-Editable Metadata -->
-                    <materialDesign:Card Padding="12" Margin="0,0,0,12">
-                        <StackPanel>
-                            <TextBlock Text="File Information" 
-                                     FontWeight="Medium" 
-                                     FontSize="13"
-                                     Margin="0,0,0,12"/>
-                            
-                            <!-- Description -->
-                            <TextBox Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"
-                                    materialDesign:HintAssist.Hint="Description"
-                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    TextWrapping="Wrap"
-                                    AcceptsReturn="True"
-                                    MinLines="2"
-                                    MaxLines="4"
-                                    Margin="0,0,0,12"/>
+                    <!-- User-Editable Fields -->
+                    <TextBlock Text="Description" 
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Brief description of this file"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0,0,0,16"/>
 
-                            <!-- Version -->
-                            <TextBox Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"
-                                    materialDesign:HintAssist.Hint="Version"
-                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    Margin="0,0,0,12"/>
+                    <TextBlock Text="Version" 
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="e.g., 1.0, 2.3.1"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0,0,0,16"/>
 
-                            <!-- Tags -->
-                            <TextBox Text="{Binding MetadataTags, UpdateSourceTrigger=PropertyChanged}"
-                                    materialDesign:HintAssist.Hint="Tags (comma-separated)"
-                                    materialDesign:HintAssist.HelperText="e.g., weapons, modifiers, prefixes"
-                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    Margin="0,0,0,0"/>
-                        </StackPanel>
-                    </materialDesign:Card>
+                    <TextBlock Text="Tags" 
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding MetadataTags, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="e.g., weapons, modifiers, prefixes"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0,0,0,16"/>
 
-                    <!-- Auto-Generated Metadata (Read-Only) -->
-                    <materialDesign:Card Padding="12" Margin="0,0,0,12"
-                                        Background="{DynamicResource MaterialDesign.Brush.Background}">
-                        <StackPanel>
-                            <TextBlock Text="Auto-Generated" 
-                                     FontWeight="Medium" 
-                                     FontSize="13"
-                                     Margin="0,0,0,12"/>
+                    <TextBlock Text="Notes" 
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding MetadataNotes, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Additional notes or comments"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             MinHeight="80"
+                             Margin="0,0,0,16"/>
 
-                            <!-- Last Updated -->
-                            <StackPanel Margin="0,0,0,8">
-                                <TextBlock Text="Last Updated" 
-                                         FontSize="11" 
-                                         Opacity="0.7"
-                                         Margin="0,0,0,2"/>
-                                <TextBlock Text="{Binding MetadataLastUpdated}" 
-                                         FontSize="12"/>
-                            </StackPanel>
+                    <Separator Margin="0,8,0,16"/>
 
-                            <!-- File Type -->
-                            <StackPanel Margin="0,0,0,8">
-                                <TextBlock Text="File Type" 
-                                         FontSize="11" 
-                                         Opacity="0.7"
-                                         Margin="0,0,0,2"/>
-                                <TextBlock Text="{Binding MetadataFileType}" 
-                                         FontSize="12"/>
-                            </StackPanel>
+                    <!-- Auto-Generated Read-Only Fields -->
+                    <TextBlock Text="Auto-Generated Information" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,12"/>
 
-                            <!-- Total Items -->
-                            <StackPanel>
-                                <TextBlock Text="Total Items" 
-                                         FontSize="11" 
-                                         Opacity="0.7"
-                                         Margin="0,0,0,2"/>
-                                <TextBlock Text="{Binding MetadataTotalItems}" 
-                                         FontSize="12"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </materialDesign:Card>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" 
+                                   Text="Last Updated:" 
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,8,0"/>
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding MetadataLastUpdated}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
 
-                    <!-- Notes Section -->
-                    <materialDesign:Card Padding="12">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                                <materialDesign:PackIcon Kind="NoteText" 
-                                                       VerticalAlignment="Center"
-                                                       Margin="0,0,6,0"
-                                                       Width="16"
-                                                       Height="16"/>
-                                <TextBlock Text="Notes" 
-                                         FontWeight="Medium" 
-                                         FontSize="13"
-                                         VerticalAlignment="Center"/>
-                            </StackPanel>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" 
+                                   Text="File Type:" 
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,8,0"/>
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding MetadataFileType}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
 
-                            <TextBox Text="{Binding MetadataNotes, UpdateSourceTrigger=PropertyChanged}"
-                                    materialDesign:HintAssist.Hint="Development notes, TODOs, etc."
-                                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    TextWrapping="Wrap"
-                                    AcceptsReturn="True"
-                                    MinLines="6"
-                                    MaxLines="12"
-                                    VerticalScrollBarVisibility="Auto"/>
-                        </StackPanel>
-                    </materialDesign:Card>
-
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" 
+                                   Text="Total Items:" 
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,8,0"/>
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding MetadataTotalItems}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
                 </StackPanel>
-            </ScrollViewer>
-        </Border>
+            </materialDesign:Card>
+        </ScrollViewer>
         </Grid>
 
         <!-- Status Bar -->
