@@ -1,7 +1,7 @@
 using Game.Core.Models;
 using Game.Core.Abstractions;
 using Game.Console.UI;
-using Game.Shared.Services;
+using Game.Console.Services;
 using Game.Core.Services;
 using Game.Core.Features.SaveLoad;
 using MediatR;

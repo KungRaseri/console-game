@@ -1,4 +1,9 @@
-namespace Game.Shared.Services;
+using Game.Core.Models;
+using Game.Console.UI;
+using Game.Core.Abstractions;
+using Game.Core.Utilities;
+
+namespace Game.Console.Services;
 
 /// <summary>
 /// Service for displaying character information and statistics.

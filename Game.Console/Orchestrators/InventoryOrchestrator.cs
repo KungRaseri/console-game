@@ -1,6 +1,6 @@
 using Game.Core.Models;
 using Game.Console.UI;
-using Game.Shared.Services;
+using Game.Console.Services;
 using MediatR;
 using Serilog;
 using Spectre.Console;

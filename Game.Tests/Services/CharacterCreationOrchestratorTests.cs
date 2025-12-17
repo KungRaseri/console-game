@@ -4,7 +4,7 @@ using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Game.Core.Services;
 using Game.Core.Features.SaveLoad;
-using Game.Shared.Services;
+using Game.Console.Services;
 using MediatR;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;

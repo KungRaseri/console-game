@@ -1,4 +1,7 @@
-namespace Game.Shared.Behaviors;
+using FluentValidation;
+using MediatR;
+
+namespace Game.Core.Behaviors;
 
 /// <summary>
 /// Automatically validates commands using FluentValidation.

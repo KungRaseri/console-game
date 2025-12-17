@@ -6,7 +6,7 @@ using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Game.Core.Features.Combat;
 using Game.Core.Features.SaveLoad;
-using Game.Shared.Services;
+using Game.Console.Services;
 using Game.Core.Models;
 using MediatR;
 using Moq;

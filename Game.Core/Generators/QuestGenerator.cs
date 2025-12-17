@@ -1,7 +1,7 @@
 using Bogus;
 using Game.Shared.Data.Models;
 using Game.Core.Models;
-using Game.Shared.Services;
+using Game.Core.Services;
 using Game.Core.Utilities;
 using Serilog;
 

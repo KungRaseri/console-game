@@ -1,4 +1,13 @@
-namespace Game.Shared.Services;
+using Game.Core.Services;
+using Game.Core.Features.Combat;
+using Game.Core.Features.Exploration;
+using Game.Core.Features.SaveLoad;
+using Game.Core.Abstractions;
+using Game.Console.Orchestrators;
+using Game.Data.Repositories;
+using MediatR;
+
+namespace Game.Console.Services;
 
 /// <summary>
 /// Service aggregator for GameEngine to reduce constructor complexity.

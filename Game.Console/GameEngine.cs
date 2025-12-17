@@ -1,6 +1,6 @@
 using Game.Core.Models;
 using Game.Core.Generators;
-using Game.Shared.Services;
+using Game.Console.Services;
 using Serilog;
 using Polly;
 using Polly.Retry;

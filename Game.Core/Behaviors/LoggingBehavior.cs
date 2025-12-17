@@ -1,7 +1,8 @@
+using MediatR;
 using Serilog;
 using System.Diagnostics;
 
-namespace Game.Shared.Behaviors;
+namespace Game.Core.Behaviors;
 
 /// <summary>
 /// Logs all commands and queries with timing information.

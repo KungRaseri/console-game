@@ -4,7 +4,7 @@ using Game.Core.Features.SaveLoad;
 using Game.Core.Features.Death.Commands;
 using Game.Core.Features.Combat;
 using Game.Console.UI;
-using Game.Shared.Services;
+using Game.Console.Services;
 using Game.Core.Utilities;
 using MediatR;
 using Serilog;

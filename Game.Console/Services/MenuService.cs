@@ -1,4 +1,10 @@
-namespace Game.Shared.Services;
+using Game.Core.Models;
+using Game.Core.Services;
+using Game.Core.Features.SaveLoad;
+using Game.Console.UI;
+using Spectre.Console;
+
+namespace Game.Console.Services;
 
 /// <summary>
 /// Service for handling all menu operations and navigation.
