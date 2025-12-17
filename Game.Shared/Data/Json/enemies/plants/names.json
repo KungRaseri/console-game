@@ -1,0 +1,62 @@
+{
+  "components": {
+    "age": [
+      { "value": "Young", "rarityWeight": 5 },
+      { "value": "Mature", "rarityWeight": 10 },
+      { "value": "Ancient", "rarityWeight": 30 },
+      { "value": "Elder", "rarityWeight": 60 },
+      { "value": "Primordial", "rarityWeight": 80 }
+    ],
+    "type": [
+      { "value": "Thorn", "rarityWeight": 6 },
+      { "value": "Vine", "rarityWeight": 5 },
+      { "value": "Bramble", "rarityWeight": 8 },
+      { "value": "Moss", "rarityWeight": 12 },
+      { "value": "Fungal", "rarityWeight": 15 },
+      { "value": "Awakened", "rarityWeight": 25 },
+      { "value": "Primal", "rarityWeight": 35 }
+    ],
+    "descriptive": [
+      { "value": "Overgrown", "rarityWeight": 8 },
+      { "value": "Carnivorous", "rarityWeight": 12 },
+      { "value": "Venomous", "rarityWeight": 15 },
+      { "value": "Savage", "rarityWeight": 18 },
+      { "value": "Mystical", "rarityWeight": 28 },
+      { "value": "Sacred", "rarityWeight": 40 }
+    ],
+    "title": [
+      { "value": "Strangler", "rarityWeight": 10 },
+      { "value": "Guardian", "rarityWeight": 15 },
+      { "value": "Sentinel", "rarityWeight": 20 },
+      { "value": "Warden", "rarityWeight": 30 },
+      { "value": "Protector", "rarityWeight": 35 },
+      { "value": "Keeper", "rarityWeight": 40 }
+    ]
+  },
+  "patterns": [
+    "base",
+    "age + base",
+    "type + base",
+    "descriptive + base",
+    "base + title",
+    "age + type + base",
+    "descriptive + base + title",
+    "age + type + base + title"
+  ],
+  "metadata": {
+    "description": "Plant creature name generation patterns with weight-based rarity components",
+    "version": "1.0",
+    "last_updated": "2025-12-16",
+    "type": "pattern_generation",
+    "component_keys": ["age", "type", "descriptive", "title"],
+    "pattern_tokens": ["base", "age", "type", "descriptive", "title"],
+    "total_patterns": 8,
+    "rarity_system": "weight-based",
+    "notes": {
+      "base_token": "Resolves to item name from plants/types.json",
+      "plant_variety": "Includes carnivorous plants, treants, myconids, awakened plants",
+      "weight_ranges": "Young (5) → Primordial (80), Vine (5) → Primal (35)",
+      "traits": "Most plants vulnerable to fire, some rooted, some mobile"
+    }
+  }
+}

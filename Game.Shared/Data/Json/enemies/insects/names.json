@@ -1,0 +1,60 @@
+{
+  "components": {
+    "size": [
+      { "value": "Small", "rarityWeight": 5 },
+      { "value": "Giant", "rarityWeight": 8 },
+      { "value": "Huge", "rarityWeight": 20 },
+      { "value": "Colossal", "rarityWeight": 40 }
+    ],
+    "type": [
+      { "value": "Common", "rarityWeight": 5 },
+      { "value": "Fire", "rarityWeight": 12 },
+      { "value": "Acid", "rarityWeight": 15 },
+      { "value": "Frost", "rarityWeight": 18 },
+      { "value": "Phase", "rarityWeight": 30 },
+      { "value": "Crystal", "rarityWeight": 35 }
+    ],
+    "descriptive": [
+      { "value": "Aggressive", "rarityWeight": 8 },
+      { "value": "Venomous", "rarityWeight": 12 },
+      { "value": "Armored", "rarityWeight": 15 },
+      { "value": "Swift", "rarityWeight": 10 },
+      { "value": "Deadly", "rarityWeight": 20 },
+      { "value": "Primordial", "rarityWeight": 35 }
+    ],
+    "title": [
+      { "value": "Worker", "rarityWeight": 5 },
+      { "value": "Soldier", "rarityWeight": 10 },
+      { "value": "Hunter", "rarityWeight": 15 },
+      { "value": "Guardian", "rarityWeight": 20 },
+      { "value": "Matriarch", "rarityWeight": 40 },
+      { "value": "Queen", "rarityWeight": 45 }
+    ]
+  },
+  "patterns": [
+    "base",
+    "size + base",
+    "type + base",
+    "descriptive + base",
+    "base + title",
+    "size + type + base",
+    "descriptive + base + title",
+    "size + type + base + title"
+  ],
+  "metadata": {
+    "description": "Giant insect name generation patterns with weight-based rarity components",
+    "version": "1.0",
+    "last_updated": "2025-12-16",
+    "type": "pattern_generation",
+    "component_keys": ["size", "type", "descriptive", "title"],
+    "pattern_tokens": ["base", "size", "type", "descriptive", "title"],
+    "total_patterns": 8,
+    "rarity_system": "weight-based",
+    "notes": {
+      "base_token": "Resolves to item name from insects/types.json",
+      "insect_variety": "Includes spiders, beetles, wasps, ants with hive/solitary behavior",
+      "weight_ranges": "Small (5) → Colossal (40), Common (5) → Crystal (35)",
+      "traits": "Many insects are venomous, armored, or have hive minds"
+    }
+  }
+}

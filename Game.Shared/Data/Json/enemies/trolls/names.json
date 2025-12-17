@@ -1,0 +1,61 @@
+{
+  "components": {
+    "age": [
+      { "value": "Young", "rarityWeight": 10 },
+      { "value": "Common", "rarityWeight": 12 },
+      { "value": "Mature", "rarityWeight": 18 },
+      { "value": "Elder", "rarityWeight": 35 },
+      { "value": "Ancient", "rarityWeight": 70 }
+    ],
+    "habitat": [
+      { "value": "Cave", "rarityWeight": 12 },
+      { "value": "Mountain", "rarityWeight": 15 },
+      { "value": "Forest", "rarityWeight": 15 },
+      { "value": "Swamp", "rarityWeight": 18 },
+      { "value": "Frost", "rarityWeight": 25 },
+      { "value": "Volcanic", "rarityWeight": 30 }
+    ],
+    "descriptive": [
+      { "value": "Savage", "rarityWeight": 12 },
+      { "value": "Brutal", "rarityWeight": 15 },
+      { "value": "Raging", "rarityWeight": 20 },
+      { "value": "Unstoppable", "rarityWeight": 28 },
+      { "value": "Primordial", "rarityWeight": 40 },
+      { "value": "Legendary", "rarityWeight": 60 }
+    ],
+    "title": [
+      { "value": "Brute", "rarityWeight": 15 },
+      { "value": "Destroyer", "rarityWeight": 22 },
+      { "value": "Ravager", "rarityWeight": 25 },
+      { "value": "Warlord", "rarityWeight": 32 },
+      { "value": "Chieftain", "rarityWeight": 45 },
+      { "value": "King", "rarityWeight": 65 }
+    ]
+  },
+  "patterns": [
+    "base",
+    "age + base",
+    "habitat + base",
+    "descriptive + base",
+    "base + title",
+    "age + habitat + base",
+    "descriptive + base + title",
+    "age + habitat + base + title"
+  ],
+  "metadata": {
+    "description": "Troll name generation patterns with weight-based rarity components",
+    "version": "1.0",
+    "last_updated": "2025-12-16",
+    "type": "pattern_generation",
+    "component_keys": ["age", "habitat", "descriptive", "title"],
+    "pattern_tokens": ["base", "age", "habitat", "descriptive", "title"],
+    "total_patterns": 8,
+    "rarity_system": "weight-based",
+    "notes": {
+      "base_token": "Resolves to item name from trolls/types.json",
+      "troll_nature": "Large regenerating creatures with elemental variants",
+      "weight_ranges": "Young (10) → Ancient (70), Cave (12) → Volcanic (30)",
+      "regeneration": "All trolls have regeneration trait, vulnerable to fire"
+    }
+  }
+}

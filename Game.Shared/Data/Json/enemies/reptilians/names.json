@@ -1,0 +1,62 @@
+{
+  "components": {
+    "size": [
+      { "value": "Young", "rarityWeight": 3 },
+      { "value": "Lesser", "rarityWeight": 5 },
+      { "value": "Common", "rarityWeight": 8 },
+      { "value": "Greater", "rarityWeight": 20 },
+      { "value": "Elder", "rarityWeight": 35 }
+    ],
+    "scale": [
+      { "value": "Green", "rarityWeight": 5 },
+      { "value": "Brown", "rarityWeight": 5 },
+      { "value": "Red", "rarityWeight": 10 },
+      { "value": "Black", "rarityWeight": 12 },
+      { "value": "Golden", "rarityWeight": 25 },
+      { "value": "Obsidian", "rarityWeight": 30 },
+      { "value": "Prismatic", "rarityWeight": 45 }
+    ],
+    "descriptive": [
+      { "value": "Swift", "rarityWeight": 8 },
+      { "value": "Cunning", "rarityWeight": 10 },
+      { "value": "Venomous", "rarityWeight": 15 },
+      { "value": "Ancient", "rarityWeight": 25 },
+      { "value": "Mystical", "rarityWeight": 30 },
+      { "value": "Primordial", "rarityWeight": 40 }
+    ],
+    "title": [
+      { "value": "Scout", "rarityWeight": 5 },
+      { "value": "Warrior", "rarityWeight": 10 },
+      { "value": "Hunter", "rarityWeight": 12 },
+      { "value": "Shaman", "rarityWeight": 18 },
+      { "value": "Sorcerer", "rarityWeight": 22 },
+      { "value": "King", "rarityWeight": 35 },
+      { "value": "High Priest", "rarityWeight": 40 }
+    ]
+  },
+  "patterns": [
+    "base",
+    "size + base",
+    "scale + base",
+    "descriptive + base",
+    "base + title",
+    "size + scale + base",
+    "descriptive + base + title",
+    "size + scale + base + title"
+  ],
+  "metadata": {
+    "description": "Reptilian name generation patterns with weight-based rarity components",
+    "version": "1.0",
+    "last_updated": "2025-12-16",
+    "type": "pattern_generation",
+    "component_keys": ["size", "scale", "descriptive", "title"],
+    "pattern_tokens": ["base", "size", "scale", "descriptive", "title"],
+    "total_patterns": 8,
+    "rarity_system": "weight-based",
+    "notes": {
+      "base_token": "Resolves to item name from reptilians/types.json",
+      "reptilian_culture": "Includes kobolds (cowardly), lizardfolk (tribal), yuan-ti (cunning)",
+      "weight_ranges": "Young (3) → Elder (35), Green (5) → Prismatic (45)"
+    }
+  }
+}
