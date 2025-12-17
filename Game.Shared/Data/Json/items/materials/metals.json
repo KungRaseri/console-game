@@ -1,141 +1,194 @@
-{
-  "Iron": {
-    "displayName": "Iron",
-    "traits": {
-      "durability": { "value": 50, "type": "number" },
-      "weight": { "value": 1.0, "type": "number" },
-      "enchantability": { "value": 30, "type": "number" },
-      "valueMultiplier": { "value": 1.0, "type": "number" },
-      "damageBonus": { "value": 0, "type": "number" },
-      "armorBonus": { "value": 0, "type": "number" },
-      "description": { "value": "Common, sturdy metal used in basic equipment", "type": "string" }
-    }
+﻿{
+  "metadata": {
+    "description": "Metal material catalog with weight-based rarity and trait bonuses",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "material_catalog",
+    "total_metals": 10,
+    "categories": ["common", "refined", "precious", "magical", "legendary"]
   },
-  "Steel": {
-    "displayName": "Steel",
-    "traits": {
-      "durability": { "value": 75, "type": "number" },
-      "weight": { "value": 1.1, "type": "number" },
-      "enchantability": { "value": 45, "type": "number" },
-      "valueMultiplier": { "value": 2.0, "type": "number" },
-      "damageBonus": { "value": 2, "type": "number" },
-      "armorBonus": { "value": 2, "type": "number" },
-      "description": { "value": "Refined iron alloy with superior strength", "type": "string" }
-    }
+  "components": {
+    "common_metals": [
+      {
+        "name": "Iron",
+        "displayName": "Iron",
+        "rarityWeight": 5,
+        "traits": {
+          "durability": 50,
+          "weight": 1.0,
+          "enchantability": 30,
+          "valueMultiplier": 1.0,
+          "damageBonus": 0,
+          "armorBonus": 0,
+          "description": "Common, sturdy metal used in basic equipment"
+        }
+      },
+      {
+        "name": "Bronze",
+        "displayName": "Bronze",
+        "rarityWeight": 8,
+        "traits": {
+          "durability": 60,
+          "weight": 1.0,
+          "enchantability": 35,
+          "valueMultiplier": 1.5,
+          "damageBonus": 1,
+          "armorBonus": 1,
+          "corrosionResist": 50,
+          "description": "Ancient alloy resistant to corrosion"
+        }
+      }
+    ],
+    "refined_metals": [
+      {
+        "name": "Steel",
+        "displayName": "Steel",
+        "rarityWeight": 15,
+        "traits": {
+          "durability": 75,
+          "weight": 1.1,
+          "enchantability": 45,
+          "valueMultiplier": 2.0,
+          "damageBonus": 2,
+          "armorBonus": 2,
+          "description": "Refined iron alloy with superior strength"
+        }
+      }
+    ],
+    "precious_metals": [
+      {
+        "name": "Silver",
+        "displayName": "Silver",
+        "rarityWeight": 30,
+        "traits": {
+          "durability": 40,
+          "weight": 0.9,
+          "enchantability": 70,
+          "valueMultiplier": 4.0,
+          "damageBonus": 0,
+          "armorBonus": -2,
+          "holiness": 15,
+          "undeadDamage": 10,
+          "description": "Sacred metal effective against undead"
+        }
+      },
+      {
+        "name": "Electrum",
+        "displayName": "Electrum",
+        "rarityWeight": 45,
+        "traits": {
+          "durability": 55,
+          "weight": 0.95,
+          "enchantability": 85,
+          "valueMultiplier": 6.0,
+          "damageBonus": 3,
+          "armorBonus": 1,
+          "lightningDamage": 8,
+          "conductivity": 90,
+          "description": "Gold-silver alloy that channels lightning"
+        }
+      }
+    ],
+    "magical_metals": [
+      {
+        "name": "Obsidian",
+        "displayName": "Obsidian",
+        "rarityWeight": 35,
+        "traits": {
+          "durability": 30,
+          "weight": 0.8,
+          "enchantability": 80,
+          "valueMultiplier": 3.0,
+          "damageBonus": 6,
+          "armorBonus": -5,
+          "sharpness": 95,
+          "brittle": true,
+          "darkMagic": 20,
+          "description": "Razor-sharp volcanic glass, fragile but deadly"
+        }
+      },
+      {
+        "name": "Mithril",
+        "displayName": "Mithril",
+        "rarityWeight": 75,
+        "traits": {
+          "durability": 100,
+          "weight": 0.5,
+          "enchantability": 90,
+          "valueMultiplier": 10.0,
+          "damageBonus": 5,
+          "armorBonus": 5,
+          "lightWeight": true,
+          "magicResonance": 25,
+          "description": "Legendary lightweight metal from deep mines"
+        }
+      },
+      {
+        "name": "DarkSteel",
+        "displayName": "Dark Steel",
+        "rarityWeight": 60,
+        "traits": {
+          "durability": 90,
+          "weight": 1.4,
+          "enchantability": 75,
+          "valueMultiplier": 8.0,
+          "damageBonus": 7,
+          "armorBonus": 6,
+          "necroticDamage": 10,
+          "lifeSteal": 5,
+          "cursed": true,
+          "description": "Corrupted metal that drains life force"
+        }
+      }
+    ],
+    "legendary_metals": [
+      {
+        "name": "Adamantine",
+        "displayName": "Adamantine",
+        "rarityWeight": 100,
+        "traits": {
+          "durability": 150,
+          "weight": 1.3,
+          "enchantability": 60,
+          "valueMultiplier": 15.0,
+          "damageBonus": 8,
+          "armorBonus": 8,
+          "armorPiercing": 15,
+          "criticalDamage": 1.5,
+          "indestructible": true,
+          "description": "Virtually indestructible rare metal"
+        }
+      },
+      {
+        "name": "DragonSteel",
+        "displayName": "Dragon Steel",
+        "rarityWeight": 120,
+        "traits": {
+          "durability": 120,
+          "weight": 1.2,
+          "enchantability": 95,
+          "valueMultiplier": 20.0,
+          "damageBonus": 10,
+          "armorBonus": 10,
+          "fireResistance": 50,
+          "dragonbane": 20,
+          "legendary": true,
+          "description": "Forged with dragonfire, deadly to dragons"
+        }
+      }
+    ]
   },
-  "Silver": {
-    "displayName": "Silver",
-    "traits": {
-      "durability": { "value": 40, "type": "number" },
-      "weight": { "value": 0.9, "type": "number" },
-      "enchantability": { "value": 70, "type": "number" },
-      "valueMultiplier": { "value": 4.0, "type": "number" },
-      "damageBonus": { "value": 0, "type": "number" },
-      "armorBonus": { "value": -2, "type": "number" },
-      "holiness": { "value": 15, "type": "number" },
-      "undeadDamage": { "value": 10, "type": "number" },
-      "description": { "value": "Sacred metal effective against undead", "type": "string" }
-    }
-  },
-  "Mithril": {
-    "displayName": "Mithril",
-    "traits": {
-      "durability": { "value": 100, "type": "number" },
-      "weight": { "value": 0.5, "type": "number" },
-      "enchantability": { "value": 90, "type": "number" },
-      "valueMultiplier": { "value": 10.0, "type": "number" },
-      "damageBonus": { "value": 5, "type": "number" },
-      "armorBonus": { "value": 5, "type": "number" },
-      "lightWeight": { "value": true, "type": "boolean" },
-      "magicResonance": { "value": 25, "type": "number" },
-      "description": { "value": "Legendary lightweight metal from deep mines", "type": "string" }
-    }
-  },
-  "Adamantine": {
-    "displayName": "Adamantine",
-    "traits": {
-      "durability": { "value": 150, "type": "number" },
-      "weight": { "value": 1.3, "type": "number" },
-      "enchantability": { "value": 60, "type": "number" },
-      "valueMultiplier": { "value": 15.0, "type": "number" },
-      "damageBonus": { "value": 8, "type": "number" },
-      "armorBonus": { "value": 8, "type": "number" },
-      "armorPiercing": { "value": 15, "type": "number" },
-      "criticalDamage": { "value": 1.5, "type": "number" },
-      "indestructible": { "value": true, "type": "boolean" },
-      "description": { "value": "Virtually indestructible rare metal", "type": "string" }
-    }
-  },
-  "Bronze": {
-    "displayName": "Bronze",
-    "traits": {
-      "durability": { "value": 60, "type": "number" },
-      "weight": { "value": 1.0, "type": "number" },
-      "enchantability": { "value": 35, "type": "number" },
-      "valueMultiplier": { "value": 1.5, "type": "number" },
-      "damageBonus": { "value": 1, "type": "number" },
-      "armorBonus": { "value": 1, "type": "number" },
-      "corrosionResist": { "value": 50, "type": "number" },
-      "description": { "value": "Ancient alloy resistant to corrosion", "type": "string" }
-    }
-  },
-  "Obsidian": {
-    "displayName": "Obsidian",
-    "traits": {
-      "durability": { "value": 30, "type": "number" },
-      "weight": { "value": 0.8, "type": "number" },
-      "enchantability": { "value": 80, "type": "number" },
-      "valueMultiplier": { "value": 3.0, "type": "number" },
-      "damageBonus": { "value": 6, "type": "number" },
-      "armorBonus": { "value": -5, "type": "number" },
-      "sharpness": { "value": 95, "type": "number" },
-      "brittle": { "value": true, "type": "boolean" },
-      "darkMagic": { "value": 20, "type": "number" },
-      "description": { "value": "Razor-sharp volcanic glass, fragile but deadly", "type": "string" }
-    }
-  },
-  "DragonSteel": {
-    "displayName": "Dragon Steel",
-    "traits": {
-      "durability": { "value": 120, "type": "number" },
-      "weight": { "value": 1.2, "type": "number" },
-      "enchantability": { "value": 95, "type": "number" },
-      "valueMultiplier": { "value": 20.0, "type": "number" },
-      "damageBonus": { "value": 10, "type": "number" },
-      "armorBonus": { "value": 10, "type": "number" },
-      "fireResistance": { "value": 50, "type": "number" },
-      "dragonbane": { "value": 20, "type": "number" },
-      "legendary": { "value": true, "type": "boolean" },
-      "description": { "value": "Forged with dragonfire, deadly to dragons", "type": "string" }
-    }
-  },
-  "Electrum": {
-    "displayName": "Electrum",
-    "traits": {
-      "durability": { "value": 55, "type": "number" },
-      "weight": { "value": 0.95, "type": "number" },
-      "enchantability": { "value": 85, "type": "number" },
-      "valueMultiplier": { "value": 6.0, "type": "number" },
-      "damageBonus": { "value": 3, "type": "number" },
-      "armorBonus": { "value": 1, "type": "number" },
-      "lightningDamage": { "value": 8, "type": "number" },
-      "conductivity": { "value": 90, "type": "number" },
-      "description": { "value": "Gold-silver alloy that channels lightning", "type": "string" }
-    }
-  },
-  "DarkSteel": {
-    "displayName": "Dark Steel",
-    "traits": {
-      "durability": { "value": 90, "type": "number" },
-      "weight": { "value": 1.4, "type": "number" },
-      "enchantability": { "value": 75, "type": "number" },
-      "valueMultiplier": { "value": 8.0, "type": "number" },
-      "damageBonus": { "value": 7, "type": "number" },
-      "armorBonus": { "value": 6, "type": "number" },
-      "necroticDamage": { "value": 10, "type": "number" },
-      "lifeSteal": { "value": 5, "type": "number" },
-      "cursed": { "value": true, "type": "boolean" },
-      "description": { "value": "Corrupted metal that drains life force", "type": "string" }
-    }
+  "notes": {
+    "rarity_system": "weight-based",
+    "component_keys": ["common_metals", "refined_metals", "precious_metals", "magical_metals", "legendary_metals"],
+    "weight_ranges": {
+      "common": "5-10 rarityWeight",
+      "refined": "15-25 rarityWeight",
+      "precious": "30-50 rarityWeight",
+      "magical": "35-75 rarityWeight",
+      "legendary": "100-120 rarityWeight"
+    },
+    "trait_structure": "Simplified to direct key-value pairs, boolean flags for special properties",
+    "usage": "Materials modify base item stats when used in crafting or as components in name generation"
   }
 }

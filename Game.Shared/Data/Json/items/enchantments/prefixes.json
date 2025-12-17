@@ -1,145 +1,166 @@
 {
-  "items": [
-    {
-      "name": "Minor",
-      "displayName": "Minor",
-      "description": "A weak enchantment",
-      "rarity": "Common"
-    },
-    {
-      "name": "Lesser",
-      "displayName": "Lesser",
-      "description": "A basic enchantment",
-      "rarity": "Common"
-    },
-    {
-      "name": "Greater",
-      "displayName": "Greater",
-      "description": "An improved enchantment",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Superior",
-      "displayName": "Superior",
-      "description": "A high-quality enchantment",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Grand",
-      "displayName": "Grand",
-      "description": "A powerful enchantment",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Perfect",
-      "displayName": "Perfect",
-      "description": "A flawlessly crafted enchantment",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "Ultimate",
-      "displayName": "Ultimate",
-      "description": "The pinnacle of enchantment power",
-      "rarity": "Mythic"
-    },
-    {
-      "name": "Transcendent",
-      "displayName": "Transcendent",
-      "description": "Beyond mortal comprehension",
-      "rarity": "Ancient"
-    },
-    {
-      "name": "Flaming",
-      "displayName": "Flaming",
-      "description": "Wreathed in fire",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Freezing",
-      "displayName": "Freezing",
-      "description": "Coated in ice",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Shocking",
-      "displayName": "Shocking",
-      "description": "Crackling with lightning",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Radiant",
-      "displayName": "Radiant",
-      "description": "Glowing with holy light",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Shadow",
-      "displayName": "Shadow",
-      "description": "Cloaked in darkness",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Arcane",
-      "displayName": "Arcane",
-      "description": "Infused with raw magic",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Divine",
-      "displayName": "Divine",
-      "description": "Blessed by the gods",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Demonic",
-      "displayName": "Demonic",
-      "description": "Tainted by infernal power",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Vampiric",
-      "displayName": "Vampiric",
-      "description": "Drains life force",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Ethereal",
-      "displayName": "Ethereal",
-      "description": "Partially incorporeal",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "Prismatic",
-      "displayName": "Prismatic",
-      "description": "Shimmers with all colors",
-      "rarity": "Mythic"
-    },
-    {
-      "name": "Void",
-      "displayName": "Void",
-      "description": "Contains entropic energy",
-      "rarity": "Mythic"
-    }
-  ],
+  "metadata": {
+    "description": "Enchantment prefix catalog with weight-based rarity values",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "enchantment_catalog",
+    "total_prefixes": 20,
+    "categories": ["power_levels", "elemental", "alignment", "special"]
+  },
   "components": {
-    "power_levels": ["Minor", "Lesser", "Greater", "Superior", "Grand", "Perfect", "Ultimate", "Transcendent"],
-    "elemental": ["Flaming", "Freezing", "Shocking"],
-    "alignment": ["Radiant", "Shadow", "Divine", "Demonic"],
-    "special": ["Arcane", "Vampiric", "Ethereal", "Prismatic", "Void"]
+    "quality": [
+      {
+        "name": "Minor",
+        "displayName": "Minor",
+        "description": "A weak enchantment",
+        "rarityWeight": 5
+      },
+      {
+        "name": "Lesser",
+        "displayName": "Lesser",
+        "description": "A basic enchantment",
+        "rarityWeight": 10
+      },
+      {
+        "name": "Greater",
+        "displayName": "Greater",
+        "description": "An improved enchantment",
+        "rarityWeight": 25
+      },
+      {
+        "name": "Superior",
+        "displayName": "Superior",
+        "description": "A high-quality enchantment",
+        "rarityWeight": 45
+      },
+      {
+        "name": "Grand",
+        "displayName": "Grand",
+        "description": "A powerful enchantment",
+        "rarityWeight": 70
+      },
+      {
+        "name": "Perfect",
+        "displayName": "Perfect",
+        "description": "A flawlessly crafted enchantment",
+        "rarityWeight": 100
+      },
+      {
+        "name": "Ultimate",
+        "displayName": "Ultimate",
+        "description": "The pinnacle of enchantment power",
+        "rarityWeight": 150
+      },
+      {
+        "name": "Transcendent",
+        "displayName": "Transcendent",
+        "description": "Beyond mortal comprehension",
+        "rarityWeight": 220
+      }
+    ],
+    "elemental": [
+      {
+        "name": "Flaming",
+        "displayName": "Flaming",
+        "description": "Wreathed in fire",
+        "rarityWeight": 20,
+        "element": "fire"
+      },
+      {
+        "name": "Freezing",
+        "displayName": "Freezing",
+        "description": "Coated in ice",
+        "rarityWeight": 20,
+        "element": "cold"
+      },
+      {
+        "name": "Shocking",
+        "displayName": "Shocking",
+        "description": "Crackling with lightning",
+        "rarityWeight": 20,
+        "element": "lightning"
+      }
+    ],
+    "alignment": [
+      {
+        "name": "Radiant",
+        "displayName": "Radiant",
+        "description": "Glowing with holy light",
+        "rarityWeight": 40,
+        "alignment": "good"
+      },
+      {
+        "name": "Shadow",
+        "displayName": "Shadow",
+        "description": "Cloaked in darkness",
+        "rarityWeight": 40,
+        "alignment": "evil"
+      },
+      {
+        "name": "Divine",
+        "displayName": "Divine",
+        "description": "Blessed by the gods",
+        "rarityWeight": 80,
+        "alignment": "good"
+      },
+      {
+        "name": "Demonic",
+        "displayName": "Demonic",
+        "description": "Tainted by infernal power",
+        "rarityWeight": 80,
+        "alignment": "evil"
+      }
+    ],
+    "special": [
+      {
+        "name": "Arcane",
+        "displayName": "Arcane",
+        "description": "Infused with raw magic",
+        "rarityWeight": 50
+      },
+      {
+        "name": "Vampiric",
+        "displayName": "Vampiric",
+        "description": "Drains life force",
+        "rarityWeight": 75
+      },
+      {
+        "name": "Ethereal",
+        "displayName": "Ethereal",
+        "description": "Partially incorporeal",
+        "rarityWeight": 110
+      },
+      {
+        "name": "Prismatic",
+        "displayName": "Prismatic",
+        "description": "Shimmers with all colors",
+        "rarityWeight": 180
+      },
+      {
+        "name": "Void",
+        "displayName": "Void",
+        "description": "Contains entropic energy",
+        "rarityWeight": 200
+      }
+    ]
   },
   "patterns": [
-    "power + enchantment",
+    "quality + enchantment",
     "elemental + enchantment",
     "alignment + enchantment",
-    "special + enchantment"
+    "special + enchantment",
+    "quality + elemental + enchantment",
+    "quality + special + enchantment"
   ],
-  "rarity_distribution": {
-    "Common": 2,
-    "Uncommon": 4,
-    "Rare": 4,
-    "Epic": 4,
-    "Legendary": 2,
-    "Mythic": 3,
-    "Ancient": 1
+  "notes": {
+    "rarity_system": "weight-based",
+    "component_keys": ["quality", "elemental", "alignment", "special"],
+    "weight_ranges": {
+      "quality": "Minor (5) → Transcendent (220)",
+      "elemental": "All elements (20)",
+      "alignment": "Radiant/Shadow (40) → Divine/Demonic (80)",
+      "special": "Arcane (50) → Void (200)"
+    },
+    "usage": "Prefixes combine with base items and suffixes to create enchanted equipment"
   }
 }

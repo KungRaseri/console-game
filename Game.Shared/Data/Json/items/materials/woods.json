@@ -1,153 +1,40 @@
-{
-  "Oak": {
-    "displayName": "Oak",
-    "traits": {
-      "strength": { "value": 60, "type": "number" },
-      "flexibility": { "value": 40, "type": "number" },
-      "weight": { "value": 1.0, "type": "number" },
-      "enchantability": { "value": 50, "type": "number" },
-      "valueMultiplier": { "value": 1.0, "type": "number" },
-      "damageBonus": { "value": 0, "type": "number" },
-      "durability": { "value": 70, "type": "number" },
-      "description": { "value": "Sturdy common wood, reliable and solid", "type": "string" }
-    }
+﻿{
+  "metadata": {
+    "description": "Wood material catalog with weight-based rarity and trait bonuses",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "material_catalog",
+    "total_woods": 9,
+    "categories": ["common", "quality", "exotic", "magical"]
   },
-  "Ash": {
-    "displayName": "Ash",
-    "traits": {
-      "strength": { "value": 70, "type": "number" },
-      "flexibility": { "value": 60, "type": "number" },
-      "weight": { "value": 0.9, "type": "number" },
-      "enchantability": { "value": 55, "type": "number" },
-      "valueMultiplier": { "value": 1.5, "type": "number" },
-      "damageBonus": { "value": 1, "type": "number" },
-      "durability": { "value": 75, "type": "number" },
-      "shockAbsorption": { "value": 20, "type": "number" },
-      "description": { "value": "Flexible and shock-resistant wood", "type": "string" }
-    }
+  "components": {
+    "common_woods": [
+      { "name": "Oak", "displayName": "Oak", "rarityWeight": 5, "traits": { "strength": 60, "flexibility": 40, "weight": 1.0, "enchantability": 50, "valueMultiplier": 1.0, "damageBonus": 0, "durability": 70, "description": "Sturdy common wood, reliable and solid" } },
+      { "name": "Ash", "displayName": "Ash", "rarityWeight": 10, "traits": { "strength": 70, "flexibility": 60, "weight": 0.9, "enchantability": 55, "valueMultiplier": 1.5, "damageBonus": 1, "durability": 75, "shockAbsorption": 20, "description": "Flexible and shock-resistant wood" } },
+      { "name": "Maple", "displayName": "Maple", "rarityWeight": 15, "traits": { "strength": 65, "flexibility": 70, "weight": 0.85, "enchantability": 60, "valueMultiplier": 2.0, "damageBonus": 1, "durability": 72, "naturalResonance": 25, "description": "Beautiful grain with magical resonance" } }
+    ],
+    "quality_woods": [
+      { "name": "Yew", "displayName": "Yew", "rarityWeight": 25, "traits": { "strength": 75, "flexibility": 80, "weight": 0.8, "enchantability": 65, "valueMultiplier": 3.0, "damageBonus": 2, "durability": 80, "rangeBonus": 15, "poisonous": true, "description": "Prized for bows, naturally toxic" } }
+    ],
+    "exotic_woods": [
+      { "name": "Ebony", "displayName": "Ebony", "rarityWeight": 70, "traits": { "strength": 85, "flexibility": 45, "weight": 1.2, "enchantability": 90, "valueMultiplier": 10.0, "damageBonus": 6, "durability": 100, "darkMagic": 25, "absorption": 20, "description": "Rare black wood that absorbs magic" } },
+      { "name": "Ironwood", "displayName": "Ironwood", "rarityWeight": 60, "traits": { "strength": 95, "flexibility": 30, "weight": 1.3, "enchantability": 70, "valueMultiplier": 8.0, "damageBonus": 5, "durability": 120, "armorPiercing": 10, "metalHard": true, "description": "Dense as metal, incredibly strong" } }
+    ],
+    "magical_woods": [
+      { "name": "Livingwood", "displayName": "Living Wood", "rarityWeight": 85, "traits": { "strength": 80, "flexibility": 75, "weight": 0.7, "enchantability": 95, "valueMultiplier": 12.0, "damageBonus": 4, "durability": 90, "regeneration": 5, "natureMagic": 35, "selfRepair": true, "description": "Still alive, grows and repairs itself" } },
+      { "name": "Elderwood", "displayName": "Elder Wood", "rarityWeight": 100, "traits": { "strength": 90, "flexibility": 85, "weight": 0.6, "enchantability": 100, "valueMultiplier": 15.0, "damageBonus": 7, "durability": 110, "ancientPower": 40, "wisdomBonus": 10, "timeless": true, "description": "From trees older than kingdoms, imbued with ancient magic" } },
+      { "name": "Heartwood", "displayName": "Heartwood", "rarityWeight": 110, "traits": { "strength": 100, "flexibility": 90, "weight": 0.5, "enchantability": 110, "valueMultiplier": 20.0, "damageBonus": 9, "durability": 130, "lifeBond": 50, "spiritMagic": 45, "legendary": true, "description": "Core of the world tree, resonates with life itself" } }
+    ]
   },
-  "Yew": {
-    "displayName": "Yew",
-    "traits": {
-      "strength": { "value": 75, "type": "number" },
-      "flexibility": { "value": 80, "type": "number" },
-      "weight": { "value": 0.8, "type": "number" },
-      "enchantability": { "value": 65, "type": "number" },
-      "valueMultiplier": { "value": 3.0, "type": "number" },
-      "damageBonus": { "value": 2, "type": "number" },
-      "durability": { "value": 80, "type": "number" },
-      "rangeBonus": { "value": 15, "type": "number" },
-      "poisonous": { "value": true, "type": "boolean" },
-      "description": { "value": "Prized for bows, naturally toxic", "type": "string" }
-    }
-  },
-  "Maple": {
-    "displayName": "Maple",
-    "traits": {
-      "strength": { "value": 65, "type": "number" },
-      "flexibility": { "value": 70, "type": "number" },
-      "weight": { "value": 0.85, "type": "number" },
-      "enchantability": { "value": 60, "type": "number" },
-      "valueMultiplier": { "value": 2.0, "type": "number" },
-      "damageBonus": { "value": 1, "type": "number" },
-      "durability": { "value": 72, "type": "number" },
-      "naturalResonance": { "value": 25, "type": "number" },
-      "description": { "value": "Beautiful grain with magical resonance", "type": "string" }
-    }
-  },
-  "Ironwood": {
-    "displayName": "Ironwood",
-    "traits": {
-      "strength": { "value": 95, "type": "number" },
-      "flexibility": { "value": 30, "type": "number" },
-      "weight": { "value": 1.3, "type": "number" },
-      "enchantability": { "value": 70, "type": "number" },
-      "valueMultiplier": { "value": 8.0, "type": "number" },
-      "damageBonus": { "value": 5, "type": "number" },
-      "durability": { "value": 120, "type": "number" },
-      "armorPiercing": { "value": 10, "type": "number" },
-      "metalHard": { "value": true, "type": "boolean" },
-      "description": { "value": "Dense as metal, incredibly strong", "type": "string" }
-    }
-  },
-  "Ebony": {
-    "displayName": "Ebony",
-    "traits": {
-      "strength": { "value": 85, "type": "number" },
-      "flexibility": { "value": 45, "type": "number" },
-      "weight": { "value": 1.2, "type": "number" },
-      "enchantability": { "value": 90, "type": "number" },
-      "valueMultiplier": { "value": 10.0, "type": "number" },
-      "damageBonus": { "value": 6, "type": "number" },
-      "durability": { "value": 100, "type": "number" },
-      "darkMagic": { "value": 25, "type": "number" },
-      "absorption": { "value": 20, "type": "number" },
-      "description": { "value": "Rare black wood that absorbs magic", "type": "string" }
-    }
-  },
-  "Livingwood": {
-    "displayName": "Living Wood",
-    "traits": {
-      "strength": { "value": 80, "type": "number" },
-      "flexibility": { "value": 75, "type": "number" },
-      "weight": { "value": 0.7, "type": "number" },
-      "enchantability": { "value": 95, "type": "number" },
-      "valueMultiplier": { "value": 12.0, "type": "number" },
-      "damageBonus": { "value": 4, "type": "number" },
-      "durability": { "value": 90, "type": "number" },
-      "regeneration": { "value": 5, "type": "number" },
-      "natureMagic": { "value": 35, "type": "number" },
-      "selfRepair": { "value": true, "type": "boolean" },
-      "description": { "value": "Still growing, repairs itself over time", "type": "string" }
-    }
-  },
-  "Celestial": {
-    "displayName": "Celestial Wood",
-    "traits": {
-      "strength": { "value": 90, "type": "number" },
-      "flexibility": { "value": 85, "type": "number" },
-      "weight": { "value": 0.5, "type": "number" },
-      "enchantability": { "value": 100, "type": "number" },
-      "valueMultiplier": { "value": 20.0, "type": "number" },
-      "damageBonus": { "value": 8, "type": "number" },
-      "durability": { "value": 110, "type": "number" },
-      "holyDamage": { "value": 15, "type": "number" },
-      "radiance": { "value": 30, "type": "number" },
-      "lightWeight": { "value": true, "type": "boolean" },
-      "legendary": { "value": true, "type": "boolean" },
-      "description": { "value": "Wood from the celestial planes, glows with divine light", "type": "string" }
-    }
-  },
-  "Shadowbark": {
-    "displayName": "Shadowbark",
-    "traits": {
-      "strength": { "value": 70, "type": "number" },
-      "flexibility": { "value": 65, "type": "number" },
-      "weight": { "value": 0.6, "type": "number" },
-      "enchantability": { "value": 85, "type": "number" },
-      "valueMultiplier": { "value": 9.0, "type": "number" },
-      "damageBonus": { "value": 5, "type": "number" },
-      "durability": { "value": 75, "type": "number" },
-      "stealthBonus": { "value": 25, "type": "number" },
-      "necroticDamage": { "value": 10, "type": "number" },
-      "shadowBlend": { "value": true, "type": "boolean" },
-      "description": { "value": "Grows in perpetual darkness, absorbs light", "type": "string" }
-    }
-  },
-  "Dragonwood": {
-    "displayName": "Dragonwood",
-    "traits": {
-      "strength": { "value": 100, "type": "number" },
-      "flexibility": { "value": 55, "type": "number" },
-      "weight": { "value": 1.1, "type": "number" },
-      "enchantability": { "value": 92, "type": "number" },
-      "valueMultiplier": { "value": 15.0, "type": "number" },
-      "damageBonus": { "value": 7, "type": "number" },
-      "durability": { "value": 130, "type": "number" },
-      "fireResistance": { "value": 40, "type": "number" },
-      "dragonbane": { "value": 15, "type": "number" },
-      "scalePattern": { "value": true, "type": "boolean" },
-      "description": { "value": "Petrified dragon bone, incredibly dense", "type": "string" }
-    }
+  "notes": {
+    "rarity_system": "weight-based",
+    "component_keys": ["common_woods", "quality_woods", "exotic_woods", "magical_woods"],
+    "weight_ranges": {
+      "common": "5-15 rarityWeight",
+      "quality": "25-35 rarityWeight",
+      "exotic": "60-70 rarityWeight",
+      "magical": "85-110 rarityWeight"
+    },
+    "usage": "Woods are primarily used for bows, staves, and hafted weapons"
   }
 }

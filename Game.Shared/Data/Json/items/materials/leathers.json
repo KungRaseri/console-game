@@ -1,152 +1,43 @@
-{
-  "Hide": {
-    "displayName": "Hide",
-    "traits": {
-      "protection": { "value": 20, "type": "number" },
-      "flexibility": { "value": 70, "type": "number" },
-      "weight": { "value": 0.8, "type": "number" },
-      "enchantability": { "value": 25, "type": "number" },
-      "valueMultiplier": { "value": 1.0, "type": "number" },
-      "armorBonus": { "value": 0, "type": "number" },
-      "stealthBonus": { "value": 5, "type": "number" },
-      "description": { "value": "Basic animal hide, light and flexible", "type": "string" }
-    }
+﻿{
+  "metadata": {
+    "description": "Leather and hide material catalog with weight-based rarity and protection bonuses",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "material_catalog",
+    "total_leathers": 8,
+    "categories": ["basic", "refined", "exotic", "magical", "legendary"]
   },
-  "Leather": {
-    "displayName": "Leather",
-    "traits": {
-      "protection": { "value": 35, "type": "number" },
-      "flexibility": { "value": 80, "type": "number" },
-      "weight": { "value": 0.7, "type": "number" },
-      "enchantability": { "value": 40, "type": "number" },
-      "valueMultiplier": { "value": 2.0, "type": "number" },
-      "armorBonus": { "value": 2, "type": "number" },
-      "stealthBonus": { "value": 10, "type": "number" },
-      "description": { "value": "Treated and cured hide for better protection", "type": "string" }
-    }
+  "components": {
+    "basic_leathers": [
+      { "name": "Hide", "displayName": "Hide", "rarityWeight": 5, "traits": { "protection": 20, "flexibility": 60, "weight": 1.0, "stealthPenalty": 10, "valueMultiplier": 1.0, "durability": 50, "description": "Untreated animal hide, basic protection" } },
+      { "name": "Leather", "displayName": "Leather", "rarityWeight": 10, "traits": { "protection": 35, "flexibility": 70, "weight": 0.9, "stealthBonus": 10, "valueMultiplier": 2.0, "durability": 65, "description": "Treated leather, balanced and comfortable" } }
+    ],
+    "refined_leathers": [
+      { "name": "Studded", "displayName": "Studded Leather", "rarityWeight": 20, "traits": { "protection": 50, "flexibility": 55, "weight": 1.1, "stealthPenalty": 5, "valueMultiplier": 3.0, "durability": 75, "piercingResist": 15, "description": "Reinforced with metal studs" } },
+      { "name": "Hardened", "displayName": "Hardened Leather", "rarityWeight": 30, "traits": { "protection": 60, "flexibility": 45, "weight": 1.2, "stealthPenalty": 10, "valueMultiplier": 4.0, "durability": 85, "slashingResist": 20, "description": "Boiled and treated for maximum hardness" } }
+    ],
+    "exotic_leathers": [
+      { "name": "Drake", "displayName": "Drake Leather", "rarityWeight": 60, "traits": { "protection": 75, "flexibility": 60, "weight": 1.0, "stealthBonus": 5, "valueMultiplier": 10.0, "durability": 100, "fireResist": 30, "scalePattern": true, "description": "From lesser dragons, naturally fire-resistant" } },
+      { "name": "Wyvern", "displayName": "Wyvern Leather", "rarityWeight": 70, "traits": { "protection": 80, "flexibility": 65, "weight": 0.9, "stealthBonus": 10, "valueMultiplier": 12.0, "durability": 105, "poisonResist": 40, "acidResist": 25, "wings": true, "description": "Tough hide from flying predators" } }
+    ],
+    "magical_leathers": [
+      { "name": "Shadow", "displayName": "Shadow Leather", "rarityWeight": 85, "traits": { "protection": 45, "flexibility": 95, "weight": 0.6, "stealthBonus": 35, "valueMultiplier": 15.0, "durability": 70, "invisibility": 20, "nightStriker": true, "description": "Harvested from creatures of darkness" } },
+      { "name": "Chimera", "displayName": "Chimera Hide", "rarityWeight": 95, "traits": { "protection": 90, "flexibility": 70, "weight": 1.1, "stealthBonus": 5, "valueMultiplier": 18.0, "durability": 115, "fireResist": 25, "coldResist": 25, "poisonResist": 25, "multiAspect": true, "description": "Multiple resistances from hybrid beast" } }
+    ],
+    "legendary_leathers": [
+      { "name": "Dragon", "displayName": "Dragon Leather", "rarityWeight": 120, "traits": { "protection": 100, "flexibility": 75, "weight": 0.8, "stealthBonus": 15, "valueMultiplier": 25.0, "durability": 150, "fireResist": 50, "magicResist": 30, "legendary": true, "dragonborn": true, "description": "Ultimate protection from ancient dragons" } }
+    ]
   },
-  "Studded": {
-    "displayName": "Studded Leather",
-    "traits": {
-      "protection": { "value": 50, "type": "number" },
-      "flexibility": { "value": 65, "type": "number" },
-      "weight": { "value": 0.9, "type": "number" },
-      "enchantability": { "value": 35, "type": "number" },
-      "valueMultiplier": { "value": 3.0, "type": "number" },
-      "armorBonus": { "value": 4, "type": "number" },
-      "stealthBonus": { "value": 5, "type": "number" },
-      "piercingResist": { "value": 15, "type": "number" },
-      "description": { "value": "Reinforced with metal studs for extra protection", "type": "string" }
-    }
-  },
-  "Hardened": {
-    "displayName": "Hardened Leather",
-    "traits": {
-      "protection": { "value": 60, "type": "number" },
-      "flexibility": { "value": 50, "type": "number" },
-      "weight": { "value": 1.0, "type": "number" },
-      "enchantability": { "value": 30, "type": "number" },
-      "valueMultiplier": { "value": 3.5, "type": "number" },
-      "armorBonus": { "value": 5, "type": "number" },
-      "stealthBonus": { "value": 0, "type": "number" },
-      "slashingResist": { "value": 20, "type": "number" },
-      "description": { "value": "Boiled and shaped for maximum rigidity", "type": "string" }
-    }
-  },
-  "Drake": {
-    "displayName": "Drake Leather",
-    "traits": {
-      "protection": { "value": 75, "type": "number" },
-      "flexibility": { "value": 75, "type": "number" },
-      "weight": { "value": 0.6, "type": "number" },
-      "enchantability": { "value": 70, "type": "number" },
-      "valueMultiplier": { "value": 8.0, "type": "number" },
-      "armorBonus": { "value": 7, "type": "number" },
-      "stealthBonus": { "value": 15, "type": "number" },
-      "fireResistance": { "value": 30, "type": "number" },
-      "scalePattern": { "value": true, "type": "boolean" },
-      "description": { "value": "Supple yet strong hide from lesser dragons", "type": "string" }
-    }
-  },
-  "Dragon": {
-    "displayName": "Dragon Hide",
-    "traits": {
-      "protection": { "value": 100, "type": "number" },
-      "flexibility": { "value": 85, "type": "number" },
-      "weight": { "value": 0.5, "type": "number" },
-      "enchantability": { "value": 95, "type": "number" },
-      "valueMultiplier": { "value": 20.0, "type": "number" },
-      "armorBonus": { "value": 12, "type": "number" },
-      "stealthBonus": { "value": 20, "type": "number" },
-      "fireResistance": { "value": 50, "type": "number" },
-      "magicResistance": { "value": 25, "type": "number" },
-      "legendary": { "value": true, "type": "boolean" },
-      "description": { "value": "Nearly impenetrable scales from ancient dragons", "type": "string" }
-    }
-  },
-  "Shadow": {
-    "displayName": "Shadow Leather",
-    "traits": {
-      "protection": { "value": 45, "type": "number" },
-      "flexibility": { "value": 95, "type": "number" },
-      "weight": { "value": 0.4, "type": "number" },
-      "enchantability": { "value": 80, "type": "number" },
-      "valueMultiplier": { "value": 12.0, "type": "number" },
-      "armorBonus": { "value": 3, "type": "number" },
-      "stealthBonus": { "value": 35, "type": "number" },
-      "darkvision": { "value": 60, "type": "number" },
-      "invisibilityBonus": { "value": 15, "type": "number" },
-      "nightStriker": { "value": true, "type": "boolean" },
-      "description": { "value": "Woven from shadows, nearly invisible in darkness", "type": "string" }
-    }
-  },
-  "Chimera": {
-    "displayName": "Chimera Hide",
-    "traits": {
-      "protection": { "value": 80, "type": "number" },
-      "flexibility": { "value": 70, "type": "number" },
-      "weight": { "value": 0.7, "type": "number" },
-      "enchantability": { "value": 75, "type": "number" },
-      "valueMultiplier": { "value": 10.0, "type": "number" },
-      "armorBonus": { "value": 8, "type": "number" },
-      "stealthBonus": { "value": 10, "type": "number" },
-      "fireResistance": { "value": 20, "type": "number" },
-      "poisonResistance": { "value": 25, "type": "number" },
-      "multiElement": { "value": true, "type": "boolean" },
-      "description": { "value": "Multi-creature hide with varied resistances", "type": "string" }
-    }
-  },
-  "Demon": {
-    "displayName": "Demon Skin",
-    "traits": {
-      "protection": { "value": 90, "type": "number" },
-      "flexibility": { "value": 80, "type": "number" },
-      "weight": { "value": 0.8, "type": "number" },
-      "enchantability": { "value": 85, "type": "number" },
-      "valueMultiplier": { "value": 15.0, "type": "number" },
-      "armorBonus": { "value": 10, "type": "number" },
-      "stealthBonus": { "value": -10, "type": "number" },
-      "fireResistance": { "value": 60, "type": "number" },
-      "darkMagic": { "value": 30, "type": "number" },
-      "intimidation": { "value": 25, "type": "number" },
-      "cursed": { "value": true, "type": "boolean" },
-      "description": { "value": "Infernal hide that radiates menace", "type": "string" }
-    }
-  },
-  "Ethereal": {
-    "displayName": "Ethereal Silk",
-    "traits": {
-      "protection": { "value": 40, "type": "number" },
-      "flexibility": { "value": 100, "type": "number" },
-      "weight": { "value": 0.2, "type": "number" },
-      "enchantability": { "value": 100, "type": "number" },
-      "valueMultiplier": { "value": 18.0, "type": "number" },
-      "armorBonus": { "value": 2, "type": "number" },
-      "stealthBonus": { "value": 25, "type": "number" },
-      "magicResistance": { "value": 40, "type": "number" },
-      "etherealPhase": { "value": 10, "type": "number" },
-      "weightless": { "value": true, "type": "boolean" },
-      "description": { "value": "Woven from planar essence, barely tangible", "type": "string" }
-    }
+  "notes": {
+    "rarity_system": "weight-based",
+    "component_keys": ["basic_leathers", "refined_leathers", "exotic_leathers", "magical_leathers", "legendary_leathers"],
+    "weight_ranges": {
+      "basic": "5-10 rarityWeight",
+      "refined": "20-30 rarityWeight",
+      "exotic": "60-70 rarityWeight",
+      "magical": "85-95 rarityWeight",
+      "legendary": "120 rarityWeight"
+    },
+    "usage": "Leathers are used for light and medium armor"
   }
 }
