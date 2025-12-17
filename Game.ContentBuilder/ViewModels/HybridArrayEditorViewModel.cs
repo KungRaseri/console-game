@@ -187,7 +187,18 @@ public partial class HybridArrayEditorViewModel : ObservableObject
             {
                 MetadataDescription = metadataObj["description"]?.ToString() ?? string.Empty;
                 MetadataVersion = metadataObj["version"]?.ToString() ?? "1.0";
-                Notes = metadataObj["notes"]?.ToString() ?? string.Empty;
+                
+                // Handle notes - can be string or array
+                if (metadataObj["notes"] is JArray notesArray)
+                {
+                    // Convert array to multi-line string
+                    Notes = string.Join(Environment.NewLine, notesArray.Select(n => n.ToString()));
+                }
+                else
+                {
+                    Notes = metadataObj["notes"]?.ToString() ?? string.Empty;
+                }
+                
                 LastUpdated = metadataObj["last_updated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
                 FileType = metadataObj["type"]?.ToString() ?? string.Empty;
                 
