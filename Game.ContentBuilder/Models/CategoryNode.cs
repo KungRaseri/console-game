@@ -54,9 +54,16 @@ public class CategoryNode
 public enum EditorType
 {
     None,
-    ItemPrefix,    // 3-level hierarchy: rarity → item → traits (weapon_prefixes, armor_materials, etc.)
-    ItemSuffix,    // 3-level hierarchy: rarity → item → traits (enchantment_suffixes)
-    FlatItem,      // 2-level flat: item → traits (metals, woods, leathers, gemstones, dragon_colors)
-    NameList,      // Array structure: category → string[] (weapon_names, beast_names, fantasy_names, dialogue_templates)
-    HybridArray    // Hybrid structure: { items: [], components: {}, patterns: [], metadata: {} }
+    ItemPrefix,        // 3-level hierarchy: rarity → item → traits (weapon_prefixes, armor_materials, etc.)
+    ItemSuffix,        // 3-level hierarchy: rarity → item → traits (enchantment_suffixes)
+    FlatItem,          // 2-level flat: item → traits (metals, woods, leathers, gemstones, dragon_colors)
+    NameList,          // Array structure: category → string[] (weapon_names, beast_names, fantasy_names, dialogue_templates)
+    HybridArray,       // Hybrid structure: { items: [], components: {}, patterns: [], metadata: {} }
+    
+    // New v4.0 specialized editors
+    NamesEditor,       // names.json editor: metadata + components + patterns + traits
+    TypesEditor,       // types.json editor: metadata + *_types catalog
+    ComponentEditor,   // Component catalog editor (e.g., materials/names.json)
+    MaterialEditor,    // Material catalog editor (materials/types.json)
+    TraitEditor        // Trait definition editor
 }

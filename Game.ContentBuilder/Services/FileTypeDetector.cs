@@ -1,0 +1,180 @@
+using System.IO;
+using Newtonsoft.Json.Linq;
+using Serilog;
+using Game.ContentBuilder.Models;
+
+namespace Game.ContentBuilder.Services;
+
+/// <summary>
+/// Service for detecting JSON file types based on structure and metadata
+/// </summary>
+public static class FileTypeDetector
+{
+    /// <summary>
+    /// Detects the type of a JSON file based on its structure
+    /// </summary>
+    /// <param name="filePath">Path to the JSON file</param>
+    /// <returns>Detected file type</returns>
+    public static JsonFileType DetectFileType(string filePath)
+    {
+        try
+        {
+            if (!File.Exists(filePath))
+            {
+                Log.Warning("File not found for type detection: {FilePath}", filePath);
+                return JsonFileType.Unknown;
+            }
+
+            var fileName = Path.GetFileName(filePath).ToLowerInvariant();
+            var json = File.ReadAllText(filePath);
+            var root = JObject.Parse(json);
+
+            // Check metadata first
+            if (root["metadata"] is JObject metadata)
+            {
+                var type = metadata["type"]?.ToString();
+                
+                return type switch
+                {
+                    "pattern_generation" => JsonFileType.NamesFile,
+                    "item_catalog" => JsonFileType.TypesFile,
+                    "component_catalog" => JsonFileType.ComponentCatalog,
+                    "material_catalog" => JsonFileType.MaterialCatalog,
+                    _ => DetectByStructure(root, fileName)
+                };
+            }
+
+            // Fallback to structure-based detection
+            return DetectByStructure(root, fileName);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to detect file type: {FilePath}", filePath);
+            return JsonFileType.Unknown;
+        }
+    }
+
+    /// <summary>
+    /// Detects file type based on JSON structure
+    /// </summary>
+    private static JsonFileType DetectByStructure(JObject root, string fileName)
+    {
+        // Check for names.json structure: metadata + components + patterns
+        if (root["components"] != null && root["patterns"] != null)
+        {
+            return JsonFileType.NamesFile;
+        }
+
+        // Check for types.json structure: metadata + *_types (e.g., weapon_types, armor_types)
+        var typeKeys = root.Properties()
+            .Where(p => p.Name.EndsWith("_types", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        if (typeKeys.Any())
+        {
+            return JsonFileType.TypesFile;
+        }
+
+        // Check for component catalog (like materials/names.json)
+        if (root["components"] != null && !root.ContainsKey("patterns"))
+        {
+            return JsonFileType.ComponentCatalog;
+        }
+
+        // Check for material catalog (materials/types.json)
+        if (root["material_types"] != null)
+        {
+            return JsonFileType.MaterialCatalog;
+        }
+
+        // Legacy detection based on filename patterns
+        if (fileName.Contains("names"))
+            return JsonFileType.NamesFile;
+        
+        if (fileName.Contains("types"))
+            return JsonFileType.TypesFile;
+        
+        if (fileName.Contains("prefix") || fileName.Contains("suffix"))
+            return JsonFileType.PrefixSuffix;
+        
+        if (fileName.Contains("trait"))
+            return JsonFileType.Traits;
+
+        return JsonFileType.Unknown;
+    }
+
+    /// <summary>
+    /// Determines the appropriate editor type for a JSON file
+    /// </summary>
+    /// <param name="filePath">Path to the JSON file</param>
+    /// <returns>Recommended editor type</returns>
+    public static EditorType GetEditorType(string filePath)
+    {
+        var fileType = DetectFileType(filePath);
+
+        return fileType switch
+        {
+            JsonFileType.NamesFile => EditorType.NamesEditor,
+            JsonFileType.TypesFile => EditorType.TypesEditor,
+            JsonFileType.ComponentCatalog => EditorType.ComponentEditor,
+            JsonFileType.MaterialCatalog => EditorType.MaterialEditor,
+            JsonFileType.PrefixSuffix => EditorType.ItemPrefix,
+            JsonFileType.Traits => EditorType.TraitEditor,
+            _ => EditorType.None
+        };
+    }
+
+    /// <summary>
+    /// Reads metadata from a JSON file
+    /// </summary>
+    /// <param name="filePath">Path to the JSON file</param>
+    /// <returns>Metadata object or null</returns>
+    public static JObject? ReadMetadata(string filePath)
+    {
+        try
+        {
+            if (!File.Exists(filePath))
+                return null;
+
+            var json = File.ReadAllText(filePath);
+            var root = JObject.Parse(json);
+            
+            return root["metadata"] as JObject;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to read metadata from: {FilePath}", filePath);
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Checks if a file has v4.0 trait support
+    /// </summary>
+    public static bool SupportsTraits(string filePath)
+    {
+        var metadata = ReadMetadata(filePath);
+        if (metadata == null)
+            return false;
+
+        var supportsTraits = metadata["supports_traits"]?.Value<bool>() ?? false;
+        var version = metadata["version"]?.ToString() ?? "0.0";
+
+        return supportsTraits || version.StartsWith("4.");
+    }
+}
+
+/// <summary>
+/// Types of JSON files in the game data structure
+/// </summary>
+public enum JsonFileType
+{
+    Unknown,
+    NamesFile,          // names.json - pattern generation files
+    TypesFile,          // types.json - item catalog files
+    ComponentCatalog,   // Component catalogs (like materials/names.json)
+    MaterialCatalog,    // Material type catalogs (materials/types.json)
+    PrefixSuffix,       // Legacy prefix/suffix files
+    Traits,             // Trait definition files
+    General             // General configuration files
+}

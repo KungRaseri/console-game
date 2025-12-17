@@ -1,0 +1,11 @@
+{
+  "icon": "AutoFix",
+  "displayName": "Enchantments",
+  "description": "Enchantment definitions with names.json (v4.0 modifiers - no types.json needed)",
+  "defaultFileIcon": "FileDocument",
+  "showFileCount": true,
+  "sortOrder": 4,
+  "fileIcons": {
+    "names": "FormatListBulleted"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "icon": "ShieldOutline",
+  "displayName": "Armor",
+  "description": "Armor definitions with names.json (v4.0 pattern generation) and types.json (base armor pieces)",
+  "defaultFileIcon": "FileDocument",
+  "showFileCount": true,
+  "sortOrder": 2,
+  "fileIcons": {
+    "names": "FormatListBulleted",
+    "types": "ShapeOutline"
+  }
+}

@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using Game.ContentBuilder.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
@@ -12,8 +13,9 @@ namespace Game.ContentBuilder.Services;
 public class FileTreeService
 {
     private readonly string _dataPath;
+    private readonly Dictionary<string, FolderConfig> _configCache = new();
 
-    // Icon mappings for categories and file types
+    // Fallback icon mappings (used if no .cbconfig.json found)
     private static readonly Dictionary<string, string> CategoryIcons = new()
     {
         // Top-level categories
@@ -146,15 +148,21 @@ public class FileTreeService
     {
         var dirName = Path.GetFileName(directoryPath);
         
+        // Load folder config if available
+        var config = LoadFolderConfig(directoryPath);
+        
         var node = new CategoryNode
         {
-            Name = FormatDisplayName(dirName),
-            Icon = GetIcon(dirName, isDirectory: true),
+            Name = config?.DisplayName ?? FormatDisplayName(dirName),
+            Icon = config?.Icon ?? GetIcon(dirName, isDirectory: true),
             Children = new ObservableCollection<CategoryNode>()
         };
 
-        // Get all JSON files in this directory
-        var jsonFiles = Directory.GetFiles(directoryPath, "*.json");
+        // Get all JSON files in this directory (excluding .cbconfig.json)
+        var jsonFiles = Directory.GetFiles(directoryPath, "*.json")
+            .Where(f => !Path.GetFileName(f).Equals(".cbconfig.json", StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+        
         node.FileCount = jsonFiles.Length;
         
         foreach (var file in jsonFiles.OrderBy(f => f))
@@ -162,11 +170,19 @@ public class FileTreeService
             var fileName = Path.GetFileNameWithoutExtension(file);
             var relativeFilePath = Path.GetRelativePath(basePath, file).Replace("\\", "/");
             
+            // Use file type detector to determine editor type
+            var editorType = FileTypeDetector.GetEditorType(file);
+            
+            // Get icon from config or fallback
+            var fileIcon = config?.FileIcons.GetValueOrDefault(fileName) 
+                ?? config?.DefaultFileIcon 
+                ?? GetIcon(fileName, isDirectory: false);
+            
             var fileNode = new CategoryNode
             {
                 Name = FormatDisplayName(fileName),
-                Icon = GetIcon(fileName, isDirectory: false),
-                EditorType = DetermineEditorType(file, fileName),
+                Icon = fileIcon,
+                EditorType = editorType,
                 Tag = relativeFilePath,
                 FileCount = 0,
                 TotalFileCount = 0  // Files don't have children
@@ -195,6 +211,36 @@ public class FileTreeService
 
         return node;
     }
+    
+    /// <summary>
+    /// Loads folder configuration from .cbconfig.json if it exists
+    /// </summary>
+    private FolderConfig? LoadFolderConfig(string directoryPath)
+    {
+        var configPath = Path.Combine(directoryPath, ".cbconfig.json");
+        
+        if (!File.Exists(configPath))
+            return null;
+
+        try
+        {
+            var json = File.ReadAllText(configPath);
+            var config = JsonConvert.DeserializeObject<FolderConfig>(json);
+            
+            if (config != null)
+            {
+                _configCache[directoryPath] = config;
+                Log.Debug("Loaded folder config for: {Directory}", Path.GetFileName(directoryPath));
+            }
+            
+            return config;
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "Failed to load folder config: {ConfigPath}", configPath);
+            return null;
+        }
+    }
 
     private static string FormatDisplayName(string name)
     {
@@ -220,78 +266,6 @@ public class FileTreeService
         
         // Fallback icons
         return isDirectory ? "Folder" : "FileDocument";
-    }
-
-    private static EditorType DetermineEditorType(string filePath, string fileName)
-    {
-        try
-        {
-            // Read file content to determine structure
-            var fileContent = File.ReadAllText(filePath);
-            var data = JObject.Parse(fileContent);
-            
-            // Check metadata type field first (most reliable)
-            var metadataType = data["metadata"]?["type"]?.ToString() ?? data["_metadata"]?["type"]?.ToString();
-            if (!string.IsNullOrEmpty(metadataType))
-            {
-                return metadataType.ToLowerInvariant() switch
-                {
-                    "pattern_generation" => EditorType.HybridArray, // names.json files
-                    "item_catalog" => EditorType.FlatItem, // types.json files (nested categories)
-                    "prefix_modifier" => EditorType.ItemPrefix,
-                    "suffix_modifier" => EditorType.ItemSuffix,
-                    "reference_data" => EditorType.HybridArray, // component libraries
-                    "component_library" => EditorType.HybridArray,
-                    _ => EditorType.HybridArray
-                };
-            }
-            
-            // Fallback to structure-based detection
-            
-            // Check for pattern generation files (names.json)
-            if (data["components"] != null && data["patterns"] != null)
-            {
-                return EditorType.HybridArray;
-            }
-            
-            // Check for types.json structure (nested categories with items)
-            if (fileName.Equals("types.json", StringComparison.OrdinalIgnoreCase))
-            {
-                // Has weapon_types, armor_types, enemy_types, etc.
-                foreach (var prop in data.Properties())
-                {
-                    if (prop.Name.EndsWith("_types") && prop.Value is JObject)
-                    {
-                        return EditorType.FlatItem; // Using FlatItem for now, could create TypesEditor later
-                    }
-                }
-            }
-            
-            // Check for prefix/suffix modifier files
-            if (data["items"] != null && fileName.Contains("prefix", StringComparison.OrdinalIgnoreCase))
-            {
-                return EditorType.ItemPrefix;
-            }
-            
-            if (data["items"] != null && fileName.Contains("suffix", StringComparison.OrdinalIgnoreCase))
-            {
-                return EditorType.ItemSuffix;
-            }
-            
-            // Check for component-only files (reference data)
-            if (data["components"] != null && data["patterns"] == null && data["items"] == null)
-            {
-                return EditorType.HybridArray; // Component library
-            }
-            
-            // Default to HybridArray for most files
-            return EditorType.HybridArray;
-        }
-        catch (Exception ex)
-        {
-            Log.Warning(ex, "Could not determine editor type for {FilePath}, defaulting to HybridArray", filePath);
-            return EditorType.HybridArray;
-        }
     }
 
     private int CountFiles(ObservableCollection<CategoryNode> nodes)
