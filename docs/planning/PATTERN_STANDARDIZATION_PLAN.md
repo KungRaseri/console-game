@@ -1,7 +1,7 @@
 # Pattern System Standardization Plan
 
 **Date:** December 16, 2025  
-**Status:** 🚀 In Progress
+**Status:** ✅ Phase 1 Complete → 🚀 Phase 2 In Progress
 
 ## Overview
 
@@ -61,47 +61,115 @@ token   ::= "base" | component_key
 4. Results are joined with spaces
 5. If a token's component is empty, skip it (graceful degradation)
 
-## Phase 2: Standardize JSON Files 🔄
+## Phase 2: Standardize JSON Files ✅ COMPLETE
 
-### Files to Update (HybridArray Structure)
+**All 113 JSON files have been standardized** - December 16, 2025
 
-#### Items
+### Completion Summary
 
-- [x] `items/weapons/names.json` - Already has structure, needs cleanup
-- [ ] `items/armor/names.json` - Needs standardization
-- [ ] `items/accessories/names.json` - Needs standardization
-- [ ] `items/consumables/names.json` - Needs standardization
+| Category | Files | Status | Details |
+|----------|-------|--------|---------|
+| **General** | 9 | ✅ Complete | Component libraries, pattern generation, config |
+| **Items** | 17 | ✅ Complete | Weapons, armor, consumables, materials, enchantments |
+| **Enemies** | 59 | ✅ Complete | 13 enemy types with full trait systems |
+| **NPCs** | 14 | ✅ Complete | Names, occupations, personalities, dialogue |
+| **Quests** | 14 | ✅ Complete | Templates, objectives, rewards, locations |
+| **TOTAL** | **113** | **✅ 100%** | All files standardized with metadata |
 
-#### Enemies
+### What Was Standardized
 
-- [ ] `enemies/beasts/names.json`
-- [ ] `enemies/undead/names.json`
-- [ ] `enemies/demons/names.json`
-- [ ] `enemies/elementals/names.json`
-- [ ] `enemies/dragons/names.json`
-- [ ] `enemies/humanoids/names.json`
+**Every JSON file now includes:**
 
-#### NPCs
+1. **Metadata Block** with auto-generated fields:
+   - `description` - Human-readable file purpose
+   - `version` - Schema version number
+   - `last_updated` - Timestamp (YYYY-MM-DD)
+   - `type` - File type classification
+   - Auto-generated counts (component_keys, pattern_tokens, total_items, etc.)
 
-- [ ] `npcs/names/first_names.json`
-- [ ] `npcs/titles/titles.json`
+2. **Structure Standardization** - All files follow one of these patterns:
+   - **Pattern Generation** (names.json) - components + patterns for procedural generation
+   - **Item/Enemy Catalogs** (types.json) - type-level traits + item arrays with stats
+   - **Prefix/Suffix Modifiers** - rarity-organized stat modifiers
+   - **Component Libraries** - categorized reference data (no patterns)
+   - **Configuration Files** - game settings and rules
 
-### Standard Template
+3. **Weight-Based Rarity** - All components and items have `rarityWeight` values:
+   - Components contribute to emergent rarity calculation
+   - No hardcoded rarity tiers in most files
+   - Rarity emerges from combined component weights
+   - Configured via `general/rarity_config.json`
 
+4. **Consistent Naming** - Component keys match pattern tokens exactly:
+   - Singular keys (material, not materials)
+   - Semantic names (descriptive, not prefix_desc)
+   - Universal components (material, quality, descriptive) work across categories
+   - Category-specific components only where needed
+
+### Files Structure Examples
+
+**Pattern Generation (names.json):**
 ```json
 {
-  "items": [
-    "Base1", "Base2", "Base3"
-  ],
+  "metadata": {
+    "description": "Weapon name generation with pattern-based system",
+    "version": "3.0",
+    "last_updated": "2025-12-16",
+    "type": "pattern_generation",
+    "component_keys": ["material", "quality", "descriptive"],
+    "pattern_tokens": ["base", "material", "quality"],
+    "total_patterns": 9
+  },
+  "components": {
+    "material": ["Iron", "Steel"],
+    "quality": ["Fine", "Superior"]
+  },
+  "patterns": [
+    "base",
+    "material + base",
+    "quality + material + base"
+  ]
+}
+```
+
+**Item Catalog (types.json):**
+```json
+{
+  "metadata": {
+    "description": "Weapon type catalog with base stats",
+    "version": "1.0",
+    "type": "item_catalog",
+    "total_weapon_types": 7,
+    "total_weapons": 59
+  },
+  "weapon_types": {
+    "swords": {
+      "traits": { "damageType": "slashing", "slot": "mainhand" },
+      "items": [
+        { "name": "Longsword", "damage": "1d8", "rarityWeight": 5 }
+      ]
+    }
+  }
+}
+```
+
+**Standard Template (HybridArray - names.json):**
+```json
+{
+  "metadata": {
+    "description": "Description of this file",
+    "version": "1.0",
+    "last_updated": "2025-12-16",
+    "type": "pattern_generation",
+    "component_keys": ["material", "quality", "descriptive", "enchantment"],
+    "pattern_tokens": ["base", "material", "quality", "descriptive", "enchantment"],
+    "total_patterns": 6
+  },
   "components": {
     "material": ["Iron", "Steel"],
     "quality": ["Fine", "Superior"],
     "descriptive": ["Ancient", "Enchanted"],
-    "enchantment": ["of Slaying", "of Power"],
-    "category_types": {
-      "type1": ["Item1", "Item2"],
-      "type2": ["Item3", "Item4"]
-    }
+    "enchantment": ["of Slaying", "of Power"]
   },
   "patterns": [
     "base",
@@ -110,237 +178,642 @@ token   ::= "base" | component_key
     "descriptive + base",
     "base + enchantment",
     "material + base + enchantment"
-  ],
-  "metadata": {
-    "description": "Description of this file",
-    "version": "1.0",
-    "last_updated": "2025-12-16"
-  }
+  ]
 }
 ```
 
-### weapons/names.json Cleanup
+## Phase 3: Update ContentBuilder 🚀 IN PROGRESS
 
-**Current issues:**
+**Goal:** Update the WPF ContentBuilder tool to support all 113 standardized JSON files with enhanced editing capabilities.
 
-- Components use `prefixes_*` and `suffixes_*` naming
-- Patterns use abbreviated tokens that don't match
-- Categories OK (weapon_types)
+### Implementation Plan (Based on User Preferences)
 
-**Changes needed:**
+**User Decisions:**
+1. ✅ Metadata & Notes - Right-side tab panel
+2. ✅ Pattern Validation - All indicators (icon, tooltip, status bar)
+3. ✅ Live Examples - Below pattern input AND in side panel
+4. ✅ Priority: Metadata → Validation → Live Examples → Autocomplete
+5. ✅ Testing: Implement features, then add tests
+6. ⏳ Weight-Based Rarity - Deferred to Phase 4
 
-1. Rename `prefixes_material` → `material`
-2. Rename `prefixes_quality` → `quality`
-3. Rename `prefixes_descriptive` → `descriptive`
-4. Rename `suffixes_enchantment` → `enchantment`
-5. Update patterns to use new names
-6. Keep `weapon_types` as-is (category)
+---
 
-## Phase 3: Update ContentBuilder 🔧
+### 3.1 Metadata & Notes Tab (Right Panel) ⭐ PRIORITY 1
 
-### 3.1 Auto-Generated Metadata System ⭐ NEW
+**File:** `Game.ContentBuilder/Views/HybridArrayEditorView.xaml`
 
-**File:** `Game.ContentBuilder/Services/MetadataGenerator.cs` (NEW)
-
-**Purpose:** Automatically generate metadata on save to eliminate manual maintenance.
+**UI Layout:**
+```
+┌────────────────────────────────────────────────────────┐
+│ Main Content (Left 70%)      │ Metadata (Right 30%)    │
+│                               │                         │
+│ [Items Tab]                   │ ┌─ Metadata ─────────┐ │
+│ [Components Tab]              │ │ Description:        │ │
+│ [Patterns Tab]                │ │ [text box]          │ │
+│                               │ │                     │ │
+│                               │ │ Version:            │ │
+│                               │ │ [text box]          │ │
+│                               │ │                     │ │
+│                               │ │ ─ Auto-Generated ── │ │
+│                               │ │ Last Updated:       │ │
+│                               │ │ 2025-12-16          │ │
+│                               │ │                     │ │
+│                               │ │ Component Keys:     │ │
+│                               │ │ material, quality   │ │
+│                               │ │                     │ │
+│                               │ │ Pattern Tokens:     │ │
+│                               │ │ base, material      │ │
+│                               │ │                     │ │
+│                               │ │ Total Patterns: 9   │ │
+│                               │ └─────────────────────┘ │
+│                               │                         │
+│                               │ ┌─ Notes ────────────┐ │
+│                               │ │ [text box]          │ │
+│                               │ │ (freeform notes)    │ │
+│                               │ └─────────────────────┘ │
+└────────────────────────────────────────────────────────┘
+```
 
 **Implementation:**
 
+**ViewModel Properties:**
 ```csharp
-public class MetadataGenerator
+// HybridArrayEditorViewModel.cs
+
+// User-editable metadata
+[ObservableProperty]
+private string metadataDescription = "";
+
+[ObservableProperty]
+private string metadataVersion = "1.0";
+
+[ObservableProperty]
+private string notes = ""; // Freeform notes, saved to metadata.notes
+
+// Auto-generated metadata (read-only, computed)
+public string LastUpdated => DateTime.Now.ToString("yyyy-MM-dd");
+
+public string ComponentKeysDisplay => string.Join(", ", 
+    ComponentGroups.Select(g => g.Name).OrderBy(n => n));
+
+public string PatternTokensDisplay
 {
-    public static Dictionary<string, object> Generate(
-        string userDescription,
-        string userVersion,
-        Dictionary<string, object> components,
-        List<string> patterns,
-        List<object>? items = null,
-        Dictionary<string, object>? categoryTypes = null)
+    get
     {
-        var metadata = new Dictionary<string, object>
+        var tokens = new HashSet<string> { "base" };
+        foreach (var pattern in Patterns)
         {
-            // User-defined fields (preserved from UI)
-            ["description"] = userDescription,
-            ["version"] = userVersion,
+            var parts = pattern.Pattern.Split(new[] { " + " }, 
+                StringSplitOptions.RemoveEmptyEntries);
+            foreach (var part in parts)
+                tokens.Add(part.Trim());
+        }
+        return string.Join(", ", tokens.OrderBy(t => t));
+    }
+}
+
+public int TotalPatternsCount => Patterns.Count;
+public int TotalItemsCount => Items.Count;
+```
+
+**XAML Layout:**
+```xml
+<Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="7*"/>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="3*"/>
+    </Grid.ColumnDefinitions>
+    
+    <!-- Main Content (existing tabs) -->
+    <TabControl Grid.Column="0">
+        <!-- Items, Components, Patterns tabs -->
+    </TabControl>
+    
+    <!-- Splitter -->
+    <GridSplitter Grid.Column="1" Width="5" 
+                  HorizontalAlignment="Stretch" 
+                  Background="{DynamicResource MaterialDesign.Brush.Background}"/>
+    
+    <!-- Right Panel: Metadata & Notes -->
+    <ScrollViewer Grid.Column="2" Margin="8,0,0,0">
+        <StackPanel>
+            <!-- Metadata Section -->
+            <materialDesign:Card Padding="16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Metadata" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,12"/>
+                    
+                    <!-- User-Editable Fields -->
+                    <TextBox Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Description"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             MinLines="3"
+                             MaxLines="5"
+                             Margin="0,0,0,12"/>
+                    
+                    <TextBox Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Version"
+                             Margin="0,0,0,16"/>
+                    
+                    <!-- Auto-Generated Fields -->
+                    <Separator Margin="0,0,0,12"/>
+                    <TextBlock Text="Auto-Generated" 
+                               FontSize="12" 
+                               FontWeight="SemiBold" 
+                               Opacity="0.7"
+                               Margin="0,0,0,8"/>
+                    
+                    <TextBlock Text="{Binding LastUpdated, StringFormat='Last Updated: {0}'}" 
+                               FontSize="11"
+                               Margin="0,2"/>
+                    <TextBlock Text="{Binding ComponentKeysDisplay, StringFormat='Components: {0}'}" 
+                               FontSize="11"
+                               TextWrapping="Wrap"
+                               Margin="0,2"/>
+                    <TextBlock Text="{Binding PatternTokensDisplay, StringFormat='Tokens: {0}'}" 
+                               FontSize="11"
+                               TextWrapping="Wrap"
+                               Margin="0,2"/>
+                    <TextBlock Text="{Binding TotalPatternsCount, StringFormat='Patterns: {0}'}" 
+                               FontSize="11"
+                               Margin="0,2"/>
+                    <TextBlock Text="{Binding TotalItemsCount, StringFormat='Items: {0}'}" 
+                               FontSize="11"
+                               Margin="0,2"/>
+                </StackPanel>
+            </materialDesign:Card>
             
-            // Auto-generated fields
+            <!-- Notes Section -->
+            <materialDesign:Card Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Notes" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,12"/>
+                    <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Add your notes here..."
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             MinLines="10"
+                             VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </materialDesign:Card>
+        </StackPanel>
+    </ScrollViewer>
+</Grid>
+```
+
+**Service:** `Game.ContentBuilder/Services/MetadataGenerator.cs` (NEW)
+
+```csharp
+public static class MetadataGenerator
+{
+    public static JObject Generate(
+        string description,
+        string version,
+        string? notes,
+        List<ComponentGroup> componentGroups,
+        List<PatternItem> patterns,
+        List<string> items)
+    {
+        var metadata = new JObject
+        {
+            ["description"] = description,
+            ["version"] = version,
             ["last_updated"] = DateTime.Now.ToString("yyyy-MM-dd"),
-            ["component_keys"] = ExtractComponentKeys(components),
-            ["pattern_tokens"] = ExtractPatternTokens(patterns)
+            ["type"] = "pattern_generation", // Could be inferred
+            ["component_keys"] = new JArray(
+                componentGroups.Select(g => g.Name).OrderBy(n => n)),
+            ["pattern_tokens"] = new JArray(ExtractTokens(patterns)),
+            ["total_patterns"] = patterns.Count,
+            ["total_items"] = items.Count
         };
         
-        // Optional auto-generated fields
-        if (patterns?.Count > 0)
-            metadata["total_patterns"] = patterns.Count;
-            
-        if (items?.Count > 0)
-            metadata["total_items"] = items.Count;
-            
-        if (categoryTypes != null)
-        {
-            foreach (var kvp in categoryTypes)
-            {
-                if (kvp.Value is ICollection collection)
-                    metadata[$"{kvp.Key}_count"] = collection.Count;
-            }
-        }
+        if (!string.IsNullOrWhiteSpace(notes))
+            metadata["notes"] = notes;
         
         return metadata;
     }
     
-    private static string[] ExtractComponentKeys(Dictionary<string, object> components)
+    private static IEnumerable<string> ExtractTokens(List<PatternItem> patterns)
     {
-        return components.Keys
-            .Where(k => !k.EndsWith("_types")) // Exclude category types
-            .OrderBy(k => k)
-            .ToArray();
-    }
-    
-    private static string[] ExtractPatternTokens(List<string> patterns)
-    {
-        var tokens = new HashSet<string> { "base" }; // Always include "base"
-        
+        var tokens = new HashSet<string> { "base" };
         foreach (var pattern in patterns)
         {
-            var parts = pattern.Split(new[] { " + " }, StringSplitOptions.RemoveEmptyEntries);
+            var parts = pattern.Pattern.Split(new[] { " + " }, 
+                StringSplitOptions.RemoveEmptyEntries);
             foreach (var part in parts)
-            {
                 tokens.Add(part.Trim());
-            }
         }
-        
-        return tokens.OrderBy(t => t).ToArray();
+        return tokens.OrderBy(t => t);
     }
 }
 ```
 
-**ViewModel Updates:**
+**Save Integration:**
+```csharp
+private void SaveFile()
+{
+    var metadata = MetadataGenerator.Generate(
+        MetadataDescription,
+        MetadataVersion,
+        Notes,
+        ComponentGroups.ToList(),
+        Patterns.ToList(),
+        Items.ToList()
+    );
+    
+    var data = new JObject
+    {
+        ["metadata"] = metadata,
+        ["components"] = BuildComponentsObject(),
+        ["patterns"] = new JArray(Patterns.Select(p => p.Pattern)),
+        ["items"] = new JArray(Items) // Only if Items exist
+    };
+    
+    File.WriteAllText(_filePath, data.ToString(Formatting.Indented));
+}
+```
+
+---
+
+### 3.2 Pattern Validation (All Indicators) ⭐ PRIORITY 2
+
+**Service:** `Game.ContentBuilder/Services/PatternValidator.cs` (NEW)
 
 ```csharp
-// HybridArrayEditorViewModel.cs
-public class HybridArrayEditorViewModel : ObservableObject
+public enum ValidationLevel
 {
-    // User-editable metadata fields
-    [ObservableProperty]
-    private string metadataDescription = "";
-    
-    [ObservableProperty]
-    private string metadataVersion = "1.0";
-    
-    // Auto-generated metadata (read-only, for display)
-    public string LastUpdated => DateTime.Now.ToString("yyyy-MM-dd");
-    public string[] ComponentKeys => Components.Keys.OrderBy(k => k).ToArray();
-    public string[] PatternTokens => ExtractPatternTokens();
-    public int TotalPatterns => Patterns.Count;
-    
-    private void SaveFile()
+    Valid,
+    Warning,
+    Error
+}
+
+public class ValidationResult
+{
+    public ValidationLevel Level { get; set; }
+    public string Message { get; set; } = "";
+    public List<string> InvalidTokens { get; set; } = new();
+}
+
+public static class PatternValidator
+{
+    public static ValidationResult Validate(
+        string pattern, 
+        List<ComponentGroup> componentGroups)
     {
-        var metadata = MetadataGenerator.Generate(
-            MetadataDescription,
-            MetadataVersion,
-            Components,
-            Patterns.Select(p => p.Pattern).ToList(),
-            Items?.ToList(),
-            // Extract category types from components
-            Components.Where(kvp => kvp.Key.EndsWith("_types")).ToDictionary()
-        );
+        if (string.IsNullOrWhiteSpace(pattern))
+            return new ValidationResult 
+            { 
+                Level = ValidationLevel.Error, 
+                Message = "Pattern cannot be empty" 
+            };
         
-        var data = new
+        var tokens = pattern.Split(new[] { " + " }, 
+            StringSplitOptions.RemoveEmptyEntries)
+            .Select(t => t.Trim())
+            .ToList();
+        
+        if (tokens.Count == 0)
+            return new ValidationResult 
+            { 
+                Level = ValidationLevel.Error, 
+                Message = "Pattern has no valid tokens" 
+            };
+        
+        var componentNames = componentGroups.Select(g => g.Name).ToHashSet();
+        var invalidTokens = new List<string>();
+        
+        foreach (var token in tokens)
         {
-            items = Items,
-            components = Components,
-            patterns = Patterns.Select(p => p.Pattern),
-            metadata = metadata
-        };
+            // Special tokens are always valid
+            if (token == "base" || token == "item")
+                continue;
+            
+            // Check if token exists in components
+            if (!componentNames.Contains(token))
+                invalidTokens.Add(token);
+        }
         
-        File.WriteAllText(FilePath, JsonConvert.SerializeObject(data, Formatting.Indented));
+        if (invalidTokens.Count > 0)
+        {
+            return new ValidationResult
+            {
+                Level = ValidationLevel.Error,
+                Message = $"Unknown tokens: {string.Join(", ", invalidTokens)}",
+                InvalidTokens = invalidTokens
+            };
+        }
+        
+        // Check for empty components (warning, not error)
+        var emptyComponents = tokens
+            .Where(t => t != "base" && t != "item")
+            .Where(t => componentGroups
+                .FirstOrDefault(g => g.Name == t)
+                ?.Items.Count == 0)
+            .ToList();
+        
+        if (emptyComponents.Count > 0)
+        {
+            return new ValidationResult
+            {
+                Level = ValidationLevel.Warning,
+                Message = $"Empty components: {string.Join(", ", emptyComponents)}"
+            };
+        }
+        
+        return new ValidationResult 
+        { 
+            Level = ValidationLevel.Valid, 
+            Message = "✓ Pattern is valid" 
+        };
     }
 }
 ```
 
-**UI Updates:**
+**ViewModel:**
+```csharp
+// PatternItem model
+public class PatternItem : ObservableObject
+{
+    [ObservableProperty]
+    private string pattern = "";
+    
+    [ObservableProperty]
+    private ValidationResult? validationResult;
+    
+    public string ValidationIcon => ValidationResult?.Level switch
+    {
+        ValidationLevel.Valid => "✓",
+        ValidationLevel.Warning => "⚠",
+        ValidationLevel.Error => "✗",
+        _ => ""
+    };
+    
+    public Brush ValidationColor => ValidationResult?.Level switch
+    {
+        ValidationLevel.Valid => Brushes.Green,
+        ValidationLevel.Warning => Brushes.Orange,
+        ValidationLevel.Error => Brushes.Red,
+        _ => Brushes.Gray
+    };
+}
 
-Add to `HybridArrayEditorView.xaml`:
+// In HybridArrayEditorViewModel
+partial void OnNewPatternInputChanged(string value)
+{
+    // Real-time validation as user types
+    var validation = PatternValidator.Validate(value, ComponentGroups.ToList());
+    NewPatternValidation = validation;
+    GenerateLiveExamples(); // Trigger live examples
+}
 
-```xml
-<!-- Metadata Section -->
-<Expander Header="Metadata" IsExpanded="True" Margin="0,10,0,0">
-    <StackPanel>
-        <!-- User-Editable Fields -->
-        <TextBox 
-            Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"
-            materialDesign:HintAssist.Hint="Description"
-            Margin="0,5"/>
-        <TextBox 
-            Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"
-            materialDesign:HintAssist.Hint="Version"
-            Margin="0,5"/>
-        
-        <!-- Auto-Generated Fields (Read-Only) -->
-        <Separator Margin="0,10"/>
-        <TextBlock Text="Auto-Generated (Read-Only)" 
-                   FontWeight="Bold" 
-                   Margin="0,5"/>
-        <TextBlock Text="{Binding LastUpdated, StringFormat='Last Updated: {0}'}" 
-                   Margin="0,2"/>
-        <TextBlock Text="{Binding ComponentKeys, StringFormat='Component Keys: {0}'}" 
-                   Margin="0,2"/>
-        <TextBlock Text="{Binding PatternTokens, StringFormat='Pattern Tokens: {0}'}" 
-                   Margin="0,2"/>
-        <TextBlock Text="{Binding TotalPatterns, StringFormat='Total Patterns: {0}'}" 
-                   Margin="0,2"/>
-    </StackPanel>
-</Expander>
+[ObservableProperty]
+private ValidationResult? newPatternValidation;
+
+[RelayCommand(CanExecute = nameof(CanAddPattern))]
+private void AddPattern()
+{
+    if (string.IsNullOrWhiteSpace(NewPatternInput)) return;
+    
+    var validation = PatternValidator.Validate(
+        NewPatternInput, 
+        ComponentGroups.ToList());
+    
+    var patternItem = new PatternItem 
+    { 
+        Pattern = NewPatternInput,
+        ValidationResult = validation
+    };
+    
+    Patterns.Add(patternItem);
+    NewPatternInput = string.Empty;
+    OnPropertyChanged(nameof(TotalPatternsCount));
+}
+
+private bool CanAddPattern() => 
+    !string.IsNullOrWhiteSpace(NewPatternInput) &&
+    NewPatternValidation?.Level != ValidationLevel.Error;
 ```
 
-**Benefits:**
-
-- ✅ No manual metadata maintenance
-- ✅ Always accurate and synchronized
-- ✅ Real-time validation of patterns
-- ✅ User only maintains description and version
-- ✅ Eliminates common errors
+**XAML:**
+```xml
+<!-- Patterns Tab -->
+<Grid Margin="16">
+    <!-- Add Pattern -->
+    <materialDesign:Card Padding="16" Margin="0,0,0,16">
+        <DockPanel>
+            <Button DockPanel.Dock="Right" 
+                    Command="{Binding AddPatternCommand}"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Margin="8,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Plus" Margin="0,0,4,0"/>
+                    <TextBlock Text="Add"/>
+                </StackPanel>
+            </Button>
+            
+            <!-- Validation Indicator -->
+            <Border DockPanel.Dock="Right"
+                    Width="40"
+                    Height="40"
+                    Margin="8,0"
+                    VerticalAlignment="Center"
+                    ToolTip="{Binding NewPatternValidation.Message}">
+                <TextBlock Text="{Binding NewPatternValidation.ValidationIcon}"
+                           FontSize="24"
+                           Foreground="{Binding NewPatternValidation.ValidationColor}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Border>
+            
+            <TextBox Text="{Binding NewPatternInput, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="New pattern (e.g., material + base)..."
+                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+        </DockPanel>
+        
+        <!-- Validation Message -->
+        <TextBlock Text="{Binding NewPatternValidation.Message}"
+                   Foreground="{Binding NewPatternValidation.ValidationColor}"
+                   Margin="0,8,0,0"
+                   FontSize="11"/>
+    </materialDesign:Card>
+    
+    <!-- Pattern List with Validation Icons -->
+    <ListBox ItemsSource="{Binding Patterns}"
+             SelectedItem="{Binding SelectedPattern}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="{Binding ValidationIcon}"
+                               Foreground="{Binding ValidationColor}"
+                               FontSize="14"
+                               Margin="0,0,8,0"
+                               ToolTip="{Binding ValidationResult.Message}"/>
+                    <TextBlock Text="{Binding Pattern}"/>
+                </DockPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</Grid>
+```
 
 ---
 
-### 3.2 PatternExampleGenerator Updates
+### 3.3 Live Example Preview (Below Input + Side Panel) ⭐ PRIORITY 3
 
-**File:** `Game.ContentBuilder/Services/PatternExampleGenerator.cs`
+**Service Update:** `Game.ContentBuilder/Services/PatternExampleGenerator.cs`
 
-**Changes:**
+```csharp
+public static List<string> GenerateMultipleExamples(
+    string pattern, 
+    JArray? items, 
+    JObject? components, 
+    int count = 5)
+{
+    var examples = new List<string>();
+    
+    for (int i = 0; i < count; i++)
+    {
+        var example = GenerateExample(pattern, items, components);
+        if (!string.IsNullOrEmpty(example) && example != "(no data available)")
+            examples.Add(example);
+    }
+    
+    return examples.Distinct().ToList(); // Remove duplicates
+}
 
-1. Simplify token resolution logic
-2. Remove fuzzy matching and prefixes_/suffixes_ attempts
-3. Direct mapping: token → components[token]
-4. Special case: `base` or `item` → items array
-5. Better error messages for invalid tokens
+// Simplified token resolution (remove fuzzy matching)
+private static string? ResolveToken(string token, JArray? items, JObject? components)
+{
+    // Special tokens
+    if (token == "base" || token == "item")
+    {
+        if (items != null && items.Count > 0)
+            return items[Random.Shared.Next(items.Count)]?.ToString();
+        return null;
+    }
+    
+    // Direct component lookup (no fuzzy matching)
+    if (components?[token] is JArray componentArray && componentArray.Count > 0)
+    {
+        return componentArray[Random.Shared.Next(componentArray.Count)]?.ToString();
+    }
+    
+    return null; // Token not found
+}
+```
+
+**ViewModel:**
+```csharp
+[ObservableProperty]
+private ObservableCollection<string> liveExamples = new();
+
+private void GenerateLiveExamples()
+{
+    if (string.IsNullOrWhiteSpace(NewPatternInput))
+    {
+        LiveExamples.Clear();
+        return;
+    }
+    
+    var examples = PatternExampleGenerator.GenerateMultipleExamples(
+        NewPatternInput,
+        _itemsData,
+        _componentsData,
+        count: 5
+    );
+    
+    LiveExamples.Clear();
+    foreach (var example in examples)
+        LiveExamples.Add(example);
+}
+
+[RelayCommand]
+private void RefreshExamples()
+{
+    GenerateLiveExamples();
+}
+```
+
+**XAML:**
+```xml
+<!-- Below Pattern Input -->
+<materialDesign:Card Padding="16" Margin="0,0,0,16"
+                     Visibility="{Binding LiveExamples.Count, 
+                                  Converter={StaticResource CountToVisibilityConverter}}">
+    <StackPanel>
+        <DockPanel Margin="0,0,0,8">
+            <TextBlock DockPanel.Dock="Left"
+                       Text="Live Examples"
+                       FontSize="14"
+                       FontWeight="SemiBold"/>
+            <Button DockPanel.Dock="Right"
+                    Command="{Binding RefreshExamplesCommand}"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="Regenerate examples">
+                <materialDesign:PackIcon Kind="Refresh"/>
+            </Button>
+        </DockPanel>
+        
+        <ItemsControl ItemsSource="{Binding LiveExamples}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" 
+                               FontFamily="Consolas"
+                               FontSize="12"
+                               Margin="0,2"
+                               Opacity="0.8"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</materialDesign:Card>
+
+<!-- Also in Right Panel under Metadata -->
+<materialDesign:Card Padding="16" Margin="0,0,0,16"
+                     Visibility="{Binding SelectedPattern, 
+                                  Converter={StaticResource NullToVisibilityConverter}}">
+    <StackPanel>
+        <TextBlock Text="Pattern Examples" 
+                   FontSize="14" 
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,8"/>
+        <TextBlock Text="{Binding SelectedPattern.Pattern}"
+                   FontFamily="Consolas"
+                   FontSize="11"
+                   Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                   Margin="0,0,0,12"/>
+        <ItemsControl ItemsSource="{Binding SelectedPatternExamples}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" 
+                               FontFamily="Consolas"
+                               FontSize="11"
+                               Margin="0,2"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</materialDesign:Card>
+```
 
 ---
 
-### 3.3 HybridArrayEditorViewModel Updates
+### 3.4 Token Autocomplete (Future Enhancement)
 
-**File:** `Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs`
+**Deferred to post-Phase 3** - Nice to have but not critical for initial release.
 
-**Features to add:**
-
-1. Pattern validation on add/edit
-2. Real-time pattern testing (show 5 examples)
-3. Token autocomplete/suggestion
-4. Warning if token doesn't match any component
-
----
-
-### 3.4 UI Enhancements
-
-**File:** `Game.ContentBuilder/Views/HybridArrayEditorView.xaml`
-
-**Features:**
-
-1. Pattern validation indicator (✓ valid, ⚠ warning, ✗ invalid)
-2. Live example preview (regenerate on keystroke)
-3. Component key reference panel
-4. Pattern syntax helper tooltip
-5. Metadata section with user-editable and auto-generated fields
+**Potential Implementation:**
+- Use `materialDesign:AutoSuggestBox` or custom autocomplete
+- Suggest available component keys while typing
+- Show "base" token in suggestions
+- Syntax highlighting for valid/invalid tokens
 
 ---
 
@@ -584,34 +1057,81 @@ The pattern system generates dynamic names by combining components using pattern
 
 ## Execution Timeline
 
-### Day 1: Standardization ✅
+### Phase 1: Define the Standard ✅ COMPLETE
 
-- [x] Define standard (this document)
-- [ ] Update weapons/names.json
-- [ ] Update armor/names.json
-- [ ] Update 2-3 enemy name files
-- [ ] Test in ContentBuilder
+- [x] Define standard component keys and patterns
+- [x] Document pattern syntax and execution rules
+- [x] Create standardization templates
+- [x] Completed: December 16, 2025
 
-### Day 2: ContentBuilder Updates
+### Phase 2: Standardize JSON Files ✅ COMPLETE
 
-- [ ] Update PatternExampleGenerator
-- [ ] Add pattern validation
-- [ ] Add live example preview
-- [ ] Add token autocomplete
-- [ ] Test all updated files
+- [x] Standardize all 113 JSON files
+- [x] Add metadata to all files
+- [x] Implement weight-based rarity system
+- [x] Verify all patterns use correct token names
+- [x] Completed: December 16, 2025
 
-### Day 3: Runtime Implementation
+### Phase 3: ContentBuilder Updates 🚀 IN PROGRESS
 
-- [ ] Create PatternExecutor service
-- [ ] Update data models
-- [ ] Update ItemGenerator
-- [ ] Update EnemyGenerator
-- [ ] Write unit tests
-- [ ] Integration testing
+**Day 1: Metadata & Notes Panel**
+- [ ] Create MetadataGenerator service
+- [ ] Add right-side panel to HybridArrayEditorView
+- [ ] Implement user-editable fields (Description, Version, Notes)
+- [ ] Implement auto-generated display (Last Updated, Component Keys, Pattern Tokens, Counts)
+- [ ] Integrate with save/load functionality
+- [ ] Test with existing JSON files
 
-### Day 4: Polish & Documentation
+**Day 2: Pattern Validation**
+- [ ] Create PatternValidator service
+- [ ] Add ValidationResult model with levels (Valid/Warning/Error)
+- [ ] Update PatternItem model with validation properties
+- [ ] Add real-time validation to pattern input
+- [ ] Add validation icons to pattern list (✓/⚠/✗)
+- [ ] Add tooltips and status messages
+- [ ] Test validation with various pattern combinations
 
-- [ ] Write pattern system guide
+**Day 3: Live Example Preview**
+- [ ] Update PatternExampleGenerator.GenerateMultipleExamples()
+- [ ] Simplify token resolution (remove fuzzy matching)
+- [ ] Add LiveExamples collection to ViewModel
+- [ ] Add example display below pattern input
+- [ ] Add example display in right panel for selected pattern
+- [ ] Add refresh button for regenerating examples
+- [ ] Test with real JSON data
+
+**Day 4: Polish & Testing**
+- [ ] Add keyboard shortcuts (Ctrl+S for save, etc.)
+- [ ] Add loading/saving indicators
+- [ ] Test all 113 files in ContentBuilder
+- [ ] Fix any UI/UX issues
+- [ ] Update user documentation
+- [ ] Code review and cleanup
+
+### Phase 4: Runtime Implementation 📋 PLANNED
+
+**Day 1: PatternExecutor Service**
+- [ ] Create PatternExecutor service in Game.Shared
+- [ ] Implement Execute() method for pattern resolution
+- [ ] Add unit tests for pattern execution
+- [ ] Test with various pattern combinations
+
+**Day 2: Update Data Models & Generators**
+- [ ] Update GameDataModels with Patterns property
+- [ ] Update ItemGenerator to use patterns
+- [ ] Update EnemyGenerator to use patterns
+- [ ] Update NpcGenerator to use patterns
+- [ ] Add integration tests
+
+**Day 3: Testing & Validation**
+- [ ] Run all integration tests
+- [ ] Generate test items/enemies/NPCs
+- [ ] Verify names are generated correctly
+- [ ] Performance testing
+- [ ] Fix any issues
+
+**Day 4: Documentation & Polish**
+- [ ] Write Pattern System Guide
 - [ ] Update GDD
 - [ ] Create migration guide
 - [ ] Final testing
@@ -663,3 +1183,44 @@ If issues arise:
 - Pattern execution should be fast (<1ms per name)
 - Cache compiled patterns if performance becomes issue
 - Consider pattern weights in future (some patterns more common)
+
+---
+
+## Current Status Summary
+
+### ✅ Completed (Phases 1-2)
+
+- **Phase 1**: Standard defined with component keys and pattern syntax
+- **Phase 2**: All 113 JSON files standardized with metadata and weight-based rarity
+
+### 🚀 In Progress (Phase 3)
+
+**ContentBuilder Implementation** - Enhancing the WPF tool with:
+
+1. **Metadata & Notes Panel** (Right side)
+   - User-editable: Description, Version, Notes
+   - Auto-generated: Last Updated, Component Keys, Pattern Tokens, Counts
+
+2. **Pattern Validation** (All indicators)
+   - Real-time validation as user types
+   - Visual indicators: ✓ Valid / ⚠ Warning / ✗ Error
+   - Tooltips with validation messages
+   - Status bar integration
+
+3. **Live Example Preview** (Dual display)
+   - Below pattern input (always visible while typing)
+   - In right panel for selected pattern
+   - Refresh button to regenerate examples
+   - Shows 5 diverse examples
+
+### 📋 Planned (Phase 4)
+
+**Runtime Implementation** - Game engine integration:
+- PatternExecutor service for runtime pattern resolution
+- Update all generators (Items, Enemies, NPCs) to use patterns
+- Comprehensive testing and validation
+- Performance optimization
+
+---
+
+**Next Action**: Begin Phase 3 implementation starting with Metadata & Notes Panel.
