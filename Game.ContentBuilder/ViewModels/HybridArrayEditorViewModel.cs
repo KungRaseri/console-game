@@ -70,6 +70,33 @@ public partial class HybridArrayEditorViewModel : ObservableObject
     [ObservableProperty]
     private int _totalPatternsCount;
 
+    #region Metadata Properties
+
+    // User-editable metadata fields
+    [ObservableProperty]
+    private string _metadataDescription = string.Empty;
+
+    [ObservableProperty]
+    private string _metadataVersion = "1.0";
+
+    [ObservableProperty]
+    private string _notes = string.Empty;
+
+    // Auto-generated read-only fields (displayed but not editable)
+    [ObservableProperty]
+    private string _lastUpdated = DateTime.Now.ToString("yyyy-MM-dd");
+
+    [ObservableProperty]
+    private string _fileType = string.Empty;
+
+    [ObservableProperty]
+    private string _componentKeysDisplay = string.Empty;
+
+    [ObservableProperty]
+    private string _patternTokensDisplay = string.Empty;
+
+    #endregion
+
     public HybridArrayEditorViewModel(JsonEditorService jsonEditorService, string fileName)
     {
         _jsonEditorService = jsonEditorService;
@@ -155,6 +182,25 @@ public partial class HybridArrayEditorViewModel : ObservableObject
                 }
             }
 
+            // Load metadata
+            if (data["metadata"] is JObject metadataObj)
+            {
+                MetadataDescription = metadataObj["description"]?.ToString() ?? string.Empty;
+                MetadataVersion = metadataObj["version"]?.ToString() ?? "1.0";
+                Notes = metadataObj["notes"]?.ToString() ?? string.Empty;
+                LastUpdated = metadataObj["last_updated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
+                FileType = metadataObj["type"]?.ToString() ?? string.Empty;
+                
+                // Display component keys and pattern tokens as comma-separated lists
+                ComponentKeysDisplay = metadataObj["component_keys"] is JArray componentKeys
+                    ? string.Join(", ", componentKeys.Select(k => k.ToString()))
+                    : string.Empty;
+                    
+                PatternTokensDisplay = metadataObj["pattern_tokens"] is JArray patternTokens
+                    ? string.Join(", ", patternTokens.Select(t => t.ToString()))
+                    : string.Empty;
+            }
+
             UpdateCounts();
             StatusMessage = $"Loaded {FileDisplayName}: {TotalItemsCount} items, {TotalComponentsCount} components, {TotalPatternsCount} patterns";
             Log.Information("Loaded {FileName}: {Items} items, {Components} components, {Patterns} patterns", 
@@ -236,13 +282,26 @@ public partial class HybridArrayEditorViewModel : ObservableObject
             var patternsArray = new JArray(Patterns.Select(p => p.Pattern));
             data["patterns"] = patternsArray;
 
-            // Save metadata (preserve if exists)
-            var existingJson = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(_fileName));
-            var existingData = JObject.Parse(existingJson);
-            if (existingData["metadata"] != null)
-            {
-                data["metadata"] = existingData["metadata"];
-            }
+            // Generate metadata using MetadataGenerator
+            var metadata = MetadataGenerator.Generate(
+                description: MetadataDescription,
+                version: MetadataVersion,
+                notes: Notes,
+                componentGroups: ComponentGroups,
+                patterns: Patterns,
+                items: Items
+            );
+            data["metadata"] = metadata;
+
+            // Update read-only display properties from generated metadata
+            LastUpdated = metadata["last_updated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
+            FileType = metadata["type"]?.ToString() ?? string.Empty;
+            ComponentKeysDisplay = metadata["component_keys"] is JArray componentKeys
+                ? string.Join(", ", componentKeys.Select(k => k.ToString()))
+                : string.Empty;
+            PatternTokensDisplay = metadata["pattern_tokens"] is JArray patternTokens
+                ? string.Join(", ", patternTokens.Select(t => t.ToString()))
+                : string.Empty;
 
             var json = data.ToString(Formatting.Indented);
             System.IO.File.WriteAllText(_jsonEditorService.GetFilePath(_fileName), json);
@@ -384,25 +443,4 @@ public partial class HybridArrayEditorViewModel : ObservableObject
     }
 
     #endregion
-}
-
-/// <summary>
-/// Model for a component group (e.g., "base_colors", "modifiers")
-/// </summary>
-public class ComponentGroup : ObservableObject
-{
-    private string _name = string.Empty;
-    private ObservableCollection<string> _components = new();
-
-    public string Name
-    {
-        get => _name;
-        set => SetProperty(ref _name, value);
-    }
-
-    public ObservableCollection<string> Components
-    {
-        get => _components;
-        set => SetProperty(ref _components, value);
-    }
 }

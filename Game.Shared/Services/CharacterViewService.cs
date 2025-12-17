@@ -1,8 +1,3 @@
-using Game.Core.Models;
-using Game.Core.Abstractions;
-using Game.Console.UI;
-using Game.Core.Utilities;
-
 namespace Game.Shared.Services;
 
 /// <summary>

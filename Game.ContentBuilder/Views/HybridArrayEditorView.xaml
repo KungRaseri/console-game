@@ -54,10 +54,18 @@
             </Grid>
         </materialDesign:Card>
 
-        <!-- Main Content - Tabs -->
-        <TabControl Grid.Row="1" 
-                    Style="{StaticResource MaterialDesignFilledTabControl}"
-                    materialDesign:ColorZoneAssist.Mode="PrimaryMid">
+        <!-- Main Content - Split Layout -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Side: Tabs (Items, Components, Patterns) -->
+            <TabControl Grid.Column="0"
+                        Style="{StaticResource MaterialDesignFilledTabControl}"
+                        materialDesign:ColorZoneAssist.Mode="PrimaryMid">
             
             <!-- Items Tab -->
             <TabItem Header="Items">
@@ -379,6 +387,114 @@
                 </Grid>
             </TabItem>
         </TabControl>
+
+        <!-- Splitter -->
+        <GridSplitter Grid.Column="1" 
+                      Width="5" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Stretch"
+                      Background="{DynamicResource MaterialDesign.Brush.TextBox.HoverBackground}"/>
+
+        <!-- Right Side: Metadata & Notes Panel -->
+        <ScrollViewer Grid.Column="2" 
+                      VerticalScrollBarVisibility="Auto"
+                      Margin="8,0,0,0">
+            <materialDesign:Card Padding="16">
+                <StackPanel>
+                    <!-- Panel Header -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                        <materialDesign:PackIcon Kind="Information" 
+                                                 VerticalAlignment="Center" 
+                                                 Margin="0,0,8,0"
+                                                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"/>
+                        <TextBlock Text="Metadata &amp; Notes" 
+                                   FontSize="16" 
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- User-Editable Fields -->
+                    <TextBlock Text="Description" 
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Brief description of this file"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Version" 
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="e.g., 1.0, 2.3.1"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0,0,0,16"/>
+
+                    <TextBlock Text="Notes" 
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Additional notes or comments"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             MinHeight="80"
+                             Margin="0,0,0,16"/>
+
+                    <Separator Margin="0,8,0,16"/>
+
+                    <!-- Auto-Generated Read-Only Fields -->
+                    <TextBlock Text="Auto-Generated Information" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,12"/>
+
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" 
+                                   Text="Last Updated:" 
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,8,0"/>
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding LastUpdated}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" 
+                                   Text="File Type:" 
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,8,0"/>
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding FileType}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
+
+                    <TextBlock Text="Component Keys:" 
+                               FontWeight="SemiBold"
+                               Margin="0,8,0,4"/>
+                    <TextBlock Text="{Binding ComponentKeysDisplay}"
+                               TextWrapping="Wrap"
+                               Opacity="0.7"
+                               Margin="0,0,0,8"/>
+
+                    <TextBlock Text="Pattern Tokens:" 
+                               FontWeight="SemiBold"
+                               Margin="0,8,0,4"/>
+                    <TextBlock Text="{Binding PatternTokensDisplay}"
+                               TextWrapping="Wrap"
+                               Opacity="0.7"/>
+                </StackPanel>
+            </materialDesign:Card>
+        </ScrollViewer>
+    </Grid>
 
         <!-- Footer Actions -->
         <materialDesign:Card Grid.Row="2" Margin="0,16,0,0" Padding="16">

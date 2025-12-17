@@ -12,8 +12,6 @@ using System.Reflection;
 using Game.Console.Orchestrators;
 using Game.Data.Repositories;
 using Game.Core.Abstractions;
-using Game.Core.Features.CharacterCreation;
-using Game.Shared.Data;
 
 namespace Game.Tests.Services;
 

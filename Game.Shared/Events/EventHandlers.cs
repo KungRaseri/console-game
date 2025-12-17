@@ -1,6 +1,3 @@
-using MediatR;
-using Game.Console.UI;
-using Game.Core.Models;
 using Serilog;
 
 namespace Game.Shared.Events;

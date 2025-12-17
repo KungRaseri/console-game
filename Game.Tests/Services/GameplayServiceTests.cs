@@ -1,6 +1,5 @@
 using Game.Core.Models;
 using Game.Console.UI;
-using Game.Core.Abstractions;
 using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;

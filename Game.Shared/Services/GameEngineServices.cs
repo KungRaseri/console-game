@@ -1,12 +1,3 @@
-using Game.Core.Features.Combat;
-using Game.Core.Features.Exploration;
-using Game.Core.Features.SaveLoad;
-using Game.Core.Services;
-using Game.Core.Abstractions;
-using Game.Console.Orchestrators;
-using Game.Data.Repositories;
-using MediatR;
-
 namespace Game.Shared.Services;
 
 /// <summary>
@@ -17,20 +8,20 @@ public class GameEngineServices
 {
     // Core infrastructure
     public IMediator Mediator { get; }
-    
+
     // UI services
     public IGameUI Console { get; }
     public MenuService Menu { get; }
     public CharacterViewService CharacterView { get; }
-    
+
     // Core game services
     public LevelUpService LevelUpService { get; }
-    
+
     // Feature orchestrators (high-level workflows)
     public CharacterCreationOrchestrator CharacterCreation { get; }
     public CombatOrchestrator Combat { get; }
     public InventoryOrchestrator Inventory { get; }
-    
+
     // Feature services (business logic)
     public SaveGameService SaveGame { get; }
     public LoadGameService LoadGame { get; }
@@ -38,10 +29,10 @@ public class GameEngineServices
     public ExplorationService Exploration { get; }
     public GameplayService Gameplay { get; }
     public HallOfFameRepository HallOfFame { get; }
-    
+
     // Shared services
     public ApocalypseTimer ApocalypseTimer { get; }
-    
+
     // SonarQube: Suppress S107 (too many parameters) for service aggregator pattern
     // This class intentionally centralizes dependencies to reduce complexity in GameEngine
 #pragma warning disable S107
