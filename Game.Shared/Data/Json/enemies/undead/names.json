@@ -1,71 +1,187 @@
-{
-  "components": {
-    "condition": [
-      { "value": "Rotting", "rarityWeight": 8 },
-      { "value": "Decayed", "rarityWeight": 10 },
-      { "value": "Skeletal", "rarityWeight": 12 },
-      { "value": "Withered", "rarityWeight": 14 },
-      { "value": "Decrepit", "rarityWeight": 16 },
-      { "value": "Festering", "rarityWeight": 18 },
-      { "value": "Lurching", "rarityWeight": 10 },
-      { "value": "Shambling", "rarityWeight": 8 }
-    ],
-    "descriptive": [
-      { "value": "Ancient", "rarityWeight": 35 },
-      { "value": "Cursed", "rarityWeight": 30 },
-      { "value": "Risen", "rarityWeight": 15 },
-      { "value": "Vengeful", "rarityWeight": 25 },
-      { "value": "Restless", "rarityWeight": 22 },
-      { "value": "Tormented", "rarityWeight": 28 },
-      { "value": "Spectral", "rarityWeight": 40 },
-      { "value": "Ethereal", "rarityWeight": 45 },
-      { "value": "Dread", "rarityWeight": 50 }
-    ],
-    "origin": [
-      { "value": "Plague", "rarityWeight": 20 },
-      { "value": "Drowned", "rarityWeight": 18 },
-      { "value": "Frozen", "rarityWeight": 22 },
-      { "value": "Bloated", "rarityWeight": 15 },
-      { "value": "Shadow", "rarityWeight": 35 },
-      { "value": "Frost", "rarityWeight": 25 },
-      { "value": "Void", "rarityWeight": 55 },
-      { "value": "Crypt", "rarityWeight": 30 }
-    ],
-    "title": [
-      { "value": "Knight", "rarityWeight": 30 },
-      { "value": "Lord", "rarityWeight": 60 },
-      { "value": "Warrior", "rarityWeight": 25 },
-      { "value": "Archer", "rarityWeight": 22 },
-      { "value": "Mage", "rarityWeight": 40 },
-      { "value": "Necromancer", "rarityWeight": 70 },
-      { "value": "King", "rarityWeight": 90 },
-      { "value": "the Undying", "rarityWeight": 80 },
-      { "value": "the Eternal", "rarityWeight": 85 }
-    ]
-  },
-  "patterns": [
-    "base",
-    "condition + base",
-    "descriptive + base",
-    "origin + base",
-    "descriptive + base + title",
-    "condition + descriptive + base",
-    "descriptive + origin + base + title"
-  ],
-  "metadata": {
-    "description": "Undead enemy name generation with pattern-based system and weight-based rarity",
-    "version": "3.0",
-    "last_updated": "2025-12-16",
-    "type": "pattern_generation",
-    "undead_categories": 4,
-    "component_keys": ["condition", "descriptive", "origin", "title"],
-    "pattern_tokens": ["base", "condition", "descriptive", "origin", "title"],
-    "total_patterns": 7,
-    "rarity_system": "weight-based",
-    "notes": [
-      "Base token resolves from enemies/undead/types.json",
-      "All components have rarityWeight for emergent rarity calculation",
-      "Component weights combine via multipliers from general/rarity_config.json"
-    ]
-  }
+﻿{
+    "metadata":  {
+                     "description":  "Undead enemy name generation with pattern-based system and weight-based rarity",
+                     "version":  "3.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "pattern_generation",
+                     "undead_categories":  4,
+                     "component_keys":  [
+                                            "condition",
+                                            "descriptive",
+                                            "origin",
+                                            "title"
+                                        ],
+                     "pattern_tokens":  [
+                                            "base",
+                                            "condition",
+                                            "descriptive",
+                                            "origin",
+                                            "title"
+                                        ],
+                     "total_patterns":  7,
+                     "rarity_system":  "weight-based",
+                     "notes":  [
+                                   "Base token resolves from enemies/undead/types.json",
+                                   "All components have rarityWeight for emergent rarity calculation",
+                                   "Component weights combine via multipliers from general/rarity_config.json"
+                               ]
+                 },
+    "components":  {
+                       "condition":  [
+                                         {
+                                             "value":  "Rotting",
+                                             "rarityWeight":  8
+                                         },
+                                         {
+                                             "value":  "Decayed",
+                                             "rarityWeight":  10
+                                         },
+                                         {
+                                             "value":  "Skeletal",
+                                             "rarityWeight":  12
+                                         },
+                                         {
+                                             "value":  "Withered",
+                                             "rarityWeight":  14
+                                         },
+                                         {
+                                             "value":  "Decrepit",
+                                             "rarityWeight":  16
+                                         },
+                                         {
+                                             "value":  "Festering",
+                                             "rarityWeight":  18
+                                         },
+                                         {
+                                             "value":  "Lurching",
+                                             "rarityWeight":  10
+                                         },
+                                         {
+                                             "value":  "Shambling",
+                                             "rarityWeight":  8
+                                         }
+                                     ],
+                       "descriptive":  [
+                                           {
+                                               "value":  "Ancient",
+                                               "rarityWeight":  35
+                                           },
+                                           {
+                                               "value":  "Cursed",
+                                               "rarityWeight":  30
+                                           },
+                                           {
+                                               "value":  "Risen",
+                                               "rarityWeight":  15
+                                           },
+                                           {
+                                               "value":  "Vengeful",
+                                               "rarityWeight":  25
+                                           },
+                                           {
+                                               "value":  "Restless",
+                                               "rarityWeight":  22
+                                           },
+                                           {
+                                               "value":  "Tormented",
+                                               "rarityWeight":  28
+                                           },
+                                           {
+                                               "value":  "Spectral",
+                                               "rarityWeight":  40
+                                           },
+                                           {
+                                               "value":  "Ethereal",
+                                               "rarityWeight":  45
+                                           },
+                                           {
+                                               "value":  "Dread",
+                                               "rarityWeight":  50
+                                           }
+                                       ],
+                       "origin":  [
+                                      {
+                                          "value":  "Plague",
+                                          "rarityWeight":  20
+                                      },
+                                      {
+                                          "value":  "Drowned",
+                                          "rarityWeight":  18
+                                      },
+                                      {
+                                          "value":  "Frozen",
+                                          "rarityWeight":  22
+                                      },
+                                      {
+                                          "value":  "Bloated",
+                                          "rarityWeight":  15
+                                      },
+                                      {
+                                          "value":  "Shadow",
+                                          "rarityWeight":  35
+                                      },
+                                      {
+                                          "value":  "Frost",
+                                          "rarityWeight":  25
+                                      },
+                                      {
+                                          "value":  "Void",
+                                          "rarityWeight":  55
+                                      },
+                                      {
+                                          "value":  "Crypt",
+                                          "rarityWeight":  30
+                                      }
+                                  ],
+                       "title":  [
+                                     {
+                                         "value":  "Knight",
+                                         "rarityWeight":  30
+                                     },
+                                     {
+                                         "value":  "Lord",
+                                         "rarityWeight":  60
+                                     },
+                                     {
+                                         "value":  "Warrior",
+                                         "rarityWeight":  25
+                                     },
+                                     {
+                                         "value":  "Archer",
+                                         "rarityWeight":  22
+                                     },
+                                     {
+                                         "value":  "Mage",
+                                         "rarityWeight":  40
+                                     },
+                                     {
+                                         "value":  "Necromancer",
+                                         "rarityWeight":  70
+                                     },
+                                     {
+                                         "value":  "King",
+                                         "rarityWeight":  90
+                                     },
+                                     {
+                                         "value":  "the Undying",
+                                         "rarityWeight":  80
+                                     },
+                                     {
+                                         "value":  "the Eternal",
+                                         "rarityWeight":  85
+                                     }
+                                 ]
+                   },
+    "patterns":  [
+                     "base",
+                     "condition + base",
+                     "descriptive + base",
+                     "origin + base",
+                     "descriptive + base + title",
+                     "condition + descriptive + base",
+                     "descriptive + origin + base + title"
+                 ],
+    "notes":  {
+                  "usage":  "Pattern-based name generation for undead. Pick components by rarityWeight and apply patterns to generate procedural names."
+              }
 }

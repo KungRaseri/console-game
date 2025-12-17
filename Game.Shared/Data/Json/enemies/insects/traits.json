@@ -1,130 +1,162 @@
 ﻿{
-  "items": [
-    {
-      "name": "Swarm",
-      "displayName": "Swarm",
-      "description": "Attacks in groups, difficult to hit individually",
-      "rarity": "Common"
-    },
-    {
-      "name": "Chitinous",
-      "displayName": "Chitinous",
-      "description": "Hard exoskeleton provides natural armor",
-      "rarity": "Common"
-    },
-    {
-      "name": "Venomous",
-      "displayName": "Venomous",
-      "description": "Attacks inflict poison damage",
-      "rarity": "Common"
-    },
-    {
-      "name": "Flying",
-      "displayName": "Flying",
-      "description": "Can fly and avoid ground-based attacks",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Burrowing",
-      "displayName": "Burrowing",
-      "description": "Can burrow underground to ambush or escape",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Acidic",
-      "displayName": "Acidic",
-      "description": "Sprays corrosive acid that damages armor",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "WebSpinner",
-      "displayName": "Web Spinner",
-      "description": "Creates webs that slow and trap enemies",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Paralyzing",
-      "displayName": "Paralyzing",
-      "description": "Stings paralyze targets temporarily",
-      "rarity": "Rare"
-    },
-    {
-      "name": "HiveMind",
-      "displayName": "Hive Mind",
-      "description": "Shares awareness with all nearby insects",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Regeneration",
-      "displayName": "Regeneration",
-      "description": "Rapidly heals wounds",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Metamorphosis",
-      "displayName": "Metamorphosis",
-      "description": "Can transform into stronger forms",
-      "rarity": "Rare"
-    },
-    {
-      "name": "QueenCommand",
-      "displayName": "Queen Command",
-      "description": "Summons and controls insect minions",
-      "rarity": "Epic"
-    },
-    {
-      "name": "PlagueCarrier",
-      "displayName": "Plague Carrier",
-      "description": "Spreads disease to all nearby creatures",
-      "rarity": "Epic"
-    },
-    {
-      "name": "MindControl",
-      "displayName": "Mind Control",
-      "description": "Can take control of other creatures",
-      "rarity": "Epic"
-    },
-    {
-      "name": "ColossalSize",
-      "displayName": "Colossal Size",
-      "description": "Massive creature with devastating attacks",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "SwarmLord",
-      "displayName": "Swarm Lord",
-      "description": "Commands infinite swarms of insects",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "Primordial",
-      "displayName": "Primordial",
-      "description": "Ancient insect from the dawn of time",
-      "rarity": "Mythic"
-    },
-    {
-      "name": "EldritchHorror",
-      "displayName": "Eldritch Horror",
-      "description": "Otherworldly insect touched by cosmic forces",
-      "rarity": "Mythic"
-    }
-  ],
-  "components": {
-    "basic_traits": ["Swarm", "Chitinous", "Venomous"],
-    "mobility_traits": ["Flying", "Burrowing"],
-    "offensive_traits": ["Acidic", "Paralyzing", "PlagueCarrier"],
-    "tactical_traits": ["WebSpinner", "HiveMind"],
-    "evolution_traits": ["Regeneration", "Metamorphosis"],
-    "command_traits": ["QueenCommand", "MindControl", "SwarmLord"],
-    "colossal_traits": ["ColossalSize", "Primordial", "EldritchHorror"]
-  },
-  "patterns": [
-    "Common: Basic insect abilities",
-    "Uncommon-Rare: Specialized abilities",
-    "Epic: Hive queens and plague bearers",
-    "Legendary+: Massive and ancient creatures"
-  ]
-,
-  "notes": {
-    "usage": "Special traits and modifiers for insects. Used to add unique characteristics and stat bonuses."
-  }}
+    "metadata":  {
+                     "description":  "insects trait definitions and properties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "trait_catalog",
+                     "total_items":  18
+                 },
+    "items":  [
+                  {
+                      "name":  "Swarm",
+                      "displayName":  "Swarm",
+                      "description":  "Attacks in groups, difficult to hit individually",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Chitinous",
+                      "displayName":  "Chitinous",
+                      "description":  "Hard exoskeleton provides natural armor",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Venomous",
+                      "displayName":  "Venomous",
+                      "description":  "Attacks inflict poison damage",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Flying",
+                      "displayName":  "Flying",
+                      "description":  "Can fly and avoid ground-based attacks",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Burrowing",
+                      "displayName":  "Burrowing",
+                      "description":  "Can burrow underground to ambush or escape",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Acidic",
+                      "displayName":  "Acidic",
+                      "description":  "Sprays corrosive acid that damages armor",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "WebSpinner",
+                      "displayName":  "Web Spinner",
+                      "description":  "Creates webs that slow and trap enemies",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Paralyzing",
+                      "displayName":  "Paralyzing",
+                      "description":  "Stings paralyze targets temporarily",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "HiveMind",
+                      "displayName":  "Hive Mind",
+                      "description":  "Shares awareness with all nearby insects",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Regeneration",
+                      "displayName":  "Regeneration",
+                      "description":  "Rapidly heals wounds",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Metamorphosis",
+                      "displayName":  "Metamorphosis",
+                      "description":  "Can transform into stronger forms",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "QueenCommand",
+                      "displayName":  "Queen Command",
+                      "description":  "Summons and controls insect minions",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "PlagueCarrier",
+                      "displayName":  "Plague Carrier",
+                      "description":  "Spreads disease to all nearby creatures",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "MindControl",
+                      "displayName":  "Mind Control",
+                      "description":  "Can take control of other creatures",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "ColossalSize",
+                      "displayName":  "Colossal Size",
+                      "description":  "Massive creature with devastating attacks",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "SwarmLord",
+                      "displayName":  "Swarm Lord",
+                      "description":  "Commands infinite swarms of insects",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "Primordial",
+                      "displayName":  "Primordial",
+                      "description":  "Ancient insect from the dawn of time",
+                      "rarity":  "Mythic"
+                  },
+                  {
+                      "name":  "EldritchHorror",
+                      "displayName":  "Eldritch Horror",
+                      "description":  "Otherworldly insect touched by cosmic forces",
+                      "rarity":  "Mythic"
+                  }
+              ],
+    "components":  {
+                       "basic_traits":  [
+                                            "Swarm",
+                                            "Chitinous",
+                                            "Venomous"
+                                        ],
+                       "mobility_traits":  [
+                                               "Flying",
+                                               "Burrowing"
+                                           ],
+                       "offensive_traits":  [
+                                                "Acidic",
+                                                "Paralyzing",
+                                                "PlagueCarrier"
+                                            ],
+                       "tactical_traits":  [
+                                               "WebSpinner",
+                                               "HiveMind"
+                                           ],
+                       "evolution_traits":  [
+                                                "Regeneration",
+                                                "Metamorphosis"
+                                            ],
+                       "command_traits":  [
+                                              "QueenCommand",
+                                              "MindControl",
+                                              "SwarmLord"
+                                          ],
+                       "colossal_traits":  [
+                                               "ColossalSize",
+                                               "Primordial",
+                                               "EldritchHorror"
+                                           ]
+                   },
+    "patterns":  [
+                     "Common: Basic insect abilities",
+                     "Uncommon-Rare: Specialized abilities",
+                     "Epic: Hive queens and plague bearers",
+                     "Legendary+: Massive and ancient creatures"
+                 ],
+    "notes":  {
+                  "usage":  "Special traits and modifiers for insects. Used to add unique characteristics and stat bonuses."
+              }
+}

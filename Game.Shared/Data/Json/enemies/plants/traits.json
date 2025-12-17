@@ -1,130 +1,162 @@
 ﻿{
-  "items": [
-    {
-      "name": "Rooted",
-      "displayName": "Rooted",
-      "description": "Cannot move but has high defense",
-      "rarity": "Common"
-    },
-    {
-      "name": "Thorny",
-      "displayName": "Thorny",
-      "description": "Reflects damage back to attackers",
-      "rarity": "Common"
-    },
-    {
-      "name": "Poisonous",
-      "displayName": "Poisonous",
-      "description": "Contact inflicts poison damage",
-      "rarity": "Common"
-    },
-    {
-      "name": "Regenerative",
-      "displayName": "Regenerative",
-      "description": "Heals slowly over time",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "SporeCloud",
-      "displayName": "Spore Cloud",
-      "description": "Releases clouds that damage and confuse",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "VineWhip",
-      "displayName": "Vine Whip",
-      "description": "Attacks with long reaching vines",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Carnivorous",
-      "displayName": "Carnivorous",
-      "description": "Devours prey to restore health",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Parasitic",
-      "displayName": "Parasitic",
-      "description": "Drains life from enemies over time",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Ambulatory",
-      "displayName": "Ambulatory",
-      "description": "Can move despite being a plant",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Entangling",
-      "displayName": "Entangling",
-      "description": "Roots grow to immobilize enemies",
-      "rarity": "Rare"
-    },
-    {
-      "name": "NaturalArmor",
-      "displayName": "Natural Armor",
-      "description": "Bark-like skin provides exceptional defense",
-      "rarity": "Rare"
-    },
-    {
-      "name": "SeedSpawner",
-      "displayName": "Seed Spawner",
-      "description": "Creates smaller plant minions",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Bioluminescent",
-      "displayName": "Bioluminescent",
-      "description": "Glows brightly, can blind enemies",
-      "rarity": "Epic"
-    },
-    {
-      "name": "ToxicAura",
-      "displayName": "Toxic Aura",
-      "description": "Damages all nearby creatures constantly",
-      "rarity": "Epic"
-    },
-    {
-      "name": "AncientTreent",
-      "displayName": "Ancient Treent",
-      "description": "Massive tree-like creature of immense power",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "ForestSpirit",
-      "displayName": "Forest Spirit",
-      "description": "Embodies the essence of nature itself",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "WorldTree",
-      "displayName": "World Tree",
-      "description": "Mythical plant connecting all realms",
-      "rarity": "Mythic"
-    },
-    {
-      "name": "PrimalGrowth",
-      "displayName": "Primal Growth",
-      "description": "Unstoppable force of nature's wrath",
-      "rarity": "Mythic"
-    }
-  ],
-  "components": {
-    "basic_traits": ["Rooted", "Thorny", "Poisonous"],
-    "defensive_traits": ["Regenerative", "NaturalArmor"],
-    "offensive_traits": ["SporeCloud", "VineWhip", "ToxicAura"],
-    "predatory_traits": ["Carnivorous", "Parasitic", "Entangling"],
-    "mobility_traits": ["Ambulatory"],
-    "spawning_traits": ["SeedSpawner"],
-    "mystical_traits": ["Bioluminescent", "AncientTreent", "ForestSpirit", "WorldTree", "PrimalGrowth"]
-  },
-  "patterns": [
-    "Common: Static plant defenses",
-    "Uncommon-Rare: Active abilities",
-    "Epic: Area control and spawning",
-    "Legendary+: Nature spirits and ancient beings"
-  ]
-,
-  "notes": {
-    "usage": "Special traits and modifiers for plants. Used to add unique characteristics and stat bonuses."
-  }}
+    "metadata":  {
+                     "description":  "plants trait definitions and properties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "trait_catalog",
+                     "total_items":  18
+                 },
+    "items":  [
+                  {
+                      "name":  "Rooted",
+                      "displayName":  "Rooted",
+                      "description":  "Cannot move but has high defense",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Thorny",
+                      "displayName":  "Thorny",
+                      "description":  "Reflects damage back to attackers",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Poisonous",
+                      "displayName":  "Poisonous",
+                      "description":  "Contact inflicts poison damage",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Regenerative",
+                      "displayName":  "Regenerative",
+                      "description":  "Heals slowly over time",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "SporeCloud",
+                      "displayName":  "Spore Cloud",
+                      "description":  "Releases clouds that damage and confuse",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "VineWhip",
+                      "displayName":  "Vine Whip",
+                      "description":  "Attacks with long reaching vines",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Carnivorous",
+                      "displayName":  "Carnivorous",
+                      "description":  "Devours prey to restore health",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Parasitic",
+                      "displayName":  "Parasitic",
+                      "description":  "Drains life from enemies over time",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Ambulatory",
+                      "displayName":  "Ambulatory",
+                      "description":  "Can move despite being a plant",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Entangling",
+                      "displayName":  "Entangling",
+                      "description":  "Roots grow to immobilize enemies",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "NaturalArmor",
+                      "displayName":  "Natural Armor",
+                      "description":  "Bark-like skin provides exceptional defense",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "SeedSpawner",
+                      "displayName":  "Seed Spawner",
+                      "description":  "Creates smaller plant minions",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "Bioluminescent",
+                      "displayName":  "Bioluminescent",
+                      "description":  "Glows brightly, can blind enemies",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "ToxicAura",
+                      "displayName":  "Toxic Aura",
+                      "description":  "Damages all nearby creatures constantly",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "AncientTreent",
+                      "displayName":  "Ancient Treent",
+                      "description":  "Massive tree-like creature of immense power",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "ForestSpirit",
+                      "displayName":  "Forest Spirit",
+                      "description":  "Embodies the essence of nature itself",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "WorldTree",
+                      "displayName":  "World Tree",
+                      "description":  "Mythical plant connecting all realms",
+                      "rarity":  "Mythic"
+                  },
+                  {
+                      "name":  "PrimalGrowth",
+                      "displayName":  "Primal Growth",
+                      "description":  "Unstoppable force of nature\u0027s wrath",
+                      "rarity":  "Mythic"
+                  }
+              ],
+    "components":  {
+                       "basic_traits":  [
+                                            "Rooted",
+                                            "Thorny",
+                                            "Poisonous"
+                                        ],
+                       "defensive_traits":  [
+                                                "Regenerative",
+                                                "NaturalArmor"
+                                            ],
+                       "offensive_traits":  [
+                                                "SporeCloud",
+                                                "VineWhip",
+                                                "ToxicAura"
+                                            ],
+                       "predatory_traits":  [
+                                                "Carnivorous",
+                                                "Parasitic",
+                                                "Entangling"
+                                            ],
+                       "mobility_traits":  [
+                                               "Ambulatory"
+                                           ],
+                       "spawning_traits":  [
+                                               "SeedSpawner"
+                                           ],
+                       "mystical_traits":  [
+                                               "Bioluminescent",
+                                               "AncientTreent",
+                                               "ForestSpirit",
+                                               "WorldTree",
+                                               "PrimalGrowth"
+                                           ]
+                   },
+    "patterns":  [
+                     "Common: Static plant defenses",
+                     "Uncommon-Rare: Active abilities",
+                     "Epic: Area control and spawning",
+                     "Legendary+: Nature spirits and ancient beings"
+                 ],
+    "notes":  {
+                  "usage":  "Special traits and modifiers for plants. Used to add unique characteristics and stat bonuses."
+              }
+}

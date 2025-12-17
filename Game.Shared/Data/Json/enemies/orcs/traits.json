@@ -1,129 +1,160 @@
 ﻿{
-  "items": [
-    {
-      "name": "BrutalStrength",
-      "displayName": "Brutal Strength",
-      "description": "Deals increased melee damage",
-      "rarity": "Common"
-    },
-    {
-      "name": "Tough",
-      "displayName": "Tough",
-      "description": "Increased maximum health",
-      "rarity": "Common"
-    },
-    {
-      "name": "BattleRage",
-      "displayName": "Battle Rage",
-      "description": "Damage increases as health decreases",
-      "rarity": "Common"
-    },
-    {
-      "name": "Fearless",
-      "displayName": "Fearless",
-      "description": "Immune to fear and intimidation effects",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "HeavyArmor",
-      "displayName": "Heavy Armor",
-      "description": "Reduced damage from physical attacks",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Charger",
-      "displayName": "Charger",
-      "description": "Can rush enemies dealing knockback damage",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "WarDrums",
-      "displayName": "War Drums",
-      "description": "Buffs nearby orcs with increased attack speed",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "BloodFrenzy",
-      "displayName": "Blood Frenzy",
-      "description": "Gains attack speed when dealing critical hits",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Warlord",
-      "displayName": "Warlord",
-      "description": "Commands orc troops and grants them bonuses",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Executioner",
-      "displayName": "Executioner",
-      "description": "Deals massive damage to weakened foes",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Juggernaut",
-      "displayName": "Juggernaut",
-      "description": "Unstoppable charge that breaks through defenses",
-      "rarity": "Rare"
-    },
-    {
-      "name": "BattleMaster",
-      "displayName": "Battle Master",
-      "description": "Expert warrior with multiple weapon techniques",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Ironhide",
-      "displayName": "Ironhide",
-      "description": "Skin like steel, resistant to most damage",
-      "rarity": "Epic"
-    },
-    {
-      "name": "WarChief",
-      "displayName": "War Chief",
-      "description": "Supreme battlefield commander",
-      "rarity": "Epic"
-    },
-    {
-      "name": "DemonBlood",
-      "displayName": "Demon Blood",
-      "description": "Infused with demonic power, regenerates rapidly",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "Immortal",
-      "displayName": "Immortal",
-      "description": "Cannot be permanently killed, resurrects after death",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "GodSlayer",
-      "displayName": "God Slayer",
-      "description": "Has defeated divine beings, empowered beyond mortals",
-      "rarity": "Mythic"
-    },
-    {
-      "name": "PrimalForce",
-      "displayName": "Primal Force",
-      "description": "Embodies pure destructive power",
-      "rarity": "Mythic"
-    }
-  ],
-  "components": {
-    "basic_combat": ["BrutalStrength", "Tough", "BattleRage", "Fearless"],
-    "defensive_traits": ["HeavyArmor", "Ironhide"],
-    "offensive_traits": ["Charger", "BloodFrenzy", "Executioner", "Juggernaut"],
-    "leadership_traits": ["Warlord", "WarChief"],
-    "support_traits": ["WarDrums"],
-    "legendary_traits": ["BattleMaster", "DemonBlood", "Immortal", "GodSlayer", "PrimalForce"]
-  },
-  "patterns": [
-    "Common: Basic warrior abilities",
-    "Uncommon-Rare: Specialized combat styles",
-    "Epic: Elite warriors and commanders",
-    "Legendary+: Supernatural power levels"
-  ]
-,
-  "notes": {
-    "usage": "Special traits and modifiers for orcs. Used to add unique characteristics and stat bonuses."
-  }}
+    "metadata":  {
+                     "description":  "orcs trait definitions and properties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "trait_catalog",
+                     "total_items":  18
+                 },
+    "items":  [
+                  {
+                      "name":  "BrutalStrength",
+                      "displayName":  "Brutal Strength",
+                      "description":  "Deals increased melee damage",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Tough",
+                      "displayName":  "Tough",
+                      "description":  "Increased maximum health",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "BattleRage",
+                      "displayName":  "Battle Rage",
+                      "description":  "Damage increases as health decreases",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Fearless",
+                      "displayName":  "Fearless",
+                      "description":  "Immune to fear and intimidation effects",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "HeavyArmor",
+                      "displayName":  "Heavy Armor",
+                      "description":  "Reduced damage from physical attacks",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Charger",
+                      "displayName":  "Charger",
+                      "description":  "Can rush enemies dealing knockback damage",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "WarDrums",
+                      "displayName":  "War Drums",
+                      "description":  "Buffs nearby orcs with increased attack speed",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "BloodFrenzy",
+                      "displayName":  "Blood Frenzy",
+                      "description":  "Gains attack speed when dealing critical hits",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Warlord",
+                      "displayName":  "Warlord",
+                      "description":  "Commands orc troops and grants them bonuses",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Executioner",
+                      "displayName":  "Executioner",
+                      "description":  "Deals massive damage to weakened foes",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Juggernaut",
+                      "displayName":  "Juggernaut",
+                      "description":  "Unstoppable charge that breaks through defenses",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "BattleMaster",
+                      "displayName":  "Battle Master",
+                      "description":  "Expert warrior with multiple weapon techniques",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "Ironhide",
+                      "displayName":  "Ironhide",
+                      "description":  "Skin like steel, resistant to most damage",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "WarChief",
+                      "displayName":  "War Chief",
+                      "description":  "Supreme battlefield commander",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "DemonBlood",
+                      "displayName":  "Demon Blood",
+                      "description":  "Infused with demonic power, regenerates rapidly",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "Immortal",
+                      "displayName":  "Immortal",
+                      "description":  "Cannot be permanently killed, resurrects after death",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "GodSlayer",
+                      "displayName":  "God Slayer",
+                      "description":  "Has defeated divine beings, empowered beyond mortals",
+                      "rarity":  "Mythic"
+                  },
+                  {
+                      "name":  "PrimalForce",
+                      "displayName":  "Primal Force",
+                      "description":  "Embodies pure destructive power",
+                      "rarity":  "Mythic"
+                  }
+              ],
+    "components":  {
+                       "basic_combat":  [
+                                            "BrutalStrength",
+                                            "Tough",
+                                            "BattleRage",
+                                            "Fearless"
+                                        ],
+                       "defensive_traits":  [
+                                                "HeavyArmor",
+                                                "Ironhide"
+                                            ],
+                       "offensive_traits":  [
+                                                "Charger",
+                                                "BloodFrenzy",
+                                                "Executioner",
+                                                "Juggernaut"
+                                            ],
+                       "leadership_traits":  [
+                                                 "Warlord",
+                                                 "WarChief"
+                                             ],
+                       "support_traits":  [
+                                              "WarDrums"
+                                          ],
+                       "legendary_traits":  [
+                                                "BattleMaster",
+                                                "DemonBlood",
+                                                "Immortal",
+                                                "GodSlayer",
+                                                "PrimalForce"
+                                            ]
+                   },
+    "patterns":  [
+                     "Common: Basic warrior abilities",
+                     "Uncommon-Rare: Specialized combat styles",
+                     "Epic: Elite warriors and commanders",
+                     "Legendary+: Supernatural power levels"
+                 ],
+    "notes":  {
+                  "usage":  "Special traits and modifiers for orcs. Used to add unique characteristics and stat bonuses."
+              }
+}

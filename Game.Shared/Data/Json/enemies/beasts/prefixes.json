@@ -1,161 +1,380 @@
 ﻿{
-  "common": {
-    "Wild": {
-      "displayName": "Wild",
-      "traits": {
-        "healthMultiplier": { "value": 1.0, "type": "number" },
-        "damageMultiplier": { "value": 1.0, "type": "number" },
-        "attackSpeed": { "value": 5, "type": "number" }
-      }
-    },
-    "Feral": {
-      "displayName": "Feral",
-      "traits": {
-        "healthMultiplier": { "value": 1.1, "type": "number" },
-        "damageMultiplier": { "value": 1.1, "type": "number" },
-        "criticalChance": { "value": 5, "type": "number" }
-      }
-    },
-    "Rabid": {
-      "displayName": "Rabid",
-      "traits": {
-        "healthMultiplier": { "value": 0.9, "type": "number" },
-        "damageMultiplier": { "value": 1.2, "type": "number" },
-        "attackSpeed": { "value": 15, "type": "number" },
-        "poisonDamage": { "value": 3, "type": "number" }
-      }
-    }
-  },
-  "uncommon": {
-    "Dire": {
-      "displayName": "Dire",
-      "traits": {
-        "healthMultiplier": { "value": 1.5, "type": "number" },
-        "damageMultiplier": { "value": 1.3, "type": "number" },
-        "armorBonus": { "value": 5, "type": "number" }
-      }
-    },
-    "Giant": {
-      "displayName": "Giant",
-      "traits": {
-        "healthMultiplier": { "value": 2.0, "type": "number" },
-        "damageMultiplier": { "value": 1.4, "type": "number" },
-        "movementSpeed": { "value": -10, "type": "number" },
-        "knockbackChance": { "value": 25, "type": "number" }
-      }
-    },
-    "Savage": {
-      "displayName": "Savage",
-      "traits": {
-        "healthMultiplier": { "value": 1.3, "type": "number" },
-        "damageMultiplier": { "value": 1.5, "type": "number" },
-        "criticalChance": { "value": 15, "type": "number" },
-        "bleedChance": { "value": 20, "type": "number" }
-      }
-    }
-  },
-  "rare": {
-    "Primal": {
-      "displayName": "Primal",
-      "traits": {
-        "healthMultiplier": { "value": 1.8, "type": "number" },
-        "damageMultiplier": { "value": 1.6, "type": "number" },
-        "healthRegeneration": { "value": 5, "type": "number" },
-        "resistPhysical": { "value": 15, "type": "number" }
-      }
-    },
-    "Alpha": {
-      "displayName": "Alpha",
-      "traits": {
-        "healthMultiplier": { "value": 2.0, "type": "number" },
-        "damageMultiplier": { "value": 1.7, "type": "number" },
-        "criticalChance": { "value": 20, "type": "number" },
-        "packLeader": { "value": true, "type": "boolean" },
-        "summonAllies": { "value": 2, "type": "number" }
-      }
-    },
-    "Vicious": {
-      "displayName": "Vicious",
-      "traits": {
-        "healthMultiplier": { "value": 1.5, "type": "number" },
-        "damageMultiplier": { "value": 2.0, "type": "number" },
-        "criticalChance": { "value": 25, "type": "number" },
-        "criticalDamage": { "value": 50, "type": "number" },
-        "bleedChance": { "value": 40, "type": "number" }
-      }
-    }
-  },
-  "elite": {
-    "Ancient": {
-      "displayName": "Ancient",
-      "traits": {
-        "healthMultiplier": { "value": 2.5, "type": "number" },
-        "damageMultiplier": { "value": 1.8, "type": "number" },
-        "resistPhysical": { "value": 25, "type": "number" },
-        "resistMagic": { "value": 25, "type": "number" },
-        "healthRegeneration": { "value": 10, "type": "number" },
-        "wisdom": { "value": true, "type": "boolean" }
-      }
-    },
-    "Elder": {
-      "displayName": "Elder",
-      "traits": {
-        "healthMultiplier": { "value": 3.0, "type": "number" },
-        "damageMultiplier": { "value": 2.0, "type": "number" },
-        "resistAll": { "value": 30, "type": "number" },
-        "healthRegeneration": { "value": 15, "type": "number" },
-        "auraOfPower": { "value": true, "type": "boolean" },
-        "summonAllies": { "value": 3, "type": "number" }
-      }
-    },
-    "Enraged": {
-      "displayName": "Enraged",
-      "traits": {
-        "healthMultiplier": { "value": 2.0, "type": "number" },
-        "damageMultiplier": { "value": 2.5, "type": "number" },
-        "attackSpeed": { "value": 30, "type": "number" },
-        "criticalChance": { "value": 30, "type": "number" },
-        "berserk": { "value": true, "type": "boolean" },
-        "takesExtraDamage": { "value": 25, "type": "number" }
-      }
-    }
-  },
-  "boss": {
-    "Monstrous": {
-      "displayName": "Monstrous",
-      "traits": {
-        "healthMultiplier": { "value": 4.0, "type": "number" },
-        "damageMultiplier": { "value": 2.5, "type": "number" },
-        "armorBonus": { "value": 30, "type": "number" },
-        "resistAll": { "value": 40, "type": "number" },
-        "multiAttack": { "value": 2, "type": "number" },
-        "aoeAttack": { "value": true, "type": "boolean" }
-      }
-    },
-    "Frenzied": {
-      "displayName": "Frenzied",
-      "traits": {
-        "healthMultiplier": { "value": 3.5, "type": "number" },
-        "damageMultiplier": { "value": 3.0, "type": "number" },
-        "attackSpeed": { "value": 50, "type": "number" },
-        "criticalChance": { "value": 40, "type": "number" },
-        "criticalDamage": { "value": 100, "type": "number" },
-        "unstoppable": { "value": true, "type": "boolean" }
-      }
-    },
-    "Bloodthirsty": {
-      "displayName": "Bloodthirsty",
-      "traits": {
-        "healthMultiplier": { "value": 3.0, "type": "number" },
-        "damageMultiplier": { "value": 2.8, "type": "number" },
-        "lifeSteal": { "value": 25, "type": "number" },
-        "bleedChance": { "value": 60, "type": "number" },
-        "executeChance": { "value": 10, "type": "number" },
-        "bloodRage": { "value": true, "type": "boolean" }
-      }
-    }
-  }
-,
-  "notes": {
-    "usage": "Stat modifiers applied BEFORE base name. Used at runtime based on item rarity. Not used in pattern generation."
-  }}
+    "metadata":  {
+                     "description":  "beasts prefix modifiers with stat bonuses/penalties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "prefix_modifier"
+                 },
+    "common":  {
+                   "Wild":  {
+                                "displayName":  "Wild",
+                                "traits":  {
+                                               "healthMultiplier":  {
+                                                                        "value":  1.0,
+                                                                        "type":  "number"
+                                                                    },
+                                               "damageMultiplier":  {
+                                                                        "value":  1.0,
+                                                                        "type":  "number"
+                                                                    },
+                                               "attackSpeed":  {
+                                                                   "value":  5,
+                                                                   "type":  "number"
+                                                               }
+                                           }
+                            },
+                   "Feral":  {
+                                 "displayName":  "Feral",
+                                 "traits":  {
+                                                "healthMultiplier":  {
+                                                                         "value":  1.1,
+                                                                         "type":  "number"
+                                                                     },
+                                                "damageMultiplier":  {
+                                                                         "value":  1.1,
+                                                                         "type":  "number"
+                                                                     },
+                                                "criticalChance":  {
+                                                                       "value":  5,
+                                                                       "type":  "number"
+                                                                   }
+                                            }
+                             },
+                   "Rabid":  {
+                                 "displayName":  "Rabid",
+                                 "traits":  {
+                                                "healthMultiplier":  {
+                                                                         "value":  0.9,
+                                                                         "type":  "number"
+                                                                     },
+                                                "damageMultiplier":  {
+                                                                         "value":  1.2,
+                                                                         "type":  "number"
+                                                                     },
+                                                "attackSpeed":  {
+                                                                    "value":  15,
+                                                                    "type":  "number"
+                                                                },
+                                                "poisonDamage":  {
+                                                                     "value":  3,
+                                                                     "type":  "number"
+                                                                 }
+                                            }
+                             }
+               },
+    "uncommon":  {
+                     "Dire":  {
+                                  "displayName":  "Dire",
+                                  "traits":  {
+                                                 "healthMultiplier":  {
+                                                                          "value":  1.5,
+                                                                          "type":  "number"
+                                                                      },
+                                                 "damageMultiplier":  {
+                                                                          "value":  1.3,
+                                                                          "type":  "number"
+                                                                      },
+                                                 "armorBonus":  {
+                                                                    "value":  5,
+                                                                    "type":  "number"
+                                                                }
+                                             }
+                              },
+                     "Giant":  {
+                                   "displayName":  "Giant",
+                                   "traits":  {
+                                                  "healthMultiplier":  {
+                                                                           "value":  2.0,
+                                                                           "type":  "number"
+                                                                       },
+                                                  "damageMultiplier":  {
+                                                                           "value":  1.4,
+                                                                           "type":  "number"
+                                                                       },
+                                                  "movementSpeed":  {
+                                                                        "value":  -10,
+                                                                        "type":  "number"
+                                                                    },
+                                                  "knockbackChance":  {
+                                                                          "value":  25,
+                                                                          "type":  "number"
+                                                                      }
+                                              }
+                               },
+                     "Savage":  {
+                                    "displayName":  "Savage",
+                                    "traits":  {
+                                                   "healthMultiplier":  {
+                                                                            "value":  1.3,
+                                                                            "type":  "number"
+                                                                        },
+                                                   "damageMultiplier":  {
+                                                                            "value":  1.5,
+                                                                            "type":  "number"
+                                                                        },
+                                                   "criticalChance":  {
+                                                                          "value":  15,
+                                                                          "type":  "number"
+                                                                      },
+                                                   "bleedChance":  {
+                                                                       "value":  20,
+                                                                       "type":  "number"
+                                                                   }
+                                               }
+                                }
+                 },
+    "rare":  {
+                 "Primal":  {
+                                "displayName":  "Primal",
+                                "traits":  {
+                                               "healthMultiplier":  {
+                                                                        "value":  1.8,
+                                                                        "type":  "number"
+                                                                    },
+                                               "damageMultiplier":  {
+                                                                        "value":  1.6,
+                                                                        "type":  "number"
+                                                                    },
+                                               "healthRegeneration":  {
+                                                                          "value":  5,
+                                                                          "type":  "number"
+                                                                      },
+                                               "resistPhysical":  {
+                                                                      "value":  15,
+                                                                      "type":  "number"
+                                                                  }
+                                           }
+                            },
+                 "Alpha":  {
+                               "displayName":  "Alpha",
+                               "traits":  {
+                                              "healthMultiplier":  {
+                                                                       "value":  2.0,
+                                                                       "type":  "number"
+                                                                   },
+                                              "damageMultiplier":  {
+                                                                       "value":  1.7,
+                                                                       "type":  "number"
+                                                                   },
+                                              "criticalChance":  {
+                                                                     "value":  20,
+                                                                     "type":  "number"
+                                                                 },
+                                              "packLeader":  {
+                                                                 "value":  true,
+                                                                 "type":  "boolean"
+                                                             },
+                                              "summonAllies":  {
+                                                                   "value":  2,
+                                                                   "type":  "number"
+                                                               }
+                                          }
+                           },
+                 "Vicious":  {
+                                 "displayName":  "Vicious",
+                                 "traits":  {
+                                                "healthMultiplier":  {
+                                                                         "value":  1.5,
+                                                                         "type":  "number"
+                                                                     },
+                                                "damageMultiplier":  {
+                                                                         "value":  2.0,
+                                                                         "type":  "number"
+                                                                     },
+                                                "criticalChance":  {
+                                                                       "value":  25,
+                                                                       "type":  "number"
+                                                                   },
+                                                "criticalDamage":  {
+                                                                       "value":  50,
+                                                                       "type":  "number"
+                                                                   },
+                                                "bleedChance":  {
+                                                                    "value":  40,
+                                                                    "type":  "number"
+                                                                }
+                                            }
+                             }
+             },
+    "elite":  {
+                  "Ancient":  {
+                                  "displayName":  "Ancient",
+                                  "traits":  {
+                                                 "healthMultiplier":  {
+                                                                          "value":  2.5,
+                                                                          "type":  "number"
+                                                                      },
+                                                 "damageMultiplier":  {
+                                                                          "value":  1.8,
+                                                                          "type":  "number"
+                                                                      },
+                                                 "resistPhysical":  {
+                                                                        "value":  25,
+                                                                        "type":  "number"
+                                                                    },
+                                                 "resistMagic":  {
+                                                                     "value":  25,
+                                                                     "type":  "number"
+                                                                 },
+                                                 "healthRegeneration":  {
+                                                                            "value":  10,
+                                                                            "type":  "number"
+                                                                        },
+                                                 "wisdom":  {
+                                                                "value":  true,
+                                                                "type":  "boolean"
+                                                            }
+                                             }
+                              },
+                  "Elder":  {
+                                "displayName":  "Elder",
+                                "traits":  {
+                                               "healthMultiplier":  {
+                                                                        "value":  3.0,
+                                                                        "type":  "number"
+                                                                    },
+                                               "damageMultiplier":  {
+                                                                        "value":  2.0,
+                                                                        "type":  "number"
+                                                                    },
+                                               "resistAll":  {
+                                                                 "value":  30,
+                                                                 "type":  "number"
+                                                             },
+                                               "healthRegeneration":  {
+                                                                          "value":  15,
+                                                                          "type":  "number"
+                                                                      },
+                                               "auraOfPower":  {
+                                                                   "value":  true,
+                                                                   "type":  "boolean"
+                                                               },
+                                               "summonAllies":  {
+                                                                    "value":  3,
+                                                                    "type":  "number"
+                                                                }
+                                           }
+                            },
+                  "Enraged":  {
+                                  "displayName":  "Enraged",
+                                  "traits":  {
+                                                 "healthMultiplier":  {
+                                                                          "value":  2.0,
+                                                                          "type":  "number"
+                                                                      },
+                                                 "damageMultiplier":  {
+                                                                          "value":  2.5,
+                                                                          "type":  "number"
+                                                                      },
+                                                 "attackSpeed":  {
+                                                                     "value":  30,
+                                                                     "type":  "number"
+                                                                 },
+                                                 "criticalChance":  {
+                                                                        "value":  30,
+                                                                        "type":  "number"
+                                                                    },
+                                                 "berserk":  {
+                                                                 "value":  true,
+                                                                 "type":  "boolean"
+                                                             },
+                                                 "takesExtraDamage":  {
+                                                                          "value":  25,
+                                                                          "type":  "number"
+                                                                      }
+                                             }
+                              }
+              },
+    "boss":  {
+                 "Monstrous":  {
+                                   "displayName":  "Monstrous",
+                                   "traits":  {
+                                                  "healthMultiplier":  {
+                                                                           "value":  4.0,
+                                                                           "type":  "number"
+                                                                       },
+                                                  "damageMultiplier":  {
+                                                                           "value":  2.5,
+                                                                           "type":  "number"
+                                                                       },
+                                                  "armorBonus":  {
+                                                                     "value":  30,
+                                                                     "type":  "number"
+                                                                 },
+                                                  "resistAll":  {
+                                                                    "value":  40,
+                                                                    "type":  "number"
+                                                                },
+                                                  "multiAttack":  {
+                                                                      "value":  2,
+                                                                      "type":  "number"
+                                                                  },
+                                                  "aoeAttack":  {
+                                                                    "value":  true,
+                                                                    "type":  "boolean"
+                                                                }
+                                              }
+                               },
+                 "Frenzied":  {
+                                  "displayName":  "Frenzied",
+                                  "traits":  {
+                                                 "healthMultiplier":  {
+                                                                          "value":  3.5,
+                                                                          "type":  "number"
+                                                                      },
+                                                 "damageMultiplier":  {
+                                                                          "value":  3.0,
+                                                                          "type":  "number"
+                                                                      },
+                                                 "attackSpeed":  {
+                                                                     "value":  50,
+                                                                     "type":  "number"
+                                                                 },
+                                                 "criticalChance":  {
+                                                                        "value":  40,
+                                                                        "type":  "number"
+                                                                    },
+                                                 "criticalDamage":  {
+                                                                        "value":  100,
+                                                                        "type":  "number"
+                                                                    },
+                                                 "unstoppable":  {
+                                                                     "value":  true,
+                                                                     "type":  "boolean"
+                                                                 }
+                                             }
+                              },
+                 "Bloodthirsty":  {
+                                      "displayName":  "Bloodthirsty",
+                                      "traits":  {
+                                                     "healthMultiplier":  {
+                                                                              "value":  3.0,
+                                                                              "type":  "number"
+                                                                          },
+                                                     "damageMultiplier":  {
+                                                                              "value":  2.8,
+                                                                              "type":  "number"
+                                                                          },
+                                                     "lifeSteal":  {
+                                                                       "value":  25,
+                                                                       "type":  "number"
+                                                                   },
+                                                     "bleedChance":  {
+                                                                         "value":  60,
+                                                                         "type":  "number"
+                                                                     },
+                                                     "executeChance":  {
+                                                                           "value":  10,
+                                                                           "type":  "number"
+                                                                       },
+                                                     "bloodRage":  {
+                                                                       "value":  true,
+                                                                       "type":  "boolean"
+                                                                   }
+                                                 }
+                                  }
+             },
+    "notes":  {
+                  "usage":  "Stat modifiers applied BEFORE base name. Used at runtime based on item rarity. Not used in pattern generation."
+              }
+}

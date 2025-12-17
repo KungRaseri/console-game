@@ -1,130 +1,162 @@
 ﻿{
-  "items": [
-    {
-      "name": "ScaledHide",
-      "displayName": "Scaled Hide",
-      "description": "Natural armor from thick scales",
-      "rarity": "Common"
-    },
-    {
-      "name": "ColdBlooded",
-      "displayName": "Cold Blooded",
-      "description": "Vulnerable to ice but resistant to fire",
-      "rarity": "Common"
-    },
-    {
-      "name": "VenomousBite",
-      "displayName": "Venomous Bite",
-      "description": "Bite attacks inflict poison",
-      "rarity": "Common"
-    },
-    {
-      "name": "SwiftSwimmer",
-      "displayName": "Swift Swimmer",
-      "description": "Moves quickly through water",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "AmbushPredator",
-      "displayName": "Ambush Predator",
-      "description": "Deals bonus damage on first strike",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "TailWhip",
-      "displayName": "Tail Whip",
-      "description": "Powerful tail attack with knockback",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Camouflage",
-      "displayName": "Camouflage",
-      "description": "Can become invisible in natural environments",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Regeneration",
-      "displayName": "Regeneration",
-      "description": "Can regrow lost limbs and heal rapidly",
-      "rarity": "Rare"
-    },
-    {
-      "name": "PrimalRoar",
-      "displayName": "Primal Roar",
-      "description": "Intimidating roar that fears enemies",
-      "rarity": "Rare"
-    },
-    {
-      "name": "ArmoredPlates",
-      "displayName": "Armored Plates",
-      "description": "Heavily armored with bone plates",
-      "rarity": "Rare"
-    },
-    {
-      "name": "DeathRoll",
-      "displayName": "Death Roll",
-      "description": "Grabs and spins enemies for massive damage",
-      "rarity": "Rare"
-    },
-    {
-      "name": "ShamanWisdom",
-      "displayName": "Shaman Wisdom",
-      "description": "Casts primal magic and curses",
-      "rarity": "Epic"
-    },
-    {
-      "name": "AlphaLeader",
-      "displayName": "Alpha Leader",
-      "description": "Commands and buffs reptilian allies",
-      "rarity": "Epic"
-    },
-    {
-      "name": "AcidSpit",
-      "displayName": "Acid Spit",
-      "description": "Ranged acid attack that corrodes armor",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Titanic",
-      "displayName": "Titanic",
-      "description": "Enormous size with devastating power",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "DragonAncestor",
-      "displayName": "Dragon Ancestor",
-      "description": "Descended from dragons, can breathe fire",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "DinosaurKing",
-      "displayName": "Dinosaur King",
-      "description": "Apex predator from prehistoric times",
-      "rarity": "Mythic"
-    },
-    {
-      "name": "Basilisk",
-      "displayName": "Basilisk",
-      "description": "Legendary serpent with petrifying gaze",
-      "rarity": "Mythic"
-    }
-  ],
-  "components": {
-    "basic_traits": ["ScaledHide", "ColdBlooded", "VenomousBite"],
-    "mobility_traits": ["SwiftSwimmer", "Camouflage"],
-    "combat_traits": ["TailWhip", "DeathRoll", "AcidSpit"],
-    "defensive_traits": ["ArmoredPlates", "Regeneration"],
-    "tactical_traits": ["AmbushPredator", "PrimalRoar"],
-    "leadership_traits": ["ShamanWisdom", "AlphaLeader"],
-    "legendary_traits": ["Titanic", "DragonAncestor", "DinosaurKing", "Basilisk"]
-  },
-  "patterns": [
-    "Common: Basic reptilian features",
-    "Uncommon-Rare: Specialized predatory abilities",
-    "Epic: Magical and leadership variants",
-    "Legendary+: Ancient and mythical creatures"
-  ]
-,
-  "notes": {
-    "usage": "Special traits and modifiers for reptilians. Used to add unique characteristics and stat bonuses."
-  }}
+    "metadata":  {
+                     "description":  "reptilians trait definitions and properties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "trait_catalog",
+                     "total_items":  18
+                 },
+    "items":  [
+                  {
+                      "name":  "ScaledHide",
+                      "displayName":  "Scaled Hide",
+                      "description":  "Natural armor from thick scales",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "ColdBlooded",
+                      "displayName":  "Cold Blooded",
+                      "description":  "Vulnerable to ice but resistant to fire",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "VenomousBite",
+                      "displayName":  "Venomous Bite",
+                      "description":  "Bite attacks inflict poison",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "SwiftSwimmer",
+                      "displayName":  "Swift Swimmer",
+                      "description":  "Moves quickly through water",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "AmbushPredator",
+                      "displayName":  "Ambush Predator",
+                      "description":  "Deals bonus damage on first strike",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "TailWhip",
+                      "displayName":  "Tail Whip",
+                      "description":  "Powerful tail attack with knockback",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Camouflage",
+                      "displayName":  "Camouflage",
+                      "description":  "Can become invisible in natural environments",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Regeneration",
+                      "displayName":  "Regeneration",
+                      "description":  "Can regrow lost limbs and heal rapidly",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "PrimalRoar",
+                      "displayName":  "Primal Roar",
+                      "description":  "Intimidating roar that fears enemies",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "ArmoredPlates",
+                      "displayName":  "Armored Plates",
+                      "description":  "Heavily armored with bone plates",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "DeathRoll",
+                      "displayName":  "Death Roll",
+                      "description":  "Grabs and spins enemies for massive damage",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "ShamanWisdom",
+                      "displayName":  "Shaman Wisdom",
+                      "description":  "Casts primal magic and curses",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "AlphaLeader",
+                      "displayName":  "Alpha Leader",
+                      "description":  "Commands and buffs reptilian allies",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "AcidSpit",
+                      "displayName":  "Acid Spit",
+                      "description":  "Ranged acid attack that corrodes armor",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "Titanic",
+                      "displayName":  "Titanic",
+                      "description":  "Enormous size with devastating power",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "DragonAncestor",
+                      "displayName":  "Dragon Ancestor",
+                      "description":  "Descended from dragons, can breathe fire",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "DinosaurKing",
+                      "displayName":  "Dinosaur King",
+                      "description":  "Apex predator from prehistoric times",
+                      "rarity":  "Mythic"
+                  },
+                  {
+                      "name":  "Basilisk",
+                      "displayName":  "Basilisk",
+                      "description":  "Legendary serpent with petrifying gaze",
+                      "rarity":  "Mythic"
+                  }
+              ],
+    "components":  {
+                       "basic_traits":  [
+                                            "ScaledHide",
+                                            "ColdBlooded",
+                                            "VenomousBite"
+                                        ],
+                       "mobility_traits":  [
+                                               "SwiftSwimmer",
+                                               "Camouflage"
+                                           ],
+                       "combat_traits":  [
+                                             "TailWhip",
+                                             "DeathRoll",
+                                             "AcidSpit"
+                                         ],
+                       "defensive_traits":  [
+                                                "ArmoredPlates",
+                                                "Regeneration"
+                                            ],
+                       "tactical_traits":  [
+                                               "AmbushPredator",
+                                               "PrimalRoar"
+                                           ],
+                       "leadership_traits":  [
+                                                 "ShamanWisdom",
+                                                 "AlphaLeader"
+                                             ],
+                       "legendary_traits":  [
+                                                "Titanic",
+                                                "DragonAncestor",
+                                                "DinosaurKing",
+                                                "Basilisk"
+                                            ]
+                   },
+    "patterns":  [
+                     "Common: Basic reptilian features",
+                     "Uncommon-Rare: Specialized predatory abilities",
+                     "Epic: Magical and leadership variants",
+                     "Legendary+: Ancient and mythical creatures"
+                 ],
+    "notes":  {
+                  "usage":  "Special traits and modifiers for reptilians. Used to add unique characteristics and stat bonuses."
+              }
+}

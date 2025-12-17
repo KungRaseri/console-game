@@ -1,71 +1,187 @@
-{
-  "components": {
-    "element": [
-      { "value": "Fire", "rarityWeight": 20 },
-      { "value": "Ice", "rarityWeight": 22 },
-      { "value": "Earth", "rarityWeight": 18 },
-      { "value": "Air", "rarityWeight": 20 },
-      { "value": "Lightning", "rarityWeight": 25 },
-      { "value": "Water", "rarityWeight": 18 },
-      { "value": "Storm", "rarityWeight": 30 },
-      { "value": "Magma", "rarityWeight": 35 },
-      { "value": "Frost", "rarityWeight": 24 },
-      { "value": "Thunder", "rarityWeight": 28 },
-      { "value": "Stone", "rarityWeight": 20 },
-      { "value": "Wind", "rarityWeight": 22 },
-      { "value": "Volcanic", "rarityWeight": 40 },
-      { "value": "Glacial", "rarityWeight": 38 }
-    ],
-    "size": [
-      { "value": "Lesser", "rarityWeight": 8 },
-      { "value": "Greater", "rarityWeight": 30 },
-      { "value": "Prime", "rarityWeight": 50 },
-      { "value": "Elder", "rarityWeight": 70 },
-      { "value": "Primal", "rarityWeight": 85 }
-    ],
-    "descriptive": [
-      { "value": "Raging", "rarityWeight": 25 },
-      { "value": "Ancient", "rarityWeight": 45 },
-      { "value": "Bound", "rarityWeight": 30 },
-      { "value": "Enraged", "rarityWeight": 35 },
-      { "value": "Calm", "rarityWeight": 15 },
-      { "value": "Furious", "rarityWeight": 40 },
-      { "value": "Eternal", "rarityWeight": 60 },
-      { "value": "Colossal", "rarityWeight": 55 }
-    ],
-    "title": [
-      { "value": "of the Volcano", "rarityWeight": 50 },
-      { "value": "of the Storm", "rarityWeight": 55 },
-      { "value": "of the Deep", "rarityWeight": 45 },
-      { "value": "of the Peaks", "rarityWeight": 48 },
-      { "value": "of the Maelstrom", "rarityWeight": 70 },
-      { "value": "the Untamed", "rarityWeight": 60 },
-      { "value": "the Eternal", "rarityWeight": 80 }
-    ]
-  },
-  "patterns": [
-    "base",
-    "element + base",
-    "size + element + base",
-    "descriptive + element + base",
-    "element + base + title",
-    "size + descriptive + element + base",
-    "size + descriptive + element + base + title"
-  ],
-  "metadata": {
-    "description": "Elemental enemy name generation with pattern-based system and weight-based rarity",
-    "version": "3.0",
-    "last_updated": "2025-12-16",
-    "type": "pattern_generation",
-    "elemental_categories": 4,
-    "component_keys": ["element", "size", "descriptive", "title"],
-    "pattern_tokens": ["base", "element", "size", "descriptive", "title"],
-    "total_patterns": 7,
-    "rarity_system": "weight-based",
-    "notes": [
-      "Base token resolves from enemies/elementals/types.json",
-      "All components have rarityWeight for emergent rarity calculation",
-      "Component weights combine via multipliers from general/rarity_config.json"
-    ]
-  }
+﻿{
+    "metadata":  {
+                     "description":  "Elemental enemy name generation with pattern-based system and weight-based rarity",
+                     "version":  "3.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "pattern_generation",
+                     "elemental_categories":  4,
+                     "component_keys":  [
+                                            "element",
+                                            "size",
+                                            "descriptive",
+                                            "title"
+                                        ],
+                     "pattern_tokens":  [
+                                            "base",
+                                            "element",
+                                            "size",
+                                            "descriptive",
+                                            "title"
+                                        ],
+                     "total_patterns":  7,
+                     "rarity_system":  "weight-based",
+                     "notes":  [
+                                   "Base token resolves from enemies/elementals/types.json",
+                                   "All components have rarityWeight for emergent rarity calculation",
+                                   "Component weights combine via multipliers from general/rarity_config.json"
+                               ]
+                 },
+    "components":  {
+                       "element":  [
+                                       {
+                                           "value":  "Fire",
+                                           "rarityWeight":  20
+                                       },
+                                       {
+                                           "value":  "Ice",
+                                           "rarityWeight":  22
+                                       },
+                                       {
+                                           "value":  "Earth",
+                                           "rarityWeight":  18
+                                       },
+                                       {
+                                           "value":  "Air",
+                                           "rarityWeight":  20
+                                       },
+                                       {
+                                           "value":  "Lightning",
+                                           "rarityWeight":  25
+                                       },
+                                       {
+                                           "value":  "Water",
+                                           "rarityWeight":  18
+                                       },
+                                       {
+                                           "value":  "Storm",
+                                           "rarityWeight":  30
+                                       },
+                                       {
+                                           "value":  "Magma",
+                                           "rarityWeight":  35
+                                       },
+                                       {
+                                           "value":  "Frost",
+                                           "rarityWeight":  24
+                                       },
+                                       {
+                                           "value":  "Thunder",
+                                           "rarityWeight":  28
+                                       },
+                                       {
+                                           "value":  "Stone",
+                                           "rarityWeight":  20
+                                       },
+                                       {
+                                           "value":  "Wind",
+                                           "rarityWeight":  22
+                                       },
+                                       {
+                                           "value":  "Volcanic",
+                                           "rarityWeight":  40
+                                       },
+                                       {
+                                           "value":  "Glacial",
+                                           "rarityWeight":  38
+                                       }
+                                   ],
+                       "size":  [
+                                    {
+                                        "value":  "Lesser",
+                                        "rarityWeight":  8
+                                    },
+                                    {
+                                        "value":  "Greater",
+                                        "rarityWeight":  30
+                                    },
+                                    {
+                                        "value":  "Prime",
+                                        "rarityWeight":  50
+                                    },
+                                    {
+                                        "value":  "Elder",
+                                        "rarityWeight":  70
+                                    },
+                                    {
+                                        "value":  "Primal",
+                                        "rarityWeight":  85
+                                    }
+                                ],
+                       "descriptive":  [
+                                           {
+                                               "value":  "Raging",
+                                               "rarityWeight":  25
+                                           },
+                                           {
+                                               "value":  "Ancient",
+                                               "rarityWeight":  45
+                                           },
+                                           {
+                                               "value":  "Bound",
+                                               "rarityWeight":  30
+                                           },
+                                           {
+                                               "value":  "Enraged",
+                                               "rarityWeight":  35
+                                           },
+                                           {
+                                               "value":  "Calm",
+                                               "rarityWeight":  15
+                                           },
+                                           {
+                                               "value":  "Furious",
+                                               "rarityWeight":  40
+                                           },
+                                           {
+                                               "value":  "Eternal",
+                                               "rarityWeight":  60
+                                           },
+                                           {
+                                               "value":  "Colossal",
+                                               "rarityWeight":  55
+                                           }
+                                       ],
+                       "title":  [
+                                     {
+                                         "value":  "of the Volcano",
+                                         "rarityWeight":  50
+                                     },
+                                     {
+                                         "value":  "of the Storm",
+                                         "rarityWeight":  55
+                                     },
+                                     {
+                                         "value":  "of the Deep",
+                                         "rarityWeight":  45
+                                     },
+                                     {
+                                         "value":  "of the Peaks",
+                                         "rarityWeight":  48
+                                     },
+                                     {
+                                         "value":  "of the Maelstrom",
+                                         "rarityWeight":  70
+                                     },
+                                     {
+                                         "value":  "the Untamed",
+                                         "rarityWeight":  60
+                                     },
+                                     {
+                                         "value":  "the Eternal",
+                                         "rarityWeight":  80
+                                     }
+                                 ]
+                   },
+    "patterns":  [
+                     "base",
+                     "element + base",
+                     "size + element + base",
+                     "descriptive + element + base",
+                     "element + base + title",
+                     "size + descriptive + element + base",
+                     "size + descriptive + element + base + title"
+                 ],
+    "notes":  {
+                  "usage":  "Pattern-based name generation for elementals. Pick components by rarityWeight and apply patterns to generate procedural names."
+              }
 }

@@ -1,67 +1,171 @@
-{
-  "components": {
-    "rank": [
-      { "value": "Young", "rarityWeight": 5 },
-      { "value": "Grunt", "rarityWeight": 8 },
-      { "value": "Warrior", "rarityWeight": 12 },
-      { "value": "Elite", "rarityWeight": 22 },
-      { "value": "Champion", "rarityWeight": 28 },
-      { "value": "Warlord", "rarityWeight": 40 },
-      { "value": "King", "rarityWeight": 65 }
-    ],
-    "clan": [
-      { "value": "Ironjaw", "rarityWeight": 10 },
-      { "value": "Bloodaxe", "rarityWeight": 15 },
-      { "value": "Skullsplitter", "rarityWeight": 18 },
-      { "value": "Bonecrusher", "rarityWeight": 20 },
-      { "value": "Blackhand", "rarityWeight": 25 },
-      { "value": "Doomhammer", "rarityWeight": 35 },
-      { "value": "Goretusk", "rarityWeight": 28 },
-      { "value": "Hellscream", "rarityWeight": 45 }
-    ],
-    "descriptive": [
-      { "value": "Savage", "rarityWeight": 8 },
-      { "value": "Brutal", "rarityWeight": 10 },
-      { "value": "Fierce", "rarityWeight": 12 },
-      { "value": "Raging", "rarityWeight": 15 },
-      { "value": "Mighty", "rarityWeight": 18 },
-      { "value": "Fearsome", "rarityWeight": 22 },
-      { "value": "Unstoppable", "rarityWeight": 30 },
-      { "value": "Legendary", "rarityWeight": 40 }
-    ],
-    "title": [
-      { "value": "Raider", "rarityWeight": 8 },
-      { "value": "Marauder", "rarityWeight": 12 },
-      { "value": "Berserker", "rarityWeight": 18 },
-      { "value": "Warchief", "rarityWeight": 25 },
-      { "value": "Conqueror", "rarityWeight": 35 },
-      { "value": "Destroyer", "rarityWeight": 30 },
-      { "value": "Overlord", "rarityWeight": 45 }
-    ]
-  },
-  "patterns": [
-    "base",
-    "rank + base",
-    "descriptive + base",
-    "base + title",
-    "clan + base",
-    "rank + clan + base",
-    "descriptive + base + title",
-    "rank + clan + base + title"
-  ],
-  "metadata": {
-    "description": "Orc name generation patterns with weight-based rarity components",
-    "version": "1.0",
-    "last_updated": "2025-12-16",
-    "type": "pattern_generation",
-    "component_keys": ["rank", "clan", "descriptive", "title"],
-    "pattern_tokens": ["base", "rank", "clan", "descriptive", "title"],
-    "total_patterns": 8,
-    "rarity_system": "weight-based",
-    "notes": {
-      "base_token": "Resolves to item name from orcs/types.json",
-      "clan_culture": "Orcs organize in powerful clans with warrior hierarchies",
-      "weight_ranges": "Young (5) → King (65), Ironjaw (10) → Hellscream (45)"
-    }
-  }
+﻿{
+    "metadata":  {
+                     "description":  "Orc name generation patterns with weight-based rarity components",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "pattern_generation",
+                     "component_keys":  [
+                                            "rank",
+                                            "clan",
+                                            "descriptive",
+                                            "title"
+                                        ],
+                     "pattern_tokens":  [
+                                            "base",
+                                            "rank",
+                                            "clan",
+                                            "descriptive",
+                                            "title"
+                                        ],
+                     "total_patterns":  8,
+                     "rarity_system":  "weight-based",
+                     "notes":  {
+                                   "base_token":  "Resolves to item name from orcs/types.json",
+                                   "clan_culture":  "Orcs organize in powerful clans with warrior hierarchies",
+                                   "weight_ranges":  "Young (5) â†’ King (65), Ironjaw (10) â†’ Hellscream (45)"
+                               }
+                 },
+    "components":  {
+                       "rank":  [
+                                    {
+                                        "value":  "Young",
+                                        "rarityWeight":  5
+                                    },
+                                    {
+                                        "value":  "Grunt",
+                                        "rarityWeight":  8
+                                    },
+                                    {
+                                        "value":  "Warrior",
+                                        "rarityWeight":  12
+                                    },
+                                    {
+                                        "value":  "Elite",
+                                        "rarityWeight":  22
+                                    },
+                                    {
+                                        "value":  "Champion",
+                                        "rarityWeight":  28
+                                    },
+                                    {
+                                        "value":  "Warlord",
+                                        "rarityWeight":  40
+                                    },
+                                    {
+                                        "value":  "King",
+                                        "rarityWeight":  65
+                                    }
+                                ],
+                       "clan":  [
+                                    {
+                                        "value":  "Ironjaw",
+                                        "rarityWeight":  10
+                                    },
+                                    {
+                                        "value":  "Bloodaxe",
+                                        "rarityWeight":  15
+                                    },
+                                    {
+                                        "value":  "Skullsplitter",
+                                        "rarityWeight":  18
+                                    },
+                                    {
+                                        "value":  "Bonecrusher",
+                                        "rarityWeight":  20
+                                    },
+                                    {
+                                        "value":  "Blackhand",
+                                        "rarityWeight":  25
+                                    },
+                                    {
+                                        "value":  "Doomhammer",
+                                        "rarityWeight":  35
+                                    },
+                                    {
+                                        "value":  "Goretusk",
+                                        "rarityWeight":  28
+                                    },
+                                    {
+                                        "value":  "Hellscream",
+                                        "rarityWeight":  45
+                                    }
+                                ],
+                       "descriptive":  [
+                                           {
+                                               "value":  "Savage",
+                                               "rarityWeight":  8
+                                           },
+                                           {
+                                               "value":  "Brutal",
+                                               "rarityWeight":  10
+                                           },
+                                           {
+                                               "value":  "Fierce",
+                                               "rarityWeight":  12
+                                           },
+                                           {
+                                               "value":  "Raging",
+                                               "rarityWeight":  15
+                                           },
+                                           {
+                                               "value":  "Mighty",
+                                               "rarityWeight":  18
+                                           },
+                                           {
+                                               "value":  "Fearsome",
+                                               "rarityWeight":  22
+                                           },
+                                           {
+                                               "value":  "Unstoppable",
+                                               "rarityWeight":  30
+                                           },
+                                           {
+                                               "value":  "Legendary",
+                                               "rarityWeight":  40
+                                           }
+                                       ],
+                       "title":  [
+                                     {
+                                         "value":  "Raider",
+                                         "rarityWeight":  8
+                                     },
+                                     {
+                                         "value":  "Marauder",
+                                         "rarityWeight":  12
+                                     },
+                                     {
+                                         "value":  "Berserker",
+                                         "rarityWeight":  18
+                                     },
+                                     {
+                                         "value":  "Warchief",
+                                         "rarityWeight":  25
+                                     },
+                                     {
+                                         "value":  "Conqueror",
+                                         "rarityWeight":  35
+                                     },
+                                     {
+                                         "value":  "Destroyer",
+                                         "rarityWeight":  30
+                                     },
+                                     {
+                                         "value":  "Overlord",
+                                         "rarityWeight":  45
+                                     }
+                                 ]
+                   },
+    "patterns":  [
+                     "base",
+                     "rank + base",
+                     "descriptive + base",
+                     "base + title",
+                     "clan + base",
+                     "rank + clan + base",
+                     "descriptive + base + title",
+                     "rank + clan + base + title"
+                 ],
+    "notes":  {
+                  "usage":  "Pattern-based name generation for orcs. Pick components by rarityWeight and apply patterns to generate procedural names."
+              }
 }

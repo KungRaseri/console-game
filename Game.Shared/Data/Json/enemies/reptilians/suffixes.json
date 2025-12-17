@@ -1,123 +1,153 @@
 ﻿{
-  "items": [
-    {
-      "name": "theScaled",
-      "displayName": "the Scaled",
-      "description": "Armored in thick scales",
-      "rarity": "Common"
-    },
-    {
-      "name": "theVenomous",
-      "displayName": "the Venomous",
-      "description": "Carries deadly poison",
-      "rarity": "Common"
-    },
-    {
-      "name": "theCold",
-      "displayName": "the Cold",
-      "description": "Cold-blooded hunter",
-      "rarity": "Common"
-    },
-    {
-      "name": "theSwimmer",
-      "displayName": "the Swimmer",
-      "description": "Master of aquatic combat",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "theStalker",
-      "displayName": "the Stalker",
-      "description": "Patient ambush predator",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "theHidden",
-      "displayName": "the Hidden",
-      "description": "Invisible until striking",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "theCrusher",
-      "displayName": "the Crusher",
-      "description": "Powerful constricting attacks",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "theUndying",
-      "displayName": "the Undying",
-      "description": "Regenerates from any wound",
-      "rarity": "Rare"
-    },
-    {
-      "name": "thePrimordial",
-      "displayName": "the Primordial",
-      "description": "From the dawn of time",
-      "rarity": "Rare"
-    },
-    {
-      "name": "theArmored",
-      "displayName": "the Armored",
-      "description": "Protected by bone plates",
-      "rarity": "Rare"
-    },
-    {
-      "name": "theShaman",
-      "displayName": "the Shaman",
-      "description": "Wields primal magic",
-      "rarity": "Epic"
-    },
-    {
-      "name": "theAlpha",
-      "displayName": "the Alpha",
-      "description": "Leader of the pack",
-      "rarity": "Epic"
-    },
-    {
-      "name": "theCorrosive",
-      "displayName": "the Corrosive",
-      "description": "Spits burning acid",
-      "rarity": "Epic"
-    },
-    {
-      "name": "theTitan",
-      "displayName": "the Titan",
-      "description": "Colossal in size and strength",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "theDragonborn",
-      "displayName": "the Dragonborn",
-      "description": "Carries dragon blood",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "theDinosaurKing",
-      "displayName": "the Dinosaur King",
-      "description": "Apex of prehistoric power",
-      "rarity": "Mythic"
-    },
-    {
-      "name": "theBasilisk",
-      "displayName": "the Basilisk",
-      "description": "Legendary serpent of myth",
-      "rarity": "Mythic"
-    }
-  ],
-  "components": {
-    "basic_suffixes": ["theScaled", "theVenomous", "theCold"],
-    "predatory_suffixes": ["theStalker", "theHidden", "theCrusher"],
-    "aquatic_suffixes": ["theSwimmer"],
-    "defensive_suffixes": ["theArmored", "theUndying"],
-    "leadership_suffixes": ["theAlpha", "theShaman"],
-    "legendary_suffixes": ["thePrimordial", "theCorrosive", "theTitan", "theDragonborn", "theDinosaurKing", "theBasilisk"]
-  },
-  "patterns": [
-    "Physical traits (the Scaled, the Armored)",
-    "Hunting styles (the Stalker, the Crusher)",
-    "Magical variants (the Shaman, the Basilisk)",
-    "Ancient power (the Primordial, the Dinosaur King)"
-  ]
-,
-  "notes": {
-    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-  }}
+    "metadata":  {
+                     "description":  "reptilians suffix modifiers with stat bonuses/penalties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "suffix_modifier",
+                     "total_items":  17
+                 },
+    "items":  [
+                  {
+                      "name":  "theScaled",
+                      "displayName":  "the Scaled",
+                      "description":  "Armored in thick scales",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "theVenomous",
+                      "displayName":  "the Venomous",
+                      "description":  "Carries deadly poison",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "theCold",
+                      "displayName":  "the Cold",
+                      "description":  "Cold-blooded hunter",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "theSwimmer",
+                      "displayName":  "the Swimmer",
+                      "description":  "Master of aquatic combat",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "theStalker",
+                      "displayName":  "the Stalker",
+                      "description":  "Patient ambush predator",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "theHidden",
+                      "displayName":  "the Hidden",
+                      "description":  "Invisible until striking",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "theCrusher",
+                      "displayName":  "the Crusher",
+                      "description":  "Powerful constricting attacks",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "theUndying",
+                      "displayName":  "the Undying",
+                      "description":  "Regenerates from any wound",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "thePrimordial",
+                      "displayName":  "the Primordial",
+                      "description":  "From the dawn of time",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "theArmored",
+                      "displayName":  "the Armored",
+                      "description":  "Protected by bone plates",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "theShaman",
+                      "displayName":  "the Shaman",
+                      "description":  "Wields primal magic",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "theAlpha",
+                      "displayName":  "the Alpha",
+                      "description":  "Leader of the pack",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "theCorrosive",
+                      "displayName":  "the Corrosive",
+                      "description":  "Spits burning acid",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "theTitan",
+                      "displayName":  "the Titan",
+                      "description":  "Colossal in size and strength",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "theDragonborn",
+                      "displayName":  "the Dragonborn",
+                      "description":  "Carries dragon blood",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "theDinosaurKing",
+                      "displayName":  "the Dinosaur King",
+                      "description":  "Apex of prehistoric power",
+                      "rarity":  "Mythic"
+                  },
+                  {
+                      "name":  "theBasilisk",
+                      "displayName":  "the Basilisk",
+                      "description":  "Legendary serpent of myth",
+                      "rarity":  "Mythic"
+                  }
+              ],
+    "components":  {
+                       "basic_suffixes":  [
+                                              "theScaled",
+                                              "theVenomous",
+                                              "theCold"
+                                          ],
+                       "predatory_suffixes":  [
+                                                  "theStalker",
+                                                  "theHidden",
+                                                  "theCrusher"
+                                              ],
+                       "aquatic_suffixes":  [
+                                                "theSwimmer"
+                                            ],
+                       "defensive_suffixes":  [
+                                                  "theArmored",
+                                                  "theUndying"
+                                              ],
+                       "leadership_suffixes":  [
+                                                   "theAlpha",
+                                                   "theShaman"
+                                               ],
+                       "legendary_suffixes":  [
+                                                  "thePrimordial",
+                                                  "theCorrosive",
+                                                  "theTitan",
+                                                  "theDragonborn",
+                                                  "theDinosaurKing",
+                                                  "theBasilisk"
+                                              ]
+                   },
+    "patterns":  [
+                     "Physical traits (the Scaled, the Armored)",
+                     "Hunting styles (the Stalker, the Crusher)",
+                     "Magical variants (the Shaman, the Basilisk)",
+                     "Ancient power (the Primordial, the Dinosaur King)"
+                 ],
+    "notes":  {
+                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+              }
+}

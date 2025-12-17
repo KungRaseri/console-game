@@ -1,222 +1,579 @@
 ﻿{
-  "common": {
-    "Shambling": {
-      "displayName": "Shambling",
-      "description": "Slow-moving undead with deteriorated motor functions",
-      "traits": {
-        "healthMultiplier": { "value": 0.9, "type": "Multiplier" },
-        "damageMultiplier": { "value": 0.9, "type": "Multiplier" },
-        "movementSpeed": { "value": -15, "type": "Flat" },
-        "poisonImmune": { "value": true, "type": "Boolean" },
-        "resistPoison": { "value": 100, "type": "Percentage" }
-      }
-    },
-    "Rotting": {
-      "displayName": "Rotting",
-      "description": "Decaying undead emanating disease",
-      "traits": {
-        "healthMultiplier": { "value": 1.0, "type": "Multiplier" },
-        "damageMultiplier": { "value": 1.0, "type": "Multiplier" },
-        "poisonDamage": { "value": 5, "type": "Flat" },
-        "diseaseChance": { "value": 10, "type": "Percentage" },
-        "poisonImmune": { "value": true, "type": "Boolean" }
-      }
-    },
-    "Risen": {
-      "displayName": "Risen",
-      "description": "Freshly reanimated corpse with some vigor",
-      "traits": {
-        "healthMultiplier": { "value": 1.1, "type": "Multiplier" },
-        "damageMultiplier": { "value": 1.1, "type": "Multiplier" },
-        "attackSpeed": { "value": 5, "type": "Flat" },
-        "poisonImmune": { "value": true, "type": "Boolean" },
-        "bleedImmune": { "value": true, "type": "Boolean" }
-      }
-    }
-  },
-  "uncommon": {
-    "Restless": {
-      "displayName": "Restless",
-      "description": "Tormented spirit refusing to pass on",
-      "traits": {
-        "healthMultiplier": { "value": 1.3, "type": "Multiplier" },
-        "damageMultiplier": { "value": 1.3, "type": "Multiplier" },
-        "necroticDamage": { "value": 10, "type": "Flat" },
-        "fearAura": { "value": 5, "type": "Percentage" },
-        "poisonImmune": { "value": true, "type": "Boolean" },
-        "bleedImmune": { "value": true, "type": "Boolean" }
-      }
-    },
-    "Vengeful": {
-      "displayName": "Vengeful",
-      "description": "Undead driven by hatred and revenge",
-      "traits": {
-        "healthMultiplier": { "value": 1.4, "type": "Multiplier" },
-        "damageMultiplier": { "value": 1.5, "type": "Multiplier" },
-        "criticalChance": { "value": 15, "type": "Percentage" },
-        "lifeSteal": { "value": 10, "type": "Percentage" },
-        "poisonImmune": { "value": true, "type": "Boolean" }
-      }
-    },
-    "Withered": {
-      "displayName": "Withered",
-      "description": "Ancient corpse with desiccated flesh",
-      "traits": {
-        "healthMultiplier": { "value": 1.2, "type": "Multiplier" },
-        "damageMultiplier": { "value": 1.3, "type": "Multiplier" },
-        "armorBonus": { "value": 10, "type": "Flat" },
-        "resistPhysical": { "value": 15, "type": "Percentage" },
-        "poisonImmune": { "value": true, "type": "Boolean" },
-        "drainLife": { "value": 5, "type": "Flat" }
-      }
-    }
-  },
-  "rare": {
-    "Cursed": {
-      "displayName": "Cursed",
-      "description": "Bound by dark magic and ancient curses",
-      "traits": {
-        "healthMultiplier": { "value": 1.6, "type": "Multiplier" },
-        "damageMultiplier": { "value": 1.7, "type": "Multiplier" },
-        "necroticDamage": { "value": 20, "type": "Flat" },
-        "curseOnHit": { "value": true, "type": "Boolean" },
-        "curseDuration": { "value": 3, "type": "Flat" },
-        "resistMagic": { "value": 25, "type": "Percentage" },
-        "poisonImmune": { "value": true, "type": "Boolean" },
-        "bleedImmune": { "value": true, "type": "Boolean" }
-      }
-    },
-    "Tormented": {
-      "displayName": "Tormented",
-      "description": "Suffering eternal agony, lashing out at the living",
-      "traits": {
-        "healthMultiplier": { "value": 1.7, "type": "Multiplier" },
-        "damageMultiplier": { "value": 1.8, "type": "Multiplier" },
-        "fearAura": { "value": 15, "type": "Percentage" },
-        "lifeSteal": { "value": 20, "type": "Percentage" },
-        "healthRegeneration": { "value": 5, "type": "Flat" },
-        "painReflect": { "value": 15, "type": "Percentage" }
-      }
-    },
-    "Spectral": {
-      "displayName": "Spectral",
-      "description": "Incorporeal spirit phase-shifting through reality",
-      "traits": {
-        "healthMultiplier": { "value": 1.5, "type": "Multiplier" },
-        "damageMultiplier": { "value": 1.6, "type": "Multiplier" },
-        "resistPhysical": { "value": 50, "type": "Percentage" },
-        "phaseShift": { "value": true, "type": "Boolean" },
-        "evadeChance": { "value": 25, "type": "Percentage" },
-        "magicDamage": { "value": 25, "type": "Flat" },
-        "poisonImmune": { "value": true, "type": "Boolean" }
-      }
-    }
-  },
-  "elite": {
-    "Ancient": {
-      "displayName": "Ancient",
-      "description": "Centuries-old undead with accumulated dark power",
-      "traits": {
-        "healthMultiplier": { "value": 2.0, "type": "Multiplier" },
-        "damageMultiplier": { "value": 2.0, "type": "Multiplier" },
-        "necroticDamage": { "value": 35, "type": "Flat" },
-        "resistAll": { "value": 30, "type": "Percentage" },
-        "lifeSteal": { "value": 25, "type": "Percentage" },
-        "drainMana": { "value": 10, "type": "Flat" },
-        "summonUndead": { "value": 2, "type": "Flat" },
-        "poisonImmune": { "value": true, "type": "Boolean" },
-        "bleedImmune": { "value": true, "type": "Boolean" }
-      }
-    },
-    "Deathless": {
-      "displayName": "Deathless",
-      "description": "Powerful undead that refuses to fall",
-      "traits": {
-        "healthMultiplier": { "value": 2.5, "type": "Multiplier" },
-        "damageMultiplier": { "value": 1.9, "type": "Multiplier" },
-        "healthRegeneration": { "value": 15, "type": "Flat" },
-        "lifeSteal": { "value": 30, "type": "Percentage" },
-        "resurrectsOnce": { "value": true, "type": "Boolean" },
-        "resurrectionHealth": { "value": 50, "type": "Percentage" },
-        "resistPhysical": { "value": 25, "type": "Percentage" },
-        "resistMagic": { "value": 25, "type": "Percentage" }
-      }
-    },
-    "Accursed": {
-      "displayName": "Accursed",
-      "description": "Bearer of terrible curses and dark hexes",
-      "traits": {
-        "healthMultiplier": { "value": 2.2, "type": "Multiplier" },
-        "damageMultiplier": { "value": 2.1, "type": "Multiplier" },
-        "curseOnHit": { "value": true, "type": "Boolean" },
-        "curseDuration": { "value": 5, "type": "Flat" },
-        "fearAura": { "value": 25, "type": "Percentage" },
-        "hexPower": { "value": 40, "type": "Flat" },
-        "weaknessAura": { "value": 20, "type": "Percentage" },
-        "resistMagic": { "value": 40, "type": "Percentage" }
-      }
-    }
-  },
-  "boss": {
-    "Lich-Empowered": {
-      "displayName": "Lich-Empowered",
-      "description": "Infused with the power of a lich's necromancy",
-      "traits": {
-        "healthMultiplier": { "value": 3.5, "type": "Multiplier" },
-        "damageMultiplier": { "value": 2.8, "type": "Multiplier" },
-        "necroticDamage": { "value": 60, "type": "Flat" },
-        "lifeSteal": { "value": 40, "type": "Percentage" },
-        "drainMana": { "value": 20, "type": "Flat" },
-        "summonUndead": { "value": 4, "type": "Flat" },
-        "resistAll": { "value": 45, "type": "Percentage" },
-        "deathNova": { "value": true, "type": "Boolean" },
-        "deathNovaDamage": { "value": 100, "type": "Flat" },
-        "healthRegeneration": { "value": 20, "type": "Flat" },
-        "poisonImmune": { "value": true, "type": "Boolean" },
-        "bleedImmune": { "value": true, "type": "Boolean" },
-        "fearImmune": { "value": true, "type": "Boolean" }
-      }
-    },
-    "Dread Lord": {
-      "displayName": "Dread Lord",
-      "description": "Supreme commander of undead legions",
-      "traits": {
-        "healthMultiplier": { "value": 4.0, "type": "Multiplier" },
-        "damageMultiplier": { "value": 3.0, "type": "Multiplier" },
-        "necroticDamage": { "value": 50, "type": "Flat" },
-        "fearAura": { "value": 50, "type": "Percentage" },
-        "commandAura": { "value": true, "type": "Boolean" },
-        "alliesBuffed": { "value": 50, "type": "Percentage" },
-        "summonUndead": { "value": 5, "type": "Flat" },
-        "lifeSteal": { "value": 35, "type": "Percentage" },
-        "armorBonus": { "value": 40, "type": "Flat" },
-        "resistAll": { "value": 40, "type": "Percentage" },
-        "criticalDamage": { "value": 100, "type": "Percentage" }
-      }
-    },
-    "Eternal": {
-      "displayName": "Eternal",
-      "description": "Immortal undead existing beyond time itself",
-      "traits": {
-        "healthMultiplier": { "value": 3.8, "type": "Multiplier" },
-        "damageMultiplier": { "value": 2.7, "type": "Multiplier" },
-        "healthRegeneration": { "value": 30, "type": "Flat" },
-        "manaRegeneration": { "value": 20, "type": "Flat" },
-        "lifeSteal": { "value": 50, "type": "Percentage" },
-        "resurrectsMultiple": { "value": true, "type": "Boolean" },
-        "resurrectionCount": { "value": 2, "type": "Flat" },
-        "resurrectionHealth": { "value": 75, "type": "Percentage" },
-        "resistAll": { "value": 50, "type": "Percentage" },
-        "timelessAura": { "value": true, "type": "Boolean" },
-        "unstoppable": { "value": true, "type": "Boolean" },
-        "poisonImmune": { "value": true, "type": "Boolean" },
-        "bleedImmune": { "value": true, "type": "Boolean" },
-        "fearImmune": { "value": true, "type": "Boolean" },
-        "stunImmune": { "value": true, "type": "Boolean" }
-      }
-    }
-  }
-,
-  "notes": {
-    "usage": "Stat modifiers applied BEFORE base name. Used at runtime based on item rarity. Not used in pattern generation."
-  }}
+    "metadata":  {
+                     "description":  "undead prefix modifiers with stat bonuses/penalties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "prefix_modifier"
+                 },
+    "common":  {
+                   "Shambling":  {
+                                     "displayName":  "Shambling",
+                                     "description":  "Slow-moving undead with deteriorated motor functions",
+                                     "traits":  {
+                                                    "healthMultiplier":  {
+                                                                             "value":  0.9,
+                                                                             "type":  "Multiplier"
+                                                                         },
+                                                    "damageMultiplier":  {
+                                                                             "value":  0.9,
+                                                                             "type":  "Multiplier"
+                                                                         },
+                                                    "movementSpeed":  {
+                                                                          "value":  -15,
+                                                                          "type":  "Flat"
+                                                                      },
+                                                    "poisonImmune":  {
+                                                                         "value":  true,
+                                                                         "type":  "Boolean"
+                                                                     },
+                                                    "resistPoison":  {
+                                                                         "value":  100,
+                                                                         "type":  "Percentage"
+                                                                     }
+                                                }
+                                 },
+                   "Rotting":  {
+                                   "displayName":  "Rotting",
+                                   "description":  "Decaying undead emanating disease",
+                                   "traits":  {
+                                                  "healthMultiplier":  {
+                                                                           "value":  1.0,
+                                                                           "type":  "Multiplier"
+                                                                       },
+                                                  "damageMultiplier":  {
+                                                                           "value":  1.0,
+                                                                           "type":  "Multiplier"
+                                                                       },
+                                                  "poisonDamage":  {
+                                                                       "value":  5,
+                                                                       "type":  "Flat"
+                                                                   },
+                                                  "diseaseChance":  {
+                                                                        "value":  10,
+                                                                        "type":  "Percentage"
+                                                                    },
+                                                  "poisonImmune":  {
+                                                                       "value":  true,
+                                                                       "type":  "Boolean"
+                                                                   }
+                                              }
+                               },
+                   "Risen":  {
+                                 "displayName":  "Risen",
+                                 "description":  "Freshly reanimated corpse with some vigor",
+                                 "traits":  {
+                                                "healthMultiplier":  {
+                                                                         "value":  1.1,
+                                                                         "type":  "Multiplier"
+                                                                     },
+                                                "damageMultiplier":  {
+                                                                         "value":  1.1,
+                                                                         "type":  "Multiplier"
+                                                                     },
+                                                "attackSpeed":  {
+                                                                    "value":  5,
+                                                                    "type":  "Flat"
+                                                                },
+                                                "poisonImmune":  {
+                                                                     "value":  true,
+                                                                     "type":  "Boolean"
+                                                                 },
+                                                "bleedImmune":  {
+                                                                    "value":  true,
+                                                                    "type":  "Boolean"
+                                                                }
+                                            }
+                             }
+               },
+    "uncommon":  {
+                     "Restless":  {
+                                      "displayName":  "Restless",
+                                      "description":  "Tormented spirit refusing to pass on",
+                                      "traits":  {
+                                                     "healthMultiplier":  {
+                                                                              "value":  1.3,
+                                                                              "type":  "Multiplier"
+                                                                          },
+                                                     "damageMultiplier":  {
+                                                                              "value":  1.3,
+                                                                              "type":  "Multiplier"
+                                                                          },
+                                                     "necroticDamage":  {
+                                                                            "value":  10,
+                                                                            "type":  "Flat"
+                                                                        },
+                                                     "fearAura":  {
+                                                                      "value":  5,
+                                                                      "type":  "Percentage"
+                                                                  },
+                                                     "poisonImmune":  {
+                                                                          "value":  true,
+                                                                          "type":  "Boolean"
+                                                                      },
+                                                     "bleedImmune":  {
+                                                                         "value":  true,
+                                                                         "type":  "Boolean"
+                                                                     }
+                                                 }
+                                  },
+                     "Vengeful":  {
+                                      "displayName":  "Vengeful",
+                                      "description":  "Undead driven by hatred and revenge",
+                                      "traits":  {
+                                                     "healthMultiplier":  {
+                                                                              "value":  1.4,
+                                                                              "type":  "Multiplier"
+                                                                          },
+                                                     "damageMultiplier":  {
+                                                                              "value":  1.5,
+                                                                              "type":  "Multiplier"
+                                                                          },
+                                                     "criticalChance":  {
+                                                                            "value":  15,
+                                                                            "type":  "Percentage"
+                                                                        },
+                                                     "lifeSteal":  {
+                                                                       "value":  10,
+                                                                       "type":  "Percentage"
+                                                                   },
+                                                     "poisonImmune":  {
+                                                                          "value":  true,
+                                                                          "type":  "Boolean"
+                                                                      }
+                                                 }
+                                  },
+                     "Withered":  {
+                                      "displayName":  "Withered",
+                                      "description":  "Ancient corpse with desiccated flesh",
+                                      "traits":  {
+                                                     "healthMultiplier":  {
+                                                                              "value":  1.2,
+                                                                              "type":  "Multiplier"
+                                                                          },
+                                                     "damageMultiplier":  {
+                                                                              "value":  1.3,
+                                                                              "type":  "Multiplier"
+                                                                          },
+                                                     "armorBonus":  {
+                                                                        "value":  10,
+                                                                        "type":  "Flat"
+                                                                    },
+                                                     "resistPhysical":  {
+                                                                            "value":  15,
+                                                                            "type":  "Percentage"
+                                                                        },
+                                                     "poisonImmune":  {
+                                                                          "value":  true,
+                                                                          "type":  "Boolean"
+                                                                      },
+                                                     "drainLife":  {
+                                                                       "value":  5,
+                                                                       "type":  "Flat"
+                                                                   }
+                                                 }
+                                  }
+                 },
+    "rare":  {
+                 "Cursed":  {
+                                "displayName":  "Cursed",
+                                "description":  "Bound by dark magic and ancient curses",
+                                "traits":  {
+                                               "healthMultiplier":  {
+                                                                        "value":  1.6,
+                                                                        "type":  "Multiplier"
+                                                                    },
+                                               "damageMultiplier":  {
+                                                                        "value":  1.7,
+                                                                        "type":  "Multiplier"
+                                                                    },
+                                               "necroticDamage":  {
+                                                                      "value":  20,
+                                                                      "type":  "Flat"
+                                                                  },
+                                               "curseOnHit":  {
+                                                                  "value":  true,
+                                                                  "type":  "Boolean"
+                                                              },
+                                               "curseDuration":  {
+                                                                     "value":  3,
+                                                                     "type":  "Flat"
+                                                                 },
+                                               "resistMagic":  {
+                                                                   "value":  25,
+                                                                   "type":  "Percentage"
+                                                               },
+                                               "poisonImmune":  {
+                                                                    "value":  true,
+                                                                    "type":  "Boolean"
+                                                                },
+                                               "bleedImmune":  {
+                                                                   "value":  true,
+                                                                   "type":  "Boolean"
+                                                               }
+                                           }
+                            },
+                 "Tormented":  {
+                                   "displayName":  "Tormented",
+                                   "description":  "Suffering eternal agony, lashing out at the living",
+                                   "traits":  {
+                                                  "healthMultiplier":  {
+                                                                           "value":  1.7,
+                                                                           "type":  "Multiplier"
+                                                                       },
+                                                  "damageMultiplier":  {
+                                                                           "value":  1.8,
+                                                                           "type":  "Multiplier"
+                                                                       },
+                                                  "fearAura":  {
+                                                                   "value":  15,
+                                                                   "type":  "Percentage"
+                                                               },
+                                                  "lifeSteal":  {
+                                                                    "value":  20,
+                                                                    "type":  "Percentage"
+                                                                },
+                                                  "healthRegeneration":  {
+                                                                             "value":  5,
+                                                                             "type":  "Flat"
+                                                                         },
+                                                  "painReflect":  {
+                                                                      "value":  15,
+                                                                      "type":  "Percentage"
+                                                                  }
+                                              }
+                               },
+                 "Spectral":  {
+                                  "displayName":  "Spectral",
+                                  "description":  "Incorporeal spirit phase-shifting through reality",
+                                  "traits":  {
+                                                 "healthMultiplier":  {
+                                                                          "value":  1.5,
+                                                                          "type":  "Multiplier"
+                                                                      },
+                                                 "damageMultiplier":  {
+                                                                          "value":  1.6,
+                                                                          "type":  "Multiplier"
+                                                                      },
+                                                 "resistPhysical":  {
+                                                                        "value":  50,
+                                                                        "type":  "Percentage"
+                                                                    },
+                                                 "phaseShift":  {
+                                                                    "value":  true,
+                                                                    "type":  "Boolean"
+                                                                },
+                                                 "evadeChance":  {
+                                                                     "value":  25,
+                                                                     "type":  "Percentage"
+                                                                 },
+                                                 "magicDamage":  {
+                                                                     "value":  25,
+                                                                     "type":  "Flat"
+                                                                 },
+                                                 "poisonImmune":  {
+                                                                      "value":  true,
+                                                                      "type":  "Boolean"
+                                                                  }
+                                             }
+                              }
+             },
+    "elite":  {
+                  "Ancient":  {
+                                  "displayName":  "Ancient",
+                                  "description":  "Centuries-old undead with accumulated dark power",
+                                  "traits":  {
+                                                 "healthMultiplier":  {
+                                                                          "value":  2.0,
+                                                                          "type":  "Multiplier"
+                                                                      },
+                                                 "damageMultiplier":  {
+                                                                          "value":  2.0,
+                                                                          "type":  "Multiplier"
+                                                                      },
+                                                 "necroticDamage":  {
+                                                                        "value":  35,
+                                                                        "type":  "Flat"
+                                                                    },
+                                                 "resistAll":  {
+                                                                   "value":  30,
+                                                                   "type":  "Percentage"
+                                                               },
+                                                 "lifeSteal":  {
+                                                                   "value":  25,
+                                                                   "type":  "Percentage"
+                                                               },
+                                                 "drainMana":  {
+                                                                   "value":  10,
+                                                                   "type":  "Flat"
+                                                               },
+                                                 "summonUndead":  {
+                                                                      "value":  2,
+                                                                      "type":  "Flat"
+                                                                  },
+                                                 "poisonImmune":  {
+                                                                      "value":  true,
+                                                                      "type":  "Boolean"
+                                                                  },
+                                                 "bleedImmune":  {
+                                                                     "value":  true,
+                                                                     "type":  "Boolean"
+                                                                 }
+                                             }
+                              },
+                  "Deathless":  {
+                                    "displayName":  "Deathless",
+                                    "description":  "Powerful undead that refuses to fall",
+                                    "traits":  {
+                                                   "healthMultiplier":  {
+                                                                            "value":  2.5,
+                                                                            "type":  "Multiplier"
+                                                                        },
+                                                   "damageMultiplier":  {
+                                                                            "value":  1.9,
+                                                                            "type":  "Multiplier"
+                                                                        },
+                                                   "healthRegeneration":  {
+                                                                              "value":  15,
+                                                                              "type":  "Flat"
+                                                                          },
+                                                   "lifeSteal":  {
+                                                                     "value":  30,
+                                                                     "type":  "Percentage"
+                                                                 },
+                                                   "resurrectsOnce":  {
+                                                                          "value":  true,
+                                                                          "type":  "Boolean"
+                                                                      },
+                                                   "resurrectionHealth":  {
+                                                                              "value":  50,
+                                                                              "type":  "Percentage"
+                                                                          },
+                                                   "resistPhysical":  {
+                                                                          "value":  25,
+                                                                          "type":  "Percentage"
+                                                                      },
+                                                   "resistMagic":  {
+                                                                       "value":  25,
+                                                                       "type":  "Percentage"
+                                                                   }
+                                               }
+                                },
+                  "Accursed":  {
+                                   "displayName":  "Accursed",
+                                   "description":  "Bearer of terrible curses and dark hexes",
+                                   "traits":  {
+                                                  "healthMultiplier":  {
+                                                                           "value":  2.2,
+                                                                           "type":  "Multiplier"
+                                                                       },
+                                                  "damageMultiplier":  {
+                                                                           "value":  2.1,
+                                                                           "type":  "Multiplier"
+                                                                       },
+                                                  "curseOnHit":  {
+                                                                     "value":  true,
+                                                                     "type":  "Boolean"
+                                                                 },
+                                                  "curseDuration":  {
+                                                                        "value":  5,
+                                                                        "type":  "Flat"
+                                                                    },
+                                                  "fearAura":  {
+                                                                   "value":  25,
+                                                                   "type":  "Percentage"
+                                                               },
+                                                  "hexPower":  {
+                                                                   "value":  40,
+                                                                   "type":  "Flat"
+                                                               },
+                                                  "weaknessAura":  {
+                                                                       "value":  20,
+                                                                       "type":  "Percentage"
+                                                                   },
+                                                  "resistMagic":  {
+                                                                      "value":  40,
+                                                                      "type":  "Percentage"
+                                                                  }
+                                              }
+                               }
+              },
+    "boss":  {
+                 "Lich-Empowered":  {
+                                        "displayName":  "Lich-Empowered",
+                                        "description":  "Infused with the power of a lich\u0027s necromancy",
+                                        "traits":  {
+                                                       "healthMultiplier":  {
+                                                                                "value":  3.5,
+                                                                                "type":  "Multiplier"
+                                                                            },
+                                                       "damageMultiplier":  {
+                                                                                "value":  2.8,
+                                                                                "type":  "Multiplier"
+                                                                            },
+                                                       "necroticDamage":  {
+                                                                              "value":  60,
+                                                                              "type":  "Flat"
+                                                                          },
+                                                       "lifeSteal":  {
+                                                                         "value":  40,
+                                                                         "type":  "Percentage"
+                                                                     },
+                                                       "drainMana":  {
+                                                                         "value":  20,
+                                                                         "type":  "Flat"
+                                                                     },
+                                                       "summonUndead":  {
+                                                                            "value":  4,
+                                                                            "type":  "Flat"
+                                                                        },
+                                                       "resistAll":  {
+                                                                         "value":  45,
+                                                                         "type":  "Percentage"
+                                                                     },
+                                                       "deathNova":  {
+                                                                         "value":  true,
+                                                                         "type":  "Boolean"
+                                                                     },
+                                                       "deathNovaDamage":  {
+                                                                               "value":  100,
+                                                                               "type":  "Flat"
+                                                                           },
+                                                       "healthRegeneration":  {
+                                                                                  "value":  20,
+                                                                                  "type":  "Flat"
+                                                                              },
+                                                       "poisonImmune":  {
+                                                                            "value":  true,
+                                                                            "type":  "Boolean"
+                                                                        },
+                                                       "bleedImmune":  {
+                                                                           "value":  true,
+                                                                           "type":  "Boolean"
+                                                                       },
+                                                       "fearImmune":  {
+                                                                          "value":  true,
+                                                                          "type":  "Boolean"
+                                                                      }
+                                                   }
+                                    },
+                 "Dread Lord":  {
+                                    "displayName":  "Dread Lord",
+                                    "description":  "Supreme commander of undead legions",
+                                    "traits":  {
+                                                   "healthMultiplier":  {
+                                                                            "value":  4.0,
+                                                                            "type":  "Multiplier"
+                                                                        },
+                                                   "damageMultiplier":  {
+                                                                            "value":  3.0,
+                                                                            "type":  "Multiplier"
+                                                                        },
+                                                   "necroticDamage":  {
+                                                                          "value":  50,
+                                                                          "type":  "Flat"
+                                                                      },
+                                                   "fearAura":  {
+                                                                    "value":  50,
+                                                                    "type":  "Percentage"
+                                                                },
+                                                   "commandAura":  {
+                                                                       "value":  true,
+                                                                       "type":  "Boolean"
+                                                                   },
+                                                   "alliesBuffed":  {
+                                                                        "value":  50,
+                                                                        "type":  "Percentage"
+                                                                    },
+                                                   "summonUndead":  {
+                                                                        "value":  5,
+                                                                        "type":  "Flat"
+                                                                    },
+                                                   "lifeSteal":  {
+                                                                     "value":  35,
+                                                                     "type":  "Percentage"
+                                                                 },
+                                                   "armorBonus":  {
+                                                                      "value":  40,
+                                                                      "type":  "Flat"
+                                                                  },
+                                                   "resistAll":  {
+                                                                     "value":  40,
+                                                                     "type":  "Percentage"
+                                                                 },
+                                                   "criticalDamage":  {
+                                                                          "value":  100,
+                                                                          "type":  "Percentage"
+                                                                      }
+                                               }
+                                },
+                 "Eternal":  {
+                                 "displayName":  "Eternal",
+                                 "description":  "Immortal undead existing beyond time itself",
+                                 "traits":  {
+                                                "healthMultiplier":  {
+                                                                         "value":  3.8,
+                                                                         "type":  "Multiplier"
+                                                                     },
+                                                "damageMultiplier":  {
+                                                                         "value":  2.7,
+                                                                         "type":  "Multiplier"
+                                                                     },
+                                                "healthRegeneration":  {
+                                                                           "value":  30,
+                                                                           "type":  "Flat"
+                                                                       },
+                                                "manaRegeneration":  {
+                                                                         "value":  20,
+                                                                         "type":  "Flat"
+                                                                     },
+                                                "lifeSteal":  {
+                                                                  "value":  50,
+                                                                  "type":  "Percentage"
+                                                              },
+                                                "resurrectsMultiple":  {
+                                                                           "value":  true,
+                                                                           "type":  "Boolean"
+                                                                       },
+                                                "resurrectionCount":  {
+                                                                          "value":  2,
+                                                                          "type":  "Flat"
+                                                                      },
+                                                "resurrectionHealth":  {
+                                                                           "value":  75,
+                                                                           "type":  "Percentage"
+                                                                       },
+                                                "resistAll":  {
+                                                                  "value":  50,
+                                                                  "type":  "Percentage"
+                                                              },
+                                                "timelessAura":  {
+                                                                     "value":  true,
+                                                                     "type":  "Boolean"
+                                                                 },
+                                                "unstoppable":  {
+                                                                    "value":  true,
+                                                                    "type":  "Boolean"
+                                                                },
+                                                "poisonImmune":  {
+                                                                     "value":  true,
+                                                                     "type":  "Boolean"
+                                                                 },
+                                                "bleedImmune":  {
+                                                                    "value":  true,
+                                                                    "type":  "Boolean"
+                                                                },
+                                                "fearImmune":  {
+                                                                   "value":  true,
+                                                                   "type":  "Boolean"
+                                                               },
+                                                "stunImmune":  {
+                                                                   "value":  true,
+                                                                   "type":  "Boolean"
+                                                               }
+                                            }
+                             }
+             },
+    "notes":  {
+                  "usage":  "Stat modifiers applied BEFORE base name. Used at runtime based on item rarity. Not used in pattern generation."
+              }
+}

@@ -1,135 +1,166 @@
 ﻿{
-  "items": [
-    {
-      "name": "Pack Hunter",
-      "displayName": "Pack Hunter",
-      "description": "Gains bonuses when fighting alongside allies",
-      "rarity": "Common"
-    },
-    {
-      "name": "Feral Rage",
-      "displayName": "Feral Rage",
-      "description": "Increases damage as health decreases",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Keen Senses",
-      "displayName": "Keen Senses",
-      "description": "Cannot be surprised, detects hidden enemies",
-      "rarity": "Common"
-    },
-    {
-      "name": "Venomous Bite",
-      "displayName": "Venomous Bite",
-      "description": "Attacks inflict poison damage over time",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Thick Hide",
-      "displayName": "Thick Hide",
-      "description": "Natural armor provides extra protection",
-      "rarity": "Common"
-    },
-    {
-      "name": "Swift Pounce",
-      "displayName": "Swift Pounce",
-      "description": "Can leap at distant targets",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Regeneration",
-      "displayName": "Regeneration",
-      "description": "Slowly heals wounds during combat",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Savage Roar",
-      "displayName": "Savage Roar",
-      "description": "Intimidates enemies, reducing their combat effectiveness",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Gore",
-      "displayName": "Gore",
-      "description": "Critical hits cause bleeding damage",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Camouflage",
-      "displayName": "Camouflage",
-      "description": "Difficult to detect in natural environments",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Alpha Predator",
-      "displayName": "Alpha Predator",
-      "description": "Commands nearby beasts, increasing their power",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Territorial",
-      "displayName": "Territorial",
-      "description": "Deals extra damage when defending its lair",
-      "rarity": "Common"
-    },
-    {
-      "name": "Night Hunter",
-      "displayName": "Night Hunter",
-      "description": "Stronger during nighttime hours",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Ferocious",
-      "displayName": "Ferocious",
-      "description": "Attacks multiple times per round",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Primal Fury",
-      "displayName": "Primal Fury",
-      "description": "Enters berserk state when wounded",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Armored Scales",
-      "displayName": "Armored Scales",
-      "description": "Resistant to physical damage",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Enrage",
-      "displayName": "Enrage",
-      "description": "Becomes more dangerous as allies fall",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Apex Predator",
-      "displayName": "Apex Predator",
-      "description": "Massive size and power, dominates all beasts",
-      "rarity": "Legendary"
-    }
-  ],
-  "components": {
-    "combat_traits": ["Pack Hunter", "Feral Rage", "Ferocious", "Primal Fury", "Gore", "Enrage"],
-    "defensive_traits": ["Thick Hide", "Armored Scales", "Regeneration", "Camouflage"],
-    "offensive_traits": ["Venomous Bite", "Swift Pounce", "Savage Roar"],
-    "environmental": ["Territorial", "Night Hunter"],
-    "sensory": ["Keen Senses"],
-    "leadership": ["Alpha Predator", "Apex Predator"]
-  },
-  "patterns": [
-    "trait + enemy (Pack Hunter Wolf)",
-    "environment + trait + enemy (Night Hunter Panther)",
-    "multiple traits for elite enemies (Alpha Predator + Primal Fury)"
-  ],
-  "rarity_distribution": {
-    "Common": 4,
-    "Uncommon": 8,
-    "Rare": 4,
-    "Epic": 2,
-    "Legendary": 1
-  }
-,
-  "notes": {
-    "usage": "Special traits and modifiers for beasts. Used to add unique characteristics and stat bonuses."
-  }}
+    "metadata":  {
+                     "description":  "beasts trait definitions and properties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "trait_catalog",
+                     "total_items":  18
+                 },
+    "items":  [
+                  {
+                      "name":  "Pack Hunter",
+                      "displayName":  "Pack Hunter",
+                      "description":  "Gains bonuses when fighting alongside allies",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Feral Rage",
+                      "displayName":  "Feral Rage",
+                      "description":  "Increases damage as health decreases",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Keen Senses",
+                      "displayName":  "Keen Senses",
+                      "description":  "Cannot be surprised, detects hidden enemies",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Venomous Bite",
+                      "displayName":  "Venomous Bite",
+                      "description":  "Attacks inflict poison damage over time",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Thick Hide",
+                      "displayName":  "Thick Hide",
+                      "description":  "Natural armor provides extra protection",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Swift Pounce",
+                      "displayName":  "Swift Pounce",
+                      "description":  "Can leap at distant targets",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Regeneration",
+                      "displayName":  "Regeneration",
+                      "description":  "Slowly heals wounds during combat",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Savage Roar",
+                      "displayName":  "Savage Roar",
+                      "description":  "Intimidates enemies, reducing their combat effectiveness",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Gore",
+                      "displayName":  "Gore",
+                      "description":  "Critical hits cause bleeding damage",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Camouflage",
+                      "displayName":  "Camouflage",
+                      "description":  "Difficult to detect in natural environments",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Alpha Predator",
+                      "displayName":  "Alpha Predator",
+                      "description":  "Commands nearby beasts, increasing their power",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "Territorial",
+                      "displayName":  "Territorial",
+                      "description":  "Deals extra damage when defending its lair",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Night Hunter",
+                      "displayName":  "Night Hunter",
+                      "description":  "Stronger during nighttime hours",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Ferocious",
+                      "displayName":  "Ferocious",
+                      "description":  "Attacks multiple times per round",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Primal Fury",
+                      "displayName":  "Primal Fury",
+                      "description":  "Enters berserk state when wounded",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "Armored Scales",
+                      "displayName":  "Armored Scales",
+                      "description":  "Resistant to physical damage",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Enrage",
+                      "displayName":  "Enrage",
+                      "description":  "Becomes more dangerous as allies fall",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Apex Predator",
+                      "displayName":  "Apex Predator",
+                      "description":  "Massive size and power, dominates all beasts",
+                      "rarity":  "Legendary"
+                  }
+              ],
+    "components":  {
+                       "combat_traits":  [
+                                             "Pack Hunter",
+                                             "Feral Rage",
+                                             "Ferocious",
+                                             "Primal Fury",
+                                             "Gore",
+                                             "Enrage"
+                                         ],
+                       "defensive_traits":  [
+                                                "Thick Hide",
+                                                "Armored Scales",
+                                                "Regeneration",
+                                                "Camouflage"
+                                            ],
+                       "offensive_traits":  [
+                                                "Venomous Bite",
+                                                "Swift Pounce",
+                                                "Savage Roar"
+                                            ],
+                       "environmental":  [
+                                             "Territorial",
+                                             "Night Hunter"
+                                         ],
+                       "sensory":  [
+                                       "Keen Senses"
+                                   ],
+                       "leadership":  [
+                                          "Alpha Predator",
+                                          "Apex Predator"
+                                      ]
+                   },
+    "patterns":  [
+                     "trait + enemy (Pack Hunter Wolf)",
+                     "environment + trait + enemy (Night Hunter Panther)",
+                     "multiple traits for elite enemies (Alpha Predator + Primal Fury)"
+                 ],
+    "rarity_distribution":  {
+                                "Common":  4,
+                                "Uncommon":  8,
+                                "Rare":  4,
+                                "Epic":  2,
+                                "Legendary":  1
+                            },
+    "notes":  {
+                  "usage":  "Special traits and modifiers for beasts. Used to add unique characteristics and stat bonuses."
+              }
+}

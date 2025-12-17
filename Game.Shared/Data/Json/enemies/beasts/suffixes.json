@@ -1,123 +1,152 @@
 ﻿{
-  "items": [
-    {
-      "name": "the Fierce",
-      "displayName": "the Fierce",
-      "description": "Exceptionally aggressive and dangerous",
-      "rarity": "Common"
-    },
-    {
-      "name": "the Rabid",
-      "displayName": "the Rabid",
-      "description": "Diseased and frenzied",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Ancient",
-      "displayName": "the Ancient",
-      "description": "Survived for countless years",
-      "rarity": "Epic"
-    },
-    {
-      "name": "the Alpha",
-      "displayName": "the Alpha",
-      "description": "Leader of the pack",
-      "rarity": "Rare"
-    },
-    {
-      "name": "the Massive",
-      "displayName": "the Massive",
-      "description": "Unnaturally large specimen",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Scarred",
-      "displayName": "the Scarred",
-      "description": "Battle-hardened veteran",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Territorial",
-      "displayName": "the Territorial",
-      "description": "Fiercely defends its domain",
-      "rarity": "Common"
-    },
-    {
-      "name": "the Cunning",
-      "displayName": "the Cunning",
-      "description": "Intelligent and tactical",
-      "rarity": "Rare"
-    },
-    {
-      "name": "the Diseased",
-      "displayName": "the Diseased",
-      "description": "Carries contagious illness",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Savage",
-      "displayName": "the Savage",
-      "description": "Brutally violent",
-      "rarity": "Common"
-    },
-    {
-      "name": "the Legendary",
-      "displayName": "the Legendary",
-      "description": "Spoken of in tales and legends",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "the Primordial",
-      "displayName": "the Primordial",
-      "description": "From the dawn of time",
-      "rarity": "Mythic"
-    },
-    {
-      "name": "the Mutated",
-      "displayName": "the Mutated",
-      "description": "Twisted by dark magic",
-      "rarity": "Rare"
-    },
-    {
-      "name": "the Venomous",
-      "displayName": "the Venomous",
-      "description": "Deadly poison in every strike",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Swift",
-      "displayName": "the Swift",
-      "description": "Incredibly fast and agile",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Apex",
-      "displayName": "the Apex",
-      "description": "Supreme predator of its kind",
-      "rarity": "Epic"
-    }
-  ],
-  "components": {
-    "size_descriptors": ["the Massive", "the Ancient"],
-    "combat_descriptors": ["the Fierce", "the Savage", "the Scarred"],
-    "pack_hierarchy": ["the Alpha", "the Apex"],
-    "special_abilities": ["the Rabid", "the Diseased", "the Venomous", "the Mutated"],
-    "personality": ["the Cunning", "the Territorial", "the Swift"],
-    "legendary": ["the Legendary", "the Primordial"]
-  },
-  "patterns": [
-    "name + suffix (Wolf the Fierce)",
-    "prefix + name + suffix (Dire Wolf the Alpha)"
-  ],
-  "rarity_distribution": {
-    "Common": 3,
-    "Uncommon": 7,
-    "Rare": 3,
-    "Epic": 2,
-    "Legendary": 1,
-    "Mythic": 1
-  }
-,
-  "notes": {
-    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-  }}
+    "metadata":  {
+                     "description":  "beasts suffix modifiers with stat bonuses/penalties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "suffix_modifier",
+                     "total_items":  16
+                 },
+    "items":  [
+                  {
+                      "name":  "the Fierce",
+                      "displayName":  "the Fierce",
+                      "description":  "Exceptionally aggressive and dangerous",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "the Rabid",
+                      "displayName":  "the Rabid",
+                      "description":  "Diseased and frenzied",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Ancient",
+                      "displayName":  "the Ancient",
+                      "description":  "Survived for countless years",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "the Alpha",
+                      "displayName":  "the Alpha",
+                      "description":  "Leader of the pack",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "the Massive",
+                      "displayName":  "the Massive",
+                      "description":  "Unnaturally large specimen",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Scarred",
+                      "displayName":  "the Scarred",
+                      "description":  "Battle-hardened veteran",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Territorial",
+                      "displayName":  "the Territorial",
+                      "description":  "Fiercely defends its domain",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "the Cunning",
+                      "displayName":  "the Cunning",
+                      "description":  "Intelligent and tactical",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "the Diseased",
+                      "displayName":  "the Diseased",
+                      "description":  "Carries contagious illness",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Savage",
+                      "displayName":  "the Savage",
+                      "description":  "Brutally violent",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "the Legendary",
+                      "displayName":  "the Legendary",
+                      "description":  "Spoken of in tales and legends",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "the Primordial",
+                      "displayName":  "the Primordial",
+                      "description":  "From the dawn of time",
+                      "rarity":  "Mythic"
+                  },
+                  {
+                      "name":  "the Mutated",
+                      "displayName":  "the Mutated",
+                      "description":  "Twisted by dark magic",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "the Venomous",
+                      "displayName":  "the Venomous",
+                      "description":  "Deadly poison in every strike",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Swift",
+                      "displayName":  "the Swift",
+                      "description":  "Incredibly fast and agile",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Apex",
+                      "displayName":  "the Apex",
+                      "description":  "Supreme predator of its kind",
+                      "rarity":  "Epic"
+                  }
+              ],
+    "components":  {
+                       "size_descriptors":  [
+                                                "the Massive",
+                                                "the Ancient"
+                                            ],
+                       "combat_descriptors":  [
+                                                  "the Fierce",
+                                                  "the Savage",
+                                                  "the Scarred"
+                                              ],
+                       "pack_hierarchy":  [
+                                              "the Alpha",
+                                              "the Apex"
+                                          ],
+                       "special_abilities":  [
+                                                 "the Rabid",
+                                                 "the Diseased",
+                                                 "the Venomous",
+                                                 "the Mutated"
+                                             ],
+                       "personality":  [
+                                           "the Cunning",
+                                           "the Territorial",
+                                           "the Swift"
+                                       ],
+                       "legendary":  [
+                                         "the Legendary",
+                                         "the Primordial"
+                                     ]
+                   },
+    "patterns":  [
+                     "name + suffix (Wolf the Fierce)",
+                     "prefix + name + suffix (Dire Wolf the Alpha)"
+                 ],
+    "rarity_distribution":  {
+                                "Common":  3,
+                                "Uncommon":  7,
+                                "Rare":  3,
+                                "Epic":  2,
+                                "Legendary":  1,
+                                "Mythic":  1
+                            },
+    "notes":  {
+                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+              }
+}

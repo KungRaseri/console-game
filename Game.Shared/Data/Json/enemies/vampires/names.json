@@ -1,65 +1,160 @@
-{
-  "components": {
-    "age": [
-      { "value": "Fledgling", "rarityWeight": 15 },
-      { "value": "Young", "rarityWeight": 20 },
-      { "value": "Mature", "rarityWeight": 30 },
-      { "value": "Elder", "rarityWeight": 60 },
-      { "value": "Ancient", "rarityWeight": 80 },
-      { "value": "Primordial", "rarityWeight": 100 }
-    ],
-    "title": [
-      { "value": "Spawn", "rarityWeight": 10 },
-      { "value": "Thrall", "rarityWeight": 12 },
-      { "value": "Knight", "rarityWeight": 30 },
-      { "value": "Baron", "rarityWeight": 40 },
-      { "value": "Count", "rarityWeight": 50 },
-      { "value": "Duke", "rarityWeight": 65 },
-      { "value": "Prince", "rarityWeight": 80 },
-      { "value": "Progenitor", "rarityWeight": 100 }
-    ],
-    "bloodline": [
-      { "value": "Cursed", "rarityWeight": 15 },
-      { "value": "Nightborn", "rarityWeight": 25 },
-      { "value": "Shadowblood", "rarityWeight": 35 },
-      { "value": "Dracul", "rarityWeight": 50 },
-      { "value": "Blackheart", "rarityWeight": 45 },
-      { "value": "Eternis", "rarityWeight": 60 },
-      { "value": "Crimson", "rarityWeight": 40 }
-    ],
-    "descriptive": [
-      { "value": "Dark", "rarityWeight": 15 },
-      { "value": "Cunning", "rarityWeight": 20 },
-      { "value": "Unholy", "rarityWeight": 25 },
-      { "value": "Immortal", "rarityWeight": 40 },
-      { "value": "Eternal", "rarityWeight": 50 },
-      { "value": "Supreme", "rarityWeight": 70 }
-    ]
-  },
-  "patterns": [
-    "base",
-    "age + base",
-    "base + title",
-    "bloodline + base",
-    "descriptive + base",
-    "age + bloodline + base",
-    "age + base + title",
-    "descriptive + bloodline + base + title"
-  ],
-  "metadata": {
-    "description": "Vampire name generation patterns with weight-based rarity components",
-    "version": "1.0",
-    "last_updated": "2025-12-16",
-    "type": "pattern_generation",
-    "component_keys": ["age", "title", "bloodline", "descriptive"],
-    "pattern_tokens": ["base", "age", "title", "bloodline", "descriptive"],
-    "total_patterns": 8,
-    "rarity_system": "weight-based",
-    "notes": {
-      "base_token": "Resolves to item name from vampires/types.json",
-      "vampire_culture": "Aristocratic undead with bloodlines and nobility titles",
-      "weight_ranges": "Spawn (10) → Progenitor (100), Cursed (15) → Eternis (60)",
-      "traits": "All vampires are undead, vulnerable to radiant, have regeneration"
-    }
-  }
+﻿{
+    "metadata":  {
+                     "description":  "Vampire name generation patterns with weight-based rarity components",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "pattern_generation",
+                     "component_keys":  [
+                                            "age",
+                                            "title",
+                                            "bloodline",
+                                            "descriptive"
+                                        ],
+                     "pattern_tokens":  [
+                                            "base",
+                                            "age",
+                                            "title",
+                                            "bloodline",
+                                            "descriptive"
+                                        ],
+                     "total_patterns":  8,
+                     "rarity_system":  "weight-based",
+                     "notes":  {
+                                   "base_token":  "Resolves to item name from vampires/types.json",
+                                   "vampire_culture":  "Aristocratic undead with bloodlines and nobility titles",
+                                   "weight_ranges":  "Spawn (10) â†’ Progenitor (100), Cursed (15) â†’ Eternis (60)",
+                                   "traits":  "All vampires are undead, vulnerable to radiant, have regeneration"
+                               }
+                 },
+    "components":  {
+                       "age":  [
+                                   {
+                                       "value":  "Fledgling",
+                                       "rarityWeight":  15
+                                   },
+                                   {
+                                       "value":  "Young",
+                                       "rarityWeight":  20
+                                   },
+                                   {
+                                       "value":  "Mature",
+                                       "rarityWeight":  30
+                                   },
+                                   {
+                                       "value":  "Elder",
+                                       "rarityWeight":  60
+                                   },
+                                   {
+                                       "value":  "Ancient",
+                                       "rarityWeight":  80
+                                   },
+                                   {
+                                       "value":  "Primordial",
+                                       "rarityWeight":  100
+                                   }
+                               ],
+                       "title":  [
+                                     {
+                                         "value":  "Spawn",
+                                         "rarityWeight":  10
+                                     },
+                                     {
+                                         "value":  "Thrall",
+                                         "rarityWeight":  12
+                                     },
+                                     {
+                                         "value":  "Knight",
+                                         "rarityWeight":  30
+                                     },
+                                     {
+                                         "value":  "Baron",
+                                         "rarityWeight":  40
+                                     },
+                                     {
+                                         "value":  "Count",
+                                         "rarityWeight":  50
+                                     },
+                                     {
+                                         "value":  "Duke",
+                                         "rarityWeight":  65
+                                     },
+                                     {
+                                         "value":  "Prince",
+                                         "rarityWeight":  80
+                                     },
+                                     {
+                                         "value":  "Progenitor",
+                                         "rarityWeight":  100
+                                     }
+                                 ],
+                       "bloodline":  [
+                                         {
+                                             "value":  "Cursed",
+                                             "rarityWeight":  15
+                                         },
+                                         {
+                                             "value":  "Nightborn",
+                                             "rarityWeight":  25
+                                         },
+                                         {
+                                             "value":  "Shadowblood",
+                                             "rarityWeight":  35
+                                         },
+                                         {
+                                             "value":  "Dracul",
+                                             "rarityWeight":  50
+                                         },
+                                         {
+                                             "value":  "Blackheart",
+                                             "rarityWeight":  45
+                                         },
+                                         {
+                                             "value":  "Eternis",
+                                             "rarityWeight":  60
+                                         },
+                                         {
+                                             "value":  "Crimson",
+                                             "rarityWeight":  40
+                                         }
+                                     ],
+                       "descriptive":  [
+                                           {
+                                               "value":  "Dark",
+                                               "rarityWeight":  15
+                                           },
+                                           {
+                                               "value":  "Cunning",
+                                               "rarityWeight":  20
+                                           },
+                                           {
+                                               "value":  "Unholy",
+                                               "rarityWeight":  25
+                                           },
+                                           {
+                                               "value":  "Immortal",
+                                               "rarityWeight":  40
+                                           },
+                                           {
+                                               "value":  "Eternal",
+                                               "rarityWeight":  50
+                                           },
+                                           {
+                                               "value":  "Supreme",
+                                               "rarityWeight":  70
+                                           }
+                                       ]
+                   },
+    "patterns":  [
+                     "base",
+                     "age + base",
+                     "base + title",
+                     "bloodline + base",
+                     "descriptive + base",
+                     "age + bloodline + base",
+                     "age + base + title",
+                     "descriptive + bloodline + base + title"
+                 ],
+    "notes":  {
+                  "usage":  "Pattern-based name generation for vampires. Pick components by rarityWeight and apply patterns to generate procedural names."
+              }
 }

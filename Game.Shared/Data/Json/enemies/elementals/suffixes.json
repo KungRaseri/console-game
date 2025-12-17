@@ -1,128 +1,157 @@
 ﻿{
-  "items": [
-    {
-      "name": "of Fire",
-      "displayName": "of Fire",
-      "description": "Embodiment of flames",
-      "rarity": "Common"
-    },
-    {
-      "name": "of Ice",
-      "displayName": "of Ice",
-      "description": "Embodiment of frost",
-      "rarity": "Common"
-    },
-    {
-      "name": "of Lightning",
-      "displayName": "of Lightning",
-      "description": "Embodiment of storms",
-      "rarity": "Common"
-    },
-    {
-      "name": "of Earth",
-      "displayName": "of Earth",
-      "description": "Embodiment of stone",
-      "rarity": "Common"
-    },
-    {
-      "name": "of Wind",
-      "displayName": "of Wind",
-      "description": "Embodiment of air",
-      "rarity": "Common"
-    },
-    {
-      "name": "of Water",
-      "displayName": "of Water",
-      "description": "Embodiment of the seas",
-      "rarity": "Common"
-    },
-    {
-      "name": "the Burning",
-      "displayName": "the Burning",
-      "description": "Wreathed in endless flame",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Frozen",
-      "displayName": "the Frozen",
-      "description": "Eternal ice and cold",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Raging",
-      "displayName": "the Raging",
-      "description": "Furious storm incarnate",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Unstoppable",
-      "displayName": "the Unstoppable",
-      "description": "Immovable as mountains",
-      "rarity": "Rare"
-    },
-    {
-      "name": "the Ancient",
-      "displayName": "the Ancient",
-      "description": "Existed since the dawn of time",
-      "rarity": "Epic"
-    },
-    {
-      "name": "the Primordial",
-      "displayName": "the Primordial",
-      "description": "From the first moments of creation",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "the Pure",
-      "displayName": "the Pure",
-      "description": "Unadulterated elemental essence",
-      "rarity": "Rare"
-    },
-    {
-      "name": "the Corrupted",
-      "displayName": "the Corrupted",
-      "description": "Tainted by dark magic",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "the Eternal",
-      "displayName": "the Eternal",
-      "description": "Exists beyond time",
-      "rarity": "Epic"
-    },
-    {
-      "name": "the Sovereign",
-      "displayName": "the Sovereign",
-      "description": "Rules over its elemental plane",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "the Transcendent",
-      "displayName": "the Transcendent",
-      "description": "Beyond elemental limitations",
-      "rarity": "Mythic"
-    }
-  ],
-  "components": {
-    "basic_elements": ["of Fire", "of Ice", "of Lightning", "of Earth", "of Wind", "of Water"],
-    "elemental_states": ["the Burning", "the Frozen", "the Raging", "the Unstoppable"],
-    "purity": ["the Pure", "the Corrupted"],
-    "temporal": ["the Ancient", "the Eternal"],
-    "legendary": ["the Primordial", "the Sovereign", "the Transcendent"]
-  },
-  "patterns": [
-    "elemental type + of element (Fire Elemental of Fire)",
-    "elemental type + descriptor (Earth Elemental the Unstoppable)"
-  ],
-  "rarity_distribution": {
-    "Common": 6,
-    "Uncommon": 4,
-    "Rare": 2,
-    "Epic": 2,
-    "Legendary": 2,
-    "Mythic": 1
-  }
-,
-  "notes": {
-    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-  }}
+    "metadata":  {
+                     "description":  "elementals suffix modifiers with stat bonuses/penalties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "suffix_modifier",
+                     "total_items":  17
+                 },
+    "items":  [
+                  {
+                      "name":  "of Fire",
+                      "displayName":  "of Fire",
+                      "description":  "Embodiment of flames",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "of Ice",
+                      "displayName":  "of Ice",
+                      "description":  "Embodiment of frost",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "of Lightning",
+                      "displayName":  "of Lightning",
+                      "description":  "Embodiment of storms",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "of Earth",
+                      "displayName":  "of Earth",
+                      "description":  "Embodiment of stone",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "of Wind",
+                      "displayName":  "of Wind",
+                      "description":  "Embodiment of air",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "of Water",
+                      "displayName":  "of Water",
+                      "description":  "Embodiment of the seas",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "the Burning",
+                      "displayName":  "the Burning",
+                      "description":  "Wreathed in endless flame",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Frozen",
+                      "displayName":  "the Frozen",
+                      "description":  "Eternal ice and cold",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Raging",
+                      "displayName":  "the Raging",
+                      "description":  "Furious storm incarnate",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Unstoppable",
+                      "displayName":  "the Unstoppable",
+                      "description":  "Immovable as mountains",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "the Ancient",
+                      "displayName":  "the Ancient",
+                      "description":  "Existed since the dawn of time",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "the Primordial",
+                      "displayName":  "the Primordial",
+                      "description":  "From the first moments of creation",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "the Pure",
+                      "displayName":  "the Pure",
+                      "description":  "Unadulterated elemental essence",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "the Corrupted",
+                      "displayName":  "the Corrupted",
+                      "description":  "Tainted by dark magic",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "the Eternal",
+                      "displayName":  "the Eternal",
+                      "description":  "Exists beyond time",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "the Sovereign",
+                      "displayName":  "the Sovereign",
+                      "description":  "Rules over its elemental plane",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "the Transcendent",
+                      "displayName":  "the Transcendent",
+                      "description":  "Beyond elemental limitations",
+                      "rarity":  "Mythic"
+                  }
+              ],
+    "components":  {
+                       "basic_elements":  [
+                                              "of Fire",
+                                              "of Ice",
+                                              "of Lightning",
+                                              "of Earth",
+                                              "of Wind",
+                                              "of Water"
+                                          ],
+                       "elemental_states":  [
+                                                "the Burning",
+                                                "the Frozen",
+                                                "the Raging",
+                                                "the Unstoppable"
+                                            ],
+                       "purity":  [
+                                      "the Pure",
+                                      "the Corrupted"
+                                  ],
+                       "temporal":  [
+                                        "the Ancient",
+                                        "the Eternal"
+                                    ],
+                       "legendary":  [
+                                         "the Primordial",
+                                         "the Sovereign",
+                                         "the Transcendent"
+                                     ]
+                   },
+    "patterns":  [
+                     "elemental type + of element (Fire Elemental of Fire)",
+                     "elemental type + descriptor (Earth Elemental the Unstoppable)"
+                 ],
+    "rarity_distribution":  {
+                                "Common":  6,
+                                "Uncommon":  4,
+                                "Rare":  2,
+                                "Epic":  2,
+                                "Legendary":  2,
+                                "Mythic":  1
+                            },
+    "notes":  {
+                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+              }
+}

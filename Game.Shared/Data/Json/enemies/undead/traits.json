@@ -1,138 +1,171 @@
 ﻿{
-  "items": [
-    {
-      "name": "Undying",
-      "displayName": "Undying",
-      "description": "Cannot be permanently killed without holy magic",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Life Drain",
-      "displayName": "Life Drain",
-      "description": "Steals life force from living creatures",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Necromantic Aura",
-      "displayName": "Necromantic Aura",
-      "description": "Weakens living enemies nearby",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Fearsome Presence",
-      "displayName": "Fearsome Presence",
-      "description": "Instills terror in those who behold it",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Immune to Poison",
-      "displayName": "Immune to Poison",
-      "description": "Cannot be poisoned or diseased",
-      "rarity": "Common"
-    },
-    {
-      "name": "Immune to Cold",
-      "displayName": "Immune to Cold",
-      "description": "Unaffected by ice and freezing",
-      "rarity": "Common"
-    },
-    {
-      "name": "Vulnerable to Fire",
-      "displayName": "Vulnerable to Fire",
-      "description": "Takes extra damage from flames",
-      "rarity": "Common"
-    },
-    {
-      "name": "Vulnerable to Holy",
-      "displayName": "Vulnerable to Holy",
-      "description": "Radiant magic is devastating",
-      "rarity": "Common"
-    },
-    {
-      "name": "Skeletal Frame",
-      "displayName": "Skeletal Frame",
-      "description": "Resistant to piercing, vulnerable to bludgeoning",
-      "rarity": "Common"
-    },
-    {
-      "name": "Regeneration",
-      "displayName": "Regeneration",
-      "description": "Slowly reforms from damage",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Plague Bearer",
-      "displayName": "Plague Bearer",
-      "description": "Spreads disease with attacks",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "Raise Dead",
-      "displayName": "Raise Dead",
-      "description": "Can summon lesser undead",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Death Touch",
-      "displayName": "Death Touch",
-      "description": "Can instantly kill weak enemies",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Incorporeal",
-      "displayName": "Incorporeal",
-      "description": "Physical attacks barely harm it",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "Ancient Evil",
-      "displayName": "Ancient Evil",
-      "description": "Powered by centuries of dark magic",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "Paralytic Touch",
-      "displayName": "Paralytic Touch",
-      "description": "Attacks may paralyze victims",
-      "rarity": "Rare"
-    },
-    {
-      "name": "Shadow Walk",
-      "displayName": "Shadow Walk",
-      "description": "Can teleport through darkness",
-      "rarity": "Epic"
-    },
-    {
-      "name": "Soul Harvest",
-      "displayName": "Soul Harvest",
-      "description": "Grows stronger with each kill",
-      "rarity": "Mythic"
-    }
-  ],
-  "components": {
-    "immunities": ["Immune to Poison", "Immune to Cold"],
-    "vulnerabilities": ["Vulnerable to Fire", "Vulnerable to Holy"],
-    "offensive": ["Life Drain", "Death Touch", "Paralytic Touch", "Plague Bearer"],
-    "defensive": ["Skeletal Frame", "Regeneration", "Incorporeal", "Undying"],
-    "auras": ["Necromantic Aura", "Fearsome Presence"],
-    "summoning": ["Raise Dead"],
-    "mobility": ["Shadow Walk"],
-    "legendary": ["Ancient Evil", "Soul Harvest"]
-  },
-  "patterns": [
-    "trait + undead type (Life Drain Vampire)",
-    "multiple traits for powerful undead (Ancient Evil + Incorporeal)",
-    "vulnerability + immunity balance"
-  ],
-  "rarity_distribution": {
-    "Common": 6,
-    "Uncommon": 4,
-    "Rare": 4,
-    "Epic": 3,
-    "Legendary": 2,
-    "Mythic": 1
-  }
-,
-  "notes": {
-    "usage": "Special traits and modifiers for undead. Used to add unique characteristics and stat bonuses."
-  }}
+    "metadata":  {
+                     "description":  "undead trait definitions and properties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "trait_catalog",
+                     "total_items":  18
+                 },
+    "items":  [
+                  {
+                      "name":  "Undying",
+                      "displayName":  "Undying",
+                      "description":  "Cannot be permanently killed without holy magic",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Life Drain",
+                      "displayName":  "Life Drain",
+                      "description":  "Steals life force from living creatures",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Necromantic Aura",
+                      "displayName":  "Necromantic Aura",
+                      "description":  "Weakens living enemies nearby",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Fearsome Presence",
+                      "displayName":  "Fearsome Presence",
+                      "description":  "Instills terror in those who behold it",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Immune to Poison",
+                      "displayName":  "Immune to Poison",
+                      "description":  "Cannot be poisoned or diseased",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Immune to Cold",
+                      "displayName":  "Immune to Cold",
+                      "description":  "Unaffected by ice and freezing",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Vulnerable to Fire",
+                      "displayName":  "Vulnerable to Fire",
+                      "description":  "Takes extra damage from flames",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Vulnerable to Holy",
+                      "displayName":  "Vulnerable to Holy",
+                      "description":  "Radiant magic is devastating",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Skeletal Frame",
+                      "displayName":  "Skeletal Frame",
+                      "description":  "Resistant to piercing, vulnerable to bludgeoning",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "Regeneration",
+                      "displayName":  "Regeneration",
+                      "description":  "Slowly reforms from damage",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Plague Bearer",
+                      "displayName":  "Plague Bearer",
+                      "description":  "Spreads disease with attacks",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "Raise Dead",
+                      "displayName":  "Raise Dead",
+                      "description":  "Can summon lesser undead",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "Death Touch",
+                      "displayName":  "Death Touch",
+                      "description":  "Can instantly kill weak enemies",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "Incorporeal",
+                      "displayName":  "Incorporeal",
+                      "description":  "Physical attacks barely harm it",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "Ancient Evil",
+                      "displayName":  "Ancient Evil",
+                      "description":  "Powered by centuries of dark magic",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "Paralytic Touch",
+                      "displayName":  "Paralytic Touch",
+                      "description":  "Attacks may paralyze victims",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "Shadow Walk",
+                      "displayName":  "Shadow Walk",
+                      "description":  "Can teleport through darkness",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "Soul Harvest",
+                      "displayName":  "Soul Harvest",
+                      "description":  "Grows stronger with each kill",
+                      "rarity":  "Mythic"
+                  }
+              ],
+    "components":  {
+                       "immunities":  [
+                                          "Immune to Poison",
+                                          "Immune to Cold"
+                                      ],
+                       "vulnerabilities":  [
+                                               "Vulnerable to Fire",
+                                               "Vulnerable to Holy"
+                                           ],
+                       "offensive":  [
+                                         "Life Drain",
+                                         "Death Touch",
+                                         "Paralytic Touch",
+                                         "Plague Bearer"
+                                     ],
+                       "defensive":  [
+                                         "Skeletal Frame",
+                                         "Regeneration",
+                                         "Incorporeal",
+                                         "Undying"
+                                     ],
+                       "auras":  [
+                                     "Necromantic Aura",
+                                     "Fearsome Presence"
+                                 ],
+                       "summoning":  [
+                                         "Raise Dead"
+                                     ],
+                       "mobility":  [
+                                        "Shadow Walk"
+                                    ],
+                       "legendary":  [
+                                         "Ancient Evil",
+                                         "Soul Harvest"
+                                     ]
+                   },
+    "patterns":  [
+                     "trait + undead type (Life Drain Vampire)",
+                     "multiple traits for powerful undead (Ancient Evil + Incorporeal)",
+                     "vulnerability + immunity balance"
+                 ],
+    "rarity_distribution":  {
+                                "Common":  6,
+                                "Uncommon":  4,
+                                "Rare":  4,
+                                "Epic":  3,
+                                "Legendary":  2,
+                                "Mythic":  1
+                            },
+    "notes":  {
+                  "usage":  "Special traits and modifiers for undead. Used to add unique characteristics and stat bonuses."
+              }
+}

@@ -1,92 +1,271 @@
-{
-  "components": {
-    "quality": [
-      { "value": "Minor", "rarityWeight": 5 },
-      { "value": "Lesser", "rarityWeight": 8 },
-      { "value": "Common", "rarityWeight": 10 },
-      { "value": "Greater", "rarityWeight": 20 },
-      { "value": "Superior", "rarityWeight": 30 },
-      { "value": "Major", "rarityWeight": 40 },
-      { "value": "Grand", "rarityWeight": 55 },
-      { "value": "Masterwork", "rarityWeight": 70 },
-      { "value": "Legendary", "rarityWeight": 90 },
-      { "value": "Divine", "rarityWeight": 100 }
-    ],
-    "effect": [
-      { "value": "Healing", "rarityWeight": 10 },
-      { "value": "Mana", "rarityWeight": 12 },
-      { "value": "Stamina", "rarityWeight": 10 },
-      { "value": "Strength", "rarityWeight": 15 },
-      { "value": "Agility", "rarityWeight": 15 },
-      { "value": "Intelligence", "rarityWeight": 18 },
-      { "value": "Vitality", "rarityWeight": 20 },
-      { "value": "Rejuvenation", "rarityWeight": 25 },
-      { "value": "Restoration", "rarityWeight": 30 },
-      { "value": "Regeneration", "rarityWeight": 28 },
-      { "value": "Protection", "rarityWeight": 22 },
-      { "value": "Resistance", "rarityWeight": 24 },
-      { "value": "Immunity", "rarityWeight": 50 },
-      { "value": "Clarity", "rarityWeight": 16 },
-      { "value": "Focus", "rarityWeight": 18 }
-    ],
-    "descriptive": [
-      { "value": "Ancient", "rarityWeight": 40 },
-      { "value": "Mystical", "rarityWeight": 35 },
-      { "value": "Arcane", "rarityWeight": 38 },
-      { "value": "Divine", "rarityWeight": 55 },
-      { "value": "Blessed", "rarityWeight": 45 },
-      { "value": "Cursed", "rarityWeight": 30 },
-      { "value": "Dark", "rarityWeight": 28 },
-      { "value": "Light", "rarityWeight": 32 },
-      { "value": "Shadow", "rarityWeight": 36 },
-      { "value": "Radiant", "rarityWeight": 42 },
-      { "value": "Ethereal", "rarityWeight": 50 },
-      { "value": "Spectral", "rarityWeight": 48 },
-      { "value": "Infernal", "rarityWeight": 52 },
-      { "value": "Celestial", "rarityWeight": 60 },
-      { "value": "Primordial", "rarityWeight": 75 }
-    ],
-    "suffix": [
-      { "value": "of Healing", "rarityWeight": 15 },
-      { "value": "of Mana", "rarityWeight": 18 },
-      { "value": "of Strength", "rarityWeight": 20 },
-      { "value": "of Speed", "rarityWeight": 22 },
-      { "value": "of Power", "rarityWeight": 30 },
-      { "value": "of the Bear", "rarityWeight": 25 },
-      { "value": "of the Eagle", "rarityWeight": 28 },
-      { "value": "of the Serpent", "rarityWeight": 32 },
-      { "value": "of the Phoenix", "rarityWeight": 60 },
-      { "value": "of the Dragon", "rarityWeight": 70 },
-      { "value": "of Vitality", "rarityWeight": 24 },
-      { "value": "of Fortitude", "rarityWeight": 26 },
-      { "value": "of Wisdom", "rarityWeight": 35 },
-      { "value": "of Clarity", "rarityWeight": 22 },
-      { "value": "of Protection", "rarityWeight": 28 }
-    ]
-  },
-  "patterns": [
-    "base",
-    "quality + base",
-    "effect + base",
-    "base + suffix",
-    "quality + effect + base",
-    "descriptive + base + suffix",
-    "quality + effect + base + suffix"
-  ],
-  "metadata": {
-    "description": "Consumable name generation with pattern-based system and weight-based rarity",
-    "version": "3.0",
-    "last_updated": "2025-12-16",
-    "type": "pattern_generation",
-    "consumable_types": 5,
-    "component_keys": ["quality", "effect", "descriptive", "suffix"],
-    "pattern_tokens": ["base", "quality", "effect", "descriptive", "suffix"],
-    "total_patterns": 7,
-    "rarity_system": "weight-based",
-    "notes": [
-      "Base token resolves from items/consumables/types.json",
-      "All components have rarityWeight for emergent rarity calculation",
-      "Component weights combine via multipliers from general/rarity_config.json"
-    ]
-  }
+﻿{
+    "metadata":  {
+                     "description":  "Consumable name generation with pattern-based system and weight-based rarity",
+                     "version":  "3.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "pattern_generation",
+                     "consumable_types":  5,
+                     "component_keys":  [
+                                            "quality",
+                                            "effect",
+                                            "descriptive",
+                                            "suffix"
+                                        ],
+                     "pattern_tokens":  [
+                                            "base",
+                                            "quality",
+                                            "effect",
+                                            "descriptive",
+                                            "suffix"
+                                        ],
+                     "total_patterns":  7,
+                     "rarity_system":  "weight-based",
+                     "notes":  [
+                                   "Base token resolves from items/consumables/types.json",
+                                   "All components have rarityWeight for emergent rarity calculation",
+                                   "Component weights combine via multipliers from general/rarity_config.json"
+                               ]
+                 },
+    "components":  {
+                       "quality":  [
+                                       {
+                                           "value":  "Minor",
+                                           "rarityWeight":  5
+                                       },
+                                       {
+                                           "value":  "Lesser",
+                                           "rarityWeight":  8
+                                       },
+                                       {
+                                           "value":  "Common",
+                                           "rarityWeight":  10
+                                       },
+                                       {
+                                           "value":  "Greater",
+                                           "rarityWeight":  20
+                                       },
+                                       {
+                                           "value":  "Superior",
+                                           "rarityWeight":  30
+                                       },
+                                       {
+                                           "value":  "Major",
+                                           "rarityWeight":  40
+                                       },
+                                       {
+                                           "value":  "Grand",
+                                           "rarityWeight":  55
+                                       },
+                                       {
+                                           "value":  "Masterwork",
+                                           "rarityWeight":  70
+                                       },
+                                       {
+                                           "value":  "Legendary",
+                                           "rarityWeight":  90
+                                       },
+                                       {
+                                           "value":  "Divine",
+                                           "rarityWeight":  100
+                                       }
+                                   ],
+                       "effect":  [
+                                      {
+                                          "value":  "Healing",
+                                          "rarityWeight":  10
+                                      },
+                                      {
+                                          "value":  "Mana",
+                                          "rarityWeight":  12
+                                      },
+                                      {
+                                          "value":  "Stamina",
+                                          "rarityWeight":  10
+                                      },
+                                      {
+                                          "value":  "Strength",
+                                          "rarityWeight":  15
+                                      },
+                                      {
+                                          "value":  "Agility",
+                                          "rarityWeight":  15
+                                      },
+                                      {
+                                          "value":  "Intelligence",
+                                          "rarityWeight":  18
+                                      },
+                                      {
+                                          "value":  "Vitality",
+                                          "rarityWeight":  20
+                                      },
+                                      {
+                                          "value":  "Rejuvenation",
+                                          "rarityWeight":  25
+                                      },
+                                      {
+                                          "value":  "Restoration",
+                                          "rarityWeight":  30
+                                      },
+                                      {
+                                          "value":  "Regeneration",
+                                          "rarityWeight":  28
+                                      },
+                                      {
+                                          "value":  "Protection",
+                                          "rarityWeight":  22
+                                      },
+                                      {
+                                          "value":  "Resistance",
+                                          "rarityWeight":  24
+                                      },
+                                      {
+                                          "value":  "Immunity",
+                                          "rarityWeight":  50
+                                      },
+                                      {
+                                          "value":  "Clarity",
+                                          "rarityWeight":  16
+                                      },
+                                      {
+                                          "value":  "Focus",
+                                          "rarityWeight":  18
+                                      }
+                                  ],
+                       "descriptive":  [
+                                           {
+                                               "value":  "Ancient",
+                                               "rarityWeight":  40
+                                           },
+                                           {
+                                               "value":  "Mystical",
+                                               "rarityWeight":  35
+                                           },
+                                           {
+                                               "value":  "Arcane",
+                                               "rarityWeight":  38
+                                           },
+                                           {
+                                               "value":  "Divine",
+                                               "rarityWeight":  55
+                                           },
+                                           {
+                                               "value":  "Blessed",
+                                               "rarityWeight":  45
+                                           },
+                                           {
+                                               "value":  "Cursed",
+                                               "rarityWeight":  30
+                                           },
+                                           {
+                                               "value":  "Dark",
+                                               "rarityWeight":  28
+                                           },
+                                           {
+                                               "value":  "Light",
+                                               "rarityWeight":  32
+                                           },
+                                           {
+                                               "value":  "Shadow",
+                                               "rarityWeight":  36
+                                           },
+                                           {
+                                               "value":  "Radiant",
+                                               "rarityWeight":  42
+                                           },
+                                           {
+                                               "value":  "Ethereal",
+                                               "rarityWeight":  50
+                                           },
+                                           {
+                                               "value":  "Spectral",
+                                               "rarityWeight":  48
+                                           },
+                                           {
+                                               "value":  "Infernal",
+                                               "rarityWeight":  52
+                                           },
+                                           {
+                                               "value":  "Celestial",
+                                               "rarityWeight":  60
+                                           },
+                                           {
+                                               "value":  "Primordial",
+                                               "rarityWeight":  75
+                                           }
+                                       ],
+                       "suffix":  [
+                                      {
+                                          "value":  "of Healing",
+                                          "rarityWeight":  15
+                                      },
+                                      {
+                                          "value":  "of Mana",
+                                          "rarityWeight":  18
+                                      },
+                                      {
+                                          "value":  "of Strength",
+                                          "rarityWeight":  20
+                                      },
+                                      {
+                                          "value":  "of Speed",
+                                          "rarityWeight":  22
+                                      },
+                                      {
+                                          "value":  "of Power",
+                                          "rarityWeight":  30
+                                      },
+                                      {
+                                          "value":  "of the Bear",
+                                          "rarityWeight":  25
+                                      },
+                                      {
+                                          "value":  "of the Eagle",
+                                          "rarityWeight":  28
+                                      },
+                                      {
+                                          "value":  "of the Serpent",
+                                          "rarityWeight":  32
+                                      },
+                                      {
+                                          "value":  "of the Phoenix",
+                                          "rarityWeight":  60
+                                      },
+                                      {
+                                          "value":  "of the Dragon",
+                                          "rarityWeight":  70
+                                      },
+                                      {
+                                          "value":  "of Vitality",
+                                          "rarityWeight":  24
+                                      },
+                                      {
+                                          "value":  "of Fortitude",
+                                          "rarityWeight":  26
+                                      },
+                                      {
+                                          "value":  "of Wisdom",
+                                          "rarityWeight":  35
+                                      },
+                                      {
+                                          "value":  "of Clarity",
+                                          "rarityWeight":  22
+                                      },
+                                      {
+                                          "value":  "of Protection",
+                                          "rarityWeight":  28
+                                      }
+                                  ]
+                   },
+    "patterns":  [
+                     "base",
+                     "quality + base",
+                     "effect + base",
+                     "base + suffix",
+                     "quality + effect + base",
+                     "descriptive + base + suffix",
+                     "quality + effect + base + suffix"
+                 ],
+    "notes":  {
+                  "usage":  "Pattern-based name generation for consumables. Pick components by rarityWeight and apply patterns to generate procedural names."
+              }
 }

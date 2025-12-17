@@ -1,124 +1,155 @@
 ﻿{
-  "items": [
-    {
-      "name": "theThorned",
-      "displayName": "the Thorned",
-      "description": "Covered in sharp spikes",
-      "rarity": "Common"
-    },
-    {
-      "name": "theVenomous",
-      "displayName": "the Venomous",
-      "description": "Secretes deadly toxins",
-      "rarity": "Common"
-    },
-    {
-      "name": "theGrowing",
-      "displayName": "the Growing",
-      "description": "Constantly expanding and regenerating",
-      "rarity": "Common"
-    },
-    {
-      "name": "theEntangler",
-      "displayName": "the Entangler",
-      "description": "Traps victims in vines",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "theStrangler",
-      "displayName": "the Strangler",
-      "description": "Constricts and suffocates prey",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "theBloom",
-      "displayName": "the Bloom",
-      "description": "Beautiful but deadly flowers",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "theVorpal",
-      "displayName": "the Vorpal",
-      "description": "Carnivorous and aggressive",
-      "rarity": "Uncommon"
-    },
-    {
-      "name": "theParasite",
-      "displayName": "the Parasite",
-      "description": "Feeds on other life forms",
-      "rarity": "Rare"
-    },
-    {
-      "name": "theAncient",
-      "displayName": "the Ancient",
-      "description": "Centuries old specimen",
-      "rarity": "Rare"
-    },
-    {
-      "name": "theWalker",
-      "displayName": "the Walker",
-      "description": "Mobile plant creature",
-      "rarity": "Rare"
-    },
-    {
-      "name": "theSeedmother",
-      "displayName": "the Seedmother",
-      "description": "Spawns countless offspring",
-      "rarity": "Epic"
-    },
-    {
-      "name": "theRadiant",
-      "displayName": "the Radiant",
-      "description": "Glows with inner light",
-      "rarity": "Epic"
-    },
-    {
-      "name": "theToxic",
-      "displayName": "the Toxic",
-      "description": "Emanates poisonous aura",
-      "rarity": "Epic"
-    },
-    {
-      "name": "theTreent",
-      "displayName": "the Treent",
-      "description": "Living tree of great power",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "theForestGuardian",
-      "displayName": "the Forest Guardian",
-      "description": "Protects the natural world",
-      "rarity": "Legendary"
-    },
-    {
-      "name": "theWorldTree",
-      "displayName": "the World Tree",
-      "description": "Connects all planes of existence",
-      "rarity": "Mythic"
-    },
-    {
-      "name": "thePrimordial",
-      "displayName": "the Primordial",
-      "description": "First of all plant life",
-      "rarity": "Mythic"
-    }
-  ],
-  "components": {
-    "basic_suffixes": ["theThorned", "theVenomous", "theGrowing"],
-    "aggressive_suffixes": ["theEntangler", "theStrangler", "theVorpal"],
-    "beautiful_suffixes": ["theBloom", "theRadiant"],
-    "predatory_suffixes": ["theParasite", "theSeedmother"],
-    "mobile_suffixes": ["theWalker"],
-    "ancient_suffixes": ["theAncient", "theTreent", "theForestGuardian"],
-    "mythic_suffixes": ["theToxic", "theWorldTree", "thePrimordial"]
-  },
-  "patterns": [
-    "Defensive naming (the Thorned, the Ancient)",
-    "Predatory naming (the Strangler, the Vorpal)",
-    "Mystical naming (the Radiant, the World Tree)",
-    "Guardian role (the Forest Guardian)"
-  ]
-,
-  "notes": {
-    "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-  }}
+    "metadata":  {
+                     "description":  "plants suffix modifiers with stat bonuses/penalties",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-16",
+                     "type":  "suffix_modifier",
+                     "total_items":  17
+                 },
+    "items":  [
+                  {
+                      "name":  "theThorned",
+                      "displayName":  "the Thorned",
+                      "description":  "Covered in sharp spikes",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "theVenomous",
+                      "displayName":  "the Venomous",
+                      "description":  "Secretes deadly toxins",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "theGrowing",
+                      "displayName":  "the Growing",
+                      "description":  "Constantly expanding and regenerating",
+                      "rarity":  "Common"
+                  },
+                  {
+                      "name":  "theEntangler",
+                      "displayName":  "the Entangler",
+                      "description":  "Traps victims in vines",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "theStrangler",
+                      "displayName":  "the Strangler",
+                      "description":  "Constricts and suffocates prey",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "theBloom",
+                      "displayName":  "the Bloom",
+                      "description":  "Beautiful but deadly flowers",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "theVorpal",
+                      "displayName":  "the Vorpal",
+                      "description":  "Carnivorous and aggressive",
+                      "rarity":  "Uncommon"
+                  },
+                  {
+                      "name":  "theParasite",
+                      "displayName":  "the Parasite",
+                      "description":  "Feeds on other life forms",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "theAncient",
+                      "displayName":  "the Ancient",
+                      "description":  "Centuries old specimen",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "theWalker",
+                      "displayName":  "the Walker",
+                      "description":  "Mobile plant creature",
+                      "rarity":  "Rare"
+                  },
+                  {
+                      "name":  "theSeedmother",
+                      "displayName":  "the Seedmother",
+                      "description":  "Spawns countless offspring",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "theRadiant",
+                      "displayName":  "the Radiant",
+                      "description":  "Glows with inner light",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "theToxic",
+                      "displayName":  "the Toxic",
+                      "description":  "Emanates poisonous aura",
+                      "rarity":  "Epic"
+                  },
+                  {
+                      "name":  "theTreent",
+                      "displayName":  "the Treent",
+                      "description":  "Living tree of great power",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "theForestGuardian",
+                      "displayName":  "the Forest Guardian",
+                      "description":  "Protects the natural world",
+                      "rarity":  "Legendary"
+                  },
+                  {
+                      "name":  "theWorldTree",
+                      "displayName":  "the World Tree",
+                      "description":  "Connects all planes of existence",
+                      "rarity":  "Mythic"
+                  },
+                  {
+                      "name":  "thePrimordial",
+                      "displayName":  "the Primordial",
+                      "description":  "First of all plant life",
+                      "rarity":  "Mythic"
+                  }
+              ],
+    "components":  {
+                       "basic_suffixes":  [
+                                              "theThorned",
+                                              "theVenomous",
+                                              "theGrowing"
+                                          ],
+                       "aggressive_suffixes":  [
+                                                   "theEntangler",
+                                                   "theStrangler",
+                                                   "theVorpal"
+                                               ],
+                       "beautiful_suffixes":  [
+                                                  "theBloom",
+                                                  "theRadiant"
+                                              ],
+                       "predatory_suffixes":  [
+                                                  "theParasite",
+                                                  "theSeedmother"
+                                              ],
+                       "mobile_suffixes":  [
+                                               "theWalker"
+                                           ],
+                       "ancient_suffixes":  [
+                                                "theAncient",
+                                                "theTreent",
+                                                "theForestGuardian"
+                                            ],
+                       "mythic_suffixes":  [
+                                               "theToxic",
+                                               "theWorldTree",
+                                               "thePrimordial"
+                                           ]
+                   },
+    "patterns":  [
+                     "Defensive naming (the Thorned, the Ancient)",
+                     "Predatory naming (the Strangler, the Vorpal)",
+                     "Mystical naming (the Radiant, the World Tree)",
+                     "Guardian role (the Forest Guardian)"
+                 ],
+    "notes":  {
+                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
+              }
+}
