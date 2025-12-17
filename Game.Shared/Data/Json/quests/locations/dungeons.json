@@ -124,7 +124,7 @@
     "very_hard_dungeons": [
       {
         "name": "DragonLair",
-        "displayName": "Dragon'\''s Lair",
+        "displayName": "Dragon's Lair",
         "rarityWeight": 90,
         "description": "Volcanic cave housing a mighty dragon",
         "type": "Cave",
@@ -133,7 +133,7 @@
       },
       {
         "name": "NecromancersTower",
-        "displayName": "Necromancer'\''s Tower",
+        "displayName": "Necromancer's Tower",
         "rarityWeight": 85,
         "description": "Dark spire of death magic",
         "type": "Tower",
