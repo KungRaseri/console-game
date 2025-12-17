@@ -1,30 +1,32 @@
-[
-  {
-    "name": "Duke",
-    "displayName": "Duke",
-    "description": "A noble of high rank",
-    "rarity": "Rare",
-    "socialClass": "nobility"
+﻿{
+  "metadata": {
+    "description": "Noble occupation catalog with weight-based rarity",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "occupation_catalog",
+    "total_occupations": 4,
+    "categories": ["common", "uncommon", "rare"]
   },
-  {
-    "name": "Baron",
-    "displayName": "Baron",
-    "description": "A lesser noble",
-    "rarity": "Uncommon",
-    "socialClass": "nobility"
+  "components": {
+    "common_nobility": [
+      { "name": "Courtier", "displayName": "Courtier", "description": "A member of the royal court", "rarityWeight": 18, "socialClass": "nobility" }
+    ],
+    "uncommon_nobility": [
+      { "name": "Baron", "displayName": "Baron", "description": "A lesser noble", "rarityWeight": 40, "socialClass": "nobility" },
+      { "name": "Knight", "displayName": "Knight", "description": "A warrior of noble rank", "rarityWeight": 35, "socialClass": "nobility" }
+    ],
+    "rare_nobility": [
+      { "name": "Duke", "displayName": "Duke", "description": "A noble of high rank", "rarityWeight": 70, "socialClass": "nobility" }
+    ]
   },
-  {
-    "name": "Knight",
-    "displayName": "Knight",
-    "description": "A warrior of noble rank",
-    "rarity": "Uncommon",
-    "socialClass": "nobility"
-  },
-  {
-    "name": "Courtier",
-    "displayName": "Courtier",
-    "description": "A member of the royal court",
-    "rarity": "Common",
-    "socialClass": "nobility"
+  "notes": {
+    "rarity_system": "weight-based",
+    "component_keys": ["common_nobility", "uncommon_nobility", "rare_nobility"],
+    "weight_ranges": {
+      "common": "18 rarityWeight (courtier)",
+      "uncommon": "35-40 rarityWeight (knight, baron)",
+      "rare": "70 rarityWeight (duke)"
+    },
+    "usage": "Noble occupations for NPCs of high social standing"
   }
-]
+}

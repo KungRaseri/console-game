@@ -1,72 +1,53 @@
-{
-  "male": [
-    "Aldric", "Theron", "Cedric", "Gareth", "Roderick",
-    "Magnus", "Thorin", "Eldrin", "Balthazar", "Lucian",
-    "Darius", "Fenris", "Kael", "Zephyr", "Orion",
-    "Drake", "Roran", "Valen", "Cassius", "Thaddeus",
-    "Alaric", "Brennan", "Corvus", "Donovan", "Eamon",
-    "Finnian", "Gideon", "Hadrian", "Ignatius", "Jareth",
-    "Kieran", "Lorcan", "Matthias", "Nestor", "Octavius",
-    "Percival", "Quinlan", "Ragnar", "Silas", "Tristan",
-    "Ulric", "Vincent", "Wolfric", "Xavier", "Yorick",
-    "Alistair", "Bastian", "Caspian", "Dorian", "Edmund",
-    "Felix", "Gabriel", "Henrik", "Ivan", "Julian",
-    "Klaus", "Leopold", "Marcus", "Nikolai", "Otto",
-    "Preston", "Quentin", "Roland", "Sebastian", "Tobias",
-    "Ulysses", "Victor", "Wilhelm", "Xander", "Zachary",
-    "Aric", "Brynn", "Cole", "Dante", "Egan",
-    "Fallon", "Gannon", "Heath", "Isaiah", "Jace",
-    "Kyran", "Leif", "Maddox", "Nash", "Owen",
-    "Pierce", "Quinn", "Reese", "Stone", "Talon",
-    "Uri", "Vaughn", "Wade", "Wyatt", "Zane",
-    "Adrian", "Blake", "Conrad", "Damien", "Everett"
-  ],
-  "female": [
-    "Seraphina", "Lyra", "Elara", "Morgana", "Isolde",
-    "Rowena", "Cassandra", "Evangeline", "Aurelia", "Celestia",
-    "Ophelia", "Meredith", "Vivienne", "Arabella", "Lorelei",
-    "Selene", "Cordelia", "Rosalind", "Tabitha", "Gwendolyn",
-    "Anastasia", "Beatrice", "Celia", "Delilah", "Eleanor",
-    "Fiona", "Genevieve", "Helena", "Imogen", "Josephine",
-    "Katerina", "Lillian", "Madeleine", "Natalia", "Octavia",
-    "Penelope", "Quintessa", "Rosamund", "Sabrina", "Theodora",
-    "Ursula", "Valentina", "Winifred", "Xanthe", "Yvonne",
-    "Adelaide", "Brielle", "Camille", "Diana", "Esmeralda",
-    "Freya", "Guinevere", "Harriet", "Isabella", "Jasmine",
-    "Kiera", "Lenora", "Margot", "Nadia", "Olivia",
-    "Priscilla", "Quinn", "Rhiannon", "Sophia", "Thalia",
-    "Una", "Veronica", "Willow", "Xiomara", "Yara",
-    "Adeline", "Bridget", "Clara", "Daphne", "Elise",
-    "Felicity", "Grace", "Holly", "Iris", "Jade",
-    "Kendra", "Luna", "Maya", "Nora", "Opal",
-    "Pearl", "Queenie", "Ruby", "Scarlett", "Tessa",
-    "Ulva", "Violet", "Wendy", "Xena", "Zara",
-    "Amelia", "Belle", "Charlotte", "Dawn", "Emma"
-  ],
+﻿{
+  "metadata": {
+    "description": "First names catalog for NPC generation with cultural origins",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "name_catalog",
+    "total_male_names": 100,
+    "total_female_names": 100,
+    "categories": ["male", "female", "components"]
+  },
   "components": {
-    "male_prefixes": [
-      "Ald", "Thor", "Ced", "Gar", "Rod",
-      "Mag", "El", "Balth", "Luc", "Dar",
-      "Fen", "Kae", "Zeph", "Or", "Dr"
+    "male_common": [
+      "Aric", "Cole", "Drake", "Heath", "Nash", "Owen", "Quinn", "Stone", "Wyatt", "Zane",
+      "Adrian", "Blake", "Conrad", "Everett", "Felix", "Marcus", "Roland", "Sebastian", "Tobias", "Victor"
     ],
-    "male_suffixes": [
-      "ric", "ron", "dric", "eth", "erick",
-      "nus", "rin", "azar", "ian", "ius",
-      "ris", "el", "yr", "ion", "ake"
+    "male_noble": [
+      "Aldric", "Cedric", "Percival", "Thaddeus", "Alistair", "Bastian", "Caspian", "Dorian", "Edmund", "Gabriel",
+      "Henrik", "Julian", "Leopold", "Nikolai", "Preston", "Quentin", "Ulysses", "Wilhelm", "Xander", "Zachary"
     ],
-    "female_prefixes": [
-      "Ser", "Ly", "El", "Mor", "Is",
-      "Row", "Cass", "Evan", "Aur", "Cel",
-      "Oph", "Mer", "Viv", "Ara", "Lor"
+    "male_mystical": [
+      "Balthazar", "Eldrin", "Lucian", "Zephyr", "Orion", "Magnus", "Theron", "Kael", "Valen", "Ignatius",
+      "Lorcan", "Nestor", "Octavius", "Ragnar", "Ulric", "Wolfric", "Xavier", "Yorick"
     ],
-    "female_suffixes": [
-      "aphina", "ra", "ara", "gana", "olde",
-      "ena", "andra", "geline", "elia", "estia",
-      "elia", "edith", "ienne", "bella", "elei"
+    "male_warrior": [
+      "Gareth", "Roderick", "Thorin", "Darius", "Fenris", "Roran", "Cassius", "Alaric", "Brennan", "Corvus",
+      "Donovan", "Eamon", "Finnian", "Gideon", "Hadrian", "Jareth", "Kieran", "Matthias", "Silas", "Tristan"
     ],
-    "origins": [
-      "fantasy_traditional", "nordic", "celtic", "latin",
-      "greek", "germanic", "slavic", "romantic"
+    "male_exotic": [
+      "Dante", "Egan", "Fallon", "Gannon", "Isaiah", "Jace", "Kyran", "Leif", "Maddox", "Pierce",
+      "Reese", "Talon", "Uri", "Vaughn", "Wade", "Damien", "Ivan", "Klaus", "Otto", "Vincent"
+    ],
+    "female_common": [
+      "Adeline", "Belle", "Clara", "Dawn", "Emma", "Grace", "Holly", "Iris", "Jade", "Luna",
+      "Maya", "Nora", "Opal", "Pearl", "Ruby", "Scarlett", "Tessa", "Violet", "Wendy", "Zara"
+    ],
+    "female_noble": [
+      "Anastasia", "Beatrice", "Cordelia", "Eleanor", "Genevieve", "Helena", "Josephine", "Katerina", "Lillian", "Madeleine",
+      "Natalia", "Octavia", "Penelope", "Rosamund", "Theodora", "Valentina", "Adelaide", "Camille", "Diana", "Isabella"
+    ],
+    "female_mystical": [
+      "Seraphina", "Morgana", "Celestia", "Ophelia", "Lorelei", "Selene", "Aurelia", "Quintessa", "Xanthe", "Freya",
+      "Guinevere", "Rhiannon", "Thalia", "Esmeralda", "Xiomara", "Xena", "Una"
+    ],
+    "female_elegant": [
+      "Lyra", "Elara", "Isolde", "Rowena", "Cassandra", "Evangeline", "Meredith", "Vivienne", "Arabella", "Gwendolyn",
+      "Celia", "Delilah", "Fiona", "Imogen", "Ursula", "Winifred", "Yvonne", "Brielle", "Jasmine", "Kiera"
+    ],
+    "female_natural": [
+      "Rosalind", "Tabitha", "Sabrina", "Willow", "Daphne", "Elise", "Felicity", "Kendra", "Queenie", "Ulva",
+      "Amelia", "Bridget", "Charlotte", "Lenora", "Margot", "Olivia", "Priscilla", "Quinn", "Sophia", "Veronica", "Yara"
     ]
   },
   "patterns": [
@@ -76,9 +57,25 @@
     "virtue names",
     "gem/jewel names"
   ],
-  "metadata": {
-    "male_count": 100,
-    "female_count": 100,
-    "cultural_mix": "60% fantasy-traditional, 20% classical, 20% nature/virtue"
+  "name_prefixes": {
+    "male": ["Ald", "Thor", "Ced", "Gar", "Rod", "Mag", "El", "Balth", "Luc", "Dar", "Fen", "Kae", "Zeph", "Or", "Dr"],
+    "female": ["Ser", "Ly", "El", "Mor", "Is", "Row", "Cass", "Evan", "Aur", "Cel", "Oph", "Mer", "Viv", "Ara", "Lor"]
+  },
+  "name_suffixes": {
+    "male": ["ric", "ron", "dric", "eth", "erick", "nus", "rin", "azar", "ian", "ius", "ris", "el", "yr", "ion", "ake"],
+    "female": ["aphina", "ra", "ara", "gana", "olde", "ena", "andra", "geline", "elia", "estia", "edith", "ienne", "bella", "elei"]
+  },
+  "notes": {
+    "usage": "First names for NPCs, categorized by style and feel",
+    "generation": "Select randomly from appropriate category based on NPC social class",
+    "cultural_mix": "60% fantasy-traditional, 20% classical, 20% nature/virtue",
+    "categories": {
+      "common": "Everyday names, suitable for peasants, merchants, craftsmen",
+      "noble": "Formal, aristocratic names for nobility and royalty",
+      "mystical": "Exotic, magical-sounding names for wizards, sorcerers, enchant",
+      "warrior": "Strong, martial names for fighters, knights, soldiers",
+      "elegant": "Refined, sophisticated names for scholars, courtiers",
+      "natural": "Nature-inspired names for rangers, druids, herbalists"
+    }
   }
 }

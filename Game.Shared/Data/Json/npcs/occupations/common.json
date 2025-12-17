@@ -1,365 +1,79 @@
-{
-  "merchants": {
-    "Merchant": {
-      "displayName": "Merchant",
-      "traits": {
-        "shopDiscount": { "value": 5, "type": "number" },
-        "sellPriceBonus": { "value": 5, "type": "number" },
-        "inventorySize": { "value": 20, "type": "number" },
-        "hagglingSkill": { "value": 15, "type": "number" }
-      }
-    },
-    "Apothecary": {
-      "displayName": "Apothecary",
-      "traits": {
-        "shopDiscount": { "value": 10, "type": "number" },
-        "potionEffectiveness": { "value": 25, "type": "number" },
-        "healingBonus": { "value": 20, "type": "number" },
-        "inventorySize": { "value": 15, "type": "number" },
-        "specialization": { "value": "potions", "type": "string" }
-      }
-    },
-    "Weaponsmith": {
-      "displayName": "Weaponsmith",
-      "traits": {
-        "shopDiscount": { "value": 15, "type": "number" },
-        "weaponQuality": { "value": 30, "type": "number" },
-        "repairCost": { "value": -25, "type": "number" },
-        "canCraftWeapons": { "value": true, "type": "boolean" },
-        "specialization": { "value": "weapons", "type": "string" }
-      }
-    },
-    "Armorer": {
-      "displayName": "Armorer",
-      "traits": {
-        "shopDiscount": { "value": 15, "type": "number" },
-        "armorQuality": { "value": 30, "type": "number" },
-        "repairCost": { "value": -25, "type": "number" },
-        "canCraftArmor": { "value": true, "type": "boolean" },
-        "specialization": { "value": "armor", "type": "string" }
-      }
-    },
-    "Jeweler": {
-      "displayName": "Jeweler",
-      "traits": {
-        "shopDiscount": { "value": 20, "type": "number" },
-        "sellPriceBonus": { "value": 30, "type": "number" },
-        "canEnchant": { "value": true, "type": "boolean" },
-        "enchantmentPower": { "value": 15, "type": "number" },
-        "specialization": { "value": "jewelry", "type": "string" }
-      }
-    }
+﻿{
+  "metadata": {
+    "description": "Common occupation catalog with weight-based rarity and trait bonuses",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "occupation_catalog",
+    "total_occupations": 30,
+    "categories": ["merchants", "craftsmen", "professionals", "service", "nobility", "religious", "adventurers", "magical", "criminal", "common"]
   },
-  "craftsmen": {
-    "Blacksmith": {
-      "displayName": "Blacksmith",
-      "traits": {
-        "repairCost": { "value": -30, "type": "number" },
-        "repairQuality": { "value": 100, "type": "number" },
-        "canCraftWeapons": { "value": true, "type": "boolean" },
-        "canCraftArmor": { "value": true, "type": "boolean" },
-        "craftingSpeed": { "value": 25, "type": "number" }
-      }
-    },
-    "Fletcher": {
-      "displayName": "Fletcher",
-      "traits": {
-        "shopDiscount": { "value": 10, "type": "number" },
-        "arrowQuality": { "value": 40, "type": "number" },
-        "canCraftBows": { "value": true, "type": "boolean" },
-        "specialization": { "value": "ranged", "type": "string" }
-      }
-    },
-    "Leatherworker": {
-      "displayName": "Leatherworker",
-      "traits": {
-        "shopDiscount": { "value": 12, "type": "number" },
-        "lightArmorQuality": { "value": 35, "type": "number" },
-        "canCraftArmor": { "value": true, "type": "boolean" },
-        "specialization": { "value": "leather", "type": "string" }
-      }
-    },
-    "Artificer": {
-      "displayName": "Artificer",
-      "traits": {
-        "shopDiscount": { "value": 25, "type": "number" },
-        "canEnchant": { "value": true, "type": "boolean" },
-        "enchantmentPower": { "value": 30, "type": "number" },
-        "magicItemChance": { "value": 20, "type": "number" },
-        "canCraftMagicItems": { "value": true, "type": "boolean" }
-      }
-    }
+  "components": {
+    "merchants": [
+      { "name": "Merchant", "displayName": "Merchant", "rarityWeight": 10, "socialClass": "common", "traits": { "shopDiscount": 5, "sellPriceBonus": 5, "inventorySize": 20, "hagglingSkill": 15 } },
+      { "name": "Apothecary", "displayName": "Apothecary", "rarityWeight": 25, "socialClass": "professional", "traits": { "shopDiscount": 10, "potionEffectiveness": 25, "healingBonus": 20, "inventorySize": 15, "specialization": "potions" } },
+      { "name": "Weaponsmith", "displayName": "Weaponsmith", "rarityWeight": 30, "socialClass": "craftsman", "traits": { "shopDiscount": 15, "weaponQuality": 30, "repairCost": -25, "canCraftWeapons": true, "specialization": "weapons" } },
+      { "name": "Armorer", "displayName": "Armorer", "rarityWeight": 30, "socialClass": "craftsman", "traits": { "shopDiscount": 15, "armorQuality": 30, "repairCost": -25, "canCraftArmor": true, "specialization": "armor" } },
+      { "name": "Jeweler", "displayName": "Jeweler", "rarityWeight": 45, "socialClass": "specialist", "traits": { "shopDiscount": 20, "sellPriceBonus": 30, "canEnchant": true, "enchantmentPower": 15, "specialization": "jewelry" } }
+    ],
+    "craftsmen": [
+      { "name": "Blacksmith", "displayName": "Blacksmith", "rarityWeight": 20, "socialClass": "craftsman", "traits": { "repairCost": -30, "repairQuality": 100, "canCraftWeapons": true, "canCraftArmor": true, "craftingSpeed": 25 } },
+      { "name": "Fletcher", "displayName": "Fletcher", "rarityWeight": 22, "socialClass": "craftsman", "traits": { "shopDiscount": 10, "arrowQuality": 40, "canCraftBows": true, "specialization": "ranged" } },
+      { "name": "Leatherworker", "displayName": "Leatherworker", "rarityWeight": 20, "socialClass": "craftsman", "traits": { "shopDiscount": 12, "lightArmorQuality": 35, "canCraftArmor": true, "specialization": "leather" } },
+      { "name": "Artificer", "displayName": "Artificer", "rarityWeight": 60, "socialClass": "magical", "traits": { "shopDiscount": 25, "canEnchant": true, "enchantmentPower": 30, "magicItemChance": 20, "canCraftMagicItems": true } }
+    ],
+    "professionals": [
+      { "name": "Healer", "displayName": "Healer", "rarityWeight": 35, "socialClass": "professional", "traits": { "healingPower": 50, "healingCost": -20, "curePoison": true, "cureDisease": true, "resurrectChance": 5 } },
+      { "name": "Herbalist", "displayName": "Herbalist", "rarityWeight": 28, "socialClass": "professional", "traits": { "potionDiscount": 25, "potionEffectiveness": 30, "canCraftPotions": true, "herbLore": 40 } },
+      { "name": "Scholar", "displayName": "Scholar", "rarityWeight": 30, "socialClass": "professional", "traits": { "experienceBonus": 10, "teachingAbility": true, "knowledgeBonus": 25, "questInformation": 30 } },
+      { "name": "Sage", "displayName": "Sage", "rarityWeight": 50, "socialClass": "professional", "traits": { "experienceBonus": 15, "spellDiscount": 20, "teachingAbility": true, "wisdomBonus": 5, "prophecy": true } },
+      { "name": "Cartographer", "displayName": "Cartographer", "rarityWeight": 40, "socialClass": "professional", "traits": { "mapReveal": 25, "travelSpeed": 15, "secretLocationChance": 20, "questInformation": 25 } }
+    ],
+    "service": [
+      { "name": "Innkeeper", "displayName": "Innkeeper", "rarityWeight": 15, "socialClass": "service", "traits": { "roomCost": -15, "restEffectiveness": 25, "rumorChance": 40, "foodQuality": 20 } },
+      { "name": "Cook", "displayName": "Cook", "rarityWeight": 18, "socialClass": "service", "traits": { "foodCost": -20, "foodEffectiveness": 40, "buffDuration": 30, "canCraftFood": true } },
+      { "name": "Stable Master", "displayName": "Stable Master", "rarityWeight": 20, "socialClass": "service", "traits": { "horseCost": -25, "mountSpeed": 20, "mountHealth": 30, "animalLore": 35 } }
+    ],
+    "nobility": [
+      { "name": "Knight", "displayName": "Knight", "rarityWeight": 50, "socialClass": "nobility", "traits": { "questReward": 50, "honorBonus": 25, "combatTraining": true, "strengthBonus": 3 } },
+      { "name": "Noble", "displayName": "Noble", "rarityWeight": 60, "socialClass": "nobility", "traits": { "goldReward": 100, "influenceBonus": 40, "questAccess": true, "charismaBonus": 3 } },
+      { "name": "Lord", "displayName": "Lord", "rarityWeight": 80, "socialClass": "nobility", "traits": { "goldReward": 200, "landGrant": true, "titleGrant": true, "influenceBonus": 60 } }
+    ],
+    "religious": [
+      { "name": "Priest", "displayName": "Priest", "rarityWeight": 35, "socialClass": "religious", "traits": { "blessingPower": 30, "healingPower": 40, "holyDamageBonus": 15, "cureDisease": true, "divineProtection": 20 } },
+      { "name": "Paladin", "displayName": "Paladin", "rarityWeight": 55, "socialClass": "religious", "traits": { "combatTraining": true, "holyDamageBonus": 25, "armorBonus": 15, "strengthBonus": 3, "wisdomBonus": 2 } },
+      { "name": "Oracle", "displayName": "Oracle", "rarityWeight": 70, "socialClass": "religious", "traits": { "prophecy": true, "visionRange": 5, "questInformation": 50, "futureKnowledge": 40, "wisdomBonus": 4 } }
+    ],
+    "adventurers": [
+      { "name": "Mercenary", "displayName": "Mercenary", "rarityWeight": 25, "socialClass": "adventurer", "traits": { "combatTraining": true, "hireableCost": 100, "damageBonus": 20, "strengthBonus": 2, "dexterityBonus": 2 } },
+      { "name": "Bounty Hunter", "displayName": "Bounty Hunter", "rarityWeight": 40, "socialClass": "adventurer", "traits": { "trackingSkill": 40, "bountyReward": 75, "criticalChance": 15, "dexterityBonus": 3 } },
+      { "name": "Ranger", "displayName": "Ranger", "rarityWeight": 45, "socialClass": "adventurer", "traits": { "trackingSkill": 50, "survivalBonus": 35, "animalLore": 40, "rangedDamage": 25, "dexterityBonus": 3, "wisdomBonus": 2 } }
+    ],
+    "magical": [
+      { "name": "Wizard", "displayName": "Wizard", "rarityWeight": 50, "socialClass": "magical", "traits": { "spellPower": 40, "manaBonus": 50, "spellDiscount": 25, "teachSpells": true, "intelligenceBonus": 4 } },
+      { "name": "Enchanter", "displayName": "Enchanter", "rarityWeight": 55, "socialClass": "magical", "traits": { "enchantmentPower": 50, "enchantmentCost": -30, "canEnchant": true, "magicItemChance": 30, "intelligenceBonus": 3 } },
+      { "name": "Necromancer", "displayName": "Necromancer", "rarityWeight": 75, "socialClass": "magical", "traits": { "necroticDamage": 35, "summonUndead": true, "lifeSteal": 20, "darkMagicBonus": 40, "intelligenceBonus": 3, "charismaBonus": -2 } },
+      { "name": "Alchemist", "displayName": "Alchemist", "rarityWeight": 40, "socialClass": "magical", "traits": { "potionEffectiveness": 50, "canTransmute": true, "poisonCraft": 40, "explosiveBonus": 35, "intelligenceBonus": 3 } }
+    ],
+    "criminal": [
+      { "name": "Thief", "displayName": "Thief", "rarityWeight": 30, "socialClass": "criminal", "traits": { "stealthBonus": 40, "pickpocketChance": 35, "lockpickSkill": 45, "dexterityBonus": 4, "charismaBonus": -1 } },
+      { "name": "Assassin", "displayName": "Assassin", "rarityWeight": 65, "socialClass": "criminal", "traits": { "stealthBonus": 50, "criticalChance": 30, "criticalDamage": 75, "poisonDamage": 25, "dexterityBonus": 5 } },
+      { "name": "Smuggler", "displayName": "Smuggler", "rarityWeight": 35, "socialClass": "criminal", "traits": { "sellPriceBonus": 40, "blackMarketAccess": true, "hagglingSkill": 35, "contraband": true, "charismaBonus": 3 } }
+    ],
+    "common": [
+      { "name": "Farmer", "displayName": "Farmer", "rarityWeight": 5, "socialClass": "common", "traits": { "foodCost": -30, "foodQuality": 15, "constitutionBonus": 2 } },
+      { "name": "Laborer", "displayName": "Laborer", "rarityWeight": 8, "socialClass": "common", "traits": { "strengthBonus": 2, "constitutionBonus": 2, "questHelper": true } },
+      { "name": "Beggar", "displayName": "Beggar", "rarityWeight": 12, "socialClass": "common", "traits": { "rumorChance": 60, "secretInformation": 35, "charismaBonus": -2 } }
+    ]
   },
-  "professionals": {
-    "Healer": {
-      "displayName": "Healer",
-      "traits": {
-        "healingPower": { "value": 50, "type": "number" },
-        "healingCost": { "value": -20, "type": "number" },
-        "curePoison": { "value": true, "type": "boolean" },
-        "cureDisease": { "value": true, "type": "boolean" },
-        "resurrectChance": { "value": 5, "type": "number" }
-      }
+  "notes": {
+    "rarity_system": "weight-based",
+    "component_keys": ["merchants", "craftsmen", "professionals", "service", "nobility", "religious", "adventurers", "magical", "criminal", "common"],
+    "weight_ranges": {
+      "common": "5-15 rarityWeight (farmer, laborer, beggar, merchant, innkeeper, cook)",
+      "uncommon": "18-35 rarityWeight (blacksmith, healer, herbalist, scholar, thief, smuggler, mercenary, alchemist, priest)",
+      "rare": "40-60 rarityWeight (jeweler, sage, cartographer, bounty hunter, ranger, artificer, wizard, enchanter, noble, paladin)",
+      "epic": "65-80 rarityWeight (assassin, necromancer, oracle, lord)"
     },
-    "Herbalist": {
-      "displayName": "Herbalist",
-      "traits": {
-        "potionDiscount": { "value": 25, "type": "number" },
-        "potionEffectiveness": { "value": 30, "type": "number" },
-        "canCraftPotions": { "value": true, "type": "boolean" },
-        "herbLore": { "value": 40, "type": "number" }
-      }
-    },
-    "Scholar": {
-      "displayName": "Scholar",
-      "traits": {
-        "experienceBonus": { "value": 10, "type": "number" },
-        "teachingAbility": { "value": true, "type": "boolean" },
-        "knowledgeBonus": { "value": 25, "type": "number" },
-        "questInformation": { "value": 30, "type": "number" }
-      }
-    },
-    "Sage": {
-      "displayName": "Sage",
-      "traits": {
-        "experienceBonus": { "value": 15, "type": "number" },
-        "spellDiscount": { "value": 20, "type": "number" },
-        "teachingAbility": { "value": true, "type": "boolean" },
-        "wisdomBonus": { "value": 5, "type": "number" },
-        "prophecy": { "value": true, "type": "boolean" }
-      }
-    },
-    "Cartographer": {
-      "displayName": "Cartographer",
-      "traits": {
-        "mapReveal": { "value": 25, "type": "number" },
-        "travelSpeed": { "value": 15, "type": "number" },
-        "secretLocationChance": { "value": 20, "type": "number" },
-        "questInformation": { "value": 25, "type": "number" }
-      }
-    }
-  },
-  "service": {
-    "Innkeeper": {
-      "displayName": "Innkeeper",
-      "traits": {
-        "roomCost": { "value": -15, "type": "number" },
-        "restEffectiveness": { "value": 25, "type": "number" },
-        "rumorChance": { "value": 40, "type": "number" },
-        "foodQuality": { "value": 20, "type": "number" }
-      }
-    },
-    "Cook": {
-      "displayName": "Cook",
-      "traits": {
-        "foodCost": { "value": -20, "type": "number" },
-        "foodEffectiveness": { "value": 40, "type": "number" },
-        "buffDuration": { "value": 30, "type": "number" },
-        "canCraftFood": { "value": true, "type": "boolean" }
-      }
-    },
-    "Stable Master": {
-      "displayName": "Stable Master",
-      "traits": {
-        "horseCost": { "value": -25, "type": "number" },
-        "mountSpeed": { "value": 20, "type": "number" },
-        "mountHealth": { "value": 30, "type": "number" },
-        "animalLore": { "value": 35, "type": "number" }
-      }
-    }
-  },
-  "nobility": {
-    "Knight": {
-      "displayName": "Knight",
-      "traits": {
-        "questReward": { "value": 50, "type": "number" },
-        "honorBonus": { "value": 25, "type": "number" },
-        "combatTraining": { "value": true, "type": "boolean" },
-        "strengthBonus": { "value": 3, "type": "number" }
-      }
-    },
-    "Noble": {
-      "displayName": "Noble",
-      "traits": {
-        "goldReward": { "value": 100, "type": "number" },
-        "influenceBonus": { "value": 40, "type": "number" },
-        "questAccess": { "value": true, "type": "boolean" },
-        "charismaBonus": { "value": 3, "type": "number" }
-      }
-    },
-    "Lord": {
-      "displayName": "Lord",
-      "traits": {
-        "goldReward": { "value": 200, "type": "number" },
-        "landGrant": { "value": true, "type": "boolean" },
-        "titleGrant": { "value": true, "type": "boolean" },
-        "influenceBonus": { "value": 60, "type": "number" }
-      }
-    }
-  },
-  "religious": {
-    "Priest": {
-      "displayName": "Priest",
-      "traits": {
-        "blessingPower": { "value": 30, "type": "number" },
-        "healingPower": { "value": 40, "type": "number" },
-        "holyDamageBonus": { "value": 15, "type": "number" },
-        "cureDisease": { "value": true, "type": "boolean" },
-        "divineProtection": { "value": 20, "type": "number" }
-      }
-    },
-    "Paladin": {
-      "displayName": "Paladin",
-      "traits": {
-        "combatTraining": { "value": true, "type": "boolean" },
-        "holyDamageBonus": { "value": 25, "type": "number" },
-        "armorBonus": { "value": 15, "type": "number" },
-        "strengthBonus": { "value": 3, "type": "number" },
-        "wisdomBonus": { "value": 2, "type": "number" }
-      }
-    },
-    "Oracle": {
-      "displayName": "Oracle",
-      "traits": {
-        "prophecy": { "value": true, "type": "boolean" },
-        "visionRange": { "value": 5, "type": "number" },
-        "questInformation": { "value": 50, "type": "number" },
-        "futureKnowledge": { "value": 40, "type": "number" },
-        "wisdomBonus": { "value": 4, "type": "number" }
-      }
-    }
-  },
-  "adventurers": {
-    "Mercenary": {
-      "displayName": "Mercenary",
-      "traits": {
-        "combatTraining": { "value": true, "type": "boolean" },
-        "hireableCost": { "value": 100, "type": "number" },
-        "damageBonus": { "value": 20, "type": "number" },
-        "strengthBonus": { "value": 2, "type": "number" },
-        "dexterityBonus": { "value": 2, "type": "number" }
-      }
-    },
-    "Bounty Hunter": {
-      "displayName": "Bounty Hunter",
-      "traits": {
-        "trackingSkill": { "value": 40, "type": "number" },
-        "bountyReward": { "value": 75, "type": "number" },
-        "criticalChance": { "value": 15, "type": "number" },
-        "dexterityBonus": { "value": 3, "type": "number" }
-      }
-    },
-    "Ranger": {
-      "displayName": "Ranger",
-      "traits": {
-        "trackingSkill": { "value": 50, "type": "number" },
-        "survivalBonus": { "value": 35, "type": "number" },
-        "animalLore": { "value": 40, "type": "number" },
-        "rangedDamage": { "value": 25, "type": "number" },
-        "dexterityBonus": { "value": 3, "type": "number" },
-        "wisdomBonus": { "value": 2, "type": "number" }
-      }
-    }
-  },
-  "magical": {
-    "Wizard": {
-      "displayName": "Wizard",
-      "traits": {
-        "spellPower": { "value": 40, "type": "number" },
-        "manaBonus": { "value": 50, "type": "number" },
-        "spellDiscount": { "value": 25, "type": "number" },
-        "teachSpells": { "value": true, "type": "boolean" },
-        "intelligenceBonus": { "value": 4, "type": "number" }
-      }
-    },
-    "Enchanter": {
-      "displayName": "Enchanter",
-      "traits": {
-        "enchantmentPower": { "value": 50, "type": "number" },
-        "enchantmentCost": { "value": -30, "type": "number" },
-        "canEnchant": { "value": true, "type": "boolean" },
-        "magicItemChance": { "value": 30, "type": "number" },
-        "intelligenceBonus": { "value": 3, "type": "number" }
-      }
-    },
-    "Necromancer": {
-      "displayName": "Necromancer",
-      "traits": {
-        "necroticDamage": { "value": 35, "type": "number" },
-        "summonUndead": { "value": true, "type": "boolean" },
-        "lifeSteal": { "value": 20, "type": "number" },
-        "darkMagicBonus": { "value": 40, "type": "number" },
-        "intelligenceBonus": { "value": 3, "type": "number" },
-        "charismaBonus": { "value": -2, "type": "number" }
-      }
-    },
-    "Alchemist": {
-      "displayName": "Alchemist",
-      "traits": {
-        "potionEffectiveness": { "value": 50, "type": "number" },
-        "canTransmute": { "value": true, "type": "boolean" },
-        "poisonCraft": { "value": 40, "type": "number" },
-        "explosiveBonus": { "value": 35, "type": "number" },
-        "intelligenceBonus": { "value": 3, "type": "number" }
-      }
-    }
-  },
-  "criminal": {
-    "Thief": {
-      "displayName": "Thief",
-      "traits": {
-        "stealthBonus": { "value": 40, "type": "number" },
-        "pickpocketChance": { "value": 35, "type": "number" },
-        "lockpickSkill": { "value": 45, "type": "number" },
-        "dexterityBonus": { "value": 4, "type": "number" },
-        "charismaBonus": { "value": -1, "type": "number" }
-      }
-    },
-    "Assassin": {
-      "displayName": "Assassin",
-      "traits": {
-        "stealthBonus": { "value": 50, "type": "number" },
-        "criticalChance": { "value": 30, "type": "number" },
-        "criticalDamage": { "value": 75, "type": "number" },
-        "poisonDamage": { "value": 25, "type": "number" },
-        "dexterityBonus": { "value": 5, "type": "number" }
-      }
-    },
-    "Smuggler": {
-      "displayName": "Smuggler",
-      "traits": {
-        "sellPriceBonus": { "value": 40, "type": "number" },
-        "blackMarketAccess": { "value": true, "type": "boolean" },
-        "hagglingSkill": { "value": 35, "type": "number" },
-        "contraband": { "value": true, "type": "boolean" },
-        "charismaBonus": { "value": 3, "type": "number" }
-      }
-    }
-  },
-  "common": {
-    "Farmer": {
-      "displayName": "Farmer",
-      "traits": {
-        "foodCost": { "value": -30, "type": "number" },
-        "foodQuality": { "value": 15, "type": "number" },
-        "constitutionBonus": { "value": 2, "type": "number" }
-      }
-    },
-    "Laborer": {
-      "displayName": "Laborer",
-      "traits": {
-        "strengthBonus": { "value": 2, "type": "number" },
-        "constitutionBonus": { "value": 2, "type": "number" },
-        "questHelper": { "value": true, "type": "boolean" }
-      }
-    },
-    "Beggar": {
-      "displayName": "Beggar",
-      "traits": {
-        "rumorChance": { "value": 60, "type": "number" },
-        "secretInformation": { "value": 35, "type": "number" },
-        "charismaBonus": { "value": -2, "type": "number" }
-      }
-    }
+    "usage": "Common occupations for general NPC generation across all social classes"
   }
 }

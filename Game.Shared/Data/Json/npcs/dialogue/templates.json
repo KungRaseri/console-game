@@ -1,64 +1,78 @@
-{
-  "greetings": [
-    "Greetings, traveler!",
-    "Well met, stranger.",
-    "What brings you here?",
-    "Ah, a new face!",
-    "Welcome to our humble town.",
-    "State your business, stranger.",
-    "Good day to you!",
-    "Fair greetings!"
-  ],
-  "merchants": [
-    "Looking to buy or sell?",
-    "I have the finest wares in all the land!",
-    "Take a look at my goods!",
-    "Everything must go!",
-    "Special prices, just for you!",
-    "You won't find better quality anywhere else.",
-    "Interested in my merchandise?"
-  ],
-  "quests": [
-    "I have a problem that needs solving...",
-    "Perhaps you could help me with something?",
-    "I've heard tales of your exploits.",
-    "Are you looking for work?",
-    "I have a proposition for you.",
-    "There's danger in these parts...",
-    "The land is in peril!"
-  ],
-  "rumors": [
-    "I've heard strange noises in the forest.",
-    "Bandits have been seen on the roads.",
-    "They say a dragon lives in the mountains.",
-    "The old ruins are cursed, they say.",
-    "Strange things happen at night around here.",
-    "The tavern keeper knows everything.",
-    "Beware the old tower to the north."
-  ],
-  "farewells": [
-    "Safe travels!",
-    "May fortune favor you.",
-    "Farewell, brave one.",
-    "Until we meet again.",
-    "Good luck on your journey!",
-    "Be careful out there.",
-    "May the gods watch over you."
-  ],
-  "hostile": [
-    "You're not welcome here!",
-    "Leave before I call the guards!",
-    "I don't trust strangers.",
-    "Get out of my sight!",
-    "You look like trouble.",
-    "Don't cause any problems."
-  ],
-  "friendly": [
-    "It's nice to see a friendly face!",
-    "Please, stay a while!",
-    "You're always welcome here.",
-    "How can I help you, friend?",
-    "What stories do you have to share?",
-    "Join me for a drink!"
-  ]
+﻿{
+  "metadata": {
+    "description": "Basic dialogue templates by category for quick NPC interactions",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "dialogue_quick_templates",
+    "categories": ["greetings", "merchants", "quests", "rumors", "farewells", "hostile", "friendly"]
+  },
+  "templates": {
+    "greetings": [
+      "Greetings, traveler!",
+      "Well met, stranger.",
+      "What brings you here?",
+      "Ah, a new face!",
+      "Welcome to our humble town.",
+      "State your business, stranger.",
+      "Good day to you!",
+      "Fair greetings!"
+    ],
+    "merchants": [
+      "Looking to buy or sell?",
+      "I have the finest wares in all the land!",
+      "Take a look at my goods!",
+      "Everything must go!",
+      "Special prices, just for you!",
+      "You won't find better quality anywhere else.",
+      "Interested in my merchandise?"
+    ],
+    "quests": [
+      "I have a problem that needs solving...",
+      "Perhaps you could help me with something?",
+      "I've heard tales of your exploits.",
+      "Are you looking for work?",
+      "I have a proposition for you.",
+      "There's danger in these parts...",
+      "The land is in peril!"
+    ],
+    "rumors": [
+      "I've heard strange noises in the forest.",
+      "Bandits have been seen on the roads.",
+      "They say a dragon lives in the mountains.",
+      "The old ruins are cursed, they say.",
+      "Strange things happen at night around here.",
+      "The tavern keeper knows everything.",
+      "Beware the old tower to the north."
+    ],
+    "farewells": [
+      "Safe travels!",
+      "May fortune favor you.",
+      "Farewell, brave one.",
+      "Until we meet again.",
+      "Good luck on your journey!",
+      "Be careful out there.",
+      "May the gods watch over you."
+    ],
+    "hostile": [
+      "You're not welcome here!",
+      "Leave before I call the guards!",
+      "I don't trust strangers.",
+      "Get out of my sight!",
+      "You look like trouble.",
+      "Don't cause any problems."
+    ],
+    "friendly": [
+      "It's nice to see a friendly face!",
+      "Please, stay a while!",
+      "You're always welcome here.",
+      "How can I help you, friend?",
+      "Make yourself at home!",
+      "Good to see you again!"
+    ]
+  },
+  "notes": {
+    "usage": "Quick templates for basic NPC interactions when more complex dialogue not needed",
+    "selection": "Choose randomly from appropriate category based on NPC personality",
+    "fallback": "Use these as fallback when specialized dialogue unavailable"
+  }
 }

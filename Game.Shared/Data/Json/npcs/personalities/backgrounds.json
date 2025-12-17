@@ -1,175 +1,73 @@
-{
-  "items": [
-    {
-      "name": "FormerSoldier",
-      "displayName": "Former Soldier",
-      "description": "Served in the military and retired or deserted"
-    },
-    {
-      "name": "Merchant",
-      "displayName": "Merchant",
-      "description": "Trades goods and seeks profit"
-    },
-    {
-      "name": "Noble",
-      "displayName": "Noble",
-      "description": "Born into wealth and privilege"
-    },
-    {
-      "name": "Criminal",
-      "displayName": "Criminal",
-      "description": "Has a history of illegal activities"
-    },
-    {
-      "name": "Scholar",
-      "displayName": "Scholar",
-      "description": "Dedicated to learning and research"
-    },
-    {
-      "name": "Farmer",
-      "displayName": "Farmer",
-      "description": "Works the land for a living"
-    },
-    {
-      "name": "Sailor",
-      "displayName": "Sailor",
-      "description": "Spent years at sea"
-    },
-    {
-      "name": "Craftsman",
-      "displayName": "Craftsman",
-      "description": "Skilled artisan or tradesperson"
-    },
-    {
-      "name": "Priest",
-      "displayName": "Priest",
-      "description": "Devoted to religious service"
-    },
-    {
-      "name": "Refugee",
-      "displayName": "Refugee",
-      "description": "Fled from war or disaster"
-    },
-    {
-      "name": "Orphan",
-      "displayName": "Orphan",
-      "description": "Grew up without parents"
-    },
-    {
-      "name": "Adventurer",
-      "displayName": "Adventurer",
-      "description": "Explored dungeons and fought monsters"
-    },
-    {
-      "name": "Entertainer",
-      "displayName": "Entertainer",
-      "description": "Performed for crowds as actor, musician, or jester"
-    },
-    {
-      "name": "Hunter",
-      "displayName": "Hunter",
-      "description": "Tracked and hunted game in the wilderness"
-    },
-    {
-      "name": "Spy",
-      "displayName": "Spy",
-      "description": "Gathered intelligence for crown or guild"
-    },
-    {
-      "name": "Exile",
-      "displayName": "Exile",
-      "description": "Banished from their homeland"
-    },
-    {
-      "name": "Slave",
-      "displayName": "Former Slave",
-      "description": "Escaped or freed from bondage"
-    },
-    {
-      "name": "Wizard",
-      "displayName": "Wizard",
-      "description": "Studied arcane magic extensively"
-    },
-    {
-      "name": "Healer",
-      "displayName": "Healer",
-      "description": "Practiced medicine and herbalism"
-    },
-    {
-      "name": "Blacksmith",
-      "displayName": "Blacksmith",
-      "description": "Forged weapons and armor"
-    },
-    {
-      "name": "Innkeeper",
-      "displayName": "Innkeeper",
-      "description": "Ran a tavern or inn"
-    },
-    {
-      "name": "Miner",
-      "displayName": "Miner",
-      "description": "Extracted ore and gems underground"
-    },
-    {
-      "name": "Assassin",
-      "displayName": "Assassin",
-      "description": "Killed for coin or cause"
-    },
-    {
-      "name": "Ranger",
-      "displayName": "Ranger",
-      "description": "Protected wilderness and borders"
-    },
-    {
-      "name": "StreetUrchin",
-      "displayName": "Street Urchin",
-      "description": "Survived on city streets through cunning"
-    },
-    {
-      "name": "Gladiator",
-      "displayName": "Gladiator",
-      "description": "Fought in arenas for sport"
-    },
-    {
-      "name": "Alchemist",
-      "displayName": "Alchemist",
-      "description": "Created potions and studied chemistry"
-    },
-    {
-      "name": "Courtesan",
-      "displayName": "Courtesan",
-      "description": "Companion to the wealthy and powerful"
-    },
-    {
-      "name": "Cultist",
-      "displayName": "Former Cultist",
-      "description": "Member of forbidden religious sect"
-    },
-    {
-      "name": "Wanderer",
-      "displayName": "Wanderer",
-      "description": "Traveled without permanent home"
-    }
-  ],
-  "components": {
-    "military_backgrounds": ["FormerSoldier", "Ranger", "Gladiator"],
-    "trade_backgrounds": ["Merchant", "Craftsman", "Blacksmith", "Innkeeper", "Alchemist"],
-    "scholarly_backgrounds": ["Scholar", "Wizard", "Priest", "Healer"],
-    "criminal_backgrounds": ["Criminal", "Assassin", "Spy", "StreetUrchin"],
-    "labor_backgrounds": ["Farmer", "Miner", "Sailor", "Hunter"],
-    "social_backgrounds": ["Noble", "Entertainer", "Courtesan"],
-    "hardship_backgrounds": ["Refugee", "Orphan", "Exile", "Slave", "Wanderer"],
-    "adventuring_backgrounds": ["Adventurer", "Ranger", "Hunter"]
-  },
-  "patterns": [
-    "background influences dialogue and knowledge",
-    "Former Soldier might discuss tactics",
-    "Merchant knows trade routes and prices",
-    "Scholar provides lore and history"
-  ],
+﻿{
   "metadata": {
+    "description": "Character backgrounds catalog with weight-based rarity for NPC history",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "background_catalog",
     "total_backgrounds": 30,
-    "categories": 8,
-    "usage": "Each NPC has exactly 1 background that shapes their worldview"
+    "categories": ["common", "skilled", "martial", "magical", "noble", "troubled", "exotic"]
+  },
+  "components": {
+    "common_folk": [
+      { "name": "Farmer", "displayName": "Farmer", "description": "Works the land for a living", "rarityWeight": 5 },
+      { "name": "Craftsman", "displayName": "Craftsman", "description": "Skilled artisan or tradesperson", "rarityWeight": 10 },
+      { "name": "Merchant", "displayName": "Merchant", "description": "Trades goods and seeks profit", "rarityWeight": 12 },
+      { "name": "Laborer", "displayName": "Laborer", "description": "Performs manual work", "rarityWeight": 8 }
+    ],
+    "skilled_professionals": [
+      { "name": "Blacksmith", "displayName": "Blacksmith", "description": "Forges weapons and armor", "rarityWeight": 20 },
+      { "name": "Healer", "displayName": "Healer", "description": "Practiced medicine and herbalism", "rarityWeight": 25 },
+      { "name": "Scholar", "displayName": "Scholar", "description": "Dedicated to learning and research", "rarityWeight": 22 },
+      { "name": "Entertainer", "displayName": "Entertainer", "description": "Performed for crowds as actor, musician, or jester", "rarityWeight": 18 }
+    ],
+    "martial_backgrounds": [
+      { "name": "FormerSoldier", "displayName": "Former Soldier", "description": "Served in the military and retired or deserted", "rarityWeight": 30 },
+      { "name": "Sailor", "displayName": "Sailor", "description": "Spent years at sea", "rarityWeight": 22 },
+      { "name": "Hunter", "displayName": "Hunter", "description": "Tracked and hunted game in the wilderness", "rarityWeight": 24 },
+      { "name": "Guard", "displayName": "Guard", "description": "Protected city or noble house", "rarityWeight": 28 }
+    ],
+    "magical_scholarly": [
+      { "name": "Wizard", "displayName": "Wizard", "description": "Studied arcane magic extensively", "rarityWeight": 45 },
+      { "name": "Priest", "displayName": "Priest", "description": "Devoted to religious service", "rarityWeight": 35 },
+      { "name": "Alchemist", "displayName": "Alchemist", "description": "Experimented with potions and transmutation", "rarityWeight": 40 },
+      { "name": "Sage", "displayName": "Sage", "description": "Keeper of ancient knowledge", "rarityWeight": 50 }
+    ],
+    "noble_prestigious": [
+      { "name": "Noble", "displayName": "Noble", "description": "Born into wealth and privilege", "rarityWeight": 60 },
+      { "name": "Knight", "displayName": "Knight", "description": "Sworn warrior of noble rank", "rarityWeight": 55 },
+      { "name": "Courtier", "displayName": "Courtier", "description": "Served in royal court", "rarityWeight": 50 }
+    ],
+    "troubled_past": [
+      { "name": "Orphan", "displayName": "Orphan", "description": "Grew up without parents", "rarityWeight": 20 },
+      { "name": "Refugee", "displayName": "Refugee", "description": "Fled from war or disaster", "rarityWeight": 25 },
+      { "name": "Exile", "displayName": "Exile", "description": "Banished from their homeland", "rarityWeight": 40 },
+      { "name": "FormerSlave", "displayName": "Former Slave", "description": "Escaped or freed from bondage", "rarityWeight": 35 }
+    ],
+    "criminal_outlaw": [
+      { "name": "Criminal", "displayName": "Criminal", "description": "Has a history of illegal activities", "rarityWeight": 32 },
+      { "name": "Spy", "displayName": "Spy", "description": "Gathered intelligence for crown or guild", "rarityWeight": 50 },
+      { "name": "Smuggler", "displayName": "Smuggler", "description": "Dealt in contraband goods", "rarityWeight": 38 },
+      { "name": "Thief", "displayName": "Thief", "description": "Lived by stealth and cunning", "rarityWeight": 30 }
+    ],
+    "adventurous_exotic": [
+      { "name": "Adventurer", "displayName": "Adventurer", "description": "Explored dungeons and fought monsters", "rarityWeight": 45 },
+      { "name": "Mercenary", "displayName": "Mercenary", "description": "Sold sword skills to highest bidder", "rarityWeight": 42 },
+      { "name": "Pirate", "displayName": "Pirate", "description": "Sailed under black flag", "rarityWeight": 55 },
+      { "name": "Gladiator", "displayName": "Gladiator", "description": "Fought in arenas for entertainment", "rarityWeight": 48 },
+      { "name": "BountyHunter", "displayName": "Bounty Hunter", "description": "Tracked fugitives for reward", "rarityWeight": 52 }
+    ]
+  },
+  "notes": {
+    "rarity_system": "weight-based",
+    "component_keys": ["common_folk", "skilled_professionals", "martial_backgrounds", "magical_scholarly", "noble_prestigious", "troubled_past", "criminal_outlaw", "adventurous_exotic"],
+    "weight_ranges": {
+      "common": "5-12 rarityWeight (farmer, laborer, merchant)",
+      "uncommon": "18-30 rarityWeight (blacksmith, healer, soldier, hunter, orphan, thief)",
+      "rare": "32-50 rarityWeight (wizard, priest, alchemist, noble, spy, pirate, sage)",
+      "epic": "52-60 rarityWeight (knight, bounty hunter)"
+    },
+    "usage": "Backgrounds provide NPC history and context for their current situation",
+    "influence": "Background affects available skills, connections, and dialogue options",
+    "combinations": "Former occupations can combine (e.g., 'Former Soldier, now Blacksmith')"
   }
 }

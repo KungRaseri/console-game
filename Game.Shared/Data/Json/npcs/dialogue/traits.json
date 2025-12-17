@@ -1,252 +1,55 @@
-{
-  "Friendly": {
-    "displayName": "Friendly",
-    "traits": {
-      "disposition": { "value": "friendly", "type": "string" },
-      "greetingWarmth": { "value": 85, "type": "number" },
-      "helpfulness": { "value": 75, "type": "number" },
-      "trustLevel": { "value": 70, "type": "number" },
-      "questGiverChance": { "value": 60, "type": "number" },
-      "merchantPriceModifier": { "value": 0.95, "type": "number" },
-      "informationValue": { "value": 65, "type": "number" },
-      "rumorKnowledge": { "value": 60, "type": "number" },
-      "description": { "value": "Warm and welcoming, eager to help", "type": "string" }
-    }
+﻿{
+  "metadata": {
+    "description": "Dialogue style traits that modify NPC speech patterns and behavior",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "dialogue_trait_catalog",
+    "total_traits": 10,
+    "categories": ["disposition", "speech_style"]
   },
-  "Cautious": {
-    "displayName": "Cautious",
-    "traits": {
-      "disposition": { "value": "neutral", "type": "string" },
-      "greetingWarmth": { "value": 40, "type": "number" },
-      "helpfulness": { "value": 50, "type": "number" },
-      "trustLevel": { "value": 35, "type": "number" },
-      "questGiverChance": { "value": 30, "type": "number" },
-      "merchantPriceModifier": { "value": 1.0, "type": "number" },
-      "informationValue": { "value": 40, "type": "number" },
-      "rumorKnowledge": { "value": 55, "type": "number" },
-      "suspisciousness": { "value": 70, "type": "number" },
-      "description": { "value": "Wary and reserved, slow to trust", "type": "string" }
-    }
+  "components": {
+    "friendly_welcoming": [
+      { "name": "Friendly", "displayName": "Friendly", "rarityWeight": 15, "traits": { "disposition": "friendly", "greetingWarmth": 85, "helpfulness": 75, "trustLevel": 70, "questGiverChance": 60, "merchantPriceModifier": 0.95, "informationValue": 65, "rumorKnowledge": 60, "description": "Warm and welcoming, eager to help" } }
+    ],
+    "neutral_reserved": [
+      { "name": "Cautious", "displayName": "Cautious", "rarityWeight": 20, "traits": { "disposition": "neutral", "greetingWarmth": 40, "helpfulness": 50, "trustLevel": 35, "questGiverChance": 30, "merchantPriceModifier": 1.0, "informationValue": 40, "rumorKnowledge": 55, "suspiciousness": 70, "description": "Wary and reserved, slow to trust" } },
+      { "name": "Professional", "displayName": "Professional", "rarityWeight": 18, "traits": { "disposition": "neutral", "greetingWarmth": 55, "helpfulness": 60, "trustLevel": 50, "questGiverChance": 45, "merchantPriceModifier": 1.0, "informationValue": 70, "rumorKnowledge": 50, "description": "Business-like and efficient" } }
+    ],
+    "hostile_aggressive": [
+      { "name": "Hostile", "displayName": "Hostile", "rarityWeight": 30, "traits": { "disposition": "hostile", "greetingWarmth": 10, "helpfulness": 15, "trustLevel": 5, "questGiverChance": 5, "merchantPriceModifier": 1.5, "informationValue": 10, "rumorKnowledge": 25, "aggression": 80, "insulting": 75, "description": "Antagonistic and confrontational" } }
+    ],
+    "mercantile_greedy": [
+      { "name": "Greedy", "displayName": "Greedy", "rarityWeight": 25, "traits": { "disposition": "neutral", "greetingWarmth": 55, "helpfulness": 40, "trustLevel": 45, "questGiverChance": 70, "merchantSkill": 85, "merchantPriceModifier": 1.25, "informationValue": 75, "rumorKnowledge": 70, "bribeRequired": true, "goldLove": 95, "description": "Motivated by profit, always seeking deals" } }
+    ],
+    "wise_knowledgeable": [
+      { "name": "Wise", "displayName": "Wise", "rarityWeight": 35, "traits": { "disposition": "friendly", "greetingWarmth": 70, "helpfulness": 80, "trustLevel": 65, "questGiverChance": 75, "merchantPriceModifier": 1.0, "informationValue": 95, "rumorKnowledge": 90, "philosophicalspeech": true, "experienceBonus": 15, "description": "Sage-like and insightful, shares knowledge freely" } }
+    ],
+    "mysterious_cryptic": [
+      { "name": "Mysterious", "displayName": "Mysterious", "rarityWeight": 40, "traits": { "disposition": "neutral", "greetingWarmth": 50, "helpfulness": 45, "trustLevel": 30, "questGiverChance": 80, "merchantPriceModifier": 1.1, "informationValue": 85, "rumorKnowledge": 75, "crypticSpeech": true, "enigmaticBehavior": 90, "description": "Speaks in riddles and hints, never direct" } }
+    ],
+    "cheerful_optimistic": [
+      { "name": "Cheerful", "displayName": "Cheerful", "rarityWeight": 22, "traits": { "disposition": "friendly", "greetingWarmth": 95, "helpfulness": 70, "trustLevel": 65, "questGiverChance": 55, "merchantPriceModifier": 0.98, "informationValue": 60, "rumorKnowledge": 65, "optimism": 90, "laughter": 85, "description": "Always upbeat and positive, lifts spirits" } }
+    ],
+    "grumpy_pessimistic": [
+      { "name": "Grumpy", "displayName": "Grumpy", "rarityWeight": 28, "traits": { "disposition": "unfriendly", "greetingWarmth": 25, "helpfulness": 35, "trustLevel": 40, "questGiverChance": 25, "merchantPriceModifier": 1.15, "informationValue": 50, "rumorKnowledge": 60, "complaints": 90, "pessimism": 85, "description": "Constantly complaining, expects the worst" } }
+    ],
+    "eccentric_odd": [
+      { "name": "Eccentric", "displayName": "Eccentric", "rarityWeight": 38, "traits": { "disposition": "neutral", "greetingWarmth": 60, "helpfulness": 55, "trustLevel": 50, "questGiverChance": 70, "merchantPriceModifier": 0.9, "informationValue": 80, "rumorKnowledge": 70, "oddBehavior": 95, "unpredictability": 90, "description": "Quirky and unconventional, hard to predict" } }
+    ],
+    "scholarly_formal": [
+      { "name": "Scholarly", "displayName": "Scholarly", "rarityWeight": 32, "traits": { "disposition": "neutral", "greetingWarmth": 60, "helpfulness": 75, "trustLevel": 60, "questGiverChance": 65, "merchantPriceModifier": 1.0, "informationValue": 90, "rumorKnowledge": 85, "formalSpeech": true, "verbosity": 80, "description": "Educated and articulate, uses complex language" } }
+    ]
   },
-  "Hostile": {
-    "displayName": "Hostile",
-    "traits": {
-      "disposition": { "value": "hostile", "type": "string" },
-      "greetingWarmth": { "value": 10, "type": "number" },
-      "helpfulness": { "value": 15, "type": "number" },
-      "trustLevel": { "value": 5, "type": "number" },
-      "questGiverChance": { "value": 5, "type": "number" },
-      "merchantPriceModifier": { "value": 1.5, "type": "number" },
-      "informationValue": { "value": 10, "type": "number" },
-      "rumorKnowledge": { "value": 25, "type": "number" },
-      "aggression": { "value": 80, "type": "number" },
-      "insulting": { "value": 75, "type": "number" },
-      "description": { "value": "Antagonistic and confrontational", "type": "string" }
-    }
-  },
-  "Greedy": {
-    "displayName": "Greedy",
-    "traits": {
-      "disposition": { "value": "neutral", "type": "string" },
-      "greetingWarmth": { "value": 55, "type": "number" },
-      "helpfulness": { "value": 40, "type": "number" },
-      "trustLevel": { "value": 45, "type": "number" },
-      "questGiverChance": { "value": 70, "type": "number" },
-      "merchantSkill": { "value": 85, "type": "number" },
-      "merchantPriceModifier": { "value": 1.25, "type": "number" },
-      "informationValue": { "value": 75, "type": "number" },
-      "rumorKnowledge": { "value": 70, "type": "number" },
-      "bribeRequired": { "value": true, "type": "boolean" },
-      "goldLove": { "value": 95, "type": "number" },
-      "description": { "value": "Motivated by coin, everything has a price", "type": "string" }
-    }
-  },
-  "Wise": {
-    "displayName": "Wise",
-    "traits": {
-      "disposition": { "value": "friendly", "type": "string" },
-      "greetingWarmth": { "value": 60, "type": "number" },
-      "helpfulness": { "value": 80, "type": "number" },
-      "trustLevel": { "value": 75, "type": "number" },
-      "questGiverChance": { "value": 85, "type": "number" },
-      "merchantPriceModifier": { "value": 1.0, "type": "number" },
-      "informationValue": { "value": 95, "type": "number" },
-      "rumorKnowledge": { "value": 90, "type": "number" },
-      "advice": { "value": 90, "type": "number" },
-      "loreKnowledge": { "value": 95, "type": "number" },
-      "patience": { "value": 85, "type": "number" },
-      "description": { "value": "Knowledgeable sage who shares wisdom", "type": "string" }
-    }
-  },
-  "Mysterious": {
-    "displayName": "Mysterious",
-    "traits": {
-      "disposition": { "value": "neutral", "type": "string" },
-      "greetingWarmth": { "value": 30, "type": "number" },
-      "helpfulness": { "value": 50, "type": "number" },
-      "trustLevel": { "value": 40, "type": "number" },
-      "questGiverChance": { "value": 75, "type": "number" },
-      "merchantPriceModifier": { "value": 1.1, "type": "number" },
-      "informationValue": { "value": 85, "type": "number" },
-      "rumorKnowledge": { "value": 80, "type": "number" },
-      "crypticSpeech": { "value": 90, "type": "number" },
-      "secretsHeld": { "value": 95, "type": "number" },
-      "enigmatic": { "value": 85, "type": "number" },
-      "description": { "value": "Speaks in riddles, hides many secrets", "type": "string" }
-    }
-  },
-  "Cheerful": {
-    "displayName": "Cheerful",
-    "traits": {
-      "disposition": { "value": "friendly", "type": "string" },
-      "greetingWarmth": { "value": 95, "type": "number" },
-      "helpfulness": { "value": 70, "type": "number" },
-      "trustLevel": { "value": 65, "type": "number" },
-      "questGiverChance": { "value": 50, "type": "number" },
-      "merchantPriceModifier": { "value": 0.9, "type": "number" },
-      "informationValue": { "value": 55, "type": "number" },
-      "rumorKnowledge": { "value": 70, "type": "number" },
-      "optimism": { "value": 95, "type": "number" },
-      "humor": { "value": 85, "type": "number" },
-      "energetic": { "value": 80, "type": "number" },
-      "description": { "value": "Upbeat and jovial, always smiling", "type": "string" }
-    }
-  },
-  "Grumpy": {
-    "displayName": "Grumpy",
-    "traits": {
-      "disposition": { "value": "neutral", "type": "string" },
-      "greetingWarmth": { "value": 20, "type": "number" },
-      "helpfulness": { "value": 35, "type": "number" },
-      "trustLevel": { "value": 50, "type": "number" },
-      "questGiverChance": { "value": 25, "type": "number" },
-      "merchantPriceModifier": { "value": 1.05, "type": "number" },
-      "informationValue": { "value": 60, "type": "number" },
-      "rumorKnowledge": { "value": 65, "type": "number" },
-      "complaining": { "value": 85, "type": "number" },
-      "pessimism": { "value": 75, "type": "number" },
-      "impatience": { "value": 70, "type": "number" },
-      "description": { "value": "Irritable and complainy, get off their lawn", "type": "string" }
-    }
-  },
-  "Fearful": {
-    "displayName": "Fearful",
-    "traits": {
-      "disposition": { "value": "neutral", "type": "string" },
-      "greetingWarmth": { "value": 45, "type": "number" },
-      "helpfulness": { "value": 30, "type": "number" },
-      "trustLevel": { "value": 25, "type": "number" },
-      "questGiverChance": { "value": 15, "type": "number" },
-      "merchantPriceModifier": { "value": 1.15, "type": "number" },
-      "informationValue": { "value": 50, "type": "number" },
-      "rumorKnowledge": { "value": 75, "type": "number" },
-      "anxiety": { "value": 90, "type": "number" },
-      "nervousness": { "value": 85, "type": "number" },
-      "cowardice": { "value": 80, "type": "number" },
-      "description": { "value": "Anxious and skittish, afraid of everything", "type": "string" }
-    }
-  },
-  "Arrogant": {
-    "displayName": "Arrogant",
-    "traits": {
-      "disposition": { "value": "neutral", "type": "string" },
-      "greetingWarmth": { "value": 35, "type": "number" },
-      "helpfulness": { "value": 25, "type": "number" },
-      "trustLevel": { "value": 40, "type": "number" },
-      "questGiverChance": { "value": 40, "type": "number" },
-      "merchantPriceModifier": { "value": 1.2, "type": "number" },
-      "informationValue": { "value": 70, "type": "number" },
-      "rumorKnowledge": { "value": 55, "type": "number" },
-      "superiority": { "value": 95, "type": "number" },
-      "condescension": { "value": 90, "type": "number" },
-      "pridefulness": { "value": 85, "type": "number" },
-      "description": { "value": "Self-important and condescending", "type": "string" }
-    }
-  },
-  "Humble": {
-    "displayName": "Humble",
-    "traits": {
-      "disposition": { "value": "friendly", "type": "string" },
-      "greetingWarmth": { "value": 70, "type": "number" },
-      "helpfulness": { "value": 85, "type": "number" },
-      "trustLevel": { "value": 80, "type": "number" },
-      "questGiverChance": { "value": 55, "type": "number" },
-      "merchantPriceModifier": { "value": 0.85, "type": "number" },
-      "informationValue": { "value": 70, "type": "number" },
-      "rumorKnowledge": { "value": 50, "type": "number" },
-      "modesty": { "value": 90, "type": "number" },
-      "selflessness": { "value": 85, "type": "number" },
-      "kindness": { "value": 80, "type": "number" },
-      "description": { "value": "Modest and kind, downplays achievements", "type": "string" }
-    }
-  },
-  "Talkative": {
-    "displayName": "Talkative",
-    "traits": {
-      "disposition": { "value": "friendly", "type": "string" },
-      "greetingWarmth": { "value": 75, "type": "number" },
-      "helpfulness": { "value": 65, "type": "number" },
-      "trustLevel": { "value": 60, "type": "number" },
-      "questGiverChance": { "value": 50, "type": "number" },
-      "merchantPriceModifier": { "value": 1.0, "type": "number" },
-      "informationValue": { "value": 80, "type": "number" },
-      "rumorKnowledge": { "value": 95, "type": "number" },
-      "chattiness": { "value": 95, "type": "number" },
-      "gossip": { "value": 90, "type": "number" },
-      "storytelling": { "value": 85, "type": "number" },
-      "description": { "value": "Can't stop talking, knows all the gossip", "type": "string" }
-    }
-  },
-  "Stoic": {
-    "displayName": "Stoic",
-    "traits": {
-      "disposition": { "value": "neutral", "type": "string" },
-      "greetingWarmth": { "value": 25, "type": "number" },
-      "helpfulness": { "value": 55, "type": "number" },
-      "trustLevel": { "value": 70, "type": "number" },
-      "questGiverChance": { "value": 45, "type": "number" },
-      "merchantPriceModifier": { "value": 1.0, "type": "number" },
-      "informationValue": { "value": 65, "type": "number" },
-      "rumorKnowledge": { "value": 45, "type": "number" },
-      "emotionless": { "value": 90, "type": "number" },
-      "discipline": { "value": 85, "type": "number" },
-      "brevity": { "value": 95, "type": "number" },
-      "description": { "value": "Unemotional and brief, few words", "type": "string" }
-    }
-  },
-  "Cunning": {
-    "displayName": "Cunning",
-    "traits": {
-      "disposition": { "value": "neutral", "type": "string" },
-      "greetingWarmth": { "value": 60, "type": "number" },
-      "helpfulness": { "value": 45, "type": "number" },
-      "trustLevel": { "value": 30, "type": "number" },
-      "questGiverChance": { "value": 65, "type": "number" },
-      "merchantSkill": { "value": 90, "type": "number" },
-      "merchantPriceModifier": { "value": 1.15, "type": "number" },
-      "informationValue": { "value": 85, "type": "number" },
-      "rumorKnowledge": { "value": 85, "type": "number" },
-      "deception": { "value": 85, "type": "number" },
-      "manipulation": { "value": 80, "type": "number" },
-      "cleverness": { "value": 90, "type": "number" },
-      "description": { "value": "Sly and manipulative, always has an angle", "type": "string" }
-    }
-  },
-  "Noble": {
-    "displayName": "Noble",
-    "traits": {
-      "disposition": { "value": "friendly", "type": "string" },
-      "greetingWarmth": { "value": 65, "type": "number" },
-      "helpfulness": { "value": 75, "type": "number" },
-      "trustLevel": { "value": 70, "type": "number" },
-      "questGiverChance": { "value": 80, "type": "number" },
-      "merchantPriceModifier": { "value": 1.0, "type": "number" },
-      "informationValue": { "value": 75, "type": "number" },
-      "rumorKnowledge": { "value": 60, "type": "number" },
-      "honor": { "value": 95, "type": "number" },
-      "justice": { "value": 90, "type": "number" },
-      "chivalry": { "value": 85, "type": "number" },
-      "description": { "value": "Honorable and just, upholds high ideals", "type": "string" }
-    }
+  "notes": {
+    "rarity_system": "weight-based",
+    "component_keys": ["friendly_welcoming", "neutral_reserved", "hostile_aggressive", "mercantile_greedy", "wise_knowledgeable", "mysterious_cryptic", "cheerful_optimistic", "grumpy_pessimistic", "eccentric_odd", "scholarly_formal"],
+    "weight_ranges": {
+      "common": "15-25 rarityWeight (friendly, professional, cautious, cheerful, greedy)",
+      "uncommon": "28-35 rarityWeight (hostile, grumpy, wise, scholarly)",
+      "rare": "38-40 rarityWeight (eccentric, mysterious)"
+    },
+    "usage": "Dialogue traits modify how NPCs speak and interact with players",
+    "modifiers": "Price modifiers affect merchant transactions, information value affects quest hints",
+    "combinations": "Traits can layer with personality traits for complex NPC behavior"
   }
 }

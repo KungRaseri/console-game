@@ -1,91 +1,103 @@
-{
-  "items": [
-    "Ironforge", "Stormwind", "Brightblade", "Darkwater", "Goldsmith",
-    "Silverhand", "Bronzebeard", "Steelheart", "Stonefist", "Flameheart",
-    "Nightshade", "Moonwhisper", "Stargazer", "Sunbringer", "Dawnbreaker",
-    "Shadowbane", "Lightbringer", "Faithkeeper", "Hopeborn", "Valorheart",
-    "Dragonsbane", "Wyrmslayer", "Beastmaster", "Huntsman", "Ranger",
-    "Thornweaver", "Rosewood", "Oakenshield", "Ashwood", "Pineheart",
-    "Bjornsson", "Eriksson", "Thorsson", "Olafsson", "Gunnarsson",
-    "Svensson", "Magnusson", "Ragnarsson", "Halvorsson", "Sigurdsson",
-    "O'Brien", "O'Connor", "O'Neill", "MacGregor", "MacLeod",
-    "Fitzgerald", "Gallagher", "Murphy", "Sullivan", "McDonnell",
-    "Stormbrew", "Ironbelly", "Goldwhisker", "Copperkettle", "Brassbolt",
-    "Deepdelver", "Gemcutter", "Runeforge", "Hammerfall", "Anvilmar",
-    "Swiftwind", "Proudmane", "Highridge", "Wildrunner", "Farstrider",
-    "Duskblade", "Frostmourne", "Bloodfang", "Grimskull", "Bonecrusher",
-    "Chen", "Li", "Wang", "Zhang", "Liu",
-    "Zhao", "Wu", "Huang", "Zhou", "Xu",
-    "Nakamura", "Tanaka", "Yamamoto", "Watanabe", "Suzuki",
-    "Sato", "Kobayashi", "Ito", "Takahashi", "Yamada",
-    "Ravencrest", "Eaglesight", "Hawkwood", "Falconwing", "Owlfeather",
-    "Wolfheart", "Bearclaw", "Lionmane", "Tigerpaw", "Foxglove",
-    "Riverwind", "Lakeshore", "Hillcrest", "Valleywood", "Meadowbrook",
-    "Winterborn", "Summerfield", "Springwater", "Autumnleaf", "Evergreen",
-    "Fireforge", "Iceborn", "Earthshaker", "Windwalker", "Stormcaller",
-    "Lightweaver", "Shadowdancer", "Voidwalker", "Dreamseeker", "Soulsinger",
-    "Blackwood", "Whitestone", "Redfield", "Greenleaf", "Bluemoon",
-    "Ashford", "Blackburn", "Fairfax", "Harrington", "Lancaster",
-    "Manchester", "Oxford", "Cambridge", "Winchester", "Westminster",
-    "Kingsmill", "Queensbury", "Princetown", "Lordsbury", "Knightley",
-    "Silverstone", "Goldwater", "Ironwood", "Steelbridge", "Copperfield",
-    "Winterhold", "Frostfall", "Snowmane", "Icevein", "Coldheart",
-    "Flamestrike", "Emberheart", "Ashenblade", "Cinderfell", "Burnwick",
-    "Thornhill", "Briarwood", "Roseblade", "Lilywhite", "Violetmoon",
-    "Starfall", "Moonstone", "Sunfire", "Dawnstar", "Twilightborn",
-    "Stormborn", "Thunderfist", "Lightning", "Tempest", "Galeforce",
-    "Rockhammer", "Stonemason", "Quarrymaster", "Miner", "Digger",
-    "Goldseeker", "Gemfinder", "Jewelsmith", "Silverwright", "Brassfist",
-    "Dragonheart", "Wyrmwood", "Serpentbane", "Basilisk", "Hydraslay",
-    "Nightblade", "Duskwalker", "Shadowmere", "Darkholm", "Grimwood",
-    "Brightwater", "Clearbrook", "Purespring", "Crystalfall", "Dewmist",
-    "Ironhand", "Steelgrip", "Hardforge", "Strongarm", "Mightyfist",
-    "Swiftblade", "Quicksilver", "Fastfoot", "Fleetwind", "Rapidstrike",
-    "Wiseman", "Sage", "Scholar", "Lorekeeper", "Bookwright"
-  ],
+﻿{
+  "metadata": {
+    "description": "Last names/surnames catalog for NPC generation with cultural origins and patterns",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "surname_catalog",
+    "total_surnames": 200,
+    "categories": ["fantasy", "nordic", "celtic", "eastern", "european", "descriptive", "occupational"]
+  },
   "components": {
-    "prefixes_metals": [
-      "Iron", "Steel", "Bronze", "Silver", "Gold",
-      "Copper", "Brass", "Platinum", "Mithril"
+    "fantasy_prestigious": [
+      "Ironforge", "Stormwind", "Brightblade", "Silverhand", "Steelheart", "Dragonsbane", "Wyrmslayer",
+      "Shadowbane", "Lightbringer", "Faithkeeper", "Hopeborn", "Valorheart", "Dawnbreaker", "Starfall"
     ],
-    "prefixes_nature": [
-      "Stone", "Oak", "Ash", "Pine", "Thorn",
-      "Rose", "Lily", "Willow", "Cedar", "Elm"
+    "fantasy_common": [
+      "Darkwater", "Goldsmith", "Bronzebeard", "Stonefist", "Flameheart", "Nightshade", "Moonwhisper",
+      "Stargazer", "Sunbringer", "Beastmaster", "Huntsman", "Ranger", "Swiftwind", "Proudmane"
     ],
-    "prefixes_elements": [
-      "Fire", "Flame", "Ice", "Frost", "Storm",
-      "Thunder", "Lightning", "Wind", "Earth", "Water"
+    "nordic_patronymic": [
+      "Bjornsson", "Eriksson", "Thorsson", "Olafsson", "Gunnarsson", "Svensson", "Magnusson",
+      "Ragnarsson", "Halvorsson", "Sigurdsson"
     ],
-    "prefixes_celestial": [
-      "Star", "Moon", "Sun", "Dawn", "Dusk",
-      "Twilight", "Night", "Day", "Light", "Shadow"
+    "celtic_traditional": [
+      "O'Brien", "O'Connor", "O'Neill", "MacGregor", "MacLeod", "Fitzgerald", "Gallagher",
+      "Murphy", "Sullivan", "McDonnell"
     ],
-    "prefixes_colors": [
-      "Black", "White", "Red", "Blue", "Green",
-      "Gold", "Silver", "Grey", "Dark", "Bright"
+    "dwarven_craft": [
+      "Stormbrew", "Ironbelly", "Goldwhisker", "Copperkettle", "Brassbolt", "Deepdelver",
+      "Gemcutter", "Runeforge", "Hammerfall", "Anvilmar"
     ],
-    "suffixes_occupation": [
-      "smith", "wright", "forge", "keeper", "master",
-      "weaver", "cutter", "mason", "miller", "brewer"
+    "elven_elegant": [
+      "Highridge", "Wildrunner", "Farstrider", "Ravencrest", "Eaglesight", "Hawkwood",
+      "Falconwing", "Owlfeather", "Lightweaver", "Shadowdancer"
     ],
-    "suffixes_nature": [
-      "wood", "stone", "water", "wind", "heart",
-      "blade", "leaf", "branch", "root", "seed"
+    "dark_ominous": [
+      "Duskblade", "Frostmourne", "Bloodfang", "Grimskull", "Bonecrusher", "Nightblade",
+      "Duskwalker", "Shadowmere", "Darkholm", "Grimwood"
     ],
-    "suffixes_patronymic": [
-      "son", "sen", "dottir", "ovich", "ov",
-      "ez", "ian", "ski", "vic"
+    "eastern_asian": [
+      "Chen", "Li", "Wang", "Zhang", "Liu", "Zhao", "Wu", "Huang", "Zhou", "Xu",
+      "Nakamura", "Tanaka", "Yamamoto", "Watanabe", "Suzuki", "Sato", "Kobayashi", "Ito", "Takahashi", "Yamada"
     ],
-    "suffixes_descriptive": [
-      "bane", "slayer", "born", "seeker", "walker",
-      "dancer", "singer", "caller", "weaver", "bearer"
+    "nature_themed": [
+      "Wolfheart", "Bearclaw", "Lionmane", "Tigerpaw", "Foxglove", "Riverwind", "Lakeshore",
+      "Hillcrest", "Valleywood", "Meadowbrook", "Thornhill", "Briarwood", "Roseblade", "Lilywhite", "Violetmoon"
     ],
-    "suffixes_places": [
-      "ford", "bridge", "hill", "field", "wood",
-      "dale", "shire", "ton", "bury", "ham"
+    "seasonal_elemental": [
+      "Winterborn", "Summerfield", "Springwater", "Autumnleaf", "Evergreen", "Fireforge",
+      "Iceborn", "Earthshaker", "Windwalker", "Stormcaller", "Winterhold", "Frostfall", "Snowmane", "Icevein", "Coldheart"
+    ],
+    "mystical_magical": [
+      "Voidwalker", "Dreamseeker", "Soulsinger", "Moonstone", "Sunfire", "Dawnstar",
+      "Twilightborn", "Stormborn", "Thunderfist", "Lightning", "Tempest", "Galeforce"
+    ],
+    "color_based": [
+      "Blackwood", "Whitestone", "Redfield", "Greenleaf", "Bluemoon"
+    ],
+    "english_traditional": [
+      "Ashford", "Blackburn", "Fairfax", "Harrington", "Lancaster", "Manchester", "Oxford",
+      "Cambridge", "Winchester", "Westminster", "Kingsmill", "Queensbury", "Princetown", "Lordsbury", "Knightley"
+    ],
+    "metal_stone": [
+      "Silverstone", "Goldwater", "Ironwood", "Steelbridge", "Copperfield", "Rockhammer",
+      "Stonemason", "Quarrymaster", "Miner", "Digger", "Ironhand", "Steelgrip", "Hardforge", "Strongarm", "Mightyfist"
+    ],
+    "elemental_fire": [
+      "Flamestrike", "Emberheart", "Ashenblade", "Cinderfell", "Burnwick"
+    ],
+    "nature_plants": [
+      "Thornweaver", "Rosewood", "Oakenshield", "Ashwood", "Pineheart"
+    ],
+    "precious_seekers": [
+      "Goldseeker", "Gemfinder", "Jewelsmith", "Silverwright", "Brassfist"
+    ],
+    "dragon_slayers": [
+      "Dragonheart", "Wyrmwood", "Serpentbane", "Basilisk", "Hydraslay"
+    ],
+    "pure_waters": [
+      "Brightwater", "Clearbrook", "Purespring", "Crystalfall", "Dewmist"
+    ],
+    "swift_names": [
+      "Swiftblade", "Quicksilver", "Fastfoot", "Fleetwind", "Rapidstrike"
+    ],
+    "scholarly": [
+      "Wiseman", "Sage", "Scholar", "Lorekeeper", "Bookwright"
     ]
   },
-  "patterns": [
+  "pattern_components": {
+    "prefixes_metals": ["Iron", "Steel", "Bronze", "Silver", "Gold", "Copper", "Brass", "Platinum", "Mithril"],
+    "prefixes_nature": ["Stone", "Oak", "Ash", "Pine", "Thorn", "Rose", "Lily", "Willow", "Cedar", "Elm"],
+    "prefixes_elements": ["Fire", "Flame", "Ice", "Frost", "Storm", "Thunder", "Lightning", "Wind", "Earth", "Water"],
+    "prefixes_celestial": ["Star", "Moon", "Sun", "Dawn", "Dusk", "Twilight", "Night", "Day", "Light", "Shadow"],
+    "prefixes_colors": ["Black", "White", "Red", "Blue", "Green", "Gold", "Silver", "Grey", "Dark", "Bright"],
+    "suffixes_occupation": ["smith", "wright", "forge", "keeper", "master", "weaver", "cutter", "mason", "miller", "brewer"],
+    "suffixes_nature": ["wood", "stone", "water", "wind", "heart", "blade", "leaf", "branch", "root", "seed"],
+    "suffixes_patronymic": ["son", "sen", "dottir", "ovich", "ov", "ez", "ian", "ski", "vic"],
+    "suffixes_descriptive": ["bane", "slayer", "born", "seeker", "walker", "dancer", "singer", "caller", "weaver", "bearer"],
+    "suffixes_places": ["ford", "bridge", "hill", "field", "wood", "dale", "shire", "ton", "bury", "ham"]
+  },
+  "generation_patterns": [
     "prefix + suffix",
     "metal + occupation",
     "nature + suffix",
@@ -93,10 +105,28 @@
     "patronymic",
     "location-based"
   ],
-  "cultural_distribution": {
-    "fantasy_traditional": "40% (80 names)",
-    "nordic_celtic": "30% (60 names)",
-    "eastern_asian": "20% (40 names)",
-    "other_european": "10% (20 names)"
+  "notes": {
+    "usage": "Last names/surnames for NPCs across all cultures and races",
+    "generation": "Select from appropriate category based on NPC race, culture, and class",
+    "cultural_distribution": {
+      "fantasy_traditional": "40% (fantasy_prestigious, fantasy_common, dwarven, elven)",
+      "nordic_celtic": "30% (nordic_patronymic, celtic_traditional)",
+      "eastern_asian": "20% (eastern_asian)",
+      "other_european": "10% (english_traditional)"
+    },
+    "category_usage": {
+      "fantasy_prestigious": "Heroes, legendary figures, noble houses",
+      "fantasy_common": "Regular adventurers, merchants, commoners",
+      "nordic_patronymic": "Northern cultures, Vikings, barbarians",
+      "celtic_traditional": "Celtic-inspired cultures, druids",
+      "dwarven_craft": "Dwarves, craftsmen, smiths",
+      "elven_elegant": "Elves, rangers, archers",
+      "dark_ominous": "Villains, necromancers, death knights",
+      "eastern_asian": "Eastern-inspired cultures",
+      "nature_themed": "Rangers, druids, forest dwellers",
+      "seasonal_elemental": "Mages, elementalists",
+      "mystical_magical": "Wizards, sorcerers, mystics",
+      "scholarly": "Sages, scholars, librarians"
+    }
   }
 }

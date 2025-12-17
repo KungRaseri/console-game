@@ -1,231 +1,68 @@
-{
-  "items": [
-    {
-      "name": "GenericWelcome",
-      "displayName": "Generic Welcome",
-      "description": "Hello there, traveler!",
-      "personality": "Friendly",
-      "formality": "Casual"
-    },
-    {
-      "name": "FormalGreeting",
-      "displayName": "Formal Greeting",
-      "description": "Greetings. How may I assist you?",
-      "personality": "Serious",
-      "formality": "Formal"
-    },
-    {
-      "name": "WarmWelcome",
-      "displayName": "Warm Welcome",
-      "description": "Welcome, friend! It's wonderful to see you!",
-      "personality": "Cheerful",
-      "formality": "Casual"
-    },
-    {
-      "name": "GruffAcknowledgment",
-      "displayName": "Gruff Acknowledgment",
-      "description": "What do you want?",
-      "personality": "Gruff",
-      "formality": "Informal"
-    },
-    {
-      "name": "SuspiciousQuestion",
-      "displayName": "Suspicious Question",
-      "description": "Who are you? What brings you here?",
-      "personality": "Suspicious",
-      "formality": "Cautious"
-    },
-    {
-      "name": "EnthusiasticHello",
-      "displayName": "Enthusiastic Hello",
-      "description": "Well met! What adventures bring you to these parts?",
-      "personality": "Cheerful",
-      "formality": "Casual"
-    },
-    {
-      "name": "WearyGreeting",
-      "displayName": "Weary Greeting",
-      "description": "Another traveler... What is it you need?",
-      "personality": "Gloomy",
-      "formality": "Tired"
-    },
-    {
-      "name": "HumbleWelcome",
-      "displayName": "Humble Welcome",
-      "description": "Oh, hello. I'm nobody important, but how can I help?",
-      "personality": "Humble",
-      "formality": "Polite"
-    },
-    {
-      "name": "ArrogantAcknowledgment",
-      "displayName": "Arrogant Acknowledgment",
-      "description": "Ah, someone seeking my expertise, no doubt.",
-      "personality": "Arrogant",
-      "formality": "Condescending"
-    },
-    {
-      "name": "NervousStammer",
-      "displayName": "Nervous Stammer",
-      "description": "Oh! Um, h-hello... Can I... help you?",
-      "personality": "Shy",
-      "formality": "Awkward"
-    },
-    {
-      "name": "MysteriousWhisper",
-      "displayName": "Mysterious Whisper",
-      "description": "Ah, fate brings us together... How curious.",
-      "personality": "Mysterious",
-      "formality": "Cryptic"
-    },
-    {
-      "name": "LoudHail",
-      "displayName": "Loud Hail",
-      "description": "HO THERE, FRIEND! WELCOME!",
-      "personality": "Outgoing",
-      "formality": "Very Casual"
-    },
-    {
-      "name": "BusinessLike",
-      "displayName": "Business-like",
-      "description": "State your business.",
-      "personality": "Serious",
-      "formality": "Curt"
-    },
-    {
-      "name": "WittyRemark",
-      "displayName": "Witty Remark",
-      "description": "Well, well! Another hero looking for glory or gold?",
-      "personality": "Witty",
-      "formality": "Playful"
-    },
-    {
-      "name": "GuardedResponse",
-      "displayName": "Guarded Response",
-      "description": "I don't know you. Keep your distance.",
-      "personality": "Suspicious",
-      "formality": "Defensive"
-    },
-    {
-      "name": "ReligiousBlessing",
-      "displayName": "Religious Blessing",
-      "description": "May the gods smile upon you, traveler.",
-      "personality": "Priest",
-      "formality": "Reverent"
-    },
-    {
-      "name": "ScholarlyInquiry",
-      "displayName": "Scholarly Inquiry",
-      "description": "Greetings! Might you have any knowledge to share?",
-      "personality": "Curious",
-      "formality": "Academic"
-    },
-    {
-      "name": "MilitarySharpness",
-      "displayName": "Military Sharpness",
-      "description": "Stand and state your purpose!",
-      "personality": "FormerSoldier",
-      "formality": "Command"
-    },
-    {
-      "name": "MerchantPitch",
-      "displayName": "Merchant Pitch",
-      "description": "Welcome, welcome! Looking to buy or sell today?",
-      "personality": "Merchant",
-      "formality": "Opportunistic"
-    },
-    {
-      "name": "ExhaustedSigh",
-      "displayName": "Exhausted Sigh",
-      "description": "*sigh* Yes? What is it?",
-      "personality": "Apathetic",
-      "formality": "Resigned"
-    },
-    {
-      "name": "NobleGreeting",
-      "displayName": "Noble Greeting",
-      "description": "Good day. I trust you come with good intentions?",
-      "personality": "Noble",
-      "formality": "Refined"
-    },
-    {
-      "name": "StreetSmart",
-      "displayName": "Street Smart",
-      "description": "Hey there, stranger. You new around here?",
-      "personality": "StreetUrchin",
-      "formality": "Urban"
-    },
-    {
-      "name": "KindlyOffer",
-      "displayName": "Kindly Offer",
-      "description": "Hello, dear. You look like you could use some help.",
-      "personality": "Compassionate",
-      "formality": "Caring"
-    },
-    {
-      "name": "BrusqueDismissal",
-      "displayName": "Brusque Dismissal",
-      "description": "I'm busy. Make it quick.",
-      "personality": "Hot-Tempered",
-      "formality": "Impatient"
-    },
-    {
-      "name": "PhilosophicalMusing",
-      "displayName": "Philosophical Musing",
-      "description": "Ah, another soul wandering this strange world...",
-      "personality": "Wise",
-      "formality": "Thoughtful"
-    },
-    {
-      "name": "DrunkSlur",
-      "displayName": "Drunk Slur",
-      "description": "Heeey there, pal! *hic* How'sh it goin'?",
-      "personality": "Cheerful",
-      "formality": "Intoxicated"
-    },
-    {
-      "name": "ChildlikeWonder",
-      "displayName": "Childlike Wonder",
-      "description": "Ooh! A real adventurer! Are you here to save us?",
-      "personality": "Curious",
-      "formality": "Innocent"
-    },
-    {
-      "name": "CynicalRemark",
-      "displayName": "Cynical Remark",
-      "description": "Let me guess... you need something.",
-      "personality": "Gloomy",
-      "formality": "Jaded"
-    },
-    {
-      "name": "VeteranRespect",
-      "displayName": "Veteran Respect",
-      "description": "I can see you've seen battle. Welcome, warrior.",
-      "personality": "FormerSoldier",
-      "formality": "Respectful"
-    },
-    {
-      "name": "SecretiveWhisper",
-      "displayName": "Secretive Whisper",
-      "description": "Pssst... over here. I have something to tell you...",
-      "personality": "Mysterious",
-      "formality": "Conspiratorial"
-    }
-  ],
-  "components": {
-    "friendly_greetings": ["GenericWelcome", "WarmWelcome", "EnthusiasticHello", "KindlyOffer"],
-    "formal_greetings": ["FormalGreeting", "NobleGreeting", "ReligiousBlessing"],
-    "hostile_greetings": ["GruffAcknowledgment", "SuspiciousQuestion", "GuardedResponse", "BrusqueDismissal"],
-    "personality_specific": ["ArrogantAcknowledgment", "NervousStammer", "WittyRemark", "MysteriousWhisper"],
-    "background_specific": ["MilitarySharpness", "MerchantPitch", "ScholarlyInquiry", "StreetSmart"]
-  },
-  "patterns": [
-    "select greeting based on NPC personality trait",
-    "combine personality + formality for variety",
-    "background influences greeting style (soldier vs merchant)"
-  ],
+﻿{
   "metadata": {
-    "total_greetings": 30,
-    "formality_levels": 15,
-    "usage": "Select greeting matching NPC's primary personality trait and background"
+    "description": "Greeting dialogue templates with personality and formality variations",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
+    "type": "dialogue_template_catalog",
+    "total_greetings": 25,
+    "categories": ["friendly", "formal", "hostile", "mysterious", "quirky"]
+  },
+  "components": {
+    "friendly_casual": [
+      { "name": "GenericWelcome", "displayName": "Generic Welcome", "text": "Hello there, traveler!", "personality": "Friendly", "formality": "Casual", "rarityWeight": 5 },
+      { "name": "WarmWelcome", "displayName": "Warm Welcome", "text": "Welcome, friend! It's wonderful to see you!", "personality": "Cheerful", "formality": "Casual", "rarityWeight": 8 },
+      { "name": "EnthusiasticHello", "displayName": "Enthusiastic Hello", "text": "Well met! What adventures bring you to these parts?", "personality": "Cheerful", "formality": "Casual", "rarityWeight": 10 }
+    ],
+    "formal_polite": [
+      { "name": "FormalGreeting", "displayName": "Formal Greeting", "text": "Greetings. How may I assist you?", "personality": "Serious", "formality": "Formal", "rarityWeight": 12 },
+      { "name": "HumbleWelcome", "displayName": "Humble Welcome", "text": "Oh, hello. I'm nobody important, but how can I help?", "personality": "Humble", "formality": "Polite", "rarityWeight": 15 },
+      { "name": "RespectfulBow", "displayName": "Respectful Bow", "text": "At your service, honored guest.", "personality": "Respectful", "formality": "Formal", "rarityWeight": 18 }
+    ],
+    "hostile_gruff": [
+      { "name": "GruffAcknowledgment", "displayName": "Gruff Acknowledgment", "text": "What do you want?", "personality": "Gruff", "formality": "Informal", "rarityWeight": 14 },
+      { "name": "SuspiciousQuestion", "displayName": "Suspicious Question", "text": "Who are you? What brings you here?", "personality": "Suspicious", "formality": "Cautious", "rarityWeight": 16 },
+      { "name": "HostileChallenge", "displayName": "Hostile Challenge", "text": "State your business before I lose my patience.", "personality": "Hostile", "formality": "Threatening", "rarityWeight": 25 }
+    ],
+    "weary_gloomy": [
+      { "name": "WearyGreeting", "displayName": "Weary Greeting", "text": "Another traveler... What is it you need?", "personality": "Gloomy", "formality": "Tired", "rarityWeight": 18 },
+      { "name": "ExhaustedSigh", "displayName": "Exhausted Sigh", "text": "*sigh* Yes? Make it quick.", "personality": "Weary", "formality": "Exhausted", "rarityWeight": 20 }
+    ],
+    "arrogant_superior": [
+      { "name": "ArrogantAcknowledgment", "displayName": "Arrogant Acknowledgment", "text": "Ah, someone seeking my expertise, no doubt.", "personality": "Arrogant", "formality": "Condescending", "rarityWeight": 22 },
+      { "name": "SuperiorSmirk", "displayName": "Superior Smirk", "text": "Oh, what does the common rabble want now?", "personality": "Arrogant", "formality": "Disdainful", "rarityWeight": 28 }
+    ],
+    "shy_nervous": [
+      { "name": "NervousStammer", "displayName": "Nervous Stammer", "text": "Oh! Um, h-hello... Can I... help you?", "personality": "Shy", "formality": "Awkward", "rarityWeight": 20 },
+      { "name": "TimidWave", "displayName": "Timid Wave", "text": "H-hi there... *fidgets nervously*", "personality": "Shy", "formality": "Nervous", "rarityWeight": 22 }
+    ],
+    "mysterious_cryptic": [
+      { "name": "MysteriousWhisper", "displayName": "Mysterious Whisper", "text": "Ah, fate brings us together... How curious.", "personality": "Mysterious", "formality": "Cryptic", "rarityWeight": 35 },
+      { "name": "PropheticGaze", "displayName": "Prophetic Gaze", "text": "I've been expecting you, seeker.", "personality": "Mysterious", "formality": "Ominous", "rarityWeight": 40 },
+      { "name": "EnigmaticSmile", "displayName": "Enigmatic Smile", "text": "The threads of destiny weave in strange patterns today.", "personality": "Mysterious", "formality": "Cryptic", "rarityWeight": 42 }
+    ],
+    "quirky_unique": [
+      { "name": "SingsGreeting", "displayName": "Sings Greeting", "text": " Hello, hello, what brings you here-o! ", "personality": "Eccentric", "formality": "Musical", "rarityWeight": 38 },
+      { "name": "RhymingWelcome", "displayName": "Rhyming Welcome", "text": "A traveler I see, has come to visit me!", "personality": "Eccentric", "formality": "Poetic", "rarityWeight": 35 },
+      { "name": "ThirdPersonIntro", "displayName": "Third Person Intro", "text": "Grog welcomes you! Grog is happy to help!", "personality": "Peculiar", "formality": "Odd", "rarityWeight": 40 }
+    ],
+    "wise_sage": [
+      { "name": "WiseGreeting", "displayName": "Wise Greeting", "text": "Welcome, child. What wisdom do you seek?", "personality": "Wise", "formality": "Sagely", "rarityWeight": 30 },
+      { "name": "PhilosophicalOpening", "displayName": "Philosophical Opening", "text": "Ah, a seeker of knowledge arrives. Ask, and ye shall receive.", "personality": "Wise", "formality": "Scholarly", "rarityWeight": 32 }
+    ],
+    "merchant_salesman": [
+      { "name": "SalesmanPitch", "displayName": "Salesman Pitch", "text": "Welcome, welcome! Looking to buy or sell today?", "personality": "Merchant", "formality": "Business", "rarityWeight": 10 },
+      { "name": "EagerSeller", "displayName": "Eager Seller", "text": "Ah, a customer! You won't find better prices anywhere!", "personality": "Merchant", "formality": "Enthusiastic", "rarityWeight": 12 }
+    ]
+  },
+  "notes": {
+    "rarity_system": "weight-based",
+    "component_keys": ["friendly_casual", "formal_polite", "hostile_gruff", "weary_gloomy", "arrogant_superior", "shy_nervous", "mysterious_cryptic", "quirky_unique", "wise_sage", "merchant_salesman"],
+    "weight_ranges": {
+      "common": "5-15 rarityWeight (generic, warm, formal, merchant)",
+      "uncommon": "16-28 rarityWeight (suspicious, weary, arrogant, nervous)",
+      "rare": "30-42 rarityWeight (mysterious, cryptic, quirky, wise)"
+    },
+    "usage": "Greeting templates are selected based on NPC personality and formality level",
+    "variables": "Templates can include {playerName}, {npcName}, {location} placeholders"
   }
 }
