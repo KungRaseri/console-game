@@ -1,261 +1,193 @@
 ﻿{
-    "metadata": {
+    "_metadata": {
+        "totals": {
+            "total_items": 30
+        },
         "description": "armor suffix modifiers with stat bonuses/penalties",
-        "version": "1.0",
-        "last_updated": "2025-12-16",
         "type": "suffix_modifier",
-        "total_items": 30
+        "version": "1.0",
+        "last_updated": "2025-12-16"
     },
     "items": [
         {
-            "name": "of Protection",
-            "displayName": "of Protection",
+            "rarityWeight": 50,
             "description": "Grants enhanced defensive capabilities",
-            "rarity": "Common"
+            "name": "of Protection",
+            "displayName": "of Protection"
         },
         {
-            "name": "of Defense",
-            "displayName": "of Defense",
+            "rarityWeight": 50,
             "description": "Improves armor rating",
-            "rarity": "Common"
+            "name": "of Defense",
+            "displayName": "of Defense"
         },
         {
-            "name": "of the Guardian",
-            "displayName": "of the Guardian",
+            "rarityWeight": 30,
             "description": "Shields the wearer from harm",
-            "rarity": "Uncommon"
+            "name": "of the Guardian",
+            "displayName": "of the Guardian"
         },
         {
-            "name": "of Fortitude",
-            "displayName": "of Fortitude",
+            "rarityWeight": 30,
             "description": "Increases constitution and endurance",
-            "rarity": "Uncommon"
+            "name": "of Fortitude",
+            "displayName": "of Fortitude"
         },
         {
-            "name": "of the Bear",
-            "displayName": "of the Bear",
+            "rarityWeight": 15,
             "description": "Grants the strength and resilience of a bear",
-            "rarity": "Rare"
+            "name": "of the Bear",
+            "displayName": "of the Bear"
         },
         {
-            "name": "of the Turtle",
-            "displayName": "of the Turtle",
+            "rarityWeight": 15,
             "description": "Provides exceptional defensive bonuses",
-            "rarity": "Rare"
+            "name": "of the Turtle",
+            "displayName": "of the Turtle"
         },
         {
-            "name": "of Fire Resistance",
-            "displayName": "of Fire Resistance",
+            "rarityWeight": 30,
             "description": "Protects against flames and heat",
-            "rarity": "Uncommon"
+            "name": "of Fire Resistance",
+            "displayName": "of Fire Resistance"
         },
         {
-            "name": "of Ice Resistance",
-            "displayName": "of Ice Resistance",
+            "rarityWeight": 30,
             "description": "Wards off cold and frost",
-            "rarity": "Uncommon"
+            "name": "of Ice Resistance",
+            "displayName": "of Ice Resistance"
         },
         {
-            "name": "of Lightning Resistance",
-            "displayName": "of Lightning Resistance",
+            "rarityWeight": 30,
             "description": "Deflects electrical attacks",
-            "rarity": "Uncommon"
+            "name": "of Lightning Resistance",
+            "displayName": "of Lightning Resistance"
         },
         {
-            "name": "of Magic Resistance",
-            "displayName": "of Magic Resistance",
+            "rarityWeight": 15,
             "description": "Reduces magical damage taken",
-            "rarity": "Rare"
+            "name": "of Magic Resistance",
+            "displayName": "of Magic Resistance"
         },
         {
-            "name": "of Invulnerability",
-            "displayName": "of Invulnerability",
+            "rarityWeight": 1,
             "description": "Makes the wearer nearly immune to damage",
-            "rarity": "Legendary"
+            "name": "of Invulnerability",
+            "displayName": "of Invulnerability"
         },
         {
-            "name": "of the Champion",
-            "displayName": "of the Champion",
+            "rarityWeight": 4,
             "description": "Worn by legendary warriors",
-            "rarity": "Epic"
+            "name": "of the Champion",
+            "displayName": "of the Champion"
         },
         {
-            "name": "of the Crusader",
-            "displayName": "of the Crusader",
+            "rarityWeight": 15,
             "description": "Blessed for holy warriors",
-            "rarity": "Rare"
+            "name": "of the Crusader",
+            "displayName": "of the Crusader"
         },
         {
-            "name": "of the Paladin",
-            "displayName": "of the Paladin",
+            "rarityWeight": 4,
             "description": "Radiates divine protection",
-            "rarity": "Epic"
+            "name": "of the Paladin",
+            "displayName": "of the Paladin"
         },
         {
-            "name": "of the Mountain",
-            "displayName": "of the Mountain",
+            "rarityWeight": 4,
             "description": "Immovable as stone",
-            "rarity": "Epic"
+            "name": "of the Mountain",
+            "displayName": "of the Mountain"
         },
         {
-            "name": "of the Aegis",
-            "displayName": "of the Aegis",
+            "rarityWeight": 1,
             "description": "Shields like the gods themselves",
-            "rarity": "Legendary"
+            "name": "of the Aegis",
+            "displayName": "of the Aegis"
         },
         {
-            "name": "of Regeneration",
-            "displayName": "of Regeneration",
+            "rarityWeight": 15,
             "description": "Slowly heals wounds over time",
-            "rarity": "Rare"
+            "name": "of Regeneration",
+            "displayName": "of Regeneration"
         },
         {
-            "name": "of Vitality",
-            "displayName": "of Vitality",
+            "rarityWeight": 30,
             "description": "Increases maximum health",
-            "rarity": "Uncommon"
+            "name": "of Vitality",
+            "displayName": "of Vitality"
         },
         {
-            "name": "of Stamina",
-            "displayName": "of Stamina",
+            "rarityWeight": 50,
             "description": "Boosts endurance and vigor",
-            "rarity": "Common"
+            "name": "of Stamina",
+            "displayName": "of Stamina"
         },
         {
-            "name": "of Thorns",
-            "displayName": "of Thorns",
+            "rarityWeight": 15,
             "description": "Reflects damage back to attackers",
-            "rarity": "Rare"
+            "name": "of Thorns",
+            "displayName": "of Thorns"
         },
         {
-            "name": "of the Dragon",
-            "displayName": "of the Dragon",
+            "rarityWeight": 4,
             "description": "Grants draconic resilience",
-            "rarity": "Epic"
+            "name": "of the Dragon",
+            "displayName": "of the Dragon"
         },
         {
-            "name": "of the Phoenix",
-            "displayName": "of the Phoenix",
+            "rarityWeight": null,
             "description": "Resurrects the wearer once per day",
-            "rarity": "Mythic"
+            "name": "of the Phoenix",
+            "displayName": "of the Phoenix"
         },
         {
-            "name": "of Absorption",
-            "displayName": "of Absorption",
+            "rarityWeight": 15,
             "description": "Absorbs a portion of incoming damage",
-            "rarity": "Rare"
+            "name": "of Absorption",
+            "displayName": "of Absorption"
         },
         {
-            "name": "of Deflection",
-            "displayName": "of Deflection",
+            "rarityWeight": 30,
             "description": "Increases chance to dodge attacks",
-            "rarity": "Uncommon"
+            "name": "of Deflection",
+            "displayName": "of Deflection"
         },
         {
-            "name": "of Warding",
-            "displayName": "of Warding",
+            "rarityWeight": 15,
             "description": "Creates protective magical barriers",
-            "rarity": "Rare"
+            "name": "of Warding",
+            "displayName": "of Warding"
         },
         {
-            "name": "of Shadows",
-            "displayName": "of Shadows",
+            "rarityWeight": 4,
             "description": "Cloaks the wearer in darkness",
-            "rarity": "Epic"
+            "name": "of Shadows",
+            "displayName": "of Shadows"
         },
         {
-            "name": "of Light",
-            "displayName": "of Light",
+            "rarityWeight": 15,
             "description": "Radiates holy illumination",
-            "rarity": "Rare"
+            "name": "of Light",
+            "displayName": "of Light"
         },
         {
-            "name": "of the Void",
-            "displayName": "of the Void",
+            "rarityWeight": null,
             "description": "Channels void energies for protection",
-            "rarity": "Mythic"
+            "name": "of the Void",
+            "displayName": "of the Void"
         },
         {
-            "name": "of Eternity",
-            "displayName": "of Eternity",
+            "rarityWeight": 1,
             "description": "Never degrades or breaks",
-            "rarity": "Legendary"
+            "name": "of Eternity",
+            "displayName": "of Eternity"
         },
         {
-            "name": "of the Gods",
-            "displayName": "of the Gods",
+            "rarityWeight": null,
             "description": "Blessed by divine beings",
-            "rarity": "Ancient"
+            "name": "of the Gods",
+            "displayName": "of the Gods"
         }
-    ],
-    "components": {
-        "protection_types": {
-            "basic": [
-                "of Protection",
-                "of Defense",
-                "of Stamina"
-            ],
-            "elemental": [
-                "of Fire Resistance",
-                "of Ice Resistance",
-                "of Lightning Resistance",
-                "of Magic Resistance"
-            ],
-            "advanced": [
-                "of the Guardian",
-                "of Fortitude",
-                "of Vitality",
-                "of Deflection"
-            ],
-            "animal_totems": [
-                "of the Bear",
-                "of the Turtle"
-            ],
-            "warrior_class": [
-                "of the Champion",
-                "of the Crusader",
-                "of the Paladin"
-            ],
-            "legendary": [
-                "of Invulnerability",
-                "of the Aegis",
-                "of the Dragon",
-                "of the Phoenix"
-            ],
-            "special_abilities": [
-                "of Regeneration",
-                "of Thorns",
-                "of Absorption",
-                "of Warding"
-            ],
-            "alignment": [
-                "of Shadows",
-                "of Light",
-                "of the Void"
-            ],
-            "divine": [
-                "of Eternity",
-                "of the Gods"
-            ]
-        }
-    },
-    "patterns": [
-        "piece + basic",
-        "piece + elemental",
-        "piece + animal",
-        "piece + warrior",
-        "piece + legendary"
-    ],
-    "rarity_distribution": {
-        "Common": 3,
-        "Uncommon": 6,
-        "Rare": 10,
-        "Epic": 6,
-        "Legendary": 3,
-        "Mythic": 2,
-        "Ancient": 1
-    },
-    "notes": {
-        "usage": "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-    }
+    ]
 }

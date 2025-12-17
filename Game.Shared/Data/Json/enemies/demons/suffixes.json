@@ -1,150 +1,109 @@
 ﻿{
-    "metadata":  {
-                     "description":  "demons suffix modifiers with stat bonuses/penalties",
-                     "version":  "1.0",
-                     "last_updated":  "2025-12-16",
-                     "type":  "suffix_modifier",
-                     "total_items":  16
-                 },
-    "items":  [
-                  {
-                      "name":  "the Infernal",
-                      "displayName":  "the Infernal",
-                      "description":  "From the deepest pits of hell",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Corrupted",
-                      "displayName":  "the Corrupted",
-                      "description":  "Twisted by demonic power",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "the Devourer",
-                      "displayName":  "the Devourer",
-                      "description":  "Consumes souls and flesh",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Tormentor",
-                      "displayName":  "the Tormentor",
-                      "description":  "Delights in suffering",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Deceiver",
-                      "displayName":  "the Deceiver",
-                      "description":  "Master of lies and illusions",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Fallen",
-                      "displayName":  "the Fallen",
-                      "description":  "Once angelic, now damned",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "the Destroyer",
-                      "displayName":  "the Destroyer",
-                      "description":  "Exists only to annihilate",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "the Warlord",
-                      "displayName":  "the Warlord",
-                      "description":  "Commands demonic armies",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "the Tempter",
-                      "displayName":  "the Tempter",
-                      "description":  "Offers dark bargains",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Hellborn",
-                      "displayName":  "the Hellborn",
-                      "description":  "Native to the infernal realms",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "the Accursed",
-                      "displayName":  "the Accursed",
-                      "description":  "Bearer of terrible curses",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Doombringer",
-                      "displayName":  "the Doombringer",
-                      "description":  "Herald of apocalypse",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "the Shadowlord",
-                      "displayName":  "the Shadowlord",
-                      "description":  "Master of darkness",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "the Unbound",
-                      "displayName":  "the Unbound",
-                      "description":  "Freed from ancient imprisonment",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Primordial",
-                      "displayName":  "the Primordial",
-                      "description":  "Ancient demon from the void",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "the Void Walker",
-                      "displayName":  "the Void Walker",
-                      "description":  "Traverses between dimensions",
-                      "rarity":  "Mythic"
-                  }
-              ],
-    "components":  {
-                       "origin":  [
-                                      "the Infernal",
-                                      "the Hellborn",
-                                      "the Fallen"
-                                  ],
-                       "behavior":  [
-                                        "the Tormentor",
-                                        "the Deceiver",
-                                        "the Tempter",
-                                        "the Devourer"
-                                    ],
-                       "power":  [
-                                     "the Destroyer",
-                                     "the Warlord",
-                                     "the Shadowlord"
-                                 ],
-                       "status":  [
-                                      "the Corrupted",
-                                      "the Accursed",
-                                      "the Unbound"
-                                  ],
-                       "legendary":  [
-                                         "the Doombringer",
-                                         "the Primordial",
-                                         "the Void Walker"
-                                     ]
-                   },
-    "patterns":  [
-                     "demon type + suffix (Pit Fiend the Destroyer)",
-                     "name + suffix (Baalzebub the Tempter)"
-                 ],
-    "rarity_distribution":  {
-                                "Common":  2,
-                                "Uncommon":  3,
-                                "Rare":  4,
-                                "Epic":  4,
-                                "Legendary":  2,
-                                "Mythic":  1
-                            },
-    "notes":  {
-                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-              }
+    "_metadata": {
+        "totals": {
+            "total_items": 16
+        },
+        "description": "demons suffix modifiers with stat bonuses/penalties",
+        "type": "suffix_modifier",
+        "version": "1.0",
+        "last_updated": "2025-12-16"
+    },
+    "items": [
+        {
+            "rarityWeight": 30,
+            "description": "From the deepest pits of hell",
+            "name": "the Infernal",
+            "displayName": "the Infernal"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Twisted by demonic power",
+            "name": "the Corrupted",
+            "displayName": "the Corrupted"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Consumes souls and flesh",
+            "name": "the Devourer",
+            "displayName": "the Devourer"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Delights in suffering",
+            "name": "the Tormentor",
+            "displayName": "the Tormentor"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Master of lies and illusions",
+            "name": "the Deceiver",
+            "displayName": "the Deceiver"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Once angelic, now damned",
+            "name": "the Fallen",
+            "displayName": "the Fallen"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Exists only to annihilate",
+            "name": "the Destroyer",
+            "displayName": "the Destroyer"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Commands demonic armies",
+            "name": "the Warlord",
+            "displayName": "the Warlord"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Offers dark bargains",
+            "name": "the Tempter",
+            "displayName": "the Tempter"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Native to the infernal realms",
+            "name": "the Hellborn",
+            "displayName": "the Hellborn"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Bearer of terrible curses",
+            "name": "the Accursed",
+            "displayName": "the Accursed"
+        },
+        {
+            "rarityWeight": 1,
+            "description": "Herald of apocalypse",
+            "name": "the Doombringer",
+            "displayName": "the Doombringer"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Master of darkness",
+            "name": "the Shadowlord",
+            "displayName": "the Shadowlord"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Freed from ancient imprisonment",
+            "name": "the Unbound",
+            "displayName": "the Unbound"
+        },
+        {
+            "rarityWeight": 1,
+            "description": "Ancient demon from the void",
+            "name": "the Primordial",
+            "displayName": "the Primordial"
+        },
+        {
+            "rarityWeight": null,
+            "description": "Traverses between dimensions",
+            "name": "the Void Walker",
+            "displayName": "the Void Walker"
+        }
+    ]
 }

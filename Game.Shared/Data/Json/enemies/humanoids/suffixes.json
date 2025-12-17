@@ -1,151 +1,109 @@
 ﻿{
-    "metadata":  {
-                     "description":  "humanoids suffix modifiers with stat bonuses/penalties",
-                     "version":  "1.0",
-                     "last_updated":  "2025-12-16",
-                     "type":  "suffix_modifier",
-                     "total_items":  16
-                 },
-    "items":  [
-                  {
-                      "name":  "the Skilled",
-                      "displayName":  "the Skilled",
-                      "description":  "Highly trained warrior",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "the Veteran",
-                      "displayName":  "the Veteran",
-                      "description":  "Experienced in many battles",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Ruthless",
-                      "displayName":  "the Ruthless",
-                      "description":  "Shows no mercy",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Betrayer",
-                      "displayName":  "the Betrayer",
-                      "description":  "Turned against former allies",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Exiled",
-                      "displayName":  "the Exiled",
-                      "description":  "Banished from their homeland",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Mercenary",
-                      "displayName":  "the Mercenary",
-                      "description":  "Fights for gold, not honor",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "the Deserter",
-                      "displayName":  "the Deserter",
-                      "description":  "Fled from their army",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "the Captain",
-                      "displayName":  "the Captain",
-                      "description":  "Commands a group of warriors",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Warlord",
-                      "displayName":  "the Warlord",
-                      "description":  "Leader of an army",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "the Champion",
-                      "displayName":  "the Champion",
-                      "description":  "Arena or battlefield hero",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "the Assassin",
-                      "displayName":  "the Assassin",
-                      "description":  "Trained killer from the shadows",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Zealot",
-                      "displayName":  "the Zealot",
-                      "description":  "Fanatically devoted to a cause",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Cursed",
-                      "displayName":  "the Cursed",
-                      "description":  "Afflicted by dark magic",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Legendary",
-                      "displayName":  "the Legendary",
-                      "description":  "Fame and infamy precede them",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "the Mad",
-                      "displayName":  "the Mad",
-                      "description":  "Driven insane, unpredictable",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Corrupted",
-                      "displayName":  "the Corrupted",
-                      "description":  "Tainted by evil forces",
-                      "rarity":  "Epic"
-                  }
-              ],
-    "components":  {
-                       "rank_titles":  [
-                                           "the Captain",
-                                           "the Warlord",
-                                           "the Champion"
-                                       ],
-                       "personality":  [
-                                           "the Ruthless",
-                                           "the Zealot",
-                                           "the Mad"
-                                       ],
-                       "background":  [
-                                          "the Veteran",
-                                          "the Exiled",
-                                          "the Deserter",
-                                          "the Mercenary",
-                                          "the Betrayer"
-                                      ],
-                       "specialization":  [
-                                              "the Skilled",
-                                              "the Assassin"
-                                          ],
-                       "corrupted":  [
-                                         "the Cursed",
-                                         "the Corrupted"
-                                     ],
-                       "legendary":  [
-                                         "the Legendary"
-                                     ]
-                   },
-    "patterns":  [
-                     "class + suffix (Warrior the Veteran)",
-                     "name + suffix (Marcus the Warlord)"
-                 ],
-    "rarity_distribution":  {
-                                "Common":  3,
-                                "Uncommon":  5,
-                                "Rare":  4,
-                                "Epic":  3,
-                                "Legendary":  1
-                            },
-    "notes":  {
-                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-              }
+    "_metadata": {
+        "totals": {
+            "total_items": 16
+        },
+        "description": "humanoids suffix modifiers with stat bonuses/penalties",
+        "type": "suffix_modifier",
+        "version": "1.0",
+        "last_updated": "2025-12-16"
+    },
+    "items": [
+        {
+            "rarityWeight": 50,
+            "description": "Highly trained warrior",
+            "name": "the Skilled",
+            "displayName": "the Skilled"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Experienced in many battles",
+            "name": "the Veteran",
+            "displayName": "the Veteran"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Shows no mercy",
+            "name": "the Ruthless",
+            "displayName": "the Ruthless"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Turned against former allies",
+            "name": "the Betrayer",
+            "displayName": "the Betrayer"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Banished from their homeland",
+            "name": "the Exiled",
+            "displayName": "the Exiled"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Fights for gold, not honor",
+            "name": "the Mercenary",
+            "displayName": "the Mercenary"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Fled from their army",
+            "name": "the Deserter",
+            "displayName": "the Deserter"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Commands a group of warriors",
+            "name": "the Captain",
+            "displayName": "the Captain"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Leader of an army",
+            "name": "the Warlord",
+            "displayName": "the Warlord"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Arena or battlefield hero",
+            "name": "the Champion",
+            "displayName": "the Champion"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Trained killer from the shadows",
+            "name": "the Assassin",
+            "displayName": "the Assassin"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Fanatically devoted to a cause",
+            "name": "the Zealot",
+            "displayName": "the Zealot"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Afflicted by dark magic",
+            "name": "the Cursed",
+            "displayName": "the Cursed"
+        },
+        {
+            "rarityWeight": 1,
+            "description": "Fame and infamy precede them",
+            "name": "the Legendary",
+            "displayName": "the Legendary"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Driven insane, unpredictable",
+            "name": "the Mad",
+            "displayName": "the Mad"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Tainted by evil forces",
+            "name": "the Corrupted",
+            "displayName": "the Corrupted"
+        }
+    ]
 }

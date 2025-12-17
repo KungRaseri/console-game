@@ -1,153 +1,115 @@
 ﻿{
-    "metadata":  {
-                     "description":  "trolls suffix modifiers with stat bonuses/penalties",
-                     "version":  "1.0",
-                     "last_updated":  "2025-12-16",
-                     "type":  "suffix_modifier",
-                     "total_items":  17
-                 },
-    "items":  [
-                  {
-                      "name":  "theRegenerated",
-                      "displayName":  "the Regenerated",
-                      "description":  "Heals impossibly fast",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "theGiant",
-                      "displayName":  "the Giant",
-                      "description":  "Towering over others",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "theBrute",
-                      "displayName":  "the Brute",
-                      "description":  "Savage and brutal fighter",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "theCaveborn",
-                      "displayName":  "the Caveborn",
-                      "description":  "Dwells in deep caverns",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "theRockThrower",
-                      "displayName":  "the Rock-Thrower",
-                      "description":  "Hurls massive boulders",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "theStoneSkin",
-                      "displayName":  "the Stone-Skin",
-                      "description":  "Turns to stone in daylight",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "theClubber",
-                      "displayName":  "the Clubber",
-                      "description":  "Master of the great club",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "theEnraged",
-                      "displayName":  "the Enraged",
-                      "description":  "Constantly in berserk fury",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "theMountain",
-                      "displayName":  "the Mountain",
-                      "description":  "Strong as the peaks themselves",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "theIcebound",
-                      "displayName":  "the Icebound",
-                      "description":  "Frozen troll of the north",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "theChieftain",
-                      "displayName":  "the Chieftain",
-                      "description":  "Leader of the tribe",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "theLavaborn",
-                      "displayName":  "the Lavaborn",
-                      "description":  "Born in volcanic fires",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "theTerror",
-                      "displayName":  "the Terror",
-                      "description":  "Feared by all who meet them",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "theColossus",
-                      "displayName":  "the Colossus",
-                      "description":  "Gigantic beyond measure",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "theKing",
-                      "displayName":  "the King",
-                      "description":  "Ruler of all trollkind",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "thePrimal",
-                      "displayName":  "the Primal",
-                      "description":  "Ancient and unstoppable",
-                      "rarity":  "Mythic"
-                  },
-                  {
-                      "name":  "theWorldEater",
-                      "displayName":  "the World-Eater",
-                      "description":  "Devours all in its path",
-                      "rarity":  "Mythic"
-                  }
-              ],
-    "components":  {
-                       "basic_suffixes":  [
-                                              "theRegenerated",
-                                              "theGiant",
-                                              "theBrute"
-                                          ],
-                       "environmental_suffixes":  [
-                                                      "theCaveborn",
-                                                      "theStoneSkin",
-                                                      "theIcebound",
-                                                      "theLavaborn"
-                                                  ],
-                       "combat_suffixes":  [
-                                               "theRockThrower",
-                                               "theClubber",
-                                               "theEnraged"
-                                           ],
-                       "power_suffixes":  [
-                                              "theMountain",
-                                              "theTerror"
-                                          ],
-                       "leadership_suffixes":  [
-                                                   "theChieftain",
-                                                   "theKing"
-                                               ],
-                       "legendary_suffixes":  [
-                                                  "theColossus",
-                                                  "thePrimal",
-                                                  "theWorldEater"
-                                              ]
-                   },
-    "patterns":  [
-                     "Size emphasis (the Giant, the Colossus)",
-                     "Combat style (the Clubber, the Rock-Thrower)",
-                     "Environmental adaptation (the Icebound, the Lavaborn)",
-                     "Power level (the King, the World-Eater)"
-                 ],
-    "notes":  {
-                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-              }
+    "_metadata": {
+        "totals": {
+            "total_items": 17
+        },
+        "description": "trolls suffix modifiers with stat bonuses/penalties",
+        "type": "suffix_modifier",
+        "version": "1.0",
+        "last_updated": "2025-12-16"
+    },
+    "items": [
+        {
+            "rarityWeight": 50,
+            "description": "Heals impossibly fast",
+            "name": "theRegenerated",
+            "displayName": "the Regenerated"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Towering over others",
+            "name": "theGiant",
+            "displayName": "the Giant"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Savage and brutal fighter",
+            "name": "theBrute",
+            "displayName": "the Brute"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Dwells in deep caverns",
+            "name": "theCaveborn",
+            "displayName": "the Caveborn"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Hurls massive boulders",
+            "name": "theRockThrower",
+            "displayName": "the Rock-Thrower"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Turns to stone in daylight",
+            "name": "theStoneSkin",
+            "displayName": "the Stone-Skin"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Master of the great club",
+            "name": "theClubber",
+            "displayName": "the Clubber"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Constantly in berserk fury",
+            "name": "theEnraged",
+            "displayName": "the Enraged"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Strong as the peaks themselves",
+            "name": "theMountain",
+            "displayName": "the Mountain"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Frozen troll of the north",
+            "name": "theIcebound",
+            "displayName": "the Icebound"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Leader of the tribe",
+            "name": "theChieftain",
+            "displayName": "the Chieftain"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Born in volcanic fires",
+            "name": "theLavaborn",
+            "displayName": "the Lavaborn"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Feared by all who meet them",
+            "name": "theTerror",
+            "displayName": "the Terror"
+        },
+        {
+            "rarityWeight": 1,
+            "description": "Gigantic beyond measure",
+            "name": "theColossus",
+            "displayName": "the Colossus"
+        },
+        {
+            "rarityWeight": 1,
+            "description": "Ruler of all trollkind",
+            "name": "theKing",
+            "displayName": "the King"
+        },
+        {
+            "rarityWeight": null,
+            "description": "Ancient and unstoppable",
+            "name": "thePrimal",
+            "displayName": "the Primal"
+        },
+        {
+            "rarityWeight": null,
+            "description": "Devours all in its path",
+            "name": "theWorldEater",
+            "displayName": "the World-Eater"
+        }
+    ]
 }

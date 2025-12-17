@@ -1,153 +1,115 @@
 ﻿{
-    "metadata":  {
-                     "description":  "insects suffix modifiers with stat bonuses/penalties",
-                     "version":  "1.0",
-                     "last_updated":  "2025-12-16",
-                     "type":  "suffix_modifier",
-                     "total_items":  17
-                 },
-    "items":  [
-                  {
-                      "name":  "theSwarm",
-                      "displayName":  "the Swarm",
-                      "description":  "Endless numbers overwhelming foes",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "theVenomous",
-                      "displayName":  "the Venomous",
-                      "description":  "Deadly poison in every strike",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "theChittering",
-                      "displayName":  "the Chittering",
-                      "description":  "Produces unsettling clicking sounds",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "theBurrower",
-                      "displayName":  "the Burrower",
-                      "description":  "Emerges from underground",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "theWinged",
-                      "displayName":  "the Winged",
-                      "description":  "Takes to the skies",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "theAcidic",
-                      "displayName":  "the Acidic",
-                      "description":  "Dissolves everything it touches",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "theWebbed",
-                      "displayName":  "the Webbed",
-                      "description":  "Traps prey in sticky silk",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "theParalyzer",
-                      "displayName":  "the Paralyzer",
-                      "description":  "Immobilizes victims with venom",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "theHiveMind",
-                      "displayName":  "the Hive Mind",
-                      "description":  "Connected to the collective",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "theEvolving",
-                      "displayName":  "the Evolving",
-                      "description":  "Constantly adapting and changing",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "theQueen",
-                      "displayName":  "the Queen",
-                      "description":  "Matriarch of the colony",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "thePlagueBearer",
-                      "displayName":  "the Plague-Bearer",
-                      "description":  "Spreads disease and pestilence",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "theMindController",
-                      "displayName":  "the Mind-Controller",
-                      "description":  "Dominates the will of others",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "theColossal",
-                      "displayName":  "the Colossal",
-                      "description":  "Impossibly massive size",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "theSwarmLord",
-                      "displayName":  "the Swarm Lord",
-                      "description":  "Commands all insects",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "thePrimordial",
-                      "displayName":  "the Primordial",
-                      "description":  "From the beginning of time",
-                      "rarity":  "Mythic"
-                  },
-                  {
-                      "name":  "theEldritch",
-                      "displayName":  "the Eldritch",
-                      "description":  "Beyond mortal comprehension",
-                      "rarity":  "Mythic"
-                  }
-              ],
-    "components":  {
-                       "basic_suffixes":  [
-                                              "theSwarm",
-                                              "theVenomous",
-                                              "theChittering"
-                                          ],
-                       "movement_suffixes":  [
-                                                 "theBurrower",
-                                                 "theWinged"
-                                             ],
-                       "attack_suffixes":  [
-                                               "theAcidic",
-                                               "theParalyzer",
-                                               "thePlagueBearer"
-                                           ],
-                       "tactical_suffixes":  [
-                                                 "theWebbed",
-                                                 "theHiveMind"
-                                             ],
-                       "command_suffixes":  [
-                                                "theQueen",
-                                                "theMindController",
-                                                "theSwarmLord"
-                                            ],
-                       "legendary_suffixes":  [
-                                                  "theEvolving",
-                                                  "theColossal",
-                                                  "thePrimordial",
-                                                  "theEldritch"
-                                              ]
-                   },
-    "patterns":  [
-                     "Biological features (the Venomous, the Acidic)",
-                     "Behavioral traits (the Burrower, the Winged)",
-                     "Hive hierarchy (the Queen, the Swarm Lord)",
-                     "Ancient power (the Primordial, the Eldritch)"
-                 ],
-    "notes":  {
-                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-              }
+    "_metadata": {
+        "totals": {
+            "total_items": 17
+        },
+        "description": "insects suffix modifiers with stat bonuses/penalties",
+        "type": "suffix_modifier",
+        "version": "1.0",
+        "last_updated": "2025-12-16"
+    },
+    "items": [
+        {
+            "rarityWeight": 50,
+            "description": "Endless numbers overwhelming foes",
+            "name": "theSwarm",
+            "displayName": "the Swarm"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Deadly poison in every strike",
+            "name": "theVenomous",
+            "displayName": "the Venomous"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Produces unsettling clicking sounds",
+            "name": "theChittering",
+            "displayName": "the Chittering"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Emerges from underground",
+            "name": "theBurrower",
+            "displayName": "the Burrower"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Takes to the skies",
+            "name": "theWinged",
+            "displayName": "the Winged"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Dissolves everything it touches",
+            "name": "theAcidic",
+            "displayName": "the Acidic"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Traps prey in sticky silk",
+            "name": "theWebbed",
+            "displayName": "the Webbed"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Immobilizes victims with venom",
+            "name": "theParalyzer",
+            "displayName": "the Paralyzer"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Connected to the collective",
+            "name": "theHiveMind",
+            "displayName": "the Hive Mind"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Constantly adapting and changing",
+            "name": "theEvolving",
+            "displayName": "the Evolving"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Matriarch of the colony",
+            "name": "theQueen",
+            "displayName": "the Queen"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Spreads disease and pestilence",
+            "name": "thePlagueBearer",
+            "displayName": "the Plague-Bearer"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Dominates the will of others",
+            "name": "theMindController",
+            "displayName": "the Mind-Controller"
+        },
+        {
+            "rarityWeight": 1,
+            "description": "Impossibly massive size",
+            "name": "theColossal",
+            "displayName": "the Colossal"
+        },
+        {
+            "rarityWeight": 1,
+            "description": "Commands all insects",
+            "name": "theSwarmLord",
+            "displayName": "the Swarm Lord"
+        },
+        {
+            "rarityWeight": null,
+            "description": "From the beginning of time",
+            "name": "thePrimordial",
+            "displayName": "the Primordial"
+        },
+        {
+            "rarityWeight": null,
+            "description": "Beyond mortal comprehension",
+            "name": "theEldritch",
+            "displayName": "the Eldritch"
+        }
+    ]
 }

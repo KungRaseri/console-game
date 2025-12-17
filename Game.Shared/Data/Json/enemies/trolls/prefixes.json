@@ -1,0 +1,149 @@
+﻿{
+    "_metadata": {
+        "totals": {
+            "total_items": 8
+        },
+        "description": "trolls prefix modifiers with stat bonuses/penalties",
+        "type": "prefix_modifier",
+        "version": "1.0",
+        "last_updated": "2025-12-16"
+    },
+    "items": [
+        {
+            "rarityWeight": 50,
+            "name": "Wild",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 1,
+                    "type": "number"
+                },
+                "damageMultiplier": {
+                    "value": 1.1,
+                    "type": "number"
+                }
+            },
+            "displayName": "Wild"
+        },
+        {
+            "rarityWeight": 50,
+            "name": "Feral",
+            "traits": {
+                "damageMultiplier": {
+                    "value": 1.1,
+                    "type": "number"
+                },
+                "attackSpeed": {
+                    "value": 5,
+                    "type": "number"
+                }
+            },
+            "displayName": "Feral"
+        },
+        {
+            "rarityWeight": 50,
+            "name": "Aggressive",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 0.9,
+                    "type": "number"
+                },
+                "damageMultiplier": {
+                    "value": 1.2,
+                    "type": "number"
+                }
+            },
+            "displayName": "Aggressive"
+        },
+        {
+            "rarityWeight": 30,
+            "name": "Dire",
+            "traits": {
+                "healthMultiplier": {
+                    "value": 1.3,
+                    "type": "number"
+                },
+                "damageMultiplier": {
+                    "value": 1.3,
+                    "type": "number"
+                }
+            },
+            "displayName": "Dire"
+        },
+        {
+            "rarityWeight": 30,
+            "name": "Elder",
+            "traits": {
+                "armorBonus": {
+                    "value": 5,
+                    "type": "number"
+                },
+                "damageMultiplier": {
+                    "value": 1.2,
+                    "type": "number"
+                },
+                "healthMultiplier": {
+                    "value": 1.4,
+                    "type": "number"
+                }
+            },
+            "displayName": "Elder"
+        },
+        {
+            "rarityWeight": 15,
+            "name": "Alpha",
+            "traits": {
+                "leadershipBonus": {
+                    "value": 10,
+                    "type": "number"
+                },
+                "damageMultiplier": {
+                    "value": 1.5,
+                    "type": "number"
+                },
+                "healthMultiplier": {
+                    "value": 1.5,
+                    "type": "number"
+                }
+            },
+            "displayName": "Alpha"
+        },
+        {
+            "rarityWeight": 4,
+            "name": "Ancient",
+            "traits": {
+                "armorBonus": {
+                    "value": 15,
+                    "type": "number"
+                },
+                "damageMultiplier": {
+                    "value": 1.8,
+                    "type": "number"
+                },
+                "healthMultiplier": {
+                    "value": 2,
+                    "type": "number"
+                }
+            },
+            "displayName": "Ancient"
+        },
+        {
+            "rarityWeight": 1,
+            "name": "Legendary",
+            "traits": {
+                "damageMultiplier": {
+                    "value": 2.5,
+                    "type": "number"
+                },
+                "healthMultiplier": {
+                    "value": 3,
+                    "type": "number"
+                },
+                "allStats": {
+                    "value": 25,
+                    "type": "number"
+                }
+            },
+            "displayName": "Legendary"
+        }
+    ]
+}

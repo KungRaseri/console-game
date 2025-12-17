@@ -1,151 +1,109 @@
 ﻿{
-    "metadata":  {
-                     "description":  "undead suffix modifiers with stat bonuses/penalties",
-                     "version":  "1.0",
-                     "last_updated":  "2025-12-16",
-                     "type":  "suffix_modifier",
-                     "total_items":  16
-                 },
-    "items":  [
-                  {
-                      "name":  "the Risen",
-                      "displayName":  "the Risen",
-                      "description":  "Recently reanimated",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "the Eternal",
-                      "displayName":  "the Eternal",
-                      "description":  "Exists beyond time",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "the Rotting",
-                      "displayName":  "the Rotting",
-                      "description":  "Decomposing corpse",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "the Skeletal",
-                      "displayName":  "the Skeletal",
-                      "description":  "Nothing but bones remain",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "the Vengeful",
-                      "displayName":  "the Vengeful",
-                      "description":  "Seeking revenge for past wrongs",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Cursed",
-                      "displayName":  "the Cursed",
-                      "description":  "Bound by dark magic",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Ancient",
-                      "displayName":  "the Ancient",
-                      "description":  "Undead for millennia",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "the Lich",
-                      "displayName":  "the Lich",
-                      "description":  "Powerful undead spellcaster",
-                      "rarity":  "Legendary"
-                  },
-                  {
-                      "name":  "the Restless",
-                      "displayName":  "the Restless",
-                      "description":  "Cannot find peace",
-                      "rarity":  "Common"
-                  },
-                  {
-                      "name":  "the Corrupted",
-                      "displayName":  "the Corrupted",
-                      "description":  "Twisted by necromancy",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Dread",
-                      "displayName":  "the Dread",
-                      "description":  "Inspires overwhelming fear",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "the Plague Bearer",
-                      "displayName":  "the Plague Bearer",
-                      "description":  "Spreads disease and decay",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Unholy",
-                      "displayName":  "the Unholy",
-                      "description":  "Defies divine law",
-                      "rarity":  "Uncommon"
-                  },
-                  {
-                      "name":  "the Wraith",
-                      "displayName":  "the Wraith",
-                      "description":  "Incorporeal spirit of malice",
-                      "rarity":  "Rare"
-                  },
-                  {
-                      "name":  "the Undying",
-                      "displayName":  "the Undying",
-                      "description":  "Impossible to truly destroy",
-                      "rarity":  "Epic"
-                  },
-                  {
-                      "name":  "the Soulless",
-                      "displayName":  "the Soulless",
-                      "description":  "Empty vessel of dark magic",
-                      "rarity":  "Uncommon"
-                  }
-              ],
-    "components":  {
-                       "physical_state":  [
-                                              "the Risen",
-                                              "the Rotting",
-                                              "the Skeletal",
-                                              "the Restless"
-                                          ],
-                       "temporal":  [
-                                        "the Ancient",
-                                        "the Eternal"
-                                    ],
-                       "emotional":  [
-                                         "the Vengeful",
-                                         "the Soulless"
-                                     ],
-                       "magical":  [
-                                       "the Cursed",
-                                       "the Corrupted",
-                                       "the Unholy"
-                                   ],
-                       "special_types":  [
-                                             "the Lich",
-                                             "the Wraith",
-                                             "the Plague Bearer"
-                                         ],
-                       "legendary":  [
-                                         "the Dread",
-                                         "the Undying"
-                                     ]
-                   },
-    "patterns":  [
-                     "undead type + suffix (Zombie the Rotting)",
-                     "name + suffix (Lord Mortis the Lich)"
-                 ],
-    "rarity_distribution":  {
-                                "Common":  4,
-                                "Uncommon":  4,
-                                "Rare":  3,
-                                "Epic":  3,
-                                "Legendary":  2
-                            },
-    "notes":  {
-                  "usage":  "Stat modifiers applied AFTER base name. Used at runtime based on item rarity. Not used in pattern generation."
-              }
+    "_metadata": {
+        "totals": {
+            "total_items": 16
+        },
+        "description": "undead suffix modifiers with stat bonuses/penalties",
+        "type": "suffix_modifier",
+        "version": "1.0",
+        "last_updated": "2025-12-16"
+    },
+    "items": [
+        {
+            "rarityWeight": 50,
+            "description": "Recently reanimated",
+            "name": "the Risen",
+            "displayName": "the Risen"
+        },
+        {
+            "rarityWeight": 1,
+            "description": "Exists beyond time",
+            "name": "the Eternal",
+            "displayName": "the Eternal"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Decomposing corpse",
+            "name": "the Rotting",
+            "displayName": "the Rotting"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Nothing but bones remain",
+            "name": "the Skeletal",
+            "displayName": "the Skeletal"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Seeking revenge for past wrongs",
+            "name": "the Vengeful",
+            "displayName": "the Vengeful"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Bound by dark magic",
+            "name": "the Cursed",
+            "displayName": "the Cursed"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Undead for millennia",
+            "name": "the Ancient",
+            "displayName": "the Ancient"
+        },
+        {
+            "rarityWeight": 1,
+            "description": "Powerful undead spellcaster",
+            "name": "the Lich",
+            "displayName": "the Lich"
+        },
+        {
+            "rarityWeight": 50,
+            "description": "Cannot find peace",
+            "name": "the Restless",
+            "displayName": "the Restless"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Twisted by necromancy",
+            "name": "the Corrupted",
+            "displayName": "the Corrupted"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Inspires overwhelming fear",
+            "name": "the Dread",
+            "displayName": "the Dread"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Spreads disease and decay",
+            "name": "the Plague Bearer",
+            "displayName": "the Plague Bearer"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Defies divine law",
+            "name": "the Unholy",
+            "displayName": "the Unholy"
+        },
+        {
+            "rarityWeight": 15,
+            "description": "Incorporeal spirit of malice",
+            "name": "the Wraith",
+            "displayName": "the Wraith"
+        },
+        {
+            "rarityWeight": 4,
+            "description": "Impossible to truly destroy",
+            "name": "the Undying",
+            "displayName": "the Undying"
+        },
+        {
+            "rarityWeight": 30,
+            "description": "Empty vessel of dark magic",
+            "name": "the Soulless",
+            "displayName": "the Soulless"
+        }
+    ]
 }
