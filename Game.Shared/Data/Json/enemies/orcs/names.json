@@ -1,8 +1,8 @@
 ﻿{
     "metadata":  {
                      "description":  "Orc name generation patterns with weight-based rarity components",
-                     "version":  "1.0",
-                     "last_updated":  "2025-12-16",
+                     "version":  "4.0",
+                     "last_updated":  "2025-12-17",
                      "type":  "pattern_generation",
                      "component_keys":  [
                                             "rank",
@@ -19,11 +19,15 @@
                                         ],
                      "total_patterns":  8,
                      "rarity_system":  "weight-based",
-                     "notes":  {
-                                   "base_token":  "Resolves to item name from orcs/types.json",
-                                   "clan_culture":  "Orcs organize in powerful clans with warrior hierarchies",
-                                   "weight_ranges":  "Young (5) â†’ King (65), Ironjaw (10) â†’ Hellscream (45)"
-                               }
+                     "notes":  [
+                                   {
+                                       "base_token":  "Resolves to item name from orcs/types.json",
+                                       "clan_culture":  "Orcs organize in powerful clans with warrior hierarchies",
+                                       "weight_ranges":  "Young (5) â†’ King (65), Ironjaw (10) â†’ Hellscream (45)"
+                                   },
+                                   "Upgraded to v4.0 with supports_traits metadata"
+                               ],
+                     "supports_traits":  true
                  },
     "components":  {
                        "rank":  [

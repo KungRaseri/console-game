@@ -1,167 +1,172 @@
 ﻿{
-  "metadata": {
-    "description": "Orc enemy type catalog with base stats and rarityWeight values",
-    "version": "1.0",
-    "last_updated": "2025-12-16",
-    "type": "enemy_catalog",
-    "total_types": 11,
-    "categories": ["common_orcs", "elite_orcs", "special_orcs"]
-  },
-  "orc_types": {
-    "common_orcs": {
-      "traits": {
-        "category": "orc",
-        "size": "medium",
-        "intelligence": "low",
-        "social": "clan",
-        "behavior": "aggressive",
-        "damageType": "physical"
-      },
-      "items": [
-        {
-          "name": "Orc",
-          "health": 50,
-          "attack": 14,
-          "defense": 6,
-          "speed": 5,
-          "level": 3,
-          "xp": 40,
-          "rarityWeight": 5
-        },
-        {
-          "name": "Orc Grunt",
-          "health": 60,
-          "attack": 16,
-          "defense": 7,
-          "speed": 5,
-          "level": 4,
-          "xp": 50,
-          "rarityWeight": 8
-        },
-        {
-          "name": "Orc Warrior",
-          "health": 75,
-          "attack": 20,
-          "defense": 9,
-          "speed": 5,
-          "level": 5,
-          "xp": 70,
-          "rarityWeight": 12
-        },
-        {
-          "name": "Orc Berserker",
-          "health": 85,
-          "attack": 26,
-          "defense": 6,
-          "speed": 6,
-          "level": 6,
-          "xp": 90,
-          "rarityWeight": 18
-        }
-      ]
-    },
-    "elite_orcs": {
-      "traits": {
-        "category": "orc",
-        "size": "medium",
-        "intelligence": "medium",
-        "social": "clan",
-        "behavior": "tactical",
-        "damageType": "physical",
-        "trained": true
-      },
-      "items": [
-        {
-          "name": "Orc Champion",
-          "health": 100,
-          "attack": 28,
-          "defense": 12,
-          "speed": 6,
-          "level": 7,
-          "xp": 110,
-          "rarityWeight": 22
-        },
-        {
-          "name": "Orc Shaman",
-          "health": 80,
-          "attack": 22,
-          "defense": 10,
-          "speed": 5,
-          "level": 7,
-          "xp": 115,
-          "rarityWeight": 25
-        },
-        {
-          "name": "Orc Warlord",
-          "health": 120,
-          "attack": 32,
-          "defense": 14,
-          "speed": 6,
-          "level": 9,
-          "xp": 150,
-          "rarityWeight": 35
-        },
-        {
-          "name": "Orc Chieftain",
-          "health": 140,
-          "attack": 35,
-          "defense": 16,
-          "speed": 6,
-          "level": 10,
-          "xp": 180,
-          "rarityWeight": 42
-        }
-      ]
-    },
-    "special_orcs": {
-      "traits": {
-        "category": "orc",
-        "size": "large",
-        "intelligence": "medium",
-        "social": "clan",
-        "behavior": "legendary",
-        "unique": true
-      },
-      "items": [
-        {
-          "name": "Orc King",
-          "health": 180,
-          "attack": 42,
-          "defense": 20,
-          "speed": 7,
-          "level": 12,
-          "xp": 250,
-          "rarityWeight": 65,
-          "damageType": "physical"
-        },
-        {
-          "name": "Half-Orc",
-          "health": 65,
-          "attack": 18,
-          "defense": 8,
-          "speed": 6,
-          "level": 4,
-          "xp": 55,
-          "rarityWeight": 15,
-          "damageType": "physical",
-          "intelligence": "high"
-        },
-        {
-          "name": "Orc Brute",
-          "health": 160,
-          "attack": 38,
-          "defense": 10,
-          "speed": 4,
-          "level": 10,
-          "xp": 170,
-          "rarityWeight": 30,
-          "damageType": "physical",
-          "size": "huge"
-        }
-      ]
-    }
-  }
-,
-  "notes": {
-    "usage": "Base catalog of orcs with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-  }}
+    "metadata":  {
+                     "description":  "Orc enemy type catalog with base stats and rarityWeight values",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-17",
+                     "type":  "item_catalog",
+                     "total_types":  11,
+                     "categories":  [
+                                        "common_orcs",
+                                        "elite_orcs",
+                                        "special_orcs"
+                                    ],
+                     "usage":  "Provides base enemy types for pattern generation"
+                 },
+    "orc_types":  {
+                      "common_orcs":  {
+                                          "traits":  {
+                                                         "category":  "orc",
+                                                         "size":  "medium",
+                                                         "intelligence":  "low",
+                                                         "social":  "clan",
+                                                         "behavior":  "aggressive",
+                                                         "damageType":  "physical"
+                                                     },
+                                          "items":  [
+                                                        {
+                                                            "name":  "Orc",
+                                                            "health":  50,
+                                                            "attack":  14,
+                                                            "defense":  6,
+                                                            "speed":  5,
+                                                            "level":  3,
+                                                            "xp":  40,
+                                                            "rarityWeight":  5
+                                                        },
+                                                        {
+                                                            "name":  "Orc Grunt",
+                                                            "health":  60,
+                                                            "attack":  16,
+                                                            "defense":  7,
+                                                            "speed":  5,
+                                                            "level":  4,
+                                                            "xp":  50,
+                                                            "rarityWeight":  8
+                                                        },
+                                                        {
+                                                            "name":  "Orc Warrior",
+                                                            "health":  75,
+                                                            "attack":  20,
+                                                            "defense":  9,
+                                                            "speed":  5,
+                                                            "level":  5,
+                                                            "xp":  70,
+                                                            "rarityWeight":  12
+                                                        },
+                                                        {
+                                                            "name":  "Orc Berserker",
+                                                            "health":  85,
+                                                            "attack":  26,
+                                                            "defense":  6,
+                                                            "speed":  6,
+                                                            "level":  6,
+                                                            "xp":  90,
+                                                            "rarityWeight":  18
+                                                        }
+                                                    ]
+                                      },
+                      "elite_orcs":  {
+                                         "traits":  {
+                                                        "category":  "orc",
+                                                        "size":  "medium",
+                                                        "intelligence":  "medium",
+                                                        "social":  "clan",
+                                                        "behavior":  "tactical",
+                                                        "damageType":  "physical",
+                                                        "trained":  true
+                                                    },
+                                         "items":  [
+                                                       {
+                                                           "name":  "Orc Champion",
+                                                           "health":  100,
+                                                           "attack":  28,
+                                                           "defense":  12,
+                                                           "speed":  6,
+                                                           "level":  7,
+                                                           "xp":  110,
+                                                           "rarityWeight":  22
+                                                       },
+                                                       {
+                                                           "name":  "Orc Shaman",
+                                                           "health":  80,
+                                                           "attack":  22,
+                                                           "defense":  10,
+                                                           "speed":  5,
+                                                           "level":  7,
+                                                           "xp":  115,
+                                                           "rarityWeight":  25
+                                                       },
+                                                       {
+                                                           "name":  "Orc Warlord",
+                                                           "health":  120,
+                                                           "attack":  32,
+                                                           "defense":  14,
+                                                           "speed":  6,
+                                                           "level":  9,
+                                                           "xp":  150,
+                                                           "rarityWeight":  35
+                                                       },
+                                                       {
+                                                           "name":  "Orc Chieftain",
+                                                           "health":  140,
+                                                           "attack":  35,
+                                                           "defense":  16,
+                                                           "speed":  6,
+                                                           "level":  10,
+                                                           "xp":  180,
+                                                           "rarityWeight":  42
+                                                       }
+                                                   ]
+                                     },
+                      "special_orcs":  {
+                                           "traits":  {
+                                                          "category":  "orc",
+                                                          "size":  "large",
+                                                          "intelligence":  "medium",
+                                                          "social":  "clan",
+                                                          "behavior":  "legendary",
+                                                          "unique":  true
+                                                      },
+                                           "items":  [
+                                                         {
+                                                             "name":  "Orc King",
+                                                             "health":  180,
+                                                             "attack":  42,
+                                                             "defense":  20,
+                                                             "speed":  7,
+                                                             "level":  12,
+                                                             "xp":  250,
+                                                             "rarityWeight":  65,
+                                                             "damageType":  "physical"
+                                                         },
+                                                         {
+                                                             "name":  "Half-Orc",
+                                                             "health":  65,
+                                                             "attack":  18,
+                                                             "defense":  8,
+                                                             "speed":  6,
+                                                             "level":  4,
+                                                             "xp":  55,
+                                                             "rarityWeight":  15,
+                                                             "damageType":  "physical",
+                                                             "intelligence":  "high"
+                                                         },
+                                                         {
+                                                             "name":  "Orc Brute",
+                                                             "health":  160,
+                                                             "attack":  38,
+                                                             "defense":  10,
+                                                             "speed":  4,
+                                                             "level":  10,
+                                                             "xp":  170,
+                                                             "rarityWeight":  30,
+                                                             "damageType":  "physical",
+                                                             "size":  "huge"
+                                                         }
+                                                     ]
+                                       }
+                  },
+    "notes":  {
+                  "usage":  "Base catalog of orcs with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+              }
+}

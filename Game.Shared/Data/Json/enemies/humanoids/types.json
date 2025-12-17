@@ -1,72 +1,199 @@
 ﻿{
-  "metadata": {
-    "description": "Humanoid enemy type catalog with base stats and traits",
-    "version": "1.0",
-    "last_updated": "2025-12-16",
-    "type": "enemy_catalog",
-    "total_humanoid_types": 4,
-    "total_humanoids": 14
-  },
-  "humanoid_types": {
-    "bandits": {
-      "traits": {
-        "category": "humanoid",
-        "size": "medium",
-        "behavior": "opportunistic",
-        "intelligence": "medium"
-      },
-      "items": [
-        { "name": "Bandit", "health": 35, "attack": 8, "defense": 5, "speed": 12, "level": 3, "xp": 50, "rarityWeight": 5 },
-        { "name": "Thug", "health": 40, "attack": 9, "defense": 6, "speed": 11, "level": 4, "xp": 60, "rarityWeight": 6 },
-        { "name": "Brigand", "health": 45, "attack": 10, "defense": 7, "speed": 13, "level": 5, "xp": 75, "rarityWeight": 8 },
-        { "name": "Highwayman", "health": 50, "attack": 11, "defense": 8, "speed": 14, "level": 6, "xp": 90, "rarityWeight": 10 }
-      ]
-    },
-    "soldiers": {
-      "traits": {
-        "category": "humanoid",
-        "size": "medium",
-        "behavior": "disciplined",
-        "intelligence": "medium",
-        "trained": true
-      },
-      "items": [
-        { "name": "Warrior", "health": 55, "attack": 12, "defense": 10, "speed": 12, "level": 6, "xp": 100, "rarityWeight": 10 },
-        { "name": "Mercenary", "health": 60, "attack": 13, "defense": 11, "speed": 13, "level": 7, "xp": 120, "rarityWeight": 12 },
-        { "name": "Captain", "health": 80, "attack": 16, "defense": 14, "speed": 12, "level": 9, "xp": 200, "rarityWeight": 20 },
-        { "name": "Champion", "health": 100, "attack": 18, "defense": 16, "speed": 13, "level": 11, "xp": 300, "rarityWeight": 30 }
-      ]
-    },
-    "specialists": {
-      "traits": {
-        "category": "humanoid",
-        "size": "medium",
-        "behavior": "tactical",
-        "intelligence": "high",
-        "specialized": true
-      },
-      "items": [
-        { "name": "Assassin", "health": 50, "attack": 15, "defense": 8, "speed": 18, "level": 8, "xp": 180, "rarityWeight": 22 },
-        { "name": "Archer", "health": 45, "attack": 14, "defense": 7, "speed": 14, "level": 7, "xp": 140, "rarityWeight": 15 },
-        { "name": "Mage", "health": 40, "attack": 16, "defense": 6, "speed": 11, "level": 8, "xp": 200, "rarityWeight": 25 },
-        { "name": "Berserker", "health": 70, "attack": 17, "defense": 9, "speed": 15, "level": 9, "xp": 220, "rarityWeight": 24 }
-      ]
-    },
-    "cultists": {
-      "traits": {
-        "category": "humanoid",
-        "size": "medium",
-        "behavior": "fanatical",
-        "intelligence": "medium",
-        "magical": true
-      },
-      "items": [
-        { "name": "Cultist", "health": 38, "attack": 9, "defense": 5, "speed": 11, "level": 4, "xp": 65, "rarityWeight": 8 },
-        { "name": "Zealot", "health": 50, "attack": 12, "defense": 7, "speed": 12, "level": 6, "xp": 110, "rarityWeight": 14 }
-      ]
-    }
-  }
-,
-  "notes": {
-    "usage": "Base catalog of humanoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-  }}
+    "metadata":  {
+                     "description":  "Humanoid enemy type catalog with base stats and traits",
+                     "version":  "1.0",
+                     "last_updated":  "2025-12-17",
+                     "type":  "item_catalog",
+                     "total_humanoid_types":  4,
+                     "total_humanoids":  14,
+                     "usage":  "Provides base enemy types for pattern generation"
+                 },
+    "humanoid_types":  {
+                           "bandits":  {
+                                           "traits":  {
+                                                          "category":  "humanoid",
+                                                          "size":  "medium",
+                                                          "behavior":  "opportunistic",
+                                                          "intelligence":  "medium"
+                                                      },
+                                           "items":  [
+                                                         {
+                                                             "name":  "Bandit",
+                                                             "health":  35,
+                                                             "attack":  8,
+                                                             "defense":  5,
+                                                             "speed":  12,
+                                                             "level":  3,
+                                                             "xp":  50,
+                                                             "rarityWeight":  5
+                                                         },
+                                                         {
+                                                             "name":  "Thug",
+                                                             "health":  40,
+                                                             "attack":  9,
+                                                             "defense":  6,
+                                                             "speed":  11,
+                                                             "level":  4,
+                                                             "xp":  60,
+                                                             "rarityWeight":  6
+                                                         },
+                                                         {
+                                                             "name":  "Brigand",
+                                                             "health":  45,
+                                                             "attack":  10,
+                                                             "defense":  7,
+                                                             "speed":  13,
+                                                             "level":  5,
+                                                             "xp":  75,
+                                                             "rarityWeight":  8
+                                                         },
+                                                         {
+                                                             "name":  "Highwayman",
+                                                             "health":  50,
+                                                             "attack":  11,
+                                                             "defense":  8,
+                                                             "speed":  14,
+                                                             "level":  6,
+                                                             "xp":  90,
+                                                             "rarityWeight":  10
+                                                         }
+                                                     ]
+                                       },
+                           "soldiers":  {
+                                            "traits":  {
+                                                           "category":  "humanoid",
+                                                           "size":  "medium",
+                                                           "behavior":  "disciplined",
+                                                           "intelligence":  "medium",
+                                                           "trained":  true
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "name":  "Warrior",
+                                                              "health":  55,
+                                                              "attack":  12,
+                                                              "defense":  10,
+                                                              "speed":  12,
+                                                              "level":  6,
+                                                              "xp":  100,
+                                                              "rarityWeight":  10
+                                                          },
+                                                          {
+                                                              "name":  "Mercenary",
+                                                              "health":  60,
+                                                              "attack":  13,
+                                                              "defense":  11,
+                                                              "speed":  13,
+                                                              "level":  7,
+                                                              "xp":  120,
+                                                              "rarityWeight":  12
+                                                          },
+                                                          {
+                                                              "name":  "Captain",
+                                                              "health":  80,
+                                                              "attack":  16,
+                                                              "defense":  14,
+                                                              "speed":  12,
+                                                              "level":  9,
+                                                              "xp":  200,
+                                                              "rarityWeight":  20
+                                                          },
+                                                          {
+                                                              "name":  "Champion",
+                                                              "health":  100,
+                                                              "attack":  18,
+                                                              "defense":  16,
+                                                              "speed":  13,
+                                                              "level":  11,
+                                                              "xp":  300,
+                                                              "rarityWeight":  30
+                                                          }
+                                                      ]
+                                        },
+                           "specialists":  {
+                                               "traits":  {
+                                                              "category":  "humanoid",
+                                                              "size":  "medium",
+                                                              "behavior":  "tactical",
+                                                              "intelligence":  "high",
+                                                              "specialized":  true
+                                                          },
+                                               "items":  [
+                                                             {
+                                                                 "name":  "Assassin",
+                                                                 "health":  50,
+                                                                 "attack":  15,
+                                                                 "defense":  8,
+                                                                 "speed":  18,
+                                                                 "level":  8,
+                                                                 "xp":  180,
+                                                                 "rarityWeight":  22
+                                                             },
+                                                             {
+                                                                 "name":  "Archer",
+                                                                 "health":  45,
+                                                                 "attack":  14,
+                                                                 "defense":  7,
+                                                                 "speed":  14,
+                                                                 "level":  7,
+                                                                 "xp":  140,
+                                                                 "rarityWeight":  15
+                                                             },
+                                                             {
+                                                                 "name":  "Mage",
+                                                                 "health":  40,
+                                                                 "attack":  16,
+                                                                 "defense":  6,
+                                                                 "speed":  11,
+                                                                 "level":  8,
+                                                                 "xp":  200,
+                                                                 "rarityWeight":  25
+                                                             },
+                                                             {
+                                                                 "name":  "Berserker",
+                                                                 "health":  70,
+                                                                 "attack":  17,
+                                                                 "defense":  9,
+                                                                 "speed":  15,
+                                                                 "level":  9,
+                                                                 "xp":  220,
+                                                                 "rarityWeight":  24
+                                                             }
+                                                         ]
+                                           },
+                           "cultists":  {
+                                            "traits":  {
+                                                           "category":  "humanoid",
+                                                           "size":  "medium",
+                                                           "behavior":  "fanatical",
+                                                           "intelligence":  "medium",
+                                                           "magical":  true
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "name":  "Cultist",
+                                                              "health":  38,
+                                                              "attack":  9,
+                                                              "defense":  5,
+                                                              "speed":  11,
+                                                              "level":  4,
+                                                              "xp":  65,
+                                                              "rarityWeight":  8
+                                                          },
+                                                          {
+                                                              "name":  "Zealot",
+                                                              "health":  50,
+                                                              "attack":  12,
+                                                              "defense":  7,
+                                                              "speed":  12,
+                                                              "level":  6,
+                                                              "xp":  110,
+                                                              "rarityWeight":  14
+                                                          }
+                                                      ]
+                                        }
+                       },
+    "notes":  {
+                  "usage":  "Base catalog of humanoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+              }
+}
