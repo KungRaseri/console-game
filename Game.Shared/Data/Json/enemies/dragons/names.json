@@ -1,69 +1,77 @@
 {
-  "prefixes": [
-    "Young",
-    "Wyrm",
-    "Drake",
-    "Dragonling",
-    "Ancient",
-    "Elder",
-    "Great",
-    "Mighty",
-    "Primordial",
-    "Legendary"
+  "components": {
+    "age": [
+      { "value": "Young", "rarityWeight": 10 },
+      { "value": "Wyrmling", "rarityWeight": 5 },
+      { "value": "Adult", "rarityWeight": 30 },
+      { "value": "Ancient", "rarityWeight": 70 },
+      { "value": "Elder", "rarityWeight": 80 },
+      { "value": "Great", "rarityWeight": 50 },
+      { "value": "Mighty", "rarityWeight": 60 },
+      { "value": "Primordial", "rarityWeight": 95 },
+      { "value": "Legendary", "rarityWeight": 100 }
+    ],
+    "color": [
+      { "value": "Red", "rarityWeight": 40 },
+      { "value": "Blue", "rarityWeight": 38 },
+      { "value": "Green", "rarityWeight": 35 },
+      { "value": "Black", "rarityWeight": 37 },
+      { "value": "White", "rarityWeight": 33 },
+      { "value": "Gold", "rarityWeight": 60 },
+      { "value": "Silver", "rarityWeight": 55 },
+      { "value": "Bronze", "rarityWeight": 42 },
+      { "value": "Copper", "rarityWeight": 38 },
+      { "value": "Brass", "rarityWeight": 36 },
+      { "value": "Shadow", "rarityWeight": 70 },
+      { "value": "Crystal", "rarityWeight": 65 },
+      { "value": "Amethyst", "rarityWeight": 72 }
+    ],
+    "descriptive": [
+      { "value": "Flame", "rarityWeight": 30 },
+      { "value": "Storm", "rarityWeight": 35 },
+      { "value": "Frost", "rarityWeight": 32 },
+      { "value": "Volcanic", "rarityWeight": 45 },
+      { "value": "Tempest", "rarityWeight": 50 },
+      { "value": "Glacial", "rarityWeight": 48 },
+      { "value": "Inferno", "rarityWeight": 55 },
+      { "value": "Thunder", "rarityWeight": 42 },
+      { "value": "Poison", "rarityWeight": 38 },
+      { "value": "Venomous", "rarityWeight": 40 }
+    ],
+    "title": [
+      { "value": "of the Mountain", "rarityWeight": 50 },
+      { "value": "of Destruction", "rarityWeight": 70 },
+      { "value": "Worldeater", "rarityWeight": 100 },
+      { "value": "the Wise", "rarityWeight": 65 },
+      { "value": "the Cruel", "rarityWeight": 60 },
+      { "value": "the Mighty", "rarityWeight": 75 },
+      { "value": "the Eternal", "rarityWeight": 90 },
+      { "value": "of the Apocalypse", "rarityWeight": 95 }
+    ]
+  },
+  "patterns": [
+    "base",
+    "color + base",
+    "age + base",
+    "age + color + base",
+    "descriptive + base",
+    "age + color + base + title",
+    "age + descriptive + color + base + title"
   ],
-  "colors": [
-    "Red",
-    "Blue",
-    "Green",
-    "Black",
-    "White",
-    "Gold",
-    "Silver",
-    "Bronze",
-    "Copper",
-    "Brass",
-    "Shadow",
-    "Crystal",
-    "Amethyst"
-  ],
-  "types": [
-    "Dragon",
-    "Drake",
-    "Wyrm",
-    "Wyvern",
-    "Serpent",
-    "Lindworm"
-  ],
-  "variants": {
-    "red": [
-      "Flame Dragon",
-      "Fire Drake",
-      "Inferno Wyrm",
-      "Volcanic Dragon"
-    ],
-    "blue": [
-      "Storm Dragon",
-      "Lightning Drake",
-      "Thunder Wyrm",
-      "Tempest Dragon"
-    ],
-    "green": [
-      "Forest Dragon",
-      "Poison Drake",
-      "Venomous Wyrm",
-      "Nature Dragon"
-    ],
-    "black": [
-      "Shadow Dragon",
-      "Dark Drake",
-      "Void Wyrm",
-      "Abyss Dragon"
-    ],
-    "white": [
-      "Frost Dragon",
-      "Ice Drake",
-      "Glacial Wyrm",
-      "Winter Dragon"
+  "metadata": {
+    "description": "Dragon enemy name generation with pattern-based system and weight-based rarity",
+    "version": "3.0",
+    "last_updated": "2025-12-16",
+    "type": "pattern_generation",
+    "dragon_categories": 3,
+    "component_keys": ["age", "color", "descriptive", "title"],
+    "pattern_tokens": ["base", "age", "color", "descriptive", "title"],
+    "total_patterns": 7,
+    "rarity_system": "weight-based",
+    "notes": [
+      "Base token resolves from enemies/dragons/types.json",
+      "All components have rarityWeight for emergent rarity calculation",
+      "Component weights combine via multipliers from general/rarity_config.json"
     ]
   }
 }

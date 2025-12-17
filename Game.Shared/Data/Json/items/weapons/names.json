@@ -1,41 +1,69 @@
 {
-  "items": [
-    "Longsword", "Shortsword", "Greatsword", "Scimitar", "Rapier",
-    "Katana", "Broadsword", "Claymore", "Saber", "Gladius",
-    "Battleaxe", "Handaxe", "Greataxe", "Waraxe", "Hatchet",
-    "Tomahawk", "Cleaver", "Poleaxe",
-    "Longbow", "Shortbow", "Composite Bow", "Recurve Bow", "Crossbow",
-    "Heavy Crossbow", "Warbow", "Hunting Bow",
-    "Dagger", "Dirk", "Stiletto", "Kris", "Tanto",
-    "Kukri", "Rondel", "Main Gauche",
-    "Spear", "Lance", "Javelin", "Pike", "Halberd",
-    "Trident", "Partisan", "Glaive",
-    "Mace", "Warhammer", "Flail", "Morning Star", "Club",
-    "Maul", "Cudgel", "Scepter",
-    "Staff", "Quarterstaff", "War Staff", "Battle Staff", "Rod",
-    "Scepter Staff"
-  ],
   "components": {
     "material": [
-      "Iron", "Steel", "Mithril", "Adamantine", "Silver",
-      "Elven", "Dwarven", "Orcish", "Daedric", "Glass",
-      "Dragonbone", "Ebony", "Obsidian", "Crystal", "Runic"
+      { "value": "Iron", "rarityWeight": 10 },
+      { "value": "Steel", "rarityWeight": 20 },
+      { "value": "Mithril", "rarityWeight": 50 },
+      { "value": "Adamantine", "rarityWeight": 80 },
+      { "value": "Silver", "rarityWeight": 30 },
+      { "value": "Elven", "rarityWeight": 60 },
+      { "value": "Dwarven", "rarityWeight": 55 },
+      { "value": "Orcish", "rarityWeight": 25 },
+      { "value": "Daedric", "rarityWeight": 90 },
+      { "value": "Glass", "rarityWeight": 45 },
+      { "value": "Dragonbone", "rarityWeight": 100 },
+      { "value": "Ebony", "rarityWeight": 70 },
+      { "value": "Obsidian", "rarityWeight": 40 },
+      { "value": "Crystal", "rarityWeight": 65 },
+      { "value": "Runic", "rarityWeight": 75 }
     ],
     "quality": [
-      "Fine", "Superior", "Exceptional", "Masterwork", "Legendary",
-      "Ruined", "Worn", "Sharpened", "Balanced", "Blessed"
+      { "value": "Fine", "rarityWeight": 15 },
+      { "value": "Superior", "rarityWeight": 25 },
+      { "value": "Exceptional", "rarityWeight": 35 },
+      { "value": "Masterwork", "rarityWeight": 50 },
+      { "value": "Legendary", "rarityWeight": 80 },
+      { "value": "Ruined", "rarityWeight": 5 },
+      { "value": "Worn", "rarityWeight": 8 },
+      { "value": "Sharpened", "rarityWeight": 12 },
+      { "value": "Balanced", "rarityWeight": 18 },
+      { "value": "Blessed", "rarityWeight": 45 }
     ],
     "descriptive": [
-      "Ancient", "Enchanted", "Cursed", "Holy", "Demonic",
-      "Flaming", "Frozen", "Lightning", "Venomous", "Ethereal"
+      { "value": "Ancient", "rarityWeight": 40 },
+      { "value": "Enchanted", "rarityWeight": 35 },
+      { "value": "Cursed", "rarityWeight": 30 },
+      { "value": "Holy", "rarityWeight": 50 },
+      { "value": "Demonic", "rarityWeight": 55 },
+      { "value": "Flaming", "rarityWeight": 35 },
+      { "value": "Frozen", "rarityWeight": 35 },
+      { "value": "Lightning", "rarityWeight": 38 },
+      { "value": "Venomous", "rarityWeight": 32 },
+      { "value": "Ethereal", "rarityWeight": 60 }
     ],
     "enchantment": [
-      "of Slaying", "of Sharpness", "of Power", "of Speed", "of Accuracy",
-      "of Fire", "of Ice", "of Lightning", "of Venom", "of Destruction"
+      { "value": "of Slaying", "rarityWeight": 30 },
+      { "value": "of Sharpness", "rarityWeight": 25 },
+      { "value": "of Power", "rarityWeight": 35 },
+      { "value": "of Speed", "rarityWeight": 28 },
+      { "value": "of Accuracy", "rarityWeight": 22 },
+      { "value": "of Fire", "rarityWeight": 30 },
+      { "value": "of Ice", "rarityWeight": 30 },
+      { "value": "of Lightning", "rarityWeight": 32 },
+      { "value": "of Venom", "rarityWeight": 28 },
+      { "value": "of Destruction", "rarityWeight": 50 }
     ],
     "title": [
-      "of the Warrior", "of the Hero", "of the Champion", "of the Dragon", "of the Phoenix",
-      "of the Ancients", "of the Gods", "of the Titans", "of the Elements", "of Legends"
+      { "value": "of the Warrior", "rarityWeight": 40 },
+      { "value": "of the Hero", "rarityWeight": 60 },
+      { "value": "of the Champion", "rarityWeight": 70 },
+      { "value": "of the Dragon", "rarityWeight": 80 },
+      { "value": "of the Phoenix", "rarityWeight": 75 },
+      { "value": "of the Ancients", "rarityWeight": 65 },
+      { "value": "of the Gods", "rarityWeight": 90 },
+      { "value": "of the Titans", "rarityWeight": 85 },
+      { "value": "of the Elements", "rarityWeight": 55 },
+      { "value": "of Legends", "rarityWeight": 95 }
     ],
     "weapon_types": {
       "swords": [
@@ -87,12 +115,19 @@
     "descriptive + base + title"
   ],
   "metadata": {
-    "description": "Weapon names with pattern-based generation",
-    "version": "2.0",
+    "description": "Weapon name generation with pattern-based system and weight-based rarity",
+    "version": "3.0",
     "last_updated": "2025-12-16",
-    "total_base_weapons": 59,
+    "type": "pattern_generation",
     "weapon_types": 7,
     "component_keys": ["material", "quality", "descriptive", "enchantment", "title"],
-    "pattern_tokens": ["base", "material", "quality", "descriptive", "enchantment", "title"]
+    "pattern_tokens": ["base", "material", "quality", "descriptive", "enchantment", "title"],
+    "total_patterns": 11,
+    "rarity_system": "weight-based",
+    "notes": [
+      "Base token resolves from items/weapons/types.json",
+      "All components have rarityWeight for emergent rarity calculation",
+      "Component weights combine via multipliers from general/rarity_config.json"
+    ]
   }
 }

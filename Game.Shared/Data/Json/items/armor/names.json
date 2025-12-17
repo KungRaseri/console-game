@@ -1,52 +1,94 @@
 {
-  "items": [
-    "Cuirass", "Helm", "Greaves", "Gauntlets", "Boots",
-    "Pauldrons", "Shield", "Breastplate", "Chestplate", "Hauberk",
-    "Chainmail", "Plate Mail", "Scale Mail", "Ring Mail", "Banded Mail",
-    "Helmet", "Great Helm", "Armet", "Sallet", "Barbute",
-    "Coif", "Cowl", "Hood", "Crown", "Circlet",
-    "Vambraces", "Bracers", "Armguards", "Gloves", "Mittens",
-    "Sabatons", "Sollerets", "Shoes", "Sandals", "Greaves",
-    "Spaulders", "Shoulderguards", "Mantle", "Cloak", "Cape"
-  ],
   "components": {
-    "armor_types": {
-      "heavy": ["Plate", "Full Plate", "Field Plate", "Gothic Plate"],
-      "medium": ["Chainmail", "Scale Mail", "Banded Mail", "Splint Mail"],
-      "light": ["Leather", "Studded Leather", "Hide", "Padded"]
-    },
-    "piece_categories": {
-      "head": ["Helm", "Helmet", "Great Helm", "Coif", "Cowl", "Hood", "Crown", "Circlet"],
-      "chest": ["Cuirass", "Breastplate", "Chestplate", "Hauberk", "Vest", "Jerkin"],
-      "hands": ["Gauntlets", "Gloves", "Vambraces", "Bracers", "Mittens"],
-      "legs": ["Greaves", "Leggings", "Chausses", "Tassets"],
-      "feet": ["Boots", "Sabatons", "Sollerets", "Shoes", "Sandals"],
-      "shoulders": ["Pauldrons", "Spaulders", "Shoulderguards", "Mantle"],
-      "shield": ["Shield", "Buckler", "Tower Shield", "Kite Shield", "Heater"]
-    },
-    "prefixes_material": [
-      "Iron", "Steel", "Mithril", "Adamantine", "Dragon",
-      "Elven", "Dwarven", "Orcish", "Daedric", "Glass"
+    "material": [
+      { "value": "Cloth", "rarityWeight": 5 },
+      { "value": "Leather", "rarityWeight": 10 },
+      { "value": "Hide", "rarityWeight": 12 },
+      { "value": "Iron", "rarityWeight": 15 },
+      { "value": "Steel", "rarityWeight": 25 },
+      { "value": "Mithril", "rarityWeight": 55 },
+      { "value": "Adamantine", "rarityWeight": 85 },
+      { "value": "Dragon", "rarityWeight": 95 },
+      { "value": "Elven", "rarityWeight": 65 },
+      { "value": "Dwarven", "rarityWeight": 60 },
+      { "value": "Orcish", "rarityWeight": 30 },
+      { "value": "Daedric", "rarityWeight": 90 },
+      { "value": "Glass", "rarityWeight": 50 },
+      { "value": "Dragonscale", "rarityWeight": 100 }
     ],
-    "prefixes_quality": [
-      "Fine", "Superior", "Exceptional", "Masterwork", "Legendary",
-      "Ruined", "Worn", "Reinforced", "Enchanted", "Blessed"
+    "quality": [
+      { "value": "Crude", "rarityWeight": 5 },
+      { "value": "Standard", "rarityWeight": 10 },
+      { "value": "Fine", "rarityWeight": 18 },
+      { "value": "Superior", "rarityWeight": 28 },
+      { "value": "Exceptional", "rarityWeight": 38 },
+      { "value": "Masterwork", "rarityWeight": 55 },
+      { "value": "Legendary", "rarityWeight": 85 },
+      { "value": "Ruined", "rarityWeight": 3 },
+      { "value": "Worn", "rarityWeight": 7 },
+      { "value": "Reinforced", "rarityWeight": 22 },
+      { "value": "Enchanted", "rarityWeight": 40 },
+      { "value": "Blessed", "rarityWeight": 50 }
     ],
-    "suffixes_enchantment": [
-      "of Protection", "of Defense", "of the Guardian", "of Fortitude", "of Invulnerability",
-      "of Fire Resistance", "of Ice Resistance", "of Lightning Resistance", "of Magic Resistance", "of the Champion"
+    "descriptive": [
+      { "value": "Ancient", "rarityWeight": 42 },
+      { "value": "Cursed", "rarityWeight": 32 },
+      { "value": "Holy", "rarityWeight": 52 },
+      { "value": "Demonic", "rarityWeight": 58 },
+      { "value": "Arcane", "rarityWeight": 45 },
+      { "value": "Divine", "rarityWeight": 60 },
+      { "value": "Infernal", "rarityWeight": 55 },
+      { "value": "Celestial", "rarityWeight": 65 }
+    ],
+    "enchantment": [
+      { "value": "of Protection", "rarityWeight": 28 },
+      { "value": "of Defense", "rarityWeight": 25 },
+      { "value": "of the Guardian", "rarityWeight": 40 },
+      { "value": "of Fortitude", "rarityWeight": 35 },
+      { "value": "of Invulnerability", "rarityWeight": 60 },
+      { "value": "of Fire Resistance", "rarityWeight": 30 },
+      { "value": "of Ice Resistance", "rarityWeight": 30 },
+      { "value": "of Lightning Resistance", "rarityWeight": 32 },
+      { "value": "of Magic Resistance", "rarityWeight": 45 },
+      { "value": "of the Champion", "rarityWeight": 55 }
+    ],
+    "title": [
+      { "value": "of the Paladin", "rarityWeight": 50 },
+      { "value": "of the Knight", "rarityWeight": 45 },
+      { "value": "of the Dragon Knight", "rarityWeight": 80 },
+      { "value": "of the Crusader", "rarityWeight": 60 },
+      { "value": "of the Defender", "rarityWeight": 40 },
+      { "value": "of the Warden", "rarityWeight": 55 },
+      { "value": "of Legends", "rarityWeight": 95 },
+      { "value": "of the Titans", "rarityWeight": 85 },
+      { "value": "of the Gods", "rarityWeight": 90 }
     ]
   },
   "patterns": [
-    "material + piece",
-    "quality + material + piece",
-    "piece + suffix",
-    "quality + piece + suffix",
-    "material + piece + suffix"
+    "base",
+    "material + base",
+    "quality + base",
+    "quality + material + base",
+    "base + enchantment",
+    "base + title",
+    "material + base + enchantment",
+    "quality + material + base + enchantment",
+    "descriptive + material + base + title"
   ],
   "metadata": {
-    "base_pieces": 40,
-    "armor_weight_classes": 3,
-    "slot_categories": 7
+    "description": "Armor name generation with pattern-based system and weight-based rarity",
+    "version": "3.0",
+    "last_updated": "2025-12-16",
+    "type": "pattern_generation",
+    "armor_slots": 7,
+    "component_keys": ["material", "quality", "descriptive", "enchantment", "title"],
+    "pattern_tokens": ["base", "material", "quality", "descriptive", "enchantment", "title"],
+    "total_patterns": 9,
+    "rarity_system": "weight-based",
+    "notes": [
+      "Base token resolves from items/armor/types.json",
+      "All components have rarityWeight for emergent rarity calculation",
+      "Component weights combine via multipliers from general/rarity_config.json"
+    ]
   }
 }

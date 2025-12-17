@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "description": "Dragon enemy type catalog with base stats and traits",
+    "version": "1.0",
+    "last_updated": "2025-12-16",
+    "type": "enemy_catalog",
+    "total_dragon_types": 5,
+    "total_dragons": 13
+  },
+  "dragon_types": {
+    "chromatic": {
+      "traits": {
+        "category": "dragon",
+        "size": "huge",
+        "behavior": "territorial",
+        "alignment": "evil",
+        "breath_weapon": true
+      },
+      "items": [
+        { "name": "Red Dragon", "health": 300, "attack": 35, "defense": 25, "speed": 20, "level": 20, "xp": 2000, "breathType": "fire", "rarityWeight": 80 },
+        { "name": "Blue Dragon", "health": 280, "attack": 32, "defense": 28, "speed": 22, "level": 19, "xp": 1800, "breathType": "lightning", "rarityWeight": 75 },
+        { "name": "Green Dragon", "health": 270, "attack": 30, "defense": 26, "speed": 21, "level": 18, "xp": 1600, "breathType": "poison", "rarityWeight": 70 },
+        { "name": "Black Dragon", "health": 260, "attack": 31, "defense": 24, "speed": 23, "level": 17, "xp": 1500, "breathType": "acid", "rarityWeight": 68 },
+        { "name": "White Dragon", "health": 250, "attack": 28, "defense": 22, "speed": 24, "level": 16, "xp": 1400, "breathType": "cold", "rarityWeight": 65 }
+      ]
+    },
+    "metallic": {
+      "traits": {
+        "category": "dragon",
+        "size": "huge",
+        "behavior": "noble",
+        "alignment": "good",
+        "breath_weapon": true
+      },
+      "items": [
+        { "name": "Gold Dragon", "health": 350, "attack": 38, "defense": 30, "speed": 19, "level": 22, "xp": 2500, "breathType": "fire", "rarityWeight": 100 },
+        { "name": "Silver Dragon", "health": 320, "attack": 36, "defense": 28, "speed": 21, "level": 21, "xp": 2200, "breathType": "cold", "rarityWeight": 90 },
+        { "name": "Bronze Dragon", "health": 290, "attack": 33, "defense": 26, "speed": 20, "level": 19, "xp": 1900, "breathType": "lightning", "rarityWeight": 78 },
+        { "name": "Copper Dragon", "health": 280, "attack": 31, "defense": 24, "speed": 22, "level": 18, "xp": 1700, "breathType": "acid", "rarityWeight": 72 },
+        { "name": "Brass Dragon", "health": 270, "attack": 29, "defense": 23, "speed": 23, "level": 17, "xp": 1600, "breathType": "fire", "rarityWeight": 68 }
+      ]
+    },
+    "drakes": {
+      "traits": {
+        "category": "dragon",
+        "size": "large",
+        "behavior": "aggressive",
+        "lesser_dragon": true
+      },
+      "items": [
+        { "name": "Drake", "health": 150, "attack": 20, "defense": 15, "speed": 18, "level": 12, "xp": 600, "rarityWeight": 30 },
+        { "name": "Wyrm", "health": 180, "attack": 24, "defense": 18, "speed": 16, "level": 14, "xp": 800, "rarityWeight": 40 },
+        { "name": "Wyvern", "health": 140, "attack": 18, "defense": 14, "speed": 22, "level": 11, "xp": 550, "rarityWeight": 28 }
+      ]
+    }
+  }
+}
