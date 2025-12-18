@@ -1,8 +1,9 @@
-{
-  "icon": "VampireBlood",
-  "sortOrder": 13,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline"
-  }
+﻿{
+    "icon":  "VampireBlood",
+    "sortOrder":  13,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "types":  "ShapeOutline",
+                      "abilities":  "FlashOutline"
+                  }
 }

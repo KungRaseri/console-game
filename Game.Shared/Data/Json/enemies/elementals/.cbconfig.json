@@ -1,8 +1,9 @@
-{
-  "icon": "Fireplace",
-  "sortOrder": 4,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline"
-  }
+﻿{
+    "icon":  "Fireplace",
+    "sortOrder":  4,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "types":  "ShapeOutline",
+                      "abilities":  "FlashOutline"
+                  }
 }

@@ -1,8 +1,9 @@
-{
-  "icon": "Bug",
-  "sortOrder": 7,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline"
-  }
+﻿{
+    "icon":  "Bug",
+    "sortOrder":  7,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "types":  "ShapeOutline",
+                      "abilities":  "FlashOutline"
+                  }
 }

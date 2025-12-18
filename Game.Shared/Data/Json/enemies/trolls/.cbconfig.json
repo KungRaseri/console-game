@@ -1,8 +1,9 @@
-{
-  "icon": "Hammer",
-  "sortOrder": 11,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline"
-  }
+﻿{
+    "icon":  "Hammer",
+    "sortOrder":  11,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "types":  "ShapeOutline",
+                      "abilities":  "FlashOutline"
+                  }
 }

@@ -1,8 +1,9 @@
-{
-  "icon": "Dragon",
-  "sortOrder": 3,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline"
-  }
+﻿{
+    "icon":  "Dragon",
+    "sortOrder":  3,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "types":  "ShapeOutline",
+                      "abilities":  "FlashOutline"
+                  }
 }

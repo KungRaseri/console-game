@@ -1,14 +1,14 @@
-{
-  "icon": "Skull",
-  "displayName": "Enemies",
-  "description": "Enemy and monster definitions - various creature types, abilities, and behaviors",
-  "sortOrder": 20,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline",
-    "abilities": "Fire",
-    "behaviors": "Brain"
-  },
-  "defaultFileIcon": "MonsterIcon",
-  "showFileCount": true
+﻿{
+    "icon":  "Skull",
+    "displayName":  "Enemies",
+    "description":  "Enemy and monster definitions - various creature types, abilities, and behaviors",
+    "sortOrder":  20,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "types":  "ShapeOutline",
+                      "behaviors":  "Brain",
+                      "abilities":  "FlashOutline"
+                  },
+    "defaultFileIcon":  "MonsterIcon",
+    "showFileCount":  true
 }
