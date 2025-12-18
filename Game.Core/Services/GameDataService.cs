@@ -46,11 +46,18 @@ public class GameDataService
     // Dragon color data
     public DragonColorData DragonColors { get; private set; } = new();
     
-    // NPC data
-    public FantasyNameData FantasyNames { get; private set; } = new();
-    public OccupationData Occupations { get; private set; } = new();
+    // NPC data - v4.0 catalog-based system
+    public NpcCatalogData NpcCatalog { get; private set; } = new();
+    public NpcTraitsData NpcTraits { get; private set; } = new();
+    public NpcNamesData NpcNames { get; private set; } = new();
     public DialogueTemplateData DialogueTemplates { get; private set; } = new();
     public DialogueTraitsData DialogueTraits { get; private set; } = new();
+    
+    // Legacy NPC data (deprecated - use catalog-based system above)
+    [Obsolete("Use NpcCatalog instead")]
+    public FantasyNameData FantasyNames { get; private set; } = new();
+    [Obsolete("Use NpcCatalog instead")]
+    public OccupationData Occupations { get; private set; } = new();
     
     // Quest data
     public QuestTemplatesData QuestTemplates { get; private set; } = new();
@@ -146,11 +153,18 @@ public class GameDataService
             // Load dragon color data
             DragonColors = LoadJson<DragonColorData>("enemies/dragons/colors.json");
             
-            // Load NPC data
-            FantasyNames = LoadJson<FantasyNameData>("npcs/names/first_names.json");
-            Occupations = LoadJson<OccupationData>("npcs/occupations/common.json");
-            DialogueTemplates = LoadJson<DialogueTemplateData>("npcs/dialogue/templates.json");
-            DialogueTraits = LoadJson<DialogueTraitsData>("npcs/dialogue/traits.json");
+            // Load NPC data - v4.0 catalog-based system
+            NpcCatalog = LoadJson<NpcCatalogData>("npcs/catalog.json");
+            NpcTraits = LoadJson<NpcTraitsData>("npcs/traits.json");
+            NpcNames = LoadJson<NpcNamesData>("npcs/names.json");
+            DialogueTemplates = LoadJson<DialogueTemplateData>("npcs/dialogue/styles.json");
+            DialogueTraits = LoadJson<DialogueTraitsData>("npcs/dialogue/dialogue_styles.json");
+            
+            // Legacy data - kept for backwards compatibility
+            #pragma warning disable CS0618 // Type or member is obsolete
+            FantasyNames = new FantasyNameData(); // Empty - use NpcNames instead
+            Occupations = new OccupationData(); // Empty - use NpcCatalog instead
+            #pragma warning restore CS0618
             
             // Load quest data (now split into multiple files - load main one for now)
             QuestTemplates = LoadJson<QuestTemplatesData>("quests/templates/kill.json");
