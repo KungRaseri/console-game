@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Linq;
 using FlaUI.Core.AutomationElements;
 using Xunit;
 using FluentAssertions;
@@ -110,7 +113,7 @@ public class NameCatalogEditorUITests : UITestBase
         // Assert
         var namesList = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("NamesList"))?.AsListBox();
         namesList.Should().NotBeNull();
-        namesList!.Items.Length.Should().BeGreaterOrEqualTo(3);
+        namesList!.Items.Length.Should().BeGreaterThanOrEqualTo(3);
     }
 
     [Fact]
@@ -210,7 +213,7 @@ public class NameCatalogEditorUITests : UITestBase
         // Assert
         var namesList = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("NamesList"))?.AsListBox();
         namesList.Should().NotBeNull();
-        namesList!.Items.Length.Should().BeGreaterOrEqualTo(5); // 2 original + 3 new
+        namesList!.Items.Length.Should().BeGreaterThanOrEqualTo(5); // 2 original + 3 new
     }
 
     private void NavigateToFirstNamesEditor()

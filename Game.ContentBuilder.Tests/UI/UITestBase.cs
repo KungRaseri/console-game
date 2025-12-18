@@ -225,17 +225,28 @@ public abstract class UITestBase : IDisposable
     }
 
     /// <summary>
+    /// Disposes resources - can be overridden for custom cleanup
+    /// </summary>
+    /// <param name="disposing">True if called from Dispose(), false if called from finalizer</param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_disposed) return;
+
+        if (disposing)
+        {
+            Log.Information("Test completed in {ElapsedMs}ms", _testStopwatch.ElapsedMilliseconds);
+            _testStopwatch.Stop();
+        }
+
+        ForceCleanup();
+    }
+
+    /// <summary>
     /// Disposes resources and ensures application is closed
     /// </summary>
     public void Dispose()
     {
-        if (_disposed) return;
-
-        Log.Information("Test completed in {ElapsedMs}ms", _testStopwatch.ElapsedMilliseconds);
-        _testStopwatch.Stop();
-
-        ForceCleanup();
-        
+        Dispose(true);
         GC.SuppressFinalize(this);
     }
 
@@ -245,6 +256,6 @@ public abstract class UITestBase : IDisposable
     ~UITestBase()
     {
         Log.Warning("Finalizer called for UITestBase - Dispose was not called explicitly!");
-        ForceCleanup();
+        Dispose(false);
     }
 }

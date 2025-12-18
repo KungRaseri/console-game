@@ -1,11 +1,8 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
-using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
-using FlaUI.UIA3;
 using FluentAssertions;
 using Xunit;
 
@@ -16,39 +13,11 @@ namespace Game.ContentBuilder.Tests.UI;
 /// Tests category selection, name management, and add/delete operations
 /// </summary>
 [Collection("UI Tests")]
-public class NameListEditorUITests : IDisposable
+public class NameListEditorUITests : UITestBase
 {
-    private readonly Application _app;
-    private readonly UIA3Automation _automation;
-    private readonly Window _mainWindow;
-
-    public NameListEditorUITests()
+    public NameListEditorUITests() : base()
     {
-        var testAssemblyPath = AppDomain.CurrentDomain.BaseDirectory;
-        var exePath = Path.Combine(
-            testAssemblyPath,
-            "..", "..", "..", "..",
-            "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-            "Game.ContentBuilder.exe"
-        );
-
-        var fullExePath = Path.GetFullPath(exePath);
-
-        if (!File.Exists(fullExePath))
-        {
-            throw new FileNotFoundException(
-                $"ContentBuilder executable not found at: {fullExePath}");
-        }
-
-        _automation = new UIA3Automation();
-        _app = Application.Launch(fullExePath);
-        _mainWindow = _app.GetMainWindow(_automation, TimeSpan.FromSeconds(15));
-
-        if (_mainWindow == null)
-        {
-            throw new InvalidOperationException("Main window failed to load");
-        }
-
+        LaunchApplication();
         Thread.Sleep(1500);
         NavigateToAdjectivesEditor();
     }

@@ -8,6 +8,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
+using Game.ContentBuilder.Tests.UI;
 
 namespace Game.ContentBuilder.Tests.Integration;
 
