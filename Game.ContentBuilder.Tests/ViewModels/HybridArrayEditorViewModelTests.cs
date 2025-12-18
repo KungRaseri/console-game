@@ -71,7 +71,7 @@ public class HybridArrayEditorViewModelTests
         viewModel.ComponentGroups[1].Components.Should().HaveCount(2);
 
         viewModel.Patterns.Should().HaveCount(2);
-        viewModel.Patterns.Should().Contain("base_color");
+        viewModel.Patterns.Should().Contain(p => p.Pattern == "base_color");
 
         viewModel.TotalItemsCount.Should().Be(3);
         viewModel.TotalComponentsCount.Should().Be(5);

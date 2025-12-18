@@ -226,12 +226,17 @@ public class ContentBuilderUITests : IDisposable
         // Close the application and clean up
         try
         {
-            _app?.Close();
-            _automation?.Dispose();
+            // Try graceful shutdown first
+            _app?.Close(TimeSpan.FromSeconds(2));
         }
         catch
         {
-            // Suppress errors during cleanup
+            // If graceful shutdown fails, force kill
+            _app?.Kill();
+        }
+        finally
+        {
+            _automation?.Dispose();
         }
     }
 }

@@ -232,9 +232,7 @@ public partial class MainViewModel : ObservableObject
         {
             Log.Debug("Loading NamesEditor for {FileName}", fileName);
             
-            var fullPath = Path.Combine(GetDataDirectory(), fileName);
-            var viewModel = new NamesEditorViewModel();
-            viewModel.LoadFile(fullPath);
+            var viewModel = new NamesEditorViewModel(_jsonEditorService, fileName);
             
             var view = new NamesEditorView
             {
@@ -259,9 +257,7 @@ public partial class MainViewModel : ObservableObject
         {
             Log.Debug("Loading CatalogEditor for {FileName}", fileName);
             
-            var fullPath = Path.Combine(GetDataDirectory(), fileName);
-            var viewModel = new CatalogEditorViewModel();
-            viewModel.LoadFile(fullPath);
+            var viewModel = new CatalogEditorViewModel(_jsonEditorService, fileName);
             
             var view = new CatalogEditorView
             {

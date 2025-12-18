@@ -2,6 +2,7 @@
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Game.ContentBuilder.Services;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
@@ -12,7 +13,8 @@ namespace Game.ContentBuilder.ViewModels;
 /// </summary>
 public partial class CatalogEditorViewModel : ObservableObject
 {
-    private string? _filePath;
+    private readonly JsonEditorService _jsonEditorService;
+    private readonly string _storedFileName;
     private JObject? _jsonData;
 
     [ObservableProperty]
@@ -53,13 +55,19 @@ public partial class CatalogEditorViewModel : ObservableObject
     [ObservableProperty]
     private string _statusMessage = string.Empty;
 
-    public void LoadFile(string filePath)
+    public CatalogEditorViewModel(JsonEditorService jsonEditorService, string fileName)
+    {
+        _jsonEditorService = jsonEditorService;
+        _storedFileName = fileName;
+        FileName = Path.GetFileNameWithoutExtension(fileName);
+        LoadData();
+    }
+
+    private void LoadData()
     {
         try
         {
-            _filePath = filePath;
-            FileName = Path.GetFileName(filePath);
-
+            var filePath = _jsonEditorService.GetFilePath(_storedFileName);
             var json = File.ReadAllText(filePath);
             _jsonData = JObject.Parse(json);
 
@@ -72,6 +80,7 @@ public partial class CatalogEditorViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            var filePath = _jsonEditorService.GetFilePath(_storedFileName);
             Log.Error(ex, "Failed to load catalog.json file: {FilePath}", filePath);
             StatusMessage = $"Error loading file: {ex.Message}";
         }
@@ -256,10 +265,12 @@ public partial class CatalogEditorViewModel : ObservableObject
     [RelayCommand]
     private async Task SaveAsync()
     {
-        if (_filePath == null || _jsonData == null) return;
+        if (_jsonData == null) return;
 
         try
         {
+            var filePath = _jsonEditorService.GetFilePath(_storedFileName);
+            
             // Rebuild type catalogs
             foreach (var catalog in TypeCatalogs)
             {
@@ -299,15 +310,16 @@ public partial class CatalogEditorViewModel : ObservableObject
             }
 
             // Write to file with formatting
-            await File.WriteAllTextAsync(_filePath, _jsonData.ToString(Newtonsoft.Json.Formatting.Indented));
+            await File.WriteAllTextAsync(filePath, _jsonData.ToString(Newtonsoft.Json.Formatting.Indented));
 
             IsDirty = false;
             StatusMessage = $"Saved {FileName}";
-            Log.Information("Saved catalog.json file: {FilePath}", _filePath);
+            Log.Information("Saved catalog.json file: {FilePath}", filePath);
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to save catalog.json file: {FilePath}", _filePath);
+            var filePath = _jsonEditorService.GetFilePath(_storedFileName);
+            Log.Error(ex, "Failed to save catalog.json file: {FilePath}", filePath);
             StatusMessage = $"Error saving file: {ex.Message}";
         }
     }

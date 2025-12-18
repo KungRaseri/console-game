@@ -334,7 +334,19 @@ public class GenericCatalogEditorUITests : IDisposable
 
     public void Dispose()
     {
-        _app?.Close();
-        _automation?.Dispose();
+        try
+        {
+            // Try graceful shutdown first
+            _app?.Close(TimeSpan.FromSeconds(2));
+        }
+        catch
+        {
+            // If graceful shutdown fails, force kill
+            _app?.Kill();
+        }
+        finally
+        {
+            _automation?.Dispose();
+        }
     }
 }

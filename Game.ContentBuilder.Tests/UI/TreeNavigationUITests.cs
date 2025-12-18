@@ -443,11 +443,18 @@ public class TreeNavigationUITests : IDisposable
     {
         try
         {
-            _app?.Close();
-            _automation?.Dispose();
+            // Try graceful shutdown first
+            _app?.Close(TimeSpan.FromSeconds(2));
         }
         catch
         {
+            // If graceful shutdown fails, force kill
+            _app?.Kill();
+        }
+        finally
+        {
+            _automation?.Dispose();
+        }
             // Ignore cleanup errors
         }
     }

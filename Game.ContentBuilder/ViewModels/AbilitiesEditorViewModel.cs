@@ -335,15 +335,13 @@ public partial class AbilitiesEditorViewModel : ObservableObject
     [RelayCommand]
     private void ReloadFile()
     {
-        if (_filePath == null) return;
-
         if (IsDirty)
         {
             StatusMessage = "Warning: Unsaved changes will be lost";
             // In a real app, would show a confirmation dialog
         }
 
-        LoadFile(_filePath);
+        LoadData();
     }
 
     [RelayCommand]
