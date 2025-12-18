@@ -2,10 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
-using FlaUI.UIA3;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -18,41 +16,21 @@ namespace Game.ContentBuilder.Tests.Integration;
 /// Tests end-to-end scenarios: Launch → Navigate → Edit → Save → Verify
 /// </summary>
 [Collection("Integration Tests")]
-public class ContentBuilderIntegrationTests : IDisposable
+public class ContentBuilderIntegrationTests : UITestBase
 {
-    private readonly Application _app;
-    private readonly UIA3Automation _automation;
-    private readonly Window _mainWindow;
     private readonly string _testDataPath;
 
-    public ContentBuilderIntegrationTests()
+    public ContentBuilderIntegrationTests() : base()
     {
-        var testAssemblyPath = AppDomain.CurrentDomain.BaseDirectory;
-        var exePath = Path.Combine(
-            testAssemblyPath,
+        LaunchApplication();
+        
+        // Get test data path (ContentBuilder's Resources/data directory)
+        var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
             "..", "..", "..", "..",
             "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-            "Game.ContentBuilder.exe"
-        );
-
+            "Game.ContentBuilder.exe");
+        
         var fullExePath = Path.GetFullPath(exePath);
-
-        if (!File.Exists(fullExePath))
-        {
-            throw new FileNotFoundException(
-                $"ContentBuilder executable not found at: {fullExePath}");
-        }
-
-        _automation = new UIA3Automation();
-        _app = Application.Launch(fullExePath);
-        _mainWindow = _app.GetMainWindow(_automation, TimeSpan.FromSeconds(15));
-
-        if (_mainWindow == null)
-        {
-            throw new InvalidOperationException("Main window failed to load");
-        }
-
-        // Get test data path (ContentBuilder's Resources/data directory)
         _testDataPath = Path.Combine(
             Path.GetDirectoryName(fullExePath)!,
             "Resources", "data"
@@ -385,17 +363,4 @@ public class ContentBuilderIntegrationTests : IDisposable
     }
 
     #endregion
-
-    public void Dispose()
-    {
-        try
-        {
-            _app?.Close();
-            _automation?.Dispose();
-        }
-        catch
-        {
-            // Ignore cleanup errors
-        }
-    }
 }

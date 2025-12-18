@@ -344,23 +344,5 @@ public class NameListEditorUITests : IDisposable
     }
 
     #endregion
-
-    public void Dispose()
-    {
-        try
-        {
-            // Try graceful shutdown first
-            _app?.Close();
-        }
-        catch
-        {
-            // If graceful shutdown fails, force kill
-            _app?.Kill();
-        }
-        finally
-        {
-            _automation?.Dispose();
-        }
-    }
 }
 

@@ -1,11 +1,8 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
-using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
-using FlaUI.UIA3;
 using FluentAssertions;
 using Xunit;
 
@@ -16,40 +13,11 @@ namespace Game.ContentBuilder.Tests.UI;
 /// Tests ability catalog editing, filtering, and CRUD operations
 /// </summary>
 [Collection("UI Tests")]
-public class AbilitiesEditorUITests : IDisposable
+public class AbilitiesEditorUITests : UITestBase
 {
-    private readonly Application? _app;
-    private readonly UIA3Automation _automation;
-    private readonly Window? _mainWindow;
-
-    public AbilitiesEditorUITests()
+    public AbilitiesEditorUITests() : base()
     {
-        var testAssemblyPath = AppDomain.CurrentDomain.BaseDirectory;
-        var exePath = Path.Combine(
-            testAssemblyPath,
-            "..", "..", "..", "..",
-            "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-            "Game.ContentBuilder.exe"
-        );
-
-        var fullExePath = Path.GetFullPath(exePath);
-
-        if (!File.Exists(fullExePath))
-        {
-            // Skip test if executable not built
-            return;
-        }
-
-        _automation = new UIA3Automation();
-        _app = Application.Launch(fullExePath);
-        _mainWindow = _app.GetMainWindow(_automation, TimeSpan.FromSeconds(15));
-
-        if (_mainWindow == null)
-        {
-            throw new InvalidOperationException("Main window failed to load");
-        }
-
-        // Wait for UI to stabilize
+        LaunchApplication();
         Thread.Sleep(1000);
     }
 
@@ -245,24 +213,6 @@ public class AbilitiesEditorUITests : IDisposable
         var saveButton = _mainWindow.FindFirstDescendant(cf => 
             cf.ByAutomationId("SaveButton"));
         saveButton.Should().NotBeNull("Should have Save button");
-    }
-
-    public void Dispose()
-    {
-        try
-        {
-            // Try graceful shutdown first
-            _app?.Close();
-        }
-        catch
-        {
-            // If graceful shutdown fails, force kill
-            _app?.Kill();
-        }
-        finally
-        {
-            _automation?.Dispose();
-        }
     }
 }
 
