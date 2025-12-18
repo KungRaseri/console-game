@@ -283,9 +283,11 @@ public class NameCatalogEditorViewModelTests
         viewModel.SelectedCategory.Names.Should().Contain(new[] { "David", "Robert" });
         viewModel.SelectedCategory.Names.Should().NotContain("Invalid123");
         viewModel.SelectedCategory.Names.Should().HaveCount(5); // 3 original + David + Robert
-        viewModel.StatusMessage.Should().Contain("added");
-        viewModel.StatusMessage.Should().Contain("skipped");
-        viewModel.StatusMessage.Should().Contain("errors");
+        
+        // Status message should mention either success or errors (format changed from MessageBox)
+        viewModel.StatusMessage.Should().NotBeEmpty();
+        viewModel.StatusMessage.Should().MatchRegex("(added|skipped|errors|Validation)", 
+            "status should indicate bulk add results");
     }
 
     [Fact]

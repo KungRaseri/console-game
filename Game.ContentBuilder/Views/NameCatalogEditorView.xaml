@@ -272,5 +272,81 @@
                 </Grid>
             </materialDesign:Card>
         </Grid>
+
+        <!-- Delete Category Confirmation Dialog -->
+        <Border Grid.Row="0" Grid.RowSpan="3"
+                Background="#CC000000"
+                Visibility="{Binding ShowDeleteCategoryConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Panel.ZIndex="1000">
+            <Border Background="{DynamicResource MaterialDesignPaper}"
+                    MaxWidth="400"
+                    Padding="24"
+                    CornerRadius="4"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    materialDesign:ElevationAssist.Elevation="Dp8">
+                <StackPanel>
+                    <TextBlock Text="Confirm Delete Category"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                               Margin="0,0,0,16"/>
+                    <TextBlock Text="{Binding ConfirmationMessage}"
+                               Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,24"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="DELETE"
+                                Command="{Binding ConfirmDeleteCategoryCommand}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                materialDesign:ButtonAssist.CornerRadius="4"
+                                Background="{DynamicResource SecondaryHueMidBrush}"
+                                Margin="0,0,8,0"
+                                Width="100"/>
+                        <Button Content="CANCEL"
+                                Command="{Binding CancelDeleteCategoryCommand}"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                materialDesign:ButtonAssist.CornerRadius="4"
+                                Width="100"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+
+        <!-- Delete Names Confirmation Dialog -->
+        <Border Grid.Row="0" Grid.RowSpan="3"
+                Background="#CC000000"
+                Visibility="{Binding ShowDeleteNamesConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Panel.ZIndex="1000">
+            <Border Background="{DynamicResource MaterialDesignPaper}"
+                    MaxWidth="400"
+                    Padding="24"
+                    CornerRadius="4"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    materialDesign:ElevationAssist.Elevation="Dp8">
+                <StackPanel>
+                    <TextBlock Text="Confirm Delete Names"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                               Margin="0,0,0,16"/>
+                    <TextBlock Text="{Binding ConfirmationMessage}"
+                               Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,24"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="DELETE"
+                                Command="{Binding ConfirmDeleteNamesCommand}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                materialDesign:ButtonAssist.CornerRadius="4"
+                                Background="{DynamicResource SecondaryHueMidBrush}"
+                                Margin="0,0,8,0"
+                                Width="100"/>
+                        <Button Content="CANCEL"
+                                Command="{Binding CancelDeleteNamesCommand}"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                materialDesign:ButtonAssist.CornerRadius="4"
+                                Width="100"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
     </Grid>
 </UserControl>

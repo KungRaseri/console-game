@@ -421,5 +421,53 @@
                 </Grid>
             </Border>
         </Grid>
+
+        <!-- Delete Item Confirmation Dialog -->
+        <Border Grid.Row="0" Grid.RowSpan="2"
+                Background="#CC000000"
+                Visibility="{Binding ShowDeleteConfirmation, Converter={StaticResource BoolToVis}}"
+                Panel.ZIndex="1000">
+            <Border Background="{DynamicResource MaterialDesignPaper}"
+                    MaxWidth="450"
+                    Padding="24"
+                    CornerRadius="4"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    materialDesign:ElevationAssist.Elevation="Dp8">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                        <materialDesign:PackIcon Kind="AlertCircle"
+                                                 Width="24"
+                                                 Height="24"
+                                                 Foreground="{DynamicResource SecondaryHueMidBrush}"
+                                                 VerticalAlignment="Center"
+                                                 Margin="0,0,8,0"/>
+                        <TextBlock Text="Confirm Delete"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding ConfirmationMessage}"
+                               Style="{StaticResource MaterialDesignBody1TextBlock}"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,24"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="DELETE"
+                                Command="{Binding ConfirmDeleteCommand}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                materialDesign:ButtonAssist.CornerRadius="4"
+                                Background="{DynamicResource SecondaryHueMidBrush}"
+                                Margin="0,0,8,0"
+                                Width="100"
+                                AutomationProperties.AutomationId="ConfirmDeleteButton"/>
+                        <Button Content="CANCEL"
+                                Command="{Binding CancelDeleteCommand}"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                materialDesign:ButtonAssist.CornerRadius="4"
+                                Width="100"
+                                AutomationProperties.AutomationId="CancelDeleteButton"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
     </Grid>
 </UserControl>
