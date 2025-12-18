@@ -8,7 +8,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$jsonPath = "Game.Shared\Data\Json"
+$jsonPath = "Game.Data\Data\Json"
 $today = Get-Date -Format "yyyy-MM-dd"
 $filesModified = 0
 $filesSkipped = 0

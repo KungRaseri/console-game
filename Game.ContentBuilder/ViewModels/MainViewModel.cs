@@ -49,12 +49,12 @@ public partial class MainViewModel : ObservableObject
 
     private string GetDataDirectory()
     {
-        // Navigate from ContentBuilder bin folder to Game.Shared/Data/Json
+        // Navigate from ContentBuilder bin folder to Game.Data/Data/Json
         // Typical path: console-game/Game.ContentBuilder/bin/Debug/net9.0-windows/
-        // Target path: console-game/Game.Shared/Data/Json/
+        // Target path: console-game/Game.Data/Data/Json/
         var baseDir = AppDomain.CurrentDomain.BaseDirectory; // bin/Debug/net9.0-windows/
         var solutionRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..")); // console-game/
-        var dataPath = Path.Combine(solutionRoot, "Game.Shared", "Data", "Json");
+        var dataPath = Path.Combine(solutionRoot, "Game.Data", "Data", "Json");
         
         if (!Directory.Exists(dataPath))
         {

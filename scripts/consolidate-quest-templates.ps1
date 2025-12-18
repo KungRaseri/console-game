@@ -14,7 +14,7 @@ Write-Host "=== Consolidate Quest Templates ===" -ForegroundColor Cyan
 Write-Host "Mode: $(if ($WhatIf) { 'DRY RUN (no changes)' } else { 'LIVE (files will be modified)' })" -ForegroundColor Yellow
 Write-Host ""
 
-$basePath = "Game.Shared\Data\Json\quests\templates"
+$basePath = "Game.Data\Data\Json\quests\templates"
 $outputFile = Join-Path $basePath "quest_templates.json"
 
 $sourceFiles = @(

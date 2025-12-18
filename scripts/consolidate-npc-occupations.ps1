@@ -14,7 +14,7 @@ Write-Host "=== Consolidate NPC Occupations ===" -ForegroundColor Cyan
 Write-Host "Mode: $(if ($WhatIf) { 'DRY RUN (no changes)' } else { 'LIVE (files will be modified)' })" -ForegroundColor Yellow
 Write-Host ""
 
-$basePath = "Game.Shared\Data\Json\npcs\occupations"
+$basePath = "Game.Data\Data\Json\npcs\occupations"
 $outputFile = Join-Path $basePath "occupations.json"
 
 $sourceFiles = @(

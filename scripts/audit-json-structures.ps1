@@ -1,11 +1,11 @@
 # JSON Structure Audit Script
 # This script analyzes all JSON files to determine their structure type
 
-$jsonPath = "Game.Shared\Data\Json"
+$jsonPath = "Game.Data\Data\Json"
 $results = @()
 
 Get-ChildItem -Path $jsonPath -Filter "*.json" -Recurse | ForEach-Object {
-    $relativePath = $_.FullName -replace '.*\\Game.Shared\\Data\\Json\\', ''
+    $relativePath = $_.FullName -replace '.*\\Game.Data\\Data\\Json\\', ''
     $content = Get-Content $_.FullName -Raw | ConvertFrom-Json
     
     $structure = "Unknown"
