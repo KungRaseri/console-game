@@ -110,10 +110,13 @@ public partial class MainViewModel : ObservableObject
                     LoadAbilitiesEditor(value.Tag?.ToString() ?? "");
                     break;
                 
+                case EditorType.CatalogEditor:
+                    LoadGenericCatalogEditor(value.Tag?.ToString() ?? "");
+                    break;
+                
                 case EditorType.ComponentEditor:
                 case EditorType.MaterialEditor:
                 case EditorType.TraitEditor:
-                case EditorType.CatalogEditor:
                 case EditorType.NameCatalogEditor:
                 case EditorType.QuestTemplateEditor:
                 case EditorType.QuestDataEditor:
@@ -300,6 +303,32 @@ public partial class MainViewModel : ObservableObject
         {
             StatusMessage = $"Failed to load abilities editor: {ex.Message}";
             Log.Error(ex, "Failed to load AbilitiesEditor for {FileName}", fileName);
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadGenericCatalogEditor(string fileName)
+    {
+        try
+        {
+            Log.Debug("Loading GenericCatalogEditor for {FileName}", fileName);
+            
+            var fullPath = Path.Combine(GetDataDirectory(), fileName);
+            var viewModel = new GenericCatalogEditorViewModel(fullPath);
+            
+            var view = new GenericCatalogEditorView
+            {
+                DataContext = viewModel
+            };
+            
+            CurrentEditor = view;
+            StatusMessage = $"Loaded catalog editor for {fileName}";
+            Log.Information("GenericCatalogEditor loaded successfully for {FileName}", fileName);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load catalog editor: {ex.Message}";
+            Log.Error(ex, "Failed to load GenericCatalogEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }
