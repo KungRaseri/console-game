@@ -1,0 +1,374 @@
+<UserControl x:Class="Game.ContentBuilder.Views.AbilitiesEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Game.ContentBuilder.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <materialDesign:Card Grid.Row="0" Margin="8">
+            <StackPanel Margin="16">
+                <TextBlock Text="Abilities Editor" 
+                           Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                <TextBlock Text="{Binding FileName}" 
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+            </StackPanel>
+        </materialDesign:Card>
+
+        <!-- Metadata Section -->
+        <Expander Grid.Row="1" Margin="8" Header="Metadata" IsExpanded="False">
+            <StackPanel Margin="16,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Version:" Margin="0,0,8,4" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding MetadataVersion}" Margin="0,0,0,4"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Type:" Margin="0,0,8,4" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding MetadataType}" Margin="0,0,0,4"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Description:" Margin="0,0,8,4" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding MetadataDescription}" TextWrapping="Wrap" Margin="0,0,0,4"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Usage:" Margin="0,0,8,4" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding MetadataUsage}" TextWrapping="Wrap" Margin="0,0,0,4"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Notes:" Margin="0,0,8,4" FontWeight="Bold" VerticalAlignment="Top"/>
+                    <ItemsControl Grid.Row="4" Grid.Column="1" ItemsSource="{Binding MetadataNotes}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="0,0,0,2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </StackPanel>
+        </Expander>
+
+        <!-- Search and Filter -->
+        <materialDesign:Card Grid.Row="2" Margin="8">
+            <StackPanel Margin="16,12">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Search Box -->
+                    <TextBox Grid.Column="0" 
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Search abilities..."
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0,0,8,0">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Escape" Command="{Binding ClearSearchCommand}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+
+                    <!-- Filter by Rarity -->
+                    <TextBlock Grid.Column="1" Text="Filter:" VerticalAlignment="Center" Margin="8,0"/>
+                    <ComboBox Grid.Column="2" 
+                              ItemsSource="{Binding AvailableRarities}"
+                              SelectedItem="{Binding FilterRarity}"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              materialDesign:HintAssist.Hint="Rarity"
+                              Margin="0,0,8,0"/>
+
+                    <!-- Clear Button -->
+                    <Button Grid.Column="3" 
+                            Command="{Binding ClearSearchCommand}"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            ToolTip="Clear filters">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="FilterRemove" VerticalAlignment="Center"/>
+                            <TextBlock Text="Clear" Margin="4,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </materialDesign:Card>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="3" Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Abilities List -->
+            <materialDesign:Card Grid.Column="0" Margin="0,0,4,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- List Header -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="16,16,16,8">
+                        <TextBlock Text="Abilities" 
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                                   VerticalAlignment="Center"/>
+                        <Button Command="{Binding AddAbilityCommand}" 
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="Add Ability"
+                                Margin="8,0,0,0">
+                            <materialDesign:PackIcon Kind="Plus"/>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Abilities ListView -->
+                    <ListView Grid.Row="1" 
+                              ItemsSource="{Binding FilteredAbilities}"
+                              SelectedItem="{Binding SelectedAbility}"
+                              Margin="8,0,8,8">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="180">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Rarity" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border CornerRadius="4" Padding="8,2" HorizontalAlignment="Left">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Rarity}" Value="Common">
+                                                                <Setter Property="Background" Value="#E0E0E0"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Rarity}" Value="Uncommon">
+                                                                <Setter Property="Background" Value="#81C784"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Rarity}" Value="Rare">
+                                                                <Setter Property="Background" Value="#64B5F6"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Rarity}" Value="Epic">
+                                                                <Setter Property="Background" Value="#BA68C8"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Rarity}" Value="Legendary">
+                                                                <Setter Property="Background" Value="#FFB74D"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <TextBlock Text="{Binding Rarity}" FontSize="10" FontWeight="Bold"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </materialDesign:Card>
+
+            <!-- Detail/Edit Panel -->
+            <materialDesign:Card Grid.Column="1" Margin="4,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Detail Header -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="16,16,16,8">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                                   VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}">
+                                    <Binding Path="IsEditing"/>
+                                    <Binding Source="Edit Ability" TargetNullValue="Ability Details"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <Button Command="{Binding EditAbilityCommand}" 
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="Edit Ability"
+                                Margin="8,0,0,0"
+                                IsEnabled="{Binding SelectedAbility, Converter={StaticResource NotNullToBooleanConverter}}"
+                                Visibility="{Binding IsEditing, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                            <materialDesign:PackIcon Kind="Pencil"/>
+                        </Button>
+                        <Button Command="{Binding DeleteAbilityCommand}" 
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="Delete Ability"
+                                IsEnabled="{Binding SelectedAbility, Converter={StaticResource NotNullToBooleanConverter}}"
+                                Visibility="{Binding IsEditing, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                            <materialDesign:PackIcon Kind="Delete"/>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- View Mode -->
+                    <ScrollViewer Grid.Row="1" 
+                                  VerticalScrollBarVisibility="Auto"
+                                  Visibility="{Binding IsEditing, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                                  Margin="16,0,16,16">
+                        <StackPanel>
+                            <TextBlock Text="Name" 
+                                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                       Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                       Margin="0,0,0,4"/>
+                            <TextBlock Text="{Binding SelectedAbility.Name}" 
+                                       Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                       Margin="0,0,0,16"/>
+
+                            <TextBlock Text="Display Name" 
+                                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                       Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                       Margin="0,0,0,4"/>
+                            <TextBlock Text="{Binding SelectedAbility.DisplayName}" 
+                                       Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                       Margin="0,0,0,16"/>
+
+                            <TextBlock Text="Description" 
+                                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                       Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                       Margin="0,0,0,4"/>
+                            <TextBlock Text="{Binding SelectedAbility.Description}" 
+                                       Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                       TextWrapping="Wrap"
+                                       Margin="0,0,0,16"/>
+
+                            <TextBlock Text="Rarity" 
+                                       Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                       Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                       Margin="0,0,0,4"/>
+                            <TextBlock Text="{Binding SelectedAbility.Rarity}" 
+                                       Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Edit Mode -->
+                    <ScrollViewer Grid.Row="1" 
+                                  VerticalScrollBarVisibility="Auto"
+                                  Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  Margin="16,0,16,16">
+                        <StackPanel>
+                            <TextBox Text="{Binding EditName, UpdateSourceTrigger=PropertyChanged}"
+                                     materialDesign:HintAssist.Hint="Name (required)"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     Margin="0,0,0,16"/>
+
+                            <TextBox Text="{Binding EditDisplayName, UpdateSourceTrigger=PropertyChanged}"
+                                     materialDesign:HintAssist.Hint="Display Name (optional)"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     Margin="0,0,0,16"/>
+
+                            <TextBox Text="{Binding EditDescription, UpdateSourceTrigger=PropertyChanged}"
+                                     materialDesign:HintAssist.Hint="Description"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"
+                                     MinLines="3"
+                                     MaxLines="6"
+                                     Margin="0,0,0,16"/>
+
+                            <ComboBox SelectedItem="{Binding EditRarity}"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      materialDesign:HintAssist.Hint="Rarity">
+                                <ComboBox.ItemsSource>
+                                    <x:Array Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                        <sys:String>Common</sys:String>
+                                        <sys:String>Uncommon</sys:String>
+                                        <sys:String>Rare</sys:String>
+                                        <sys:String>Epic</sys:String>
+                                        <sys:String>Legendary</sys:String>
+                                    </x:Array>
+                                </ComboBox.ItemsSource>
+                            </ComboBox>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Edit Buttons -->
+                    <StackPanel Grid.Row="2" 
+                                Orientation="Horizontal" 
+                                HorizontalAlignment="Right"
+                                Margin="16"
+                                Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Button Command="{Binding CancelEditCommand}"
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Cancel" VerticalAlignment="Center"/>
+                                <TextBlock Text="Cancel" Margin="4,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding SaveEditCommand}"
+                                Style="{StaticResource MaterialDesignRaisedButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ContentSave" VerticalAlignment="Center"/>
+                                <TextBlock Text="Save" Margin="4,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+
+        <!-- Status Bar -->
+        <materialDesign:Card Grid.Row="4" Margin="8">
+            <Grid Margin="16,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" 
+                           Text="{Binding StatusMessage}" 
+                           VerticalAlignment="Center"
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+
+                <Button Grid.Column="1" 
+                        Command="{Binding ReloadFileCommand}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        ToolTip="Reload from disk"
+                        Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Refresh" VerticalAlignment="Center"/>
+                        <TextBlock Text="Reload" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Grid.Column="2" 
+                        Command="{Binding SaveFileCommand}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        IsEnabled="{Binding IsDirty}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ContentSave" VerticalAlignment="Center"/>
+                        <TextBlock Text="Save File" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>

@@ -60,10 +60,18 @@ public enum EditorType
     NameList,          // Array structure: category → string[] (weapon_names, beast_names, fantasy_names, dialogue_templates)
     HybridArray,       // Hybrid structure: { items: [], components: {}, patterns: [], metadata: {} }
     
-    // New v4.0 specialized editors
-    NamesEditor,       // names.json editor: metadata + components + patterns + traits
-    TypesEditor,       // types.json editor: metadata + *_types catalog
-    ComponentEditor,   // Component catalog editor (e.g., materials/names.json)
-    MaterialEditor,    // Material catalog editor (materials/types.json)
-    TraitEditor        // Trait definition editor
+    // V4.0 specialized editors
+    NamesEditor,           // names.json editor: metadata + components + patterns + traits
+    TypesEditor,           // types.json editor: metadata + *_types catalog
+    ComponentEditor,       // Component catalog editor (e.g., materials/names.json)
+    MaterialEditor,        // Material catalog editor (materials/types.json)
+    TraitEditor,           // Trait definition editor
+    
+    // New editors for comprehensive data coverage
+    AbilitiesEditor,       // ability_catalog: enemy abilities
+    CatalogEditor,         // Generic catalog: occupations, dialogue, traits, etc.
+    NameCatalogEditor,     // name_catalog/surname_catalog: NPC names
+    QuestTemplateEditor,   // quest_template_catalog: quest templates
+    QuestDataEditor,       // quest_objectives/rewards/locations
+    ConfigEditor           // configuration: rarity_config, etc.
 }

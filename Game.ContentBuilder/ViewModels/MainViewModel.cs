@@ -106,9 +106,18 @@ public partial class MainViewModel : ObservableObject
                     LoadTypesEditor(value.Tag?.ToString() ?? "");
                     break;
                 
+                case EditorType.AbilitiesEditor:
+                    LoadAbilitiesEditor(value.Tag?.ToString() ?? "");
+                    break;
+                
                 case EditorType.ComponentEditor:
                 case EditorType.MaterialEditor:
                 case EditorType.TraitEditor:
+                case EditorType.CatalogEditor:
+                case EditorType.NameCatalogEditor:
+                case EditorType.QuestTemplateEditor:
+                case EditorType.QuestDataEditor:
+                case EditorType.ConfigEditor:
                     // TODO: Implement these specialized editors
                     StatusMessage = $"Editor for {value.EditorType} not yet implemented";
                     CurrentEditor = null;
@@ -264,6 +273,33 @@ public partial class MainViewModel : ObservableObject
         {
             StatusMessage = $"Failed to load types editor: {ex.Message}";
             Log.Error(ex, "Failed to load TypesEditor for {FileName}", fileName);
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadAbilitiesEditor(string fileName)
+    {
+        try
+        {
+            Log.Debug("Loading AbilitiesEditor for {FileName}", fileName);
+            
+            var fullPath = Path.Combine(GetDataDirectory(), fileName);
+            var viewModel = new AbilitiesEditorViewModel();
+            viewModel.LoadFile(fullPath);
+            
+            var view = new AbilitiesEditorView
+            {
+                DataContext = viewModel
+            };
+            
+            CurrentEditor = view;
+            StatusMessage = $"Loaded abilities editor for {fileName}";
+            Log.Information("AbilitiesEditor loaded successfully for {FileName}", fileName);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load abilities editor: {ex.Message}";
+            Log.Error(ex, "Failed to load AbilitiesEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }

@@ -38,8 +38,23 @@ public static class FileTypeDetector
                 {
                     "pattern_generation" => JsonFileType.NamesFile,
                     "item_catalog" => JsonFileType.TypesFile,
-                    "component_catalog" => JsonFileType.ComponentCatalog,
                     "material_catalog" => JsonFileType.MaterialCatalog,
+                    "ability_catalog" => JsonFileType.AbilityCatalog,
+                    "occupation_catalog" or 
+                    "personality_trait_catalog" or 
+                    "dialogue_style_catalog" or 
+                    "dialogue_template_catalog" or 
+                    "rumor_template_catalog" or 
+                    "quirk_catalog" or 
+                    "background_catalog" or 
+                    "component_library" or 
+                    "pattern_components" or 
+                    "reference_data" => JsonFileType.GenericCatalog,
+                    "name_catalog" or "surname_catalog" => JsonFileType.NameCatalog,
+                    "quest_template_catalog" => JsonFileType.QuestTemplate,
+                    var s when s?.StartsWith("quest_") == true => JsonFileType.QuestData,
+                    "configuration" => JsonFileType.Configuration,
+                    "component_catalog" => JsonFileType.ComponentCatalog,
                     _ => DetectByStructure(root, fileName)
                 };
             }
@@ -116,6 +131,12 @@ public static class FileTypeDetector
         {
             JsonFileType.NamesFile => EditorType.NamesEditor,
             JsonFileType.TypesFile => EditorType.TypesEditor,
+            JsonFileType.AbilityCatalog => EditorType.AbilitiesEditor,
+            JsonFileType.GenericCatalog => EditorType.CatalogEditor,
+            JsonFileType.NameCatalog => EditorType.NameCatalogEditor,
+            JsonFileType.QuestTemplate => EditorType.QuestTemplateEditor,
+            JsonFileType.QuestData => EditorType.QuestDataEditor,
+            JsonFileType.Configuration => EditorType.ConfigEditor,
             JsonFileType.ComponentCatalog => EditorType.ComponentEditor,
             JsonFileType.MaterialCatalog => EditorType.MaterialEditor,
             JsonFileType.PrefixSuffix => EditorType.ItemPrefix,
@@ -172,6 +193,12 @@ public enum JsonFileType
     Unknown,
     NamesFile,          // names.json - pattern generation files
     TypesFile,          // types.json - item catalog files
+    AbilityCatalog,     // abilities.json - ability catalog files
+    GenericCatalog,     // Generic catalogs (occupations, traits, dialogue, etc.)
+    NameCatalog,        // Name lists (first_names, last_names)
+    QuestTemplate,      // Quest template files
+    QuestData,          // Quest objectives, rewards, locations
+    Configuration,      // Configuration files (rarity_config, etc.)
     ComponentCatalog,   // Component catalogs (like materials/names.json)
     MaterialCatalog,    // Material type catalogs (materials/types.json)
     PrefixSuffix,       // Legacy prefix/suffix files
