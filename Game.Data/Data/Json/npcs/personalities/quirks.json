@@ -5,62 +5,243 @@
     "last_updated": "2025-12-16",
     "type": "quirk_catalog",
     "total_quirks": 35,
-    "categories": ["speech", "behavioral", "physical", "obsessive", "superstitious", "unusual"]
+    "categories": [
+      "speech",
+      "behavioral",
+      "physical",
+      "obsessive",
+      "superstitious",
+      "unusual"
+    ]
   },
   "components": {
     "speech_common": [
-      { "name": "LoudLaugher", "displayName": "Loud Laugher", "description": "Laughs boisterously at everything", "rarityWeight": 10 },
-      { "name": "QuotesProverbs", "displayName": "Quotes Proverbs", "description": "Constantly cites old sayings", "rarityWeight": 12 },
-      { "name": "StoryTeller", "displayName": "Story Teller", "description": "Relates everything to long-winded tales", "rarityWeight": 15 },
-      { "name": "ExaggeratesStories", "displayName": "Exaggerates Stories", "description": "Embellishes tales to absurd degrees", "rarityWeight": 14 }
+      {
+        "name": "LoudLaugher",
+        "displayName": "Loud Laugher",
+        "description": "Laughs boisterously at everything",
+        "rarityWeight": 10
+      },
+      {
+        "name": "QuotesProverbs",
+        "displayName": "Quotes Proverbs",
+        "description": "Constantly cites old sayings",
+        "rarityWeight": 12
+      },
+      {
+        "name": "StoryTeller",
+        "displayName": "Story Teller",
+        "description": "Relates everything to long-winded tales",
+        "rarityWeight": 15
+      },
+      {
+        "name": "ExaggeratesStories",
+        "displayName": "Exaggerates Stories",
+        "description": "Embellishes tales to absurd degrees",
+        "rarityWeight": 14
+      }
     ],
     "speech_unusual": [
-      { "name": "SpeaksInRhymes", "displayName": "Speaks in Rhymes", "description": "Often talks in verse", "rarityWeight": 35 },
-      { "name": "WhispersSecrets", "displayName": "Whispers Secrets", "description": "Speaks in hushed tones as if sharing secrets", "rarityWeight": 22 },
-      { "name": "RepeatsLastWord", "displayName": "Repeats Last Word", "description": "Echoes the final word they say... say", "rarityWeight": 30 },
-      { "name": "ExcessivelyPolite", "displayName": "Excessively Polite", "description": "Uses formal language to a fault", "rarityWeight": 18 }
+      {
+        "name": "SpeaksInRhymes",
+        "displayName": "Speaks in Rhymes",
+        "description": "Often talks in verse",
+        "rarityWeight": 35
+      },
+      {
+        "name": "WhispersSecrets",
+        "displayName": "Whispers Secrets",
+        "description": "Speaks in hushed tones as if sharing secrets",
+        "rarityWeight": 22
+      },
+      {
+        "name": "RepeatsLastWord",
+        "displayName": "Repeats Last Word",
+        "description": "Echoes the final word they say... say",
+        "rarityWeight": 30
+      },
+      {
+        "name": "ExcessivelyPolite",
+        "displayName": "Excessively Polite",
+        "description": "Uses formal language to a fault",
+        "rarityWeight": 18
+      }
     ],
     "physical_tics": [
-      { "name": "NervousTic", "displayName": "Nervous Tic", "description": "Constantly fidgets or twitches", "rarityWeight": 12 },
-      { "name": "SniffsFrequently", "displayName": "Sniffs Frequently", "description": "Has a persistent sniffing habit", "rarityWeight": 10 },
-      { "name": "CracksKnuckles", "displayName": "Cracks Knuckles", "description": "Constantly pops their joints", "rarityWeight": 14 },
-      { "name": "SuspiciousEyes", "displayName": "Suspicious Eyes", "description": "Constantly glances around nervously", "rarityWeight": 16 }
+      {
+        "name": "NervousTic",
+        "displayName": "Nervous Tic",
+        "description": "Constantly fidgets or twitches",
+        "rarityWeight": 12
+      },
+      {
+        "name": "SniffsFrequently",
+        "displayName": "Sniffs Frequently",
+        "description": "Has a persistent sniffing habit",
+        "rarityWeight": 10
+      },
+      {
+        "name": "CracksKnuckles",
+        "displayName": "Cracks Knuckles",
+        "description": "Constantly pops their joints",
+        "rarityWeight": 14
+      },
+      {
+        "name": "SuspiciousEyes",
+        "displayName": "Suspicious Eyes",
+        "description": "Constantly glances around nervously",
+        "rarityWeight": 16
+      }
     ],
     "behavioral_habits": [
-      { "name": "HumsSongs", "displayName": "Hums Songs", "description": "Frequently hums or sings to themselves", "rarityWeight": 15 },
-      { "name": "ForgetfulMind", "displayName": "Forgetful Mind", "description": "Often loses train of thought mid-conversation", "rarityWeight": 18 },
-      { "name": "TalksToAnimals", "displayName": "Talks to Animals", "description": "Converses with pets and wildlife", "rarityWeight": 25 },
-      { "name": "WhistlesWhileWorking", "displayName": "Whistles While Working", "description": "Always has a tune on their lips", "rarityWeight": 12 }
+      {
+        "name": "HumsSongs",
+        "displayName": "Hums Songs",
+        "description": "Frequently hums or sings to themselves",
+        "rarityWeight": 15
+      },
+      {
+        "name": "ForgetfulMind",
+        "displayName": "Forgetful Mind",
+        "description": "Often loses train of thought mid-conversation",
+        "rarityWeight": 18
+      },
+      {
+        "name": "TalksToAnimals",
+        "displayName": "Talks to Animals",
+        "description": "Converses with pets and wildlife",
+        "rarityWeight": 25
+      },
+      {
+        "name": "WhistlesWhileWorking",
+        "displayName": "Whistles While Working",
+        "description": "Always has a tune on their lips",
+        "rarityWeight": 12
+      }
     ],
     "obsessive_compulsive": [
-      { "name": "CountsThings", "displayName": "Counts Things", "description": "Compulsively counts objects", "rarityWeight": 28 },
-      { "name": "CollectsTrinkets", "displayName": "Collects Trinkets", "description": "Obsessively gathers small objects", "rarityWeight": 20 },
-      { "name": "NamesObjects", "displayName": "Names Objects", "description": "Gives names to inanimate objects", "rarityWeight": 32 },
-      { "name": "OrganizesEverything", "displayName": "Organizes Everything", "description": "Must have everything in perfect order", "rarityWeight": 24 }
+      {
+        "name": "CountsThings",
+        "displayName": "Counts Things",
+        "description": "Compulsively counts objects",
+        "rarityWeight": 28
+      },
+      {
+        "name": "CollectsTrinkets",
+        "displayName": "Collects Trinkets",
+        "description": "Obsessively gathers small objects",
+        "rarityWeight": 20
+      },
+      {
+        "name": "NamesObjects",
+        "displayName": "Names Objects",
+        "description": "Gives names to inanimate objects",
+        "rarityWeight": 32
+      },
+      {
+        "name": "OrganizesEverything",
+        "displayName": "Organizes Everything",
+        "description": "Must have everything in perfect order",
+        "rarityWeight": 24
+      }
     ],
     "superstitious_fears": [
-      { "name": "AfraidOfDark", "displayName": "Afraid of Dark", "description": "Carries a lantern at all times", "rarityWeight": 18 },
-      { "name": "SuperstitiousBeliefs", "displayName": "Superstitious Beliefs", "description": "Follows old wives' tales religiously", "rarityWeight": 22 },
-      { "name": "AvoidsBlackCats", "displayName": "Avoids Black Cats", "description": "Believes they bring bad luck", "rarityWeight": 16 },
-      { "name": "KnocksOnWood", "displayName": "Knocks on Wood", "description": "Taps wood to ward off bad luck", "rarityWeight": 14 }
+      {
+        "name": "AfraidOfDark",
+        "displayName": "Afraid of Dark",
+        "description": "Carries a lantern at all times",
+        "rarityWeight": 18
+      },
+      {
+        "name": "SuperstitiousBeliefs",
+        "displayName": "Superstitious Beliefs",
+        "description": "Follows old wives' tales religiously",
+        "rarityWeight": 22
+      },
+      {
+        "name": "AvoidsBlackCats",
+        "displayName": "Avoids Black Cats",
+        "description": "Believes they bring bad luck",
+        "rarityWeight": 16
+      },
+      {
+        "name": "KnocksOnWood",
+        "displayName": "Knocks on Wood",
+        "description": "Taps wood to ward off bad luck",
+        "rarityWeight": 14
+      }
     ],
     "unusual_unique": [
-      { "name": "SleepsWithEyesOpen", "displayName": "Sleeps With Eyes Open", "description": "Disturbing but harmless sleep habit", "rarityWeight": 45 },
-      { "name": "DrawsMaps", "displayName": "Draws Maps", "description": "Sketches every location they visit", "rarityWeight": 28 },
-      { "name": "CollectsRocks", "displayName": "Collects Rocks", "description": "Picks up interesting stones everywhere", "rarityWeight": 20 },
-      { "name": "NeverSitsFacingDoor", "displayName": "Never Sits Facing Door", "description": "Always positions back to entrances", "rarityWeight": 30 },
-      { "name": "MustEatDessertFirst", "displayName": "Must Eat Dessert First", "description": "Refuses to eat meals in normal order", "rarityWeight": 25 }
+      {
+        "name": "SleepsWithEyesOpen",
+        "displayName": "Sleeps With Eyes Open",
+        "description": "Disturbing but harmless sleep habit",
+        "rarityWeight": 45
+      },
+      {
+        "name": "DrawsMaps",
+        "displayName": "Draws Maps",
+        "description": "Sketches every location they visit",
+        "rarityWeight": 28
+      },
+      {
+        "name": "CollectsRocks",
+        "displayName": "Collects Rocks",
+        "description": "Picks up interesting stones everywhere",
+        "rarityWeight": 20
+      },
+      {
+        "name": "NeverSitsFacingDoor",
+        "displayName": "Never Sits Facing Door",
+        "description": "Always positions back to entrances",
+        "rarityWeight": 30
+      },
+      {
+        "name": "MustEatDessertFirst",
+        "displayName": "Must Eat Dessert First",
+        "description": "Refuses to eat meals in normal order",
+        "rarityWeight": 25
+      }
     ],
     "memorable_quirks": [
-      { "name": "RefersToSelfInThirdPerson", "displayName": "Refers to Self in Third Person", "description": "Never uses 'I' or 'me'", "rarityWeight": 40 },
-      { "name": "BreaksIntoSong", "displayName": "Breaks Into Song", "description": "Randomly bursts into musical numbers", "rarityWeight": 38 },
-      { "name": "MakesUpWords", "displayName": "Makes Up Words", "description": "Invents vocabulary on the spot", "rarityWeight": 42 },
-      { "name": "AlwaysCarriesLuckyCharm", "displayName": "Always Carries Lucky Charm", "description": "Never without their special trinket", "rarityWeight": 20 }
+      {
+        "name": "RefersToSelfInThirdPerson",
+        "displayName": "Refers to Self in Third Person",
+        "description": "Never uses 'I' or 'me'",
+        "rarityWeight": 40
+      },
+      {
+        "name": "BreaksIntoSong",
+        "displayName": "Breaks Into Song",
+        "description": "Randomly bursts into musical numbers",
+        "rarityWeight": 38
+      },
+      {
+        "name": "MakesUpWords",
+        "displayName": "Makes Up Words",
+        "description": "Invents vocabulary on the spot",
+        "rarityWeight": 42
+      },
+      {
+        "name": "AlwaysCarriesLuckyCharm",
+        "displayName": "Always Carries Lucky Charm",
+        "description": "Never without their special trinket",
+        "rarityWeight": 20
+      }
     ]
   },
   "notes": {
     "rarity_system": "weight-based",
-    "component_keys": ["speech_common", "speech_unusual", "physical_tics", "behavioral_habits", "obsessive_compulsive", "superstitious_fears", "unusual_unique", "memorable_quirks"],
+    "component_keys": [
+      "speech_common",
+      "speech_unusual",
+      "physical_tics",
+      "behavioral_habits",
+      "obsessive_compulsive",
+      "superstitious_fears",
+      "unusual_unique",
+      "memorable_quirks"
+    ],
     "weight_ranges": {
       "common": "10-18 rarityWeight (loud laugher, sniffs, hums, quotes proverbs)",
       "uncommon": "20-32 rarityWeight (collects trinkets, talks to animals, counts things, names objects)",
