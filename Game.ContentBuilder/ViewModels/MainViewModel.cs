@@ -118,10 +118,13 @@ public partial class MainViewModel : ObservableObject
                     LoadNameCatalogEditor(value.Tag?.ToString() ?? "");
                     break;
                 
+                case EditorType.QuestTemplateEditor:
+                    LoadQuestTemplateEditor(value.Tag?.ToString() ?? "");
+                    break;
+                
                 case EditorType.ComponentEditor:
                 case EditorType.MaterialEditor:
                 case EditorType.TraitEditor:
-                case EditorType.QuestTemplateEditor:
                 case EditorType.QuestDataEditor:
                 case EditorType.ConfigEditor:
                     // TODO: Implement these specialized editors
@@ -325,6 +328,31 @@ public partial class MainViewModel : ObservableObject
         {
             StatusMessage = $"Failed to load catalog editor: {ex.Message}";
             Log.Error(ex, "Failed to load GenericCatalogEditor for {FileName}", fileName);
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadQuestTemplateEditor(string fileName)
+    {
+        try
+        {
+            Log.Debug("Loading QuestTemplateEditor for {FileName}", fileName);
+            
+            var viewModel = new QuestTemplateEditorViewModel(_jsonEditorService, fileName);
+            
+            var view = new QuestTemplateEditorView
+            {
+                DataContext = viewModel
+            };
+            
+            CurrentEditor = view;
+            StatusMessage = $"Loaded quest template editor for {fileName}";
+            Log.Information("QuestTemplateEditor loaded successfully for {FileName}", fileName);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load quest template editor: {ex.Message}";
+            Log.Error(ex, "Failed to load QuestTemplateEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }
