@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json.Linq;
 using Serilog;
+using Game.ContentBuilder.Services;
 
 namespace Game.ContentBuilder.ViewModels;
 
@@ -13,7 +14,8 @@ namespace Game.ContentBuilder.ViewModels;
 /// </summary>
 public partial class AbilitiesEditorViewModel : ObservableObject
 {
-    private string? _filePath;
+    private readonly JsonEditorService _jsonEditorService;
+    private readonly string _storedFileName;
     private JObject? _jsonData;
 
     [ObservableProperty]
@@ -79,13 +81,20 @@ public partial class AbilitiesEditorViewModel : ObservableObject
         "All", "Common", "Uncommon", "Rare", "Epic", "Legendary"
     };
 
-    public void LoadFile(string filePath)
+    public AbilitiesEditorViewModel(JsonEditorService jsonEditorService, string fileName)
+    {
+        _jsonEditorService = jsonEditorService;
+        _storedFileName = fileName;
+        FileName = Path.GetFileNameWithoutExtension(fileName);
+        
+        LoadData();
+    }
+
+    private void LoadData()
     {
         try
         {
-            _filePath = filePath;
-            FileName = Path.GetFileName(filePath);
-
+            var filePath = _jsonEditorService.GetFilePath(_storedFileName);
             var json = File.ReadAllText(filePath);
             _jsonData = JObject.Parse(json);
 
@@ -99,7 +108,7 @@ public partial class AbilitiesEditorViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to load abilities.json file: {FilePath}", filePath);
+            Log.Error(ex, "Failed to load abilities.json file: {FileName}", _storedFileName);
             StatusMessage = $"Error loading file: {ex.Message}";
         }
     }
@@ -279,10 +288,12 @@ public partial class AbilitiesEditorViewModel : ObservableObject
     [RelayCommand]
     private void SaveFile()
     {
-        if (_filePath == null || _jsonData == null) return;
+        if (_jsonData == null) return;
 
         try
         {
+            var filePath = _jsonEditorService.GetFilePath(_storedFileName);
+
             // Update metadata total count
             var metadata = _jsonData["metadata"] as JObject;
             if (metadata != null)
@@ -308,15 +319,15 @@ public partial class AbilitiesEditorViewModel : ObservableObject
             _jsonData["items"] = items;
 
             // Save to file
-            File.WriteAllText(_filePath, _jsonData.ToString(Newtonsoft.Json.Formatting.Indented));
+            File.WriteAllText(filePath, _jsonData.ToString(Newtonsoft.Json.Formatting.Indented));
 
             IsDirty = false;
             StatusMessage = $"Saved {FileName} - {Abilities.Count} abilities";
-            Log.Information("Saved abilities.json file: {FilePath}", _filePath);
+            Log.Information("Saved abilities.json file: {FilePath}", filePath);
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to save abilities.json file: {FilePath}", _filePath);
+            Log.Error(ex, "Failed to save abilities.json file: {FileName}", _storedFileName);
             StatusMessage = $"Error saving file: {ex.Message}";
         }
     }

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Windows;
 using System.Threading.Tasks;
 using Game.ContentBuilder.Models;
+using Game.ContentBuilder.Services;
 
 namespace Game.ContentBuilder.ViewModels
 {
@@ -20,7 +21,8 @@ namespace Game.ContentBuilder.ViewModels
     /// </summary>
     public partial class GenericCatalogEditorViewModel : ObservableObject
     {
-        private string _filePath = string.Empty;
+        private readonly JsonEditorService _jsonEditorService;
+        private readonly string _storedFileName;
         private JObject? _rootJson;
         
         [ObservableProperty]
@@ -65,23 +67,20 @@ namespace Game.ContentBuilder.ViewModels
         [ObservableProperty]
         private bool _hasUnsavedChanges;
 
-        public GenericCatalogEditorViewModel()
+        public GenericCatalogEditorViewModel(JsonEditorService jsonEditorService, string fileName)
         {
-            // Design-time constructor
+            _jsonEditorService = jsonEditorService;
+            _storedFileName = fileName;
+            FileName = Path.GetFileNameWithoutExtension(fileName);
+            LoadData();
         }
 
-        public GenericCatalogEditorViewModel(string filePath)
-        {
-            _filePath = filePath;
-            FileName = Path.GetFileName(filePath);
-            LoadFile();
-        }
-
-        private void LoadFile()
+        private void LoadData()
         {
             try
             {
-                var content = File.ReadAllText(_filePath);
+                var filePath = _jsonEditorService.GetFilePath(_storedFileName);
+                var content = File.ReadAllText(filePath);
                 _rootJson = JObject.Parse(content);
 
                 // Extract metadata
@@ -92,11 +91,12 @@ namespace Game.ContentBuilder.ViewModels
                 LoadCategories();
 
                 HasUnsavedChanges = false;
-                Log.Information("Loaded generic catalog: {FilePath}, Type: {CatalogType}", _filePath, CatalogType);
+                Log.Information("Loaded generic catalog: {FilePath}, Type: {CatalogType}", filePath, CatalogType);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to load generic catalog: {FilePath}", _filePath);
+                var filePath = _jsonEditorService.GetFilePath(_storedFileName);
+                Log.Error(ex, "Failed to load generic catalog: {FilePath}", filePath);
                 MessageBox.Show($"Failed to load file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -465,18 +465,20 @@ namespace Game.ContentBuilder.ViewModels
 
             try
             {
+                var filePath = _jsonEditorService.GetFilePath(_storedFileName);
                 var json = _rootJson.ToString(Formatting.Indented);
-                await File.WriteAllTextAsync(_filePath, json);
+                await File.WriteAllTextAsync(filePath, json);
                 HasUnsavedChanges = false;
                 
                 MessageBox.Show("File saved successfully!", "Success", 
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 
-                Log.Information("Saved generic catalog: {FilePath}", _filePath);
+                Log.Information("Saved generic catalog: {FilePath}", filePath);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to save file: {FilePath}", _filePath);
+                var filePath = _jsonEditorService.GetFilePath(_storedFileName);
+                Log.Error(ex, "Failed to save file: {FilePath}", filePath);
                 MessageBox.Show($"Failed to save file: {ex.Message}", "Error", 
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
