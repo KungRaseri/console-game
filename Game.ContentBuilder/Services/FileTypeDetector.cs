@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json.Linq;
 using Serilog;
 using Game.ContentBuilder.Models;
@@ -130,7 +130,7 @@ public static class FileTypeDetector
         return fileType switch
         {
             JsonFileType.NamesFile => EditorType.NamesEditor,
-            JsonFileType.TypesFile => EditorType.TypesEditor,
+            JsonFileType.TypesFile => EditorType.ItemCatalogEditor,
             JsonFileType.AbilityCatalog => EditorType.AbilitiesEditor,
             JsonFileType.GenericCatalog => EditorType.CatalogEditor,
             JsonFileType.NameCatalog => EditorType.NameCatalogEditor,
@@ -205,3 +205,4 @@ public enum JsonFileType
     Traits,             // Trait definition files
     General             // General configuration files
 }
+

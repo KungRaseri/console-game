@@ -1,8 +1,8 @@
-{
-  "icon": "TreasureChest",
-  "sortOrder": 3,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline"
-  }
+﻿{
+    "icon":  "TreasureChest",
+    "sortOrder":  3,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "catalog":  "ShapeOutline"
+                  }
 }

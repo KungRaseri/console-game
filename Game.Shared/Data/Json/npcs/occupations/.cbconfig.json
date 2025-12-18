@@ -3,7 +3,7 @@
     "sortOrder":  3,
     "fileIcons":  {
                       "names":  "FormatListBulleted",
-                      "types":  "ShapeOutline",
-                      "occupations":  "BriefcaseOutline"
+                      "occupations":  "BriefcaseOutline",
+                      "catalog":  "ShapeOutline"
                   }
 }

@@ -1,8 +1,8 @@
-{
-  "icon": "Target",
-  "sortOrder": 2,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline"
-  }
+﻿{
+    "icon":  "Target",
+    "sortOrder":  2,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "catalog":  "ShapeOutline"
+                  }
 }

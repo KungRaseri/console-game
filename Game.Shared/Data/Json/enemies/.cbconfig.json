@@ -5,9 +5,9 @@
     "sortOrder":  20,
     "fileIcons":  {
                       "names":  "FormatListBulleted",
-                      "types":  "ShapeOutline",
                       "behaviors":  "Brain",
-                      "abilities":  "FlashOutline"
+                      "abilities":  "FlashOutline",
+                      "catalog":  "ShapeOutline"
                   },
     "defaultFileIcon":  "MonsterIcon",
     "showFileCount":  true

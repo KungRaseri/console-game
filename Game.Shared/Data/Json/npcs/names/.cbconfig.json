@@ -1,8 +1,8 @@
-{
-  "icon": "AccountBox",
-  "sortOrder": 2,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline"
-  }
+﻿{
+    "icon":  "AccountBox",
+    "sortOrder":  2,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "catalog":  "ShapeOutline"
+                  }
 }

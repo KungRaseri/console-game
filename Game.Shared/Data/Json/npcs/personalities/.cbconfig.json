@@ -1,8 +1,8 @@
-{
-  "icon": "EmoticonHappy",
-  "sortOrder": 4,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline"
-  }
+﻿{
+    "icon":  "EmoticonHappy",
+    "sortOrder":  4,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "catalog":  "ShapeOutline"
+                  }
 }

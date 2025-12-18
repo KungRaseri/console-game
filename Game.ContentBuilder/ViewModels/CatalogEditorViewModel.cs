@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -8,9 +8,9 @@ using Serilog;
 namespace Game.ContentBuilder.ViewModels;
 
 /// <summary>
-/// ViewModel for editing types.json files (item catalogs)
+/// ViewModel for editing catalog.json files (item catalogs)
 /// </summary>
-public partial class TypesEditorViewModel : ObservableObject
+public partial class CatalogEditorViewModel : ObservableObject
 {
     private string? _filePath;
     private JObject? _jsonData;
@@ -68,11 +68,11 @@ public partial class TypesEditorViewModel : ObservableObject
 
             IsDirty = false;
             StatusMessage = $"Loaded {FileName}";
-            Log.Information("Loaded types.json file: {FilePath}", filePath);
+            Log.Information("Loaded catalog.json file: {FilePath}", filePath);
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to load types.json file: {FilePath}", filePath);
+            Log.Error(ex, "Failed to load catalog.json file: {FilePath}", filePath);
             StatusMessage = $"Error loading file: {ex.Message}";
         }
     }
@@ -303,11 +303,11 @@ public partial class TypesEditorViewModel : ObservableObject
 
             IsDirty = false;
             StatusMessage = $"Saved {FileName}";
-            Log.Information("Saved types.json file: {FilePath}", _filePath);
+            Log.Information("Saved catalog.json file: {FilePath}", _filePath);
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to save types.json file: {FilePath}", _filePath);
+            Log.Error(ex, "Failed to save catalog.json file: {FilePath}", _filePath);
             StatusMessage = $"Error saving file: {ex.Message}";
         }
     }
@@ -366,3 +366,5 @@ public partial class PropertyItem : ObservableObject
     [ObservableProperty]
     private string _value = string.Empty;
 }
+
+

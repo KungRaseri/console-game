@@ -1,16 +1,16 @@
-{
-  "icon": "Sword",
-  "displayName": "Items",
-  "description": "Game item definitions including weapons, armor, consumables, and materials",
-  "defaultFileIcon": "FileDocument",
-  "showFileCount": true,
-  "sortOrder": 10,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "types": "ShapeOutline",
-    "prefixes": "FileEdit",
-    "suffixes": "FileEdit",
-    "effects": "Sparkles",
-    "traits": "Star"
-  }
+﻿{
+    "icon":  "Sword",
+    "displayName":  "Items",
+    "description":  "Game item definitions including weapons, armor, consumables, and materials",
+    "defaultFileIcon":  "FileDocument",
+    "showFileCount":  true,
+    "sortOrder":  10,
+    "fileIcons":  {
+                      "names":  "FormatListBulleted",
+                      "prefixes":  "FileEdit",
+                      "suffixes":  "FileEdit",
+                      "effects":  "Sparkles",
+                      "traits":  "Star",
+                      "catalog":  "ShapeOutline"
+                  }
 }

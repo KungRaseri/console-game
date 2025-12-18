@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -102,8 +102,8 @@ public partial class MainViewModel : ObservableObject
                     LoadNamesEditor(value.Tag?.ToString() ?? "");
                     break;
                 
-                case EditorType.TypesEditor:
-                    LoadTypesEditor(value.Tag?.ToString() ?? "");
+                case EditorType.ItemCatalogEditor:
+                    LoadCatalogEditor(value.Tag?.ToString() ?? "");
                     break;
                 
                 case EditorType.AbilitiesEditor:
@@ -250,29 +250,29 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
-    private void LoadTypesEditor(string fileName)
+    private void LoadCatalogEditor(string fileName)
     {
         try
         {
-            Log.Debug("Loading TypesEditor for {FileName}", fileName);
+            Log.Debug("Loading CatalogEditor for {FileName}", fileName);
             
             var fullPath = Path.Combine(GetDataDirectory(), fileName);
-            var viewModel = new TypesEditorViewModel();
+            var viewModel = new CatalogEditorViewModel();
             viewModel.LoadFile(fullPath);
             
-            var view = new TypesEditorView
+            var view = new CatalogEditorView
             {
                 DataContext = viewModel
             };
             
             CurrentEditor = view;
             StatusMessage = $"Loaded types editor for {fileName}";
-            Log.Information("TypesEditor loaded successfully for {FileName}", fileName);
+            Log.Information("CatalogEditor loaded successfully for {FileName}", fileName);
         }
         catch (Exception ex)
         {
             StatusMessage = $"Failed to load types editor: {ex.Message}";
-            Log.Error(ex, "Failed to load TypesEditor for {FileName}", fileName);
+            Log.Error(ex, "Failed to load CatalogEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }
@@ -356,3 +356,4 @@ public partial class MainViewModel : ObservableObject
         System.Windows.Application.Current.Shutdown();
     }
 }
+
