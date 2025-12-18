@@ -1,13 +1,21 @@
 {
   "icon": "AccountGroup",
   "displayName": "NPCs",
-  "description": "Non-player character data - dialogue, names, occupations, and personality traits",
+  "description": "Non-player character data - catalog, traits, names, and dialogue",
   "sortOrder": 30,
+  "dataFiles": [
+    "catalog.json",
+    "traits.json",
+    "names.json"
+  ],
+  "childDirectories": [
+    "dialogue"
+  ],
   "fileIcons": {
-    "names": "FormatListBulleted",
-    "dialogue": "MessageText",
-    "occupations": "Briefcase",
-    "personalities": "EmoticonHappy"
+    "catalog": "ViewList",
+    "traits": "EmoticonHappy",
+    "names": "Account",
+    "dialogue": "MessageText"
   },
   "defaultFileIcon": "Account",
   "showFileCount": true

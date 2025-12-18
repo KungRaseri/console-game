@@ -1,0 +1,1346 @@
+{
+  "metadata": {
+    "type": "npc_catalog",
+    "version": "4.0",
+    "description": "NPC backgrounds and occupations for character generation with shop economy system",
+    "lastModified": "2025-12-18",
+    "componentKeys": ["backgrounds", "occupations"],
+    "notes": [
+      "Backgrounds represent past/history (affects starting conditions, shop modifiers, unique items)",
+      "Occupations represent current job (affects skills/gold/shop inventory/economy)",
+      "NPCs can have both background AND occupation (e.g., 'Noble-born Blacksmith')",
+      "Shop system: hybrid (core items always available + dynamic items refresh daily)",
+      "Player economy: limited merchant gold, 7-day item decay, quality-based pricing",
+      "Bank gold formula: (baseGold * multiplier) + (background.startingGold * multiplier)",
+      "Quality pricing: (100 / AccumulatedRarityWeight) * basePrice (lower rarity = rarer = expensive)",
+      "Background modifiers: Small bonuses (+10% quality) + specialization hints + unique items",
+      "Shop chance: 0.0 to 1.0 (e.g., 0.8 = 80% of NPCs with this occupation have shops)"
+    ]
+  },
+  
+  "backgrounds": {
+    "common_folk": {
+      "metadata": {
+        "description": "Everyday people from humble origins",
+        "socialClass": "common",
+        "notes": [
+          "Most common background type",
+          "Practical skills and modest resources",
+          "No special privileges but no social stigma"
+        ]
+      },
+      "items": [
+        {
+          "name": "Farmer",
+          "displayName": "Farmer",
+          "description": "Works the land for a living",
+          "rarityWeight": 5,
+          "socialClass": "common",
+          "startingGold": "1d6",
+          "skillBonuses": ["endurance", "farming", "herbalism"],
+          "shopModifiers": {
+            "qualityBonus": 0,
+            "priceMultiplier": 0.95,
+            "shopAppearance": "rustic"
+          },
+          "specializationHints": ["consumables.food", "tools.farming"],
+          "uniqueItems": []
+        },
+        {
+          "name": "Laborer",
+          "displayName": "Laborer",
+          "description": "Performs manual work",
+          "rarityWeight": 8,
+          "socialClass": "common",
+          "startingGold": "1d8",
+          "skillBonuses": ["endurance", "strength"],
+          "shopModifiers": {
+            "qualityBonus": 0,
+            "priceMultiplier": 0.95,
+            "shopAppearance": "practical"
+          },
+          "specializationHints": ["tools.common", "consumables.food"],
+          "uniqueItems": []
+        }
+      ]
+    },
+    
+    "skilled_professionals": {
+      "metadata": {
+        "description": "Trained craftspeople and artisans",
+        "socialClass": "craftsman",
+        "notes": [
+          "Possess specialized trade skills",
+          "Moderate resources and social standing",
+          "Often run shops or workshops"
+        ]
+      },
+      "items": [
+        {
+          "name": "Craftsman",
+          "displayName": "Craftsman",
+          "description": "Skilled artisan or tradesperson",
+          "rarityWeight": 10,
+          "socialClass": "craftsman",
+          "startingGold": "2d8",
+          "skillBonuses": ["crafting", "perception", "appraisal"],
+          "shopModifiers": {
+            "qualityBonus": 5,
+            "priceMultiplier": 1.0,
+            "shopAppearance": "workshop"
+          },
+          "specializationHints": ["tools.crafting"],
+          "uniqueItems": ["Apprentice Badge"]
+        },
+        {
+          "name": "SmithApprentice",
+          "displayName": "Smith's Apprentice",
+          "description": "Trained under a master blacksmith",
+          "rarityWeight": 20,
+          "socialClass": "craftsman",
+          "startingGold": "2d10",
+          "skillBonuses": ["smithing", "crafting", "endurance"],
+          "shopModifiers": {
+            "qualityBonus": 10,
+            "priceMultiplier": 1.0,
+            "shopAppearance": "forge",
+            "combatItemBonus": 15
+          },
+          "specializationHints": ["weapons.melee", "armor.heavy"],
+          "uniqueItems": ["Master's Hammer", "Forge-worn Apron"]
+        },
+        {
+          "name": "HealerApprentice",
+          "displayName": "Healer's Apprentice",
+          "description": "Studied medicine and herbalism",
+          "rarityWeight": 25,
+          "socialClass": "professional",
+          "startingGold": "2d8",
+          "skillBonuses": ["healing", "herbalism", "alchemy"],
+          "shopModifiers": {
+            "qualityBonus": 8,
+            "priceMultiplier": 1.05,
+            "shopAppearance": "apothecary"
+          },
+          "specializationHints": ["consumables.potions", "consumables.herbs"],
+          "uniqueItems": ["Herbalist's Satchel"]
+        },
+        {
+          "name": "ScholarlyScribe",
+          "displayName": "Scholarly Scribe",
+          "description": "Dedicated to learning and record-keeping",
+          "rarityWeight": 22,
+          "socialClass": "professional",
+          "startingGold": "2d10",
+          "skillBonuses": ["knowledge", "literacy", "appraisal"],
+          "shopModifiers": {
+            "qualityBonus": 5,
+            "priceMultiplier": 1.1,
+            "shopAppearance": "scholarly"
+          },
+          "specializationHints": ["consumables.scrolls", "books"],
+          "uniqueItems": ["Ink-stained Quill", "Bound Journal"]
+        },
+        {
+          "name": "Entertainer",
+          "displayName": "Entertainer",
+          "description": "Performed for crowds as actor, musician, or jester",
+          "rarityWeight": 18,
+          "socialClass": "common",
+          "startingGold": "1d12",
+          "skillBonuses": ["persuasion", "performance", "charisma"],
+          "shopModifiers": {
+            "qualityBonus": 0,
+            "priceMultiplier": 0.9,
+            "shopAppearance": "colorful"
+          },
+          "specializationHints": ["instruments", "costume"],
+          "uniqueItems": ["Well-worn Lute", "Jester's Cap"]
+        }
+      ]
+    },
+    
+    "martial_backgrounds": {
+      "metadata": {
+        "description": "Those with military training and combat experience",
+        "socialClass": "military",
+        "notes": [
+          "Combat-focused skills and experience",
+          "Disciplined and tactical mindset",
+          "Often have connections to military organizations"
+        ]
+      },
+      "items": [
+        {
+          "name": "FormerSoldier",
+          "displayName": "Former Soldier",
+          "description": "Served in the military and retired or deserted",
+          "rarityWeight": 30,
+          "socialClass": "military",
+          "startingGold": "2d10",
+          "skillBonuses": ["melee_combat", "tactics", "discipline", "endurance"],
+          "shopModifiers": {
+            "qualityBonus": 15,
+            "priceMultiplier": 1.0,
+            "shopAppearance": "utilitarian",
+            "combatItemBonus": 20
+          },
+          "specializationHints": ["weapons.melee", "armor.medium", "armor.heavy"],
+          "uniqueItems": ["Officer's Sword", "Battle-worn Shield", "Military Medal"]
+        },
+        {
+          "name": "Sailor",
+          "displayName": "Sailor",
+          "description": "Spent years at sea",
+          "rarityWeight": 22,
+          "socialClass": "common",
+          "startingGold": "2d8",
+          "skillBonuses": ["sailing", "swimming", "rope_use", "survival"],
+          "shopModifiers": {
+            "qualityBonus": 5,
+            "priceMultiplier": 0.95,
+            "shopAppearance": "nautical"
+          },
+          "specializationHints": ["rope", "nets", "nautical_tools"],
+          "uniqueItems": ["Lucky Rope Knot", "Sailor's Compass"]
+        },
+        {
+          "name": "Hunter",
+          "displayName": "Hunter",
+          "description": "Tracked and hunted game in the wilderness",
+          "rarityWeight": 24,
+          "socialClass": "common",
+          "startingGold": "1d12",
+          "skillBonuses": ["tracking", "archery", "survival", "stealth"],
+          "shopModifiers": {
+            "qualityBonus": 10,
+            "priceMultiplier": 1.0,
+            "shopAppearance": "rustic"
+          },
+          "specializationHints": ["weapons.ranged", "armor.light", "pelts"],
+          "uniqueItems": ["Trusted Bow", "Hunter's Trophy"]
+        },
+        {
+          "name": "GuardDuty",
+          "displayName": "Former Guard",
+          "description": "Protected city or noble house",
+          "rarityWeight": 28,
+          "socialClass": "military",
+          "startingGold": "2d8",
+          "skillBonuses": ["perception", "melee_combat", "investigation"],
+          "shopModifiers": {
+            "qualityBonus": 8,
+            "priceMultiplier": 1.0,
+            "shopAppearance": "orderly"
+          },
+          "specializationHints": ["weapons.melee", "armor.medium"],
+          "uniqueItems": ["Watch Badge", "City Guard Tabard"]
+        }
+      ]
+    },
+    
+    "magical_scholarly": {
+      "metadata": {
+        "description": "Trained in arcane arts or divine service",
+        "socialClass": "magical",
+        "notes": [
+          "Possesses magical knowledge or divine connection",
+          "Higher education and literacy",
+          "Often sought for specialized services"
+        ]
+      },
+      "items": [
+        {
+          "name": "WizardApprentice",
+          "displayName": "Wizard's Apprentice",
+          "description": "Studied arcane magic under a master",
+          "rarityWeight": 45,
+          "socialClass": "magical",
+          "startingGold": "2d12",
+          "skillBonuses": ["arcane_lore", "spellcraft", "intelligence"],
+          "shopModifiers": {
+            "qualityBonus": 12,
+            "priceMultiplier": 1.2,
+            "shopAppearance": "mystical"
+          },
+          "specializationHints": ["consumables.scrolls", "magic_items", "components"],
+          "uniqueItems": ["Apprentice's Spellbook", "Arcane Focus"]
+        },
+        {
+          "name": "AcolyteOfFaith",
+          "displayName": "Acolyte of Faith",
+          "description": "Devoted to religious service",
+          "rarityWeight": 35,
+          "socialClass": "religious",
+          "startingGold": "1d10",
+          "skillBonuses": ["divine_lore", "healing", "wisdom"],
+          "shopModifiers": {
+            "qualityBonus": 10,
+            "priceMultiplier": 0.95,
+            "shopAppearance": "sanctified"
+          },
+          "specializationHints": ["consumables.potions", "holy_symbols", "blessed_items"],
+          "uniqueItems": ["Holy Symbol", "Prayer Beads"]
+        },
+        {
+          "name": "AlchemistStudent",
+          "displayName": "Alchemist Student",
+          "description": "Experimented with potions and transmutation",
+          "rarityWeight": 40,
+          "socialClass": "professional",
+          "startingGold": "2d10",
+          "skillBonuses": ["alchemy", "chemistry", "herbalism"],
+          "shopModifiers": {
+            "qualityBonus": 15,
+            "priceMultiplier": 1.15,
+            "shopAppearance": "laboratory"
+          },
+          "specializationHints": ["consumables.potions", "consumables.herbs", "reagents"],
+          "uniqueItems": ["Alchemist's Kit", "Mysterious Vial"]
+        },
+        {
+          "name": "LoreKeeper",
+          "displayName": "Lore Keeper",
+          "description": "Keeper of ancient knowledge",
+          "rarityWeight": 50,
+          "socialClass": "professional",
+          "startingGold": "3d8",
+          "skillBonuses": ["knowledge", "history", "languages"],
+          "shopModifiers": {
+            "qualityBonus": 8,
+            "priceMultiplier": 1.2,
+            "shopAppearance": "scholarly"
+          },
+          "specializationHints": ["books", "maps", "scrolls"],
+          "uniqueItems": ["Ancient Tome", "Scholar's Spectacles"]
+        }
+      ]
+    },
+    
+    "noble_prestigious": {
+      "metadata": {
+        "description": "Born into wealth and privilege",
+        "socialClass": "noble",
+        "notes": [
+          "Highest social standing",
+          "Extensive resources and connections",
+          "Expected to maintain appearances"
+        ]
+      },
+      "items": [
+        {
+          "name": "NobleBorn",
+          "displayName": "Noble-born",
+          "description": "Born into wealth and privilege",
+          "rarityWeight": 60,
+          "socialClass": "noble",
+          "startingGold": "5d10",
+          "skillBonuses": ["persuasion", "etiquette", "leadership", "literacy"],
+          "shopModifiers": {
+            "qualityBonus": 10,
+            "priceMultiplier": 1.15,
+            "shopAppearance": "elegant",
+            "rarityBonus": 10
+          },
+          "specializationHints": ["weapons.finesse", "armor.light", "ceremonial"],
+          "uniqueItems": ["Dueling Rapier", "Silk-lined Gloves", "Family Crest Ring", "Perfumed Handkerchief"]
+        },
+        {
+          "name": "KnightErrant",
+          "displayName": "Knight Errant",
+          "description": "Sworn warrior of noble rank, seeking honor",
+          "rarityWeight": 55,
+          "socialClass": "noble",
+          "startingGold": "4d10",
+          "skillBonuses": ["melee_combat", "honor", "leadership", "tactics"],
+          "shopModifiers": {
+            "qualityBonus": 12,
+            "priceMultiplier": 1.1,
+            "shopAppearance": "chivalrous",
+            "combatItemBonus": 15
+          },
+          "specializationHints": ["weapons.melee", "armor.heavy", "ceremonial"],
+          "uniqueItems": ["Knight's Oath Scroll", "Heraldic Banner"]
+        },
+        {
+          "name": "CourtAttendant",
+          "displayName": "Court Attendant",
+          "description": "Served in royal court",
+          "rarityWeight": 50,
+          "socialClass": "noble",
+          "startingGold": "4d8",
+          "skillBonuses": ["persuasion", "etiquette", "intrigue", "appraisal"],
+          "shopModifiers": {
+            "qualityBonus": 8,
+            "priceMultiplier": 1.2,
+            "shopAppearance": "refined"
+          },
+          "specializationHints": ["luxury", "fine_goods", "jewelry"],
+          "uniqueItems": ["Courtier's Favor", "Sealed Letter of Introduction"]
+        }
+      ]
+    },
+    
+    "troubled_past": {
+      "metadata": {
+        "description": "Those who have faced hardship and adversity",
+        "socialClass": "common",
+        "notes": [
+          "Difficult backgrounds that shaped character",
+          "Often possess unique survival skills",
+          "May carry emotional scars"
+        ]
+      },
+      "items": [
+        {
+          "name": "Orphan",
+          "displayName": "Orphan",
+          "description": "Grew up without parents on the streets",
+          "rarityWeight": 20,
+          "socialClass": "common",
+          "startingGold": "1d4",
+          "skillBonuses": ["survival", "stealth", "street_smarts", "lockpicking"],
+          "shopModifiers": {
+            "qualityBonus": -5,
+            "priceMultiplier": 0.85,
+            "shopAppearance": "humble"
+          },
+          "specializationHints": ["scavenged", "secondhand", "budget"],
+          "uniqueItems": ["Patched Cloak", "Lucky Coin", "Worn Doll"]
+        },
+        {
+          "name": "Refugee",
+          "displayName": "Refugee",
+          "description": "Fled from war or disaster",
+          "rarityWeight": 25,
+          "socialClass": "common",
+          "startingGold": "1d6",
+          "skillBonuses": ["survival", "endurance", "languages"],
+          "shopModifiers": {
+            "qualityBonus": 0,
+            "priceMultiplier": 0.9,
+            "shopAppearance": "makeshift"
+          },
+          "specializationHints": ["travel_gear", "survival_tools"],
+          "uniqueItems": ["Tattered Map", "Foreign Keepsake"]
+        },
+        {
+          "name": "Exile",
+          "displayName": "Exile",
+          "description": "Banished from their homeland",
+          "rarityWeight": 40,
+          "socialClass": "common",
+          "startingGold": "2d6",
+          "skillBonuses": ["survival", "persuasion", "deception"],
+          "shopModifiers": {
+            "qualityBonus": 5,
+            "priceMultiplier": 1.0,
+            "shopAppearance": "wanderer"
+          },
+          "specializationHints": ["travel_gear", "foreign_goods"],
+          "uniqueItems": ["Exile's Brand", "Homeland Memento"]
+        },
+        {
+          "name": "FormerSlave",
+          "displayName": "Former Slave",
+          "description": "Escaped or freed from bondage",
+          "rarityWeight": 35,
+          "socialClass": "common",
+          "startingGold": "1d4",
+          "skillBonuses": ["endurance", "labor", "stealth"],
+          "shopModifiers": {
+            "qualityBonus": -3,
+            "priceMultiplier": 0.9,
+            "shopAppearance": "basic"
+          },
+          "specializationHints": ["tools.common", "basic_goods"],
+          "uniqueItems": ["Broken Shackles", "Freedom Papers"]
+        }
+      ]
+    },
+    
+    "criminal_outlaw": {
+      "metadata": {
+        "description": "Those who lived outside the law",
+        "socialClass": "criminal",
+        "notes": [
+          "Possess underworld connections",
+          "Skilled in stealth and deception",
+          "May have bounties or enemies"
+        ]
+      },
+      "items": [
+        {
+          "name": "FormerCriminal",
+          "displayName": "Former Criminal",
+          "description": "Has a history of illegal activities",
+          "rarityWeight": 32,
+          "socialClass": "criminal",
+          "startingGold": "2d8",
+          "skillBonuses": ["stealth", "deception", "lockpicking"],
+          "shopModifiers": {
+            "qualityBonus": 0,
+            "priceMultiplier": 1.1,
+            "shopAppearance": "shady"
+          },
+          "specializationHints": ["stolen_goods", "lockpicks", "poisons"],
+          "uniqueItems": ["Lockpick Set", "Concealed Dagger"]
+        },
+        {
+          "name": "FormerSpy",
+          "displayName": "Former Spy",
+          "description": "Gathered intelligence for crown or guild",
+          "rarityWeight": 50,
+          "socialClass": "criminal",
+          "startingGold": "3d8",
+          "skillBonuses": ["stealth", "disguise", "investigation", "deception"],
+          "shopModifiers": {
+            "qualityBonus": 8,
+            "priceMultiplier": 1.15,
+            "shopAppearance": "inconspicuous"
+          },
+          "specializationHints": ["disguises", "tools.espionage", "poisons"],
+          "uniqueItems": ["Coded Letter", "Disguise Kit"]
+        },
+        {
+          "name": "FormerSmuggler",
+          "displayName": "Former Smuggler",
+          "description": "Dealt in contraband goods",
+          "rarityWeight": 38,
+          "socialClass": "criminal",
+          "startingGold": "2d10",
+          "skillBonuses": ["deception", "appraisal", "navigation"],
+          "shopModifiers": {
+            "qualityBonus": 5,
+            "priceMultiplier": 0.95,
+            "shopAppearance": "secretive"
+          },
+          "specializationHints": ["rare_goods", "contraband", "foreign_items"],
+          "uniqueItems": ["Hidden Compartment Map", "Smuggler's Flask"]
+        },
+        {
+          "name": "ReformedThief",
+          "displayName": "Reformed Thief",
+          "description": "Lived by stealth and cunning, now seeking honest work",
+          "rarityWeight": 30,
+          "socialClass": "criminal",
+          "startingGold": "1d12",
+          "skillBonuses": ["stealth", "lockpicking", "sleight_of_hand"],
+          "shopModifiers": {
+            "qualityBonus": 0,
+            "priceMultiplier": 0.95,
+            "shopAppearance": "modest"
+          },
+          "specializationHints": ["lockpicks", "tools.thievery"],
+          "uniqueItems": ["Master Lockpick", "Thieves' Cant Codebook"]
+        }
+      ]
+    },
+    
+    "adventurous_exotic": {
+      "metadata": {
+        "description": "Wanderers and thrill-seekers",
+        "socialClass": "adventurer",
+        "notes": [
+          "Experienced travelers with exotic skills",
+          "Often possess rare items or knowledge",
+          "Comfortable with danger and uncertainty"
+        ]
+      },
+      "items": [
+        {
+          "name": "RetiredAdventurer",
+          "displayName": "Retired Adventurer",
+          "description": "Explored dungeons and fought monsters, now settled",
+          "rarityWeight": 45,
+          "socialClass": "adventurer",
+          "startingGold": "3d10",
+          "skillBonuses": ["survival", "dungeoneering", "monster_lore"],
+          "shopModifiers": {
+            "qualityBonus": 10,
+            "priceMultiplier": 1.1,
+            "shopAppearance": "trophy-filled"
+          },
+          "specializationHints": ["weapons.all", "armor.all", "adventuring_gear"],
+          "uniqueItems": ["Trophy Monster Tooth", "Dungeon Map"]
+        },
+        {
+          "name": "FormerMercenary",
+          "displayName": "Former Mercenary",
+          "description": "Sold sword skills to highest bidder",
+          "rarityWeight": 42,
+          "socialClass": "military",
+          "startingGold": "2d12",
+          "skillBonuses": ["melee_combat", "tactics", "intimidation"],
+          "shopModifiers": {
+            "qualityBonus": 12,
+            "priceMultiplier": 1.05,
+            "shopAppearance": "battle-scarred",
+            "combatItemBonus": 18
+          },
+          "specializationHints": ["weapons.melee", "armor.medium", "mercenary_gear"],
+          "uniqueItems": ["Mercenary Contract", "Battle Scar"]
+        },
+        {
+          "name": "FormerPirate",
+          "displayName": "Former Pirate",
+          "description": "Sailed under black flag, now seeking redemption",
+          "rarityWeight": 55,
+          "socialClass": "criminal",
+          "startingGold": "3d8",
+          "skillBonuses": ["sailing", "melee_combat", "swimming", "intimidation"],
+          "shopModifiers": {
+            "qualityBonus": 8,
+            "priceMultiplier": 0.9,
+            "shopAppearance": "nautical"
+          },
+          "specializationHints": ["nautical_gear", "stolen_goods", "rum"],
+          "uniqueItems": ["Pirate Flag Fragment", "Buried Treasure Map"]
+        },
+        {
+          "name": "FormerGladiator",
+          "displayName": "Former Gladiator",
+          "description": "Fought in arenas for entertainment, won freedom",
+          "rarityWeight": 48,
+          "socialClass": "common",
+          "startingGold": "2d10",
+          "skillBonuses": ["melee_combat", "endurance", "showmanship"],
+          "shopModifiers": {
+            "qualityBonus": 10,
+            "priceMultiplier": 1.0,
+            "shopAppearance": "arena-styled",
+            "combatItemBonus": 15
+          },
+          "specializationHints": ["weapons.melee", "armor.light", "arena_gear"],
+          "uniqueItems": ["Arena Champion's Crown", "Freedom Token"]
+        },
+        {
+          "name": "BountyHunterRetired",
+          "displayName": "Retired Bounty Hunter",
+          "description": "Tracked fugitives for reward, now hanging up their hat",
+          "rarityWeight": 52,
+          "socialClass": "military",
+          "startingGold": "3d8",
+          "skillBonuses": ["tracking", "investigation", "intimidation", "survival"],
+          "shopModifiers": {
+            "qualityBonus": 12,
+            "priceMultiplier": 1.05,
+            "shopAppearance": "utilitarian"
+          },
+          "specializationHints": ["weapons.ranged", "tracking_tools", "bounty_gear"],
+          "uniqueItems": ["Bounty Ledger", "Manacles"]
+        }
+      ]
+    }
+  },
+  
+  "occupations": {
+    "merchants": {
+      "metadata": {
+        "description": "Traders and sellers of goods",
+        "hasShop": true,
+        "notes": [
+          "Primary focus is buying and selling",
+          "Usually have the largest inventories",
+          "Higher haggling skills and gold reserves"
+        ]
+      },
+      "items": [
+        {
+          "name": "GeneralMerchant",
+          "displayName": "General Merchant",
+          "rarityWeight": 10,
+          "socialClass": "merchant",
+          "skillBonuses": ["persuasion", "appraisal", "haggling"],
+          "baseGold": "5d10",
+          "shopType": "general_store",
+          "shopChance": 0.95,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Torch", "baseQuantity": 10, "restockDaily": true },
+              { "item": "Rope", "baseQuantity": 5, "restockDaily": true },
+              { "item": "Rations", "baseQuantity": 20, "restockDaily": true }
+            ],
+            "dynamicCategories": ["all"],
+            "dynamicItemCount": "3d10+10",
+            "dynamicRefreshDaily": true,
+            "varietyBonus": 50,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["all"],
+              "buyPriceMultiplier": 0.35,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.85,
+              "playerItemDecayDaily": 0.1,
+              "playerItemDecayDays": 7,
+              "maxPlayerItems": 20,
+              "bankGoldFormula": "baseGold * 15 + background.startingGold * 10",
+              "bankGoldRestockDaily": true
+            }
+          }
+        }
+      ]
+    },
+    
+    "craftsmen": {
+      "metadata": {
+        "description": "Skilled artisans who create goods",
+        "hasShop": true,
+        "notes": [
+          "Specialize in specific item types",
+          "Can craft and repair items",
+          "Higher quality goods but smaller selection"
+        ]
+      },
+      "items": [
+        {
+          "name": "Blacksmith",
+          "displayName": "Blacksmith",
+          "rarityWeight": 20,
+          "socialClass": "craftsman",
+          "skillBonuses": ["smithing", "crafting", "repair"],
+          "baseGold": "3d10",
+          "shopType": "smithy",
+          "shopChance": 0.8,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Longsword", "baseQuantity": "infinite" },
+              { "item": "Chainmail", "baseQuantity": 2, "restockDaily": true },
+              { "item": "IronDagger", "baseQuantity": 3, "restockDaily": true }
+            ],
+            "dynamicCategories": ["weapons.melee", "armor.heavy", "armor.medium"],
+            "dynamicItemCount": "1d6+2",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["weapons.melee", "armor.all"],
+              "buyPriceMultiplier": 0.4,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.8,
+              "playerItemDecayDaily": 0.1,
+              "playerItemDecayDays": 7,
+              "maxPlayerItems": 10,
+              "bankGoldFormula": "baseGold * 10 + background.startingGold * 5",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "canCraft": ["weapons", "armor"],
+          "craftingQualityBonus": 30
+        },
+        {
+          "name": "Weaponsmith",
+          "displayName": "Weaponsmith",
+          "rarityWeight": 30,
+          "socialClass": "craftsman",
+          "skillBonuses": ["weapon_smithing", "crafting", "appraisal"],
+          "baseGold": "3d12",
+          "shopType": "weapon_shop",
+          "shopChance": 0.75,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Longsword", "baseQuantity": "infinite" },
+              { "item": "Greatsword", "baseQuantity": 1, "restockDaily": true }
+            ],
+            "dynamicCategories": ["weapons.melee"],
+            "dynamicItemCount": "1d8+3",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["weapons.melee", "weapons.ranged"],
+              "buyPriceMultiplier": 0.4,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.8,
+              "playerItemDecayDaily": 0.1,
+              "playerItemDecayDays": 7,
+              "maxPlayerItems": 12,
+              "bankGoldFormula": "baseGold * 12 + background.startingGold * 6",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "canCraft": ["weapons"],
+          "craftingQualityBonus": 40
+        },
+        {
+          "name": "Armorer",
+          "displayName": "Armorer",
+          "rarityWeight": 30,
+          "socialClass": "craftsman",
+          "skillBonuses": ["armor_smithing", "crafting", "repair"],
+          "baseGold": "3d12",
+          "shopType": "armor_shop",
+          "shopChance": 0.75,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Chainmail", "baseQuantity": "infinite" },
+              { "item": "PlateArmor", "baseQuantity": 1, "restockDaily": true }
+            ],
+            "dynamicCategories": ["armor.light", "armor.medium", "armor.heavy"],
+            "dynamicItemCount": "1d6+2",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["armor.all"],
+              "buyPriceMultiplier": 0.4,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.8,
+              "playerItemDecayDaily": 0.1,
+              "playerItemDecayDays": 7,
+              "maxPlayerItems": 10,
+              "bankGoldFormula": "baseGold * 12 + background.startingGold * 6",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "canCraft": ["armor"],
+          "craftingQualityBonus": 40
+        },
+        {
+          "name": "Fletcher",
+          "displayName": "Fletcher",
+          "rarityWeight": 22,
+          "socialClass": "craftsman",
+          "skillBonuses": ["bow_crafting", "arrow_crafting"],
+          "baseGold": "2d10",
+          "shopType": "fletcher",
+          "shopChance": 0.7,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Arrows", "baseQuantity": 50, "restockDaily": true },
+              { "item": "Shortbow", "baseQuantity": 2, "restockDaily": true }
+            ],
+            "dynamicCategories": ["weapons.ranged", "ammunition"],
+            "dynamicItemCount": "1d6+1",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["weapons.ranged", "ammunition"],
+              "buyPriceMultiplier": 0.4,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.75,
+              "playerItemDecayDaily": 0.1,
+              "playerItemDecayDays": 7,
+              "maxPlayerItems": 8,
+              "bankGoldFormula": "baseGold * 8 + background.startingGold * 4",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "canCraft": ["bows", "arrows"],
+          "craftingQualityBonus": 35
+        },
+        {
+          "name": "Leatherworker",
+          "displayName": "Leatherworker",
+          "rarityWeight": 20,
+          "socialClass": "craftsman",
+          "skillBonuses": ["leatherworking", "crafting"],
+          "baseGold": "2d8",
+          "shopType": "leather_shop",
+          "shopChance": 0.7,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "LeatherArmor", "baseQuantity": 3, "restockDaily": true }
+            ],
+            "dynamicCategories": ["armor.light", "accessories"],
+            "dynamicItemCount": "1d6+2",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["armor.light", "accessories"],
+              "buyPriceMultiplier": 0.4,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.75,
+              "playerItemDecayDaily": 0.1,
+              "playerItemDecayDays": 7,
+              "maxPlayerItems": 10,
+              "bankGoldFormula": "baseGold * 8 + background.startingGold * 4",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "canCraft": ["leather_armor", "accessories"],
+          "craftingQualityBonus": 30
+        },
+        {
+          "name": "Jeweler",
+          "displayName": "Jeweler",
+          "rarityWeight": 45,
+          "socialClass": "specialist",
+          "skillBonuses": ["jewelry_crafting", "appraisal", "gem_cutting"],
+          "baseGold": "5d10",
+          "shopType": "jewelry_shop",
+          "shopChance": 0.85,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "SilverRing", "baseQuantity": 3, "restockDaily": true }
+            ],
+            "dynamicCategories": ["accessories.rings", "accessories.amulets", "accessories.jewelry"],
+            "dynamicItemCount": "1d6+2",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["accessories.all", "gems"],
+              "buyPriceMultiplier": 0.4,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.9,
+              "playerItemDecayDaily": 0.05,
+              "playerItemDecayDays": 10,
+              "maxPlayerItems": 15,
+              "bankGoldFormula": "baseGold * 20 + background.startingGold * 10",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "canCraft": ["jewelry"],
+          "canEnchant": true,
+          "enchantmentPower": 15
+        },
+        {
+          "name": "Artificer",
+          "displayName": "Artificer",
+          "rarityWeight": 60,
+          "socialClass": "magical",
+          "skillBonuses": ["enchanting", "crafting", "arcane_lore"],
+          "baseGold": "6d10",
+          "shopType": "artificer_shop",
+          "shopChance": 0.6,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "MagicScroll", "baseQuantity": 3, "restockDaily": true }
+            ],
+            "dynamicCategories": ["magic_items", "enchanted_gear", "consumables.scrolls"],
+            "dynamicItemCount": "1d4+1",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["magic_items", "enchanted_gear"],
+              "buyPriceMultiplier": 0.5,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.9,
+              "playerItemDecayDaily": 0.05,
+              "playerItemDecayDays": 10,
+              "maxPlayerItems": 8,
+              "bankGoldFormula": "baseGold * 25 + background.startingGold * 15",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "canCraft": ["magic_items"],
+          "canEnchant": true,
+          "enchantmentPower": 30
+        }
+      ]
+    },
+    
+    "professionals": {
+      "metadata": {
+        "description": "Service providers and specialists",
+        "hasShop": true,
+        "notes": [
+          "Provide specialized services",
+          "Often have unique or rare items",
+          "May offer non-item services"
+        ]
+      },
+      "items": [
+        {
+          "name": "Apothecary",
+          "displayName": "Apothecary",
+          "rarityWeight": 25,
+          "socialClass": "professional",
+          "skillBonuses": ["alchemy", "healing", "herbalism"],
+          "baseGold": "2d10",
+          "shopType": "apothecary",
+          "shopChance": 0.85,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "HealthPotion", "baseQuantity": 5, "restockDaily": true },
+              { "item": "ManaPotion", "baseQuantity": 3, "restockDaily": true }
+            ],
+            "dynamicCategories": ["consumables.potions", "consumables.herbs", "reagents"],
+            "dynamicItemCount": "1d10+3",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["consumables.potions", "consumables.herbs", "reagents"],
+              "buyPriceMultiplier": 0.4,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.75,
+              "playerItemDecayDaily": 0.15,
+              "playerItemDecayDays": 5,
+              "maxPlayerItems": 15,
+              "bankGoldFormula": "baseGold * 8 + background.startingGold * 3",
+              "bankGoldRestockDaily": true
+            }
+          }
+        },
+        {
+          "name": "Healer",
+          "displayName": "Healer",
+          "rarityWeight": 35,
+          "socialClass": "professional",
+          "skillBonuses": ["healing", "medicine", "divine_magic"],
+          "baseGold": "2d12",
+          "shopType": "healing_house",
+          "shopChance": 0.9,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "HealthPotion", "baseQuantity": 10, "restockDaily": true },
+              { "item": "Bandages", "baseQuantity": 20, "restockDaily": true }
+            ],
+            "dynamicCategories": ["consumables.potions", "medical_supplies"],
+            "dynamicItemCount": "1d8+2",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": false,
+              "acceptedCategories": [],
+              "buyPriceMultiplier": 0.0,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.0,
+              "bankGoldFormula": "baseGold * 10",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "services": ["healing", "cure_poison", "cure_disease"]
+        },
+        {
+          "name": "Herbalist",
+          "displayName": "Herbalist",
+          "rarityWeight": 28,
+          "socialClass": "professional",
+          "skillBonuses": ["herbalism", "alchemy", "nature_lore"],
+          "baseGold": "2d8",
+          "shopType": "herb_shop",
+          "shopChance": 0.75,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "HealingHerb", "baseQuantity": 15, "restockDaily": true }
+            ],
+            "dynamicCategories": ["consumables.herbs", "reagents"],
+            "dynamicItemCount": "2d6+3",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["consumables.herbs", "reagents"],
+              "buyPriceMultiplier": 0.4,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.75,
+              "playerItemDecayDaily": 0.2,
+              "playerItemDecayDays": 5,
+              "maxPlayerItems": 20,
+              "bankGoldFormula": "baseGold * 6 + background.startingGold * 3",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "canCraft": ["potions", "remedies"]
+        },
+        {
+          "name": "Scholar",
+          "displayName": "Scholar",
+          "rarityWeight": 30,
+          "socialClass": "professional",
+          "skillBonuses": ["knowledge", "history", "languages"],
+          "baseGold": "3d8",
+          "shopType": "library",
+          "shopChance": 0.6,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Book", "baseQuantity": 5, "restockDaily": false }
+            ],
+            "dynamicCategories": ["books", "maps", "consumables.scrolls"],
+            "dynamicItemCount": "1d6+1",
+            "dynamicRefreshDaily": false,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["books", "maps", "scrolls"],
+              "buyPriceMultiplier": 0.5,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.9,
+              "playerItemDecayDaily": 0.0,
+              "playerItemDecayDays": 30,
+              "maxPlayerItems": 10,
+              "bankGoldFormula": "baseGold * 12 + background.startingGold * 8",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "services": ["identify", "research", "teaching"]
+        },
+        {
+          "name": "Sage",
+          "displayName": "Sage",
+          "rarityWeight": 50,
+          "socialClass": "professional",
+          "skillBonuses": ["arcane_lore", "wisdom", "divination"],
+          "baseGold": "4d10",
+          "shopType": "sage_tower",
+          "shopChance": 0.5,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "AncientTome", "baseQuantity": 1, "restockDaily": false }
+            ],
+            "dynamicCategories": ["books", "magic_items", "consumables.scrolls"],
+            "dynamicItemCount": "1d4+1",
+            "dynamicRefreshDaily": false,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["books", "magic_items", "artifacts"],
+              "buyPriceMultiplier": 0.6,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 1.0,
+              "playerItemDecayDaily": 0.0,
+              "playerItemDecayDays": 60,
+              "maxPlayerItems": 5,
+              "bankGoldFormula": "baseGold * 30 + background.startingGold * 20",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "services": ["prophecy", "identify", "enchant"]
+        },
+        {
+          "name": "Cartographer",
+          "displayName": "Cartographer",
+          "rarityWeight": 40,
+          "socialClass": "professional",
+          "skillBonuses": ["navigation", "geography", "drawing"],
+          "baseGold": "3d8",
+          "shopType": "map_shop",
+          "shopChance": 0.65,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "LocalMap", "baseQuantity": 5, "restockDaily": true }
+            ],
+            "dynamicCategories": ["maps", "navigation_tools"],
+            "dynamicItemCount": "1d6+2",
+            "dynamicRefreshDaily": false,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["maps"],
+              "buyPriceMultiplier": 0.5,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.9,
+              "playerItemDecayDaily": 0.0,
+              "playerItemDecayDays": 20,
+              "maxPlayerItems": 8,
+              "bankGoldFormula": "baseGold * 10 + background.startingGold * 6",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "services": ["map_making", "directions"]
+        }
+      ]
+    },
+    
+    "service": {
+      "metadata": {
+        "description": "Service providers and hospitality workers",
+        "hasShop": true,
+        "notes": [
+          "Focus on services rather than goods",
+          "Often provide lodging, food, or entertainment",
+          "Limited item selection"
+        ]
+      },
+      "items": [
+        {
+          "name": "Innkeeper",
+          "displayName": "Innkeeper",
+          "rarityWeight": 15,
+          "socialClass": "service",
+          "skillBonuses": ["hospitality", "cooking", "rumors"],
+          "baseGold": "3d10",
+          "shopType": "inn",
+          "shopChance": 1.0,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Ale", "baseQuantity": 30, "restockDaily": true },
+              { "item": "Bread", "baseQuantity": 20, "restockDaily": true },
+              { "item": "Stew", "baseQuantity": 10, "restockDaily": true }
+            ],
+            "dynamicCategories": ["consumables.food", "consumables.drink"],
+            "dynamicItemCount": "2d6+3",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": false,
+              "acceptedCategories": [],
+              "buyPriceMultiplier": 0.0,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.0,
+              "bankGoldFormula": "baseGold * 12",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "services": ["lodging", "food", "drink", "rumors"]
+        },
+        {
+          "name": "TavernKeeper",
+          "displayName": "Tavern Keeper",
+          "rarityWeight": 12,
+          "socialClass": "service",
+          "skillBonuses": ["brewing", "rumors", "persuasion"],
+          "baseGold": "2d12",
+          "shopType": "tavern",
+          "shopChance": 1.0,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Ale", "baseQuantity": 40, "restockDaily": true },
+              { "item": "Wine", "baseQuantity": 10, "restockDaily": true }
+            ],
+            "dynamicCategories": ["consumables.drink", "consumables.food"],
+            "dynamicItemCount": "1d8+2",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": false,
+              "acceptedCategories": [],
+              "buyPriceMultiplier": 0.0,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.0,
+              "bankGoldFormula": "baseGold * 10",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "services": ["drink", "rumors", "gambling"]
+        },
+        {
+          "name": "Cook",
+          "displayName": "Cook",
+          "rarityWeight": 18,
+          "socialClass": "service",
+          "skillBonuses": ["cooking", "food_preparation"],
+          "baseGold": "2d8",
+          "shopType": "cookhouse",
+          "shopChance": 0.7,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Bread", "baseQuantity": 30, "restockDaily": true },
+              { "item": "Pie", "baseQuantity": 10, "restockDaily": true }
+            ],
+            "dynamicCategories": ["consumables.food"],
+            "dynamicItemCount": "2d6+4",
+            "dynamicRefreshDaily": true,
+            "economy": {
+              "acceptsPlayerItems": false,
+              "acceptedCategories": [],
+              "buyPriceMultiplier": 0.0,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.0,
+              "bankGoldFormula": "baseGold * 8",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "canCraft": ["meals", "baked_goods"]
+        },
+        {
+          "name": "StableMaster",
+          "displayName": "Stable Master",
+          "rarityWeight": 20,
+          "socialClass": "service",
+          "skillBonuses": ["animal_handling", "riding"],
+          "baseGold": "3d8",
+          "shopType": "stable",
+          "shopChance": 0.9,
+          "shopInventory": {
+            "coreItems": [
+              { "item": "Hay", "baseQuantity": 50, "restockDaily": true }
+            ],
+            "dynamicCategories": ["mounts", "riding_gear"],
+            "dynamicItemCount": "1d4+1",
+            "dynamicRefreshDaily": false,
+            "economy": {
+              "acceptsPlayerItems": true,
+              "acceptedCategories": ["mounts", "riding_gear"],
+              "buyPriceMultiplier": 0.3,
+              "sellPriceMultiplier": 1.0,
+              "resellPriceMultiplier": 0.7,
+              "playerItemDecayDaily": 0.05,
+              "playerItemDecayDays": 14,
+              "maxPlayerItems": 5,
+              "bankGoldFormula": "baseGold * 20 + background.startingGold * 10",
+              "bankGoldRestockDaily": true
+            }
+          },
+          "services": ["stabling", "grooming", "horseshoeing"]
+        }
+      ]
+    },
+    
+    "non_merchants": {
+      "metadata": {
+        "description": "NPCs without shops or inventory",
+        "hasShop": false,
+        "notes": [
+          "Provide quest hooks, information, or services",
+          "No inventory or trading",
+          "Focus on dialogue and interaction"
+        ]
+      },
+      "items": [
+        {
+          "name": "Guard",
+          "displayName": "Guard",
+          "rarityWeight": 28,
+          "socialClass": "military",
+          "skillBonuses": ["melee_combat", "perception", "law_enforcement"],
+          "baseGold": "2d10",
+          "shopType": null,
+          "shopChance": 0.0
+        },
+        {
+          "name": "Farmer",
+          "displayName": "Farmer",
+          "rarityWeight": 85,
+          "socialClass": "common",
+          "skillBonuses": ["farming", "endurance", "animal_handling"],
+          "baseGold": "1d10",
+          "shopType": null,
+          "shopChance": 0.0
+        },
+        {
+          "name": "Peasant",
+          "displayName": "Peasant",
+          "rarityWeight": 90,
+          "socialClass": "common",
+          "skillBonuses": ["endurance", "labor"],
+          "baseGold": "1d6",
+          "shopType": null,
+          "shopChance": 0.0
+        },
+        {
+          "name": "Noble",
+          "displayName": "Noble",
+          "rarityWeight": 60,
+          "socialClass": "nobility",
+          "skillBonuses": ["persuasion", "etiquette", "leadership"],
+          "baseGold": "10d10",
+          "shopType": null,
+          "shopChance": 0.0
+        },
+        {
+          "name": "Priest",
+          "displayName": "Priest",
+          "rarityWeight": 35,
+          "socialClass": "religious",
+          "skillBonuses": ["divine_lore", "healing", "wisdom"],
+          "baseGold": "2d12",
+          "shopType": null,
+          "shopChance": 0.0,
+          "services": ["blessing", "marriage", "funeral"]
+        },
+        {
+          "name": "Beggar",
+          "displayName": "Beggar",
+          "rarityWeight": 40,
+          "socialClass": "common",
+          "skillBonuses": ["street_smarts", "begging"],
+          "baseGold": "1d4",
+          "shopType": null,
+          "shopChance": 0.0
+        },
+        {
+          "name": "StreetUrchin",
+          "displayName": "Street Urchin",
+          "rarityWeight": 35,
+          "socialClass": "common",
+          "skillBonuses": ["stealth", "pickpocket", "street_smarts"],
+          "baseGold": "1d4",
+          "shopType": null,
+          "shopChance": 0.0
+        }
+      ]
+    }
+  }
+}

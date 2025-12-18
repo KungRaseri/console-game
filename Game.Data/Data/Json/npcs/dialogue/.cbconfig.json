@@ -1,8 +1,19 @@
 ﻿{
-    "icon":  "MessageText",
-    "sortOrder":  1,
-    "fileIcons":  {
-                      "names":  "FormatListBulleted",
-                      "catalog":  "ShapeOutline"
-                  }
+  "icon": "MessageText",
+  "sortOrder": 1,
+  "description": "NPC dialogue templates and conversation styles",
+  "dataFiles": [
+    "greetings.json",
+    "farewells.json",
+    "rumors.json",
+    "styles.json",
+    "dialogue_styles.json"
+  ],
+  "fileIcons": {
+    "greetings": "Handshake",
+    "farewells": "WavingHand",
+    "rumors": "Megaphone",
+    "styles": "FormatListBulleted",
+    "dialogue_styles": "PersonFeedback"
+  }
 }

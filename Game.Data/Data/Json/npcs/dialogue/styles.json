@@ -1,10 +1,15 @@
 ﻿{
   "metadata": {
     "description": "Basic dialogue templates by category for quick NPC interactions",
-    "version": "2.0",
-    "last_updated": "2025-12-16",
+    "version": "4.0",
+    "last_updated": "2025-12-18",
     "type": "dialogue_quick_templates",
-    "categories": ["greetings", "merchants", "quests", "rumors", "farewells", "hostile", "friendly"]
+    "categories": ["greetings", "merchants", "quests", "rumors", "farewells", "hostile", "friendly"],
+    "notes": {
+      "usage": "Quick templates for basic NPC interactions when more complex dialogue not needed",
+      "selection": "Choose randomly from appropriate category based on NPC personality",
+      "fallback": "Use these as fallback when specialized dialogue unavailable"
+    }
   },
   "templates": {
     "greetings": [
@@ -69,10 +74,5 @@
       "Make yourself at home!",
       "Good to see you again!"
     ]
-  },
-  "notes": {
-    "usage": "Quick templates for basic NPC interactions when more complex dialogue not needed",
-    "selection": "Choose randomly from appropriate category based on NPC personality",
-    "fallback": "Use these as fallback when specialized dialogue unavailable"
   }
 }

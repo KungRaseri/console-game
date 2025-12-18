@@ -1,11 +1,22 @@
 ﻿{
   "metadata": {
     "description": "Farewell dialogue templates with personality and formality variations",
-    "version": "2.0",
-    "last_updated": "2025-12-16",
+    "version": "4.0",
+    "last_updated": "2025-12-18",
     "type": "dialogue_template_catalog",
     "total_farewells": 25,
-    "categories": ["friendly", "formal", "hostile", "mysterious", "quirky"]
+    "categories": ["friendly", "formal", "hostile", "mysterious", "quirky"],
+    "notes": {
+      "rarity_system": "weight-based",
+      "component_keys": ["friendly_casual", "formal_polite", "hostile_gruff", "weary_gloomy", "arrogant_superior", "shy_nervous", "mysterious_cryptic", "quirky_unique", "wise_sage", "merchant_salesman", "blessings_hopeful"],
+      "weight_ranges": {
+        "common": "5-15 rarityWeight (generic, warm, formal, merchant)",
+        "uncommon": "16-28 rarityWeight (suspicious, weary, arrogant, nervous, hopeful)",
+        "rare": "30-42 rarityWeight (mysterious, cryptic, quirky, wise)"
+      },
+      "usage": "Farewell templates are selected based on NPC personality and conversation outcome",
+      "variables": "Templates can include {playerName}, {npcName}, {questName} placeholders"
+    }
   },
   "components": {
     "friendly_casual": [
@@ -58,16 +69,5 @@
       { "name": "HeartfeltBlessing", "displayName": "Heartfelt Blessing", "text": "May the road rise to meet you, friend.", "personality": "Compassionate", "formality": "Warm", "rarityWeight": 25 },
       { "name": "HopefulWish", "displayName": "Hopeful Wish", "text": "Go with hope in your heart. The world needs more heroes.", "personality": "Optimistic", "formality": "Inspiring", "rarityWeight": 28 }
     ]
-  },
-  "notes": {
-    "rarity_system": "weight-based",
-    "component_keys": ["friendly_casual", "formal_polite", "hostile_gruff", "weary_gloomy", "arrogant_superior", "shy_nervous", "mysterious_cryptic", "quirky_unique", "wise_sage", "merchant_salesman", "blessings_hopeful"],
-    "weight_ranges": {
-      "common": "5-15 rarityWeight (generic, warm, formal, merchant)",
-      "uncommon": "16-28 rarityWeight (suspicious, weary, arrogant, nervous, hopeful)",
-      "rare": "30-42 rarityWeight (mysterious, cryptic, quirky, wise)"
-    },
-    "usage": "Farewell templates are selected based on NPC personality and conversation outcome",
-    "variables": "Templates can include {playerName}, {npcName}, {questName} placeholders"
   }
 }
