@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Beast enemy name generation with pattern-based system and weight-based rarity",
                      "version":  "4.0",
@@ -21,7 +21,7 @@
                      "total_patterns":  8,
                      "rarity_system":  "weight-based",
                      "notes":  [
-                                   "Base token resolves from enemies/beasts/types.json",
+                                   "Base token resolves from enemies/beasts/catalog.json",
                                    "All components have rarityWeight for emergent rarity calculation",
                                    "Component weights combine via multipliers from general/rarity_config.json",
                                    "Upgraded to v4.0 with supports_traits metadata"

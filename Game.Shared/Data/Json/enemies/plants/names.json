@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Plant creature name generation patterns with weight-based rarity components",
                      "version":  "4.0",
@@ -21,9 +21,9 @@
                      "rarity_system":  "weight-based",
                      "notes":  [
                                    {
-                                       "base_token":  "Resolves to item name from plants/types.json",
+                                       "base_token":  "Resolves to item name from plants/catalog.json",
                                        "plant_variety":  "Includes carnivorous plants, treants, myconids, awakened plants",
-                                       "weight_ranges":  "Young (5) â†’ Primordial (80), Vine (5) â†’ Primal (35)",
+                                       "weight_ranges":  "Young (5) → Primordial (80), Vine (5) → Primal (35)",
                                        "traits":  "Most plants vulnerable to fire, some rooted, some mobile"
                                    },
                                    "Upgraded to v4.0 with supports_traits metadata"

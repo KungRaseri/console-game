@@ -1,7 +1,7 @@
-﻿{
+{
     "icon":  "HammerWrench",
     "displayName":  "Materials",
-    "description":  "Material definitions for crafting - both names.json (components) and types.json (material stats)",
+    "description":  "Material definitions for crafting - both names.json (components) and catalog.json (material stats)",
     "defaultFileIcon":  "FileDocument",
     "showFileCount":  true,
     "sortOrder":  5,

@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Reptilian name generation patterns with weight-based rarity components",
                      "version":  "4.0",
@@ -21,9 +21,9 @@
                      "rarity_system":  "weight-based",
                      "notes":  [
                                    {
-                                       "base_token":  "Resolves to item name from reptilians/types.json",
+                                       "base_token":  "Resolves to item name from reptilians/catalog.json",
                                        "reptilian_culture":  "Includes kobolds (cowardly), lizardfolk (tribal), yuan-ti (cunning)",
-                                       "weight_ranges":  "Young (3) â†’ Elder (35), Green (5) â†’ Prismatic (45)"
+                                       "weight_ranges":  "Young (3) → Elder (35), Green (5) → Prismatic (45)"
                                    },
                                    "Upgraded to v4.0 with supports_traits metadata"
                                ],

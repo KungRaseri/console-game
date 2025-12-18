@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 
 namespace Game.ContentBuilder.Models;
 
@@ -54,17 +54,17 @@ public class CategoryNode
 public enum EditorType
 {
     None,
-    ItemPrefix,        // 3-level hierarchy: rarity â†’ item â†’ traits (weapon_prefixes, armor_materials, etc.)
-    ItemSuffix,        // 3-level hierarchy: rarity â†’ item â†’ traits (enchantment_suffixes)
-    FlatItem,          // 2-level flat: item â†’ traits (metals, woods, leathers, gemstones, dragon_colors)
-    NameList,          // Array structure: category â†’ string[] (weapon_names, beast_names, fantasy_names, dialogue_templates)
+    ItemPrefix,        // 3-level hierarchy: rarity → item → traits (weapon_prefixes, armor_materials, etc.)
+    ItemSuffix,        // 3-level hierarchy: rarity → item → traits (enchantment_suffixes)
+    FlatItem,          // 2-level flat: item → traits (metals, woods, leathers, gemstones, dragon_colors)
+    NameList,          // Array structure: category → string[] (weapon_names, beast_names, fantasy_names, dialogue_templates)
     HybridArray,       // Hybrid structure: { items: [], components: {}, patterns: [], metadata: {} }
     
     // V4.0 specialized editors
     NamesEditor,           // names.json editor: metadata + components + patterns + traits
-    ItemCatalogEditor,     // catalog.json editor (renamed from types.json): metadata + *_types catalog
+    ItemCatalogEditor,     // catalog.json editor (renamed from TypesEditor (files: types.json -> catalog.json)): metadata + *_types catalog
     ComponentEditor,       // Component catalog editor (e.g., materials/names.json)
-    MaterialEditor,        // Material catalog editor (materials/types.json)
+    MaterialEditor,        // Material catalog editor (materials/catalog.json)
     TraitEditor,           // Trait definition editor
     
     // New editors for comprehensive data coverage

@@ -22,7 +22,7 @@
     "total_patterns": 7,
     "rarity_system": "weight-based",
     "notes": [
-      "Base token resolves from items/consumables/types.json",
+      "Base token resolves from items/consumables/catalog.json",
       "All components have rarityWeight for emergent rarity calculation",
       "Traits define actual gameplay effects (healing power, duration, buffs, etc.)",
       "Trait merging: numbers take highest, strings take last, booleans use OR"

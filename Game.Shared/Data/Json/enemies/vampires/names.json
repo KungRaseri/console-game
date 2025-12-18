@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Vampire name generation patterns with weight-based rarity components",
                      "version":  "4.0",
@@ -21,9 +21,9 @@
                      "rarity_system":  "weight-based",
                      "notes":  [
                                    {
-                                       "base_token":  "Resolves to item name from vampires/types.json",
+                                       "base_token":  "Resolves to item name from vampires/catalog.json",
                                        "vampire_culture":  "Aristocratic undead with bloodlines and nobility titles",
-                                       "weight_ranges":  "Spawn (10) â†’ Progenitor (100), Cursed (15) â†’ Eternis (60)",
+                                       "weight_ranges":  "Spawn (10) → Progenitor (100), Cursed (15) → Eternis (60)",
                                        "traits":  "All vampires are undead, vulnerable to radiant, have regeneration"
                                    },
                                    "Upgraded to v4.0 with supports_traits metadata"

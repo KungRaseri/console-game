@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Giant insect name generation patterns with weight-based rarity components",
                      "version":  "4.0",
@@ -21,9 +21,9 @@
                      "rarity_system":  "weight-based",
                      "notes":  [
                                    {
-                                       "base_token":  "Resolves to item name from insects/types.json",
+                                       "base_token":  "Resolves to item name from insects/catalog.json",
                                        "insect_variety":  "Includes spiders, beetles, wasps, ants with hive/solitary behavior",
-                                       "weight_ranges":  "Small (5) â†’ Colossal (40), Common (5) â†’ Crystal (35)",
+                                       "weight_ranges":  "Small (5) → Colossal (40), Common (5) → Crystal (35)",
                                        "traits":  "Many insects are venomous, armored, or have hive minds"
                                    },
                                    "Upgraded to v4.0 with supports_traits metadata"

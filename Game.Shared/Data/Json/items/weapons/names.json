@@ -23,7 +23,7 @@
     "total_patterns": 18,
     "rarity_system": "weight-based",
     "notes": [
-      "Base token resolves from items/weapons/types.json",
+      "Base token resolves from items/weapons/catalog.json",
       "Prefixes and suffixes merged from separate files (deprecated in v4.0)",
       "Traits are applied when components are selected in patterns",
       "Trait merging: numbers take highest, strings take last, booleans use OR",

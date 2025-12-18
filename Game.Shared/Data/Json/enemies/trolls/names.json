@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Troll name generation patterns with weight-based rarity components",
                      "version":  "4.0",
@@ -21,9 +21,9 @@
                      "rarity_system":  "weight-based",
                      "notes":  [
                                    {
-                                       "base_token":  "Resolves to item name from trolls/types.json",
+                                       "base_token":  "Resolves to item name from trolls/catalog.json",
                                        "troll_nature":  "Large regenerating creatures with elemental variants",
-                                       "weight_ranges":  "Young (10) â†’ Ancient (70), Cave (12) â†’ Volcanic (30)",
+                                       "weight_ranges":  "Young (10) → Ancient (70), Cave (12) → Volcanic (30)",
                                        "regeneration":  "All trolls have regeneration trait, vulnerable to fire"
                                    },
                                    "Upgraded to v4.0 with supports_traits metadata"

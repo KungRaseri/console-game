@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Newtonsoft.Json.Linq;
 using Serilog;
 using Game.ContentBuilder.Models;
@@ -80,7 +80,7 @@ public static class FileTypeDetector
             return JsonFileType.NamesFile;
         }
 
-        // Check for types.json structure: metadata + *_types (e.g., weapon_types, armor_types)
+        // Check for catalog.json structure: metadata + *_types (e.g., weapon_types, armor_types)
         var typeKeys = root.Properties()
             .Where(p => p.Name.EndsWith("_types", StringComparison.OrdinalIgnoreCase))
             .ToList();
@@ -96,7 +96,7 @@ public static class FileTypeDetector
             return JsonFileType.ComponentCatalog;
         }
 
-        // Check for material catalog (materials/types.json)
+        // Check for material catalog (materials/catalog.json)
         if (root["material_types"] != null)
         {
             return JsonFileType.MaterialCatalog;
@@ -192,7 +192,7 @@ public enum JsonFileType
 {
     Unknown,
     NamesFile,          // names.json - pattern generation files
-    TypesFile,          // types.json - item catalog files
+    TypesFile,          // catalog.json - item catalog files
     AbilityCatalog,     // abilities.json - ability catalog files
     GenericCatalog,     // Generic catalogs (occupations, traits, dialogue, etc.)
     NameCatalog,        // Name lists (first_names, last_names)
@@ -200,7 +200,7 @@ public enum JsonFileType
     QuestData,          // Quest objectives, rewards, locations
     Configuration,      // Configuration files (rarity_config, etc.)
     ComponentCatalog,   // Component catalogs (like materials/names.json)
-    MaterialCatalog,    // Material type catalogs (materials/types.json)
+    MaterialCatalog,    // Material type catalogs (materials/catalog.json)
     PrefixSuffix,       // Legacy prefix/suffix files
     Traits,             // Trait definition files
     General             // General configuration files
