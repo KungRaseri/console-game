@@ -1,10 +1,6 @@
-using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
-using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
-using FlaUI.UIA3;
 using FluentAssertions;
 using Xunit;
 
@@ -14,45 +10,11 @@ namespace Game.ContentBuilder.Tests.UI;
 /// UI automation tests for the ContentBuilder application using FlaUI
 /// These tests launch the actual WPF application and interact with it
 /// </summary>
-public class ContentBuilderUITests : IDisposable
+public class ContentBuilderUITests : UITestBase
 {
-    private readonly Application _app;
-    private readonly UIA3Automation _automation;
-    private readonly Window _mainWindow;
-
-    public ContentBuilderUITests()
+    public ContentBuilderUITests() : base()
     {
-        // Build path to the ContentBuilder executable
-        // From: Game.ContentBuilder.Tests/bin/Debug/net9.0-windows/
-        // To:   Game.ContentBuilder/bin/Debug/net9.0-windows/Game.ContentBuilder.exe
-        var testAssemblyPath = AppDomain.CurrentDomain.BaseDirectory;
-        var exePath = Path.Combine(
-            testAssemblyPath,
-            "..", "..", "..", "..",
-            "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-            "Game.ContentBuilder.exe"
-        );
-
-        var fullExePath = Path.GetFullPath(exePath);
-
-        if (!File.Exists(fullExePath))
-        {
-            throw new FileNotFoundException(
-                $"ContentBuilder executable not found at: {fullExePath}. " +
-                "Please build the Game.ContentBuilder project first.");
-        }
-
-        // Launch the application
-        _automation = new UIA3Automation();
-        _app = Application.Launch(fullExePath);
-
-        // Wait for main window to appear (10 second timeout)
-        _mainWindow = _app.GetMainWindow(_automation, TimeSpan.FromSeconds(10));
-
-        if (_mainWindow == null)
-        {
-            throw new InvalidOperationException("Main window failed to load within timeout period");
-        }
+        LaunchApplication();
     }
 
     [Fact]
@@ -219,25 +181,6 @@ public class ContentBuilderUITests : IDisposable
 
         ((double)newWidth).Should().BeApproximately(1200, 50, "Window width should be resizable");
         ((double)newHeight).Should().BeApproximately(800, 50, "Window height should be resizable");
-    }
-
-    public void Dispose()
-    {
-        // Close the application and clean up
-        try
-        {
-            // Try graceful shutdown first
-            _app?.Close();
-        }
-        catch
-        {
-            // If graceful shutdown fails, force kill
-            _app?.Kill();
-        }
-        finally
-        {
-            _automation?.Dispose();
-        }
     }
 }
 

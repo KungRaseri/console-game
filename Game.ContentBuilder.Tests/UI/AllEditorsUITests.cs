@@ -1,11 +1,8 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
-using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
-using FlaUI.UIA3;
 using FluentAssertions;
 using Xunit;
 
@@ -16,41 +13,12 @@ namespace Game.ContentBuilder.Tests.UI;
 /// Tests each editor type: HybridArray, NameList, FlatItem, and ItemPrefix/Suffix
 /// </summary>
 [Collection("UI Tests")]
-public class AllEditorsUITests : IDisposable
+public class AllEditorsUITests : UITestBase
 {
-    private readonly Application _app;
-    private readonly UIA3Automation _automation;
-    private readonly Window _mainWindow;
-
-    public AllEditorsUITests()
+    public AllEditorsUITests() : base()
     {
-        var testAssemblyPath = AppDomain.CurrentDomain.BaseDirectory;
-        var exePath = Path.Combine(
-            testAssemblyPath,
-            "..", "..", "..", "..",
-            "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-            "Game.ContentBuilder.exe"
-        );
-
-        var fullExePath = Path.GetFullPath(exePath);
-
-        if (!File.Exists(fullExePath))
-        {
-            throw new FileNotFoundException(
-                $"ContentBuilder executable not found at: {fullExePath}");
-        }
-
-        _automation = new UIA3Automation();
-        _app = Application.Launch(fullExePath);
-        _mainWindow = _app.GetMainWindow(_automation, TimeSpan.FromSeconds(15));
-
-        if (_mainWindow == null)
-        {
-            throw new InvalidOperationException("Main window failed to load");
-        }
-
-        // Wait for UI to stabilize
-        Thread.Sleep(1000);
+        LaunchApplication();
+        Thread.Sleep(1000); // Wait for UI to stabilize
     }
 
     #region HybridArray Editor Tests
@@ -400,23 +368,5 @@ public class AllEditorsUITests : IDisposable
     }
 
     #endregion
-
-    public void Dispose()
-    {
-        try
-        {
-            // Try graceful shutdown first
-            _app?.Close();
-        }
-        catch
-        {
-            // If graceful shutdown fails, force kill
-            _app?.Kill();
-        }
-        finally
-        {
-            _automation?.Dispose();
-        }
-    }
 }
 
