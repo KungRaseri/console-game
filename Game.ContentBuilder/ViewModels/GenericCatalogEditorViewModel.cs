@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using System.Threading.Tasks;
 using Game.ContentBuilder.Models;
 using Game.ContentBuilder.Services;
@@ -67,6 +66,19 @@ namespace Game.ContentBuilder.ViewModels
         [ObservableProperty]
         private bool _hasUnsavedChanges;
 
+        [ObservableProperty]
+        private string _statusMessage = "Ready";
+
+        // Confirmation dialog state
+        [ObservableProperty]
+        private bool _showDeleteConfirmation;
+
+        [ObservableProperty]
+        private string _confirmationMessage = string.Empty;
+
+        [ObservableProperty]
+        private CatalogItemViewModel? _pendingDeleteItem;
+
         public GenericCatalogEditorViewModel(JsonEditorService jsonEditorService, string fileName)
         {
             _jsonEditorService = jsonEditorService;
@@ -97,7 +109,7 @@ namespace Game.ContentBuilder.ViewModels
             {
                 var filePath = _jsonEditorService.GetFilePath(_storedFileName);
                 Log.Error(ex, "Failed to load generic catalog: {FilePath}", filePath);
-                MessageBox.Show($"Failed to load file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                StatusMessage = $"Error loading file: {ex.Message}";
             }
         }
 
@@ -202,8 +214,7 @@ namespace Game.ContentBuilder.ViewModels
         {
             if (SelectedCategory == null)
             {
-                MessageBox.Show("Please select a category first.", "No Category Selected", 
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                StatusMessage = "Please select a category first";
                 return;
             }
 
@@ -214,6 +225,7 @@ namespace Game.ContentBuilder.ViewModels
             DynamicProperties.Clear();
             SelectedItem = null;
             IsEditMode = true;
+            StatusMessage = "Adding new item...";
         }
 
         [RelayCommand]
@@ -293,8 +305,7 @@ namespace Game.ContentBuilder.ViewModels
                 // Validate
                 if (string.IsNullOrWhiteSpace(EditName))
                 {
-                    MessageBox.Show("Name is required.", "Validation Error", 
-                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    StatusMessage = "Name is required";
                     return;
                 }
 
@@ -379,14 +390,14 @@ namespace Game.ContentBuilder.ViewModels
 
                 HasUnsavedChanges = true;
                 IsEditMode = false;
+                StatusMessage = $"Saved item: {EditName}";
 
                 Log.Information("Saved item: {ItemName} in category: {Category}", EditName, SelectedCategory.Name);
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Failed to save item");
-                MessageBox.Show($"Failed to save item: {ex.Message}", "Error", 
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                StatusMessage = $"Error saving item: {ex.Message}";
             }
         }
 
@@ -402,32 +413,51 @@ namespace Game.ContentBuilder.ViewModels
         {
             if (item == null || SelectedCategory == null) return;
 
-            var result = MessageBox.Show(
-                $"Are you sure you want to delete '{item.DisplayName}'?",
-                "Confirm Delete",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
+            PendingDeleteItem = item;
+            ConfirmationMessage = $"Are you sure you want to delete '{item.DisplayName}'?";
+            ShowDeleteConfirmation = true;
+        }
 
-            if (result != MessageBoxResult.Yes) return;
+        [RelayCommand]
+        private void ConfirmDelete()
+        {
+            if (PendingDeleteItem == null || SelectedCategory == null)
+            {
+                ShowDeleteConfirmation = false;
+                return;
+            }
 
             try
             {
                 var categoryArray = _rootJson!["components"]![SelectedCategory.Name] as JArray;
-                var index = Items.IndexOf(item);
+                var index = Items.IndexOf(PendingDeleteItem);
                 categoryArray!.RemoveAt(index);
                 Items.RemoveAt(index);
 
                 SelectedCategory.ItemCount = categoryArray.Count;
                 HasUnsavedChanges = true;
+                StatusMessage = $"Deleted item: {PendingDeleteItem.DisplayName}";
 
-                Log.Information("Deleted item: {ItemName}", item.Name);
+                Log.Information("Deleted item: {ItemName}", PendingDeleteItem.Name);
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Failed to delete item");
-                MessageBox.Show($"Failed to delete item: {ex.Message}", "Error", 
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                StatusMessage = $"Error deleting item: {ex.Message}";
             }
+            finally
+            {
+                PendingDeleteItem = null;
+                ShowDeleteConfirmation = false;
+            }
+        }
+
+        [RelayCommand]
+        private void CancelDelete()
+        {
+            PendingDeleteItem = null;
+            ShowDeleteConfirmation = false;
+            StatusMessage = "Delete cancelled";
         }
 
         [RelayCommand]
@@ -469,9 +499,7 @@ namespace Game.ContentBuilder.ViewModels
                 var json = _rootJson.ToString(Formatting.Indented);
                 await File.WriteAllTextAsync(filePath, json);
                 HasUnsavedChanges = false;
-                
-                MessageBox.Show("File saved successfully!", "Success", 
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                StatusMessage = $"File saved successfully: {FileName}";
                 
                 Log.Information("Saved generic catalog: {FilePath}", filePath);
             }
@@ -479,8 +507,7 @@ namespace Game.ContentBuilder.ViewModels
             {
                 var filePath = _jsonEditorService.GetFilePath(_storedFileName);
                 Log.Error(ex, "Failed to save file: {FilePath}", filePath);
-                MessageBox.Show($"Failed to save file: {ex.Message}", "Error", 
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                StatusMessage = $"Error saving file: {ex.Message}";
             }
         }
     }

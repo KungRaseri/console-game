@@ -114,10 +114,13 @@ public partial class MainViewModel : ObservableObject
                     LoadGenericCatalogEditor(value.Tag?.ToString() ?? "");
                     break;
                 
+                case EditorType.NameCatalogEditor:
+                    LoadNameCatalogEditor(value.Tag?.ToString() ?? "");
+                    break;
+                
                 case EditorType.ComponentEditor:
                 case EditorType.MaterialEditor:
                 case EditorType.TraitEditor:
-                case EditorType.NameCatalogEditor:
                 case EditorType.QuestTemplateEditor:
                 case EditorType.QuestDataEditor:
                 case EditorType.ConfigEditor:
@@ -376,6 +379,31 @@ public partial class MainViewModel : ObservableObject
     {
         Log.Information("Exit command invoked");
         System.Windows.Application.Current.Shutdown();
+    }
+
+    private void LoadNameCatalogEditor(string fileName)
+    {
+        try
+        {
+            Log.Debug("Loading NameCatalogEditor for {FileName}", fileName);
+            
+            var viewModel = new NameCatalogEditorViewModel(_jsonEditorService, fileName);
+            
+            var view = new NameCatalogEditorView
+            {
+                DataContext = viewModel
+            };
+            
+            CurrentEditor = view;
+            StatusMessage = $"Loaded name catalog editor for {fileName}";
+            Log.Information("NameCatalogEditor loaded successfully for {FileName}", fileName);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load name catalog editor: {ex.Message}";
+            Log.Error(ex, "Failed to load NameCatalogEditor for {FileName}", fileName);
+            CurrentEditor = null;
+        }
     }
 }
 

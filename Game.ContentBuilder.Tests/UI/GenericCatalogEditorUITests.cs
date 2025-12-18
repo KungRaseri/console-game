@@ -337,7 +337,7 @@ public class GenericCatalogEditorUITests : IDisposable
         try
         {
             // Try graceful shutdown first
-            _app?.Close(TimeSpan.FromSeconds(2));
+            _app?.Close();
         }
         catch
         {
@@ -350,3 +350,4 @@ public class GenericCatalogEditorUITests : IDisposable
         }
     }
 }
+
