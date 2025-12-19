@@ -22,9 +22,11 @@ public partial class App : Application
         // Ensure logs directory exists
         Directory.CreateDirectory(_logsDirectory);
         
-        // Initialize Serilog with rolling files
-        // Main log: all levels (Debug, Info, Warning, Error), rollover after 10 files
-        // Error log: only errors, rollover after 3 files
+        // Clean up old log files on startup
+        CleanupOldLogs("contentbuilder-*.log", retainCount: 10);
+        CleanupOldLogs("contentbuilder-error-*.log", retainCount: 3);
+        
+        // Configure Serilog with dual rolling file appenders
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .WriteTo.File(
@@ -34,7 +36,7 @@ public partial class App : Application
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
                 flushToDiskInterval: TimeSpan.FromSeconds(1))
             .WriteTo.File(
-                Path.Combine(_logsDirectory, "contentbuilder-.error.log"),
+                Path.Combine(_logsDirectory, "contentbuilder-error-.log"),
                 restrictedToMinimumLevel: LogEventLevel.Error,
                 rollingInterval: RollingInterval.Day,
                 retainedFileCountLimit: 3,
@@ -85,6 +87,38 @@ public partial class App : Application
         Log.CloseAndFlush();
         
         base.OnExit(e);
+    }
+
+    private static void CleanupOldLogs(string searchPattern, int retainCount)
+    {
+        try
+        {
+            var logFiles = Directory.GetFiles(_logsDirectory, searchPattern)
+                .Select(f => new FileInfo(f))
+                .OrderByDescending(f => f.LastWriteTime)
+                .ToList();
+
+            if (logFiles.Count > retainCount)
+            {
+                var filesToDelete = logFiles.Skip(retainCount);
+                foreach (var file in filesToDelete)
+                {
+                    try
+                    {
+                        file.Delete();
+                        System.Diagnostics.Debug.WriteLine($"Deleted old log: {file.Name}");
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Failed to delete {file.Name}: {ex.Message}");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to cleanup logs ({searchPattern}): {ex.Message}");
+        }
     }
 }
 

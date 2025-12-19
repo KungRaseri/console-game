@@ -141,7 +141,6 @@ public static class FileTypeDetector
             JsonFileType.AbilityCatalog => EditorType.AbilitiesEditor,
             JsonFileType.GenericCatalog => EditorType.CatalogEditor,
             JsonFileType.NameCatalog => EditorType.NameCatalogEditor,
-            JsonFileType.QuestTemplate => EditorType.QuestTemplateEditor,
             JsonFileType.QuestCatalog => EditorType.QuestCatalogEditor,
             JsonFileType.QuestData => EditorType.QuestDataEditor,
             JsonFileType.Configuration => EditorType.ConfigEditor,

@@ -71,9 +71,8 @@ public enum EditorType
     AbilitiesEditor,       // ability_catalog: enemy abilities
     CatalogEditor,         // Generic catalog: occupations, dialogue, traits, etc.
     NameCatalogEditor,     // name_catalog/surname_catalog: NPC names
-    QuestTemplateEditor,   // quest_template_catalog: quest templates (OLD - v3.x)
-    QuestCatalogEditor,    // quest catalog.json: templates + locations (NEW - v4.0)
-    QuestDataEditor,       // quest_objectives/rewards/locations
+    QuestCatalogEditor,    // quest catalog.json: templates + locations (v4.0)
+    QuestDataEditor,       // quest_objectives/rewards (v4.0)
     ConfigEditor           // configuration: rarity_config, etc.
 }
 
