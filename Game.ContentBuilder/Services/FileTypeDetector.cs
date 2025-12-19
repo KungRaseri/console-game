@@ -26,8 +26,15 @@ public static class FileTypeDetector
             }
 
             var fileName = Path.GetFileName(filePath).ToLowerInvariant();
+            var directoryName = Path.GetFileName(Path.GetDirectoryName(filePath) ?? "").ToLowerInvariant();
             var json = File.ReadAllText(filePath);
             var root = JObject.Parse(json);
+
+            // Special case: quests/catalog.json is v4.0 quest catalog
+            if (fileName == "catalog.json" && directoryName == "quests")
+            {
+                return JsonFileType.QuestCatalog;
+            }
 
             // Check metadata first
             if (root["metadata"] is JObject metadata)
@@ -135,6 +142,7 @@ public static class FileTypeDetector
             JsonFileType.GenericCatalog => EditorType.CatalogEditor,
             JsonFileType.NameCatalog => EditorType.NameCatalogEditor,
             JsonFileType.QuestTemplate => EditorType.QuestTemplateEditor,
+            JsonFileType.QuestCatalog => EditorType.QuestCatalogEditor,
             JsonFileType.QuestData => EditorType.QuestDataEditor,
             JsonFileType.Configuration => EditorType.ConfigEditor,
             JsonFileType.ComponentCatalog => EditorType.ComponentEditor,
@@ -196,7 +204,8 @@ public enum JsonFileType
     AbilityCatalog,     // abilities.json - ability catalog files
     GenericCatalog,     // Generic catalogs (occupations, traits, dialogue, etc.)
     NameCatalog,        // Name lists (first_names, last_names)
-    QuestTemplate,      // Quest template files
+    QuestTemplate,      // Quest template files (OLD - v3.x)
+    QuestCatalog,       // Quest catalog.json (NEW - v4.0: templates + locations)
     QuestData,          // Quest objectives, rewards, locations
     Configuration,      // Configuration files (rarity_config, etc.)
     ComponentCatalog,   // Component catalogs (like materials/names.json)
