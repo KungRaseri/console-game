@@ -54,7 +54,7 @@
         </Border>
 
         <!-- Main Content -->
-        <TabControl Grid.Row="1" Margin="16" SelectedIndex="{Binding TabSelection, Converter={StaticResource TabIndexConverter}}">
+        <TabControl Grid.Row="1" Margin="16">
             
             <!-- Templates Tab -->
             <TabItem Header="Templates">
@@ -175,8 +175,7 @@
                             <Border Background="{DynamicResource MaterialDesign.Brush.Chip.Background}"
                                     Padding="12" 
                                     CornerRadius="4"
-                                    Margin="0,0,0,16"
-                                    Visibility="{Binding PreviewDescription, Converter={StaticResource NotEmptyToVisibilityConverter}}">
+                                    Margin="0,0,0,16">
                                 <StackPanel>
                                     <TextBlock Text="Preview:" FontWeight="Bold" FontSize="10" Opacity="0.7"/>
                                     <TextBlock Text="{Binding PreviewDescription}" TextWrapping="Wrap" Margin="0,4,0,0"/>
@@ -185,8 +184,7 @@
 
                             <!-- Detected Placeholders -->
                             <ItemsControl ItemsSource="{Binding DetectedPlaceholders}" 
-                                          Margin="0,0,0,16"
-                                          Visibility="{Binding DetectedPlaceholders.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
+                                          Margin="0,0,0,16">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel/>
@@ -252,7 +250,6 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Button Command="{Binding DeleteTemplateCommand}" 
                                         Style="{StaticResource MaterialDesignOutlinedButton}"
-                                        Visibility="{Binding SelectedTemplate, Converter={StaticResource NotNullToVisibilityConverter}}"
                                         Margin="0,0,8,0">
                                     <StackPanel Orientation="Horizontal">
                                         <mdi:PackIcon Kind="Delete" Margin="0,0,8,0"/>
