@@ -263,6 +263,9 @@ public static class QuestGenerator
         
         // Initialize objectives dictionary
         InitializeObjectives(quest);
+        
+        // Calculate and apply rewards (Phase 4)
+        CalculateRewards(quest, playerLevel: 1);
     }
     
     /// <summary>
@@ -476,49 +479,359 @@ public static class QuestGenerator
     }
     
     /// <summary>
-    /// Initialize objectives dictionary for quest tracking (Phase 4 enhancement).
+    /// Select a primary objective matching quest type and difficulty using v4.0 catalog.
+    /// </summary>
+    private static QuestObjective? SelectPrimaryObjective(string questType, string difficulty)
+    {
+        var catalog = GameDataService.Instance.QuestObjectives;
+        if (catalog?.Components?.Primary == null) return null;
+
+        // Get all primary objectives
+        var allPrimary = new List<QuestObjective>();
+        
+        if (catalog.Components.Primary.Combat != null)
+            allPrimary.AddRange(catalog.Components.Primary.Combat);
+        if (catalog.Components.Primary.Retrieval != null)
+            allPrimary.AddRange(catalog.Components.Primary.Retrieval);
+        if (catalog.Components.Primary.Rescue != null)
+            allPrimary.AddRange(catalog.Components.Primary.Rescue);
+        if (catalog.Components.Primary.Purification != null)
+            allPrimary.AddRange(catalog.Components.Primary.Purification);
+        if (catalog.Components.Primary.Defense != null)
+            allPrimary.AddRange(catalog.Components.Primary.Defense);
+        if (catalog.Components.Primary.Social != null)
+            allPrimary.AddRange(catalog.Components.Primary.Social);
+        if (catalog.Components.Primary.Timed != null)
+            allPrimary.AddRange(catalog.Components.Primary.Timed);
+
+        // Filter by difficulty
+        var matchingObjectives = allPrimary
+            .Where(o => o.Difficulty?.Equals(difficulty, StringComparison.OrdinalIgnoreCase) == true)
+            .ToList();
+
+        if (!matchingObjectives.Any())
+            matchingObjectives = allPrimary; // Fallback to any if no difficulty match
+
+        return WeightedSelector.SelectByRarityWeight(matchingObjectives);
+    }
+
+    /// <summary>
+    /// Select a secondary objective matching difficulty using v4.0 catalog.
+    /// </summary>
+    private static QuestObjective? SelectSecondaryObjective(string difficulty)
+    {
+        var catalog = GameDataService.Instance.QuestObjectives;
+        if (catalog?.Components?.Secondary == null) return null;
+
+        var allSecondary = new List<QuestObjective>();
+        
+        if (catalog.Components.Secondary.Stealth != null)
+            allSecondary.AddRange(catalog.Components.Secondary.Stealth);
+        if (catalog.Components.Secondary.Survival != null)
+            allSecondary.AddRange(catalog.Components.Secondary.Survival);
+        if (catalog.Components.Secondary.Speed != null)
+            allSecondary.AddRange(catalog.Components.Secondary.Speed);
+        if (catalog.Components.Secondary.Collection != null)
+            allSecondary.AddRange(catalog.Components.Secondary.Collection);
+        if (catalog.Components.Secondary.Mercy != null)
+            allSecondary.AddRange(catalog.Components.Secondary.Mercy);
+        if (catalog.Components.Secondary.Combat != null)
+            allSecondary.AddRange(catalog.Components.Secondary.Combat);
+        if (catalog.Components.Secondary.Precision != null)
+            allSecondary.AddRange(catalog.Components.Secondary.Precision);
+        if (catalog.Components.Secondary.Social != null)
+            allSecondary.AddRange(catalog.Components.Secondary.Social);
+
+        // Prefer matching difficulty, but allow any if none match
+        var matchingObjectives = allSecondary
+            .Where(o => o.Difficulty?.Equals(difficulty, StringComparison.OrdinalIgnoreCase) == true)
+            .ToList();
+
+        if (!matchingObjectives.Any())
+            matchingObjectives = allSecondary;
+
+        return WeightedSelector.SelectByRarityWeight(matchingObjectives);
+    }
+
+    /// <summary>
+    /// Select a hidden objective (discovery-based bonus) using v4.0 catalog.
+    /// </summary>
+    private static QuestObjective? SelectHiddenObjective()
+    {
+        var catalog = GameDataService.Instance.QuestObjectives;
+        if (catalog?.Components?.Hidden == null) return null;
+
+        var allHidden = new List<QuestObjective>();
+        
+        if (catalog.Components.Hidden.Exploration != null)
+            allHidden.AddRange(catalog.Components.Hidden.Exploration);
+        if (catalog.Components.Hidden.Lore != null)
+            allHidden.AddRange(catalog.Components.Hidden.Lore);
+        if (catalog.Components.Hidden.Combat != null)
+            allHidden.AddRange(catalog.Components.Hidden.Combat);
+        if (catalog.Components.Hidden.Branching != null)
+            allHidden.AddRange(catalog.Components.Hidden.Branching);
+        if (catalog.Components.Hidden.Collection != null)
+            allHidden.AddRange(catalog.Components.Hidden.Collection);
+        if (catalog.Components.Hidden.Puzzle != null)
+            allHidden.AddRange(catalog.Components.Hidden.Puzzle);
+        if (catalog.Components.Hidden.Rescue != null)
+            allHidden.AddRange(catalog.Components.Hidden.Rescue);
+        if (catalog.Components.Hidden.Diplomacy != null)
+            allHidden.AddRange(catalog.Components.Hidden.Diplomacy);
+        if (catalog.Components.Hidden.Timed != null)
+            allHidden.AddRange(catalog.Components.Hidden.Timed);
+        if (catalog.Components.Hidden.Purification != null)
+            allHidden.AddRange(catalog.Components.Hidden.Purification);
+
+        return WeightedSelector.SelectByRarityWeight(allHidden);
+    }
+    
+    /// <summary>
+    /// Calculate and apply rewards (gold, XP, items) to quest using v4.0 rewards catalog (Phase 4).
+    /// </summary>
+    private static void CalculateRewards(Quest quest, int playerLevel = 1)
+    {
+        var catalog = GameDataService.Instance.QuestRewards;
+        if (catalog?.Components == null)
+        {
+            // Keep template's base rewards if catalog not loaded
+            return;
+        }
+
+        // Calculate gold with player level scaling: base * (1 + level * 0.05)
+        var goldMultiplier = 1.0 + (playerLevel * 0.05);
+        quest.GoldReward = (int)(quest.GoldReward * goldMultiplier);
+
+        // Calculate XP with difficulty and level scaling
+        var difficultyMultiplier = quest.Difficulty?.ToLower() switch
+        {
+            "easy" => 1.0,
+            "medium" => 1.5,
+            "hard" => 2.0,
+            _ => 1.0
+        };
+        var xpMultiplier = difficultyMultiplier * (1.0 + (playerLevel * 0.1));
+        quest.XpReward = (int)(quest.XpReward * xpMultiplier);
+
+        // Apply bonus multipliers for objectives
+        var bonusMultiplier = 1.0;
+        
+        // Secondary objective: +25-50% bonus
+        if (quest.Traits.ContainsKey("secondaryObjective"))
+        {
+            bonusMultiplier += 0.25 + (_random.NextDouble() * 0.25); // 25-50%
+        }
+        
+        // Hidden objective: +50-100% bonus
+        if (quest.Traits.ContainsKey("hiddenObjective"))
+        {
+            bonusMultiplier += 0.50 + (_random.NextDouble() * 0.50); // 50-100%
+        }
+
+        // Apply bonus multipliers
+        if (bonusMultiplier > 1.0)
+        {
+            quest.GoldReward = (int)(quest.GoldReward * bonusMultiplier);
+            quest.XpReward = (int)(quest.XpReward * bonusMultiplier);
+        }
+
+        // Select item rewards based on difficulty and objectives
+        SelectItemRewards(quest);
+    }
+
+    /// <summary>
+    /// Select item rewards based on quest difficulty and completion objectives.
+    /// </summary>
+    private static void SelectItemRewards(Quest quest)
+    {
+        var catalog = GameDataService.Instance.QuestRewards;
+        if (catalog?.Components?.Items == null) return;
+
+        // Determine reward tier based on difficulty
+        var rewardTier = quest.Difficulty?.ToLower() switch
+        {
+            "easy" => 1,    // Common/Uncommon
+            "medium" => 2,  // Uncommon/Rare
+            "hard" => 3,    // Rare/Epic
+            _ => 1
+        };
+
+        // Upgrade tier if hidden objective present (+1 tier)
+        if (quest.Traits.ContainsKey("hiddenObjective"))
+        {
+            rewardTier++;
+        }
+
+        // Legendary quests get better rewards
+        if (quest.Type == "legendary")
+        {
+            rewardTier++;
+        }
+
+        // Select items based on tier (capped at mythic = tier 6)
+        rewardTier = Math.Min(rewardTier, 6);
+
+        var selectedItems = new List<string>();
+        
+        // Get appropriate item pool
+        var itemPool = new List<ItemReward>();
+        
+        switch (rewardTier)
+        {
+            case 1: // Common
+                if (catalog.Components.Items.ConsumableRewards != null)
+                    itemPool.AddRange(catalog.Components.Items.ConsumableRewards);
+                if (catalog.Components.Items.CommonEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.CommonEquipment);
+                break;
+                
+            case 2: // Uncommon
+                if (catalog.Components.Items.UncommonEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.UncommonEquipment);
+                if (catalog.Components.Items.ConsumableRewards != null)
+                    itemPool.AddRange(catalog.Components.Items.ConsumableRewards);
+                break;
+                
+            case 3: // Rare
+                if (catalog.Components.Items.RareEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.RareEquipment);
+                if (catalog.Components.Items.UncommonEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.UncommonEquipment);
+                break;
+                
+            case 4: // Epic
+                if (catalog.Components.Items.EpicEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.EpicEquipment);
+                if (catalog.Components.Items.RareEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.RareEquipment);
+                break;
+                
+            case 5: // Legendary
+                if (catalog.Components.Items.LegendaryEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.LegendaryEquipment);
+                if (catalog.Components.Items.EpicEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.EpicEquipment);
+                break;
+                
+            case 6: // Mythic
+                if (catalog.Components.Items.MythicEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.MythicEquipment);
+                if (catalog.Components.Items.LegendaryEquipment != null)
+                    itemPool.AddRange(catalog.Components.Items.LegendaryEquipment);
+                break;
+        }
+
+        // Select 1-2 items using weighted selection
+        var itemCount = _random.Next(1, 3); // 1 or 2 items
+        
+        for (int i = 0; i < itemCount && itemPool.Any(); i++)
+        {
+            var selectedReward = WeightedSelector.SelectByRarityWeight(itemPool);
+            if (selectedReward != null)
+            {
+                selectedItems.Add(selectedReward.DisplayName);
+                // Remove from pool to avoid duplicates
+                itemPool.Remove(selectedReward);
+            }
+        }
+
+        // Store item rewards
+        quest.ItemRewards = selectedItems;
+        
+        // Store reward tier in traits for reference
+        quest.Traits["rewardTier"] = new TraitValue(rewardTier, TraitType.Number);
+    }
+    
+    /// <summary>
+    /// Initialize objectives dictionary for quest tracking using v4.0 objectives catalog (Phase 3).
     /// </summary>
     private static void InitializeObjectives(Quest quest)
     {
-        // Convert legacy quest data to objectives format
-        switch (quest.QuestType.ToLower())
+        var catalog = GameDataService.Instance.QuestObjectives;
+        
+        if (catalog?.Components != null)
         {
-            case "kill":
-                if (!string.IsNullOrEmpty(quest.TargetName))
-                {
-                    quest.Objectives[$"Kill {quest.TargetName}"] = quest.Quantity;
-                    quest.ObjectiveProgress[$"Kill {quest.TargetName}"] = 0;
-                }
-                break;
+            // V4.0: Use weighted objective selection from catalog
+            
+            // Select primary objective (required - always added)
+            var primaryObjective = SelectPrimaryObjective(quest.QuestType, quest.Difficulty);
+            if (primaryObjective != null)
+            {
+                quest.Objectives[primaryObjective.DisplayName] = quest.Quantity;
+                quest.ObjectiveProgress[primaryObjective.DisplayName] = 0;
                 
-            case "fetch":
-                if (!string.IsNullOrEmpty(quest.TargetName))
+                // Store objective metadata in traits for later reference
+                quest.Traits["primaryObjective"] = new TraitValue(primaryObjective.Name, TraitType.String);
+            }
+
+            // 25% chance to add secondary objective (optional bonus)
+            if (_random.Next(100) < 25)
+            {
+                var secondaryObjective = SelectSecondaryObjective(quest.Difficulty);
+                if (secondaryObjective != null)
                 {
-                    quest.Objectives[$"Collect {quest.TargetName}"] = quest.Quantity;
-                    quest.ObjectiveProgress[$"Collect {quest.TargetName}"] = 0;
+                    quest.Objectives[$"[BONUS] {secondaryObjective.DisplayName}"] = 1;
+                    quest.ObjectiveProgress[$"[BONUS] {secondaryObjective.DisplayName}"] = 0;
+                    quest.Traits["secondaryObjective"] = new TraitValue(secondaryObjective.Name, TraitType.String);
                 }
-                break;
-                
-            case "escort":
-                if (!string.IsNullOrEmpty(quest.TargetName))
+            }
+
+            // 10% chance to add hidden objective (discovery-based)
+            if (_random.Next(100) < 10)
+            {
+                var hiddenObjective = SelectHiddenObjective();
+                if (hiddenObjective != null)
                 {
-                    quest.Objectives[$"Escort {quest.TargetName} to {quest.Location}"] = 1;
-                    quest.ObjectiveProgress[$"Escort {quest.TargetName} to {quest.Location}"] = 0;
+                    // Hidden objectives are not visible initially
+                    quest.Objectives[$"[HIDDEN] {hiddenObjective.DisplayName}"] = 1;
+                    quest.ObjectiveProgress[$"[HIDDEN] {hiddenObjective.DisplayName}"] = 0;
+                    quest.Traits["hiddenObjective"] = new TraitValue(hiddenObjective.Name, TraitType.String);
                 }
-                break;
-                
-            case "investigate":
-                quest.Objectives[$"Investigate {quest.Location}"] = 1;
-                quest.ObjectiveProgress[$"Investigate {quest.Location}"] = 0;
-                break;
-                
-            case "delivery":
-                if (!string.IsNullOrEmpty(quest.TargetName))
-                {
-                    quest.Objectives[$"Deliver to {quest.TargetName}"] = 1;
-                    quest.ObjectiveProgress[$"Deliver to {quest.TargetName}"] = 0;
-                }
-                break;
+            }
+        }
+        else
+        {
+            // Fallback: Convert legacy quest data to objectives format
+            switch (quest.QuestType.ToLower())
+            {
+                case "kill":
+                    if (!string.IsNullOrEmpty(quest.TargetName))
+                    {
+                        quest.Objectives[$"Kill {quest.TargetName}"] = quest.Quantity;
+                        quest.ObjectiveProgress[$"Kill {quest.TargetName}"] = 0;
+                    }
+                    break;
+                    
+                case "fetch":
+                    if (!string.IsNullOrEmpty(quest.TargetName))
+                    {
+                        quest.Objectives[$"Collect {quest.TargetName}"] = quest.Quantity;
+                        quest.ObjectiveProgress[$"Collect {quest.TargetName}"] = 0;
+                    }
+                    break;
+                    
+                case "escort":
+                    if (!string.IsNullOrEmpty(quest.TargetName))
+                    {
+                        quest.Objectives[$"Escort {quest.TargetName} to {quest.Location}"] = 1;
+                        quest.ObjectiveProgress[$"Escort {quest.TargetName} to {quest.Location}"] = 0;
+                    }
+                    break;
+                    
+                case "investigate":
+                    quest.Objectives[$"Investigate {quest.Location}"] = 1;
+                    quest.ObjectiveProgress[$"Investigate {quest.Location}"] = 0;
+                    break;
+                    
+                case "delivery":
+                    if (!string.IsNullOrEmpty(quest.TargetName))
+                    {
+                        quest.Objectives[$"Deliver to {quest.TargetName}"] = 1;
+                        quest.ObjectiveProgress[$"Deliver to {quest.TargetName}"] = 0;
+                    }
+                    break;
+            }
         }
     }
 }
