@@ -624,9 +624,15 @@ public static class StringExtensions
     }
 }
 
-// Extend existing QuestTemplateViewModel with catalog-specific properties
-public partial class QuestTemplateViewModel
+// Quest Template ViewModel
+public class QuestTemplateViewModel
 {
+    public string Name { get; set; } = string.Empty;
+    public string DisplayName { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public int RarityWeight { get; set; } = 100;
+    public int BaseGoldReward { get; set; }
+    public int BaseXpReward { get; set; }
     public string QuestType { get; set; } = string.Empty;
     public string Difficulty { get; set; } = string.Empty;
     public string Location { get; set; } = string.Empty;
@@ -663,4 +669,20 @@ public class LocationDangerNode
     public string DisplayName { get; set; } = string.Empty;
     public int LocationCount { get; set; }
     public LocationCategoryNode? ParentCategory { get; set; }
+}
+
+// Quest Type/Difficulty navigation nodes
+public class QuestTypeNode
+{
+    public string Name { get; set; } = string.Empty;
+    public string DisplayName { get; set; } = string.Empty;
+    public ObservableCollection<QuestDifficultyNode> Difficulties { get; set; } = new();
+}
+
+public class QuestDifficultyNode
+{
+    public string Name { get; set; } = string.Empty;
+    public string DisplayName { get; set; } = string.Empty;
+    public int TemplateCount { get; set; }
+    public QuestTypeNode? ParentQuestType { get; set; }
 }
