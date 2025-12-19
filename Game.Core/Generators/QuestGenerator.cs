@@ -20,7 +20,9 @@ public static class QuestGenerator
     public static Quest Generate()
     {
         var faker = new Faker();
+        #pragma warning disable CS0618 // Type or member is obsolete - TODO: Migrate to v4.0 catalog system
         var data = GameDataService.Instance.QuestTemplates;
+        #pragma warning restore CS0618
         
         // Pick random quest type
         var questType = faker.PickRandom(new[] { "Kill", "Fetch", "Escort", "Investigate", "Delivery" });
@@ -34,7 +36,9 @@ public static class QuestGenerator
     public static Quest GenerateByType(string questType)
     {
         var faker = new Faker();
+        #pragma warning disable CS0618 // Type or member is obsolete - TODO: Migrate to v4.0 catalog system
         var data = GameDataService.Instance.QuestTemplates;
+        #pragma warning restore CS0618
         
         // Pick random difficulty
         var difficulty = faker.PickRandom(new[] { "Easy", "Medium", "Hard" });
@@ -48,7 +52,9 @@ public static class QuestGenerator
     public static Quest GenerateByTypeAndDifficulty(string questType, string difficulty)
     {
         var faker = new Faker();
+        #pragma warning disable CS0618 // Type or member is obsolete - TODO: Migrate to v4.0 catalog system
         var data = GameDataService.Instance.QuestTemplates;
+        #pragma warning restore CS0618
         
         // Get the appropriate difficulty tier
         QuestDifficultyTierData? tierData = questType switch

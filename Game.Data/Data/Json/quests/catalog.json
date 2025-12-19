@@ -1,0 +1,1025 @@
+{
+  "metadata": {
+    "version": "4.0",
+    "last_updated": "2025-12-18",
+    "description": "Quest templates and location catalog for procedural quest generation",
+    "type": "quest_catalog",
+    "notes": "Consolidated from quest_templates.json, wilderness.json, towns.json, and dungeons.json. Supports weighted random selection using rarityWeight formula: probability = 100 / rarityWeight. Templates define quest types with base rewards. Locations are selected separately and populated into template variables like {location}.",
+    "total_templates": 27,
+    "total_locations": 51,
+    "quest_types": ["fetch", "kill", "escort", "delivery", "investigate"],
+    "difficulty_levels": ["easy", "medium", "hard", "epic"],
+    "usage": "Load via GameDataService.QuestCatalog. Use SelectByRarityWeight() for weighted selection of templates and locations. Match location danger/difficulty to quest tier (easy quests = low danger, hard quests = high danger).",
+    "categories": {
+      "templates": [
+        "fetch.easy_fetch",
+        "fetch.medium_fetch",
+        "fetch.hard_fetch",
+        "kill.easy_combat",
+        "kill.medium_combat",
+        "kill.hard_combat",
+        "escort.easy_escort",
+        "escort.medium_escort",
+        "escort.hard_escort",
+        "delivery.easy_delivery",
+        "delivery.medium_delivery",
+        "delivery.hard_delivery",
+        "investigate.easy_investigation",
+        "investigate.medium_investigation",
+        "investigate.hard_investigation"
+      ],
+      "locations": [
+        "wilderness.low_danger",
+        "wilderness.medium_danger",
+        "wilderness.high_danger",
+        "wilderness.very_high_danger",
+        "towns.outposts",
+        "towns.villages",
+        "towns.towns",
+        "towns.cities",
+        "towns.capitals",
+        "towns.special_locations",
+        "dungeons.easy_dungeons",
+        "dungeons.medium_dungeons",
+        "dungeons.hard_dungeons",
+        "dungeons.very_hard_dungeons",
+        "dungeons.epic_dungeons",
+        "dungeons.legendary_dungeons"
+      ]
+    }
+  },
+  "components": {
+    "templates": {
+      "fetch": {
+        "easy_fetch": [
+          {
+            "name": "GatherHerbs",
+            "displayName": "Gather Herbs",
+            "rarityWeight": 10,
+            "questType": "fetch",
+            "difficulty": "easy",
+            "itemType": "herb",
+            "minQuantity": 5,
+            "maxQuantity": 10,
+            "baseGoldReward": 30,
+            "baseXpReward": 50,
+            "location": "Wilderness",
+            "description": "Gather {quantity} {itemType} from the surrounding area"
+          },
+          {
+            "name": "CollectMinerals",
+            "displayName": "Collect Minerals",
+            "rarityWeight": 12,
+            "questType": "fetch",
+            "difficulty": "easy",
+            "itemType": "mineral",
+            "minQuantity": 3,
+            "maxQuantity": 8,
+            "baseGoldReward": 40,
+            "baseXpReward": 60,
+            "location": "Mountain",
+            "description": "Collect {quantity} {itemType} from the mines"
+          },
+          {
+            "name": "GatherWood",
+            "displayName": "Gather Wood",
+            "rarityWeight": 8,
+            "questType": "fetch",
+            "difficulty": "easy",
+            "itemType": "wood",
+            "minQuantity": 10,
+            "maxQuantity": 15,
+            "baseGoldReward": 25,
+            "baseXpReward": 45,
+            "location": "Forest",
+            "description": "Collect {quantity} pieces of quality {itemType}"
+          },
+          {
+            "name": "HuntAnimals",
+            "displayName": "Hunt Animals",
+            "rarityWeight": 15,
+            "questType": "fetch",
+            "difficulty": "easy",
+            "itemType": "pelt",
+            "targetType": "beast",
+            "minQuantity": 3,
+            "maxQuantity": 5,
+            "baseGoldReward": 45,
+            "baseXpReward": 40,
+            "location": "Wilderness",
+            "description": "Hunt {quantity} {animalType} and bring back their pelts"
+          }
+        ],
+        "medium_fetch": [
+          {
+            "name": "RecoverArtifact",
+            "displayName": "Recover the Artifact",
+            "rarityWeight": 30,
+            "questType": "fetch",
+            "difficulty": "medium",
+            "itemType": "questitem",
+            "minQuantity": 1,
+            "maxQuantity": 1,
+            "baseGoldReward": 300,
+            "baseXpReward": 600,
+            "location": "Dungeon",
+            "guardians": true,
+            "timeLimit": 48,
+            "description": "Retrieve the ancient {itemName} from {location}"
+          },
+          {
+            "name": "StealTreasure",
+            "displayName": "Steal the Treasure",
+            "rarityWeight": 35,
+            "questType": "fetch",
+            "difficulty": "medium",
+            "itemType": "treasure",
+            "minQuantity": 1,
+            "maxQuantity": 3,
+            "baseGoldReward": 400,
+            "baseXpReward": 500,
+            "stealthRequired": 70,
+            "moralChoice": "evil",
+            "description": "Steal {quantity} valuable items from the noble's vault"
+          }
+        ],
+        "hard_fetch": [
+          {
+            "name": "FindLegendaryWeapon",
+            "displayName": "Find the Legendary Weapon",
+            "rarityWeight": 60,
+            "questType": "fetch",
+            "difficulty": "hard",
+            "itemType": "weapon",
+            "itemRarity": "legendary",
+            "minQuantity": 1,
+            "maxQuantity": 1,
+            "baseGoldReward": 500,
+            "baseXpReward": 2500,
+            "location": "Ancient Temple",
+            "bossFight": true,
+            "legendary": true,
+            "description": "Seek the legendary {itemName} hidden in {location}"
+          }
+        ]
+      },
+      "kill": {
+        "easy_combat": [
+          {
+            "name": "SlayBeasts",
+            "displayName": "Slay the Beasts",
+            "rarityWeight": 8,
+            "questType": "kill",
+            "difficulty": "easy",
+            "targetType": "beast",
+            "minQuantity": 3,
+            "maxQuantity": 5,
+            "baseGoldReward": 50,
+            "baseXpReward": 100,
+            "timeLimit": 0,
+            "description": "Eliminate {quantity} {target} threatening the area"
+          },
+          {
+            "name": "ClearUndead",
+            "displayName": "Clear the Undead",
+            "rarityWeight": 10,
+            "questType": "kill",
+            "difficulty": "easy",
+            "targetType": "undead",
+            "minQuantity": 4,
+            "maxQuantity": 6,
+            "baseGoldReward": 75,
+            "baseXpReward": 150,
+            "timeLimit": 0,
+            "description": "Cleanse {quantity} {target} from the graveyard"
+          }
+        ],
+        "medium_combat": [
+          {
+            "name": "HuntDemons",
+            "displayName": "Hunt the Demons",
+            "rarityWeight": 35,
+            "questType": "kill",
+            "difficulty": "medium",
+            "targetType": "demon",
+            "minQuantity": 3,
+            "maxQuantity": 4,
+            "baseGoldReward": 200,
+            "baseXpReward": 400,
+            "timeLimit": 72,
+            "failureConsequence": "Village destroyed",
+            "description": "Hunt down {quantity} {target} before they summon reinforcements"
+          },
+          {
+            "name": "BanishElementals",
+            "displayName": "Banish the Elementals",
+            "rarityWeight": 30,
+            "questType": "kill",
+            "difficulty": "medium",
+            "targetType": "elemental",
+            "minQuantity": 2,
+            "maxQuantity": 3,
+            "baseGoldReward": 250,
+            "baseXpReward": 500,
+            "timeLimit": 0,
+            "location": "Ancient Ruins",
+            "description": "Banish {quantity} {target} from {location}"
+          }
+        ],
+        "hard_combat": [
+          {
+            "name": "SlayDragons",
+            "displayName": "Slay the Dragon",
+            "rarityWeight": 70,
+            "questType": "kill",
+            "difficulty": "hard",
+            "targetType": "dragon",
+            "minQuantity": 1,
+            "maxQuantity": 2,
+            "baseGoldReward": 1000,
+            "baseXpReward": 2000,
+            "timeLimit": 168,
+            "failureConsequence": "Kingdom falls",
+            "bonusReward": "Dragon Scales",
+            "legendary": true,
+            "description": "Defeat the legendary {target} terrorizing the mountains"
+          },
+          {
+            "name": "DefeatChampions",
+            "displayName": "Defeat the Champions",
+            "rarityWeight": 55,
+            "questType": "kill",
+            "difficulty": "hard",
+            "targetType": "humanoid",
+            "minQuantity": 3,
+            "maxQuantity": 5,
+            "baseGoldReward": 800,
+            "baseXpReward": 1500,
+            "timeLimit": 96,
+            "pvpQuest": true,
+            "description": "Challenge {quantity} arena champions to prove your worth"
+          }
+        ]
+      },
+      "escort": {
+        "easy_escort": [
+          {
+            "name": "EscortMerchant",
+            "displayName": "Escort the Merchant",
+            "rarityWeight": 12,
+            "questType": "escort",
+            "difficulty": "easy",
+            "npcType": "merchant",
+            "baseGoldReward": 60,
+            "baseXpReward": 120,
+            "distance": "short",
+            "ambushChance": 30,
+            "npcCanDie": false,
+            "description": "Escort the merchant safely to the next town"
+          },
+          {
+            "name": "GuideTraveler",
+            "displayName": "Guide the Traveler",
+            "rarityWeight": 10,
+            "questType": "escort",
+            "difficulty": "easy",
+            "npcType": "civilian",
+            "baseGoldReward": 40,
+            "baseXpReward": 80,
+            "distance": "short",
+            "ambushChance": 20,
+            "npcCanDie": false,
+            "description": "Guide the lost traveler back to civilization"
+          }
+        ],
+        "medium_escort": [
+          {
+            "name": "ProtectNoble",
+            "displayName": "Protect the Noble",
+            "rarityWeight": 32,
+            "questType": "escort",
+            "difficulty": "medium",
+            "npcType": "noble",
+            "baseGoldReward": 350,
+            "baseXpReward": 700,
+            "distance": "medium",
+            "ambushChance": 60,
+            "npcCanDie": true,
+            "failureConsequence": "War declared",
+            "description": "Guard the noble on their journey through dangerous territory"
+          },
+          {
+            "name": "EscortWizard",
+            "displayName": "Escort the Wizard",
+            "rarityWeight": 38,
+            "questType": "escort",
+            "difficulty": "medium",
+            "npcType": "magical",
+            "baseGoldReward": 400,
+            "baseXpReward": 800,
+            "distance": "medium",
+            "ambushChance": 70,
+            "npcCanDie": true,
+            "failureConsequence": "Knowledge lost",
+            "description": "Protect the wizard carrying dangerous artifacts to the academy"
+          }
+        ],
+        "hard_escort": [
+          {
+            "name": "EscortProphet",
+            "displayName": "Escort the Prophet",
+            "rarityWeight": 65,
+            "questType": "escort",
+            "difficulty": "hard",
+            "npcType": "religious",
+            "baseGoldReward": 700,
+            "baseXpReward": 1800,
+            "distance": "long",
+            "ambushChance": 90,
+            "npcCanDie": true,
+            "timeLimit": 120,
+            "legendary": true,
+            "description": "Protect the prophet from assassins during their pilgrimage"
+          }
+        ]
+      },
+      "delivery": {
+        "easy_delivery": [
+          {
+            "name": "DeliverMessage",
+            "displayName": "Deliver the Message",
+            "rarityWeight": 8,
+            "questType": "delivery",
+            "difficulty": "easy",
+            "itemFragile": false,
+            "baseGoldReward": 25,
+            "baseXpReward": 40,
+            "distance": "short",
+            "urgent": false,
+            "description": "Deliver this message to the recipient in the neighboring town"
+          },
+          {
+            "name": "DeliverPackage",
+            "displayName": "Deliver the Package",
+            "rarityWeight": 10,
+            "questType": "delivery",
+            "difficulty": "easy",
+            "itemFragile": false,
+            "baseGoldReward": 35,
+            "baseXpReward": 60,
+            "distance": "short",
+            "urgent": false,
+            "description": "Bring this package to {recipient} in {destination}"
+          }
+        ],
+        "medium_delivery": [
+          {
+            "name": "TransportGoods",
+            "displayName": "Transport the Goods",
+            "rarityWeight": 28,
+            "questType": "delivery",
+            "difficulty": "medium",
+            "itemFragile": true,
+            "baseGoldReward": 220,
+            "baseXpReward": 450,
+            "distance": "medium",
+            "timeLimit": 48,
+            "bandits": true,
+            "description": "Transport fragile goods safely across dangerous roads"
+          },
+          {
+            "name": "UrgentDelivery",
+            "displayName": "Urgent Delivery",
+            "rarityWeight": 32,
+            "questType": "delivery",
+            "difficulty": "medium",
+            "itemFragile": false,
+            "baseGoldReward": 280,
+            "baseXpReward": 500,
+            "distance": "medium",
+            "timeLimit": 24,
+            "urgent": true,
+            "description": "Rush this urgent delivery across the kingdom before time runs out"
+          }
+        ],
+        "hard_delivery": [
+          {
+            "name": "DeliverRelic",
+            "displayName": "Deliver the Sacred Relic",
+            "rarityWeight": 60,
+            "questType": "delivery",
+            "difficulty": "hard",
+            "itemFragile": true,
+            "baseGoldReward": 650,
+            "baseXpReward": 1600,
+            "distance": "long",
+            "timeLimit": 72,
+            "cursed": true,
+            "pursued": true,
+            "legendary": true,
+            "description": "Deliver the cursed relic while evading those who hunt it"
+          }
+        ]
+      },
+      "investigate": {
+        "easy_investigation": [
+          {
+            "name": "FindClues",
+            "displayName": "Find the Clues",
+            "rarityWeight": 15,
+            "questType": "investigate",
+            "difficulty": "easy",
+            "minClues": 3,
+            "maxClues": 5,
+            "baseGoldReward": 80,
+            "baseXpReward": 150,
+            "location": "Village",
+            "combatOptional": true,
+            "description": "Investigate the mysterious occurrences in {location}"
+          },
+          {
+            "name": "TrackThief",
+            "displayName": "Track the Thief",
+            "rarityWeight": 12,
+            "questType": "investigate",
+            "difficulty": "easy",
+            "minClues": 4,
+            "maxClues": 6,
+            "baseGoldReward": 100,
+            "baseXpReward": 180,
+            "location": "Town",
+            "combatOptional": true,
+            "description": "Follow the clues to catch the thief who stole from the market"
+          }
+        ],
+        "medium_investigation": [
+          {
+            "name": "SolveMystery",
+            "displayName": "Solve the Mystery",
+            "rarityWeight": 35,
+            "questType": "investigate",
+            "difficulty": "medium",
+            "minClues": 5,
+            "maxClues": 8,
+            "baseGoldReward": 300,
+            "baseXpReward": 550,
+            "location": "Manor",
+            "timeLimit": 72,
+            "multipleEndings": true,
+            "description": "Uncover the truth behind the strange events at {location}"
+          },
+          {
+            "name": "InvestigateMurder",
+            "displayName": "Investigate the Murder",
+            "rarityWeight": 40,
+            "questType": "investigate",
+            "difficulty": "medium",
+            "minClues": 6,
+            "maxClues": 10,
+            "baseGoldReward": 350,
+            "baseXpReward": 650,
+            "location": "City",
+            "timeLimit": 48,
+            "multipleEndings": true,
+            "description": "Solve the murder case before the trail goes cold"
+          }
+        ],
+        "hard_investigation": [
+          {
+            "name": "UncoverConspiracy",
+            "displayName": "Uncover the Conspiracy",
+            "rarityWeight": 70,
+            "questType": "investigate",
+            "difficulty": "hard",
+            "minClues": 10,
+            "maxClues": 15,
+            "baseGoldReward": 900,
+            "baseXpReward": 2200,
+            "timeLimit": 96,
+            "stealth": 80,
+            "betrayal": true,
+            "legendary": true,
+            "description": "Expose the conspiracy threatening the kingdom"
+          }
+        ]
+      }
+    },
+    "locations": {
+      "wilderness": {
+        "low_danger": [
+          {
+            "name": "GoldenPlains",
+            "displayName": "Golden Plains",
+            "rarityWeight": 10,
+            "description": "Peaceful grasslands perfect for travel",
+            "terrain": "Plains",
+            "danger": "Low",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "MistyHills",
+            "displayName": "Misty Hills",
+            "rarityWeight": 12,
+            "description": "Rolling hills shrouded in fog",
+            "terrain": "Hills",
+            "danger": "Low",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "SilverLake",
+            "displayName": "Silver Lake",
+            "rarityWeight": 15,
+            "description": "Tranquil body of water reflecting moonlight",
+            "terrain": "Lake",
+            "danger": "Low",
+            "locationType": "wilderness"
+          }
+        ],
+        "medium_danger": [
+          {
+            "name": "DarkwoodForest",
+            "displayName": "Darkwood Forest",
+            "rarityWeight": 25,
+            "description": "Dense woods with little sunlight",
+            "terrain": "Forest",
+            "danger": "Medium",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "EndlessDesert",
+            "displayName": "Endless Desert",
+            "rarityWeight": 28,
+            "description": "Vast wasteland of sand and heat",
+            "terrain": "Desert",
+            "danger": "Medium",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "CrystalCaverns",
+            "displayName": "Crystal Caverns",
+            "rarityWeight": 32,
+            "description": "Underground cave network with glowing crystals",
+            "terrain": "Underground",
+            "danger": "Medium",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "StormyCoast",
+            "displayName": "Stormy Coast",
+            "rarityWeight": 30,
+            "description": "Rocky shoreline battered by waves",
+            "terrain": "Coastal",
+            "danger": "Medium",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "WhisperingWoods",
+            "displayName": "Whispering Woods",
+            "rarityWeight": 35,
+            "description": "Enchanted forest with strange voices",
+            "terrain": "Forest",
+            "danger": "Medium",
+            "locationType": "wilderness"
+          }
+        ],
+        "high_danger": [
+          {
+            "name": "CrimsonPeaks",
+            "displayName": "Crimson Peaks",
+            "rarityWeight": 50,
+            "description": "Treacherous mountain range",
+            "terrain": "Mountain",
+            "danger": "High",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "FrozenTundra",
+            "displayName": "Frozen Tundra",
+            "rarityWeight": 55,
+            "description": "Icy plains of eternal winter",
+            "terrain": "Tundra",
+            "danger": "High",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "PoisonSwamp",
+            "displayName": "Poison Swamp",
+            "rarityWeight": 58,
+            "description": "Murky wetlands filled with toxic gases",
+            "terrain": "Swamp",
+            "danger": "High",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "AncientBattlefield",
+            "displayName": "Ancient Battlefield",
+            "rarityWeight": 60,
+            "description": "Site of historic war, now haunted",
+            "terrain": "Plains",
+            "danger": "High",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "ShatteredIsles",
+            "displayName": "Shattered Isles",
+            "rarityWeight": 65,
+            "description": "Archipelago of floating islands",
+            "terrain": "Sky Islands",
+            "danger": "High",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "JungleOfFangs",
+            "displayName": "Jungle of Fangs",
+            "rarityWeight": 62,
+            "description": "Tropical rainforest teeming with predators",
+            "terrain": "Jungle",
+            "danger": "High",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "TheGreatRift",
+            "displayName": "The Great Rift",
+            "rarityWeight": 68,
+            "description": "Massive canyon splitting the continent",
+            "terrain": "Canyon",
+            "danger": "High",
+            "locationType": "wilderness"
+          }
+        ],
+        "very_high_danger": [
+          {
+            "name": "VolcanicWastelands",
+            "displayName": "Volcanic Wastelands",
+            "rarityWeight": 100,
+            "description": "Scorched earth with active lava flows",
+            "terrain": "Volcanic",
+            "danger": "Very High",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "DeadLands",
+            "displayName": "Dead Lands",
+            "rarityWeight": 110,
+            "description": "Cursed region where nothing grows",
+            "terrain": "Wasteland",
+            "danger": "Very High",
+            "locationType": "wilderness"
+          },
+          {
+            "name": "BloodMoors",
+            "displayName": "Blood Moors",
+            "rarityWeight": 115,
+            "description": "Crimson marshlands with carnivorous plants",
+            "terrain": "Swamp",
+            "danger": "Very High",
+            "locationType": "wilderness"
+          }
+        ]
+      },
+      "towns": {
+        "outposts": [
+          {
+            "name": "Crossroads",
+            "displayName": "Crossroads",
+            "rarityWeight": 8,
+            "description": "Trading outpost at intersection of major roads",
+            "size": "Outpost",
+            "population": "Tiny",
+            "locationType": "settlement"
+          }
+        ],
+        "villages": [
+          {
+            "name": "Riverside",
+            "displayName": "Riverside",
+            "rarityWeight": 10,
+            "description": "Peaceful farming village by the river",
+            "size": "Village",
+            "population": "Small",
+            "locationType": "settlement"
+          },
+          {
+            "name": "Oakshire",
+            "displayName": "Oakshire",
+            "rarityWeight": 15,
+            "description": "Woodland village of elven inhabitants",
+            "size": "Village",
+            "population": "Small",
+            "locationType": "settlement"
+          },
+          {
+            "name": "FrostPeak",
+            "displayName": "Frost Peak",
+            "rarityWeight": 18,
+            "description": "Mountain settlement in eternal winter",
+            "size": "Village",
+            "population": "Small",
+            "locationType": "settlement"
+          }
+        ],
+        "towns": [
+          {
+            "name": "Ironforge",
+            "displayName": "Ironforge",
+            "rarityWeight": 25,
+            "description": "Dwarven mining town in the mountains",
+            "size": "Town",
+            "population": "Medium",
+            "locationType": "settlement"
+          },
+          {
+            "name": "Ravenhollow",
+            "displayName": "Ravenhollow",
+            "rarityWeight": 35,
+            "description": "Mysterious town shrouded in perpetual mist",
+            "size": "Town",
+            "population": "Small",
+            "locationType": "settlement"
+          },
+          {
+            "name": "Sandstone",
+            "displayName": "Sandstone",
+            "rarityWeight": 28,
+            "description": "Desert oasis town",
+            "size": "Town",
+            "population": "Medium",
+            "locationType": "settlement"
+          },
+          {
+            "name": "Ashborough",
+            "displayName": "Ashborough",
+            "rarityWeight": 32,
+            "description": "Town rebuilt after volcanic destruction",
+            "size": "Town",
+            "population": "Medium",
+            "locationType": "settlement"
+          },
+          {
+            "name": "CrimsonHarbor",
+            "displayName": "Crimson Harbor",
+            "rarityWeight": 40,
+            "description": "Pirate haven and black market hub",
+            "size": "Town",
+            "population": "Medium",
+            "locationType": "settlement"
+          }
+        ],
+        "cities": [
+          {
+            "name": "Silverport",
+            "displayName": "Silverport",
+            "rarityWeight": 50,
+            "description": "Bustling coastal trading city",
+            "size": "City",
+            "population": "Large",
+            "locationType": "settlement"
+          },
+          {
+            "name": "Stormhaven",
+            "displayName": "Stormhaven",
+            "rarityWeight": 55,
+            "description": "Fortified city that withstands constant attacks",
+            "size": "City",
+            "population": "Large",
+            "locationType": "settlement"
+          },
+          {
+            "name": "TheNexus",
+            "displayName": "The Nexus",
+            "rarityWeight": 80,
+            "description": "Magical city floating in the sky",
+            "size": "City",
+            "population": "Large",
+            "locationType": "settlement"
+          },
+          {
+            "name": "Sanctuary",
+            "displayName": "Sanctuary",
+            "rarityWeight": 70,
+            "description": "Holy city of temples and shrines",
+            "size": "City",
+            "population": "Large",
+            "locationType": "settlement"
+          }
+        ],
+        "capitals": [
+          {
+            "name": "GoldenSpire",
+            "displayName": "Golden Spire",
+            "rarityWeight": 100,
+            "description": "Capital city with towering cathedral",
+            "size": "Capital",
+            "population": "Massive",
+            "locationType": "settlement"
+          }
+        ],
+        "special_locations": [
+          {
+            "name": "DeadwoodGrove",
+            "displayName": "Deadwood Grove",
+            "rarityWeight": 60,
+            "description": "Abandoned village slowly being reclaimed by forest",
+            "size": "Village",
+            "population": "Abandoned",
+            "locationType": "settlement"
+          }
+        ]
+      },
+      "dungeons": {
+        "easy_dungeons": [
+          {
+            "name": "BanditHideout",
+            "displayName": "Bandit Hideout",
+            "rarityWeight": 15,
+            "description": "Fortified camp of outlaws",
+            "type": "Camp",
+            "difficulty": "Easy",
+            "enemy_types": ["Humanoids"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "GoblinWarrens",
+            "displayName": "Goblin Warrens",
+            "rarityWeight": 12,
+            "description": "Sprawling network of tunnels",
+            "type": "Tunnels",
+            "difficulty": "Easy",
+            "enemy_types": ["Goblinoids"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "SpiderNest",
+            "displayName": "Spider Nest",
+            "rarityWeight": 18,
+            "description": "Web-filled cave of giant spiders",
+            "type": "Cave",
+            "difficulty": "Easy",
+            "enemy_types": ["Insects"],
+            "locationType": "dungeon"
+          }
+        ],
+        "medium_dungeons": [
+          {
+            "name": "CryptOfShadows",
+            "displayName": "Crypt of Shadows",
+            "rarityWeight": 30,
+            "description": "Ancient burial ground filled with undead",
+            "type": "Crypt",
+            "difficulty": "Medium",
+            "enemy_types": ["Undead"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "ForgottenTemple",
+            "displayName": "Forgotten Temple",
+            "rarityWeight": 35,
+            "description": "Ruins of an ancient civilization",
+            "type": "Ruins",
+            "difficulty": "Medium",
+            "enemy_types": ["Undead", "Demons"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "IceCaverns",
+            "displayName": "Ice Caverns",
+            "rarityWeight": 32,
+            "description": "Frozen caves in the northern mountains",
+            "type": "Cave",
+            "difficulty": "Medium",
+            "enemy_types": ["Beasts", "Trolls"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "SwampLair",
+            "displayName": "Swamp Lair",
+            "rarityWeight": 28,
+            "description": "Murky den of monsters",
+            "type": "Lair",
+            "difficulty": "Medium",
+            "enemy_types": ["Reptilians", "Insects"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "DwarvenMines",
+            "displayName": "Dwarven Mines",
+            "rarityWeight": 25,
+            "description": "Abandoned mines infested with creatures",
+            "type": "Mine",
+            "difficulty": "Medium",
+            "enemy_types": ["Goblinoids", "Trolls"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "EnchantedForest",
+            "displayName": "Enchanted Forest",
+            "rarityWeight": 38,
+            "description": "Magical woods with hostile plant life",
+            "type": "Forest",
+            "difficulty": "Medium",
+            "enemy_types": ["Plants", "Beasts"],
+            "locationType": "dungeon"
+          }
+        ],
+        "hard_dungeons": [
+          {
+            "name": "ArcaneLibrary",
+            "displayName": "Arcane Library",
+            "rarityWeight": 55,
+            "description": "Tower filled with magical knowledge and guardians",
+            "type": "Tower",
+            "difficulty": "Hard",
+            "enemy_types": ["Elementals", "Demons"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "AncientCatacombs",
+            "displayName": "Ancient Catacombs",
+            "rarityWeight": 50,
+            "description": "Massive underground burial complex",
+            "type": "Catacombs",
+            "difficulty": "Hard",
+            "enemy_types": ["Undead"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "OrcStronghold",
+            "displayName": "Orc Stronghold",
+            "rarityWeight": 52,
+            "description": "Fortified war camp of orc tribes",
+            "type": "Fortress",
+            "difficulty": "Hard",
+            "enemy_types": ["Orcs"],
+            "locationType": "dungeon"
+          }
+        ],
+        "very_hard_dungeons": [
+          {
+            "name": "DragonLair",
+            "displayName": "Dragon's Lair",
+            "rarityWeight": 90,
+            "description": "Volcanic cave housing a mighty dragon",
+            "type": "Cave",
+            "difficulty": "Very Hard",
+            "enemy_types": ["Dragons", "Elementals"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "NecromancersTower",
+            "displayName": "Necromancer's Tower",
+            "rarityWeight": 85,
+            "description": "Dark spire of death magic",
+            "type": "Tower",
+            "difficulty": "Very Hard",
+            "enemy_types": ["Undead"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "VampireCastle",
+            "displayName": "Vampire Castle",
+            "rarityWeight": 95,
+            "description": "Gothic fortress of vampiric lords",
+            "type": "Castle",
+            "difficulty": "Very Hard",
+            "enemy_types": ["Vampires", "Undead"],
+            "locationType": "dungeon"
+          }
+        ],
+        "epic_dungeons": [
+          {
+            "name": "AbyssalDepths",
+            "displayName": "Abyssal Depths",
+            "rarityWeight": 130,
+            "description": "Demonic realm accessible through portal",
+            "type": "Plane",
+            "difficulty": "Epic",
+            "enemy_types": ["Demons"],
+            "locationType": "dungeon"
+          },
+          {
+            "name": "ElementalPlane",
+            "displayName": "Elemental Plane",
+            "rarityWeight": 140,
+            "description": "Realm of pure elemental energy",
+            "type": "Plane",
+            "difficulty": "Epic",
+            "enemy_types": ["Elementals"],
+            "locationType": "dungeon"
+          }
+        ],
+        "legendary_dungeons": [
+          {
+            "name": "ShadowRealm",
+            "displayName": "Shadow Realm",
+            "rarityWeight": 200,
+            "description": "Dark dimension between worlds",
+            "type": "Plane",
+            "difficulty": "Legendary",
+            "enemy_types": ["Demons", "Undead", "Vampires"],
+            "locationType": "dungeon"
+          }
+        ]
+      }
+    }
+  }
+}

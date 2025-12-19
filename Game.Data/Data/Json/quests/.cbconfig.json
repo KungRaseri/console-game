@@ -1,14 +1,27 @@
 {
   "icon": "BookOpenPageVariant",
   "displayName": "Quests",
-  "description": "Quest definitions - locations, objectives, rewards, and templates for procedural generation",
+  "description": "Quest catalog v4.0 - templates, locations, objectives, and rewards for procedural quest generation",
   "sortOrder": 40,
   "fileIcons": {
-    "locations": "MapMarker",
+    "catalog": "BookOpenPageVariant",
     "objectives": "Target",
-    "rewards": "TreasureChest",
-    "templates": "FileDocument"
+    "rewards": "TreasureChest"
   },
   "defaultFileIcon": "Scroll",
-  "showFileCount": true
+  "showFileCount": true,
+  "children": [
+    {
+      "name": "catalog.json",
+      "description": "Quest templates (fetch, kill, escort, delivery, investigate) and all locations (wilderness, towns, dungeons)"
+    },
+    {
+      "name": "objectives.json",
+      "description": "Primary, secondary, and hidden quest objectives with weighted selection"
+    },
+    {
+      "name": "rewards.json",
+      "description": "Item, gold, and experience rewards with scaling formulas"
+    }
+  ]
 }

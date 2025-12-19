@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Game.Shared.Data;
 using Game.Shared.Data.Models;
 using Serilog;
 
@@ -59,7 +60,13 @@ public class GameDataService
     [Obsolete("Use NpcCatalog instead")]
     public OccupationData Occupations { get; private set; } = new();
     
-    // Quest data
+    // Quest data - v4.0 catalog-based system
+    public QuestCatalogData QuestCatalog { get; private set; } = new();
+    public QuestObjectivesData QuestObjectives { get; private set; } = new();
+    public QuestRewardsData QuestRewards { get; private set; } = new();
+    
+    // Legacy Quest data (deprecated - use catalog-based system above)
+    [Obsolete("Use QuestCatalog instead")]
     public QuestTemplatesData QuestTemplates { get; private set; } = new();
     
     // General data
@@ -166,8 +173,15 @@ public class GameDataService
             Occupations = new OccupationData(); // Empty - use NpcCatalog instead
             #pragma warning restore CS0618
             
-            // Load quest data (now split into multiple files - load main one for now)
-            QuestTemplates = LoadJson<QuestTemplatesData>("quests/templates/kill.json");
+            // Load quest data - v4.0 catalog-based system
+            QuestCatalog = LoadJson<QuestCatalogData>("quests/catalog.json");
+            QuestObjectives = LoadJson<QuestObjectivesData>("quests/objectives.json");
+            QuestRewards = LoadJson<QuestRewardsData>("quests/rewards.json");
+            
+            // Legacy quest data - kept for backwards compatibility
+            #pragma warning disable CS0618 // Type or member is obsolete
+            QuestTemplates = new QuestTemplatesData(); // Empty - use QuestCatalog instead
+            #pragma warning restore CS0618
             
             // Load general data
             Adjectives = LoadJson<AdjectiveData>("general/adjectives.json");
