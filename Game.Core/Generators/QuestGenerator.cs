@@ -4,6 +4,7 @@ using Game.Shared.Data.Models;
 using Game.Core.Models;
 using Game.Core.Services;
 using Game.Core.Utilities;
+using Game.Shared.Models;
 using Serilog;
 
 namespace Game.Core.Generators;
@@ -212,7 +213,7 @@ public static class QuestGenerator
         }
         
         // Store template name for reference
-        quest.Traits["templateName"] = new TraitValue(template.Name);
+        quest.Traits["templateName"] = new TraitValue(template.Name, TraitType.String);
     }
     
     /// <summary>
@@ -304,7 +305,7 @@ public static class QuestGenerator
         
         // Generate item name
         quest.TargetName = GenerateItemName(itemType, faker);
-        quest.Traits["itemRarity"] = new TraitValue(itemRarity);
+        quest.Traits["itemRarity"] = new TraitValue(itemRarity, TraitType.String);
     }
     
     /// <summary>
@@ -316,7 +317,7 @@ public static class QuestGenerator
         var npcType = template.NpcType ?? "merchant";
         var npc = NpcGenerator.Generate();
         quest.TargetName = npc.Name;
-        quest.Traits["npcType"] = new TraitValue(npcType);
+        quest.Traits["npcType"] = new TraitValue(npcType, TraitType.String);
         
         // Use provided location or generate one
         if (location != null)
@@ -336,7 +337,7 @@ public static class QuestGenerator
         // Store investigation type
         if (!string.IsNullOrEmpty(template.Location))
         {
-            quest.Traits["investigationType"] = new TraitValue(template.Location);
+            quest.Traits["investigationType"] = new TraitValue(template.Location, TraitType.String);
         }
     }
     
@@ -351,13 +352,13 @@ public static class QuestGenerator
         // Mark if urgent or fragile
         if (template.Urgent.HasValue && template.Urgent.Value)
         {
-            quest.Traits["urgent"] = new TraitValue(true);
+            quest.Traits["urgent"] = new TraitValue(true, TraitType.Boolean);
             quest.TimeLimit = faker.Random.Int(2, 6); // 2-6 hours for urgent deliveries
         }
         
         if (template.ItemFragile.HasValue && template.ItemFragile.Value)
         {
-            quest.Traits["fragile"] = new TraitValue(true);
+            quest.Traits["fragile"] = new TraitValue(true, TraitType.Boolean);
         }
         
         // Use provided location
@@ -384,152 +385,7 @@ public static class QuestGenerator
             .Replace("{itemName}", quest.TargetName)
             .Replace("{npcName}", quest.TargetName);
     }
-    
-    /// <summary>
-    /// Generate a default fallback quest.
-    /// </summary>
-    private static Quest GenerateDefaultQuest()
-    {
-        // Get target type from traits
-        if (quest.Traits.ContainsKey("targetType"))
-        {
-            quest.TargetType = quest.Traits["targetType"].AsString();
-        }
-        
-        // Determine quantity
-        int minQty = quest.Traits.ContainsKey("minQuantity") ? quest.Traits["minQuantity"].AsInt() : 1;
-        int maxQty = quest.Traits.ContainsKey("maxQuantity") ? quest.Traits["maxQuantity"].AsInt() : 5;
-        quest.Quantity = faker.Random.Int(minQty, maxQty);
-        
-        // Generate specific enemy name using enemy generator
-        if (!string.IsNullOrEmpty(quest.TargetType))
-        {
-            // Use quest difficulty to determine enemy level
-            int baseLevel = quest.Difficulty.ToLower() switch
-            {
-                "easy" => 5,
-                "medium" => 15,
-                "hard" => 30,
-                _ => 10
-            };
-            
-            var enemy = EnemyGenerator.GenerateByType(
-                GetEnemyTypeFromString(quest.TargetType),
-                baseLevel,
-                GetDifficultyFromQuestDifficulty(quest.Difficulty)
-            );
-            quest.TargetName = enemy.Name;
-            
-            // Scale rewards based on enemy strength
-            quest.GoldReward = (int)(quest.GoldReward * (1 + enemy.Level * 0.1));
-            quest.XpReward = (int)(quest.XpReward * (1 + enemy.Level * 0.1));
-        }
-        
-        // Generate location if not set
-        if (string.IsNullOrEmpty(quest.Location))
-        {
-            quest.Location = GenerateLocation(quest.TargetType, faker);
-        }
-    }
-    
-    /// <summary>
-    /// Generate fetch quest details (item type, quantity, etc.).
-    /// </summary>
-    private static void GenerateFetchQuestDetails(Quest quest, Faker faker)
-    {
-        // Determine quantity
-        int minQty = quest.Traits.ContainsKey("minQuantity") ? quest.Traits["minQuantity"].AsInt() : 1;
-        int maxQty = quest.Traits.ContainsKey("maxQuantity") ? quest.Traits["maxQuantity"].AsInt() : 10;
-        quest.Quantity = faker.Random.Int(minQty, maxQty);
-        
-        // Generate item names based on item type
-        if (quest.Traits.ContainsKey("itemType"))
-        {
-            var itemType = quest.Traits["itemType"].AsString();
-            quest.TargetName = GenerateItemName(itemType, faker);
-        }
-        
-        // Generate location if not set
-        if (string.IsNullOrEmpty(quest.Location))
-        {
-            quest.Location = faker.PickRandom("Forest", "Cave", "Dungeon", "Ruins", "Mountains", "Swamp");
-        }
-    }
-    
-    /// <summary>
-    /// Generate escort quest details.
-    /// </summary>
-    private static void GenerateEscortQuestDetails(Quest quest, Faker faker)
-    {
-        // Generate NPC to escort
-        var npc = NpcGenerator.Generate();
-        quest.TargetName = npc.Name;
-        
-        // Set location based on distance
-        var distance = quest.Traits.ContainsKey("distance") ? quest.Traits["distance"].AsString() : "short";
-        quest.Location = distance switch
-        {
-            "short" => faker.PickRandom("Nearby Town", "Next Village", "Trading Post"),
-            "medium" => faker.PickRandom("Distant City", "Port Town", "Mountain Fortress"),
-            "long" => faker.PickRandom("Capital City", "Foreign Kingdom", "Sacred Temple"),
-            _ => "Unknown Destination"
-        };
-    }
-    
-    /// <summary>
-    /// Generate investigate quest details.
-    /// </summary>
-    private static void GenerateInvestigateQuestDetails(Quest quest, Faker faker)
-    {
-        // Determine number of clues
-        int minClues = quest.Traits.ContainsKey("minClues") ? quest.Traits["minClues"].AsInt() : 3;
-        int maxClues = quest.Traits.ContainsKey("maxClues") ? quest.Traits["maxClues"].AsInt() : 8;
-        quest.Quantity = faker.Random.Int(minClues, maxClues);
-        
-        quest.TargetName = "clues";
-    }
-    
-    /// <summary>
-    /// Generate delivery quest details.
-    /// </summary>
-    private static void GenerateDeliveryQuestDetails(Quest quest, Faker faker)
-    {
-        // Generate package/item name
-        quest.TargetName = faker.PickRandom("Package", "Letter", "Crate", "Parcel", "Documents");
-        
-        // Set destination based on distance
-        var distance = quest.Traits.ContainsKey("distance") ? quest.Traits["distance"].AsString() : "short";
-        quest.Location = distance switch
-        {
-            "short" => faker.PickRandom("Nearby Town", "Next Village"),
-            "medium" => faker.PickRandom("Distant City", "Trading Hub"),
-            "long" => faker.PickRandom("Capital", "Foreign Land", "Remote Outpost"),
-            _ => "Unknown Location"
-        };
-    }
-    
-    /// <summary>
-    /// Generate quest description from template.
-    /// </summary>
-    private static void GenerateDescription(Quest quest)
-    {
-        if (quest.Traits.ContainsKey("description"))
-        {
-            var template = quest.Traits["description"].AsString();
-            
-            // Replace placeholders
-            quest.Description = template
-                .Replace("{quantity}", quest.Quantity.ToString())
-                .Replace("{target}", quest.TargetName)
-                .Replace("{location}", quest.Location)
-                .Replace("{itemName}", quest.TargetName);
-        }
-        else
-        {
-            quest.Description = $"{quest.Title}: A {quest.Difficulty} {quest.QuestType} quest.";
-        }
-    }
-    
+
     /// <summary>
     /// Assign a quest giver NPC.
     /// </summary>
@@ -603,20 +459,6 @@ public static class QuestGenerator
     /// <summary>
     /// Generate a location based on target type.
     /// </summary>
-    private static string GenerateLocation(string targetType, Faker faker)
-    {
-        return targetType.ToLower() switch
-        {
-            "beast" => faker.PickRandom("Forest", "Wilderness", "Jungle", "Plains"),
-            "undead" => faker.PickRandom("Graveyard", "Crypt", "Ruins", "Haunted Manor"),
-            "demon" => faker.PickRandom("Hell Gate", "Demonic Portal", "Corrupted Temple", "Abyss"),
-            "elemental" => faker.PickRandom("Elemental Plane", "Volcano", "Storm Peak", "Ancient Ruins"),
-            "dragon" => faker.PickRandom("Dragon's Lair", "Mountain Peak", "Ancient Cave", "Sky Fortress"),
-            "humanoid" => faker.PickRandom("Bandit Camp", "Fort", "Village", "Arena"),
-            _ => faker.PickRandom("Unknown Location", "Mysterious Place", "Dangerous Area")
-        };
-    }
-    
     /// <summary>
     /// Generate an item name based on item type.
     /// </summary>
@@ -631,31 +473,6 @@ public static class QuestGenerator
             "weapon" => faker.PickRandom("Legendary Sword", "Enchanted Bow", "Mystic Staff"),
             _ => faker.PickRandom("Mysterious Item", "Unknown Object")
         };
-    }
-    
-    /// <summary>
-    /// Determine quest type (main, side, legendary) based on template and quest type (Phase 4).
-    /// </summary>
-    private static string DetermineQuestType(QuestTemplateTraitData template, string questType)
-    {
-        // Check if template has explicit quest type trait
-        if (template.Traits.ContainsKey("questCategory"))
-        {
-            return template.Traits["questCategory"].AsString();
-        }
-        
-        // Hard difficulty quests have a chance to be legendary
-        if (template.Traits.ContainsKey("baseGoldReward"))
-        {
-            var goldReward = template.Traits["baseGoldReward"].AsInt();
-            if (goldReward > 500)
-            {
-                return "legendary";
-            }
-        }
-        
-        // Default to side quest
-        return "side";
     }
     
     /// <summary>
