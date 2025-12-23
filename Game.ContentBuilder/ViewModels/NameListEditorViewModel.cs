@@ -22,25 +22,21 @@ public partial class NameListEditorViewModel : ObservableObject
     [ObservableProperty]
     private NameListMetadata _metadata = new();
 
-    // v4 pattern tokens
-    [ObservableProperty]
-    private ObservableCollection<string> _patternTokens = new();
-
-    // v4 componentKeys
-    [ObservableProperty]
-    private ObservableCollection<string> _componentKeys = new();
-
     [ObservableProperty]
     private ObservableCollection<string> _componentNames = new();
 
+
+    // Each component group is a list of dictionaries (dynamic fields)
     [ObservableProperty]
-    private Dictionary<string, ObservableCollection<ComponentGroup>> _components = new();
+    private Dictionary<string, ObservableCollection<Dictionary<string, object>>> _components = new();
 
     [ObservableProperty]
     private ObservableCollection<string> _patternNames = new();
 
+
+    // Each pattern group is a list of dictionaries (dynamic fields)
     [ObservableProperty]
-    private Dictionary<string, ObservableCollection<PatternComponent>> _patterns = new();
+    private Dictionary<string, ObservableCollection<Dictionary<string, object>>> _patterns = new();
 
 
     [ObservableProperty]
@@ -65,56 +61,68 @@ public partial class NameListEditorViewModel : ObservableObject
             var root = JObject.Parse(json);
 
             // Metadata
-            JObject? metadataObj = null;
             if (root["metadata"] is JObject mObj)
             {
-                metadataObj = mObj;
                 Metadata = mObj.ToObject<NameListMetadata>() ?? new NameListMetadata();
             }
+            else
+            {
+                Metadata = new NameListMetadata();
+            }
 
-            // Dynamic components
-            Components.Clear();
-            ComponentNames.Clear();
+            // Components (dynamic, generic dictionaries)
+            var newComponents = new Dictionary<string, ObservableCollection<Dictionary<string, object>>>();
+            var newComponentNames = new ObservableCollection<string>();
             if (root["components"] is JObject compsObj)
             {
                 foreach (var prop in compsObj.Properties())
                 {
                     var name = prop.Name;
-                    ComponentNames.Add(name);
-                    var list = new ObservableCollection<ComponentGroup>();
+                    newComponentNames.Add(name);
+                    var list = new ObservableCollection<Dictionary<string, object>>();
                     if (prop.Value is JArray arr)
                     {
                         foreach (var obj in arr)
                         {
-                            var comp = obj.ToObject<ComponentGroup>();
-                            if (comp != null) list.Add(comp);
+                            if (obj is JObject jobj)
+                            {
+                                var dict = jobj.ToObject<Dictionary<string, object>>();
+                                if (dict != null) list.Add(dict);
+                            }
                         }
                     }
-                    Components[name] = list;
+                    newComponents[name] = list;
                 }
             }
+            Components = newComponents;
+            ComponentNames = newComponentNames;
 
-            // Dynamic patterns
-            Patterns.Clear();
-            PatternNames.Clear();
+            // Patterns (dynamic, generic dictionaries)
+            var newPatterns = new Dictionary<string, ObservableCollection<Dictionary<string, object>>>();
+            var newPatternNames = new ObservableCollection<string>();
             if (root["patterns"] is JObject patternsObj)
             {
                 foreach (var prop in patternsObj.Properties())
                 {
                     var name = prop.Name;
-                    PatternNames.Add(name);
-                    var list = new ObservableCollection<PatternComponent>();
+                    newPatternNames.Add(name);
+                    var list = new ObservableCollection<Dictionary<string, object>>();
                     if (prop.Value is JArray arr)
                     {
                         foreach (var obj in arr)
                         {
-                            var patt = obj.ToObject<PatternComponent>();
-                            if (patt != null) list.Add(patt);
+                            if (obj is JObject jobj)
+                            {
+                                var dict = jobj.ToObject<Dictionary<string, object>>();
+                                if (dict != null) list.Add(dict);
+                            }
                         }
                     }
-                    Patterns[name] = list;
+                    newPatterns[name] = list;
                 }
             }
+            Patterns = newPatterns;
+            PatternNames = newPatternNames;
 
             StatusMessage = $"Loaded v4 names.json from {filePath}";
             Log.Information("Loaded v4 names.json from {FileName}", filePath);
@@ -137,11 +145,7 @@ public partial class NameListEditorViewModel : ObservableObject
             var root = new JObject();
             // Metadata
             root["metadata"] = JObject.FromObject(Metadata);
-            // Pattern tokens
-            root["patternTokens"] = new JArray(PatternTokens);
-            // Component keys
-            root["componentKeys"] = new JArray(ComponentKeys);
-            // Components (dynamic)
+            // Components (dynamic, generic dictionaries)
             var componentsObj = new JObject();
             foreach (var kvp in Components)
             {
@@ -153,6 +157,18 @@ public partial class NameListEditorViewModel : ObservableObject
                 componentsObj[kvp.Key] = arr;
             }
             root["components"] = componentsObj;
+            // Patterns (dynamic, generic dictionaries)
+            var patternsObj = new JObject();
+            foreach (var kvp in Patterns)
+            {
+                var arr = new JArray();
+                foreach (var patt in kvp.Value)
+                {
+                    arr.Add(JObject.FromObject(patt));
+                }
+                patternsObj[kvp.Key] = arr;
+            }
+            root["patterns"] = patternsObj;
             // Write to file
             var filePath = _fileName;
             var json = root.ToString(Formatting.Indented);
