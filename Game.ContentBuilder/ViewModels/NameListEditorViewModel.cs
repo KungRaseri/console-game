@@ -149,14 +149,17 @@ public partial class NameListEditorViewModel : ObservableObject
             root["patternTokens"] = new JArray(PatternTokens);
             // Component keys
             root["componentKeys"] = new JArray(ComponentKeys);
-            // Components
-            var componentsObj = new JObject
+            // Components (dynamic)
+            var componentsObj = new JObject();
+            foreach (var kvp in Components)
             {
-                ["title"] = new JArray(Titles.Select(t => JObject.FromObject(t))),
-                ["first_name"] = new JArray(FirstNames.Select(t => JObject.FromObject(t))),
-                ["surname"] = new JArray(Surnames.Select(t => JObject.FromObject(t))),
-                ["suffix"] = new JArray(Suffixes.Select(t => JObject.FromObject(t)))
-            };
+                var arr = new JArray();
+                foreach (var comp in kvp.Value)
+                {
+                    arr.Add(JObject.FromObject(comp));
+                }
+                componentsObj[kvp.Key] = arr;
+            }
             root["components"] = componentsObj;
             // Write to file
             var filePath = _fileName;
