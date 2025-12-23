@@ -23,7 +23,7 @@ public static class MetadataGenerator
         string version,
         string? notes,
         IEnumerable<ComponentGroup> componentGroups,
-        IEnumerable<PatternItem> patterns,
+        IEnumerable<PatternComponent> patterns,
         IEnumerable<string> items)
     {
         var componentGroupsList = componentGroups.ToList();
@@ -79,7 +79,7 @@ public static class MetadataGenerator
     /// <summary>
     /// Extract all unique tokens used in patterns, including "base"
     /// </summary>
-    private static IEnumerable<string> ExtractPatternTokens(List<PatternItem> patterns)
+    private static IEnumerable<string> ExtractPatternTokens(List<PatternComponent> patterns)
     {
         var tokens = new HashSet<string> { "base" }; // Always include "base" token
 
@@ -106,7 +106,7 @@ public static class MetadataGenerator
     /// <summary>
     /// Infer the file type based on structure
     /// </summary>
-    private static string InferFileType(List<ComponentGroup> componentGroups, List<PatternItem> patterns, List<string> items)
+    private static string InferFileType(List<ComponentGroup> componentGroups, List<PatternComponent> patterns, List<string> items)
     {
         // Has patterns = pattern generation file
         if (patterns.Count > 0)

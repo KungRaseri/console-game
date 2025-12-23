@@ -38,12 +38,12 @@ public partial class MainViewModel : ObservableObject
         var dataPath = GetDataDirectory();
         _jsonEditorService = new JsonEditorService(dataPath);
         _fileTreeService = new FileTreeService(dataPath);
-        
+
         Log.Information("MainViewModel initialized - Data directory: {DataPath}", dataPath);
-        
+
         InitializeCategories();
         StatusMessage = $"Content Builder initialized - Data: {dataPath}";
-        
+
         Log.Information("Categories initialized - Total categories: {Count}", Categories.Count);
     }
 
@@ -55,12 +55,12 @@ public partial class MainViewModel : ObservableObject
         var baseDir = AppDomain.CurrentDomain.BaseDirectory; // bin/Debug/net9.0-windows/
         var solutionRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..")); // console-game/
         var dataPath = Path.Combine(solutionRoot, "Game.Data", "Data", "Json");
-        
+
         if (!Directory.Exists(dataPath))
         {
             throw new DirectoryNotFoundException($"Data directory not found: {dataPath}");
         }
-        
+
         return dataPath;
     }
 
@@ -75,66 +75,21 @@ public partial class MainViewModel : ObservableObject
         if (value?.EditorType != EditorType.None && value is not null)
         {
             StatusMessage = $"Selected: {value.Name} ({value.Tag ?? "unknown"})";
-            Log.Information("Category selected: {CategoryName} - Type: {EditorType} - File: {FileName}", 
+            Log.Information("Category selected: {CategoryName} - Type: {EditorType} - File: {FileName}",
                 value.Name, value.EditorType, value.Tag ?? "unknown");
-            
+
             // Load appropriate editor based on EditorType
             switch (value.EditorType)
             {
-                case EditorType.ItemPrefix:
-                case EditorType.ItemSuffix:
-                    LoadItemEditor(value.Tag?.ToString() ?? "");
+                case EditorType.NameListEditor:
+                    LoadNameListEditor(value.Tag?.ToString() ?? string.Empty);
                     break;
-                
-                case EditorType.FlatItem:
-                    LoadFlatItemEditor(value.Tag?.ToString() ?? "");
-                    break;
-                
-                case EditorType.NameList:
-                    LoadNameListEditor(value.Tag?.ToString() ?? "");
-                    break;
-                
-                case EditorType.HybridArray:
-                    LoadHybridArrayEditor(value.Tag?.ToString() ?? "");
-                    break;
-                
-                case EditorType.NamesEditor:
-                    LoadNamesEditor(value.Tag?.ToString() ?? "");
-                    break;
-                
-                case EditorType.ItemCatalogEditor:
-                    LoadCatalogEditor(value.Tag?.ToString() ?? "");
-                    break;
-                
-                case EditorType.AbilitiesEditor:
-                    LoadAbilitiesEditor(value.Tag?.ToString() ?? "");
-                    break;
-                
                 case EditorType.CatalogEditor:
-                    LoadGenericCatalogEditor(value.Tag?.ToString() ?? "");
+                    LoadCatalogEditor(value.Tag?.ToString() ?? string.Empty);
                     break;
-                
-                case EditorType.NameCatalogEditor:
-                    LoadNameCatalogEditor(value.Tag?.ToString() ?? "");
+                case EditorType.AbilitiesEditor:
+                    LoadAbilitiesEditor(value.Tag?.ToString() ?? string.Empty);
                     break;
-                
-                case EditorType.QuestCatalogEditor:
-                    LoadQuestCatalogEditor(value.Tag?.ToString() ?? "");
-                    break;
-                
-                case EditorType.QuestDataEditor:
-                    LoadQuestDataEditor(value.Tag?.ToString() ?? "");
-                    break;
-                
-                case EditorType.ComponentEditor:
-                case EditorType.MaterialEditor:
-                case EditorType.TraitEditor:
-                case EditorType.ConfigEditor:
-                    // TODO: Implement these specialized editors
-                    StatusMessage = $"Editor for {value.EditorType} not yet implemented";
-                    CurrentEditor = null;
-                    break;
-                
                 default:
                     CurrentEditor = null;
                     break;
@@ -165,28 +120,6 @@ public partial class MainViewModel : ObservableObject
         {
             StatusMessage = $"Failed to load editor: {ex.Message}";
             Log.Error(ex, "Failed to load ItemEditor for {FileName}", fileName);
-            CurrentEditor = null;
-        }
-    }
-
-    private void LoadFlatItemEditor(string fileName)
-    {
-        try
-        {
-            Log.Debug("Loading FlatItemEditor for {FileName}", fileName);
-            var viewModel = new FlatItemEditorViewModel(_jsonEditorService, fileName);
-            var view = new FlatItemEditorView
-            {
-                DataContext = viewModel
-            };
-            CurrentEditor = view;
-            StatusMessage = $"Loaded editor for {fileName}";
-            Log.Information("FlatItemEditor loaded successfully for {FileName}", fileName);
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Failed to load editor: {ex.Message}";
-            Log.Error(ex, "Failed to load FlatItemEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }
@@ -240,14 +173,14 @@ public partial class MainViewModel : ObservableObject
         try
         {
             Log.Debug("Loading NamesEditor for {FileName}", fileName);
-            
+
             var viewModel = new NamesEditorViewModel(_jsonEditorService, fileName);
-            
+
             var view = new NamesEditorView
             {
                 DataContext = viewModel
             };
-            
+
             CurrentEditor = view;
             StatusMessage = $"Loaded names editor for {fileName}";
             Log.Information("NamesEditor loaded successfully for {FileName}", fileName);
@@ -265,14 +198,14 @@ public partial class MainViewModel : ObservableObject
         try
         {
             Log.Debug("Loading CatalogEditor for {FileName}", fileName);
-            
+
             var viewModel = new CatalogEditorViewModel(_jsonEditorService, fileName);
-            
+
             var view = new CatalogEditorView
             {
                 DataContext = viewModel
             };
-            
+
             CurrentEditor = view;
             StatusMessage = $"Loaded types editor for {fileName}";
             Log.Information("CatalogEditor loaded successfully for {FileName}", fileName);
@@ -290,14 +223,14 @@ public partial class MainViewModel : ObservableObject
         try
         {
             Log.Debug("Loading AbilitiesEditor for {FileName}", fileName);
-            
+
             var viewModel = new AbilitiesEditorViewModel(_jsonEditorService, fileName);
-            
+
             var view = new AbilitiesEditorView
             {
                 DataContext = viewModel
             };
-            
+
             CurrentEditor = view;
             StatusMessage = $"Loaded abilities editor for {fileName}";
             Log.Information("AbilitiesEditor loaded successfully for {FileName}", fileName);
@@ -315,14 +248,14 @@ public partial class MainViewModel : ObservableObject
         try
         {
             Log.Debug("Loading GenericCatalogEditor for {FileName}", fileName);
-            
+
             var viewModel = new GenericCatalogEditorViewModel(_jsonEditorService, fileName);
-            
+
             var view = new GenericCatalogEditorView
             {
                 DataContext = viewModel
             };
-            
+
             CurrentEditor = view;
             StatusMessage = $"Loaded catalog editor for {fileName}";
             Log.Information("GenericCatalogEditor loaded successfully for {FileName}", fileName);
@@ -340,15 +273,15 @@ public partial class MainViewModel : ObservableObject
         try
         {
             Log.Debug("Loading QuestCatalogEditor for {FileName}", fileName);
-            
+
             var viewModel = new QuestCatalogEditorViewModel(_jsonEditorService, fileName);
-            
+
             // Create view (we'll need to create this next)
             var view = new Views.QuestCatalogEditorView
             {
                 DataContext = viewModel
             };
-            
+
             CurrentEditor = view;
             StatusMessage = $"Loaded quest catalog editor (v4.0) for {fileName}";
             Log.Information("QuestCatalogEditor loaded successfully for {FileName}", fileName);
@@ -366,14 +299,14 @@ public partial class MainViewModel : ObservableObject
         try
         {
             Log.Debug("Loading QuestDataEditor for {FileName}", fileName);
-            
+
             var viewModel = new QuestDataEditorViewModel(_jsonEditorService, fileName);
-            
+
             var view = new Views.QuestDataEditorView
             {
                 DataContext = viewModel
             };
-            
+
             CurrentEditor = view;
             StatusMessage = $"Loaded quest data editor (v4.0) for {fileName}";
             Log.Information("QuestDataEditor loaded successfully for {FileName}", fileName);
@@ -412,16 +345,16 @@ public partial class MainViewModel : ObservableObject
         try
         {
             Log.Information("Refreshing file tree");
-            
+
             // Clear current editor
             CurrentEditor = null;
             SelectedCategory = null;
-            
+
             // Rebuild category tree
             Categories = _fileTreeService.BuildCategoryTree();
-            
+
             StatusMessage = $"File tree refreshed - {Categories.Sum(c => c.TotalFileCount)} files found";
-            Log.Information("File tree refreshed successfully - {FileCount} files", 
+            Log.Information("File tree refreshed successfully - {FileCount} files",
                 Categories.Sum(c => c.TotalFileCount));
         }
         catch (Exception ex)
@@ -443,14 +376,14 @@ public partial class MainViewModel : ObservableObject
         try
         {
             Log.Debug("Loading NameCatalogEditor for {FileName}", fileName);
-            
+
             var viewModel = new NameCatalogEditorViewModel(_jsonEditorService, fileName);
-            
+
             var view = new NameCatalogEditorView
             {
                 DataContext = viewModel
             };
-            
+
             CurrentEditor = view;
             StatusMessage = $"Loaded name catalog editor for {fileName}";
             Log.Information("NameCatalogEditor loaded successfully for {FileName}", fileName);

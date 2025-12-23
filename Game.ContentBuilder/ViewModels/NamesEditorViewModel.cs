@@ -48,10 +48,10 @@ public partial class NamesEditorViewModel : ObservableObject
 
     // Patterns
     [ObservableProperty]
-    private ObservableCollection<NamePatternItem> _patterns = new();
+    private ObservableCollection<NamePatternComponent> _patterns = new();
 
     [ObservableProperty]
-    private NamePatternItem? _selectedPattern;
+    private NamePatternComponent? _selectedPattern;
 
     [ObservableProperty]
     private bool _isDirty;
@@ -177,14 +177,14 @@ public partial class NamesEditorViewModel : ObservableObject
         {
             if (pattern is JObject patternObj)
             {
-                var patternItem = new NamePatternItem
+                var PatternComponent = new NamePatternComponent
                 {
                     Pattern = patternObj["pattern"]?.ToString() ?? string.Empty,
                     Weight = patternObj["weight"]?.ToObject<int>() ?? 1,
                     Example = patternObj["example"]?.ToString() ?? string.Empty
                 };
 
-                Patterns.Add(patternItem);
+                Patterns.Add(PatternComponent);
             }
         }
     }
@@ -246,7 +246,7 @@ public partial class NamesEditorViewModel : ObservableObject
     [RelayCommand]
     private void AddPattern()
     {
-        var newPattern = new NamePatternItem
+        var newPattern = new NamePatternComponent
         {
             Pattern = "{component}",
             Weight = 1,
@@ -362,7 +362,7 @@ public partial class NameComponentItem : ObservableObject
 /// <summary>
 /// Represents a name generation pattern
 /// </summary>
-public partial class NamePatternItem : ObservableObject
+public partial class NamePatternComponent : ObservableObject
 {
     [ObservableProperty]
     private string _pattern = string.Empty;

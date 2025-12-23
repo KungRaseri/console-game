@@ -30,21 +30,18 @@ public partial class NameListEditorViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<string> _componentKeys = new();
 
-    // Dynamic components: key = component name, value = list of NameComponent
     [ObservableProperty]
     private ObservableCollection<string> _componentNames = new();
-    [ObservableProperty]
-    private Dictionary<string, ObservableCollection<NameComponent>> _components = new();
 
-    // UI selection
     [ObservableProperty]
-    private NameComponent? _selectedTitle;
+    private Dictionary<string, ObservableCollection<ComponentGroup>> _components = new();
+
     [ObservableProperty]
-    private NameComponent? _selectedFirstName;
+    private ObservableCollection<string> _patternNames = new();
+
     [ObservableProperty]
-    private NameComponent? _selectedSurname;
-    [ObservableProperty]
-    private NameComponent? _selectedSuffix;
+    private Dictionary<string, ObservableCollection<PatternComponent>> _patterns = new();
+
 
     [ObservableProperty]
     private string _statusMessage = "Ready";
@@ -75,32 +72,6 @@ public partial class NameListEditorViewModel : ObservableObject
                 Metadata = mObj.ToObject<NameListMetadata>() ?? new NameListMetadata();
             }
 
-            // Pattern tokens (support both camelCase and snake_case, root and metadata)
-            PatternTokens.Clear();
-            JArray? patternTokensArr =
-                (root["patternTokens"] as JArray) ??
-                (root["patternTokens"] as JArray) ??
-                (metadataObj != null ? (metadataObj["patternTokens"] as JArray) : null) ??
-                (metadataObj != null ? (metadataObj["patternTokens"] as JArray) : null);
-            if (patternTokensArr != null)
-            {
-                foreach (var token in patternTokensArr)
-                    PatternTokens.Add(token.ToString());
-            }
-
-            // Component keys (support both camelCase and snake_case, root and metadata)
-            ComponentKeys.Clear();
-            JArray? componentKeysArr =
-                (root["componentKeys"] as JArray) ??
-                (root["componentKeys"] as JArray) ??
-                (metadataObj != null ? (metadataObj["componentKeys"] as JArray) : null) ??
-                (metadataObj != null ? (metadataObj["componentKeys"] as JArray) : null);
-            if (componentKeysArr != null)
-            {
-                foreach (var key in componentKeysArr)
-                    ComponentKeys.Add(key.ToString());
-            }
-
             // Dynamic components
             Components.Clear();
             ComponentNames.Clear();
@@ -110,17 +81,38 @@ public partial class NameListEditorViewModel : ObservableObject
                 {
                     var name = prop.Name;
                     ComponentNames.Add(name);
-                    var arr = prop.Value as JArray;
-                    var list = new ObservableCollection<NameComponent>();
-                    if (arr != null)
+                    var list = new ObservableCollection<ComponentGroup>();
+                    if (prop.Value is JArray arr)
                     {
                         foreach (var obj in arr)
                         {
-                            var comp = obj.ToObject<NameComponent>();
+                            var comp = obj.ToObject<ComponentGroup>();
                             if (comp != null) list.Add(comp);
                         }
                     }
                     Components[name] = list;
+                }
+            }
+
+            // Dynamic patterns
+            Patterns.Clear();
+            PatternNames.Clear();
+            if (root["patterns"] is JObject patternsObj)
+            {
+                foreach (var prop in patternsObj.Properties())
+                {
+                    var name = prop.Name;
+                    PatternNames.Add(name);
+                    var list = new ObservableCollection<PatternComponent>();
+                    if (prop.Value is JArray arr)
+                    {
+                        foreach (var obj in arr)
+                        {
+                            var patt = obj.ToObject<PatternComponent>();
+                            if (patt != null) list.Add(patt);
+                        }
+                    }
+                    Patterns[name] = list;
                 }
             }
 

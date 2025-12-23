@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using Game.ContentBuilder.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Serilog;
 
 namespace Game.ContentBuilder.Services;
@@ -116,7 +115,7 @@ public class FileTreeService
     public ObservableCollection<CategoryNode> BuildCategoryTree()
     {
         Log.Information("Building category tree from: {DataPath}", _dataPath);
-        
+
         var categories = new ObservableCollection<CategoryNode>();
 
         if (!Directory.Exists(_dataPath))
@@ -127,11 +126,11 @@ public class FileTreeService
 
         // Get all top-level directories
         var topLevelDirs = Directory.GetDirectories(_dataPath);
-        
+
         foreach (var dir in topLevelDirs.OrderBy(d => d))
         {
             var category = BuildCategoryNode(dir, _dataPath);
-            
+
             if (category != null && (category.Children.Any() || category.Tag != null))
             {
                 categories.Add(category);
@@ -140,17 +139,17 @@ public class FileTreeService
 
         Log.Information("Category tree built - {Count} top-level categories, {FileCount} total files",
             categories.Count, CountFiles(categories));
-        
+
         return categories;
     }
 
     private CategoryNode? BuildCategoryNode(string directoryPath, string basePath)
     {
         var dirName = Path.GetFileName(directoryPath);
-        
+
         // Load folder config if available
         var config = LoadFolderConfig(directoryPath);
-        
+
         var node = new CategoryNode
         {
             Name = config?.DisplayName ?? FormatDisplayName(dirName),
@@ -162,22 +161,22 @@ public class FileTreeService
         var jsonFiles = Directory.GetFiles(directoryPath, "*.json")
             .Where(f => !Path.GetFileName(f).Equals(".cbconfig.json", StringComparison.OrdinalIgnoreCase))
             .ToArray();
-        
+
         node.FileCount = jsonFiles.Length;
-        
+
         foreach (var file in jsonFiles.OrderBy(f => f))
         {
             var fileName = Path.GetFileNameWithoutExtension(file);
             var relativeFilePath = Path.GetRelativePath(basePath, file).Replace("\\", "/");
-            
+
             // Use file type detector to determine editor type
             var editorType = FileTypeDetector.GetEditorType(file);
-            
+
             // Get icon from config or fallback
-            var fileIcon = config?.FileIcons.GetValueOrDefault(fileName) 
-                ?? config?.DefaultFileIcon 
+            var fileIcon = config?.FileIcons.GetValueOrDefault(fileName)
+                ?? config?.DefaultFileIcon
                 ?? GetIcon(fileName, isDirectory: false);
-            
+
             var fileNode = new CategoryNode
             {
                 Name = FormatDisplayName(fileName),
@@ -187,17 +186,17 @@ public class FileTreeService
                 FileCount = 0,
                 TotalFileCount = 0  // Files don't have children
             };
-            
+
             node.Children.Add(fileNode);
         }
 
         // Get all subdirectories
         var subdirs = Directory.GetDirectories(directoryPath);
-        
+
         foreach (var subdir in subdirs.OrderBy(d => d))
         {
             var childNode = BuildCategoryNode(subdir, basePath);
-            
+
             if (childNode != null && (childNode.Children.Any() || childNode.Tag != null))
             {
                 node.Children.Add(childNode);
@@ -211,14 +210,14 @@ public class FileTreeService
 
         return node;
     }
-    
+
     /// <summary>
     /// Loads folder configuration from .cbconfig.json if it exists
     /// </summary>
     private FolderConfig? LoadFolderConfig(string directoryPath)
     {
         var configPath = Path.Combine(directoryPath, ".cbconfig.json");
-        
+
         if (!File.Exists(configPath))
             return null;
 
@@ -226,13 +225,13 @@ public class FileTreeService
         {
             var json = File.ReadAllText(configPath);
             var config = JsonConvert.DeserializeObject<FolderConfig>(json);
-            
+
             if (config != null)
             {
                 _configCache[directoryPath] = config;
                 Log.Debug("Loaded folder config for: {Directory}", Path.GetFileName(directoryPath));
             }
-            
+
             return config;
         }
         catch (Exception ex)
@@ -256,14 +255,14 @@ public class FileTreeService
     private static string GetIcon(string name, bool isDirectory)
     {
         var key = name.ToLower().Replace(" ", "").Replace("_", "").Replace("-", "");
-        
+
         // Try exact match first
         if (CategoryIcons.TryGetValue(key, out var categoryIcon))
             return categoryIcon;
-        
+
         if (FileIcons.TryGetValue(name.ToLower(), out var fileIcon))
             return fileIcon;
-        
+
         // Fallback icons
         return isDirectory ? "Folder" : "FileDocument";
     }

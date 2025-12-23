@@ -6,7 +6,7 @@ namespace Game.ContentBuilder.Models;
 /// <summary>
 /// Represents a pattern with auto-generated example and validation
 /// </summary>
-public partial class PatternItem : ObservableObject
+public partial class PatternComponent : ObservableObject
 {
     [ObservableProperty]
     private string _pattern = string.Empty;
@@ -20,7 +20,7 @@ public partial class PatternItem : ObservableObject
     /// <summary>
     /// Material Design icon for validation status
     /// </summary>
-    public string ValidationIcon => ValidationResult != null 
+    public string ValidationIcon => ValidationResult != null
         ? PatternValidator.GetValidationIcon(ValidationResult.Level)
         : "HelpCircle";
 
@@ -31,13 +31,13 @@ public partial class PatternItem : ObservableObject
         ? PatternValidator.GetValidationColor(ValidationResult.Level)
         : "Gray";
 
-    public PatternItem(string pattern, string example)
+    public PatternComponent(string pattern, string example)
     {
         Pattern = pattern;
         Example = example;
     }
 
-    public PatternItem(string pattern, string example, ValidationResult? validationResult)
+    public PatternComponent(string pattern, string example, ValidationResult? validationResult)
     {
         Pattern = pattern;
         Example = example;

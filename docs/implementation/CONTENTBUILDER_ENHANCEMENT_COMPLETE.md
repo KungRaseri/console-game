@@ -61,7 +61,7 @@ Successfully implemented all 4 requested enhancements for the ContentBuilder:
 **Model Classes**:
 - `NameComponentGroup` - Groups of components with names
 - `NameComponentItem` - Individual components with value, weight, traits
-- `NamePatternItem` - Patterns with pattern string, weight, example
+- `NamePatternComponent` - Patterns with pattern string, weight, example
 
 ### TypesEditor (Item Catalog Files)
 

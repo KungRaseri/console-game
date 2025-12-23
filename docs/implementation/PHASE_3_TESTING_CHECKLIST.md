@@ -28,7 +28,7 @@ Phase 3 adds real-time pattern validation and live example preview to the Conten
 - [x] `Game.ContentBuilder/Converters/GreaterThanZeroConverter.cs` (23 lines)
 
 ### Files Modified
-- [x] `Game.ContentBuilder/Models/PatternItem.cs` (validation properties)
+- [x] `Game.ContentBuilder/Models/PatternComponent.cs` (validation properties)
 - [x] `Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs` (validation logic, examples)
 - [x] `Game.ContentBuilder/Views/HybridArrayEditorView.xaml` (validation UI, examples panel)
 - [x] `Game.ContentBuilder/Services/PatternExampleGenerator.cs` (random sampling)

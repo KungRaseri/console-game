@@ -13,7 +13,7 @@ Implemented automatic file type detection and configuration-driven icon system f
 ## User Requirements (All Met ✅)
 
 1. ✅ **File Type Detection**: Automatically detect `names.json` vs `types.json` based on structure
-2. ✅ **Specialized Editors**: Setup infrastructure for `NamesEditor` and `TypesEditor` 
+2. ✅ **Specialized Editors**: Setup infrastructure for `NameListEditor` and `TypesEditor` 
 3. ✅ **Dynamic Tree Loading**: Maintained and enhanced dynamic file loading
 4. ✅ **Icon Config Files**: Created `.cbconfig.json` per directory (replacing hardcoded mappings)
 
@@ -52,7 +52,7 @@ Implemented automatic file type detection and configuration-driven icon system f
 
 **EditorType Mapping**:
 ```csharp
-NamesFile       → EditorType.NamesEditor
+NamesFile       → EditorType.NameListEditor
 TypesFile       → EditorType.TypesEditor
 ComponentCatalog → EditorType.ComponentEditor
 MaterialCatalog  → EditorType.MaterialEditor
@@ -83,7 +83,7 @@ public int SortOrder { get; set; }                   // Tree ordering
 **File**: `Game.ContentBuilder/Models/CategoryNode.cs`
 
 **Added EditorTypes**:
-- `NamesEditor` - For names.json files (pattern generation)
+- `NameListEditor` - For names.json files (pattern generation)
 - `TypesEditor` - For types.json files (item catalogs)
 - `ComponentEditor` - For component libraries
 - `MaterialEditor` - For material definitions
@@ -360,7 +360,7 @@ var jsonFiles = Directory.GetFiles(directoryPath, "*.json")
 
 ## Next Steps
 
-### 1. Create NamesEditor (High Priority)
+### 1. Create NameListEditor (High Priority)
 **Purpose**: Specialized editor for names.json files  
 **UI Requirements**:
 - Metadata section (read-only: version, type, description, usage, notes)
@@ -369,8 +369,7 @@ var jsonFiles = Directory.GetFiles(directoryPath, "*.json")
 - Save button with validation
 
 **Files to Create**:
-- `Game.ContentBuilder/ViewModels/NamesEditorViewModel.cs`
-- `Game.ContentBuilder/Views/NamesEditorView.xaml`
+// removed obsolete NamesEditor files
 
 ### 2. Create TypesEditor (High Priority)
 **Purpose**: Specialized editor for types.json files  
@@ -387,7 +386,7 @@ var jsonFiles = Directory.GetFiles(directoryPath, "*.json")
 ### 3. Update MainViewModel (High Priority)
 **Purpose**: Wire up new editor types  
 **Changes Needed**:
-- Add `LoadNamesEditor(string filePath)` method
+// removed obsolete LoadNamesEditor method
 - Add `LoadTypesEditor(string filePath)` method
 - Update `OnSelectedCategoryChanged()` switch statement
 - Handle new EditorType cases
@@ -459,6 +458,6 @@ var jsonFiles = Directory.GetFiles(directoryPath, "*.json")
 
 Successfully implemented automatic file type detection and configuration-driven icon system. The ContentBuilder now uses `.cbconfig.json` files for declarative UI configuration, eliminating hardcoded mappings and enabling easy customization. The FileTypeDetector service provides intelligent detection based on metadata and structure analysis. 
 
-Infrastructure is ready for specialized NamesEditor and TypesEditor implementations.
+Infrastructure is ready for specialized NameListEditor and TypesEditor implementations.
 
 **Status**: ✅ **COMPLETE** - Ready for editor UI development

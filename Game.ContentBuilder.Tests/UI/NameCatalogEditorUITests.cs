@@ -14,7 +14,6 @@ public class NameCatalogEditorUITests : UITestBase
     {
         LaunchApplication();
         Thread.Sleep(1500); // Allow app to fully load
-        NavigateToFirstNamesEditor();
     }
 
     [Fact]
@@ -23,7 +22,7 @@ public class NameCatalogEditorUITests : UITestBase
         // Assert - Editor should already be loaded by constructor
         var categoryList = _mainWindow!.FindFirstDescendant(cf => cf.ByAutomationId("CategoryList"));
         categoryList.Should().NotBeNull("NameCatalogEditor should be loaded");
-        
+
         // Verify we're viewing a name catalog (should have multiple categories)
         var categoryListBox = categoryList.AsListBox();
         categoryListBox.Items.Should().NotBeEmpty("Should have at least one category");
@@ -35,7 +34,7 @@ public class NameCatalogEditorUITests : UITestBase
         // Arrange - Already at first_names.json
         var categoryList = _mainWindow!.FindFirstDescendant(cf => cf.ByAutomationId("CategoryList"))?.AsListBox();
         categoryList.Should().NotBeNull();
-        
+
         // Act - Select male_common category (should exist in real data)
         var maleCategory = categoryList!.Items.FirstOrDefault(i => i.Name.Contains("male_common"));
         maleCategory.Should().NotBeNull("male_common category should exist");
@@ -83,7 +82,7 @@ public class NameCatalogEditorUITests : UITestBase
         // Act - Add a new category
         var newCategoryInput = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("NewCategoryInput"))?.AsTextBox();
         newCategoryInput.Should().NotBeNull();
-        
+
         var uniqueCategoryName = "test_category_" + Guid.NewGuid().ToString().Substring(0, 8);
         newCategoryInput!.Text = uniqueCategoryName;
 
@@ -95,7 +94,7 @@ public class NameCatalogEditorUITests : UITestBase
         // Assert
         categoryList = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("CategoryList"))?.AsListBox();
         categoryList!.Items.Should().HaveCount(initialCount + 1);
-        
+
         var newCategory = categoryList.Items.FirstOrDefault(i => i.Name.Contains(uniqueCategoryName));
         newCategory.Should().NotBeNull($"{uniqueCategoryName} category should be added");
     }
@@ -109,7 +108,7 @@ public class NameCatalogEditorUITests : UITestBase
         // Act - Make a change
         var newNameInput = _mainWindow!.FindFirstDescendant(cf => cf.ByAutomationId("NewNameInput"))?.AsTextBox();
         newNameInput!.Text = "TestName_Dirty";
-        
+
         var addButton = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("AddNameButton"))?.AsButton();
         addButton!.Click();
         Thread.Sleep(500);
@@ -148,56 +147,6 @@ public class NameCatalogEditorUITests : UITestBase
         namesList = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("NamesList"))?.AsListBox();
         namesList.Should().NotBeNull();
         namesList!.Items.Length.Should().Be(initialCount + 3, "3 names should be added via bulk add");
-    }
-
-    /// <summary>
-    /// Navigates to NPCs → Names → First Names in the real data structure
-    /// </summary>
-    private void NavigateToFirstNamesEditor()
-    {
-        // Ensure main window is available
-        _mainWindow.Should().NotBeNull("Main window must be available before navigation");
-
-        // Find tree view
-        var treeView = ExecuteWithTimeout(() =>
-        {
-            var tree = _mainWindow!.FindFirstDescendant(cf => cf.ByAutomationId("CategoryTreeView"))?.AsTree();
-            tree.Should().NotBeNull("CategoryTreeView should exist");
-            return tree!;
-        }, TimeSpan.FromSeconds(5), "Find CategoryTreeView");
-
-        // Find and expand NPCs node
-        var npcsNode = ExecuteWithTimeout(() =>
-        {
-            var node = treeView.Items.FirstOrDefault(i => i.Name == "NPCs");
-            node.Should().NotBeNull("NPCs node should exist in tree");
-            return node!;
-        }, TimeSpan.FromSeconds(3), "Find NPCs node");
-
-        npcsNode.Expand();
-        Thread.Sleep(500);
-
-        // Find and expand Names folder
-        var namesFolder = ExecuteWithTimeout(() =>
-        {
-            var node = npcsNode.Items.FirstOrDefault(i => i.Name == "Names");
-            node.Should().NotBeNull("Names folder should exist under NPCs");
-            return node!;
-        }, TimeSpan.FromSeconds(3), "Find Names folder");
-
-        namesFolder.Expand();
-        Thread.Sleep(500);
-
-        // Find and click "First Names" node
-        var firstNamesNode = ExecuteWithTimeout(() =>
-        {
-            var node = namesFolder.Items.FirstOrDefault(i => i.Name == "First Names");
-            node.Should().NotBeNull("First Names node should exist under Names folder");
-            return node!;
-        }, TimeSpan.FromSeconds(3), "Find First Names node");
-
-        firstNamesNode.Click();
-        Thread.Sleep(1500); // Give editor time to load
     }
 
     private void SelectCategory(string categoryName)

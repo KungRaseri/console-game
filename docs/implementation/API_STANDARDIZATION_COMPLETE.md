@@ -123,7 +123,7 @@ private async Task SaveFile()
 
 ### Fixed Tests
 1. ✅ **AbilitiesEditorViewModelTests_Smoke.cs** - Updated to use new API (9 tests)
-2. ✅ **HybridArrayEditorViewModelTests.cs** - Fixed `Patterns.Should().Contain()` to use lambda for `PatternItem`
+2. ✅ **HybridArrayEditorViewModelTests.cs** - Fixed `Patterns.Should().Contain()` to use lambda for `PatternComponent`
 
 ### UI Test Cleanup - Fixed Application Disposal
 **Problem:** UI tests were leaving ContentBuilder.exe processes running, causing freezes

@@ -12,7 +12,7 @@ Added automatic example generation for patterns in the ContentBuilder's HybridAr
 
 ### New Files
 
-1. **Game.ContentBuilder/Models/PatternItem.cs**
+1. **Game.ContentBuilder/Models/PatternComponent.cs**
    - Model class representing a pattern with its auto-generated example
    - Properties: `Pattern` (string), `Example` (string)
 
@@ -25,7 +25,7 @@ Added automatic example generation for patterns in the ContentBuilder's HybridAr
 ### Modified Files
 
 1. **Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs**
-   - Changed `Patterns` from `ObservableCollection<string>` to `ObservableCollection<PatternItem>`
+   - Changed `Patterns` from `ObservableCollection<string>` to `ObservableCollection<PatternComponent>`
    - Added `_itemsData` and `_componentsData` fields to store raw JSON
    - Updated `LoadData()` to generate examples when loading patterns
    - Updated `AddPattern()` to generate example for new patterns

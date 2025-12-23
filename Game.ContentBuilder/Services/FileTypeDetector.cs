@@ -30,99 +30,38 @@ public static class FileTypeDetector
             var json = File.ReadAllText(filePath);
             var root = JObject.Parse(json);
 
-            // Special case: quests/catalog.json is v4.0 quest catalog
-            if (fileName == "catalog.json" && directoryName == "quests")
+            switch (fileName)
             {
-                return JsonFileType.QuestCatalog;
+                case "catalog.json" when directoryName == "quests":
+                    return JsonFileType.QuestCatalog;
+
+                case "catalog.json":
+                    return JsonFileType.GenericCatalog;
+
+                case "names.json":
+                    return JsonFileType.NamesFile;
+
+                case "abilities.json":
+                    return JsonFileType.AbilityCatalog;
+
+                case "traits.json":
+                    return JsonFileType.Traits;
+
+                case "quest_templates.json":
+                    return JsonFileType.QuestTemplate;
+
+                case "rewards.json":
+                case "objectives.json":
+                    return JsonFileType.QuestData;
             }
 
-            // Check metadata first
-            if (root["metadata"] is JObject metadata)
-            {
-                var type = metadata["type"]?.ToString();
-                
-                return type switch
-                {
-                    "pattern_generation" => JsonFileType.NamesFile,
-                    "item_catalog" => JsonFileType.TypesFile,
-                    "material_catalog" => JsonFileType.MaterialCatalog,
-                    "ability_catalog" => JsonFileType.AbilityCatalog,
-                    "occupation_catalog" or 
-                    "personality_trait_catalog" or 
-                    "dialogue_style_catalog" or 
-                    "dialogue_template_catalog" or 
-                    "rumor_template_catalog" or 
-                    "quirk_catalog" or 
-                    "background_catalog" or 
-                    "component_library" or 
-                    "pattern_components" or 
-                    "reference_data" => JsonFileType.GenericCatalog,
-                    "name_catalog" or "surname_catalog" => JsonFileType.NameCatalog,
-                    "quest_template_catalog" => JsonFileType.QuestTemplate,
-                    var s when s?.StartsWith("quest_") == true => JsonFileType.QuestData,
-                    "configuration" => JsonFileType.Configuration,
-                    "component_catalog" => JsonFileType.ComponentCatalog,
-                    _ => DetectByStructure(root, fileName)
-                };
-            }
-
-            // Fallback to structure-based detection
-            return DetectByStructure(root, fileName);
+            return JsonFileType.Unknown;
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to detect file type: {FilePath}", filePath);
             return JsonFileType.Unknown;
         }
-    }
-
-    /// <summary>
-    /// Detects file type based on JSON structure
-    /// </summary>
-    private static JsonFileType DetectByStructure(JObject root, string fileName)
-    {
-        // Check for names.json structure: metadata + components + patterns
-        if (root["components"] != null && root["patterns"] != null)
-        {
-            return JsonFileType.NamesFile;
-        }
-
-        // Check for catalog.json structure: metadata + *_types (e.g., weapon_types, armor_types)
-        var typeKeys = root.Properties()
-            .Where(p => p.Name.EndsWith("_types", StringComparison.OrdinalIgnoreCase))
-            .ToList();
-
-        if (typeKeys.Any())
-        {
-            return JsonFileType.TypesFile;
-        }
-
-        // Check for component catalog (like materials/names.json)
-        if (root["components"] != null && !root.ContainsKey("patterns"))
-        {
-            return JsonFileType.ComponentCatalog;
-        }
-
-        // Check for material catalog (materials/catalog.json)
-        if (root["material_types"] != null)
-        {
-            return JsonFileType.MaterialCatalog;
-        }
-
-        // Legacy detection based on filename patterns
-        if (fileName.Contains("names"))
-            return JsonFileType.NamesFile;
-        
-        if (fileName.Contains("types"))
-            return JsonFileType.TypesFile;
-        
-        if (fileName.Contains("prefix") || fileName.Contains("suffix"))
-            return JsonFileType.PrefixSuffix;
-        
-        if (fileName.Contains("trait"))
-            return JsonFileType.Traits;
-
-        return JsonFileType.Unknown;
     }
 
     /// <summary>
@@ -136,8 +75,8 @@ public static class FileTypeDetector
 
         return fileType switch
         {
-            JsonFileType.NamesFile => EditorType.NamesEditor,
-            JsonFileType.TypesFile => EditorType.ItemCatalogEditor,
+            JsonFileType.NamesFile => EditorType.NameListEditor,
+            JsonFileType.CatelogFile => EditorType.ItemCatalogEditor,
             JsonFileType.AbilityCatalog => EditorType.AbilitiesEditor,
             JsonFileType.GenericCatalog => EditorType.CatalogEditor,
             JsonFileType.NameCatalog => EditorType.NameCatalogEditor,
@@ -146,7 +85,6 @@ public static class FileTypeDetector
             JsonFileType.Configuration => EditorType.ConfigEditor,
             JsonFileType.ComponentCatalog => EditorType.ComponentEditor,
             JsonFileType.MaterialCatalog => EditorType.MaterialEditor,
-            JsonFileType.PrefixSuffix => EditorType.ItemPrefix,
             JsonFileType.Traits => EditorType.TraitEditor,
             _ => EditorType.None
         };
@@ -166,7 +104,7 @@ public static class FileTypeDetector
 
             var json = File.ReadAllText(filePath);
             var root = JObject.Parse(json);
-            
+
             return root["metadata"] as JObject;
         }
         catch (Exception ex)
@@ -199,7 +137,7 @@ public enum JsonFileType
 {
     Unknown,
     NamesFile,          // names.json - pattern generation files
-    TypesFile,          // catalog.json - item catalog files
+    CatelogFile,        // catalog.json - item catalog files
     AbilityCatalog,     // abilities.json - ability catalog files
     GenericCatalog,     // Generic catalogs (occupations, traits, dialogue, etc.)
     NameCatalog,        // Name lists (first_names, last_names)

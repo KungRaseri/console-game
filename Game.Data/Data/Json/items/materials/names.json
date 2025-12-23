@@ -26,14 +26,6 @@
       "rarityWeight affects both selection probability and final item rarity tier",
       "7 component groups: metals, leathers, woods, gemstones, magical, qualities, fabrics",
       "Patterns like 'material + base' or 'quality + material + base' generate diverse names"
-    ],
-    "examples": [
-      "Mithril Longsword (metals + base)",
-      "Flawless Ruby Ring (qualities + gemstones + base)",
-      "Dragon Leather Armor (leathers + base)",
-      "Elder Wood Bow (woods + base)",
-      "Divine-forged Plate (magical + pattern + base)",
-      "Silk Robe (fabrics + base)"
     ]
   },
   "components": {

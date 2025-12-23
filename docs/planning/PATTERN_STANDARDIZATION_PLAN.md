@@ -377,7 +377,7 @@ public static class MetadataGenerator
         string version,
         string? notes,
         List<ComponentGroup> componentGroups,
-        List<PatternItem> patterns,
+        List<PatternComponent> patterns,
         List<string> items)
     {
         var metadata = new JObject
@@ -399,7 +399,7 @@ public static class MetadataGenerator
         return metadata;
     }
     
-    private static IEnumerable<string> ExtractTokens(List<PatternItem> patterns)
+    private static IEnumerable<string> ExtractTokens(List<PatternComponent> patterns)
     {
         var tokens = new HashSet<string> { "base" };
         foreach (var pattern in patterns)
@@ -537,8 +537,8 @@ public static class PatternValidator
 
 **ViewModel:**
 ```csharp
-// PatternItem model
-public class PatternItem : ObservableObject
+// PatternComponent model
+public class PatternComponent : ObservableObject
 {
     [ObservableProperty]
     private string pattern = "";
@@ -584,13 +584,13 @@ private void AddPattern()
         NewPatternInput, 
         ComponentGroups.ToList());
     
-    var patternItem = new PatternItem 
+    var PatternComponent = new PatternComponent 
     { 
         Pattern = NewPatternInput,
         ValidationResult = validation
     };
     
-    Patterns.Add(patternItem);
+    Patterns.Add(PatternComponent);
     NewPatternInput = string.Empty;
     OnPropertyChanged(nameof(TotalPatternsCount));
 }
@@ -1085,7 +1085,7 @@ The pattern system generates dynamic names by combining components using pattern
 **Day 2: Pattern Validation**
 - [ ] Create PatternValidator service
 - [ ] Add ValidationResult model with levels (Valid/Warning/Error)
-- [ ] Update PatternItem model with validation properties
+- [ ] Update PatternComponent model with validation properties
 - [ ] Add real-time validation to pattern input
 - [ ] Add validation icons to pattern list (✓/⚠/✗)
 - [ ] Add tooltips and status messages

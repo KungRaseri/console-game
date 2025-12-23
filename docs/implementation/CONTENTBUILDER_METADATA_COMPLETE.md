@@ -171,7 +171,7 @@ InferFileType()
 ```csharp
 private static string InferFileType(
     List<ComponentGroup> componentGroups, 
-    List<PatternItem> patterns, 
+    List<PatternComponent> patterns, 
     List<string> items)
 {
     if (patterns.Count > 0) return "pattern_generation";

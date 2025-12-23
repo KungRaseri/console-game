@@ -164,7 +164,7 @@ private ComponentGroup? _selectedComponentGroup;
 
 1. **Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs**
    - Changed `DeleteItem()` to accept `string? item` parameter
-   - Changed `DeletePattern()` to accept `PatternItem? pattern` parameter
+   - Changed `DeletePattern()` to accept `PatternComponent? pattern` parameter
    - Added `DeleteComponent(string? component)` method
    - Added `NotifyCanExecuteChangedFor` attributes to `_selectedComponentGroup`
    - Removed `CanDelete*` predicates (no longer needed without CanExecute)
@@ -211,7 +211,7 @@ These editors use a different UI pattern with a separate DELETE button and `Sele
 
 ### Why CommandParameter Works
 
-When a button is inside a `DataTemplate`, the `DataContext` of that button is the **individual list item** (e.g., a string, PatternItem, etc.). By using `CommandParameter="{Binding}"`, we pass that item to the command method.
+When a button is inside a `DataTemplate`, the `DataContext` of that button is the **individual list item** (e.g., a string, PatternComponent, etc.). By using `CommandParameter="{Binding}"`, we pass that item to the command method.
 
 The `RelativeSource` binding is needed to reach the parent ViewModel:
 ```xaml

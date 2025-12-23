@@ -27,7 +27,7 @@ public partial class HybridArrayEditorViewModel : ObservableObject
     private ObservableCollection<ComponentGroup> _componentGroups = new();
 
     [ObservableProperty]
-    private ObservableCollection<PatternItem> _patterns = new();
+    private ObservableCollection<PatternComponent> _patterns = new();
 
     // Track whether this file type has items (some files like names.json don't have items)
     [ObservableProperty]
@@ -42,7 +42,7 @@ public partial class HybridArrayEditorViewModel : ObservableObject
     private ComponentGroup? _selectedComponentGroup;
 
     [ObservableProperty]
-    private PatternItem? _selectedPattern;
+    private PatternComponent? _selectedPattern;
 
     [ObservableProperty]
     private string _statusMessage = "Ready";
@@ -222,7 +222,7 @@ public partial class HybridArrayEditorViewModel : ObservableObject
                         var patternStr = pattern.ToString();
                         var validation = PatternValidator.Validate(patternStr, ComponentGroups);
                         var example = PatternExampleGenerator.GenerateExample(patternStr, _itemsData, _componentsData);
-                        Patterns.Add(new PatternItem(patternStr, example, validation));
+                        Patterns.Add(new PatternComponent(patternStr, example, validation));
                     }
                 }
             }
@@ -518,7 +518,7 @@ public partial class HybridArrayEditorViewModel : ObservableObject
             var patternStr = NewPatternInput.Trim();
             var validation = PatternValidator.Validate(patternStr, ComponentGroups);
             var example = PatternExampleGenerator.GenerateExample(patternStr, _itemsData, _componentsData);
-            Patterns.Add(new PatternItem(patternStr, example, validation));
+            Patterns.Add(new PatternComponent(patternStr, example, validation));
             NewPatternInput = string.Empty;
             LiveExamples.Clear(); // Clear examples when pattern is added
             UpdateCounts();
@@ -531,7 +531,7 @@ public partial class HybridArrayEditorViewModel : ObservableObject
         (NewPatternValidation == null || NewPatternValidation.Level != ValidationLevel.Error);
 
     [RelayCommand]
-    private void DeletePattern(PatternItem? pattern)
+    private void DeletePattern(PatternComponent? pattern)
     {
         if (pattern != null && Patterns.Contains(pattern))
         {
