@@ -2,7 +2,7 @@
     "metadata":  {
                      "description":  "Humanoid enemy type catalog with base stats and traits",
                      "version":  "1.0",
-                     "last_updated":  "2025-12-17",
+                     "lastUpdated":  "2025-12-17",
                      "type":  "item_catalog",
                      "total_humanoid_types":  4,
                      "total_humanoids":  14,

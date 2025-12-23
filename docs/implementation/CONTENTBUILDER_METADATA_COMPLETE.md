@@ -29,11 +29,11 @@ Successfully implemented the Metadata & Notes Panel for ContentBuilder's HybridA
 - `notes` - Freeform notes (string or multi-line)
 
 **Auto-Generated Fields:**
-- `last_updated` - Current date (YYYY-MM-DD)
+- `lastUpdated` - Current date (YYYY-MM-DD)
 - `type` - File classification (pattern_generation, component_library, item_catalog, data_file)
-- `component_keys` - Array of component group names (excludes `_types` categories)
-- `pattern_tokens` - Array of unique tokens from patterns (always includes "base")
-- `total_patterns` - Count of patterns
+- `componentKeys` - Array of component group names (excludes `_types` categories)
+- `patternTokens` - Array of unique tokens from patterns (always includes "base")
+- `totalPatterns` - Count of patterns
 - `total_items` - Count of items
 - `{category}_count` - Counts for nested `_types` categories
 
@@ -209,13 +209,13 @@ private static string InferFileType(
   - Verify new metadata block created
   
 - [ ] **Test 4:** Test pattern file
-  - Verify component_keys extracted correctly
-  - Verify pattern_tokens include all used tokens + "base"
+  - Verify componentKeys extracted correctly
+  - Verify patternTokens include all used tokens + "base"
   - Verify file_type = "pattern_generation"
   
 - [ ] **Test 5:** Test component library file
   - Verify file_type = "component_library"
-  - Verify no pattern_tokens listed
+  - Verify no patternTokens listed
   
 - [ ] **Test 6:** UI/UX Testing
   - Verify GridSplitter resizes correctly
@@ -236,7 +236,7 @@ private static string InferFileType(
 
 1. **Notes Format:** Saves as string (not array) - intentional simplification
 2. **Rarity System Field:** Not yet displayed (deferred to Phase 3.4)
-3. **Custom Metadata Fields:** Not supported yet (e.g., `rarity_system`, `weapon_types`)
+3. **Custom Metadata Fields:** Not supported yet (e.g., `raritySystem`, `weapon_types`)
 
 ## Next Steps - Phase 3.2
 

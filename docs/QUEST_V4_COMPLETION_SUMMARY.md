@@ -96,7 +96,7 @@ Successfully consolidated the quest JSON data structure from **10+ fragmented fi
 ### v4.0 Metadata Standard
 All 3 files now include:
 - ✅ `version: "4.0"`
-- ✅ `last_updated: "2025-12-18"`
+- ✅ `lastUpdated: "2025-12-18"`
 - ✅ `type`: Specific type identifier
 - ✅ `notes`: Comprehensive usage guidance
 - ✅ `usage`: Load instructions and selection formulas

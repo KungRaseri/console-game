@@ -140,7 +140,7 @@
 
 **Convert `consumables/names.json` to v4.0 format:**
 - Change version: "3.0" → "4.0"
-- Add `supports_traits: true` to metadata
+- Add `supportsTraits: true` to metadata
 - Add trait objects to ALL components (quality, effect, descriptive, suffix)
 - Update notes to reference trait system
 

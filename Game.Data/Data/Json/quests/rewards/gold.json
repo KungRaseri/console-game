@@ -1,7 +1,7 @@
 ﻿{
   "metadata": {
     "version": "2.0",
-    "last_updated": "2025-01-27",
+    "lastUpdated": "2025-01-27",
     "type": "quest_rewards_gold",
     "total_tiers": 9,
     "categories": ["trivial_rewards", "low_rewards", "medium_rewards", "high_rewards", "very_high_rewards", "epic_rewards", "legendary_rewards", "mythic_rewards", "ancient_rewards"]
@@ -108,8 +108,8 @@
     ]
   },
   "notes": {
-    "rarity_system": "Weight reflects reward tier - higher amounts have higher weights",
-    "component_keys": ["trivial_rewards", "low_rewards", "medium_rewards", "high_rewards", "very_high_rewards", "epic_rewards", "legendary_rewards", "mythic_rewards", "ancient_rewards"],
+    "raritySystem": "Weight reflects reward tier - higher amounts have higher weights",
+    "componentKeys": ["trivial_rewards", "low_rewards", "medium_rewards", "high_rewards", "very_high_rewards", "epic_rewards", "legendary_rewards", "mythic_rewards", "ancient_rewards"],
     "weight_ranges": {
       "trivial": "5 (10-25 gold, tutorial quests)",
       "low": "12 (25-50 gold, early game)",

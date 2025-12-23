@@ -29,8 +29,8 @@
 
 ### Universal Changes (All 9 Files)
 - ✅ Added `metadata` object with auto-generated fields
-- ✅ Added `last_updated: "2025-12-16"`
-- ✅ Added `component_keys` array
+- ✅ Added `lastUpdated: "2025-12-16"`
+- ✅ Added `componentKeys` array
 - ✅ Added `component_counts` object
 
 ### Component Library Files (3 Files)
@@ -44,7 +44,7 @@
 - ✅ Removed ALL pattern comments and annotations
 - ✅ Fixed token mismatches
 - ✅ Set `metadata.type: "pattern_generation"`
-- ✅ Added `pattern_count`, `pattern_tokens` to metadata
+- ✅ Added `pattern_count`, `patternTokens` to metadata
 
 ---
 

@@ -1,7 +1,7 @@
 ﻿{
   "metadata": {
     "version": "2.0",
-    "last_updated": "2025-01-27",
+    "lastUpdated": "2025-01-27",
     "type": "quest_objectives_secondary",
     "total_objectives": 17,
     "categories": ["stealth_challenges", "survival_challenges", "speed_challenges", "collection_challenges", "mercy_challenges", "combat_challenges", "precision_challenges"]
@@ -161,8 +161,8 @@
     ]
   },
   "notes": {
-    "rarity_system": "Weight determines objective appearance probability - higher weight = rarer challenges",
-    "component_keys": ["stealth_challenges", "survival_challenges", "speed_challenges", "collection_challenges", "mercy_challenges", "combat_challenges", "precision_challenges", "social_challenges"],
+    "raritySystem": "Weight determines objective appearance probability - higher weight = rarer challenges",
+    "componentKeys": ["stealth_challenges", "survival_challenges", "speed_challenges", "collection_challenges", "mercy_challenges", "combat_challenges", "precision_challenges", "social_challenges"],
     "weight_ranges": {
       "common": "25-35 (Basic challenges: no detection, no deaths, time limits)",
       "uncommon": "38-50 (Moderate challenges: perfect stealth, collect all, spare enemy)",

@@ -28,7 +28,7 @@ Successfully implemented the **AbilitiesEditor** for ContentBuilder, providing a
 - ✅ Filter by rarity (Common, Uncommon, Rare, Epic, Legendary)
 - ✅ Dirty flag tracking for unsaved changes
 - ✅ Status messages for user feedback
-- ✅ Auto-update metadata (total_abilities, last_updated)
+- ✅ Auto-update metadata (total_abilities, lastUpdated)
 
 **Key Methods:**
 ```csharp
@@ -183,7 +183,7 @@ The AbilitiesEditor can now edit all **13 enemy ability files**:
   "metadata": {
     "description": "beasts ability definitions and properties",
     "version": "1.0",
-    "last_updated": "2025-12-17",
+    "lastUpdated": "2025-12-17",
     "type": "ability_catalog",
     "total_abilities": 18
   },
@@ -207,7 +207,7 @@ The AbilitiesEditor can now edit all **13 enemy ability files**:
 ### Output Format
 - Preserves all metadata fields
 - Updates `total_abilities` to match actual count
-- Updates `last_updated` to current date
+- Updates `lastUpdated` to current date
 - Maintains JSON formatting with indentation
 
 ---

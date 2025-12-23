@@ -20,7 +20,7 @@ public class QuestObjectivesMetadata
     [JsonPropertyName("version")]
     public string Version { get; set; } = string.Empty;
 
-    [JsonPropertyName("last_updated")]
+    [JsonPropertyName("lastUpdated")]
     public string LastUpdated { get; set; } = string.Empty;
 
     [JsonPropertyName("description")]

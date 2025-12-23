@@ -287,7 +287,7 @@ Build succeeded in 5.2s
     "quest_types": ["fetch", "combat", "escort", "delivery"],
     "difficulty_levels": ["easy", "medium", "hard"],
     "total_templates": 47,
-    "last_updated": "2025-12-17T19:30:00Z"
+    "lastUpdated": "2025-12-17T19:30:00Z"
   },
   "components": {
     "fetch": {

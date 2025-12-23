@@ -299,7 +299,7 @@ public partial class AbilitiesEditorViewModel : ObservableObject
             if (metadata != null)
             {
                 metadata["total_abilities"] = Abilities.Count;
-                metadata["last_updated"] = DateTime.Now.ToString("yyyy-MM-dd");
+                metadata["lastUpdated"] = DateTime.Now.ToString("yyyy-MM-dd");
             }
 
             // Update items array

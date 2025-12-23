@@ -21,10 +21,10 @@
     "description": "Time of day descriptions for narrative and environmental atmosphere",
     "version": "1.0",
     "type": "pattern_generation",
-    "last_updated": "2025-12-16",
-    "component_keys": ["period", "modifier", "descriptor"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["period", "modifier", "descriptor"],
     "pattern_count": 3,
-    "pattern_tokens": ["period", "modifier", "descriptor"],
+    "patternTokens": ["period", "modifier", "descriptor"],
     "component_counts": {
       "period": 8,
       "modifier": 5,

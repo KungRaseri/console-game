@@ -35,9 +35,9 @@
 1. **Metadata Block** - Consistent metadata with auto-generated fields:
    - `description` - Human-readable file purpose
    - `version` - Schema version number
-   - `last_updated` - Timestamp (YYYY-MM-DD)
+   - `lastUpdated` - Timestamp (YYYY-MM-DD)
    - `type` - File type classification
-   - Auto-generated counts (component_keys, pattern_tokens, total_items, etc.)
+   - Auto-generated counts (componentKeys, patternTokens, total_items, etc.)
 
 2. **Structure Standardization** - All files follow one of these patterns:
    - **Pattern Generation** (names.json) - components + patterns for procedural generation
@@ -187,7 +187,7 @@ Different file types have different structures based on their purpose:
   "metadata": {
     "description": "Item catalog description",
     "version": "1.0",
-    "last_updated": "2025-12-16"
+    "lastUpdated": "2025-12-16"
   }
 }
 ```
@@ -239,8 +239,8 @@ Different file types have different structures based on their purpose:
   "metadata": {
     "description": "Name generation patterns and components",
     "version": "1.0",
-    "component_keys": ["component_key1", "component_key2", "component_key3"],
-    "pattern_tokens": ["base", "component_key1", "component_key2", "component_key3"]
+    "componentKeys": ["component_key1", "component_key2", "component_key3"],
+    "patternTokens": ["base", "component_key1", "component_key2", "component_key3"]
   }
 }
 ```
@@ -263,8 +263,8 @@ Different file types have different structures based on their purpose:
   ],
   "metadata": {
     "description": "Weapon name generation",
-    "component_keys": ["material", "quality", "enchantment"],
-    "pattern_tokens": ["base", "material", "quality", "enchantment"]
+    "componentKeys": ["material", "quality", "enchantment"],
+    "patternTokens": ["base", "material", "quality", "enchantment"]
   }
 }
 ```
@@ -312,9 +312,9 @@ Different file types have different structures based on their purpose:
     "description": "Unified naming system with traits",
     "version": "4.0",
     "type": "pattern_generation",
-    "supports_traits": true,
-    "component_keys": ["prefix", "material", "quality", "suffix"],
-    "pattern_tokens": ["base", "prefix", "material", "quality", "suffix"]
+    "supportsTraits": true,
+    "componentKeys": ["prefix", "material", "quality", "suffix"],
+    "patternTokens": ["base", "prefix", "material", "quality", "suffix"]
   }
 }
 ```
@@ -458,10 +458,10 @@ Each component in ANY component group can have:
     "description": "Unified weapon naming with traits",
     "version": "4.0",
     "type": "pattern_generation",
-    "supports_traits": true,
-    "component_keys": ["prefix", "material", "quality", "suffix"],
-    "pattern_tokens": ["base", "prefix", "material", "quality", "suffix"],
-    "total_patterns": 6,
+    "supportsTraits": true,
+    "componentKeys": ["prefix", "material", "quality", "suffix"],
+    "patternTokens": ["base", "prefix", "material", "quality", "suffix"],
+    "totalPatterns": 6,
     "notes": [
       "Base token resolves from items/weapons/types.json",
       "Traits are merged when pattern is resolved",
@@ -513,7 +513,7 @@ If you have existing separate prefix/suffix files:
 3. Convert suffix items: same conversion
 4. Add patterns that use prefix/suffix tokens
 5. Mark old prefix/suffix files as deprecated
-6. Update metadata: `version: "4.0"`, `supports_traits: true`
+6. Update metadata: `version: "4.0"`, `supportsTraits: true`
 
 ---
 
@@ -623,10 +623,10 @@ If you have existing separate prefix/suffix files:
 
 #### Auto-Generated Fields (Computed on Save)
 
-- `last_updated` - Timestamp of last save (YYYY-MM-DD format)
-- `component_keys` - Array extracted from `components` object keys
-- `pattern_tokens` - Array extracted from `patterns` + "base" token
-- `total_patterns` - Count of patterns array length
+- `lastUpdated` - Timestamp of last save (YYYY-MM-DD format)
+- `componentKeys` - Array extracted from `components` object keys
+- `patternTokens` - Array extracted from `patterns` + "base" token
+- `totalPatterns` - Count of patterns array length
 - `total_items` - Count of items array length (if applicable)
 - `[category]_count` - Count of category types (e.g., `weapon_types: 7`)
 
@@ -641,9 +641,9 @@ If you have existing separate prefix/suffix files:
 
 1. Extract component keys from `components` object
 2. Parse all patterns and extract unique tokens
-3. Add "base" token to pattern_tokens if patterns exist
+3. Add "base" token to patternTokens if patterns exist
 4. Count arrays and objects for statistics
-5. Set `last_updated` to current date
+5. Set `lastUpdated` to current date
 6. Preserve user-defined `description` and `version`
 7. Generate complete metadata object
 8. Save JSON with auto-generated metadata
@@ -669,10 +669,10 @@ If you have existing separate prefix/suffix files:
 "metadata": {
   "description": "Weapon name generation with pattern-based system",
   "version": "2.0",
-  "last_updated": "2025-12-16",
-  "component_keys": ["material", "quality", "descriptive", "enchantment", "title"],
-  "pattern_tokens": ["base", "material", "quality", "descriptive", "enchantment", "title"],
-  "total_patterns": 11,
+  "lastUpdated": "2025-12-16",
+  "componentKeys": ["material", "quality", "descriptive", "enchantment", "title"],
+  "patternTokens": ["base", "material", "quality", "descriptive", "enchantment", "title"],
+  "totalPatterns": 11,
   "total_items": 59,
   "weapon_types": 7
 }
@@ -825,8 +825,8 @@ Game data is organized into **specialized file types**, each serving a specific 
   ],
   "metadata": {
     "description": "Weapon name generation",
-    "component_keys": ["material", "quality", "descriptive", "enchantment", "title"],
-    "pattern_tokens": ["base", "material", "quality", "descriptive", "enchantment", "title"]
+    "componentKeys": ["material", "quality", "descriptive", "enchantment", "title"],
+    "patternTokens": ["base", "material", "quality", "descriptive", "enchantment", "title"]
   }
 }
 ```
@@ -1241,8 +1241,8 @@ These files provide categorized reference data used by other files. They do NOT 
     "description": "Adjective components for descriptive text generation",
     "version": "1.0",
     "type": "component_library",
-    "last_updated": "2025-12-16",
-    "component_keys": ["positive", "negative", "size", "appearance", "condition"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["positive", "negative", "size", "appearance", "condition"],
     "component_counts": {
       "positive": 10,
       "negative": 10,
@@ -1284,8 +1284,8 @@ These files provide categorized reference data used by other files. They do NOT 
     "description": "Material components for item crafting and descriptions",
     "version": "1.0",
     "type": "component_library",
-    "last_updated": "2025-12-16",
-    "component_keys": ["metals", "precious", "natural", "magical"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["metals", "precious", "natural", "magical"],
     "component_counts": {
       "metals": 10,
       "precious": 10,
@@ -1334,8 +1334,8 @@ These files provide categorized reference data used by other files. They do NOT 
     "description": "Categorized action verbs for combat, magic, and interactions",
     "version": "1.0",
     "type": "component_library",
-    "last_updated": "2025-12-16",
-    "component_keys": [...],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": [...],
     "component_counts": {...}
   }
 }
@@ -1386,10 +1386,10 @@ These files generate procedural descriptions using pattern-based templates. They
     "description": "Color name generation with base colors, modifiers, and materials",
     "version": "1.0",
     "type": "pattern_generation",
-    "last_updated": "2025-12-16",
-    "component_keys": ["base_color", "modifier", "material"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["base_color", "modifier", "material"],
     "pattern_count": 3,
-    "pattern_tokens": ["base_color", "modifier", "material"],
+    "patternTokens": ["base_color", "modifier", "material"],
     "component_counts": {...}
   }
 }
@@ -2705,12 +2705,12 @@ Files: `metals.json`, `leathers.json`, `woods.json`, `gemstones.json`
 
 **Key Achievements:**
 
-- ✅ All files have standardized metadata (description, version, last_updated, type)
+- ✅ All files have standardized metadata (description, version, lastUpdated, type)
 - ✅ Pattern Generation files use components + patterns structure
 - ✅ Item/Enemy Catalogs use type-level traits + item arrays
 - ✅ Prefix/Suffix Modifiers use rarity-organized trait structure
 - ✅ Weight-based rarity system implemented across all categories
-- ✅ Auto-generated metadata fields (component_keys, pattern_tokens, totals)
+- ✅ Auto-generated metadata fields (componentKeys, patternTokens, totals)
 
 ### Phase 3: Update ContentBuilder 📋 NEXT PHASE
 
@@ -3325,8 +3325,8 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
   "metadata": {
     "description": "Weapon name patterns with rarityWeight-based components",
     "version": "2.0",
-    "component_keys": ["material", "quality", "enchantment"],
-    "pattern_tokens": ["base", "material", "quality", "enchantment"]
+    "componentKeys": ["material", "quality", "enchantment"],
+    "patternTokens": ["base", "material", "quality", "enchantment"]
   }
 }
 ```
@@ -3399,7 +3399,7 @@ Result: "Masterwork Mythril Longsword of Fire" (Epic)
   "metadata": {
     "description": "Weapon prefixes with rarityWeight-based rarity and stat modifiers",
     "version": "2.0",
-    "last_updated": "2025-12-16"
+    "lastUpdated": "2025-12-16"
   }
 }
 ```
@@ -3536,7 +3536,7 @@ totalWeight += prefix.rarityWeight * multiplier
   "metadata": {
     "description": "Rarity system configuration with weight thresholds, colors, and drop rates",
     "version": "1.0",
-    "last_updated": "2025-12-16"
+    "lastUpdated": "2025-12-16"
   }
 }
 ```
@@ -3994,10 +3994,10 @@ These fields are computed by ContentBuilder on every save:
 
 | Field | Type | Description | Source |
 |-------|------|-------------|--------|
-| `last_updated` | string | Timestamp of last save (YYYY-MM-DD) | Current date |
-| `component_keys` | string[] | Array of component object keys | Extract from `components` object |
-| `pattern_tokens` | string[] | Array of unique tokens used in patterns | Parse all `patterns` + add "base" |
-| `total_patterns` | number | Count of patterns | `patterns.length` |
+| `lastUpdated` | string | Timestamp of last save (YYYY-MM-DD) | Current date |
+| `componentKeys` | string[] | Array of component object keys | Extract from `components` object |
+| `patternTokens` | string[] | Array of unique tokens used in patterns | Parse all `patterns` + add "base" |
+| `totalPatterns` | number | Count of patterns | `patterns.length` |
 | `total_items` | number | Count of items (if applicable) | `items.length` |
 | `type` | string | File type classification | Inferred from structure |
 
@@ -4026,9 +4026,9 @@ These fields are computed by ContentBuilder on every save:
 
 1. Extract component keys from `components` object
 2. Parse all patterns and extract unique tokens
-3. Add "base" token to `pattern_tokens` if patterns exist
+3. Add "base" token to `patternTokens` if patterns exist
 4. Count arrays and objects for statistics
-5. Set `last_updated` to current UTC date (YYYY-MM-DD)
+5. Set `lastUpdated` to current UTC date (YYYY-MM-DD)
 6. Preserve user-defined `description` and `version`
 7. Generate complete metadata object
 8. Save JSON with auto-generated metadata

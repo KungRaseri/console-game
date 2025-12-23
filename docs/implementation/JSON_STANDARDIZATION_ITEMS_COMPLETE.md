@@ -209,7 +209,7 @@ Successfully completed standardization of all **Items** category JSON files, imp
 "metadata": {
   "description": "...",
   "version": "2.0",
-  "last_updated": "2025-12-16",
+  "lastUpdated": "2025-12-16",
   "type": "enchantment_catalog|material_catalog|effect_catalog",
   "total_*": count,
   "categories": [...]
@@ -230,8 +230,8 @@ Successfully completed standardization of all **Items** category JSON files, imp
 4. **Notes Section (all files):**
 ```json
 "notes": {
-  "rarity_system": "weight-based",
-  "component_keys": [...],
+  "raritySystem": "weight-based",
+  "componentKeys": [...],
   "weight_ranges": {...},
   "usage": "..."
 }
@@ -384,7 +384,7 @@ Total Weight = Σ(component.rarityWeight × multiplier)
 ✅ All files have version 2.0 metadata sections  
 ✅ All files have accurate component counts  
 ✅ All files have category lists  
-✅ All files have last_updated timestamps
+✅ All files have lastUpdated timestamps
 
 ### Weight Assignment
 ✅ All components have `rarityWeight` values  

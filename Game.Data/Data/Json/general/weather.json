@@ -37,10 +37,10 @@
     "description": "Weather condition descriptions for dynamic environments and atmospheric gameplay",
     "version": "1.0",
     "type": "pattern_generation",
-    "last_updated": "2025-12-16",
-    "component_keys": ["precipitation", "wind", "sky_condition", "temperature", "severity", "special"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["precipitation", "wind", "sky_condition", "temperature", "severity", "special"],
     "pattern_count": 6,
-    "pattern_tokens": ["precipitation", "sky_condition", "temperature", "severity", "wind", "special"],
+    "patternTokens": ["precipitation", "sky_condition", "temperature", "severity", "wind", "special"],
     "component_counts": {
       "precipitation": 8,
       "wind": 8,

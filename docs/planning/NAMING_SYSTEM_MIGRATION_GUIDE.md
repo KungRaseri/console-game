@@ -213,12 +213,12 @@ Update metadata to reflect v4.0 schema:
   "metadata": {
     "description": "Unified weapon naming system with prefix/suffix support and trait assignment (v4.0)",
     "version": "4.0",
-    "last_updated": "2025-12-17",
+    "lastUpdated": "2025-12-17",
     "type": "pattern_generation",
-    "supports_traits": true,
-    "component_keys": ["prefix", "material", "quality", "descriptive", "suffix"],
-    "pattern_tokens": ["base", "prefix", "material", "quality", "descriptive", "suffix"],
-    "total_patterns": 18,
+    "supportsTraits": true,
+    "componentKeys": ["prefix", "material", "quality", "descriptive", "suffix"],
+    "patternTokens": ["base", "prefix", "material", "quality", "descriptive", "suffix"],
+    "totalPatterns": 18,
     "notes": [
       "Base token resolves from items/weapons/types.json",
       "Prefixes and suffixes merged from separate files (deprecated in v4.0)",
@@ -329,9 +329,9 @@ foreach ($item in $suffixes.items) {
 $names.components.prefix = $prefixComponents
 $names.components.suffix = $suffixComponents
 $names.metadata.version = "4.0"
-$names.metadata.supports_traits = $true
-$names.metadata.component_keys += @("prefix", "suffix")
-$names.metadata.pattern_tokens += @("prefix", "suffix")
+$names.metadata.supportsTraits = $true
+$names.metadata.componentKeys += @("prefix", "suffix")
+$names.metadata.patternTokens += @("prefix", "suffix")
 
 # Save updated names.json
 $names | ConvertTo-Json -Depth 10 | Set-Content "$CategoryPath/names_v4.json"
@@ -438,7 +438,7 @@ After migration, verify:
 - [ ] All suffix items converted to `components.suffix[]`
 - [ ] Every component has `value`, `rarityWeight`, and `traits` fields
 - [ ] Trait values use `{ value, type }` structure
-- [ ] Metadata updated to v4.0 with `supports_traits: true`
+- [ ] Metadata updated to v4.0 with `supportsTraits: true`
 - [ ] Component keys include `prefix` and `suffix`
 - [ ] Patterns added that use prefix/suffix tokens
 - [ ] Old files renamed with `.deprecated.json` extension

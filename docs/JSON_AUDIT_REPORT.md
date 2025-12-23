@@ -209,7 +209,7 @@ The `items/materials/` folder has been successfully consolidated:
 "metadata": {
   "description": "[File type] modifiers with stat bonuses/penalties",
   "version": "1.0",
-  "last_updated": "2025-12-16",
+  "lastUpdated": "2025-12-16",
   "type": "modifier_catalog",
   "total_items": <auto-count>
 }
@@ -263,10 +263,10 @@ Per PATTERN_COMPONENT_STANDARDS.md, metadata should be auto-generated:
 
 **On Save:**
 
-1. ✅ Extract `component_keys` from components object
-2. ✅ Parse patterns and extract `pattern_tokens`
+1. ✅ Extract `componentKeys` from components object
+2. ✅ Parse patterns and extract `patternTokens`
 3. ✅ Count items/patterns for statistics
-4. ✅ Set `last_updated` to current date
+4. ✅ Set `lastUpdated` to current date
 5. ✅ Generate complete metadata
 
 **Benefits:**

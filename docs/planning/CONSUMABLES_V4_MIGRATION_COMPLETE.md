@@ -302,7 +302,7 @@ If rollback needed:
 ### Migration Tasks
 - ✅ Add 15 missing effects to consumables/names.json
 - ✅ Add traits to all consumable components (quality, effect, descriptive, suffix)
-- ✅ Upgrade metadata (version 4.0, supports_traits: true)
+- ✅ Upgrade metadata (version 4.0, supportsTraits: true)
 - ✅ Delete consumables/effects.json
 - ✅ Delete consumables/rarities.json
 - ✅ Delete enchantments/effects.json

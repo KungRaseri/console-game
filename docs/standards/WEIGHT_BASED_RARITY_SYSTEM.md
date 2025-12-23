@@ -302,7 +302,7 @@ Total Weight: 750 → Legendary tier (201+)
   "metadata": {
     "description": "Rarity system configuration with weight thresholds and multipliers",
     "version": "1.0",
-    "last_updated": "2025-12-16"
+    "lastUpdated": "2025-12-16"
   }
 }
 ```

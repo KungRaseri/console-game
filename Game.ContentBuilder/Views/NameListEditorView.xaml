@@ -14,302 +14,105 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" MinWidth="150" MaxWidth="300"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="7*" MinWidth="400"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="3*" MinWidth="250"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Left Panel: Categories -->
-            <Border Grid.Column="0" 
-                    Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
-                    Padding="8"
-                    materialDesign:ElevationAssist.Elevation="Dp2">
-                <DockPanel>
-                    <!-- Header -->
-                    <materialDesign:ColorZone DockPanel.Dock="Top"
-                                             Mode="PrimaryMid"
-                                             Padding="8"
-                                             Margin="0,0,0,8">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="FolderMultiple" 
-                                                   VerticalAlignment="Center"
-                                                   Margin="0,0,8,0"/>
-                            <TextBlock Text="Categories" 
-                                     VerticalAlignment="Center"
-                                     FontWeight="Medium"/>
-                            <TextBlock Text="{Binding Categories.Count, StringFormat=' ({0})'}"
-                                     VerticalAlignment="Center"
-                                     Opacity="0.7"
-                                     Margin="4,0,0,0"/>
-                        </StackPanel>
-                    </materialDesign:ColorZone>
+            <!-- Main Panel: Pattern Tokens, Component Keys, Components -->
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="0,0,8,0">
+                <StackPanel>
+                    <!-- Pattern Tokens -->
+                    <TextBlock Text="Pattern Tokens" FontWeight="Bold" Margin="0,8,0,4"/>
+                    <ItemsControl ItemsSource="{Binding PatternTokens}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Text="{Binding .}" Width="120" Margin="0,0,8,0"/>
+                                    <!-- Add remove button if needed -->
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <!-- TODO: Add Add/Remove PatternToken buttons -->
 
-                    <!-- Category Action Buttons -->
-                    <StackPanel DockPanel.Dock="Bottom" 
-                               Orientation="Horizontal" 
-                               Margin="0,8,0,0">
-                        <Button Content="ADD"
-                               Command="{Binding AddCategoryCommand}"
-                               Style="{StaticResource MaterialDesignOutlinedButton}"
-                               Margin="0,0,4,0"/>
-                        <Button Content="DELETE"
-                               Command="{Binding RemoveCategoryCommand}"
-                               Style="{StaticResource MaterialDesignOutlinedButton}"/>
+                    <!-- Component Keys -->
+                    <TextBlock Text="Component Keys" FontWeight="Bold" Margin="0,16,0,4"/>
+                    <ItemsControl ItemsSource="{Binding ComponentKeys}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Text="{Binding .}" Width="120" Margin="0,0,8,0"/>
+                                    <!-- Add remove button if needed -->
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <!-- TODO: Add Add/Remove ComponentKey buttons -->
+
+                    <!-- Dynamic Components -->
+                    <ItemsControl ItemsSource="{Binding ComponentNames}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding .}" FontWeight="Bold" Margin="0,16,0,4"/>
+                                    <ItemsControl ItemsSource="{Binding DataContext.Components[.], RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Width="120" Margin="0,0,8,0"/>
+                                                    <TextBox Text="{Binding RarityWeight, UpdateSourceTrigger=PropertyChanged}" Width="60" Margin="0,0,8,0"/>
+                                                    <TextBox Text="{Binding Gender, UpdateSourceTrigger=PropertyChanged}" Width="60" Margin="0,0,8,0"/>
+                                                    <TextBox Text="{Binding PreferredSocialClass, UpdateSourceTrigger=PropertyChanged}" Width="80" Margin="0,0,8,0"/>
+                                                    <!-- TODO: Add WeightMultiplier editor -->
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Save/Cancel Buttons -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                        <Button Content="CANCEL" Command="{Binding CancelCommand}" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,0,8,0"/>
+                        <Button Content="SAVE" Command="{Binding SaveCommand}" Style="{StaticResource MaterialDesignRaisedButton}"/>
                     </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
 
-                    <!-- Categories List -->
-                    <ListBox ItemsSource="{Binding Categories}"
-                            SelectedItem="{Binding SelectedCategory}"
-                            DisplayMemberPath="Name"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto"
-                            Margin="0,0,0,8"/>
-                </DockPanel>
-            </Border>
-
-            <!-- GridSplitter -->
-            <GridSplitter Grid.Column="1" 
-                         Width="5" 
-                         HorizontalAlignment="Center" 
-                         VerticalAlignment="Stretch"
-                         Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"/>
-
-            <!-- Right Panel: Names Editor -->
-            <Border Grid.Column="2" 
-                    Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
-                    Padding="16"
-                    materialDesign:ElevationAssist.Elevation="Dp2">
-                <DockPanel IsEnabled="{Binding SelectedCategory, Converter={StaticResource NotNullToBooleanConverter}}">
-                    
-                    <!-- Header -->
-                    <materialDesign:ColorZone DockPanel.Dock="Top"
-                                             Mode="PrimaryMid"
-                                             Padding="12"
-                                             Margin="0,0,0,16">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="FormatListBulleted" 
-                                                   VerticalAlignment="Center"
-                                                   Margin="0,0,8,0"/>
-                            <TextBlock VerticalAlignment="Center"
-                                     FontWeight="Medium"
-                                     FontSize="16">
-                                <Run Text="Names in:"/>
-                                <Run Text="{Binding SelectedCategory.Name, FallbackValue='(none)'}"/>
-                            </TextBlock>
-                            <TextBlock Text="{Binding SelectedCategory.Names.Count, StringFormat=' ({0} items)', FallbackValue=' (0 items)'}"
-                                     VerticalAlignment="Center"
-                                     Opacity="0.7"
-                                     Margin="4,0,0,0"
-                                     FontSize="14"/>
-                        </StackPanel>
-                    </materialDesign:ColorZone>
-
-                    <!-- Action Buttons -->
-                    <StackPanel DockPanel.Dock="Bottom" 
-                               Orientation="Horizontal" 
-                               HorizontalAlignment="Right"
-                               Margin="0,16,0,0">
-                        <Button Content="CANCEL"
-                               Command="{Binding CancelCommand}"
-                               Style="{StaticResource MaterialDesignOutlinedButton}"
-                               Margin="0,0,8,0"/>
-                        <Button Content="SAVE"
-                               Command="{Binding SaveCommand}"
-                               Style="{StaticResource MaterialDesignRaisedButton}"/>
-                    </StackPanel>
-
-                    <!-- Names Management -->
-                    <StackPanel DockPanel.Dock="Top">
-                        
-                        <!-- Add Name Section -->
-                        <materialDesign:Card Padding="12" Margin="0,0,0,16">
-                            <StackPanel>
-                                <TextBlock Text="Add New Name" 
-                                         FontWeight="Medium" 
-                                         Margin="0,0,0,8"/>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <TextBox Grid.Column="0"
-                                            Text="{Binding NewNameInput, UpdateSourceTrigger=PropertyChanged}"
-                                            materialDesign:HintAssist.Hint="Enter name"
-                                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                            Margin="0,0,8,0">
-                                        <TextBox.InputBindings>
-                                            <KeyBinding Key="Enter" Command="{Binding AddNameCommand}"/>
-                                        </TextBox.InputBindings>
-                                    </TextBox>
-                                    
-                                    <Button Grid.Column="1"
-                                           Content="ADD"
-                                           Command="{Binding AddNameCommand}"
-                                           Style="{StaticResource MaterialDesignRaisedButton}"/>
-                                </Grid>
-                            </StackPanel>
-                        </materialDesign:Card>
-
-                        <!-- Names List Section -->
-                        <TextBlock Text="Current Names" 
-                                  FontWeight="Medium" 
-                                  Margin="0,0,0,8"/>
-                        
-                        <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
-                               BorderThickness="1"
-                               CornerRadius="4">
-                            <DockPanel>
-                                <!-- Remove Button -->
-                                <Button DockPanel.Dock="Bottom"
-                                       Content="REMOVE SELECTED"
-                                       Command="{Binding RemoveNameCommand}"
-                                       Style="{StaticResource MaterialDesignOutlinedButton}"
-                                       Margin="8"
-                                       HorizontalAlignment="Right"/>
-                                
-                                <!-- Names ListBox -->
-                                <ListBox ItemsSource="{Binding SelectedCategory.Names}"
-                                        SelectedItem="{Binding SelectedName}"
-                                        MinHeight="300"
-                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                        Padding="4">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding}" 
-                                                     Padding="8,4"/>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </DockPanel>
-                        </Border>
-                    </StackPanel>
-
-                </DockPanel>
-            </Border>
-
-            <!-- GridSplitter (between editor and metadata) -->
-            <GridSplitter Grid.Column="3" 
-                         Width="5" 
-                         HorizontalAlignment="Center" 
-                         VerticalAlignment="Stretch"
-                         Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"/>
-
-            <!-- Right Panel: Metadata & Notes -->
-            <ScrollViewer Grid.Column="4" 
-                          VerticalScrollBarVisibility="Auto"
-                          Margin="8,0,0,0">
+            <!-- Metadata Panel -->
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
                 <materialDesign:Card Padding="16">
                     <StackPanel>
-                        <!-- Panel Header -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                            <materialDesign:PackIcon Kind="Information" 
-                                                     VerticalAlignment="Center" 
-                                                     Margin="0,0,8,0"
-                                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"/>
-                            <TextBlock Text="Metadata &amp; Notes" 
-                                       FontSize="16" 
-                                       FontWeight="Bold"
-                                       VerticalAlignment="Center"/>
-                        </StackPanel>
-
-                        <!-- User-Editable Fields -->
-                        <TextBlock Text="Description" 
-                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Margin="0,0,0,4"/>
-                        <TextBox Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"
-                                 materialDesign:HintAssist.Hint="Brief description of this file"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 Margin="0,0,0,16"/>
-
-                        <TextBlock Text="Version" 
-                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Margin="0,0,0,4"/>
-                        <TextBox Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"
-                                 materialDesign:HintAssist.Hint="e.g., 1.0, 2.3.1"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 Margin="0,0,0,16"/>
-
-                        <TextBlock Text="Tags" 
-                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Margin="0,0,0,4"/>
-                        <TextBox Text="{Binding MetadataTags, UpdateSourceTrigger=PropertyChanged}"
-                                 materialDesign:HintAssist.Hint="e.g., names, weapons, fantasy"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 Margin="0,0,0,16"/>
-
-                        <TextBlock Text="Notes" 
-                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Margin="0,0,0,4"/>
-                        <TextBox Text="{Binding MetadataNotes, UpdateSourceTrigger=PropertyChanged}"
-                                 materialDesign:HintAssist.Hint="Additional notes or comments"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 AcceptsReturn="True"
-                                 TextWrapping="Wrap"
-                                 VerticalScrollBarVisibility="Auto"
-                                 MinHeight="80"
-                                 Margin="0,0,0,16"/>
-
-                        <Separator Margin="0,8,0,16"/>
-
-                        <!-- Auto-Generated Read-Only Fields -->
-                        <TextBlock Text="Auto-Generated Information" 
-                                   FontWeight="Bold" 
-                                   Margin="0,0,0,12"/>
-
-                        <Grid Margin="0,0,0,8">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" 
-                                       Text="Last Updated:" 
-                                       FontWeight="SemiBold"
-                                       Margin="0,0,8,0"/>
-                            <TextBlock Grid.Column="1" 
-                                       Text="{Binding MetadataLastUpdated}"
-                                       TextWrapping="Wrap"/>
-                        </Grid>
-
-                        <Grid Margin="0,0,0,8">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" 
-                                       Text="File Type:" 
-                                       FontWeight="SemiBold"
-                                       Margin="0,0,8,0"/>
-                            <TextBlock Grid.Column="1" 
-                                       Text="{Binding MetadataFileType}"
-                                       TextWrapping="Wrap"/>
-                        </Grid>
-
-                        <Grid Margin="0,0,0,8">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" 
-                                       Text="Total Names:" 
-                                       FontWeight="SemiBold"
-                                       Margin="0,0,8,0"/>
-                            <TextBlock Grid.Column="1" 
-                                       Text="{Binding MetadataTotalItems}"
-                                       TextWrapping="Wrap"/>
-                        </Grid>
+                        <TextBlock Text="Metadata &amp; Notes" FontSize="16" FontWeight="Bold" Margin="0,0,0,16"/>
+                        <TextBlock Text="Description" Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0,0,0,4"/>
+                        <TextBox Text="{Binding Metadata.Description, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Brief description of this file" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,16"/>
+                        <TextBlock Text="Version" Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0,0,0,4"/>
+                        <TextBox Text="{Binding Metadata.Version, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="e.g., 1.0, 2.3.1" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,16"/>
+                        <TextBlock Text="Rarity System" Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0,0,0,4"/>
+                        <TextBox Text="{Binding Metadata.RaritySystem, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="e.g., weight-based" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,16"/>
+                        <TextBlock Text="Supports Soft Filtering" Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0,0,0,4"/>
+                        <CheckBox IsChecked="{Binding Metadata.SupportsSoftFiltering, UpdateSourceTrigger=PropertyChanged}" Content="Yes" Margin="0,0,0,16"/>
+                        <TextBlock Text="Notes" Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0,0,0,4"/>
+                        <ItemsControl ItemsSource="{Binding Metadata.Notes}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding .}" Margin="0,0,0,4"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <!-- TODO: Add Add/Remove Note buttons -->
+                        <TextBlock Text="Last Modified" Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0,16,0,4"/>
+                        <TextBox Text="{Binding Metadata.LastModified}" IsReadOnly="True" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
                     </StackPanel>
                 </materialDesign:Card>
             </ScrollViewer>
         </Grid>
 
         <!-- Status Bar -->
-        <materialDesign:ColorZone Grid.Row="1" 
-                                 Mode="PrimaryLight" 
-                                 Padding="8">
-            <TextBlock Text="{Binding StatusMessage}" 
-                      VerticalAlignment="Center"/>
+        <materialDesign:ColorZone Grid.Row="1" Mode="PrimaryLight" Padding="8">
+            <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center"/>
         </materialDesign:ColorZone>
     </Grid>
 </UserControl>

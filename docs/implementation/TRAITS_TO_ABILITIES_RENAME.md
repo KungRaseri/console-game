@@ -66,7 +66,7 @@ enemies/demons/abilities.json
   "metadata": {
     "description": "beasts ability definitions and properties",
     "type": "ability_catalog",
-    "last_updated": "2025-12-17",
+    "lastUpdated": "2025-12-17",
     "total_abilities": 18
   }
 }
@@ -76,7 +76,7 @@ enemies/demons/abilities.json
 - ✅ `description` updated: "trait definitions" → "ability definitions"
 - ✅ `type` updated: "trait_catalog" → "ability_catalog"
 - ✅ `total_items` renamed to `total_abilities`
-- ✅ `last_updated` timestamp added
+- ✅ `lastUpdated` timestamp added
 
 ### 3. .cbconfig.json Updates (13 files)
 
@@ -206,7 +206,7 @@ Count: 0  # ✅ All deleted
   "metadata": {
     "description": "beasts ability definitions and properties",
     "version": "1.0",
-    "last_updated": "2025-12-17",
+    "lastUpdated": "2025-12-17",
     "type": "ability_catalog",
     "total_abilities": 18
   },

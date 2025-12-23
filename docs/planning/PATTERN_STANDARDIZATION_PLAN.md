@@ -83,9 +83,9 @@ token   ::= "base" | component_key
 1. **Metadata Block** with auto-generated fields:
    - `description` - Human-readable file purpose
    - `version` - Schema version number
-   - `last_updated` - Timestamp (YYYY-MM-DD)
+   - `lastUpdated` - Timestamp (YYYY-MM-DD)
    - `type` - File type classification
-   - Auto-generated counts (component_keys, pattern_tokens, total_items, etc.)
+   - Auto-generated counts (componentKeys, patternTokens, total_items, etc.)
 
 2. **Structure Standardization** - All files follow one of these patterns:
    - **Pattern Generation** (names.json) - components + patterns for procedural generation
@@ -114,11 +114,11 @@ token   ::= "base" | component_key
   "metadata": {
     "description": "Weapon name generation with pattern-based system",
     "version": "3.0",
-    "last_updated": "2025-12-16",
+    "lastUpdated": "2025-12-16",
     "type": "pattern_generation",
-    "component_keys": ["material", "quality", "descriptive"],
-    "pattern_tokens": ["base", "material", "quality"],
-    "total_patterns": 9
+    "componentKeys": ["material", "quality", "descriptive"],
+    "patternTokens": ["base", "material", "quality"],
+    "totalPatterns": 9
   },
   "components": {
     "material": ["Iron", "Steel"],
@@ -139,8 +139,8 @@ token   ::= "base" | component_key
     "description": "Weapon type catalog with base stats",
     "version": "1.0",
     "type": "item_catalog",
-    "total_weapon_types": 7,
-    "total_weapons": 59
+    "totalWeaponTypes": 7,
+    "totalWeapons": 59
   },
   "weapon_types": {
     "swords": {
@@ -159,11 +159,11 @@ token   ::= "base" | component_key
   "metadata": {
     "description": "Description of this file",
     "version": "1.0",
-    "last_updated": "2025-12-16",
+    "lastUpdated": "2025-12-16",
     "type": "pattern_generation",
-    "component_keys": ["material", "quality", "descriptive", "enchantment"],
-    "pattern_tokens": ["base", "material", "quality", "descriptive", "enchantment"],
-    "total_patterns": 6
+    "componentKeys": ["material", "quality", "descriptive", "enchantment"],
+    "patternTokens": ["base", "material", "quality", "descriptive", "enchantment"],
+    "totalPatterns": 6
   },
   "components": {
     "material": ["Iron", "Steel"],
@@ -384,12 +384,12 @@ public static class MetadataGenerator
         {
             ["description"] = description,
             ["version"] = version,
-            ["last_updated"] = DateTime.Now.ToString("yyyy-MM-dd"),
+            ["lastUpdated"] = DateTime.Now.ToString("yyyy-MM-dd"),
             ["type"] = "pattern_generation", // Could be inferred
-            ["component_keys"] = new JArray(
+            ["componentKeys"] = new JArray(
                 componentGroups.Select(g => g.Name).OrderBy(n => n)),
-            ["pattern_tokens"] = new JArray(ExtractTokens(patterns)),
-            ["total_patterns"] = patterns.Count,
+            ["patternTokens"] = new JArray(ExtractTokens(patterns)),
+            ["totalPatterns"] = patterns.Count,
             ["total_items"] = items.Count
         };
         

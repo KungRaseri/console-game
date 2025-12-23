@@ -292,7 +292,7 @@ public class ItemGeneratorTests
     }
 
     [Fact]
-    public void Generate_Should_Produce_All_Item_Types_Eventually()
+    public void Generate_Should_Produce_All_itemTypes_Eventually()
     {
         // Act - generate many items
         var items = ItemGenerator.Generate(150);

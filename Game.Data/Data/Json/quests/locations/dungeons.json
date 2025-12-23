@@ -1,7 +1,7 @@
 ﻿{
   "metadata": {
     "version": "2.0",
-    "last_updated": "2025-01-27",
+    "lastUpdated": "2025-01-27",
     "type": "quest_locations_dungeons",
     "total_locations": 18,
     "categories": ["easy_dungeons", "medium_dungeons", "hard_dungeons", "very_hard_dungeons", "epic_dungeons", "legendary_dungeons"]
@@ -183,8 +183,8 @@
     ]
   },
   "notes": {
-    "rarity_system": "Weight reflects dungeon difficulty and rarity - harder dungeons have higher weights",
-    "component_keys": ["easy_dungeons", "medium_dungeons", "hard_dungeons", "very_hard_dungeons", "epic_dungeons", "legendary_dungeons"],
+    "raritySystem": "Weight reflects dungeon difficulty and rarity - harder dungeons have higher weights",
+    "componentKeys": ["easy_dungeons", "medium_dungeons", "hard_dungeons", "very_hard_dungeons", "epic_dungeons", "legendary_dungeons"],
     "weight_ranges": {
       "easy": "12-18 (Bandit camps, goblin tunnels, spider caves)",
       "medium": "25-38 (Crypts, ruins, enchanted forests)",

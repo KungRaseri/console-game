@@ -84,7 +84,7 @@ Converted from `"rarity": "Common"` to `"rarityWeight": 50`:
   "_metadata": {
     "description": "...",
     "version": "1.0",
-    "last_updated": "2025-12-16",
+    "lastUpdated": "2025-12-16",
     "type": "prefix_modifier",
     "totals": {
       "total_items": 15

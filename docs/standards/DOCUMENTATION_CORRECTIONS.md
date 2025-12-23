@@ -16,7 +16,7 @@ In the initial weight-based rarity system documentation, I incorrectly showed `i
 
 ### Files Updated
 
-1. **WEIGHT_BASED_RARITY_SYSTEM.md** ✅
+1. **WEIGHT_BASED_raritySystem.md** ✅
    - Removed items array from names.json examples
    - Added types.json section showing rarityWeight field
    - Clarified base token resolution
@@ -122,8 +122,8 @@ In the initial weight-based rarity system documentation, I incorrectly showed `i
   "metadata": {
     "description": "Weapon name patterns with weighted components",
     "version": "2.0",
-    "component_keys": ["material", "quality", "enchantment"],
-    "pattern_tokens": ["base", "material", "quality", "enchantment"]
+    "componentKeys": ["material", "quality", "enchantment"],
+    "patternTokens": ["base", "material", "quality", "enchantment"]
   }
 }
 ```

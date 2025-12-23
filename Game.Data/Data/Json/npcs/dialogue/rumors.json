@@ -2,13 +2,13 @@
   "metadata": {
     "description": "Rumor templates catalog for NPC gossip and information sharing",
     "version": "4.0",
-    "last_updated": "2025-12-18",
+    "lastUpdated": "2025-12-18",
     "type": "rumor_template_catalog",
     "total_rumors": 30,
     "categories": ["danger", "treasure", "supernatural", "politics", "quests", "lore"],
     "notes": {
-      "rarity_system": "weight-based",
-      "component_keys": ["danger_warnings", "monster_sightings", "treasure_legends", "supernatural_events", "political_intrigue", "quest_hooks", "ancient_lore", "local_gossip"],
+      "raritySystem": "weight-based",
+      "componentKeys": ["danger_warnings", "monster_sightings", "treasure_legends", "supernatural_events", "political_intrigue", "quest_hooks", "ancient_lore", "local_gossip"],
       "weight_ranges": {
         "common": "10-20 rarityWeight (bandit activity, plague, missing person, local gossip)",
         "uncommon": "25-40 rarityWeight (dragon sighting, haunted ruins, treasure, political scandal)",

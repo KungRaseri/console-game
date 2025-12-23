@@ -24,10 +24,10 @@ Absolutely correct! Manual metadata maintenance is:
 - `version` - Schema version (e.g., "1.0", "2.0")
 
 ### What System Generates (6+ fields):
-- `last_updated` - Timestamp (YYYY-MM-DD)
-- `component_keys` - Extracted from components object
-- `pattern_tokens` - Parsed from patterns array
-- `total_patterns` - Count of patterns
+- `lastUpdated` - Timestamp (YYYY-MM-DD)
+- `componentKeys` - Extracted from components object
+- `patternTokens` - Parsed from patterns array
+- `totalPatterns` - Count of patterns
 - `total_items` - Count of items
 - `[category]_count` - Count of nested categories
 
@@ -87,10 +87,10 @@ public static Dictionary<string, object> Generate(
     {
         ["description"] = userDescription,
         ["version"] = userVersion,
-        ["last_updated"] = DateTime.Now.ToString("yyyy-MM-dd"),
-        ["component_keys"] = ExtractComponentKeys(components),
-        ["pattern_tokens"] = ExtractPatternTokens(patterns),
-        ["total_patterns"] = patterns.Count
+        ["lastUpdated"] = DateTime.Now.ToString("yyyy-MM-dd"),
+        ["componentKeys"] = ExtractComponentKeys(components),
+        ["patternTokens"] = ExtractPatternTokens(patterns),
+        ["totalPatterns"] = patterns.Count
     };
 }
 ```

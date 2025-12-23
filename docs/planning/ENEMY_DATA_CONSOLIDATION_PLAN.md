@@ -36,8 +36,8 @@ All enemy subdirectories have the same structure:
 
 ### 1. Update names.json Metadata
 - Change version to `4.0`
-- Add `"supports_traits": true`
-- Add `"prefix"` and `"suffix"` to `component_keys` and `pattern_tokens`
+- Add `"supportsTraits": true`
+- Add `"prefix"` and `"suffix"` to `componentKeys` and `patternTokens`
 - Update notes to indicate consolidation
 
 ### 2. Add Prefix Components
@@ -142,11 +142,11 @@ After consolidation:
 - [ ] Read suffixes.json
 - [ ] Transform prefix items: name → value
 - [ ] Transform suffix items: name → value
-- [ ] Add prefix/suffix to metadata component_keys
-- [ ] Add prefix/suffix to metadata pattern_tokens
+- [ ] Add prefix/suffix to metadata componentKeys
+- [ ] Add prefix/suffix to metadata patternTokens
 - [ ] Add patterns using prefix/suffix
 - [ ] Update version to 4.0
-- [ ] Add supports_traits: true
+- [ ] Add supportsTraits: true
 - [ ] Update notes array
 - [ ] Write updated names.json
 - [ ] Update types.json metadata (enemy_catalog → item_catalog)

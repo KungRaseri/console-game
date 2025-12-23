@@ -41,7 +41,7 @@ try {
         metadata = [PSCustomObject]@{
             description = "Quest template catalog with various quest types and difficulty levels"
             version = "4.0"
-            last_updated = (Get-Date -Format "yyyy-MM-dd")
+            lastUpdated = (Get-Date -Format "yyyy-MM-dd")
             type = "quest_template_catalog"
             quest_types = @("fetch", "kill", "escort", "delivery", "investigate")
             total_templates = 0

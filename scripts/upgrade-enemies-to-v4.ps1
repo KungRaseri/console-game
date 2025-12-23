@@ -77,19 +77,19 @@ function Upgrade-EnemyData {
             $namesChanged = $true
         }
         
-        # Add supports_traits if not present
-        if (-not ($names.metadata.PSObject.Properties.Name -contains "supports_traits")) {
-            $names.metadata | Add-Member -NotePropertyName "supports_traits" -NotePropertyValue $true -Force | Out-Null
+        # Add supportsTraits if not present
+        if (-not ($names.metadata.PSObject.Properties.Name -contains "supportsTraits")) {
+            $names.metadata | Add-Member -NotePropertyName "supportsTraits" -NotePropertyValue $true -Force | Out-Null
             $namesChanged = $true
         }
         
-        # Update last_updated
+        # Update lastUpdated
         if ($namesChanged) {
-            $names.metadata.last_updated = Get-Date -Format "yyyy-MM-dd"
+            $names.metadata.lastUpdated = Get-Date -Format "yyyy-MM-dd"
         }
         
         # Add v4.0 note if not present
-        $v4Note = "Upgraded to v4.0 with supports_traits metadata"
+        $v4Note = "Upgraded to v4.0 with supportsTraits metadata"
         $notesArray = @($names.metadata.notes)
         if ($notesArray -notcontains $v4Note) {
             $notesArray += $v4Note
@@ -118,9 +118,9 @@ function Upgrade-EnemyData {
             $typesChanged = $true
         }
         
-        # Update last_updated
+        # Update lastUpdated
         if ($typesChanged) {
-            $types.metadata.last_updated = Get-Date -Format "yyyy-MM-dd"
+            $types.metadata.lastUpdated = Get-Date -Format "yyyy-MM-dd"
         }
         
         if ($typesChanged) {

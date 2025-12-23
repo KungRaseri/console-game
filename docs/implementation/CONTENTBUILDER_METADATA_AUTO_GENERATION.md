@@ -11,7 +11,7 @@ Implement automatic metadata generation in ContentBuilder to eliminate manual ma
 ## Problem Statement
 
 **Current Issues:**
-- ❌ Users must manually update `component_keys`, `pattern_tokens`, counts
+- ❌ Users must manually update `componentKeys`, `patternTokens`, counts
 - ❌ Easy to forget or make mistakes
 - ❌ Metadata can become out of sync with actual data
 - ❌ Tedious to maintain, especially during rapid editing
@@ -32,10 +32,10 @@ Users maintain ONLY:
 ### Auto-Generated Fields (Computed)
 
 System generates:
-- `last_updated` - Timestamp (YYYY-MM-DD)
-- `component_keys` - Extracted from `components` object
-- `pattern_tokens` - Parsed from `patterns` array + "base"
-- `total_patterns` - Count of patterns
+- `lastUpdated` - Timestamp (YYYY-MM-DD)
+- `componentKeys` - Extracted from `components` object
+- `patternTokens` - Parsed from `patterns` array + "base"
+- `totalPatterns` - Count of patterns
 - `total_items` - Count of items (if applicable)
 - `[category]_count` - Count of nested categories (e.g., `weapon_types: 7`)
 
@@ -75,14 +75,14 @@ public static class MetadataGenerator
             ["version"] = userVersion ?? "1.0",
             
             // Auto-generated fields
-            ["last_updated"] = DateTime.Now.ToString("yyyy-MM-dd"),
-            ["component_keys"] = ExtractComponentKeys(components),
-            ["pattern_tokens"] = ExtractPatternTokens(patterns)
+            ["lastUpdated"] = DateTime.Now.ToString("yyyy-MM-dd"),
+            ["componentKeys"] = ExtractComponentKeys(components),
+            ["patternTokens"] = ExtractPatternTokens(patterns)
         };
         
         // Optional counts
         if (patterns?.Count > 0)
-            metadata["total_patterns"] = patterns.Count;
+            metadata["totalPatterns"] = patterns.Count;
             
         if (items?.Count > 0)
             metadata["total_items"] = items.Count;
@@ -448,7 +448,7 @@ public class MetadataGeneratorTests
             new List<string>()
         );
         
-        var keys = metadata["component_keys"] as string[];
+        var keys = metadata["componentKeys"] as string[];
         keys.Should().Contain("material");
         keys.Should().Contain("quality");
         keys.Should().NotContain("weapon_types");
@@ -471,7 +471,7 @@ public class MetadataGeneratorTests
             patterns
         );
         
-        var tokens = metadata["pattern_tokens"] as string[];
+        var tokens = metadata["patternTokens"] as string[];
         tokens.Should().Contain("base");
         tokens.Should().Contain("material");
         tokens.Should().Contain("quality");
@@ -540,8 +540,8 @@ public class MetadataGeneratorTests
 
 | Before | After |
 |--------|-------|
-| Manual maintenance of component_keys | ✅ Auto-extracted |
-| Manual maintenance of pattern_tokens | ✅ Auto-extracted |
+| Manual maintenance of componentKeys | ✅ Auto-extracted |
+| Manual maintenance of patternTokens | ✅ Auto-extracted |
 | Manual counting of patterns/items | ✅ Auto-counted |
 | Metadata gets out of sync | ✅ Always accurate |
 | Easy to forget to update | ✅ Impossible to forget |

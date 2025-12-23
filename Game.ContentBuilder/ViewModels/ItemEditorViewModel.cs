@@ -95,7 +95,7 @@ public partial class ItemEditorViewModel : ObservableObject
             {
                 MetadataDescription = metadata["description"]?.ToString() ?? string.Empty;
                 MetadataVersion = metadata["version"]?.ToString() ?? string.Empty;
-                MetadataLastUpdated = metadata["last_updated"]?.ToString() ?? string.Empty;
+                MetadataLastUpdated = metadata["lastUpdated"]?.ToString() ?? string.Empty;
                 MetadataFileType = metadata["type"]?.ToString() ?? string.Empty;
                 
                 // Tags (comma-separated string)
@@ -219,7 +219,7 @@ public partial class ItemEditorViewModel : ObservableObject
             {
                 ["description"] = MetadataDescription,
                 ["version"] = MetadataVersion,
-                ["last_updated"] = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+                ["lastUpdated"] = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ"),
                 ["type"] = "item_modifiers"
             };
 

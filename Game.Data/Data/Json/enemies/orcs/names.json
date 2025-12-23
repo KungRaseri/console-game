@@ -2,32 +2,32 @@
     "metadata":  {
                      "description":  "Orc name generation patterns with weight-based rarity components",
                      "version":  "4.0",
-                     "last_updated":  "2025-12-17",
+                     "lastUpdated":  "2025-12-17",
                      "type":  "pattern_generation",
-                     "component_keys":  [
+                     "componentKeys":  [
                                             "rank",
                                             "clan",
                                             "descriptive",
                                             "title"
                                         ],
-                     "pattern_tokens":  [
+                     "patternTokens":  [
                                             "base",
                                             "rank",
                                             "clan",
                                             "descriptive",
                                             "title"
                                         ],
-                     "total_patterns":  8,
-                     "rarity_system":  "weight-based",
+                     "totalPatterns":  8,
+                     "raritySystem":  "weight-based",
                      "notes":  [
                                    {
                                        "base_token":  "Resolves to item name from orcs/catalog.json",
                                        "clan_culture":  "Orcs organize in powerful clans with warrior hierarchies",
                                        "weight_ranges":  "Young (5) → King (65), Ironjaw (10) → Hellscream (45)"
                                    },
-                                   "Upgraded to v4.0 with supports_traits metadata"
+                                   "Upgraded to v4.0 with supportsTraits metadata"
                                ],
-                     "supports_traits":  true
+                     "supportsTraits":  true
                  },
     "components":  {
                        "rank":  [

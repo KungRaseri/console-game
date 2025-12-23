@@ -16,8 +16,8 @@ Weapons and enemies both use **pattern-based name generation** with components:
 {
   "metadata": {
     "type": "pattern_generation",
-    "component_keys": ["prefix", "material", "quality", "descriptive", "suffix"],
-    "pattern_tokens": ["base", "prefix", "material", "quality", "suffix"]
+    "componentKeys": ["prefix", "material", "quality", "descriptive", "suffix"],
+    "patternTokens": ["base", "prefix", "material", "quality", "suffix"]
   },
   "components": {
     "prefix": [
@@ -39,8 +39,8 @@ Weapons and enemies both use **pattern-based name generation** with components:
 {
   "metadata": {
     "type": "pattern_generation",
-    "component_keys": ["size", "descriptive", "origin", "title"],
-    "pattern_tokens": ["base", "size", "descriptive", "origin"]
+    "componentKeys": ["size", "descriptive", "origin", "title"],
+    "patternTokens": ["base", "size", "descriptive", "origin"]
   },
   "components": {
     "size": [
@@ -259,11 +259,11 @@ Following the weapons/enemies pattern:
     "description": "NPC name generation with pattern-based system",
     "version": "4.0",
     "type": "pattern_generation",
-    "supports_traits": false,
-    "component_keys": ["title", "first_name", "surname", "suffix"],
-    "pattern_tokens": ["title", "first_name", "surname", "suffix"],
-    "total_patterns": 12,
-    "rarity_system": "weight-based"
+    "supportsTraits": false,
+    "componentKeys": ["title", "first_name", "surname", "suffix"],
+    "patternTokens": ["title", "first_name", "surname", "suffix"],
+    "totalPatterns": 12,
+    "raritySystem": "weight-based"
   },
   "components": {
     "title": [
@@ -492,7 +492,7 @@ npcs/
   "metadata": {
     "description": "NPC backgrounds and occupations catalog",
     "type": "npc_catalog",
-    "component_keys": ["backgrounds", "occupations"]
+    "componentKeys": ["backgrounds", "occupations"]
   },
   "backgrounds": {
     "common_folk": {

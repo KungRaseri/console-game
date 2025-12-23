@@ -185,7 +185,7 @@ public static class FileTypeDetector
         if (metadata == null)
             return false;
 
-        var supportsTraits = metadata["supports_traits"]?.Value<bool>() ?? false;
+        var supportsTraits = metadata["supportsTraits"]?.Value<bool>() ?? false;
         var version = metadata["version"]?.ToString() ?? "0.0";
 
         return supportsTraits || version.StartsWith("4.");

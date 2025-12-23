@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Basic dialogue templates by category for quick NPC interactions",
     "version": "4.0",
-    "last_updated": "2025-12-18",
+    "lastUpdated": "2025-12-18",
     "type": "dialogue_quick_templates",
     "categories": ["greetings", "merchants", "quests", "rumors", "farewells", "hostile", "friendly"],
     "notes": {

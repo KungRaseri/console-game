@@ -37,8 +37,8 @@
     "description": "Categorized action verbs for combat, magic, movement, and interactions",
     "version": "1.0",
     "type": "component_library",
-    "last_updated": "2025-12-16",
-    "component_keys": ["combat_offensive", "combat_defensive", "magic", "healing", "movement", "stealth", "interaction", "communication"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["combat_offensive", "combat_defensive", "magic", "healing", "movement", "stealth", "interaction", "communication"],
     "component_counts": {
       "combat_offensive": 10,
       "combat_defensive": 10,

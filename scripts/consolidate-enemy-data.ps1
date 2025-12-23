@@ -127,22 +127,22 @@ function Consolidate-EnemyData {
         
         # Update metadata
         $names.metadata.version = "4.0"
-        $names.metadata | Add-Member -NotePropertyName "supports_traits" -NotePropertyValue $true -Force | Out-Null
+        $names.metadata | Add-Member -NotePropertyName "supportsTraits" -NotePropertyValue $true -Force | Out-Null
         
-        # Update component_keys
-        if ($names.metadata.component_keys -notcontains "prefix") {
-            $names.metadata.component_keys = @("prefix") + $names.metadata.component_keys
+        # Update componentKeys
+        if ($names.metadata.componentKeys -notcontains "prefix") {
+            $names.metadata.componentKeys = @("prefix") + $names.metadata.componentKeys
         }
-        if ($names.metadata.component_keys -notcontains "suffix") {
-            $names.metadata.component_keys += "suffix"
+        if ($names.metadata.componentKeys -notcontains "suffix") {
+            $names.metadata.componentKeys += "suffix"
         }
         
-        # Update pattern_tokens
-        if ($names.metadata.pattern_tokens -notcontains "prefix") {
-            $names.metadata.pattern_tokens = @("prefix") + $names.metadata.pattern_tokens
+        # Update patternTokens
+        if ($names.metadata.patternTokens -notcontains "prefix") {
+            $names.metadata.patternTokens = @("prefix") + $names.metadata.patternTokens
         }
-        if ($names.metadata.pattern_tokens -notcontains "suffix") {
-            $names.metadata.pattern_tokens += "suffix"
+        if ($names.metadata.patternTokens -notcontains "suffix") {
+            $names.metadata.patternTokens += "suffix"
         }
         
         # Update notes
@@ -195,7 +195,7 @@ function Consolidate-EnemyData {
         }
         
         $names.patterns = $existingPatterns
-        $names.metadata.total_patterns = $existingPatterns.Count
+        $names.metadata.totalPatterns = $existingPatterns.Count
         
         Write-Host "  ✓ Updated metadata and added patterns" -ForegroundColor Gray
         

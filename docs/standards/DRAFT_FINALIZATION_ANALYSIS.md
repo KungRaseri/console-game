@@ -100,9 +100,9 @@ After analyzing the actual JSON files in the codebase, I've discovered that the 
   "metadata": {
     "description": "...",
     "version": "1.0",
-    "last_updated": "2025-12-16",
-    "component_keys": [...],
-    "pattern_tokens": [...]
+    "lastUpdated": "2025-12-16",
+    "componentKeys": [...],
+    "patternTokens": [...]
   }
 }
 ```
@@ -225,7 +225,7 @@ Remove all draft proposals that don't match reality. Replace with:
 **Standardization Required:**
 - ✅ Verify components and patterns exist
 - ✅ Add metadata section if missing
-- ✅ Auto-generate component_keys and pattern_tokens
+- ✅ Auto-generate componentKeys and patternTokens
 - ✅ Validate patterns reference valid component keys
 
 **Files:**

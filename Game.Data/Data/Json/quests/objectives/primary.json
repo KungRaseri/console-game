@@ -1,7 +1,7 @@
 ﻿{
   "metadata": {
     "version": "2.0",
-    "last_updated": "2025-01-27",
+    "lastUpdated": "2025-01-27",
     "type": "quest_objectives_primary",
     "total_objectives": 20,
     "categories": ["combat_objectives", "retrieval_objectives", "rescue_objectives", "purification_objectives", "defense_objectives", "social_objectives", "timed_objectives"]
@@ -183,8 +183,8 @@
     ]
   },
   "notes": {
-    "rarity_system": "Weight determines quest appearance probability - higher weight = rarer/more epic quests",
-    "component_keys": ["combat_objectives", "retrieval_objectives", "rescue_objectives", "purification_objectives", "defense_objectives", "social_objectives", "timed_objectives"],
+    "raritySystem": "Weight determines quest appearance probability - higher weight = rarer/more epic quests",
+    "componentKeys": ["combat_objectives", "retrieval_objectives", "rescue_objectives", "purification_objectives", "defense_objectives", "social_objectives", "timed_objectives"],
     "weight_ranges": {
       "common": "20-35 (Clear dungeons, retrieve artifacts, medium difficulty)",
       "uncommon": "38-50 (Boss fights, relics, hard difficulty)",

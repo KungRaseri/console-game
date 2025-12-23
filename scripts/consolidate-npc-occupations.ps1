@@ -40,10 +40,10 @@ try {
         metadata = [PSCustomObject]@{
             description = "NPC occupation catalog with weight-based rarity and trait bonuses"
             version = "4.0"
-            last_updated = (Get-Date -Format "yyyy-MM-dd")
+            lastUpdated = (Get-Date -Format "yyyy-MM-dd")
             type = "occupation_catalog"
-            supports_traits = $true
-            component_keys = @("common", "criminal", "magical", "noble")
+            supportsTraits = $true
+            componentKeys = @("common", "criminal", "magical", "noble")
             total_occupations = 0
             categories = @("merchants", "craftsmen", "professionals", "service", "nobility", "religious", "adventurers", "magical", "criminal", "common")
             usage = "Provides occupation templates for NPC generation with stat bonuses"

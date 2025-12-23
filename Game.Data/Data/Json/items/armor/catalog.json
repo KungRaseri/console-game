@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Armor type catalog with base stats and traits",
     "version": "1.0",
-    "last_updated": "2025-12-16",
+    "lastUpdated": "2025-12-16",
     "type": "item_catalog",
     "total_armor_types": 7,
     "total_pieces": 40,

@@ -32,10 +32,10 @@
     "description": "Texture descriptions for tactile immersion, item details, and environmental richness",
     "version": "1.0",
     "type": "pattern_generation",
-    "last_updated": "2025-12-16",
-    "component_keys": ["surface_quality", "temperature", "moisture", "hardness", "organic"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["surface_quality", "temperature", "moisture", "hardness", "organic"],
     "pattern_count": 5,
-    "pattern_tokens": ["surface_quality", "temperature", "moisture", "hardness", "organic"],
+    "patternTokens": ["surface_quality", "temperature", "moisture", "hardness", "organic"],
     "component_counts": {
       "surface_quality": 10,
       "temperature": 10,

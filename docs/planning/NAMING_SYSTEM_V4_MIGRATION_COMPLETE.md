@@ -78,10 +78,10 @@ All migrated files follow this consistent structure:
 {
   "metadata": {
     "version": "4.0",
-    "supports_traits": true,
-    "component_keys": ["prefix", "material", "quality", "suffix", ...],
-    "pattern_tokens": ["base", "prefix", "material", "quality", "suffix"],
-    "rarity_system": "weight-based",
+    "supportsTraits": true,
+    "componentKeys": ["prefix", "material", "quality", "suffix", ...],
+    "patternTokens": ["base", "prefix", "material", "quality", "suffix"],
+    "raritySystem": "weight-based",
     "notes": [...]
   },
   "components": {

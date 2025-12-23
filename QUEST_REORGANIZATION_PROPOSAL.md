@@ -115,7 +115,7 @@
 {
   "metadata": {
     "version": "4.0",
-    "last_updated": "2025-12-18",
+    "lastUpdated": "2025-12-18",
     "description": "Quest templates and location catalog for procedural quest generation",
     "type": "quest_catalog",
     "notes": "Consolidated from quest_templates.json, wilderness.json, towns.json, and dungeons.json. Supports weighted random selection using rarityWeight formula: probability = 100 / rarityWeight",
@@ -392,7 +392,7 @@
 {
   "metadata": {
     "version": "4.0",
-    "last_updated": "2025-12-18",
+    "lastUpdated": "2025-12-18",
     "description": "Quest objectives catalog including primary, secondary, and hidden objectives",
     "type": "quest_objectives",
     "notes": "Consolidated from primary.json, secondary.json, and hidden.json. Primary objectives are core quest goals. Secondary objectives provide bonus rewards. Hidden objectives are discovered during gameplay.",
@@ -485,7 +485,7 @@
 {
   "metadata": {
     "version": "4.0",
-    "last_updated": "2025-12-18",
+    "lastUpdated": "2025-12-18",
     "description": "Quest rewards catalog including items, gold, and experience scaling formulas",
     "type": "quest_rewards",
     "notes": "Consolidated from items.json, gold.json, and experience.json. Supports weighted selection and dynamic scaling based on player level and quest difficulty.",

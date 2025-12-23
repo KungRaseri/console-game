@@ -1,7 +1,7 @@
 ﻿{
   "metadata": {
     "version": "2.0",
-    "last_updated": "2025-01-27",
+    "lastUpdated": "2025-01-27",
     "type": "quest_objectives_hidden",
     "total_objectives": 14,
     "categories": ["exploration_secrets", "lore_secrets", "combat_secrets", "branching_secrets", "collection_secrets", "puzzle_secrets", "diplomacy_secrets", "timed_secrets"]
@@ -141,8 +141,8 @@
     ]
   },
   "notes": {
-    "rarity_system": "Weight determines secret objective rarity - all hidden objectives are rare by nature (50-120)",
-    "component_keys": ["exploration_secrets", "lore_secrets", "combat_secrets", "branching_secrets", "collection_secrets", "puzzle_secrets", "rescue_secrets", "diplomacy_secrets", "timed_secrets", "purification_secrets"],
+    "raritySystem": "Weight determines secret objective rarity - all hidden objectives are rare by nature (50-120)",
+    "componentKeys": ["exploration_secrets", "lore_secrets", "combat_secrets", "branching_secrets", "collection_secrets", "puzzle_secrets", "rescue_secrets", "diplomacy_secrets", "timed_secrets", "purification_secrets"],
     "weight_ranges": {
       "rare": "50-70 (Basic secrets: lore collection, secret rooms)",
       "very_rare": "75-95 (Complex secrets: true boss, ancient puzzles, alliances)",

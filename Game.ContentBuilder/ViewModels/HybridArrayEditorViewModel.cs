@@ -244,15 +244,15 @@ public partial class HybridArrayEditorViewModel : ObservableObject
                     Notes = metadataObj["notes"]?.ToString() ?? string.Empty;
                 }
                 
-                LastUpdated = metadataObj["last_updated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
+                LastUpdated = metadataObj["lastUpdated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
                 FileType = metadataObj["type"]?.ToString() ?? string.Empty;
                 
                 // Display component keys and pattern tokens as comma-separated lists
-                ComponentKeysDisplay = metadataObj["component_keys"] is JArray componentKeys
+                ComponentKeysDisplay = metadataObj["componentKeys"] is JArray componentKeys
                     ? string.Join(", ", componentKeys.Select(k => k.ToString()))
                     : string.Empty;
                     
-                PatternTokensDisplay = metadataObj["pattern_tokens"] is JArray patternTokens
+                PatternTokensDisplay = metadataObj["patternTokens"] is JArray patternTokens
                     ? string.Join(", ", patternTokens.Select(t => t.ToString()))
                     : string.Empty;
             }
@@ -353,12 +353,12 @@ public partial class HybridArrayEditorViewModel : ObservableObject
             data["metadata"] = metadata;
 
             // Update read-only display properties from generated metadata
-            LastUpdated = metadata["last_updated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
+            LastUpdated = metadata["lastUpdated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
             FileType = metadata["type"]?.ToString() ?? string.Empty;
-            ComponentKeysDisplay = metadata["component_keys"] is JArray componentKeys
+            ComponentKeysDisplay = metadata["componentKeys"] is JArray componentKeys
                 ? string.Join(", ", componentKeys.Select(k => k.ToString()))
                 : string.Empty;
-            PatternTokensDisplay = metadata["pattern_tokens"] is JArray patternTokens
+            PatternTokensDisplay = metadata["patternTokens"] is JArray patternTokens
                 ? string.Join(", ", patternTokens.Select(t => t.ToString()))
                 : string.Empty;
 

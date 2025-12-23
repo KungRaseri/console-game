@@ -1,7 +1,7 @@
 ﻿{
   "metadata": {
     "version": "2.0",
-    "last_updated": "2025-01-27",
+    "lastUpdated": "2025-01-27",
     "type": "quest_locations_towns",
     "total_locations": 15,
     "categories": ["outposts", "villages", "towns", "cities", "capitals", "special_locations"]
@@ -141,8 +141,8 @@
     ]
   },
   "notes": {
-    "rarity_system": "Weight reflects settlement size and importance - larger/rarer locations have higher weights",
-    "component_keys": ["outposts", "villages", "towns", "cities", "capitals", "special_locations"],
+    "raritySystem": "Weight reflects settlement size and importance - larger/rarer locations have higher weights",
+    "componentKeys": ["outposts", "villages", "towns", "cities", "capitals", "special_locations"],
     "weight_ranges": {
       "outposts": "8 (Tiny waypoints, simple quests)",
       "villages": "10-18 (Small settlements, gathering/escort quests)",

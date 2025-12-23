@@ -155,8 +155,8 @@ Audit of NPC-related JSON files to identify:
   "metadata": { ... },
   "components": { ... },
   "notes": {              // ❌ Should be in metadata
-    "rarity_system": "weight-based",
-    "component_keys": [...],
+    "raritySystem": "weight-based",
+    "componentKeys": [...],
     "weight_ranges": { ... }
   }
 }
@@ -169,7 +169,7 @@ Audit of NPC-related JSON files to identify:
     "description": "...",
     "version": "2.0",
     "notes": {           // ✅ Inside metadata
-      "rarity_system": "weight-based",
+      "raritySystem": "weight-based",
       "weight_ranges": { ... }
     }
   },
@@ -222,7 +222,7 @@ Audit of NPC-related JSON files to identify:
   "metadata": { ... },
   "components": { ... },
   "notes": {              // ❌ Should be in metadata
-    "rarity_system": "weight-based",
+    "raritySystem": "weight-based",
     "weight_ranges": { ... }
   }
 }
@@ -235,7 +235,7 @@ Audit of NPC-related JSON files to identify:
     "description": "...",
     "version": "2.0",
     "notes": {           // ✅ Inside metadata
-      "rarity_system": "weight-based",
+      "raritySystem": "weight-based",
       "weight_ranges": { ... }
     }
   },

@@ -2,14 +2,14 @@
     "metadata": {
         "description": "Dialogue style templates with personality and formality variations",
         "version": "4.0",
-        "last_updated": "2025-12-17",
+        "lastUpdated": "2025-12-17",
         "type": "dialogue_style_catalog",
         "total_traits": 10,
         "categories": [
             "disposition",
             "speech_style"
         ],
-        "supports_traits": true,
+        "supportsTraits": true,
         "usage": "Provides dialogue style templates for NPC conversations"
     },
     "components": {
@@ -229,8 +229,8 @@
         ]
     },
     "notes": {
-        "rarity_system": "weight-based",
-        "component_keys": [
+        "raritySystem": "weight-based",
+        "componentKeys": [
             "friendly_welcoming",
             "neutral_reserved",
             "hostile_aggressive",

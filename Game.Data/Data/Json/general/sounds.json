@@ -45,10 +45,10 @@
     "description": "Sound descriptions for combat, environmental atmosphere, and immersive audio narratives",
     "version": "1.0",
     "type": "pattern_generation",
-    "last_updated": "2025-12-16",
-    "component_keys": ["base_sound", "volume", "nature", "combat", "ambient", "intensity"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["base_sound", "volume", "nature", "combat", "ambient", "intensity"],
     "pattern_count": 6,
-    "pattern_tokens": ["base_sound", "volume", "nature", "combat", "ambient", "intensity"],
+    "patternTokens": ["base_sound", "volume", "nature", "combat", "ambient", "intensity"],
     "component_counts": {
       "base_sound": 50,
       "volume": 10,

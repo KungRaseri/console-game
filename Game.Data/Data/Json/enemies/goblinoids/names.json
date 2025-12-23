@@ -2,32 +2,32 @@
     "metadata":  {
                      "description":  "Goblinoid name generation patterns with weight-based rarity components",
                      "version":  "4.0",
-                     "last_updated":  "2025-12-17",
+                     "lastUpdated":  "2025-12-17",
                      "type":  "pattern_generation",
-                     "component_keys":  [
+                     "componentKeys":  [
                                             "rank",
                                             "tribe",
                                             "descriptive",
                                             "title"
                                         ],
-                     "pattern_tokens":  [
+                     "patternTokens":  [
                                             "base",
                                             "rank",
                                             "tribe",
                                             "descriptive",
                                             "title"
                                         ],
-                     "total_patterns":  8,
-                     "rarity_system":  "weight-based",
+                     "totalPatterns":  8,
+                     "raritySystem":  "weight-based",
                      "notes":  [
                                    {
                                        "base_token":  "Resolves to item name from goblinoids/catalog.json",
                                        "tribal_culture":  "Goblinoids organize in tribes/clans with hierarchies",
                                        "weight_ranges":  "Young (3) → King (60), Cave (5) → Skullcrusher (35)"
                                    },
-                                   "Upgraded to v4.0 with supports_traits metadata"
+                                   "Upgraded to v4.0 with supportsTraits metadata"
                                ],
-                     "supports_traits":  true
+                     "supportsTraits":  true
                  },
     "components":  {
                        "rank":  [

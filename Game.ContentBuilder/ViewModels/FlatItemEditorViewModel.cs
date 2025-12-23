@@ -152,7 +152,7 @@ public partial class FlatItemEditorViewModel : ObservableObject
                     Notes = metadataObj["notes"]?.ToString() ?? string.Empty;
                 }
                 
-                LastUpdated = metadataObj["last_updated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
+                LastUpdated = metadataObj["lastUpdated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
                 FileType = metadataObj["type"]?.ToString() ?? string.Empty;
             }
 
@@ -211,7 +211,7 @@ public partial class FlatItemEditorViewModel : ObservableObject
             {
                 ["description"] = MetadataDescription,
                 ["version"] = MetadataVersion,
-                ["last_updated"] = DateTime.Now.ToString("yyyy-MM-dd"),
+                ["lastUpdated"] = DateTime.Now.ToString("yyyy-MM-dd"),
                 ["type"] = "item_catalog",
                 ["total_items"] = Items.Count
             };
@@ -224,7 +224,7 @@ public partial class FlatItemEditorViewModel : ObservableObject
             root["metadata"] = metadata;
 
             // Update read-only properties
-            LastUpdated = metadata["last_updated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
+            LastUpdated = metadata["lastUpdated"]?.ToString() ?? DateTime.Now.ToString("yyyy-MM-dd");
             FileType = metadata["type"]?.ToString() ?? string.Empty;
 
             // Save to file

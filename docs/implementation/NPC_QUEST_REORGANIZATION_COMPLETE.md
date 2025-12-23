@@ -24,7 +24,7 @@ Successfully reorganized NPC and Quest data for consistency while preserving the
 - `type`: `trait_catalog` → `dialogue_style_catalog`
 - `description`: Updated to reflect dialogue styles
 - `version`: `2.0` → `4.0`
-- Added: `supports_traits: true`
+- Added: `supportsTraits: true`
 - Added: `usage: "Provides dialogue style templates for NPC conversations"`
 
 #### 2. NPC Personality Traits
@@ -35,7 +35,7 @@ Successfully reorganized NPC and Quest data for consistency while preserving the
 - `type`: `trait_catalog` → `personality_trait_catalog`
 - `description`: Clarified as personality traits
 - `version`: `2.0` → `4.0`
-- Added: `supports_traits: true`
+- Added: `supportsTraits: true`
 - Added: `usage: "Provides personality traits for NPC characterization"`
 
 ### Phase 2: Consolidated NPC Occupations ✅
@@ -59,8 +59,8 @@ npcs/occupations/occupations.json
   "metadata": {
     "version": "4.0",
     "type": "occupation_catalog",
-    "supports_traits": true,
-    "component_keys": ["common", "criminal", "magical", "noble"],
+    "supportsTraits": true,
+    "componentKeys": ["common", "criminal", "magical", "noble"],
     "total_occupations": 49
   },
   "components": {
@@ -82,7 +82,7 @@ npcs/occupations/occupations.json
 - ✅ Single file easier to manage
 - ✅ All 49 occupations in one place
 - ✅ Component-based structure like items/enemies
-- ✅ v4.0 metadata with supports_traits
+- ✅ v4.0 metadata with supportsTraits
 
 ### Phase 3: Consolidated Quest Templates ✅
 
@@ -304,7 +304,7 @@ quests/
 ### Consistency
 - ✅ v4.0 metadata on consolidated files
 - ✅ Standardized catalog types
-- ✅ Added `supports_traits` where applicable
+- ✅ Added `supportsTraits` where applicable
 - ✅ Added `usage` fields for clarity
 
 ### Maintainability

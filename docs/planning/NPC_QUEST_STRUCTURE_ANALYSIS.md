@@ -72,7 +72,7 @@ category/
 - ✅ Single names.json with pattern generation
 - ✅ Single types.json with catalog
 - ✅ Component-based structure
-- ✅ Supports v4.0 metadata (supports_traits, etc.)
+- ✅ Supports v4.0 metadata (supportsTraits, etc.)
 - ✅ Consistent file naming
 
 ---
@@ -202,7 +202,7 @@ occupations/occupations.json  # Single file with components
   "metadata": {
     "type": "occupation_catalog",
     "version": "4.0",
-    "supports_traits": true
+    "supportsTraits": true
   },
   "components": {
     "common": [ /* from common.json */ ],
@@ -251,9 +251,9 @@ All NPC and Quest JSON files should have:
 {
   "metadata": {
     "version": "4.0",                    // Upgrade from 2.0
-    "last_updated": "2025-12-17",        // Update timestamp
-    "supports_traits": true,             // If applicable
-    "component_keys": [...],             // List of component keys
+    "lastUpdated": "2025-12-17",        // Update timestamp
+    "supportsTraits": true,             // If applicable
+    "componentKeys": [...],             // List of component keys
     "usage": "Description of purpose"    // Add usage field
   }
 }

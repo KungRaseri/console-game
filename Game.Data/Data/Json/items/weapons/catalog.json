@@ -2,10 +2,10 @@
   "metadata": {
     "description": "Weapon type catalog with base stats and traits",
     "version": "1.0",
-    "last_updated": "2025-12-16",
+    "lastUpdated": "2025-12-16",
     "type": "item_catalog",
-    "total_weapon_types": 6,
-    "total_weapons": 69,
+    "totalWeaponTypes": 6,
+    "totalWeapons": 69,
     "usage": "Base catalog of weapons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
     "notes": [
       "Base items used in pattern generation with names.json",
@@ -22,16 +22,86 @@
         "skillType": "blade"
       },
       "items": [
-        { "name": "Longsword", "damage": "1d8", "weight": 3.0, "value": 15, "rarity": "common", "rarityWeight": 5 },
-        { "name": "Shortsword", "damage": "1d6", "weight": 2.0, "value": 10, "rarity": "common", "rarityWeight": 5 },
-        { "name": "Greatsword", "damage": "2d6", "weight": 6.0, "value": 50, "rarity": "uncommon", "rarityWeight": 10 },
-        { "name": "Scimitar", "damage": "1d6", "weight": 3.0, "value": 15, "rarity": "common", "rarityWeight": 8 },
-        { "name": "Rapier", "damage": "1d8", "weight": 2.0, "value": 25, "rarity": "uncommon", "rarityWeight": 12 },
-        { "name": "Katana", "damage": "1d10", "weight": 3.0, "value": 40, "rarity": "uncommon", "rarityWeight": 15 },
-        { "name": "Broadsword", "damage": "1d8", "weight": 3.5, "value": 18, "rarity": "common", "rarityWeight": 6 },
-        { "name": "Claymore", "damage": "2d6", "weight": 7.0, "value": 60, "rarity": "uncommon", "rarityWeight": 12 },
-        { "name": "Saber", "damage": "1d8", "weight": 2.5, "value": 20, "rarity": "common", "rarityWeight": 7 },
-        { "name": "Gladius", "damage": "1d6", "weight": 2.0, "value": 12, "rarity": "common", "rarityWeight": 5 }
+        {
+          "name": "Longsword",
+          "damage": "1d8",
+          "weight": 3.0,
+          "value": 15,
+          "rarity": "common",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Shortsword",
+          "damage": "1d6",
+          "weight": 2.0,
+          "value": 10,
+          "rarity": "common",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Greatsword",
+          "damage": "2d6",
+          "weight": 6.0,
+          "value": 50,
+          "rarity": "uncommon",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Scimitar",
+          "damage": "1d6",
+          "weight": 3.0,
+          "value": 15,
+          "rarity": "common",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Rapier",
+          "damage": "1d8",
+          "weight": 2.0,
+          "value": 25,
+          "rarity": "uncommon",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Katana",
+          "damage": "1d10",
+          "weight": 3.0,
+          "value": 40,
+          "rarity": "uncommon",
+          "rarityWeight": 15
+        },
+        {
+          "name": "Broadsword",
+          "damage": "1d8",
+          "weight": 3.5,
+          "value": 18,
+          "rarity": "common",
+          "rarityWeight": 6
+        },
+        {
+          "name": "Claymore",
+          "damage": "2d6",
+          "weight": 7.0,
+          "value": 60,
+          "rarity": "uncommon",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Saber",
+          "damage": "1d8",
+          "weight": 2.5,
+          "value": 20,
+          "rarity": "common",
+          "rarityWeight": 7
+        },
+        {
+          "name": "Gladius",
+          "damage": "1d6",
+          "weight": 2.0,
+          "value": 12,
+          "rarity": "common",
+          "rarityWeight": 5
+        }
       ]
     },
     "axes": {
@@ -42,14 +112,70 @@
         "skillType": "axe"
       },
       "items": [
-        { "name": "Battleaxe", "damage": "1d8", "weight": 4.0, "value": 20, "rarity": "common", "rarityWeight": 6 },
-        { "name": "Handaxe", "damage": "1d6", "weight": 2.0, "value": 10, "rarity": "common", "rarityWeight": 5 },
-        { "name": "Greataxe", "damage": "1d12", "weight": 7.0, "value": 55, "rarity": "uncommon", "rarityWeight": 12 },
-        { "name": "Waraxe", "damage": "1d10", "weight": 5.0, "value": 30, "rarity": "uncommon", "rarityWeight": 10 },
-        { "name": "Hatchet", "damage": "1d4", "weight": 1.5, "value": 5, "rarity": "common", "rarityWeight": 3 },
-        { "name": "Tomahawk", "damage": "1d6", "weight": 2.0, "value": 8, "rarity": "common", "rarityWeight": 5 },
-        { "name": "Cleaver", "damage": "1d6", "weight": 2.5, "value": 8, "rarity": "common", "rarityWeight": 4 },
-        { "name": "Poleaxe", "damage": "1d10", "weight": 6.0, "value": 40, "rarity": "uncommon", "rarityWeight": 11 }
+        {
+          "name": "Battleaxe",
+          "damage": "1d8",
+          "weight": 4.0,
+          "value": 20,
+          "rarity": "common",
+          "rarityWeight": 6
+        },
+        {
+          "name": "Handaxe",
+          "damage": "1d6",
+          "weight": 2.0,
+          "value": 10,
+          "rarity": "common",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Greataxe",
+          "damage": "1d12",
+          "weight": 7.0,
+          "value": 55,
+          "rarity": "uncommon",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Waraxe",
+          "damage": "1d10",
+          "weight": 5.0,
+          "value": 30,
+          "rarity": "uncommon",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Hatchet",
+          "damage": "1d4",
+          "weight": 1.5,
+          "value": 5,
+          "rarity": "common",
+          "rarityWeight": 3
+        },
+        {
+          "name": "Tomahawk",
+          "damage": "1d6",
+          "weight": 2.0,
+          "value": 8,
+          "rarity": "common",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Cleaver",
+          "damage": "1d6",
+          "weight": 2.5,
+          "value": 8,
+          "rarity": "common",
+          "rarityWeight": 4
+        },
+        {
+          "name": "Poleaxe",
+          "damage": "1d10",
+          "weight": 6.0,
+          "value": 40,
+          "rarity": "uncommon",
+          "rarityWeight": 11
+        }
       ]
     },
     "bows": {
@@ -61,14 +187,70 @@
         "requiresAmmo": true
       },
       "items": [
-        { "name": "Longbow", "damage": "1d8", "weight": 2.0, "value": 30, "rarity": "common", "rarityWeight": 8 },
-        { "name": "Shortbow", "damage": "1d6", "weight": 1.5, "value": 20, "rarity": "common", "rarityWeight": 6 },
-        { "name": "Composite Bow", "damage": "1d8", "weight": 2.5, "value": 50, "rarity": "uncommon", "rarityWeight": 15 },
-        { "name": "Recurve Bow", "damage": "1d8", "weight": 2.0, "value": 35, "rarity": "common", "rarityWeight": 10 },
-        { "name": "Crossbow", "damage": "1d10", "weight": 5.0, "value": 50, "rarity": "uncommon", "rarityWeight": 12 },
-        { "name": "Heavy Crossbow", "damage": "1d12", "weight": 8.0, "value": 75, "rarity": "uncommon", "rarityWeight": 14 },
-        { "name": "Warbow", "damage": "2d6", "weight": 3.0, "value": 80, "rarity": "rare", "rarityWeight": 20 },
-        { "name": "Hunting Bow", "damage": "1d6", "weight": 1.5, "value": 15, "rarity": "common", "rarityWeight": 5 }
+        {
+          "name": "Longbow",
+          "damage": "1d8",
+          "weight": 2.0,
+          "value": 30,
+          "rarity": "common",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Shortbow",
+          "damage": "1d6",
+          "weight": 1.5,
+          "value": 20,
+          "rarity": "common",
+          "rarityWeight": 6
+        },
+        {
+          "name": "Composite Bow",
+          "damage": "1d8",
+          "weight": 2.5,
+          "value": 50,
+          "rarity": "uncommon",
+          "rarityWeight": 15
+        },
+        {
+          "name": "Recurve Bow",
+          "damage": "1d8",
+          "weight": 2.0,
+          "value": 35,
+          "rarity": "common",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Crossbow",
+          "damage": "1d10",
+          "weight": 5.0,
+          "value": 50,
+          "rarity": "uncommon",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Heavy Crossbow",
+          "damage": "1d12",
+          "weight": 8.0,
+          "value": 75,
+          "rarity": "uncommon",
+          "rarityWeight": 14
+        },
+        {
+          "name": "Warbow",
+          "damage": "2d6",
+          "weight": 3.0,
+          "value": 80,
+          "rarity": "rare",
+          "rarityWeight": 20
+        },
+        {
+          "name": "Hunting Bow",
+          "damage": "1d6",
+          "weight": 1.5,
+          "value": 15,
+          "rarity": "common",
+          "rarityWeight": 5
+        }
       ]
     },
     "daggers": {
@@ -80,14 +262,70 @@
         "throwable": true
       },
       "items": [
-        { "name": "Dagger", "damage": "1d4", "weight": 1.0, "value": 5, "rarity": "common", "rarityWeight": 3 },
-        { "name": "Dirk", "damage": "1d4", "weight": 1.0, "value": 6, "rarity": "common", "rarityWeight": 4 },
-        { "name": "Stiletto", "damage": "1d4", "weight": 0.5, "value": 10, "rarity": "common", "rarityWeight": 6 },
-        { "name": "Kris", "damage": "1d6", "weight": 1.5, "value": 15, "rarity": "uncommon", "rarityWeight": 10 },
-        { "name": "Tanto", "damage": "1d4", "weight": 0.8, "value": 12, "rarity": "common", "rarityWeight": 7 },
-        { "name": "Kukri", "damage": "1d6", "weight": 1.2, "value": 12, "rarity": "common", "rarityWeight": 6 },
-        { "name": "Rondel", "damage": "1d4", "weight": 1.0, "value": 8, "rarity": "common", "rarityWeight": 5 },
-        { "name": "Main Gauche", "damage": "1d4", "weight": 1.5, "value": 10, "rarity": "common", "rarityWeight": 6 }
+        {
+          "name": "Dagger",
+          "damage": "1d4",
+          "weight": 1.0,
+          "value": 5,
+          "rarity": "common",
+          "rarityWeight": 3
+        },
+        {
+          "name": "Dirk",
+          "damage": "1d4",
+          "weight": 1.0,
+          "value": 6,
+          "rarity": "common",
+          "rarityWeight": 4
+        },
+        {
+          "name": "Stiletto",
+          "damage": "1d4",
+          "weight": 0.5,
+          "value": 10,
+          "rarity": "common",
+          "rarityWeight": 6
+        },
+        {
+          "name": "Kris",
+          "damage": "1d6",
+          "weight": 1.5,
+          "value": 15,
+          "rarity": "uncommon",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Tanto",
+          "damage": "1d4",
+          "weight": 0.8,
+          "value": 12,
+          "rarity": "common",
+          "rarityWeight": 7
+        },
+        {
+          "name": "Kukri",
+          "damage": "1d6",
+          "weight": 1.2,
+          "value": 12,
+          "rarity": "common",
+          "rarityWeight": 6
+        },
+        {
+          "name": "Rondel",
+          "damage": "1d4",
+          "weight": 1.0,
+          "value": 8,
+          "rarity": "common",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Main Gauche",
+          "damage": "1d4",
+          "weight": 1.5,
+          "value": 10,
+          "rarity": "common",
+          "rarityWeight": 6
+        }
       ]
     },
     "spears": {
@@ -99,14 +337,70 @@
         "reach": true
       },
       "items": [
-        { "name": "Spear", "damage": "1d6", "weight": 3.0, "value": 10, "rarity": "common", "rarityWeight": 5 },
-        { "name": "Lance", "damage": "1d12", "weight": 6.0, "value": 40, "rarity": "uncommon", "rarityWeight": 12 },
-        { "name": "Javelin", "damage": "1d6", "weight": 2.0, "value": 8, "rarity": "common", "rarityWeight": 5 },
-        { "name": "Pike", "damage": "1d10", "weight": 8.0, "value": 30, "rarity": "common", "rarityWeight": 8 },
-        { "name": "Halberd", "damage": "1d10", "weight": 6.0, "value": 35, "rarity": "uncommon", "rarityWeight": 10 },
-        { "name": "Trident", "damage": "1d8", "weight": 4.0, "value": 25, "rarity": "common", "rarityWeight": 8 },
-        { "name": "Partisan", "damage": "1d8", "weight": 5.0, "value": 30, "rarity": "uncommon", "rarityWeight": 10 },
-        { "name": "Glaive", "damage": "1d10", "weight": 6.0, "value": 40, "rarity": "uncommon", "rarityWeight": 11 }
+        {
+          "name": "Spear",
+          "damage": "1d6",
+          "weight": 3.0,
+          "value": 10,
+          "rarity": "common",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Lance",
+          "damage": "1d12",
+          "weight": 6.0,
+          "value": 40,
+          "rarity": "uncommon",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Javelin",
+          "damage": "1d6",
+          "weight": 2.0,
+          "value": 8,
+          "rarity": "common",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Pike",
+          "damage": "1d10",
+          "weight": 8.0,
+          "value": 30,
+          "rarity": "common",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Halberd",
+          "damage": "1d10",
+          "weight": 6.0,
+          "value": 35,
+          "rarity": "uncommon",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Trident",
+          "damage": "1d8",
+          "weight": 4.0,
+          "value": 25,
+          "rarity": "common",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Partisan",
+          "damage": "1d8",
+          "weight": 5.0,
+          "value": 30,
+          "rarity": "uncommon",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Glaive",
+          "damage": "1d10",
+          "weight": 6.0,
+          "value": 40,
+          "rarity": "uncommon",
+          "rarityWeight": 11
+        }
       ]
     },
     "maces": {
@@ -117,14 +411,70 @@
         "skillType": "blunt"
       },
       "items": [
-        { "name": "Mace", "damage": "1d6", "weight": 4.0, "value": 12, "rarity": "common", "rarityWeight": 5 },
-        { "name": "Warhammer", "damage": "1d8", "weight": 5.0, "value": 20, "rarity": "common", "rarityWeight": 7 },
-        { "name": "Flail", "damage": "1d8", "weight": 5.0, "value": 18, "rarity": "common", "rarityWeight": 8 },
-        { "name": "Morning Star", "damage": "1d8", "weight": 6.0, "value": 25, "rarity": "uncommon", "rarityWeight": 10 },
-        { "name": "Club", "damage": "1d4", "weight": 2.0, "value": 2, "rarity": "common", "rarityWeight": 2 },
-        { "name": "Maul", "damage": "2d6", "weight": 10.0, "value": 45, "rarity": "uncommon", "rarityWeight": 12 },
-        { "name": "Cudgel", "damage": "1d4", "weight": 2.5, "value": 3, "rarity": "common", "rarityWeight": 2 },
-        { "name": "Scepter", "damage": "1d6", "weight": 2.0, "value": 15, "rarity": "uncommon", "rarityWeight": 10 }
+        {
+          "name": "Mace",
+          "damage": "1d6",
+          "weight": 4.0,
+          "value": 12,
+          "rarity": "common",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Warhammer",
+          "damage": "1d8",
+          "weight": 5.0,
+          "value": 20,
+          "rarity": "common",
+          "rarityWeight": 7
+        },
+        {
+          "name": "Flail",
+          "damage": "1d8",
+          "weight": 5.0,
+          "value": 18,
+          "rarity": "common",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Morning Star",
+          "damage": "1d8",
+          "weight": 6.0,
+          "value": 25,
+          "rarity": "uncommon",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Club",
+          "damage": "1d4",
+          "weight": 2.0,
+          "value": 2,
+          "rarity": "common",
+          "rarityWeight": 2
+        },
+        {
+          "name": "Maul",
+          "damage": "2d6",
+          "weight": 10.0,
+          "value": 45,
+          "rarity": "uncommon",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Cudgel",
+          "damage": "1d4",
+          "weight": 2.5,
+          "value": 3,
+          "rarity": "common",
+          "rarityWeight": 2
+        },
+        {
+          "name": "Scepter",
+          "damage": "1d6",
+          "weight": 2.0,
+          "value": 15,
+          "rarity": "uncommon",
+          "rarityWeight": 10
+        }
       ]
     },
     "staves": {
@@ -136,12 +486,54 @@
         "magicFocus": true
       },
       "items": [
-        { "name": "Staff", "damage": "1d6", "weight": 4.0, "value": 10, "rarity": "common", "rarityWeight": 5 },
-        { "name": "Quarterstaff", "damage": "1d8", "weight": 4.0, "value": 8, "rarity": "common", "rarityWeight": 4 },
-        { "name": "War Staff", "damage": "1d8", "weight": 5.0, "value": 25, "rarity": "uncommon", "rarityWeight": 10 },
-        { "name": "Battle Staff", "damage": "1d10", "weight": 6.0, "value": 35, "rarity": "uncommon", "rarityWeight": 12 },
-        { "name": "Rod", "damage": "1d4", "weight": 2.0, "value": 20, "rarity": "uncommon", "rarityWeight": 15 },
-        { "name": "Scepter Staff", "damage": "1d6", "weight": 3.0, "value": 30, "rarity": "uncommon", "rarityWeight": 18 }
+        {
+          "name": "Staff",
+          "damage": "1d6",
+          "weight": 4.0,
+          "value": 10,
+          "rarity": "common",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Quarterstaff",
+          "damage": "1d8",
+          "weight": 4.0,
+          "value": 8,
+          "rarity": "common",
+          "rarityWeight": 4
+        },
+        {
+          "name": "War Staff",
+          "damage": "1d8",
+          "weight": 5.0,
+          "value": 25,
+          "rarity": "uncommon",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Battle Staff",
+          "damage": "1d10",
+          "weight": 6.0,
+          "value": 35,
+          "rarity": "uncommon",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Rod",
+          "damage": "1d4",
+          "weight": 2.0,
+          "value": 20,
+          "rarity": "uncommon",
+          "rarityWeight": 15
+        },
+        {
+          "name": "Scepter Staff",
+          "damage": "1d6",
+          "weight": 3.0,
+          "value": 30,
+          "rarity": "uncommon",
+          "rarityWeight": 18
+        }
       ]
     }
   }

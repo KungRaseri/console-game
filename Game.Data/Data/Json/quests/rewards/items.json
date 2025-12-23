@@ -1,7 +1,7 @@
 ﻿{
   "metadata": {
     "version": "2.0",
-    "last_updated": "2025-01-27",
+    "lastUpdated": "2025-01-27",
     "type": "quest_rewards_items",
     "total_rewards": 20,
     "categories": ["consumable_rewards", "common_equipment", "uncommon_equipment", "rare_equipment", "epic_equipment", "legendary_equipment", "progression_rewards", "unique_rewards", "cosmetic_rewards", "currency_rewards"]
@@ -185,8 +185,8 @@
     ]
   },
   "notes": {
-    "rarity_system": "Weight determines reward rarity - match to quest difficulty tier",
-    "component_keys": ["consumable_rewards", "common_equipment", "uncommon_equipment", "rare_equipment", "epic_equipment", "legendary_equipment", "mythic_equipment", "choice_rewards"],
+    "raritySystem": "Weight determines reward rarity - match to quest difficulty tier",
+    "componentKeys": ["consumable_rewards", "common_equipment", "uncommon_equipment", "rare_equipment", "epic_equipment", "legendary_equipment", "mythic_equipment", "choice_rewards"],
     "weight_ranges": {
       "common": "8-10 (Consumables, tokens)",
       "uncommon": "20-25 (Basic weapons/armor, crafting materials)",

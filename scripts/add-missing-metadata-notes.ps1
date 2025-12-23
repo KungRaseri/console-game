@@ -167,7 +167,7 @@ foreach ($file in $jsonFiles) {
         $metadata = [ordered]@{
             description = $description
             version = "1.0"
-            last_updated = $today
+            lastUpdated = $today
             type = $fileType
         }
         

@@ -37,11 +37,11 @@ public static class MetadataGenerator
             ["version"] = version,
             
             // Auto-generated fields
-            ["last_updated"] = DateTime.Now.ToString("yyyy-MM-dd"),
+            ["lastUpdated"] = DateTime.Now.ToString("yyyy-MM-dd"),
             ["type"] = InferFileType(componentGroupsList, patternsList, itemsList),
-            ["component_keys"] = new JArray(ExtractComponentKeys(componentGroupsList)),
-            ["pattern_tokens"] = new JArray(ExtractPatternTokens(patternsList)),
-            ["total_patterns"] = patternsList.Count,
+            ["componentKeys"] = new JArray(ExtractComponentKeys(componentGroupsList)),
+            ["patternTokens"] = new JArray(ExtractPatternTokens(patternsList)),
+            ["totalPatterns"] = patternsList.Count,
             ["total_items"] = itemsList.Count
         };
 

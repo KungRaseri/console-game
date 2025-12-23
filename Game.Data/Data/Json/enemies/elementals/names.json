@@ -2,31 +2,31 @@
     "metadata":  {
                      "description":  "Elemental enemy name generation with pattern-based system and weight-based rarity",
                      "version":  "4.0",
-                     "last_updated":  "2025-12-17",
+                     "lastUpdated":  "2025-12-17",
                      "type":  "pattern_generation",
                      "elemental_categories":  4,
-                     "component_keys":  [
+                     "componentKeys":  [
                                             "element",
                                             "size",
                                             "descriptive",
                                             "title"
                                         ],
-                     "pattern_tokens":  [
+                     "patternTokens":  [
                                             "base",
                                             "element",
                                             "size",
                                             "descriptive",
                                             "title"
                                         ],
-                     "total_patterns":  7,
-                     "rarity_system":  "weight-based",
+                     "totalPatterns":  7,
+                     "raritySystem":  "weight-based",
                      "notes":  [
                                    "Base token resolves from enemies/elementals/catalog.json",
                                    "All components have rarityWeight for emergent rarity calculation",
                                    "Component weights combine via multipliers from general/rarity_config.json",
-                                   "Upgraded to v4.0 with supports_traits metadata"
+                                   "Upgraded to v4.0 with supportsTraits metadata"
                                ],
-                     "supports_traits":  true
+                     "supportsTraits":  true
                  },
     "components":  {
                        "element":  [

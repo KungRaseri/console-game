@@ -14,13 +14,13 @@
 #### Metadata Field Specification
 
 **Required for Validation (names.json files only):**
-- `component_keys` - Array of component key names for validation
-- `pattern_tokens` - Array of valid tokens (including "base")
+- `componentKeys` - Array of component key names for validation
+- `patternTokens` - Array of valid tokens (including "base")
 
 **Recommended for All Files:**
 - `description` - Human-readable description of file purpose
 - `version` - Schema version (e.g., "1.0", "2.0")
-- `last_updated` - Date of last modification (YYYY-MM-DD)
+- `lastUpdated` - Date of last modification (YYYY-MM-DD)
 
 **Optional:**
 - `type` - File type hint ("reference_data", "catalog", "generation")
@@ -29,7 +29,7 @@
 
 #### Benefits
 
-✅ **Validation** - ContentBuilder can validate patterns against component_keys  
+✅ **Validation** - ContentBuilder can validate patterns against componentKeys  
 ✅ **Documentation** - Clear purpose and version tracking  
 ✅ **Tooling** - Helps editors understand file structure  
 ✅ **Maintenance** - Track changes over time
@@ -40,10 +40,10 @@
 "metadata": {
   "description": "Weapon name generation with pattern-based system",
   "version": "2.0",
-  "last_updated": "2025-12-16",
-  "component_keys": ["material", "quality", "descriptive", "enchantment", "title"],
-  "pattern_tokens": ["base", "material", "quality", "descriptive", "enchantment", "title"],
-  "total_patterns": 11
+  "lastUpdated": "2025-12-16",
+  "componentKeys": ["material", "quality", "descriptive", "enchantment", "title"],
+  "patternTokens": ["base", "material", "quality", "descriptive", "enchantment", "title"],
+  "totalPatterns": 11
 }
 ```
 
@@ -93,8 +93,8 @@
   ],
   "metadata": {
     "description": "Color name generation",
-    "component_keys": ["base_color", "modifier"],
-    "pattern_tokens": ["base_color", "modifier"]
+    "componentKeys": ["base_color", "modifier"],
+    "patternTokens": ["base_color", "modifier"]
   }
 }
 ```
@@ -152,7 +152,7 @@ The updated section now includes **4 file type structures:**
 ##### 2. names.json - Name Generation
 - Components object with categorized arrays
 - Patterns array with template strings
-- Metadata with component_keys and pattern_tokens
+- Metadata with componentKeys and patternTokens
 - Example: weapons/names.json, enemies/beasts/names.json
 
 ##### 3. prefixes.json / suffixes.json - Stat Modifiers

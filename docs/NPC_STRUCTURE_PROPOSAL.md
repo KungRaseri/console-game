@@ -167,7 +167,7 @@ npcs/
   "metadata": {
     "description": "NPC catalog with backgrounds and occupations",
     "version": "3.0",
-    "last_updated": "2025-12-18",
+    "lastUpdated": "2025-12-18",
     "type": "npc_catalog",
     "total_types": 8,
     "usage": "Base catalog for NPC generation with social class traits",
@@ -421,7 +421,7 @@ npcs/
   "metadata": {
     "description": "NPC personality traits and quirks for characterization",
     "version": "3.0",
-    "last_updated": "2025-12-18",
+    "lastUpdated": "2025-12-18",
     "type": "npc_traits",
     "usage": "Cosmetic traits that add flavor to NPCs",
     "notes": [

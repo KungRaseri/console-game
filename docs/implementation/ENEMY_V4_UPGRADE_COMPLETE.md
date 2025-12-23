@@ -26,11 +26,11 @@ Successfully upgraded all enemy data files to v4.0 standards. **Important Discov
 {
   "metadata": {
     "version": "4.0",                    // Changed from: 1.0 or 3.0
-    "last_updated": "2025-12-17",        // Updated to today
-    "supports_traits": true,             // NEW: Added for v4.0
+    "lastUpdated": "2025-12-17",        // Updated to today
+    "supportsTraits": true,             // NEW: Added for v4.0
     "notes": [
       // ... existing notes ...
-      "Upgraded to v4.0 with supports_traits metadata"  // NEW
+      "Upgraded to v4.0 with supportsTraits metadata"  // NEW
     ]
   }
 }
@@ -58,7 +58,7 @@ Successfully upgraded all enemy data files to v4.0 standards. **Important Discov
 {
   "metadata": {
     "type": "item_catalog",              // Changed from: "enemy_catalog"
-    "last_updated": "2025-12-17",        // Updated to today
+    "lastUpdated": "2025-12-17",        // Updated to today
     "usage": "Provides base enemy types for pattern generation"  // NEW
   }
 }
@@ -78,10 +78,10 @@ Successfully upgraded all enemy data files to v4.0 standards. **Important Discov
 **Features:**
 - ✅ Processes all 13 enemy categories automatically
 - ✅ Supports `-WhatIf` flag for dry-run testing
-- ✅ Updates `names.json` to v4.0 with `supports_traits`
+- ✅ Updates `names.json` to v4.0 with `supportsTraits`
 - ✅ Updates `types.json` metadata (`enemy_catalog` → `item_catalog`)
 - ✅ Adds upgrade notes to metadata
-- ✅ Updates `last_updated` timestamps
+- ✅ Updates `lastUpdated` timestamps
 - ✅ Progress reporting with color-coded status
 - ✅ Summary statistics at completion
 
@@ -126,14 +126,14 @@ This is different from items, which DID have separate prefix/suffix files that n
   "metadata": {
     "description": "Beast enemy name generation with pattern-based system and weight-based rarity",
     "version": "4.0",                    // ✅ Upgraded
-    "last_updated": "2025-12-17",        // ✅ Updated
+    "lastUpdated": "2025-12-17",        // ✅ Updated
     "type": "pattern_generation",
-    "supports_traits": true,             // ✅ NEW
+    "supportsTraits": true,             // ✅ NEW
     "notes": [
       "Base token resolves from enemies/beasts/types.json",
       "All components have rarityWeight for emergent rarity calculation",
       "Component weights combine via multipliers from general/rarity_config.json",
-      "Upgraded to v4.0 with supports_traits metadata"  // ✅ NEW
+      "Upgraded to v4.0 with supportsTraits metadata"  // ✅ NEW
     ]
   },
   "components": {
@@ -152,7 +152,7 @@ This is different from items, which DID have separate prefix/suffix files that n
   "metadata": {
     "description": "Beast enemy type catalog with base stats and traits",
     "version": "1.0",
-    "last_updated": "2025-12-17",        // ✅ Updated
+    "lastUpdated": "2025-12-17",        // ✅ Updated
     "type": "item_catalog",              // ✅ Changed from enemy_catalog
     "total_beast_types": 4,
     "total_beasts": 15,

@@ -1,7 +1,7 @@
 ﻿{
   "metadata": {
     "version": "2.0",
-    "last_updated": "2025-01-27",
+    "lastUpdated": "2025-01-27",
     "type": "quest_rewards_experience",
     "total_tiers": 9,
     "categories": ["trivial_xp", "low_xp", "medium_xp", "high_xp", "very_high_xp", "epic_xp", "legendary_xp", "mythic_xp", "ancient_xp"]
@@ -109,8 +109,8 @@
     ]
   },
   "notes": {
-    "rarity_system": "Weight reflects XP tier - higher amounts have higher weights",
-    "component_keys": ["trivial_xp", "low_xp", "medium_xp", "high_xp", "very_high_xp", "epic_xp", "legendary_xp", "mythic_xp", "ancient_xp"],
+    "raritySystem": "Weight reflects XP tier - higher amounts have higher weights",
+    "componentKeys": ["trivial_xp", "low_xp", "medium_xp", "high_xp", "very_high_xp", "epic_xp", "legendary_xp", "mythic_xp", "ancient_xp"],
     "weight_ranges": {
       "trivial": "5 (25-50 XP, tutorial quests)",
       "low": "12 (50-100 XP, simple tasks)",

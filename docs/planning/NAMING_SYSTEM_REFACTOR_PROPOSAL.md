@@ -52,9 +52,9 @@ Current structure forces separate editing workflows:
     "description": "Unified weapon naming with traits",
     "type": "pattern_generation",
     "version": "4.0",
-    "component_keys": ["prefix", "material", "base", "quality", "suffix"],
-    "pattern_tokens": ["prefix", "material", "base", "quality", "suffix"],
-    "supports_traits": true,
+    "componentKeys": ["prefix", "material", "base", "quality", "suffix"],
+    "patternTokens": ["prefix", "material", "base", "quality", "suffix"],
+    "supportsTraits": true,
     "notes": [
       "Base token resolves from types.json",
       "Prefix/suffix components can have trait modifiers",
@@ -234,7 +234,7 @@ Current structure forces separate editing workflows:
 ### Phase 1: Update Schema
 1. Update `PATTERN_COMPONENT_STANDARDS.md` with new unified structure
 2. Update `names.json` to include `prefix` and `suffix` components
-3. Add `supports_traits: true` to metadata
+3. Add `supportsTraits: true` to metadata
 
 ### Phase 2: Migrate Data
 1. Extract prefix items from `prefixes.json` → add to `components.prefix[]`

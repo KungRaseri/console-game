@@ -66,11 +66,11 @@ foreach ($change in $changes) {
         
         # Update version and timestamp
         $content.metadata.version = "4.0"
-        $content.metadata.last_updated = Get-Date -Format "yyyy-MM-dd"
+        $content.metadata.lastUpdated = Get-Date -Format "yyyy-MM-dd"
         
         # Add v4.0 fields if they don't exist
-        if (-not ($content.metadata.PSObject.Properties.Name -contains "supports_traits")) {
-            $content.metadata | Add-Member -NotePropertyName "supports_traits" -NotePropertyValue $true -Force | Out-Null
+        if (-not ($content.metadata.PSObject.Properties.Name -contains "supportsTraits")) {
+            $content.metadata | Add-Member -NotePropertyName "supportsTraits" -NotePropertyValue $true -Force | Out-Null
         }
         
         if (-not ($content.metadata.PSObject.Properties.Name -contains "usage")) {

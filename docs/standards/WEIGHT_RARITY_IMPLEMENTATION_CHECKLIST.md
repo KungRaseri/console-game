@@ -13,7 +13,7 @@
 
 **Key Files:**
 - 📄 `docs/standards/PATTERN_COMPONENT_STANDARDS.md` - Updated with weight system
-- 📄 `docs/standards/WEIGHT_BASED_RARITY_SYSTEM.md` - Complete implementation guide
+- 📄 `docs/standards/WEIGHT_BASED_raritySystem.md` - Complete implementation guide
 - 📄 `docs/standards/DRAFT_FINALIZATION_ANALYSIS.md` - Decision rationale
 
 ---
@@ -23,7 +23,7 @@
 ### ✅ Phase 1: Documentation (COMPLETE)
 
 - [x] Update PATTERN_COMPONENT_STANDARDS.md with weight system
-- [x] Create WEIGHT_BASED_RARITY_SYSTEM.md comprehensive guide
+- [x] Create WEIGHT_BASED_raritySystem.md comprehensive guide
 - [x] Document rarity thresholds and multipliers
 - [x] Define weight ranges by component type
 - [x] Create example calculations
@@ -41,7 +41,7 @@
 Game.Shared/Data/Json/general/rarity_config.json
 ```
 
-**Template:** See WEIGHT_BASED_RARITY_SYSTEM.md section "New Configuration File"
+**Template:** See WEIGHT_BASED_raritySystem.md section "New Configuration File"
 
 ---
 
@@ -428,7 +428,7 @@ public class LootGenerator
 
 ## Support Resources
 
-- **Full System Guide:** `docs/standards/WEIGHT_BASED_RARITY_SYSTEM.md`
+- **Full System Guide:** `docs/standards/WEIGHT_BASED_raritySystem.md`
 - **Pattern Standards:** `docs/standards/PATTERN_COMPONENT_STANDARDS.md`
 - **Decision Rationale:** `docs/standards/DRAFT_FINALIZATION_ANALYSIS.md`
 

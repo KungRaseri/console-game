@@ -15,7 +15,7 @@
   "metadata": {
     "description": "Brief description of the file's purpose",
     "version": "X.Y",
-    "last_updated": "YYYY-MM-DD",
+    "lastUpdated": "YYYY-MM-DD",
     "type": "file_type (e.g., pattern_generation, item_catalog, component_catalog)",
     // ... other metadata fields ...
     "usage": "How to use this file at runtime (optional but recommended)",
@@ -31,7 +31,7 @@
 |-------|------|----------|---------|
 | `description` | string | ✅ Yes | Brief summary of file purpose |
 | `version` | string | ✅ Yes | Semantic version (e.g., "4.0", "3.0") |
-| `last_updated` | string | ✅ Yes | ISO date format (YYYY-MM-DD) |
+| `lastUpdated` | string | ✅ Yes | ISO date format (YYYY-MM-DD) |
 | `type` | string | ✅ Yes | File category (see types below) |
 | `usage` | string/object | ⭐ Recommended | Runtime usage instructions |
 | `notes` | array | ❌ Optional | Architectural/system notes |
@@ -46,11 +46,11 @@
 **Type:** `"pattern_generation"`
 
 **Required Metadata:**
-- `component_keys`: Array of component group names
-- `pattern_tokens`: Array of tokens used in patterns
-- `total_patterns`: Number of patterns defined
-- `rarity_system`: Rarity calculation method (e.g., "weight-based")
-- `supports_traits`: Boolean (v4.0+ only)
+- `componentKeys`: Array of component group names
+- `patternTokens`: Array of tokens used in patterns
+- `totalPatterns`: Number of patterns defined
+- `raritySystem`: Rarity calculation method (e.g., "weight-based")
+- `supportsTraits`: Boolean (v4.0+ only)
 
 **Structure:**
 ```json
@@ -148,7 +148,7 @@
 3. **Use `metadata.notes`** (array) for architectural notes
 4. **Keep metadata at the TOP** of the file
 5. **Use consistent date format** (YYYY-MM-DD)
-6. **Update `last_updated`** when modifying files
+6. **Update `lastUpdated`** when modifying files
 7. **Include examples** in `metadata.usage` or `metadata.examples`
 
 ### ❌ DON'T:
@@ -179,7 +179,7 @@
   "metadata": {
     "description": "...",
     "version": "4.0",
-    "last_updated": "2025-12-17",
+    "lastUpdated": "2025-12-17",
     "type": "pattern_generation",
     "usage": "How to use this",
     "notes": ["Architectural notes here"]
@@ -192,7 +192,7 @@
 
 ## v4.0 Trait System
 
-Files with `"supports_traits": true` include trait definitions:
+Files with `"supportsTraits": true` include trait definitions:
 
 ```json
 {
@@ -218,7 +218,7 @@ Files with `"supports_traits": true` include trait definitions:
 Before committing JSON changes:
 
 - [ ] Metadata at top of file
-- [ ] All required fields present (description, version, last_updated, type)
+- [ ] All required fields present (description, version, lastUpdated, type)
 - [ ] No root-level `notes` section
 - [ ] Usage instructions in `metadata.usage`
 - [ ] Architectural notes in `metadata.notes` array (if needed)

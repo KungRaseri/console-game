@@ -234,10 +234,10 @@ Added **"Metadata Auto-Generation Specification"** section:
    - `version` - Schema version (user-managed)
 
 2. **Auto-Generated Fields**
-   - `last_updated` - Current date on save
-   - `component_keys` - Extracted from components object
-   - `pattern_tokens` - Parsed from patterns + "base"
-   - `total_patterns`, `total_items` - Counts
+   - `lastUpdated` - Current date on save
+   - `componentKeys` - Extracted from components object
+   - `patternTokens` - Parsed from patterns + "base"
+   - `totalPatterns`, `total_items` - Counts
    - `type` - File type classification
 
 3. **ContentBuilder UI Design**

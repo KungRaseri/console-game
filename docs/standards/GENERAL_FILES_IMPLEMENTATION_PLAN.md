@@ -57,8 +57,8 @@
     "description": "Human-readable description",
     "version": "1.0",
     "type": "component_library",
-    "last_updated": "2025-12-16",
-    "component_keys": ["category1", "category2"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["category1", "category2"],
     "component_counts": {
       "category1": 10,
       "category2": 10
@@ -92,10 +92,10 @@
     "description": "Human-readable description",
     "version": "1.0",
     "type": "pattern_generation",
-    "last_updated": "2025-12-16",
-    "component_keys": ["component_key1", "component_key2"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["component_key1", "component_key2"],
     "pattern_count": 3,
-    "pattern_tokens": ["component_key1", "component_key2"],
+    "patternTokens": ["component_key1", "component_key2"],
     "component_counts": {
       "component_key1": 10,
       "component_key2": 10

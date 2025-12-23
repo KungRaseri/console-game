@@ -73,7 +73,7 @@ public class ItemTests
     [InlineData(ItemType.Consumable)]
     [InlineData(ItemType.QuestItem)]
     [InlineData(ItemType.Ring)]
-    public void Item_Should_Accept_All_Item_Types(ItemType type)
+    public void Item_Should_Accept_All_itemTypes(ItemType type)
     {
         // Arrange & Act
         var item = new Item { Type = type };

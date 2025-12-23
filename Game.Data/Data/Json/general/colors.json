@@ -26,10 +26,10 @@
     "description": "Color name generation with base colors, modifiers, and material-based colors for rich visual descriptions",
     "version": "1.0",
     "type": "pattern_generation",
-    "last_updated": "2025-12-16",
-    "component_keys": ["base_color", "modifier", "material"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["base_color", "modifier", "material"],
     "pattern_count": 3,
-    "pattern_tokens": ["base_color", "modifier", "material"],
+    "patternTokens": ["base_color", "modifier", "material"],
     "component_counts": {
       "base_color": 15,
       "modifier": 15,

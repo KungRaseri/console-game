@@ -94,7 +94,7 @@ All 113 JSON data files in `Game.Shared/Data/Json/` now meet the requirements de
   "metadata": {
     "description": "[category] [type] modifiers with stat bonuses/penalties",
     "version": "1.0",
-    "last_updated": "2025-12-16",
+    "lastUpdated": "2025-12-16",
     "type": "[file_type]",
     "total_items": [auto-counted]
   }
@@ -108,7 +108,7 @@ All 113 JSON data files in `Game.Shared/Data/Json/` now meet the requirements de
   "metadata": {
     "description": "Reference data components for [category]",
     "version": "1.0",
-    "last_updated": "2025-12-16",
+    "lastUpdated": "2025-12-16",
     "type": "reference_data"
   }
 }
@@ -192,7 +192,7 @@ All 113 JSON data files in `Game.Shared/Data/Json/` now meet the requirements de
   "metadata": {
     "description": "weapons prefix modifiers with stat bonuses/penalties",
     "version": "1.0",
-    "last_updated": "2025-12-16",
+    "lastUpdated": "2025-12-16",
     "type": "prefix_modifier"
   },
   ...
@@ -209,7 +209,7 @@ All 113 JSON data files in `Game.Shared/Data/Json/` now meet the requirements de
   "metadata": {
     "description": "Beast enemy name generation with pattern-based system and weight-based rarity",
     "version": "3.0",
-    "last_updated": "2025-12-16",
+    "lastUpdated": "2025-12-16",
     ...
   },
   ...
@@ -236,8 +236,8 @@ All 113 JSON data files in `Game.Shared/Data/Json/` now meet the requirements de
 ### ContentBuilder Readiness
 
 - ✅ Metadata can be auto-regenerated on save
-- ✅ Pattern validation can use metadata.pattern_tokens
-- ✅ Component validation can use metadata.component_keys
+- ✅ Pattern validation can use metadata.patternTokens
+- ✅ Component validation can use metadata.componentKeys
 - ✅ File type detection works via metadata.type
 
 ### Runtime Game Readiness
@@ -295,8 +295,8 @@ items/materials/
 
 1. **ContentBuilder Auto-Generation**
    - Implement auto-generation of metadata on save
-   - Extract component_keys from components object
-   - Parse patterns and generate pattern_tokens
+   - Extract componentKeys from components object
+   - Parse patterns and generate patternTokens
    - Auto-count items and categories
 
 2. **Validation Tools**

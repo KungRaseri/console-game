@@ -29,10 +29,10 @@
     "description": "Smell descriptions for environmental atmosphere, items, and narrative immersion",
     "version": "1.0",
     "type": "pattern_generation",
-    "last_updated": "2025-12-16",
-    "component_keys": ["pleasant", "unpleasant", "natural", "intensity"],
+    "lastUpdated": "2025-12-16",
+    "componentKeys": ["pleasant", "unpleasant", "natural", "intensity"],
     "pattern_count": 6,
-    "pattern_tokens": ["pleasant", "unpleasant", "natural", "intensity"],
+    "patternTokens": ["pleasant", "unpleasant", "natural", "intensity"],
     "component_counts": {
       "pleasant": 10,
       "unpleasant": 10,

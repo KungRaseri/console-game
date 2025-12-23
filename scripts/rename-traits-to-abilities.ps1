@@ -70,7 +70,7 @@ function Rename-TraitsToAbilities {
         $content.metadata.description = $content.metadata.description -replace "trait definitions", "ability definitions"
         $content.metadata.description = $content.metadata.description -replace "traits", "abilities"
         $content.metadata.type = "ability_catalog"
-        $content.metadata.last_updated = Get-Date -Format "yyyy-MM-dd"
+        $content.metadata.lastUpdated = Get-Date -Format "yyyy-MM-dd"
         
         # Rename total_items to total_abilities if present
         if ($content.metadata.PSObject.Properties.Name -contains "total_items") {

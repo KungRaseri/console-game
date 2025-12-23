@@ -213,7 +213,7 @@ Total:    135 → Epic (101-200)
    - Added loot generation algorithms
    - Documented weight ranges by component type
 
-2. **WEIGHT_BASED_RARITY_SYSTEM.md** ✅ NEW
+2. **WEIGHT_BASED_raritySystem.md** ✅ NEW
    - Comprehensive implementation guide (~520 lines)
    - Formula and calculations
    - Before/after JSON examples
@@ -464,7 +464,7 @@ The Pattern System Component Standards are now **fully finalized** with a compre
 ## Quick Links
 
 - **Implementation Checklist:** `WEIGHT_RARITY_IMPLEMENTATION_CHECKLIST.md`
-- **System Guide:** `WEIGHT_BASED_RARITY_SYSTEM.md`
+- **System Guide:** `WEIGHT_BASED_raritySystem.md`
 - **Pattern Standards:** `PATTERN_COMPONENT_STANDARDS.md`
 - **Decision Analysis:** `DRAFT_FINALIZATION_ANALYSIS.md`
 
