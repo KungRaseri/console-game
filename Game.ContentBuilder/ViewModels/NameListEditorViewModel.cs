@@ -602,27 +602,94 @@ public partial class NameListEditorViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void BrowseMaterial(object? parameter)
+    private void InsertComponentToken(string? componentKey)
     {
-        if (parameter is not ItemNameComponent component) return;
+        if (string.IsNullOrEmpty(componentKey))
+        {
+            StatusMessage = "No component key provided";
+            return;
+        }
+
+        // Append component token to the selected pattern's template
+        if (SelectedPattern != null)
+        {
+            // Add space if template doesn't end with space or is not empty
+            var template = SelectedPattern.PatternTemplate;
+            if (!string.IsNullOrEmpty(template) && !template.EndsWith(" "))
+            {
+                template += " ";
+            }
+            
+            SelectedPattern.PatternTemplate = template + $"{{{componentKey}}}";
+            StatusMessage = $"Added component token: {{{componentKey}}}";
+        }
+        else
+        {
+            StatusMessage = "Select a pattern first to insert component token";
+        }
+    }
+
+    [RelayCommand]
+    private void InsertReferenceToken(string? token)
+    {
+        if (string.IsNullOrEmpty(token))
+        {
+            StatusMessage = "No token provided";
+            return;
+        }
+
+        // Append reference token to the selected pattern's template
+        if (SelectedPattern != null)
+        {
+            // Add space if template doesn't end with space or is not empty
+            var template = SelectedPattern.PatternTemplate;
+            if (!string.IsNullOrEmpty(template) && !template.EndsWith(" "))
+            {
+                template += " ";
+            }
+            
+            SelectedPattern.PatternTemplate = template + token;
+            StatusMessage = $"Added reference token: {token}";
+        }
+        else
+        {
+            StatusMessage = "Select a pattern first to insert reference token";
+        }
+    }
+
+    [RelayCommand]
+    private void BrowseReference(object? parameter)
+    {
+        if (SelectedPattern == null)
+        {
+            StatusMessage = "Select a pattern first to browse references";
+            return;
+        }
 
         try
         {
-            var dialog = new Views.ReferenceSelectorDialog("materials")
+            var dialog = new Views.ReferenceSelectorDialog()
             {
                 Owner = System.Windows.Application.Current.MainWindow
             };
 
             if (dialog.ShowDialog() == true && dialog.SelectedReference != null)
             {
-                component.MaterialRef = dialog.SelectedReference;
-                StatusMessage = $"Selected material reference: {dialog.SelectedReference}";
+                // Add space if template doesn't end with space or is not empty
+                var template = SelectedPattern.PatternTemplate;
+                if (!string.IsNullOrEmpty(template) && !template.EndsWith(" "))
+                {
+                    template += " ";
+                }
+                
+                SelectedPattern.PatternTemplate = template + $"@{dialog.SelectedReference}";
+                StatusMessage = $"Added reference: @{dialog.SelectedReference}";
             }
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to open material selector");
-            StatusMessage = "Failed to open material selector";
+            Log.Error(ex, "Failed to open reference selector");
+            StatusMessage = "Failed to open reference selector";
         }
     }
 }

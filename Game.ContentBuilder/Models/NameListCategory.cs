@@ -53,14 +53,10 @@ public partial class NpcNameComponent : NameComponentBase
 }
 
 /// <summary>
-/// Item name component with trait system and material references
+/// Item name component with trait system
 /// </summary>
 public partial class ItemNameComponent : NameComponentBase
 {
-    [ObservableProperty]
-    [JsonProperty("materialRef")]
-    private string? _materialRef;
-
     [ObservableProperty]
     [JsonIgnore]
     private ObservableCollection<ComponentTrait> _traits = new();

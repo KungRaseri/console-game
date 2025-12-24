@@ -24,13 +24,65 @@
     "raritySystem": "weight-based",
     "notes": [
       "Base token resolves from items/weapons/catalog.json",
-      "Prefixes and suffixes merged from separate files (deprecated in v4.0)",
+      "Material references (@materialRef/weapon) dynamically load from materials/catalog.json",
+      "Materials filtered by itemTypeTraits.weapon context",
+      "Component tokens ({prefix}, {base}, etc.) resolve from components section",
       "Traits are applied when components are selected in patterns",
       "Trait merging: numbers take highest, strings take last, booleans use OR",
       "Emergent rarity calculated from combined component weights"
     ]
   },
   "components": {
+    "base": [
+      {
+        "value": "Longsword",
+        "rarityWeight": 100
+      },
+      {
+        "value": "Shortsword",
+        "rarityWeight": 100
+      },
+      {
+        "value": "Dagger",
+        "rarityWeight": 100
+      },
+      {
+        "value": "Axe",
+        "rarityWeight": 80
+      },
+      {
+        "value": "Bow",
+        "rarityWeight": 80
+      },
+      {
+        "value": "Staff",
+        "rarityWeight": 80
+      },
+      {
+        "value": "Mace",
+        "rarityWeight": 70
+      },
+      {
+        "value": "Spear",
+        "rarityWeight": 70
+      },
+      {
+        "value": "Greatsword",
+        "rarityWeight": 50
+      },
+      {
+        "value": "Warhammer",
+        "rarityWeight": 50
+      },
+      {
+        "value": "Katana",
+        "rarityWeight": 30
+      },
+      {
+        "value": "Scimitar",
+        "rarityWeight": 30
+      }
+    ],
     "prefix": [
       {
         "value": "Rusty",
@@ -1334,92 +1386,92 @@
   },
   "patterns": [
     {
-      "pattern": "base",
+      "pattern": "{base}",
       "weight": 100,
       "example": "Longsword"
     },
     {
-      "pattern": "material + base",
+      "pattern": "@materialRef/weapon {base}",
       "weight": 50,
       "example": "Iron Longsword"
     },
     {
-      "pattern": "quality + base",
+      "pattern": "{quality} {base}",
       "weight": 40,
       "example": "Fine Longsword"
     },
     {
-      "pattern": "prefix + base",
+      "pattern": "{prefix} {base}",
       "weight": 30,
       "example": "Rusty Longsword"
     },
     {
-      "pattern": "descriptive + base",
+      "pattern": "{descriptive} {base}",
       "weight": 35,
       "example": "Flaming Longsword"
     },
     {
-      "pattern": "base + suffix",
+      "pattern": "{base} {suffix}",
       "weight": 30,
       "example": "Longsword of Slaying"
     },
     {
-      "pattern": "material + base + suffix",
+      "pattern": "@materialRef/weapon {base} {suffix}",
       "weight": 20,
       "example": "Mithril Longsword of Fire"
     },
     {
-      "pattern": "quality + material + base",
+      "pattern": "{quality} @materialRef/weapon {base}",
       "weight": 15,
       "example": "Fine Iron Longsword"
     },
     {
-      "pattern": "prefix + material + base",
+      "pattern": "{prefix} @materialRef/weapon {base}",
       "weight": 10,
       "example": "Blessed Mithril Longsword"
     },
     {
-      "pattern": "descriptive + base + suffix",
+      "pattern": "{descriptive} {base} {suffix}",
       "weight": 12,
       "example": "Flaming Longsword of Power"
     },
     {
-      "pattern": "quality + base + suffix",
+      "pattern": "{quality} {base} {suffix}",
       "weight": 15,
       "example": "Masterwork Longsword of the Hero"
     },
     {
-      "pattern": "prefix + base + suffix",
+      "pattern": "{prefix} {base} {suffix}",
       "weight": 8,
       "example": "Ancient Longsword of the Dragon"
     },
     {
-      "pattern": "quality + material + base + suffix",
+      "pattern": "{quality} @materialRef/weapon {base} {suffix}",
       "weight": 5,
       "example": "Exceptional Mithril Longsword of Fire"
     },
     {
-      "pattern": "prefix + material + base + suffix",
+      "pattern": "{prefix} @materialRef/weapon {base} {suffix}",
       "weight": 3,
       "example": "Blessed Dragonbone Longsword of the Phoenix"
     },
     {
-      "pattern": "descriptive + material + base + suffix",
+      "pattern": "{descriptive} @materialRef/weapon {base} {suffix}",
       "weight": 4,
       "example": "Holy Adamantine Longsword of the Gods"
     },
     {
-      "pattern": "prefix + quality + material + base",
+      "pattern": "{prefix} {quality} @materialRef/weapon {base}",
       "weight": 2,
       "example": "Ancient Masterwork Dragonbone Longsword"
     },
     {
-      "pattern": "prefix + descriptive + base + suffix",
+      "pattern": "{prefix} {descriptive} {base} {suffix}",
       "weight": 2,
       "example": "Divine Holy Longsword of Annihilation"
     },
     {
-      "pattern": "prefix + quality + material + base + suffix",
+      "pattern": "{prefix} {quality} @materialRef/weapon {base} {suffix}",
       "weight": 1,
       "example": "Eternal Legendary Dragonbone Longsword of the Gods"
     }

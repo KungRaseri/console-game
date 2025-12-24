@@ -19,79 +19,44 @@
                                                 <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         
-                                        <!-- Header with Value, Weight, and Material Reference -->
-                                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="12,8">
-                                                <Grid>
-                                                        <Grid.RowDefinitions>
-                                                                <RowDefinition Height="Auto"/>
-                                                                <RowDefinition Height="Auto"/>
-                                                        </Grid.RowDefinitions>
-                                                        
-                                                        <!-- First Row: Value and Weight -->
-                                                        <Grid Grid.Row="0">
-                                                                <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                        <ColumnDefinition Width="100"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                </Grid.ColumnDefinitions>
-                                                                
-                                                                <TextBox Grid.Column="0"
-                                                                         Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                         BorderThickness="0"
-                                                                         FontSize="14"
-                                                                         FontWeight="SemiBold"
-                                                                         VerticalAlignment="Center"
-                                                                         Margin="0,0,12,0"/>
-                                                                
-                                                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                                                        <TextBlock Text="Weight:" Margin="0,0,6,0" VerticalAlignment="Center" FontSize="11" Foreground="Gray"/>
-                                                                        <TextBox Text="{Binding RarityWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                                 Width="50"
-                                                                                 BorderThickness="0,0,0,1"
-                                                                                 Padding="4,2"
-                                                                                 HorizontalContentAlignment="Right"
-                                                                                 FontSize="13"
-                                                                                 VerticalAlignment="Center"/>
-                                                                </StackPanel>
-                                                                
-                                                                <Button Grid.Column="2"
-                                                                        Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                        CommandParameter="{Binding}"
-                                                                        Style="{StaticResource MaterialDesignIconButton}"
-                                                                        Width="28" Height="28"
-                                                                        Padding="0"
-                                                                        Margin="8,0,0,0"
-                                                                        ToolTip="Remove this component">
-                                                                        <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
-                                                                </Button>
-                                                        </Grid>
-                                                        
-                                                        <!-- Second Row: Material Reference -->
-                                                        <Grid Grid.Row="1" Margin="0,8,0,0">
-                                                                <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                </Grid.ColumnDefinitions>
-                                                                
-                                                                <TextBox Grid.Column="0"
-                                                                         Text="{Binding MaterialRef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                         materialDesign:HintAssist.Hint="Material Reference (e.g., materials/metals/Iron)"
-                                                                         FontSize="11"
-                                                                         FontFamily="Consolas"
-                                                                         Margin="0,0,8,0"
-                                                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                                                         materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource PrimaryHueMidBrush}"/>
-                                                                
-                                                                <Button Grid.Column="1"
-                                                                        Command="{Binding DataContext.BrowseMaterialCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                        CommandParameter="{Binding}"
-                                                                        Style="{StaticResource MaterialDesignIconButton}"
-                                                                        Width="28" Height="28"
-                                                                        Padding="0"
-                                                                        ToolTip="Browse materials catalog">
-                                                                        <materialDesign:PackIcon Kind="FolderOpen" Width="16" Height="16"/>
-                                                                </Button>
-                                                        </Grid>
+<!-- Header with Value and Weight -->
+                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="12,8">
+                                <Grid>
+                                        <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <TextBox Grid.Column="0"
+                                                 Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                 BorderThickness="0"
+                                                 FontSize="14"
+                                                 FontWeight="SemiBold"
+                                                 VerticalAlignment="Center"
+                                                 Margin="0,0,12,0"/>
+                                        
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                <TextBlock Text="Weight:" Margin="0,0,6,0" VerticalAlignment="Center" FontSize="11" Foreground="Gray"/>
+                                                <TextBox Text="{Binding RarityWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                         Width="50"
+                                                         BorderThickness="0,0,0,1"
+                                                         Padding="4,2"
+                                                         HorizontalContentAlignment="Right"
+                                                         FontSize="13"
+                                                         VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        
+                                        <Button Grid.Column="2"
+                                                Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource MaterialDesignIconButton}"
+                                                Width="28" Height="28"
+                                                Padding="0"
+                                                Margin="8,0,0,0"
+                                                ToolTip="Remove this component">
+                                                <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
+                                        </Button>
                                                 </Grid>
                                         </Border>
                                         
@@ -219,11 +184,13 @@
                         <materialDesign:Card Margin="0,0,0,8" Padding="12">
                                 <Grid>
                                         <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         
+                                        <!-- Pattern Template with Weight -->
                                         <Grid Grid.Row="0">
                                                 <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
@@ -236,7 +203,7 @@
                                                         FontSize="13"
                                                         Text="{Binding PatternTemplate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         Margin="0,0,8,0"
-                                                        materialDesign:HintAssist.Hint="Pattern template"/>
+                                                        materialDesign:HintAssist.Hint="Pattern template (use @materialRef/weapon, {base}, etc.)"/>
                                                 
                                                 <TextBox 
                                                         Grid.Column="1"
@@ -245,8 +212,112 @@
                                                         materialDesign:HintAssist.Hint="Weight"/>
                                         </Grid>
                                         
+                                        <!-- Pattern Token Helpers -->
+                                        <Border Grid.Row="1" 
+                                                Background="#F0F0F0"
+                                                CornerRadius="4"
+                                                Padding="8,6"
+                                                Margin="0,8,0,0">
+                                                <StackPanel>
+                                                        <!-- Component Tokens Section - DYNAMIC based on file's components -->
+                                                        <TextBlock Text="Insert Component:" 
+                                                                   FontSize="10" 
+                                                                   FontWeight="SemiBold" 
+                                                                   Foreground="Gray" 
+                                                                   Margin="0,0,0,4"/>
+                                                        <ItemsControl ItemsSource="{Binding DataContext.ComponentNames, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                                      Margin="0,0,0,8">
+                                                                <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                                <WrapPanel Orientation="Horizontal"/>
+                                                                        </ItemsPanelTemplate>
+                                                                </ItemsControl.ItemsPanel>
+                                                                <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                                <Button Content="{Binding StringFormat='{}{0}}'}"
+                                                                                        Command="{Binding DataContext.InsertComponentTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                                        CommandParameter="{Binding}"
+                                                                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                                                                        materialDesign:ButtonAssist.CornerRadius="4"
+                                                                                        Background="#4CAF50"
+                                                                                        Height="26"
+                                                                                        Padding="10,0"
+                                                                                        FontSize="11"
+                                                                                        FontFamily="Consolas"
+                                                                                        Margin="0,0,4,4"
+                                                                                        ToolTip="{Binding StringFormat='Insert {{0}} token'}"/>
+                                                                        </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+                                                        
+                                                        <!-- Reference Tokens Section -->
+                                                        <TextBlock Text="Insert Reference:" 
+                                                                   FontSize="10" 
+                                                                   FontWeight="SemiBold" 
+                                                                   Foreground="Gray" 
+                                                                   Margin="0,0,0,4"/>
+                                                        <ItemsControl>
+                                                                <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                                <WrapPanel Orientation="Horizontal"/>
+                                                                        </ItemsPanelTemplate>
+                                                                </ItemsControl.ItemsPanel>
+                                                                <Button Content="@materialRef/weapon"
+                                                                        Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="@materialRef/weapon"
+                                                                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                                        Height="24"
+                                                                        Padding="8,0"
+                                                                        FontSize="10"
+                                                                        FontFamily="Consolas"
+                                                                        Margin="0,0,4,4"/>
+                                                                <Button Content="@materialRef/armor"
+                                                                        Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="@materialRef/armor"
+                                                                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                                        Height="24"
+                                                                        Padding="8,0"
+                                                                        FontSize="10"
+                                                                        FontFamily="Consolas"
+                                                                        Margin="0,0,4,4"/>
+                                                                <Button Content="@itemRef"
+                                                                        Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="@itemRef/"
+                                                                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                                        Height="24"
+                                                                        Padding="8,0"
+                                                                        FontSize="10"
+                                                                        FontFamily="Consolas"
+                                                                        Margin="0,0,4,4"/>
+                                                                <Button Content="@enemyRef"
+                                                                        Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="@enemyRef/"
+                                                                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                                        Height="24"
+                                                                        Padding="8,0"
+                                                                        FontSize="10"
+                                                                        FontFamily="Consolas"
+                                                                        Margin="0,0,4,4"/>
+                                                                <Button Command="{Binding DataContext.BrowseReferenceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="{Binding}"
+                                                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                                                        Height="24"
+                                                                        Padding="8,0"
+                                                                        FontSize="10"
+                                                                        Margin="0,0,4,4">
+                                                                        <Button.Content>
+                                                                                <StackPanel Orientation="Horizontal">
+                                                                                        <materialDesign:PackIcon Kind="FolderOpen" Width="14" Height="14" Margin="0,0,4,0"/>
+                                                                                        <TextBlock Text="Browse..."/>
+                                                                                </StackPanel>
+                                                                        </Button.Content>
+                                                                </Button>
+                                                        </ItemsControl>
+                                                </StackPanel>
+                                        </Border>
+                                        
                                         <TextBlock 
-                                                Grid.Row="1"
+                                                Grid.Row="2"
                                                 Text="{Binding Description}" 
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
                                                 Foreground="{DynamicResource MaterialDesignBodyLight}"
@@ -255,7 +326,7 @@
                                                 FontSize="11"/>
                                         
                                         <!-- Example Generated Names -->
-                                        <Border Grid.Row="2" 
+                                        <Border Grid.Row="3" 
                                                 Background="#F5F5F5" 
                                                 CornerRadius="4" 
                                                 Padding="8,6"

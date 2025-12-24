@@ -5,20 +5,54 @@ namespace Game.Shared.Data.Models;
 /// </summary>
 
 // Item-related data models
+/// <summary>
+/// Weapon names data using v4 pattern-based structure.
+/// Includes components and patterns for procedural name generation with reference support.
+/// </summary>
 public class WeaponNameData
 {
-    public WeaponNameItems Items { get; set; } = new();
+    /// <summary>
+    /// Components for pattern-based name generation (e.g., "base", "prefix", "suffix")
+    /// Key = component group name, Value = list of component values with weights
+    /// </summary>
+    public Dictionary<string, List<WeaponComponent>> Components { get; set; } = new();
+    
+    /// <summary>
+    /// Patterns for generating weapon names (e.g., "@materialRef/weapon + {base}")
+    /// </summary>
+    public List<WeaponPattern> Patterns { get; set; } = new();
 }
 
-public class WeaponNameItems
+/// <summary>
+/// Component value for pattern-based generation
+/// </summary>
+public class WeaponComponent
 {
-    public List<string> Swords { get; set; } = new();
-    public List<string> Axes { get; set; } = new();
-    public List<string> Bows { get; set; } = new();
-    public List<string> Daggers { get; set; } = new();
-    public List<string> Spears { get; set; } = new();
-    public List<string> Maces { get; set; } = new();
-    public List<string> Staves { get; set; } = new();
+    public string Value { get; set; } = string.Empty;
+    public int RarityWeight { get; set; } = 10;
+}
+
+/// <summary>
+/// Pattern template for weapon name generation
+/// </summary>
+public class WeaponPattern
+{
+    public string? Template { get; set; }
+    public string? Pattern { get; set; } // Alternative field name
+    public int Weight { get; set; } = 10;
+    public int RarityWeight { get; set; } = 10; // Alternative field name
+    public string? Description { get; set; }
+    public string? Example { get; set; } // Alternative field name
+    
+    /// <summary>
+    /// Get the pattern template (handles both field names)
+    /// </summary>
+    public string GetTemplate() => Template ?? Pattern ?? string.Empty;
+    
+    /// <summary>
+    /// Get the weight (handles both field names)
+    /// </summary>
+    public int GetWeight() => Weight > 0 ? Weight : RarityWeight;
 }
 
 // Enemy-related data models

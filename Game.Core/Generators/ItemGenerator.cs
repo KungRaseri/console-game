@@ -3,6 +3,7 @@ using Game.Shared.Data.Models;
 using Game.Core.Models;
 using Game.Core.Services;
 using Game.Core.Utilities;
+using Game.Shared.Services;
 
 namespace Game.Core.Generators;
 
@@ -91,62 +92,46 @@ public static class ItemGenerator
     }
     
     /// <summary>
-    /// Generate a weapon name using JSON data and apply traits.
+    /// Generate a weapon name using v4 pattern-based system with @materialRef support.
     /// </summary>
     private static string GenerateWeaponName(Faker f, Item item)
     {
         var data = GameDataService.Instance;
-        var weaponType = f.PickRandom("swords", "axes", "bows", "daggers", "spears", "maces", "staves");
+        var patternExecutor = new PatternExecutor();
+        var weaponData = data.WeaponNames;
         
-        var weaponList = weaponType switch
+        // Validate data
+        if (weaponData.Patterns.Count == 0 || weaponData.Components.Count == 0)
         {
-            "swords" => data.WeaponNames.Items.Swords,
-            "axes" => data.WeaponNames.Items.Axes,
-            "bows" => data.WeaponNames.Items.Bows,
-            "daggers" => data.WeaponNames.Items.Daggers,
-            "spears" => data.WeaponNames.Items.Spears,
-            "maces" => data.WeaponNames.Items.Maces,
-            "staves" => data.WeaponNames.Items.Staves,
-            _ => data.WeaponNames.Items.Swords
-        };
-        
-        var weaponName = GameDataService.GetRandom(weaponList);
-        
-        // Apply material traits based on weapon type
-        string? materialPrefix = null;
-        if (weaponType == "bows" || weaponType == "staves")
-        {
-            // Bows and staves use wood materials
-            materialPrefix = ApplyWoodMaterial(item, f);
-        }
-        else
-        {
-            // Other weapons use metal materials
-            materialPrefix = ApplyMetalMaterial(item, f);
+            return "Unknown Weapon";
         }
         
-        // Sometimes add a prefix (30% chance) and apply traits
-        string? prefixName = null;
-        if (f.Random.Bool(0.3f))
+        // Convert components to PatternExecutor format
+        var components = new Dictionary<string, List<ComponentValue>>();
+        foreach (var kvp in weaponData.Components)
         {
-            var prefixData = GetPrefixByRarity(item.Rarity);
-            if (prefixData != null)
-            {
-                // Apply traits from prefix
-                TraitApplicator.ApplyTraits(item, prefixData.Traits);
-                prefixName = prefixData.DisplayName;
-            }
+            components[kvp.Key] = kvp.Value
+                .Select(c => new ComponentValue(c.Value, c.RarityWeight))
+                .ToList();
         }
         
-        // Combine material + prefix + weapon name
-        if (materialPrefix != null && prefixName != null)
-            return $"{prefixName} {materialPrefix} {weaponName}";
-        else if (materialPrefix != null)
-            return $"{materialPrefix} {weaponName}";
-        else if (prefixName != null)
-            return $"{prefixName} {weaponName}";
-        else
-            return weaponName;
+        // Select a pattern (weighted)
+        var pattern = f.Random.WeightedRandom(
+            weaponData.Patterns.ToArray(),
+            weaponData.Patterns.Select(p => (float)p.GetWeight()).ToArray()
+        );
+        
+        // Execute pattern with context
+        var generatedName = patternExecutor.Execute(
+            pattern.GetTemplate(),
+            components,
+            f,
+            itemType: "weapon"
+        );
+        
+        // TODO: Apply traits from resolved materials via DataReferenceResolver
+        
+        return generatedName;
     }
     
     /// <summary>
