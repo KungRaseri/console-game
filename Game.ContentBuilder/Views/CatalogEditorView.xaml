@@ -6,116 +6,145 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Game.ContentBuilder.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="1200">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <materialDesign:Card Grid.Row="0" Margin="8">
-            <StackPanel Margin="16">
-                <TextBlock Text="Catalog Editor (Item Catalog)" 
-                           Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
-                <TextBlock Text="{Binding FileName}" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
-            </StackPanel>
-        </materialDesign:Card>
-
-        <!-- Metadata Section -->
-        <Expander Grid.Row="1" Margin="8" Header="Metadata" IsExpanded="False">
-            <StackPanel Margin="16,8">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Version:" Margin="0,0,8,4" FontWeight="Bold"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding MetadataVersion}" Margin="0,0,0,4"/>
-
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Type:" Margin="0,0,8,4" FontWeight="Bold"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding MetadataType}" Margin="0,0,0,4"/>
-
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Description:" Margin="0,0,8,4" FontWeight="Bold"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding MetadataDescription}" TextWrapping="Wrap" Margin="0,0,0,4"/>
-
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Usage:" Margin="0,0,8,4" FontWeight="Bold"/>
-                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding MetadataUsage}" TextWrapping="Wrap" Margin="0,0,0,4"/>
-
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Notes:" Margin="0,0,8,4" FontWeight="Bold" VerticalAlignment="Top"/>
-                    <ItemsControl Grid.Row="4" Grid.Column="1" ItemsSource="{Binding MetadataNotes}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="0,0,0,2"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
-            </StackPanel>
+        <!-- Collapsible Metadata Header -->
+        <Expander Grid.Row="0" 
+                  IsExpanded="False"
+                  materialDesign:ExpanderAssist.HorizontalHeaderPadding="16,12"
+                  Background="{DynamicResource MaterialDesignPaper}"
+                  Margin="0,0,0,8">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="InformationOutline" Width="20" Height="20" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="METADATA" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Expander.Header>
+            <Grid Margin="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <TextBox Grid.Row="0" Grid.Column="0"
+                         Margin="0,0,8,12"
+                         FontSize="12"
+                         materialDesign:HintAssist.Hint="Description"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <TextBox Grid.Row="0" Grid.Column="1"
+                         Margin="8,0,0,12"
+                         FontSize="12"
+                         materialDesign:HintAssist.Hint="Type"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding MetadataType, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <TextBox Grid.Row="1" Grid.Column="0"
+                         Margin="0,0,8,12"
+                         FontSize="12"
+                         materialDesign:HintAssist.Hint="Version"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <TextBox Grid.Row="1" Grid.Column="1"
+                         Margin="8,0,0,12"
+                         FontSize="12"
+                         materialDesign:HintAssist.Hint="Usage"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding MetadataUsage, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                         Margin="0,0,0,0"
+                         FontSize="12"
+                         materialDesign:HintAssist.Hint="Notes"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         AcceptsReturn="True"
+                         Height="80"
+                         VerticalScrollBarVisibility="Auto"
+                         Text="{Binding MetadataNotesText, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
         </Expander>
 
-        <!-- Main Content -->
-        <Grid Grid.Row="2" Margin="8">
+        <!-- Two Column Layout: Catalogs (Left) and Details (Right) -->
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Type Catalog Tree -->
-            <materialDesign:Card Grid.Column="0" Margin="0,0,4,0">
+            <!-- Catalogs (Left) with TreeView -->
+            <materialDesign:Card Grid.Column="0" Margin="0,0,4,0" Padding="0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="16,16,16,8">
-                        <TextBlock Text="Type Catalogs" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
-                    </StackPanel>
-
-                    <TreeView Grid.Row="1" Margin="16,0" ItemsSource="{Binding TypeCatalogs}">
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding Categories}">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="ShapeOutline" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                                </StackPanel>
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="FolderOutline" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
-                                                     BorderThickness="0" Background="Transparent"
-                                                     MinWidth="100"/>
-                                        </StackPanel>
-                                        <HierarchicalDataTemplate.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <materialDesign:PackIcon Kind="ShapeSquarePlus" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                                                    <TextBlock Text="{Binding Name}"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </HierarchicalDataTemplate.ItemTemplate>
-                                    </HierarchicalDataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-                    </TreeView>
-
-                    <StackPanel Grid.Row="2" Margin="16">
+                    
+                    <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="16,12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ShapeOutline" Width="20" Height="20" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="TYPE CATALOGS" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding TypeCatalogs.Count, StringFormat=' ({0} types)'}" FontSize="12" Foreground="Gray" Margin="4,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <TreeView x:Name="CatalogTreeView"
+                                  Margin="16,8,16,8" 
+                                  ItemsSource="{Binding TypeCatalogs}" 
+                                  BorderThickness="0"
+                                  SelectedItemChanged="CatalogTreeView_SelectedItemChanged">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Categories}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ShapeOutline" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <HierarchicalDataTemplate.ItemTemplate>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="FolderOutline" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                                                         BorderThickness="0" Background="Transparent"
+                                                         MinWidth="100"/>
+                                            </StackPanel>
+                                            <HierarchicalDataTemplate.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="ShapeSquarePlus" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                                        <TextBlock Text="{Binding Name}"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </HierarchicalDataTemplate.ItemTemplate>
+                                        </HierarchicalDataTemplate>
+                                    </HierarchicalDataTemplate.ItemTemplate>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
+                    </ScrollViewer>
+                    
+                    <StackPanel Grid.Row="2" Margin="16,12,16,16">                        
                         <Button Command="{Binding AddCategoryCommand}" 
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 Margin="0,0,0,4">
@@ -135,20 +164,87 @@
                 </Grid>
             </materialDesign:Card>
 
-            <!-- Item Details -->
-            <materialDesign:Card Grid.Column="1" Margin="4,0,0,0">
-                <Grid Margin="16">
+            <!-- Item Details (Right) -->
+            <materialDesign:Card Grid.Column="1" Margin="4,0,0,0" Padding="0">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Item Details" 
-                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                               Margin="0,0,0,16"/>
+                    <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="16,12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FileDocumentOutline" Width="20" Height="20" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="ITEM DETAILS" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
 
-                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                        <StackPanel DataContext="{Binding SelectedItem}">
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="12">
+                        <StackPanel>
+                            <!-- Category Traits Section -->
+                            <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="0,0,0,16" Margin="0,0,0,16"
+                                    Visibility="{Binding ShowCategoryTraits, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <StackPanel DataContext="{Binding SelectedCategory}">
+                                    <TextBlock Text="Category Traits" 
+                                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                               Margin="0,0,0,8"/>
+                                    
+                                    <TextBlock Text="{Binding Name, StringFormat='Category: {0}'}"
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,12"/>
+
+                                    <ItemsControl ItemsSource="{Binding Traits}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,0,0,8">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox Grid.Column="0"
+                                                             Text="{Binding Key, UpdateSourceTrigger=PropertyChanged}"
+                                                             materialDesign:HintAssist.Hint="Trait Name"
+                                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                             Margin="0,0,4,0"/>
+                                                    <TextBox Grid.Column="1"
+                                                             Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                                             materialDesign:HintAssist.Hint="Trait Value"
+                                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                             Margin="4,0,4,0"/>
+                                                    <Button Grid.Column="2"
+                                                            Command="{Binding DataContext.RemoveTraitCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding Key}"
+                                                            Style="{StaticResource MaterialDesignIconButton}"
+                                                            ToolTip="Remove trait">
+                                                        <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
+                                                    </Button>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <Button Command="{Binding DataContext.AddTraitCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                                            Margin="0,8,0,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                            <TextBlock Text="Add Trait"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Item Details Section -->
+                            <StackPanel DataContext="{Binding SelectedItem}"
+                                        Visibility="{Binding Converter={StaticResource NotNullToVisibilityConverter}}">
                             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                                      materialDesign:HintAssist.Hint="Item Name"
                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -206,34 +302,37 @@
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
+                            </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
             </materialDesign:Card>
         </Grid>
 
-        <!-- Footer -->
-        <materialDesign:Card Grid.Row="3" Margin="8">
-            <Grid Margin="16">
+        <!-- Status Bar -->
+        <Border Grid.Row="2"
+                Background="{DynamicResource MaterialDesignPaper}"
+                BorderBrush="#E0E0E0"
+                BorderThickness="0,1,0,0"
+                Padding="16,8">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" Text="{Binding StatusMessage}" VerticalAlignment="Center"/>
                 
-                <Button Grid.Column="1" 
+                <TextBlock Grid.Column="0"
+                           VerticalAlignment="Center"
+                           FontSize="12"
+                           Text="{Binding StatusMessage}"/>
+                
+                <Button Grid.Column="1"
                         Command="{Binding SaveCommand}"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        IsEnabled="{Binding IsDirty}">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="ContentSave" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                        <TextBlock Text="Save"/>
-                    </StackPanel>
-                </Button>
+                        Content="SAVE CHANGES"
+                        Style="{StaticResource MaterialDesignRaisedButton}"/>
             </Grid>
-        </materialDesign:Card>
+        </Border>
+
+
     </Grid>
 </UserControl>
-
-

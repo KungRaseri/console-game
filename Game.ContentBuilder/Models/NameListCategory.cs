@@ -2,28 +2,64 @@
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Game.ContentBuilder.Models;
 
 /// <summary>
-/// Represents a single name component (e.g., title, first_name, surname, suffix) in v4 names.json
+/// Base class for all name components with common properties
 /// </summary>
-public partial class NameComponent : ObservableObject
+[JsonConverter(typeof(NameComponentConverter))]
+public abstract partial class NameComponentBase : ObservableObject
 {
+    /// <summary>
+    /// The display value of the component (e.g., "Sir", "Rusty", "Dragon")
+    /// </summary>
     [ObservableProperty]
+    [JsonProperty("value")]
     private string _value = string.Empty;
 
+    /// <summary>
+    /// Rarity weight for random selection (common: 50-100, uncommon: 20-49, rare: 10-19, epic: 5-9, legendary: 1-4)
+    /// </summary>
     [ObservableProperty]
+    [JsonProperty("rarityWeight")]
     private int _rarityWeight;
 
+    /// <summary>
+    /// Fallback for truly unknown properties
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JToken>? AdditionalProperties { get; set; }
+}
+
+/// <summary>
+/// NPC name component with gender, social class, and weight multipliers
+/// </summary>
+public partial class NpcNameComponent : NameComponentBase
+{
     [ObservableProperty]
+    [JsonProperty("gender")]
     private string? _gender;
 
     [ObservableProperty]
+    [JsonProperty("preferredSocialClass")]
     private string? _preferredSocialClass;
 
     [ObservableProperty]
+    [JsonProperty("weightMultiplier")]
     private Dictionary<string, double>? _weightMultiplier;
+}
+
+/// <summary>
+/// Item name component with trait system
+/// </summary>
+public partial class ItemNameComponent : NameComponentBase
+{
+    [ObservableProperty]
+    [JsonProperty("traits")]
+    private Dictionary<string, JObject>? _traits;
 }
 
 /// <summary>
@@ -57,4 +93,25 @@ public partial class NameListMetadata : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<string> _notes = new();
+
+    /// <summary>
+    /// Text representation of notes for TextBox binding
+    /// </summary>
+    public string NotesText
+    {
+        get => string.Join(Environment.NewLine, Notes);
+        set
+        {
+            Notes.Clear();
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                var lines = value.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var line in lines)
+                {
+                    Notes.Add(line.Trim());
+                }
+            }
+            OnPropertyChanged(nameof(NotesText));
+        }
+    }
 }

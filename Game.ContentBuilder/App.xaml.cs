@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 using Serilog;
 using Serilog.Events;
 
@@ -49,27 +50,8 @@ public partial class App : Application
         Log.Information("ContentBuilder Application Starting - {StartTime}", _startTime.ToString("yyyy-MM-dd HH:mm:ss"));
         Log.Information("Logs Directory: {LogsDir}", _logsDirectory);
 
-        // Handle any unhandled exceptions
-        DispatcherUnhandledException += (s, args) =>
-        {
-            Log.Error(args.Exception, "Unhandled dispatcher exception");
-
-            MessageBox.Show(
-                $"An error occurred: {args.Exception.Message}\n\n" +
-                $"Check error log in: {_logsDirectory}\n\n" +
-                $"Stack Trace:\n{args.Exception.StackTrace}",
-                "Content Builder Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
-            args.Handled = true;
-        };
-
-        AppDomain.CurrentDomain.UnhandledException += (s, args) =>
-        {
-            var ex = args.ExceptionObject as Exception;
-            Log.Fatal(ex, "Critical unhandled exception - Is Terminating: {IsTerminating}", args.IsTerminating);
-        };
+        // Setup global exception handlers
+        SetupGlobalExceptionHandlers();
 
         Log.Information("Application startup complete");
     }
@@ -119,6 +101,66 @@ public partial class App : Application
         {
             System.Diagnostics.Debug.WriteLine($"Failed to cleanup logs ({searchPattern}): {ex.Message}");
         }
+    }
+
+    /// <summary>
+    /// Setup global exception handlers to catch all unhandled exceptions
+    /// </summary>
+    private void SetupGlobalExceptionHandlers()
+    {
+        // Catch unhandled exceptions on UI thread
+        DispatcherUnhandledException += OnDispatcherUnhandledException;
+
+        // Catch unhandled exceptions on background threads
+        AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
+
+        // Catch unobserved task exceptions
+        TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
+
+        Log.Information("Global exception handlers configured");
+    }
+
+    /// <summary>
+    /// Handles unhandled exceptions on the UI thread (Dispatcher)
+    /// </summary>
+    private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        Log.Error(e.Exception, "Unhandled UI thread exception");
+        
+        var errorMsg = $"An error occurred on the UI thread:\n\n{e.Exception.Message}\n\n" +
+                      $"Type: {e.Exception.GetType().Name}\n\n" +
+                      $"Check the error log for details:\n{_logsDirectory}";
+
+        MessageBox.Show(errorMsg, "Unhandled Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        // Prevent application crash (mark as handled)
+        e.Handled = true;
+    }
+
+    /// <summary>
+    /// Handles unhandled exceptions on background threads
+    /// </summary>
+    private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        var exception = e.ExceptionObject as Exception;
+        Log.Fatal(exception, "Unhandled background thread exception - IsTerminating: {IsTerminating}", e.IsTerminating);
+
+        if (e.IsTerminating)
+        {
+            // Try to flush logs before termination
+            Log.CloseAndFlush();
+        }
+    }
+
+    /// <summary>
+    /// Handles unobserved task exceptions
+    /// </summary>
+    private void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
+    {
+        Log.Error(e.Exception, "Unobserved task exception");
+        
+        // Prevent the exception from terminating the application
+        e.SetObserved();
     }
 }
 

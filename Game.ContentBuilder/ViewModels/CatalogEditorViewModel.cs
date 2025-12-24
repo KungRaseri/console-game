@@ -36,6 +36,27 @@ public partial class CatalogEditorViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<string> _metadataNotes = new();
 
+    /// <summary>
+    /// Text representation of notes for TextBox binding
+    /// </summary>
+    public string MetadataNotesText
+    {
+        get => string.Join(Environment.NewLine, MetadataNotes);
+        set
+        {
+            MetadataNotes.Clear();
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                var lines = value.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var line in lines)
+                {
+                    MetadataNotes.Add(line.Trim());
+                }
+            }
+            OnPropertyChanged(nameof(MetadataNotesText));
+        }
+    }
+
     // Type Catalogs (weapon_types, armor_types, etc.)
     [ObservableProperty]
     private ObservableCollection<TypeCatalog> _typeCatalogs = new();
@@ -49,11 +70,26 @@ public partial class CatalogEditorViewModel : ObservableObject
     [ObservableProperty]
     private TypeItem? _selectedItem;
 
+    /// <summary>
+    /// Returns true when a category is selected but no item is selected
+    /// </summary>
+    public bool ShowCategoryTraits => SelectedCategory != null && SelectedItem == null;
+
     [ObservableProperty]
     private bool _isDirty;
 
     [ObservableProperty]
     private string _statusMessage = string.Empty;
+
+    partial void OnSelectedCategoryChanged(TypeCategory? value)
+    {
+        OnPropertyChanged(nameof(ShowCategoryTraits));
+    }
+
+    partial void OnSelectedItemChanged(TypeItem? value)
+    {
+        OnPropertyChanged(nameof(ShowCategoryTraits));
+    }
 
     public CatalogEditorViewModel(JsonEditorService jsonEditorService, string fileName)
     {
@@ -138,10 +174,30 @@ public partial class CatalogEditorViewModel : ObservableObject
                     var category = new TypeCategory
                     {
                         Name = categoryProp.Name,
-                        Items = new ObservableCollection<TypeItem>()
+                        Items = new ObservableCollection<TypeItem>(),
+                        Traits = new ObservableCollection<TraitItem>()
                     };
 
-                    if (categoryProp.Value is JArray itemsArray)
+                    var categoryObj = categoryProp.Value as JObject;
+                    if (categoryObj == null) continue;
+
+                    // Load category-level traits
+                    var traitsObj = categoryObj["traits"] as JObject;
+                    if (traitsObj != null)
+                    {
+                        foreach (var traitProp in traitsObj.Properties())
+                        {
+                            category.Traits.Add(new TraitItem
+                            {
+                                Key = traitProp.Name,
+                                Value = traitProp.Value.ToString()
+                            });
+                        }
+                    }
+
+                    // Load items array
+                    var itemsArray = categoryObj["items"] as JArray;
+                    if (itemsArray != null)
                     {
                         foreach (var itemToken in itemsArray)
                         {
@@ -247,6 +303,36 @@ public partial class CatalogEditorViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private void AddTrait()
+    {
+        if (SelectedCategory == null) return;
+
+        var newTrait = new TraitItem
+        {
+            Key = $"trait_{SelectedCategory.Traits.Count + 1}",
+            Value = "value"
+        };
+
+        SelectedCategory.Traits.Add(newTrait);
+        IsDirty = true;
+        StatusMessage = "Added new trait";
+    }
+
+    [RelayCommand]
+    private void RemoveTrait(string? key)
+    {
+        if (SelectedCategory == null || key == null) return;
+
+        var trait = SelectedCategory.Traits.FirstOrDefault(t => t.Key == key);
+        if (trait != null)
+        {
+            SelectedCategory.Traits.Remove(trait);
+            IsDirty = true;
+            StatusMessage = "Removed trait";
+        }
+    }
+
+    [RelayCommand]
     private void AddProperty()
     {
         if (SelectedItem == null) return;
@@ -347,6 +433,9 @@ public partial class TypeCategory : ObservableObject
 
     [ObservableProperty]
     private ObservableCollection<TypeItem> _items = new();
+
+    [ObservableProperty]
+    private ObservableCollection<TraitItem> _traits = new();
 }
 
 /// <summary>
@@ -371,6 +460,18 @@ public partial class TypeItem : ObservableObject
 /// Represents a dynamic property of an item
 /// </summary>
 public partial class PropertyItem : ObservableObject
+{
+    [ObservableProperty]
+    private string _key = string.Empty;
+
+    [ObservableProperty]
+    private string _value = string.Empty;
+}
+
+/// <summary>
+/// Represents a trait key-value pair
+/// </summary>
+public partial class TraitItem : ObservableObject
 {
     [ObservableProperty]
     private string _key = string.Empty;
