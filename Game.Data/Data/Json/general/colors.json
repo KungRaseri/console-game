@@ -1,4 +1,4 @@
-﻿{
+{
   "components": {
     "base_color": [
       "red", "blue", "green", "yellow", "orange",
@@ -19,7 +19,7 @@
   },
   "patterns": [
     "base_color",
-    "modifier + base_color",
+    "{modifier} {base_color}",
     "material"
   ],
   "metadata": {

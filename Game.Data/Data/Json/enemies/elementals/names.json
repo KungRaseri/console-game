@@ -176,11 +176,11 @@
                    },
     "patterns":  [
                      "base",
-                     "element + base",
-                     "size + element + base",
-                     "descriptive + element + base",
-                     "element + base + title",
-                     "size + descriptive + element + base",
+                     "{element} {base}",
+                     "{size} {element} {base}",
+                     "{descriptive} {element} {base}",
+                     "{element} {base} {title}",
+                     "{size} {descriptive} {element} {base}",
                      "size + descriptive + element + base + title"
                  ],
     "notes":  {

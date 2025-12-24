@@ -141,13 +141,13 @@
                    },
     "patterns":  [
                      "base",
-                     "size + base",
-                     "scale + base",
-                     "descriptive + base",
-                     "base + title",
-                     "size + scale + base",
-                     "descriptive + base + title",
-                     "size + scale + base + title"
+                     "{size} {base}",
+                     "{scale} {base}",
+                     "{descriptive} {base}",
+                     "{base} {title}",
+                     "{size} {scale} {base}",
+                     "{descriptive} {base} {title}",
+                     "{size} {scale} {base} {title}"
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for reptilians. Pick components by rarityWeight and apply patterns to generate procedural names."

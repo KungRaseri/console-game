@@ -837,72 +837,72 @@
       "example": "Chainmail"
     },
     {
-      "pattern": "material + base",
+      "pattern": "{material} {base}",
       "weight": 50,
       "example": "Mithril Chainmail"
     },
     {
-      "pattern": "quality + base",
+      "pattern": "{quality} {base}",
       "weight": 40,
       "example": "Fine Chainmail"
     },
     {
-      "pattern": "prefix + base",
+      "pattern": "{prefix} {base}",
       "weight": 30,
       "example": "Sturdy Chainmail"
     },
     {
-      "pattern": "descriptive + base",
+      "pattern": "{descriptive} {base}",
       "weight": 35,
       "example": "Blazing Chainmail"
     },
     {
-      "pattern": "base + suffix",
+      "pattern": "{base} {suffix}",
       "weight": 30,
       "example": "Chainmail of Protection"
     },
     {
-      "pattern": "material + base + suffix",
+      "pattern": "{material} {base} {suffix}",
       "weight": 20,
       "example": "Mithril Chainmail of the Guardian"
     },
     {
-      "pattern": "quality + material + base",
+      "pattern": "{quality} {material} {base}",
       "weight": 15,
       "example": "Fine Mithril Chainmail"
     },
     {
-      "pattern": "prefix + material + base",
+      "pattern": "{prefix} {material} {base}",
       "weight": 10,
       "example": "Blessed Dragonscale Chainmail"
     },
     {
-      "pattern": "descriptive + base + suffix",
+      "pattern": "{descriptive} {base} {suffix}",
       "weight": 12,
       "example": "Holy Chainmail of the Crusader"
     },
     {
-      "pattern": "quality + base + suffix",
+      "pattern": "{quality} {base} {suffix}",
       "weight": 15,
       "example": "Flawless Chainmail of the Champion"
     },
     {
-      "pattern": "prefix + base + suffix",
+      "pattern": "{prefix} {base} {suffix}",
       "weight": 8,
       "example": "Ancient Chainmail of the Aegis"
     },
     {
-      "pattern": "quality + material + base + suffix",
+      "pattern": "{quality} {material} {base} {suffix}",
       "weight": 5,
       "example": "Exceptional Adamantine Chainmail of the Mountain"
     },
     {
-      "pattern": "prefix + material + base + suffix",
+      "pattern": "{prefix} {material} {base} {suffix}",
       "weight": 3,
       "example": "Celestial Dragonscale Chainmail of the Phoenix"
     },
     {
-      "pattern": "descriptive + material + base + suffix",
+      "pattern": "{descriptive} {material} {base} {suffix}",
       "weight": 4,
       "example": "Holy Mithril Chainmail of the Gods"
     },

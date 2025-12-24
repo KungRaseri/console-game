@@ -130,13 +130,13 @@
                    },
     "patterns":  [
                      "base",
-                     "size + base",
-                     "type + base",
-                     "descriptive + base",
-                     "base + title",
-                     "size + type + base",
-                     "descriptive + base + title",
-                     "size + type + base + title"
+                     "{size} {base}",
+                     "{type} {base}",
+                     "{descriptive} {base}",
+                     "{base} {title}",
+                     "{size} {type} {base}",
+                     "{descriptive} {base} {title}",
+                     "{size} {type} {base} {title}"
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for insects. Pick components by rarityWeight and apply patterns to generate procedural names."

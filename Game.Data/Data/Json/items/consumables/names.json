@@ -654,32 +654,32 @@
       "example": "Potion"
     },
     {
-      "pattern": "quality + base",
+      "pattern": "{quality} {base}",
       "weight": 50,
       "example": "Greater Potion"
     },
     {
-      "pattern": "effect + base",
+      "pattern": "{effect} {base}",
       "weight": 40,
       "example": "Healing Potion"
     },
     {
-      "pattern": "base + suffix",
+      "pattern": "{base} {suffix}",
       "weight": 35,
       "example": "Potion of Healing"
     },
     {
-      "pattern": "quality + effect + base",
+      "pattern": "{quality} {effect} {base}",
       "weight": 20,
       "example": "Superior Healing Potion"
     },
     {
-      "pattern": "descriptive + base + suffix",
+      "pattern": "{descriptive} {base} {suffix}",
       "weight": 15,
       "example": "Divine Potion of the Phoenix"
     },
     {
-      "pattern": "quality + effect + base + suffix",
+      "pattern": "{quality} {effect} {base} {suffix}",
       "weight": 8,
       "example": "Legendary Restoration Potion of the Dragon"
     }

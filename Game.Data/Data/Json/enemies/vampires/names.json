@@ -151,12 +151,12 @@
     },
     "patterns": [
         "base",
-        "age + base",
-        "base + title",
-        "bloodline + base",
-        "descriptive + base",
-        "age + bloodline + base",
-        "age + base + title",
-        "descriptive + bloodline + base + title"
+        "{age} {base}",
+        "{base} {title}",
+        "{bloodline} {base}",
+        "{descriptive} {base}",
+        "{age} {bloodline} {base}",
+        "{age} {base} {title}",
+        "{descriptive} {bloodline} {base} {title}"
     ]
 }

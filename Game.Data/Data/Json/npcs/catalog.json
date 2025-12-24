@@ -662,7 +662,7 @@
               { "item": "Rations", "baseQuantity": 20, "restockDaily": true }
             ],
             "dynamicCategories": ["all"],
-            "dynamicItemCount": "3d10+10",
+            "dynamicItemCount": "{3d10} {10}",
             "dynamicRefreshDaily": true,
             "varietyBonus": 50,
             "economy": {
@@ -709,7 +709,7 @@
               { "item": "IronDagger", "baseQuantity": 3, "restockDaily": true }
             ],
             "dynamicCategories": ["weapons.melee", "armor.heavy", "armor.medium"],
-            "dynamicItemCount": "1d6+2",
+            "dynamicItemCount": "{1d6} {2}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": true,
@@ -742,7 +742,7 @@
               { "item": "Greatsword", "baseQuantity": 1, "restockDaily": true }
             ],
             "dynamicCategories": ["weapons.melee"],
-            "dynamicItemCount": "1d8+3",
+            "dynamicItemCount": "{1d8} {3}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": true,
@@ -775,7 +775,7 @@
               { "item": "PlateArmor", "baseQuantity": 1, "restockDaily": true }
             ],
             "dynamicCategories": ["armor.light", "armor.medium", "armor.heavy"],
-            "dynamicItemCount": "1d6+2",
+            "dynamicItemCount": "{1d6} {2}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": true,
@@ -808,7 +808,7 @@
               { "item": "Shortbow", "baseQuantity": 2, "restockDaily": true }
             ],
             "dynamicCategories": ["weapons.ranged", "ammunition"],
-            "dynamicItemCount": "1d6+1",
+            "dynamicItemCount": "{1d6} {1}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": true,
@@ -840,7 +840,7 @@
               { "item": "LeatherArmor", "baseQuantity": 3, "restockDaily": true }
             ],
             "dynamicCategories": ["armor.light", "accessories"],
-            "dynamicItemCount": "1d6+2",
+            "dynamicItemCount": "{1d6} {2}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": true,
@@ -872,7 +872,7 @@
               { "item": "SilverRing", "baseQuantity": 3, "restockDaily": true }
             ],
             "dynamicCategories": ["accessories.rings", "accessories.amulets", "accessories.jewelry"],
-            "dynamicItemCount": "1d6+2",
+            "dynamicItemCount": "{1d6} {2}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": true,
@@ -905,7 +905,7 @@
               { "item": "MagicScroll", "baseQuantity": 3, "restockDaily": true }
             ],
             "dynamicCategories": ["magic_items", "enchanted_gear", "consumables.scrolls"],
-            "dynamicItemCount": "1d4+1",
+            "dynamicItemCount": "{1d4} {1}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": true,
@@ -953,7 +953,7 @@
               { "item": "ManaPotion", "baseQuantity": 3, "restockDaily": true }
             ],
             "dynamicCategories": ["consumables.potions", "consumables.herbs", "reagents"],
-            "dynamicItemCount": "1d10+3",
+            "dynamicItemCount": "{1d10} {3}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": true,
@@ -984,7 +984,7 @@
               { "item": "Bandages", "baseQuantity": 20, "restockDaily": true }
             ],
             "dynamicCategories": ["consumables.potions", "medical_supplies"],
-            "dynamicItemCount": "1d8+2",
+            "dynamicItemCount": "{1d8} {2}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": false,
@@ -1012,7 +1012,7 @@
               { "item": "HealingHerb", "baseQuantity": 15, "restockDaily": true }
             ],
             "dynamicCategories": ["consumables.herbs", "reagents"],
-            "dynamicItemCount": "2d6+3",
+            "dynamicItemCount": "{2d6} {3}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": true,
@@ -1043,7 +1043,7 @@
               { "item": "Book", "baseQuantity": 5, "restockDaily": false }
             ],
             "dynamicCategories": ["books", "maps", "consumables.scrolls"],
-            "dynamicItemCount": "1d6+1",
+            "dynamicItemCount": "{1d6} {1}",
             "dynamicRefreshDaily": false,
             "economy": {
               "acceptsPlayerItems": true,
@@ -1074,7 +1074,7 @@
               { "item": "AncientTome", "baseQuantity": 1, "restockDaily": false }
             ],
             "dynamicCategories": ["books", "magic_items", "consumables.scrolls"],
-            "dynamicItemCount": "1d4+1",
+            "dynamicItemCount": "{1d4} {1}",
             "dynamicRefreshDaily": false,
             "economy": {
               "acceptsPlayerItems": true,
@@ -1105,7 +1105,7 @@
               { "item": "LocalMap", "baseQuantity": 5, "restockDaily": true }
             ],
             "dynamicCategories": ["maps", "navigation_tools"],
-            "dynamicItemCount": "1d6+2",
+            "dynamicItemCount": "{1d6} {2}",
             "dynamicRefreshDaily": false,
             "economy": {
               "acceptsPlayerItems": true,
@@ -1152,7 +1152,7 @@
               { "item": "Stew", "baseQuantity": 10, "restockDaily": true }
             ],
             "dynamicCategories": ["consumables.food", "consumables.drink"],
-            "dynamicItemCount": "2d6+3",
+            "dynamicItemCount": "{2d6} {3}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": false,
@@ -1181,7 +1181,7 @@
               { "item": "Wine", "baseQuantity": 10, "restockDaily": true }
             ],
             "dynamicCategories": ["consumables.drink", "consumables.food"],
-            "dynamicItemCount": "1d8+2",
+            "dynamicItemCount": "{1d8} {2}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": false,
@@ -1210,7 +1210,7 @@
               { "item": "Pie", "baseQuantity": 10, "restockDaily": true }
             ],
             "dynamicCategories": ["consumables.food"],
-            "dynamicItemCount": "2d6+4",
+            "dynamicItemCount": "{2d6} {4}",
             "dynamicRefreshDaily": true,
             "economy": {
               "acceptsPlayerItems": false,
@@ -1238,7 +1238,7 @@
               { "item": "Hay", "baseQuantity": 50, "restockDaily": true }
             ],
             "dynamicCategories": ["mounts", "riding_gear"],
-            "dynamicItemCount": "1d4+1",
+            "dynamicItemCount": "{1d4} {1}",
             "dynamicRefreshDaily": false,
             "economy": {
               "acceptsPlayerItems": true,

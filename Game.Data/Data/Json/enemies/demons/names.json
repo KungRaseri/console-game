@@ -160,11 +160,11 @@
                    },
     "patterns":  [
                      "base",
-                     "rank + base",
-                     "descriptive + base",
-                     "aspect + base",
-                     "rank + aspect + base",
-                     "descriptive + base + title",
+                     "{rank} {base}",
+                     "{descriptive} {base}",
+                     "{aspect} {base}",
+                     "{rank} {aspect} {base}",
+                     "{descriptive} {base} {title}",
                      "rank + descriptive + aspect + base + title"
                  ],
     "notes":  {

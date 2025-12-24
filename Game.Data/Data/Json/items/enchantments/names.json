@@ -331,47 +331,47 @@
       "example": "Enchantment (no prefix/suffix)"
     },
     {
-      "pattern": "quality + base",
+      "pattern": "{quality} {base}",
       "weight": 50,
       "example": "Greater Enchantment"
     },
     {
-      "pattern": "elemental + base",
+      "pattern": "{elemental} {base}",
       "weight": 40,
       "example": "Flaming Enchantment"
     },
     {
-      "pattern": "alignment + base",
+      "pattern": "{alignment} {base}",
       "weight": 30,
       "example": "Divine Enchantment"
     },
     {
-      "pattern": "special + base",
+      "pattern": "{special} {base}",
       "weight": 20,
       "example": "Arcane Enchantment"
     },
     {
-      "pattern": "base + suffix",
+      "pattern": "{base} {suffix}",
       "weight": 35,
       "example": "Enchantment of Power"
     },
     {
-      "pattern": "quality + base + suffix",
+      "pattern": "{quality} {base} {suffix}",
       "weight": 15,
       "example": "Superior Enchantment of the Titan"
     },
     {
-      "pattern": "elemental + base + suffix",
+      "pattern": "{elemental} {base} {suffix}",
       "weight": 10,
       "example": "Flaming Enchantment of Fire"
     },
     {
-      "pattern": "quality + elemental + base + suffix",
+      "pattern": "{quality} {elemental} {base} {suffix}",
       "weight": 5,
       "example": "Grand Shocking Enchantment of the Storm"
     },
     {
-      "pattern": "quality + special + base + suffix",
+      "pattern": "{quality} {special} {base} {suffix}",
       "weight": 2,
       "example": "Transcendent Void Enchantment of the Reaper"
     }

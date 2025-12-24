@@ -1,4 +1,4 @@
-﻿{
+{
   "components": {
     "base_sound": [
       "echoing", "whisper", "roar", "clang", "hiss",
@@ -35,9 +35,9 @@
   },
   "patterns": [
     "base_sound",
-    "volume + base_sound",
-    "nature + base_sound",
-    "intensity + base_sound",
+    "{volume} {base_sound}",
+    "{nature} {base_sound}",
+    "{intensity} {base_sound}",
     "combat",
     "ambient"
   ],

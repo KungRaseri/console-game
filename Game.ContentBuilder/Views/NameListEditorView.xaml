@@ -6,10 +6,17 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:Game.ContentBuilder.Models"
+        xmlns:converters="clr-namespace:Game.ContentBuilder.Converters"
         d:DesignHeight="600"
         d:DesignWidth="1200"
         mc:Ignorable="d">
         <UserControl.Resources>
+                <!-- Converters -->
+                <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+                <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+                <converters:TupleConverter x:Key="TupleConverter"/>
+                
                 <!-- Component Item Template -->
                 <DataTemplate x:Key="ComponentItemTemplate">
                         <materialDesign:Card Margin="4,4,4,8" Padding="0">
@@ -197,19 +204,79 @@
                                                         <ColumnDefinition Width="70"/>
                                                 </Grid.ColumnDefinitions>
                                                 
-                                                <TextBox 
-                                                        Grid.Column="0"
-                                                        FontFamily="Consolas"
-                                                        FontSize="13"
-                                                        Text="{Binding PatternTemplate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                <!-- Badge-based pattern composer -->
+                                                <Border Grid.Column="0"
+                                                        BorderBrush="#DEDEDE"
+                                                        BorderThickness="1"
+                                                        CornerRadius="4"
+                                                        Background="White"
+                                                        Padding="8"
                                                         Margin="0,0,8,0"
-                                                        materialDesign:HintAssist.Hint="Pattern template (use @materialRef/weapon, {base}, etc.)"/>
+                                                        MinHeight="48">
+                                                        <ItemsControl ItemsSource="{Binding Tokens}"
+                                                                      AllowDrop="True">
+                                                                <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                                <WrapPanel Orientation="Horizontal"/>
+                                                                        </ItemsPanelTemplate>
+                                                                </ItemsControl.ItemsPanel>
+                                                                <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                                <!-- Token Badge -->
+                                                                                <Border Background="{Binding BadgeColor}"
+                                                                                        CornerRadius="12"
+                                                                                        Padding="10,4"
+                                                                                        Margin="0,0,6,4"
+                                                                                        Cursor="Hand"
+                                                                                        AllowDrop="True"
+                                                                                        Tag="{Binding}"
+                                                                                        PreviewMouseLeftButtonDown="Badge_PreviewMouseLeftButtonDown"
+                                                                                        MouseMove="Badge_MouseMove"
+                                                                                        Drop="Badge_Drop"
+                                                                                        DragOver="Badge_DragOver">
+                                                                                        <StackPanel Orientation="Horizontal">
+                                                                                                <TextBlock Text="{Binding DisplayText}"
+                                                                                                           FontFamily="Consolas"
+                                                                                                           FontSize="11"
+                                                                                                           FontWeight="SemiBold"
+                                                                                                           Foreground="White"
+                                                                                                           VerticalAlignment="Center"/>
+                                                                                                <Button Command="{Binding DataContext.RemoveTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                                                        CommandParameter="{Binding}"
+                                                                                                        Visibility="{Binding IsBase, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                                                                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                                                                        Width="18"
+                                                                                                        Height="18"
+                                                                                                        Padding="0"
+                                                                                                        Margin="6,0,0,0"
+                                                                                                        Foreground="White"
+                                                                                                        ToolTip="Remove token">
+                                                                                                        <materialDesign:PackIcon Kind="Close" Width="12" Height="12"/>
+                                                                                                </Button>
+                                                                                        </StackPanel>
+                                                                                </Border>
+                                                                        </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+                                                </Border>
                                                 
                                                 <TextBox 
                                                         Grid.Column="1"
                                                         Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         HorizontalContentAlignment="Center"
-                                                        materialDesign:HintAssist.Hint="Weight"/>
+                                                        IsReadOnly="{Binding IsReadOnly}"
+                                                        materialDesign:HintAssist.Hint="Weight">
+                                                        <TextBox.Style>
+                                                                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                                                                        <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsReadOnly}" Value="True">
+                                                                                        <Setter Property="Background" Value="#F5F5F5"/>
+                                                                                        <Setter Property="Foreground" Value="#666"/>
+                                                                                </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                </Style>
+                                                        </TextBox.Style>
+                                                </TextBox>
                                         </Grid>
                                         
                                         <!-- Pattern Token Helpers -->
@@ -217,7 +284,8 @@
                                                 Background="#F0F0F0"
                                                 CornerRadius="4"
                                                 Padding="8,6"
-                                                Margin="0,8,0,0">
+                                                Margin="0,8,0,0"
+                                                Visibility="{Binding IsReadOnly, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                                                 <StackPanel>
                                                         <!-- Component Tokens Section - DYNAMIC based on file's components -->
                                                         <TextBlock Text="Insert Component:" 
@@ -236,7 +304,7 @@
                                                                         <DataTemplate>
                                                                                 <Button Content="{Binding StringFormat='{}{0}}'}"
                                                                                         Command="{Binding DataContext.InsertComponentTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                                        CommandParameter="{Binding}"
+
                                                                                         Style="{StaticResource MaterialDesignRaisedButton}"
                                                                                         materialDesign:ButtonAssist.CornerRadius="4"
                                                                                         Background="#4CAF50"
@@ -245,7 +313,14 @@
                                                                                         FontSize="11"
                                                                                         FontFamily="Consolas"
                                                                                         Margin="0,0,4,4"
-                                                                                        ToolTip="{Binding StringFormat='Insert {{0}} token'}"/>
+                                                                                        ToolTip="{Binding StringFormat='Insert {{0}} token'}">
+                                                                                        <Button.CommandParameter>
+                                                                                                <MultiBinding Converter="{StaticResource TupleConverter}">
+                                                                                                        <Binding Path="."/>
+                                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                                                                                </MultiBinding>
+                                                                                        </Button.CommandParameter>
+                                                                                </Button>
                                                                         </DataTemplate>
                                                                 </ItemsControl.ItemTemplate>
                                                         </ItemsControl>
@@ -264,42 +339,67 @@
                                                                 </ItemsControl.ItemsPanel>
                                                                 <Button Content="@materialRef/weapon"
                                                                         Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                        CommandParameter="@materialRef/weapon"
                                                                         Style="{StaticResource MaterialDesignOutlinedButton}"
                                                                         Height="24"
                                                                         Padding="8,0"
                                                                         FontSize="10"
                                                                         FontFamily="Consolas"
-                                                                        Margin="0,0,4,4"/>
+                                                                        Margin="0,0,4,4">
+                                                                        <Button.CommandParameter>
+                                                                                <MultiBinding Converter="{StaticResource TupleConverter}">
+                                                                                        <Binding Source="@materialRef/weapon"/>
+                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                                                                </MultiBinding>
+                                                                        </Button.CommandParameter>
+                                                                </Button>
                                                                 <Button Content="@materialRef/armor"
                                                                         Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                        CommandParameter="@materialRef/armor"
                                                                         Style="{StaticResource MaterialDesignOutlinedButton}"
                                                                         Height="24"
                                                                         Padding="8,0"
                                                                         FontSize="10"
                                                                         FontFamily="Consolas"
-                                                                        Margin="0,0,4,4"/>
+                                                                        Margin="0,0,4,4">
+                                                                        <Button.CommandParameter>
+                                                                                <MultiBinding Converter="{StaticResource TupleConverter}">
+                                                                                        <Binding Source="@materialRef/armor"/>
+                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                                                                </MultiBinding>
+                                                                        </Button.CommandParameter>
+                                                                </Button>
                                                                 <Button Content="@itemRef"
                                                                         Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                        CommandParameter="@itemRef/"
                                                                         Style="{StaticResource MaterialDesignOutlinedButton}"
                                                                         Height="24"
                                                                         Padding="8,0"
                                                                         FontSize="10"
                                                                         FontFamily="Consolas"
-                                                                        Margin="0,0,4,4"/>
+                                                                        Margin="0,0,4,4">
+                                                                        <Button.CommandParameter>
+                                                                                <MultiBinding Converter="{StaticResource TupleConverter}">
+                                                                                        <Binding Source="@itemRef/"/>
+                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                                                                </MultiBinding>
+                                                                        </Button.CommandParameter>
+                                                                </Button>
                                                                 <Button Content="@enemyRef"
                                                                         Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                        CommandParameter="@enemyRef/"
                                                                         Style="{StaticResource MaterialDesignOutlinedButton}"
                                                                         Height="24"
                                                                         Padding="8,0"
                                                                         FontSize="10"
                                                                         FontFamily="Consolas"
-                                                                        Margin="0,0,4,4"/>
+                                                                        Margin="0,0,4,4">
+                                                                        <Button.CommandParameter>
+                                                                                <MultiBinding Converter="{StaticResource TupleConverter}">
+                                                                                        <Binding Source="@enemyRef/"/>
+                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                                                                </MultiBinding>
+                                                                        </Button.CommandParameter>
+                                                                </Button>
                                                                 <Button Command="{Binding DataContext.BrowseReferenceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                         CommandParameter="{Binding}"
+                                                                        IsEnabled="{Binding DataContext.SelectedPattern.IsReadOnly, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource InverseBooleanConverter}}"
                                                                         Style="{StaticResource MaterialDesignFlatButton}"
                                                                         Height="24"
                                                                         Padding="8,0"
@@ -505,6 +605,7 @@
                                                 Command="{Binding RemovePatternCommand}"
                                                 Style="{StaticResource MaterialDesignIconButton}"
                                                 ToolTip="Remove selected pattern"
+                                                IsEnabled="{Binding SelectedPattern.IsReadOnly, Converter={StaticResource InverseBooleanConverter}}"
                                                 Margin="0,0,4,0">
                                                 <materialDesign:PackIcon Kind="Minus"/>
                                         </Button>

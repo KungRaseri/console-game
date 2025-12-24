@@ -134,13 +134,13 @@
                    },
     "patterns":  [
                      "base",
-                     "age + base",
-                     "habitat + base",
-                     "descriptive + base",
-                     "base + title",
-                     "age + habitat + base",
-                     "descriptive + base + title",
-                     "age + habitat + base + title"
+                     "{age} {base}",
+                     "{habitat} {base}",
+                     "{descriptive} {base}",
+                     "{base} {title}",
+                     "{age} {habitat} {base}",
+                     "{descriptive} {base} {title}",
+                     "{age} {habitat} {base} {title}"
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for trolls. Pick components by rarityWeight and apply patterns to generate procedural names."

@@ -39,6 +39,22 @@ public abstract partial class NamePatternBase : ObservableObject
     private string _generatedExamples = string.Empty;
 
     /// <summary>
+    /// Whether this pattern is readonly (cannot be edited or deleted)
+    /// Used for default patterns like {base}
+    /// </summary>
+    [ObservableProperty]
+    [JsonIgnore]
+    private bool _isReadOnly = false;
+
+    /// <summary>
+    /// Token-based representation of the pattern (for badge UI)
+    /// Not persisted - computed from PatternTemplate on load
+    /// </summary>
+    [ObservableProperty]
+    [JsonIgnore]
+    private ObservableCollection<PatternToken> _tokens = new();
+
+    /// <summary>
     /// Fallback for truly unknown properties
     /// </summary>
     [JsonExtensionData]

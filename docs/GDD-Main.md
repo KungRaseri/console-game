@@ -1,8 +1,8 @@
 # Game Design Document - Console RPG
 
 **Project**: Console RPG  
-**Version**: 1.4  
-**Last Updated**: December 9, 2025  
+**Version**: 1.5  
+**Last Updated**: December 24, 2025  
 **Engine**: .NET 9.0 Console Application  
 **Architecture**: Vertical Slice + CQRS Pattern  
 
@@ -17,7 +17,8 @@
 5. [Technical Architecture](#technical-architecture)
 6. [Content & Progression](#content--progression)
 7. [User Interface](#user-interface)
-8. [Future Roadmap](#future-roadmap)
+8. [ContentBuilder - Data Editor Tool](#contentbuilder---data-editor-tool)
+9. [Future Roadmap](#future-roadmap)
 
 ---
 
@@ -39,11 +40,12 @@
 
 ### Development Stats
 
-- **379 Unit Tests** (375 passing, 4 skipped - 98.9% pass rate)
+- **397 Unit Tests** (393 passing, 4 skipped - 99.0% pass rate)
 - **10 Features** (Vertical Slices)
 - **27 CQRS Handlers** (Commands + Queries)
 - **19 Models** (Domain entities)
 - **6 Settings Categories** (Configuration)
+- **ContentBuilder Tool** (WPF desktop editor for game data)
 
 ---
 
@@ -214,6 +216,35 @@ Items have **traits** that provide gameplay bonuses:
 - Prefix modifiers (Flaming, Frozen, Masterwork)
 - Suffix modifiers (of Fire, of the Bear, of Swiftness)
 - Combined for powerful items (Flaming Sword of the Dragon)
+
+#### Procedural Name Generation System (v4)
+
+**Pattern-Based Architecture:**
+- Names generated from **patterns** (templates with tokens)
+- Component tokens: `{base}`, `{prefix}`, `{suffix}`, `{quality}`, `{descriptive}`
+- Reference tokens: `@materialRef/weapon`, `@materialRef/armor`, `@itemRef`, `@enemyRef`
+- Weighted random selection for variety and rarity
+
+**Pattern Examples:**
+- Simple: `{base}` → "Longsword"
+- Material: `@materialRef/weapon {base}` → "Steel Longsword"
+- Complex: `{prefix} @materialRef/weapon {base} {suffix}` → "Ancient Mithril Longsword of Fire"
+
+**Services:**
+- **PatternExecutor**: Parses patterns, resolves tokens, applies weighted selection
+- **DataReferenceResolver**: Resolves cross-file references (materials, items, enemies)
+- **ComponentValue**: Record type for weighted component selection
+
+**Features:**
+- Context-aware material filtering (weapon vs armor materials)
+- Dynamic component resolution from JSON files
+- Trait merging from resolved references
+- No hardcoded item lists - all data-driven
+- Automatic default `{base}` pattern for all catalogs
+
+**Testing:**
+- 18 comprehensive unit tests (PatternExecutor + DataReferenceResolver)
+- Tests cover token parsing, reference resolution, weighted selection, error handling
 
 ### 4. Progression System
 
@@ -445,7 +476,30 @@ After completing the main quest, players can start **New Game+**:
 - ✅ FluentValidation for inputs
 - ✅ Serilog structured logging
 - ✅ Polly retry/resilience patterns
-- ✅ 379 unit tests (375 passing, 4 skipped*)
+- ✅ 397 unit tests (393 passing, 4 skipped*)
+
+#### Development Tools
+- ✅ **ContentBuilder** - WPF desktop editor for game data
+  - Visual pattern composer with dynamic token buttons
+  - Reference browser for cross-file dependencies
+  - Dynamic component UI (adapts to each file type)
+  - Real-time pattern preview with generated examples
+  - Material catalog editor with trait management
+  - Quest catalog editor (v4.2) with objectives/rewards
+  - NPC name editor with social classes
+  - Readonly default patterns ({base}) for data integrity
+  - FluentValidation for all inputs
+  - Material Design UI (MaterialDesignThemes)
+  - MVVM architecture (CommunityToolkit.Mvvm)
+- ✅ **ContentBuilder** - WPF desktop editor for game data
+  - Visual pattern composer with token buttons
+  - Reference browser for cross-file dependencies
+  - Dynamic component UI (adapts to each file)
+  - Real-time pattern preview with examples
+  - Material catalog editor
+  - Quest catalog editor (v4.2)
+  - NPC name editor
+  - Readonly default patterns ({base})
 
 **Note:** 4 tests are intentionally skipped as they test UI orchestration methods that require interactive terminal input (ConsoleUI.ShowMenu, ShowTable, Confirm). The underlying business logic is fully tested through CQRS handlers and service layer tests.
 
@@ -552,6 +606,8 @@ Game/Features/[FeatureName]/
 | **NAudio** | 2.2.1 | Audio playback (future) |
 | **xUnit** | 2.9.3 | Unit testing framework |
 | **FluentAssertions** | 8.8.0 | Test assertions |
+| **MaterialDesignThemes** | 5.1.0 | WPF Material Design UI (ContentBuilder) |
+| **CommunityToolkit.Mvvm** | 8.4.0 | MVVM framework (ContentBuilder) |
 
 #### Architectural Patterns
 
@@ -571,7 +627,7 @@ Game/Features/[FeatureName]/
 
 ### Testing Strategy
 
-**Total Tests**: 379 (375 passing, 4 skipped - 98.9% pass rate)
+**Total Tests**: 397 (393 passing, 4 skipped - 99.0% pass rate)
 
 #### Test Coverage by Category
 
@@ -579,10 +635,14 @@ Game/Features/[FeatureName]/
 |----------|-------|------|------|----------|
 | Settings & Validators | 83 | 83 | 0 | 100% |
 | Models & Domain Logic | 77 | 77 | 0 | 100% |
-| Services | 176 | 172 | 4 | 97.7% |
+| Services | 194 | 190 | 4 | 97.9% |
 | Generators | 23 | 23 | 0 | 100% |
 | Equipment & Traits | 25 | 25 | 0 | 100% |
 | Integration Tests | 5 | 5 | 0 | 100% |
+
+**New Test Coverage:**
+- ✅ PatternExecutorTests (12 tests) - Pattern parsing and token resolution
+- ✅ DataReferenceResolverTests (6 tests) - Cross-file reference resolution
 
 #### Testing Approach
 
@@ -615,7 +675,39 @@ The following tests are intentionally skipped because they test UI orchestration
 
 ```
 console-game/
-├── Game/                          ← Main game project
+├── Game.Console/                  ← Main game project (renamed)
+├── Game.Core/                     ← Core game logic (extracted)
+├── Game.Shared/                   ← Shared services (cross-project)
+│   ├── Services/
+│   │   ├── PatternExecutor.cs     ← Pattern-based name generation
+│   │   └── DataReferenceResolver.cs ← Cross-file reference resolution
+│   ├── Models/
+│   │   └── GameDataModels.cs      ← JSON data structures (v4)
+│   └── Events/
+├── Game.Data/                     ← Data repositories and JSON files
+│   └── Data/Json/                 ← Game data (items, enemies, materials)
+│       ├── items/
+│       │   ├── weapons/
+│       │   │   ├── names.json     ← v4 pattern-based names
+│       │   │   └── catalog.json   ← Weapon base stats
+│       │   ├── armor/
+│       │   └── materials/
+│       │       └── catalog.json   ← Material properties & traits
+│       ├── enemies/
+│       ├── npcs/
+│       └── quests/
+├── Game.ContentBuilder/           ← WPF data editor tool
+│   ├── Views/
+│   │   ├── NameListEditorView.xaml   ← Pattern/component editor
+│   │   ├── ReferenceSelectorDialog.xaml ← Reference browser
+│   │   └── QuestCatalogEditorView.xaml  ← Quest editor
+│   ├── ViewModels/
+│   ├── Models/
+│   ├── Services/
+│   ├── Validators/
+│   └── Converters/
+├── Game.ContentBuilder.Tests/     ← ContentBuilder unit tests
+├── Game/                          ← Legacy folder (being migrated)
 │   ├── Features/                  ← Vertical slices (9 features)
 │   │   ├── Achievement/
 │   │   ├── CharacterCreation/
@@ -1021,6 +1113,388 @@ The game uses the `ConsoleUI` wrapper class for all UI operations:
 
 ---
 
+## ContentBuilder - Data Editor Tool
+
+**ContentBuilder** is a WPF desktop application for editing game data files (JSON) with a visual interface.
+
+### Features
+
+#### Pattern Editor (Name Lists)
+- **Dynamic Component Buttons**: Auto-generates buttons for each component in the file
+  - Weapons: `{base}`, `{prefix}`, `{suffix}`, `{quality}`, `{descriptive}`
+  - NPCs: `{firstName}`, `{lastName}`, `{title}`, `{nickname}`
+  - Adapts to any JSON structure
+- **Reference Token Buttons**: Quick-insert for cross-file references
+  - `@materialRef/weapon` - Weapon-compatible materials
+  - `@materialRef/armor` - Armor-compatible materials
+  - `@itemRef`, `@enemyRef` - Item/enemy references
+- **Browse Dialog**: Visual catalog browser for selecting specific references
+- **Default Patterns**: Readonly `{base}` pattern auto-created for all files
+- **Real-time Preview**: Generate example names as you edit patterns
+- **Weight-based Selection**: Configure rarity/frequency of components
+
+#### Component Editor
+- Add/remove component groups (prefix, suffix, quality, etc.)
+- Edit component values and rarity weights
+- Trait assignment (future)
+- Visual organization by category
+
+#### Quest Catalog Editor (v4.2)
+- Quest metadata (ID, name, description, level)
+- Prerequisite management
+- Objective definition with progress tracking
+- Reward configuration (XP, gold, items)
+- Social class filtering (for NPCs)
+
+#### Material Catalog Editor
+- Material properties (hardness, value, weight)
+- Context-specific traits (weapon vs armor)
+- Rarity weights for procedural generation
+- Visual trait editor
+
+### Architecture
+
+**Technology Stack:**
+- **WPF** (.NET 9.0) - Desktop UI framework
+- **MaterialDesignThemes** 5.1.0 - Material Design UI components
+- **CommunityToolkit.Mvvm** 8.4.0 - MVVM framework
+- **Newtonsoft.Json** - JSON parsing/serialization
+- **FluentValidation** - Input validation
+- **Serilog** - Structured logging
+
+**MVVM Pattern:**
+- ViewModels: Observable properties, RelayCommands
+- Models: Data structures (NameListCategory, ComponentBase, PatternBase)
+- Services: JsonEditorService, ValidationService
+- Converters: UI data transformation
+
+**Key Classes:**
+- `NameListEditorViewModel` - Pattern/component editing logic
+- `ReferenceSelectorViewModel` - Catalog browser logic
+- `QuestCatalogEditorViewModel` - Quest editing logic
+- `NamePatternBase` - Abstract pattern model (Item/NPC specializations)
+- `NameComponentBase` - Abstract component model (Item/NPC specializations)
+
+### Usage Workflow
+
+1. **Open File**: Select a JSON data file (names.json, catalog.json, quests.json)
+2. **Edit Components**: Add/modify component groups and values
+3. **Create Patterns**: Click token buttons to compose patterns without typing `{}` or `@`
+4. **Browse References**: Use dialog to select materials, items, enemies
+5. **Preview**: See generated examples in real-time
+6. **Save**: Write changes back to JSON with validation
+
+### Data Validation
+
+- **Pattern syntax**: Validates token format (`{component}`, `@reference/context`)
+- **Component keys**: Ensures referenced components exist
+- **Reference paths**: Validates cross-file reference format
+- **Rarity weights**: Enforces positive integers
+- **Required fields**: Name, weight, etc. must be present
+
+### Error Prevention
+
+- **No Manual Typing**: Token buttons eliminate syntax errors
+- **Readonly Defaults**: `{base}` pattern can't be deleted/broken
+- **Visual Feedback**: Gray background for readonly fields
+- **Disabled Actions**: Delete button disabled for protected patterns
+- **Auto-spacing**: Proper spacing when appending tokens
+
+---
+
+## ContentBuilder - Data Editor Tool
+
+**ContentBuilder** is a WPF desktop application for editing game data files (JSON) with a visual interface. It eliminates manual JSON editing and prevents syntax errors through UI-driven data composition.
+
+### Purpose & Benefits
+
+**Why ContentBuilder?**
+- **Error Prevention**: Token buttons prevent manual typing errors (`{base}` vs `{base}`)
+- **Visual Workflow**: See patterns, components, and generated examples in real-time
+- **No JSON Knowledge Required**: Non-technical users can edit game data
+- **Data Integrity**: Validation ensures all references exist and syntax is correct
+- **Productivity**: Faster than manual JSON editing with Find/Replace
+
+### Features
+
+#### 1. Pattern Editor (Name Lists)
+
+**Dynamic Component Buttons:**
+- Auto-generates buttons for each component in the loaded file
+- **Weapons**: `{base}`, `{prefix}`, `{suffix}`, `{quality}`, `{descriptive}`
+- **NPCs**: `{firstName}`, `{lastName}`, `{title}`, `{nickname}`
+- **Quests**: `{action}`, `{target}`, `{location}`, `{reward}`
+- Adapts to ANY JSON structure - buttons reflect actual components
+
+**Reference Token Buttons:**
+- `@materialRef/weapon` - Insert weapon-compatible material reference
+- `@materialRef/armor` - Insert armor-compatible material reference
+- `@itemRef` - Reference another item (future)
+- `@enemyRef` - Reference enemy type (future)
+- **Browse Dialog**: Visual catalog browser for selecting specific references (e.g., Iron, Steel, Mithril)
+
+**Default Patterns:**
+- Every file gets a readonly `{base}` pattern automatically
+- Cannot be edited or deleted (data integrity protection)
+- Visual indicator: Gray background and text
+- Delete button disabled for readonly patterns
+- Not saved to JSON (regenerated on load)
+
+**Real-time Preview:**
+- Generate example names as you edit patterns
+- See how components and references combine
+- Test pattern weights and rarity distribution
+- Validate syntax before saving
+
+**Weight-based Selection:**
+- Configure rarity/frequency of each component/pattern
+- Higher weights = more common in generated names
+- Used by Bogus library for procedural generation
+
+#### 2. Component Editor
+
+- Add/remove component groups (prefix, suffix, quality, base, etc.)
+- Edit component values with weights
+- Trait assignment to components (future)
+- Visual organization by category
+- Validation: Ensures no duplicate keys
+
+#### 3. Quest Catalog Editor (v4.2)
+
+**Quest Metadata:**
+- Quest ID, Name, Description, Level requirement
+- Quest giver (NPC name)
+- Social class requirements (Noble, Merchant, Peasant, etc.)
+
+**Prerequisite Management:**
+- Select prerequisite quests from dropdown
+- Chain quests together (Quest B requires Quest A)
+- Visual dependency tree (future)
+
+**Objective Definition:**
+- Objective type (Kill, Collect, Explore, Interact)
+- Target (enemy type, item, location, NPC)
+- Required count (defeat 5 enemies, collect 3 items)
+- Progress tracking configuration
+
+**Reward Configuration:**
+- XP reward
+- Gold reward
+- Item rewards (select from catalog)
+- Apocalypse time bonuses
+- Skill unlocks (future)
+
+#### 4. Material Catalog Editor
+
+**Material Properties:**
+- Name, Description, Rarity (Common to Legendary)
+- Base Value (gold cost)
+- Hardness (affects durability)
+- Weight (affects item stats)
+- Elemental affinity (Fire, Ice, Lightning, etc.)
+
+**Context-Specific Traits:**
+- **Weapon Materials**: Damage bonus, critical chance, attack speed
+- **Armor Materials**: Defense bonus, resistances, weight reduction
+- Same material can have different traits for weapons vs armor
+
+**Rarity Weights:**
+- Configure how often materials appear in generation
+- Iron: Common (high weight)
+- Mithril: Rare (medium weight)
+- Adamantine: Legendary (low weight)
+
+**Visual Trait Editor:**
+- Add/remove traits with key-value pairs
+- Trait templates (damage bonuses, resistances, stat boosts)
+- Validation: Numeric values, valid trait keys
+
+### Architecture
+
+**Technology Stack:**
+- **WPF** (.NET 9.0) - Desktop UI framework
+- **MaterialDesignThemes** 5.1.0 - Material Design UI components
+- **CommunityToolkit.Mvvm** 8.4.0 - MVVM framework (RelayCommand, ObservableProperty)
+- **Newtonsoft.Json** 13.0.4 - JSON parsing/serialization
+- **FluentValidation** 12.1.1 - Input validation
+- **Serilog** 4.3.0 - Structured logging
+
+**MVVM Pattern:**
+- **ViewModels**: Observable properties, RelayCommands, business logic
+- **Models**: Data structures (NameListCategory, ComponentBase, PatternBase)
+- **Services**: JsonEditorService (file I/O), ValidationService
+- **Converters**: InverseBooleanConverter (for UI bindings)
+- **Views**: XAML with Material Design styling
+
+**Key Classes:**
+
+*ViewModels:*
+- `NameListEditorViewModel` - Pattern/component editing logic
+- `ReferenceSelectorViewModel` - Catalog browser logic
+- `QuestCatalogEditorViewModel` - Quest editing logic
+- `MaterialCatalogEditorViewModel` - Material editing logic
+
+*Models:*
+- `NamePatternBase` - Abstract pattern model (Item/NPC specializations)
+- `NameComponentBase` - Abstract component model (Item/NPC specializations)
+- `QuestTemplate` - Quest data model
+- `MaterialDefinition` - Material data model
+
+*Services:*
+- `PatternExecutor` - Parses and executes patterns (in Game.Shared)
+- `DataReferenceResolver` - Resolves cross-file references (in Game.Shared)
+
+### Usage Workflow
+
+**Typical Editing Session:**
+
+1. **Launch ContentBuilder** - Open the WPF application
+2. **Open File** - Browse to JSON data file (e.g., `weapons/names.json`)
+3. **Edit Components** - Add/modify component groups:
+   - Add new `{quality}` component with values: Masterwork, Fine, Standard
+   - Set weights: Masterwork (10), Fine (30), Standard (60)
+4. **Create Patterns** - Compose new patterns WITHOUT typing:
+   - Click `{quality}` button → inserts `{quality}`
+   - Click `@materialRef/weapon` button → inserts `@materialRef/weapon`
+   - Click `{base}` button → inserts `{base}`
+   - Result: `{quality} @materialRef/weapon {base}`
+5. **Browse References** - Click "Browse" button:
+   - Opens dialog showing materials catalog
+   - Select "Mithril" from list
+   - Inserts `@materialRef/weapon/Mithril` into pattern
+6. **Preview** - Click "Generate Examples" button:
+   - See generated names: "Masterwork Mithril Longsword", "Fine Steel Dagger"
+   - Verify pattern works as expected
+7. **Save** - Click "Save" button:
+   - Validates all patterns and components
+   - Writes changes back to JSON file
+   - Shows success/error message
+
+### Data Validation
+
+**Pattern Syntax Validation:**
+- Token format: `{componentKey}` must match existing component
+- Reference format: `@domain/category` or `@domain/category/identifier`
+- No orphaned tokens (all `{keys}` must have matching components)
+- No duplicate pattern templates
+
+**Component Validation:**
+- Component keys must be unique
+- Weights must be positive integers
+- At least one value per component
+- No empty component names
+
+**Reference Validation:**
+- Cross-file references must point to existing files
+- Reference paths must follow format: `domain/category[/identifier]`
+- Context must match (weapon materials for weapon patterns)
+
+**Required Fields:**
+- Patterns: `patternTemplate`, `weight`
+- Components: `key`, `values[]`, `weights[]`
+- Quests: `id`, `name`, `level`, `objectives[]`, `rewards`
+- Materials: `name`, `value`, `itemTypes[]`, `traits{}`
+
+### Error Prevention Features
+
+**1. No Manual Typing:**
+- Token buttons eliminate syntax errors (`{base}` vs `{Base}` vs `base`)
+- Reference buttons ensure proper format (`@materialRef/weapon` vs `materialRef`)
+- Auto-spacing prevents double spaces or missing spaces
+
+**2. Readonly Defaults:**
+- `{base}` pattern always exists, can't be deleted
+- Prevents broken catalogs with no patterns
+- Visual indicator (gray background) shows read-only state
+
+**3. Visual Feedback:**
+- Disabled buttons when no pattern selected
+- Gray background for readonly fields
+- Red border for validation errors
+- Success/error messages after save
+
+**4. Smart UI:**
+- Delete button disabled for protected patterns
+- Reference browser shows only valid options
+- Component buttons only show existing components
+- Tooltips explain each button's purpose
+
+### Testing
+
+**ContentBuilder Tests (11 tests):**
+- ViewModel tests (8 tests) - UI logic and data binding
+- UI tests (3 tests) - Control initialization and visibility
+- Integration tests (future) - End-to-end workflows
+
+**Pattern System Tests (18 tests):**
+- PatternExecutor tests (12 tests) - Token parsing, resolution, error handling
+- DataReferenceResolver tests (6 tests) - Cross-file references, singleton pattern
+
+**All tests use xUnit + FluentAssertions for readable assertions.**
+
+### File Format Support
+
+**Supported JSON Structures:**
+
+*Name Lists (v4 format):*
+```json
+{
+  "components": {
+    "base": [
+      { "value": "Longsword", "weight": 50 },
+      { "value": "Dagger", "weight": 30 }
+    ],
+    "prefix": [ /* ... */ ]
+  },
+  "patterns": [
+    { "patternTemplate": "{base}", "weight": 100 },
+    { "patternTemplate": "@materialRef/weapon {base}", "weight": 80 }
+  ]
+}
+```
+
+*Material Catalog:*
+```json
+{
+  "materials": [
+    {
+      "name": "Iron",
+      "value": 10,
+      "itemTypes": ["weapon", "armor"],
+      "traits": { "damage": 5, "defense": 3 }
+    }
+  ]
+}
+```
+
+*Quest Catalog:*
+```json
+{
+  "quests": [
+    {
+      "id": "quest_001",
+      "name": "The Awakening",
+      "level": 1,
+      "objectives": [ /* ... */ ],
+      "rewards": { "xp": 100, "gold": 50 }
+    }
+  ]
+}
+```
+
+### Future Enhancements
+
+**Planned Features:**
+- **Trait Assignment UI**: Assign traits to components/patterns visually
+- **Pattern Testing**: Run generation 100 times, show distribution
+- **Dependency Visualization**: Graph showing quest prerequisites
+- **Bulk Operations**: Edit multiple files at once
+- **Import/Export**: Copy patterns between files
+- **Version Control**: Track changes, undo/redo
+- **Collaborative Editing**: Multi-user support (long-term)
+
+---
+
 ## Future Roadmap
 
 ### Phase 5: Content Expansion (Planned)
@@ -1202,7 +1676,13 @@ The game uses the `ConsoleUI` wrapper class for all UI operations:
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: December 9, 2025  
-**Status**: Complete - All Phase 1-4 features implemented  
-**Next Update**: Phase 5 planning (Q1 2026)
+**Document Version**: 1.5  
+**Last Updated**: December 24, 2025  
+**Status**: Complete - Phase 1-4 features + ContentBuilder development tool  
+**Next Update**: Phase 5 planning (Q1 2026)  
+**Latest Changes**:
+- Added v4 pattern-based name generation system (PatternExecutor, DataReferenceResolver)
+- Added ContentBuilder WPF desktop editor with visual pattern composer
+- Added 18 new unit tests for pattern system (397 total tests, 99.0% pass rate)
+- Updated architecture with Game.Shared project for cross-project services
+- Added comprehensive ContentBuilder documentation section

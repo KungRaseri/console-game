@@ -166,6 +166,18 @@ public partial class NameListEditorViewModel : ObservableObject
 
             // Dynamic patterns (can be string array OR object array)
             Patterns.Clear();
+            
+            // Always add default {base} pattern first (readonly)
+            var basePattern = new ItemNamePattern
+            {
+                PatternTemplate = "{base}",
+                Weight = 100,
+                Description = "Default base pattern (readonly)",
+                IsReadOnly = true
+            };
+            Patterns.Add(basePattern);
+            ParsePatternIntoTokens(basePattern);
+            
             if (root["patterns"] is JArray patternsArr)
             {
                 for (int i = 0; i < patternsArr.Count; i++)
@@ -178,8 +190,15 @@ public partial class NameListEditorViewModel : ObservableObject
                         if (patternsArr[i].Type == JTokenType.String)
                         {
                             var templateStr = patternsArr[i].ToString();
-                            // Strip curly braces: {base} -> base, {title} {first_name} -> title first_name
-                            templateStr = System.Text.RegularExpressions.Regex.Replace(templateStr, @"\{([^}]+)\}", "$1");
+                            
+                            // Skip if this is the default {base} pattern (already added)
+                            if (templateStr == "{base}" || templateStr == "base")
+                            {
+                                continue;
+                            }
+                            
+                            // Remove + symbols if present (legacy format)
+                            templateStr = templateStr.Replace(" + ", " ").Replace("+", " ");
                             
                             pattern = new ItemNamePattern
                             {
@@ -192,8 +211,15 @@ public partial class NameListEditorViewModel : ObservableObject
                         else if (patternsArr[i] is JObject obj)
                         {
                             var templateStr = obj["template"]?.ToString() ?? obj["pattern"]?.ToString() ?? string.Empty;
-                            // Strip curly braces from template
-                            templateStr = System.Text.RegularExpressions.Regex.Replace(templateStr, @"\{([^}]+)\}", "$1");
+                            
+                            // Skip if this is the default {base} pattern (already added)
+                            if (templateStr == "{base}" || templateStr == "base")
+                            {
+                                continue;
+                            }
+                            
+                            // Remove + symbols if present (legacy format)
+                            templateStr = templateStr.Replace(" + ", " ").Replace("+", " ");
                             
                             // Check for NPC-specific fields
                             if (obj.ContainsKey("socialClass") || obj.ContainsKey("requiresTitle") || obj.ContainsKey("excludeTitles"))
@@ -223,6 +249,7 @@ public partial class NameListEditorViewModel : ObservableObject
                         if (pattern != null)
                         {
                             Patterns.Add(pattern);
+                            ParsePatternIntoTokens(pattern);
                         }
                     }
                     catch (Exception ex)
@@ -421,6 +448,10 @@ public partial class NameListEditorViewModel : ObservableObject
             var patternsArr = new JArray();
             foreach (var pattern in Patterns)
             {
+                // Skip readonly patterns (they're auto-generated)
+                if (pattern.IsReadOnly)
+                    continue;
+                    
                 patternsArr.Add(JObject.FromObject(pattern));
             }
             root["patterns"] = patternsArr;
@@ -456,13 +487,21 @@ public partial class NameListEditorViewModel : ObservableObject
     {
         var newPattern = new ItemNamePattern
         {
-            PatternTemplate = "base",
+            PatternTemplate = "{base}",
             Weight = 10,
             Description = "New pattern"
         };
+        
+        // Add the base token
+        newPattern.Tokens.Add(new PatternToken
+        {
+            Value = "base",
+            Type = PatternTokenType.Component
+        });
+        
         Patterns.Add(newPattern);
         SelectedPattern = newPattern;
-        StatusMessage = "Added new pattern";
+        StatusMessage = "Added new pattern with {base} token";
     }
 
     /// <summary>
@@ -473,6 +512,13 @@ public partial class NameListEditorViewModel : ObservableObject
     {
         if (SelectedPattern != null && Patterns.Contains(SelectedPattern))
         {
+            // Prevent deletion of readonly patterns
+            if (SelectedPattern.IsReadOnly)
+            {
+                StatusMessage = "Cannot remove readonly pattern";
+                return;
+            }
+            
             Patterns.Remove(SelectedPattern);
             SelectedPattern = null;
             StatusMessage = "Pattern removed";
@@ -602,65 +648,104 @@ public partial class NameListEditorViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void InsertComponentToken(string? componentKey)
+    private void InsertComponentToken(object? parameter)
     {
-        if (string.IsNullOrEmpty(componentKey))
+        // Parameter can be either:
+        // - A tuple (componentKey, pattern) from button with MultiBinding
+        // - Just componentKey string (legacy, uses SelectedPattern)
+        
+        string? componentKey = null;
+        NamePatternBase? targetPattern = null;
+
+        if (parameter is Tuple<string, object> tuple)
         {
-            StatusMessage = "No component key provided";
+            componentKey = tuple.Item1;
+            targetPattern = tuple.Item2 as NamePatternBase;
+        }
+        else if (parameter is string key)
+        {
+            componentKey = key;
+            targetPattern = SelectedPattern;
+        }
+
+        if (string.IsNullOrEmpty(componentKey) || targetPattern == null)
+        {
+            StatusMessage = "Select a pattern and component first";
             return;
         }
 
-        // Append component token to the selected pattern's template
-        if (SelectedPattern != null)
+        // Prevent adding to readonly patterns
+        if (targetPattern.IsReadOnly)
         {
-            // Add space if template doesn't end with space or is not empty
-            var template = SelectedPattern.PatternTemplate;
-            if (!string.IsNullOrEmpty(template) && !template.EndsWith(" "))
-            {
-                template += " ";
-            }
-            
-            SelectedPattern.PatternTemplate = template + $"{{{componentKey}}}";
-            StatusMessage = $"Added component token: {{{componentKey}}}";
+            StatusMessage = "Cannot modify readonly base pattern";
+            return;
         }
-        else
+
+        // Add component token as a badge
+        targetPattern.Tokens.Add(new PatternToken
         {
-            StatusMessage = "Select a pattern first to insert component token";
-        }
+            Value = componentKey,
+            Type = PatternTokenType.Component
+        });
+
+        // Update the pattern template string
+        UpdatePatternTemplateFromTokens(targetPattern);
+        StatusMessage = $"Added component: {{{componentKey}}}";
     }
 
     [RelayCommand]
-    private void InsertReferenceToken(string? token)
+    private void InsertReferenceToken(object? parameter)
     {
-        if (string.IsNullOrEmpty(token))
+        // Parameter can be either:
+        // - A tuple (token, pattern) from button with MultiBinding
+        // - Just token string (legacy, uses SelectedPattern)
+        
+        string? token = null;
+        NamePatternBase? targetPattern = null;
+
+        if (parameter is Tuple<string, object> tuple)
         {
-            StatusMessage = "No token provided";
+            token = tuple.Item1;
+            targetPattern = tuple.Item2 as NamePatternBase;
+        }
+        else if (parameter is string tokenStr)
+        {
+            token = tokenStr;
+            targetPattern = SelectedPattern;
+        }
+
+        if (string.IsNullOrEmpty(token) || targetPattern == null)
+        {
+            StatusMessage = "Select a pattern first";
             return;
         }
 
-        // Append reference token to the selected pattern's template
-        if (SelectedPattern != null)
+        // Prevent adding to readonly patterns
+        if (targetPattern.IsReadOnly)
         {
-            // Add space if template doesn't end with space or is not empty
-            var template = SelectedPattern.PatternTemplate;
-            if (!string.IsNullOrEmpty(template) && !template.EndsWith(" "))
-            {
-                template += " ";
-            }
-            
-            SelectedPattern.PatternTemplate = template + token;
-            StatusMessage = $"Added reference token: {token}";
+            StatusMessage = "Cannot modify readonly base pattern";
+            return;
         }
-        else
+
+        // Add reference token as a badge
+        targetPattern.Tokens.Add(new PatternToken
         {
-            StatusMessage = "Select a pattern first to insert reference token";
-        }
+            Value = token,
+            Type = PatternTokenType.Reference
+        });
+
+        // Update the pattern template string
+        UpdatePatternTemplateFromTokens(targetPattern);
+        StatusMessage = $"Added reference: {token}";
     }
 
     [RelayCommand]
     private void BrowseReference(object? parameter)
     {
-        if (SelectedPattern == null)
+        // Parameter should be the current pattern from the DataTemplate
+        var targetPattern = parameter as NamePatternBase ?? SelectedPattern;
+        
+        if (targetPattern == null)
         {
             StatusMessage = "Select a pattern first to browse references";
             return;
@@ -675,14 +760,14 @@ public partial class NameListEditorViewModel : ObservableObject
 
             if (dialog.ShowDialog() == true && dialog.SelectedReference != null)
             {
-                // Add space if template doesn't end with space or is not empty
-                var template = SelectedPattern.PatternTemplate;
-                if (!string.IsNullOrEmpty(template) && !template.EndsWith(" "))
+                // Add reference token as a badge
+                targetPattern.Tokens.Add(new PatternToken
                 {
-                    template += " ";
-                }
+                    Value = $"@{dialog.SelectedReference}",
+                    Type = PatternTokenType.Reference
+                });
                 
-                SelectedPattern.PatternTemplate = template + $"@{dialog.SelectedReference}";
+                UpdatePatternTemplateFromTokens(targetPattern);
                 StatusMessage = $"Added reference: @{dialog.SelectedReference}";
             }
         }
@@ -690,6 +775,151 @@ public partial class NameListEditorViewModel : ObservableObject
         {
             Log.Error(ex, "Failed to open reference selector");
             StatusMessage = "Failed to open reference selector";
+        }
+    }
+
+    /// <summary>
+    /// Removes a token badge
+    /// </summary>
+    [RelayCommand]
+    private void RemoveToken(PatternToken? token)
+    {
+        if (token == null || SelectedPattern == null)
+            return;
+
+        // Prevent removing base tokens - they're required
+        if (token.IsBase)
+        {
+            StatusMessage = "Cannot remove {base} token - it's required for all patterns";
+            return;
+        }
+
+        SelectedPattern.Tokens.Remove(token);
+        UpdatePatternTemplateFromTokens();
+        StatusMessage = $"Removed token: {token.DisplayText}";
+    }
+
+    /// <summary>
+    /// Updates the PatternTemplate string from the Tokens collection
+    /// </summary>
+    public void UpdatePatternTemplateFromTokens(NamePatternBase? pattern = null)
+    {
+        var targetPattern = pattern ?? SelectedPattern;
+        if (targetPattern == null)
+            return;
+
+        var parts = targetPattern.Tokens.Select(t => t.DisplayText);
+        targetPattern.PatternTemplate = string.Join(" ", parts);
+    }
+
+    /// <summary>
+    /// Parses a pattern template string into tokens (for loading existing patterns)
+    /// </summary>
+    private void ParsePatternIntoTokens(NamePatternBase pattern)
+    {
+        pattern.Tokens.Clear();
+
+        if (string.IsNullOrWhiteSpace(pattern.PatternTemplate))
+            return;
+
+        // Parse the template string
+        var template = pattern.PatternTemplate;
+        var parts = new List<string>();
+        var currentPart = "";
+        bool inBraces = false;
+        bool inReference = false;
+
+        for (int i = 0; i < template.Length; i++)
+        {
+            char c = template[i];
+
+            if (c == '{')
+            {
+                if (!string.IsNullOrEmpty(currentPart.Trim()))
+                {
+                    parts.Add(currentPart.Trim());
+                    currentPart = "";
+                }
+                inBraces = true;
+                currentPart = "{";
+            }
+            else if (c == '}' && inBraces)
+            {
+                currentPart += c;
+                parts.Add(currentPart);
+                currentPart = "";
+                inBraces = false;
+            }
+            else if (c == '@')
+            {
+                if (!string.IsNullOrEmpty(currentPart.Trim()))
+                {
+                    parts.Add(currentPart.Trim());
+                    currentPart = "";
+                }
+                inReference = true;
+                currentPart = "@";
+            }
+            else if (c == ' ' && !inBraces && inReference)
+            {
+                if (!string.IsNullOrEmpty(currentPart))
+                {
+                    parts.Add(currentPart);
+                    currentPart = "";
+                    inReference = false;
+                }
+            }
+            else if (c == ' ' && !inBraces && !inReference)
+            {
+                if (!string.IsNullOrEmpty(currentPart.Trim()))
+                {
+                    parts.Add(currentPart.Trim());
+                    currentPart = "";
+                }
+            }
+            else
+            {
+                currentPart += c;
+            }
+        }
+
+        // Add remaining part
+        if (!string.IsNullOrEmpty(currentPart.Trim()))
+        {
+            parts.Add(currentPart.Trim());
+        }
+
+        // Convert parts to tokens
+        foreach (var part in parts)
+        {
+            if (part.StartsWith("{") && part.EndsWith("}"))
+            {
+                // Component token
+                var componentKey = part.Substring(1, part.Length - 2);
+                pattern.Tokens.Add(new PatternToken
+                {
+                    Value = componentKey,
+                    Type = PatternTokenType.Component
+                });
+            }
+            else if (part.StartsWith("@"))
+            {
+                // Reference token
+                pattern.Tokens.Add(new PatternToken
+                {
+                    Value = part,
+                    Type = PatternTokenType.Reference
+                });
+            }
+            else
+            {
+                // Plain text token
+                pattern.Tokens.Add(new PatternToken
+                {
+                    Value = part,
+                    Type = PatternTokenType.PlainText
+                });
+            }
         }
     }
 }

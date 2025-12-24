@@ -173,12 +173,12 @@
     },
     "patterns": [
         "base",
-        "size + base",
-        "descriptive + base",
-        "origin + base",
-        "size + descriptive + base",
-        "descriptive + base + title",
-        "size + descriptive + origin + base",
-        "size + descriptive + base + title"
+        "{size} {base}",
+        "{descriptive} {base}",
+        "{origin} {base}",
+        "{size} {descriptive} {base}",
+        "{descriptive} {base} {title}",
+        "{size} {descriptive} {origin} {base}",
+        "{size} {descriptive} {base} {title}"
     ]
 }

@@ -200,11 +200,11 @@
                    },
     "patterns":  [
                      "base",
-                     "color + base",
-                     "age + base",
-                     "age + color + base",
-                     "descriptive + base",
-                     "age + color + base + title",
+                     "{color} {base}",
+                     "{age} {base}",
+                     "{age} {color} {base}",
+                     "{descriptive} {base}",
+                     "{age} {color} {base} {title}",
                      "age + descriptive + color + base + title"
                  ],
     "notes":  {

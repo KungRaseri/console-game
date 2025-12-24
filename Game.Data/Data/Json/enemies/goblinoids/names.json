@@ -165,13 +165,13 @@
                    },
     "patterns":  [
                      "base",
-                     "rank + base",
-                     "descriptive + base",
-                     "base + title",
-                     "tribe + base",
-                     "rank + tribe + base",
-                     "descriptive + base + title",
-                     "rank + tribe + base + title"
+                     "{rank} {base}",
+                     "{descriptive} {base}",
+                     "{base} {title}",
+                     "{tribe} {base}",
+                     "{rank} {tribe} {base}",
+                     "{descriptive} {base} {title}",
+                     "{rank} {tribe} {base} {title}"
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for goblinoids. Pick components by rarityWeight and apply patterns to generate procedural names."

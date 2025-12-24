@@ -161,13 +161,13 @@
                    },
     "patterns":  [
                      "base",
-                     "rank + base",
-                     "descriptive + base",
-                     "base + title",
-                     "clan + base",
-                     "rank + clan + base",
-                     "descriptive + base + title",
-                     "rank + clan + base + title"
+                     "{rank} {base}",
+                     "{descriptive} {base}",
+                     "{base} {title}",
+                     "{clan} {base}",
+                     "{rank} {clan} {base}",
+                     "{descriptive} {base} {title}",
+                     "{rank} {clan} {base} {title}"
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for orcs. Pick components by rarityWeight and apply patterns to generate procedural names."

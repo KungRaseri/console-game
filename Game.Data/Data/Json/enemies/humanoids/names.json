@@ -234,10 +234,10 @@
     "patterns":  [
                      "base",
                      "profession",
-                     "rank + profession",
-                     "profession + specialization",
-                     "rank + profession + title",
-                     "descriptive + profession + specialization",
+                     "{rank} {profession}",
+                     "{profession} {specialization}",
+                     "{rank} {profession} {title}",
+                     "{descriptive} {profession} {specialization}",
                      "rank + descriptive + profession + specialization + title"
                  ],
     "notes":  {

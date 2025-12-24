@@ -1,4 +1,4 @@
-﻿{
+{
   "components": {
     "precipitation": [
       "clear", "rainy", "drizzling", "snowy", "sleeting",
@@ -28,9 +28,9 @@
   "patterns": [
     "precipitation",
     "sky_condition",
-    "temperature + precipitation",
-    "severity + precipitation",
-    "wind + precipitation",
+    "{temperature} {precipitation}",
+    "{severity} {precipitation}",
+    "{wind} {precipitation}",
     "special"
   ],
   "metadata": {

@@ -176,12 +176,12 @@
                    },
     "patterns":  [
                      "base",
-                     "condition + base",
-                     "descriptive + base",
-                     "origin + base",
-                     "descriptive + base + title",
-                     "condition + descriptive + base",
-                     "descriptive + origin + base + title"
+                     "{condition} {base}",
+                     "{descriptive} {base}",
+                     "{origin} {base}",
+                     "{descriptive} {base} {title}",
+                     "{condition} {descriptive} {base}",
+                     "{descriptive} {origin} {base} {title}"
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for undead. Pick components by rarityWeight and apply patterns to generate procedural names."

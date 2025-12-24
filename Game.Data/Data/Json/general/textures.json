@@ -1,4 +1,4 @@
-﻿{
+{
   "components": {
     "surface_quality": [
       "rough", "smooth", "polished", "jagged", "bumpy",
@@ -23,9 +23,9 @@
   },
   "patterns": [
     "surface_quality",
-    "surface_quality + moisture",
-    "temperature + surface_quality",
-    "hardness + surface_quality",
+    "{surface_quality} {moisture}",
+    "{temperature} {surface_quality}",
+    "{hardness} {surface_quality}",
     "organic"
   ],
   "metadata": {

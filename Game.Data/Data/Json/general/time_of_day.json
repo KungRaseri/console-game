@@ -1,4 +1,4 @@
-﻿{
+{
   "components": {
     "period": [
       "dawn", "morning", "midday", "afternoon",
@@ -14,7 +14,7 @@
   },
   "patterns": [
     "period",
-    "modifier + period",
+    "{modifier} {period}",
     "descriptor"
   ],
   "metadata": {

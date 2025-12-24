@@ -1,4 +1,4 @@
-﻿{
+{
   "components": {
     "pleasant": [
       "fragrant", "fresh", "floral", "herbal", "spicy",
@@ -21,9 +21,9 @@
     "pleasant",
     "unpleasant",
     "natural",
-    "intensity + pleasant",
-    "intensity + unpleasant",
-    "intensity + natural"
+    "{intensity} {pleasant}",
+    "{intensity} {unpleasant}",
+    "{intensity} {natural}"
   ],
   "metadata": {
     "description": "Smell descriptions for environmental atmosphere, items, and narrative immersion",
