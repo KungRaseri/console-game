@@ -19,48 +19,83 @@
                                                 <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         
-                                        <!-- Header with Value and Weight -->
+                                        <!-- Header with Value, Weight, and Material Reference -->
                                         <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="12,8">
                                                 <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="100"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
                                                         
-                                                        <TextBox Grid.Column="0"
-                                                                 Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                 BorderThickness="0"
-                                                                 FontSize="14"
-                                                                 FontWeight="SemiBold"
-                                                                 VerticalAlignment="Center"
-                                                                 Margin="0,0,12,0"/>
+                                                        <!-- First Row: Value and Weight -->
+                                                        <Grid Grid.Row="0">
+                                                                <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*"/>
+                                                                        <ColumnDefinition Width="100"/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                
+                                                                <TextBox Grid.Column="0"
+                                                                         Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                                         BorderThickness="0"
+                                                                         FontSize="14"
+                                                                         FontWeight="SemiBold"
+                                                                         VerticalAlignment="Center"
+                                                                         Margin="0,0,12,0"/>
+                                                                
+                                                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                                        <TextBlock Text="Weight:" Margin="0,0,6,0" VerticalAlignment="Center" FontSize="11" Foreground="Gray"/>
+                                                                        <TextBox Text="{Binding RarityWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                                                 Width="50"
+                                                                                 BorderThickness="0,0,0,1"
+                                                                                 Padding="4,2"
+                                                                                 HorizontalContentAlignment="Right"
+                                                                                 FontSize="13"
+                                                                                 VerticalAlignment="Center"/>
+                                                                </StackPanel>
+                                                                
+                                                                <Button Grid.Column="2"
+                                                                        Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="{Binding}"
+                                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                                        Width="28" Height="28"
+                                                                        Padding="0"
+                                                                        Margin="8,0,0,0"
+                                                                        ToolTip="Remove this component">
+                                                                        <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
+                                                                </Button>
+                                                        </Grid>
                                                         
-                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                                                <TextBlock Text="Weight:" Margin="0,0,6,0" VerticalAlignment="Center" FontSize="11" Foreground="Gray"/>
-                                                                <TextBox Text="{Binding RarityWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                         Width="50"
-                                                                         BorderThickness="0,0,0,1"
-                                                                         Padding="4,2"
-                                                                         HorizontalContentAlignment="Right"
-                                                                         FontSize="13"
-                                                                         VerticalAlignment="Center"/>
-                                                        </StackPanel>
-                                                        
-                                                        <Button Grid.Column="2"
-                                                                Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                CommandParameter="{Binding}"
-                                                                Style="{StaticResource MaterialDesignIconButton}"
-                                                                Width="28" Height="28"
-                                                                Padding="0"
-                                                                Margin="8,0,0,0"
-                                                                ToolTip="Remove this component">
-                                                                <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
-                                                        </Button>
+                                                        <!-- Second Row: Material Reference -->
+                                                        <Grid Grid.Row="1" Margin="0,8,0,0">
+                                                                <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*"/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                
+                                                                <TextBox Grid.Column="0"
+                                                                         Text="{Binding MaterialRef, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                         materialDesign:HintAssist.Hint="Material Reference (e.g., materials/metals/Iron)"
+                                                                         FontSize="11"
+                                                                         FontFamily="Consolas"
+                                                                         Margin="0,0,8,0"
+                                                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                                         materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource PrimaryHueMidBrush}"/>
+                                                                
+                                                                <Button Grid.Column="1"
+                                                                        Command="{Binding DataContext.BrowseMaterialCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="{Binding}"
+                                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                                        Width="28" Height="28"
+                                                                        Padding="0"
+                                                                        ToolTip="Browse materials catalog">
+                                                                        <materialDesign:PackIcon Kind="FolderOpen" Width="16" Height="16"/>
+                                                                </Button>
+                                                        </Grid>
                                                 </Grid>
                                         </Border>
                                         
-                                        <!-- Traits Section (only for ItemNameComponent) -->
+                                        <!-- Traits Section -->
                                         <StackPanel Grid.Row="1" Margin="12,8,12,12">
                                                 <Grid Margin="0,0,0,8">
                                                         <Grid.ColumnDefinitions>

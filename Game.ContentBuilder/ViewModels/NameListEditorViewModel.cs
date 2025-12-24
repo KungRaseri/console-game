@@ -600,4 +600,29 @@ public partial class NameListEditorViewModel : ObservableObject
             }
         }
     }
+
+    [RelayCommand]
+    private void BrowseMaterial(object? parameter)
+    {
+        if (parameter is not ItemNameComponent component) return;
+
+        try
+        {
+            var dialog = new Views.ReferenceSelectorDialog("materials")
+            {
+                Owner = System.Windows.Application.Current.MainWindow
+            };
+
+            if (dialog.ShowDialog() == true && dialog.SelectedReference != null)
+            {
+                component.MaterialRef = dialog.SelectedReference;
+                StatusMessage = $"Selected material reference: {dialog.SelectedReference}";
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to open material selector");
+            StatusMessage = "Failed to open material selector";
+        }
+    }
 }
