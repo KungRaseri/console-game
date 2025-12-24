@@ -58,8 +58,11 @@ public partial class NpcNameComponent : NameComponentBase
 public partial class ItemNameComponent : NameComponentBase
 {
     [ObservableProperty]
+    [JsonIgnore]
+    private ObservableCollection<ComponentTrait> _traits = new();
+
     [JsonProperty("traits")]
-    private Dictionary<string, JObject>? _traits;
+    public Dictionary<string, JObject>? TraitsJson { get; set; }
 }
 
 /// <summary>
@@ -114,4 +117,19 @@ public partial class NameListMetadata : ObservableObject
             OnPropertyChanged(nameof(NotesText));
         }
     }
+}
+
+/// <summary>
+/// Represents a component trait with name, value, and type
+/// </summary>
+public partial class ComponentTrait : ObservableObject
+{
+    [ObservableProperty]
+    private string _name = string.Empty;
+
+    [ObservableProperty]
+    private string _value = string.Empty;
+
+    [ObservableProperty]
+    private string _type = "number"; // number, boolean, string
 }

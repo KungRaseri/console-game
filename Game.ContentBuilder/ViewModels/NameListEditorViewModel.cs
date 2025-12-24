@@ -113,14 +113,26 @@ public partial class NameListEditorViewModel : ObservableObject
                                     {
                                         Value = obj["value"]?.ToString() ?? string.Empty,
                                         RarityWeight = obj["rarityWeight"]?.Value<int>() ?? 0,
-                                        Traits = new Dictionary<string, JObject>()
+                                        TraitsJson = new Dictionary<string, JObject>()
                                     };
                                     
                                     if (obj["traits"] is JObject traitsObj)
                                     {
                                         foreach (var trait in traitsObj)
                                         {
-                                            itemComp.Traits[trait.Key] = trait.Value as JObject ?? new JObject();
+                                            itemComp.TraitsJson[trait.Key] = trait.Value as JObject ?? new JObject();
+                                            
+                                            // Parse trait into ComponentTrait for editing
+                                            var traitData = trait.Value as JObject;
+                                            if (traitData != null)
+                                            {
+                                                itemComp.Traits.Add(new ComponentTrait
+                                                {
+                                                    Name = trait.Key,
+                                                    Value = traitData["value"]?.ToString() ?? string.Empty,
+                                                    Type = traitData["type"]?.ToString() ?? "number"
+                                                });
+                                            }
                                         }
                                     }
                                     comp = itemComp;
@@ -547,5 +559,45 @@ public partial class NameListEditorViewModel : ObservableObject
         Components[groupName] = new ObservableCollection<NameComponentBase>();
         ComponentNames.Add(groupName);
         StatusMessage = $"Added group: {groupName}";
+    }
+
+    /// <summary>
+    /// Adds a new trait to a component
+    /// </summary>
+    [RelayCommand]
+    private void AddComponentTrait(ItemNameComponent? component)
+    {
+        if (component == null) return;
+
+        var newTrait = new ComponentTrait
+        {
+            Name = $"trait_{component.Traits.Count + 1}",
+            Value = "1",
+            Type = "number"
+        };
+        component.Traits.Add(newTrait);
+        StatusMessage = "Added trait to component";
+    }
+
+    /// <summary>
+    /// Removes a trait from a component
+    /// </summary>
+    [RelayCommand]
+    private void RemoveComponentTrait(object? parameter)
+    {
+        if (parameter is not ComponentTrait trait) return;
+
+        foreach (var kvp in Components)
+        {
+            foreach (var comp in kvp.Value)
+            {
+                if (comp is ItemNameComponent itemComp && itemComp.Traits.Contains(trait))
+                {
+                    itemComp.Traits.Remove(trait);
+                    StatusMessage = "Removed trait from component";
+                    return;
+                }
+            }
+        }
     }
 }
