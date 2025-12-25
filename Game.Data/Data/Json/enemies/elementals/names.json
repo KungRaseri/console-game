@@ -181,7 +181,7 @@
                      "{descriptive} {element} {base}",
                      "{element} {base} {title}",
                      "{size} {descriptive} {element} {base}",
-                     "size + descriptive + element + base + title"
+                     "{size} {descriptive} {element} {base} {title}"
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for elementals. Pick components by rarityWeight and apply patterns to generate procedural names."

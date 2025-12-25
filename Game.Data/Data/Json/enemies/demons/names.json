@@ -165,7 +165,7 @@
                      "{aspect} {base}",
                      "{rank} {aspect} {base}",
                      "{descriptive} {base} {title}",
-                     "rank + descriptive + aspect + base + title"
+                     "{rank} {descriptive} {aspect} {base} {title}"
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for demons. Pick components by rarityWeight and apply patterns to generate procedural names."

@@ -55,6 +55,14 @@ public abstract partial class NamePatternBase : ObservableObject
     private ObservableCollection<PatternToken> _tokens = new();
 
     /// <summary>
+    /// Weight percentage relative to total (for visualization)
+    /// Not persisted - computed at runtime
+    /// </summary>
+    [ObservableProperty]
+    [JsonIgnore]
+    private double _weightPercentage;
+
+    /// <summary>
     /// Fallback for truly unknown properties
     /// </summary>
     [JsonExtensionData]

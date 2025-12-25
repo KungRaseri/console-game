@@ -907,7 +907,7 @@
       "example": "Holy Mithril Chainmail of the Gods"
     },
     {
-      "pattern": "prefix + quality + material + base + suffix",
+      "pattern": "{prefix} {quality} {material} {base} {suffix}",
       "weight": 1,
       "example": "Primordial Flawless Dragonscale Chainmail of the Gods"
     }

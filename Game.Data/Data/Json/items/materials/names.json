@@ -424,8 +424,8 @@
     "{material} {base}",
     "{material} {quality} {base}",
     "{quality} {material} {base}",
-    "material-crafted + base",
-    "material-bound + base",
-    "material-forged + base"
+    "{material}-crafted {base}",
+    "{material}-bound {base}",
+    "{material}-forged {base}"
   ]
 }

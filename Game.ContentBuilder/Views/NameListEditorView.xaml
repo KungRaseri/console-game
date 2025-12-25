@@ -160,7 +160,16 @@
                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                                                 <materialDesign:PackIcon Kind="FolderOutline" Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Key}" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Value.Count, StringFormat=' ({0})'}" FontSize="12" Foreground="Gray" Margin="4,0,0,0" VerticalAlignment="Center"/>
+                                                <Border Background="#2196F3" 
+                                                        CornerRadius="10" 
+                                                        Padding="6,2" 
+                                                        Margin="8,0,0,0"
+                                                        VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Value.Count}" 
+                                                                   FontSize="11" 
+                                                                   FontWeight="Bold" 
+                                                                   Foreground="White"/>
+                                                </Border>
                                         </StackPanel>
                                         
                                         <Button Grid.Column="1"
@@ -212,7 +221,8 @@
                                                         Background="White"
                                                         Padding="8"
                                                         Margin="0,0,8,0"
-                                                        MinHeight="48">
+                                                        MinHeight="48"
+                                                        ToolTip="Pattern badges - Click component buttons below to add tokens. Drag badges to reorder. {base} is required.">
                                                         <ItemsControl ItemsSource="{Binding Tokens}"
                                                                       AllowDrop="True">
                                                                 <ItemsControl.ItemsPanel>
@@ -260,23 +270,31 @@
                                                         </ItemsControl>
                                                 </Border>
                                                 
-                                                <TextBox 
-                                                        Grid.Column="1"
-                                                        Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                        HorizontalContentAlignment="Center"
-                                                        IsReadOnly="{Binding IsReadOnly}"
-                                                        materialDesign:HintAssist.Hint="Weight">
-                                                        <TextBox.Style>
-                                                                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-                                                                        <Style.Triggers>
-                                                                                <DataTrigger Binding="{Binding IsReadOnly}" Value="True">
-                                                                                        <Setter Property="Background" Value="#F5F5F5"/>
-                                                                                        <Setter Property="Foreground" Value="#666"/>
-                                                                                </DataTrigger>
-                                                                        </Style.Triggers>
-                                                                </Style>
-                                                        </TextBox.Style>
-                                                </TextBox>
+                                                <StackPanel Grid.Column="1">
+                                                        <TextBox 
+                                                                Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                HorizontalContentAlignment="Center"
+                                                                IsReadOnly="{Binding IsReadOnly}"
+                                                                materialDesign:HintAssist.Hint="Weight"
+                                                                Margin="0,0,0,4">
+                                                                <TextBox.Style>
+                                                                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                                                                                <Style.Triggers>
+                                                                                        <DataTrigger Binding="{Binding IsReadOnly}" Value="True">
+                                                                                                <Setter Property="Background" Value="#F5F5F5"/>
+                                                                                                <Setter Property="Foreground" Value="#666"/>
+                                                                                        </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                        </Style>
+                                                                </TextBox.Style>
+                                                        </TextBox>
+                                                        <!-- Weight percentage bar -->
+                                                        <ProgressBar Value="{Binding WeightPercentage}"
+                                                                     Maximum="100"
+                                                                     Height="4"
+                                                                     Foreground="#4CAF50"
+                                                                     ToolTip="{Binding WeightPercentage, StringFormat='{}{0:F1}% of total weight'}"/>
+                                                </StackPanel>
                                         </Grid>
                                         
                                         <!-- Pattern Token Helpers -->
@@ -431,10 +449,36 @@
                                                 CornerRadius="4" 
                                                 Padding="8,6"
                                                 Margin="0,8,0,0">
-                                                <StackPanel>
-                                                        <TextBlock Text="Examples:" FontSize="10" FontWeight="SemiBold" Foreground="Gray" Margin="0,0,0,4"/>
-                                                        <TextBlock Text="{Binding GeneratedExamples}" FontSize="11" FontFamily="Consolas" Foreground="#555" TextWrapping="Wrap"/>
-                                                </StackPanel>
+                                                <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        
+                                                        <StackPanel Grid.Column="0">
+                                                                <TextBlock Text="Examples:" FontSize="10" FontWeight="SemiBold" Foreground="Gray" Margin="0,0,0,4"/>
+                                                                <TextBlock Text="{Binding GeneratedExamples}" FontSize="11" FontFamily="Consolas" Foreground="#555" TextWrapping="Wrap"/>
+                                                        </StackPanel>
+                                                        
+                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="8,0,0,0">
+                                                                <Button Command="{Binding DataContext.RegenerateExamplesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="{Binding}"
+                                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                                        Width="24" Height="24"
+                                                                        Padding="0"
+                                                                        ToolTip="Regenerate examples">
+                                                                        <materialDesign:PackIcon Kind="Refresh" Width="16" Height="16"/>
+                                                                </Button>
+                                                                <Button Command="{Binding DataContext.DuplicatePatternCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="{Binding}"
+                                                                        Style="{StaticResource MaterialDesignIconButton}"
+                                                                        Width="24" Height="24"
+                                                                        Padding="0"
+                                                                        ToolTip="Duplicate this pattern">
+                                                                        <materialDesign:PackIcon Kind="ContentCopy" Width="16" Height="16"/>
+                                                                </Button>
+                                                        </StackPanel>
+                                                </Grid>
                                         </Border>
                                 </Grid>
                         </materialDesign:Card>
@@ -444,12 +488,62 @@
         <Grid>
                 <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
+                <!-- Validation Summary Panel -->
+                <Border Grid.Row="0" 
+                        Background="#FFF3E0" 
+                        BorderBrush="#FF9800" 
+                        BorderThickness="1" 
+                        CornerRadius="4" 
+                        Padding="12,8" 
+                        Margin="0,0,0,8"
+                        Visibility="{Binding HasValidationErrors, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                        <materialDesign:PackIcon Kind="AlertCircle" Width="20" Height="20" Margin="0,0,8,0" Foreground="#FF6F00" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Validation Issues" FontWeight="SemiBold" FontSize="13" Foreground="#FF6F00" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ValidationErrors.Count, StringFormat=' ({0})'}" FontWeight="SemiBold" FontSize="13" Foreground="#FF6F00" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <ItemsControl ItemsSource="{Binding ValidationErrors}" MaxHeight="150">
+                                        <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal" Margin="0,2">
+                                                                <materialDesign:PackIcon Kind="ChevronRight" Width="14" Height="14" Margin="0,0,4,0" Foreground="#FF9800" VerticalAlignment="Center"/>
+                                                                <TextBlock Text="{Binding}" FontSize="12" Foreground="#5D4037" TextWrapping="Wrap"/>
+                                                        </StackPanel>
+                                                </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                        </StackPanel>
+                </Border>
+
+                <!-- Stats Summary Bar -->
+                <Border Grid.Row="1" 
+                        Background="#E3F2FD" 
+                        BorderBrush="#2196F3" 
+                        BorderThickness="0,0,0,1" 
+                        Padding="16,8"
+                        Margin="0,0,0,8">
+                        <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,24,0">
+                                        <materialDesign:PackIcon Kind="FormatListBulleted" Width="18" Height="18" Margin="0,0,6,0" Foreground="#1976D2" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Components: " FontSize="12" FontWeight="SemiBold" Foreground="#1976D2" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding TotalComponentCount}" FontSize="12" FontWeight="Bold" Foreground="#0D47A1" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ShapeOutline" Width="18" Height="18" Margin="0,0,6,0" Foreground="#1976D2" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Patterns: " FontSize="12" FontWeight="SemiBold" Foreground="#1976D2" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding TotalPatternCount}" FontSize="12" FontWeight="Bold" Foreground="#0D47A1" VerticalAlignment="Center"/>
+                                </StackPanel>
+                        </StackPanel>
+                </Border>
+
                 <!--  Collapsible Metadata Header  -->
-                <Expander Grid.Row="0" 
+                <Expander Grid.Row="2" 
                           IsExpanded="False"
                           materialDesign:ExpanderAssist.HorizontalHeaderPadding="16,12"
                           Background="{DynamicResource MaterialDesignPaper}"
@@ -527,7 +621,7 @@
                 </Expander>
 
                 <!--  Two Column Layout: Components (Left) and Patterns (Right)  -->
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
@@ -583,6 +677,7 @@
                                 <Grid>
                                         <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
                                         
@@ -618,9 +713,39 @@
                                         </Button>
                                 </Grid>
                         </Border>
+                        
+                        <!-- Pattern Search Box -->
+                        <Border Grid.Row="1" Background="#F5F5F5" Padding="12,8" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+                                <Grid>
+                                        <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
                                         
-                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="12">
-                                <ListBox ItemsSource="{Binding Patterns}"
+                                        <TextBox Grid.Column="0"
+                                                 Text="{Binding PatternSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 materialDesign:HintAssist.Hint="Search patterns..."
+                                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                 Height="36"
+                                                 FontSize="13">
+                                                <TextBox.InputBindings>
+                                                        <KeyBinding Key="Esc" Command="{Binding ClearPatternFilterCommand}"/>
+                                                </TextBox.InputBindings>
+                                        </TextBox>
+                                        
+                                        <Button Grid.Column="1"
+                                                Command="{Binding ClearPatternFilterCommand}"
+                                                Style="{StaticResource MaterialDesignIconButton}"
+                                                Margin="4,0,0,0"
+                                                ToolTip="Clear search (Esc)"
+                                                Visibility="{Binding PatternSearchText, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <materialDesign:PackIcon Kind="Close" Width="18" Height="18"/>
+                                        </Button>
+                                </Grid>
+                        </Border>
+                                        
+                        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="12">
+                                <ListBox ItemsSource="{Binding FilteredPatterns}"
                                          SelectedItem="{Binding SelectedPattern}"
                                          ItemTemplate="{StaticResource PatternItemTemplate}"
                                          BorderThickness="0"
@@ -631,7 +756,7 @@
                 </Grid>
 
                 <!--  Status Bar  -->
-                <Border Grid.Row="2"
+                <Border Grid.Row="4"
                         Background="{DynamicResource MaterialDesignPaper}"
                         BorderBrush="#E0E0E0"
                         BorderThickness="0,1,0,0"

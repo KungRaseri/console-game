@@ -38,10 +38,46 @@ public partial class NameListEditorViewModel : ObservableObject
     [ObservableProperty]
     private string _statusMessage = "Ready";
 
+    // Validation and Stats
+    [ObservableProperty]
+    private ObservableCollection<string> _validationErrors = new();
+
+    [ObservableProperty]
+    private bool _hasValidationErrors;
+
+    [ObservableProperty]
+    private int _totalComponentCount;
+
+    [ObservableProperty]
+    private int _totalPatternCount;
+
+    [ObservableProperty]
+    private Dictionary<string, int> _componentCounts = new();
+
+    // Search/Filter
+    [ObservableProperty]
+    private string _patternSearchText = string.Empty;
+
+    [ObservableProperty]
+    private string _componentSearchText = string.Empty;
+
+    [ObservableProperty]
+    private ObservableCollection<NamePatternBase> _filteredPatterns = new();
+
     public NameListEditorViewModel(JsonEditorService jsonEditorService, string fileName)
     {
         _jsonEditorService = jsonEditorService;
         _fileName = fileName;
+        
+        // Watch for search text changes
+        PropertyChanged += (s, e) =>
+        {
+            if (e.PropertyName == nameof(PatternSearchText))
+            {
+                ApplyPatternFilter();
+            }
+        };
+        
         LoadData();
     }
 
@@ -263,6 +299,11 @@ public partial class NameListEditorViewModel : ObservableObject
 
             // Generate examples for patterns
             GeneratePatternExamples();
+
+            // Update statistics and validation
+            UpdateStats();
+            ValidateData();
+            ApplyPatternFilter();
 
             StatusMessage = $"Loaded v4 names.json from {filePath}";
             Log.Information("Successfully loaded v4 names.json from {FileName}", filePath);
@@ -521,7 +562,151 @@ public partial class NameListEditorViewModel : ObservableObject
             
             Patterns.Remove(SelectedPattern);
             SelectedPattern = null;
+            UpdateStats();
+            ValidateData();
             StatusMessage = "Pattern removed";
+        }
+    }
+
+    /// <summary>
+    /// Duplicates a pattern (creates a copy with same tokens and weight)
+    /// </summary>
+    [RelayCommand]
+    private void DuplicatePattern(NamePatternBase? pattern)
+    {
+        var patternToDuplicate = pattern ?? SelectedPattern;
+        if (patternToDuplicate == null)
+        {
+            StatusMessage = "Select a pattern to duplicate";
+            return;
+        }
+
+        // Create a copy
+        var duplicate = new ItemNamePattern
+        {
+            PatternTemplate = patternToDuplicate.PatternTemplate,
+            Weight = patternToDuplicate.Weight,
+            Description = patternToDuplicate.Description
+        };
+
+        // Copy tokens
+        foreach (var token in patternToDuplicate.Tokens)
+        {
+            duplicate.Tokens.Add(new PatternToken
+            {
+                Value = token.Value,
+                Type = token.Type
+            });
+        }
+
+        // Insert after the original
+        var index = Patterns.IndexOf(patternToDuplicate);
+        if (index >= 0 && index < Patterns.Count - 1)
+        {
+            Patterns.Insert(index + 1, duplicate);
+        }
+        else
+        {
+            Patterns.Add(duplicate);
+        }
+
+        SelectedPattern = duplicate;
+        UpdateStats();
+        StatusMessage = $"Duplicated pattern";
+    }
+
+    /// <summary>
+    /// Regenerates example names for a specific pattern or all patterns
+    /// </summary>
+    [RelayCommand]
+    private void RegenerateExamples(NamePatternBase? pattern)
+    {
+        if (pattern != null)
+        {
+            // Regenerate for single pattern
+            GenerateExampleForPattern(pattern);
+            StatusMessage = $"Regenerated examples for pattern";
+        }
+        else
+        {
+            // Regenerate for all patterns
+            GeneratePatternExamples();
+            StatusMessage = "Regenerated all pattern examples";
+        }
+    }
+
+    /// <summary>
+    /// Generates examples for a single pattern
+    /// </summary>
+    private void GenerateExampleForPattern(NamePatternBase pattern)
+    {
+        try
+        {
+            var random = new Random();
+            var baseNames = LoadBaseNamesFromCatalog();
+            var examples = new List<string>();
+            var usedExamples = new HashSet<string>();
+            
+            int maxAttempts = 20;
+            int attempts = 0;
+            
+            while (examples.Count < 3 && attempts < maxAttempts)
+            {
+                attempts++;
+                string example = pattern.PatternTemplate;
+                
+                // Replace + and - with spaces for cleaner display
+                example = example.Replace("+", " ").Replace("-", " ");
+                
+                // Split pattern by spaces
+                var tokens = example.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                
+                // Build the example by replacing tokens
+                var exampleParts = new List<string>();
+                foreach (var token in tokens)
+                {
+                    string componentKey = token.Trim().Replace("{", "").Replace("}", "");
+                    
+                    // Special handling for "base" token (references catalog, not components)
+                    if (componentKey.Equals("base", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (baseNames.Count > 0)
+                        {
+                            exampleParts.Add(baseNames[random.Next(baseNames.Count)]);
+                        }
+                        else
+                        {
+                            exampleParts.Add("[base]");
+                        }
+                    }
+                    // Check if we have this component group
+                    else if (Components.TryGetValue(componentKey, out var componentList) && componentList.Count > 0)
+                    {
+                        var randomComponent = componentList[random.Next(componentList.Count)];
+                        exampleParts.Add(randomComponent.Value ?? string.Empty);
+                    }
+                    // For unmatched tokens, wrap in square brackets to show they're placeholders
+                    else if (!string.IsNullOrEmpty(componentKey))
+                    {
+                        exampleParts.Add($"[{componentKey}]");
+                    }
+                }
+                
+                var generatedExample = string.Join(" ", exampleParts);
+                
+                // Only add if it's unique
+                if (!string.IsNullOrEmpty(generatedExample) && usedExamples.Add(generatedExample))
+                {
+                    examples.Add(generatedExample);
+                }
+            }
+            
+            pattern.GeneratedExamples = string.Join(", ", examples);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to generate example for pattern");
+            pattern.GeneratedExamples = "(generation failed)";
         }
     }
 
@@ -921,5 +1106,135 @@ public partial class NameListEditorViewModel : ObservableObject
                 });
             }
         }
+    }
+
+    /// <summary>
+    /// Updates component counts and statistics
+    /// </summary>
+    private void UpdateStats()
+    {
+        ComponentCounts.Clear();
+        TotalComponentCount = 0;
+
+        foreach (var kvp in Components)
+        {
+            var count = kvp.Value.Count;
+            ComponentCounts[kvp.Key] = count;
+            TotalComponentCount += count;
+        }
+
+        TotalPatternCount = Patterns.Count;
+
+        // Calculate weight percentages for patterns
+        var totalWeight = Patterns.Sum(p => p.Weight);
+        if (totalWeight > 0)
+        {
+            foreach (var pattern in Patterns)
+            {
+                pattern.WeightPercentage = (double)pattern.Weight / totalWeight * 100.0;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Validates data and updates validation errors collection
+    /// </summary>
+    private void ValidateData()
+    {
+        ValidationErrors.Clear();
+
+        // Check for empty metadata
+        if (string.IsNullOrWhiteSpace(Metadata.Version))
+            ValidationErrors.Add("Warning: No version specified in metadata");
+
+        // Check for patterns without {base}
+        foreach (var pattern in Patterns)
+        {
+            if (!pattern.Tokens.Any(t => t.IsBase))
+            {
+                ValidationErrors.Add($"Error: Pattern '{pattern.PatternTemplate}' missing {{base}} token");
+            }
+
+            // Check for invalid weight
+            if (pattern.Weight <= 0)
+            {
+                ValidationErrors.Add($"Warning: Pattern '{pattern.PatternTemplate}' has weight {pattern.Weight}");
+            }
+        }
+
+        // Check for duplicate component values
+        foreach (var kvp in Components)
+        {
+            var duplicates = kvp.Value
+                .GroupBy(c => c.Value?.ToLowerInvariant())
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToList();
+
+            foreach (var dup in duplicates)
+            {
+                ValidationErrors.Add($"Warning: Duplicate '{dup}' in {kvp.Key} component");
+            }
+        }
+
+        // Check for empty components referenced in patterns
+        var referencedComponents = Patterns
+            .SelectMany(p => p.Tokens)
+            .Where(t => t.Type == PatternTokenType.Component)
+            .Select(t => t.Value)
+            .Distinct()
+            .ToList();
+
+        foreach (var comp in referencedComponents)
+        {
+            if (!Components.ContainsKey(comp) || Components[comp].Count == 0)
+            {
+                ValidationErrors.Add($"Error: Pattern references empty component '{comp}'");
+            }
+        }
+
+        HasValidationErrors = ValidationErrors.Any();
+    }
+
+    /// <summary>
+    /// Applies search filter to patterns
+    /// </summary>
+    private void ApplyPatternFilter()
+    {
+        FilteredPatterns.Clear();
+
+        if (string.IsNullOrWhiteSpace(PatternSearchText))
+        {
+            // No filter - show all
+            foreach (var pattern in Patterns)
+            {
+                FilteredPatterns.Add(pattern);
+            }
+        }
+        else
+        {
+            var searchLower = PatternSearchText.ToLowerInvariant();
+            foreach (var pattern in Patterns)
+            {
+                // Search in template, description, and examples
+                bool matches = pattern.PatternTemplate.ToLowerInvariant().Contains(searchLower) ||
+                               (pattern.Description?.ToLowerInvariant().Contains(searchLower) ?? false) ||
+                               (pattern.GeneratedExamples?.ToLowerInvariant().Contains(searchLower) ?? false);
+
+                if (matches)
+                {
+                    FilteredPatterns.Add(pattern);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Clears the pattern search filter
+    /// </summary>
+    [RelayCommand]
+    private void ClearPatternFilter()
+    {
+        PatternSearchText = string.Empty;
     }
 }

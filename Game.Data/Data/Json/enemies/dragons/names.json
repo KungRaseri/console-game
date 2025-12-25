@@ -205,7 +205,7 @@
                      "{age} {color} {base}",
                      "{descriptive} {base}",
                      "{age} {color} {base} {title}",
-                     "age + descriptive + color + base + title"
+                     "{age} {descriptive} {color} {base} {title}"
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for dragons. Pick components by rarityWeight and apply patterns to generate procedural names."
