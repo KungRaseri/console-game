@@ -244,26 +244,29 @@
                                                                                         MouseMove="Badge_MouseMove"
                                                                                         Drop="Badge_Drop"
                                                                                         DragOver="Badge_DragOver">
-                                                                                        <StackPanel Orientation="Horizontal">
+                                                                                        <Grid>
                                                                                                 <TextBlock Text="{Binding DisplayText}"
                                                                                                            FontFamily="Consolas"
                                                                                                            FontSize="11"
                                                                                                            FontWeight="SemiBold"
                                                                                                            Foreground="White"
-                                                                                                           VerticalAlignment="Center"/>
-                                                                                                <Button Command="{Binding DataContext.RemoveTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                                                        CommandParameter="{Binding}"
+                                                                                                           VerticalAlignment="Center"
+                                                                                                           Margin="0,0,20,0"/>
+                                                                                                <Button Click="DeleteToken_Click"
+                                                                                                        Tag="{Binding}"
                                                                                                         Visibility="{Binding IsBase, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                                                                                         Style="{StaticResource MaterialDesignIconButton}"
-                                                                                                        Width="18"
-                                                                                                        Height="18"
+                                                                                                        Width="20"
+                                                                                                        Height="20"
                                                                                                         Padding="0"
-                                                                                                        Margin="6,0,0,0"
+                                                                                                        HorizontalAlignment="Right"
+                                                                                                        VerticalAlignment="Center"
                                                                                                         Foreground="White"
+                                                                                                        Background="#40000000"
                                                                                                         ToolTip="Remove token">
-                                                                                                        <materialDesign:PackIcon Kind="Close" Width="12" Height="12"/>
+                                                                                                        <materialDesign:PackIcon Kind="Close" Width="14" Height="14"/>
                                                                                                 </Button>
-                                                                                        </StackPanel>
+                                                                                        </Grid>
                                                                                 </Border>
                                                                         </DataTemplate>
                                                                 </ItemsControl.ItemTemplate>
@@ -485,8 +488,13 @@
                 </DataTemplate>
         </UserControl.Resources>
         
+        <UserControl.InputBindings>
+                <KeyBinding Key="F12" Command="{Binding ToggleConsoleCommand}"/>
+        </UserControl.InputBindings>
+        
         <Grid>
                 <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -745,11 +753,8 @@
                         </Border>
                                         
                         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="12">
-                                <ListBox ItemsSource="{Binding FilteredPatterns}"
-                                         SelectedItem="{Binding SelectedPattern}"
-                                         ItemTemplate="{StaticResource PatternItemTemplate}"
-                                         BorderThickness="0"
-                                         Background="Transparent"/>
+                                <ItemsControl ItemsSource="{Binding FilteredPatterns}"
+                                              ItemTemplate="{StaticResource PatternItemTemplate}"/>
                         </ScrollViewer>
                 </Grid>
                         </materialDesign:Card>

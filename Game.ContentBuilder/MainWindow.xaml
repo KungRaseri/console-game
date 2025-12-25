@@ -7,221 +7,316 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Game.ContentBuilder.ViewModels"
         mc:Ignorable="d"
-        Title="{Binding Title}" 
-        Height="600" 
+        Title="{Binding Title}"
+        Height="600"
         Width="1000"
         MinHeight="400"
         MinWidth="600"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
         Background="{DynamicResource MaterialDesign.Brush.Background}"
-        FontFamily="{materialDesign:MaterialDesignFont}">
-    
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        KeyDown="Window_KeyDown">
+
     <Window.DataContext>
-        <viewModels:MainViewModel />
+        <viewModels:MainViewModel/>
     </Window.DataContext>
-    
+
     <materialDesign:DialogHost>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+            <!-- Main Content -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <!-- Header -->
-            <materialDesign:ColorZone Grid.Row="0" 
-                                     Mode="PrimaryMid" 
-                                     Padding="16"
-                                     materialDesign:ElevationAssist.Elevation="Dp4">
-                <DockPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="GamepadVariant" 
-                                               Width="32" 
-                                               Height="32" 
-                                               VerticalAlignment="Center" 
-                                               Margin="0,0,12,0" />
-                        <TextBlock Text="{Binding Title}" 
-                                 VerticalAlignment="Center" 
-                                 FontSize="22" 
-                                 FontWeight="Medium" />
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal" 
-                               HorizontalAlignment="Right"
-                               DockPanel.Dock="Right">
-                        <Button Content="REFRESH"
-                               Command="{Binding RefreshCommand}"
-                               Style="{StaticResource MaterialDesignFlatButton}"
-                               Margin="0,0,8,0"
-                               ToolTip="Reload file tree from disk to pick up new/deleted files">
-                            <Button.ContentTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="Refresh" 
-                                                               VerticalAlignment="Center"
-                                                               Margin="0,0,4,0"/>
-                                        <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </Button.ContentTemplate>
-                        </Button>
-                        <Button Content="PREVIEW"
-                               Command="{Binding ShowPreviewCommand}"
-                               Style="{StaticResource MaterialDesignRaisedButton}"
-                               Margin="0,0,8,0"
-                               ToolTip="Preview generated content using current JSON data">
-                            <Button.ContentTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="EyeOutline" 
-                                                               VerticalAlignment="Center"
-                                                               Margin="0,0,4,0"/>
-                                        <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </Button.ContentTemplate>
-                        </Button>
-                        <Button Content="EXIT"
-                               Command="{Binding ExitCommand}"
-                               Style="{StaticResource MaterialDesignOutlinedButton}"
-                               ToolTip="Close the application">
-                            <Button.ContentTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="ExitToApp" 
-                                                               VerticalAlignment="Center"
-                                                               Margin="0,0,4,0"/>
-                                        <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </Button.ContentTemplate>
-                        </Button>
-                    </StackPanel>
-                </DockPanel>
-            </materialDesign:ColorZone>
+                <!-- Header -->
+                <materialDesign:ColorZone Grid.Row="0"
+                                          Mode="PrimaryMid"
+                                          Padding="16"
+                                          materialDesign:ElevationAssist.Elevation="Dp4">
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="GamepadVariant"
+                                                     Width="32"
+                                                     Height="32"
+                                                     VerticalAlignment="Center"
+                                                     Margin="0,0,12,0"/>
+                            <TextBlock Text="{Binding Title}"
+                                       VerticalAlignment="Center"
+                                       FontSize="22"
+                                       FontWeight="Medium"/>
+                        </StackPanel>
 
-            <!-- Main Content Area -->
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250" MinWidth="200" MaxWidth="400" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" MinWidth="400" />
-                </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    DockPanel.Dock="Right">
+                            <Button Content="REFRESH"
+                                    Command="{Binding RefreshCommand}"
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Margin="0,0,8,0"
+                                    ToolTip="Reload file tree from disk to pick up new/deleted files">
+                                <Button.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Refresh"
+                                                                     VerticalAlignment="Center"
+                                                                     Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding}"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Button.ContentTemplate>
+                            </Button>
+                            <Button Content="PREVIEW"
+                                    Command="{Binding ShowPreviewCommand}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Margin="0,0,8,0"
+                                    ToolTip="Preview generated content using current JSON data">
+                                <Button.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="EyeOutline"
+                                                                     VerticalAlignment="Center"
+                                                                     Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding}"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Button.ContentTemplate>
+                            </Button>
+                            <Button Content="EXIT"
+                                    Command="{Binding ExitCommand}"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    ToolTip="Close the application">
+                                <Button.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="ExitToApp"
+                                                                     VerticalAlignment="Center"
+                                                                     Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding}"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Button.ContentTemplate>
+                            </Button>
+                        </StackPanel>
+                    </DockPanel>
+                </materialDesign:ColorZone>
 
-                <!-- Left Panel - TreeView Navigation -->
-                <Border Grid.Column="0" 
-                        Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
-                        Margin="16,16,8,16"
-                        CornerRadius="4"
-                        materialDesign:ElevationAssist.Elevation="Dp2">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        
-                        <!-- TreeView Header -->
-                        <TextBlock Grid.Row="0" 
-                                 Text="Game Data" 
-                                 FontSize="16" 
-                                 FontWeight="Medium" 
-                                 Margin="16,16,16,8" />
-                        
-                        <!-- TreeView -->
-                        <TreeView Grid.Row="1" 
-                                ItemsSource="{Binding Categories}"
-                                SelectedItemChanged="TreeView_SelectedItemChanged"
-                                Margin="8,0,8,8"
-                                AutomationProperties.AutomationId="CategoryTreeView"
-                                AutomationProperties.Name="Game Content Categories">
-                            <TreeView.ItemContainerStyle>
-                                <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
-                                    <Setter Property="IsExpanded" Value="True" />
-                                    <Setter Property="AutomationProperties.Name" Value="{Binding Name}" />
-                                    <Setter Property="AutomationProperties.AutomationId" Value="{Binding Name, StringFormat='TreeItem_{0}'}" />
+                <!-- Main Content Area -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"
+                                          MinWidth="200"
+                                          MaxWidth="400"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"
+                                          MinWidth="400"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left Panel - TreeView Navigation -->
+                    <Border Grid.Column="0"
+                            Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
+                            Margin="16,16,8,16"
+                            CornerRadius="4"
+                            materialDesign:ElevationAssist.Elevation="Dp2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- TreeView Header -->
+                            <TextBlock Grid.Row="0"
+                                       Text="Game Data"
+                                       FontSize="16"
+                                       FontWeight="Medium"
+                                       Margin="16,16,16,8"/>
+
+                            <!-- TreeView -->
+                            <TreeView Grid.Row="1"
+                                      ItemsSource="{Binding Categories}"
+                                      SelectedItemChanged="TreeView_SelectedItemChanged"
+                                      Margin="8,0,8,8"
+                                      AutomationProperties.AutomationId="CategoryTreeView"
+                                      AutomationProperties.Name="Game Content Categories">
+                                <TreeView.ItemContainerStyle>
+                                    <Style TargetType="TreeViewItem"
+                                           BasedOn="{StaticResource MaterialDesignTreeViewItem}">
+                                        <Setter Property="IsExpanded"
+                                                Value="True"/>
+                                        <Setter Property="AutomationProperties.Name"
+                                                Value="{Binding Name}"/>
+                                        <Setter Property="AutomationProperties.AutomationId"
+                                                Value="{Binding Name, StringFormat='TreeItem_{0}'}"/>
+                                    </Style>
+                                </TreeView.ItemContainerStyle>
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="{Binding Icon}"
+                                                                     Width="16"
+                                                                     Height="16"
+                                                                     VerticalAlignment="Center"
+                                                                     Margin="0,0,8,0"/>
+                                            <TextBlock Text="{Binding DisplayNameWithCount}"
+                                                       VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </Grid>
+                    </Border>
+
+                    <!-- Splitter -->
+                    <GridSplitter Grid.Column="1"
+                                  Width="5"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Stretch"
+                                  Background="Transparent"
+                                  ShowsPreview="True"/>
+
+                    <!-- Right Panel - Editor Area -->
+                    <Border Grid.Column="2"
+                            Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
+                            Margin="8,16,16,16"
+                            CornerRadius="4"
+                            materialDesign:ElevationAssist.Elevation="Dp2">
+                        <ContentControl Content="{Binding CurrentEditor}">
+                            <!-- Default content when no editor is selected -->
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Triggers>
+                                        <Trigger Property="Content"
+                                                 Value="{x:Null}">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <StackPanel VerticalAlignment="Center"
+                                                                    HorizontalAlignment="Center">
+                                                            <materialDesign:PackIcon Kind="FileEdit"
+                                                                                     Width="96"
+                                                                                     Height="96"
+                                                                                     HorizontalAlignment="Center"
+                                                                                     Opacity="0.3"/>
+                                                            <TextBlock Text="Select an item to edit"
+                                                                       FontSize="18"
+                                                                       FontWeight="Light"
+                                                                       HorizontalAlignment="Center"
+                                                                       Margin="0,16,0,0"
+                                                                       Opacity="0.7"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
                                 </Style>
-                            </TreeView.ItemContainerStyle>
-                            <TreeView.ItemTemplate>
-                                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="{Binding Icon}" 
-                                                               Width="16" 
-                                                               Height="16" 
-                                                               VerticalAlignment="Center" 
-                                                               Margin="0,0,8,0" />
-                                        <TextBlock Text="{Binding DisplayNameWithCount}" 
-                                                 VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </HierarchicalDataTemplate>
-                            </TreeView.ItemTemplate>
-                        </TreeView>
-                    </Grid>
-                </Border>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Border>
+                </Grid>
 
-                <!-- Splitter -->
-                <GridSplitter Grid.Column="1" 
-                            Width="5" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Stretch"
-                            Background="Transparent" 
-                            ShowsPreview="True" />
-
-                <!-- Right Panel - Editor Area -->
-                <Border Grid.Column="2" 
-                        Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
-                        Margin="8,16,16,16"
-                        CornerRadius="4"
-                        materialDesign:ElevationAssist.Elevation="Dp2">
-                    <ContentControl Content="{Binding CurrentEditor}">
-                        <!-- Default content when no editor is selected -->
-                        <ContentControl.Style>
-                            <Style TargetType="ContentControl">
-                                <Style.Triggers>
-                                    <Trigger Property="Content" Value="{x:Null}">
-                                        <Setter Property="ContentTemplate">
-                                            <Setter.Value>
-                                                <DataTemplate>
-                                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                        <materialDesign:PackIcon Kind="FileEdit" 
-                                                                               Width="96" 
-                                                                               Height="96" 
-                                                                               HorizontalAlignment="Center"
-                                                                               Opacity="0.3" />
-                                                        <TextBlock Text="Select an item to edit" 
-                                                                 FontSize="18" 
-                                                                 FontWeight="Light"
-                                                                 HorizontalAlignment="Center"
-                                                                 Margin="0,16,0,0"
-                                                                 Opacity="0.7" />
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ContentControl.Style>
-                    </ContentControl>
-                </Border>
+                <!-- Status Bar -->
+                <materialDesign:ColorZone Grid.Row="2"
+                                          Mode="PrimaryLight"
+                                          Padding="12,8"
+                                          materialDesign:ElevationAssist.Elevation="Dp2">
+                    <DockPanel>
+                        <materialDesign:PackIcon Kind="InformationOutline"
+                                                 Width="16"
+                                                 Height="16"
+                                                 VerticalAlignment="Center"
+                                                 Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding StatusMessage}"
+                                   VerticalAlignment="Center"
+                                   FontSize="12"/>
+                    </DockPanel>
+                </materialDesign:ColorZone>
             </Grid>
 
-            <!-- Status Bar -->
-            <materialDesign:ColorZone Grid.Row="2" 
-                                     Mode="PrimaryLight" 
-                                     Padding="12,8"
-                                     materialDesign:ElevationAssist.Elevation="Dp2">
-                <DockPanel>
-                    <materialDesign:PackIcon Kind="InformationOutline" 
-                                           Width="16" 
-                                           Height="16" 
-                                           VerticalAlignment="Center" 
-                                           Margin="0,0,8,0" />
-                    <TextBlock Text="{Binding StatusMessage}" 
-                             VerticalAlignment="Center" 
-                             FontSize="12" />
-                </DockPanel>
-            </materialDesign:ColorZone>
+            <!-- Global Console Panel (F12 to toggle) -->
+            <Border x:Name="ConsolePanel"
+                    Background="#F2000000"
+                    BorderBrush="#333333"
+                    BorderThickness="0,1,0,0"
+                    Height="300"
+                    VerticalAlignment="Bottom"
+                    Visibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Console Header -->
+                    <Border Grid.Row="0"
+                            Background="#1A1A1A"
+                            Padding="12,8"
+                            BorderBrush="#333333"
+                            BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0"
+                                        Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Console"
+                                                         Width="18"
+                                                         Height="18"
+                                                         Foreground="#00FF00"
+                                                         VerticalAlignment="Center"
+                                                         Margin="0,0,8,0"/>
+                                <TextBlock Text="GLOBAL CONSOLE"
+                                           FontWeight="SemiBold"
+                                           FontSize="12"
+                                           Foreground="#00FF00"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock Text="(F12 to toggle)"
+                                           FontSize="11"
+                                           Foreground="#666666"
+                                           Margin="8,0,0,0"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <Button Grid.Column="1"
+                                    Click="ToggleConsole"
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    Width="24"
+                                    Height="24"
+                                    Foreground="#666666"
+                                    ToolTip="Close Console (F12)">
+                                <materialDesign:PackIcon Kind="Close"
+                                                         Width="16"
+                                                         Height="16"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <!-- Console Content -->
+                    <TextBox x:Name="ConsoleTextBox"
+                             Grid.Row="1"
+                             IsReadOnly="True"
+                             IsReadOnlyCaretVisible="False"
+                             FontFamily="Consolas"
+                             FontSize="11"
+                             Foreground="#00FF00"
+                             Background="#0D0D0D"
+                             BorderThickness="0"
+                             Padding="12"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Disabled"
+                             AcceptsReturn="True"
+                             VerticalAlignment="Stretch"/>
+                </Grid>
+            </Border>
         </Grid>
     </materialDesign:DialogHost>
 </Window>

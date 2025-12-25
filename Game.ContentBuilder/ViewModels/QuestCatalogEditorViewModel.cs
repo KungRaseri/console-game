@@ -347,7 +347,7 @@ public partial class QuestCatalogEditorViewModel : ObservableObject
             LocationType = location["locationType"]?.ToString() ?? "",
             Danger = location["danger"]?.ToString() ?? "",
             Difficulty = location["difficulty"]?.ToString() ?? "",
-            Features = location["features"]?.Values<string>().ToList() ?? new List<string>(),
+            Features = location["features"]?.Values<string>().Where(s => s != null).ToList()!,
             JsonData = location
         };
     }

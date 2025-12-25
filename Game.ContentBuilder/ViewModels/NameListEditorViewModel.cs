@@ -27,7 +27,7 @@ public partial class NameListEditorViewModel : ObservableObject
     private ObservableCollection<string> _componentNames = new();
 
     [ObservableProperty]
-    private Dictionary<string, ObservableCollection<NameComponentBase>> _components = new();
+    private ObservableCollection<KeyValuePair<string, ObservableCollection<NameComponentBase>>> _components = new();
 
     [ObservableProperty]
     private ObservableCollection<NamePatternBase> _patterns = new();
@@ -90,12 +90,14 @@ public partial class NameListEditorViewModel : ObservableObject
         {
             var filePath = _fileName;
             Log.Information("Loading names.json from {FilePath}", filePath);
+            MainWindow.AddLog($"Loading {Path.GetFileName(filePath)}...");
             
             var json = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath));
             Log.Debug("Read {Length} characters from file", json.Length);
             
             var root = JObject.Parse(json);
             Log.Debug("Parsed JSON successfully");
+            MainWindow.AddLog("JSON parsed successfully");
 
             // Metadata
             JObject? metadataObj = null;
@@ -195,9 +197,10 @@ public partial class NameListEditorViewModel : ObservableObject
                             }
                         }
                     }
-                    Components[name] = list;
+                    Components.Add(new KeyValuePair<string, ObservableCollection<NameComponentBase>>(name, list));
                 }
-                Log.Information("Loaded {Count} component groups with {Total} total components", Components.Count, Components.Values.Sum(c => c.Count));
+                Log.Information("Loaded {Count} component groups with {Total} total components", Components.Count, Components.Sum(kvp => kvp.Value.Count));
+                MainWindow.AddLog($"Loaded {Components.Count} component groups with {Components.Sum(kvp => kvp.Value.Count)} total components");
             }
 
             // Dynamic patterns (can be string array OR object array)
@@ -295,6 +298,7 @@ public partial class NameListEditorViewModel : ObservableObject
                     }
                 }
                 Log.Information("Loaded {Count} patterns", Patterns.Count);
+                MainWindow.AddLog($"Loaded {Patterns.Count} patterns");
             }
 
             // Generate examples for patterns
@@ -307,11 +311,13 @@ public partial class NameListEditorViewModel : ObservableObject
 
             StatusMessage = $"Loaded v4 names.json from {filePath}";
             Log.Information("Successfully loaded v4 names.json from {FileName}", filePath);
+            MainWindow.AddLog("✓ File loaded successfully");
         }
         catch (Exception ex)
         {
             StatusMessage = $"Error loading data: {ex.Message}";
             Log.Error(ex, "Failed to load {FileName}", _fileName);
+            MainWindow.AddLog($"✗ Error loading data: {ex.Message}");
         }
     }
 
@@ -351,7 +357,7 @@ public partial class NameListEditorViewModel : ObservableObject
                     var exampleParts = new List<string>();
                     foreach (var token in tokens)
                     {
-                        string componentKey = token.Trim();
+                        string componentKey = token.Trim().Replace("{", "").Replace("}", "");
                         
                         // Special handling for "base" token (references catalog, not components)
                         if (componentKey.Equals("base", StringComparison.OrdinalIgnoreCase))
@@ -366,7 +372,7 @@ public partial class NameListEditorViewModel : ObservableObject
                             }
                         }
                         // Check if we have this component group
-                        else if (Components.TryGetValue(componentKey, out var componentList) && componentList.Count > 0)
+                        else if (TryGetComponentGroup(componentKey, out var componentList) && componentList != null && componentList.Count > 0)
                         {
                             var randomComponent = componentList[random.Next(componentList.Count)];
                             exampleParts.Add(randomComponent.Value);
@@ -412,7 +418,20 @@ public partial class NameListEditorViewModel : ObservableObject
             
             if (!File.Exists(catalogPath))
             {
-                Log.Debug("No catalog.json found at {Path}, using placeholders", catalogPath);
+                // Show relative path from Json folder for cleaner logs
+                string relativePath = catalogPath;
+                try {
+                    var dirInfo = new DirectoryInfo(directory);
+                    while (dirInfo != null && dirInfo.Name != "Json")
+                    {
+                        dirInfo = dirInfo.Parent;
+                    }
+                    if (dirInfo != null)
+                    {
+                        relativePath = Path.GetRelativePath(dirInfo.FullName, catalogPath);
+                    }
+                } catch { }
+                Log.Debug("No catalog.json found at {Path}, using placeholders", relativePath);
                 return new List<string> { "Wolf", "Bear", "Spider", "Dragon", "Goblin", "Troll" };
             }
             
@@ -460,6 +479,149 @@ public partial class NameListEditorViewModel : ObservableObject
         }
         
         return baseNames;
+    }
+
+    /// <summary>
+    /// Loads a random value from a reference file (e.g., @materialRef/weapon loads from materials/names.json)
+    /// </summary>
+    private string LoadReferenceValue(string referencePath)
+    {
+        try
+        {
+            // Parse reference path: "materialRef/weapon" means materials category, weapon component
+            var parts = referencePath.Split('/');
+            if (parts.Length != 2)
+            {
+                Log.Warning("Invalid reference format: {Reference}", referencePath);
+                return string.Empty;
+            }
+
+            string categoryHint = parts[0]; // e.g., "materialRef"
+            string componentKey = parts[1]; // e.g., "weapon"
+
+            // Determine the reference file path based on category hint
+            // materialRef -> items/materials/names.json
+            // weaponRef -> items/weapons/names.json, etc.
+            // Navigate up to the Json root folder
+            string currentDir = Path.GetDirectoryName(_fileName) ?? string.Empty;
+            string? jsonRoot = null;
+            
+            // Walk up directories until we find "Json" folder
+            var dirInfo = new DirectoryInfo(currentDir);
+            while (dirInfo != null && dirInfo.Name != "Json")
+            {
+                dirInfo = dirInfo.Parent;
+            }
+            jsonRoot = dirInfo?.FullName;
+
+            if (string.IsNullOrEmpty(jsonRoot))
+            {
+                Log.Debug("Could not find Json root directory from {Path}", _fileName);
+                return string.Empty;
+            }
+
+            // Map category hints to paths
+            string referencePath_full;
+            string refCategory = categoryHint.Replace("Ref", "").ToLowerInvariant();
+            
+            // Map common reference patterns to catalog.json
+            if (refCategory == "material")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "items", "materials", "catalog.json");
+            }
+            else if (refCategory == "weapon")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "items", "weapons", "catalog.json");
+            }
+            else if (refCategory == "armor")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "items", "armor", "catalog.json");
+            }
+            else if (refCategory == "consumable")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "items", "consumables", "catalog.json");
+            }
+            else
+            {
+                // Default: assume items/{category}/catalog.json
+                referencePath_full = Path.Combine(jsonRoot, "items", refCategory + "s", "catalog.json");
+            }
+
+            if (!File.Exists(referencePath_full))
+            {
+                Log.Debug("Reference file not found: {Path}", referencePath_full);
+                return string.Empty;
+            }
+
+            // Load and parse the catalog file
+            string json = File.ReadAllText(referencePath_full);
+            var root = JObject.Parse(json);
+
+            // Catalog structure: { "item_types": { "swords": { "items": [{"name": "Longsword"}] } } }
+            // Try common top-level keys
+            var topLevelKeys = new[] { "item_types", "beast_types", "npc_types", "types" };
+            
+            foreach (var topKey in topLevelKeys)
+            {
+                if (root[topKey] is JObject types && types[componentKey] is JObject typeObj && typeObj["items"] is JArray items && items.Count > 0)
+                {
+                    var random = new Random();
+                    var randomItem = items[random.Next(items.Count)] as JObject;
+                    if (randomItem != null && randomItem["name"] != null)
+                    {
+                        var value = randomItem["name"]?.ToString() ?? string.Empty;
+                        Log.Debug("Loaded reference value '{Value}' from {Path}[{TopKey}][{Component}]", value, referencePath_full, topKey, componentKey);
+                        return value;
+                    }
+                }
+            }
+            
+            // Fallback: try to find components structure (for names.json compatibility)
+            if (root["components"] is JObject components)
+            {
+                // First, try to find the exact component key
+                if (components[componentKey] is JArray componentArray && componentArray.Count > 0)
+                {
+                    var random = new Random();
+                    var randomItem = componentArray[random.Next(componentArray.Count)] as JObject;
+                    if (randomItem != null && randomItem["value"] != null)
+                    {
+                        var value = randomItem["value"]?.ToString() ?? string.Empty;
+                        Log.Debug("Loaded reference value '{Value}' from {Path}[{Component}]", value, referencePath_full, componentKey);
+                        return value;
+                    }
+                }
+                
+                // If specific component not found, try to use any available component
+                var availableComponents = components.Properties().Where(p => p.Value is JArray arr && arr.Count > 0).ToList();
+                if (availableComponents.Any())
+                {
+                    var random = new Random();
+                    var randomProperty = availableComponents[random.Next(availableComponents.Count)];
+                    var 
+                    fallbackArray = randomProperty.Value as JArray;
+                    if (fallbackArray != null && fallbackArray.Count > 0)
+                    {
+                        var randomItem = fallbackArray[random.Next(fallbackArray.Count)] as JObject;
+                        if (randomItem != null && randomItem["value"] != null)
+                        {
+                            var value = randomItem["value"]?.ToString() ?? string.Empty;
+                            Log.Debug("Loaded reference value '{Value}' from {Path}[{ActualComponent}] (requested {RequestedComponent})", 
+                                value, referencePath_full, randomProperty.Name, componentKey);
+                            return value;
+                        }
+                    }
+                }
+            }
+            
+            Log.Warning("No components found in reference file: {Path}", referencePath_full);
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "Failed to load reference: {Reference}", referencePath);
+        }
+
+        return string.Empty;
     }
 
     /// <summary>
@@ -638,7 +800,7 @@ public partial class NameListEditorViewModel : ObservableObject
     /// <summary>
     /// Generates examples for a single pattern
     /// </summary>
-    private void GenerateExampleForPattern(NamePatternBase pattern)
+    public void GenerateExampleForPattern(NamePatternBase pattern)
     {
         try
         {
@@ -667,8 +829,22 @@ public partial class NameListEditorViewModel : ObservableObject
                 {
                     string componentKey = token.Trim().Replace("{", "").Replace("}", "");
                     
+                    // Handle reference tokens like @materialRef/weapon
+                    if (componentKey.StartsWith("@"))
+                    {
+                        var referencePath = componentKey.Substring(1); // Remove @
+                        var referenceValue = LoadReferenceValue(referencePath);
+                        if (!string.IsNullOrEmpty(referenceValue))
+                        {
+                            exampleParts.Add(referenceValue);
+                        }
+                        else
+                        {
+                            exampleParts.Add($"[{componentKey}]");
+                        }
+                    }
                     // Special handling for "base" token (references catalog, not components)
-                    if (componentKey.Equals("base", StringComparison.OrdinalIgnoreCase))
+                    else if (componentKey.Equals("base", StringComparison.OrdinalIgnoreCase))
                     {
                         if (baseNames.Count > 0)
                         {
@@ -680,7 +856,7 @@ public partial class NameListEditorViewModel : ObservableObject
                         }
                     }
                     // Check if we have this component group
-                    else if (Components.TryGetValue(componentKey, out var componentList) && componentList.Count > 0)
+                    else if (TryGetComponentGroup(componentKey, out var componentList) && componentList != null && componentList.Count > 0)
                     {
                         var randomComponent = componentList[random.Next(componentList.Count)];
                         exampleParts.Add(randomComponent.Value ?? string.Empty);
@@ -721,15 +897,15 @@ public partial class NameListEditorViewModel : ObservableObject
             // Create a new group
             groupName = "new_group";
             int counter = 1;
-            while (Components.ContainsKey(groupName))
+            while (ContainsComponentGroup(groupName))
             {
                 groupName = $"new_group_{counter++}";
             }
-            Components[groupName] = new ObservableCollection<NameComponentBase>();
+            SetComponentGroup(groupName, new ObservableCollection<NameComponentBase>());
             ComponentNames.Add(groupName);
         }
 
-        if (Components.TryGetValue(groupName, out var list))
+        if (TryGetComponentGroup(groupName, out var list) && list != null)
         {
             var newComponent = new ItemNameComponent
             {
@@ -767,11 +943,15 @@ public partial class NameListEditorViewModel : ObservableObject
     [RelayCommand]
     private void RemoveComponentGroup(string? groupName)
     {
-        if (!string.IsNullOrEmpty(groupName) && Components.ContainsKey(groupName))
+        if (!string.IsNullOrEmpty(groupName))
         {
-            Components.Remove(groupName);
-            ComponentNames.Remove(groupName);
-            StatusMessage = $"Removed group: {groupName}";
+            var kvp = Components.FirstOrDefault(c => c.Key == groupName);
+            if (!EqualityComparer<KeyValuePair<string, ObservableCollection<NameComponentBase>>>.Default.Equals(kvp, default))
+            {
+                Components.Remove(kvp);
+                ComponentNames.Remove(groupName);
+                StatusMessage = $"Removed group: {groupName}";
+            }
         }
     }
 
@@ -783,11 +963,11 @@ public partial class NameListEditorViewModel : ObservableObject
     {
         string groupName = "new_group";
         int counter = 1;
-        while (Components.ContainsKey(groupName))
+        while (ContainsComponentGroup(groupName))
         {
             groupName = $"new_group_{counter++}";
         }
-        Components[groupName] = new ObservableCollection<NameComponentBase>();
+        SetComponentGroup(groupName, new ObservableCollection<NameComponentBase>());
         ComponentNames.Add(groupName);
         StatusMessage = $"Added group: {groupName}";
     }
@@ -875,6 +1055,7 @@ public partial class NameListEditorViewModel : ObservableObject
 
         // Update the pattern template string
         UpdatePatternTemplateFromTokens(targetPattern);
+        GenerateExampleForPattern(targetPattern);
         StatusMessage = $"Added component: {{{componentKey}}}";
     }
 
@@ -921,6 +1102,7 @@ public partial class NameListEditorViewModel : ObservableObject
 
         // Update the pattern template string
         UpdatePatternTemplateFromTokens(targetPattern);
+        GenerateExampleForPattern(targetPattern);
         StatusMessage = $"Added reference: {token}";
     }
 
@@ -953,6 +1135,7 @@ public partial class NameListEditorViewModel : ObservableObject
                 });
                 
                 UpdatePatternTemplateFromTokens(targetPattern);
+                GenerateExampleForPattern(targetPattern);
                 StatusMessage = $"Added reference: @{dialog.SelectedReference}";
             }
         }
@@ -964,24 +1147,69 @@ public partial class NameListEditorViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Removes a token badge
+    /// Removes a token badge - direct method called from code-behind
     /// </summary>
-    [RelayCommand]
-    private void RemoveToken(PatternToken? token)
+    public void RemoveTokenDirect(NamePatternBase pattern, PatternToken token)
     {
-        if (token == null || SelectedPattern == null)
+        MainWindow.AddLog($"RemoveTokenDirect called - Token: {token.DisplayText}, Pattern: {pattern.PatternTemplate}");
+        
+        if (token == null || pattern == null)
+        {
+            MainWindow.AddLog($"RemoveTokenDirect aborted - token null: {token == null}, pattern null: {pattern == null}");
             return;
+        }
 
         // Prevent removing base tokens - they're required
         if (token.IsBase)
         {
             StatusMessage = "Cannot remove {base} token - it's required for all patterns";
+            MainWindow.AddLog("RemoveTokenDirect aborted - cannot remove base token");
             return;
         }
 
-        SelectedPattern.Tokens.Remove(token);
-        UpdatePatternTemplateFromTokens();
+        pattern.Tokens.Remove(token);
+        UpdatePatternTemplateFromTokens(pattern);
+        GenerateExampleForPattern(pattern);
         StatusMessage = $"Removed token: {token.DisplayText}";
+        MainWindow.AddLog($"RemoveTokenDirect success - Removed {token.DisplayText} from pattern {pattern.PatternTemplate}");
+    }
+
+    /// <summary>
+    /// Removes a token badge
+    /// </summary>
+    [RelayCommand]
+    private void RemoveToken(object? parameter)
+    {
+        if (parameter is not Tuple<object, object> tuple)
+        {
+            MainWindow.AddLog($"RemoveToken called with invalid parameter type: {parameter?.GetType().Name ?? "null"}");
+            return;
+        }
+
+        var pattern = tuple.Item1 as NamePatternBase;
+        var token = tuple.Item2 as PatternToken;
+        
+        MainWindow.AddLog($"RemoveToken called - Token: {token?.DisplayText ?? "null"}, Pattern: {pattern?.PatternTemplate ?? "null"}");
+        
+        if (token == null || pattern == null)
+        {
+            MainWindow.AddLog($"RemoveToken aborted - token null: {token == null}, pattern null: {pattern == null}");
+            return;
+        }
+
+        // Prevent removing base tokens - they're required
+        if (token.IsBase)
+        {
+            StatusMessage = "Cannot remove {base} token - it's required for all patterns";
+            MainWindow.AddLog("RemoveToken aborted - cannot remove base token");
+            return;
+        }
+
+        pattern.Tokens.Remove(token);
+        UpdatePatternTemplateFromTokens(pattern);
+        GenerateExampleForPattern(pattern);
+        StatusMessage = $"Removed token: {token.DisplayText}";
+        MainWindow.AddLog($"RemoveToken success - Removed {token.DisplayText} from pattern {pattern.PatternTemplate}");
     }
 
     /// <summary>
@@ -1187,13 +1415,136 @@ public partial class NameListEditorViewModel : ObservableObject
 
         foreach (var comp in referencedComponents)
         {
-            if (!Components.ContainsKey(comp) || Components[comp].Count == 0)
+            // Skip "base" - it's a special token that references the catalog, not a component
+            if (comp.Equals("base", StringComparison.OrdinalIgnoreCase))
+                continue;
+                
+            if (!TryGetComponentGroup(comp, out var compList) || compList == null || compList.Count == 0)
             {
                 ValidationErrors.Add($"Error: Pattern references empty component '{comp}'");
             }
         }
 
+        // Check for invalid reference tokens
+        var referencedTokens = Patterns
+            .SelectMany(p => p.Tokens)
+            .Where(t => t.Type == PatternTokenType.Reference)
+            .Select(t => t.Value)
+            .Distinct()
+            .ToList();
+
+        foreach (var refToken in referencedTokens)
+        {
+            var validation = ValidateReference(refToken);
+            // Only show format errors, not file-not-found errors
+            if (!validation.isValid && (validation.message.Contains("format") || validation.message.Contains("type")))
+            {
+                ValidationErrors.Add($"Error: {validation.message}");
+            }
+        }
+
         HasValidationErrors = ValidationErrors.Any();
+    }
+
+    /// <summary>
+    /// Validates a reference token and returns whether it's valid and any error message
+    /// </summary>
+    private (bool isValid, string message) ValidateReference(string referenceToken)
+    {
+        try
+        {
+            // Remove @ prefix
+            var referencePath = referenceToken.StartsWith("@") ? referenceToken.Substring(1) : referenceToken;
+            
+            // Parse reference path: "materialRef/weapon"
+            var parts = referencePath.Split('/');
+            if (parts.Length != 2)
+            {
+                return (false, $"Invalid reference format '{referenceToken}' - should be @categoryRef/component");
+            }
+
+            string categoryHint = parts[0];
+            string componentKey = parts[1];
+
+            // Find Json root
+            string currentDir = Path.GetDirectoryName(_fileName) ?? string.Empty;
+            var dirInfo = new DirectoryInfo(currentDir);
+            while (dirInfo != null && dirInfo.Name != "Json")
+            {
+                dirInfo = dirInfo.Parent;
+            }
+            
+            if (dirInfo == null)
+            {
+                return (false, $"Reference '{referenceToken}' - cannot find Json root folder");
+            }
+
+            string jsonRoot = dirInfo.FullName;
+            string refCategory = categoryHint.Replace("Ref", "").ToLowerInvariant();
+            
+            // Map to catalog file path
+            string referencePath_full;
+            if (refCategory == "material")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "items", "materials", "catalog.json");
+            }
+            else if (refCategory == "weapon")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "items", "weapons", "catalog.json");
+            }
+            else if (refCategory == "armor")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "items", "armor", "catalog.json");
+            }
+            else if (refCategory == "consumable")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "items", "consumables", "catalog.json");
+            }
+            else
+            {
+                referencePath_full = Path.Combine(jsonRoot, "items", refCategory + "s", "catalog.json");
+            }
+
+            // Check if file exists
+            if (!File.Exists(referencePath_full))
+            {
+                return (false, $"Reference '{referenceToken}' - file not found: {Path.GetFileName(Path.GetDirectoryName(referencePath_full))}/catalog.json");
+            }
+
+            // Check if component exists in catalog
+            string json = File.ReadAllText(referencePath_full);
+            var root = JObject.Parse(json);
+            
+            // Check catalog structure: { "item_types": { "swords": { "items": [...] } } }
+            var topLevelKeys = new[] { "item_types", "beast_types", "npc_types", "types" };
+            
+            foreach (var topKey in topLevelKeys)
+            {
+                if (root[topKey] is JObject types)
+                {
+                    if (types[componentKey] is JObject typeObj && typeObj["items"] is JArray items && items.Count > 0)
+                    {
+                        return (true, string.Empty);
+                    }
+                    else if (types[componentKey] is JObject typeObjEmpty)
+                    {
+                        return (false, $"Reference '{referenceToken}' - type '{componentKey}' exists but has no items");
+                    }
+                    else
+                    {
+                        // List available types
+                        var availableTypes = types.Properties().Select(p => p.Name).Take(5);
+                        return (false, $"Reference '{referenceToken}' - type '{componentKey}' not found in {topKey}. Available: {string.Join(", ", availableTypes)}");
+                    }
+                }
+            }
+            
+            return (false, $"Reference '{referenceToken}' - no recognized catalog structure found");
+        }
+        catch (Exception ex)
+        {
+            return (false, $"Reference '{referenceToken}' - validation error: {ex.Message}");
+        }
     }
 
     /// <summary>
@@ -1237,4 +1588,45 @@ public partial class NameListEditorViewModel : ObservableObject
     {
         PatternSearchText = string.Empty;
     }
+
+    // Helper methods for Components collection
+    private bool TryGetComponentGroup(string key, out ObservableCollection<NameComponentBase>? list)
+    {
+        var kvp = Components.FirstOrDefault(c => c.Key == key);
+        if (!EqualityComparer<KeyValuePair<string, ObservableCollection<NameComponentBase>>>.Default.Equals(kvp, default))
+        {
+            list = kvp.Value;
+            return true;
+        }
+        list = null;
+        return false;
+    }
+
+    private void SetComponentGroup(string key, ObservableCollection<NameComponentBase> list)
+    {
+        var existingIndex = -1;
+        for (int i = 0; i < Components.Count; i++)
+        {
+            if (Components[i].Key == key)
+            {
+                existingIndex = i;
+                break;
+            }
+        }
+
+        if (existingIndex >= 0)
+        {
+            Components[existingIndex] = new KeyValuePair<string, ObservableCollection<NameComponentBase>>(key, list);
+        }
+        else
+        {
+            Components.Add(new KeyValuePair<string, ObservableCollection<NameComponentBase>>(key, list));
+        }
+    }
+
+    private bool ContainsComponentGroup(string key)
+    {
+        return Components.Any(c => c.Key == key);
+    }
+
 }

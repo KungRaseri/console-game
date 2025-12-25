@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Threading;
 using Serilog;
 using Serilog.Events;
+using Game.ContentBuilder.Services;
 
 namespace Game.ContentBuilder;
 
@@ -44,6 +45,7 @@ public partial class App : Application
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
                 flushToDiskInterval: TimeSpan.FromSeconds(1))
             .WriteTo.Console()
+            .WriteTo.Sink(new ConsoleSink())
             .CreateLogger();
 
         // Log startup
