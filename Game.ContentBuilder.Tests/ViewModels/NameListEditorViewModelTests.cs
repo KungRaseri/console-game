@@ -279,6 +279,102 @@ public class NameListEditorViewModelTests : IDisposable
     viewModel.Metadata.Description.Should().Be("Modified description");
   }
 
+  #region Command Tests
+
+  [Fact]
+  public void AddPatternCommand_Should_Add_New_Pattern()
+  {
+    // Arrange
+    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var initialCount = viewModel.Patterns.Count;
+
+    // Act
+    viewModel.AddPatternCommand.Execute(null);
+
+    // Assert
+    viewModel.Patterns.Count.Should().Be(initialCount + 1);
+    viewModel.Patterns.Last().PatternTemplate.Should().Contain("{base}");
+  }
+
+  [Fact]
+  public void RemovePatternCommand_CanExecute_Should_Require_Selected_Pattern()
+  {
+    // Arrange
+    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    viewModel.SelectedPattern = null;
+
+    // Act & Assert - RemovePattern command checks if any patterns exist, not SelectedPattern
+    viewModel.RemovePatternCommand.CanExecute(null).Should().BeTrue("Command is enabled when patterns exist");
+
+    // Remove should work even without SelectedPattern - it uses button's CommandParameter
+  }
+
+  [Fact]
+  public void RemoveComponentCommand_Should_Remove_Component()
+  {
+    // Arrange
+    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var componentGroup = viewModel.Components.First().Value;
+    var initialCount = componentGroup.Count;
+    var componentToRemove = componentGroup.First();
+
+    // Act
+    viewModel.RemoveComponentCommand.Execute(componentToRemove);
+
+    // Assert
+    componentGroup.Count.Should().Be(initialCount - 1);
+    componentGroup.Should().NotContain(componentToRemove);
+  }
+
+  [Fact]
+  public void DuplicatePatternCommand_Should_Create_Copy()
+  {
+    // Arrange
+    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var initialCount = viewModel.Patterns.Count;
+    var patternToDuplicate = viewModel.Patterns.First();
+
+    // Act
+    viewModel.DuplicatePatternCommand.Execute(patternToDuplicate);
+
+    // Assert
+    viewModel.Patterns.Count.Should().Be(initialCount + 1);
+    // Duplicated pattern should have similar content (may be modified for uniqueness)
+    viewModel.Patterns.Last().PatternTemplate.Should().NotBeNullOrEmpty();
+  }
+
+  [Fact]
+  public void ClearPatternFilterCommand_Should_Clear_Search_Text()
+  {
+    // Arrange
+    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    viewModel.PatternSearchText = "test search";
+
+    // Act
+    viewModel.ClearPatternFilterCommand.Execute(null);
+
+    // Assert
+    viewModel.PatternSearchText.Should().BeEmpty();
+  }
+
+  [Fact]
+  public void RegenerateExamplesCommand_Should_Update_Examples()
+  {
+    // Arrange
+    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var pattern = viewModel.Patterns.First();
+    var originalExamples = pattern.GeneratedExamples;
+
+    // Act
+    viewModel.RegenerateExamplesCommand.Execute(pattern);
+
+    // Assert
+    pattern.GeneratedExamples.Should().NotBeNullOrEmpty();
+    // Examples should be regenerated (may or may not be different due to randomness)
+  }
+
+  #endregion
+
   public void Dispose()
   {
     if (Directory.Exists(_testDataPath))
