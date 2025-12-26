@@ -85,5 +85,36 @@ public partial class MainWindow : Window
             ToggleConsole(sender, e);
             e.Handled = true;
         }
+        else if (e.Key == System.Windows.Input.Key.F5)
+        {
+            if (DataContext is MainViewModel viewModel)
+            {
+                viewModel.RefreshCommand.Execute(null);
+            }
+            e.Handled = true;
+        }
+    }
+
+    private void ToggleConsole_Click(object sender, RoutedEventArgs e)
+    {
+        ToggleConsole(sender, e);
+    }
+
+    private void About_Click(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show(
+            "Game Content Builder\n\n" +
+            "Version 1.0.0\n" +
+            "Built with .NET 9.0 and Material Design\n\n" +
+            "A visual editor for game content JSON files.\n" +
+            "Use F12 to toggle the debug console.",
+            "About Game Content Builder",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+    }
+
+    private void Exit_Click(object sender, RoutedEventArgs e)
+    {
+        Application.Current.Shutdown();
     }
 }

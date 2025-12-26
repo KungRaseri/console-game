@@ -132,12 +132,19 @@
                             <TextBlock Text="Selected Reference:" 
                                        FontWeight="SemiBold" 
                                        Margin="0,0,0,8"/>
-                            <TextBox Text="{Binding SelectedReference, Mode=OneWay}"
+                            <TextBox Text="{Binding SelectedReference, Mode=OneWay, StringFormat='@{0}'}"
                                      IsReadOnly="True"
                                      FontFamily="Consolas"
                                      FontSize="13"
                                      Background="#F5F5F5"
-                                     Margin="0,0,0,16"/>
+                                     Margin="0,0,0,8"/>
+                            
+                            <!-- All Items Option -->
+                            <Button Content="{Binding SelectedReferenceType, StringFormat='Use all {0}'}"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Margin="0,0,0,16"
+                                    Click="SelectAll_Click"
+                                    ToolTip="Select all items from this catalog (no subcategory filter)"/>
                             
                             <!-- Item Details -->
                             <TextBlock Text="Item Name:" 

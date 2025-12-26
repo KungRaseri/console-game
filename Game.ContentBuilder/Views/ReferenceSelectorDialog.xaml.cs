@@ -54,6 +54,18 @@ public partial class ReferenceSelectorDialog : Window
         }
     }
 
+    private void SelectAll_Click(object sender, RoutedEventArgs e)
+    {
+        var vm = DataContext as ReferenceSelectorViewModel;
+        if (vm != null)
+        {
+            // Generate "all items" reference: @materialRef or @itemRef
+            SelectedReference = $"{vm.SelectedReferenceType}Ref";
+            DialogResult = true;
+            Close();
+        }
+    }
+
     private void Cancel_Click(object sender, RoutedEventArgs e)
     {
         DialogResult = false;

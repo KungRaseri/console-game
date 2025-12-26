@@ -357,7 +357,8 @@ public partial class NameListEditorViewModel : ObservableObject
                     var exampleParts = new List<string>();
                     foreach (var token in tokens)
                     {
-                        string componentKey = token.Trim().Replace("{", "").Replace("}", "");
+                        // Remove curly braces and square brackets
+                        string componentKey = token.Trim().Replace("{", "").Replace("}", "").Replace("[", "").Replace("]", "");
                         
                         // Special handling for "base" token (references catalog, not components)
                         if (componentKey.Equals("base", StringComparison.OrdinalIgnoreCase))
@@ -369,6 +370,19 @@ public partial class NameListEditorViewModel : ObservableObject
                             else
                             {
                                 exampleParts.Add("[base]");
+                            }
+                        }
+                        // Handle reference tokens (e.g., [@materialRef/armor] -> @materialRef/armor)
+                        else if (componentKey.StartsWith("@"))
+                        {
+                            var referenceValue = LoadReferenceValue(componentKey.Substring(1));
+                            if (!string.IsNullOrEmpty(referenceValue))
+                            {
+                                exampleParts.Add(referenceValue);
+                            }
+                            else
+                            {
+                                exampleParts.Add($"[{componentKey}]");
                             }
                         }
                         // Check if we have this component group
@@ -488,22 +502,41 @@ public partial class NameListEditorViewModel : ObservableObject
     {
         try
         {
-            // Parse reference path: "materialRef/weapon" means materials category, weapon component
+            MainWindow.AddLog($"LoadReferenceValue called with: '{referencePath}'");
+            
+            // Parse reference path:
+            // "materialRef" -> all materials
+            // "materialRef/base" -> all materials (base is synonym for all)
+            // "materialRef/woods" -> only materials from woods subcategory
             var parts = referencePath.Split('/');
-            if (parts.Length != 2)
+            if (parts.Length < 1 || parts.Length > 2)
             {
                 Log.Warning("Invalid reference format: {Reference}", referencePath);
+                MainWindow.AddLog($"Invalid reference format (expected 'categoryRef' or 'categoryRef/subcategory'): '{referencePath}'");
                 return string.Empty;
             }
 
             string categoryHint = parts[0]; // e.g., "materialRef"
-            string componentKey = parts[1]; // e.g., "weapon"
+            string? subcategoryFilter = parts.Length == 2 ? parts[1] : null; // e.g., "woods", "leathers", or "base"
+            
+            // "base" is a special case meaning "all items"
+            if (subcategoryFilter == "base")
+            {
+                subcategoryFilter = null;
+            }
+            
+            MainWindow.AddLog($"Parsed reference - Category: '{categoryHint}', Subcategory filter: '{subcategoryFilter ?? "(all)"}'");
 
             // Determine the reference file path based on category hint
             // materialRef -> items/materials/names.json
             // weaponRef -> items/weapons/names.json, etc.
             // Navigate up to the Json root folder
-            string currentDir = Path.GetDirectoryName(_fileName) ?? string.Empty;
+            
+            // Get absolute path from relative path stored in _fileName
+            string absolutePath = _jsonEditorService.GetFilePath(_fileName);
+            string currentDir = Path.GetDirectoryName(absolutePath) ?? string.Empty;
+            MainWindow.AddLog($"Current file directory: '{currentDir}'");
+            
             string? jsonRoot = null;
             
             // Walk up directories until we find "Json" folder
@@ -517,12 +550,16 @@ public partial class NameListEditorViewModel : ObservableObject
             if (string.IsNullOrEmpty(jsonRoot))
             {
                 Log.Debug("Could not find Json root directory from {Path}", _fileName);
+                MainWindow.AddLog($"Could not find Json root directory from current file");
                 return string.Empty;
             }
+            
+            MainWindow.AddLog($"Found Json root: '{jsonRoot}'");
 
             // Map category hints to paths
             string referencePath_full;
             string refCategory = categoryHint.Replace("Ref", "").ToLowerInvariant();
+            MainWindow.AddLog($"Reference category (cleaned): '{refCategory}'");
             
             // Map common reference patterns to catalog.json
             if (refCategory == "material")
@@ -541,58 +578,182 @@ public partial class NameListEditorViewModel : ObservableObject
             {
                 referencePath_full = Path.Combine(jsonRoot, "items", "consumables", "catalog.json");
             }
+            else if (refCategory == "enemy")
+            {
+                // For enemies, we need to aggregate from all enemy subcategories
+                // For now, just use a specific one if subcategoryFilter is provided
+                if (!string.IsNullOrEmpty(subcategoryFilter))
+                {
+                    referencePath_full = Path.Combine(jsonRoot, "enemies", subcategoryFilter, "catalog.json");
+                }
+                else
+                {
+                    // Default to beasts if no filter
+                    referencePath_full = Path.Combine(jsonRoot, "enemies", "beasts", "catalog.json");
+                }
+            }
+            else if (refCategory == "npc")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "npcs", "catalog.json");
+            }
+            else if (refCategory == "quest")
+            {
+                referencePath_full = Path.Combine(jsonRoot, "quests", "catalog.json");
+            }
+            else if (refCategory == "general")
+            {
+                // For generalRef, subcategory is REQUIRED (colors, adjectives, etc.)
+                if (string.IsNullOrEmpty(subcategoryFilter))
+                {
+                    MainWindow.AddLog($"ERROR: @generalRef requires a subcategory (e.g., @generalRef/colors)");
+                    return string.Empty;
+                }
+                // Look for general/{subcategory}.json
+                referencePath_full = Path.Combine(jsonRoot, "general", $"{subcategoryFilter}.json");
+            }
+            else if (refCategory == "item")
+            {
+                // For itemRef/type, look in items/type/catalog.json
+                referencePath_full = Path.Combine(jsonRoot, "items", subcategoryFilter ?? "catalog.json", "catalog.json");
+                MainWindow.AddLog($"Using itemRef pattern - path: '{referencePath_full}'");
+            }
             else
             {
-                // Default: assume items/{category}/catalog.json
+                // Default: assume items/{category}/catalog.json or {category}s/catalog.json
                 referencePath_full = Path.Combine(jsonRoot, "items", refCategory + "s", "catalog.json");
+                if (!File.Exists(referencePath_full))
+                {
+                    // Try top-level folder
+                    referencePath_full = Path.Combine(jsonRoot, refCategory + "s", "catalog.json");
+                }
             }
+            
+            MainWindow.AddLog($"Full reference path: '{referencePath_full}'");
 
             if (!File.Exists(referencePath_full))
             {
                 Log.Debug("Reference file not found: {Path}", referencePath_full);
+                MainWindow.AddLog($"Reference file NOT FOUND at: '{referencePath_full}'");
                 return string.Empty;
             }
+            
+            MainWindow.AddLog($"Reference file exists, loading...");
 
             // Load and parse the catalog file
             string json = File.ReadAllText(referencePath_full);
-            var root = JObject.Parse(json);
-
-            // Catalog structure: { "item_types": { "swords": { "items": [{"name": "Longsword"}] } } }
-            // Try common top-level keys
-            var topLevelKeys = new[] { "item_types", "beast_types", "npc_types", "types" };
             
-            foreach (var topKey in topLevelKeys)
+            // Special handling for general word lists (simple JSON arrays)
+            if (refCategory == "general")
             {
-                if (root[topKey] is JObject types && types[componentKey] is JObject typeObj && typeObj["items"] is JArray items && items.Count > 0)
+                try
+                {
+                    var wordList = JArray.Parse(json);
+                    if (wordList.Count > 0)
+                    {
+                        var random = new Random();
+                        var randomWord = wordList[random.Next(wordList.Count)].ToString();
+                        MainWindow.AddLog($"SUCCESS - Loaded general word: '{randomWord}' from {subcategoryFilter}");
+                        return randomWord;
+                    }
+                    else
+                    {
+                        MainWindow.AddLog($"FAILED - Empty word list in {referencePath_full}");
+                        return string.Empty;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MainWindow.AddLog($"ERROR parsing general word list: {ex.Message}");
+                    return string.Empty;
+                }
+            }
+            
+            var root = JObject.Parse(json);
+            MainWindow.AddLog($"Catalog loaded, top-level keys: {string.Join(", ", root.Properties().Select(p => p.Name))}");
+
+            // Generic catalog structure: Look through all top-level keys (except metadata)
+            // Try to find items in any nested structure
+            foreach (var topLevelProp in root.Properties())
+            {
+                // Skip metadata
+                if (topLevelProp.Name == "metadata" || topLevelProp.Value is not JObject types)
+                    continue;
+                
+                MainWindow.AddLog($"Checking '{topLevelProp.Name}' object with keys: {string.Join(", ", types.Properties().Select(p => p.Name))}");
+                
+                // If subcategory filter is specified, try direct match first
+                if (!string.IsNullOrEmpty(subcategoryFilter) && types[subcategoryFilter] is JObject typeObj && typeObj["items"] is JArray items && items.Count > 0)
                 {
                     var random = new Random();
                     var randomItem = items[random.Next(items.Count)] as JObject;
                     if (randomItem != null && randomItem["name"] != null)
                     {
                         var value = randomItem["name"]?.ToString() ?? string.Empty;
-                        Log.Debug("Loaded reference value '{Value}' from {Path}[{TopKey}][{Component}]", value, referencePath_full, topKey, componentKey);
+                        Log.Debug("Loaded reference value '{Value}' from {Path}[{TopKey}][{Subcategory}]", value, referencePath_full, topLevelProp.Name, subcategoryFilter);
+                        MainWindow.AddLog($"SUCCESS - Loaded reference value: '{value}' from [{topLevelProp.Name}][{subcategoryFilter}]");
                         return value;
                     }
                 }
+                
+                // If no subcategory filter or not found, collect from all subcategories (or just the filtered one)
+                var allItems = new List<JObject>();
+                foreach (var categoryProp in types.Properties())
+                {
+                    // If subcategory filter exists, only collect from that category
+                    if (!string.IsNullOrEmpty(subcategoryFilter) && categoryProp.Name != subcategoryFilter)
+                        continue;
+                    
+                    if (categoryProp.Value is JObject categoryObj && categoryObj["items"] is JArray categoryItems)
+                    {
+                        foreach (var item in categoryItems.OfType<JObject>())
+                        {
+                            if (item["name"] != null)
+                            {
+                                allItems.Add(item);
+                            }
+                        }
+                    }
+                }
+                
+                if (allItems.Count > 0)
+                {
+                    var random = new Random();
+                    var randomItem = allItems[random.Next(allItems.Count)];
+                    var value = randomItem["name"]?.ToString() ?? string.Empty;
+                    var filterMsg = !string.IsNullOrEmpty(subcategoryFilter) ? $" from '{subcategoryFilter}'" : " (all categories)";
+                    Log.Debug("Loaded reference value '{Value}' from {Path}[{TopKey}]{Filter}", value, referencePath_full, topLevelProp.Name, filterMsg);
+                    MainWindow.AddLog($"SUCCESS - Loaded reference value: '{value}' from [{topLevelProp.Name}]{filterMsg}");
+                    return value;
+                }
+                else
+                {
+                    var filterMsg = !string.IsNullOrEmpty(subcategoryFilter) ? $" in '{subcategoryFilter}'" : "";
+                    MainWindow.AddLog($"No items found in '{topLevelProp.Name}'{filterMsg}");
+                }
             }
+            
+            MainWindow.AddLog($"No match in standard catalog structure, trying components fallback...");
             
             // Fallback: try to find components structure (for names.json compatibility)
             if (root["components"] is JObject components)
             {
-                // First, try to find the exact component key
-                if (components[componentKey] is JArray componentArray && componentArray.Count > 0)
+                MainWindow.AddLog($"Found 'components' object with keys: {string.Join(", ", components.Properties().Select(p => p.Name))}");
+                
+                // If subcategory filter specified, try to find it
+                if (!string.IsNullOrEmpty(subcategoryFilter) && components[subcategoryFilter] is JArray componentArray && componentArray.Count > 0)
                 {
                     var random = new Random();
                     var randomItem = componentArray[random.Next(componentArray.Count)] as JObject;
                     if (randomItem != null && randomItem["value"] != null)
                     {
                         var value = randomItem["value"]?.ToString() ?? string.Empty;
-                        Log.Debug("Loaded reference value '{Value}' from {Path}[{Component}]", value, referencePath_full, componentKey);
+                        Log.Debug("Loaded reference value '{Value}' from {Path}[{Component}]", value, referencePath_full, subcategoryFilter);
+                        MainWindow.AddLog($"SUCCESS - Loaded reference from components[{subcategoryFilter}]: '{value}'");
                         return value;
                     }
                 }
                 
-                // If specific component not found, try to use any available component
+                // If no subcategory or not found, use any available component
                 var availableComponents = components.Properties().Where(p => p.Value is JArray arr && arr.Count > 0).ToList();
                 if (availableComponents.Any())
                 {
@@ -606,8 +767,10 @@ public partial class NameListEditorViewModel : ObservableObject
                         if (randomItem != null && randomItem["value"] != null)
                         {
                             var value = randomItem["value"]?.ToString() ?? string.Empty;
-                            Log.Debug("Loaded reference value '{Value}' from {Path}[{ActualComponent}] (requested {RequestedComponent})", 
-                                value, referencePath_full, randomProperty.Name, componentKey);
+                            var requestedMsg = !string.IsNullOrEmpty(subcategoryFilter) ? $" (requested {subcategoryFilter})" : "";
+                            Log.Debug("Loaded reference value '{Value}' from {Path}[{ActualComponent}]{RequestedMsg}", 
+                                value, referencePath_full, randomProperty.Name, requestedMsg);
+                            MainWindow.AddLog($"FALLBACK - Used '{randomProperty.Name}'{requestedMsg}: '{value}'");
                             return value;
                         }
                     }
@@ -615,10 +778,12 @@ public partial class NameListEditorViewModel : ObservableObject
             }
             
             Log.Warning("No components found in reference file: {Path}", referencePath_full);
+            MainWindow.AddLog($"FAILED - No valid data found in reference file");;
         }
         catch (Exception ex)
         {
             Log.Warning(ex, "Failed to load reference: {Reference}", referencePath);
+            MainWindow.AddLog($"ERROR loading reference: {ex.Message}");
         }
 
         return string.Empty;

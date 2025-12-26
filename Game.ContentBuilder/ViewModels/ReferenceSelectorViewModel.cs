@@ -40,12 +40,14 @@ public partial class ReferenceSelectorViewModel : ObservableObject
         _dataRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Json");
         
         // Define available reference types
-        ReferenceTypes.Add(new ReferenceTypeOption("materials", "Materials", "Diamond", "materials/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("weapons", "Weapons", "Sword", "weapons/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("armor", "Armor", "Shield", "armor/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("enemies", "Enemies", "Skull", "enemies/*/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("npcs", "NPCs", "Account", "npcs/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("items", "Items", "Package", "items/catalog.json"));
+        ReferenceTypes.Add(new ReferenceTypeOption("material", "Materials", "Diamond", "items/materials/catalog.json"));
+        ReferenceTypes.Add(new ReferenceTypeOption("weapon", "Weapons", "Sword", "items/weapons/catalog.json"));
+        ReferenceTypes.Add(new ReferenceTypeOption("armor", "Armor", "Shield", "items/armor/catalog.json"));
+        ReferenceTypes.Add(new ReferenceTypeOption("consumable", "Consumables", "Potion", "items/consumables/catalog.json"));
+        ReferenceTypes.Add(new ReferenceTypeOption("enemy", "Enemies", "Skull", "enemies/*/catalog.json"));
+        ReferenceTypes.Add(new ReferenceTypeOption("npc", "NPCs", "Account", "npcs/catalog.json"));
+        ReferenceTypes.Add(new ReferenceTypeOption("quest", "Quests", "QuestMarker", "quests/catalog.json"));
+        ReferenceTypes.Add(new ReferenceTypeOption("general", "General", "FormatListBulleted", "general/*.json"));
 
         if (initialReferenceType != null)
         {
@@ -88,7 +90,12 @@ public partial class ReferenceSelectorViewModel : ObservableObject
             var refType = ReferenceTypes.FirstOrDefault(r => r.Key == SelectedReferenceType);
             if (refType == null) return;
 
-            var catalogPath = Path.Combine(_dataRootPath, refType.CatalogPath);
+            // Handle special cases first
+            if (SelectedReferenceType == "general")
+            {
+                LoadGeneralWordLists();
+                return;
+            }
 
             // Handle wildcards for enemies (multiple category folders)
             if (refType.CatalogPath.Contains("*"))
@@ -96,6 +103,8 @@ public partial class ReferenceSelectorViewModel : ObservableObject
                 LoadEnemyCatalogs();
                 return;
             }
+
+            var catalogPath = Path.Combine(_dataRootPath, refType.CatalogPath);
 
             if (!File.Exists(catalogPath))
             {
@@ -107,13 +116,21 @@ public partial class ReferenceSelectorViewModel : ObservableObject
             var catalog = JObject.Parse(json);
 
             // Parse based on reference type
-            if (SelectedReferenceType == "materials")
+            if (SelectedReferenceType == "material")
             {
                 LoadMaterialsCatalog(catalog);
             }
-            else if (SelectedReferenceType == "weapons" || SelectedReferenceType == "armor")
+            else if (SelectedReferenceType == "weapon" || SelectedReferenceType == "armor" || SelectedReferenceType == "consumable")
             {
                 LoadEquipmentCatalog(catalog);
+            }
+            else if (SelectedReferenceType == "npc")
+            {
+                LoadNpcCatalog(catalog);
+            }
+            else if (SelectedReferenceType == "quest")
+            {
+                LoadQuestCatalog(catalog);
             }
             else
             {
@@ -161,7 +178,15 @@ public partial class ReferenceSelectorViewModel : ObservableObject
 
     private void LoadEquipmentCatalog(JObject catalog)
     {
-        var typesKey = SelectedReferenceType == "weapons" ? "weapon_types" : "armor_types";
+        // Determine the types key based on reference type
+        string typesKey = SelectedReferenceType switch
+        {
+            "weapon" => "weapon_types",
+            "armor" => "armor_types",
+            "consumable" => "consumable_types",
+            _ => SelectedReferenceType + "_types"
+        };
+        
         var types = catalog[typesKey] as JObject;
         if (types == null) return;
 
@@ -190,6 +215,112 @@ public partial class ReferenceSelectorViewModel : ObservableObject
             if (categoryNode.Items.Count > 0)
             {
                 Categories.Add(categoryNode);
+            }
+        }
+    }
+
+    private void LoadNpcCatalog(JObject catalog)
+    {
+        var npcTypes = catalog["npc_types"] as JObject;
+        if (npcTypes == null) return;
+
+        foreach (var category in npcTypes)
+        {
+            var categoryName = category.Key;
+            var categoryObj = category.Value as JObject;
+            if (categoryObj == null) continue;
+
+            var items = categoryObj["items"] as JArray;
+            if (items == null) continue;
+
+            var categoryNode = new ReferenceCategory(categoryName, categoryName);
+
+            foreach (var item in items.OfType<JObject>())
+            {
+                var name = item["name"]?.ToString();
+                if (name != null)
+                {
+                    var traits = ExtractTraits(item);
+                    categoryNode.Items.Add(new ReferenceItem(name, $"{categoryName}/{name}", traits));
+                }
+            }
+
+            if (categoryNode.Items.Count > 0)
+            {
+                Categories.Add(categoryNode);
+            }
+        }
+    }
+
+    private void LoadQuestCatalog(JObject catalog)
+    {
+        var questTypes = catalog["quest_types"] as JObject;
+        if (questTypes == null) return;
+
+        foreach (var category in questTypes)
+        {
+            var categoryName = category.Key;
+            var categoryObj = category.Value as JObject;
+            if (categoryObj == null) continue;
+
+            var items = categoryObj["items"] as JArray;
+            if (items == null) continue;
+
+            var categoryNode = new ReferenceCategory(categoryName, categoryName);
+
+            foreach (var item in items.OfType<JObject>())
+            {
+                var name = item["name"]?.ToString();
+                if (name != null)
+                {
+                    var traits = item["description"]?.ToString() ?? "";
+                    categoryNode.Items.Add(new ReferenceItem(name, $"{categoryName}/{name}", traits));
+                }
+            }
+
+            if (categoryNode.Items.Count > 0)
+            {
+                Categories.Add(categoryNode);
+            }
+        }
+    }
+
+    private void LoadGeneralWordLists()
+    {
+        var generalPath = Path.Combine(_dataRootPath, "general");
+        if (!Directory.Exists(generalPath))
+        {
+            Log.Warning("General folder not found: {Path}", generalPath);
+            return;
+        }
+
+        foreach (var jsonFile in Directory.GetFiles(generalPath, "*.json"))
+        {
+            try
+            {
+                var categoryName = Path.GetFileNameWithoutExtension(jsonFile);
+                var json = File.ReadAllText(jsonFile);
+                var data = JArray.Parse(json);
+
+                var categoryNode = new ReferenceCategory(categoryName, categoryName);
+
+                foreach (var item in data.OfType<JValue>())
+                {
+                    var value = item.ToString();
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        categoryNode.Items.Add(new ReferenceItem(value, $"{categoryName}/{value}", ""));
+                    }
+                }
+
+                if (categoryNode.Items.Count > 0)
+                {
+                    Categories.Add(categoryNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to load general word list: {File}", jsonFile);
             }
         }
     }
@@ -315,11 +446,13 @@ public partial class ReferenceSelectorViewModel : ObservableObject
     {
         if (SelectedItem != null && SelectedCategory != null)
         {
-            SelectedReference = $"{SelectedReferenceType}/{SelectedCategory.Key}/{SelectedItem.Name}";
+            // Generate reference in format: @materialRef/metals or @itemRef/weapons
+            SelectedReference = $"{SelectedReferenceType}Ref/{SelectedCategory.Key}";
         }
         else if (SelectedCategory != null)
         {
-            SelectedReference = null;
+            // Just category selected: @materialRef/metals
+            SelectedReference = $"{SelectedReferenceType}Ref/{SelectedCategory.Key}";
         }
         else
         {

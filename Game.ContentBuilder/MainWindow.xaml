@@ -28,12 +28,59 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
+                <!-- Menu Bar -->
+                <Menu Grid.Row="0"
+                      Background="{DynamicResource MaterialDesign.Brush.Background}">
+                    <MenuItem Header="_File">
+                        <MenuItem Header="_Refresh File Tree"
+                                  Command="{Binding RefreshCommand}"
+                                  InputGestureText="F5">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Refresh"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="E_xit"
+                                  Click="Exit_Click"
+                                  InputGestureText="Alt+F4">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ExitToApp"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_View">
+                        <MenuItem Header="Toggle _Console"
+                                  Click="ToggleConsole_Click"
+                                  InputGestureText="F12">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Console"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="_Preview Generated Content"
+                                  Command="{Binding ShowPreviewCommand}"
+                                  InputGestureText="Ctrl+P">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Eye"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="_Help">
+                        <MenuItem Header="_About"
+                                  Click="About_Click">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Information"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+
                 <!-- Header -->
-                <materialDesign:ColorZone Grid.Row="0"
+                <materialDesign:ColorZone Grid.Row="1"
                                           Mode="PrimaryMid"
                                           Padding="16"
                                           materialDesign:ElevationAssist.Elevation="Dp4">
@@ -108,7 +155,7 @@
                 </materialDesign:ColorZone>
 
                 <!-- Main Content Area -->
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"
                                           MinWidth="200"
