@@ -111,6 +111,7 @@
                     
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                         <TreeView x:Name="CatalogTreeView"
+                                  AutomationProperties.AutomationId="CatalogTreeView"
                                   Margin="16,8,16,8" 
                                   ItemsSource="{Binding TypeCatalogs}" 
                                   BorderThickness="0"
@@ -146,6 +147,7 @@
                     
                     <StackPanel Grid.Row="2" Margin="16,12,16,16">                        
                         <Button Command="{Binding AddCategoryCommand}" 
+                                AutomationProperties.AutomationId="CategoryAddButton"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 Margin="0,0,0,4">
                             <StackPanel Orientation="Horizontal">
@@ -154,6 +156,7 @@
                             </StackPanel>
                         </Button>
                         <Button Command="{Binding AddItemCommand}" 
+                                AutomationProperties.AutomationId="ItemAddButton"
                                 Style="{StaticResource MaterialDesignOutlinedButton}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" Margin="0,0,4,0"/>
@@ -328,6 +331,7 @@
                 
                 <Button Grid.Column="1"
                         Command="{Binding SaveCommand}"
+                        AutomationProperties.AutomationId="SaveButton"
                         Content="SAVE CHANGES"
                         Style="{StaticResource MaterialDesignRaisedButton}"/>
             </Grid>
