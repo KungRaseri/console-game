@@ -32,24 +32,20 @@ public static class FileTypeDetector
 
             switch (fileName)
             {
-                case "catalog.json" when directoryName == "quests":
-                    return JsonFileType.QuestCatalog;
-
-                case "catalog.json":
-                    return JsonFileType.GenericCatalog;
-
+                // Active v4.0 Files
                 case "names.json":
                     return JsonFileType.NamesFile;
 
                 case "abilities.json":
                     return JsonFileType.AbilityCatalog;
 
-                case "traits.json":
-                    return JsonFileType.Traits;
+                case "catalog.json" when directoryName == "quests":
+                    return JsonFileType.QuestCatalog;  // Planned v4.0
 
-                case "quest_templates.json":
-                    return JsonFileType.QuestTemplate;
+                case "catalog.json":
+                    return JsonFileType.GenericCatalog;
 
+                // Planned v4.0 Files
                 case "rewards.json":
                 case "objectives.json":
                     return JsonFileType.QuestData;
@@ -75,17 +71,15 @@ public static class FileTypeDetector
 
         return fileType switch
         {
+            // Active v4.0 Editors
             JsonFileType.NamesFile => EditorType.NameListEditor,
-            JsonFileType.CatelogFile => EditorType.ItemCatalogEditor,
             JsonFileType.AbilityCatalog => EditorType.AbilitiesEditor,
             JsonFileType.GenericCatalog => EditorType.CatalogEditor,
-            JsonFileType.NameCatalog => EditorType.NameCatalogEditor,
-            JsonFileType.QuestCatalog => EditorType.QuestCatalogEditor,
-            JsonFileType.QuestData => EditorType.QuestDataEditor,
-            JsonFileType.Configuration => EditorType.ConfigEditor,
-            JsonFileType.ComponentCatalog => EditorType.ComponentEditor,
-            JsonFileType.MaterialCatalog => EditorType.MaterialEditor,
-            JsonFileType.Traits => EditorType.TraitEditor,
+            
+            // Planned v4.0 Editors (not implemented yet)
+            JsonFileType.QuestCatalog => EditorType.QuestEditor,
+            JsonFileType.QuestData => EditorType.QuestEditor,
+            
             _ => EditorType.None
         };
     }
@@ -131,24 +125,19 @@ public static class FileTypeDetector
 }
 
 /// <summary>
-/// Types of JSON files in the game data structure
+/// Types of JSON files in the game data structure (v4.0)
 /// </summary>
 public enum JsonFileType
 {
     Unknown,
+    
+    // Active v4.0 File Types
     NamesFile,          // names.json - pattern generation files
-    CatelogFile,        // catalog.json - item catalog files
     AbilityCatalog,     // abilities.json - ability catalog files
-    GenericCatalog,     // Generic catalogs (occupations, traits, dialogue, etc.)
-    NameCatalog,        // Name lists (first_names, last_names)
-    QuestTemplate,      // Quest template files (OLD - v3.x)
-    QuestCatalog,       // Quest catalog.json (NEW - v4.0: templates + locations)
-    QuestData,          // Quest objectives, rewards, locations
-    Configuration,      // Configuration files (rarity_config, etc.)
-    ComponentCatalog,   // Component catalogs (like materials/names.json)
-    MaterialCatalog,    // Material type catalogs (materials/catalog.json)
-    PrefixSuffix,       // Legacy prefix/suffix files
-    Traits,             // Trait definition files
-    General             // General configuration files
+    GenericCatalog,     // Generic catalogs (occupations, traits, dialogue, items, etc.)
+    
+    // Planned v4.0 File Types
+    QuestCatalog,       // Quest catalog.json (v4.0: templates + locations)
+    QuestData           // Quest objectives, rewards, locations (v4.0)
 }
 
