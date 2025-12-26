@@ -100,10 +100,12 @@
                     <ListBox Grid.Row="1"
                              ItemsSource="{Binding Categories}"
                              SelectedItem="{Binding SelectedCategory}"
-                             Margin="8">
+                             Margin="8"
+                             AutomationProperties.AutomationId="CategoryList">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal"
+                                            AutomationProperties.AutomationId="CategoryItem">
                                     <materialDesign:PackIcon Kind="FolderOutline" 
                                                            VerticalAlignment="Center"
                                                            Margin="0,0,8,0"/>
@@ -155,7 +157,8 @@
                         <Button Grid.Column="1"
                                 Command="{Binding AddItemCommand}"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
-                                materialDesign:ButtonAssist.CornerRadius="4">
+                                materialDesign:ButtonAssist.CornerRadius="4"
+                                AutomationProperties.AutomationId="ItemAddButton">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Plus" 
                                                        VerticalAlignment="Center"
@@ -169,7 +172,8 @@
                 <!-- Items List -->
                 <ScrollViewer Grid.Row="1" 
                             VerticalScrollBarVisibility="Auto"
-                            Padding="8">
+                            Padding="8"
+                            AutomationProperties.AutomationId="ItemList">
                     <ItemsControl ItemsSource="{Binding Items}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -178,7 +182,8 @@
                                        Padding="16,12"
                                        CornerRadius="4"
                                        Visibility="{Binding IsVisible, Converter={StaticResource BoolToVis}}"
-                                       materialDesign:ElevationAssist.Elevation="Dp2">
+                                       materialDesign:ElevationAssist.Elevation="Dp2"
+                                       AutomationProperties.AutomationId="ItemCard">
 
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -225,7 +230,8 @@
                                             <Button Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                    CommandParameter="{Binding}"
                                                    Style="{StaticResource MaterialDesignIconButton}"
-                                                   ToolTip="Delete">
+                                                   ToolTip="Delete"
+                                                   AutomationProperties.AutomationId="ItemDeleteButton">
                                                 <materialDesign:PackIcon Kind="Delete" Foreground="#EF5350"/>
                                             </Button>
                                         </StackPanel>
@@ -249,7 +255,8 @@
                     BorderThickness="1,0,0,0">
                 <Grid>
                     <!-- Edit Mode Content -->
-                    <Grid Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
+                    <Grid Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}"
+                          AutomationProperties.AutomationId="ItemDetailsPanel">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
@@ -276,7 +283,8 @@
                             <TextBox Text="{Binding EditName, UpdateSourceTrigger=PropertyChanged}"
                                     materialDesign:HintAssist.Hint="Name (Internal)"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    Margin="0,0,0,16"/>
+                                    Margin="0,0,0,16"
+                                    AutomationProperties.AutomationId="NameTextBox"/>
 
                             <TextBox Text="{Binding EditDisplayName, UpdateSourceTrigger=PropertyChanged}"
                                     materialDesign:HintAssist.Hint="Display Name"
@@ -290,19 +298,22 @@
                                     AcceptsReturn="True"
                                     MinLines="3"
                                     MaxLines="6"
-                                    Margin="0,0,0,16"/>
+                                    Margin="0,0,0,16"
+                                    AutomationProperties.AutomationId="DescriptionTextBox"/>
 
                             <TextBox Text="{Binding EditRarityWeight, UpdateSourceTrigger=PropertyChanged}"
                                     materialDesign:HintAssist.Hint="Rarity Weight"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    Margin="0,0,0,16"/>
+                                    Margin="0,0,0,16"
+                                    AutomationProperties.AutomationId="RarityWeightTextBox"/>
 
                             <!-- Dynamic Properties -->
                             <Border Background="{DynamicResource MaterialDesign.Brush.Background}"
                                    Padding="12"
                                    CornerRadius="4"
                                    Margin="0,16,0,0"
-                                   Visibility="{Binding DynamicProperties.Count, Converter={StaticResource NotZeroToVisibilityConverter}}">
+                                   Visibility="{Binding DynamicProperties.Count, Converter={StaticResource NotZeroToVisibilityConverter}}"
+                                   AutomationProperties.AutomationId="CustomFieldsPanel">
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                                         <TextBlock Text="Additional Properties"
@@ -312,7 +323,8 @@
                                                Style="{StaticResource MaterialDesignIconButton}"
                                                Width="24" Height="24"
                                                Margin="8,0,0,0"
-                                               ToolTip="Add Property">
+                                               ToolTip="Add Property"
+                                               AutomationProperties.AutomationId="CustomFieldAddButton">
                                             <materialDesign:PackIcon Kind="Plus" Width="16" Height="16"/>
                                         </Button>
                                     </StackPanel>
@@ -368,7 +380,8 @@
                                                            Style="{StaticResource MaterialDesignIconButton}"
                                                            Width="24" Height="24"
                                                            VerticalAlignment="Top"
-                                                           ToolTip="Remove Property">
+                                                           ToolTip="Remove Property"
+                                                           AutomationProperties.AutomationId="CustomFieldDeleteButton">
                                                         <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
                                                     </Button>
                                                 </Grid>

@@ -41,7 +41,8 @@
                                                  FontSize="14"
                                                  FontWeight="SemiBold"
                                                  VerticalAlignment="Center"
-                                                 Margin="0,0,12,0"/>
+                                                 Margin="0,0,12,0"
+                                                 AutomationProperties.AutomationId="ComponentValueTextBox"/>
                                         
                                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                                                 <TextBlock Text="Weight:" Margin="0,0,6,0" VerticalAlignment="Center" FontSize="11" Foreground="Gray"/>
@@ -61,7 +62,8 @@
                                                 Width="28" Height="28"
                                                 Padding="0"
                                                 Margin="8,0,0,0"
-                                                ToolTip="Remove this component">
+                                                ToolTip="Remove this component"
+                                                AutomationProperties.AutomationId="ComponentValueDeleteButton">
                                                 <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
                                         </Button>
                                                 </Grid>
@@ -178,7 +180,8 @@
                                                 Style="{StaticResource MaterialDesignIconButton}"
                                                 Width="24" Height="24"
                                                 Padding="0"
-                                                ToolTip="Add component to this group">
+                                                ToolTip="Add component to this group"
+                                                AutomationProperties.AutomationId="ComponentValueAddButton">
                                                 <materialDesign:PackIcon Kind="Plus" Width="16" Height="16"/>
                                         </Button>
                                         
@@ -197,7 +200,8 @@
                 
                 <!-- Pattern Template with Examples -->
                 <DataTemplate x:Key="PatternItemTemplate">
-                        <materialDesign:Card Margin="0,0,0,8" Padding="12">
+                        <materialDesign:Card Margin="0,0,0,8" Padding="12"
+                                             AutomationProperties.AutomationId="PatternCard">
                                 <Grid>
                                         <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
@@ -222,7 +226,8 @@
                                                         Padding="8"
                                                         Margin="0,0,8,0"
                                                         MinHeight="48"
-                                                        ToolTip="Pattern badges - Click component buttons below to add tokens. Drag badges to reorder. {base} is required.">
+                                                        ToolTip="Pattern badges - Click component buttons below to add tokens. Drag badges to reorder. {base} is required."
+                                                        AutomationProperties.AutomationId="TemplateTextBox">
                                                         <ItemsControl ItemsSource="{Binding Tokens}"
                                                                       AllowDrop="True">
                                                                 <ItemsControl.ItemsPanel>
@@ -240,6 +245,7 @@
                                                                                         Cursor="Hand"
                                                                                         AllowDrop="True"
                                                                                         Tag="{Binding}"
+                                                                                        AutomationProperties.AutomationId="TokenBadge"
                                                                                         PreviewMouseLeftButtonDown="Badge_PreviewMouseLeftButtonDown"
                                                                                         MouseMove="Badge_MouseMove"
                                                                                         Drop="Badge_Drop"
@@ -362,6 +368,7 @@
                                                                 <!-- Quick Insert: Top 3 Most Common -->
                                                                 <Button Content="@materialRef"
                                                                         Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        AutomationProperties.AutomationId="ReferenceInsertButton"
                                                                         Style="{StaticResource MaterialDesignOutlinedButton}"
                                                                         Height="24"
                                                                         Padding="8,0"
@@ -413,6 +420,7 @@
                                                                 <Button Command="{Binding DataContext.BrowseReferenceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                         CommandParameter="{Binding}"
                                                                         IsEnabled="{Binding DataContext.SelectedPattern.IsReadOnly, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource InverseBooleanConverter}}"
+                                                                        AutomationProperties.AutomationId="BrowseReferencesButton"
                                                                         Style="{StaticResource MaterialDesignFlatButton}"
                                                                         Height="24"
                                                                         Padding="8,0"
@@ -436,14 +444,16 @@
                                                 Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                 TextWrapping="Wrap"
                                                 Margin="0,6,0,0"
-                                                FontSize="11"/>
+                                                FontSize="11"
+                                                AutomationProperties.AutomationId="DescriptionTextBox"/>
                                         
                                         <!-- Example Generated Names -->
                                         <Border Grid.Row="3" 
                                                 Background="#F5F5F5" 
                                                 CornerRadius="4" 
                                                 Padding="8,6"
-                                                Margin="0,8,0,0">
+                                                Margin="0,8,0,0"
+                                                AutomationProperties.AutomationId="ExamplesPanel">
                                                 <Grid>
                                                         <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="*"/>
@@ -701,14 +711,16 @@
                                                 Style="{StaticResource MaterialDesignIconButton}"
                                                 ToolTip="Remove selected pattern"
                                                 IsEnabled="{Binding SelectedPattern.IsReadOnly, Converter={StaticResource InverseBooleanConverter}}"
-                                                Margin="0,0,4,0">
+                                                Margin="0,0,4,0"
+                                                AutomationProperties.AutomationId="PatternDeleteButton">
                                                 <materialDesign:PackIcon Kind="Minus"/>
                                         </Button>
                                         
                                         <Button Grid.Column="3"
                                                 Command="{Binding AddPatternCommand}"
                                                 Style="{StaticResource MaterialDesignIconButton}"
-                                                ToolTip="Add new pattern">
+                                                ToolTip="Add new pattern"
+                                                AutomationProperties.AutomationId="PatternAddButton">
                                                 <materialDesign:PackIcon Kind="Plus"/>
                                         </Button>
                                 </Grid>
@@ -757,7 +769,8 @@
                         Background="{DynamicResource MaterialDesignPaper}"
                         BorderBrush="#E0E0E0"
                         BorderThickness="0,1,0,0"
-                        Padding="16,8">
+                        Padding="16,8"
+                        AutomationProperties.AutomationId="StatusBar">
                         <Grid>
                                 <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
