@@ -17,6 +17,7 @@
         <!-- Collapsible Metadata Header -->
         <Expander Grid.Row="0" 
                   IsExpanded="False"
+                  AutomationProperties.AutomationId="MetadataExpander"
                   materialDesign:ExpanderAssist.HorizontalHeaderPadding="16,12"
                   Background="{DynamicResource MaterialDesignPaper}"
                   Margin="0,0,0,8">
@@ -330,29 +331,32 @@
         </Grid>
 
         <!-- Status Bar -->
-        <Border Grid.Row="2"
-                Background="{DynamicResource MaterialDesignPaper}"
-                BorderBrush="#E0E0E0"
-                BorderThickness="0,1,0,0"
-                Padding="16,8">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <TextBlock Grid.Column="0"
-                           VerticalAlignment="Center"
-                           FontSize="12"
-                           Text="{Binding StatusMessage}"/>
-                
-                <Button Grid.Column="1"
-                        Command="{Binding SaveCommand}"
-                        AutomationProperties.AutomationId="SaveButton"
-                        Content="SAVE CHANGES"
-                        Style="{StaticResource MaterialDesignRaisedButton}"/>
-            </Grid>
-        </Border>
+        <StatusBar Grid.Row="2"
+                   Background="{DynamicResource MaterialDesignPaper}"
+                   BorderBrush="#E0E0E0"
+                   BorderThickness="0,1,0,0"
+                   Padding="16,8"
+                   AutomationProperties.AutomationId="StatusBar">
+            <StatusBarItem HorizontalContentAlignment="Stretch">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Column="0"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               Text="{Binding StatusMessage}"/>
+                    
+                    <Button Grid.Column="1"
+                            Command="{Binding SaveCommand}"
+                            AutomationProperties.AutomationId="SaveButton"
+                            Content="SAVE CHANGES"
+                            Style="{StaticResource MaterialDesignRaisedButton}"/>
+                </Grid>
+            </StatusBarItem>
+        </StatusBar>
 
 
     </Grid>
