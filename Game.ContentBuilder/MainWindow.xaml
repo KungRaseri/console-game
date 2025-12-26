@@ -196,7 +196,8 @@
                 <materialDesign:ColorZone Grid.Row="2"
                                           Mode="PrimaryLight"
                                           Padding="12,8"
-                                          materialDesign:ElevationAssist.Elevation="Dp2">
+                                          materialDesign:ElevationAssist.Elevation="Dp2"
+                                          AutomationProperties.AutomationId="StatusBar">
                     <DockPanel>
                         <materialDesign:PackIcon Kind="InformationOutline"
                                                  Width="16"

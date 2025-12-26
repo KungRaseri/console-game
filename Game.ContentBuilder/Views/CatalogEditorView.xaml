@@ -26,7 +26,7 @@
                     <TextBlock Text="METADATA" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
                 </StackPanel>
             </Expander.Header>
-            <Grid Margin="16">
+            <Grid Margin="16" AutomationProperties.AutomationId="MetadataPanel">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -42,6 +42,7 @@
                          FontSize="12"
                          materialDesign:HintAssist.Hint="Description"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         AutomationProperties.AutomationId="CatalogDescriptionTextBox"
                          Text="{Binding MetadataDescription, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <TextBox Grid.Row="0" Grid.Column="1"
@@ -56,6 +57,7 @@
                          FontSize="12"
                          materialDesign:HintAssist.Hint="Version"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         AutomationProperties.AutomationId="CatalogVersionTextBox"
                          Text="{Binding MetadataVersion, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <TextBox Grid.Row="1" Grid.Column="1"
@@ -112,6 +114,7 @@
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                         <TreeView x:Name="CatalogTreeView"
                                   AutomationProperties.AutomationId="CatalogTreeView"
+                                  AutomationProperties.Name="Category Tree View"
                                   Margin="16,8,16,8" 
                                   ItemsSource="{Binding TypeCatalogs}" 
                                   BorderThickness="0"
@@ -128,7 +131,8 @@
                                                 <materialDesign:PackIcon Kind="FolderOutline" VerticalAlignment="Center" Margin="0,0,4,0"/>
                                                 <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
                                                          BorderThickness="0" Background="Transparent"
-                                                         MinWidth="100"/>
+                                                         MinWidth="100"
+                                                         AutomationProperties.AutomationId="CategoryNameTextBox"/>
                                             </StackPanel>
                                             <HierarchicalDataTemplate.ItemTemplate>
                                                 <DataTemplate>
@@ -147,7 +151,7 @@
                     
                     <StackPanel Grid.Row="2" Margin="16,12,16,16">                        
                         <Button Command="{Binding AddCategoryCommand}" 
-                                AutomationProperties.AutomationId="CategoryAddButton"
+                                AutomationProperties.AutomationId="AddCategoryButton"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 Margin="0,0,0,4">
                             <StackPanel Orientation="Horizontal">
@@ -156,7 +160,7 @@
                             </StackPanel>
                         </Button>
                         <Button Command="{Binding AddItemCommand}" 
-                                AutomationProperties.AutomationId="ItemAddButton"
+                                AutomationProperties.AutomationId="AddItemButton"
                                 Style="{StaticResource MaterialDesignOutlinedButton}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" Margin="0,0,4,0"/>
@@ -193,7 +197,8 @@
                         <StackPanel>
                             <!-- Category Traits Section -->
                             <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="0,0,0,16" Margin="0,0,0,16"
-                                    Visibility="{Binding ShowCategoryTraits, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    Visibility="{Binding ShowCategoryTraits, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    AutomationProperties.AutomationId="CategoryTraitsPanel">
                                 <StackPanel DataContext="{Binding SelectedCategory}">
                                     <TextBlock Text="Category Traits" 
                                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
@@ -203,7 +208,8 @@
                                                FontWeight="SemiBold"
                                                Margin="0,0,0,12"/>
 
-                                    <ItemsControl ItemsSource="{Binding Traits}">
+                                    <ItemsControl ItemsSource="{Binding Traits}"
+                                                  AutomationProperties.AutomationId="CategoryTraitsList">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid Margin="0,0,0,8">
@@ -226,7 +232,8 @@
                                                             Command="{Binding DataContext.RemoveTraitCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                             CommandParameter="{Binding Key}"
                                                             Style="{StaticResource MaterialDesignIconButton}"
-                                                            ToolTip="Remove trait">
+                                                            ToolTip="Remove trait"
+                                                            AutomationProperties.AutomationId="DeleteTraitButton">
                                                         <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
                                                     </Button>
                                                 </Grid>
@@ -236,6 +243,7 @@
 
                                     <Button Command="{Binding DataContext.AddTraitCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                             Style="{StaticResource MaterialDesignOutlinedButton}"
+                                            AutomationProperties.AutomationId="AddTraitButton"
                                             Margin="0,8,0,0">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" Margin="0,0,4,0"/>
@@ -247,22 +255,27 @@
 
                             <!-- Item Details Section -->
                             <StackPanel DataContext="{Binding SelectedItem}"
-                                        Visibility="{Binding Converter={StaticResource NotNullToVisibilityConverter}}">
+                                        Visibility="{Binding Converter={StaticResource NotNullToVisibilityConverter}}"
+                                        AutomationProperties.AutomationId="ItemDetailsPanel">
                             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                                      materialDesign:HintAssist.Hint="Item Name"
                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     AutomationProperties.AutomationId="ItemNameTextBox"
                                      Margin="0,0,0,16"/>
 
                             <TextBox Text="{Binding RarityWeight, UpdateSourceTrigger=PropertyChanged}"
                                      materialDesign:HintAssist.Hint="Rarity Weight"
                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     AutomationProperties.AutomationId="ItemRarityWeightTextBox"
+                                     ToolTip="Numeric weight for rarity calculation"
                                      Margin="0,0,0,16"/>
 
                             <TextBlock Text="Properties" 
                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                        Margin="0,0,0,8"/>
 
-                            <ItemsControl ItemsSource="{Binding Properties}">
+                            <ItemsControl ItemsSource="{Binding Properties}"
+                                          AutomationProperties.AutomationId="ItemPropertiesPanel">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Grid Margin="0,0,0,8">
@@ -274,11 +287,13 @@
                                                      Text="{Binding Key, UpdateSourceTrigger=PropertyChanged}"
                                                      materialDesign:HintAssist.Hint="Key"
                                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     AutomationProperties.AutomationId="CustomFieldKeyTextBox"
                                                      Margin="0,0,4,0"/>
                                             <TextBox Grid.Column="1"
                                                      Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                                      materialDesign:HintAssist.Hint="Value"
                                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     AutomationProperties.AutomationId="CustomFieldValueTextBox"
                                                      Margin="4,0,0,0"/>
                                         </Grid>
                                     </DataTemplate>
@@ -287,6 +302,7 @@
 
                             <Button Command="{Binding DataContext.AddPropertyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    AutomationProperties.AutomationId="AddCustomFieldButton"
                                     Margin="0,8,0,16">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Plus" VerticalAlignment="Center" Margin="0,0,4,0"/>
@@ -298,7 +314,8 @@
                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                        Margin="0,0,0,8"/>
 
-                            <ItemsControl ItemsSource="{Binding Traits}">
+                            <ItemsControl ItemsSource="{Binding Traits}"
+                                          AutomationProperties.AutomationId="ItemTraitsPanel">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding}" Margin="0,0,0,4"/>

@@ -83,6 +83,7 @@
                              Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:HintAssist.Hint="Search abilities..."
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             AutomationProperties.AutomationId="SearchTextBox"
                              Margin="0,0,8,0">
                         <TextBox.InputBindings>
                             <KeyBinding Key="Escape" Command="{Binding ClearSearchCommand}"/>
@@ -96,6 +97,7 @@
                               SelectedItem="{Binding FilterRarity}"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}"
                               materialDesign:HintAssist.Hint="Rarity"
+                              AutomationProperties.AutomationId="FilterRarityComboBox"
                               Margin="0,0,8,0"/>
 
                     <!-- Clear Button -->
@@ -135,6 +137,7 @@
                         <Button Command="{Binding AddAbilityCommand}" 
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 ToolTip="Add Ability"
+                                AutomationProperties.AutomationId="AddAbilityButton"
                                 Margin="8,0,0,0">
                             <materialDesign:PackIcon Kind="Plus"/>
                         </Button>
@@ -144,6 +147,7 @@
                     <ListView Grid.Row="1" 
                               ItemsSource="{Binding FilteredAbilities}"
                               SelectedItem="{Binding SelectedAbility}"
+                              AutomationProperties.AutomationId="AbilitiesListView"
                               Margin="8,0,8,8">
                         <ListView.View>
                             <GridView>
@@ -213,6 +217,7 @@
                         <Button Command="{Binding EditAbilityCommand}" 
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 ToolTip="Edit Ability"
+                                AutomationProperties.AutomationId="EditAbilityButton"
                                 Margin="8,0,0,0"
                                 IsEnabled="{Binding SelectedAbility, Converter={StaticResource NotNullToBooleanConverter}}"
                                 Visibility="{Binding IsEditing, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
@@ -221,6 +226,7 @@
                         <Button Command="{Binding DeleteAbilityCommand}" 
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 ToolTip="Delete Ability"
+                                AutomationProperties.AutomationId="DeleteAbilityButton"
                                 IsEnabled="{Binding SelectedAbility, Converter={StaticResource NotNullToBooleanConverter}}"
                                 Visibility="{Binding IsEditing, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                             <materialDesign:PackIcon Kind="Delete"/>
@@ -276,6 +282,7 @@
                             <TextBox Text="{Binding EditName, UpdateSourceTrigger=PropertyChanged}"
                                      materialDesign:HintAssist.Hint="Name (required)"
                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     AutomationProperties.AutomationId="AbilityNameTextBox"
                                      Margin="0,0,0,16"/>
 
                             <TextBox Text="{Binding EditDisplayName, UpdateSourceTrigger=PropertyChanged}"
@@ -286,6 +293,7 @@
                             <TextBox Text="{Binding EditDescription, UpdateSourceTrigger=PropertyChanged}"
                                      materialDesign:HintAssist.Hint="Description"
                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     AutomationProperties.AutomationId="AbilityDescriptionTextBox"
                                      TextWrapping="Wrap"
                                      AcceptsReturn="True"
                                      MinLines="3"
@@ -294,7 +302,8 @@
 
                             <ComboBox SelectedItem="{Binding EditRarity}"
                                       Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                      materialDesign:HintAssist.Hint="Rarity">
+                                      materialDesign:HintAssist.Hint="Rarity"
+                                      AutomationProperties.AutomationId="AbilityRarityComboBox">
                                 <ComboBox.ItemsSource>
                                     <x:Array Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                                         <sys:String>Common</sys:String>
@@ -335,7 +344,7 @@
         </Grid>
 
         <!-- Status Bar -->
-        <materialDesign:Card Grid.Row="4" Margin="8">
+        <materialDesign:Card Grid.Row="4" Margin="8" AutomationProperties.AutomationId="StatusBar">
             <Grid Margin="16,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
