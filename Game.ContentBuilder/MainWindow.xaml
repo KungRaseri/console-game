@@ -28,7 +28,6 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -79,83 +78,8 @@
                     </MenuItem>
                 </Menu>
 
-                <!-- Header -->
-                <materialDesign:ColorZone Grid.Row="1"
-                                          Mode="PrimaryMid"
-                                          Padding="16"
-                                          materialDesign:ElevationAssist.Elevation="Dp4">
-                    <DockPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="GamepadVariant"
-                                                     Width="32"
-                                                     Height="32"
-                                                     VerticalAlignment="Center"
-                                                     Margin="0,0,12,0"/>
-                            <TextBlock Text="{Binding Title}"
-                                       VerticalAlignment="Center"
-                                       FontSize="22"
-                                       FontWeight="Medium"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Right"
-                                    DockPanel.Dock="Right">
-                            <Button Content="REFRESH"
-                                    Command="{Binding RefreshCommand}"
-                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                    Margin="0,0,8,0"
-                                    ToolTip="Reload file tree from disk to pick up new/deleted files">
-                                <Button.ContentTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="Refresh"
-                                                                     VerticalAlignment="Center"
-                                                                     Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding}"
-                                                       VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </Button.ContentTemplate>
-                            </Button>
-                            <Button Content="PREVIEW"
-                                    Command="{Binding ShowPreviewCommand}"
-                                    Style="{StaticResource MaterialDesignRaisedButton}"
-                                    Margin="0,0,8,0"
-                                    ToolTip="Preview generated content using current JSON data">
-                                <Button.ContentTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="EyeOutline"
-                                                                     VerticalAlignment="Center"
-                                                                     Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding}"
-                                                       VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </Button.ContentTemplate>
-                            </Button>
-                            <Button Content="EXIT"
-                                    Command="{Binding ExitCommand}"
-                                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    ToolTip="Close the application">
-                                <Button.ContentTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="ExitToApp"
-                                                                     VerticalAlignment="Center"
-                                                                     Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding}"
-                                                       VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </Button.ContentTemplate>
-                            </Button>
-                        </StackPanel>
-                    </DockPanel>
-                </materialDesign:ColorZone>
-
                 <!-- Main Content Area -->
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"
                                           MinWidth="200"
@@ -168,7 +92,7 @@
                     <!-- Left Panel - TreeView Navigation -->
                     <Border Grid.Column="0"
                             Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
-                            Margin="16,16,8,16"
+                            Margin="16,16,8,0"
                             CornerRadius="4"
                             materialDesign:ElevationAssist.Elevation="Dp2">
                         <Grid>
@@ -230,7 +154,7 @@
                     <!-- Right Panel - Editor Area -->
                     <Border Grid.Column="2"
                             Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
-                            Margin="8,16,16,16"
+                            Margin="8,16,16,0"
                             CornerRadius="4"
                             materialDesign:ElevationAssist.Elevation="Dp2">
                         <ContentControl Content="{Binding CurrentEditor}">

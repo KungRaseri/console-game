@@ -22,4 +22,12 @@
     <ProjectReference Include="..\Game.Shared\Game.Shared.csproj" />
   </ItemGroup>
 
+  <!-- Copy Data/Json folder to output directory -->
+  <ItemGroup>
+    <None Include="Data\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Data\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </None>
+  </ItemGroup>
+
 </Project>

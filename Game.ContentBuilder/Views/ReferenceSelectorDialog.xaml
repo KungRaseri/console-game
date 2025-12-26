@@ -8,10 +8,6 @@
         WindowStartupLocation="CenterOwner"
         Style="{StaticResource MaterialDesignWindow}">
     
-    <Window.DataContext>
-        <vm:ReferenceSelectorViewModel/>
-    </Window.DataContext>
-    
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -10,7 +10,7 @@ namespace Game.ContentBuilder.ViewModels;
 public partial class ReferenceSelectorViewModel : ObservableObject
 {
     [ObservableProperty]
-    private string _selectedReferenceType = "materials";
+    private string _selectedReferenceType = "material";
 
     [ObservableProperty]
     private ObservableCollection<ReferenceTypeOption> _referenceTypes = new();
@@ -37,7 +37,50 @@ public partial class ReferenceSelectorViewModel : ObservableObject
 
     public ReferenceSelectorViewModel(string? initialReferenceType = null)
     {
-        _dataRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Json");
+        // Try multiple path resolution strategies
+        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        var dataPath = Path.Combine(baseDir, "Data", "Json");
+        
+        // Check if actual catalog files exist, not just the directory
+        var testCatalogPath = Path.Combine(dataPath, "items", "materials", "catalog.json");
+        
+        if (!File.Exists(testCatalogPath))
+        {
+            MainWindow.AddLog($"Test catalog not found at: {testCatalogPath}");
+            // Navigate up from bin/Debug/net9.0-windows to solution root
+            var binFolder = baseDir; // e.g., C:\...\Game.ContentBuilder\bin\Debug\net9.0-windows
+            var projectFolder = Directory.GetParent(binFolder)?.Parent?.Parent?.FullName; // e.g., C:\...\Game.ContentBuilder
+            MainWindow.AddLog($"Project folder: {projectFolder}");
+            
+            if (projectFolder != null)
+            {
+                var solutionFolder = Directory.GetParent(projectFolder)?.FullName; // e.g., C:\...\console-game
+                MainWindow.AddLog($"Solution folder: {solutionFolder}");
+                
+                if (solutionFolder != null)
+                {
+                    var gameDataPath = Path.Combine(solutionFolder, "Game.Data", "Data", "Json");
+                    MainWindow.AddLog($"Trying Game.Data path: {gameDataPath}");
+                    
+                    if (Directory.Exists(gameDataPath))
+                    {
+                        dataPath = gameDataPath;
+                        MainWindow.AddLog($"SUCCESS - Found Game.Data path!");
+                    }
+                    else
+                    {
+                        MainWindow.AddLog($"[ERROR] Game.Data path does not exist!");
+                    }
+                }
+            }
+        }
+        else
+        {
+            MainWindow.AddLog($"Test catalog found in bin directory");
+        }
+        
+        _dataRootPath = dataPath;
+        MainWindow.AddLog($"ReferenceSelectorViewModel initialized with data path: {_dataRootPath}");
         
         // Define available reference types
         ReferenceTypes.Add(new ReferenceTypeOption("material", "Materials", "Diamond", "items/materials/catalog.json"));
@@ -59,6 +102,7 @@ public partial class ReferenceSelectorViewModel : ObservableObject
 
     partial void OnSelectedReferenceTypeChanged(string value)
     {
+        MainWindow.AddLog($"OnSelectedReferenceTypeChanged: {value}");
         LoadCatalog();
     }
 
@@ -81,14 +125,23 @@ public partial class ReferenceSelectorViewModel : ObservableObject
 
     private void LoadCatalog()
     {
+        MainWindow.AddLog($"LoadCatalog called for type: {SelectedReferenceType}");
+        MainWindow.AddLog($"Categories collection before clear: {Categories.Count}");
         Categories.Clear();
         SelectedCategory = null;
         SelectedItem = null;
+        MainWindow.AddLog($"Categories cleared. Count: {Categories.Count}");
 
         try
         {
             var refType = ReferenceTypes.FirstOrDefault(r => r.Key == SelectedReferenceType);
-            if (refType == null) return;
+            if (refType == null)
+            {
+                MainWindow.AddLog($"Reference type not found: {SelectedReferenceType}");
+                return;
+            }
+            MainWindow.AddLog($"Found reference type: {refType.DisplayName}, path: {refType.CatalogPath}");
+            
 
             // Handle special cases first
             if (SelectedReferenceType == "general")
@@ -105,12 +158,15 @@ public partial class ReferenceSelectorViewModel : ObservableObject
             }
 
             var catalogPath = Path.Combine(_dataRootPath, refType.CatalogPath);
+            MainWindow.AddLog($"Looking for catalog at: {catalogPath}");
 
             if (!File.Exists(catalogPath))
             {
                 Log.Warning("Catalog not found: {Path}", catalogPath);
+                MainWindow.AddLog($"[ERROR] Catalog file not found: {catalogPath}");
                 return;
             }
+            MainWindow.AddLog("Catalog file found, reading...");
 
             var json = File.ReadAllText(catalogPath);
             var catalog = JObject.Parse(json);
@@ -136,17 +192,26 @@ public partial class ReferenceSelectorViewModel : ObservableObject
             {
                 LoadGenericCatalog(catalog);
             }
+            
+            MainWindow.AddLog($"LoadCatalog complete. Final Categories.Count: {Categories.Count}");
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to load catalog for {Type}", SelectedReferenceType);
+            MainWindow.AddLog($"[ERROR] Exception in LoadCatalog: {ex.Message}");
         }
     }
 
     private void LoadMaterialsCatalog(JObject catalog)
     {
+        MainWindow.AddLog("LoadMaterialsCatalog called");
         var materialTypes = catalog["material_types"] as JObject;
-        if (materialTypes == null) return;
+        if (materialTypes == null)
+        {
+            MainWindow.AddLog("[ERROR] material_types not found in catalog");
+            return;
+        }
+        MainWindow.AddLog($"Found {materialTypes.Count} material categories");
 
         foreach (var category in materialTypes)
         {
@@ -172,8 +237,10 @@ public partial class ReferenceSelectorViewModel : ObservableObject
             if (categoryNode.Items.Count > 0)
             {
                 Categories.Add(categoryNode);
+                MainWindow.AddLog($"Added category: {categoryName} with {categoryNode.Items.Count} items");
             }
         }
+        MainWindow.AddLog($"LoadMaterialsCatalog complete. Total categories: {Categories.Count}");
     }
 
     private void LoadEquipmentCatalog(JObject catalog)
