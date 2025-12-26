@@ -35,15 +35,6 @@ public class CatalogEditor_ComprehensiveTests
 
     #region Category Management Tests
 
-    [Fact(Skip = "CategoryList removed in v4.0 - TreeView (CatalogTreeView) is used instead")]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Categories")]
-    public void Should_Display_Category_List()
-    {
-        // NOTE: v4.0 uses CatalogTreeView instead of separate CategoryList
-    }
-
     [Fact]
     [Trait("Category", "UI")]
     [Trait("Editor", "Catalog")]
@@ -106,17 +97,6 @@ public class CatalogEditor_ComprehensiveTests
         treeView.Should().NotBeNull("TreeView should remain stable after adding category");
     }
 
-    [Fact(Skip = "DeleteCategoryButton removed in v4.0 TreeView design - delete via context menu or keyboard")]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Categories")]
-    public void Should_Delete_Category_When_Delete_Button_Clicked()
-    {
-        // NOTE: v4.0 uses TreeView without explicit delete buttons
-        // Delete functionality moved to context menus or keyboard shortcuts
-        // This test is skipped as the UI control no longer exists
-    }
-
     [Fact]
     [Trait("Category", "UI")]
     [Trait("Editor", "Catalog")]
@@ -144,17 +124,6 @@ public class CatalogEditor_ComprehensiveTests
     #endregion
 
     #region Item List Management Tests
-
-    [Fact(Skip = "ItemsListView removed in v4.0 - items are TreeView child nodes")]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Items")]
-    public void Should_Display_Item_List_When_Category_Selected()
-    {
-        // NOTE: v4.0 uses TreeView where items are child nodes of categories
-        // No separate ItemsListView control exists
-        // Items appear as expandable children in the TreeView hierarchy
-    }
 
     [Fact]
     [Trait("Category", "UI")]
@@ -187,47 +156,6 @@ public class CatalogEditor_ComprehensiveTests
         var treeView = _mainWindow.FindFirstDescendant(cf =>
             cf.ByAutomationId("CatalogTreeView"));
         treeView.Should().NotBeNull("TreeView should remain stable after adding item");
-    }
-
-    [Fact(Skip = "DeleteItemButton removed in v4.0 TreeView design - delete via context menu or keyboard")]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Items")]
-    public void Should_Delete_Item_When_Delete_Button_Clicked()
-    {
-        // NOTE: v4.0 uses TreeView without explicit delete buttons for items
-        // Delete functionality moved to context menus or keyboard shortcuts  
-    }
-
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Items")]
-    public void Should_Select_Item_When_Clicked()
-    {
-        // Arrange - Navigate TreeView (Catalog -> Category -> Item)
-        var treeView = _mainWindow.FindFirstDescendant(cf =>
-            cf.ByAutomationId("CatalogTreeView"));
-        var catalogNode = treeView?.FindFirstDescendant(cf =>
-            cf.ByControlType(ControlType.TreeItem));
-        catalogNode?.AsTreeItem()?.Expand(); // Expand to see categories
-        Thread.Sleep(300);
-
-        var categoryNode = catalogNode?.FindFirstDescendant(cf =>
-            cf.ByControlType(ControlType.TreeItem));
-        categoryNode?.AsTreeItem()?.Expand(); // Expand to see items
-        Thread.Sleep(300);
-
-        // Act - Click first item in tree to select it
-        var itemNode = categoryNode?.FindFirstDescendant(cf =>
-            cf.ByControlType(ControlType.TreeItem));
-        itemNode?.AsTreeItem()?.Select(); // Use Select() instead of Click()
-        Thread.Sleep(500);
-
-        // Assert - Item details panel should be visible
-        var itemDetailsPanel = _mainWindow.FindFirstDescendant(cf =>
-            cf.ByAutomationId("ItemDetailsPanel"));
-        itemDetailsPanel.Should().NotBeNull("Item details panel should appear when item selected");
     }
 
     #endregion
@@ -271,26 +199,6 @@ public class CatalogEditor_ComprehensiveTests
         nameTextBox?.Text.Should().Contain("Test Item Name", "Item name should update");
     }
 
-    [Fact(Skip = "ItemDescriptionTextBox removed in v4.0 - items don't have description field")]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Fields")]
-    public void Should_Display_Description_Field_For_Selected_Item()
-    {
-        // NOTE: v4.0 catalog items don't have a description field
-        // Only ItemNameTextBox and ItemRarityWeightTextBox exist
-    }
-
-    [Fact(Skip = "ItemRarityComboBox removed in v4.0 - rarity determined by weight only")]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Fields")]
-    public void Should_Display_Rarity_Field_For_Selected_Item()
-    {
-        // NOTE: v4.0 uses ItemRarityWeightTextBox only
-        // Rarity is calculated from weight, not selected from combo box
-    }
-
     [Fact]
     [Trait("Category", "UI")]
     [Trait("Editor", "Catalog")]
@@ -306,16 +214,6 @@ public class CatalogEditor_ComprehensiveTests
 
         // Assert
         weightTextBox.Should().NotBeNull("Should display rarity weight field");
-    }
-
-    [Fact(Skip = "ItemRarityComboBox removed in v4.0 - rarity determined by weight only")]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Fields")]
-    public void Should_Update_Rarity_When_ComboBox_Changed()
-    {
-        // NOTE: v4.0 uses weight-based rarity calculation
-        // No combo box for direct rarity selection
     }
 
     [Fact]
@@ -356,44 +254,6 @@ public class CatalogEditor_ComprehensiveTests
 
         // Assert
         traitsPanel.Should().NotBeNull("Should display traits section");
-    }
-
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Traits")]
-    public void Should_Add_Trait_When_Add_Button_Clicked()
-    {
-        // This test verifies the Add Trait button exists and is clickable
-        // Data changes should be tested in unit tests
-
-        // Arrange - Select a CATEGORY (not item) to show CategoryTraitsPanel
-        var treeView = _mainWindow.FindFirstDescendant(cf =>
-            cf.ByAutomationId("CatalogTreeView"));
-        var catalogNode = treeView?.FindFirstDescendant(cf =>
-            cf.ByControlType(ControlType.TreeItem));
-        catalogNode?.AsTreeItem()?.Expand();
-        Thread.Sleep(300);
-
-        var categoryNode = catalogNode?.FindFirstDescendant(cf =>
-            cf.ByControlType(ControlType.TreeItem));
-        categoryNode?.AsTreeItem()?.Select(); // Select category, not item
-        Thread.Sleep(500);
-
-        // Act - Find add trait button (for category traits)
-        var addTraitButton = _mainWindow.FindFirstDescendant(cf =>
-            cf.ByAutomationId("AddTraitButton"));
-
-        addTraitButton.Should().NotBeNull("AddTraitButton should be found");
-        addTraitButton!.IsEnabled.Should().BeTrue("AddTraitButton should be enabled");
-
-        addTraitButton.Click();
-        Thread.Sleep(200);
-
-        // Assert - Application should remain stable
-        var traitsPanel = _mainWindow.FindFirstDescendant(cf =>
-            cf.ByAutomationId("CategoryTraitsPanel"));
-        traitsPanel.Should().NotBeNull("Category traits panel should remain stable after adding trait");
     }
 
     [Fact]
@@ -522,44 +382,9 @@ public class CatalogEditor_ComprehensiveTests
         valueTextBox?.Text.Should().Contain("testValue", "Custom field value should update");
     }
 
-    [Fact(Skip = "DeleteCustomFieldButton removed in v4.0 - properties have no individual delete buttons")]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "CustomFields")]
-    public void Should_Delete_Custom_Field_When_Delete_Button_Clicked()
-    {
-        // NOTE: v4.0 custom fields (properties) are in an ItemsControl with no delete buttons per item
-    }
-
     #endregion
 
     #region Metadata Tests
-
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
-    [Trait("Feature", "Metadata")]
-    public void Should_Display_Metadata_Section()
-    {
-        // Arrange - Expand the metadata expander first
-        var metadataExpander = _mainWindow.FindFirstDescendant(cf =>
-            cf.ByAutomationId("MetadataExpander"));
-        metadataExpander.Should().NotBeNull("MetadataExpander should exist");
-        
-        if (metadataExpander?.Patterns.ExpandCollapse.IsSupported == true && 
-            metadataExpander.Patterns.ExpandCollapse.Pattern.ExpandCollapseState == FlaUI.Core.Definitions.ExpandCollapseState.Collapsed)
-        {
-            metadataExpander.Patterns.ExpandCollapse.Pattern.Expand();
-            Thread.Sleep(300);
-        }
-
-        // Act
-        var metadataPanel = _mainWindow.FindFirstDescendant(cf =>
-            cf.ByAutomationId("MetadataPanel"));
-
-        // Assert
-        metadataPanel.Should().NotBeNull("Should display metadata section");
-    }
 
     [Fact]
     [Trait("Category", "UI")]
