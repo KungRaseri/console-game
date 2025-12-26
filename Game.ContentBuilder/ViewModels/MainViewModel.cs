@@ -102,28 +102,6 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
-    private void LoadItemEditor(string fileName)
-    {
-        try
-        {
-            Log.Debug("Loading ItemEditor for {FileName}", fileName);
-            var viewModel = new ItemEditorViewModel(_jsonEditorService, fileName);
-            var view = new ItemEditorView
-            {
-                DataContext = viewModel
-            };
-            CurrentEditor = view;
-            StatusMessage = $"Loaded editor for {fileName}";
-            Log.Information("ItemEditor loaded successfully for {FileName}", fileName);
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Failed to load editor: {ex.Message}";
-            Log.Error(ex, "Failed to load ItemEditor for {FileName}", fileName);
-            CurrentEditor = null;
-        }
-    }
-
     private void LoadNameListEditor(string fileName)
     {
         try
@@ -142,53 +120,6 @@ public partial class MainViewModel : ObservableObject
         {
             StatusMessage = $"Failed to load editor: {ex.Message}";
             Log.Error(ex, "Failed to load NameListEditor for {FileName}", fileName);
-            CurrentEditor = null;
-        }
-    }
-
-    private void LoadHybridArrayEditor(string fileName)
-    {
-        try
-        {
-            Log.Debug("Loading HybridArrayEditor for {FileName}", fileName);
-            var viewModel = new HybridArrayEditorViewModel(_jsonEditorService, fileName);
-            var view = new HybridArrayEditorView
-            {
-                DataContext = viewModel
-            };
-            CurrentEditor = view;
-            StatusMessage = $"Loaded hybrid array editor for {fileName}";
-            Log.Information("HybridArrayEditor loaded successfully for {FileName}", fileName);
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Failed to load hybrid array editor: {ex.Message}";
-            Log.Error(ex, "Failed to load HybridArrayEditor for {FileName}", fileName);
-            CurrentEditor = null;
-        }
-    }
-
-    private void LoadNamesEditor(string fileName)
-    {
-        try
-        {
-            Log.Debug("Loading NamesEditor for {FileName}", fileName);
-
-            var viewModel = new NamesEditorViewModel(_jsonEditorService, fileName);
-
-            var view = new NamesEditorView
-            {
-                DataContext = viewModel
-            };
-
-            CurrentEditor = view;
-            StatusMessage = $"Loaded names editor for {fileName}";
-            Log.Information("NamesEditor loaded successfully for {FileName}", fileName);
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Failed to load names editor: {ex.Message}";
-            Log.Error(ex, "Failed to load NamesEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }
@@ -243,82 +174,6 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
-    private void LoadGenericCatalogEditor(string fileName)
-    {
-        try
-        {
-            Log.Debug("Loading GenericCatalogEditor for {FileName}", fileName);
-
-            var viewModel = new GenericCatalogEditorViewModel(_jsonEditorService, fileName);
-
-            var view = new GenericCatalogEditorView
-            {
-                DataContext = viewModel
-            };
-
-            CurrentEditor = view;
-            StatusMessage = $"Loaded catalog editor for {fileName}";
-            Log.Information("GenericCatalogEditor loaded successfully for {FileName}", fileName);
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Failed to load catalog editor: {ex.Message}";
-            Log.Error(ex, "Failed to load GenericCatalogEditor for {FileName}", fileName);
-            CurrentEditor = null;
-        }
-    }
-
-    private void LoadQuestCatalogEditor(string fileName)
-    {
-        try
-        {
-            Log.Debug("Loading QuestCatalogEditor for {FileName}", fileName);
-
-            var viewModel = new QuestCatalogEditorViewModel(_jsonEditorService, fileName);
-
-            // Create view (we'll need to create this next)
-            var view = new Views.QuestCatalogEditorView
-            {
-                DataContext = viewModel
-            };
-
-            CurrentEditor = view;
-            StatusMessage = $"Loaded quest catalog editor (v4.0) for {fileName}";
-            Log.Information("QuestCatalogEditor loaded successfully for {FileName}", fileName);
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Failed to load quest catalog editor: {ex.Message}";
-            Log.Error(ex, "Failed to load QuestCatalogEditor for {FileName}", fileName);
-            CurrentEditor = null;
-        }
-    }
-
-    private void LoadQuestDataEditor(string fileName)
-    {
-        try
-        {
-            Log.Debug("Loading QuestDataEditor for {FileName}", fileName);
-
-            var viewModel = new QuestDataEditorViewModel(_jsonEditorService, fileName);
-
-            var view = new Views.QuestDataEditorView
-            {
-                DataContext = viewModel
-            };
-
-            CurrentEditor = view;
-            StatusMessage = $"Loaded quest data editor (v4.0) for {fileName}";
-            Log.Information("QuestDataEditor loaded successfully for {FileName}", fileName);
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Failed to load quest data editor: {ex.Message}";
-            Log.Error(ex, "Failed to load QuestDataEditor for {FileName}", fileName);
-            CurrentEditor = null;
-        }
-    }
-
     [RelayCommand]
     private void ShowPreview()
     {
@@ -369,31 +224,6 @@ public partial class MainViewModel : ObservableObject
     {
         Log.Information("Exit command invoked");
         System.Windows.Application.Current.Shutdown();
-    }
-
-    private void LoadNameCatalogEditor(string fileName)
-    {
-        try
-        {
-            Log.Debug("Loading NameCatalogEditor for {FileName}", fileName);
-
-            var viewModel = new NameCatalogEditorViewModel(_jsonEditorService, fileName);
-
-            var view = new NameCatalogEditorView
-            {
-                DataContext = viewModel
-            };
-
-            CurrentEditor = view;
-            StatusMessage = $"Loaded name catalog editor for {fileName}";
-            Log.Information("NameCatalogEditor loaded successfully for {FileName}", fileName);
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Failed to load name catalog editor: {ex.Message}";
-            Log.Error(ex, "Failed to load NameCatalogEditor for {FileName}", fileName);
-            CurrentEditor = null;
-        }
     }
 }
 

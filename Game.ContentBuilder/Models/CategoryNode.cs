@@ -49,24 +49,19 @@ public class CategoryNode
 }
 
 /// <summary>
-/// Types of editors available in the content builder
+/// Types of editors available in the content builder (v4.0 Clean Architecture)
 /// </summary>
 public enum EditorType
 {
     None,
-    // V4.0 specialized editors
-    NameListEditor,           // names.json editor: metadata + components + patterns + traits
-    ItemCatalogEditor,     // catalog.json editor (renamed from TypesEditor (files: types.json -> catalog.json)): metadata + *_types catalog
-    ComponentEditor,       // Component catalog editor (e.g., materials/names.json)
-    MaterialEditor,        // Material catalog editor (materials/catalog.json)
-    TraitEditor,           // Trait definition editor
-
-    // New editors for comprehensive data coverage
-    AbilitiesEditor,       // ability_catalog: enemy abilities
-    CatalogEditor,         // Generic catalog: occupations, dialogue, traits, etc.
-    NameCatalogEditor,     // name_catalog/surname_catalog: NPC names
-    QuestCatalogEditor,    // quest catalog.json: templates + locations (v4.0)
-    QuestDataEditor,       // quest_objectives/rewards (v4.0)
-    ConfigEditor           // configuration: rarity_config, etc.
+    
+    // Active Editors (v4.0)
+    NameListEditor,        // names.json: metadata + components + patterns + name generation
+    CatalogEditor,         // catalog.json: item types (weapons, armor, etc.) with categories
+    AbilitiesEditor,       // abilities.json: enemy ability catalog with rarity
+    
+    // Future Editors (Planned for v4.0)
+    QuestEditor,           // quests/catalog.json: quest templates, objectives, rewards
+    NpcEditor              // npcs/: occupations, dialogues, shops, traits
 }
 
