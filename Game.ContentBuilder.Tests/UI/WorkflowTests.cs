@@ -237,6 +237,6 @@ public class WorkflowTests
         }
         
         catalogItem!.AsTreeItem().Select();
-        Thread.Sleep(3000); // Give editor time to fully load
+        Thread.Sleep(1000);
     }
 }

@@ -758,7 +758,8 @@
                                         
                         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="12">
                                 <ItemsControl ItemsSource="{Binding FilteredPatterns}"
-                                              ItemTemplate="{StaticResource PatternItemTemplate}"/>
+                                              ItemTemplate="{StaticResource PatternItemTemplate}"
+                                              AutomationProperties.AutomationId="PatternsList"/>
                         </ScrollViewer>
                 </Grid>
                         </materialDesign:Card>

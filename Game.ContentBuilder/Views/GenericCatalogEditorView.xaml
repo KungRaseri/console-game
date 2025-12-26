@@ -174,7 +174,8 @@
                             VerticalScrollBarVisibility="Auto"
                             Padding="8"
                             AutomationProperties.AutomationId="ItemList">
-                    <ItemsControl ItemsSource="{Binding Items}">
+                    <ItemsControl ItemsSource="{Binding Items}"
+                                  AutomationProperties.AutomationId="ItemsControlInner">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
@@ -329,7 +330,8 @@
                                         </Button>
                                     </StackPanel>
 
-                                    <ItemsControl ItemsSource="{Binding DynamicProperties}">
+                                    <ItemsControl ItemsSource="{Binding DynamicProperties}"
+                                                  AutomationProperties.AutomationId="CustomFieldsItemsControl">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid Margin="0,0,0,12">
