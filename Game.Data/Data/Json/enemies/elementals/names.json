@@ -6,18 +6,18 @@
                      "type":  "pattern_generation",
                      "elemental_categories":  4,
                      "componentKeys":  [
-                                            "element",
-                                            "size",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "element",
+                                           "size",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "patternTokens":  [
-                                            "base",
-                                            "element",
-                                            "size",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "base",
+                                           "element",
+                                           "size",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "totalPatterns":  7,
                      "raritySystem":  "weight-based",
                      "notes":  [
@@ -175,13 +175,34 @@
                                  ]
                    },
     "patterns":  [
-                     "base",
-                     "{element} {base}",
-                     "{size} {element} {base}",
-                     "{descriptive} {element} {base}",
-                     "{element} {base} {title}",
-                     "{size} {descriptive} {element} {base}",
-                     "{size} {descriptive} {element} {base} {title}"
+                     {
+                         "rarityWeight":  50,
+                         "pattern":  "base"
+                     },
+                     {
+                         "rarityWeight":  40,
+                         "pattern":  "{element} {base}"
+                     },
+                     {
+                         "rarityWeight":  35,
+                         "pattern":  "{size} {element} {base}"
+                     },
+                     {
+                         "rarityWeight":  30,
+                         "pattern":  "{descriptive} {element} {base}"
+                     },
+                     {
+                         "rarityWeight":  25,
+                         "pattern":  "{element} {base} {title}"
+                     },
+                     {
+                         "rarityWeight":  20,
+                         "pattern":  "{size} {descriptive} {element} {base}"
+                     },
+                     {
+                         "rarityWeight":  15,
+                         "pattern":  "{size} {descriptive} {element} {base} {title}"
+                     }
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for elementals. Pick components by rarityWeight and apply patterns to generate procedural names."

@@ -6,20 +6,20 @@
                      "type":  "pattern_generation",
                      "humanoid_categories":  4,
                      "componentKeys":  [
-                                            "profession",
-                                            "rank",
-                                            "specialization",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "profession",
+                                           "rank",
+                                           "specialization",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "patternTokens":  [
-                                            "base",
-                                            "profession",
-                                            "rank",
-                                            "specialization",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "base",
+                                           "profession",
+                                           "rank",
+                                           "specialization",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "totalPatterns":  7,
                      "raritySystem":  "weight-based",
                      "notes":  [
@@ -232,13 +232,34 @@
                                  ]
                    },
     "patterns":  [
-                     "base",
-                     "profession",
-                     "{rank} {profession}",
-                     "{profession} {specialization}",
-                     "{rank} {profession} {title}",
-                     "{descriptive} {profession} {specialization}",
-                     "{rank} {descriptive} {profession} {specialization} {title}"
+                     {
+                         "rarityWeight":  50,
+                         "pattern":  "base"
+                     },
+                     {
+                         "rarityWeight":  40,
+                         "pattern":  "profession"
+                     },
+                     {
+                         "rarityWeight":  35,
+                         "pattern":  "{rank} {profession}"
+                     },
+                     {
+                         "rarityWeight":  30,
+                         "pattern":  "{profession} {specialization}"
+                     },
+                     {
+                         "rarityWeight":  25,
+                         "pattern":  "{rank} {profession} {title}"
+                     },
+                     {
+                         "rarityWeight":  20,
+                         "pattern":  "{descriptive} {profession} {specialization}"
+                     },
+                     {
+                         "rarityWeight":  15,
+                         "pattern":  "{rank} {descriptive} {profession} {specialization} {title}"
+                     }
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for humanoids. Pick components by rarityWeight and apply patterns to generate procedural names."

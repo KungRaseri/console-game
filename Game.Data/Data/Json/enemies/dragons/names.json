@@ -6,18 +6,18 @@
                      "type":  "pattern_generation",
                      "dragon_categories":  3,
                      "componentKeys":  [
-                                            "age",
-                                            "color",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "age",
+                                           "color",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "patternTokens":  [
-                                            "base",
-                                            "age",
-                                            "color",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "base",
+                                           "age",
+                                           "color",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "totalPatterns":  7,
                      "raritySystem":  "weight-based",
                      "notes":  [
@@ -199,13 +199,34 @@
                                  ]
                    },
     "patterns":  [
-                     "base",
-                     "{color} {base}",
-                     "{age} {base}",
-                     "{age} {color} {base}",
-                     "{descriptive} {base}",
-                     "{age} {color} {base} {title}",
-                     "{age} {descriptive} {color} {base} {title}"
+                     {
+                         "rarityWeight":  50,
+                         "pattern":  "base"
+                     },
+                     {
+                         "rarityWeight":  40,
+                         "pattern":  "{color} {base}"
+                     },
+                     {
+                         "rarityWeight":  35,
+                         "pattern":  "{age} {base}"
+                     },
+                     {
+                         "rarityWeight":  30,
+                         "pattern":  "{age} {color} {base}"
+                     },
+                     {
+                         "rarityWeight":  25,
+                         "pattern":  "{descriptive} {base}"
+                     },
+                     {
+                         "rarityWeight":  20,
+                         "pattern":  "{age} {color} {base} {title}"
+                     },
+                     {
+                         "rarityWeight":  15,
+                         "pattern":  "{age} {descriptive} {color} {base} {title}"
+                     }
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for dragons. Pick components by rarityWeight and apply patterns to generate procedural names."

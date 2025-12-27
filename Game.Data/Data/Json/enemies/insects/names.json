@@ -5,18 +5,18 @@
                      "lastUpdated":  "2025-12-17",
                      "type":  "pattern_generation",
                      "componentKeys":  [
-                                            "size",
-                                            "type",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "size",
+                                           "type",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "patternTokens":  [
-                                            "base",
-                                            "size",
-                                            "type",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "base",
+                                           "size",
+                                           "type",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "totalPatterns":  8,
                      "raritySystem":  "weight-based",
                      "notes":  [
@@ -129,14 +129,38 @@
                                  ]
                    },
     "patterns":  [
-                     "base",
-                     "{size} {base}",
-                     "{type} {base}",
-                     "{descriptive} {base}",
-                     "{base} {title}",
-                     "{size} {type} {base}",
-                     "{descriptive} {base} {title}",
-                     "{size} {type} {base} {title}"
+                     {
+                         "rarityWeight":  50,
+                         "pattern":  "base"
+                     },
+                     {
+                         "rarityWeight":  40,
+                         "pattern":  "{size} {base}"
+                     },
+                     {
+                         "rarityWeight":  35,
+                         "pattern":  "{type} {base}"
+                     },
+                     {
+                         "rarityWeight":  30,
+                         "pattern":  "{descriptive} {base}"
+                     },
+                     {
+                         "rarityWeight":  25,
+                         "pattern":  "{base} {title}"
+                     },
+                     {
+                         "rarityWeight":  20,
+                         "pattern":  "{size} {type} {base}"
+                     },
+                     {
+                         "rarityWeight":  15,
+                         "pattern":  "{descriptive} {base} {title}"
+                     },
+                     {
+                         "rarityWeight":  10,
+                         "pattern":  "{size} {type} {base} {title}"
+                     }
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for insects. Pick components by rarityWeight and apply patterns to generate procedural names."

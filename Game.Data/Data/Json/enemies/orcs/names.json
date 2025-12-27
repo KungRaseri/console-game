@@ -5,18 +5,18 @@
                      "lastUpdated":  "2025-12-17",
                      "type":  "pattern_generation",
                      "componentKeys":  [
-                                            "rank",
-                                            "clan",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "rank",
+                                           "clan",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "patternTokens":  [
-                                            "base",
-                                            "rank",
-                                            "clan",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "base",
+                                           "rank",
+                                           "clan",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "totalPatterns":  8,
                      "raritySystem":  "weight-based",
                      "notes":  [
@@ -160,14 +160,38 @@
                                  ]
                    },
     "patterns":  [
-                     "base",
-                     "{rank} {base}",
-                     "{descriptive} {base}",
-                     "{base} {title}",
-                     "{clan} {base}",
-                     "{rank} {clan} {base}",
-                     "{descriptive} {base} {title}",
-                     "{rank} {clan} {base} {title}"
+                     {
+                         "rarityWeight":  50,
+                         "pattern":  "base"
+                     },
+                     {
+                         "rarityWeight":  40,
+                         "pattern":  "{rank} {base}"
+                     },
+                     {
+                         "rarityWeight":  35,
+                         "pattern":  "{descriptive} {base}"
+                     },
+                     {
+                         "rarityWeight":  30,
+                         "pattern":  "{base} {title}"
+                     },
+                     {
+                         "rarityWeight":  25,
+                         "pattern":  "{clan} {base}"
+                     },
+                     {
+                         "rarityWeight":  20,
+                         "pattern":  "{rank} {clan} {base}"
+                     },
+                     {
+                         "rarityWeight":  15,
+                         "pattern":  "{descriptive} {base} {title}"
+                     },
+                     {
+                         "rarityWeight":  10,
+                         "pattern":  "{rank} {clan} {base} {title}"
+                     }
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for orcs. Pick components by rarityWeight and apply patterns to generate procedural names."

@@ -159,13 +159,34 @@
         ]
     },
     "patterns": [
-        "base",
-        "{rank} {base}",
-        "{descriptive} {base}",
-        "{aspect} {base}",
-        "{rank} {aspect} {base}",
-        "{descriptive} {base} {title}",
-        "{rank} {descriptive} {aspect} {base} {title}"
+        {
+            "rarityWeight": 50,
+            "pattern": "base"
+        },
+        {
+            "rarityWeight": 40,
+            "pattern": "{rank} {base}"
+        },
+        {
+            "rarityWeight": 35,
+            "pattern": "{descriptive} {base}"
+        },
+        {
+            "rarityWeight": 30,
+            "pattern": "{aspect} {base}"
+        },
+        {
+            "rarityWeight": 25,
+            "pattern": "{rank} {aspect} {base}"
+        },
+        {
+            "rarityWeight": 20,
+            "pattern": "{descriptive} {base} {title}"
+        },
+        {
+            "rarityWeight": 15,
+            "pattern": "{rank} {descriptive} {aspect} {base} {title}"
+        }
     ],
     "notes": {
         "usage": "Pattern-based name generation for demons. Pick components by rarityWeight and apply patterns to generate procedural names."

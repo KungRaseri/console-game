@@ -5,18 +5,18 @@
                      "lastUpdated":  "2025-12-17",
                      "type":  "pattern_generation",
                      "componentKeys":  [
-                                            "age",
-                                            "type",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "age",
+                                           "type",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "patternTokens":  [
-                                            "base",
-                                            "age",
-                                            "type",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "base",
+                                           "age",
+                                           "type",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "totalPatterns":  8,
                      "raritySystem":  "weight-based",
                      "notes":  [
@@ -137,14 +137,38 @@
                                  ]
                    },
     "patterns":  [
-                     "base",
-                     "{age} {base}",
-                     "{type} {base}",
-                     "{descriptive} {base}",
-                     "{base} {title}",
-                     "{age} {type} {base}",
-                     "{descriptive} {base} {title}",
-                     "{age} {type} {base} {title}"
+                     {
+                         "rarityWeight":  50,
+                         "pattern":  "base"
+                     },
+                     {
+                         "rarityWeight":  40,
+                         "pattern":  "{age} {base}"
+                     },
+                     {
+                         "rarityWeight":  35,
+                         "pattern":  "{type} {base}"
+                     },
+                     {
+                         "rarityWeight":  30,
+                         "pattern":  "{descriptive} {base}"
+                     },
+                     {
+                         "rarityWeight":  25,
+                         "pattern":  "{base} {title}"
+                     },
+                     {
+                         "rarityWeight":  20,
+                         "pattern":  "{age} {type} {base}"
+                     },
+                     {
+                         "rarityWeight":  15,
+                         "pattern":  "{descriptive} {base} {title}"
+                     },
+                     {
+                         "rarityWeight":  10,
+                         "pattern":  "{age} {type} {base} {title}"
+                     }
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for plants. Pick components by rarityWeight and apply patterns to generate procedural names."

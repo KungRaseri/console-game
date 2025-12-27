@@ -5,18 +5,18 @@
                      "lastUpdated":  "2025-12-17",
                      "type":  "pattern_generation",
                      "componentKeys":  [
-                                            "size",
-                                            "scale",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "size",
+                                           "scale",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "patternTokens":  [
-                                            "base",
-                                            "size",
-                                            "scale",
-                                            "descriptive",
-                                            "title"
-                                        ],
+                                           "base",
+                                           "size",
+                                           "scale",
+                                           "descriptive",
+                                           "title"
+                                       ],
                      "totalPatterns":  8,
                      "raritySystem":  "weight-based",
                      "notes":  [
@@ -140,14 +140,38 @@
                                  ]
                    },
     "patterns":  [
-                     "base",
-                     "{size} {base}",
-                     "{scale} {base}",
-                     "{descriptive} {base}",
-                     "{base} {title}",
-                     "{size} {scale} {base}",
-                     "{descriptive} {base} {title}",
-                     "{size} {scale} {base} {title}"
+                     {
+                         "rarityWeight":  50,
+                         "pattern":  "base"
+                     },
+                     {
+                         "rarityWeight":  40,
+                         "pattern":  "{size} {base}"
+                     },
+                     {
+                         "rarityWeight":  35,
+                         "pattern":  "{scale} {base}"
+                     },
+                     {
+                         "rarityWeight":  30,
+                         "pattern":  "{descriptive} {base}"
+                     },
+                     {
+                         "rarityWeight":  25,
+                         "pattern":  "{base} {title}"
+                     },
+                     {
+                         "rarityWeight":  20,
+                         "pattern":  "{size} {scale} {base}"
+                     },
+                     {
+                         "rarityWeight":  15,
+                         "pattern":  "{descriptive} {base} {title}"
+                     },
+                     {
+                         "rarityWeight":  10,
+                         "pattern":  "{size} {scale} {base} {title}"
+                     }
                  ],
     "notes":  {
                   "usage":  "Pattern-based name generation for reptilians. Pick components by rarityWeight and apply patterns to generate procedural names."
