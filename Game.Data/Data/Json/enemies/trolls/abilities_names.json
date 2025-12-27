@@ -1,0 +1,301 @@
+﻿{
+    "patterns":  [
+                     {
+                         "weight":  40,
+                         "pattern":  "[base]",
+                         "example":  "Ability Name"
+                     },
+                     {
+                         "weight":  35,
+                         "pattern":  "[prefix] [base]",
+                         "example":  "Enhanced Ability Name"
+                     },
+                     {
+                         "weight":  20,
+                         "pattern":  "[base] [suffix]",
+                         "example":  "Ability Name of Power"
+                     },
+                     {
+                         "weight":  5,
+                         "pattern":  "[prefix] [base] [suffix]",
+                         "example":  "Enhanced Ability Name of Power"
+                     }
+                 ],
+    "components":  {
+                       "prefix":  [
+                                      {
+                                          "rarityWeight":  10,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  2,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Enhanced"
+                                      },
+                                      {
+                                          "rarityWeight":  35,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  3,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Superior"
+                                      },
+                                      {
+                                          "rarityWeight":  75,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  5,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Legendary"
+                                      }
+                                  ],
+                       "suffix":  [
+                                      {
+                                          "rarityWeight":  10,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  1,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "of Power"
+                                      },
+                                      {
+                                          "rarityWeight":  35,
+                                          "traits":  {
+                                                         "cooldownReduction":  {
+                                                                                   "value":  2,
+                                                                                   "type":  "number"
+                                                                               }
+                                                     },
+                                          "value":  "of Mastery"
+                                      },
+                                      {
+                                          "rarityWeight":  75,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  3,
+                                                                             "type":  "number"
+                                                                         },
+                                                         "cooldownReduction":  {
+                                                                                   "value":  5,
+                                                                                   "type":  "number"
+                                                                               }
+                                                     },
+                                          "value":  "of the Gods"
+                                      }
+                                  ],
+                       "base":  [
+                                    {
+                                        "rarityWeight":  10,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "Regeneration",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "Regeneration"
+                                    },
+                                    {
+                                        "rarityWeight":  10,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "ThickSkin",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "ThickSkin"
+                                    },
+                                    {
+                                        "rarityWeight":  10,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "Massive",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "Massive"
+                                    },
+                                    {
+                                        "rarityWeight":  35,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "FireWeakness",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "FireWeakness"
+                                    },
+                                    {
+                                        "rarityWeight":  35,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "RockThrow",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "RockThrow"
+                                    },
+                                    {
+                                        "rarityWeight":  35,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "Smash",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "Smash"
+                                    },
+                                    {
+                                        "rarityWeight":  35,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "StoneForm",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "StoneForm"
+                                    },
+                                    {
+                                        "rarityWeight":  75,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "Rage",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "Rage"
+                                    },
+                                    {
+                                        "rarityWeight":  75,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "ClubMaster",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "ClubMaster"
+                                    },
+                                    {
+                                        "rarityWeight":  75,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "MountainStrength",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "MountainStrength"
+                                    },
+                                    {
+                                        "rarityWeight":  75,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "CaveAdaptation",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "CaveAdaptation"
+                                    },
+                                    {
+                                        "rarityWeight":  150,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "IceTroll",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "IceTroll"
+                                    },
+                                    {
+                                        "rarityWeight":  150,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "LavaImmunity",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "LavaImmunity"
+                                    },
+                                    {
+                                        "rarityWeight":  150,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "ChieftainCommand",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "ChieftainCommand"
+                                    },
+                                    {
+                                        "rarityWeight":  250,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "Colossus",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "Colossus"
+                                    },
+                                    {
+                                        "rarityWeight":  250,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "TrollKing",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "TrollKing"
+                                    },
+                                    {
+                                        "rarityWeight":  500,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "PrimalTitan",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "PrimalTitan"
+                                    },
+                                    {
+                                        "rarityWeight":  500,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "WorldEater",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "WorldEater"
+                                    }
+                                ]
+                   },
+    "metadata":  {
+                     "totalPatterns":  4,
+                     "description":  "Pattern-based ability name generation for trolls",
+                     "type":  "pattern_generation",
+                     "raritySystem":  "weight-based",
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "notes":  [
+                                   "Base token resolves from abilities_catalog.json",
+                                   "Components have rarityWeight for emergent rarity calculation",
+                                   "Traits are applied when components are selected in patterns",
+                                   "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
+                               ],
+                     "patternTokens":  [
+                                           "base",
+                                           "prefix",
+                                           "suffix"
+                                       ],
+                     "componentKeys":  [
+                                           "prefix",
+                                           "base",
+                                           "suffix"
+                                       ],
+                     "supportsTraits":  true
+                 }
+}

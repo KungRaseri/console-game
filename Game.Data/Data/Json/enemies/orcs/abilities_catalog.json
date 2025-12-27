@@ -1,0 +1,314 @@
+﻿{
+    "metadata":  {
+                     "supportsTraits":  true,
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "totalAbilities":  18,
+                     "type":  "ability_catalog",
+                     "description":  "orcs ability catalog with base definitions (v4.0)",
+                     "totalAbilityTypes":  6,
+                     "usage":  "Provides base ability definitions for pattern generation with abilities_names.json"
+                 },
+    "ability_types":  {
+                          "supportsTraits":  {
+                                                 "traits":  {
+                                                                "category":  {
+                                                                                 "value":  "supportsTraits",
+                                                                                 "type":  "string"
+                                                                             },
+                                                                "abilityClass":  {
+                                                                                     "value":  "active",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                            },
+                                                 "items":  [
+                                                               {
+                                                                   "rarityWeight":  35,
+                                                                   "description":  "Buffs nearby orcs with increased attack speed",
+                                                                   "name":  "WarDrums",
+                                                                   "traits":  {
+                                                                                  "category":  {
+                                                                                                   "value":  "supportsTraits",
+                                                                                                   "type":  "string"
+                                                                                               }
+                                                                              },
+                                                                   "displayName":  "War Drums"
+                                                               }
+                                                           ]
+                                             },
+                          "offensive_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "offensive_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Can rush enemies dealing knockback damage",
+                                                                     "name":  "Charger",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Charger"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Gains attack speed when dealing critical hits",
+                                                                     "name":  "BloodFrenzy",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Blood Frenzy"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Deals massive damage to weakened foes",
+                                                                     "name":  "Executioner",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Executioner"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Unstoppable charge that breaks through defenses",
+                                                                     "name":  "Juggernaut",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Juggernaut"
+                                                                 }
+                                                             ]
+                                               },
+                          "defensive_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "defensive_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Reduced damage from physical attacks",
+                                                                     "name":  "HeavyArmor",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Heavy Armor"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  150,
+                                                                     "description":  "Skin like steel, resistant to most damage",
+                                                                     "name":  "Ironhide",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Ironhide"
+                                                                 }
+                                                             ]
+                                               },
+                          "basic_combat":  {
+                                               "traits":  {
+                                                              "category":  {
+                                                                               "value":  "basic_combat",
+                                                                               "type":  "string"
+                                                                           },
+                                                              "abilityClass":  {
+                                                                                   "value":  "active",
+                                                                                   "type":  "string"
+                                                                               }
+                                                          },
+                                               "items":  [
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Deals increased melee damage",
+                                                                 "name":  "BrutalStrength",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_combat",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Brutal Strength"
+                                                             },
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Increased maximum health",
+                                                                 "name":  "Tough",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_combat",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Tough"
+                                                             },
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Damage increases as health decreases",
+                                                                 "name":  "BattleRage",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_combat",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Battle Rage"
+                                                             },
+                                                             {
+                                                                 "rarityWeight":  35,
+                                                                 "description":  "Immune to fear and intimidation effects",
+                                                                 "name":  "Fearless",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_combat",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Fearless"
+                                                             }
+                                                         ]
+                                           },
+                          "legendary_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "legendary_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  150,
+                                                                     "description":  "Expert warrior with multiple weapon techniques",
+                                                                     "name":  "BattleMaster",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "legendary_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Battle Master"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  250,
+                                                                     "description":  "Infused with demonic power, regenerates rapidly",
+                                                                     "name":  "DemonBlood",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "legendary_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Demon Blood"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  250,
+                                                                     "description":  "Cannot be permanently killed, resurrects after death",
+                                                                     "name":  "Immortal",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "legendary_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Immortal"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  500,
+                                                                     "description":  "Has defeated divine beings, empowered beyond mortals",
+                                                                     "name":  "GodSlayer",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "legendary_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "God Slayer"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  500,
+                                                                     "description":  "Embodies pure destructive power",
+                                                                     "name":  "PrimalForce",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "legendary_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Primal Force"
+                                                                 }
+                                                             ]
+                                               },
+                          "leadership_traits":  {
+                                                    "traits":  {
+                                                                   "category":  {
+                                                                                    "value":  "leadership_traits",
+                                                                                    "type":  "string"
+                                                                                },
+                                                                   "abilityClass":  {
+                                                                                        "value":  "active",
+                                                                                        "type":  "string"
+                                                                                    }
+                                                               },
+                                                    "items":  [
+                                                                  {
+                                                                      "rarityWeight":  75,
+                                                                      "description":  "Commands orc troops and grants them bonuses",
+                                                                      "name":  "Warlord",
+                                                                      "traits":  {
+                                                                                     "category":  {
+                                                                                                      "value":  "leadership_traits",
+                                                                                                      "type":  "string"
+                                                                                                  }
+                                                                                 },
+                                                                      "displayName":  "Warlord"
+                                                                  },
+                                                                  {
+                                                                      "rarityWeight":  150,
+                                                                      "description":  "Supreme battlefield commander",
+                                                                      "name":  "WarChief",
+                                                                      "traits":  {
+                                                                                     "category":  {
+                                                                                                      "value":  "leadership_traits",
+                                                                                                      "type":  "string"
+                                                                                                  }
+                                                                                 },
+                                                                      "displayName":  "War Chief"
+                                                                  }
+                                                              ]
+                                                }
+                      }
+}

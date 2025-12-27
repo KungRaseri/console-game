@@ -1,0 +1,301 @@
+﻿{
+    "patterns":  [
+                     {
+                         "weight":  40,
+                         "pattern":  "[base]",
+                         "example":  "Ability Name"
+                     },
+                     {
+                         "weight":  35,
+                         "pattern":  "[prefix] [base]",
+                         "example":  "Enhanced Ability Name"
+                     },
+                     {
+                         "weight":  20,
+                         "pattern":  "[base] [suffix]",
+                         "example":  "Ability Name of Power"
+                     },
+                     {
+                         "weight":  5,
+                         "pattern":  "[prefix] [base] [suffix]",
+                         "example":  "Enhanced Ability Name of Power"
+                     }
+                 ],
+    "components":  {
+                       "prefix":  [
+                                      {
+                                          "rarityWeight":  10,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  2,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Enhanced"
+                                      },
+                                      {
+                                          "rarityWeight":  35,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  3,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Superior"
+                                      },
+                                      {
+                                          "rarityWeight":  75,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  5,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Legendary"
+                                      }
+                                  ],
+                       "suffix":  [
+                                      {
+                                          "rarityWeight":  10,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  1,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "of Power"
+                                      },
+                                      {
+                                          "rarityWeight":  35,
+                                          "traits":  {
+                                                         "cooldownReduction":  {
+                                                                                   "value":  2,
+                                                                                   "type":  "number"
+                                                                               }
+                                                     },
+                                          "value":  "of Mastery"
+                                      },
+                                      {
+                                          "rarityWeight":  75,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  3,
+                                                                             "type":  "number"
+                                                                         },
+                                                         "cooldownReduction":  {
+                                                                                   "value":  5,
+                                                                                   "type":  "number"
+                                                                               }
+                                                     },
+                                          "value":  "of the Gods"
+                                      }
+                                  ],
+                       "base":  [
+                                    {
+                                        "rarityWeight":  10,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "SneakAttack",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "SneakAttack"
+                                    },
+                                    {
+                                        "rarityWeight":  10,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "PackTactics",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "PackTactics"
+                                    },
+                                    {
+                                        "rarityWeight":  10,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "Cowardly",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "Cowardly"
+                                    },
+                                    {
+                                        "rarityWeight":  35,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "TrapMaker",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "TrapMaker"
+                                    },
+                                    {
+                                        "rarityWeight":  35,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "PoisonWeapons",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "PoisonWeapons"
+                                    },
+                                    {
+                                        "rarityWeight":  35,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "QuickReflexes",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "QuickReflexes"
+                                    },
+                                    {
+                                        "rarityWeight":  35,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "Scavenger",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "Scavenger"
+                                    },
+                                    {
+                                        "rarityWeight":  75,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "Berserker",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "Berserker"
+                                    },
+                                    {
+                                        "rarityWeight":  75,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "TunnelFighter",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "TunnelFighter"
+                                    },
+                                    {
+                                        "rarityWeight":  75,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "ShamanMagic",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "ShamanMagic"
+                                    },
+                                    {
+                                        "rarityWeight":  75,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "BombThrower",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "BombThrower"
+                                    },
+                                    {
+                                        "rarityWeight":  150,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "WarChief",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "WarChief"
+                                    },
+                                    {
+                                        "rarityWeight":  150,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "ShadowStep",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "ShadowStep"
+                                    },
+                                    {
+                                        "rarityWeight":  150,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "MechanicalGenius",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "MechanicalGenius"
+                                    },
+                                    {
+                                        "rarityWeight":  250,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "VenomMaster",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "VenomMaster"
+                                    },
+                                    {
+                                        "rarityWeight":  250,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "KingOfGoblins",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "KingOfGoblins"
+                                    },
+                                    {
+                                        "rarityWeight":  500,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "CursedBloodline",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "CursedBloodline"
+                                    },
+                                    {
+                                        "rarityWeight":  500,
+                                        "traits":  {
+                                                       "abilityName":  {
+                                                                           "value":  "DemonPact",
+                                                                           "type":  "string"
+                                                                       }
+                                                   },
+                                        "value":  "DemonPact"
+                                    }
+                                ]
+                   },
+    "metadata":  {
+                     "totalPatterns":  4,
+                     "description":  "Pattern-based ability name generation for goblinoids",
+                     "type":  "pattern_generation",
+                     "raritySystem":  "weight-based",
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "notes":  [
+                                   "Base token resolves from abilities_catalog.json",
+                                   "Components have rarityWeight for emergent rarity calculation",
+                                   "Traits are applied when components are selected in patterns",
+                                   "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
+                               ],
+                     "patternTokens":  [
+                                           "base",
+                                           "prefix",
+                                           "suffix"
+                                       ],
+                     "componentKeys":  [
+                                           "prefix",
+                                           "base",
+                                           "suffix"
+                                       ],
+                     "supportsTraits":  true
+                 }
+}

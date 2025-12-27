@@ -1,0 +1,328 @@
+﻿{
+    "metadata":  {
+                     "supportsTraits":  true,
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "totalAbilities":  18,
+                     "type":  "ability_catalog",
+                     "description":  "reptilians ability catalog with base definitions (v4.0)",
+                     "totalAbilityTypes":  7,
+                     "usage":  "Provides base ability definitions for pattern generation with abilities_names.json"
+                 },
+    "ability_types":  {
+                          "legendary_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "legendary_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  250,
+                                                                     "description":  "Enormous size with devastating power",
+                                                                     "name":  "Titanic",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "legendary_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Titanic"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  250,
+                                                                     "description":  "Descended from dragons, can breathe fire",
+                                                                     "name":  "DragonAncestor",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "legendary_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Dragon Ancestor"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  500,
+                                                                     "description":  "Apex predator from prehistoric times",
+                                                                     "name":  "DinosaurKing",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "legendary_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Dinosaur King"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  500,
+                                                                     "description":  "Legendary serpent with petrifying gaze",
+                                                                     "name":  "Basilisk",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "legendary_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Basilisk"
+                                                                 }
+                                                             ]
+                                               },
+                          "mobility_traits":  {
+                                                  "traits":  {
+                                                                 "category":  {
+                                                                                  "value":  "mobility_traits",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                 "abilityClass":  {
+                                                                                      "value":  "active",
+                                                                                      "type":  "string"
+                                                                                  }
+                                                             },
+                                                  "items":  [
+                                                                {
+                                                                    "rarityWeight":  35,
+                                                                    "description":  "Moves quickly through water",
+                                                                    "name":  "SwiftSwimmer",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mobility_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Swift Swimmer"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  35,
+                                                                    "description":  "Can become invisible in natural environments",
+                                                                    "name":  "Camouflage",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mobility_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Camouflage"
+                                                                }
+                                                            ]
+                                              },
+                          "basic_traits":  {
+                                               "traits":  {
+                                                              "category":  {
+                                                                               "value":  "basic_traits",
+                                                                               "type":  "string"
+                                                                           },
+                                                              "abilityClass":  {
+                                                                                   "value":  "active",
+                                                                                   "type":  "string"
+                                                                               }
+                                                          },
+                                               "items":  [
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Natural armor from thick scales",
+                                                                 "name":  "ScaledHide",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_traits",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Scaled Hide"
+                                                             },
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Vulnerable to ice but resistant to fire",
+                                                                 "name":  "ColdBlooded",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_traits",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Cold Blooded"
+                                                             },
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Bite attacks inflict poison",
+                                                                 "name":  "VenomousBite",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_traits",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Venomous Bite"
+                                                             }
+                                                         ]
+                                           },
+                          "defensive_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "defensive_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Heavily armored with bone plates",
+                                                                     "name":  "ArmoredPlates",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Armored Plates"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Can regrow lost limbs and heal rapidly",
+                                                                     "name":  "Regeneration",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Regeneration"
+                                                                 }
+                                                             ]
+                                               },
+                          "leadership_traits":  {
+                                                    "traits":  {
+                                                                   "category":  {
+                                                                                    "value":  "leadership_traits",
+                                                                                    "type":  "string"
+                                                                                },
+                                                                   "abilityClass":  {
+                                                                                        "value":  "active",
+                                                                                        "type":  "string"
+                                                                                    }
+                                                               },
+                                                    "items":  [
+                                                                  {
+                                                                      "rarityWeight":  150,
+                                                                      "description":  "Casts primal magic and curses",
+                                                                      "name":  "ShamanWisdom",
+                                                                      "traits":  {
+                                                                                     "category":  {
+                                                                                                      "value":  "leadership_traits",
+                                                                                                      "type":  "string"
+                                                                                                  }
+                                                                                 },
+                                                                      "displayName":  "Shaman Wisdom"
+                                                                  },
+                                                                  {
+                                                                      "rarityWeight":  150,
+                                                                      "description":  "Commands and buffs reptilian allies",
+                                                                      "name":  "AlphaLeader",
+                                                                      "traits":  {
+                                                                                     "category":  {
+                                                                                                      "value":  "leadership_traits",
+                                                                                                      "type":  "string"
+                                                                                                  }
+                                                                                 },
+                                                                      "displayName":  "Alpha Leader"
+                                                                  }
+                                                              ]
+                                                },
+                          "tactical_traits":  {
+                                                  "traits":  {
+                                                                 "category":  {
+                                                                                  "value":  "tactical_traits",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                 "abilityClass":  {
+                                                                                      "value":  "active",
+                                                                                      "type":  "string"
+                                                                                  }
+                                                             },
+                                                  "items":  [
+                                                                {
+                                                                    "rarityWeight":  35,
+                                                                    "description":  "Deals bonus damage on first strike",
+                                                                    "name":  "AmbushPredator",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "tactical_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Ambush Predator"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  75,
+                                                                    "description":  "Intimidating roar that fears enemies",
+                                                                    "name":  "PrimalRoar",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "tactical_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Primal Roar"
+                                                                }
+                                                            ]
+                                              },
+                          "combat_traits":  {
+                                                "traits":  {
+                                                               "category":  {
+                                                                                "value":  "combat_traits",
+                                                                                "type":  "string"
+                                                                            },
+                                                               "abilityClass":  {
+                                                                                    "value":  "active",
+                                                                                    "type":  "string"
+                                                                                }
+                                                           },
+                                                "items":  [
+                                                              {
+                                                                  "rarityWeight":  35,
+                                                                  "description":  "Powerful tail attack with knockback",
+                                                                  "name":  "TailWhip",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "combat_traits",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Tail Whip"
+                                                              },
+                                                              {
+                                                                  "rarityWeight":  75,
+                                                                  "description":  "Grabs and spins enemies for massive damage",
+                                                                  "name":  "DeathRoll",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "combat_traits",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Death Roll"
+                                                              },
+                                                              {
+                                                                  "rarityWeight":  150,
+                                                                  "description":  "Ranged acid attack that corrodes armor",
+                                                                  "name":  "AcidSpit",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "combat_traits",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Acid Spit"
+                                                              }
+                                                          ]
+                                            }
+                      }
+}

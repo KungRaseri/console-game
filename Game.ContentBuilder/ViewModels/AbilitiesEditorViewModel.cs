@@ -1,10 +1,12 @@
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json.Linq;
 using Serilog;
 using Game.ContentBuilder.Services;
+using Game.Shared.Data.Models;
 
 namespace Game.ContentBuilder.ViewModels;
 
@@ -76,6 +78,22 @@ public partial class AbilitiesEditorViewModel : ObservableObject
     [ObservableProperty]
     private string _statusMessage = string.Empty;
 
+    // V4 Format Support
+    [ObservableProperty]
+    private bool _isV4Format;
+
+    [ObservableProperty]
+    private string _selectedCategory = "All";
+
+    private AbilityCatalogData? _catalogData;
+    private AbilityNamesData? _namesData;
+
+    // V4 Categories (standardized across all enemy types)
+    public ObservableCollection<string> AvailableCategories { get; } = new()
+    {
+        "All", "offensive", "defensive", "control", "utility", "legendary"
+    };
+
     public ObservableCollection<string> AvailableRarities { get; } = new()
     {
         "All", "Common", "Uncommon", "Rare", "Epic", "Legendary"
@@ -94,23 +112,100 @@ public partial class AbilitiesEditorViewModel : ObservableObject
     {
         try
         {
-            var filePath = _jsonEditorService.GetFilePath(_storedFileName);
-            var json = File.ReadAllText(filePath);
-            _jsonData = JObject.Parse(json);
+            // Detect v4 format: Check if abilities_catalog.json and abilities_names.json exist
+            var directory = Path.GetDirectoryName(_jsonEditorService.GetFilePath(_storedFileName));
+            var catalogPath = Path.Combine(directory!, "abilities_catalog.json");
+            var namesPath = Path.Combine(directory!, "abilities_names.json");
 
-            LoadMetadata();
-            LoadAbilities();
+            IsV4Format = File.Exists(catalogPath) && File.Exists(namesPath);
+
+            if (IsV4Format)
+            {
+                LoadV4Data(catalogPath, namesPath);
+            }
+            else
+            {
+                LoadV3Data();
+            }
+
             ApplyFilters();
-
             IsDirty = false;
-            StatusMessage = $"Loaded {FileName} - {Abilities.Count} abilities";
-            Log.Information("Loaded abilities.json file: {FilePath}", filePath);
+            Log.Information("Loaded abilities file: {FileName}, Format: {Format}", FileName, IsV4Format ? "v4.0" : "v3.0");
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to load abilities.json file: {FileName}", _storedFileName);
+            Log.Error(ex, "Failed to load abilities file: {FileName}", _storedFileName);
             StatusMessage = $"Error loading file: {ex.Message}";
         }
+    }
+
+    private void LoadV3Data()
+    {
+        var filePath = _jsonEditorService.GetFilePath(_storedFileName);
+        var json = File.ReadAllText(filePath);
+        _jsonData = JObject.Parse(json);
+
+        LoadMetadata();
+        LoadAbilities();
+
+        StatusMessage = $"Loaded {FileName} (v3.0) - {Abilities.Count} abilities";
+        Log.Information("Loaded v3.0 abilities.json file: {FilePath}", filePath);
+    }
+
+    private void LoadV4Data(string catalogPath, string namesPath)
+    {
+        // Load catalog data
+        var catalogJson = File.ReadAllText(catalogPath);
+        _catalogData = JsonSerializer.Deserialize<AbilityCatalogData>(catalogJson);
+
+        // Load names data
+        var namesJson = File.ReadAllText(namesPath);
+        _namesData = JsonSerializer.Deserialize<AbilityNamesData>(namesJson);
+
+        if (_catalogData == null)
+        {
+            StatusMessage = "Error: Failed to parse abilities_catalog.json";
+            Log.Error("Failed to parse abilities_catalog.json");
+            return;
+        }
+
+        // Load metadata from catalog
+        MetadataVersion = _catalogData.Metadata.Version;
+        MetadataType = _catalogData.Metadata.Type;
+        MetadataDescription = _catalogData.Metadata.Description;
+        MetadataUsage = _catalogData.Metadata.Usage ?? "";
+
+        MetadataNotes.Clear();
+        if (_namesData?.Metadata.Notes != null)
+        {
+            foreach (var note in _namesData.Metadata.Notes)
+            {
+                MetadataNotes.Add(note);
+            }
+        }
+
+        // Load abilities from all ability types
+        Abilities.Clear();
+        foreach (var abilityType in _catalogData.AbilityTypes)
+        {
+            var category = abilityType.Key;
+            foreach (var item in abilityType.Value.Items)
+            {
+                var ability = new AbilityItem
+                {
+                    Name = item.Name,
+                    DisplayName = item.DisplayName,
+                    Description = item.Description,
+                    RarityWeight = item.RarityWeight,
+                    Category = category
+                };
+
+                Abilities.Add(ability);
+            }
+        }
+
+        StatusMessage = $"Loaded {FileName} (v4.0) - {Abilities.Count} abilities across {_catalogData.AbilityTypes.Count} categories";
+        Log.Information("Loaded v4.0 abilities files: {CatalogPath}, {NamesPath}", catalogPath, namesPath);
     }
 
     private void LoadMetadata()
@@ -171,6 +266,11 @@ public partial class AbilitiesEditorViewModel : ObservableObject
         ApplyFilters();
     }
 
+    partial void OnSelectedCategoryChanged(string value)
+    {
+        ApplyFilters();
+    }
+
     private void ApplyFilters()
     {
         FilteredAbilities.Clear();
@@ -179,6 +279,13 @@ public partial class AbilitiesEditorViewModel : ObservableObject
 
         foreach (var ability in Abilities)
         {
+            // Apply category filter (v4 only)
+            if (IsV4Format && SelectedCategory != "All")
+            {
+                if (ability.Category != SelectedCategory)
+                    continue;
+            }
+
             // Apply rarity filter based on weight ranges
             if (FilterRarity != "All")
             {
@@ -201,7 +308,10 @@ public partial class AbilitiesEditorViewModel : ObservableObject
             FilteredAbilities.Add(ability);
         }
 
-        StatusMessage = $"Showing {FilteredAbilities.Count} of {Abilities.Count} abilities";
+        var filterInfo = IsV4Format && SelectedCategory != "All"
+            ? $" (Category: {SelectedCategory})"
+            : "";
+        StatusMessage = $"Showing {FilteredAbilities.Count} of {Abilities.Count} abilities{filterInfo}";
     }
 
     [RelayCommand]
@@ -292,6 +402,14 @@ public partial class AbilitiesEditorViewModel : ObservableObject
     [RelayCommand]
     private void SaveFile()
     {
+        if (IsV4Format)
+        {
+            // V4 format editing not yet fully implemented
+            StatusMessage = "V4 format editing not yet fully implemented. Files are read-only for now.";
+            Log.Warning("Attempted to save v4 format file, but editing not yet implemented");
+            return;
+        }
+
         if (_jsonData == null) return;
 
         try
@@ -377,4 +495,7 @@ public partial class AbilityItem : ObservableObject
 
     [ObservableProperty]
     private int _rarityWeight = 10;
+
+    [ObservableProperty]
+    private string _category = string.Empty; // v4 only: offensive, defensive, control, utility, legendary
 }

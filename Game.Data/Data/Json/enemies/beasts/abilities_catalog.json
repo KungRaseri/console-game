@@ -1,0 +1,314 @@
+﻿{
+    "metadata":  {
+                     "supportsTraits":  true,
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "totalAbilities":  18,
+                     "type":  "ability_catalog",
+                     "description":  "beasts ability catalog with base definitions (v4.0)",
+                     "totalAbilityTypes":  6,
+                     "usage":  "Provides base ability definitions for pattern generation with abilities_names.json"
+                 },
+    "ability_types":  {
+                          "environmental":  {
+                                                "traits":  {
+                                                               "category":  {
+                                                                                "value":  "environmental",
+                                                                                "type":  "string"
+                                                                            },
+                                                               "abilityClass":  {
+                                                                                    "value":  "active",
+                                                                                    "type":  "string"
+                                                                                }
+                                                           },
+                                                "items":  [
+                                                              {
+                                                                  "rarityWeight":  10,
+                                                                  "description":  "Deals extra damage when defending its lair",
+                                                                  "name":  "Territorial",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "environmental",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Territorial"
+                                                              },
+                                                              {
+                                                                  "rarityWeight":  35,
+                                                                  "description":  "Stronger during nighttime hours",
+                                                                  "name":  "Night Hunter",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "environmental",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Night Hunter"
+                                                              }
+                                                          ]
+                                            },
+                          "offensive_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "offensive_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Attacks inflict poison damage over time",
+                                                                     "name":  "Venomous Bite",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Venomous Bite"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Can leap at distant targets",
+                                                                     "name":  "Swift Pounce",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Swift Pounce"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Intimidates enemies, reducing their combat effectiveness",
+                                                                     "name":  "Savage Roar",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Savage Roar"
+                                                                 }
+                                                             ]
+                                               },
+                          "defensive_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "defensive_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  10,
+                                                                     "description":  "Natural armor provides extra protection",
+                                                                     "name":  "Thick Hide",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Thick Hide"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Resistant to physical damage",
+                                                                     "name":  "Armored Scales",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Armored Scales"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Slowly heals wounds during combat",
+                                                                     "name":  "Regeneration",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Regeneration"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Difficult to detect in natural environments",
+                                                                     "name":  "Camouflage",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Camouflage"
+                                                                 }
+                                                             ]
+                                               },
+                          "leadership":  {
+                                             "traits":  {
+                                                            "category":  {
+                                                                             "value":  "leadership",
+                                                                             "type":  "string"
+                                                                         },
+                                                            "abilityClass":  {
+                                                                                 "value":  "active",
+                                                                                 "type":  "string"
+                                                                             }
+                                                        },
+                                             "items":  [
+                                                           {
+                                                               "rarityWeight":  150,
+                                                               "description":  "Commands nearby beasts, increasing their power",
+                                                               "name":  "Alpha Predator",
+                                                               "traits":  {
+                                                                              "category":  {
+                                                                                               "value":  "leadership",
+                                                                                               "type":  "string"
+                                                                                           }
+                                                                          },
+                                                               "displayName":  "Alpha Predator"
+                                                           },
+                                                           {
+                                                               "rarityWeight":  250,
+                                                               "description":  "Massive size and power, dominates all beasts",
+                                                               "name":  "Apex Predator",
+                                                               "traits":  {
+                                                                              "category":  {
+                                                                                               "value":  "leadership",
+                                                                                               "type":  "string"
+                                                                                           }
+                                                                          },
+                                                               "displayName":  "Apex Predator"
+                                                           }
+                                                       ]
+                                         },
+                          "sensory":  {
+                                          "traits":  {
+                                                         "category":  {
+                                                                          "value":  "sensory",
+                                                                          "type":  "string"
+                                                                      },
+                                                         "abilityClass":  {
+                                                                              "value":  "active",
+                                                                              "type":  "string"
+                                                                          }
+                                                     },
+                                          "items":  [
+                                                        {
+                                                            "rarityWeight":  10,
+                                                            "description":  "Cannot be surprised, detects hidden enemies",
+                                                            "name":  "Keen Senses",
+                                                            "traits":  {
+                                                                           "category":  {
+                                                                                            "value":  "sensory",
+                                                                                            "type":  "string"
+                                                                                        }
+                                                                       },
+                                                            "displayName":  "Keen Senses"
+                                                        }
+                                                    ]
+                                      },
+                          "combat_traits":  {
+                                                "traits":  {
+                                                               "category":  {
+                                                                                "value":  "combat_traits",
+                                                                                "type":  "string"
+                                                                            },
+                                                               "abilityClass":  {
+                                                                                    "value":  "active",
+                                                                                    "type":  "string"
+                                                                                }
+                                                           },
+                                                "items":  [
+                                                              {
+                                                                  "rarityWeight":  10,
+                                                                  "description":  "Gains bonuses when fighting alongside allies",
+                                                                  "name":  "Pack Hunter",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "combat_traits",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Pack Hunter"
+                                                              },
+                                                              {
+                                                                  "rarityWeight":  35,
+                                                                  "description":  "Increases damage as health decreases",
+                                                                  "name":  "Feral Rage",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "combat_traits",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Feral Rage"
+                                                              },
+                                                              {
+                                                                  "rarityWeight":  75,
+                                                                  "description":  "Attacks multiple times per round",
+                                                                  "name":  "Ferocious",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "combat_traits",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Ferocious"
+                                                              },
+                                                              {
+                                                                  "rarityWeight":  150,
+                                                                  "description":  "Enters berserk state when wounded",
+                                                                  "name":  "Primal Fury",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "combat_traits",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Primal Fury"
+                                                              },
+                                                              {
+                                                                  "rarityWeight":  35,
+                                                                  "description":  "Critical hits cause bleeding damage",
+                                                                  "name":  "Gore",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "combat_traits",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Gore"
+                                                              },
+                                                              {
+                                                                  "rarityWeight":  35,
+                                                                  "description":  "Becomes more dangerous as allies fall",
+                                                                  "name":  "Enrage",
+                                                                  "traits":  {
+                                                                                 "category":  {
+                                                                                                  "value":  "combat_traits",
+                                                                                                  "type":  "string"
+                                                                                              }
+                                                                             },
+                                                                  "displayName":  "Enrage"
+                                                              }
+                                                          ]
+                                            }
+                      }
+}

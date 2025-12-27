@@ -1,0 +1,328 @@
+﻿{
+    "metadata":  {
+                     "supportsTraits":  true,
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "totalAbilities":  18,
+                     "type":  "ability_catalog",
+                     "description":  "plants ability catalog with base definitions (v4.0)",
+                     "totalAbilityTypes":  7,
+                     "usage":  "Provides base ability definitions for pattern generation with abilities_names.json"
+                 },
+    "ability_types":  {
+                          "defensive_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "defensive_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Heals slowly over time",
+                                                                     "name":  "Regenerative",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Regenerative"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Bark-like skin provides exceptional defense",
+                                                                     "name":  "NaturalArmor",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "defensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Natural Armor"
+                                                                 }
+                                                             ]
+                                               },
+                          "spawning_traits":  {
+                                                  "traits":  {
+                                                                 "category":  {
+                                                                                  "value":  "spawning_traits",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                 "abilityClass":  {
+                                                                                      "value":  "active",
+                                                                                      "type":  "string"
+                                                                                  }
+                                                             },
+                                                  "items":  [
+                                                                {
+                                                                    "rarityWeight":  150,
+                                                                    "description":  "Creates smaller plant minions",
+                                                                    "name":  "SeedSpawner",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "spawning_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Seed Spawner"
+                                                                }
+                                                            ]
+                                              },
+                          "mobility_traits":  {
+                                                  "traits":  {
+                                                                 "category":  {
+                                                                                  "value":  "mobility_traits",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                 "abilityClass":  {
+                                                                                      "value":  "active",
+                                                                                      "type":  "string"
+                                                                                  }
+                                                             },
+                                                  "items":  [
+                                                                {
+                                                                    "rarityWeight":  75,
+                                                                    "description":  "Can move despite being a plant",
+                                                                    "name":  "Ambulatory",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mobility_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Ambulatory"
+                                                                }
+                                                            ]
+                                              },
+                          "basic_traits":  {
+                                               "traits":  {
+                                                              "category":  {
+                                                                               "value":  "basic_traits",
+                                                                               "type":  "string"
+                                                                           },
+                                                              "abilityClass":  {
+                                                                                   "value":  "active",
+                                                                                   "type":  "string"
+                                                                               }
+                                                          },
+                                               "items":  [
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Cannot move but has high defense",
+                                                                 "name":  "Rooted",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_traits",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Rooted"
+                                                             },
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Reflects damage back to attackers",
+                                                                 "name":  "Thorny",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_traits",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Thorny"
+                                                             },
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Contact inflicts poison damage",
+                                                                 "name":  "Poisonous",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_traits",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Poisonous"
+                                                             }
+                                                         ]
+                                           },
+                          "predatory_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "predatory_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Devours prey to restore health",
+                                                                     "name":  "Carnivorous",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "predatory_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Carnivorous"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Drains life from enemies over time",
+                                                                     "name":  "Parasitic",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "predatory_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Parasitic"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Roots grow to immobilize enemies",
+                                                                     "name":  "Entangling",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "predatory_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Entangling"
+                                                                 }
+                                                             ]
+                                               },
+                          "mystical_traits":  {
+                                                  "traits":  {
+                                                                 "category":  {
+                                                                                  "value":  "mystical_traits",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                 "abilityClass":  {
+                                                                                      "value":  "active",
+                                                                                      "type":  "string"
+                                                                                  }
+                                                             },
+                                                  "items":  [
+                                                                {
+                                                                    "rarityWeight":  150,
+                                                                    "description":  "Glows brightly, can blind enemies",
+                                                                    "name":  "Bioluminescent",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mystical_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Bioluminescent"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  250,
+                                                                    "description":  "Massive tree-like creature of immense power",
+                                                                    "name":  "AncientTreent",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mystical_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Ancient Treent"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  250,
+                                                                    "description":  "Embodies the essence of nature itself",
+                                                                    "name":  "ForestSpirit",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mystical_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Forest Spirit"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  500,
+                                                                    "description":  "Mythical plant connecting all realms",
+                                                                    "name":  "WorldTree",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mystical_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "World Tree"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  500,
+                                                                    "description":  "Unstoppable force of nature\u0027s wrath",
+                                                                    "name":  "PrimalGrowth",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mystical_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Primal Growth"
+                                                                }
+                                                            ]
+                                              },
+                          "offensive_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "offensive_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Releases clouds that damage and confuse",
+                                                                     "name":  "SporeCloud",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Spore Cloud"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Attacks with long reaching vines",
+                                                                     "name":  "VineWhip",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Vine Whip"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  150,
+                                                                     "description":  "Damages all nearby creatures constantly",
+                                                                     "name":  "ToxicAura",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Toxic Aura"
+                                                                 }
+                                                             ]
+                                               }
+                      }
+}

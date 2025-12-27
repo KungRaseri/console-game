@@ -1,0 +1,328 @@
+﻿{
+    "metadata":  {
+                     "supportsTraits":  true,
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "totalAbilities":  18,
+                     "type":  "ability_catalog",
+                     "description":  "insects ability catalog with base definitions (v4.0)",
+                     "totalAbilityTypes":  7,
+                     "usage":  "Provides base ability definitions for pattern generation with abilities_names.json"
+                 },
+    "ability_types":  {
+                          "evolution_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "evolution_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Rapidly heals wounds",
+                                                                     "name":  "Regeneration",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "evolution_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Regeneration"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Can transform into stronger forms",
+                                                                     "name":  "Metamorphosis",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "evolution_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Metamorphosis"
+                                                                 }
+                                                             ]
+                                               },
+                          "mobility_traits":  {
+                                                  "traits":  {
+                                                                 "category":  {
+                                                                                  "value":  "mobility_traits",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                 "abilityClass":  {
+                                                                                      "value":  "active",
+                                                                                      "type":  "string"
+                                                                                  }
+                                                             },
+                                                  "items":  [
+                                                                {
+                                                                    "rarityWeight":  35,
+                                                                    "description":  "Can fly and avoid ground-based attacks",
+                                                                    "name":  "Flying",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mobility_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Flying"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  35,
+                                                                    "description":  "Can burrow underground to ambush or escape",
+                                                                    "name":  "Burrowing",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "mobility_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Burrowing"
+                                                                }
+                                                            ]
+                                              },
+                          "basic_traits":  {
+                                               "traits":  {
+                                                              "category":  {
+                                                                               "value":  "basic_traits",
+                                                                               "type":  "string"
+                                                                           },
+                                                              "abilityClass":  {
+                                                                                   "value":  "active",
+                                                                                   "type":  "string"
+                                                                               }
+                                                          },
+                                               "items":  [
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Attacks in groups, difficult to hit individually",
+                                                                 "name":  "Swarm",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_traits",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Swarm"
+                                                             },
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Hard exoskeleton provides natural armor",
+                                                                 "name":  "Chitinous",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_traits",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Chitinous"
+                                                             },
+                                                             {
+                                                                 "rarityWeight":  10,
+                                                                 "description":  "Attacks inflict poison damage",
+                                                                 "name":  "Venomous",
+                                                                 "traits":  {
+                                                                                "category":  {
+                                                                                                 "value":  "basic_traits",
+                                                                                                 "type":  "string"
+                                                                                             }
+                                                                            },
+                                                                 "displayName":  "Venomous"
+                                                             }
+                                                         ]
+                                           },
+                          "colossal_traits":  {
+                                                  "traits":  {
+                                                                 "category":  {
+                                                                                  "value":  "colossal_traits",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                 "abilityClass":  {
+                                                                                      "value":  "active",
+                                                                                      "type":  "string"
+                                                                                  }
+                                                             },
+                                                  "items":  [
+                                                                {
+                                                                    "rarityWeight":  250,
+                                                                    "description":  "Massive creature with devastating attacks",
+                                                                    "name":  "ColossalSize",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "colossal_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Colossal Size"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  500,
+                                                                    "description":  "Ancient insect from the dawn of time",
+                                                                    "name":  "Primordial",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "colossal_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Primordial"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  500,
+                                                                    "description":  "Otherworldly insect touched by cosmic forces",
+                                                                    "name":  "EldritchHorror",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "colossal_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Eldritch Horror"
+                                                                }
+                                                            ]
+                                              },
+                          "command_traits":  {
+                                                 "traits":  {
+                                                                "category":  {
+                                                                                 "value":  "command_traits",
+                                                                                 "type":  "string"
+                                                                             },
+                                                                "abilityClass":  {
+                                                                                     "value":  "active",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                            },
+                                                 "items":  [
+                                                               {
+                                                                   "rarityWeight":  150,
+                                                                   "description":  "Summons and controls insect minions",
+                                                                   "name":  "QueenCommand",
+                                                                   "traits":  {
+                                                                                  "category":  {
+                                                                                                   "value":  "command_traits",
+                                                                                                   "type":  "string"
+                                                                                               }
+                                                                              },
+                                                                   "displayName":  "Queen Command"
+                                                               },
+                                                               {
+                                                                   "rarityWeight":  150,
+                                                                   "description":  "Can take control of other creatures",
+                                                                   "name":  "MindControl",
+                                                                   "traits":  {
+                                                                                  "category":  {
+                                                                                                   "value":  "command_traits",
+                                                                                                   "type":  "string"
+                                                                                               }
+                                                                              },
+                                                                   "displayName":  "Mind Control"
+                                                               },
+                                                               {
+                                                                   "rarityWeight":  250,
+                                                                   "description":  "Commands infinite swarms of insects",
+                                                                   "name":  "SwarmLord",
+                                                                   "traits":  {
+                                                                                  "category":  {
+                                                                                                   "value":  "command_traits",
+                                                                                                   "type":  "string"
+                                                                                               }
+                                                                              },
+                                                                   "displayName":  "Swarm Lord"
+                                                               }
+                                                           ]
+                                             },
+                          "tactical_traits":  {
+                                                  "traits":  {
+                                                                 "category":  {
+                                                                                  "value":  "tactical_traits",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                 "abilityClass":  {
+                                                                                      "value":  "active",
+                                                                                      "type":  "string"
+                                                                                  }
+                                                             },
+                                                  "items":  [
+                                                                {
+                                                                    "rarityWeight":  35,
+                                                                    "description":  "Creates webs that slow and trap enemies",
+                                                                    "name":  "WebSpinner",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "tactical_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Web Spinner"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  75,
+                                                                    "description":  "Shares awareness with all nearby insects",
+                                                                    "name":  "HiveMind",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "tactical_traits",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Hive Mind"
+                                                                }
+                                                            ]
+                                              },
+                          "offensive_traits":  {
+                                                   "traits":  {
+                                                                  "category":  {
+                                                                                   "value":  "offensive_traits",
+                                                                                   "type":  "string"
+                                                                               },
+                                                                  "abilityClass":  {
+                                                                                       "value":  "active",
+                                                                                       "type":  "string"
+                                                                                   }
+                                                              },
+                                                   "items":  [
+                                                                 {
+                                                                     "rarityWeight":  35,
+                                                                     "description":  "Sprays corrosive acid that damages armor",
+                                                                     "name":  "Acidic",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Acidic"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  75,
+                                                                     "description":  "Stings paralyze targets temporarily",
+                                                                     "name":  "Paralyzing",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Paralyzing"
+                                                                 },
+                                                                 {
+                                                                     "rarityWeight":  150,
+                                                                     "description":  "Spreads disease to all nearby creatures",
+                                                                     "name":  "PlagueCarrier",
+                                                                     "traits":  {
+                                                                                    "category":  {
+                                                                                                     "value":  "offensive_traits",
+                                                                                                     "type":  "string"
+                                                                                                 }
+                                                                                },
+                                                                     "displayName":  "Plague Carrier"
+                                                                 }
+                                                             ]
+                                               }
+                      }
+}

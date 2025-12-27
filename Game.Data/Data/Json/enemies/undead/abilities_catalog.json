@@ -1,0 +1,342 @@
+﻿{
+    "metadata":  {
+                     "supportsTraits":  true,
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "totalAbilities":  18,
+                     "type":  "ability_catalog",
+                     "description":  "undead ability catalog with base definitions (v4.0)",
+                     "totalAbilityTypes":  8,
+                     "usage":  "Provides base ability definitions for pattern generation with abilities_names.json"
+                 },
+    "ability_types":  {
+                          "auras":  {
+                                        "traits":  {
+                                                       "category":  {
+                                                                        "value":  "auras",
+                                                                        "type":  "string"
+                                                                    },
+                                                       "abilityClass":  {
+                                                                            "value":  "active",
+                                                                            "type":  "string"
+                                                                        }
+                                                   },
+                                        "items":  [
+                                                      {
+                                                          "rarityWeight":  75,
+                                                          "description":  "Weakens living enemies nearby",
+                                                          "name":  "Necromantic Aura",
+                                                          "traits":  {
+                                                                         "category":  {
+                                                                                          "value":  "auras",
+                                                                                          "type":  "string"
+                                                                                      }
+                                                                     },
+                                                          "displayName":  "Necromantic Aura"
+                                                      },
+                                                      {
+                                                          "rarityWeight":  35,
+                                                          "description":  "Instills terror in those who behold it",
+                                                          "name":  "Fearsome Presence",
+                                                          "traits":  {
+                                                                         "category":  {
+                                                                                          "value":  "auras",
+                                                                                          "type":  "string"
+                                                                                      }
+                                                                     },
+                                                          "displayName":  "Fearsome Presence"
+                                                      }
+                                                  ]
+                                    },
+                          "offensive":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "offensive",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Steals life force from living creatures",
+                                                              "name":  "Life Drain",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Life Drain"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  150,
+                                                              "description":  "Can instantly kill weak enemies",
+                                                              "name":  "Death Touch",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Death Touch"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Attacks may paralyze victims",
+                                                              "name":  "Paralytic Touch",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Paralytic Touch"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Spreads disease with attacks",
+                                                              "name":  "Plague Bearer",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Plague Bearer"
+                                                          }
+                                                      ]
+                                        },
+                          "legendary":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "legendary",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  250,
+                                                              "description":  "Powered by centuries of dark magic",
+                                                              "name":  "Ancient Evil",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "legendary",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Ancient Evil"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  500,
+                                                              "description":  "Grows stronger with each kill",
+                                                              "name":  "Soul Harvest",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "legendary",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Soul Harvest"
+                                                          }
+                                                      ]
+                                        },
+                          "immunities":  {
+                                             "traits":  {
+                                                            "category":  {
+                                                                             "value":  "immunities",
+                                                                             "type":  "string"
+                                                                         },
+                                                            "abilityClass":  {
+                                                                                 "value":  "active",
+                                                                                 "type":  "string"
+                                                                             }
+                                                        },
+                                             "items":  [
+                                                           {
+                                                               "rarityWeight":  10,
+                                                               "description":  "Cannot be poisoned or diseased",
+                                                               "name":  "Immune to Poison",
+                                                               "traits":  {
+                                                                              "category":  {
+                                                                                               "value":  "immunities",
+                                                                                               "type":  "string"
+                                                                                           }
+                                                                          },
+                                                               "displayName":  "Immune to Poison"
+                                                           },
+                                                           {
+                                                               "rarityWeight":  10,
+                                                               "description":  "Unaffected by ice and freezing",
+                                                               "name":  "Immune to Cold",
+                                                               "traits":  {
+                                                                              "category":  {
+                                                                                               "value":  "immunities",
+                                                                                               "type":  "string"
+                                                                                           }
+                                                                          },
+                                                               "displayName":  "Immune to Cold"
+                                                           }
+                                                       ]
+                                         },
+                          "mobility":  {
+                                           "traits":  {
+                                                          "category":  {
+                                                                           "value":  "mobility",
+                                                                           "type":  "string"
+                                                                       },
+                                                          "abilityClass":  {
+                                                                               "value":  "active",
+                                                                               "type":  "string"
+                                                                           }
+                                                      },
+                                           "items":  [
+                                                         {
+                                                             "rarityWeight":  150,
+                                                             "description":  "Can teleport through darkness",
+                                                             "name":  "Shadow Walk",
+                                                             "traits":  {
+                                                                            "category":  {
+                                                                                             "value":  "mobility",
+                                                                                             "type":  "string"
+                                                                                         }
+                                                                        },
+                                                             "displayName":  "Shadow Walk"
+                                                         }
+                                                     ]
+                                       },
+                          "summoning":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "summoning",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  150,
+                                                              "description":  "Can summon lesser undead",
+                                                              "name":  "Raise Dead",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "summoning",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Raise Dead"
+                                                          }
+                                                      ]
+                                        },
+                          "defensive":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "defensive",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  10,
+                                                              "description":  "Resistant to piercing, vulnerable to bludgeoning",
+                                                              "name":  "Skeletal Frame",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Skeletal Frame"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Slowly reforms from damage",
+                                                              "name":  "Regeneration",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Regeneration"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  250,
+                                                              "description":  "Physical attacks barely harm it",
+                                                              "name":  "Incorporeal",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Incorporeal"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Cannot be permanently killed without holy magic",
+                                                              "name":  "Undying",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Undying"
+                                                          }
+                                                      ]
+                                        },
+                          "vulnerabilities":  {
+                                                  "traits":  {
+                                                                 "category":  {
+                                                                                  "value":  "vulnerabilities",
+                                                                                  "type":  "string"
+                                                                              },
+                                                                 "abilityClass":  {
+                                                                                      "value":  "active",
+                                                                                      "type":  "string"
+                                                                                  }
+                                                             },
+                                                  "items":  [
+                                                                {
+                                                                    "rarityWeight":  10,
+                                                                    "description":  "Takes extra damage from flames",
+                                                                    "name":  "Vulnerable to Fire",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "vulnerabilities",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Vulnerable to Fire"
+                                                                },
+                                                                {
+                                                                    "rarityWeight":  10,
+                                                                    "description":  "Radiant magic is devastating",
+                                                                    "name":  "Vulnerable to Holy",
+                                                                    "traits":  {
+                                                                                   "category":  {
+                                                                                                    "value":  "vulnerabilities",
+                                                                                                    "type":  "string"
+                                                                                                }
+                                                                               },
+                                                                    "displayName":  "Vulnerable to Holy"
+                                                                }
+                                                            ]
+                                              }
+                      }
+}

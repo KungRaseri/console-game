@@ -1,0 +1,314 @@
+﻿{
+    "metadata":  {
+                     "supportsTraits":  true,
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "totalAbilities":  18,
+                     "type":  "ability_catalog",
+                     "description":  "elementals ability catalog with base definitions (v4.0)",
+                     "totalAbilityTypes":  6,
+                     "usage":  "Provides base ability definitions for pattern generation with abilities_names.json"
+                 },
+    "ability_types":  {
+                          "defensive":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "defensive",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Physical attacks pass through",
+                                                              "name":  "Incorporeal",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Incorporeal"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Can merge with its element in environment",
+                                                              "name":  "Phase Shift",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Phase Shift"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Changes shape to avoid attacks",
+                                                              "name":  "Adaptive Form",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Adaptive Form"
+                                                          }
+                                                      ]
+                                        },
+                          "offensive":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "offensive",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Can surround and trap enemies",
+                                                              "name":  "Engulf",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Engulf"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Explosive discharge of elemental energy",
+                                                              "name":  "Elemental Burst",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Elemental Burst"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Damages nearby enemies with elemental energy",
+                                                              "name":  "Elemental Aura",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Elemental Aura"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  150,
+                                                              "description":  "Unleashes devastating elemental storms",
+                                                              "name":  "Elemental Fury",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Elemental Fury"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Explodes when defeated",
+                                                              "name":  "Unstable",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Unstable"
+                                                          }
+                                                      ]
+                                        },
+                          "legendary":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "legendary",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  250,
+                                                              "description":  "Raw elemental force from creation",
+                                                              "name":  "Primordial Power",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "legendary",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Primordial Power"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  250,
+                                                              "description":  "Supreme master of its element",
+                                                              "name":  "Elemental Lord",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "legendary",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Elemental Lord"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  500,
+                                                              "description":  "Can traverse elemental planes",
+                                                              "name":  "Plane Walker",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "legendary",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Plane Walker"
+                                                          }
+                                                      ]
+                                        },
+                          "control":  {
+                                          "traits":  {
+                                                         "category":  {
+                                                                          "value":  "control",
+                                                                          "type":  "string"
+                                                                      },
+                                                         "abilityClass":  {
+                                                                              "value":  "active",
+                                                                              "type":  "string"
+                                                                          }
+                                                     },
+                                          "items":  [
+                                                        {
+                                                            "rarityWeight":  150,
+                                                            "description":  "Can call forth lesser elementals",
+                                                            "name":  "Summon Elementals",
+                                                            "traits":  {
+                                                                           "category":  {
+                                                                                            "value":  "control",
+                                                                                            "type":  "string"
+                                                                                        }
+                                                                       },
+                                                            "displayName":  "Summon Elementals"
+                                                        },
+                                                        {
+                                                            "rarityWeight":  75,
+                                                            "description":  "Shapes the battlefield to its advantage",
+                                                            "name":  "Environmental Control",
+                                                            "traits":  {
+                                                                           "category":  {
+                                                                                            "value":  "control",
+                                                                                            "type":  "string"
+                                                                                        }
+                                                                       },
+                                                            "displayName":  "Environmental Control"
+                                                        },
+                                                        {
+                                                            "rarityWeight":  150,
+                                                            "description":  "Perfect control over its element",
+                                                            "name":  "Elemental Mastery",
+                                                            "traits":  {
+                                                                           "category":  {
+                                                                                            "value":  "control",
+                                                                                            "type":  "string"
+                                                                                        }
+                                                                       },
+                                                            "displayName":  "Elemental Mastery"
+                                                        }
+                                                    ]
+                                      },
+                          "utility":  {
+                                          "traits":  {
+                                                         "category":  {
+                                                                          "value":  "utility",
+                                                                          "type":  "string"
+                                                                      },
+                                                         "abilityClass":  {
+                                                                              "value":  "active",
+                                                                              "type":  "string"
+                                                                          }
+                                                     },
+                                          "items":  [
+                                                        {
+                                                            "rarityWeight":  35,
+                                                            "description":  "Absorbs enemy energy to heal",
+                                                            "name":  "Essence Drain",
+                                                            "traits":  {
+                                                                           "category":  {
+                                                                                            "value":  "utility",
+                                                                                            "type":  "string"
+                                                                                        }
+                                                                       },
+                                                            "displayName":  "Essence Drain"
+                                                        }
+                                                    ]
+                                      },
+                          "core_traits":  {
+                                              "traits":  {
+                                                             "category":  {
+                                                                              "value":  "core_traits",
+                                                                              "type":  "string"
+                                                                          },
+                                                             "abilityClass":  {
+                                                                                  "value":  "active",
+                                                                                  "type":  "string"
+                                                                              }
+                                                         },
+                                              "items":  [
+                                                            {
+                                                                "rarityWeight":  10,
+                                                                "description":  "Made entirely of elemental matter",
+                                                                "name":  "Elemental Body",
+                                                                "traits":  {
+                                                                               "category":  {
+                                                                                                "value":  "core_traits",
+                                                                                                "type":  "string"
+                                                                                            }
+                                                                           },
+                                                                "displayName":  "Elemental Body"
+                                                            },
+                                                            {
+                                                                "rarityWeight":  10,
+                                                                "description":  "Immune to its own element",
+                                                                "name":  "Elemental Immunity",
+                                                                "traits":  {
+                                                                               "category":  {
+                                                                                                "value":  "core_traits",
+                                                                                                "type":  "string"
+                                                                                            }
+                                                                           },
+                                                                "displayName":  "Elemental Immunity"
+                                                            },
+                                                            {
+                                                                "rarityWeight":  10,
+                                                                "description":  "Vulnerable to opposing element",
+                                                                "name":  "Elemental Weakness",
+                                                                "traits":  {
+                                                                               "category":  {
+                                                                                                "value":  "core_traits",
+                                                                                                "type":  "string"
+                                                                                            }
+                                                                           },
+                                                                "displayName":  "Elemental Weakness"
+                                                            }
+                                                        ]
+                                          }
+                      }
+}

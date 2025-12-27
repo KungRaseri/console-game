@@ -1,0 +1,314 @@
+﻿{
+    "metadata":  {
+                     "supportsTraits":  true,
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "totalAbilities":  18,
+                     "type":  "ability_catalog",
+                     "description":  "vampires ability catalog with base definitions (v4.0)",
+                     "totalAbilityTypes":  6,
+                     "usage":  "Provides base ability definitions for pattern generation with abilities_names.json"
+                 },
+    "ability_types":  {
+                          "defensive":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "defensive",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Rapidly heals from all but fatal wounds",
+                                                              "name":  "Regeneration",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Regeneration"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Can transform into bat, wolf, or mist",
+                                                              "name":  "Shapeshifting",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Shapeshifting"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Becomes incorporeal fog",
+                                                              "name":  "Mist Form",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Mist Form"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Can teleport through darkness",
+                                                              "name":  "Shadow Walk",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "defensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Shadow Walk"
+                                                          }
+                                                      ]
+                                        },
+                          "offensive":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "offensive",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Possesses incredible physical power",
+                                                              "name":  "Superhuman Strength",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Superhuman Strength"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Becomes more dangerous when wounded",
+                                                              "name":  "Blood Frenzy",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Blood Frenzy"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Hypnotic gaze controls minds",
+                                                              "name":  "Charm",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "offensive",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Charm"
+                                                          }
+                                                      ]
+                                        },
+                          "magical":  {
+                                          "traits":  {
+                                                         "category":  {
+                                                                          "value":  "magical",
+                                                                          "type":  "string"
+                                                                      },
+                                                         "abilityClass":  {
+                                                                              "value":  "active",
+                                                                              "type":  "string"
+                                                                          }
+                                                     },
+                                          "items":  [
+                                                        {
+                                                            "rarityWeight":  150,
+                                                            "description":  "Commands the undead",
+                                                            "name":  "Necromancy",
+                                                            "traits":  {
+                                                                           "category":  {
+                                                                                            "value":  "magical",
+                                                                                            "type":  "string"
+                                                                                        }
+                                                                       },
+                                                            "displayName":  "Necromancy"
+                                                        }
+                                                    ]
+                                      },
+                          "leadership":  {
+                                             "traits":  {
+                                                            "category":  {
+                                                                             "value":  "leadership",
+                                                                             "type":  "string"
+                                                                         },
+                                                            "abilityClass":  {
+                                                                                 "value":  "active",
+                                                                                 "type":  "string"
+                                                                             }
+                                                        },
+                                             "items":  [
+                                                           {
+                                                               "rarityWeight":  150,
+                                                               "description":  "Centuries of accumulated strength",
+                                                               "name":  "Ancient Power",
+                                                               "traits":  {
+                                                                              "category":  {
+                                                                                               "value":  "leadership",
+                                                                                               "type":  "string"
+                                                                                           }
+                                                                          },
+                                                               "displayName":  "Ancient Power"
+                                                           },
+                                                           {
+                                                               "rarityWeight":  250,
+                                                               "description":  "Rules over lesser vampires",
+                                                               "name":  "Vampire Lord",
+                                                               "traits":  {
+                                                                              "category":  {
+                                                                                               "value":  "leadership",
+                                                                                               "type":  "string"
+                                                                                           }
+                                                                          },
+                                                               "displayName":  "Vampire Lord"
+                                                           },
+                                                           {
+                                                               "rarityWeight":  500,
+                                                               "description":  "One of the first vampires",
+                                                               "name":  "Progenitor",
+                                                               "traits":  {
+                                                                              "category":  {
+                                                                                               "value":  "leadership",
+                                                                                               "type":  "string"
+                                                                                           }
+                                                                          },
+                                                               "displayName":  "Progenitor"
+                                                           }
+                                                       ]
+                                         },
+                          "summoning":  {
+                                            "traits":  {
+                                                           "category":  {
+                                                                            "value":  "summoning",
+                                                                            "type":  "string"
+                                                                        },
+                                                           "abilityClass":  {
+                                                                                "value":  "active",
+                                                                                "type":  "string"
+                                                                            }
+                                                       },
+                                            "items":  [
+                                                          {
+                                                              "rarityWeight":  35,
+                                                              "description":  "Calls forth rats, bats, or wolves",
+                                                              "name":  "Summon Minions",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "summoning",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Summon Minions"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  75,
+                                                              "description":  "Can turn victims into vampire thralls",
+                                                              "name":  "Create Spawn",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "summoning",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Create Spawn"
+                                                          },
+                                                          {
+                                                              "rarityWeight":  150,
+                                                              "description":  "Controls all creatures of darkness",
+                                                              "name":  "Children of the Night",
+                                                              "traits":  {
+                                                                             "category":  {
+                                                                                              "value":  "summoning",
+                                                                                              "type":  "string"
+                                                                                          }
+                                                                         },
+                                                              "displayName":  "Children of the Night"
+                                                          }
+                                                      ]
+                                        },
+                          "core_traits":  {
+                                              "traits":  {
+                                                             "category":  {
+                                                                              "value":  "core_traits",
+                                                                              "type":  "string"
+                                                                          },
+                                                             "abilityClass":  {
+                                                                                  "value":  "active",
+                                                                                  "type":  "string"
+                                                                              }
+                                                         },
+                                              "items":  [
+                                                            {
+                                                                "rarityWeight":  10,
+                                                                "description":  "Drains life force through bites",
+                                                                "name":  "Blood Drain",
+                                                                "traits":  {
+                                                                               "category":  {
+                                                                                                "value":  "core_traits",
+                                                                                                "type":  "string"
+                                                                                            }
+                                                                           },
+                                                                "displayName":  "Blood Drain"
+                                                            },
+                                                            {
+                                                                "rarityWeight":  10,
+                                                                "description":  "Cannot die from age or disease",
+                                                                "name":  "Immortal",
+                                                                "traits":  {
+                                                                               "category":  {
+                                                                                                "value":  "core_traits",
+                                                                                                "type":  "string"
+                                                                                            }
+                                                                           },
+                                                                "displayName":  "Immortal"
+                                                            },
+                                                            {
+                                                                "rarityWeight":  10,
+                                                                "description":  "Destroyed by direct sunlight",
+                                                                "name":  "Sunlight Weakness",
+                                                                "traits":  {
+                                                                               "category":  {
+                                                                                                "value":  "core_traits",
+                                                                                                "type":  "string"
+                                                                                            }
+                                                                           },
+                                                                "displayName":  "Sunlight Weakness"
+                                                            },
+                                                            {
+                                                                "rarityWeight":  10,
+                                                                "description":  "Superior sight, hearing, and smell",
+                                                                "name":  "Enhanced Senses",
+                                                                "traits":  {
+                                                                               "category":  {
+                                                                                                "value":  "core_traits",
+                                                                                                "type":  "string"
+                                                                                            }
+                                                                           },
+                                                                "displayName":  "Enhanced Senses"
+                                                            }
+                                                        ]
+                                          }
+                      }
+}

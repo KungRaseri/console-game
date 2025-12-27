@@ -19,11 +19,31 @@
         <!-- Header -->
         <materialDesign:Card Grid.Row="0" Margin="8">
             <StackPanel Margin="16">
-                <TextBlock Text="Abilities Editor" 
-                           Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
-                <TextBlock Text="{Binding FileName}" 
-                           Style="{StaticResource MaterialDesignBody2TextBlock}"
-                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Abilities Editor"
+                                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                        <TextBlock Text="{Binding FileName}"
+                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+
+                    <!-- Format Version Badge -->
+                    <Border Grid.Column="1"
+                            Background="{DynamicResource PrimaryHueMidBrush}"
+                            CornerRadius="12"
+                            Padding="12,4"
+                            VerticalAlignment="Top">
+                        <TextBlock Foreground="White" FontWeight="Bold">
+                            <Run Text="{Binding MetadataVersion, Mode=OneWay}"/>
+                        </TextBlock>
+                    </Border>
+                </Grid>
             </StackPanel>
         </materialDesign:Card>
 
@@ -74,12 +94,13 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- Search Box -->
-                    <TextBox Grid.Column="0" 
+                    <TextBox Grid.Column="0"
                              Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:HintAssist.Hint="Search abilities..."
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
@@ -90,9 +111,21 @@
                         </TextBox.InputBindings>
                     </TextBox>
 
-                    <!-- Filter by Rarity -->
+                    <!-- Filter Label -->
                     <TextBlock Grid.Column="1" Text="Filter:" VerticalAlignment="Center" Margin="8,0"/>
-                    <ComboBox Grid.Column="2" 
+
+                    <!-- Filter by Category (v4 only) -->
+                    <ComboBox Grid.Column="2"
+                              ItemsSource="{Binding AvailableCategories}"
+                              SelectedItem="{Binding SelectedCategory}"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              materialDesign:HintAssist.Hint="Category"
+                              AutomationProperties.AutomationId="FilterCategoryComboBox"
+                              Margin="0,0,8,0"
+                              Visibility="{Binding IsV4Format, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <!-- Filter by Rarity -->
+                    <ComboBox Grid.Column="3"
                               ItemsSource="{Binding AvailableRarities}"
                               SelectedItem="{Binding FilterRarity}"
                               Style="{StaticResource MaterialDesignOutlinedComboBox}"
@@ -101,7 +134,7 @@
                               Margin="0,0,8,0"/>
 
                     <!-- Clear Button -->
-                    <Button Grid.Column="3" 
+                    <Button Grid.Column="4"
                             Command="{Binding ClearSearchCommand}"
                             Style="{StaticResource MaterialDesignOutlinedButton}"
                             ToolTip="Clear filters">
