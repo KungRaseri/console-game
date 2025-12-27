@@ -68,7 +68,7 @@ public partial class NameListEditorViewModel : ObservableObject
     {
         _jsonEditorService = jsonEditorService;
         _fileName = fileName;
-        
+
         // Watch for search text changes
         PropertyChanged += (s, e) =>
         {
@@ -77,7 +77,7 @@ public partial class NameListEditorViewModel : ObservableObject
                 ApplyPatternFilter();
             }
         };
-        
+
         LoadData();
     }
 
@@ -91,10 +91,10 @@ public partial class NameListEditorViewModel : ObservableObject
             var filePath = _fileName;
             Log.Information("Loading names.json from {FilePath}", filePath);
             MainWindow.AddLog($"Loading {Path.GetFileName(filePath)}...");
-            
+
             var json = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath));
             Log.Debug("Read {Length} characters from file", json.Length);
-            
+
             var root = JObject.Parse(json);
             Log.Debug("Parsed JSON successfully");
             MainWindow.AddLog("JSON parsed successfully");
@@ -128,10 +128,10 @@ public partial class NameListEditorViewModel : ObservableObject
                             {
                                 var obj = arr[i] as JObject;
                                 if (obj == null) continue;
-                                
+
                                 // Manual deserialization to avoid converter recursion
                                 NameComponentBase? comp = null;
-                                
+
                                 // Check for NPC-specific fields
                                 if (obj.ContainsKey("gender") || obj.ContainsKey("preferredSocialClass") || obj.ContainsKey("weightMultiplier"))
                                 {
@@ -153,13 +153,13 @@ public partial class NameListEditorViewModel : ObservableObject
                                         RarityWeight = obj["rarityWeight"]?.Value<int>() ?? 0,
                                         TraitsJson = new Dictionary<string, JObject>()
                                     };
-                                    
+
                                     if (obj["traits"] is JObject traitsObj)
                                     {
                                         foreach (var trait in traitsObj)
                                         {
                                             itemComp.TraitsJson[trait.Key] = trait.Value as JObject ?? new JObject();
-                                            
+
                                             // Parse trait into ComponentTrait for editing
                                             var traitData = trait.Value as JObject;
                                             if (traitData != null)
@@ -184,7 +184,7 @@ public partial class NameListEditorViewModel : ObservableObject
                                         RarityWeight = obj["rarityWeight"]?.Value<int>() ?? 0
                                     };
                                 }
-                                
+
                                 if (comp != null)
                                 {
                                     list.Add(comp);
@@ -205,7 +205,7 @@ public partial class NameListEditorViewModel : ObservableObject
 
             // Dynamic patterns (can be string array OR object array)
             Patterns.Clear();
-            
+
             // Always add default {base} pattern first (readonly)
             var basePattern = new ItemNamePattern
             {
@@ -216,7 +216,7 @@ public partial class NameListEditorViewModel : ObservableObject
             };
             Patterns.Add(basePattern);
             ParsePatternIntoTokens(basePattern);
-            
+
             if (root["patterns"] is JArray patternsArr)
             {
                 for (int i = 0; i < patternsArr.Count; i++)
@@ -224,21 +224,21 @@ public partial class NameListEditorViewModel : ObservableObject
                     try
                     {
                         NamePatternBase? pattern = null;
-                        
+
                         // Check if it's a simple string (like enemies/beasts)
                         if (patternsArr[i].Type == JTokenType.String)
                         {
                             var templateStr = patternsArr[i].ToString();
-                            
+
                             // Skip if this is the default {base} pattern (already added)
                             if (templateStr == "{base}" || templateStr == "base")
                             {
                                 continue;
                             }
-                            
+
                             // Remove + symbols if present (legacy format)
                             templateStr = templateStr.Replace(" + ", " ").Replace("+", " ");
-                            
+
                             pattern = new ItemNamePattern
                             {
                                 PatternTemplate = templateStr,
@@ -250,16 +250,16 @@ public partial class NameListEditorViewModel : ObservableObject
                         else if (patternsArr[i] is JObject obj)
                         {
                             var templateStr = obj["template"]?.ToString() ?? obj["pattern"]?.ToString() ?? string.Empty;
-                            
+
                             // Skip if this is the default {base} pattern (already added)
                             if (templateStr == "{base}" || templateStr == "base")
                             {
                                 continue;
                             }
-                            
+
                             // Remove + symbols if present (legacy format)
                             templateStr = templateStr.Replace(" + ", " ").Replace("+", " ");
-                            
+
                             // Check for NPC-specific fields
                             if (obj.ContainsKey("socialClass") || obj.ContainsKey("requiresTitle") || obj.ContainsKey("excludeTitles"))
                             {
@@ -284,7 +284,7 @@ public partial class NameListEditorViewModel : ObservableObject
                                 };
                             }
                         }
-                        
+
                         if (pattern != null)
                         {
                             Patterns.Add(pattern);
@@ -327,39 +327,39 @@ public partial class NameListEditorViewModel : ObservableObject
     private void GeneratePatternExamples()
     {
         var random = new Random();
-        
+
         // Load base names from catalog.json in the same directory
         var baseNames = LoadBaseNamesFromCatalog();
-        
+
         foreach (var pattern in Patterns)
         {
             try
             {
                 var examples = new List<string>();
                 var usedExamples = new HashSet<string>(); // Track used examples to avoid duplicates
-                
+
                 // Generate up to 3 unique example names
                 int maxAttempts = 20; // Prevent infinite loops if components are limited
                 int attempts = 0;
-                
+
                 while (examples.Count < 3 && attempts < maxAttempts)
                 {
                     attempts++;
                     string example = pattern.PatternTemplate;
-                    
+
                     // Replace + and - with spaces for cleaner display
                     example = example.Replace("+", " ").Replace("-", " ");
-                    
+
                     // Split pattern by spaces
                     var tokens = example.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                    
+
                     // Build the example by replacing tokens
                     var exampleParts = new List<string>();
                     foreach (var token in tokens)
                     {
                         // Remove curly braces and square brackets
                         string componentKey = token.Trim().Replace("{", "").Replace("}", "").Replace("[", "").Replace("]", "");
-                        
+
                         // Special handling for "base" token (references catalog, not components)
                         if (componentKey.Equals("base", StringComparison.OrdinalIgnoreCase))
                         {
@@ -397,16 +397,16 @@ public partial class NameListEditorViewModel : ObservableObject
                             exampleParts.Add($"[{componentKey}]");
                         }
                     }
-                    
+
                     var generatedExample = string.Join(" ", exampleParts);
-                    
+
                     // Only add if it's unique
                     if (usedExamples.Add(generatedExample))
                     {
                         examples.Add(generatedExample);
                     }
                 }
-                
+
                 pattern.GeneratedExamples = string.Join(", ", examples);
             }
             catch (Exception ex)
@@ -423,24 +423,39 @@ public partial class NameListEditorViewModel : ObservableObject
     private List<string> LoadBaseNamesFromCatalog()
     {
         var baseNames = new List<string>();
-        
+
         try
         {
-            // Get the directory of the current names.json file
+            // Get the directory of the current names file
             string directory = Path.GetDirectoryName(_fileName) ?? string.Empty;
-            
-            // Try both catalog.json and abilities_catalog.json
-            string catalogPath = Path.Combine(directory, "catalog.json");
-            if (!File.Exists(catalogPath))
+            string fileName = Path.GetFileName(_fileName);
+
+            // Determine the catalog filename based on the names filename pattern
+            // abilities_names.json → abilities_catalog.json
+            // names.json → catalog.json
+            string catalogFileName;
+            if (fileName.Contains("abilities_names"))
             {
-                catalogPath = Path.Combine(directory, "abilities_catalog.json");
+                catalogFileName = "abilities_catalog.json";
             }
-            
+            else if (fileName.Contains("names"))
+            {
+                catalogFileName = "catalog.json";
+            }
+            else
+            {
+                Log.Warning("Cannot determine catalog file for {FileName}", fileName);
+                return new List<string>();
+            }
+
+            string catalogPath = Path.Combine(directory, catalogFileName);
+
             if (!File.Exists(catalogPath))
             {
                 // Show relative path from Json folder for cleaner logs
                 string relativePath = catalogPath;
-                try {
+                try
+                {
                     var dirInfo = new DirectoryInfo(directory);
                     while (dirInfo != null && dirInfo.Name != "Json")
                     {
@@ -450,21 +465,22 @@ public partial class NameListEditorViewModel : ObservableObject
                     {
                         relativePath = Path.GetRelativePath(dirInfo.FullName, catalogPath);
                     }
-                } catch { }
-                Log.Debug("No catalog file found at {Path}", relativePath);
+                }
+                catch { }
+                Log.Error("Required catalog file not found: {Path}", relativePath);
                 return new List<string>();
             }
-            
+
             string catalogJson = File.ReadAllText(catalogPath);
             var catalog = JObject.Parse(catalogJson);
-            
+
             // Extract names from catalog structure
             // For abilities_catalog.json: { "ability_types": { "offensive": { "items": [{ "name": "Infernal Flames" }] } } }
             // For catalog.json: { "item_types": { "swords": { "items": [{ "name": "Longsword" }] } } }
-            
+
             // Try common top-level keys
             var topLevelKeys = new[] { "ability_types", "beast_types", "item_types", "npc_types", "types" };
-            
+
             foreach (var topKey in topLevelKeys)
             {
                 if (catalog[topKey] is JObject typesObj)
@@ -485,7 +501,7 @@ public partial class NameListEditorViewModel : ObservableObject
                     }
                 }
             }
-            
+
             if (baseNames.Count > 0)
             {
                 Log.Debug("Loaded {Count} base names from {Path}", baseNames.Count, catalogPath);
@@ -496,7 +512,7 @@ public partial class NameListEditorViewModel : ObservableObject
             Log.Warning(ex, "Failed to load base names from catalog file");
             baseNames = new List<string>();
         }
-        
+
         return baseNames;
     }
 
@@ -508,7 +524,7 @@ public partial class NameListEditorViewModel : ObservableObject
         try
         {
             MainWindow.AddLog($"LoadReferenceValue called with: '{referencePath}'");
-            
+
             // Parse reference path:
             // "materialRef" -> all materials
             // "materialRef/base" -> all materials (base is synonym for all)
@@ -523,27 +539,27 @@ public partial class NameListEditorViewModel : ObservableObject
 
             string categoryHint = parts[0]; // e.g., "materialRef"
             string? subcategoryFilter = parts.Length == 2 ? parts[1] : null; // e.g., "woods", "leathers", or "base"
-            
+
             // "base" is a special case meaning "all items"
             if (subcategoryFilter == "base")
             {
                 subcategoryFilter = null;
             }
-            
+
             MainWindow.AddLog($"Parsed reference - Category: '{categoryHint}', Subcategory filter: '{subcategoryFilter ?? "(all)"}'");
 
             // Determine the reference file path based on category hint
             // materialRef -> items/materials/names.json
             // weaponRef -> items/weapons/names.json, etc.
             // Navigate up to the Json root folder
-            
+
             // Get absolute path from relative path stored in _fileName
             string absolutePath = _jsonEditorService.GetFilePath(_fileName);
             string currentDir = Path.GetDirectoryName(absolutePath) ?? string.Empty;
             MainWindow.AddLog($"Current file directory: '{currentDir}'");
-            
+
             string? jsonRoot = null;
-            
+
             // Walk up directories until we find "Json" folder
             var dirInfo = new DirectoryInfo(currentDir);
             while (dirInfo != null && dirInfo.Name != "Json")
@@ -558,14 +574,14 @@ public partial class NameListEditorViewModel : ObservableObject
                 MainWindow.AddLog($"Could not find Json root directory from current file");
                 return string.Empty;
             }
-            
+
             MainWindow.AddLog($"Found Json root: '{jsonRoot}'");
 
             // Map category hints to paths
             string referencePath_full;
             string refCategory = categoryHint.Replace("Ref", "").ToLowerInvariant();
             MainWindow.AddLog($"Reference category (cleaned): '{refCategory}'");
-            
+
             // Map common reference patterns to catalog.json
             if (refCategory == "material")
             {
@@ -632,7 +648,7 @@ public partial class NameListEditorViewModel : ObservableObject
                     referencePath_full = Path.Combine(jsonRoot, refCategory + "s", "catalog.json");
                 }
             }
-            
+
             MainWindow.AddLog($"Full reference path: '{referencePath_full}'");
 
             if (!File.Exists(referencePath_full))
@@ -641,12 +657,12 @@ public partial class NameListEditorViewModel : ObservableObject
                 MainWindow.AddLog($"Reference file NOT FOUND at: '{referencePath_full}'");
                 return string.Empty;
             }
-            
+
             MainWindow.AddLog($"Reference file exists, loading...");
 
             // Load and parse the catalog file
             string json = File.ReadAllText(referencePath_full);
-            
+
             // Special handling for general word lists (simple JSON arrays)
             if (refCategory == "general")
             {
@@ -672,7 +688,7 @@ public partial class NameListEditorViewModel : ObservableObject
                     return string.Empty;
                 }
             }
-            
+
             var root = JObject.Parse(json);
             MainWindow.AddLog($"Catalog loaded, top-level keys: {string.Join(", ", root.Properties().Select(p => p.Name))}");
 
@@ -683,9 +699,9 @@ public partial class NameListEditorViewModel : ObservableObject
                 // Skip metadata
                 if (topLevelProp.Name == "metadata" || topLevelProp.Value is not JObject types)
                     continue;
-                
+
                 MainWindow.AddLog($"Checking '{topLevelProp.Name}' object with keys: {string.Join(", ", types.Properties().Select(p => p.Name))}");
-                
+
                 // If subcategory filter is specified, try direct match first
                 if (!string.IsNullOrEmpty(subcategoryFilter) && types[subcategoryFilter] is JObject typeObj && typeObj["items"] is JArray items && items.Count > 0)
                 {
@@ -699,7 +715,7 @@ public partial class NameListEditorViewModel : ObservableObject
                         return value;
                     }
                 }
-                
+
                 // If no subcategory filter or not found, collect from all subcategories (or just the filtered one)
                 var allItems = new List<JObject>();
                 foreach (var categoryProp in types.Properties())
@@ -707,7 +723,7 @@ public partial class NameListEditorViewModel : ObservableObject
                     // If subcategory filter exists, only collect from that category
                     if (!string.IsNullOrEmpty(subcategoryFilter) && categoryProp.Name != subcategoryFilter)
                         continue;
-                    
+
                     if (categoryProp.Value is JObject categoryObj && categoryObj["items"] is JArray categoryItems)
                     {
                         foreach (var item in categoryItems.OfType<JObject>())
@@ -719,7 +735,7 @@ public partial class NameListEditorViewModel : ObservableObject
                         }
                     }
                 }
-                
+
                 if (allItems.Count > 0)
                 {
                     var random = new Random();
@@ -736,14 +752,14 @@ public partial class NameListEditorViewModel : ObservableObject
                     MainWindow.AddLog($"No items found in '{topLevelProp.Name}'{filterMsg}");
                 }
             }
-            
+
             MainWindow.AddLog($"No match in standard catalog structure, trying components fallback...");
-            
+
             // Fallback: try to find components structure (for names.json compatibility)
             if (root["components"] is JObject components)
             {
                 MainWindow.AddLog($"Found 'components' object with keys: {string.Join(", ", components.Properties().Select(p => p.Name))}");
-                
+
                 // If subcategory filter specified, try to find it
                 if (!string.IsNullOrEmpty(subcategoryFilter) && components[subcategoryFilter] is JArray componentArray && componentArray.Count > 0)
                 {
@@ -757,14 +773,14 @@ public partial class NameListEditorViewModel : ObservableObject
                         return value;
                     }
                 }
-                
+
                 // If no subcategory or not found, use any available component
                 var availableComponents = components.Properties().Where(p => p.Value is JArray arr && arr.Count > 0).ToList();
                 if (availableComponents.Any())
                 {
                     var random = new Random();
                     var randomProperty = availableComponents[random.Next(availableComponents.Count)];
-                    var 
+                    var
                     fallbackArray = randomProperty.Value as JArray;
                     if (fallbackArray != null && fallbackArray.Count > 0)
                     {
@@ -773,7 +789,7 @@ public partial class NameListEditorViewModel : ObservableObject
                         {
                             var value = randomItem["value"]?.ToString() ?? string.Empty;
                             var requestedMsg = !string.IsNullOrEmpty(subcategoryFilter) ? $" (requested {subcategoryFilter})" : "";
-                            Log.Debug("Loaded reference value '{Value}' from {Path}[{ActualComponent}]{RequestedMsg}", 
+                            Log.Debug("Loaded reference value '{Value}' from {Path}[{ActualComponent}]{RequestedMsg}",
                                 value, referencePath_full, randomProperty.Name, requestedMsg);
                             MainWindow.AddLog($"FALLBACK - Used '{randomProperty.Name}'{requestedMsg}: '{value}'");
                             return value;
@@ -781,9 +797,9 @@ public partial class NameListEditorViewModel : ObservableObject
                     }
                 }
             }
-            
+
             Log.Warning("No components found in reference file: {Path}", referencePath_full);
-            MainWindow.AddLog($"FAILED - No valid data found in reference file");;
+            MainWindow.AddLog($"FAILED - No valid data found in reference file"); ;
         }
         catch (Exception ex)
         {
@@ -824,7 +840,7 @@ public partial class NameListEditorViewModel : ObservableObject
                 // Skip readonly patterns (they're auto-generated)
                 if (pattern.IsReadOnly)
                     continue;
-                    
+
                 patternsArr.Add(JObject.FromObject(pattern));
             }
             root["patterns"] = patternsArr;
@@ -864,14 +880,14 @@ public partial class NameListEditorViewModel : ObservableObject
             Weight = 10,
             Description = "New pattern"
         };
-        
+
         // Add the base token
         newPattern.Tokens.Add(new PatternToken
         {
             Value = "base",
             Type = PatternTokenType.Component
         });
-        
+
         Patterns.Add(newPattern);
         SelectedPattern = newPattern;
         StatusMessage = "Added new pattern with {base} token";
@@ -891,7 +907,7 @@ public partial class NameListEditorViewModel : ObservableObject
                 StatusMessage = "Cannot remove readonly pattern";
                 return;
             }
-            
+
             Patterns.Remove(SelectedPattern);
             SelectedPattern = null;
             UpdateStats();
@@ -978,27 +994,27 @@ public partial class NameListEditorViewModel : ObservableObject
             var baseNames = LoadBaseNamesFromCatalog();
             var examples = new List<string>();
             var usedExamples = new HashSet<string>();
-            
+
             int maxAttempts = 20;
             int attempts = 0;
-            
+
             while (examples.Count < 3 && attempts < maxAttempts)
             {
                 attempts++;
                 string example = pattern.PatternTemplate;
-                
+
                 // Replace + and - with spaces for cleaner display
                 example = example.Replace("+", " ").Replace("-", " ");
-                
+
                 // Split pattern by spaces
                 var tokens = example.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                
+
                 // Build the example by replacing tokens
                 var exampleParts = new List<string>();
                 foreach (var token in tokens)
                 {
                     string componentKey = token.Trim().Replace("{", "").Replace("}", "");
-                    
+
                     // Handle reference tokens like @materialRef/weapon
                     if (componentKey.StartsWith("@"))
                     {
@@ -1037,16 +1053,16 @@ public partial class NameListEditorViewModel : ObservableObject
                         exampleParts.Add($"[{componentKey}]");
                     }
                 }
-                
+
                 var generatedExample = string.Join(" ", exampleParts);
-                
+
                 // Only add if it's unique
                 if (!string.IsNullOrEmpty(generatedExample) && usedExamples.Add(generatedExample))
                 {
                     examples.Add(generatedExample);
                 }
             }
-            
+
             pattern.GeneratedExamples = string.Join(", ", examples);
         }
         catch (Exception ex)
@@ -1188,7 +1204,7 @@ public partial class NameListEditorViewModel : ObservableObject
         // Parameter can be either:
         // - A tuple (componentKey, pattern) from button with MultiBinding
         // - Just componentKey string (legacy, uses SelectedPattern)
-        
+
         string? componentKey = null;
         NamePatternBase? targetPattern = null;
 
@@ -1235,7 +1251,7 @@ public partial class NameListEditorViewModel : ObservableObject
         // Parameter can be either:
         // - A tuple (token, pattern) from button with MultiBinding
         // - Just token string (legacy, uses SelectedPattern)
-        
+
         string? token = null;
         NamePatternBase? targetPattern = null;
 
@@ -1281,7 +1297,7 @@ public partial class NameListEditorViewModel : ObservableObject
     {
         // Parameter should be the current pattern from the DataTemplate
         var targetPattern = parameter as NamePatternBase ?? SelectedPattern;
-        
+
         if (targetPattern == null)
         {
             StatusMessage = "Select a pattern first to browse references";
@@ -1303,7 +1319,7 @@ public partial class NameListEditorViewModel : ObservableObject
                     Value = $"@{dialog.SelectedReference}",
                     Type = PatternTokenType.Reference
                 });
-                
+
                 UpdatePatternTemplateFromTokens(targetPattern);
                 GenerateExampleForPattern(targetPattern);
                 StatusMessage = $"Added reference: @{dialog.SelectedReference}";
@@ -1322,7 +1338,7 @@ public partial class NameListEditorViewModel : ObservableObject
     public void RemoveTokenDirect(NamePatternBase pattern, PatternToken token)
     {
         MainWindow.AddLog($"RemoveTokenDirect called - Token: {token.DisplayText}, Pattern: {pattern.PatternTemplate}");
-        
+
         if (token == null || pattern == null)
         {
             MainWindow.AddLog($"RemoveTokenDirect aborted - token null: {token == null}, pattern null: {pattern == null}");
@@ -1358,9 +1374,9 @@ public partial class NameListEditorViewModel : ObservableObject
 
         var pattern = tuple.Item1 as NamePatternBase;
         var token = tuple.Item2 as PatternToken;
-        
+
         MainWindow.AddLog($"RemoveToken called - Token: {token?.DisplayText ?? "null"}, Pattern: {pattern?.PatternTemplate ?? "null"}");
-        
+
         if (token == null || pattern == null)
         {
             MainWindow.AddLog($"RemoveToken aborted - token null: {token == null}, pattern null: {pattern == null}");
@@ -1588,7 +1604,7 @@ public partial class NameListEditorViewModel : ObservableObject
             // Skip "base" - it's a special token that references the catalog, not a component
             if (comp.Equals("base", StringComparison.OrdinalIgnoreCase))
                 continue;
-                
+
             if (!TryGetComponentGroup(comp, out var compList) || compList == null || compList.Count == 0)
             {
                 ValidationErrors.Add($"Error: Pattern references empty component '{comp}'");
@@ -1625,7 +1641,7 @@ public partial class NameListEditorViewModel : ObservableObject
         {
             // Remove @ prefix
             var referencePath = referenceToken.StartsWith("@") ? referenceToken.Substring(1) : referenceToken;
-            
+
             // Parse reference path: "materialRef/weapon"
             var parts = referencePath.Split('/');
             if (parts.Length != 2)
@@ -1643,7 +1659,7 @@ public partial class NameListEditorViewModel : ObservableObject
             {
                 dirInfo = dirInfo.Parent;
             }
-            
+
             if (dirInfo == null)
             {
                 return (false, $"Reference '{referenceToken}' - cannot find Json root folder");
@@ -1651,7 +1667,7 @@ public partial class NameListEditorViewModel : ObservableObject
 
             string jsonRoot = dirInfo.FullName;
             string refCategory = categoryHint.Replace("Ref", "").ToLowerInvariant();
-            
+
             // Map to catalog file path
             string referencePath_full;
             if (refCategory == "material")
@@ -1684,10 +1700,10 @@ public partial class NameListEditorViewModel : ObservableObject
             // Check if component exists in catalog
             string json = File.ReadAllText(referencePath_full);
             var root = JObject.Parse(json);
-            
+
             // Check catalog structure: { "item_types": { "swords": { "items": [...] } } }
             var topLevelKeys = new[] { "item_types", "beast_types", "npc_types", "types" };
-            
+
             foreach (var topKey in topLevelKeys)
             {
                 if (root[topKey] is JObject types)
@@ -1708,7 +1724,7 @@ public partial class NameListEditorViewModel : ObservableObject
                     }
                 }
             }
-            
+
             return (false, $"Reference '{referenceToken}' - no recognized catalog structure found");
         }
         catch (Exception ex)

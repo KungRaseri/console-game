@@ -1,193 +1,118 @@
 {
-    "patterns": [
-        {
-            "rarityWeight": 40,
-            "pattern": "{base}",
-            "example": "PoisonWeapons"
-        },
-        {
-            "rarityWeight": 35,
-            "pattern": "{prefix} {base}",
-            "example": "Enhanced PoisonWeapons"
-        },
-        {
-            "rarityWeight": 20,
-            "pattern": "{base} {suffix}",
-            "example": "PoisonWeapons of Power"
-        },
-        {
-            "rarityWeight": 5,
-            "pattern": "{prefix} {base} {suffix}",
-            "example": "Enhanced PoisonWeapons of Power"
-        }
-    ],
-    "components": {
-        "prefix": [
-            {
-                "rarityWeight": 10,
-                "traits": {
-                    "damageBonus": {
-                        "value": 2,
-                        "type": "number"
-                    }
-                },
-                "value": "Enhanced"
-            },
-            {
-                "rarityWeight": 35,
-                "traits": {
-                    "damageBonus": {
-                        "value": 3,
-                        "type": "number"
-                    }
-                },
-                "value": "Superior"
-            },
-            {
-                "rarityWeight": 75,
-                "traits": {
-                    "damageBonus": {
-                        "value": 5,
-                        "type": "number"
-                    }
-                },
-                "value": "Legendary"
-            }
-        ],
-        "suffix": [
-            {
-                "rarityWeight": 10,
-                "traits": {
-                    "damageBonus": {
-                        "value": 1,
-                        "type": "number"
-                    }
-                },
-                "value": "of Power"
-            },
-            {
-                "rarityWeight": 35,
-                "traits": {
-                    "cooldownReduction": {
-                        "value": 2,
-                        "type": "number"
-                    }
-                },
-                "value": "of Mastery"
-            },
-            {
-                "rarityWeight": 75,
-                "traits": {
-                    "damageBonus": {
-                        "value": 3,
-                        "type": "number"
-                    },
-                    "cooldownReduction": {
-                        "value": 5,
-                        "type": "number"
-                    }
-                },
-                "value": "of the Gods"
-            }
-        ],
-        "base": [
-            {
-                "value": "PoisonWeapons",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Berserker",
-                "rarityWeight": 75
-            },
-            {
-                "value": "BombThrower",
-                "rarityWeight": 75
-            },
-            {
-                "value": "SneakAttack",
-                "rarityWeight": 10
-            },
-            {
-                "value": "PackTactics",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Cowardly",
-                "rarityWeight": 10
-            },
-            {
-                "value": "ShamanMagic",
-                "rarityWeight": 75
-            },
-            {
-                "value": "ShadowStep",
-                "rarityWeight": 150
-            },
-            {
-                "value": "VenomMaster",
-                "rarityWeight": 250
-            },
-            {
-                "value": "Scavenger",
-                "rarityWeight": 35
-            },
-            {
-                "value": "MechanicalGenius",
-                "rarityWeight": 150
-            },
-            {
-                "value": "CursedBloodline",
-                "rarityWeight": 500
-            },
-            {
-                "value": "DemonPact",
-                "rarityWeight": 500
-            },
-            {
-                "value": "TrapMaker",
-                "rarityWeight": 35
-            },
-            {
-                "value": "QuickReflexes",
-                "rarityWeight": 35
-            },
-            {
-                "value": "TunnelFighter",
-                "rarityWeight": 75
-            },
-            {
-                "value": "WarChief",
-                "rarityWeight": 150
-            },
-            {
-                "value": "KingOfGoblins",
-                "rarityWeight": 250
-            }
-        ]
-    },
-    "metadata": {
-        "totalPatterns": 4,
-        "description": "Pattern-based ability name generation for goblinoids",
-        "type": "pattern_generation",
-        "raritySystem": "weight-based",
-        "version": "4.0",
-        "lastUpdated": "2025-12-26",
-        "notes": [
-            "Base token resolves from abilities_catalog.json",
-            "Components have rarityWeight for emergent rarity calculation",
-            "Traits are applied when components are selected in patterns",
-            "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
-        ],
-        "patternTokens": [
-            "base",
-            "prefix",
-            "suffix"
-        ],
-        "componentKeys": [
-            "prefix",
-            "base",
-            "suffix"
-        ],
-        "supportsTraits": true
-    }
+    "patterns":  [
+                     {
+                         "rarityWeight":  40,
+                         "pattern":  "{base}",
+                         "example":  "PoisonWeapons"
+                     },
+                     {
+                         "rarityWeight":  35,
+                         "pattern":  "{prefix} {base}",
+                         "example":  "Enhanced PoisonWeapons"
+                     },
+                     {
+                         "rarityWeight":  20,
+                         "pattern":  "{base} {suffix}",
+                         "example":  "PoisonWeapons of Power"
+                     },
+                     {
+                         "rarityWeight":  5,
+                         "pattern":  "{prefix} {base} {suffix}",
+                         "example":  "Enhanced PoisonWeapons of Power"
+                     }
+                 ],
+    "components":  {
+                       "prefix":  [
+                                      {
+                                          "rarityWeight":  10,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  2,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Enhanced"
+                                      },
+                                      {
+                                          "rarityWeight":  35,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  3,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Superior"
+                                      },
+                                      {
+                                          "rarityWeight":  75,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  5,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Legendary"
+                                      }
+                                  ],
+                       "suffix":  [
+                                      {
+                                          "rarityWeight":  10,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  1,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "of Power"
+                                      },
+                                      {
+                                          "rarityWeight":  35,
+                                          "traits":  {
+                                                         "cooldownReduction":  {
+                                                                                   "value":  2,
+                                                                                   "type":  "number"
+                                                                               }
+                                                     },
+                                          "value":  "of Mastery"
+                                      },
+                                      {
+                                          "rarityWeight":  75,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  3,
+                                                                             "type":  "number"
+                                                                         },
+                                                         "cooldownReduction":  {
+                                                                                   "value":  5,
+                                                                                   "type":  "number"
+                                                                               }
+                                                     },
+                                          "value":  "of the Gods"
+                                      }
+                                  ]
+                   },
+    "metadata":  {
+                     "totalPatterns":  4,
+                     "description":  "Pattern-based ability name generation for goblinoids",
+                     "type":  "pattern_generation",
+                     "raritySystem":  "weight-based",
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "notes":  [
+                                   "Base token resolves from abilities_catalog.json",
+                                   "Components have rarityWeight for emergent rarity calculation",
+                                   "Traits are applied when components are selected in patterns",
+                                   "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
+                               ],
+                     "patternTokens":  [
+                                           "base",
+                                           "prefix",
+                                           "suffix"
+                                       ],
+                     "componentKeys":  [
+                                           "prefix",
+                                           "suffix"
+                                       ],
+                     "supportsTraits":  true
+                 }
 }

@@ -1,193 +1,118 @@
 {
-    "patterns": [
-        {
-            "rarityWeight": 40,
-            "pattern": "{base}",
-            "example": "Titanic"
-        },
-        {
-            "rarityWeight": 35,
-            "pattern": "{prefix} {base}",
-            "example": "Enhanced Titanic"
-        },
-        {
-            "rarityWeight": 20,
-            "pattern": "{base} {suffix}",
-            "example": "Titanic of Power"
-        },
-        {
-            "rarityWeight": 5,
-            "pattern": "{prefix} {base} {suffix}",
-            "example": "Enhanced Titanic of Power"
-        }
-    ],
-    "components": {
-        "prefix": [
-            {
-                "rarityWeight": 10,
-                "traits": {
-                    "damageBonus": {
-                        "value": 2,
-                        "type": "number"
-                    }
-                },
-                "value": "Enhanced"
-            },
-            {
-                "rarityWeight": 35,
-                "traits": {
-                    "damageBonus": {
-                        "value": 3,
-                        "type": "number"
-                    }
-                },
-                "value": "Superior"
-            },
-            {
-                "rarityWeight": 75,
-                "traits": {
-                    "damageBonus": {
-                        "value": 5,
-                        "type": "number"
-                    }
-                },
-                "value": "Legendary"
-            }
-        ],
-        "suffix": [
-            {
-                "rarityWeight": 10,
-                "traits": {
-                    "damageBonus": {
-                        "value": 1,
-                        "type": "number"
-                    }
-                },
-                "value": "of Power"
-            },
-            {
-                "rarityWeight": 35,
-                "traits": {
-                    "cooldownReduction": {
-                        "value": 2,
-                        "type": "number"
-                    }
-                },
-                "value": "of Mastery"
-            },
-            {
-                "rarityWeight": 75,
-                "traits": {
-                    "damageBonus": {
-                        "value": 3,
-                        "type": "number"
-                    },
-                    "cooldownReduction": {
-                        "value": 5,
-                        "type": "number"
-                    }
-                },
-                "value": "of the Gods"
-            }
-        ],
-        "base": [
-            {
-                "value": "Titanic",
-                "rarityWeight": 250
-            },
-            {
-                "value": "DragonAncestor",
-                "rarityWeight": 250
-            },
-            {
-                "value": "DinosaurKing",
-                "rarityWeight": 500
-            },
-            {
-                "value": "Basilisk",
-                "rarityWeight": 500
-            },
-            {
-                "value": "SwiftSwimmer",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Camouflage",
-                "rarityWeight": 35
-            },
-            {
-                "value": "ScaledHide",
-                "rarityWeight": 10
-            },
-            {
-                "value": "ColdBlooded",
-                "rarityWeight": 10
-            },
-            {
-                "value": "VenomousBite",
-                "rarityWeight": 10
-            },
-            {
-                "value": "ArmoredPlates",
-                "rarityWeight": 75
-            },
-            {
-                "value": "Regeneration",
-                "rarityWeight": 75
-            },
-            {
-                "value": "ShamanWisdom",
-                "rarityWeight": 150
-            },
-            {
-                "value": "AlphaLeader",
-                "rarityWeight": 150
-            },
-            {
-                "value": "AmbushPredator",
-                "rarityWeight": 35
-            },
-            {
-                "value": "PrimalRoar",
-                "rarityWeight": 75
-            },
-            {
-                "value": "TailWhip",
-                "rarityWeight": 35
-            },
-            {
-                "value": "DeathRoll",
-                "rarityWeight": 75
-            },
-            {
-                "value": "AcidSpit",
-                "rarityWeight": 150
-            }
-        ]
-    },
-    "metadata": {
-        "totalPatterns": 4,
-        "description": "Pattern-based ability name generation for reptilians",
-        "type": "pattern_generation",
-        "raritySystem": "weight-based",
-        "version": "4.0",
-        "lastUpdated": "2025-12-26",
-        "notes": [
-            "Base token resolves from abilities_catalog.json",
-            "Components have rarityWeight for emergent rarity calculation",
-            "Traits are applied when components are selected in patterns",
-            "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
-        ],
-        "patternTokens": [
-            "base",
-            "prefix",
-            "suffix"
-        ],
-        "componentKeys": [
-            "prefix",
-            "base",
-            "suffix"
-        ],
-        "supportsTraits": true
-    }
+    "patterns":  [
+                     {
+                         "rarityWeight":  40,
+                         "pattern":  "{base}",
+                         "example":  "Titanic"
+                     },
+                     {
+                         "rarityWeight":  35,
+                         "pattern":  "{prefix} {base}",
+                         "example":  "Enhanced Titanic"
+                     },
+                     {
+                         "rarityWeight":  20,
+                         "pattern":  "{base} {suffix}",
+                         "example":  "Titanic of Power"
+                     },
+                     {
+                         "rarityWeight":  5,
+                         "pattern":  "{prefix} {base} {suffix}",
+                         "example":  "Enhanced Titanic of Power"
+                     }
+                 ],
+    "components":  {
+                       "prefix":  [
+                                      {
+                                          "rarityWeight":  10,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  2,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Enhanced"
+                                      },
+                                      {
+                                          "rarityWeight":  35,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  3,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Superior"
+                                      },
+                                      {
+                                          "rarityWeight":  75,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  5,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "Legendary"
+                                      }
+                                  ],
+                       "suffix":  [
+                                      {
+                                          "rarityWeight":  10,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  1,
+                                                                             "type":  "number"
+                                                                         }
+                                                     },
+                                          "value":  "of Power"
+                                      },
+                                      {
+                                          "rarityWeight":  35,
+                                          "traits":  {
+                                                         "cooldownReduction":  {
+                                                                                   "value":  2,
+                                                                                   "type":  "number"
+                                                                               }
+                                                     },
+                                          "value":  "of Mastery"
+                                      },
+                                      {
+                                          "rarityWeight":  75,
+                                          "traits":  {
+                                                         "damageBonus":  {
+                                                                             "value":  3,
+                                                                             "type":  "number"
+                                                                         },
+                                                         "cooldownReduction":  {
+                                                                                   "value":  5,
+                                                                                   "type":  "number"
+                                                                               }
+                                                     },
+                                          "value":  "of the Gods"
+                                      }
+                                  ]
+                   },
+    "metadata":  {
+                     "totalPatterns":  4,
+                     "description":  "Pattern-based ability name generation for reptilians",
+                     "type":  "pattern_generation",
+                     "raritySystem":  "weight-based",
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-26",
+                     "notes":  [
+                                   "Base token resolves from abilities_catalog.json",
+                                   "Components have rarityWeight for emergent rarity calculation",
+                                   "Traits are applied when components are selected in patterns",
+                                   "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
+                               ],
+                     "patternTokens":  [
+                                           "base",
+                                           "prefix",
+                                           "suffix"
+                                       ],
+                     "componentKeys":  [
+                                           "prefix",
+                                           "suffix"
+                                       ],
+                     "supportsTraits":  true
+                 }
 }

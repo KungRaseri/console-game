@@ -7,7 +7,6 @@
         "supportsTraits": true,
         "componentKeys": [
             "prefix",
-            "base",
             "suffix"
         ],
         "patternTokens": [
@@ -233,80 +232,6 @@
                         "type": "number"
                     }
                 }
-            }
-        ],
-        "base": [
-            {
-                "value": "Flames",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Regeneration",
-                "rarityWeight": 15
-            },
-            {
-                "value": "Strength",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Breath",
-                "rarityWeight": 20
-            },
-            {
-                "value": "Aura",
-                "rarityWeight": 15
-            },
-            {
-                "value": "Pact",
-                "rarityWeight": 30
-            },
-            {
-                "value": "Armor",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Miasma",
-                "rarityWeight": 25
-            },
-            {
-                "value": "Lord",
-                "rarityWeight": 100
-            },
-            {
-                "value": "Warp",
-                "rarityWeight": 150
-            },
-            {
-                "value": "Shift",
-                "rarityWeight": 30
-            },
-            {
-                "value": "Weapons",
-                "rarityWeight": 15
-            },
-            {
-                "value": "Frenzy",
-                "rarityWeight": 20
-            },
-            {
-                "value": "Corruption",
-                "rarityWeight": 40
-            },
-            {
-                "value": "Strike",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Blast",
-                "rarityWeight": 15
-            },
-            {
-                "value": "Shield",
-                "rarityWeight": 15
-            },
-            {
-                "value": "Dominion",
-                "rarityWeight": 75
             }
         ],
         "suffix": [

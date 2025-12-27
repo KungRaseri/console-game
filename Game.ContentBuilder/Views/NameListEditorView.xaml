@@ -193,6 +193,13 @@
                                                 ToolTip="Add component to this group"
                                                 AutomationProperties.AutomationId="ComponentValueAddButton">
                                                 <materialDesign:PackIcon Kind="Plus" Width="16" Height="16"/>
+                                                <Button.Visibility>
+                                                    <Binding Path="Key">
+                                                        <Binding.Converter>
+                                                            <converters:StringEqualityToVisibilityConverter ComparisonValue="base" InvertMatch="True"/>
+                                                        </Binding.Converter>
+                                                    </Binding>
+                                                </Button.Visibility>
                                         </Button>
                                         
                                         <Button Grid.Column="2"
@@ -203,6 +210,13 @@
                                                 Padding="0"
                                                 ToolTip="Remove this group">
                                                 <materialDesign:PackIcon Kind="Delete" Width="16" Height="16"/>
+                                                <Button.Visibility>
+                                                    <Binding Path="Key">
+                                                        <Binding.Converter>
+                                                            <converters:StringEqualityToVisibilityConverter ComparisonValue="base" InvertMatch="True"/>
+                                                        </Binding.Converter>
+                                                    </Binding>
+                                                </Button.Visibility>
                                         </Button>
                                 </Grid>
                         </Border>

@@ -89,80 +89,6 @@
                 },
                 "value": "of the Gods"
             }
-        ],
-        "base": [
-            {
-                "value": "Territorial",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Night Hunter",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Venomous Bite",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Swift Pounce",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Savage Roar",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Thick Hide",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Armored Scales",
-                "rarityWeight": 75
-            },
-            {
-                "value": "Regeneration",
-                "rarityWeight": 75
-            },
-            {
-                "value": "Camouflage",
-                "rarityWeight": 75
-            },
-            {
-                "value": "Alpha Predator",
-                "rarityWeight": 150
-            },
-            {
-                "value": "Apex Predator",
-                "rarityWeight": 250
-            },
-            {
-                "value": "Keen Senses",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Pack Hunter",
-                "rarityWeight": 10
-            },
-            {
-                "value": "Feral Rage",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Ferocious",
-                "rarityWeight": 75
-            },
-            {
-                "value": "Primal Fury",
-                "rarityWeight": 150
-            },
-            {
-                "value": "Gore",
-                "rarityWeight": 35
-            },
-            {
-                "value": "Enrage",
-                "rarityWeight": 35
-            }
         ]
     },
     "metadata": {
@@ -185,7 +111,6 @@
         ],
         "componentKeys": [
             "prefix",
-            "base",
             "suffix"
         ],
         "supportsTraits": true
