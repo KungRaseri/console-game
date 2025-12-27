@@ -67,10 +67,10 @@ public class GameSettingsValidatorTests
     public void Should_Not_Have_Error_When_Health_And_Level_Are_Valid(int health, int maxLevel)
     {
         // Arrange
-        var settings = new GameSettings 
-        { 
+        var settings = new GameSettings
+        {
             StartingHealth = health,
-            MaxLevel = maxLevel 
+            MaxLevel = maxLevel
         };
 
         // Act
@@ -136,11 +136,11 @@ public class AudioSettingsValidatorTests
     public void Should_Not_Have_Error_When_Volumes_Are_Valid(double volume)
     {
         // Arrange
-        var settings = new AudioSettings 
-        { 
+        var settings = new AudioSettings
+        {
             MasterVolume = volume,
             MusicVolume = volume,
-            SfxVolume = volume 
+            SfxVolume = volume
         };
 
         // Act

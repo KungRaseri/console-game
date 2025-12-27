@@ -514,7 +514,7 @@ public class CombatLogTests
 
         // Assert
         formatted.Should().HaveCount(10);
-        formatted.Should().AllSatisfy(entry => 
+        formatted.Should().AllSatisfy(entry =>
         {
             entry.Should().StartWith("[");
             entry.Should().EndWith("[/]");

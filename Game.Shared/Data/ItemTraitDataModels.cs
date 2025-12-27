@@ -12,10 +12,10 @@ public class WeaponPrefixTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
-    
+
     /// <summary>
     /// Convert JSON traits to TraitValue dictionary.
     /// </summary>
@@ -48,10 +48,10 @@ public class ArmorMaterialTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
-    
+
     /// <summary>
     /// Convert JSON traits to TraitValue dictionary.
     /// </summary>
@@ -84,10 +84,10 @@ public class EnchantmentSuffixTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
-    
+
     /// <summary>
     /// Convert JSON traits to TraitValue dictionary.
     /// </summary>
@@ -125,10 +125,10 @@ public class MaterialTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
-    
+
     /// <summary>
     /// Convert JSON traits to TraitValue dictionary.
     /// </summary>

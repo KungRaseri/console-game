@@ -12,10 +12,10 @@ public class QuestTemplateTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
-    
+
     /// <summary>
     /// Convert JSON traits to TraitValue dictionary.
     /// </summary>

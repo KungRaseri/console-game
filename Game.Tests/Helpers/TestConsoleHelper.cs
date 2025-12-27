@@ -35,7 +35,7 @@ public static class TestConsoleHelper
         {
             console.Input.PushKey(ConsoleKey.DownArrow);
         }
-        
+
         // Press Enter to confirm selection
         console.Input.PushKey(ConsoleKey.Enter);
     }
@@ -91,17 +91,17 @@ public static class TestConsoleHelper
             {
                 console.Input.PushKey(ConsoleKey.DownArrow);
             }
-            
+
             // Toggle selection with Spacebar
             console.Input.PushKey(ConsoleKey.Spacebar);
-            
+
             // Move back to start for next selection
             for (int i = 0; i < index; i++)
             {
                 console.Input.PushKey(ConsoleKey.UpArrow);
             }
         }
-        
+
         // Confirm with Enter
         console.Input.PushKey(ConsoleKey.Enter);
     }

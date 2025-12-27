@@ -64,9 +64,9 @@ public class ItemGeneratorTests
             // Weapon names should not be empty and should be actual weapon types
             weapon.Type.Should().Be(ItemType.Weapon);
         }
-        
+
         // At least some weapons should have recognizable weapon words
-        var hasWeaponWords = weapons.Any(w => 
+        var hasWeaponWords = weapons.Any(w =>
             Regex.IsMatch(w.Name, @"(sword|axe|bow|dagger|spear|mace|staff|partisan|halberd|lance|pike|javelin|crossbow|flail|hammer|katana|claymore|rapier|scimitar|trident|glaive|club|maul)", RegexOptions.IgnoreCase));
         hasWeaponWords.Should().BeTrue("weapons should contain recognizable weapon type names");
     }
@@ -102,8 +102,8 @@ public class ItemGeneratorTests
         if (weaponsOfRarity.Any())
         {
             // Verify rarity-appropriate stat bonuses exist
-            weaponsOfRarity.Should().Contain(w => 
-                w.BonusStrength >= minExpected || w.BonusDexterity >= minExpected || 
+            weaponsOfRarity.Should().Contain(w =>
+                w.BonusStrength >= minExpected || w.BonusDexterity >= minExpected ||
                 w.BonusConstitution >= minExpected || w.BonusIntelligence >= minExpected ||
                 w.BonusWisdom >= minExpected || w.BonusCharisma >= minExpected,
                 $"weapons of rarity {rarity} should have stat bonuses >= {minExpected}");
@@ -240,8 +240,8 @@ public class ItemGeneratorTests
         var offHands = ItemGenerator.GenerateByType(ItemType.OffHand, 10);
 
         // Assert - off-hand items should be magic focuses
-        offHands.Should().Contain(o => 
-            o.Name.Contains("Tome") || o.Name.Contains("Orb") || 
+        offHands.Should().Contain(o =>
+            o.Name.Contains("Tome") || o.Name.Contains("Orb") ||
             o.Name.Contains("Crystal") || o.Name.Contains("Focus"),
             "off-hand items should be magic focuses");
     }
@@ -486,11 +486,11 @@ public class ItemGeneratorTests
         var items = ItemGenerator.Generate(100);
 
         // Assert - should get at least one rare or better item eventually
-        var hasHigherRarity = items.Any(i => 
-            i.Rarity == ItemRarity.Rare || 
-            i.Rarity == ItemRarity.Epic || 
+        var hasHigherRarity = items.Any(i =>
+            i.Rarity == ItemRarity.Rare ||
+            i.Rarity == ItemRarity.Epic ||
             i.Rarity == ItemRarity.Legendary);
-        
+
         hasHigherRarity.Should().BeTrue("random generation should occasionally produce higher rarity items");
     }
 

@@ -57,7 +57,7 @@ public class QuestGeneratorTests
     [InlineData("kill", "medium")]
     [InlineData("escort", "hard")]
     public void GenerateByTypeAndDifficulty_Should_Return_Quest_With_Correct_Type_And_Difficulty(
-        string questType, 
+        string questType,
         string difficulty)
     {
         // Act

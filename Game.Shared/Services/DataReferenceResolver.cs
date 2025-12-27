@@ -31,7 +31,7 @@ public class DataReferenceResolver
         {
             throw new DirectoryNotFoundException($"Data root path not found: {dataRootPath}");
         }
-        
+
         // Clear cache and reinitialize
         _catalogCache.Clear();
         Log.Information("DataReferenceResolver initialized with root: {DataRoot}", dataRootPath);
@@ -110,7 +110,7 @@ public class DataReferenceResolver
                 }
             }
 
-            Log.Debug("Resolved material {MaterialRef} for {ItemType}: {TraitCount} traits", 
+            Log.Debug("Resolved material {MaterialRef} for {ItemType}: {TraitCount} traits",
                 materialRef, itemType, combinedTraits.Count);
 
             return combinedTraits;
@@ -217,7 +217,7 @@ public class DataReferenceResolver
                 var enemy = items
                     .OfType<JObject>()
                     .FirstOrDefault(e => e["name"]?.ToString() == enemyName);
-                
+
                 return enemy;
             }
 
@@ -246,7 +246,7 @@ public class DataReferenceResolver
             Log.Warning("Material references require itemType context. Use ResolveMaterial() instead.");
             return null;
         }
-        
+
         // Try to resolve as item or enemy
         var parts = reference.Split('/');
         if (parts.Length == 3)
@@ -284,10 +284,10 @@ public class DataReferenceResolver
 
             var json = File.ReadAllText(fullPath);
             var catalog = JObject.Parse(json);
-            
+
             // Cache for future use
             _catalogCache[relativePath] = catalog;
-            
+
             Log.Debug("Loaded catalog: {Path}", relativePath);
             return catalog;
         }

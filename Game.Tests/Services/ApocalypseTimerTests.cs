@@ -44,7 +44,7 @@ public class ApocalypseTimerTests
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
         timer.Start();
-        
+
         var firstRemaining = timer.GetRemainingMinutes();
 
         // Act - Restart timer
@@ -101,7 +101,7 @@ public class ApocalypseTimerTests
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
         timer.Start();
-        
+
         // Act
         timer.Pause();
         var remainingWhenPaused = timer.GetRemainingMinutes();
@@ -119,7 +119,7 @@ public class ApocalypseTimerTests
         var timer = new ApocalypseTimer(_consoleUI);
         timer.Start();
         timer.Pause();
-        
+
         // Act
         timer.Resume();
         var remainingAfterResume = timer.GetRemainingMinutes();
@@ -157,10 +157,10 @@ public class ApocalypseTimerTests
         // Act - Multiple pause/resume cycles
         timer.Pause();
         timer.Resume();
-        
+
         timer.Pause();
         timer.Resume();
-        
+
         var remaining = timer.GetRemainingMinutes();
 
         // Assert
@@ -209,7 +209,7 @@ public class ApocalypseTimerTests
         // Arrange
         var timer = new ApocalypseTimer(_consoleUI);
         timer.Start();
-        
+
         // Act
         timer.AddBonusTime(60, "Test bonus");
         var remaining = timer.GetRemainingMinutes();
@@ -457,11 +457,11 @@ public class ApocalypseTimerTests
         var testConsole2 = TestConsoleHelper.CreateInteractiveConsole();
         IGameUI consoleUI2 = new ConsoleUI(testConsole2);
         var timer2 = new ApocalypseTimer(consoleUI2);
-        
+
         var startTime2 = DateTime.Now.AddMinutes(-185); // Start at 55 min
         timer2.StartFromSave(startTime2, 0);
         timer2.CheckTimeWarnings(); // First warning (1 hour)
-        
+
         var startTime3 = DateTime.Now.AddMinutes(-215); // Now at 25 min
         timer2.StartFromSave(startTime3, 0);
         timer2.CheckTimeWarnings(); // Second warning (30 min)
@@ -478,17 +478,17 @@ public class ApocalypseTimerTests
         var testConsole = TestConsoleHelper.CreateInteractiveConsole();
         IGameUI ConsoleUI = new ConsoleUI(testConsole);
         var timer = new ApocalypseTimer(ConsoleUI);
-        
+
         // Trigger 1 hour warning
         var startTime1 = DateTime.Now.AddMinutes(-185); // 55 min remaining
         timer.StartFromSave(startTime1, 0);
         timer.CheckTimeWarnings();
-        
+
         // Trigger 30 minute warning  
         var startTime2 = DateTime.Now.AddMinutes(-215); // 25 min remaining
         timer.StartFromSave(startTime2, 0);
         timer.CheckTimeWarnings();
-        
+
         // Trigger 10 minute warning
         var startTime3 = DateTime.Now.AddMinutes(-235); // 5 min remaining
         timer.StartFromSave(startTime3, 0);
@@ -513,7 +513,7 @@ public class ApocalypseTimerTests
         timer.StartFromSave(startTime, 0);
         timer.CheckTimeWarnings(); // First call - should show 1 HOUR warning (since 5 <= 60)
         var firstOutput = testConsole.Output;
-        
+
         // Create new console to track second call output
         var testConsole2 = TestConsoleHelper.CreateInteractiveConsole();
         IGameUI consoleUI2 = new ConsoleUI(testConsole2);
@@ -703,7 +703,7 @@ public class ApocalypseTimerTests
         var timer1 = new ApocalypseTimer(_consoleUI);
         timer1.Start();
         timer1.AddBonusTime(30, "Saved game bonus");
-        
+
         var savedStartTime = DateTime.Now.AddMinutes(-timer1.GetElapsedMinutes());
         var savedBonusMinutes = timer1.GetBonusMinutes();
 

@@ -10,10 +10,10 @@ public class JsonTraitValue
 {
     [JsonPropertyName("value")]
     public object? Value { get; set; }
-    
+
     [JsonPropertyName("type")]
     public string Type { get; set; } = "string";
-    
+
     public TraitValue ToTraitValue()
     {
         var traitType = Type.ToLower() switch
@@ -25,7 +25,7 @@ public class JsonTraitValue
             "numberarray" => TraitType.NumberArray,
             _ => TraitType.String
         };
-        
+
         return new TraitValue(Value, traitType);
     }
 }

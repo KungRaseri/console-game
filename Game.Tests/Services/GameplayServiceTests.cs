@@ -25,10 +25,10 @@ public class GameplayServiceTests : IDisposable
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-gameplay-{Guid.NewGuid()}.db";
-        
+
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
-        
+
         _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), new ApocalypseTimer(_consoleUI));
         _gameplayService = new GameplayService(_saveGameService, _consoleUI);
     }
@@ -37,13 +37,13 @@ public class GameplayServiceTests : IDisposable
     {
         // Dispose of SaveGameService first to release file locks
         _saveGameService?.Dispose();
-        
+
         // Clean up test database files
         try
         {
             if (File.Exists(_testDbPath))
                 File.Delete(_testDbPath);
-            
+
             var logFile = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logFile))
                 File.Delete(logFile);
@@ -251,7 +251,7 @@ public class GameplayServiceTests : IDisposable
 
         // Assert
         act.Should().NotThrow("SaveGame should handle null player gracefully");
-        
+
         // Verify no save was created
         var saves = _saveGameService.GetAllSaves();
         saves.Should().BeEmpty("No save should be created for null player");
@@ -278,7 +278,7 @@ public class GameplayServiceTests : IDisposable
         // Assert
         var saves = _saveGameService.GetAllSaves();
         var save = saves.FirstOrDefault(s => s.Character.Name == "InventoryHero");
-        
+
         save.Should().NotBeNull();
         save!.Character.Inventory.Should().HaveCount(2, "Inventory should be saved");
         save.Character.Inventory.Should().Contain(i => i.Name == "Sword");
@@ -301,10 +301,10 @@ public class GameplayServiceTests : IDisposable
         // Assert
         warrior.Health.Should().Be(150);
         warrior.Mana.Should().Be(20);
-        
+
         mage.Health.Should().Be(80);
         mage.Mana.Should().Be(150);
-        
+
         rogue.Health.Should().Be(100);
         rogue.Mana.Should().Be(60);
     }
@@ -332,7 +332,7 @@ public class GameplayServiceTests : IDisposable
         // Assert
         var saves = _saveGameService.GetAllSaves();
         var save = saves.FirstOrDefault(s => s.Character.Name == "StatsHero");
-        
+
         save.Should().NotBeNull();
         save!.Character.Level.Should().Be(7);
         save.Character.Experience.Should().Be(1500);
@@ -356,7 +356,7 @@ public class GameplayServiceTests : IDisposable
         // Assert
         var saves = _saveGameService.GetAllSaves();
         var save = saves.FirstOrDefault(s => s.Character.Name == "EmptyInventoryHero");
-        
+
         save.Should().NotBeNull();
         save!.Character.Inventory.Should().BeEmpty();
     }

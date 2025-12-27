@@ -49,7 +49,7 @@ public class LoadGameService
                 var timeAgo = timeSinceSave.TotalHours < 24
                     ? $"{(int)timeSinceSave.TotalHours}h ago"
                     : $"{(int)timeSinceSave.TotalDays}d ago";
-                
+
                 var playTime = s.PlayTimeMinutes < 60
                     ? $"{s.PlayTimeMinutes}m"
                     : $"{s.PlayTimeMinutes / 60}h {s.PlayTimeMinutes % 60}m";
@@ -95,12 +95,12 @@ public class LoadGameService
 
             _console.ShowSuccess($"Welcome back, {selectedSave.Character.Name}!");
             Log.Information("Game loaded for player {PlayerName}", selectedSave.Character.Name);
-            
+
             // Restore apocalypse timer if applicable
             if (selectedSave.ApocalypseMode && selectedSave.ApocalypseStartTime.HasValue)
             {
                 _apocalypseTimer.StartFromSave(selectedSave.ApocalypseStartTime.Value, selectedSave.ApocalypseBonusMinutes);
-                
+
                 // Check if time expired while they were away
                 if (_apocalypseTimer.IsExpired())
                 {
@@ -109,19 +109,19 @@ public class LoadGameService
                     // Return to GameEngine which will handle the apocalypse game over
                     return (selectedSave, true);
                 }
-                
+
                 // Show time remaining
                 var remaining = _apocalypseTimer.GetRemainingMinutes();
                 _console.ShowWarning($"Apocalypse Mode: {remaining} minutes remaining!");
-                
+
                 if (remaining < 60)
                 {
                     _console.ShowError("WARNING: Less than 1 hour remaining!");
                 }
-                
+
                 await Task.Delay(1000);
             }
-            
+
             await Task.Delay(500);
 
             return (selectedSave, true);
@@ -167,7 +167,7 @@ public class LoadGameService
                 _console.ShowSuccess("Save deleted successfully!");
                 Log.Information("Save deleted for player {PlayerName}", selectedSave.Character.Name);
                 await Task.Delay(300);
-                
+
                 // Return to load menu
                 await LoadGameAsync();
             }

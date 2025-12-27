@@ -179,7 +179,7 @@ public class NpcGeneratorTests
 
         friendlyCount.Should().BeGreaterThan(0, "should have some friendly NPCs");
         unfriendlyCount.Should().BeGreaterThan(0, "should have some unfriendly NPCs");
-        
+
         // Both counts should be reasonable (not all friendly or all unfriendly)
         friendlyCount.Should().BeLessThan(100, "should have some variety in dispositions");
         unfriendlyCount.Should().BeLessThan(100, "should have some variety in dispositions");
@@ -205,13 +205,13 @@ public class NpcGeneratorTests
 
         // Assert - NPCs with "friendly" disposition should be friendly
         var friendlyDispositionNpcs = npcs
-            .Where(n => n.Traits.ContainsKey("disposition") && 
+            .Where(n => n.Traits.ContainsKey("disposition") &&
                        n.Traits["disposition"].AsString() == "friendly")
             .ToList();
 
         if (friendlyDispositionNpcs.Any())
         {
-            friendlyDispositionNpcs.Should().AllSatisfy(n => 
+            friendlyDispositionNpcs.Should().AllSatisfy(n =>
                 n.IsFriendly.Should().BeTrue("NPCs with friendly disposition should be friendly"));
         }
     }
@@ -350,7 +350,7 @@ public class NpcGeneratorTests
 
         // Assert - should have diverse occupations from different categories
         var occupations = npcs.Select(n => n.Occupation).Distinct().ToList();
-        
+
         // With 150 NPCs, should get significant variety (10+ categories * multiple occupations)
         occupations.Should().HaveCountGreaterThan(20, "should have many different occupations from various categories");
     }
@@ -366,8 +366,8 @@ public class NpcGeneratorTests
         var npcs = NpcGenerator.Generate(200);
 
         // Assert - some NPCs should be merchants
-        var merchants = npcs.Where(n => 
-            n.Occupation.Contains("Merchant") || 
+        var merchants = npcs.Where(n =>
+            n.Occupation.Contains("Merchant") ||
             n.Occupation.Contains("Trader") ||
             n.Occupation.Contains("Shop")).ToList();
 
@@ -392,7 +392,7 @@ public class NpcGeneratorTests
         // Assert - verify generation works with all occupation categories
         npcs.Should().NotBeEmpty();
         npcs.Should().AllSatisfy(n => n.Occupation.Should().NotBeNullOrEmpty());
-        
+
         // Should have good variety of occupations
         var uniqueOccupations = npcs.Select(n => n.Occupation).Distinct().Count();
         uniqueOccupations.Should().BeGreaterThan(20, "should have many different occupation types");

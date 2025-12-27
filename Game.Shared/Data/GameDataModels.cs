@@ -16,7 +16,7 @@ public class WeaponNameData
     /// Key = component group name, Value = list of component values with weights
     /// </summary>
     public Dictionary<string, List<WeaponComponent>> Components { get; set; } = new();
-    
+
     /// <summary>
     /// Patterns for generating weapon names (e.g., "@materialRef/weapon + {base}")
     /// </summary>
@@ -43,12 +43,12 @@ public class WeaponPattern
     public int RarityWeight { get; set; } = 10; // Alternative field name
     public string? Description { get; set; }
     public string? Example { get; set; } // Alternative field name
-    
+
     /// <summary>
     /// Get the pattern template (handles both field names)
     /// </summary>
     public string GetTemplate() => Template ?? Pattern ?? string.Empty;
-    
+
     /// <summary>
     /// Get the weight (handles both field names)
     /// </summary>

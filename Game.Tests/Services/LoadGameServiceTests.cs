@@ -28,11 +28,11 @@ public class LoadGameServiceTests : IDisposable
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-loadgame-{Guid.NewGuid()}.db";
-        
+
         // Create TestConsole for UI testing
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
-        
+
         // Create services with TestConsole
         _apocalypseTimer = new ApocalypseTimer(_consoleUI);
         _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
@@ -43,13 +43,13 @@ public class LoadGameServiceTests : IDisposable
     {
         // Dispose of SaveGameService first to release file locks
         _saveGameService?.Dispose();
-        
+
         // Clean up test database files
         try
         {
             if (File.Exists(_testDbPath))
                 File.Delete(_testDbPath);
-            
+
             var logFile = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logFile))
                 File.Delete(logFile);
@@ -73,7 +73,7 @@ public class LoadGameServiceTests : IDisposable
 
         // Assert
         service.Should().NotBeNull();
-        
+
         // Cleanup
         saveGameService.Dispose();
     }
@@ -99,7 +99,7 @@ public class LoadGameServiceTests : IDisposable
         // Assert
         save.Should().BeNull("No saves exist to load");
         success.Should().BeFalse("User selected Go Back");
-        
+
         // Verify console output shows appropriate message
         var output = TestConsoleHelper.GetOutput(_testConsole);
         output.Should().Contain("No saved games found", "Should inform user no saves exist");
@@ -131,7 +131,7 @@ public class LoadGameServiceTests : IDisposable
         // Assert
         save.Should().BeNull("User selected Go Back instead of loading");
         success.Should().BeFalse();
-        
+
         // Verify console output shows the save in a table
         var output = TestConsoleHelper.GetOutput(_testConsole);
         output.Should().Contain("TestHero", "Save should be displayed");

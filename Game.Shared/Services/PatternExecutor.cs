@@ -14,14 +14,14 @@ public class PatternExecutor
 {
     private static readonly Regex ReferenceTokenRegex = new(@"@(\w+)(?:/(\w+))?", RegexOptions.Compiled);
     private static readonly Regex ComponentTokenRegex = new(@"\{(\w+)\}", RegexOptions.Compiled);
-    
+
     private readonly DataReferenceResolver _referenceResolver;
-    
+
     public PatternExecutor()
     {
         _referenceResolver = DataReferenceResolver.Instance;
     }
-    
+
     /// <summary>
     /// Execute a pattern template and generate a name.
     /// Pattern syntax:
@@ -50,14 +50,14 @@ public class PatternExecutor
         foreach (var token in tokens)
         {
             var trimmed = token.Trim();
-            
+
             // Check for reference token: @materialRef/weapon
             var refMatch = ReferenceTokenRegex.Match(trimmed);
             if (refMatch.Success)
             {
                 var referenceType = refMatch.Groups[1].Value; // materialRef, itemRef, etc.
                 var context = refMatch.Groups[2].Success ? refMatch.Groups[2].Value : itemType; // weapon, armor, etc.
-                
+
                 var resolvedName = ResolveReferenceToken(referenceType, context, faker);
                 if (resolvedName != null)
                 {
@@ -65,7 +65,7 @@ public class PatternExecutor
                 }
                 continue;
             }
-            
+
             // Check for component token: {base}
             var compMatch = ComponentTokenRegex.Match(trimmed);
             if (compMatch.Success)
@@ -78,7 +78,7 @@ public class PatternExecutor
                 }
                 continue;
             }
-            
+
             // Literal text (skip operators like +)
             if (trimmed != "+" && trimmed != "-")
             {
@@ -100,22 +100,22 @@ public class PatternExecutor
             {
                 case "materialref":
                     return ResolveMaterialReference(context, faker);
-                    
+
                 case "itemref":
                     // TODO: Implement item reference resolution
                     Log.Warning("@itemRef not yet implemented");
                     return null;
-                    
+
                 case "enemyref":
                     // TODO: Implement enemy reference resolution
                     Log.Warning("@enemyRef not yet implemented");
                     return null;
-                    
+
                 case "npcref":
                     // TODO: Implement NPC reference resolution
                     Log.Warning("@npcRef not yet implemented");
                     return null;
-                    
+
                 default:
                     Log.Warning("Unknown reference type: {Type}", referenceType);
                     return null;

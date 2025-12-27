@@ -23,11 +23,11 @@ public class SaveGameServiceTests : IDisposable
         {
             File.Delete(_testDbPath);
         }
-        
+
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
         _saveService = new SaveGameService(new SaveGameRepository(_testDbPath), new ApocalypseTimer(_consoleUI));
-    } 
+    }
 
     [Fact]
     public void SaveGame_Should_Create_New_Save()
@@ -102,7 +102,7 @@ public class SaveGameServiceTests : IDisposable
             ClassName = "Rogue",
             Level = 1
         };
-        
+
         _saveService.SaveGame(character, new List<Item>());
         var saves = _saveService.GetAllSaves();
         var saveId = saves[0].Id;
@@ -117,7 +117,7 @@ public class SaveGameServiceTests : IDisposable
         // Assert
         var allSaves = _saveService.GetAllSaves();
         allSaves.Should().HaveCount(1); // Still only one save
-        
+
         var updated = _saveService.LoadGame(saveId);
         updated!.Character.Level.Should().Be(5);
         updated.Character.Gold.Should().Be(1000);
@@ -193,7 +193,7 @@ public class SaveGameServiceTests : IDisposable
         };
 
         _saveService.AutoSave(character, new List<Item>());
-        
+
         // Modify character
         character.Level = 10;
         character.Gold = 5000;
@@ -275,7 +275,7 @@ public class SaveGameServiceTests : IDisposable
     public void Dispose()
     {
         _saveService?.Dispose();
-        
+
         // Clean up test database
         if (File.Exists(_testDbPath))
         {

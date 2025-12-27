@@ -58,13 +58,13 @@ public class CharacterTests
             Level = 1,
             Experience = 0
         };
-        
+
         // Set initial values from D20 calculations
         character.MaxHealth = character.GetMaxHealth(); // (CON:10 × 10) + (Level:1 × 5) = 105
         character.Health = character.MaxHealth;
         character.MaxMana = character.GetMaxMana();     // (WIS:10 × 5) + (Level:1 × 3) = 53
         character.Mana = character.MaxMana;
-        
+
         var initialMaxHealth = character.MaxHealth;
         var initialMaxMana = character.MaxMana;
         var initialConstitution = character.Constitution;
@@ -75,7 +75,7 @@ public class CharacterTests
 
         // Assert
         character.Level.Should().Be(2);
-        
+
         // Stats should NOT auto-increase (new system - player allocates)
         character.Constitution.Should().Be(initialConstitution); // No auto-increase
         character.Strength.Should().Be(10);   // Base stats unchanged
@@ -83,17 +83,17 @@ public class CharacterTests
         character.Intelligence.Should().Be(10);
         character.Wisdom.Should().Be(10);
         character.Charisma.Should().Be(10);
-        
+
         // Should have unspent attribute points
         character.UnspentAttributePoints.Should().Be(initialAttributePoints + 3); // 3 points per level
-        
+
         // Should have a pending level-up
         character.PendingLevelUps.Should().HaveCount(1);
-        
+
         // MaxHealth and MaxMana should still recalculate based on level
         character.MaxHealth.Should().BeGreaterThan(initialMaxHealth);
         character.MaxMana.Should().BeGreaterThan(initialMaxMana);
-        
+
         // Health and Mana should be fully restored
         character.Health.Should().Be(character.MaxHealth);
         character.Mana.Should().Be(character.MaxMana);
@@ -829,7 +829,7 @@ public class CharacterTests
         var sword = new Item { Id = "1", Name = "Sword", Type = ItemType.Weapon };
         var shield = new Item { Id = "2", Name = "Shield", Type = ItemType.Shield };
         var helmet = new Item { Id = "3", Name = "Helmet", Type = ItemType.Helmet };
-        
+
         var character = new Character
         {
             EquippedMainHand = sword,

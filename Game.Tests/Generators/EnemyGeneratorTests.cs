@@ -177,7 +177,7 @@ public class EnemyGeneratorTests
         // Assert
         enemy.MaxHealth.Should().BeGreaterThan(0);
         enemy.Health.Should().Be(enemy.MaxHealth);
-        
+
         // Health formula: (Constitution * 8) + (Level * 5)
         var expectedHealth = (enemy.Constitution * 8) + (enemy.Level * 5);
         enemy.MaxHealth.Should().Be(expectedHealth);

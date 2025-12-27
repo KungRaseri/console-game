@@ -156,7 +156,7 @@ public class AttributeAllocationTests
 
         // Act
         var canIncrease = allocation.CanIncrease("Constitution");
-        
+
         // Assert - should be able to increase since we have 4 points left
         canIncrease.Should().BeTrue();
     }
@@ -340,7 +340,7 @@ public class AttributeAllocationTests
             Constitution = 13 // Costs 5 points
         };
         // Total: 23 points spent, 4 remaining
-        
+
         // Intelligence at 8, increasing to 12 costs 4 points
         allocation.Intelligence = 12; // Now at 27 points exactly
 

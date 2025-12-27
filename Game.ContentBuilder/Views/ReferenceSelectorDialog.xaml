@@ -4,10 +4,11 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:vm="clr-namespace:Game.ContentBuilder.ViewModels"
         Title="Reference Selector"
-        Height="600" Width="900"
+        Height="600"
+        Width="900"
         WindowStartupLocation="CenterOwner"
         Style="{StaticResource MaterialDesignWindow}">
-    
+
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,22 +16,24 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
         <!-- Reference Type Selector -->
-        <materialDesign:Card Grid.Row="0" Padding="16" Margin="0,0,0,16">
+        <materialDesign:Card Grid.Row="0"
+                Padding="16"
+                Margin="0,0,0,16">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
-                <TextBlock Grid.Column="0" 
-                           Text="Reference Type:" 
-                           VerticalAlignment="Center" 
+
+                <TextBlock Grid.Column="0"
+                           Text="Reference Type:"
+                           VerticalAlignment="Center"
                            Margin="0,0,16,0"
                            FontWeight="SemiBold"/>
-                
-                <ListBox Grid.Column="1" 
+
+                <ListBox Grid.Column="1"
                          ItemsSource="{Binding ReferenceTypes}"
                          SelectedValue="{Binding SelectedReferenceType}"
                          SelectedValuePath="Key"
@@ -43,7 +46,10 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="{Binding Icon}" Width="16" Height="16" Margin="0,0,6,0"/>
+                                <materialDesign:PackIcon Kind="{Binding Icon}"
+                                        Width="16"
+                                        Height="16"
+                                        Margin="0,0,6,0"/>
                                 <TextBlock Text="{Binding DisplayName}"/>
                             </StackPanel>
                         </DataTemplate>
@@ -51,18 +57,19 @@
                 </ListBox>
             </Grid>
         </materialDesign:Card>
-        
+
         <!-- Search Bar -->
-        <TextBox Grid.Row="1" 
+        <TextBox Grid.Row="1"
                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="Search..."
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                  Margin="0,0,0,16">
             <TextBox.InputBindings>
-                <KeyBinding Key="Escape" Command="{Binding ClearSearchCommand}"/>
+                <KeyBinding Key="Escape"
+                        Command="{Binding ClearSearchCommand}"/>
             </TextBox.InputBindings>
         </TextBox>
-        
+
         <!-- Main Content Area -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -70,37 +77,58 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!-- Categories and Items Tree -->
-            <materialDesign:Card Grid.Column="0" Padding="0">
+            <materialDesign:Card Grid.Column="0"
+                    Padding="0">
                 <TreeView ItemsSource="{Binding Categories}"
                           SelectedItemChanged="TreeView_SelectedItemChanged">
-                    
+
                     <!-- Category Template -->
                     <TreeView.ItemContainerStyle>
-                        <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
-                            <Setter Property="IsExpanded" Value="True"/>
+                        <Style TargetType="TreeViewItem"
+                                BasedOn="{StaticResource MaterialDesignTreeViewItem}">
+                            <Setter Property="IsExpanded"
+                                    Value="True"/>
                         </Style>
                     </TreeView.ItemContainerStyle>
-                    
+
                     <TreeView.Resources>
                         <!-- Item Template -->
-                        <HierarchicalDataTemplate DataType="{x:Type vm:ReferenceCategory}" ItemsSource="{Binding Items}">
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <materialDesign:PackIcon Kind="FolderOutline" Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding Items.Count, StringFormat=' ({0})'}" Foreground="Gray" Margin="4,0,0,0" VerticalAlignment="Center"/>
+                        <HierarchicalDataTemplate DataType="{x:Type vm:ReferenceCategory}"
+                                ItemsSource="{Binding Items}">
+                            <StackPanel Orientation="Horizontal"
+                                    Margin="4">
+                                <materialDesign:PackIcon Kind="FolderOutline"
+                                        Width="18"
+                                        Height="18"
+                                        Margin="0,0,8,0"
+                                        VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding DisplayName}"
+                                        FontWeight="SemiBold"
+                                        VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Items.Count, StringFormat=' ({0})'}"
+                                        Foreground="Gray"
+                                        Margin="4,0,0,0"
+                                        VerticalAlignment="Center"/>
                             </StackPanel>
                         </HierarchicalDataTemplate>
-                        
+
                         <DataTemplate DataType="{x:Type vm:ReferenceItem}">
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <materialDesign:PackIcon Kind="FileOutline" Width="16" Height="16" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="Gray"/>
-                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding Weight, StringFormat=' (Weight: {0})'}" 
-                                           Foreground="Gray" 
-                                           FontSize="11" 
-                                           Margin="8,0,0,0" 
+                            <StackPanel Orientation="Horizontal"
+                                    Margin="4">
+                                <materialDesign:PackIcon Kind="FileOutline"
+                                        Width="16"
+                                        Height="16"
+                                        Margin="0,0,8,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="Gray"/>
+                                <TextBlock Text="{Binding Name}"
+                                        VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Weight, StringFormat=' (Weight: {0})'}"
+                                           Foreground="Gray"
+                                           FontSize="11"
+                                           Margin="8,0,0,0"
                                            VerticalAlignment="Center"
                                            Visibility="{Binding Weight, Converter={StaticResource NotNullToVisibilityConverter}}"/>
                             </StackPanel>
@@ -108,25 +136,30 @@
                     </TreeView.Resources>
                 </TreeView>
             </materialDesign:Card>
-            
-            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Transparent"/>
-            
+
+            <GridSplitter Grid.Column="1"
+                    Width="5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Background="Transparent"/>
+
             <!-- Preview Panel -->
-            <materialDesign:Card Grid.Column="2" Padding="16">
+            <materialDesign:Card Grid.Column="2"
+                    Padding="16">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <TextBlock Text="Preview" 
-                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                        <TextBlock Text="Preview"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                    Margin="0,0,0,16"/>
-                        
-                        <Border Background="{DynamicResource MaterialDesignDivider}" 
-                                Height="1" 
+
+                        <Border Background="{DynamicResource MaterialDesignDivider}"
+                                Height="1"
                                 Margin="0,0,0,16"/>
-                        
+
                         <StackPanel Visibility="{Binding SelectedItem, Converter={StaticResource NotNullToVisibilityConverter}}">
                             <!-- Selected Reference -->
-                            <TextBlock Text="Selected Reference:" 
-                                       FontWeight="SemiBold" 
+                            <TextBlock Text="Selected Reference:"
+                                       FontWeight="SemiBold"
                                        Margin="0,0,0,8"/>
                             <TextBox Text="{Binding SelectedReference, Mode=OneWay, StringFormat='@{0}'}"
                                      IsReadOnly="True"
@@ -134,53 +167,53 @@
                                      FontSize="13"
                                      Background="#F5F5F5"
                                      Margin="0,0,0,8"/>
-                            
+
                             <!-- All Items Option -->
                             <Button Content="{Binding SelectedReferenceType, StringFormat='Use all {0}'}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                     Margin="0,0,0,16"
                                     Click="SelectAll_Click"
                                     ToolTip="Select all items from this catalog (no subcategory filter)"/>
-                            
+
                             <!-- Item Details -->
-                            <TextBlock Text="Item Name:" 
-                                       FontWeight="SemiBold" 
+                            <TextBlock Text="Item Name:"
+                                       FontWeight="SemiBold"
                                        Margin="0,0,0,8"/>
-                            <TextBlock Text="{Binding SelectedItem.Name}" 
+                            <TextBlock Text="{Binding SelectedItem.Name}"
                                        FontSize="14"
                                        Margin="0,0,0,16"/>
-                            
+
                             <!-- Traits -->
-                            <TextBlock Text="Traits:" 
-                                       FontWeight="SemiBold" 
+                            <TextBlock Text="Traits:"
+                                       FontWeight="SemiBold"
                                        Margin="0,0,0,8"
                                        Visibility="{Binding SelectedItem.Traits, Converter={StaticResource NotNullToVisibilityConverter}}"/>
-                            <TextBlock Text="{Binding SelectedItem.Traits}" 
+                            <TextBlock Text="{Binding SelectedItem.Traits}"
                                        TextWrapping="Wrap"
                                        FontSize="12"
                                        Foreground="Gray"
                                        Visibility="{Binding SelectedItem.Traits, Converter={StaticResource NotNullToVisibilityConverter}}"/>
                         </StackPanel>
-                        
-                        <TextBlock Text="Select an item to see details" 
-                                   Foreground="Gray" 
+
+                        <TextBlock Text="Select an item to see details"
+                                   Foreground="Gray"
                                    FontStyle="Italic"
                                    Visibility="{Binding SelectedItem, Converter={StaticResource NullToVisibilityConverter}}"/>
                     </StackPanel>
                 </ScrollViewer>
             </materialDesign:Card>
         </Grid>
-        
+
         <!-- Action Buttons -->
-        <StackPanel Grid.Row="3" 
-                    Orientation="Horizontal" 
-                    HorizontalAlignment="Right" 
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
                     Margin="0,16,0,0">
-            <Button Content="CANCEL" 
+            <Button Content="CANCEL"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     Click="Cancel_Click"
                     Margin="0,0,8,0"/>
-            <Button Content="SELECT" 
+            <Button Content="SELECT"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Click="Select_Click"
                     IsEnabled="{Binding SelectedReference, Converter={StaticResource NotNullToBooleanConverter}}"/>

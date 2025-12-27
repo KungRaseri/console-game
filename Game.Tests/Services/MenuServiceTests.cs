@@ -26,10 +26,10 @@ public class MenuServiceTests : IDisposable
     {
         // Use unique test database to avoid file locking issues
         _testDbPath = $"test-menu-{Guid.NewGuid()}.db";
-        
+
         _testConsole = TestConsoleHelper.CreateInteractiveConsole();
         _consoleUI = new ConsoleUI(_testConsole);
-        
+
         _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), new ApocalypseTimer(_consoleUI));
         _gameStateService = new GameStateService(_saveGameService, LoggerHelper.CreateNullLogger<GameStateService>());
         _menuService = new MenuService(_gameStateService, _saveGameService, _consoleUI);
@@ -39,13 +39,13 @@ public class MenuServiceTests : IDisposable
     {
         // Dispose of SaveGameService first to release file locks
         _saveGameService?.Dispose();
-        
+
         // Clean up test database files
         try
         {
             if (File.Exists(_testDbPath))
                 File.Delete(_testDbPath);
-            
+
             var logFile = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logFile))
                 File.Delete(logFile);
@@ -77,13 +77,13 @@ public class MenuServiceTests : IDisposable
             Health = 100,
             MaxHealth = 100
         };
-        
+
         var saveGame = _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
 
         // Act
         // Note: We can't directly test UI methods that call ConsoleUI
         // This test verifies the service is properly initialized
-        
+
         // Assert
         _gameStateService.Should().NotBeNull();
         saveGame.Should().NotBeNull();
@@ -101,7 +101,7 @@ public class MenuServiceTests : IDisposable
         // Act
         // Note: SelectItemFromList uses ConsoleUI.ShowMenu which requires user input
         // We can verify the method signature exists and is callable
-        
+
         // Assert
         items.Should().Contain(itemName);
         items.Count.Should().Be(4);

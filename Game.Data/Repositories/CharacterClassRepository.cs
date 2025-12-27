@@ -20,7 +20,7 @@ public class CharacterClassRepository : ICharacterClassRepository
             CreatePaladinClass()
         };
     }
-    
+
     public CharacterClass? GetClassByName(string name)
     {
         return GetAllClasses().FirstOrDefault(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
@@ -34,7 +34,7 @@ public class CharacterClassRepository : ICharacterClassRepository
     public void Update(CharacterClass entity) => throw new NotSupportedException("Character classes are predefined");
     public void Delete(string id) => throw new NotSupportedException("Character classes are predefined");
     public void Dispose() { } // No resources to dispose
-    
+
     private CharacterClass CreateWarriorClass()
     {
         return new CharacterClass
@@ -58,7 +58,7 @@ public class CharacterClassRepository : ICharacterClassRepository
             FlavorText = "\"Steel and valor are my weapons. I stand unbroken against any foe.\""
         };
     }
-    
+
     private CharacterClass CreateRogueClass()
     {
         return new CharacterClass
@@ -84,7 +84,7 @@ public class CharacterClassRepository : ICharacterClassRepository
             FlavorText = "\"Shadows are my ally. They'll never see me coming.\""
         };
     }
-    
+
     private CharacterClass CreateMageClass()
     {
         return new CharacterClass
@@ -109,7 +109,7 @@ public class CharacterClassRepository : ICharacterClassRepository
             FlavorText = "\"Knowledge is the ultimate power. Reality bends to my will.\""
         };
     }
-    
+
     private CharacterClass CreateClericClass()
     {
         return new CharacterClass
@@ -137,7 +137,7 @@ public class CharacterClassRepository : ICharacterClassRepository
             FlavorText = "\"By faith and steel, I will protect the innocent and vanquish evil.\""
         };
     }
-    
+
     private CharacterClass CreateRangerClass()
     {
         return new CharacterClass
@@ -164,7 +164,7 @@ public class CharacterClassRepository : ICharacterClassRepository
             FlavorText = "\"The wild is my home. My arrows never miss their mark.\""
         };
     }
-    
+
     private CharacterClass CreatePaladinClass()
     {
         return new CharacterClass

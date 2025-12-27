@@ -32,7 +32,7 @@ public class GameplayService
         player.Mana = player.MaxMana;
 
         _console.ShowSuccess("Fully rested!");
-        
+
         Log.Information("Player {PlayerName} rested", player.Name);
     }
 

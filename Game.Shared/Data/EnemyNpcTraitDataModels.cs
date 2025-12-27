@@ -12,10 +12,10 @@ public class EnemyPrefixTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
-    
+
     /// <summary>
     /// Convert JSON traits to TraitValue dictionary.
     /// </summary>
@@ -39,10 +39,10 @@ public class OccupationTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
-    
+
     /// <summary>
     /// Convert JSON traits to TraitValue dictionary.
     /// </summary>
@@ -91,10 +91,10 @@ public class DragonColorTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
-    
+
     /// <summary>
     /// Convert JSON traits to TraitValue dictionary.
     /// </summary>
@@ -123,10 +123,10 @@ public class DialogueTraitData
 {
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
-    
+
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue> JsonTraits { get; set; } = new();
-    
+
     /// <summary>
     /// Convert JSON traits to TraitValue dictionary.
     /// </summary>

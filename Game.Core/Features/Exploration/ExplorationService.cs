@@ -17,7 +17,7 @@ public class ExplorationService
     private readonly GameStateService _gameState;
     private readonly SaveGameService _saveGameService;
     private readonly IGameUI _console;
-    
+
     private readonly List<string> _knownLocations = new()
     {
         "Hub Town",
@@ -29,7 +29,7 @@ public class ExplorationService
         "Coastal Village",
         "Underground Caverns"
     };
-    
+
     public ExplorationService(IMediator mediator, GameStateService gameState, SaveGameService saveGameService, IGameUI console)
     {
         _mediator = mediator;
@@ -37,7 +37,7 @@ public class ExplorationService
         _saveGameService = saveGameService;
         _console = console;
     }
-    
+
     /// <summary>
     /// Perform exploration at the current location.
     /// Returns true if combat should be initiated.
@@ -45,7 +45,7 @@ public class ExplorationService
     public async Task<bool> ExploreAsync()
     {
         var player = _gameState.Player;
-        
+
         _console.ShowInfo($"Exploring {_gameState.CurrentLocation}...");
 
         // Simulate exploration
@@ -54,7 +54,7 @@ public class ExplorationService
 
         // 60% chance of combat encounter, 40% chance of peaceful exploration
         var encounterRoll = Random.Shared.Next(100);
-        
+
         if (encounterRoll < 60)
         {
             // Combat encounter!
@@ -85,17 +85,17 @@ public class ExplorationService
         if (Random.Shared.Next(100) < 30)
         {
             var foundItem = ItemGenerator.Generate();
-            
+
             player.Inventory.Add(foundItem);
             await _mediator.Publish(new ItemAcquired(player.Name, foundItem.Name));
-            
+
             var rarityColor = GetRarityColor(foundItem.Rarity);
             _console.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
         }
-        
+
         return false; // No combat
     }
-    
+
     /// <summary>
     /// Allow player to travel to a different location.
     /// </summary>
@@ -120,24 +120,24 @@ public class ExplorationService
             return;
 
         _gameState.UpdateLocation(choice);
-        
+
         _console.ShowSuccess($"Traveled to {_gameState.CurrentLocation}");
-        
+
         // Check for dropped items at the new location
         await CheckForDroppedItemsAsync(choice);
     }
-    
+
     /// <summary>
     /// Check for dropped items at the current location and allow player to recover them.
     /// </summary>
     private async Task CheckForDroppedItemsAsync(string location)
     {
         var result = await _mediator.Send(new GetDroppedItemsQuery { Location = location });
-        
+
         if (result.HasItems)
         {
             _console.ShowWarning($"\n⚠️  You see your dropped items here! ({result.Items.Count} items)");
-            
+
             if (_console.Confirm("Retrieve your items?"))
             {
                 // Recover items
@@ -146,19 +146,19 @@ public class ExplorationService
                 {
                     saveGame.Character.Inventory.AddRange(result.Items);
                     saveGame.DroppedItemsAtLocations.Remove(location);
-                    
+
                     _console.ShowSuccess($"Recovered {result.Items.Count} items!");
                     await Task.Delay(1500);
                 }
             }
         }
     }
-    
+
     /// <summary>
     /// Get all known locations.
     /// </summary>
     public IReadOnlyList<string> GetKnownLocations() => _knownLocations.AsReadOnly();
-    
+
     private static string GetRarityColor(ItemRarity rarity)
     {
         return rarity switch

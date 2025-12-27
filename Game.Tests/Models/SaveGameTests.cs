@@ -37,8 +37,8 @@ public class SaveGameTests
         // Arrange
         var saveGame = new SaveGame();
         var character = new Character { Name = "Hero", Level = 5 };
-        var inventory = new List<Item> 
-        { 
+        var inventory = new List<Item>
+        {
             new Item { Name = "Sword" },
             new Item { Name = "Potion" }
         };

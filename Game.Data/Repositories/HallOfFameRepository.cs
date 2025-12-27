@@ -12,14 +12,14 @@ public class HallOfFameRepository : IHallOfFameRepository
 {
     private readonly LiteDatabase _db;
     private readonly ILiteCollection<HallOfFameEntry> _heroes;
-    
+
     public HallOfFameRepository(string databasePath = "halloffame.db")
     {
         _db = new LiteDatabase(databasePath);
         _heroes = _db.GetCollection<HallOfFameEntry>("heroes");
         _heroes.EnsureIndex(x => x.FameScore);
     }
-    
+
     /// <summary>
     /// Add a hero to the Hall of Fame.
     /// </summary>
@@ -37,7 +37,7 @@ public class HallOfFameRepository : IHallOfFameRepository
             Log.Error(ex, "Failed to add Hall of Fame entry for {CharacterName}", entry.CharacterName);
         }
     }
-    
+
     /// <summary>
     /// Get all Hall of Fame entries sorted by fame score.
     /// </summary>
@@ -48,7 +48,7 @@ public class HallOfFameRepository : IHallOfFameRepository
             .Take(limit)
             .ToList();
     }
-    
+
     /// <summary>
     /// Get top entries by fame score.
     /// </summary>
@@ -59,7 +59,7 @@ public class HallOfFameRepository : IHallOfFameRepository
             .Take(count)
             .ToList();
     }
-    
+
     public void Dispose()
     {
         _db?.Dispose();

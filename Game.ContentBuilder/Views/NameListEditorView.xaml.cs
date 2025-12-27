@@ -25,7 +25,7 @@ public partial class NameListEditorView : UserControl
         if (e.OriginalSource is FrameworkElement element)
         {
             System.Diagnostics.Debug.WriteLine($"Badge_PreviewMouseLeftButtonDown - OriginalSource: {element.GetType().Name}");
-            
+
             // Walk up the visual tree to see if we're inside a Button
             var current = element;
             while (current != null && current != sender)
@@ -42,7 +42,7 @@ public partial class NameListEditorView : UserControl
             }
             System.Diagnostics.Debug.WriteLine("  No button found in tree, allowing drag");
         }
-        
+
         _startPoint = e.GetPosition(null);
         if (sender is FrameworkElement senderElement && senderElement.Tag is PatternToken token)
         {

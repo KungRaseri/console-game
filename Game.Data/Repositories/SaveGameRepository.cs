@@ -16,7 +16,7 @@ public class SaveGameRepository : ISaveGameRepository
     {
         _database = new LiteDatabase(databasePath);
         _collection = _database.GetCollection<SaveGame>("saves");
-        
+
         // Create indexes for better performance
         // Use string-based indexing to avoid BsonMapper issues with complex types
         try

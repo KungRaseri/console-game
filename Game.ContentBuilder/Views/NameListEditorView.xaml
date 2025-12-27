@@ -16,95 +16,127 @@
                 <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
                 <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
                 <converters:TupleConverter x:Key="TupleConverter"/>
-                
+
                 <!-- Component Item Template -->
                 <DataTemplate x:Key="ComponentItemTemplate">
-                        <materialDesign:Card Margin="4,4,4,8" Padding="0">
+                        <materialDesign:Card Margin="4,4,4,8"
+                                        Padding="0">
                                 <Grid>
                                         <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        
-<!-- Header with Value and Weight -->
-                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="12,8">
-                                <Grid>
-                                        <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="100"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        
-                                        <TextBox Grid.Column="0"
-                                                 Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                 BorderThickness="0"
-                                                 FontSize="14"
-                                                 FontWeight="SemiBold"
-                                                 VerticalAlignment="Center"
-                                                 Margin="0,0,12,0"
-                                                 AutomationProperties.AutomationId="ComponentValueTextBox"/>
-                                        
-                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                                <TextBlock Text="Weight:" Margin="0,0,6,0" VerticalAlignment="Center" FontSize="11" Foreground="Gray"/>
-                                                <TextBox Text="{Binding RarityWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                         Width="50"
-                                                         BorderThickness="0,0,0,1"
-                                                         Padding="4,2"
-                                                         HorizontalContentAlignment="Right"
-                                                         FontSize="13"
-                                                         VerticalAlignment="Center"/>
-                                                <Border Background="{Binding RarityWeight, Converter={StaticResource RarityWeightToColorConverter}}"
-                                                        CornerRadius="8"
-                                                        Padding="8,2"
-                                                        Margin="8,0,0,0"
-                                                        VerticalAlignment="Center">
-                                                    <TextBlock Text="{Binding RarityWeight, Converter={StaticResource RarityWeightToNameConverter}}"
-                                                               FontSize="10"
-                                                               FontWeight="Bold"
-                                                               Foreground="White"/>
-                                                </Border>
-                                        </StackPanel>
-                                        
-                                        <Button Grid.Column="2"
-                                                Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                CommandParameter="{Binding}"
-                                                Style="{StaticResource MaterialDesignIconButton}"
-                                                Width="28" Height="28"
-                                                Padding="0"
-                                                Margin="8,0,0,0"
-                                                ToolTip="Remove this component"
-                                                AutomationProperties.AutomationId="ComponentValueDeleteButton">
-                                                <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
-                                        </Button>
+
+                                        <!-- Header with Value and Weight -->
+                                        <Border Grid.Row="0"
+                                                        Background="{DynamicResource MaterialDesignPaper}"
+                                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                                        BorderThickness="0,0,0,1"
+                                                        Padding="12,8">
+                                                <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="100"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBox Grid.Column="0"
+                                                                 Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                 BorderThickness="0"
+                                                                 FontSize="14"
+                                                                 FontWeight="SemiBold"
+                                                                 VerticalAlignment="Center"
+                                                                 Margin="0,0,12,0"
+                                                                 AutomationProperties.AutomationId="ComponentValueTextBox"/>
+
+                                                        <StackPanel Grid.Column="1"
+                                                                        Orientation="Horizontal"
+                                                                        HorizontalAlignment="Right">
+                                                                <TextBlock Text="Weight:"
+                                                                                Margin="0,0,6,0"
+                                                                                VerticalAlignment="Center"
+                                                                                FontSize="11"
+                                                                                Foreground="Gray"/>
+                                                                <TextBox Text="{Binding RarityWeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                         Width="50"
+                                                                         BorderThickness="0,0,0,1"
+                                                                         Padding="4,2"
+                                                                         HorizontalContentAlignment="Right"
+                                                                         FontSize="13"
+                                                                         VerticalAlignment="Center"/>
+                                                                <Border Background="{Binding RarityWeight, Converter={StaticResource RarityWeightToColorConverter}}"
+                                                                        CornerRadius="8"
+                                                                        Padding="8,2"
+                                                                        Margin="8,0,0,0"
+                                                                        VerticalAlignment="Center">
+                                                                        <TextBlock Text="{Binding RarityWeight, Converter={StaticResource RarityWeightToNameConverter}}"
+                                                                                   FontSize="10"
+                                                                                   FontWeight="Bold"
+                                                                                   Foreground="White"/>
+                                                                </Border>
+                                                        </StackPanel>
+
+                                                        <Button Grid.Column="2"
+                                                                Command="{Binding DataContext.RemoveComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                CommandParameter="{Binding}"
+                                                                Style="{StaticResource MaterialDesignIconButton}"
+                                                                Width="28"
+                                                                        Height="28"
+                                                                Padding="0"
+                                                                Margin="8,0,0,0"
+                                                                ToolTip="Remove this component"
+                                                                AutomationProperties.AutomationId="ComponentValueDeleteButton">
+                                                                <materialDesign:PackIcon Kind="Close"
+                                                                                Width="16"
+                                                                                Height="16"/>
+                                                        </Button>
                                                 </Grid>
                                         </Border>
-                                        
+
                                         <!-- Traits Section -->
-                                        <StackPanel Grid.Row="1" Margin="12,8,12,12">
+                                        <StackPanel Grid.Row="1"
+                                                        Margin="12,8,12,12">
                                                 <Grid Margin="0,0,0,8">
                                                         <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="Auto"/>
                                                                 <ColumnDefinition Width="*"/>
                                                                 <ColumnDefinition Width="Auto"/>
                                                         </Grid.ColumnDefinitions>
-                                                        
-                                                        <materialDesign:PackIcon Grid.Column="0" Kind="TagMultiple" Width="16" Height="16" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="Gray"/>
-                                                        <TextBlock Grid.Column="1" Text="Traits" FontSize="11" FontWeight="SemiBold" Foreground="Gray" VerticalAlignment="Center"/>
+
+                                                        <materialDesign:PackIcon Grid.Column="0"
+                                                                        Kind="TagMultiple"
+                                                                        Width="16"
+                                                                        Height="16"
+                                                                        Margin="0,0,8,0"
+                                                                        VerticalAlignment="Center"
+                                                                        Foreground="Gray"/>
+                                                        <TextBlock Grid.Column="1"
+                                                                        Text="Traits"
+                                                                        FontSize="11"
+                                                                        FontWeight="SemiBold"
+                                                                        Foreground="Gray"
+                                                                        VerticalAlignment="Center"/>
                                                         <Button Grid.Column="2"
                                                                 Command="{Binding DataContext.AddComponentTraitCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                 CommandParameter="{Binding}"
                                                                 Style="{StaticResource MaterialDesignIconButton}"
-                                                                Width="20" Height="20"
+                                                                Width="20"
+                                                                        Height="20"
                                                                 Padding="0"
                                                                 ToolTip="Add trait">
-                                                                <materialDesign:PackIcon Kind="Plus" Width="14" Height="14"/>
+                                                                <materialDesign:PackIcon Kind="Plus"
+                                                                                Width="14"
+                                                                                Height="14"/>
                                                         </Button>
                                                 </Grid>
-                                                
+
                                                 <ItemsControl ItemsSource="{Binding Traits}">
                                                         <ItemsControl.ItemTemplate>
                                                                 <DataTemplate>
-                                                                        <Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="4" Padding="8,6" Margin="0,0,0,4">
+                                                                        <Border Background="{DynamicResource MaterialDesignToolBarBackground}"
+                                                                                        CornerRadius="4"
+                                                                                        Padding="8,6"
+                                                                                        Margin="0,0,0,4">
                                                                                 <Grid>
                                                                                         <Grid.ColumnDefinitions>
                                                                                                 <ColumnDefinition Width="*"/>
@@ -112,7 +144,7 @@
                                                                                                 <ColumnDefinition Width="80"/>
                                                                                                 <ColumnDefinition Width="Auto"/>
                                                                                         </Grid.ColumnDefinitions>
-                                                                                        
+
                                                                                         <TextBox Grid.Column="0"
                                                                                                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                                                                                                  materialDesign:HintAssist.Hint="Trait Name"
@@ -120,7 +152,7 @@
                                                                                                  Margin="0,0,4,0"
                                                                                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                                                                                  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource PrimaryHueMidBrush}"/>
-                                                                                        
+
                                                                                         <TextBox Grid.Column="1"
                                                                                                  Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                                                                                  materialDesign:HintAssist.Hint="Value"
@@ -128,7 +160,7 @@
                                                                                                  Margin="4,0,4,0"
                                                                                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                                                                                  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource PrimaryHueMidBrush}"/>
-                                                                                        
+
                                                                                         <ComboBox Grid.Column="2"
                                                                                                   SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"
                                                                                                   FontSize="11"
@@ -139,15 +171,18 @@
                                                                                                 <ComboBoxItem Content="boolean"/>
                                                                                                 <ComboBoxItem Content="string"/>
                                                                                         </ComboBox>
-                                                                                        
+
                                                                                         <Button Grid.Column="3"
                                                                                                 Command="{Binding DataContext.RemoveComponentTraitCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                                                 CommandParameter="{Binding}"
                                                                                                 Style="{StaticResource MaterialDesignIconButton}"
-                                                                                                Width="20" Height="20"
+                                                                                                Width="20"
+                                                                                                        Height="20"
                                                                                                 Padding="0"
                                                                                                 ToolTip="Remove trait">
-                                                                                                <materialDesign:PackIcon Kind="Close" Width="12" Height="12"/>
+                                                                                                <materialDesign:PackIcon Kind="Close"
+                                                                                                                Width="12"
+                                                                                                                Height="12"/>
                                                                                         </Button>
                                                                                 </Grid>
                                                                         </Border>
@@ -158,73 +193,93 @@
                                 </Grid>
                         </materialDesign:Card>
                 </DataTemplate>
-                
+
                 <!-- Component Group Template for TreeView -->
-                <HierarchicalDataTemplate x:Key="ComponentGroupTemplate" ItemsSource="{Binding Value}" ItemTemplate="{StaticResource ComponentItemTemplate}">
-                        <Border Background="Transparent" Padding="4">
+                <HierarchicalDataTemplate x:Key="ComponentGroupTemplate"
+                                ItemsSource="{Binding Value}"
+                                ItemTemplate="{StaticResource ComponentItemTemplate}">
+                        <Border Background="Transparent"
+                                        Padding="4">
                                 <Grid>
                                         <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        
-                                        <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="FolderOutline" Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Key}" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center"/>
-                                                <Border Background="#2196F3" 
-                                                        CornerRadius="10" 
-                                                        Padding="6,2" 
+
+                                        <StackPanel Grid.Column="0"
+                                                        Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="FolderOutline"
+                                                                Width="18"
+                                                                Height="18"
+                                                                Margin="0,0,8,0"
+                                                                VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Key}"
+                                                                FontWeight="SemiBold"
+                                                                FontSize="14"
+                                                                VerticalAlignment="Center"/>
+                                                <Border Background="#2196F3"
+                                                        CornerRadius="10"
+                                                        Padding="6,2"
                                                         Margin="8,0,0,0"
                                                         VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Value.Count}" 
-                                                                   FontSize="11" 
-                                                                   FontWeight="Bold" 
+                                                        <TextBlock Text="{Binding Value.Count}"
+                                                                   FontSize="11"
+                                                                   FontWeight="Bold"
                                                                    Foreground="White"/>
                                                 </Border>
                                         </StackPanel>
-                                        
+
                                         <Button Grid.Column="1"
                                                 Command="{Binding DataContext.AddComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding Key}"
                                                 Style="{StaticResource MaterialDesignIconButton}"
-                                                Width="24" Height="24"
+                                                Width="24"
+                                                        Height="24"
                                                 Padding="0"
                                                 ToolTip="Add component to this group"
                                                 AutomationProperties.AutomationId="ComponentValueAddButton">
-                                                <materialDesign:PackIcon Kind="Plus" Width="16" Height="16"/>
+                                                <materialDesign:PackIcon Kind="Plus"
+                                                                Width="16"
+                                                                Height="16"/>
                                                 <Button.Visibility>
-                                                    <Binding Path="Key">
-                                                        <Binding.Converter>
-                                                            <converters:StringEqualityToVisibilityConverter ComparisonValue="base" InvertMatch="True"/>
-                                                        </Binding.Converter>
-                                                    </Binding>
+                                                        <Binding Path="Key">
+                                                                <Binding.Converter>
+                                                                        <converters:StringEqualityToVisibilityConverter ComparisonValue="base"
+                                                                                        InvertMatch="True"/>
+                                                                </Binding.Converter>
+                                                        </Binding>
                                                 </Button.Visibility>
                                         </Button>
-                                        
+
                                         <Button Grid.Column="2"
                                                 Command="{Binding DataContext.RemoveComponentGroupCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding Key}"
                                                 Style="{StaticResource MaterialDesignIconButton}"
-                                                Width="24" Height="24"
+                                                Width="24"
+                                                        Height="24"
                                                 Padding="0"
                                                 ToolTip="Remove this group">
-                                                <materialDesign:PackIcon Kind="Delete" Width="16" Height="16"/>
+                                                <materialDesign:PackIcon Kind="Delete"
+                                                                Width="16"
+                                                                Height="16"/>
                                                 <Button.Visibility>
-                                                    <Binding Path="Key">
-                                                        <Binding.Converter>
-                                                            <converters:StringEqualityToVisibilityConverter ComparisonValue="base" InvertMatch="True"/>
-                                                        </Binding.Converter>
-                                                    </Binding>
+                                                        <Binding Path="Key">
+                                                                <Binding.Converter>
+                                                                        <converters:StringEqualityToVisibilityConverter ComparisonValue="base"
+                                                                                        InvertMatch="True"/>
+                                                                </Binding.Converter>
+                                                        </Binding>
                                                 </Button.Visibility>
                                         </Button>
                                 </Grid>
                         </Border>
                 </HierarchicalDataTemplate>
-                
+
                 <!-- Pattern Template with Examples -->
                 <DataTemplate x:Key="PatternItemTemplate">
-                        <materialDesign:Card Margin="0,0,0,8" Padding="12"
+                        <materialDesign:Card Margin="0,0,0,8"
+                                        Padding="12"
                                              AutomationProperties.AutomationId="PatternCard">
                                 <Grid>
                                         <Grid.RowDefinitions>
@@ -233,14 +288,14 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        
+
                                         <!-- Pattern Template with Weight -->
                                         <Grid Grid.Row="0">
                                                 <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="70"/>
                                                 </Grid.ColumnDefinitions>
-                                                
+
                                                 <!-- Badge-based pattern composer -->
                                                 <Border Grid.Column="0"
                                                         BorderBrush="{DynamicResource MaterialDesignDivider}"
@@ -294,7 +349,9 @@
                                                                                                         Foreground="White"
                                                                                                         Background="#40000000"
                                                                                                         ToolTip="Remove token">
-                                                                                                        <materialDesign:PackIcon Kind="Close" Width="14" Height="14"/>
+                                                                                                        <materialDesign:PackIcon Kind="Close"
+                                                                                                                        Width="14"
+                                                                                                                        Height="14"/>
                                                                                                 </Button>
                                                                                         </Grid>
                                                                                 </Border>
@@ -302,20 +359,24 @@
                                                                 </ItemsControl.ItemTemplate>
                                                         </ItemsControl>
                                                 </Border>
-                                                
+
                                                 <StackPanel Grid.Column="1">
-                                                        <TextBox 
+                                                        <TextBox
                                                                 Text="{Binding Weight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                 HorizontalContentAlignment="Center"
                                                                 IsReadOnly="{Binding IsReadOnly}"
                                                                 materialDesign:HintAssist.Hint="Weight"
                                                                 Margin="0,0,0,4">
                                                                 <TextBox.Style>
-                                                                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                                                                        <Style TargetType="TextBox"
+                                                                                        BasedOn="{StaticResource MaterialDesignTextBox}">
                                                                                 <Style.Triggers>
-                                                                                        <DataTrigger Binding="{Binding IsReadOnly}" Value="True">
-                                                                                                <Setter Property="Background" Value="#F5F5F5"/>
-                                                                                                <Setter Property="Foreground" Value="#666"/>
+                                                                                        <DataTrigger Binding="{Binding IsReadOnly}"
+                                                                                                        Value="True">
+                                                                                                <Setter Property="Background"
+                                                                                                                Value="#F5F5F5"/>
+                                                                                                <Setter Property="Foreground"
+                                                                                                                Value="#666"/>
                                                                                         </DataTrigger>
                                                                                 </Style.Triggers>
                                                                         </Style>
@@ -329,9 +390,9 @@
                                                                      ToolTip="{Binding WeightPercentage, StringFormat='{}{0:F1}% of total weight'}"/>
                                                 </StackPanel>
                                         </Grid>
-                                        
+
                                         <!-- Pattern Token Helpers -->
-                                        <Border Grid.Row="1" 
+                                        <Border Grid.Row="1"
                                                 Background="#F0F0F0"
                                                 CornerRadius="4"
                                                 Padding="8,6"
@@ -339,12 +400,12 @@
                                                 Visibility="{Binding IsReadOnly, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                                                 <StackPanel>
                                                         <!-- Component Tokens Section - DYNAMIC based on file's components -->
-                                                        <TextBlock Text="Insert Component:" 
-                                                                   FontSize="10" 
-                                                                   FontWeight="SemiBold" 
-                                                                   Foreground="Gray" 
+                                                        <TextBlock Text="Insert Component:"
+                                                                   FontSize="10"
+                                                                   FontWeight="SemiBold"
+                                                                   Foreground="Gray"
                                                                    Margin="0,0,0,4"/>
-                                                        <ItemsControl ItemsSource="{Binding DataContext.ComponentNames, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                        <ItemsControl ItemsSource="{Binding DataContext.ComponentNames, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                       Margin="0,0,0,8">
                                                                 <ItemsControl.ItemsPanel>
                                                                         <ItemsPanelTemplate>
@@ -355,7 +416,6 @@
                                                                         <DataTemplate>
                                                                                 <Button Content="{Binding StringFormat='{}{0}}'}"
                                                                                         Command="{Binding DataContext.InsertComponentTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-
                                                                                         Style="{StaticResource MaterialDesignRaisedButton}"
                                                                                         materialDesign:ButtonAssist.CornerRadius="4"
                                                                                         Background="#4CAF50"
@@ -368,19 +428,20 @@
                                                                                         <Button.CommandParameter>
                                                                                                 <MultiBinding Converter="{StaticResource TupleConverter}">
                                                                                                         <Binding Path="."/>
-                                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}"
+                                                                                                                        Path="DataContext"/>
                                                                                                 </MultiBinding>
                                                                                         </Button.CommandParameter>
                                                                                 </Button>
                                                                         </DataTemplate>
                                                                 </ItemsControl.ItemTemplate>
                                                         </ItemsControl>
-                                                        
+
                                                         <!-- Reference Tokens Section -->
-                                                        <TextBlock Text="Insert Reference:" 
-                                                                   FontSize="10" 
-                                                                   FontWeight="SemiBold" 
-                                                                   Foreground="Gray" 
+                                                        <TextBlock Text="Insert Reference:"
+                                                                   FontSize="10"
+                                                                   FontWeight="SemiBold"
+                                                                   Foreground="Gray"
                                                                    Margin="0,0,0,4"/>
                                                         <ItemsControl>
                                                                 <ItemsControl.ItemsPanel>
@@ -388,7 +449,7 @@
                                                                                 <WrapPanel Orientation="Horizontal"/>
                                                                         </ItemsPanelTemplate>
                                                                 </ItemsControl.ItemsPanel>
-                                                                
+
                                                                 <!-- Quick Insert: Top 3 Most Common -->
                                                                 <Button Content="@materialRef"
                                                                         Command="{Binding DataContext.InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -403,7 +464,8 @@
                                                                         <Button.CommandParameter>
                                                                                 <MultiBinding Converter="{StaticResource TupleConverter}">
                                                                                         <Binding Source="@materialRef"/>
-                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}"
+                                                                                                        Path="DataContext"/>
                                                                                 </MultiBinding>
                                                                         </Button.CommandParameter>
                                                                 </Button>
@@ -419,7 +481,8 @@
                                                                         <Button.CommandParameter>
                                                                                 <MultiBinding Converter="{StaticResource TupleConverter}">
                                                                                         <Binding Source="@weaponRef"/>
-                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}"
+                                                                                                        Path="DataContext"/>
                                                                                 </MultiBinding>
                                                                         </Button.CommandParameter>
                                                                 </Button>
@@ -435,11 +498,12 @@
                                                                         <Button.CommandParameter>
                                                                                 <MultiBinding Converter="{StaticResource TupleConverter}">
                                                                                         <Binding Source="@enemyRef"/>
-                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                                                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}"
+                                                                                                        Path="DataContext"/>
                                                                                 </MultiBinding>
                                                                         </Button.CommandParameter>
                                                                 </Button>
-                                                                
+
                                                                 <!-- Browse Button -->
                                                                 <Button Command="{Binding DataContext.BrowseReferenceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                         CommandParameter="{Binding}"
@@ -452,7 +516,10 @@
                                                                         Margin="0,0,4,4">
                                                                         <Button.Content>
                                                                                 <StackPanel Orientation="Horizontal">
-                                                                                        <materialDesign:PackIcon Kind="FolderOpen" Width="14" Height="14" Margin="0,0,4,0"/>
+                                                                                        <materialDesign:PackIcon Kind="FolderOpen"
+                                                                                                        Width="14"
+                                                                                                        Height="14"
+                                                                                                        Margin="0,0,4,0"/>
                                                                                         <TextBlock Text="Browse..."/>
                                                                                 </StackPanel>
                                                                         </Button.Content>
@@ -460,21 +527,21 @@
                                                         </ItemsControl>
                                                 </StackPanel>
                                         </Border>
-                                        
-                                        <TextBlock 
+
+                                        <TextBlock
                                                 Grid.Row="2"
-                                                Text="{Binding Description}" 
+                                                Text="{Binding Description}"
                                                 Style="{StaticResource MaterialDesignBody2TextBlock}"
                                                 Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                 TextWrapping="Wrap"
                                                 Margin="0,6,0,0"
                                                 FontSize="11"
                                                 AutomationProperties.AutomationId="PatternDescriptionTextBox"/>
-                                        
+
                                         <!-- Example Generated Names -->
-                                        <Border Grid.Row="3" 
-                                                Background="#F5F5F5" 
-                                                CornerRadius="4" 
+                                        <Border Grid.Row="3"
+                                                Background="#F5F5F5"
+                                                CornerRadius="4"
                                                 Padding="8,6"
                                                 Margin="0,8,0,0"
                                                 AutomationProperties.AutomationId="ExamplesPanel">
@@ -483,28 +550,45 @@
                                                                 <ColumnDefinition Width="*"/>
                                                                 <ColumnDefinition Width="Auto"/>
                                                         </Grid.ColumnDefinitions>
-                                                        
+
                                                         <StackPanel Grid.Column="0">
-                                                                <TextBlock Text="Examples:" FontSize="10" FontWeight="SemiBold" Foreground="Gray" Margin="0,0,0,4"/>
-                                                                <TextBlock Text="{Binding GeneratedExamples}" FontSize="11" FontFamily="Consolas" Foreground="#555" TextWrapping="Wrap"/>
+                                                                <TextBlock Text="Examples:"
+                                                                                FontSize="10"
+                                                                                FontWeight="SemiBold"
+                                                                                Foreground="Gray"
+                                                                                Margin="0,0,0,4"/>
+                                                                <TextBlock Text="{Binding GeneratedExamples}"
+                                                                                FontSize="11"
+                                                                                FontFamily="Consolas"
+                                                                                Foreground="#555"
+                                                                                TextWrapping="Wrap"/>
                                                         </StackPanel>
-                                                        
-                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="8,0,0,0">
+
+                                                        <StackPanel Grid.Column="1"
+                                                                        Orientation="Horizontal"
+                                                                        VerticalAlignment="Top"
+                                                                        Margin="8,0,0,0">
                                                                 <Button Command="{Binding DataContext.RegenerateExamplesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                         CommandParameter="{Binding}"
                                                                         Style="{StaticResource MaterialDesignIconButton}"
-                                                                        Width="24" Height="24"
+                                                                        Width="24"
+                                                                                Height="24"
                                                                         Padding="0"
                                                                         ToolTip="Regenerate examples">
-                                                                        <materialDesign:PackIcon Kind="Refresh" Width="16" Height="16"/>
+                                                                        <materialDesign:PackIcon Kind="Refresh"
+                                                                                        Width="16"
+                                                                                        Height="16"/>
                                                                 </Button>
                                                                 <Button Command="{Binding DataContext.DuplicatePatternCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                                         CommandParameter="{Binding}"
                                                                         Style="{StaticResource MaterialDesignIconButton}"
-                                                                        Width="24" Height="24"
+                                                                        Width="24"
+                                                                                Height="24"
                                                                         Padding="0"
                                                                         ToolTip="Duplicate this pattern">
-                                                                        <materialDesign:PackIcon Kind="ContentCopy" Width="16" Height="16"/>
+                                                                        <materialDesign:PackIcon Kind="ContentCopy"
+                                                                                        Width="16"
+                                                                                        Height="16"/>
                                                                 </Button>
                                                         </StackPanel>
                                                 </Grid>
@@ -513,11 +597,12 @@
                         </materialDesign:Card>
                 </DataTemplate>
         </UserControl.Resources>
-        
+
         <UserControl.InputBindings>
-                <KeyBinding Key="F12" Command="{Binding ToggleConsoleCommand}"/>
+                <KeyBinding Key="F12"
+                                Command="{Binding ToggleConsoleCommand}"/>
         </UserControl.InputBindings>
-        
+
         <Grid>
                 <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -528,26 +613,50 @@
                 </Grid.RowDefinitions>
 
                 <!-- Validation Summary Panel -->
-                <Border Grid.Row="0" 
-                        Background="#FFF3E0" 
-                        BorderBrush="#FF9800" 
-                        BorderThickness="1" 
-                        CornerRadius="4" 
-                        Padding="12,8" 
+                <Border Grid.Row="0"
+                        Background="#FFF3E0"
+                        BorderBrush="#FF9800"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12,8"
                         Margin="0,0,0,8"
                         Visibility="{Binding HasValidationErrors, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                        <materialDesign:PackIcon Kind="AlertCircle" Width="20" Height="20" Margin="0,0,8,0" Foreground="#FF6F00" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Validation Issues" FontWeight="SemiBold" FontSize="13" Foreground="#FF6F00" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{Binding ValidationErrors.Count, StringFormat=' ({0})'}" FontWeight="SemiBold" FontSize="13" Foreground="#FF6F00" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal"
+                                                Margin="0,0,0,8">
+                                        <materialDesign:PackIcon Kind="AlertCircle"
+                                                        Width="20"
+                                                        Height="20"
+                                                        Margin="0,0,8,0"
+                                                        Foreground="#FF6F00"
+                                                        VerticalAlignment="Center"/>
+                                        <TextBlock Text="Validation Issues"
+                                                        FontWeight="SemiBold"
+                                                        FontSize="13"
+                                                        Foreground="#FF6F00"
+                                                        VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ValidationErrors.Count, StringFormat=' ({0})'}"
+                                                        FontWeight="SemiBold"
+                                                        FontSize="13"
+                                                        Foreground="#FF6F00"
+                                                        VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <ItemsControl ItemsSource="{Binding ValidationErrors}" MaxHeight="150">
+                                <ItemsControl ItemsSource="{Binding ValidationErrors}"
+                                                MaxHeight="150">
                                         <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal" Margin="0,2">
-                                                                <materialDesign:PackIcon Kind="ChevronRight" Width="14" Height="14" Margin="0,0,4,0" Foreground="#FF9800" VerticalAlignment="Center"/>
-                                                                <TextBlock Text="{Binding}" FontSize="12" Foreground="#5D4037" TextWrapping="Wrap"/>
+                                                        <StackPanel Orientation="Horizontal"
+                                                                        Margin="0,2">
+                                                                <materialDesign:PackIcon Kind="ChevronRight"
+                                                                                Width="14"
+                                                                                Height="14"
+                                                                                Margin="0,0,4,0"
+                                                                                Foreground="#FF9800"
+                                                                                VerticalAlignment="Center"/>
+                                                                <TextBlock Text="{Binding}"
+                                                                                FontSize="12"
+                                                                                Foreground="#5D4037"
+                                                                                TextWrapping="Wrap"/>
                                                         </StackPanel>
                                                 </DataTemplate>
                                         </ItemsControl.ItemTemplate>
@@ -556,36 +665,70 @@
                 </Border>
 
                 <!-- Stats Summary Bar -->
-                <Border Grid.Row="1" 
-                        Background="#E3F2FD" 
-                        BorderBrush="#2196F3" 
-                        BorderThickness="0,0,0,1" 
+                <Border Grid.Row="1"
+                        Background="#E3F2FD"
+                        BorderBrush="#2196F3"
+                        BorderThickness="0,0,0,1"
                         Padding="16,8"
                         Margin="0,0,0,8">
                         <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal" Margin="0,0,24,0">
-                                        <materialDesign:PackIcon Kind="FormatListBulleted" Width="18" Height="18" Margin="0,0,6,0" Foreground="#1976D2" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Components: " FontSize="12" FontWeight="SemiBold" Foreground="#1976D2" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{Binding TotalComponentCount}" FontSize="12" FontWeight="Bold" Foreground="#0D47A1" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal"
+                                                Margin="0,0,24,0">
+                                        <materialDesign:PackIcon Kind="FormatListBulleted"
+                                                        Width="18"
+                                                        Height="18"
+                                                        Margin="0,0,6,0"
+                                                        Foreground="#1976D2"
+                                                        VerticalAlignment="Center"/>
+                                        <TextBlock Text="Components: "
+                                                        FontSize="12"
+                                                        FontWeight="SemiBold"
+                                                        Foreground="#1976D2"
+                                                        VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding TotalComponentCount}"
+                                                        FontSize="12"
+                                                        FontWeight="Bold"
+                                                        Foreground="#0D47A1"
+                                                        VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="ShapeOutline" Width="18" Height="18" Margin="0,0,6,0" Foreground="#1976D2" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Patterns: " FontSize="12" FontWeight="SemiBold" Foreground="#1976D2" VerticalAlignment="Center"/>
-                                        <TextBlock Text="{Binding TotalPatternCount}" FontSize="12" FontWeight="Bold" Foreground="#0D47A1" VerticalAlignment="Center"/>
+                                        <materialDesign:PackIcon Kind="ShapeOutline"
+                                                        Width="18"
+                                                        Height="18"
+                                                        Margin="0,0,6,0"
+                                                        Foreground="#1976D2"
+                                                        VerticalAlignment="Center"/>
+                                        <TextBlock Text="Patterns: "
+                                                        FontSize="12"
+                                                        FontWeight="SemiBold"
+                                                        Foreground="#1976D2"
+                                                        VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding TotalPatternCount}"
+                                                        FontSize="12"
+                                                        FontWeight="Bold"
+                                                        Foreground="#0D47A1"
+                                                        VerticalAlignment="Center"/>
                                 </StackPanel>
                         </StackPanel>
                 </Border>
 
                 <!--  Collapsible Metadata Header  -->
-                <Expander Grid.Row="2" 
+                <Expander Grid.Row="2"
                           IsExpanded="False"
                           materialDesign:ExpanderAssist.HorizontalHeaderPadding="16,12"
                           Background="{DynamicResource MaterialDesignPaper}"
                           Margin="0,0,0,8">
                         <Expander.Header>
                                 <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="InformationOutline" Width="20" Height="20" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                        <TextBlock Text="METADATA" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                                        <materialDesign:PackIcon Kind="InformationOutline"
+                                                        Width="20"
+                                                        Height="20"
+                                                        Margin="0,0,8,0"
+                                                        VerticalAlignment="Center"/>
+                                        <TextBlock Text="METADATA"
+                                                        FontWeight="SemiBold"
+                                                        FontSize="13"
+                                                        VerticalAlignment="Center"/>
                                 </StackPanel>
                         </Expander.Header>
                         <Grid Margin="16">
@@ -599,50 +742,58 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                
-                                <TextBox Grid.Row="0" Grid.Column="0"
+
+                                <TextBox Grid.Row="0"
+                                                Grid.Column="0"
                                          Margin="0,0,8,12"
                                          FontSize="12"
                                          materialDesign:HintAssist.Hint="Description"
                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Text="{Binding Metadata.Description, UpdateSourceTrigger=PropertyChanged}"/>
-                                
-                                <TextBox Grid.Row="0" Grid.Column="1"
+
+                                <TextBox Grid.Row="0"
+                                                Grid.Column="1"
                                          Margin="8,0,0,12"
                                          FontSize="12"
                                          materialDesign:HintAssist.Hint="Type"
                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Text="{Binding Metadata.Type, UpdateSourceTrigger=PropertyChanged}"/>
-                                
-                                <TextBox Grid.Row="1" Grid.Column="0"
+
+                                <TextBox Grid.Row="1"
+                                                Grid.Column="0"
                                          Margin="0,0,8,12"
                                          FontSize="12"
                                          materialDesign:HintAssist.Hint="Version"
                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Text="{Binding Metadata.Version, UpdateSourceTrigger=PropertyChanged}"/>
-                                
-                                <TextBox Grid.Row="1" Grid.Column="1"
+
+                                <TextBox Grid.Row="1"
+                                                Grid.Column="1"
                                          Margin="8,0,0,12"
                                          FontSize="12"
                                          materialDesign:HintAssist.Hint="Last Modified"
                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Text="{Binding Metadata.LastModified, UpdateSourceTrigger=PropertyChanged}"/>
-                                
-                                <TextBox Grid.Row="2" Grid.Column="0"
+
+                                <TextBox Grid.Row="2"
+                                                Grid.Column="0"
                                          Margin="0,0,8,12"
                                          FontSize="12"
                                          materialDesign:HintAssist.Hint="Rarity System"
                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Text="{Binding Metadata.RaritySystem, UpdateSourceTrigger=PropertyChanged}"/>
-                                
-                                <TextBox Grid.Row="2" Grid.Column="1"
+
+                                <TextBox Grid.Row="2"
+                                                Grid.Column="1"
                                          Margin="8,0,0,12"
                                          FontSize="12"
                                          materialDesign:HintAssist.Hint="Usage"
                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Text="{Binding Metadata.Usage, UpdateSourceTrigger=PropertyChanged}"/>
-                                
-                                <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+
+                                <TextBox Grid.Row="3"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="2"
                                          Margin="0,0,0,0"
                                          FontSize="12"
                                          materialDesign:HintAssist.Hint="Notes"
@@ -662,130 +813,178 @@
                         </Grid.ColumnDefinitions>
 
                         <!--  Components (Left) with TreeView  -->
-                        <materialDesign:Card Grid.Column="0" Margin="0,0,4,0" Padding="0">
+                        <materialDesign:Card Grid.Column="0"
+                                        Margin="0,0,4,0"
+                                        Padding="0">
                                 <Grid>
                                         <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        
-                                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="16,12">
-                                <Grid>
-                                        <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        
-                                        <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="PackageVariant" Width="20" Height="20" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                                <TextBlock Text="COMPONENTS" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Components.Count, StringFormat=' ({0} groups)'}" FontSize="12" Foreground="Gray" Margin="4,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                        
-                                        <Button Grid.Column="2"
-                                                Command="{Binding AddComponentGroupCommand}"
-                                                Style="{StaticResource MaterialDesignIconButton}"
-                                                ToolTip="Add new component group">
-                                                <materialDesign:PackIcon Kind="Plus"/>
-                                        </Button>
+
+                                        <Border Grid.Row="0"
+                                                        Background="{DynamicResource MaterialDesignPaper}"
+                                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                                        BorderThickness="0,0,0,1"
+                                                        Padding="16,12">
+                                                <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="0"
+                                                                        Orientation="Horizontal">
+                                                                <materialDesign:PackIcon Kind="PackageVariant"
+                                                                                Width="20"
+                                                                                Height="20"
+                                                                                Margin="0,0,8,0"
+                                                                                VerticalAlignment="Center"/>
+                                                                <TextBlock Text="COMPONENTS"
+                                                                                FontWeight="Bold"
+                                                                                FontSize="14"
+                                                                                VerticalAlignment="Center"/>
+                                                                <TextBlock Text="{Binding Components.Count, StringFormat=' ({0} groups)'}"
+                                                                                FontSize="12"
+                                                                                Foreground="Gray"
+                                                                                Margin="4,0,0,0"
+                                                                                VerticalAlignment="Center"/>
+                                                        </StackPanel>
+
+                                                        <Button Grid.Column="2"
+                                                                Command="{Binding AddComponentGroupCommand}"
+                                                                Style="{StaticResource MaterialDesignIconButton}"
+                                                                ToolTip="Add new component group">
+                                                                <materialDesign:PackIcon Kind="Plus"/>
+                                                        </Button>
+                                                </Grid>
+                                        </Border>
+
+                                        <ScrollViewer Grid.Row="1"
+                                                        VerticalScrollBarVisibility="Auto">
+                                                <TreeView ItemsSource="{Binding Components}"
+                                                          ItemTemplate="{StaticResource ComponentGroupTemplate}"
+                                                          BorderThickness="0">
+                                                        <TreeView.ItemContainerStyle>
+                                                                <Style TargetType="TreeViewItem"
+                                                                                BasedOn="{StaticResource MaterialDesignTreeViewItem}">
+                                                                        <Setter Property="IsExpanded"
+                                                                                        Value="False"/>
+                                                                </Style>
+                                                        </TreeView.ItemContainerStyle>
+                                                </TreeView>
+                                        </ScrollViewer>
                                 </Grid>
-                        </Border>
-                                        
-                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                                <TreeView ItemsSource="{Binding Components}"
-                                          ItemTemplate="{StaticResource ComponentGroupTemplate}"
-                                          BorderThickness="0">
-                                        <TreeView.ItemContainerStyle>
-                                                <Style TargetType="TreeViewItem" BasedOn="{StaticResource MaterialDesignTreeViewItem}">
-                                                        <Setter Property="IsExpanded" Value="False"/>
-                                                </Style>
-                                        </TreeView.ItemContainerStyle>
-                                </TreeView>
-                        </ScrollViewer>
-                </Grid>
                         </materialDesign:Card>
 
                         <!--  Patterns (Right)  -->
-                        <materialDesign:Card Grid.Column="1" Margin="4,0,0,0" Padding="0">
+                        <materialDesign:Card Grid.Column="1"
+                                        Margin="4,0,0,0"
+                                        Padding="0">
                                 <Grid>
                                         <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        
-                                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="16,12">
-                                <Grid>
-                                        <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        
-                                        <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="Puzzle" Width="20" Height="20" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                                                <TextBlock Text="PATTERNS" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Patterns.Count, StringFormat=' ({0})'}" FontSize="12" Foreground="Gray" Margin="4,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                        
-                                        <Button Grid.Column="2"
-                                                Command="{Binding RemovePatternCommand}"
-                                                Style="{StaticResource MaterialDesignIconButton}"
-                                                ToolTip="Remove selected pattern"
-                                                IsEnabled="{Binding SelectedPattern.IsReadOnly, Converter={StaticResource InverseBooleanConverter}}"
-                                                Margin="0,0,4,0"
-                                                AutomationProperties.AutomationId="PatternDeleteButton">
-                                                <materialDesign:PackIcon Kind="Minus"/>
-                                        </Button>
-                                        
-                                        <Button Grid.Column="3"
-                                                Command="{Binding AddPatternCommand}"
-                                                Style="{StaticResource MaterialDesignIconButton}"
-                                                ToolTip="Add new pattern"
-                                                AutomationProperties.AutomationId="PatternAddButton">
-                                                <materialDesign:PackIcon Kind="Plus"/>
-                                        </Button>
+
+                                        <Border Grid.Row="0"
+                                                        Background="{DynamicResource MaterialDesignPaper}"
+                                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                                        BorderThickness="0,0,0,1"
+                                                        Padding="16,12">
+                                                <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="0"
+                                                                        Orientation="Horizontal">
+                                                                <materialDesign:PackIcon Kind="Puzzle"
+                                                                                Width="20"
+                                                                                Height="20"
+                                                                                Margin="0,0,8,0"
+                                                                                VerticalAlignment="Center"/>
+                                                                <TextBlock Text="PATTERNS"
+                                                                                FontWeight="Bold"
+                                                                                FontSize="14"
+                                                                                VerticalAlignment="Center"/>
+                                                                <TextBlock Text="{Binding Patterns.Count, StringFormat=' ({0})'}"
+                                                                                FontSize="12"
+                                                                                Foreground="Gray"
+                                                                                Margin="4,0,0,0"
+                                                                                VerticalAlignment="Center"/>
+                                                        </StackPanel>
+
+                                                        <Button Grid.Column="2"
+                                                                Command="{Binding RemovePatternCommand}"
+                                                                Style="{StaticResource MaterialDesignIconButton}"
+                                                                ToolTip="Remove selected pattern"
+                                                                IsEnabled="{Binding SelectedPattern.IsReadOnly, Converter={StaticResource InverseBooleanConverter}}"
+                                                                Margin="0,0,4,0"
+                                                                AutomationProperties.AutomationId="PatternDeleteButton">
+                                                                <materialDesign:PackIcon Kind="Minus"/>
+                                                        </Button>
+
+                                                        <Button Grid.Column="3"
+                                                                Command="{Binding AddPatternCommand}"
+                                                                Style="{StaticResource MaterialDesignIconButton}"
+                                                                ToolTip="Add new pattern"
+                                                                AutomationProperties.AutomationId="PatternAddButton">
+                                                                <materialDesign:PackIcon Kind="Plus"/>
+                                                        </Button>
+                                                </Grid>
+                                        </Border>
+
+                                        <!-- Pattern Search Box -->
+                                        <Border Grid.Row="1"
+                                                        Background="{DynamicResource MaterialDesignToolBarBackground}"
+                                                        Padding="12,8"
+                                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                                        BorderThickness="0,0,0,1">
+                                                <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBox Grid.Column="0"
+                                                                 Text="{Binding PatternSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                 materialDesign:HintAssist.Hint="Search patterns..."
+                                                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                                 Height="36"
+                                                                 FontSize="13">
+                                                                <TextBox.InputBindings>
+                                                                        <KeyBinding Key="Esc"
+                                                                                        Command="{Binding ClearPatternFilterCommand}"/>
+                                                                </TextBox.InputBindings>
+                                                        </TextBox>
+
+                                                        <Button Grid.Column="1"
+                                                                Command="{Binding ClearPatternFilterCommand}"
+                                                                Style="{StaticResource MaterialDesignIconButton}"
+                                                                Margin="4,0,0,0"
+                                                                ToolTip="Clear search (Esc)"
+                                                                Visibility="{Binding PatternSearchText, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                                <materialDesign:PackIcon Kind="Close"
+                                                                                Width="18"
+                                                                                Height="18"/>
+                                                        </Button>
+                                                </Grid>
+                                        </Border>
+
+                                        <ScrollViewer Grid.Row="2"
+                                                        VerticalScrollBarVisibility="Auto"
+                                                        Padding="12">
+                                                <ItemsControl ItemsSource="{Binding FilteredPatterns}"
+                                                              ItemTemplate="{StaticResource PatternItemTemplate}"
+                                                              AutomationProperties.AutomationId="PatternsList"/>
+                                        </ScrollViewer>
                                 </Grid>
-                        </Border>
-                        
-                        <!-- Pattern Search Box -->
-                        <Border Grid.Row="1" Background="{DynamicResource MaterialDesignToolBarBackground}" Padding="12,8" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1">
-                                <Grid>
-                                        <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        
-                                        <TextBox Grid.Column="0"
-                                                 Text="{Binding PatternSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                 materialDesign:HintAssist.Hint="Search patterns..."
-                                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                                 Height="36"
-                                                 FontSize="13">
-                                                <TextBox.InputBindings>
-                                                        <KeyBinding Key="Esc" Command="{Binding ClearPatternFilterCommand}"/>
-                                                </TextBox.InputBindings>
-                                        </TextBox>
-                                        
-                                        <Button Grid.Column="1"
-                                                Command="{Binding ClearPatternFilterCommand}"
-                                                Style="{StaticResource MaterialDesignIconButton}"
-                                                Margin="4,0,0,0"
-                                                ToolTip="Clear search (Esc)"
-                                                Visibility="{Binding PatternSearchText, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                <materialDesign:PackIcon Kind="Close" Width="18" Height="18"/>
-                                        </Button>
-                                </Grid>
-                        </Border>
-                                        
-                        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="12">
-                                <ItemsControl ItemsSource="{Binding FilteredPatterns}"
-                                              ItemTemplate="{StaticResource PatternItemTemplate}"
-                                              AutomationProperties.AutomationId="PatternsList"/>
-                        </ScrollViewer>
-                </Grid>
                         </materialDesign:Card>
                 </Grid>
 
@@ -801,12 +1000,12 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                
+
                                 <TextBlock Grid.Column="0"
                                            VerticalAlignment="Center"
                                            FontSize="12"
                                            Text="{Binding StatusMessage}"/>
-                                
+
                                 <Button Grid.Column="1"
                                         Command="{Binding SaveCommand}"
                                         Content="SAVE CHANGES"
