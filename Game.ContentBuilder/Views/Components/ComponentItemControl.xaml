@@ -1,0 +1,178 @@
+<UserControl x:Class="Game.ContentBuilder.Views.Components.ComponentItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:Game.ContentBuilder.Converters">
+    <UserControl.Resources>
+        <converters:RarityWeightToColorConverter x:Key="RarityWeightToColorConverter"/>
+        <converters:RarityWeightToNameConverter x:Key="RarityWeightToNameConverter"/>
+    </UserControl.Resources>
+    
+    <materialDesign:Card Margin="4,4,4,8" Padding="0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header with Value and Weight -->
+            <Border Grid.Row="0"
+                    Background="{DynamicResource MaterialDesignPaper}"
+                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                    BorderThickness="0,0,0,1"
+                    Padding="12,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"
+                             x:Name="ValueTextBox"
+                             BorderThickness="0"
+                             FontSize="14"
+                             FontWeight="SemiBold"
+                             VerticalAlignment="Center"
+                             Margin="0,0,12,0"
+                             AutomationProperties.AutomationId="ComponentValueTextBox"/>
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <TextBlock Text="Weight:"
+                                   Margin="0,0,6,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="11"
+                                   Foreground="Gray"/>
+                        <TextBox x:Name="WeightTextBox"
+                                 Width="50"
+                                 BorderThickness="0,0,0,1"
+                                 Padding="4,2"
+                                 HorizontalContentAlignment="Right"
+                                 FontSize="13"
+                                 VerticalAlignment="Center"/>
+                        <Border x:Name="WeightBadge"
+                                CornerRadius="8"
+                                Padding="8,2"
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center">
+                            <TextBlock x:Name="WeightName"
+                                       FontSize="10"
+                                       FontWeight="Bold"
+                                       Foreground="White"/>
+                        </Border>
+                    </StackPanel>
+
+                    <Button Grid.Column="2"
+                            x:Name="DeleteButton"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Width="28"
+                            Height="28"
+                            Padding="0"
+                            Margin="8,0,0,0"
+                            ToolTip="Remove this component"
+                            AutomationProperties.AutomationId="ComponentValueDeleteButton">
+                        <materialDesign:PackIcon Kind="Close"
+                                                 Width="16"
+                                                 Height="16"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Traits Section -->
+            <StackPanel Grid.Row="1" Margin="12,8,12,12">
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon Grid.Column="0"
+                                             Kind="TagMultiple"
+                                             Width="16"
+                                             Height="16"
+                                             Margin="0,0,8,0"
+                                             VerticalAlignment="Center"
+                                             Foreground="Gray"/>
+                    <TextBlock Grid.Column="1"
+                               Text="Traits"
+                               FontSize="11"
+                               FontWeight="SemiBold"
+                               Foreground="Gray"
+                               VerticalAlignment="Center"/>
+                    <Button Grid.Column="2"
+                            x:Name="AddTraitButton"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Width="20"
+                            Height="20"
+                            Padding="0"
+                            ToolTip="Add trait">
+                        <materialDesign:PackIcon Kind="Plus"
+                                                 Width="14"
+                                                 Height="14"/>
+                    </Button>
+                </Grid>
+
+                <ItemsControl x:Name="TraitsItemsControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{DynamicResource MaterialDesignToolBarBackground}"
+                                    CornerRadius="4"
+                                    Padding="8,6"
+                                    Margin="0,0,0,4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox Grid.Column="0"
+                                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                             materialDesign:HintAssist.Hint="Trait Name"
+                                             FontSize="11"
+                                             Margin="0,0,4,0"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                             materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBox Grid.Column="1"
+                                             Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                             materialDesign:HintAssist.Hint="Value"
+                                             FontSize="11"
+                                             Margin="4,0,4,0"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                             materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <ComboBox Grid.Column="2"
+                                              SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"
+                                              FontSize="11"
+                                              Margin="4,0,4,0"
+                                              materialDesign:HintAssist.Hint="Type"
+                                              Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                        <ComboBoxItem Content="number"/>
+                                        <ComboBoxItem Content="boolean"/>
+                                        <ComboBoxItem Content="string"/>
+                                    </ComboBox>
+
+                                    <Button Grid.Column="3"
+                                            Command="{Binding DataContext.RemoveComponentTraitCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource MaterialDesignIconButton}"
+                                            Width="20"
+                                            Height="20"
+                                            Padding="0"
+                                            ToolTip="Remove trait">
+                                        <materialDesign:PackIcon Kind="Close"
+                                                                 Width="12"
+                                                                 Height="12"/>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>
