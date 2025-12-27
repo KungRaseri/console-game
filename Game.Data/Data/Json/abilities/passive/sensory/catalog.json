@@ -1,0 +1,29 @@
+{
+    "metadata":  {
+                     "description":  "Ability catalog for passive/sensory",
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-27",
+                     "type":  "ability_catalog",
+                     "supportsTraits":  true,
+                     "totalAbilities":  1,
+                     "notes":  [
+                                   "Consolidated from enemy-specific abilities",
+                                   "Abilities are shared across enemies, players, and NPCs",
+                                   "rarityWeight determines selection probability"
+                               ]
+                 },
+    "items":  [
+                  {
+                      "rarityWeight":  10,
+                      "description":  "Cannot be surprised, detects hidden enemies",
+                      "name":  "Keen Senses",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "sensory",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Keen Senses"
+                  }
+              ]
+}

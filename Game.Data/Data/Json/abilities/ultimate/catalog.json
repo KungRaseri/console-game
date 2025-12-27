@@ -1,0 +1,313 @@
+{
+    "metadata":  {
+                     "description":  "Ability catalog for ultimate",
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-27",
+                     "type":  "ability_catalog",
+                     "supportsTraits":  true,
+                     "totalAbilities":  20,
+                     "notes":  [
+                                   "Consolidated from enemy-specific abilities",
+                                   "Abilities are shared across enemies, players, and NPCs",
+                                   "rarityWeight determines selection probability"
+                               ]
+                 },
+    "items":  [
+                  {
+                      "name":  "Demon Lord",
+                      "displayName":  "Demon Lord",
+                      "description":  "Commands legions of lesser demons",
+                      "rarityWeight":  250,
+                      "cooldown":  120,
+                      "traits":  {
+                                     "damageMultiplier":  {
+                                                              "value":  2.0,
+                                                              "type":  "number"
+                                                          },
+                                     "healthMultiplier":  {
+                                                              "value":  3.0,
+                                                              "type":  "number"
+                                                          },
+                                     "armorBonus":  {
+                                                        "value":  10,
+                                                        "type":  "number"
+                                                    },
+                                     "summonType":  {
+                                                        "value":  "demon",
+                                                        "type":  "string"
+                                                    },
+                                     "summonCount":  {
+                                                         "value":  10,
+                                                         "type":  "number"
+                                                     },
+                                     "areaOfEffect":  {
+                                                          "value":  50,
+                                                          "type":  "number"
+                                                      },
+                                     "abilityClass":  {
+                                                          "value":  "passive",
+                                                          "type":  "string"
+                                                      },
+                                     "targetType":  {
+                                                        "value":  "self",
+                                                        "type":  "string"
+                                                    }
+                                 }
+                  },
+                  {
+                      "name":  "Reality Warp",
+                      "displayName":  "Reality Warp",
+                      "description":  "Bends the laws of nature",
+                      "rarityWeight":  500,
+                      "baseDamage":  "10d10",
+                      "cooldown":  180,
+                      "range":  20,
+                      "traits":  {
+                                     "damageType":  {
+                                                        "value":  "magic",
+                                                        "type":  "string"
+                                                    },
+                                     "damageBonus":  {
+                                                         "value":  50,
+                                                         "type":  "number"
+                                                     },
+                                     "areaOfEffect":  {
+                                                          "value":  15,
+                                                          "type":  "number"
+                                                      },
+                                     "targetCount":  {
+                                                         "value":  10,
+                                                         "type":  "number"
+                                                     },
+                                     "castTime":  {
+                                                      "value":  5,
+                                                      "type":  "number"
+                                                  },
+                                     "abilityClass":  {
+                                                          "value":  "channeled",
+                                                          "type":  "string"
+                                                      },
+                                     "targetType":  {
+                                                        "value":  "area",
+                                                        "type":  "string"
+                                                    }
+                                 }
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Power grows with age",
+                      "name":  "Ancient Power",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Ancient Power"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Power rivaling the gods themselves",
+                      "name":  "Godlike Might",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Godlike Might"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Raw elemental force from creation",
+                      "name":  "Primordial Power",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Primordial Power"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Supreme master of its element",
+                      "name":  "Elemental Lord",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Elemental Lord"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Can traverse elemental planes",
+                      "name":  "Plane Walker",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Plane Walker"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Commands and coordinates allies",
+                      "name":  "Leadership",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "elite",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Leadership"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Elite warrior of legendary skill",
+                      "name":  "Champion",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "elite",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Champion"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Expert warrior with multiple weapon techniques",
+                      "name":  "BattleMaster",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Battle Master"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Infused with demonic power, regenerates rapidly",
+                      "name":  "DemonBlood",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Demon Blood"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Cannot be permanently killed, resurrects after death",
+                      "name":  "Immortal",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Immortal"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Has defeated divine beings, empowered beyond mortals",
+                      "name":  "GodSlayer",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "God Slayer"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Embodies pure destructive power",
+                      "name":  "PrimalForce",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Primal Force"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Enormous size with devastating power",
+                      "name":  "Titanic",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Titanic"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Descended from dragons, can breathe fire",
+                      "name":  "DragonAncestor",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Dragon Ancestor"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Apex predator from prehistoric times",
+                      "name":  "DinosaurKing",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Dinosaur King"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Legendary serpent with petrifying gaze",
+                      "name":  "Basilisk",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Basilisk"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Powered by centuries of dark magic",
+                      "name":  "Ancient Evil",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Ancient Evil"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Grows stronger with each kill",
+                      "name":  "Soul Harvest",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "legendary",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Soul Harvest"
+                  }
+              ]
+}

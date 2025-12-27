@@ -1,0 +1,473 @@
+{
+    "metadata":  {
+                     "description":  "Ability catalog for passive/offensive",
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-27",
+                     "type":  "ability_catalog",
+                     "supportsTraits":  true,
+                     "totalAbilities":  38,
+                     "notes":  [
+                                   "Consolidated from enemy-specific abilities",
+                                   "Abilities are shared across enemies, players, and NPCs",
+                                   "rarityWeight determines selection probability"
+                               ]
+                 },
+    "items":  [
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Attacks inflict poison damage over time",
+                      "name":  "Venomous Bite",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Venomous Bite"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Can leap at distant targets",
+                      "name":  "Swift Pounce",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Swift Pounce"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Intimidates enemies, reducing their combat effectiveness",
+                      "name":  "Savage Roar",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Savage Roar"
+                  },
+                  {
+                      "rarityWeight":  10,
+                      "description":  "Gains bonuses when fighting alongside allies",
+                      "name":  "Pack Hunter",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Pack Hunter"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Increases damage as health decreases",
+                      "name":  "Feral Rage",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Feral Rage"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Attacks multiple times per round",
+                      "name":  "Ferocious",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Ferocious"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Enters berserk state when wounded",
+                      "name":  "Primal Fury",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Primal Fury"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Critical hits cause bleeding damage",
+                      "name":  "Gore",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Gore"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Becomes more dangerous as allies fall",
+                      "name":  "Enrage",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Enrage"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Attacks inflict poison damage over time",
+                      "name":  "PoisonWeapons",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Poison Weapons"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Enters rage when damaged, increasing damage output",
+                      "name":  "Berserker",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Berserker"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Throws explosive devices that deal area damage",
+                      "name":  "BombThrower",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Bomb Thrower"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Can cast basic elemental spells",
+                      "name":  "ShamanMagic",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "magical_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Shaman Magic"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Can teleport short distances in darkness",
+                      "name":  "ShadowStep",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "magical_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Shadow Step"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Advanced poison attacks that stack and spread",
+                      "name":  "VenomMaster",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "magical_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Venom Master"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Rallies allies and intimidates foes",
+                      "name":  "Battle Cry",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "aggression",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Battle Cry"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Becomes more dangerous as allies fall",
+                      "name":  "Revenge",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "aggression",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Revenge"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Sprays corrosive acid that damages armor",
+                      "name":  "Acidic",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Acidic"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Stings paralyze targets temporarily",
+                      "name":  "Paralyzing",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Paralyzing"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Spreads disease to all nearby creatures",
+                      "name":  "PlagueCarrier",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Plague Carrier"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Can rush enemies dealing knockback damage",
+                      "name":  "Charger",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Charger"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Gains attack speed when dealing critical hits",
+                      "name":  "BloodFrenzy",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Blood Frenzy"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Deals massive damage to weakened foes",
+                      "name":  "Executioner",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Executioner"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Unstoppable charge that breaks through defenses",
+                      "name":  "Juggernaut",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Juggernaut"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Devours prey to restore health",
+                      "name":  "Carnivorous",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "predatory_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Carnivorous"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Drains life from enemies over time",
+                      "name":  "Parasitic",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "predatory_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Parasitic"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Roots grow to immobilize enemies",
+                      "name":  "Entangling",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "predatory_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Entangling"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Releases clouds that damage and confuse",
+                      "name":  "SporeCloud",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Spore Cloud"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Attacks with long reaching vines",
+                      "name":  "VineWhip",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Vine Whip"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Damages all nearby creatures constantly",
+                      "name":  "ToxicAura",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "offensive_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Toxic Aura"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Powerful tail attack with knockback",
+                      "name":  "TailWhip",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Tail Whip"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Grabs and spins enemies for massive damage",
+                      "name":  "DeathRoll",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Death Roll"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Ranged acid attack that corrodes armor",
+                      "name":  "AcidSpit",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Acid Spit"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Enters berserk state when injured",
+                      "name":  "Rage",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "power_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Rage"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Incredible physical power",
+                      "name":  "MountainStrength",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "power_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Mountain Strength"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Hurls boulders at enemies",
+                      "name":  "RockThrow",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Rock Throw"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Devastating ground pound attack",
+                      "name":  "Smash",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Smash"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Expertise with massive clubs and mauls",
+                      "name":  "ClubMaster",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "combat_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Club Master"
+                  }
+              ]
+}

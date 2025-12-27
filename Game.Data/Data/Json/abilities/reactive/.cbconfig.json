@@ -1,0 +1,11 @@
+{
+  "folderName": "Reactive Abilities",
+  "description": "Condition-triggered abilities that respond to events",
+  "icon": "⚡",
+  "sortOrder": 30,
+  "subcategories": {
+    "defensive": "Counter-attacks, last stand",
+    "offensive": "Vengeance, opportunity strikes",
+    "utility": "Condition-based effects"
+  }
+}

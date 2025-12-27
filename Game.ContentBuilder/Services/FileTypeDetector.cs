@@ -27,8 +27,19 @@ public static class FileTypeDetector
 
             var fileName = Path.GetFileName(filePath).ToLowerInvariant();
             var directoryName = Path.GetFileName(Path.GetDirectoryName(filePath) ?? "").ToLowerInvariant();
+            var normalizedPath = filePath.Replace('\\', '/').ToLowerInvariant();
             var json = File.ReadAllText(filePath);
             var root = JObject.Parse(json);
+
+            // Check for abilities domain files (new architecture)
+            if (normalizedPath.Contains("/abilities/"))
+            {
+                if (fileName == "catalog.json")
+                    return JsonFileType.GenericCatalog;  // abilities/passive/defensive/catalog.json
+                
+                if (fileName == "names.json")
+                    return JsonFileType.NamesFile;  // abilities/passive/defensive/names.json
+            }
 
             // Check if filename contains patterns (more flexible matching)
             if (fileName.Contains("names") && fileName.EndsWith(".json"))

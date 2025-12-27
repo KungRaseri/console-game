@@ -1,0 +1,281 @@
+{
+    "metadata":  {
+                     "description":  "Ability catalog for passive/environmental",
+                     "version":  "4.0",
+                     "lastUpdated":  "2025-12-27",
+                     "type":  "ability_catalog",
+                     "supportsTraits":  true,
+                     "totalAbilities":  22,
+                     "notes":  [
+                                   "Consolidated from enemy-specific abilities",
+                                   "Abilities are shared across enemies, players, and NPCs",
+                                   "rarityWeight determines selection probability"
+                               ]
+                 },
+    "items":  [
+                  {
+                      "rarityWeight":  10,
+                      "description":  "Deals extra damage when defending its lair",
+                      "name":  "Territorial",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "environmental",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Territorial"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Stronger during nighttime hours",
+                      "name":  "Night Hunter",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "environmental",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Night Hunter"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Environment bends to dragon\u0027s will",
+                      "name":  "Lair Actions",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "environmental",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Lair Actions"
+                  },
+                  {
+                      "rarityWeight":  10,
+                      "description":  "Can detect valuable items",
+                      "name":  "Treasure Sense",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "environmental",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Treasure Sense"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Rapidly heals wounds",
+                      "name":  "Regeneration",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "evolution_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Regeneration"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Can transform into stronger forms",
+                      "name":  "Metamorphosis",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "evolution_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Metamorphosis"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Massive creature with devastating attacks",
+                      "name":  "ColossalSize",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "colossal_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Colossal Size"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Ancient insect from the dawn of time",
+                      "name":  "Primordial",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "colossal_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Primordial"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Otherworldly insect touched by cosmic forces",
+                      "name":  "EldritchHorror",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "colossal_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Eldritch Horror"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Creates smaller plant minions",
+                      "name":  "SeedSpawner",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "spawning_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Seed Spawner"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Glows brightly, can blind enemies",
+                      "name":  "Bioluminescent",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "mystical_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Bioluminescent"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Massive tree-like creature of immense power",
+                      "name":  "AncientTreent",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "mystical_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Ancient Treent"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Embodies the essence of nature itself",
+                      "name":  "ForestSpirit",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "mystical_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Forest Spirit"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Mythical plant connecting all realms",
+                      "name":  "WorldTree",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "mystical_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "World Tree"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Unstoppable force of nature\u0027s wrath",
+                      "name":  "PrimalGrowth",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "mystical_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Primal Growth"
+                  },
+                  {
+                      "rarityWeight":  250,
+                      "description":  "Gigantic troll of legendary size",
+                      "name":  "Colossus",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "colossal_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Colossus"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Ancient troll of unimaginable power",
+                      "name":  "PrimalTitan",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "colossal_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Primal Titan"
+                  },
+                  {
+                      "rarityWeight":  500,
+                      "description":  "Mythical troll that devours mountains",
+                      "name":  "WorldEater",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "colossal_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "World Eater"
+                  },
+                  {
+                      "rarityWeight":  35,
+                      "description":  "Turns to stone in sunlight, becoming immobile but invincible",
+                      "name":  "StoneForm",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "environmental_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Stone Form"
+                  },
+                  {
+                      "rarityWeight":  75,
+                      "description":  "Bonus stats in underground environments",
+                      "name":  "CaveAdaptation",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "environmental_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Cave Adaptation"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Frost-resistant variant with ice attacks",
+                      "name":  "IceTroll",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "environmental_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Ice Troll"
+                  },
+                  {
+                      "rarityWeight":  150,
+                      "description":  "Immune to fire, adapted to volcanic regions",
+                      "name":  "LavaImmunity",
+                      "traits":  {
+                                     "category":  {
+                                                      "value":  "environmental_traits",
+                                                      "type":  "string"
+                                                  }
+                                 },
+                      "displayName":  "Lava Immunity"
+                  }
+              ]
+}
