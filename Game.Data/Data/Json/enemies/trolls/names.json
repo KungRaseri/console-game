@@ -165,8 +165,5 @@
                          "rarityWeight":  10,
                          "pattern":  "{age} {habitat} {base} {title}"
                      }
-                 ],
-    "notes":  {
-                  "usage":  "Pattern-based name generation for trolls. Pick components by rarityWeight and apply patterns to generate procedural names."
-              }
+                 ]
 }

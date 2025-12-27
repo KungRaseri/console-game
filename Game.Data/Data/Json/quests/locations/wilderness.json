@@ -1,195 +1,195 @@
 {
-    "metadata":  {
-                     "version":  "2.0",
-                     "lastUpdated":  "2025-01-27",
-                     "type":  "quest_locations_wilderness",
-                     "total_locations":  18,
-                     "categories":  [
-                                        "low_danger",
-                                        "medium_danger",
-                                        "high_danger",
-                                        "very_high_danger"
-                                    ],
-                     "notes":  {
-                                   "raritySystem":  "Weight reflects danger level and location rarity - higher danger = higher weight",
-                                   "componentKeys":  [
-                                                         "low_danger",
-                                                         "medium_danger",
-                                                         "high_danger",
-                                                         "very_high_danger"
-                                                     ],
-                                   "weight_ranges":  {
-                                                         "low_danger":  "10-15 (Safe travel zones, gathering quests)",
-                                                         "medium_danger":  "25-35 (Standard exploration, moderate encounters)",
-                                                         "high_danger":  "50-68 (Challenging zones, frequent combat)",
-                                                         "very_high_danger":  "100-115 (Legendary zones, extreme challenges)"
-                                                     },
-                                   "usage":  "Wilderness locations for travel quests, exploration, and gathering. Low danger for early game, medium for mid-game, high/very high for endgame content.",
-                                   "terrain_effects":  {
-                                                           "forest":  "Reduced visibility, ambush risk",
-                                                           "mountain":  "Difficult terrain, falling hazards",
-                                                           "desert":  "Heat damage, limited water",
-                                                           "frozen":  "Cold damage, ice hazards",
-                                                           "swamp":  "Poison damage, movement penalty",
-                                                           "volcanic":  "Fire damage, lava hazards",
-                                                           "underground":  "Darkness, enclosed spaces",
-                                                           "cursed":  "Undead enemies, life drain"
-                                                       },
-                                   "encounter_frequency":  "Low danger: 20%, Medium: 40%, High: 60%, Very High: 80%"
-                               }
-                 },
-    "components":  {
-                       "low_danger":  [
-                                          {
-                                              "name":  "GoldenPlains",
-                                              "displayName":  "Golden Plains",
-                                              "rarityWeight":  10,
-                                              "description":  "Peaceful grasslands perfect for travel",
-                                              "terrain":  "Plains",
-                                              "danger":  "Low"
-                                          },
-                                          {
-                                              "name":  "MistyHills",
-                                              "displayName":  "Misty Hills",
-                                              "rarityWeight":  12,
-                                              "description":  "Rolling hills shrouded in fog",
-                                              "terrain":  "Hills",
-                                              "danger":  "Low"
-                                          },
-                                          {
-                                              "name":  "SilverLake",
-                                              "displayName":  "Silver Lake",
-                                              "rarityWeight":  15,
-                                              "description":  "Tranquil body of water reflecting moonlight",
-                                              "terrain":  "Lake",
-                                              "danger":  "Low"
-                                          }
-                                      ],
-                       "medium_danger":  [
-                                             {
-                                                 "name":  "DarkwoodForest",
-                                                 "displayName":  "Darkwood Forest",
-                                                 "rarityWeight":  25,
-                                                 "description":  "Dense woods with little sunlight",
-                                                 "terrain":  "Forest",
-                                                 "danger":  "Medium"
-                                             },
-                                             {
-                                                 "name":  "EndlessDesert",
-                                                 "displayName":  "Endless Desert",
-                                                 "rarityWeight":  28,
-                                                 "description":  "Vast wasteland of sand and heat",
-                                                 "terrain":  "Desert",
-                                                 "danger":  "Medium"
-                                             },
-                                             {
-                                                 "name":  "CrystalCaverns",
-                                                 "displayName":  "Crystal Caverns",
-                                                 "rarityWeight":  32,
-                                                 "description":  "Underground cave network with glowing crystals",
-                                                 "terrain":  "Underground",
-                                                 "danger":  "Medium"
-                                             },
-                                             {
-                                                 "name":  "StormyCoast",
-                                                 "displayName":  "Stormy Coast",
-                                                 "rarityWeight":  30,
-                                                 "description":  "Rocky shoreline battered by waves",
-                                                 "terrain":  "Coastal",
-                                                 "danger":  "Medium"
-                                             },
-                                             {
-                                                 "name":  "WhisperingWoods",
-                                                 "displayName":  "Whispering Woods",
-                                                 "rarityWeight":  35,
-                                                 "description":  "Enchanted forest with strange voices",
-                                                 "terrain":  "Forest",
-                                                 "danger":  "Medium"
-                                             }
-                                         ],
-                       "high_danger":  [
-                                           {
-                                               "name":  "CrimsonPeaks",
-                                               "displayName":  "Crimson Peaks",
-                                               "rarityWeight":  50,
-                                               "description":  "Treacherous mountain range",
-                                               "terrain":  "Mountain",
-                                               "danger":  "High"
-                                           },
-                                           {
-                                               "name":  "FrozenTundra",
-                                               "displayName":  "Frozen Tundra",
-                                               "rarityWeight":  55,
-                                               "description":  "Icy plains of eternal winter",
-                                               "terrain":  "Tundra",
-                                               "danger":  "High"
-                                           },
-                                           {
-                                               "name":  "PoisonSwamp",
-                                               "displayName":  "Poison Swamp",
-                                               "rarityWeight":  58,
-                                               "description":  "Murky wetlands filled with toxic gases",
-                                               "terrain":  "Swamp",
-                                               "danger":  "High"
-                                           },
-                                           {
-                                               "name":  "AncientBattlefield",
-                                               "displayName":  "Ancient Battlefield",
-                                               "rarityWeight":  60,
-                                               "description":  "Site of historic war, now haunted",
-                                               "terrain":  "Plains",
-                                               "danger":  "High"
-                                           },
-                                           {
-                                               "name":  "ShatteredIsles",
-                                               "displayName":  "Shattered Isles",
-                                               "rarityWeight":  65,
-                                               "description":  "Archipelago of floating islands",
-                                               "terrain":  "Sky Islands",
-                                               "danger":  "High"
-                                           },
-                                           {
-                                               "name":  "JungleOfFangs",
-                                               "displayName":  "Jungle of Fangs",
-                                               "rarityWeight":  62,
-                                               "description":  "Tropical rainforest teeming with predators",
-                                               "terrain":  "Jungle",
-                                               "danger":  "High"
-                                           },
-                                           {
-                                               "name":  "TheGreatRift",
-                                               "displayName":  "The Great Rift",
-                                               "rarityWeight":  68,
-                                               "description":  "Massive canyon splitting the continent",
-                                               "terrain":  "Canyon",
-                                               "danger":  "High"
-                                           }
-                                       ],
-                       "very_high_danger":  [
-                                                {
-                                                    "name":  "VolcanicWastelands",
-                                                    "displayName":  "Volcanic Wastelands",
-                                                    "rarityWeight":  100,
-                                                    "description":  "Scorched earth with active lava flows",
-                                                    "terrain":  "Volcanic",
-                                                    "danger":  "Very High"
-                                                },
-                                                {
-                                                    "name":  "DeadLands",
-                                                    "displayName":  "Dead Lands",
-                                                    "rarityWeight":  110,
-                                                    "description":  "Cursed region where nothing grows",
-                                                    "terrain":  "Wasteland",
-                                                    "danger":  "Very High"
-                                                },
-                                                {
-                                                    "name":  "BloodMoors",
-                                                    "displayName":  "Blood Moors",
-                                                    "rarityWeight":  115,
-                                                    "description":  "Crimson marshlands with carnivorous plants",
-                                                    "terrain":  "Swamp",
-                                                    "danger":  "Very High"
-                                                }
-                                            ]
-                   }
+  "metadata": {
+    "version": "2.0",
+    "lastUpdated": "2025-01-27",
+    "type": "quest_locations_wilderness",
+    "total_locations": 18,
+    "categories": [
+      "low_danger",
+      "medium_danger",
+      "high_danger",
+      "very_high_danger"
+    ],
+    "notes": [
+      "Weight reflects danger level and location rarity - higher danger = higher weight",
+      [
+        "low_danger",
+        "medium_danger",
+        "high_danger",
+        "very_high_danger"
+      ],
+      {
+        "low_danger": "10-15 (Safe travel zones, gathering quests)",
+        "medium_danger": "25-35 (Standard exploration, moderate encounters)",
+        "high_danger": "50-68 (Challenging zones, frequent combat)",
+        "very_high_danger": "100-115 (Legendary zones, extreme challenges)"
+      },
+      "Wilderness locations for travel quests, exploration, and gathering. Low danger for early game, medium for mid-game, high/very high for endgame content.",
+      {
+        "forest": "Reduced visibility, ambush risk",
+        "mountain": "Difficult terrain, falling hazards",
+        "desert": "Heat damage, limited water",
+        "frozen": "Cold damage, ice hazards",
+        "swamp": "Poison damage, movement penalty",
+        "volcanic": "Fire damage, lava hazards",
+        "underground": "Darkness, enclosed spaces",
+        "cursed": "Undead enemies, life drain"
+      },
+      "Low danger: 20%, Medium: 40%, High: 60%, Very High: 80%"
+    ]
+  },
+  "components": {
+    "low_danger": [
+      {
+        "name": "GoldenPlains",
+        "displayName": "Golden Plains",
+        "rarityWeight": 10,
+        "description": "Peaceful grasslands perfect for travel",
+        "terrain": "Plains",
+        "danger": "Low"
+      },
+      {
+        "name": "MistyHills",
+        "displayName": "Misty Hills",
+        "rarityWeight": 12,
+        "description": "Rolling hills shrouded in fog",
+        "terrain": "Hills",
+        "danger": "Low"
+      },
+      {
+        "name": "SilverLake",
+        "displayName": "Silver Lake",
+        "rarityWeight": 15,
+        "description": "Tranquil body of water reflecting moonlight",
+        "terrain": "Lake",
+        "danger": "Low"
+      }
+    ],
+    "medium_danger": [
+      {
+        "name": "DarkwoodForest",
+        "displayName": "Darkwood Forest",
+        "rarityWeight": 25,
+        "description": "Dense woods with little sunlight",
+        "terrain": "Forest",
+        "danger": "Medium"
+      },
+      {
+        "name": "EndlessDesert",
+        "displayName": "Endless Desert",
+        "rarityWeight": 28,
+        "description": "Vast wasteland of sand and heat",
+        "terrain": "Desert",
+        "danger": "Medium"
+      },
+      {
+        "name": "CrystalCaverns",
+        "displayName": "Crystal Caverns",
+        "rarityWeight": 32,
+        "description": "Underground cave network with glowing crystals",
+        "terrain": "Underground",
+        "danger": "Medium"
+      },
+      {
+        "name": "StormyCoast",
+        "displayName": "Stormy Coast",
+        "rarityWeight": 30,
+        "description": "Rocky shoreline battered by waves",
+        "terrain": "Coastal",
+        "danger": "Medium"
+      },
+      {
+        "name": "WhisperingWoods",
+        "displayName": "Whispering Woods",
+        "rarityWeight": 35,
+        "description": "Enchanted forest with strange voices",
+        "terrain": "Forest",
+        "danger": "Medium"
+      }
+    ],
+    "high_danger": [
+      {
+        "name": "CrimsonPeaks",
+        "displayName": "Crimson Peaks",
+        "rarityWeight": 50,
+        "description": "Treacherous mountain range",
+        "terrain": "Mountain",
+        "danger": "High"
+      },
+      {
+        "name": "FrozenTundra",
+        "displayName": "Frozen Tundra",
+        "rarityWeight": 55,
+        "description": "Icy plains of eternal winter",
+        "terrain": "Tundra",
+        "danger": "High"
+      },
+      {
+        "name": "PoisonSwamp",
+        "displayName": "Poison Swamp",
+        "rarityWeight": 58,
+        "description": "Murky wetlands filled with toxic gases",
+        "terrain": "Swamp",
+        "danger": "High"
+      },
+      {
+        "name": "AncientBattlefield",
+        "displayName": "Ancient Battlefield",
+        "rarityWeight": 60,
+        "description": "Site of historic war, now haunted",
+        "terrain": "Plains",
+        "danger": "High"
+      },
+      {
+        "name": "ShatteredIsles",
+        "displayName": "Shattered Isles",
+        "rarityWeight": 65,
+        "description": "Archipelago of floating islands",
+        "terrain": "Sky Islands",
+        "danger": "High"
+      },
+      {
+        "name": "JungleOfFangs",
+        "displayName": "Jungle of Fangs",
+        "rarityWeight": 62,
+        "description": "Tropical rainforest teeming with predators",
+        "terrain": "Jungle",
+        "danger": "High"
+      },
+      {
+        "name": "TheGreatRift",
+        "displayName": "The Great Rift",
+        "rarityWeight": 68,
+        "description": "Massive canyon splitting the continent",
+        "terrain": "Canyon",
+        "danger": "High"
+      }
+    ],
+    "very_high_danger": [
+      {
+        "name": "VolcanicWastelands",
+        "displayName": "Volcanic Wastelands",
+        "rarityWeight": 100,
+        "description": "Scorched earth with active lava flows",
+        "terrain": "Volcanic",
+        "danger": "Very High"
+      },
+      {
+        "name": "DeadLands",
+        "displayName": "Dead Lands",
+        "rarityWeight": 110,
+        "description": "Cursed region where nothing grows",
+        "terrain": "Wasteland",
+        "danger": "Very High"
+      },
+      {
+        "name": "BloodMoors",
+        "displayName": "Blood Moors",
+        "rarityWeight": 115,
+        "description": "Crimson marshlands with carnivorous plants",
+        "terrain": "Swamp",
+        "danger": "Very High"
+      }
+    ]
+  }
 }

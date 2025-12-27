@@ -15,6 +15,7 @@ namespace Game.ContentBuilder.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
     private readonly JsonEditorService _jsonEditorService;
+    private readonly CatalogTokenService _catalogTokenService;
     private readonly FileTreeService _fileTreeService;
 
     [ObservableProperty]
@@ -34,9 +35,10 @@ public partial class MainViewModel : ObservableObject
 
     public MainViewModel()
     {
-        // Initialize JsonEditorService with path to Game.Shared Data directory
+        // Initialize services with path to Game.Shared Data directory
         var dataPath = GetDataDirectory();
         _jsonEditorService = new JsonEditorService(dataPath);
+        _catalogTokenService = new CatalogTokenService(_jsonEditorService);
         _fileTreeService = new FileTreeService(dataPath);
 
         Log.Information("MainViewModel initialized - Data directory: {DataPath}", dataPath);
@@ -104,7 +106,7 @@ public partial class MainViewModel : ObservableObject
         try
         {
             Log.Debug("Loading NameListEditor for {FileName}", fileName);
-            var viewModel = new NameListEditorViewModel(_jsonEditorService, fileName);
+            var viewModel = new NameListEditorViewModel(_jsonEditorService, _catalogTokenService, fileName);
             var view = new NameListEditorView
             {
                 DataContext = viewModel

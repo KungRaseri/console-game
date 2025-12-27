@@ -27,7 +27,7 @@
                                         </Grid.RowDefinitions>
                                         
 <!-- Header with Value and Weight -->
-                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="12,8">
+                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="12,8">
                                 <Grid>
                                         <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
@@ -104,7 +104,7 @@
                                                 <ItemsControl ItemsSource="{Binding Traits}">
                                                         <ItemsControl.ItemTemplate>
                                                                 <DataTemplate>
-                                                                        <Border Background="#F5F5F5" CornerRadius="4" Padding="8,6" Margin="0,0,0,4">
+                                                                        <Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="4" Padding="8,6" Margin="0,0,0,4">
                                                                                 <Grid>
                                                                                         <Grid.ColumnDefinitions>
                                                                                                 <ColumnDefinition Width="*"/>
@@ -243,10 +243,10 @@
                                                 
                                                 <!-- Badge-based pattern composer -->
                                                 <Border Grid.Column="0"
-                                                        BorderBrush="#DEDEDE"
+                                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
                                                         BorderThickness="1"
                                                         CornerRadius="4"
-                                                        Background="White"
+                                                        Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
                                                         Padding="8"
                                                         Margin="0,0,8,0"
                                                         MinHeight="48"
@@ -669,7 +669,7 @@
                                                 <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
                                         
-                                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="16,12">
+                                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="16,12">
                                 <Grid>
                                         <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
@@ -715,7 +715,7 @@
                                                 <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
                                         
-                                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="16,12">
+                                        <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="16,12">
                                 <Grid>
                                         <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
@@ -751,7 +751,7 @@
                         </Border>
                         
                         <!-- Pattern Search Box -->
-                        <Border Grid.Row="1" Background="#F5F5F5" Padding="12,8" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+                        <Border Grid.Row="1" Background="{DynamicResource MaterialDesignToolBarBackground}" Padding="12,8" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1">
                                 <Grid>
                                         <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
@@ -792,7 +792,7 @@
                 <!--  Status Bar  -->
                 <Border Grid.Row="4"
                         Background="{DynamicResource MaterialDesignPaper}"
-                        BorderBrush="#E0E0E0"
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
                         BorderThickness="0,1,0,0"
                         Padding="16,8"
                         AutomationProperties.AutomationId="StatusBar">

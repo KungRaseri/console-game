@@ -172,8 +172,5 @@
                          "rarityWeight":  10,
                          "pattern":  "{size} {scale} {base} {title}"
                      }
-                 ],
-    "notes":  {
-                  "usage":  "Pattern-based name generation for reptilians. Pick components by rarityWeight and apply patterns to generate procedural names."
-              }
+                 ]
 }

@@ -103,8 +103,6 @@
                                               "severity":  9,
                                               "special":  9
                                           },
-                     "notes":  {
-                                   "usage":  "Reference data for general weather. Used as component source in name generation and stat calculations."
-                               }
+                     "notes": ["Reference data for general weather. Used as component source in name generation and stat calculations."]
                  }
 }

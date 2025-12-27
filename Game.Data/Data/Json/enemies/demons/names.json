@@ -187,8 +187,5 @@
             "rarityWeight": 15,
             "pattern": "{rank} {descriptive} {aspect} {base} {title}"
         }
-    ],
-    "notes": {
-        "usage": "Pattern-based name generation for demons. Pick components by rarityWeight and apply patterns to generate procedural names."
-    }
+    ]
 }

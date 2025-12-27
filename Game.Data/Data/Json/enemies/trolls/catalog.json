@@ -11,9 +11,7 @@
                                         "special_trolls"
                                     ],
                      "usage":  "Provides base enemy types for pattern generation",
-                     "notes":  {
-                                   "usage":  "Base catalog of trolls with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-                               }
+                     "notes": ["Base catalog of trolls with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
                  },
     "troll_types":  {
                         "common_trolls":  {

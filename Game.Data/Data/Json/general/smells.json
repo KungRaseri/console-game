@@ -81,8 +81,6 @@
                                               "natural":  10,
                                               "intensity":  10
                                           },
-                     "notes":  {
-                                   "usage":  "Reference data for general smells. Used as component source in name generation and stat calculations."
-                               }
+                     "notes": ["Reference data for general smells. Used as component source in name generation and stat calculations."]
                  }
 }

@@ -203,8 +203,5 @@
                          "rarityWeight":  15,
                          "pattern":  "{size} {descriptive} {element} {base} {title}"
                      }
-                 ],
-    "notes":  {
-                  "usage":  "Pattern-based name generation for elementals. Pick components by rarityWeight and apply patterns to generate procedural names."
-              }
+                 ]
 }

@@ -83,8 +83,6 @@
                                               "modifier":  15,
                                               "material":  20
                                           },
-                     "notes":  {
-                                   "usage":  "Reference data for general colors. Used as component source in name generation and stat calculations."
-                               }
+                     "notes": ["Reference data for general colors. Used as component source in name generation and stat calculations."]
                  }
 }

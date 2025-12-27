@@ -96,7 +96,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     
-                    <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="16,12">
+                    <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="16,12">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -190,7 +190,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="16,12">
+                    <Border Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="16,12">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -207,7 +207,7 @@
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="12">
                         <StackPanel>
                             <!-- Category Traits Section -->
-                            <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="0,0,0,16" Margin="0,0,0,16"
+                            <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" Padding="0,0,0,16" Margin="0,0,0,16"
                                     Visibility="{Binding ShowCategoryTraits, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     AutomationProperties.AutomationId="CategoryTraitsPanel">
                                 <StackPanel DataContext="{Binding SelectedCategory}">
@@ -223,7 +223,8 @@
                                                   AutomationProperties.AutomationId="CategoryTraitsList">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Margin="0,0,0,8">
+                                                <Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="4" Padding="8,6" Margin="0,0,0,4">
+                                                    <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*"/>
                                                         <ColumnDefinition Width="*"/>
@@ -248,6 +249,7 @@
                                                         <materialDesign:PackIcon Kind="Close" Width="16" Height="16"/>
                                                     </Button>
                                                 </Grid>
+                                                </Border>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
@@ -362,7 +364,7 @@
         <!-- Status Bar -->
         <StatusBar Grid.Row="2"
                    Background="{DynamicResource MaterialDesignPaper}"
-                   BorderBrush="#E0E0E0"
+                   BorderBrush="{DynamicResource MaterialDesignDivider}"
                    BorderThickness="0,1,0,0"
                    Padding="16,8"
                    AutomationProperties.AutomationId="StatusBar">

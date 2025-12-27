@@ -260,8 +260,5 @@
                          "rarityWeight":  15,
                          "pattern":  "{rank} {descriptive} {profession} {specialization} {title}"
                      }
-                 ],
-    "notes":  {
-                  "usage":  "Pattern-based name generation for humanoids. Pick components by rarityWeight and apply patterns to generate procedural names."
-              }
+                 ]
 }

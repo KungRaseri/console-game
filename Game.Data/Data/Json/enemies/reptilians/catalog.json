@@ -12,9 +12,7 @@
                                         "special_reptilians"
                                     ],
                      "usage":  "Provides base enemy types for pattern generation",
-                     "notes":  {
-                                   "usage":  "Base catalog of reptilians with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-                               }
+                     "notes": ["Base catalog of reptilians with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
                  },
     "reptilian_types":  {
                             "kobolds":  {

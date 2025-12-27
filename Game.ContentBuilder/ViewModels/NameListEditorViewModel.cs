@@ -17,6 +17,7 @@ namespace Game.ContentBuilder.ViewModels;
 public partial class NameListEditorViewModel : ObservableObject
 {
     private readonly JsonEditorService _jsonEditorService;
+    private readonly CatalogTokenService _catalogTokenService;
     private readonly string _fileName;
 
     // v4 metadata
@@ -64,9 +65,10 @@ public partial class NameListEditorViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<NamePatternBase> _filteredPatterns = new();
 
-    public NameListEditorViewModel(JsonEditorService jsonEditorService, string fileName)
+    public NameListEditorViewModel(JsonEditorService jsonEditorService, CatalogTokenService catalogTokenService, string fileName)
     {
         _jsonEditorService = jsonEditorService;
+        _catalogTokenService = catalogTokenService;
         _fileName = fileName;
 
         // Watch for search text changes
@@ -329,7 +331,7 @@ public partial class NameListEditorViewModel : ObservableObject
         var random = new Random();
 
         // Load base names from catalog.json in the same directory
-        var baseNames = LoadBaseNamesFromCatalog();
+        var baseNames = _catalogTokenService.LoadBaseNamesFromCatalog(_fileName);
 
         foreach (var pattern in Patterns)
         {
@@ -420,141 +422,7 @@ public partial class NameListEditorViewModel : ObservableObject
     /// <summary>
     /// Loads base names from catalog.json in the same directory as the names.json file
     /// </summary>
-    private List<string> LoadBaseNamesFromCatalog()
-    {
-        var baseNames = new List<string>();
-
-        try
-        {
-            // Get the full path first, then extract directory
-            string fullPath = _jsonEditorService.GetFilePath(_fileName);
-            string directory = Path.GetDirectoryName(fullPath) ?? string.Empty;
-            string fileName = Path.GetFileName(_fileName);
-
-            Log.Information("=== LoadBaseNamesFromCatalog Debug ===");
-            Log.Information("Names file: {FileName}", fileName);
-            Log.Information("Full path: {FullPath}", fullPath);
-            Log.Information("Directory: {Directory}", directory);
-
-            // Determine the catalog filename based on the names filename pattern
-            // abilities_names.json → abilities_catalog.json
-            // names.json → catalog.json
-            string catalogFileName;
-            if (fileName.Contains("abilities_names"))
-            {
-                catalogFileName = "abilities_catalog.json";
-            }
-            else if (fileName.Contains("names"))
-            {
-                catalogFileName = "catalog.json";
-            }
-            else
-            {
-                Log.Warning("Cannot determine catalog file for {FileName}", fileName);
-                return new List<string>();
-            }
-
-            string catalogPath = Path.Combine(directory, catalogFileName);
-            Log.Information("Expected catalog path: {CatalogPath}", catalogPath);
-            Log.Information("Catalog exists: {Exists}", File.Exists(catalogPath));
-
-            if (!File.Exists(catalogPath))
-            {
-                // Show relative path from Json folder for cleaner logs
-                string relativePath = catalogPath;
-                try
-                {
-                    var dirInfo = new DirectoryInfo(directory);
-                    while (dirInfo != null && dirInfo.Name != "Json")
-                    {
-                        dirInfo = dirInfo.Parent;
-                    }
-                    if (dirInfo != null)
-                    {
-                        relativePath = Path.GetRelativePath(dirInfo.FullName, catalogPath);
-                    }
-                }
-                catch { }
-                Log.Error("Required catalog file not found: {Path}", relativePath);
-                return new List<string>();
-            }
-
-            string catalogJson = File.ReadAllText(catalogPath);
-            var catalog = JObject.Parse(catalogJson);
-
-            Log.Information("Catalog parsed successfully");
-            Log.Information("Catalog root properties: {Props}", string.Join(", ", catalog.Properties().Select(p => p.Name)));
-
-            // Extract names from catalog structure
-            // New flat format: { "items": [{ "name": "Regeneration" }] }
-            // Old nested format: { "ability_types": { "offensive": { "items": [{ "name": "Infernal Flames" }] } } }
-
-            // First try flat "items" array at root (new abilities format)
-            if (catalog["items"] is JArray flatItems)
-            {
-                Log.Information("Found flat items array with {Count} items", flatItems.Count);
-                foreach (var item in flatItems)
-                {
-                    string? name = item["name"]?.ToString();
-                    if (!string.IsNullOrEmpty(name))
-                    {
-                        baseNames.Add(name);
-                    }
-                }
-
-                if (baseNames.Count > 0)
-                {
-                    Log.Information("✓ Loaded {Count} base names from {CatalogFile} (flat structure)", baseNames.Count, Path.GetFileName(catalogPath));
-                    Log.Information("First few names: {Names}", string.Join(", ", baseNames.Take(5)));
-                    return baseNames;
-                }
-            }
-            else
-            {
-                Log.Information("No flat items array found at root");
-            }
-
-            // Try nested structure (old format)
-            var topLevelKeys = new[] { "ability_types", "beast_types", "item_types", "npc_types", "types" };
-
-            foreach (var topKey in topLevelKeys)
-            {
-                if (catalog[topKey] is JObject typesObj)
-                {
-                    foreach (var categoryProp in typesObj.Properties())
-                    {
-                        if (categoryProp.Value["items"] is JArray items)
-                        {
-                            foreach (var item in items)
-                            {
-                                string? name = item["name"]?.ToString();
-                                if (!string.IsNullOrEmpty(name))
-                                {
-                                    baseNames.Add(name);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (baseNames.Count > 0)
-            {
-                Log.Information("✓ Loaded {Count} base names from {CatalogFile} (nested structure)", baseNames.Count, Path.GetFileName(catalogPath));
-            }
-            else
-            {
-                Log.Warning("✗ No base names found in {CatalogFile} - checked both flat and nested structures", Path.GetFileName(catalogPath));
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "✗ Failed to load base names from catalog file for {FileName}", _fileName);
-            baseNames = new List<string>();
-        }
-
-        return baseNames;
-    }
+    // LoadBaseNamesFromCatalog moved to CatalogTokenService for universal access
 
     /// <summary>
     /// Loads a random value from a reference file (e.g., @materialRef/weapon loads from materials/names.json)
@@ -1031,7 +899,7 @@ public partial class NameListEditorViewModel : ObservableObject
         try
         {
             var random = new Random();
-            var baseNames = LoadBaseNamesFromCatalog();
+            var baseNames = _catalogTokenService.LoadBaseNamesFromCatalog(_fileName);
             
             Log.Information("=== GenerateExampleForPattern Debug ===");
             Log.Information("Pattern: {Pattern}", pattern.PatternTemplate);

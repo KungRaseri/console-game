@@ -1,210 +1,210 @@
 {
-    "metadata":  {
-                     "description":  "Beast enemy type catalog with base stats and traits",
-                     "version":  "1.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "item_catalog",
-                     "total_beast_types":  4,
-                     "total_beasts":  15,
-                     "usage":  "Provides base enemy types for pattern generation",
-                     "notes":  {
-                                   "usage":  "Base catalog of beasts with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-                               }
-                 },
-    "beast_types":  {
-                        "wolves":  {
-                                       "traits":  {
-                                                      "category":  "beast",
-                                                      "size":  "medium",
-                                                      "behavior":  "pack",
-                                                      "damageType":  "piercing",
-                                                      "habitat":  "forest"
-                                                  },
-                                       "items":  [
-                                                     {
-                                                         "name":  "Wolf",
-                                                         "health":  30,
-                                                         "attack":  8,
-                                                         "defense":  3,
-                                                         "speed":  15,
-                                                         "level":  3,
-                                                         "xp":  50,
-                                                         "rarityWeight":  5
-                                                     },
-                                                     {
-                                                         "name":  "Timber Wolf",
-                                                         "health":  40,
-                                                         "attack":  10,
-                                                         "defense":  4,
-                                                         "speed":  16,
-                                                         "level":  5,
-                                                         "xp":  75,
-                                                         "rarityWeight":  8
-                                                     },
-                                                     {
-                                                         "name":  "Frost Wolf",
-                                                         "health":  45,
-                                                         "attack":  12,
-                                                         "defense":  5,
-                                                         "speed":  17,
-                                                         "level":  7,
-                                                         "xp":  100,
-                                                         "rarityWeight":  15
-                                                     }
-                                                 ]
-                                   },
-                        "bears":  {
-                                      "traits":  {
-                                                     "category":  "beast",
-                                                     "size":  "large",
-                                                     "behavior":  "territorial",
-                                                     "damageType":  "slashing",
-                                                     "habitat":  "forest"
-                                                 },
-                                      "items":  [
-                                                    {
-                                                        "name":  "Bear",
-                                                        "health":  80,
-                                                        "attack":  15,
-                                                        "defense":  8,
-                                                        "speed":  10,
-                                                        "level":  6,
-                                                        "xp":  120,
-                                                        "rarityWeight":  10
-                                                    },
-                                                    {
-                                                        "name":  "Black Bear",
-                                                        "health":  70,
-                                                        "attack":  12,
-                                                        "defense":  7,
-                                                        "speed":  11,
-                                                        "level":  5,
-                                                        "xp":  100,
-                                                        "rarityWeight":  8
-                                                    },
-                                                    {
-                                                        "name":  "Grizzly Bear",
-                                                        "health":  100,
-                                                        "attack":  18,
-                                                        "defense":  10,
-                                                        "speed":  9,
-                                                        "level":  8,
-                                                        "xp":  180,
-                                                        "rarityWeight":  15
-                                                    },
-                                                    {
-                                                        "name":  "Cave Bear",
-                                                        "health":  120,
-                                                        "attack":  20,
-                                                        "defense":  12,
-                                                        "speed":  8,
-                                                        "level":  10,
-                                                        "xp":  250,
-                                                        "rarityWeight":  20
-                                                    }
-                                                ]
-                                  },
-                        "big_cats":  {
-                                         "traits":  {
-                                                        "category":  "beast",
-                                                        "size":  "medium",
-                                                        "behavior":  "stealth_hunter",
-                                                        "damageType":  "slashing",
-                                                        "habitat":  "various"
-                                                    },
-                                         "items":  [
-                                                       {
-                                                           "name":  "Tiger",
-                                                           "health":  60,
-                                                           "attack":  14,
-                                                           "defense":  6,
-                                                           "speed":  18,
-                                                           "level":  7,
-                                                           "xp":  140,
-                                                           "rarityWeight":  12
-                                                       },
-                                                       {
-                                                           "name":  "Panther",
-                                                           "health":  50,
-                                                           "attack":  12,
-                                                           "defense":  5,
-                                                           "speed":  20,
-                                                           "level":  6,
-                                                           "xp":  110,
-                                                           "rarityWeight":  10
-                                                       },
-                                                       {
-                                                           "name":  "Lion",
-                                                           "health":  70,
-                                                           "attack":  16,
-                                                           "defense":  7,
-                                                           "speed":  16,
-                                                           "level":  8,
-                                                           "xp":  160,
-                                                           "rarityWeight":  14
-                                                       }
-                                                   ]
-                                     },
-                        "reptiles":  {
-                                         "traits":  {
-                                                        "category":  "beast",
-                                                        "size":  "medium",
-                                                        "behavior":  "ambush",
-                                                        "damageType":  "piercing",
-                                                        "habitat":  "swamp"
-                                                    },
-                                         "items":  [
-                                                       {
-                                                           "name":  "Serpent",
-                                                           "health":  35,
-                                                           "attack":  10,
-                                                           "defense":  4,
-                                                           "speed":  12,
-                                                           "level":  4,
-                                                           "xp":  60,
-                                                           "rarityWeight":  7
-                                                       },
-                                                       {
-                                                           "name":  "Crocodile",
-                                                           "health":  90,
-                                                           "attack":  16,
-                                                           "defense":  12,
-                                                           "speed":  8,
-                                                           "level":  9,
-                                                           "xp":  200,
-                                                           "rarityWeight":  18
-                                                       },
-                                                       {
-                                                           "name":  "Scorpion",
-                                                           "health":  40,
-                                                           "attack":  11,
-                                                           "defense":  8,
-                                                           "speed":  10,
-                                                           "level":  5,
-                                                           "xp":  80,
-                                                           "rarityWeight":  9
-                                                       },
-                                                       {
-                                                           "name":  "Spider",
-                                                           "health":  25,
-                                                           "attack":  8,
-                                                           "defense":  3,
-                                                           "speed":  14,
-                                                           "level":  3,
-                                                           "xp":  45,
-                                                           "rarityWeight":  5
-                                                       },
-                                                       {
-                                                           "name":  "Boar",
-                                                           "health":  55,
-                                                           "attack":  12,
-                                                           "defense":  6,
-                                                           "speed":  13,
-                                                           "level":  5,
-                                                           "xp":  90,
-                                                           "rarityWeight":  8
-                                                       }
-                                                   ]
-                                     }
-                    }
+    "metadata": {
+        "description": "Beast enemy type catalog with base stats and traits",
+        "version": "1.0",
+        "lastUpdated": "2025-12-17",
+        "type": "item_catalog",
+        "total_beast_types": 4,
+        "total_beasts": 15,
+        "usage": "Provides base enemy types for pattern generation",
+        "notes": [
+            "Base catalog of beasts with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+        ]
+    },
+    "beast_types": {
+        "wolves": {
+            "traits": {
+                "category": "beast",
+                "size": "medium",
+                "behavior": "pack",
+                "damageType": "piercing",
+                "habitat": "forest"
+            },
+            "items": [
+                {
+                    "name": "Wolf",
+                    "health": 30,
+                    "attack": 8,
+                    "defense": 3,
+                    "speed": 15,
+                    "level": 3,
+                    "xp": 50,
+                    "rarityWeight": 5
+                },
+                {
+                    "name": "Timber Wolf",
+                    "health": 40,
+                    "attack": 10,
+                    "defense": 4,
+                    "speed": 16,
+                    "level": 5,
+                    "xp": 75,
+                    "rarityWeight": 8
+                },
+                {
+                    "name": "Frost Wolf",
+                    "health": 45,
+                    "attack": 12,
+                    "defense": 5,
+                    "speed": 17,
+                    "level": 7,
+                    "xp": 100,
+                    "rarityWeight": 15
+                }
+            ]
+        },
+        "bears": {
+            "traits": {
+                "category": "beast",
+                "size": "large",
+                "behavior": "territorial",
+                "damageType": "slashing",
+                "habitat": "forest"
+            },
+            "items": [
+                {
+                    "name": "Bear",
+                    "health": 80,
+                    "attack": 15,
+                    "defense": 8,
+                    "speed": 10,
+                    "level": 6,
+                    "xp": 120,
+                    "rarityWeight": 10
+                },
+                {
+                    "name": "Black Bear",
+                    "health": 70,
+                    "attack": 12,
+                    "defense": 7,
+                    "speed": 11,
+                    "level": 5,
+                    "xp": 100,
+                    "rarityWeight": 8
+                },
+                {
+                    "name": "Grizzly Bear",
+                    "health": 100,
+                    "attack": 18,
+                    "defense": 10,
+                    "speed": 9,
+                    "level": 8,
+                    "xp": 180,
+                    "rarityWeight": 15
+                },
+                {
+                    "name": "Cave Bear",
+                    "health": 120,
+                    "attack": 20,
+                    "defense": 12,
+                    "speed": 8,
+                    "level": 10,
+                    "xp": 250,
+                    "rarityWeight": 20
+                }
+            ]
+        },
+        "big_cats": {
+            "traits": {
+                "category": "beast",
+                "size": "medium",
+                "behavior": "stealth_hunter",
+                "damageType": "slashing",
+                "habitat": "various"
+            },
+            "items": [
+                {
+                    "name": "Tiger",
+                    "health": 60,
+                    "attack": 14,
+                    "defense": 6,
+                    "speed": 18,
+                    "level": 7,
+                    "xp": 140,
+                    "rarityWeight": 12
+                },
+                {
+                    "name": "Panther",
+                    "health": 50,
+                    "attack": 12,
+                    "defense": 5,
+                    "speed": 20,
+                    "level": 6,
+                    "xp": 110,
+                    "rarityWeight": 10
+                },
+                {
+                    "name": "Lion",
+                    "health": 70,
+                    "attack": 16,
+                    "defense": 7,
+                    "speed": 16,
+                    "level": 8,
+                    "xp": 160,
+                    "rarityWeight": 14
+                }
+            ]
+        },
+        "reptiles": {
+            "traits": {
+                "category": "beast",
+                "size": "medium",
+                "behavior": "ambush",
+                "damageType": "piercing",
+                "habitat": "swamp"
+            },
+            "items": [
+                {
+                    "name": "Serpent",
+                    "health": 35,
+                    "attack": 10,
+                    "defense": 4,
+                    "speed": 12,
+                    "level": 4,
+                    "xp": 60,
+                    "rarityWeight": 7
+                },
+                {
+                    "name": "Crocodile",
+                    "health": 90,
+                    "attack": 16,
+                    "defense": 12,
+                    "speed": 8,
+                    "level": 9,
+                    "xp": 200,
+                    "rarityWeight": 18
+                },
+                {
+                    "name": "Scorpion",
+                    "health": 40,
+                    "attack": 11,
+                    "defense": 8,
+                    "speed": 10,
+                    "level": 5,
+                    "xp": 80,
+                    "rarityWeight": 9
+                },
+                {
+                    "name": "Spider",
+                    "health": 25,
+                    "attack": 8,
+                    "defense": 3,
+                    "speed": 14,
+                    "level": 3,
+                    "xp": 45,
+                    "rarityWeight": 5
+                },
+                {
+                    "name": "Boar",
+                    "health": 55,
+                    "attack": 12,
+                    "defense": 6,
+                    "speed": 13,
+                    "level": 5,
+                    "xp": 90,
+                    "rarityWeight": 8
+                }
+            ]
+        }
+    }
 }

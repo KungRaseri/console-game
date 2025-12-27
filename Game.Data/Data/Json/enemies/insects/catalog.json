@@ -12,9 +12,7 @@
                                         "hive_insects"
                                     ],
                      "usage":  "Provides base enemy types for pattern generation",
-                     "notes":  {
-                                   "usage":  "Base catalog of insects with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-                               }
+                     "notes": ["Base catalog of insects with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
                  },
     "insect_types":  {
                          "spiders":  {

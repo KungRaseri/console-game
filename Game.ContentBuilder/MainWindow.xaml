@@ -214,7 +214,7 @@
             <!-- Global Console Panel (F12 to toggle) -->
             <Border x:Name="ConsolePanel"
                     Background="#F2000000"
-                    BorderBrush="#333333"
+                    BorderBrush="{DynamicResource MaterialDesignDivider}"
                     BorderThickness="0,1,0,0"
                     Height="300"
                     VerticalAlignment="Bottom"
@@ -229,7 +229,7 @@
                     <Border Grid.Row="0"
                             Background="#1A1A1A"
                             Padding="12,8"
-                            BorderBrush="#333333"
+                            BorderBrush="{DynamicResource MaterialDesignDivider}"
                             BorderThickness="0,0,0,1">
                         <Grid>
                             <Grid.ColumnDefinitions>

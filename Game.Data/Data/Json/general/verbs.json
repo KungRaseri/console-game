@@ -118,8 +118,6 @@
                                               "interaction":  9,
                                               "communication":  9
                                           },
-                     "notes":  {
-                                   "usage":  "Reference data for general verbs. Used as component source in name generation and stat calculations."
-                               }
+                     "notes": ["Reference data for general verbs. Used as component source in name generation and stat calculations."]
                  }
 }

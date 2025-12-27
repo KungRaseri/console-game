@@ -12,9 +12,7 @@
                                         "ancient_plants"
                                     ],
                      "usage":  "Provides base enemy types for pattern generation",
-                     "notes":  {
-                                   "usage":  "Base catalog of plants with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-                               }
+                     "notes": ["Base catalog of plants with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
                  },
     "plant_types":  {
                         "aggressive_plants":  {

@@ -20,6 +20,7 @@ public class NameListEditorViewModelTests : IDisposable
   private readonly string _testDataPath;
   private readonly string _testFileName;
   private readonly JsonEditorService _jsonService;
+  private readonly CatalogTokenService _catalogTokenService;
 
   public NameListEditorViewModelTests()
   {
@@ -29,6 +30,7 @@ public class NameListEditorViewModelTests : IDisposable
 
     _testFileName = "test-names.json";
     _jsonService = new JsonEditorService(_testDataPath);
+    _catalogTokenService = new CatalogTokenService(_jsonService);
 
     CreateTestNamesFile();
   }
@@ -83,7 +85,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void Constructor_Should_Initialize_ViewModel_With_Valid_Data()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     viewModel.Should().NotBeNull();
@@ -97,7 +99,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void Constructor_Should_Load_Metadata_From_File()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     viewModel.Metadata.Version.Should().Be("4.0");
@@ -109,7 +111,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void Constructor_Should_Load_Components_From_File()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     viewModel.ComponentNames.Should().Contain("prefix");
@@ -125,7 +127,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void Constructor_Should_Load_Patterns_From_File()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     // Patterns include loaded patterns plus default {base} pattern
@@ -144,7 +146,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void PatternSearchText_Change_Should_Trigger_Filter()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     var initialFilteredCount = viewModel.FilteredPatterns.Count;
 
     // Act
@@ -161,7 +163,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void StatusMessage_Should_Be_Set_After_Load()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     viewModel.StatusMessage.Should().NotBeNullOrEmpty();
@@ -172,7 +174,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void ValidationErrors_Should_Be_Empty_For_Valid_File()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     viewModel.ValidationErrors.Should().BeEmpty();
@@ -183,7 +185,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void TotalComponentCount_Should_Be_Calculated()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     viewModel.TotalComponentCount.Should().BeGreaterThan(0);
@@ -196,7 +198,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void TotalPatternCount_Should_Be_Calculated()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     viewModel.TotalPatternCount.Should().BeGreaterThan(0);
@@ -207,7 +209,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void ComponentCounts_Should_Track_Components_Per_Group()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     viewModel.ComponentCounts.Should().NotBeEmpty();
@@ -219,7 +221,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void SelectedPattern_Should_Be_Settable()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     var pattern = viewModel.Patterns.First();
 
     // Act
@@ -233,7 +235,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void FilteredPatterns_Should_Initially_Contain_All_Patterns()
   {
     // Act
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Assert
     viewModel.FilteredPatterns.Count.Should().Be(viewModel.Patterns.Count);
@@ -243,7 +245,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void PatternSearchText_Empty_Should_Show_All_Patterns()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     viewModel.PatternSearchText = "test";
 
     // Act
@@ -257,7 +259,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void ComponentSearchText_Should_Be_Settable()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Act
     viewModel.ComponentSearchText = "test search";
@@ -270,7 +272,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void Metadata_Should_Be_Modifiable()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
 
     // Act
     viewModel.Metadata.Description = "Modified description";
@@ -285,7 +287,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void AddPatternCommand_Should_Add_New_Pattern()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     var initialCount = viewModel.Patterns.Count;
 
     // Act
@@ -300,7 +302,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void RemovePatternCommand_CanExecute_Should_Require_Selected_Pattern()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     viewModel.SelectedPattern = null;
 
     // Act & Assert - RemovePattern command checks if any patterns exist, not SelectedPattern
@@ -313,7 +315,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void RemoveComponentCommand_Should_Remove_Component()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     var componentGroup = viewModel.Components.First().Value;
     var initialCount = componentGroup.Count;
     var componentToRemove = componentGroup.First();
@@ -330,7 +332,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void DuplicatePatternCommand_Should_Create_Copy()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     var initialCount = viewModel.Patterns.Count;
     var patternToDuplicate = viewModel.Patterns.First();
 
@@ -347,7 +349,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void ClearPatternFilterCommand_Should_Clear_Search_Text()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     viewModel.PatternSearchText = "test search";
 
     // Act
@@ -361,7 +363,7 @@ public class NameListEditorViewModelTests : IDisposable
   public void RegenerateExamplesCommand_Should_Update_Examples()
   {
     // Arrange
-    var viewModel = new NameListEditorViewModel(_jsonService, _testFileName);
+    var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     var pattern = viewModel.Patterns.First();
     var originalExamples = pattern.GeneratedExamples;
 
@@ -390,3 +392,4 @@ public class NameListEditorViewModelTests : IDisposable
     }
   }
 }
+

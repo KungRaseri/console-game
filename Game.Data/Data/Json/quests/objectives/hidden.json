@@ -1,184 +1,184 @@
 {
-    "metadata":  {
-                     "version":  "2.0",
-                     "lastUpdated":  "2025-01-27",
-                     "type":  "quest_objectives_hidden",
-                     "total_objectives":  14,
-                     "categories":  [
-                                        "exploration_secrets",
-                                        "lore_secrets",
-                                        "combat_secrets",
-                                        "branching_secrets",
-                                        "collection_secrets",
-                                        "puzzle_secrets",
-                                        "diplomacy_secrets",
-                                        "timed_secrets"
-                                    ],
-                     "notes":  {
-                                   "raritySystem":  "Weight determines secret objective rarity - all hidden objectives are rare by nature (50-120)",
-                                   "componentKeys":  [
-                                                         "exploration_secrets",
-                                                         "lore_secrets",
-                                                         "combat_secrets",
-                                                         "branching_secrets",
-                                                         "collection_secrets",
-                                                         "puzzle_secrets",
-                                                         "rescue_secrets",
-                                                         "diplomacy_secrets",
-                                                         "timed_secrets",
-                                                         "purification_secrets"
-                                                     ],
-                                   "weight_ranges":  {
-                                                         "rare":  "50-70 (Basic secrets: lore collection, secret rooms)",
-                                                         "very_rare":  "75-95 (Complex secrets: true boss, ancient puzzles, alliances)",
-                                                         "legendary":  "100-120 (Ultimate secrets: secret endings, redeeming villains)"
-                                                     },
-                                   "usage":  "Hidden objectives are not revealed until specific conditions are met. They reward exploration, attention to detail, and multiple playthroughs. All hidden objectives have higher rarityWeight reflecting their secret nature.",
-                                   "variables":  [
-                                                     "{location}",
-                                                     "{count}",
-                                                     "{npc_name}"
-                                                 ],
-                                   "reveal_types":  [
-                                                        "Discovery-based (exploring areas)",
-                                                        "Progress-based (after first find)",
-                                                        "Condition-based (specific requirements)",
-                                                        "Choice-based (dialogue/actions)"
-                                                    ]
-                               }
-                 },
-    "components":  {
-                       "exploration_secrets":  [
-                                                   {
-                                                       "name":  "DiscoverSecretRoom",
-                                                       "displayName":  "Discover Secret Room",
-                                                       "rarityWeight":  60,
-                                                       "description":  "Find the hidden chamber in {location}",
-                                                       "category":  "Exploration",
-                                                       "reveal":  "Discovered upon entering secret area"
-                                                   },
-                                                   {
-                                                       "name":  "FindHiddenTreasure",
-                                                       "displayName":  "Find Hidden Treasure",
-                                                       "rarityWeight":  75,
-                                                       "description":  "Locate the legendary treasure of {npc_name}",
-                                                       "category":  "Exploration",
-                                                       "reveal":  "Hinted at in optional dialogue"
-                                                   }
-                                               ],
-                       "lore_secrets":  [
-                                            {
-                                                "name":  "ReadAllLore",
-                                                "displayName":  "Read All Lore",
-                                                "rarityWeight":  50,
-                                                "description":  "Read all {count} lore books scattered throughout the quest",
-                                                "category":  "Lore",
-                                                "reveal":  "Unlocked after reading first book"
-                                            },
-                                            {
-                                                "name":  "DiscoverTruth",
-                                                "displayName":  "Discover Truth",
-                                                "rarityWeight":  80,
-                                                "description":  "Uncover the real story behind the quest events",
-                                                "category":  "Investigation",
-                                                "reveal":  "Piece together clues found throughout"
-                                            }
-                                        ],
-                       "combat_secrets":  [
-                                              {
-                                                  "name":  "DefeatTrueBoss",
-                                                  "displayName":  "Defeat True Boss",
-                                                  "rarityWeight":  90,
-                                                  "description":  "Find and defeat the real mastermind behind the quest",
-                                                  "category":  "Combat",
-                                                  "reveal":  "Triggered by finding secret evidence"
-                                              }
-                                          ],
-                       "branching_secrets":  [
-                                                 {
-                                                     "name":  "UnlockGoodEnding",
-                                                     "displayName":  "Unlock Good Ending",
-                                                     "rarityWeight":  70,
-                                                     "description":  "Make choices that lead to the best outcome",
-                                                     "category":  "Branching",
-                                                     "reveal":  "Revealed at quest completion"
-                                                 },
-                                                 {
-                                                     "name":  "UnlockSecretEnding",
-                                                     "displayName":  "Unlock Secret Ending",
-                                                     "rarityWeight":  120,
-                                                     "description":  "Discover the alternate conclusion",
-                                                     "category":  "Branching",
-                                                     "reveal":  "Multiple hidden conditions must be met"
-                                                 }
-                                             ],
-                       "collection_secrets":  [
-                                                  {
-                                                      "name":  "CollectAllRelics",
-                                                      "displayName":  "Collect All Relics",
-                                                      "rarityWeight":  65,
-                                                      "description":  "Gather all {count} ancient relics hidden in the area",
-                                                      "category":  "Collection",
-                                                      "reveal":  "Appears after finding first relic"
-                                                  }
-                                              ],
-                       "puzzle_secrets":  [
-                                              {
-                                                  "name":  "SolveAncientPuzzle",
-                                                  "displayName":  "Solve Ancient Puzzle",
-                                                  "rarityWeight":  85,
-                                                  "description":  "Decipher the cryptic symbols to unlock a hidden path",
-                                                  "category":  "Puzzle",
-                                                  "reveal":  "Found by examining inscriptions"
-                                              }
-                                          ],
-                       "rescue_secrets":  [
-                                              {
-                                                  "name":  "SaveSecretNPC",
-                                                  "displayName":  "Save Secret NPC",
-                                                  "rarityWeight":  70,
-                                                  "description":  "Rescue {npc_name} who is not mentioned in the main quest",
-                                                  "category":  "Rescue",
-                                                  "reveal":  "Discovered by exploring off the main path"
-                                              }
-                                          ],
-                       "diplomacy_secrets":  [
-                                                 {
-                                                     "name":  "ForgeSecretAlliance",
-                                                     "displayName":  "Forge Secret Alliance",
-                                                     "rarityWeight":  95,
-                                                     "description":  "Ally with an unexpected faction",
-                                                     "category":  "Diplomacy",
-                                                     "reveal":  "Available through specific dialogue choices"
-                                                 },
-                                                 {
-                                                     "name":  "RedeemVillain",
-                                                     "displayName":  "Redeem Villain",
-                                                     "rarityWeight":  110,
-                                                     "description":  "Convince {npc_name} to abandon their evil ways",
-                                                     "category":  "Diplomacy",
-                                                     "reveal":  "Only available with high charisma/reputation"
-                                                 }
-                                             ],
-                       "timed_secrets":  [
-                                             {
-                                                 "name":  "PreventBadOutcome",
-                                                 "displayName":  "Prevent Bad Outcome",
-                                                 "rarityWeight":  100,
-                                                 "description":  "Stop the tragic event from occurring",
-                                                 "category":  "Timed",
-                                                 "reveal":  "Must act within hidden time limit"
-                                             }
-                                         ],
-                       "purification_secrets":  [
-                                                    {
-                                                        "name":  "BreakSecretCurse",
-                                                        "displayName":  "Break Secret Curse",
-                                                        "rarityWeight":  88,
-                                                        "description":  "Lift the hidden curse affecting the questgiver",
-                                                        "category":  "Purification",
-                                                        "reveal":  "Requires finding specific item"
-                                                    }
-                                                ]
-                   }
+  "metadata": {
+    "version": "2.0",
+    "lastUpdated": "2025-01-27",
+    "type": "quest_objectives_hidden",
+    "total_objectives": 14,
+    "categories": [
+      "exploration_secrets",
+      "lore_secrets",
+      "combat_secrets",
+      "branching_secrets",
+      "collection_secrets",
+      "puzzle_secrets",
+      "diplomacy_secrets",
+      "timed_secrets"
+    ],
+    "notes": [
+      "Weight determines secret objective rarity - all hidden objectives are rare by nature (50-120)",
+      [
+        "exploration_secrets",
+        "lore_secrets",
+        "combat_secrets",
+        "branching_secrets",
+        "collection_secrets",
+        "puzzle_secrets",
+        "rescue_secrets",
+        "diplomacy_secrets",
+        "timed_secrets",
+        "purification_secrets"
+      ],
+      {
+        "rare": "50-70 (Basic secrets: lore collection, secret rooms)",
+        "very_rare": "75-95 (Complex secrets: true boss, ancient puzzles, alliances)",
+        "legendary": "100-120 (Ultimate secrets: secret endings, redeeming villains)"
+      },
+      "Hidden objectives are not revealed until specific conditions are met. They reward exploration, attention to detail, and multiple playthroughs. All hidden objectives have higher rarityWeight reflecting their secret nature.",
+      [
+        "{location}",
+        "{count}",
+        "{npc_name}"
+      ],
+      [
+        "Discovery-based (exploring areas)",
+        "Progress-based (after first find)",
+        "Condition-based (specific requirements)",
+        "Choice-based (dialogue/actions)"
+      ]
+    ]
+  },
+  "components": {
+    "exploration_secrets": [
+      {
+        "name": "DiscoverSecretRoom",
+        "displayName": "Discover Secret Room",
+        "rarityWeight": 60,
+        "description": "Find the hidden chamber in {location}",
+        "category": "Exploration",
+        "reveal": "Discovered upon entering secret area"
+      },
+      {
+        "name": "FindHiddenTreasure",
+        "displayName": "Find Hidden Treasure",
+        "rarityWeight": 75,
+        "description": "Locate the legendary treasure of {npc_name}",
+        "category": "Exploration",
+        "reveal": "Hinted at in optional dialogue"
+      }
+    ],
+    "lore_secrets": [
+      {
+        "name": "ReadAllLore",
+        "displayName": "Read All Lore",
+        "rarityWeight": 50,
+        "description": "Read all {count} lore books scattered throughout the quest",
+        "category": "Lore",
+        "reveal": "Unlocked after reading first book"
+      },
+      {
+        "name": "DiscoverTruth",
+        "displayName": "Discover Truth",
+        "rarityWeight": 80,
+        "description": "Uncover the real story behind the quest events",
+        "category": "Investigation",
+        "reveal": "Piece together clues found throughout"
+      }
+    ],
+    "combat_secrets": [
+      {
+        "name": "DefeatTrueBoss",
+        "displayName": "Defeat True Boss",
+        "rarityWeight": 90,
+        "description": "Find and defeat the real mastermind behind the quest",
+        "category": "Combat",
+        "reveal": "Triggered by finding secret evidence"
+      }
+    ],
+    "branching_secrets": [
+      {
+        "name": "UnlockGoodEnding",
+        "displayName": "Unlock Good Ending",
+        "rarityWeight": 70,
+        "description": "Make choices that lead to the best outcome",
+        "category": "Branching",
+        "reveal": "Revealed at quest completion"
+      },
+      {
+        "name": "UnlockSecretEnding",
+        "displayName": "Unlock Secret Ending",
+        "rarityWeight": 120,
+        "description": "Discover the alternate conclusion",
+        "category": "Branching",
+        "reveal": "Multiple hidden conditions must be met"
+      }
+    ],
+    "collection_secrets": [
+      {
+        "name": "CollectAllRelics",
+        "displayName": "Collect All Relics",
+        "rarityWeight": 65,
+        "description": "Gather all {count} ancient relics hidden in the area",
+        "category": "Collection",
+        "reveal": "Appears after finding first relic"
+      }
+    ],
+    "puzzle_secrets": [
+      {
+        "name": "SolveAncientPuzzle",
+        "displayName": "Solve Ancient Puzzle",
+        "rarityWeight": 85,
+        "description": "Decipher the cryptic symbols to unlock a hidden path",
+        "category": "Puzzle",
+        "reveal": "Found by examining inscriptions"
+      }
+    ],
+    "rescue_secrets": [
+      {
+        "name": "SaveSecretNPC",
+        "displayName": "Save Secret NPC",
+        "rarityWeight": 70,
+        "description": "Rescue {npc_name} who is not mentioned in the main quest",
+        "category": "Rescue",
+        "reveal": "Discovered by exploring off the main path"
+      }
+    ],
+    "diplomacy_secrets": [
+      {
+        "name": "ForgeSecretAlliance",
+        "displayName": "Forge Secret Alliance",
+        "rarityWeight": 95,
+        "description": "Ally with an unexpected faction",
+        "category": "Diplomacy",
+        "reveal": "Available through specific dialogue choices"
+      },
+      {
+        "name": "RedeemVillain",
+        "displayName": "Redeem Villain",
+        "rarityWeight": 110,
+        "description": "Convince {npc_name} to abandon their evil ways",
+        "category": "Diplomacy",
+        "reveal": "Only available with high charisma/reputation"
+      }
+    ],
+    "timed_secrets": [
+      {
+        "name": "PreventBadOutcome",
+        "displayName": "Prevent Bad Outcome",
+        "rarityWeight": 100,
+        "description": "Stop the tragic event from occurring",
+        "category": "Timed",
+        "reveal": "Must act within hidden time limit"
+      }
+    ],
+    "purification_secrets": [
+      {
+        "name": "BreakSecretCurse",
+        "displayName": "Break Secret Curse",
+        "rarityWeight": 88,
+        "description": "Lift the hidden curse affecting the questgiver",
+        "category": "Purification",
+        "reveal": "Requires finding specific item"
+      }
+    ]
+  }
 }

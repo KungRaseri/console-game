@@ -76,8 +76,6 @@
                                               "appearance":  10,
                                               "condition":  8
                                           },
-                     "notes":  {
-                                   "usage":  "Reference data for general adjectives. Used as component source in name generation and stat calculations."
-                               }
+                     "notes": ["Reference data for general adjectives. Used as component source in name generation and stat calculations."]
                  }
 }
