@@ -900,7 +900,7 @@ public partial class NameListEditorViewModel : ObservableObject
         {
             var random = new Random();
             var baseNames = _catalogTokenService.LoadBaseNamesFromCatalog(_fileName);
-            
+
             Log.Information("=== GenerateExampleForPattern Debug ===");
             Log.Information("Pattern: {Pattern}", pattern.PatternTemplate);
             Log.Information("Base names loaded: {Count}", baseNames.Count);
@@ -908,7 +908,7 @@ public partial class NameListEditorViewModel : ObservableObject
             {
                 Log.Information("Sample base names: {Names}", string.Join(", ", baseNames.Take(3)));
             }
-            
+
             var examples = new List<string>();
             var usedExamples = new HashSet<string>();
 

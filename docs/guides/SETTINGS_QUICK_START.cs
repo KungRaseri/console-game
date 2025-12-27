@@ -10,7 +10,7 @@ public class GameEngine
 {
     private readonly GameSettings _gameSettings;
     private readonly UISettings _uiSettings;
-    
+
     // Add IOptions<T> to constructor
     public GameEngine(
         IMediator mediator,
@@ -21,7 +21,7 @@ public class GameEngine
         _gameSettings = gameSettings.Value;  // ← Get settings value
         _uiSettings = uiSettings.Value;
     }
-    
+
     // Use settings instead of hardcoded values
     private Character CreateNewCharacter(string name)
     {
@@ -37,7 +37,7 @@ public class GameEngine
             Experience = 0
         };
     }
-    
+
     // Use UI settings
     private async Task HandleMainMenuAsync()
     {
@@ -45,7 +45,7 @@ public class GameEngine
         {
             ConsoleUI.ShowInfo("Welcome to the game! Use arrow keys to navigate menus.");
         }
-        
+
         // Use page size setting
         var choice = ConsoleUI.ShowMenu(
             "Main Menu",
@@ -62,31 +62,31 @@ public class GameEngine
 public class AudioService
 {
     private readonly AudioSettings _settings;
-    
+
     public AudioService(IOptions<AudioSettings> settings)
     {
         _settings = settings.Value;
     }
-    
+
     public void PlayBackgroundMusic(string filePath)
     {
         if (!_settings.EnableBackgroundMusic || _settings.Muted)
             return;
-            
+
         // Calculate effective volume
         var effectiveVolume = _settings.MasterVolume * _settings.MusicVolume;
-        
+
         // Play music with calculated volume
         // ... NAudio code here
     }
-    
+
     public void PlaySoundEffect(string filePath)
     {
         if (!_settings.EnableSoundEffects || _settings.Muted)
             return;
-            
+
         var effectiveVolume = _settings.MasterVolume * _settings.SfxVolume;
-        
+
         // Play SFX
     }
 }
@@ -117,15 +117,15 @@ public class GameEngineTests
             StartingHealth = 200,
             StartingMana = 75
         });
-        
+
         var uiSettings = Options.Create(new UISettings());
-        
+
         var mockMediator = new Mock<IMediator>();
         var engine = new GameEngine(mockMediator.Object, gameSettings, uiSettings);
-        
+
         // Act
         var character = engine.CreateNewCharacter("TestHero");
-        
+
         // Assert
         character.Gold.Should().Be(500);
         character.Health.Should().Be(200);

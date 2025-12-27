@@ -14,7 +14,7 @@ public class NPC : ITraitable
     public int Gold { get; set; }
     public string Dialogue { get; set; } = string.Empty;
     public bool IsFriendly { get; set; } = true;
-    
+
     // Trait system
     public Dictionary<string, TraitValue> Traits { get; } = new();
 }

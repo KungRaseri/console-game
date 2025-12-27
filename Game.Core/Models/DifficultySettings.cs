@@ -7,25 +7,25 @@ public class DifficultySettings
 {
     public string Name { get; set; } = "Normal";
     public string Description { get; set; } = string.Empty;
-    
+
     // Combat modifiers
     public double PlayerDamageMultiplier { get; set; } = 1.0;
     public double EnemyDamageMultiplier { get; set; } = 1.0;
     public double EnemyHealthMultiplier { get; set; } = 1.0;
     public double GoldXPMultiplier { get; set; } = 1.0;
-    
+
     // Save system behavior
     public bool AutoSaveOnly { get; set; } = false;
     public bool IsPermadeath { get; set; } = false;
     public bool IsApocalypse { get; set; } = false;
     public int ApocalypseTimeLimitMinutes { get; set; } = 240; // 4 hours default
-    
+
     // Death penalties (used in Phase 2)
     public double GoldLossPercentage { get; set; } = 0.10; // 10%
     public double XPLossPercentage { get; set; } = 0.25; // 25%
     public bool DropAllInventoryOnDeath { get; set; } = false;
     public int ItemsDroppedOnDeath { get; set; } = 1;
-    
+
     /// <summary>
     /// Easy mode - Story-focused with reduced challenge.
     /// </summary>
@@ -41,7 +41,7 @@ public class DifficultySettings
         XPLossPercentage = 0.10,
         ItemsDroppedOnDeath = 0
     };
-    
+
     /// <summary>
     /// Normal mode - Balanced, intended experience (default).
     /// </summary>
@@ -57,7 +57,7 @@ public class DifficultySettings
         XPLossPercentage = 0.25,
         ItemsDroppedOnDeath = 1
     };
-    
+
     /// <summary>
     /// Hard mode - For experienced players seeking challenge.
     /// </summary>
@@ -73,7 +73,7 @@ public class DifficultySettings
         XPLossPercentage = 0.50,
         DropAllInventoryOnDeath = true
     };
-    
+
     /// <summary>
     /// Expert mode - Brutal challenge for masters.
     /// </summary>
@@ -89,7 +89,7 @@ public class DifficultySettings
         XPLossPercentage = 0.75,
         DropAllInventoryOnDeath = true
     };
-    
+
     /// <summary>
     /// Ironman mode - No save scumming, every choice permanent.
     /// </summary>
@@ -106,7 +106,7 @@ public class DifficultySettings
         XPLossPercentage = 0.50,
         DropAllInventoryOnDeath = true
     };
-    
+
     /// <summary>
     /// Permadeath mode - Death deletes save permanently.
     /// </summary>
@@ -125,7 +125,7 @@ public class DifficultySettings
         XPLossPercentage = 1.0,
         DropAllInventoryOnDeath = true
     };
-    
+
     /// <summary>
     /// Apocalypse mode - 4-hour speed run challenge.
     /// </summary>
@@ -143,7 +143,7 @@ public class DifficultySettings
         XPLossPercentage = 0.25,
         ItemsDroppedOnDeath = 1
     };
-    
+
     /// <summary>
     /// Get difficulty settings by name.
     /// </summary>
@@ -161,7 +161,7 @@ public class DifficultySettings
             _ => Normal
         };
     }
-    
+
     /// <summary>
     /// Get all available difficulty options.
     /// </summary>

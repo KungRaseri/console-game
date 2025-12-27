@@ -20,12 +20,12 @@ public class HallOfFameEntry
     public int AchievementsUnlocked { get; set; }
     public bool IsPermadeath { get; set; }
     public string DifficultyLevel { get; set; } = "Normal";
-    
+
     /// <summary>
     /// Pre-calculated fame score for ranking (stored for LiteDB indexing).
     /// </summary>
     public int FameScore { get; set; }
-    
+
     /// <summary>
     /// Calculate and update the fame score for ranking.
     /// Call this before saving to database.
@@ -36,13 +36,13 @@ public class HallOfFameEntry
         score += QuestsCompleted * 50;
         score += TotalEnemiesDefeated * 5;
         score += AchievementsUnlocked * 200;
-        
+
         if (IsPermadeath)
             score *= 2; // Double points for permadeath runs
-        
+
         FameScore = score;
     }
-    
+
     /// <summary>
     /// Calculate a "fame score" for ranking (for backwards compatibility).
     /// </summary>
@@ -50,7 +50,7 @@ public class HallOfFameEntry
     {
         return FameScore;
     }
-    
+
     /// <summary>
     /// Get formatted playtime string.
     /// </summary>

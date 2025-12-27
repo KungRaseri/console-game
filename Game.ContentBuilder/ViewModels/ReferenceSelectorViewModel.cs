@@ -40,10 +40,10 @@ public partial class ReferenceSelectorViewModel : ObservableObject
         // Try multiple path resolution strategies
         var baseDir = AppDomain.CurrentDomain.BaseDirectory;
         var dataPath = Path.Combine(baseDir, "Data", "Json");
-        
+
         // Check if actual catalog files exist, not just the directory
         var testCatalogPath = Path.Combine(dataPath, "items", "materials", "catalog.json");
-        
+
         if (!File.Exists(testCatalogPath))
         {
             MainWindow.AddLog($"Test catalog not found at: {testCatalogPath}");
@@ -51,17 +51,17 @@ public partial class ReferenceSelectorViewModel : ObservableObject
             var binFolder = baseDir; // e.g., C:\...\Game.ContentBuilder\bin\Debug\net9.0-windows
             var projectFolder = Directory.GetParent(binFolder)?.Parent?.Parent?.FullName; // e.g., C:\...\Game.ContentBuilder
             MainWindow.AddLog($"Project folder: {projectFolder}");
-            
+
             if (projectFolder != null)
             {
                 var solutionFolder = Directory.GetParent(projectFolder)?.FullName; // e.g., C:\...\console-game
                 MainWindow.AddLog($"Solution folder: {solutionFolder}");
-                
+
                 if (solutionFolder != null)
                 {
                     var gameDataPath = Path.Combine(solutionFolder, "Game.Data", "Data", "Json");
                     MainWindow.AddLog($"Trying Game.Data path: {gameDataPath}");
-                    
+
                     if (Directory.Exists(gameDataPath))
                     {
                         dataPath = gameDataPath;
@@ -78,10 +78,10 @@ public partial class ReferenceSelectorViewModel : ObservableObject
         {
             MainWindow.AddLog($"Test catalog found in bin directory");
         }
-        
+
         _dataRootPath = dataPath;
         MainWindow.AddLog($"ReferenceSelectorViewModel initialized with data path: {_dataRootPath}");
-        
+
         // Define available reference types
         ReferenceTypes.Add(new ReferenceTypeOption("material", "Materials", "Diamond", "items/materials/catalog.json"));
         ReferenceTypes.Add(new ReferenceTypeOption("weapon", "Weapons", "Sword", "items/weapons/catalog.json"));
@@ -141,7 +141,7 @@ public partial class ReferenceSelectorViewModel : ObservableObject
                 return;
             }
             MainWindow.AddLog($"Found reference type: {refType.DisplayName}, path: {refType.CatalogPath}");
-            
+
 
             // Handle special cases first
             if (SelectedReferenceType == "general")
@@ -192,7 +192,7 @@ public partial class ReferenceSelectorViewModel : ObservableObject
             {
                 LoadGenericCatalog(catalog);
             }
-            
+
             MainWindow.AddLog($"LoadCatalog complete. Final Categories.Count: {Categories.Count}");
         }
         catch (Exception ex)
@@ -253,7 +253,7 @@ public partial class ReferenceSelectorViewModel : ObservableObject
             "consumable" => "consumable_types",
             _ => SelectedReferenceType + "_types"
         };
-        
+
         var types = catalog[typesKey] as JObject;
         if (types == null) return;
 

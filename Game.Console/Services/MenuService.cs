@@ -14,14 +14,14 @@ public class MenuService
     private readonly GameStateService _gameState;
     private readonly SaveGameService _saveGameService;
     private readonly IConsoleUI _console;
-    
+
     public MenuService(GameStateService gameState, SaveGameService saveGameService, IConsoleUI console)
     {
         _gameState = gameState;
         _saveGameService = saveGameService;
         _console = console;
     }
-    
+
     /// <summary>
     /// Display the main menu and return the selected action.
     /// Returns the next GameState, or MainMenu if Exit is chosen (caller should check and set _isRunning = false).
@@ -40,16 +40,16 @@ public class MenuService
 
         return choice; // Return the choice string so caller can handle it
     }
-    
+
     /// <summary>
     /// Display the in-game menu and return the selected action.
     /// </summary>
     public string ShowInGameMenu()
     {
         var player = _gameState.Player;
-        
+
         System.Console.WriteLine();
-        
+
         // Build menu options
         var menuOptions = new List<string>
         {
@@ -60,22 +60,22 @@ public class MenuService
             "Inventory",
             "Rest"
         };
-        
+
         // Add level-up option if player has unspent points
         if (player.UnspentAttributePoints > 0 || player.UnspentSkillPoints > 0)
         {
             menuOptions.Insert(3, $"[yellow]🌟 Level Up ({player.UnspentAttributePoints} attr, {player.UnspentSkillPoints} skill)[/]");
         }
-        
+
         menuOptions.Add("Save Game");
         menuOptions.Add("Main Menu");
-        
+
         return _console.ShowMenu(
             $"[{player.Name}] - Level {player.Level} | HP: {player.Health}/{player.MaxHealth} | Gold: {player.Gold}",
             menuOptions.ToArray()
         );
     }
-    
+
     /// <summary>
     /// Display the combat action menu.
     /// </summary>
@@ -89,7 +89,7 @@ public class MenuService
             "🏃 Flee"
         );
     }
-    
+
     /// <summary>
     /// Display the inventory menu.
     /// </summary>
@@ -105,7 +105,7 @@ public class MenuService
             "Back to Game"
         );
     }
-    
+
     /// <summary>
     /// Display the pause menu.
     /// </summary>
@@ -126,7 +126,7 @@ public class MenuService
             _ => GameState.Paused
         };
     }
-    
+
     /// <summary>
     /// Show item selection menu from a list and return selected item.
     /// </summary>
@@ -137,21 +137,21 @@ public class MenuService
             _console.ShowWarning("No items available!");
             return null;
         }
-        
+
         var itemNames = items.Select(i => $"{i.GetDisplayName()} ({GetRarityColor(i.Rarity)}{i.Rarity}[/])").ToList();
         itemNames.Add("[dim]Cancel[/]");
-        
+
         var selection = _console.ShowMenu(prompt, itemNames.ToArray());
-        
+
         if (selection == "[dim]Cancel[/]")
         {
             return null;
         }
-        
+
         var selectedIndex = itemNames.IndexOf(selection);
         return items[selectedIndex];
     }
-    
+
     /// <summary>
     /// Show equipment slot selection menu for rings.
     /// </summary>
@@ -164,13 +164,13 @@ public class MenuService
             "Cancel"
         );
     }
-    
+
     private GameState HandleSettings()
     {
         _console.ShowInfo("Settings not yet implemented");
         return GameState.MainMenu;
     }
-    
+
     private string GetRarityColor(ItemRarity rarity)
     {
         return rarity switch

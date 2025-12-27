@@ -19,52 +19,52 @@ public class NamePatternConverter : JsonConverter<NamePatternBase>
         try
         {
             var jObject = JObject.Load(reader);
-        
-        // Determine type based on properties
-        bool isNpcPattern = jObject.ContainsKey("socialClass") || 
-                            jObject.ContainsKey("requiresTitle") || 
-                            jObject.ContainsKey("excludeTitles") ||
-                            jObject.ContainsKey("template");
-        
-        NamePatternBase pattern = isNpcPattern 
-            ? new NpcNamePattern() 
-            : new ItemNamePattern();
 
-        // Handle template/pattern field
-        var templateValue = jObject["template"]?.ToString() ?? jObject["pattern"]?.ToString() ?? string.Empty;
-        pattern.PatternTemplate = templateValue;
+            // Determine type based on properties
+            bool isNpcPattern = jObject.ContainsKey("socialClass") ||
+                                jObject.ContainsKey("requiresTitle") ||
+                                jObject.ContainsKey("excludeTitles") ||
+                                jObject.ContainsKey("template");
 
-        // Handle rarityWeight/weight field
-        var weightValue = jObject["rarityWeight"]?.ToObject<int>() ?? jObject["weight"]?.ToObject<int>() ?? 0;
-        pattern.Weight = weightValue;
+            NamePatternBase pattern = isNpcPattern
+                ? new NpcNamePattern()
+                : new ItemNamePattern();
 
-        // Handle description/example field
-        var descValue = jObject["description"]?.ToString() ?? jObject["example"]?.ToString();
-        pattern.Description = descValue;
+            // Handle template/pattern field
+            var templateValue = jObject["template"]?.ToString() ?? jObject["pattern"]?.ToString() ?? string.Empty;
+            pattern.PatternTemplate = templateValue;
 
-        // Deserialize type-specific properties manually to avoid recursion
-        if (pattern is NpcNamePattern npcPattern)
-        {
-            if (jObject["socialClass"] is JArray socialClassArr)
-                npcPattern.SocialClass = socialClassArr.ToObject<ObservableCollection<string>>();
-            npcPattern.ExcludeTitles = jObject["excludeTitles"]?.ToObject<bool>();
-            npcPattern.RequiresTitle = jObject["requiresTitle"]?.ToObject<bool>();
-        }
+            // Handle rarityWeight/weight field
+            var weightValue = jObject["rarityWeight"]?.ToObject<int>() ?? jObject["weight"]?.ToObject<int>() ?? 0;
+            pattern.Weight = weightValue;
 
-        // Store all other properties in AdditionalProperties
-        pattern.AdditionalProperties = new Dictionary<string, JToken>();
-        foreach (var prop in jObject.Properties())
-        {
-            if (prop.Name != "template" && prop.Name != "pattern" && 
-                prop.Name != "rarityWeight" && prop.Name != "weight" && 
-                prop.Name != "description" && prop.Name != "example" &&
-                prop.Name != "socialClass" && prop.Name != "excludeTitles" && prop.Name != "requiresTitle")
+            // Handle description/example field
+            var descValue = jObject["description"]?.ToString() ?? jObject["example"]?.ToString();
+            pattern.Description = descValue;
+
+            // Deserialize type-specific properties manually to avoid recursion
+            if (pattern is NpcNamePattern npcPattern)
             {
-                pattern.AdditionalProperties[prop.Name] = prop.Value;
+                if (jObject["socialClass"] is JArray socialClassArr)
+                    npcPattern.SocialClass = socialClassArr.ToObject<ObservableCollection<string>>();
+                npcPattern.ExcludeTitles = jObject["excludeTitles"]?.ToObject<bool>();
+                npcPattern.RequiresTitle = jObject["requiresTitle"]?.ToObject<bool>();
             }
-        }
 
-        return pattern;
+            // Store all other properties in AdditionalProperties
+            pattern.AdditionalProperties = new Dictionary<string, JToken>();
+            foreach (var prop in jObject.Properties())
+            {
+                if (prop.Name != "template" && prop.Name != "pattern" &&
+                    prop.Name != "rarityWeight" && prop.Name != "weight" &&
+                    prop.Name != "description" && prop.Name != "example" &&
+                    prop.Name != "socialClass" && prop.Name != "excludeTitles" && prop.Name != "requiresTitle")
+                {
+                    pattern.AdditionalProperties[prop.Name] = prop.Value;
+                }
+            }
+
+            return pattern;
         }
         catch (Exception ex)
         {

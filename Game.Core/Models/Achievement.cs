@@ -9,10 +9,10 @@ public class Achievement
     public AchievementCategory Category { get; set; }
     public int Points { get; set; }
     public bool IsSecret { get; set; }
-    
+
     // Unlock criteria
     public AchievementCriteria Criteria { get; set; } = new();
-    
+
     // State
     public bool IsUnlocked { get; set; }
     public DateTime? UnlockedAt { get; set; }

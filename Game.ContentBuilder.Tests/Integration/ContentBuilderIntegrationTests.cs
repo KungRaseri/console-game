@@ -24,13 +24,13 @@ public class ContentBuilderIntegrationTests : UITestBase
     public ContentBuilderIntegrationTests() : base()
     {
         LaunchApplication();
-        
+
         // Get test data path (ContentBuilder's Resources/data directory)
         var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
             "..", "..", "..", "..",
             "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
             "Game.ContentBuilder.exe");
-        
+
         var fullExePath = Path.GetFullPath(exePath);
         _testDataPath = Path.Combine(
             Path.GetDirectoryName(fullExePath)!,
@@ -55,7 +55,7 @@ public class ContentBuilderIntegrationTests : UITestBase
         Thread.Sleep(1000);
 
         // Assert - HybridArray editor loaded
-        var tabs = _mainWindow.FindAllDescendants(cf => 
+        var tabs = _mainWindow.FindAllDescendants(cf =>
             cf.ByControlType(ControlType.TabItem));
         tabs.Should().NotBeEmpty("Editor should load with tabs");
 
@@ -64,7 +64,7 @@ public class ContentBuilderIntegrationTests : UITestBase
         Thread.Sleep(1000);
 
         // Assert - NameList editor loaded
-        var lists = _mainWindow.FindAllDescendants(cf => 
+        var lists = _mainWindow.FindAllDescendants(cf =>
             cf.ByControlType(ControlType.List));
         lists.Should().NotBeEmpty("NameList editor should have lists");
 
@@ -73,7 +73,7 @@ public class ContentBuilderIntegrationTests : UITestBase
         Thread.Sleep(1000);
 
         // Assert - Can navigate back successfully
-        tabs = _mainWindow.FindAllDescendants(cf => 
+        tabs = _mainWindow.FindAllDescendants(cf =>
             cf.ByControlType(ControlType.TabItem));
         tabs.Should().NotBeEmpty("Should reload HybridArray editor");
     }
@@ -96,9 +96,9 @@ public class ContentBuilderIntegrationTests : UITestBase
         {
             NavigateToEditor(category, file);
             Thread.Sleep(500);
-            
+
             // Verify editor loaded (should have some UI elements)
-            var buttons = _mainWindow.FindAllDescendants(cf => 
+            var buttons = _mainWindow.FindAllDescendants(cf =>
                 cf.ByControlType(ControlType.Button));
             buttons.Should().NotBeEmpty($"Editor for {file} should have buttons");
         }
@@ -121,7 +121,7 @@ public class ContentBuilderIntegrationTests : UITestBase
             {
                 category.Expand();
                 Thread.Sleep(300);
-                
+
                 var children = category.FindAllChildren();
                 children.Should().NotBeEmpty($"{categoryName} should have child items");
             }
@@ -138,7 +138,7 @@ public class ContentBuilderIntegrationTests : UITestBase
     public void Should_Load_All_JSON_Files_Without_Errors()
     {
         // This test verifies all 93 JSON files can be loaded without crashes
-        
+
         // Get all JSON files in data directory
         if (!Directory.Exists(_testDataPath))
         {
@@ -154,7 +154,7 @@ public class ContentBuilderIntegrationTests : UITestBase
         {
             var json = File.ReadAllText(filePath);
             var fileName = Path.GetFileName(filePath);
-            
+
             // Act & Assert - Parse JSON without errors
             Action parseAction = () => JsonConvert.DeserializeObject<JObject>(json);
             parseAction.Should().NotThrow($"{fileName} should be valid JSON");
@@ -213,7 +213,7 @@ public class ContentBuilderIntegrationTests : UITestBase
         // Assert - Should have category → array structure
         data.Should().NotBeNull();
         data!.Properties().Should().NotBeEmpty("Should have at least one category");
-        
+
         foreach (var property in data.Properties())
         {
             // Each category should be an array (or object for variants)
@@ -284,10 +284,10 @@ public class ContentBuilderIntegrationTests : UITestBase
         Thread.Sleep(1000);
 
         // Act - Look for Preview button
-        var buttons = _mainWindow.FindAllDescendants(cf => 
+        var buttons = _mainWindow.FindAllDescendants(cf =>
             cf.ByControlType(ControlType.Button));
-        
-        var previewButton = buttons.FirstOrDefault(b => 
+
+        var previewButton = buttons.FirstOrDefault(b =>
             b.Name.Contains("Preview", StringComparison.OrdinalIgnoreCase));
 
         if (previewButton != null)
@@ -297,9 +297,9 @@ public class ContentBuilderIntegrationTests : UITestBase
 
             // Assert - Preview window should open
             var windows = _automation.GetDesktop().FindAllChildren();
-            var previewWindow = windows.FirstOrDefault(w => 
+            var previewWindow = windows.FirstOrDefault(w =>
                 w.Name.Contains("Preview", StringComparison.OrdinalIgnoreCase));
-            
+
             if (previewWindow != null)
             {
                 previewWindow.Should().NotBeNull("Preview window should open");
@@ -314,9 +314,9 @@ public class ContentBuilderIntegrationTests : UITestBase
 
     private Tree FindTreeView()
     {
-        var tree = _mainWindow.FindFirstDescendant(cf => 
+        var tree = _mainWindow.FindFirstDescendant(cf =>
             cf.ByControlType(ControlType.Tree))?.AsTree();
-        
+
         tree.Should().NotBeNull("Tree view should exist");
         return tree!;
     }
@@ -334,14 +334,14 @@ public class ContentBuilderIntegrationTests : UITestBase
         for (int i = 0; i < path.Length; i++)
         {
             var itemName = path[i];
-            
+
             if (i == 0)
             {
                 currentItem = FindTreeItem(tree, itemName);
             }
             else
             {
-                currentItem = currentItem?.FindFirstChild(cf => 
+                currentItem = currentItem?.FindFirstChild(cf =>
                     cf.ByName(itemName))?.AsTreeItem();
             }
 

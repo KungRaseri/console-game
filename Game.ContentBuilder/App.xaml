@@ -9,12 +9,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- Material Design - Dark Theme -->
-                <materialDesign:BundledTheme BaseTheme="Dark" 
-                                            PrimaryColor="Blue" 
-                                            SecondaryColor="Orange" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <materialDesign:BundledTheme BaseTheme="Dark"
+                                             PrimaryColor="Blue"
+                                             SecondaryColor="Orange"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
             <!-- Converters -->
             <converters:NotNullToBooleanConverter x:Key="NotNullToBooleanConverter"/>
             <converters:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>

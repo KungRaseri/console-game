@@ -24,7 +24,7 @@ public class PerformanceBehavior<TRequest, TResponse> : IPipelineBehavior<TReque
         if (stopwatch.ElapsedMilliseconds > SlowThresholdMs)
         {
             var requestName = typeof(TRequest).Name;
-            Log.Warning("Slow request detected: {RequestName} took {ElapsedMs}ms", 
+            Log.Warning("Slow request detected: {RequestName} took {ElapsedMs}ms",
                 requestName, stopwatch.ElapsedMilliseconds);
         }
 

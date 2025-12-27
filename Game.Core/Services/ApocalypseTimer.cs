@@ -19,12 +19,12 @@ public class ApocalypseTimer
     private bool _hasShownOneHourWarning = false;
     private bool _hasShownThirtyMinWarning = false;
     private bool _hasShownTenMinWarning = false;
-    
+
     public ApocalypseTimer(IGameUI console)
     {
         _console = console;
     }
-    
+
     /// <summary>
     /// Start the apocalypse timer.
     /// </summary>
@@ -35,10 +35,10 @@ public class ApocalypseTimer
         _hasShownOneHourWarning = false;
         _hasShownThirtyMinWarning = false;
         _hasShownTenMinWarning = false;
-        
+
         Log.Information("Apocalypse timer started. {TotalMinutes} minutes until world end.", _totalMinutes);
     }
-    
+
     /// <summary>
     /// Start timer from a saved state (for loading saves).
     /// </summary>
@@ -47,11 +47,11 @@ public class ApocalypseTimer
         _startTime = startTime;
         _bonusMinutes = bonusMinutes;
         _isPaused = false;
-        
+
         Log.Information("Apocalypse timer restored from save. Started at: {StartTime}, Bonus: {BonusMinutes}",
             startTime, bonusMinutes);
     }
-    
+
     /// <summary>
     /// Pause the timer (during menus, saves, etc.).
     /// </summary>
@@ -64,7 +64,7 @@ public class ApocalypseTimer
             Log.Debug("Apocalypse timer paused");
         }
     }
-    
+
     /// <summary>
     /// Resume the timer.
     /// </summary>
@@ -79,7 +79,7 @@ public class ApocalypseTimer
                 _pausedDuration.TotalMinutes);
         }
     }
-    
+
     /// <summary>
     /// Get remaining minutes on the timer.
     /// </summary>
@@ -91,11 +91,11 @@ public class ApocalypseTimer
             var elapsed = (_pauseStartTime.Value - _startTime) - _pausedDuration;
             return Math.Max(0, (int)(_totalMinutes + _bonusMinutes - elapsed.TotalMinutes));
         }
-        
+
         var totalElapsed = (DateTime.Now - _startTime) - _pausedDuration;
         return Math.Max(0, (int)(_totalMinutes + _bonusMinutes - totalElapsed.TotalMinutes));
     }
-    
+
     /// <summary>
     /// Check if timer has expired.
     /// </summary>
@@ -103,14 +103,14 @@ public class ApocalypseTimer
     {
         return GetRemainingMinutes() <= 0;
     }
-    
+
     /// <summary>
     /// Add bonus minutes to the timer.
     /// </summary>
     public void AddBonusTime(int minutes, string reason = "Quest completed")
     {
         _bonusMinutes += minutes;
-        
+
         _console.Clear();
         _console.ShowSuccess("═══════════════════════════════════════");
         _console.ShowSuccess("      BONUS TIME AWARDED!              ");
@@ -119,13 +119,13 @@ public class ApocalypseTimer
         _console.WriteText($"  Bonus: +{minutes} minutes");
         _console.WriteText($"  New Total: {GetRemainingMinutes()} minutes remaining");
         _console.ShowSuccess("═══════════════════════════════════════");
-        
+
         Log.Information("Bonus time awarded: {Minutes} minutes. Reason: {Reason}. Remaining: {Remaining}",
             minutes, reason, GetRemainingMinutes());
-        
+
         Thread.Sleep(2000);
     }
-    
+
     /// <summary>
     /// Get formatted time remaining string.
     /// </summary>
@@ -134,10 +134,10 @@ public class ApocalypseTimer
         var remaining = GetRemainingMinutes();
         var hours = remaining / 60;
         var mins = remaining % 60;
-        
+
         return $"{hours}h {mins}m";
     }
-    
+
     /// <summary>
     /// Get colored time display for UI.
     /// </summary>
@@ -145,7 +145,7 @@ public class ApocalypseTimer
     {
         var remaining = GetRemainingMinutes();
         var formatted = GetFormattedTimeRemaining();
-        
+
         var color = remaining switch
         {
             < 10 => "red",
@@ -153,17 +153,17 @@ public class ApocalypseTimer
             < 60 => "orange",
             _ => "green"
         };
-        
+
         return $"[{color}]⏱ {formatted}[/]";
     }
-    
+
     /// <summary>
     /// Check and show time warnings.
     /// </summary>
     public void CheckTimeWarnings()
     {
         var remaining = GetRemainingMinutes();
-        
+
         if (remaining <= 60 && !_hasShownOneHourWarning)
         {
             _hasShownOneHourWarning = true;
@@ -180,7 +180,7 @@ public class ApocalypseTimer
             ShowTimeWarning("10 MINUTES REMAINING!", "The end is imminent!");
         }
     }
-    
+
     /// <summary>
     /// Show a time warning to the player.
     /// </summary>
@@ -193,11 +193,11 @@ public class ApocalypseTimer
         _console.WriteText($"  {message}");
         _console.WriteText($"  Time Left: {GetFormattedTimeRemaining()}");
         _console.ShowWarning("═══════════════════════════════════════");
-        
+
         Log.Warning("Apocalypse timer warning: {Title}", title);
         Thread.Sleep(3000);
     }
-    
+
     /// <summary>
     /// Get total time limit with bonuses.
     /// </summary>
@@ -205,7 +205,7 @@ public class ApocalypseTimer
     {
         return _totalMinutes + _bonusMinutes;
     }
-    
+
     /// <summary>
     /// Get time elapsed.
     /// </summary>
@@ -214,7 +214,7 @@ public class ApocalypseTimer
         var totalElapsed = (DateTime.Now - _startTime) - _pausedDuration;
         return (int)totalElapsed.TotalMinutes;
     }
-    
+
     /// <summary>
     /// Get bonus minutes awarded so far (for save persistence).
     /// </summary>

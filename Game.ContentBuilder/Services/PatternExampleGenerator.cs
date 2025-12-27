@@ -36,8 +36,8 @@ public class PatternExampleGenerator
                 }
             }
 
-            return exampleParts.Count > 0 
-                ? string.Join(" ", exampleParts) 
+            return exampleParts.Count > 0
+                ? string.Join(" ", exampleParts)
                 : "(no data available)";
         }
         catch
@@ -59,10 +59,10 @@ public class PatternExampleGenerator
         {
             attempts++;
             var example = GenerateExample(pattern, items, components);
-            
+
             // Only add if it's not a placeholder/error message
-            if (!string.IsNullOrWhiteSpace(example) && 
-                !example.Contains("(no data available)") && 
+            if (!string.IsNullOrWhiteSpace(example) &&
+                !example.Contains("(no data available)") &&
                 !example.Contains("(invalid pattern)") &&
                 !example.Contains("[") && // Skip placeholders like "[material?]"
                 !example.Contains("?]"))
@@ -113,17 +113,17 @@ public class PatternExampleGenerator
         if (item.Type == JTokenType.Object)
         {
             var obj = item as JObject;
-            
+
             // Try weight-based component format first: {value: "Iron", rarityWeight: 10}
             if (obj?["value"] != null)
                 return obj["value"]?.ToString();
-            
+
             // Try to get a name or displayName property
             if (obj?["name"] != null)
                 return obj["name"]?.ToString();
             if (obj?["displayName"] != null)
                 return obj["displayName"]?.ToString();
-            
+
             // Return first property value
             var firstProp = obj?.Properties().FirstOrDefault();
             return firstProp?.Value?.ToString();

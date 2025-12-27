@@ -18,11 +18,11 @@ public class MainViewModelTests : IDisposable
         // Setup test data directory with required structure
         _testDataPath = Path.Combine(Path.GetTempPath(), "ContentBuilderTests", Guid.NewGuid().ToString());
         Directory.CreateDirectory(_testDataPath);
-        
+
         // Create minimal JSON structure for testing
         Directory.CreateDirectory(Path.Combine(_testDataPath, "general"));
         Directory.CreateDirectory(Path.Combine(_testDataPath, "items"));
-        
+
         File.WriteAllText(
             Path.Combine(_testDataPath, "general", "colors.json"),
             @"{""items"":[""red"",""blue""],""components"":{},""patterns"":[],""metadata"":{}}");
@@ -33,10 +33,10 @@ public class MainViewModelTests : IDisposable
     {
         // This test would require refactoring MainViewModel to accept a data path parameter
         // Currently it hardcodes the path resolution
-        
+
         // For now, we'll test that the structure is sound
         // In a real scenario, you'd inject the JsonEditorService
-        
+
         true.Should().BeTrue("MainViewModel initialization requires dependency injection refactoring");
     }
 
@@ -45,7 +45,7 @@ public class MainViewModelTests : IDisposable
     {
         // This would test that Categories collection is populated
         // Requires constructor injection refactoring
-        
+
         true.Should().BeTrue("Pending DI refactoring");
     }
 

@@ -17,7 +17,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         Instance = this;
-        
+
         // Add initial log
         AddLog("Application started");
     }
@@ -39,7 +39,7 @@ public partial class MainWindow : Window
             {
                 var logLine = $"[{timestamp}] {message}\n";
                 Instance._consoleBuffer.Append(logLine);
-                
+
                 // Keep only last ~50KB of logs (approximately 1000 lines)
                 if (Instance._consoleBuffer.Length > 50000)
                 {
@@ -62,10 +62,10 @@ public partial class MainWindow : Window
 
     private void ToggleConsole(object sender, RoutedEventArgs e)
     {
-        ConsolePanel.Visibility = ConsolePanel.Visibility == Visibility.Visible 
-            ? Visibility.Collapsed 
+        ConsolePanel.Visibility = ConsolePanel.Visibility == Visibility.Visible
+            ? Visibility.Collapsed
             : Visibility.Visible;
-        
+
         if (ConsolePanel.Visibility == Visibility.Visible)
         {
             // Refresh console content

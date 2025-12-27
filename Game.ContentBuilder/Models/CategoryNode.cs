@@ -54,11 +54,11 @@ public class CategoryNode
 public enum EditorType
 {
     None,
-    
+
     // Active Editors (v4.0)
     NameListEditor,        // names.json: metadata + components + patterns + name generation
     CatalogEditor,         // catalog.json: item types (weapons, armor, etc.) with categories
-    
+
     // Future Editors (Planned for v4.0)
     QuestEditor,           // quests/catalog.json: quest templates, objectives, rewards
     NpcEditor              // npcs/: occupations, dialogues, shops, traits

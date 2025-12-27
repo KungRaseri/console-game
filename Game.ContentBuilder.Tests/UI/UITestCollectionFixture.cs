@@ -55,7 +55,7 @@ public class UITestCollectionFixture : IDisposable
             // Find the executable (walk up from test bin folder to solution root)
             var currentDir = Directory.GetCurrentDirectory();
             var solutionRoot = currentDir;
-            
+
             // Walk up until we find Game.sln
             while (!File.Exists(Path.Combine(solutionRoot, "Game.sln")) && Directory.GetParent(solutionRoot) != null)
             {

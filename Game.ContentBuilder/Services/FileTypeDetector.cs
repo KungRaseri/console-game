@@ -36,7 +36,7 @@ public static class FileTypeDetector
             {
                 if (fileName == "catalog.json")
                     return JsonFileType.GenericCatalog;  // abilities/passive/defensive/catalog.json
-                
+
                 if (fileName == "names.json")
                     return JsonFileType.NamesFile;  // abilities/passive/defensive/names.json
             }
@@ -51,7 +51,7 @@ public static class FileTypeDetector
             {
                 if (directoryName == "quests")
                     return JsonFileType.QuestCatalog;  // Planned v4.0
-                
+
                 return JsonFileType.GenericCatalog;
             }
 
@@ -90,11 +90,11 @@ public static class FileTypeDetector
             // Active v4.0 Editors
             JsonFileType.NamesFile => EditorType.NameListEditor,
             JsonFileType.GenericCatalog => EditorType.CatalogEditor,
-            
+
             // Planned v4.0 Editors (not implemented yet)
             JsonFileType.QuestCatalog => EditorType.QuestEditor,
             JsonFileType.QuestData => EditorType.QuestEditor,
-            
+
             _ => EditorType.None
         };
     }
@@ -145,12 +145,12 @@ public static class FileTypeDetector
 public enum JsonFileType
 {
     Unknown,
-    
+
     // Active v4.0 File Types
     NamesFile,          // names.json - pattern generation files
     AbilityCatalog,     // abilities.json - ability catalog files
     GenericCatalog,     // Generic catalogs (occupations, traits, dialogue, items, etc.)
-    
+
     // Planned v4.0 File Types
     QuestCatalog,       // Quest catalog.json (v4.0: templates + locations)
     QuestData           // Quest objectives, rewards, locations (v4.0)

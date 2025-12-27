@@ -17,7 +17,7 @@ public static class TraitApplicator
             entity.Traits[trait.Key] = trait.Value;
         }
     }
-    
+
     /// <summary>
     /// Apply a single trait to an entity.
     /// </summary>
@@ -25,7 +25,7 @@ public static class TraitApplicator
     {
         entity.Traits[traitName] = new TraitValue(value, type);
     }
-    
+
     /// <summary>
     /// Get a trait value with a default fallback.
     /// </summary>
@@ -33,9 +33,9 @@ public static class TraitApplicator
     {
         if (!entity.Traits.ContainsKey(traitName))
             return defaultValue;
-        
+
         var trait = entity.Traits[traitName];
-        
+
         if (typeof(T) == typeof(int))
             return (T)(object)trait.AsInt();
         if (typeof(T) == typeof(double))
@@ -48,10 +48,10 @@ public static class TraitApplicator
             return (T)(object)trait.AsStringList();
         if (typeof(T) == typeof(List<int>))
             return (T)(object)trait.AsIntList();
-            
+
         return defaultValue;
     }
-    
+
     /// <summary>
     /// Check if an entity has a specific trait.
     /// </summary>
@@ -59,7 +59,7 @@ public static class TraitApplicator
     {
         return entity.Traits.ContainsKey(traitName);
     }
-    
+
     /// <summary>
     /// Remove a trait from an entity.
     /// </summary>
@@ -67,7 +67,7 @@ public static class TraitApplicator
     {
         entity.Traits.Remove(traitName);
     }
-    
+
     /// <summary>
     /// Get all trait names for an entity.
     /// </summary>
@@ -75,7 +75,7 @@ public static class TraitApplicator
     {
         return entity.Traits.Keys.ToList();
     }
-    
+
     /// <summary>
     /// Merge traits from source to target (target traits take precedence).
     /// </summary>
@@ -89,7 +89,7 @@ public static class TraitApplicator
             }
         }
     }
-    
+
     /// <summary>
     /// Add a numeric bonus to an existing trait (or create it if it doesn't exist).
     /// </summary>
@@ -105,7 +105,7 @@ public static class TraitApplicator
             entity.Traits[traitName] = new TraitValue(bonus, TraitType.Number);
         }
     }
-    
+
     /// <summary>
     /// Calculate total bonus for a stat from all applicable traits.
     /// Example: Get total strength from strengthBonus, might, titan, etc.
@@ -119,7 +119,7 @@ public static class TraitApplicator
         }
         return total;
     }
-    
+
     /// <summary>
     /// Get resistance percentage for a damage type.
     /// </summary>
@@ -127,7 +127,7 @@ public static class TraitApplicator
     {
         return GetTrait(entity, resistanceType, 0);
     }
-    
+
     /// <summary>
     /// Check if entity has any resistance.
     /// </summary>
@@ -135,14 +135,14 @@ public static class TraitApplicator
     {
         return GetResistance(entity, resistanceType) > 0;
     }
-    
+
     /// <summary>
     /// Get all resistances for an entity.
     /// </summary>
     public static Dictionary<string, int> GetAllResistances(ITraitable entity)
     {
         var resistances = new Dictionary<string, int>();
-        
+
         var resistanceTraits = new[]
         {
             StandardTraits.ResistFire,
@@ -152,7 +152,7 @@ public static class TraitApplicator
             StandardTraits.ResistPhysical,
             StandardTraits.ResistMagic
         };
-        
+
         foreach (var trait in resistanceTraits)
         {
             var value = GetResistance(entity, trait);
@@ -161,10 +161,10 @@ public static class TraitApplicator
                 resistances[trait] = value;
             }
         }
-        
+
         return resistances;
     }
-    
+
     /// <summary>
     /// Pretty print all traits for debugging.
     /// </summary>
@@ -172,7 +172,7 @@ public static class TraitApplicator
     {
         if (!entity.Traits.Any())
             return "No traits";
-        
+
         var lines = new List<string>();
         foreach (var trait in entity.Traits)
         {
@@ -187,7 +187,7 @@ public static class TraitApplicator
             };
             lines.Add($"  {trait.Key}: {valueStr}");
         }
-        
+
         return string.Join("\n", lines);
     }
 }

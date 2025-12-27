@@ -22,11 +22,11 @@ public class AttributePointAllocation
     public int IntelligencePoints { get; set; }
     public int WisdomPoints { get; set; }
     public int CharismaPoints { get; set; }
-    
-    public int TotalPointsAllocated => 
-        StrengthPoints + DexterityPoints + ConstitutionPoints + 
+
+    public int TotalPointsAllocated =>
+        StrengthPoints + DexterityPoints + ConstitutionPoints +
         IntelligencePoints + WisdomPoints + CharismaPoints;
-    
+
     public void Reset()
     {
         StrengthPoints = 0;

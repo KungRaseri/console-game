@@ -51,7 +51,7 @@ public partial class PreviewWindowViewModel : ObservableObject
     public PreviewWindowViewModel()
     {
         _previewService = new PreviewService();
-        
+
         // Auto-generate on load
         Generate();
     }

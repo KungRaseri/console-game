@@ -8,12 +8,12 @@ public class CharacterClass
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    
+
     /// <summary>
     /// Primary attributes for this class (used for recommendations).
     /// </summary>
     public List<string> PrimaryAttributes { get; set; } = new();
-    
+
     /// <summary>
     /// Starting attribute bonuses applied at character creation.
     /// </summary>
@@ -23,22 +23,22 @@ public class CharacterClass
     public int BonusIntelligence { get; set; } = 0;
     public int BonusWisdom { get; set; } = 0;
     public int BonusCharisma { get; set; } = 0;
-    
+
     /// <summary>
     /// Starting health bonus (added to base health calculation).
     /// </summary>
     public int StartingHealthBonus { get; set; } = 0;
-    
+
     /// <summary>
     /// Starting mana bonus (added to base mana calculation).
     /// </summary>
     public int StartingManaBonus { get; set; } = 0;
-    
+
     /// <summary>
     /// Starting equipment item names for this class.
     /// </summary>
     public List<string> StartingEquipment { get; set; } = new();
-    
+
     /// <summary>
     /// Flavor text for class selection.
     /// </summary>
@@ -56,11 +56,11 @@ public class AttributeAllocation
     public int Intelligence { get; set; } = 8;
     public int Wisdom { get; set; } = 8;
     public int Charisma { get; set; } = 8;
-    
+
     private const int MinAttributeValue = 8;
     private const int MaxAttributeValue = 15;
     private const int TotalPoints = 27;
-    
+
     /// <summary>
     /// Calculate the point cost to increase an attribute from current to target value.
     /// Point buy rules: 8-13 costs 1 point per level, 14 costs 2 points, 15 costs 2 points.
@@ -68,7 +68,7 @@ public class AttributeAllocation
     public static int GetPointCost(int fromValue, int toValue)
     {
         if (toValue <= fromValue) return 0;
-        
+
         int cost = 0;
         for (int i = fromValue; i < toValue; i++)
         {
@@ -79,7 +79,7 @@ public class AttributeAllocation
         }
         return cost;
     }
-    
+
     /// <summary>
     /// Get the total points spent on all attributes.
     /// </summary>
@@ -94,7 +94,7 @@ public class AttributeAllocation
         total += GetPointCost(MinAttributeValue, Charisma);
         return total;
     }
-    
+
     /// <summary>
     /// Get remaining points to allocate.
     /// </summary>
@@ -102,7 +102,7 @@ public class AttributeAllocation
     {
         return TotalPoints - GetPointsSpent();
     }
-    
+
     /// <summary>
     /// Check if the allocation is valid (within limits and points budget).
     /// </summary>
@@ -116,7 +116,7 @@ public class AttributeAllocation
                Charisma >= MinAttributeValue && Charisma <= MaxAttributeValue &&
                GetPointsSpent() <= TotalPoints;
     }
-    
+
     /// <summary>
     /// Check if we can increase an attribute value.
     /// </summary>
@@ -124,11 +124,11 @@ public class AttributeAllocation
     {
         var currentValue = GetAttributeValue(attribute);
         if (currentValue >= MaxAttributeValue) return false;
-        
+
         var costToIncrease = GetPointCost(currentValue, currentValue + 1);
         return GetRemainingPoints() >= costToIncrease;
     }
-    
+
     /// <summary>
     /// Check if we can decrease an attribute value.
     /// </summary>
@@ -136,7 +136,7 @@ public class AttributeAllocation
     {
         return GetAttributeValue(attribute) > MinAttributeValue;
     }
-    
+
     /// <summary>
     /// Get attribute value by name.
     /// </summary>
@@ -153,7 +153,7 @@ public class AttributeAllocation
             _ => 0
         };
     }
-    
+
     /// <summary>
     /// Set attribute value by name.
     /// </summary>

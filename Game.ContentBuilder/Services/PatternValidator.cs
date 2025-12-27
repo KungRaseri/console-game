@@ -20,14 +20,14 @@ public class ValidationResult
     public ValidationLevel Level { get; set; }
     public string Message { get; set; }
     public List<string> InvalidTokens { get; set; }
-    
+
     public ValidationResult(ValidationLevel level, string message)
     {
         Level = level;
         Message = message;
         InvalidTokens = new();
     }
-    
+
     public ValidationResult(ValidationLevel level, string message, List<string> invalidTokens)
     {
         Level = level;

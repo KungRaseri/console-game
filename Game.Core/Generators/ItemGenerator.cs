@@ -45,7 +45,7 @@ public static class ItemGenerator
             .RuleFor(i => i.Id, f => Guid.NewGuid().ToString())
             .RuleFor(i => i.Rarity, f => f.PickRandom<ItemRarity>())
             .RuleFor(i => i.Type, type)
-            .RuleFor(i => i.IsTwoHanded, (f, item) => 
+            .RuleFor(i => i.IsTwoHanded, (f, item) =>
                 item.Type == ItemType.Weapon && f.Random.Bool(0.3f)) // 30% chance for two-handed weapons
             .RuleFor(i => i.Name, (f, item) => GenerateNameForType(f, type, item))
             .RuleFor(i => i.Description, f => f.Commerce.ProductDescription())
@@ -68,7 +68,7 @@ public static class ItemGenerator
             ItemType.Weapon => GenerateWeaponName(f, item),
             ItemType.Shield => $"{ApplyMetalMaterial(item, f) ?? "Iron"} Shield",
             ItemType.OffHand => $"{f.PickRandom("Tome", "Orb", "Crystal", "Focus")} {GetRandomEnchantmentSuffix(f, item)}",
-            
+
             // Armor - use leather materials for light armor
             ItemType.Helmet => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Helmet",
             ItemType.Shoulders => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Shoulderpads",
@@ -78,19 +78,19 @@ public static class ItemGenerator
             ItemType.Belt => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Belt",
             ItemType.Legs => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Leggings",
             ItemType.Boots => $"{ApplyLeatherMaterial(item, f) ?? "Leather"} Boots",
-            
+
             // Jewelry - use gemstones
             ItemType.Necklace => $"{ApplyGemstoneMaterial(item, f)} {f.PickRandom("Amulet", "Necklace", "Pendant")}",
             ItemType.Ring => $"{ApplyGemstoneMaterial(item, f)} {f.PickRandom("Ring", "Band", "Signet")}",
-            
+
             // Other
             ItemType.Consumable => $"{f.PickRandom("Health", "Mana", "Stamina")} Potion",
             ItemType.QuestItem => $"{f.Lorem.Word()} {f.PickRandom("Key", "Scroll", "Crystal", "Relic")}",
-            
+
             _ => f.Commerce.ProductName()
         };
     }
-    
+
     /// <summary>
     /// Generate a weapon name using v4 pattern-based system with @materialRef support.
     /// </summary>
@@ -99,13 +99,13 @@ public static class ItemGenerator
         var data = GameDataService.Instance;
         var patternExecutor = new PatternExecutor();
         var weaponData = data.WeaponNames;
-        
+
         // Validate data
         if (weaponData.Patterns.Count == 0 || weaponData.Components.Count == 0)
         {
             return "Unknown Weapon";
         }
-        
+
         // Convert components to PatternExecutor format
         var components = new Dictionary<string, List<ComponentValue>>();
         foreach (var kvp in weaponData.Components)
@@ -114,13 +114,13 @@ public static class ItemGenerator
                 .Select(c => new ComponentValue(c.Value, c.RarityWeight))
                 .ToList();
         }
-        
+
         // Select a pattern (weighted)
         var pattern = f.Random.WeightedRandom(
             weaponData.Patterns.ToArray(),
             weaponData.Patterns.Select(p => (float)p.GetWeight()).ToArray()
         );
-        
+
         // Execute pattern with context
         var generatedName = patternExecutor.Execute(
             pattern.GetTemplate(),
@@ -128,19 +128,19 @@ public static class ItemGenerator
             f,
             itemType: "weapon"
         );
-        
+
         // TODO: Apply traits from resolved materials via DataReferenceResolver
-        
+
         return generatedName;
     }
-    
+
     /// <summary>
     /// Get a random armor material based on rarity and apply traits.
     /// </summary>
     private static string GetRandomArmorMaterial(Faker f, Item item)
     {
         var data = GameDataService.Instance;
-        
+
         var materials = item.Rarity switch
         {
             ItemRarity.Common => data.ArmorMaterials.Common,
@@ -150,24 +150,24 @@ public static class ItemGenerator
             ItemRarity.Legendary => data.ArmorMaterials.Legendary,
             _ => data.ArmorMaterials.Common
         };
-        
+
         if (materials.Count > 0)
         {
             var materialData = GameDataService.GetRandom(materials.Values.ToList());
             TraitApplicator.ApplyTraits(item, materialData.Traits);
             return materialData.DisplayName;
         }
-        
+
         return "Cloth";
     }
-    
+
     /// <summary>
     /// Get a random material from the general materials list.
     /// </summary>
     private static string GetRandomMaterial(ItemRarity rarity)
     {
         var data = GameDataService.Instance;
-        
+
         return rarity switch
         {
             ItemRarity.Common or ItemRarity.Uncommon => GameDataService.GetRandom(data.Materials.Natural),
@@ -176,7 +176,7 @@ public static class ItemGenerator
             _ => GameDataService.GetRandom(data.Materials.Natural)
         };
     }
-    
+
     /// <summary>
     /// Get a random enchantment suffix and apply traits.
     /// </summary>
@@ -184,7 +184,7 @@ public static class ItemGenerator
     {
         var data = GameDataService.Instance;
         var category = f.PickRandom("power", "protection", "wisdom", "agility", "magic", "fire", "ice", "lightning", "life", "death");
-        
+
         var suffixDict = category switch
         {
             "power" => data.EnchantmentSuffixes.Power,
@@ -199,30 +199,30 @@ public static class ItemGenerator
             "death" => data.EnchantmentSuffixes.Death,
             _ => data.EnchantmentSuffixes.Power
         };
-        
+
         if (suffixDict.Count > 0)
         {
             var suffixData = GameDataService.GetRandom(suffixDict.Values.ToList());
             TraitApplicator.ApplyTraits(item, suffixData.Traits);
             return suffixData.DisplayName;
         }
-        
+
         return "of Power";
     }
-    
+
     /// <summary>
     /// Apply metal material traits to an item and return the material name.
     /// </summary>
     private static string? ApplyMetalMaterial(Item item, Faker f)
     {
         var data = GameDataService.Instance;
-        
+
         if (data.Metals.Count == 0)
             return null;
-        
+
         // Pick appropriate metal based on rarity
         var metalOptions = data.Metals.Values.ToList();
-        
+
         // Filter by rarity - legendary items get legendary materials, etc.
         var appropriateMetals = item.Rarity switch
         {
@@ -233,29 +233,29 @@ public static class ItemGenerator
             ItemRarity.Legendary => metalOptions.Where(m => m.Traits.ContainsKey("legendary") || f.Random.Bool(0.5f)).ToList(), // Legendary materials
             _ => metalOptions.Take(2).ToList()
         };
-        
+
         if (appropriateMetals.Count == 0)
             appropriateMetals = metalOptions.Take(3).ToList(); // Fallback
-        
+
         var metal = f.PickRandom(appropriateMetals);
         TraitApplicator.ApplyTraits(item, metal.Traits);
-        
+
         return metal.DisplayName;
     }
-    
+
     /// <summary>
     /// Apply wood material traits to an item and return the material name.
     /// </summary>
     private static string? ApplyWoodMaterial(Item item, Faker f)
     {
         var data = GameDataService.Instance;
-        
+
         if (data.Woods.Count == 0)
             return null;
-        
+
         // Pick appropriate wood based on rarity
         var woodOptions = data.Woods.Values.ToList();
-        
+
         var appropriateWoods = item.Rarity switch
         {
             ItemRarity.Common => woodOptions.Where(w => !w.Traits.ContainsKey("legendary")).Take(2).ToList(), // Oak, Ash
@@ -265,29 +265,29 @@ public static class ItemGenerator
             ItemRarity.Legendary => woodOptions.Where(w => w.Traits.ContainsKey("legendary") || f.Random.Bool(0.5f)).ToList(),
             _ => woodOptions.Take(2).ToList()
         };
-        
+
         if (appropriateWoods.Count == 0)
             appropriateWoods = woodOptions.Take(3).ToList(); // Fallback
-        
+
         var wood = f.PickRandom(appropriateWoods);
         TraitApplicator.ApplyTraits(item, wood.Traits);
-        
+
         return wood.DisplayName;
     }
-    
+
     /// <summary>
     /// Apply leather material traits to an item and return the material name.
     /// </summary>
     private static string? ApplyLeatherMaterial(Item item, Faker f)
     {
         var data = GameDataService.Instance;
-        
+
         if (data.Leathers.Count == 0)
             return null;
-        
+
         // Pick appropriate leather based on rarity
         var leatherOptions = data.Leathers.Values.ToList();
-        
+
         var appropriateLeathers = item.Rarity switch
         {
             ItemRarity.Common => leatherOptions.Where(l => !l.Traits.ContainsKey("legendary")).Take(2).ToList(), // Hide, Leather
@@ -297,29 +297,29 @@ public static class ItemGenerator
             ItemRarity.Legendary => leatherOptions.Where(l => l.Traits.ContainsKey("legendary") || f.Random.Bool(0.5f)).ToList(),
             _ => leatherOptions.Take(2).ToList()
         };
-        
+
         if (appropriateLeathers.Count == 0)
             appropriateLeathers = leatherOptions.Take(3).ToList(); // Fallback
-        
+
         var leather = f.PickRandom(appropriateLeathers);
         TraitApplicator.ApplyTraits(item, leather.Traits);
-        
+
         return leather.DisplayName;
     }
-    
+
     /// <summary>
     /// Apply gemstone material traits to an item and return the material name.
     /// </summary>
     private static string? ApplyGemstoneMaterial(Item item, Faker f)
     {
         var data = GameDataService.Instance;
-        
+
         if (data.Gemstones.Count == 0)
             return null;
-        
+
         // Pick appropriate gemstone based on rarity
         var gemOptions = data.Gemstones.Values.ToList();
-        
+
         var appropriateGems = item.Rarity switch
         {
             ItemRarity.Common => gemOptions.Where(g => !g.Traits.ContainsKey("legendary")).Take(3).ToList(), // Ruby, Topaz, Obsidian
@@ -329,23 +329,23 @@ public static class ItemGenerator
             ItemRarity.Legendary => gemOptions.Where(g => g.Traits.ContainsKey("legendary") || g.Traits.ContainsKey("artifact")).ToList(),
             _ => gemOptions.Take(3).ToList()
         };
-        
+
         if (appropriateGems.Count == 0)
             appropriateGems = gemOptions.Take(3).ToList(); // Fallback
-        
+
         var gem = f.PickRandom(appropriateGems);
         TraitApplicator.ApplyTraits(item, gem.Traits);
-        
+
         return gem.DisplayName;
     }
-    
+
     /// <summary>
     /// Get weapon prefix by rarity and return trait data.
     /// </summary>
     private static WeaponPrefixTraitData? GetPrefixByRarity(ItemRarity rarity)
     {
         var data = GameDataService.Instance;
-        
+
         var prefixes = rarity switch
         {
             ItemRarity.Common => data.WeaponPrefixes.Common,
@@ -355,7 +355,7 @@ public static class ItemGenerator
             ItemRarity.Legendary => data.WeaponPrefixes.Legendary,
             _ => data.WeaponPrefixes.Common
         };
-        
+
         return prefixes.Count > 0 ? GameDataService.GetRandom(prefixes.Values.ToList()) : null;
     }
 
@@ -391,19 +391,19 @@ public static class ItemGenerator
 
         // Item type affects which stats it prefers
         var primaryStat = GetPrimaryStatForItemType(item.Type);
-        
+
         // If this is the primary stat for this item type, give higher bonuses
         if (primaryStat == statType)
         {
             return f.Random.Int(minBonus, maxBonus);
         }
-        
+
         // Otherwise, only occasionally give bonuses (30% chance)
         if (f.Random.Bool(0.3f))
         {
             return f.Random.Int(0, maxBonus / 2);
         }
-        
+
         return 0;
     }
 
@@ -416,7 +416,7 @@ public static class ItemGenerator
         {
             // Weapons - Strength (melee) or Intelligence (magic)
             ItemType.Weapon => "Strength",
-            
+
             // Shields and heavy armor - Constitution
             ItemType.Shield => "Constitution",
             ItemType.Helmet => "Constitution",
@@ -425,18 +425,18 @@ public static class ItemGenerator
             ItemType.Bracers => "Constitution",
             ItemType.Belt => "Constitution",
             ItemType.Legs => "Constitution",
-            
+
             // Light armor - Dexterity
             ItemType.Gloves => "Dexterity",
             ItemType.Boots => "Dexterity",
-            
+
             // Off-hand items - Intelligence or Wisdom
             ItemType.OffHand => "Wisdom",
-            
+
             // Jewelry - Mixed stats (can roll any)
             ItemType.Necklace => "Strength",
             ItemType.Ring => "Charisma",
-            
+
             _ => "Constitution"
         };
     }

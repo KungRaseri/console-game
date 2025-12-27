@@ -19,7 +19,7 @@ public class NameComponentConverter : JsonConverter<NameComponentBase>
 
             // Create a new serializer without this converter to avoid infinite recursion
             var settings = new JsonSerializerSettings();
-            
+
             if (jObject.ContainsKey("gender") || jObject.ContainsKey("weightMultiplier") || jObject.ContainsKey("preferredSocialClass"))
             {
                 try
@@ -44,7 +44,7 @@ public class NameComponentConverter : JsonConverter<NameComponentBase>
                     throw;
                 }
             }
-            
+
             // Fallback: return NPC component as default (most flexible)
             try
             {

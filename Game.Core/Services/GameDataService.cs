@@ -13,21 +13,21 @@ public class GameDataService
 {
     private static GameDataService? _instance;
     private static readonly object _lock = new();
-    
+
     private readonly string _dataPath;
-    
+
     // Item data
     public WeaponPrefixData WeaponPrefixes { get; private set; } = new();
     public WeaponNameData WeaponNames { get; private set; } = new();
     public ArmorMaterialData ArmorMaterials { get; private set; } = new();
     public EnchantmentSuffixData EnchantmentSuffixes { get; private set; } = new();
-    
+
     // Material properties for items
     public MetalData Metals { get; private set; } = new();
     public LeatherData Leathers { get; private set; } = new();
     public WoodData Woods { get; private set; } = new();
     public GemstoneData Gemstones { get; private set; } = new();
-    
+
     // Enemy data - names
     public EnemyNameData BeastNames { get; private set; } = new();
     public EnemyNameData UndeadNames { get; private set; } = new();
@@ -35,7 +35,7 @@ public class GameDataService
     public EnemyNameData ElementalNames { get; private set; } = new();
     public DragonNameData DragonNames { get; private set; } = new();
     public HumanoidNameData HumanoidNames { get; private set; } = new();
-    
+
     // Enemy data - prefixes with traits
     public EnemyPrefixData BeastPrefixes { get; private set; } = new();
     public EnemyPrefixData UndeadPrefixes { get; private set; } = new();
@@ -43,42 +43,42 @@ public class GameDataService
     public EnemyPrefixData ElementalPrefixes { get; private set; } = new();
     public EnemyPrefixData DragonPrefixes { get; private set; } = new();
     public EnemyPrefixData HumanoidPrefixes { get; private set; } = new();
-    
+
     // Dragon color data
     public DragonColorData DragonColors { get; private set; } = new();
-    
+
     // NPC data - v4.0 catalog-based system
     public NpcCatalogData NpcCatalog { get; private set; } = new();
     public NpcTraitsData NpcTraits { get; private set; } = new();
     public NpcNamesData NpcNames { get; private set; } = new();
     public DialogueTemplateData DialogueTemplates { get; private set; } = new();
     public DialogueTraitsData DialogueTraits { get; private set; } = new();
-    
+
     // Legacy NPC data (deprecated - use catalog-based system above)
     [Obsolete("Use NpcCatalog instead")]
     public FantasyNameData FantasyNames { get; private set; } = new();
     [Obsolete("Use NpcCatalog instead")]
     public OccupationData Occupations { get; private set; } = new();
-    
+
     // Quest data - v4.0 catalog-based system
     public QuestCatalogData QuestCatalog { get; private set; } = new();
     public QuestObjectivesData QuestObjectives { get; private set; } = new();
     public QuestRewardsData QuestRewards { get; private set; } = new();
-    
+
     // Legacy Quest data (deprecated - use catalog-based system above)
     [Obsolete("Use QuestCatalog instead")]
     public QuestTemplatesData QuestTemplates { get; private set; } = new();
-    
+
     // General data
     public AdjectiveData Adjectives { get; private set; } = new();
     public MaterialData Materials { get; private set; } = new();
-    
+
     private GameDataService(string dataPath)
     {
         _dataPath = dataPath;
         LoadAllData();
     }
-    
+
     /// <summary>
     /// Get the singleton instance of GameDataService.
     /// </summary>
@@ -102,7 +102,7 @@ public class GameDataService
             return _instance;
         }
     }
-    
+
     /// <summary>
     /// Initialize the service with a custom data path (useful for testing).
     /// </summary>
@@ -113,7 +113,7 @@ public class GameDataService
             _instance = new GameDataService(dataPath);
         }
     }
-    
+
     /// <summary>
     /// Reload all data from JSON files (useful for hot-reloading during development).
     /// </summary>
@@ -122,7 +122,7 @@ public class GameDataService
         LoadAllData();
         Log.Information("Game data reloaded from {DataPath}", _dataPath);
     }
-    
+
     private void LoadAllData()
     {
         try
@@ -134,13 +134,13 @@ public class GameDataService
             WeaponNames = LoadJson<WeaponNameData>("items/weapons/names.json");
             ArmorMaterials = LoadJson<ArmorMaterialData>("items/armor/materials.json");
             // EnchantmentSuffixes = LoadJson<EnchantmentSuffixData>("items/enchantments/suffixes.json"); // DEPRECATED - use names.json
-            
+
             // Load material properties
             Metals = LoadJson<MetalData>("items/materials/metals.json");
             Leathers = LoadJson<LeatherData>("items/materials/leathers.json");
             Woods = LoadJson<WoodData>("items/materials/woods.json");
             Gemstones = LoadJson<GemstoneData>("items/materials/gemstones.json");
-            
+
             // Load enemy data - names
             BeastNames = LoadJson<EnemyNameData>("enemies/beasts/names.json");
             UndeadNames = LoadJson<EnemyNameData>("enemies/undead/names.json");
@@ -148,7 +148,7 @@ public class GameDataService
             ElementalNames = LoadJson<EnemyNameData>("enemies/elementals/names.json");
             DragonNames = LoadJson<DragonNameData>("enemies/dragons/names.json");
             HumanoidNames = LoadJson<HumanoidNameData>("enemies/humanoids/names.json");
-            
+
             // Load enemy data - prefixes with traits
             BeastPrefixes = LoadJson<EnemyPrefixData>("enemies/beasts/prefixes.json");
             UndeadPrefixes = LoadJson<EnemyPrefixData>("enemies/undead/prefixes.json");
@@ -156,37 +156,37 @@ public class GameDataService
             ElementalPrefixes = LoadJson<EnemyPrefixData>("enemies/elementals/prefixes.json");
             DragonPrefixes = LoadJson<EnemyPrefixData>("enemies/dragons/prefixes.json");
             HumanoidPrefixes = LoadJson<EnemyPrefixData>("enemies/humanoids/prefixes.json");
-            
+
             // Load dragon color data
             DragonColors = LoadJson<DragonColorData>("enemies/dragons/colors.json");
-            
+
             // Load NPC data - v4.0 catalog-based system
             NpcCatalog = LoadJson<NpcCatalogData>("npcs/catalog.json");
             NpcTraits = LoadJson<NpcTraitsData>("npcs/traits.json");
             NpcNames = LoadJson<NpcNamesData>("npcs/names.json");
             DialogueTemplates = LoadJson<DialogueTemplateData>("npcs/dialogue/styles.json");
             DialogueTraits = LoadJson<DialogueTraitsData>("npcs/dialogue/dialogue_styles.json");
-            
+
             // Legacy data - kept for backwards compatibility
-            #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
             FantasyNames = new FantasyNameData(); // Empty - use NpcNames instead
             Occupations = new OccupationData(); // Empty - use NpcCatalog instead
-            #pragma warning restore CS0618
-            
+#pragma warning restore CS0618
+
             // Load quest data - v4.0 catalog-based system
             QuestCatalog = LoadJson<QuestCatalogData>("quests/catalog.json");
             QuestObjectives = LoadJson<QuestObjectivesData>("quests/objectives.json");
             QuestRewards = LoadJson<QuestRewardsData>("quests/rewards.json");
-            
+
             // Legacy quest data - kept for backwards compatibility
-            #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
             QuestTemplates = new QuestTemplatesData(); // Empty - use QuestCatalog instead
-            #pragma warning restore CS0618
-            
+#pragma warning restore CS0618
+
             // Load general data
             Adjectives = LoadJson<AdjectiveData>("general/adjectives.json");
             Materials = LoadJson<MaterialData>("general/materials.json");
-            
+
             Log.Information("Successfully loaded all game data from {DataPath}", _dataPath);
         }
         catch (Exception ex)
@@ -195,17 +195,17 @@ public class GameDataService
             throw;
         }
     }
-    
+
     private T LoadJson<T>(string relativePath) where T : new()
     {
         var fullPath = Path.Combine(_dataPath, relativePath);
-        
+
         if (!File.Exists(fullPath))
         {
             Log.Warning("Data file not found: {FilePath}. Using empty data.", fullPath);
             return new T();
         }
-        
+
         try
         {
             var json = File.ReadAllText(fullPath);
@@ -215,7 +215,7 @@ public class GameDataService
                 ReadCommentHandling = JsonCommentHandling.Skip,
                 AllowTrailingCommas = true
             });
-            
+
             return data ?? new T();
         }
         catch (Exception ex)
@@ -224,7 +224,7 @@ public class GameDataService
             throw new InvalidOperationException($"Failed to load {relativePath}", ex);
         }
     }
-    
+
     /// <summary>
     /// Get a random item from a list.
     /// </summary>
@@ -232,7 +232,7 @@ public class GameDataService
     {
         if (list == null || list.Count == 0)
             throw new InvalidOperationException("Cannot get random item from empty list");
-        
+
         return list[Random.Shared.Next(list.Count)];
     }
 }

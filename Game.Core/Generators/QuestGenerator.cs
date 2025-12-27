@@ -16,7 +16,7 @@ namespace Game.Core.Generators;
 public static class QuestGenerator
 {
     private static readonly Random _random = Random.Shared;
-    
+
     /// <summary>
     /// Generate a random quest from any available template using v4.0 catalog system.
     /// Uses weighted selection based on rarityWeight.
@@ -24,27 +24,27 @@ public static class QuestGenerator
     public static Quest Generate()
     {
         var faker = new Faker();
-        
+
         // Pick random quest type and difficulty
         var questType = faker.PickRandom("fetch", "kill", "escort", "delivery", "investigate");
         var difficulty = faker.PickRandom("easy", "medium", "hard");
-        
+
         return GenerateByTypeAndDifficulty(questType, difficulty);
     }
-    
+
     /// <summary>
     /// Generate a quest of a specific type using v4.0 catalog system.
     /// </summary>
     public static Quest GenerateByType(string questType)
     {
         var faker = new Faker();
-        
+
         // Pick random difficulty
         var difficulty = faker.PickRandom("easy", "medium", "hard");
-        
+
         return GenerateByTypeAndDifficulty(questType, difficulty);
     }
-    
+
     /// <summary>
     /// Generate a quest with specific type and difficulty using v4.0 catalog system.
     /// Uses weighted selection for templates, locations, objectives, and rewards.
@@ -53,11 +53,11 @@ public static class QuestGenerator
     {
         var catalog = GameDataService.Instance.QuestCatalog;
         var faker = new Faker();
-        
+
         // Normalize inputs
         questType = questType.ToLower();
         difficulty = difficulty.ToLower();
-        
+
         // Select quest template using weighted selection
         var template = SelectQuestTemplate(catalog, questType, difficulty);
         if (template == null)
@@ -65,10 +65,10 @@ public static class QuestGenerator
             Log.Warning("No templates found for {QuestType} - {Difficulty}, using default quest", questType, difficulty);
             return GenerateDefaultQuest();
         }
-        
+
         // Select appropriate location
         var location = SelectQuestLocation(catalog, difficulty);
-        
+
         // Create quest from template
         var quest = new Quest
         {
@@ -81,25 +81,25 @@ public static class QuestGenerator
             XpReward = template.BaseXpReward,
             Location = location?.DisplayName ?? "Unknown Location"
         };
-        
+
         // Apply template-specific properties
         ApplyTemplateProperties(quest, template, faker);
-        
+
         // Generate quest-specific details
         GenerateQuestDetails(quest, template, location, faker);
-        
+
         // Assign quest giver
         AssignQuestGiver(quest, faker);
-        
+
         // Populate description variables
         PopulateDescriptionVariables(quest);
-        
-        Log.Debug("Generated quest: {Title} ({Type}/{Difficulty}) - Reward: {Gold}g, {Xp}xp at {Location}", 
+
+        Log.Debug("Generated quest: {Title} ({Type}/{Difficulty}) - Reward: {Gold}g, {Xp}xp at {Location}",
             quest.Title, quest.QuestType, quest.Difficulty, quest.GoldReward, quest.XpReward, quest.Location);
-        
+
         return quest;
     }
-    
+
     /// <summary>
     /// Select a quest template using weighted selection based on type and difficulty.
     /// </summary>
@@ -112,31 +112,31 @@ public static class QuestGenerator
                 ("fetch", "easy") => catalog.Components.Templates.Fetch.EasyFetch,
                 ("fetch", "medium") => catalog.Components.Templates.Fetch.MediumFetch,
                 ("fetch", "hard") => catalog.Components.Templates.Fetch.HardFetch,
-                
+
                 ("kill", "easy") => catalog.Components.Templates.Kill.EasyCombat,
                 ("kill", "medium") => catalog.Components.Templates.Kill.MediumCombat,
                 ("kill", "hard") => catalog.Components.Templates.Kill.HardCombat,
-                
+
                 ("escort", "easy") => catalog.Components.Templates.Escort.EasyEscort,
                 ("escort", "medium") => catalog.Components.Templates.Escort.MediumEscort,
                 ("escort", "hard") => catalog.Components.Templates.Escort.HardEscort,
-                
+
                 ("delivery", "easy") => catalog.Components.Templates.Delivery.EasyDelivery,
                 ("delivery", "medium") => catalog.Components.Templates.Delivery.MediumDelivery,
                 ("delivery", "hard") => catalog.Components.Templates.Delivery.HardDelivery,
-                
+
                 ("investigate", "easy") => catalog.Components.Templates.Investigate.EasyInvestigation,
                 ("investigate", "medium") => catalog.Components.Templates.Investigate.MediumInvestigation,
                 ("investigate", "hard") => catalog.Components.Templates.Investigate.HardInvestigation,
-                
+
                 _ => null
             };
-            
+
             if (templates == null || templates.Count == 0)
             {
                 return null;
             }
-            
+
             return WeightedSelector.SelectByRarityWeight(templates);
         }
         catch (Exception ex)
@@ -145,7 +145,7 @@ public static class QuestGenerator
             return null;
         }
     }
-    
+
     /// <summary>
     /// Select an appropriate quest location based on difficulty.
     /// </summary>
@@ -156,36 +156,36 @@ public static class QuestGenerator
             // Select location category based on difficulty
             var faker = new Faker();
             var locationType = faker.PickRandom("wilderness", "settlement", "dungeon");
-            
+
             var locations = (locationType, difficulty) switch
             {
                 ("wilderness", "easy") => catalog.Components.Locations.Wilderness.LowDanger,
                 ("wilderness", "medium") => catalog.Components.Locations.Wilderness.MediumDanger,
                 ("wilderness", "hard") => catalog.Components.Locations.Wilderness.HighDanger.Concat(
                     catalog.Components.Locations.Wilderness.VeryHighDanger).ToList(),
-                
+
                 ("settlement", "easy") => catalog.Components.Locations.Towns.Outposts.Concat(
                     catalog.Components.Locations.Towns.Villages).ToList(),
                 ("settlement", "medium") => catalog.Components.Locations.Towns.Towns.Concat(
                     catalog.Components.Locations.Towns.Cities).ToList(),
                 ("settlement", "hard") => catalog.Components.Locations.Towns.Capitals.Concat(
                     catalog.Components.Locations.Towns.SpecialLocations).ToList(),
-                
+
                 ("dungeon", "easy") => catalog.Components.Locations.Dungeons.EasyDungeons,
                 ("dungeon", "medium") => catalog.Components.Locations.Dungeons.MediumDungeons.Concat(
                     catalog.Components.Locations.Dungeons.HardDungeons).ToList(),
                 ("dungeon", "hard") => catalog.Components.Locations.Dungeons.VeryHardDungeons.Concat(
                     catalog.Components.Locations.Dungeons.EpicDungeons).Concat(
                     catalog.Components.Locations.Dungeons.LegendaryDungeons).ToList(),
-                
+
                 _ => null
             };
-            
+
             if (locations == null || locations.Count == 0)
             {
                 return null;
             }
-            
+
             return WeightedSelector.SelectByRarityWeight(locations);
         }
         catch (Exception ex)
@@ -194,7 +194,7 @@ public static class QuestGenerator
             return null;
         }
     }
-    
+
     /// <summary>
     /// Apply template-specific properties to the quest.
     /// </summary>
@@ -205,17 +205,17 @@ public static class QuestGenerator
         {
             quest.Quantity = faker.Random.Int(template.MinQuantity.Value, template.MaxQuantity.Value);
         }
-        
+
         // Apply time limit
         if (template.TimeLimit.HasValue)
         {
             quest.TimeLimit = template.TimeLimit.Value;
         }
-        
+
         // Store template name for reference
         quest.Traits["templateName"] = new TraitValue(template.Name, TraitType.String);
     }
-    
+
     /// <summary>
     /// Determine quest category (main, side, legendary) from template.
     /// </summary>
@@ -226,17 +226,17 @@ public static class QuestGenerator
         {
             return "legendary";
         }
-        
+
         // Check reward thresholds
         if (template.BaseGoldReward > 500 || template.BaseXpReward > 1000)
         {
             return "legendary";
         }
-        
+
         // Default to side quest
         return "side";
     }
-    
+
     /// <summary>
     /// Generate quest-specific details based on template and type.
     /// </summary>
@@ -260,14 +260,14 @@ public static class QuestGenerator
                 GenerateDeliveryQuestDetailsV4(quest, template, location, faker);
                 break;
         }
-        
+
         // Initialize objectives dictionary
         InitializeObjectives(quest);
-        
+
         // Calculate and apply rewards (Phase 4)
         CalculateRewards(quest, playerLevel: 1);
     }
-    
+
     /// <summary>
     /// Generate kill quest details using v4.0 template data.
     /// </summary>
@@ -275,7 +275,7 @@ public static class QuestGenerator
     {
         // Get target type from template
         quest.TargetType = template.TargetType ?? "beast";
-        
+
         // Generate specific enemy name
         int baseLevel = quest.Difficulty.ToLower() switch
         {
@@ -284,19 +284,19 @@ public static class QuestGenerator
             "hard" => 30,
             _ => 10
         };
-        
+
         var enemy = EnemyGenerator.GenerateByType(
             GetEnemyTypeFromString(quest.TargetType),
             baseLevel,
             GetDifficultyFromQuestDifficulty(quest.Difficulty)
         );
         quest.TargetName = enemy.Name;
-        
+
         // Scale rewards based on enemy strength
         quest.GoldReward = (int)(quest.GoldReward * (1 + enemy.Level * 0.1));
         quest.XpReward = (int)(quest.XpReward * (1 + enemy.Level * 0.1));
     }
-    
+
     /// <summary>
     /// Generate fetch quest details using v4.0 template data.
     /// </summary>
@@ -305,12 +305,12 @@ public static class QuestGenerator
         // Get item type from template
         var itemType = template.ItemType ?? "questitem";
         var itemRarity = template.ItemRarity ?? "common";
-        
+
         // Generate item name
         quest.TargetName = GenerateItemName(itemType, faker);
         quest.Traits["itemRarity"] = new TraitValue(itemRarity, TraitType.String);
     }
-    
+
     /// <summary>
     /// Generate escort quest details using v4.0 template data.
     /// </summary>
@@ -321,14 +321,14 @@ public static class QuestGenerator
         var npc = NpcGenerator.Generate();
         quest.TargetName = npc.Name;
         quest.Traits["npcType"] = new TraitValue(npcType, TraitType.String);
-        
+
         // Use provided location or generate one
         if (location != null)
         {
             quest.Location = location.DisplayName;
         }
     }
-    
+
     /// <summary>
     /// Generate investigate quest details using v4.0 template data.
     /// </summary>
@@ -336,14 +336,14 @@ public static class QuestGenerator
     {
         // Quantity represents number of clues
         quest.TargetName = "clues";
-        
+
         // Store investigation type
         if (!string.IsNullOrEmpty(template.Location))
         {
             quest.Traits["investigationType"] = new TraitValue(template.Location, TraitType.String);
         }
     }
-    
+
     /// <summary>
     /// Generate delivery quest details using v4.0 template data.
     /// </summary>
@@ -351,26 +351,26 @@ public static class QuestGenerator
     {
         // Generate package name
         quest.TargetName = faker.PickRandom("Package", "Letter", "Crate", "Parcel", "Documents", "Sealed Box");
-        
+
         // Mark if urgent or fragile
         if (template.Urgent.HasValue && template.Urgent.Value)
         {
             quest.Traits["urgent"] = new TraitValue(true, TraitType.Boolean);
             quest.TimeLimit = faker.Random.Int(2, 6); // 2-6 hours for urgent deliveries
         }
-        
+
         if (template.ItemFragile.HasValue && template.ItemFragile.Value)
         {
             quest.Traits["fragile"] = new TraitValue(true, TraitType.Boolean);
         }
-        
+
         // Use provided location
         if (location != null)
         {
             quest.Location = location.DisplayName;
         }
     }
-    
+
     /// <summary>
     /// Populate variables in quest description (e.g., {quantity}, {target}, {location}).
     /// </summary>
@@ -380,7 +380,7 @@ public static class QuestGenerator
         {
             return;
         }
-        
+
         quest.Description = quest.Description
             .Replace("{quantity}", quest.Quantity.ToString())
             .Replace("{target}", quest.TargetName)
@@ -395,7 +395,7 @@ public static class QuestGenerator
     private static void AssignQuestGiver(Quest quest, Faker faker)
     {
         var npc = NpcGenerator.Generate();
-        
+
         // Make sure NPC can give quests (check questGiverChance trait)
         if (npc.Traits.ContainsKey("questGiverChance"))
         {
@@ -406,11 +406,11 @@ public static class QuestGenerator
                 npc = NpcGenerator.Generate();
             }
         }
-        
+
         quest.QuestGiverId = npc.Id;
         quest.QuestGiverName = npc.Name;
     }
-    
+
     /// <summary>
     /// Generate a default fallback quest.
     /// </summary>
@@ -427,7 +427,7 @@ public static class QuestGenerator
             Quantity = 1
         };
     }
-    
+
     /// <summary>
     /// Convert quest difficulty to enemy difficulty.
     /// </summary>
@@ -441,7 +441,7 @@ public static class QuestGenerator
             _ => EnemyDifficulty.Normal
         };
     }
-    
+
     /// <summary>
     /// Convert target type string to EnemyType enum.
     /// </summary>
@@ -458,7 +458,7 @@ public static class QuestGenerator
             _ => EnemyType.Beast
         };
     }
-    
+
     /// <summary>
     /// Generate a location based on target type.
     /// </summary>
@@ -477,7 +477,7 @@ public static class QuestGenerator
             _ => faker.PickRandom("Mysterious Item", "Unknown Object")
         };
     }
-    
+
     /// <summary>
     /// Select a primary objective matching quest type and difficulty using v4.0 catalog.
     /// </summary>
@@ -488,7 +488,7 @@ public static class QuestGenerator
 
         // Get all primary objectives
         var allPrimary = new List<QuestObjective>();
-        
+
         if (catalog.Components.Primary.Combat != null)
             allPrimary.AddRange(catalog.Components.Primary.Combat);
         if (catalog.Components.Primary.Retrieval != null)
@@ -524,7 +524,7 @@ public static class QuestGenerator
         if (catalog?.Components?.Secondary == null) return null;
 
         var allSecondary = new List<QuestObjective>();
-        
+
         if (catalog.Components.Secondary.Stealth != null)
             allSecondary.AddRange(catalog.Components.Secondary.Stealth);
         if (catalog.Components.Secondary.Survival != null)
@@ -562,7 +562,7 @@ public static class QuestGenerator
         if (catalog?.Components?.Hidden == null) return null;
 
         var allHidden = new List<QuestObjective>();
-        
+
         if (catalog.Components.Hidden.Exploration != null)
             allHidden.AddRange(catalog.Components.Hidden.Exploration);
         if (catalog.Components.Hidden.Lore != null)
@@ -586,7 +586,7 @@ public static class QuestGenerator
 
         return WeightedSelector.SelectByRarityWeight(allHidden);
     }
-    
+
     /// <summary>
     /// Calculate and apply rewards (gold, XP, items) to quest using v4.0 rewards catalog (Phase 4).
     /// </summary>
@@ -616,13 +616,13 @@ public static class QuestGenerator
 
         // Apply bonus multipliers for objectives
         var bonusMultiplier = 1.0;
-        
+
         // Secondary objective: +25-50% bonus
         if (quest.Traits.ContainsKey("secondaryObjective"))
         {
             bonusMultiplier += 0.25 + (_random.NextDouble() * 0.25); // 25-50%
         }
-        
+
         // Hidden objective: +50-100% bonus
         if (quest.Traits.ContainsKey("hiddenObjective"))
         {
@@ -673,10 +673,10 @@ public static class QuestGenerator
         rewardTier = Math.Min(rewardTier, 6);
 
         var selectedItems = new List<string>();
-        
+
         // Get appropriate item pool
         var itemPool = new List<ItemReward>();
-        
+
         switch (rewardTier)
         {
             case 1: // Common
@@ -685,35 +685,35 @@ public static class QuestGenerator
                 if (catalog.Components.Items.CommonEquipment != null)
                     itemPool.AddRange(catalog.Components.Items.CommonEquipment);
                 break;
-                
+
             case 2: // Uncommon
                 if (catalog.Components.Items.UncommonEquipment != null)
                     itemPool.AddRange(catalog.Components.Items.UncommonEquipment);
                 if (catalog.Components.Items.ConsumableRewards != null)
                     itemPool.AddRange(catalog.Components.Items.ConsumableRewards);
                 break;
-                
+
             case 3: // Rare
                 if (catalog.Components.Items.RareEquipment != null)
                     itemPool.AddRange(catalog.Components.Items.RareEquipment);
                 if (catalog.Components.Items.UncommonEquipment != null)
                     itemPool.AddRange(catalog.Components.Items.UncommonEquipment);
                 break;
-                
+
             case 4: // Epic
                 if (catalog.Components.Items.EpicEquipment != null)
                     itemPool.AddRange(catalog.Components.Items.EpicEquipment);
                 if (catalog.Components.Items.RareEquipment != null)
                     itemPool.AddRange(catalog.Components.Items.RareEquipment);
                 break;
-                
+
             case 5: // Legendary
                 if (catalog.Components.Items.LegendaryEquipment != null)
                     itemPool.AddRange(catalog.Components.Items.LegendaryEquipment);
                 if (catalog.Components.Items.EpicEquipment != null)
                     itemPool.AddRange(catalog.Components.Items.EpicEquipment);
                 break;
-                
+
             case 6: // Mythic
                 if (catalog.Components.Items.MythicEquipment != null)
                     itemPool.AddRange(catalog.Components.Items.MythicEquipment);
@@ -724,7 +724,7 @@ public static class QuestGenerator
 
         // Select 1-2 items using weighted selection
         var itemCount = _random.Next(1, 3); // 1 or 2 items
-        
+
         for (int i = 0; i < itemCount && itemPool.Any(); i++)
         {
             var selectedReward = WeightedSelector.SelectByRarityWeight(itemPool);
@@ -738,29 +738,29 @@ public static class QuestGenerator
 
         // Store item rewards
         quest.ItemRewards = selectedItems;
-        
+
         // Store reward tier in traits for reference
         quest.Traits["rewardTier"] = new TraitValue(rewardTier, TraitType.Number);
     }
-    
+
     /// <summary>
     /// Initialize objectives dictionary for quest tracking using v4.0 objectives catalog (Phase 3).
     /// </summary>
     private static void InitializeObjectives(Quest quest)
     {
         var catalog = GameDataService.Instance.QuestObjectives;
-        
+
         if (catalog?.Components != null)
         {
             // V4.0: Use weighted objective selection from catalog
-            
+
             // Select primary objective (required - always added)
             var primaryObjective = SelectPrimaryObjective(quest.QuestType, quest.Difficulty);
             if (primaryObjective != null)
             {
                 quest.Objectives[primaryObjective.DisplayName] = quest.Quantity;
                 quest.ObjectiveProgress[primaryObjective.DisplayName] = 0;
-                
+
                 // Store objective metadata in traits for later reference
                 quest.Traits["primaryObjective"] = new TraitValue(primaryObjective.Name, TraitType.String);
             }
@@ -802,7 +802,7 @@ public static class QuestGenerator
                         quest.ObjectiveProgress[$"Kill {quest.TargetName}"] = 0;
                     }
                     break;
-                    
+
                 case "fetch":
                     if (!string.IsNullOrEmpty(quest.TargetName))
                     {
@@ -810,7 +810,7 @@ public static class QuestGenerator
                         quest.ObjectiveProgress[$"Collect {quest.TargetName}"] = 0;
                     }
                     break;
-                    
+
                 case "escort":
                     if (!string.IsNullOrEmpty(quest.TargetName))
                     {
@@ -818,12 +818,12 @@ public static class QuestGenerator
                         quest.ObjectiveProgress[$"Escort {quest.TargetName} to {quest.Location}"] = 0;
                     }
                     break;
-                    
+
                 case "investigate":
                     quest.Objectives[$"Investigate {quest.Location}"] = 1;
                     quest.ObjectiveProgress[$"Investigate {quest.Location}"] = 0;
                     break;
-                    
+
                 case "delivery":
                     if (!string.IsNullOrEmpty(quest.TargetName))
                     {

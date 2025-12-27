@@ -16,7 +16,7 @@ public class JsonEditorService
     {
         _dataDirectory = dataDirectory;
         _backupDirectory = Path.Combine(dataDirectory, "backups");
-        
+
         // Ensure backup directory exists
         if (!Directory.Exists(_backupDirectory))
         {
@@ -35,7 +35,7 @@ public class JsonEditorService
         try
         {
             var filePath = Path.Combine(_dataDirectory, fileName);
-            
+
             if (!File.Exists(filePath))
             {
                 Log.Warning("JSON file not found: {FilePath}", filePath);
@@ -44,7 +44,7 @@ public class JsonEditorService
 
             var json = File.ReadAllText(filePath);
             var data = JsonConvert.DeserializeObject<T>(json);
-            
+
             Log.Information("Loaded JSON file: {FileName}", fileName);
             return data;
         }
@@ -66,7 +66,7 @@ public class JsonEditorService
         try
         {
             var filePath = Path.Combine(_dataDirectory, fileName);
-            
+
             // Create backup if file exists
             if (File.Exists(filePath))
             {
@@ -76,7 +76,7 @@ public class JsonEditorService
             // Serialize with formatting for readability
             var json = JsonConvert.SerializeObject(data, Formatting.Indented);
             File.WriteAllText(filePath, json);
-            
+
             Log.Information("Saved JSON file: {FileName}", fileName);
         }
         catch (Exception ex)
@@ -95,7 +95,7 @@ public class JsonEditorService
         try
         {
             var sourcePath = Path.Combine(_dataDirectory, fileName);
-            
+
             if (!File.Exists(sourcePath))
             {
                 Log.Warning("Cannot create backup - source file not found: {FilePath}", sourcePath);
@@ -110,7 +110,7 @@ public class JsonEditorService
             var backupPath = Path.Combine(_backupDirectory, backupFileName);
 
             File.Copy(sourcePath, backupPath, overwrite: false);
-            
+
             Log.Information("Created backup: {BackupFileName}", backupFileName);
         }
         catch (Exception ex)
@@ -153,11 +153,11 @@ public class JsonEditorService
             var fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileName);
             var extension = Path.GetExtension(fileName);
             var pattern = $"{fileNameWithoutExt}_*{extension}";
-            
+
             var backups = Directory.GetFiles(_backupDirectory, pattern);
             Array.Sort(backups);
             Array.Reverse(backups); // Most recent first
-            
+
             return backups;
         }
         catch (Exception ex)

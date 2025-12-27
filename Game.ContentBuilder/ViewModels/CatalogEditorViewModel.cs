@@ -404,7 +404,7 @@ public partial class CatalogEditorViewModel : ObservableObject
         try
         {
             var filePath = _jsonEditorService.GetFilePath(_storedFileName);
-            
+
             // Rebuild type catalogs
             foreach (var catalog in TypeCatalogs)
             {

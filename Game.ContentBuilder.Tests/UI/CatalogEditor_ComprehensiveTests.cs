@@ -395,8 +395,8 @@ public class CatalogEditor_ComprehensiveTests
         // Arrange - Expand the metadata expander first
         var metadataExpander = _mainWindow.FindFirstDescendant(cf =>
             cf.ByAutomationId("MetadataExpander"));
-        
-        if (metadataExpander?.Patterns.ExpandCollapse.IsSupported == true && 
+
+        if (metadataExpander?.Patterns.ExpandCollapse.IsSupported == true &&
             metadataExpander.Patterns.ExpandCollapse.Pattern.ExpandCollapseState == FlaUI.Core.Definitions.ExpandCollapseState.Collapsed)
         {
             metadataExpander.Patterns.ExpandCollapse.Pattern.Expand();
@@ -420,8 +420,8 @@ public class CatalogEditor_ComprehensiveTests
         // Arrange - Expand the metadata expander first
         var metadataExpander = _mainWindow.FindFirstDescendant(cf =>
             cf.ByAutomationId("MetadataExpander"));
-        
-        if (metadataExpander?.Patterns.ExpandCollapse.IsSupported == true && 
+
+        if (metadataExpander?.Patterns.ExpandCollapse.IsSupported == true &&
             metadataExpander.Patterns.ExpandCollapse.Pattern.ExpandCollapseState == FlaUI.Core.Definitions.ExpandCollapseState.Collapsed)
         {
             metadataExpander.Patterns.ExpandCollapse.Pattern.Expand();

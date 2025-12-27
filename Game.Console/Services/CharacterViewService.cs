@@ -12,20 +12,20 @@ public class CharacterViewService
 {
     private readonly IConsoleUI _console;
     private readonly IEquipmentSetRepository _equipmentSetRepository;
-    
+
     public CharacterViewService(IConsoleUI console, IEquipmentSetRepository equipmentSetRepository)
     {
         _console = console;
         _equipmentSetRepository = equipmentSetRepository;
     }
-    
+
     /// <summary>
     /// Display comprehensive character statistics.
     /// </summary>
     public void ViewCharacter(Character player)
     {
         _console.Clear();
-        
+
         // Basic stats
         var statsContent = $"""
         [yellow]Name:[/] {player.Name} ([cyan]{player.ClassName}[/])
@@ -37,7 +37,7 @@ public class CharacterViewService
         """;
 
         _console.ShowPanel("Character Stats", statsContent, "green");
-        
+
         // D20 Attributes
         var attributesContent = $"""
         [red]Strength (STR):[/] {player.Strength}
@@ -47,10 +47,10 @@ public class CharacterViewService
         [blue]Wisdom (WIS):[/] {player.Wisdom}
         [yellow]Charisma (CHA):[/] {player.Charisma}
         """;
-        
+
         System.Console.WriteLine();
         _console.ShowPanel("D20 Attributes", attributesContent, "cyan");
-        
+
         // Derived stats with skill bonuses
         var derivedContent = $"""
         [red]Physical Damage:[/] {player.GetPhysicalDamageBonus()} (+{(SkillEffectCalculator.GetPhysicalDamageMultiplier(player) - 1.0) * 100:F0}% from skills)
@@ -61,17 +61,17 @@ public class CharacterViewService
         [blue]Magic Resistance:[/] {player.GetMagicResistance():F1}%
         [gold1]Rare Find:[/] {player.GetRareItemChance():F1}%
         """;
-        
+
         System.Console.WriteLine();
         _console.ShowPanel("Combat Stats", derivedContent, "yellow");
-        
+
         // Show learned skills
         if (player.LearnedSkills.Any())
         {
             System.Console.WriteLine();
             _console.WriteColoredText("[bold cyan]📚 Learned Skills:[/]");
             System.Console.WriteLine();
-            
+
             foreach (var skill in player.LearnedSkills.OrderBy(s => s.Type))
             {
                 var typeColor = skill.Type switch
@@ -83,11 +83,11 @@ public class CharacterViewService
                     SkillType.Passive => "green",
                     _ => "white"
                 };
-                
+
                 _console.WriteColoredText($"  [{typeColor}]{skill.Name}[/] [dim](Rank {skill.CurrentRank}/{skill.MaxRank})[/] - {skill.Description}");
             }
         }
-        
+
         // Show active skill bonuses
         var bonusSummary = SkillEffectCalculator.GetSkillBonusSummary(player);
         if (!bonusSummary.Contains("No active"))
@@ -95,11 +95,11 @@ public class CharacterViewService
             System.Console.WriteLine();
             _console.ShowPanel("Active Skill Bonuses", bonusSummary, "green");
         }
-        
+
         System.Console.WriteLine();
         _console.PressAnyKey();
     }
-    
+
     /// <summary>
     /// Review the final character before starting the game.
     /// </summary>
@@ -107,7 +107,7 @@ public class CharacterViewService
     {
         _console.Clear();
         _console.ShowBanner("Character Summary", "Your Hero Awaits");
-        
+
         var summary = new List<string>();
         summary.Add($"[yellow]Name:[/] {character.Name}");
         summary.Add($"[cyan]Class:[/] {character.ClassName}");
@@ -127,25 +127,25 @@ public class CharacterViewService
         summary.Add($"  [yellow]Gold:[/]   {character.Gold}");
         summary.Add("");
         summary.Add($"[underline yellow]Starting Equipment:[/] {character.Inventory.Count} items");
-        
+
         _console.ShowPanel("Your Character", string.Join("\n", summary), "cyan");
-        
+
         _console.PressAnyKey("Press any key to begin your adventure");
     }
-    
+
     /// <summary>
     /// Display equipment and stats for a character.
     /// </summary>
     public string GetEquipmentDisplay(Character player)
     {
         var lines = new List<string>();
-        
+
         // Weapons
         lines.Add("[underline yellow]Weapons & Off-hand[/]");
         lines.Add($"  [yellow]Main Hand:[/] {GetItemDisplay(player.EquippedMainHand)}");
         lines.Add($"  [yellow]Off Hand:[/]  {GetItemDisplay(player.EquippedOffHand)}");
         lines.Add("");
-        
+
         // Armor
         lines.Add("[underline yellow]Armor[/]");
         lines.Add($"  [yellow]Helmet:[/]    {GetItemDisplay(player.EquippedHelmet)}");
@@ -157,14 +157,14 @@ public class CharacterViewService
         lines.Add($"  [yellow]Legs:[/]      {GetItemDisplay(player.EquippedLegs)}");
         lines.Add($"  [yellow]Boots:[/]     {GetItemDisplay(player.EquippedBoots)}");
         lines.Add("");
-        
+
         // Jewelry
         lines.Add("[underline yellow]Jewelry[/]");
         lines.Add($"  [yellow]Necklace:[/]  {GetItemDisplay(player.EquippedNecklace)}");
         lines.Add($"  [yellow]Ring 1:[/]    {GetItemDisplay(player.EquippedRing1)}");
         lines.Add($"  [yellow]Ring 2:[/]    {GetItemDisplay(player.EquippedRing2)}");
         lines.Add("");
-        
+
         // D20 Attributes
         lines.Add("[underline yellow]Attributes[/]");
         var allSets = _equipmentSetRepository.GetAll();
@@ -175,7 +175,7 @@ public class CharacterViewService
         lines.Add($"  [blue]Wisdom (WIS):[/]        {player.GetTotalWisdom(allSets)} ([grey]{player.Wisdom} base[/])");
         lines.Add($"  [cyan]Charisma (CHA):[/]      {player.GetTotalCharisma(allSets)} ([grey]{player.Charisma} base[/])");
         lines.Add("");
-        
+
         // Derived Stats
         lines.Add("[underline yellow]Derived Stats[/]");
         lines.Add($"  [red]Physical Damage:[/] +{player.GetPhysicalDamageBonus()}");
@@ -186,21 +186,21 @@ public class CharacterViewService
         lines.Add($"  [cyan]Magic Resist:[/]     {player.GetMagicResistance():F1}%");
         lines.Add($"  [magenta]Shop Discount:[/]   {player.GetShopDiscount():F1}%");
         lines.Add($"  [white]Rare Find:[/]        {player.GetRareItemChance():F1}%");
-        
+
         // Active Equipment Sets
         var activeSets = player.GetActiveEquipmentSets();
         if (activeSets.Any())
         {
             lines.Add("");
             lines.Add("[underline yellow]Active Equipment Sets[/]");
-            
+
             foreach (var (setName, piecesEquipped) in activeSets)
             {
                 var set = allSets.FirstOrDefault(s => s.Name == setName);
                 if (set != null)
                 {
                     lines.Add($"  [cyan]{setName}:[/] {piecesEquipped}/{set.SetItemNames.Count} pieces");
-                    
+
                     // Show active bonuses
                     foreach (var (requiredPieces, bonus) in set.Bonuses.OrderBy(b => b.Key))
                     {
@@ -216,18 +216,18 @@ public class CharacterViewService
                 }
             }
         }
-        
+
         return string.Join("\n", lines);
     }
-    
+
     private string GetItemDisplay(Item? item)
     {
         if (item == null) return "[grey]Empty[/]";
-        
+
         var displayName = item.GetDisplayName();
         return $"{GetRarityColor(item.Rarity)}{displayName}[/]";
     }
-    
+
     public string GetRarityColor(ItemRarity rarity)
     {
         return rarity switch

@@ -15,7 +15,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
 {
     private readonly IAnsiConsole _console;
     private readonly ILogger<ConsoleUI>? _logger;
-    
+
     /// <summary>
     /// Constructor for dependency injection with logging.
     /// </summary>
@@ -26,7 +26,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
         _console = console ?? throw new ArgumentNullException(nameof(console));
         _logger = logger;
     }
-    
+
     /// <summary>
     /// Default constructor using the real AnsiConsole.
     /// </summary>
@@ -34,7 +34,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
     {
     }
     #region Private Helpers
-    
+
     /// <summary>
     /// Escapes markup characters in a string to prevent markup injection.
     /// </summary>
@@ -65,7 +65,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
             _ => Color.Default
         };
     }
-    
+
     /// <summary>
     /// Strip Spectre.Console markup from text for length calculations.
     /// </summary>
@@ -73,11 +73,11 @@ public class ConsoleUI : IGameUI, IConsoleUI
     {
         return System.Text.RegularExpressions.Regex.Replace(text, @"\[.*?\]", "");
     }
-    
+
     #endregion
 
     #region Banner & Text Output
-    
+
     /// <summary>
     /// Displays a large ASCII art title using FigletText.
     /// </summary>
@@ -86,31 +86,31 @@ public class ConsoleUI : IGameUI, IConsoleUI
         var figlet = new FigletText(EscapeMarkup(title))
             .Centered()
             .Color(color ?? Color.Yellow);
-        
+
         _console.Write(figlet);
         _console.WriteLine();
     }
-    
+
     /// <summary>
     /// Displays a horizontal rule with optional title.
     /// </summary>
     public void ShowRule(string? title = null, string style = "blue")
     {
-        var rule = title != null 
+        var rule = title != null
             ? new Rule($"[{style}]{EscapeMarkup(title)}[/]")
             : new Rule();
-        
+
         rule.RuleStyle(style);
         _console.Write(rule);
     }
-    
+
     /// <summary>
     /// Displays a welcome banner with styled text.
     /// </summary>
     public void ShowBanner(string title, string subtitle = "")
     {
         _logger?.LogDebug("ShowBanner: {Title}", title);
-        
+
         var rule = new Rule($"[bold yellow]{EscapeMarkup(title)}[/]");
         rule.RuleStyle("blue");
         _console.Write(rule);
@@ -159,10 +159,10 @@ public class ConsoleUI : IGameUI, IConsoleUI
     public int AskForNumber(string prompt, int min = int.MinValue, int max = int.MaxValue)
     {
         _logger?.LogDebug("AskForNumber: {Prompt} (min: {Min}, max: {Max})", prompt, min, max);
-        
+
         // Escape markup in prompt to prevent injection
         var safePrompt = prompt.Replace("[", "[[").Replace("]", "]]");
-        
+
         var number = _console.Prompt(
             new TextPrompt<int>($"[green]{safePrompt}[/]")
                 .ValidationErrorMessage($"[red]Please enter a number between {min} and {max}[/]")
@@ -170,7 +170,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
                     ? ValidationResult.Success()
                     : ValidationResult.Error($"Number must be between {min} and {max}"))
         );
-        
+
         _logger?.LogInformation("User entered number: {Number} for prompt: {Prompt}", number, prompt);
         return number;
     }
@@ -181,10 +181,10 @@ public class ConsoleUI : IGameUI, IConsoleUI
     public string ShowMenu(string title, params string[] choices)
     {
         _logger?.LogDebug("ShowMenu: {Title} with {ChoiceCount} choices", title, choices.Length);
-        
+
         // Escape markup in title to prevent injection
         var safeTitle = title.Replace("[", "[[").Replace("]", "]]");
-        
+
         var selection = _console.Prompt(
             new SelectionPrompt<string>()
                 .Title($"[yellow]{safeTitle}[/]")
@@ -192,7 +192,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
                 .MoreChoicesText("[grey](Move up and down to reveal more options)[/]")
                 .AddChoices(choices)
         );
-        
+
         _logger?.LogInformation("User selected: {Selection} from menu: {Title}", selection, title);
         return selection;
     }
@@ -203,10 +203,10 @@ public class ConsoleUI : IGameUI, IConsoleUI
     public List<string> ShowMultiSelectMenu(string title, params string[] choices)
     {
         _logger?.LogDebug("ShowMultiSelectMenu: {Title} with {ChoiceCount} choices", title, choices.Length);
-        
+
         // Escape markup in title to prevent injection
         var safeTitle = title.Replace("[", "[[").Replace("]", "]]");
-        
+
         var selections = _console.Prompt(
             new MultiSelectionPrompt<string>()
                 .Title($"[yellow]{safeTitle}[/]")
@@ -215,8 +215,8 @@ public class ConsoleUI : IGameUI, IConsoleUI
                 .InstructionsText("[grey](Press [blue]<space>[/] to toggle, [green]<enter>[/] to accept)[/]")
                 .AddChoices(choices)
         );
-        
-        _logger?.LogInformation("User selected {Count} items from menu: {Title}: [{Selections}]", 
+
+        _logger?.LogInformation("User selected {Count} items from menu: {Title}: [{Selections}]",
             selections.Count, title, string.Join(", ", selections));
         return selections;
     }
@@ -227,11 +227,11 @@ public class ConsoleUI : IGameUI, IConsoleUI
     public bool Confirm(string question)
     {
         _logger?.LogDebug("Confirm: {Question}", question);
-        
+
         // Escape markup in question to prevent injection
         var safeQuestion = question.Replace("[", "[[").Replace("]", "]]");
         var result = _console.Confirm($"[yellow]{safeQuestion}[/]");
-        
+
         _logger?.LogInformation("User confirmed: {Result} for question: {Question}", result, question);
         return result;
     }
@@ -241,12 +241,12 @@ public class ConsoleUI : IGameUI, IConsoleUI
     /// </summary>
     public void ShowTable(string title, string[] headers, List<string[]> rows)
     {
-        _logger?.LogDebug("ShowTable: {Title} with {HeaderCount} columns and {RowCount} rows", 
+        _logger?.LogDebug("ShowTable: {Title} with {HeaderCount} columns and {RowCount} rows",
             title, headers.Length, rows.Count);
-        
+
         // Escape markup in title to prevent injection
         var safeTitle = title.Replace("[", "[[").Replace("]", "]]");
-        
+
         var table = new Table();
         table.Title = new TableTitle($"[bold yellow]{safeTitle}[/]");
         table.Border = TableBorder.Rounded;
@@ -276,7 +276,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
     public void ShowPanel(string title, string content, string borderColor = "blue")
     {
         _logger?.LogDebug("ShowPanel: {Title} (color: {Color})", title, borderColor);
-        
+
         var color = borderColor.ToLower() switch
         {
             "red" => Spectre.Console.Color.Red,
@@ -340,14 +340,14 @@ public class ConsoleUI : IGameUI, IConsoleUI
     public void ShowProgress(string description, Action<ProgressTask> action)
     {
         _logger?.LogDebug("ShowProgress: {Description}", description);
-        
+
         _console.Progress()
             .Start(ctx =>
             {
                 var task = ctx.AddTask($"[green]{description}[/]");
                 action(task);
             });
-        
+
         _logger?.LogDebug("Progress completed: {Description}", description);
     }
 
@@ -362,7 +362,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
     {
         return await _console.Status()
             .Spinner(Spinner.Known.Dots)
-            .StartAsync($"[yellow]{EscapeMarkup(message)}[/]", async ctx => 
+            .StartAsync($"[yellow]{EscapeMarkup(message)}[/]", async ctx =>
             {
                 return await asyncAction();
             });
@@ -375,7 +375,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
     {
         await _console.Status()
             .Spinner(Spinner.Known.Dots)
-            .StartAsync($"[yellow]{EscapeMarkup(message)}[/]", async ctx => 
+            .StartAsync($"[yellow]{EscapeMarkup(message)}[/]", async ctx =>
             {
                 await asyncAction();
             });
@@ -492,16 +492,16 @@ public class ConsoleUI : IGameUI, IConsoleUI
     {
         // Pad log entries to always show maxLogLines (fill with empty lines if needed)
         var paddedEntries = new List<string>();
-        
+
         // Add existing entries
         paddedEntries.AddRange(logEntries);
-        
+
         // Fill remaining space with empty lines to maintain consistent height
         while (paddedEntries.Count < maxLogLines)
         {
             paddedEntries.Add("[dim] [/]"); // Empty line with minimal markup
         }
-        
+
         // Create the log content with fixed height and width
         var logContent = string.Join("\n", paddedEntries);
 
@@ -583,11 +583,11 @@ public class ConsoleUI : IGameUI, IConsoleUI
     /// <summary>
     /// Displays character stats in a beautiful panel.
     /// </summary>
-    public void ShowCharacterStats(string name, int level, int health, int maxHealth, 
+    public void ShowCharacterStats(string name, int level, int health, int maxHealth,
         int mana, int maxMana, int gold, int experience)
     {
         _logger?.LogDebug("ShowCharacterStats: {Name} (Level {Level})", name, level);
-        
+
         var grid = new Grid();
         grid.AddColumn();
         grid.AddColumn();
@@ -597,7 +597,7 @@ public class ConsoleUI : IGameUI, IConsoleUI
         string healthColor = "red";
         if (healthPercent > 50) healthColor = "green";
         else if (healthPercent > 25) healthColor = "yellow";
-        
+
         grid.AddRow(
             new Markup("[bold cyan]Health:[/]"),
             new Markup($"[{healthColor}]{health}/{maxHealth}[/]")
@@ -667,9 +667,9 @@ public class ConsoleUI : IGameUI, IConsoleUI
     {
         var itemCount = items.Count();
         _logger?.LogDebug("ShowObjectMenu: {Title} with {ItemCount} items", title, itemCount);
-        
+
         var safeTitle = EscapeMarkup(title);
-        
+
         var selection = _console.Prompt(
             new SelectionPrompt<T>()
                 .Title($"[yellow]{safeTitle}[/]")
@@ -677,8 +677,8 @@ public class ConsoleUI : IGameUI, IConsoleUI
                 .UseConverter(item => EscapeMarkup(labelSelector(item)))
                 .AddChoices(items)
         );
-        
-        _logger?.LogInformation("User selected object from menu: {Title}: {Selection}", 
+
+        _logger?.LogInformation("User selected object from menu: {Title}: {Selection}",
             title, labelSelector(selection));
         return selection;
     }
@@ -689,13 +689,13 @@ public class ConsoleUI : IGameUI, IConsoleUI
     public string AskForPassword(string prompt)
     {
         _logger?.LogDebug("AskForPassword: {Prompt}", prompt);
-        
+
         var password = _console.Prompt(
             new TextPrompt<string>($"[green]{EscapeMarkup(prompt)}[/]")
                 .PromptStyle("red")
                 .Secret()
         );
-        
+
         _logger?.LogInformation("Password entered for prompt: {Prompt} (length: {Length})", prompt, password.Length);
         return password;
     }
@@ -706,14 +706,14 @@ public class ConsoleUI : IGameUI, IConsoleUI
     public string AskForInputWithDefault(string prompt, string defaultValue)
     {
         _logger?.LogDebug("AskForInputWithDefault: {Prompt} (default: {Default})", prompt, defaultValue);
-        
+
         var input = _console.Prompt(
             new TextPrompt<string>($"[green]{EscapeMarkup(prompt)}[/]")
                 .DefaultValue(defaultValue)
                 .ShowDefaultValue(true)
         );
-        
-        _logger?.LogInformation("User input with default: {Prompt}, entered: {Length} chars (used default: {UsedDefault})", 
+
+        _logger?.LogInformation("User input with default: {Prompt}, entered: {Length} chars (used default: {UsedDefault})",
             prompt, input.Length, input == defaultValue);
         return input;
     }
@@ -724,12 +724,12 @@ public class ConsoleUI : IGameUI, IConsoleUI
     public string AskForInputWithValidation(string prompt, Func<string, ValidationResult> validator)
     {
         _logger?.LogDebug("AskForInputWithValidation: {Prompt}", prompt);
-        
+
         var input = _console.Prompt(
             new TextPrompt<string>($"[green]{EscapeMarkup(prompt)}[/]")
                 .Validate(validator)
         );
-        
+
         _logger?.LogInformation("User input with validation: {Prompt}, entered: {Length} chars", prompt, input.Length);
         return input;
     }

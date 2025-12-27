@@ -9,12 +9,12 @@ namespace Game.Core.Services;
 public class LevelUpService
 {
     private readonly IGameUI _console;
-    
+
     public LevelUpService(IGameUI console)
     {
         _console = console;
     }
-    
+
     /// <summary>
     /// Process all pending level-ups for a character.
     /// </summary>
@@ -40,8 +40,8 @@ public class LevelUpService
         var processedCount = character.PendingLevelUps.Count(l => l.IsProcessed);
         if (processedCount > 5)
         {
-            character.PendingLevelUps.RemoveAll(l => 
-                l.IsProcessed && 
+            character.PendingLevelUps.RemoveAll(l =>
+                l.IsProcessed &&
                 l.NewLevel < character.Level - 5);
         }
     }
@@ -92,7 +92,7 @@ public class LevelUpService
     private async Task AllocateAttributePointsAsync(Character character)
     {
         _console.Clear();
-        
+
         var allocation = new AttributePointAllocation();
         bool done = false;
 
@@ -214,20 +214,20 @@ public class LevelUpService
                 character.Intelligence += allocation.IntelligencePoints;
                 character.Wisdom += allocation.WisdomPoints;
                 character.Charisma += allocation.CharismaPoints;
-                
+
                 character.UnspentAttributePoints -= allocation.TotalPointsAllocated;
-                
+
                 // Recalculate vitals with new CON/WIS
                 var oldMaxHealth = character.MaxHealth;
                 var oldMaxMana = character.MaxMana;
-                
+
                 character.MaxHealth = character.GetMaxHealth();
                 character.MaxMana = character.GetMaxMana();
-                
+
                 // Heal for the increased amount
                 character.Health += (character.MaxHealth - oldMaxHealth);
                 character.Mana += (character.MaxMana - oldMaxMana);
-                
+
                 _console.ShowSuccess("Attributes increased!");
                 await Task.Delay(300);
                 done = true;
@@ -292,10 +292,10 @@ public class LevelUpService
             else
             {
                 var selectedSkill = availableSkills[skillChoices.IndexOf(choice)];
-                
+
                 // Upgrade or learn the skill
                 var existingSkill = character.LearnedSkills.FirstOrDefault(s => s.Name == selectedSkill.Name);
-                
+
                 if (existingSkill != null)
                 {
                     existingSkill.CurrentRank++;

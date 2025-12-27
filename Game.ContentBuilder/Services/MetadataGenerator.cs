@@ -35,7 +35,7 @@ public static class MetadataGenerator
             // User-defined fields
             ["description"] = description,
             ["version"] = version,
-            
+
             // Auto-generated fields
             ["lastUpdated"] = DateTime.Now.ToString("yyyy-MM-dd"),
             ["type"] = InferFileType(componentGroupsList, patternsList, itemsList),

@@ -13,12 +13,12 @@ public class ConsoleSink : ILogEventSink
         var message = logEvent.RenderMessage();
         var level = logEvent.Level.ToString().ToUpper();
         var formattedMessage = $"[{level}] {message}";
-        
+
         if (logEvent.Exception != null)
         {
             formattedMessage += $"\n{logEvent.Exception}";
         }
-        
+
         MainWindow.AddLog(formattedMessage);
     }
 }

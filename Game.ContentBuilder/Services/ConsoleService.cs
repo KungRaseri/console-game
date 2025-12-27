@@ -17,7 +17,7 @@ public static class ConsoleService
         Application.Current.Dispatcher.Invoke(() =>
         {
             Logs.Add($"[{timestamp}] {message}");
-            
+
             // Keep only last 1000 messages
             while (Logs.Count > 1000)
             {

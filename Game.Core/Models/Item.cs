@@ -13,22 +13,22 @@ public class Item : ITraitable
     public int Price { get; set; }
     public ItemRarity Rarity { get; set; } = ItemRarity.Common;
     public ItemType Type { get; set; } = ItemType.Consumable;
-    
+
     // Trait system - flexible properties defined in JSON
     public Dictionary<string, TraitValue> Traits { get; set; } = new();
-    
+
     // Equipment set
     public string? SetName { get; set; }
-    
+
     // Weapon properties
     public bool IsTwoHanded { get; set; } = false;
-    
+
     // Enchantments applied to this item
     public List<Enchantment> Enchantments { get; set; } = new();
-    
+
     // Upgrade level (+1, +2, +3, etc.)
     public int UpgradeLevel { get; set; } = 0;
-    
+
     // D20 Attribute Bonuses - bonuses provided by this item
     public int BonusStrength { get; set; } = 0;
     public int BonusDexterity { get; set; } = 0;
@@ -109,22 +109,22 @@ public class Item : ITraitable
     public string GetDisplayName()
     {
         var nameParts = new List<string>();
-        
+
         // Add upgrade level prefix
         if (UpgradeLevel > 0)
         {
             nameParts.Add($"+{UpgradeLevel}");
         }
-        
+
         // Add base name
         nameParts.Add(Name);
-        
+
         // Add enchantment suffixes
         foreach (var enchantment in Enchantments)
         {
             nameParts.Add($"({enchantment.Name})");
         }
-        
+
         return string.Join(" ", nameParts);
     }
 }

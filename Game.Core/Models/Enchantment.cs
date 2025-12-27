@@ -9,7 +9,7 @@ public class Enchantment
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public EnchantmentRarity Rarity { get; set; } = EnchantmentRarity.Minor;
-    
+
     // D20 Attribute Bonuses
     public int BonusStrength { get; set; } = 0;
     public int BonusDexterity { get; set; } = 0;
@@ -17,10 +17,10 @@ public class Enchantment
     public int BonusIntelligence { get; set; } = 0;
     public int BonusWisdom { get; set; } = 0;
     public int BonusCharisma { get; set; } = 0;
-    
+
     // Special effects (for display/future implementation)
     public string? SpecialEffect { get; set; }
-    
+
     // Enchantment level (+1, +2, +3, etc.)
     public int Level { get; set; } = 1;
 }

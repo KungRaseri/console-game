@@ -33,11 +33,11 @@ public class WorkflowTests
         // The main window should be loaded and have a tree view
         _mainWindow.Should().NotBeNull();
         _mainWindow.IsOffscreen.Should().BeFalse();
-        
+
         // Should have a tree with categories
         var tree = _mainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.Tree));
         tree.Should().NotBeNull("Should have a tree view for categories");
-        
+
         // Should have some tree items
         var treeItems = tree!.FindAllDescendants(cf => cf.ByControlType(ControlType.TreeItem));
         treeItems.Should().NotBeEmpty("Should have at least one category in the tree");
@@ -54,7 +54,7 @@ public class WorkflowTests
 
         // Get all tree items
         var allItems = tree!.FindAllDescendants(cf => cf.ByControlType(ControlType.TreeItem));
-        
+
         // Find a Names item - look under Beasts
         AutomationElement? namesItem = null;
         foreach (var item in allItems)
@@ -65,28 +65,28 @@ public class WorkflowTests
                 {
                     item.AsTreeItem().Expand();
                     Thread.Sleep(500);
-                    
+
                     var beastsChildren = item.FindAllDescendants(cf => cf.ByControlType(ControlType.TreeItem));
                     namesItem = beastsChildren.FirstOrDefault(child =>
                     {
                         try { return child.Name.Equals("Names", StringComparison.OrdinalIgnoreCase); }
                         catch { return false; }
                     });
-                    
+
                     if (namesItem != null) break;
                 }
             }
             catch { }
         }
-        
+
         namesItem.Should().NotBeNull("Should find Names under Beasts");
-        
+
         // Select it using TreeItem.Select()
         namesItem!.AsTreeItem().Select();
         Thread.Sleep(3000);
-        
+
         // Verify name list editor loaded - look for any content
-        var contentArea = _mainWindow.FindFirstDescendant(cf => 
+        var contentArea = _mainWindow.FindFirstDescendant(cf =>
             cf.ByControlType(ControlType.Custom).Or(cf.ByControlType(ControlType.Pane)));
         contentArea.Should().NotBeNull("Name list editor should load");
     }
@@ -98,13 +98,13 @@ public class WorkflowTests
     {
         // Navigate to catalog to load the editor
         NavigateToCatalog();
-        
+
         _output.WriteLine("\n=== ALL ELEMENTS IN MAIN WINDOW ===");
-        
+
         // Get ALL descendants
         var allElements = _mainWindow.FindAllDescendants();
         _output.WriteLine($"Total elements found: {allElements.Length}");
-        
+
         foreach (var elem in allElements)
         {
             try
@@ -113,7 +113,7 @@ public class WorkflowTests
                 var name = elem.Properties.Name.ValueOrDefault ?? "(none)";
                 var controlType = elem.Properties.ControlType.ValueOrDefault.ToString();
                 var className = elem.Properties.ClassName.ValueOrDefault ?? "(none)";
-                
+
                 _output.WriteLine($"Type: {controlType,-20} | AutomationId: {automationId,-30} | Name: {name,-30} | Class: {className}");
             }
             catch (Exception ex)
@@ -121,11 +121,11 @@ public class WorkflowTests
                 _output.WriteLine($"Error reading element: {ex.Message}");
             }
         }
-        
+
         _output.WriteLine("\n=== SEARCHING FOR CategoryList ===");
         var categoryList = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("CategoryList"));
         _output.WriteLine($"CategoryList found: {categoryList != null}");
-        
+
         _output.WriteLine("\n=== SEARCHING FOR ItemAddButton ===");
         var addButton = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("ItemAddButton"));
         _output.WriteLine($"ItemAddButton found: {addButton != null}");
@@ -143,7 +143,7 @@ public class WorkflowTests
         // Find any "Catalog" item - search all tree items
         var allItems = tree!.FindAllDescendants(cf => cf.ByControlType(ControlType.TreeItem));
         AutomationElement? catalogItem = null;
-        
+
         // Look for Catalog under Materials
         foreach (var item in allItems)
         {
@@ -154,7 +154,7 @@ public class WorkflowTests
                     // Expand Materials
                     item.AsTreeItem().Expand();
                     Thread.Sleep(500);
-                    
+
                     // Now search for Catalog under Materials
                     var materialsChildren = item.FindAllDescendants(cf => cf.ByControlType(ControlType.TreeItem));
                     catalogItem = materialsChildren.FirstOrDefault(child =>
@@ -162,22 +162,22 @@ public class WorkflowTests
                         try { return child.Name.Equals("Catalog", StringComparison.OrdinalIgnoreCase); }
                         catch { return false; }
                     });
-                    
+
                     if (catalogItem != null) break;
                 }
             }
             catch { }
         }
-        
+
         catalogItem.Should().NotBeNull("Should find Catalog under Materials");
-        
+
         // Select it using TreeItem.Select() to trigger SelectedItemChanged event
         catalogItem!.AsTreeItem().Select();
         Thread.Sleep(3000); // Give editor time to load
-        
+
         // Now that AutomationIds are added to CatalogEditorView, verify we can find elements
         _output.WriteLine("\n=== Searching for CatalogTreeView ===");
-        
+
         var catalogTreeView = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("CatalogTreeView"));
         catalogTreeView.Should().NotBeNull("CatalogTreeView should be found with AutomationId");
         _output.WriteLine($"SUCCESS! Found CatalogTreeView - elements inside ContentControl are accessible!");
@@ -190,19 +190,19 @@ public class WorkflowTests
     {
         // Navigate to catalog
         NavigateToCatalog();
-        
+
         // Now that AutomationIds are added, find the Add Item button directly
         _output.WriteLine("\n=== Searching for ItemAddButton ===");
-        
+
         var addButton = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("ItemAddButton"));
         addButton.Should().NotBeNull("ItemAddButton should be found with AutomationId");
         _output.WriteLine($"SUCCESS! Found ItemAddButton via AutomationId");
-        
+
         // Click the button
         addButton!.AsButton().Click();
         Thread.Sleep(1000);
         _output.WriteLine($"Add Item button clicked successfully");
-        
+
         // The button click should work - full verification would check if item was added
         // For now, just verify the button was clickable
         addButton.Should().NotBeNull("Button should remain accessible after click");
@@ -212,7 +212,7 @@ public class WorkflowTests
     {
         var tree = _mainWindow.FindFirstDescendant(cf => cf.ByAutomationId("CategoryTreeView"));
         var allItems = tree!.FindAllDescendants(cf => cf.ByControlType(ControlType.TreeItem));
-        
+
         AutomationElement? catalogItem = null;
         foreach (var item in allItems)
         {
@@ -222,20 +222,20 @@ public class WorkflowTests
                 {
                     item.AsTreeItem().Expand();
                     Thread.Sleep(500);
-                    
+
                     var materialsChildren = item.FindAllDescendants(cf => cf.ByControlType(ControlType.TreeItem));
                     catalogItem = materialsChildren.FirstOrDefault(child =>
                     {
                         try { return child.Name.Equals("Catalog", StringComparison.OrdinalIgnoreCase); }
                         catch { return false; }
                     });
-                    
+
                     if (catalogItem != null) break;
                 }
             }
             catch { }
         }
-        
+
         catalogItem!.AsTreeItem().Select();
         Thread.Sleep(1000);
     }

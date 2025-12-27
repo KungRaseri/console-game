@@ -18,8 +18,8 @@ public class InventoryOrchestrator
     private readonly CharacterViewService _characterView;
 
     public InventoryOrchestrator(
-        IMediator mediator, 
-        MenuService menuService, 
+        IMediator mediator,
+        MenuService menuService,
         IConsoleUI console,
         CharacterViewService characterView)
     {
@@ -45,7 +45,7 @@ public class InventoryOrchestrator
         while (inInventory)
         {
             System.Console.WriteLine();
-            
+
             // Display inventory summary
             var inventoryCount = player.Inventory.Count;
             var totalValue = player.Inventory.Sum(i => i.Price);
@@ -54,7 +54,7 @@ public class InventoryOrchestrator
             {
                 _console.ShowInfo("Your inventory is empty.");
                 _console.ShowPanel("Equipment", _characterView.GetEquipmentDisplay(player), "cyan");
-                
+
                 if (!_console.Confirm("Return to game?"))
                 {
                     continue;
@@ -80,7 +80,7 @@ public class InventoryOrchestrator
 
             foreach (var group in itemsByType)
             {
-                var itemList = string.Join(", ", group.Select(i => 
+                var itemList = string.Join(", ", group.Select(i =>
                     $"{i.Name} ({_characterView.GetRarityColor(i.Rarity)}{i.Rarity}[/])"));
                 table.AddRow($"[cyan]{group.Key}[/]", itemList);
             }
@@ -131,7 +131,7 @@ public class InventoryOrchestrator
         if (item == null) return;
 
         System.Console.WriteLine();
-        
+
         var detailLines = new List<string>
         {
             $"[yellow]Name:[/] {item.GetDisplayName()}",
@@ -139,47 +139,47 @@ public class InventoryOrchestrator
             $"[yellow]Rarity:[/] {_characterView.GetRarityColor(item.Rarity)}{item.Rarity}[/]",
             $"[yellow]Value:[/] {item.Price} gold"
         };
-        
+
         // Show upgrade level
         if (item.UpgradeLevel > 0)
         {
             detailLines.Add($"[cyan]⬆ Upgrade Level: +{item.UpgradeLevel}[/] (+{item.UpgradeLevel * 2} to all stats)");
         }
-        
+
         // Show two-handed indicator
         if (item.IsTwoHanded)
         {
             detailLines.Add($"[red]⚔️ Two-Handed Weapon[/]");
         }
-        
+
         // Show set membership
         if (!string.IsNullOrEmpty(item.SetName))
         {
             detailLines.Add($"[cyan]Set: {item.SetName}[/]");
         }
-        
+
         // Show stats if item has any bonuses
-        bool hasStats = item.BonusStrength > 0 || item.BonusDexterity > 0 || item.BonusConstitution > 0 
+        bool hasStats = item.BonusStrength > 0 || item.BonusDexterity > 0 || item.BonusConstitution > 0
                         || item.BonusIntelligence > 0 || item.BonusWisdom > 0 || item.BonusCharisma > 0;
-        
+
         if (hasStats)
         {
             detailLines.Add("");
             detailLines.Add("[underline]Base Bonuses:[/]");
-            if (item.BonusStrength > 0) 
+            if (item.BonusStrength > 0)
                 detailLines.Add($"  [red]+{item.BonusStrength} Strength[/]");
-            if (item.BonusDexterity > 0) 
+            if (item.BonusDexterity > 0)
                 detailLines.Add($"  [green]+{item.BonusDexterity} Dexterity[/]");
-            if (item.BonusConstitution > 0) 
+            if (item.BonusConstitution > 0)
                 detailLines.Add($"  [yellow]+{item.BonusConstitution} Constitution[/]");
-            if (item.BonusIntelligence > 0) 
+            if (item.BonusIntelligence > 0)
                 detailLines.Add($"  [purple]+{item.BonusIntelligence} Intelligence[/]");
-            if (item.BonusWisdom > 0) 
+            if (item.BonusWisdom > 0)
                 detailLines.Add($"  [blue]+{item.BonusWisdom} Wisdom[/]");
-            if (item.BonusCharisma > 0) 
+            if (item.BonusCharisma > 0)
                 detailLines.Add($"  [cyan]+{item.BonusCharisma} Charisma[/]");
         }
-        
+
         // Show enchantments
         if (item.Enchantments.Any())
         {
@@ -196,28 +196,28 @@ public class InventoryOrchestrator
                     EnchantmentRarity.Legendary => "orange1",
                     _ => "white"
                 };
-                
+
                 detailLines.Add($"  [{enchantColor}]{enchantment.Name}[/]");
-                if (enchantment.BonusStrength > 0) 
+                if (enchantment.BonusStrength > 0)
                     detailLines.Add($"    [red]+{enchantment.BonusStrength} Strength[/]");
-                if (enchantment.BonusDexterity > 0) 
+                if (enchantment.BonusDexterity > 0)
                     detailLines.Add($"    [green]+{enchantment.BonusDexterity} Dexterity[/]");
-                if (enchantment.BonusConstitution > 0) 
+                if (enchantment.BonusConstitution > 0)
                     detailLines.Add($"    [yellow]+{enchantment.BonusConstitution} Constitution[/]");
-                if (enchantment.BonusIntelligence > 0) 
+                if (enchantment.BonusIntelligence > 0)
                     detailLines.Add($"    [purple]+{enchantment.BonusIntelligence} Intelligence[/]");
-                if (enchantment.BonusWisdom > 0) 
+                if (enchantment.BonusWisdom > 0)
                     detailLines.Add($"    [blue]+{enchantment.BonusWisdom} Wisdom[/]");
-                if (enchantment.BonusCharisma > 0) 
+                if (enchantment.BonusCharisma > 0)
                     detailLines.Add($"    [cyan]+{enchantment.BonusCharisma} Charisma[/]");
-                
+
                 if (!string.IsNullOrEmpty(enchantment.SpecialEffect))
                 {
                     detailLines.Add($"    [cyan]{enchantment.SpecialEffect}[/]");
                 }
             }
         }
-        
+
         // Show total bonuses if enchanted or upgraded
         if (item.Enchantments.Any() || item.UpgradeLevel > 0)
         {
@@ -229,7 +229,7 @@ public class InventoryOrchestrator
             var totalInt = item.GetTotalBonusIntelligence();
             var totalWis = item.GetTotalBonusWisdom();
             var totalCha = item.GetTotalBonusCharisma();
-            
+
             if (totalStr > 0) detailLines.Add($"  [red]+{totalStr} Strength[/]");
             if (totalDex > 0) detailLines.Add($"  [green]+{totalDex} Dexterity[/]");
             if (totalCon > 0) detailLines.Add($"  [yellow]+{totalCon} Constitution[/]");
@@ -237,10 +237,10 @@ public class InventoryOrchestrator
             if (totalWis > 0) detailLines.Add($"  [blue]+{totalWis} Wisdom[/]");
             if (totalCha > 0) detailLines.Add($"  [cyan]+{totalCha} Charisma[/]");
         }
-        
+
         detailLines.Add("");
         detailLines.Add($"[yellow]Description:[/] {(string.IsNullOrEmpty(item.Description) ? "[grey]No description[/]" : item.Description)}");
-        
+
         var details = string.Join("\n", detailLines);
 
         _console.ShowPanel($"Item Details", details, "cyan");
@@ -255,7 +255,7 @@ public class InventoryOrchestrator
         if (player == null || player.Inventory.Count == 0) return;
 
         var consumables = player.Inventory.Where(i => i.Type == ItemType.Consumable).ToList();
-        
+
         if (consumables.Count == 0)
         {
             _console.ShowWarning("You have no consumable items!");
@@ -279,7 +279,7 @@ public class InventoryOrchestrator
         // Show results
         System.Console.WriteLine();
         _console.ShowSuccess($"Used {item.Name}!");
-        
+
         if (player.Health != healthBefore)
         {
             _console.ShowInfo($"Health: {healthBefore} → {player.Health}");
@@ -326,13 +326,13 @@ public class InventoryOrchestrator
                     {
                         return;
                     }
-                    
+
                     // Unequip off-hand first
                     player.Inventory.Add(player.EquippedOffHand);
                     player.EquippedOffHand = null;
                     _console.ShowInfo($"Unequipped {player.EquippedOffHand?.Name ?? "off-hand"}");
                 }
-                
+
                 unequipped = player.EquippedMainHand;
                 player.EquippedMainHand = item;
                 break;
@@ -346,7 +346,7 @@ public class InventoryOrchestrator
                     await Task.Delay(500);
                     return;
                 }
-                
+
                 unequipped = player.EquippedOffHand;
                 player.EquippedOffHand = item;
                 break;

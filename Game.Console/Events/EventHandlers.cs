@@ -11,12 +11,12 @@ namespace Game.Console.Events;
 public class CharacterCreatedHandler : INotificationHandler<CharacterCreated>
 {
     private readonly IConsoleUI _console;
-    
+
     public CharacterCreatedHandler(IConsoleUI console)
     {
         _console = console;
     }
-    
+
     public Task Handle(CharacterCreated notification, CancellationToken cancellationToken)
     {
         _console.WriteColoredText($"[green]⚔️ {notification.PlayerName} enters the world![/]");
@@ -31,7 +31,7 @@ public class CharacterCreatedHandler : INotificationHandler<CharacterCreated>
 public class PlayerLeveledUpHandler : INotificationHandler<PlayerLeveledUp>
 {
     private readonly IConsoleUI _console;
-    
+
     public PlayerLeveledUpHandler(IConsoleUI console)
     {
         _console = console;
@@ -51,12 +51,12 @@ public class PlayerLeveledUpHandler : INotificationHandler<PlayerLeveledUp>
 public class GoldGainedHandler : INotificationHandler<GoldGained>
 {
     private readonly IConsoleUI _console;
-    
+
     public GoldGainedHandler(IConsoleUI console)
     {
         _console = console;
     }
-    
+
     public Task Handle(GoldGained notification, CancellationToken cancellationToken)
     {
         _console.WriteColoredText($"[yellow]💰 +{notification.Amount} gold[/]");
@@ -71,12 +71,12 @@ public class GoldGainedHandler : INotificationHandler<GoldGained>
 public class DamageTakenHandler : INotificationHandler<DamageTaken>
 {
     private readonly IConsoleUI _console;
-    
+
     public DamageTakenHandler(IConsoleUI console)
     {
         _console = console;
     }
-    
+
     public Task Handle(DamageTaken notification, CancellationToken cancellationToken)
     {
         _console.WriteColoredText($"[red]❤️ -{notification.Amount} health[/]");
@@ -91,12 +91,12 @@ public class DamageTakenHandler : INotificationHandler<DamageTaken>
 public class ItemAcquiredHandler : INotificationHandler<ItemAcquired>
 {
     private readonly IConsoleUI _console;
-    
+
     public ItemAcquiredHandler(IConsoleUI console)
     {
         _console = console;
     }
-    
+
     public Task Handle(ItemAcquired notification, CancellationToken cancellationToken)
     {
         _console.WriteColoredText($"[green]📦 Acquired: {notification.ItemName}[/]");

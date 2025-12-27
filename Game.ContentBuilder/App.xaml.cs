@@ -128,7 +128,7 @@ public partial class App : Application
     private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         Log.Error(e.Exception, "Unhandled UI thread exception");
-        
+
         var errorMsg = $"An error occurred on the UI thread:\n\n{e.Exception.Message}\n\n" +
                       $"Type: {e.Exception.GetType().Name}\n\n" +
                       $"Check the error log for details:\n{_logsDirectory}";
@@ -160,7 +160,7 @@ public partial class App : Application
     private void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
         Log.Error(e.Exception, "Unobserved task exception");
-        
+
         // Prevent the exception from terminating the application
         e.SetObserved();
     }

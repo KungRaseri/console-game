@@ -131,7 +131,7 @@ public class NameListEditorViewModelTests : IDisposable
 
     // Assert
     // Patterns include loaded patterns plus default {base} pattern
-        viewModel.Patterns.Should().HaveCountGreaterThanOrEqualTo(2);
+    viewModel.Patterns.Should().HaveCountGreaterThanOrEqualTo(2);
 
     // Assert
     var basePattern = viewModel.Patterns.FirstOrDefault(p => p.PatternTemplate == "{base}");

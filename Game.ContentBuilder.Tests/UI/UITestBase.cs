@@ -41,7 +41,7 @@ public abstract class UITestBase : IDisposable
         _testTimeout = testTimeout;
         _testTimeoutCts = new CancellationTokenSource();
         _testStopwatch = Stopwatch.StartNew();
-        
+
         // Configure logging
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
@@ -55,7 +55,7 @@ public abstract class UITestBase : IDisposable
     protected void LaunchApplication(TimeSpan? launchTimeout = null)
     {
         var timeout = launchTimeout ?? TimeSpan.FromSeconds(15);
-        
+
         try
         {
             var testAssemblyPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -81,7 +81,7 @@ public abstract class UITestBase : IDisposable
             _app = Application.Launch(fullExePath);
 
             // Wait for main window with timeout
-            var task = Task.Run(() => 
+            var task = Task.Run(() =>
             {
                 _mainWindow = _app.GetMainWindow(_automation, timeout);
                 return _mainWindow;
@@ -102,7 +102,7 @@ public abstract class UITestBase : IDisposable
             }
 
             Log.Information("Application launched successfully. PID: {ProcessId}", _app.ProcessId);
-            
+
             // Give UI time to stabilize
             Thread.Sleep(1000);
         }
@@ -138,10 +138,10 @@ public abstract class UITestBase : IDisposable
     protected T ExecuteWithTimeout<T>(Func<T> action, TimeSpan? timeout = null, string? operationName = null)
     {
         CheckTimeout();
-        
+
         var actualTimeout = timeout ?? TimeSpan.FromSeconds(10);
         var task = Task.Run(action, _testTimeoutCts.Token);
-        
+
         if (!task.Wait((int)actualTimeout.TotalMilliseconds, _testTimeoutCts.Token))
         {
             var name = operationName ?? "Operation";
@@ -157,7 +157,7 @@ public abstract class UITestBase : IDisposable
     /// </summary>
     protected void ExecuteWithTimeout(Action action, TimeSpan? timeout = null, string? operationName = null)
     {
-        ExecuteWithTimeout<object?>(() => 
+        ExecuteWithTimeout<object?>(() =>
         {
             action();
             return null;

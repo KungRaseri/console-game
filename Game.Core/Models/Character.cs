@@ -38,7 +38,7 @@ public class Character
     // Weapons & Off-hand
     public Item? EquippedMainHand { get; set; }
     public Item? EquippedOffHand { get; set; }
-    
+
     // Armor pieces (8 slots)
     public Item? EquippedHelmet { get; set; }
     public Item? EquippedShoulders { get; set; }
@@ -48,7 +48,7 @@ public class Character
     public Item? EquippedBelt { get; set; }
     public Item? EquippedLegs { get; set; }
     public Item? EquippedBoots { get; set; }
-    
+
     // Jewelry (3 slots)
     public Item? EquippedNecklace { get; set; }
     public Item? EquippedRing1 { get; set; }
@@ -60,7 +60,7 @@ public class Character
     public void GainExperience(int amount)
     {
         Experience += amount;
-        
+
         // Simple leveling logic - can be enhanced
         while (Experience >= ExperienceForNextLevel())
         {
@@ -83,27 +83,27 @@ public class Character
     private void LevelUp()
     {
         Level++;
-        
+
         // Recalculate max health and mana from new level
         MaxHealth = GetMaxHealth();
         Health = MaxHealth;  // Fully heal on level up
         MaxMana = GetMaxMana();
         Mana = MaxMana;  // Fully restore mana on level up
-        
+
         // Award attribute and skill points for player to allocate
         int attributePoints = 3; // 3 attribute points per level
         int skillPoints = 1;     // 1 skill point per level
-        
+
         // Every 5 levels, award bonus points
         if (Level % 5 == 0)
         {
             attributePoints += 2; // Bonus at levels 5, 10, 15, etc.
             skillPoints += 1;
         }
-        
+
         UnspentAttributePoints += attributePoints;
         UnspentSkillPoints += skillPoints;
-        
+
         // Queue this level-up for player interaction
         PendingLevelUps.Add(new LevelUpInfo
         {
@@ -170,7 +170,7 @@ public class Character
     public int GetPhysicalDefense(List<EquipmentSet>? sets = null)
     {
         int defense = Constitution;  // Base defense from CON
-        
+
         // Add equipment defense bonuses
         defense += EquippedMainHand?.GetTotalBonusConstitution() ?? 0;
         defense += EquippedOffHand?.GetTotalBonusConstitution() ?? 0;
@@ -185,14 +185,14 @@ public class Character
         defense += EquippedNecklace?.GetTotalBonusConstitution() ?? 0;
         defense += EquippedRing1?.GetTotalBonusConstitution() ?? 0;
         defense += EquippedRing2?.GetTotalBonusConstitution() ?? 0;
-        
+
         // Add set bonuses
         if (sets != null)
         {
             var setBonuses = GetSetBonuses(sets, "Constitution");
             defense += setBonuses.Values.Sum();
         }
-        
+
         return defense;
     }
 
@@ -249,14 +249,14 @@ public class Character
         total += EquippedNecklace?.GetTotalBonusStrength() ?? 0;
         total += EquippedRing1?.GetTotalBonusStrength() ?? 0;
         total += EquippedRing2?.GetTotalBonusStrength() ?? 0;
-        
+
         // Add set bonuses
         if (sets != null)
         {
             var setBonuses = GetSetBonuses(sets, "Strength");
             total += setBonuses.Values.Sum();
         }
-        
+
         return total;
     }
 
@@ -279,14 +279,14 @@ public class Character
         total += EquippedNecklace?.GetTotalBonusDexterity() ?? 0;
         total += EquippedRing1?.GetTotalBonusDexterity() ?? 0;
         total += EquippedRing2?.GetTotalBonusDexterity() ?? 0;
-        
+
         // Add set bonuses
         if (sets != null)
         {
             var setBonuses = GetSetBonuses(sets, "Dexterity");
             total += setBonuses.Values.Sum();
         }
-        
+
         return total;
     }
 
@@ -309,14 +309,14 @@ public class Character
         total += EquippedNecklace?.GetTotalBonusConstitution() ?? 0;
         total += EquippedRing1?.GetTotalBonusConstitution() ?? 0;
         total += EquippedRing2?.GetTotalBonusConstitution() ?? 0;
-        
+
         // Add set bonuses
         if (sets != null)
         {
             var setBonuses = GetSetBonuses(sets, "Constitution");
             total += setBonuses.Values.Sum();
         }
-        
+
         return total;
     }
 
@@ -339,14 +339,14 @@ public class Character
         total += EquippedNecklace?.GetTotalBonusIntelligence() ?? 0;
         total += EquippedRing1?.GetTotalBonusIntelligence() ?? 0;
         total += EquippedRing2?.GetTotalBonusIntelligence() ?? 0;
-        
+
         // Add set bonuses
         if (sets != null)
         {
             var setBonuses = GetSetBonuses(sets, "Intelligence");
             total += setBonuses.Values.Sum();
         }
-        
+
         return total;
     }
 
@@ -369,14 +369,14 @@ public class Character
         total += EquippedNecklace?.GetTotalBonusWisdom() ?? 0;
         total += EquippedRing1?.GetTotalBonusWisdom() ?? 0;
         total += EquippedRing2?.GetTotalBonusWisdom() ?? 0;
-        
+
         // Add set bonuses
         if (sets != null)
         {
             var setBonuses = GetSetBonuses(sets, "Wisdom");
             total += setBonuses.Values.Sum();
         }
-        
+
         return total;
     }
 
@@ -399,14 +399,14 @@ public class Character
         total += EquippedNecklace?.GetTotalBonusCharisma() ?? 0;
         total += EquippedRing1?.GetTotalBonusCharisma() ?? 0;
         total += EquippedRing2?.GetTotalBonusCharisma() ?? 0;
-        
+
         // Add set bonuses
         if (sets != null)
         {
             var setBonuses = GetSetBonuses(sets, "Charisma");
             total += setBonuses.Values.Sum();
         }
-        
+
         return total;
     }
 
@@ -416,7 +416,7 @@ public class Character
     public List<Item> GetEquippedItems()
     {
         var items = new List<Item>();
-        
+
         if (EquippedMainHand != null) items.Add(EquippedMainHand);
         if (EquippedOffHand != null) items.Add(EquippedOffHand);
         if (EquippedHelmet != null) items.Add(EquippedHelmet);
@@ -430,7 +430,7 @@ public class Character
         if (EquippedNecklace != null) items.Add(EquippedNecklace);
         if (EquippedRing1 != null) items.Add(EquippedRing1);
         if (EquippedRing2 != null) items.Add(EquippedRing2);
-        
+
         return items;
     }
 
@@ -442,7 +442,7 @@ public class Character
     {
         var equippedItems = GetEquippedItems();
         var sets = new Dictionary<string, int>();
-        
+
         foreach (var item in equippedItems)
         {
             if (!string.IsNullOrEmpty(item.SetName))
@@ -453,7 +453,7 @@ public class Character
                     sets[item.SetName] = 1;
             }
         }
-        
+
         return sets;
     }
 
@@ -464,12 +464,12 @@ public class Character
     {
         var activeSets = GetActiveEquipmentSets();
         var bonuses = new Dictionary<string, int>();
-        
+
         foreach (var (setName, piecesEquipped) in activeSets)
         {
             var set = availableSets.FirstOrDefault(s => s.Name == setName);
             if (set == null) continue;
-            
+
             // Check which bonuses are active based on pieces equipped
             foreach (var (requiredPieces, bonus) in set.Bonuses)
             {
@@ -485,7 +485,7 @@ public class Character
                         "Charisma" => bonus.BonusCharisma,
                         _ => 0
                     };
-                    
+
                     if (bonusValue > 0)
                     {
                         var key = $"{setName} ({requiredPieces} pieces)";
@@ -494,7 +494,7 @@ public class Character
                 }
             }
         }
-        
+
         return bonuses;
     }
 }

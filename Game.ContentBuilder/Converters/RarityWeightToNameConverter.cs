@@ -10,18 +10,18 @@ namespace Game.ContentBuilder.Converters;
 /// </summary>
 public class RarityWeightToNameConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value == null) return "Unknown";
-        
-        if (!int.TryParse(value.ToString(), out int weight))
-            return "Unknown";
+  public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+  {
+    if (value == null) return "Unknown";
 
-        return RarityConfigService.Instance.GetRarityName(weight);
-    }
+    if (!int.TryParse(value.ToString(), out int weight))
+      return "Unknown";
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    return RarityConfigService.Instance.GetRarityName(weight);
+  }
+
+  public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+  {
+    throw new NotImplementedException();
+  }
 }

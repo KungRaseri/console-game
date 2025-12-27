@@ -24,17 +24,17 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         try
         {
             var response = await next();
-            
+
             stopwatch.Stop();
-            Log.Information("Completed {RequestName} in {ElapsedMs}ms", 
+            Log.Information("Completed {RequestName} in {ElapsedMs}ms",
                 requestName, stopwatch.ElapsedMilliseconds);
-            
+
             return response;
         }
         catch (Exception ex)
         {
             stopwatch.Stop();
-            Log.Error(ex, "Failed {RequestName} after {ElapsedMs}ms", 
+            Log.Error(ex, "Failed {RequestName} after {ElapsedMs}ms",
                 requestName, stopwatch.ElapsedMilliseconds);
             throw;
         }

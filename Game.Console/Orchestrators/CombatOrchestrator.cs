@@ -24,12 +24,12 @@ public class CombatOrchestrator
     private readonly MenuService _menuService;
     private readonly IConsoleUI _console;
     private readonly LevelUpService _levelUpService;
-    
+
     /// <summary>
     /// Delay multiplier for animations (0 = instant, 1 = normal speed). Useful for testing.
     /// </summary>
     public int DelayMultiplier { get; set; } = 1;
-    
+
     private Task DelayAsync(int milliseconds)
     {
         if (DelayMultiplier == 0) return Task.CompletedTask;
@@ -418,7 +418,7 @@ public class CombatOrchestrator
     {
         // Get current location from GameStateService
         var currentLocation = _gameStateService.CurrentLocation;
-        
+
         // Use death command to handle player death with difficulty-based penalties
         var deathResult = await _mediator.Send(new HandlePlayerDeathCommand
         {
@@ -430,7 +430,7 @@ public class CombatOrchestrator
         // If permadeath, the save is deleted and player is sent to main menu
         // The death handler already shows all the UI and messages
         // No need to show additional UI here
-        
+
         await _mediator.Publish(new CombatEnded(player.Name, false));
     }
 

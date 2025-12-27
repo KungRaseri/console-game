@@ -24,7 +24,7 @@ public class AudioService : IDisposable
             _currentMusic = new AudioFileReader(filePath);
             _musicPlayer = new WaveOutEvent();
             _musicPlayer.Init(_currentMusic);
-            
+
             // Loop the music
             _musicPlayer.PlaybackStopped += (sender, args) =>
             {

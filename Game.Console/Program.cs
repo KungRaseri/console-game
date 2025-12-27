@@ -96,7 +96,7 @@ try
 
     // Register UI services with logging
     services.AddSingleton(AnsiConsole.Console);
-    services.AddSingleton<ConsoleUI>(sp => 
+    services.AddSingleton<ConsoleUI>(sp =>
         new ConsoleUI(sp.GetRequiredService<IAnsiConsole>(), sp.GetRequiredService<ILogger<ConsoleUI>>()));
     services.AddSingleton<IGameUI>(sp => sp.GetRequiredService<ConsoleUI>()); // Then as IGameUI
     services.AddSingleton<IConsoleUI>(sp => sp.GetRequiredService<ConsoleUI>()); // And as IConsoleUI

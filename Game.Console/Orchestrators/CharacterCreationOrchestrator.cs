@@ -23,8 +23,8 @@ public class CharacterCreationOrchestrator
     private readonly ICharacterClassRepository _classRepository;
 
     public CharacterCreationOrchestrator(
-        IMediator mediator, 
-        SaveGameService saveGameService, 
+        IMediator mediator,
+        SaveGameService saveGameService,
         ApocalypseTimer apocalypseTimer,
         IConsoleUI console,
         CharacterViewService characterView,
@@ -49,21 +49,21 @@ public class CharacterCreationOrchestrator
 
         // Step 1: Enter name
         var playerName = _console.AskForInput("What is your name, brave adventurer?");
-        
+
         // Step 2: Choose class
         var selectedClass = await SelectCharacterClassAsync();
         if (selectedClass == null)
         {
             return (null, null, false);
         }
-        
+
         // Step 3: Allocate attributes
         var allocation = await AllocateAttributesAsync(selectedClass);
         if (allocation == null)
         {
             return (null, null, false);
         }
-        
+
         // Step 4: Create character
         // TODO: CharacterCreationService needs DI refactoring - temporarily create character manually
         var newCharacter = new Character
@@ -86,7 +86,7 @@ public class CharacterCreationOrchestrator
             Inventory = new List<Item>()
         };
         // var newCharacter = CharacterCreationService.CreateCharacter(playerName, selectedClass.Name, allocation);
-        
+
         // Step 5: Review character
         ReviewCharacter(newCharacter, selectedClass);
 
@@ -106,12 +106,12 @@ public class CharacterCreationOrchestrator
 
         // Create save game with the new character and difficulty settings
         var saveGame = _saveGameService.CreateNewGame(newCharacter, difficulty);
-        
+
         // Start apocalypse timer if applicable
         if (difficulty.IsApocalypse)
         {
             _apocalypseTimer.Start();
-            
+
             _console.Clear();
             _console.ShowWarning("═══════════════════════════════════════");
             _console.ShowWarning("      APOCALYPSE MODE ACTIVE           ");
@@ -122,12 +122,12 @@ public class CharacterCreationOrchestrator
             _console.ShowWarning("═══════════════════════════════════════");
             await Task.Delay(2000);
         }
-        
+
         Log.Information("Character created: {CharacterName} ({ClassName})", newCharacter.Name, newCharacter.ClassName);
 
         return (newCharacter, saveGame.Id, true);
     }
-    
+
     /// <summary>
     /// Let the player select their character class.
     /// </summary>
@@ -135,9 +135,9 @@ public class CharacterCreationOrchestrator
     {
         _console.Clear();
         _console.ShowBanner("Choose Your Class", "Each class offers unique strengths");
-        
+
         var classes = _classRepository.GetAllClasses();
-        
+
         // Display all classes with details
         foreach (var cls in classes)
         {
@@ -157,26 +157,26 @@ public class CharacterCreationOrchestrator
                 "yellow"
             );
         }
-        
+
         var classNames = classes.Select(c => c.Name).Append("Back to Menu").ToArray();
         var choice = _console.ShowMenu("Select your class:", classNames);
-        
+
         if (choice == "Back to Menu")
         {
             return null;
         }
-        
+
         var selected = classes.FirstOrDefault(c => c.Name == choice);
-        
+
         if (selected != null)
         {
             _console.ShowSuccess($"You have chosen the path of the {selected.Name}!");
             await Task.Delay(300);
         }
-        
+
         return selected;
     }
-    
+
     /// <summary>
     /// Let the player allocate attribute points.
     /// </summary>
@@ -184,17 +184,17 @@ public class CharacterCreationOrchestrator
     {
         var allocation = new AttributeAllocation();
         var attributes = new[] { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" };
-        
+
         while (true)
         {
             _console.Clear();
             _console.ShowBanner("Attribute Allocation", $"Points Remaining: {allocation.GetRemainingPoints()}/27");
-            
+
             // Show current allocation
             var allocationLines = new List<string>();
             allocationLines.Add("[yellow]Current Attributes:[/]");
             allocationLines.Add("");
-            
+
             foreach (var attr in attributes)
             {
                 var current = allocation.GetAttributeValue(attr);
@@ -202,19 +202,19 @@ public class CharacterCreationOrchestrator
                 var isPrimary = selectedClass.PrimaryAttributes.Contains(attr);
                 var primaryMark = isPrimary ? " [cyan]★[/]" : "";
                 var color = isPrimary ? "cyan" : "white";
-                
+
                 allocationLines.Add($"  [{color}]{attr}:{primaryMark,-20}[/] {current,2} " +
                     $"(+{GetClassBonus(selectedClass, attr)} class) = [green]{withBonus}[/]");
             }
-            
+
             allocationLines.Add("");
             allocationLines.Add("[grey]★ = Primary attribute for your class[/]");
             allocationLines.Add("");
             allocationLines.Add($"[yellow]Points Spent:[/] {allocation.GetPointsSpent()}/27");
             allocationLines.Add($"[cyan]Points Remaining:[/] {allocation.GetRemainingPoints()}");
-            
+
             _console.ShowPanel("Your Attributes", string.Join("\n", allocationLines), "green");
-            
+
             // Menu options
             var options = new List<string>();
             foreach (var attr in attributes)
@@ -224,14 +224,14 @@ public class CharacterCreationOrchestrator
                 if (allocation.CanDecrease(attr))
                     options.Add($"Decrease {attr}");
             }
-            
+
             options.Add("Auto-Allocate (Recommended)");
             options.Add("Reset All");
             options.Add("Confirm & Continue");
             options.Add("Back to Class Selection");
-            
+
             var choice = _console.ShowMenu("Adjust attributes:", options.ToArray());
-            
+
             if (choice.StartsWith("Increase "))
             {
                 var attr = choice.Replace("Increase ", "");
@@ -277,26 +277,26 @@ public class CharacterCreationOrchestrator
             }
         }
     }
-    
+
     /// <summary>
     /// Auto-allocate attributes based on class recommendations.
     /// </summary>
     private AttributeAllocation AutoAllocateAttributes(CharacterClass characterClass)
     {
         var allocation = new AttributeAllocation();
-        
+
         // Prioritize primary attributes
         foreach (var primary in characterClass.PrimaryAttributes)
         {
             allocation.SetAttributeValue(primary, 14); // High in primary
         }
-        
+
         // Distribute remaining points to secondary stats
         var remaining = allocation.GetRemainingPoints();
         var secondaryAttrs = new[] { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" }
             .Where(a => !characterClass.PrimaryAttributes.Contains(a))
             .ToArray();
-        
+
         // Bring all secondaries to 10 if possible
         foreach (var attr in secondaryAttrs)
         {
@@ -308,7 +308,7 @@ public class CharacterCreationOrchestrator
                 remaining = allocation.GetRemainingPoints();
             }
         }
-        
+
         // Spend any leftover points on primary stats
         while (remaining > 0)
         {
@@ -322,15 +322,15 @@ public class CharacterCreationOrchestrator
                     remaining = allocation.GetRemainingPoints();
                 }
             }
-            
+
             // Safety: if we can't allocate more, break
             if (!characterClass.PrimaryAttributes.Any(p => allocation.CanIncrease(p)))
                 break;
         }
-        
+
         return allocation;
     }
-    
+
     /// <summary>
     /// Get class bonus for a specific attribute.
     /// </summary>
@@ -347,7 +347,7 @@ public class CharacterCreationOrchestrator
             _ => 0
         };
     }
-    
+
     /// <summary>
     /// Review the final character before starting.
     /// </summary>
@@ -355,7 +355,7 @@ public class CharacterCreationOrchestrator
     {
         _characterView.ReviewCharacter(character, characterClass);
     }
-    
+
     /// <summary>
     /// Let the player select game difficulty.
     /// </summary>
@@ -363,24 +363,24 @@ public class CharacterCreationOrchestrator
     {
         _console.Clear();
         _console.ShowBanner("Select Difficulty", "Choose your challenge level");
-        
+
         var difficulties = DifficultySettings.GetAll();
-        var options = difficulties.Select((d, i) => 
+        var options = difficulties.Select((d, i) =>
             $"{d.Name,-12} - {d.Description}"
         ).ToArray();
-        
+
         var choiceText = _console.ShowMenu("Select difficulty level:", options);
-        
+
         // Extract difficulty name from the choice (format: "Name - Description")
         var difficultyName = choiceText.Split(" - ")[0].Trim();
         var selected = difficulties.FirstOrDefault(d => d.Name == difficultyName);
-        
+
         if (selected == null)
         {
             // Fallback to Normal if something goes wrong
             selected = DifficultySettings.Normal;
         }
-        
+
         // Show confirmation for challenging modes
         if (selected.Name is "Ironman" or "Permadeath" or "Apocalypse")
         {
@@ -388,7 +388,7 @@ public class CharacterCreationOrchestrator
             _console.ShowWarning($"⚠️  WARNING: {selected.Name.ToUpper()} MODE");
             System.Console.WriteLine();
             _console.WriteText("This mode features:");
-            
+
             if (selected.AutoSaveOnly)
                 _console.WriteText("  • Auto-save after every action - no manual saves");
             if (selected.IsPermadeath)
@@ -400,7 +400,7 @@ public class CharacterCreationOrchestrator
             }
             if (selected.DropAllInventoryOnDeath)
                 _console.WriteText("  • Drop ALL items on death");
-            
+
             System.Console.WriteLine();
             if (!_console.Confirm($"Are you absolutely sure you want {selected.Name} mode?"))
             {
@@ -409,10 +409,10 @@ public class CharacterCreationOrchestrator
                 return await SelectDifficultyAsync(); // Recursive call to let player re-select
             }
         }
-        
+
         _console.ShowSuccess($"Difficulty set to: {selected.Name}");
         await Task.Delay(1000);
-        
+
         return selected;
     }
 }
