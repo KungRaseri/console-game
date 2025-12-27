@@ -20,12 +20,12 @@
     ],
     "totalPatterns": 6,
     "totalComponents": 91,
-    "usage": "Material name components for pattern-based generation. Use 'material' token in patterns to pick from these components. rarityWeight determines selection probability and contributes to final item rarity calculation.",
+    "usage": "Material name components for pattern-based generation. Use \u0027material\u0027 token in patterns to pick from these components. rarityWeight determines selection probability and contributes to final item rarity calculation.",
     "notes": [
       "Material components combine with base items from catalog.json using patterns",
       "rarityWeight affects both selection probability and final item rarity tier",
       "7 component groups: metals, leathers, woods, gemstones, magical, qualities, fabrics",
-      "Patterns like 'material + base' or 'quality + material + base' generate diverse names"
+      "Patterns like \u0027material + base\u0027 or \u0027quality + material + base\u0027 generate diverse names"
     ]
   },
   "components": {
@@ -421,11 +421,29 @@
     ]
   },
   "patterns": [
-    "{material} {base}",
-    "{material} {quality} {base}",
-    "{quality} {material} {base}",
-    "{material}-crafted {base}",
-    "{material}-bound {base}",
-    "{material}-forged {base}"
+    {
+      "rarityWeight": 50,
+      "pattern": "{material} {base}"
+    },
+    {
+      "rarityWeight": 40,
+      "pattern": "{material} {quality} {base}"
+    },
+    {
+      "rarityWeight": 35,
+      "pattern": "{quality} {material} {base}"
+    },
+    {
+      "rarityWeight": 30,
+      "pattern": "{material}-crafted {base}"
+    },
+    {
+      "rarityWeight": 25,
+      "pattern": "{material}-bound {base}"
+    },
+    {
+      "rarityWeight": 20,
+      "pattern": "{material}-forged {base}"
+    }
   ]
 }

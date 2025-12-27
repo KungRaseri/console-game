@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Dragon enemy type catalog with base stats and traits",
                      "version":  "1.0",
@@ -6,7 +6,10 @@
                      "type":  "item_catalog",
                      "total_dragon_types":  5,
                      "total_dragons":  13,
-                     "usage":  "Provides base enemy types for pattern generation"
+                     "usage":  "Provides base enemy types for pattern generation",
+                     "notes":  {
+                                   "usage":  "Base catalog of dragons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+                               }
                  },
     "dragon_types":  {
                          "chromatic":  {
@@ -181,8 +184,5 @@
                                                       }
                                                   ]
                                     }
-                     },
-    "notes":  {
-                  "usage":  "Base catalog of dragons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-              }
+                     }
 }

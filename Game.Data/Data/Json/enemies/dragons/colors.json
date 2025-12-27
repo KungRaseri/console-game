@@ -1,9 +1,12 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Reference data components for dragons",
                      "version":  "1.0",
                      "lastUpdated":  "2025-12-16",
-                     "type":  "reference_data"
+                     "type":  "reference_data",
+                     "notes":  {
+                                   "usage":  "Reference data for dragons colors. Used as component source in name generation and stat calculations."
+                               }
                  },
     "Red":  {
                 "displayName":  "Red",
@@ -513,8 +516,5 @@
                                                           "type":  "boolean"
                                                       }
                                 }
-                 },
-    "notes":  {
-                  "usage":  "Reference data for dragons colors. Used as component source in name generation and stat calculations."
-              }
+                 }
 }

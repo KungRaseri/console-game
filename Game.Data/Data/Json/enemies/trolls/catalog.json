@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Troll enemy type catalog with base stats and rarityWeight values",
                      "version":  "1.0",
@@ -10,7 +10,10 @@
                                         "elemental_trolls",
                                         "special_trolls"
                                     ],
-                     "usage":  "Provides base enemy types for pattern generation"
+                     "usage":  "Provides base enemy types for pattern generation",
+                     "notes":  {
+                                   "usage":  "Base catalog of trolls with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+                               }
                  },
     "troll_types":  {
                         "common_trolls":  {
@@ -168,8 +171,5 @@
                                                              }
                                                          ]
                                            }
-                    },
-    "notes":  {
-                  "usage":  "Base catalog of trolls with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-              }
+                    }
 }

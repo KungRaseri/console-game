@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Plant creature enemy type catalog with base stats and rarityWeight values",
                      "version":  "1.0",
@@ -11,7 +11,10 @@
                                         "mobile_plants",
                                         "ancient_plants"
                                     ],
-                     "usage":  "Provides base enemy types for pattern generation"
+                     "usage":  "Provides base enemy types for pattern generation",
+                     "notes":  {
+                                   "usage":  "Base catalog of plants with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+                               }
                  },
     "plant_types":  {
                         "aggressive_plants":  {
@@ -211,8 +214,5 @@
                                                              }
                                                          ]
                                            }
-                    },
-    "notes":  {
-                  "usage":  "Base catalog of plants with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-              }
+                    }
 }

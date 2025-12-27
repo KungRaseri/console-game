@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Giant insect enemy type catalog with base stats and rarityWeight values",
                      "version":  "1.0",
@@ -11,7 +11,10 @@
                                         "flying_insects",
                                         "hive_insects"
                                     ],
-                     "usage":  "Provides base enemy types for pattern generation"
+                     "usage":  "Provides base enemy types for pattern generation",
+                     "notes":  {
+                                   "usage":  "Base catalog of insects with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+                               }
                  },
     "insect_types":  {
                          "spiders":  {
@@ -218,8 +221,5 @@
                                                             }
                                                         ]
                                           }
-                     },
-    "notes":  {
-                  "usage":  "Base catalog of insects with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-              }
+                     }
 }

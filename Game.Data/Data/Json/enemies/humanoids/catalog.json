@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Humanoid enemy type catalog with base stats and traits",
                      "version":  "1.0",
@@ -6,7 +6,10 @@
                      "type":  "item_catalog",
                      "total_humanoid_types":  4,
                      "total_humanoids":  14,
-                     "usage":  "Provides base enemy types for pattern generation"
+                     "usage":  "Provides base enemy types for pattern generation",
+                     "notes":  {
+                                   "usage":  "Base catalog of humanoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+                               }
                  },
     "humanoid_types":  {
                            "bandits":  {
@@ -192,8 +195,5 @@
                                                           }
                                                       ]
                                         }
-                       },
-    "notes":  {
-                  "usage":  "Base catalog of humanoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-              }
+                       }
 }

@@ -1,222 +1,222 @@
-﻿{
-    "metadata": {
-        "description": "Demon enemy type catalog with base stats and traits",
-        "version": "1.0",
-        "lastUpdated": "2025-12-17",
-        "type": "item_catalog",
-        "total_demon_types": 4,
-        "total_demons": 14,
-        "usage": "Provides base enemy types for pattern generation"
-    },
-    "demon_types": {
-        "lesser_demons": {
-            "traits": {
-                "category": "demon",
-                "size": "small",
-                "behavior": "chaotic",
-                "alignment": "evil",
-                "immunity": [
-                    "fire"
-                ],
-                "vulnerability": "radiant"
-            },
-            "items": [
-                {
-                    "name": "Imp",
-                    "health": 20,
-                    "attack": 6,
-                    "defense": 3,
-                    "speed": 16,
-                    "level": 2,
-                    "xp": 40,
-                    "rarityWeight": 5
-                },
-                {
-                    "name": "Shadow Demon",
-                    "health": 35,
-                    "attack": 9,
-                    "defense": 4,
-                    "speed": 18,
-                    "level": 4,
-                    "xp": 70,
-                    "rarityWeight": 12
-                }
-            ]
-        },
-        "demons": {
-            "traits": {
-                "category": "demon",
-                "size": "medium",
-                "behavior": "aggressive",
-                "alignment": "evil",
-                "immunity": [
-                    "fire",
-                    "poison"
-                ],
-                "vulnerability": "radiant"
-            },
-            "items": [
-                {
-                    "name": "Demon",
-                    "health": 80,
-                    "attack": 16,
-                    "defense": 10,
-                    "speed": 14,
-                    "level": 8,
-                    "xp": 200,
-                    "rarityWeight": 20
-                },
-                {
-                    "name": "Vrock",
-                    "health": 100,
-                    "attack": 18,
-                    "defense": 12,
-                    "speed": 16,
-                    "level": 10,
-                    "xp": 300,
-                    "rarityWeight": 28
-                },
-                {
-                    "name": "Hellhound",
-                    "health": 70,
-                    "attack": 15,
-                    "defense": 8,
-                    "speed": 20,
-                    "level": 7,
-                    "xp": 180,
-                    "rarityWeight": 18
-                },
-                {
-                    "name": "Nightmare",
-                    "health": 90,
-                    "attack": 17,
-                    "defense": 10,
-                    "speed": 22,
-                    "level": 9,
-                    "xp": 250,
-                    "rarityWeight": 25
-                }
-            ]
-        },
-        "devils": {
-            "traits": {
-                "category": "demon",
-                "size": "medium",
-                "behavior": "tactical",
-                "alignment": "lawful_evil",
-                "immunity": [
-                    "fire",
-                    "poison"
-                ],
-                "resistance": [
-                    "cold"
-                ],
-                "vulnerability": "radiant"
-            },
-            "items": [
-                {
-                    "name": "Devil",
-                    "health": 85,
-                    "attack": 17,
-                    "defense": 12,
-                    "speed": 13,
-                    "level": 9,
-                    "xp": 230,
-                    "rarityWeight": 22
-                },
-                {
-                    "name": "Incubus",
-                    "health": 75,
-                    "attack": 14,
-                    "defense": 9,
-                    "speed": 15,
-                    "level": 8,
-                    "xp": 200,
-                    "rarityWeight": 20
-                },
-                {
-                    "name": "Succubus",
-                    "health": 75,
-                    "attack": 14,
-                    "defense": 9,
-                    "speed": 15,
-                    "level": 8,
-                    "xp": 200,
-                    "rarityWeight": 20
-                }
-            ]
-        },
-        "greater_fiends": {
-            "traits": {
-                "category": "demon",
-                "size": "large",
-                "behavior": "commanding",
-                "alignment": "evil",
-                "immunity": [
-                    "fire",
-                    "poison",
-                    "cold"
-                ],
-                "resistance": [
-                    "physical"
-                ],
-                "vulnerability": "radiant"
-            },
-            "items": [
-                {
-                    "name": "Fiend",
-                    "health": 120,
-                    "attack": 22,
-                    "defense": 16,
-                    "speed": 12,
-                    "level": 12,
-                    "xp": 500,
-                    "rarityWeight": 40
-                },
-                {
-                    "name": "Balor",
-                    "health": 200,
-                    "attack": 30,
-                    "defense": 20,
-                    "speed": 14,
-                    "level": 16,
-                    "xp": 1200,
-                    "rarityWeight": 70
-                },
-                {
-                    "name": "Pit Fiend",
-                    "health": 220,
-                    "attack": 32,
-                    "defense": 22,
-                    "speed": 13,
-                    "level": 17,
-                    "xp": 1400,
-                    "rarityWeight": 75
-                },
-                {
-                    "name": "Marilith",
-                    "health": 180,
-                    "attack": 28,
-                    "defense": 18,
-                    "speed": 16,
-                    "level": 15,
-                    "xp": 1000,
-                    "rarityWeight": 65
-                },
-                {
-                    "name": "Beholder",
-                    "health": 150,
-                    "attack": 25,
-                    "defense": 15,
-                    "speed": 10,
-                    "level": 14,
-                    "xp": 900,
-                    "rarityWeight": 60
-                }
-            ]
-        }
-    },
-    "notes": {
-        "usage": "Base catalog of demons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-    }
+{
+    "metadata":  {
+                     "description":  "Demon enemy type catalog with base stats and traits",
+                     "version":  "1.0",
+                     "lastUpdated":  "2025-12-17",
+                     "type":  "item_catalog",
+                     "total_demon_types":  4,
+                     "total_demons":  14,
+                     "usage":  "Provides base enemy types for pattern generation",
+                     "notes":  {
+                                   "usage":  "Base catalog of demons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+                               }
+                 },
+    "demon_types":  {
+                        "lesser_demons":  {
+                                              "traits":  {
+                                                             "category":  "demon",
+                                                             "size":  "small",
+                                                             "behavior":  "chaotic",
+                                                             "alignment":  "evil",
+                                                             "immunity":  [
+                                                                              "fire"
+                                                                          ],
+                                                             "vulnerability":  "radiant"
+                                                         },
+                                              "items":  [
+                                                            {
+                                                                "name":  "Imp",
+                                                                "health":  20,
+                                                                "attack":  6,
+                                                                "defense":  3,
+                                                                "speed":  16,
+                                                                "level":  2,
+                                                                "xp":  40,
+                                                                "rarityWeight":  5
+                                                            },
+                                                            {
+                                                                "name":  "Shadow Demon",
+                                                                "health":  35,
+                                                                "attack":  9,
+                                                                "defense":  4,
+                                                                "speed":  18,
+                                                                "level":  4,
+                                                                "xp":  70,
+                                                                "rarityWeight":  12
+                                                            }
+                                                        ]
+                                          },
+                        "demons":  {
+                                       "traits":  {
+                                                      "category":  "demon",
+                                                      "size":  "medium",
+                                                      "behavior":  "aggressive",
+                                                      "alignment":  "evil",
+                                                      "immunity":  [
+                                                                       "fire",
+                                                                       "poison"
+                                                                   ],
+                                                      "vulnerability":  "radiant"
+                                                  },
+                                       "items":  [
+                                                     {
+                                                         "name":  "Demon",
+                                                         "health":  80,
+                                                         "attack":  16,
+                                                         "defense":  10,
+                                                         "speed":  14,
+                                                         "level":  8,
+                                                         "xp":  200,
+                                                         "rarityWeight":  20
+                                                     },
+                                                     {
+                                                         "name":  "Vrock",
+                                                         "health":  100,
+                                                         "attack":  18,
+                                                         "defense":  12,
+                                                         "speed":  16,
+                                                         "level":  10,
+                                                         "xp":  300,
+                                                         "rarityWeight":  28
+                                                     },
+                                                     {
+                                                         "name":  "Hellhound",
+                                                         "health":  70,
+                                                         "attack":  15,
+                                                         "defense":  8,
+                                                         "speed":  20,
+                                                         "level":  7,
+                                                         "xp":  180,
+                                                         "rarityWeight":  18
+                                                     },
+                                                     {
+                                                         "name":  "Nightmare",
+                                                         "health":  90,
+                                                         "attack":  17,
+                                                         "defense":  10,
+                                                         "speed":  22,
+                                                         "level":  9,
+                                                         "xp":  250,
+                                                         "rarityWeight":  25
+                                                     }
+                                                 ]
+                                   },
+                        "devils":  {
+                                       "traits":  {
+                                                      "category":  "demon",
+                                                      "size":  "medium",
+                                                      "behavior":  "tactical",
+                                                      "alignment":  "lawful_evil",
+                                                      "immunity":  [
+                                                                       "fire",
+                                                                       "poison"
+                                                                   ],
+                                                      "resistance":  [
+                                                                         "cold"
+                                                                     ],
+                                                      "vulnerability":  "radiant"
+                                                  },
+                                       "items":  [
+                                                     {
+                                                         "name":  "Devil",
+                                                         "health":  85,
+                                                         "attack":  17,
+                                                         "defense":  12,
+                                                         "speed":  13,
+                                                         "level":  9,
+                                                         "xp":  230,
+                                                         "rarityWeight":  22
+                                                     },
+                                                     {
+                                                         "name":  "Incubus",
+                                                         "health":  75,
+                                                         "attack":  14,
+                                                         "defense":  9,
+                                                         "speed":  15,
+                                                         "level":  8,
+                                                         "xp":  200,
+                                                         "rarityWeight":  20
+                                                     },
+                                                     {
+                                                         "name":  "Succubus",
+                                                         "health":  75,
+                                                         "attack":  14,
+                                                         "defense":  9,
+                                                         "speed":  15,
+                                                         "level":  8,
+                                                         "xp":  200,
+                                                         "rarityWeight":  20
+                                                     }
+                                                 ]
+                                   },
+                        "greater_fiends":  {
+                                               "traits":  {
+                                                              "category":  "demon",
+                                                              "size":  "large",
+                                                              "behavior":  "commanding",
+                                                              "alignment":  "evil",
+                                                              "immunity":  [
+                                                                               "fire",
+                                                                               "poison",
+                                                                               "cold"
+                                                                           ],
+                                                              "resistance":  [
+                                                                                 "physical"
+                                                                             ],
+                                                              "vulnerability":  "radiant"
+                                                          },
+                                               "items":  [
+                                                             {
+                                                                 "name":  "Fiend",
+                                                                 "health":  120,
+                                                                 "attack":  22,
+                                                                 "defense":  16,
+                                                                 "speed":  12,
+                                                                 "level":  12,
+                                                                 "xp":  500,
+                                                                 "rarityWeight":  40
+                                                             },
+                                                             {
+                                                                 "name":  "Balor",
+                                                                 "health":  200,
+                                                                 "attack":  30,
+                                                                 "defense":  20,
+                                                                 "speed":  14,
+                                                                 "level":  16,
+                                                                 "xp":  1200,
+                                                                 "rarityWeight":  70
+                                                             },
+                                                             {
+                                                                 "name":  "Pit Fiend",
+                                                                 "health":  220,
+                                                                 "attack":  32,
+                                                                 "defense":  22,
+                                                                 "speed":  13,
+                                                                 "level":  17,
+                                                                 "xp":  1400,
+                                                                 "rarityWeight":  75
+                                                             },
+                                                             {
+                                                                 "name":  "Marilith",
+                                                                 "health":  180,
+                                                                 "attack":  28,
+                                                                 "defense":  18,
+                                                                 "speed":  16,
+                                                                 "level":  15,
+                                                                 "xp":  1000,
+                                                                 "rarityWeight":  65
+                                                             },
+                                                             {
+                                                                 "name":  "Beholder",
+                                                                 "health":  150,
+                                                                 "attack":  25,
+                                                                 "defense":  15,
+                                                                 "speed":  10,
+                                                                 "level":  14,
+                                                                 "xp":  900,
+                                                                 "rarityWeight":  60
+                                                             }
+                                                         ]
+                                           }
+                    }
 }

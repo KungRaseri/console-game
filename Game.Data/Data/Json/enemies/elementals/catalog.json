@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Elemental enemy type catalog with base stats and traits",
                      "version":  "1.0",
@@ -6,7 +6,10 @@
                      "type":  "item_catalog",
                      "total_elemental_types":  4,
                      "total_elementals":  12,
-                     "usage":  "Provides base enemy types for pattern generation"
+                     "usage":  "Provides base enemy types for pattern generation",
+                     "notes":  {
+                                   "usage":  "Base catalog of elementals with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+                               }
                  },
     "elemental_types":  {
                             "fire_elementals":  {
@@ -185,8 +188,5 @@
                                                                  }
                                                              ]
                                                }
-                        },
-    "notes":  {
-                  "usage":  "Base catalog of elementals with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-              }
+                        }
 }

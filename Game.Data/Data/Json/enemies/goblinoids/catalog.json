@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Goblinoid enemy type catalog with base stats and rarityWeight values",
                      "version":  "1.0",
@@ -11,7 +11,10 @@
                                         "bugbears",
                                         "special_goblinoids"
                                     ],
-                     "usage":  "Provides base enemy types for pattern generation"
+                     "usage":  "Provides base enemy types for pattern generation",
+                     "notes":  {
+                                   "usage":  "Base catalog of goblinoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+                               }
                  },
     "goblinoid_types":  {
                             "goblins":  {
@@ -185,8 +188,5 @@
                                                                      }
                                                                  ]
                                                    }
-                        },
-    "notes":  {
-                  "usage":  "Base catalog of goblinoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-              }
+                        }
 }

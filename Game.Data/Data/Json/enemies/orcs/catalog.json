@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "Orc enemy type catalog with base stats and rarityWeight values",
                      "version":  "1.0",
@@ -10,7 +10,10 @@
                                         "elite_orcs",
                                         "special_orcs"
                                     ],
-                     "usage":  "Provides base enemy types for pattern generation"
+                     "usage":  "Provides base enemy types for pattern generation",
+                     "notes":  {
+                                   "usage":  "Base catalog of orcs with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+                               }
                  },
     "orc_types":  {
                       "common_orcs":  {
@@ -165,8 +168,5 @@
                                                          }
                                                      ]
                                        }
-                  },
-    "notes":  {
-                  "usage":  "Base catalog of orcs with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-              }
+                  }
 }
