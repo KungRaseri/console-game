@@ -2,23 +2,19 @@
     "patterns":  [
                      {
                          "rarityWeight":  40,
-                         "pattern":  "{base}",
-                         "example":  "Titanic"
+                         "pattern":  "{base}"
                      },
                      {
                          "rarityWeight":  35,
-                         "pattern":  "{prefix} {base}",
-                         "example":  "Enhanced Titanic"
+                         "pattern":  "{prefix} {base}"
                      },
                      {
                          "rarityWeight":  20,
-                         "pattern":  "{base} {suffix}",
-                         "example":  "Titanic of Power"
+                         "pattern":  "{base} {suffix}"
                      },
                      {
                          "rarityWeight":  5,
-                         "pattern":  "{prefix} {base} {suffix}",
-                         "example":  "Enhanced Titanic of Power"
+                         "pattern":  "{prefix} {base} {suffix}"
                      }
                  ],
     "components":  {

@@ -2,23 +2,19 @@
     "patterns":  [
                      {
                          "rarityWeight":  40,
-                         "pattern":  "{base}",
-                         "example":  "Rage"
+                         "pattern":  "{base}"
                      },
                      {
                          "rarityWeight":  35,
-                         "pattern":  "{prefix} {base}",
-                         "example":  "Enhanced Rage"
+                         "pattern":  "{prefix} {base}"
                      },
                      {
                          "rarityWeight":  20,
-                         "pattern":  "{base} {suffix}",
-                         "example":  "Rage of Power"
+                         "pattern":  "{base} {suffix}"
                      },
                      {
                          "rarityWeight":  5,
-                         "pattern":  "{prefix} {base} {suffix}",
-                         "example":  "Enhanced Rage of Power"
+                         "pattern":  "{prefix} {base} {suffix}"
                      }
                  ],
     "components":  {

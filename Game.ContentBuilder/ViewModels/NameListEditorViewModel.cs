@@ -504,12 +504,16 @@ public partial class NameListEditorViewModel : ObservableObject
 
             if (baseNames.Count > 0)
             {
-                Log.Debug("Loaded {Count} base names from {Path}", baseNames.Count, catalogPath);
+                Log.Information("✓ Loaded {Count} base names from {CatalogFile}", baseNames.Count, Path.GetFileName(catalogPath));
+            }
+            else
+            {
+                Log.Warning("✗ No base names found in {CatalogFile} - checked keys: {Keys}", Path.GetFileName(catalogPath), string.Join(", ", topLevelKeys));
             }
         }
         catch (Exception ex)
         {
-            Log.Warning(ex, "Failed to load base names from catalog file");
+            Log.Error(ex, "✗ Failed to load base names from catalog file for {FileName}", _fileName);
             baseNames = new List<string>();
         }
 
@@ -1034,11 +1038,14 @@ public partial class NameListEditorViewModel : ObservableObject
                     {
                         if (baseNames.Count > 0)
                         {
-                            exampleParts.Add(baseNames[random.Next(baseNames.Count)]);
+                            var selectedName = baseNames[random.Next(baseNames.Count)];
+                            exampleParts.Add(selectedName);
+                            Log.Debug("Replaced {{base}} with: {Name}", selectedName);
                         }
                         else
                         {
                             exampleParts.Add("[base]");
+                            Log.Warning("No base names available - showing [base] placeholder");
                         }
                     }
                     // Check if we have this component group
