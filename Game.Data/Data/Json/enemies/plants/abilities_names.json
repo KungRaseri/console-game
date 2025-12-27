@@ -1,193 +1,193 @@
-﻿{
-    "patterns":  [
-                     {
-                         "weight":  40,
-                         "pattern":  "{base}",
-                         "example":  "Ability Name"
-                     },
-                     {
-                         "weight":  35,
-                         "pattern":  "{prefix} {base}",
-                         "example":  "Enhanced Ability Name"
-                     },
-                     {
-                         "weight":  20,
-                         "pattern":  "{base} {suffix}",
-                         "example":  "Ability Name of Power"
-                     },
-                     {
-                         "weight":  5,
-                         "pattern":  "{prefix} {base} {suffix}",
-                         "example":  "Enhanced Ability Name of Power"
-                     }
-                 ],
-    "components":  {
-                       "prefix":  [
-                                      {
-                                          "rarityWeight":  10,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  2,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Enhanced"
-                                      },
-                                      {
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Superior"
-                                      },
-                                      {
-                                          "rarityWeight":  75,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  5,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Legendary"
-                                      }
-                                  ],
-                       "suffix":  [
-                                      {
-                                          "rarityWeight":  10,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  1,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "of Power"
-                                      },
-                                      {
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "cooldownReduction":  {
-                                                                                   "value":  2,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     },
-                                          "value":  "of Mastery"
-                                      },
-                                      {
-                                          "rarityWeight":  75,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "cooldownReduction":  {
-                                                                                   "value":  5,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     },
-                                          "value":  "of the Gods"
-                                      }
-                                  ],
-                       "base":  [
-                                    {
-                                        "value":  "Regenerative",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "NaturalArmor",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "SeedSpawner",
-                                        "rarityWeight":  150
-                                    },
-                                    {
-                                        "value":  "Ambulatory",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Rooted",
-                                        "rarityWeight":  10
-                                    },
-                                    {
-                                        "value":  "Thorny",
-                                        "rarityWeight":  10
-                                    },
-                                    {
-                                        "value":  "Poisonous",
-                                        "rarityWeight":  10
-                                    },
-                                    {
-                                        "value":  "Carnivorous",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "Parasitic",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Entangling",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Bioluminescent",
-                                        "rarityWeight":  150
-                                    },
-                                    {
-                                        "value":  "AncientTreent",
-                                        "rarityWeight":  250
-                                    },
-                                    {
-                                        "value":  "ForestSpirit",
-                                        "rarityWeight":  250
-                                    },
-                                    {
-                                        "value":  "WorldTree",
-                                        "rarityWeight":  500
-                                    },
-                                    {
-                                        "value":  "PrimalGrowth",
-                                        "rarityWeight":  500
-                                    },
-                                    {
-                                        "value":  "SporeCloud",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "VineWhip",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "ToxicAura",
-                                        "rarityWeight":  150
-                                    }
-                                ]
-                   },
-    "metadata":  {
-                     "totalPatterns":  4,
-                     "description":  "Pattern-based ability name generation for plants",
-                     "type":  "pattern_generation",
-                     "raritySystem":  "weight-based",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-26",
-                     "notes":  [
-                                   "Base token resolves from abilities_catalog.json",
-                                   "Components have rarityWeight for emergent rarity calculation",
-                                   "Traits are applied when components are selected in patterns",
-                                   "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
-                               ],
-                     "patternTokens":  [
-                                           "base",
-                                           "prefix",
-                                           "suffix"
-                                       ],
-                     "componentKeys":  [
-                                           "prefix",
-                                           "base",
-                                           "suffix"
-                                       ],
-                     "supportsTraits":  true
-                 }
+{
+    "patterns": [
+        {
+            "rarityWeight": 40,
+            "pattern": "{base}",
+            "example": "Regenerative"
+        },
+        {
+            "rarityWeight": 35,
+            "pattern": "{prefix} {base}",
+            "example": "Enhanced Regenerative"
+        },
+        {
+            "rarityWeight": 20,
+            "pattern": "{base} {suffix}",
+            "example": "Regenerative of Power"
+        },
+        {
+            "rarityWeight": 5,
+            "pattern": "{prefix} {base} {suffix}",
+            "example": "Enhanced Regenerative of Power"
+        }
+    ],
+    "components": {
+        "prefix": [
+            {
+                "rarityWeight": 10,
+                "traits": {
+                    "damageBonus": {
+                        "value": 2,
+                        "type": "number"
+                    }
+                },
+                "value": "Enhanced"
+            },
+            {
+                "rarityWeight": 35,
+                "traits": {
+                    "damageBonus": {
+                        "value": 3,
+                        "type": "number"
+                    }
+                },
+                "value": "Superior"
+            },
+            {
+                "rarityWeight": 75,
+                "traits": {
+                    "damageBonus": {
+                        "value": 5,
+                        "type": "number"
+                    }
+                },
+                "value": "Legendary"
+            }
+        ],
+        "suffix": [
+            {
+                "rarityWeight": 10,
+                "traits": {
+                    "damageBonus": {
+                        "value": 1,
+                        "type": "number"
+                    }
+                },
+                "value": "of Power"
+            },
+            {
+                "rarityWeight": 35,
+                "traits": {
+                    "cooldownReduction": {
+                        "value": 2,
+                        "type": "number"
+                    }
+                },
+                "value": "of Mastery"
+            },
+            {
+                "rarityWeight": 75,
+                "traits": {
+                    "damageBonus": {
+                        "value": 3,
+                        "type": "number"
+                    },
+                    "cooldownReduction": {
+                        "value": 5,
+                        "type": "number"
+                    }
+                },
+                "value": "of the Gods"
+            }
+        ],
+        "base": [
+            {
+                "value": "Regenerative",
+                "rarityWeight": 35
+            },
+            {
+                "value": "NaturalArmor",
+                "rarityWeight": 75
+            },
+            {
+                "value": "SeedSpawner",
+                "rarityWeight": 150
+            },
+            {
+                "value": "Ambulatory",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Rooted",
+                "rarityWeight": 10
+            },
+            {
+                "value": "Thorny",
+                "rarityWeight": 10
+            },
+            {
+                "value": "Poisonous",
+                "rarityWeight": 10
+            },
+            {
+                "value": "Carnivorous",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Parasitic",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Entangling",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Bioluminescent",
+                "rarityWeight": 150
+            },
+            {
+                "value": "AncientTreent",
+                "rarityWeight": 250
+            },
+            {
+                "value": "ForestSpirit",
+                "rarityWeight": 250
+            },
+            {
+                "value": "WorldTree",
+                "rarityWeight": 500
+            },
+            {
+                "value": "PrimalGrowth",
+                "rarityWeight": 500
+            },
+            {
+                "value": "SporeCloud",
+                "rarityWeight": 35
+            },
+            {
+                "value": "VineWhip",
+                "rarityWeight": 35
+            },
+            {
+                "value": "ToxicAura",
+                "rarityWeight": 150
+            }
+        ]
+    },
+    "metadata": {
+        "totalPatterns": 4,
+        "description": "Pattern-based ability name generation for plants",
+        "type": "pattern_generation",
+        "raritySystem": "weight-based",
+        "version": "4.0",
+        "lastUpdated": "2025-12-26",
+        "notes": [
+            "Base token resolves from abilities_catalog.json",
+            "Components have rarityWeight for emergent rarity calculation",
+            "Traits are applied when components are selected in patterns",
+            "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
+        ],
+        "patternTokens": [
+            "base",
+            "prefix",
+            "suffix"
+        ],
+        "componentKeys": [
+            "prefix",
+            "base",
+            "suffix"
+        ],
+        "supportsTraits": true
+    }
 }

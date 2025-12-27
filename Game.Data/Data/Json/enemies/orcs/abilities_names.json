@@ -1,193 +1,193 @@
-﻿{
-    "patterns":  [
-                     {
-                         "weight":  40,
-                         "pattern":  "{base}",
-                         "example":  "Ability Name"
-                     },
-                     {
-                         "weight":  35,
-                         "pattern":  "{prefix} {base}",
-                         "example":  "Enhanced Ability Name"
-                     },
-                     {
-                         "weight":  20,
-                         "pattern":  "{base} {suffix}",
-                         "example":  "Ability Name of Power"
-                     },
-                     {
-                         "weight":  5,
-                         "pattern":  "{prefix} {base} {suffix}",
-                         "example":  "Enhanced Ability Name of Power"
-                     }
-                 ],
-    "components":  {
-                       "prefix":  [
-                                      {
-                                          "rarityWeight":  10,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  2,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Enhanced"
-                                      },
-                                      {
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Superior"
-                                      },
-                                      {
-                                          "rarityWeight":  75,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  5,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Legendary"
-                                      }
-                                  ],
-                       "suffix":  [
-                                      {
-                                          "rarityWeight":  10,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  1,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "of Power"
-                                      },
-                                      {
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "cooldownReduction":  {
-                                                                                   "value":  2,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     },
-                                          "value":  "of Mastery"
-                                      },
-                                      {
-                                          "rarityWeight":  75,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "cooldownReduction":  {
-                                                                                   "value":  5,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     },
-                                          "value":  "of the Gods"
-                                      }
-                                  ],
-                       "base":  [
-                                    {
-                                        "value":  "WarDrums",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "Charger",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "BloodFrenzy",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Executioner",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Juggernaut",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "HeavyArmor",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "Ironhide",
-                                        "rarityWeight":  150
-                                    },
-                                    {
-                                        "value":  "BrutalStrength",
-                                        "rarityWeight":  10
-                                    },
-                                    {
-                                        "value":  "Tough",
-                                        "rarityWeight":  10
-                                    },
-                                    {
-                                        "value":  "BattleRage",
-                                        "rarityWeight":  10
-                                    },
-                                    {
-                                        "value":  "Fearless",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "BattleMaster",
-                                        "rarityWeight":  150
-                                    },
-                                    {
-                                        "value":  "DemonBlood",
-                                        "rarityWeight":  250
-                                    },
-                                    {
-                                        "value":  "Immortal",
-                                        "rarityWeight":  250
-                                    },
-                                    {
-                                        "value":  "GodSlayer",
-                                        "rarityWeight":  500
-                                    },
-                                    {
-                                        "value":  "PrimalForce",
-                                        "rarityWeight":  500
-                                    },
-                                    {
-                                        "value":  "Warlord",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "WarChief",
-                                        "rarityWeight":  150
-                                    }
-                                ]
-                   },
-    "metadata":  {
-                     "totalPatterns":  4,
-                     "description":  "Pattern-based ability name generation for orcs",
-                     "type":  "pattern_generation",
-                     "raritySystem":  "weight-based",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-26",
-                     "notes":  [
-                                   "Base token resolves from abilities_catalog.json",
-                                   "Components have rarityWeight for emergent rarity calculation",
-                                   "Traits are applied when components are selected in patterns",
-                                   "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
-                               ],
-                     "patternTokens":  [
-                                           "base",
-                                           "prefix",
-                                           "suffix"
-                                       ],
-                     "componentKeys":  [
-                                           "prefix",
-                                           "base",
-                                           "suffix"
-                                       ],
-                     "supportsTraits":  true
-                 }
+{
+    "patterns": [
+        {
+            "rarityWeight": 40,
+            "pattern": "{base}",
+            "example": "WarDrums"
+        },
+        {
+            "rarityWeight": 35,
+            "pattern": "{prefix} {base}",
+            "example": "Enhanced WarDrums"
+        },
+        {
+            "rarityWeight": 20,
+            "pattern": "{base} {suffix}",
+            "example": "WarDrums of Power"
+        },
+        {
+            "rarityWeight": 5,
+            "pattern": "{prefix} {base} {suffix}",
+            "example": "Enhanced WarDrums of Power"
+        }
+    ],
+    "components": {
+        "prefix": [
+            {
+                "rarityWeight": 10,
+                "traits": {
+                    "damageBonus": {
+                        "value": 2,
+                        "type": "number"
+                    }
+                },
+                "value": "Enhanced"
+            },
+            {
+                "rarityWeight": 35,
+                "traits": {
+                    "damageBonus": {
+                        "value": 3,
+                        "type": "number"
+                    }
+                },
+                "value": "Superior"
+            },
+            {
+                "rarityWeight": 75,
+                "traits": {
+                    "damageBonus": {
+                        "value": 5,
+                        "type": "number"
+                    }
+                },
+                "value": "Legendary"
+            }
+        ],
+        "suffix": [
+            {
+                "rarityWeight": 10,
+                "traits": {
+                    "damageBonus": {
+                        "value": 1,
+                        "type": "number"
+                    }
+                },
+                "value": "of Power"
+            },
+            {
+                "rarityWeight": 35,
+                "traits": {
+                    "cooldownReduction": {
+                        "value": 2,
+                        "type": "number"
+                    }
+                },
+                "value": "of Mastery"
+            },
+            {
+                "rarityWeight": 75,
+                "traits": {
+                    "damageBonus": {
+                        "value": 3,
+                        "type": "number"
+                    },
+                    "cooldownReduction": {
+                        "value": 5,
+                        "type": "number"
+                    }
+                },
+                "value": "of the Gods"
+            }
+        ],
+        "base": [
+            {
+                "value": "WarDrums",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Charger",
+                "rarityWeight": 35
+            },
+            {
+                "value": "BloodFrenzy",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Executioner",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Juggernaut",
+                "rarityWeight": 75
+            },
+            {
+                "value": "HeavyArmor",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Ironhide",
+                "rarityWeight": 150
+            },
+            {
+                "value": "BrutalStrength",
+                "rarityWeight": 10
+            },
+            {
+                "value": "Tough",
+                "rarityWeight": 10
+            },
+            {
+                "value": "BattleRage",
+                "rarityWeight": 10
+            },
+            {
+                "value": "Fearless",
+                "rarityWeight": 35
+            },
+            {
+                "value": "BattleMaster",
+                "rarityWeight": 150
+            },
+            {
+                "value": "DemonBlood",
+                "rarityWeight": 250
+            },
+            {
+                "value": "Immortal",
+                "rarityWeight": 250
+            },
+            {
+                "value": "GodSlayer",
+                "rarityWeight": 500
+            },
+            {
+                "value": "PrimalForce",
+                "rarityWeight": 500
+            },
+            {
+                "value": "Warlord",
+                "rarityWeight": 75
+            },
+            {
+                "value": "WarChief",
+                "rarityWeight": 150
+            }
+        ]
+    },
+    "metadata": {
+        "totalPatterns": 4,
+        "description": "Pattern-based ability name generation for orcs",
+        "type": "pattern_generation",
+        "raritySystem": "weight-based",
+        "version": "4.0",
+        "lastUpdated": "2025-12-26",
+        "notes": [
+            "Base token resolves from abilities_catalog.json",
+            "Components have rarityWeight for emergent rarity calculation",
+            "Traits are applied when components are selected in patterns",
+            "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
+        ],
+        "patternTokens": [
+            "base",
+            "prefix",
+            "suffix"
+        ],
+        "componentKeys": [
+            "prefix",
+            "base",
+            "suffix"
+        ],
+        "supportsTraits": true
+    }
 }

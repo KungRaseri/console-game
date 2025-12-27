@@ -1,24 +1,24 @@
-﻿{
+{
     "patterns": [
         {
-            "weight": 40,
+            "rarityWeight": 40,
             "pattern": "{base}",
-            "example": "Ability Name"
+            "example": "Territorial"
         },
         {
-            "weight": 35,
+            "rarityWeight": 35,
             "pattern": "{prefix} {base}",
-            "example": "Enhanced Ability Name"
+            "example": "Enhanced Territorial"
         },
         {
-            "weight": 20,
+            "rarityWeight": 20,
             "pattern": "{base} {suffix}",
-            "example": "Ability Name of Power"
+            "example": "Territorial of Power"
         },
         {
-            "weight": 5,
+            "rarityWeight": 5,
             "pattern": "{prefix} {base} {suffix}",
-            "example": "Enhanced Ability Name of Power"
+            "example": "Enhanced Territorial of Power"
         }
     ],
     "components": {

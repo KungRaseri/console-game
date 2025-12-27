@@ -1,193 +1,193 @@
-﻿{
-    "patterns":  [
-                     {
-                         "weight":  40,
-                         "pattern":  "{base}",
-                         "example":  "Ability Name"
-                     },
-                     {
-                         "weight":  35,
-                         "pattern":  "{prefix} {base}",
-                         "example":  "Enhanced Ability Name"
-                     },
-                     {
-                         "weight":  20,
-                         "pattern":  "{base} {suffix}",
-                         "example":  "Ability Name of Power"
-                     },
-                     {
-                         "weight":  5,
-                         "pattern":  "{prefix} {base} {suffix}",
-                         "example":  "Enhanced Ability Name of Power"
-                     }
-                 ],
-    "components":  {
-                       "prefix":  [
-                                      {
-                                          "rarityWeight":  10,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  2,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Enhanced"
-                                      },
-                                      {
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Superior"
-                                      },
-                                      {
-                                          "rarityWeight":  75,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  5,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Legendary"
-                                      }
-                                  ],
-                       "suffix":  [
-                                      {
-                                          "rarityWeight":  10,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  1,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "of Power"
-                                      },
-                                      {
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "cooldownReduction":  {
-                                                                                   "value":  2,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     },
-                                          "value":  "of Mastery"
-                                      },
-                                      {
-                                          "rarityWeight":  75,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "cooldownReduction":  {
-                                                                                   "value":  5,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     },
-                                          "value":  "of the Gods"
-                                      }
-                                  ],
-                       "base":  [
-                                    {
-                                        "value":  "Incorporeal",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Phase Shift",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Adaptive Form",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Engulf",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "Elemental Burst",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Elemental Aura",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "Elemental Fury",
-                                        "rarityWeight":  150
-                                    },
-                                    {
-                                        "value":  "Unstable",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "Primordial Power",
-                                        "rarityWeight":  250
-                                    },
-                                    {
-                                        "value":  "Elemental Lord",
-                                        "rarityWeight":  250
-                                    },
-                                    {
-                                        "value":  "Plane Walker",
-                                        "rarityWeight":  500
-                                    },
-                                    {
-                                        "value":  "Summon Elementals",
-                                        "rarityWeight":  150
-                                    },
-                                    {
-                                        "value":  "Environmental Control",
-                                        "rarityWeight":  75
-                                    },
-                                    {
-                                        "value":  "Elemental Mastery",
-                                        "rarityWeight":  150
-                                    },
-                                    {
-                                        "value":  "Essence Drain",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "Elemental Body",
-                                        "rarityWeight":  10
-                                    },
-                                    {
-                                        "value":  "Elemental Immunity",
-                                        "rarityWeight":  10
-                                    },
-                                    {
-                                        "value":  "Elemental Weakness",
-                                        "rarityWeight":  10
-                                    }
-                                ]
-                   },
-    "metadata":  {
-                     "totalPatterns":  4,
-                     "description":  "Pattern-based ability name generation for elementals",
-                     "type":  "pattern_generation",
-                     "raritySystem":  "weight-based",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-26",
-                     "notes":  [
-                                   "Base token resolves from abilities_catalog.json",
-                                   "Components have rarityWeight for emergent rarity calculation",
-                                   "Traits are applied when components are selected in patterns",
-                                   "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
-                               ],
-                     "patternTokens":  [
-                                           "base",
-                                           "prefix",
-                                           "suffix"
-                                       ],
-                     "componentKeys":  [
-                                           "prefix",
-                                           "base",
-                                           "suffix"
-                                       ],
-                     "supportsTraits":  true
-                 }
+{
+    "patterns": [
+        {
+            "rarityWeight": 40,
+            "pattern": "{base}",
+            "example": "Incorporeal"
+        },
+        {
+            "rarityWeight": 35,
+            "pattern": "{prefix} {base}",
+            "example": "Enhanced Incorporeal"
+        },
+        {
+            "rarityWeight": 20,
+            "pattern": "{base} {suffix}",
+            "example": "Incorporeal of Power"
+        },
+        {
+            "rarityWeight": 5,
+            "pattern": "{prefix} {base} {suffix}",
+            "example": "Enhanced Incorporeal of Power"
+        }
+    ],
+    "components": {
+        "prefix": [
+            {
+                "rarityWeight": 10,
+                "traits": {
+                    "damageBonus": {
+                        "value": 2,
+                        "type": "number"
+                    }
+                },
+                "value": "Enhanced"
+            },
+            {
+                "rarityWeight": 35,
+                "traits": {
+                    "damageBonus": {
+                        "value": 3,
+                        "type": "number"
+                    }
+                },
+                "value": "Superior"
+            },
+            {
+                "rarityWeight": 75,
+                "traits": {
+                    "damageBonus": {
+                        "value": 5,
+                        "type": "number"
+                    }
+                },
+                "value": "Legendary"
+            }
+        ],
+        "suffix": [
+            {
+                "rarityWeight": 10,
+                "traits": {
+                    "damageBonus": {
+                        "value": 1,
+                        "type": "number"
+                    }
+                },
+                "value": "of Power"
+            },
+            {
+                "rarityWeight": 35,
+                "traits": {
+                    "cooldownReduction": {
+                        "value": 2,
+                        "type": "number"
+                    }
+                },
+                "value": "of Mastery"
+            },
+            {
+                "rarityWeight": 75,
+                "traits": {
+                    "damageBonus": {
+                        "value": 3,
+                        "type": "number"
+                    },
+                    "cooldownReduction": {
+                        "value": 5,
+                        "type": "number"
+                    }
+                },
+                "value": "of the Gods"
+            }
+        ],
+        "base": [
+            {
+                "value": "Incorporeal",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Phase Shift",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Adaptive Form",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Engulf",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Elemental Burst",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Elemental Aura",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Elemental Fury",
+                "rarityWeight": 150
+            },
+            {
+                "value": "Unstable",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Primordial Power",
+                "rarityWeight": 250
+            },
+            {
+                "value": "Elemental Lord",
+                "rarityWeight": 250
+            },
+            {
+                "value": "Plane Walker",
+                "rarityWeight": 500
+            },
+            {
+                "value": "Summon Elementals",
+                "rarityWeight": 150
+            },
+            {
+                "value": "Environmental Control",
+                "rarityWeight": 75
+            },
+            {
+                "value": "Elemental Mastery",
+                "rarityWeight": 150
+            },
+            {
+                "value": "Essence Drain",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Elemental Body",
+                "rarityWeight": 10
+            },
+            {
+                "value": "Elemental Immunity",
+                "rarityWeight": 10
+            },
+            {
+                "value": "Elemental Weakness",
+                "rarityWeight": 10
+            }
+        ]
+    },
+    "metadata": {
+        "totalPatterns": 4,
+        "description": "Pattern-based ability name generation for elementals",
+        "type": "pattern_generation",
+        "raritySystem": "weight-based",
+        "version": "4.0",
+        "lastUpdated": "2025-12-26",
+        "notes": [
+            "Base token resolves from abilities_catalog.json",
+            "Components have rarityWeight for emergent rarity calculation",
+            "Traits are applied when components are selected in patterns",
+            "Component weights multiply for final rarity: prefix(35) * base(10) = uncommon"
+        ],
+        "patternTokens": [
+            "base",
+            "prefix",
+            "suffix"
+        ],
+        "componentKeys": [
+            "prefix",
+            "base",
+            "suffix"
+        ],
+        "supportsTraits": true
+    }
 }

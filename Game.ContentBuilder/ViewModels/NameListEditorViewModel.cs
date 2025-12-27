@@ -428,7 +428,13 @@ public partial class NameListEditorViewModel : ObservableObject
         {
             // Get the directory of the current names.json file
             string directory = Path.GetDirectoryName(_fileName) ?? string.Empty;
+            
+            // Try both catalog.json and abilities_catalog.json
             string catalogPath = Path.Combine(directory, "catalog.json");
+            if (!File.Exists(catalogPath))
+            {
+                catalogPath = Path.Combine(directory, "abilities_catalog.json");
+            }
             
             if (!File.Exists(catalogPath))
             {
@@ -445,20 +451,19 @@ public partial class NameListEditorViewModel : ObservableObject
                         relativePath = Path.GetRelativePath(dirInfo.FullName, catalogPath);
                     }
                 } catch { }
-                Log.Debug("No catalog.json found at {Path}, using placeholders", relativePath);
-                return new List<string> { "Wolf", "Bear", "Spider", "Dragon", "Goblin", "Troll" };
+                Log.Debug("No catalog file found at {Path}", relativePath);
+                return new List<string>();
             }
             
             string catalogJson = File.ReadAllText(catalogPath);
             var catalog = JObject.Parse(catalogJson);
             
             // Extract names from catalog structure
-            // Structure: { "beast_types": { "wolves": { "items": [{ "name": "Wolf" }] } } }
-            // Or: { "item_types": { "swords": { "items": [{ "name": "Longsword" }] } } }
-            // Or: { "npc_types": { "merchants": { "items": [{ "name": "Merchant" }] } } }
+            // For abilities_catalog.json: { "ability_types": { "offensive": { "items": [{ "name": "Infernal Flames" }] } } }
+            // For catalog.json: { "item_types": { "swords": { "items": [{ "name": "Longsword" }] } } }
             
             // Try common top-level keys
-            var topLevelKeys = new[] { "beast_types", "item_types", "npc_types", "types" };
+            var topLevelKeys = new[] { "ability_types", "beast_types", "item_types", "npc_types", "types" };
             
             foreach (var topKey in topLevelKeys)
             {
@@ -488,8 +493,8 @@ public partial class NameListEditorViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            Log.Warning(ex, "Failed to load base names from catalog.json, using placeholders");
-            baseNames = new List<string> { "Wolf", "Bear", "Spider", "Dragon", "Goblin", "Troll" };
+            Log.Warning(ex, "Failed to load base names from catalog file");
+            baseNames = new List<string>();
         }
         
         return baseNames;
