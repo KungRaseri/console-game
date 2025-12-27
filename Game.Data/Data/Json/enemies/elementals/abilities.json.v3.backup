@@ -1,0 +1,167 @@
+{
+    "metadata":  {
+                     "description":  "elementals ability definitions and properties",
+                     "version":  "1.0",
+                     "lastUpdated":  "2025-12-17",
+                     "type":  "ability_catalog",
+                     "total_abilities":  18
+                 },
+    "items":  [
+                  {
+                      "name":  "Elemental Body",
+                      "displayName":  "Elemental Body",
+                      "description":  "Made entirely of elemental matter",
+                      "rarityWeight": 10
+                  },
+                  {
+                      "name":  "Elemental Immunity",
+                      "displayName":  "Elemental Immunity",
+                      "description":  "Immune to its own element",
+                      "rarityWeight": 10
+                  },
+                  {
+                      "name":  "Elemental Weakness",
+                      "displayName":  "Elemental Weakness",
+                      "description":  "Vulnerable to opposing element",
+                      "rarityWeight": 10
+                  },
+                  {
+                      "name":  "Engulf",
+                      "displayName":  "Engulf",
+                      "description":  "Can surround and trap enemies",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Elemental Burst",
+                      "displayName":  "Elemental Burst",
+                      "description":  "Explosive discharge of elemental energy",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Incorporeal",
+                      "displayName":  "Incorporeal",
+                      "description":  "Physical attacks pass through",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Elemental Aura",
+                      "displayName":  "Elemental Aura",
+                      "description":  "Damages nearby enemies with elemental energy",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Summon Elementals",
+                      "displayName":  "Summon Elementals",
+                      "description":  "Can call forth lesser elementals",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Elemental Mastery",
+                      "displayName":  "Elemental Mastery",
+                      "description":  "Perfect control over its element",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Phase Shift",
+                      "displayName":  "Phase Shift",
+                      "description":  "Can merge with its element in environment",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Adaptive Form",
+                      "displayName":  "Adaptive Form",
+                      "description":  "Changes shape to avoid attacks",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Elemental Fury",
+                      "displayName":  "Elemental Fury",
+                      "description":  "Unleashes devastating elemental storms",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Primordial Power",
+                      "displayName":  "Primordial Power",
+                      "description":  "Raw elemental force from creation",
+                      "rarityWeight": 250
+                  },
+                  {
+                      "name":  "Environmental Control",
+                      "displayName":  "Environmental Control",
+                      "description":  "Shapes the battlefield to its advantage",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Essence Drain",
+                      "displayName":  "Essence Drain",
+                      "description":  "Absorbs enemy energy to heal",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Unstable",
+                      "displayName":  "Unstable",
+                      "description":  "Explodes when defeated",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Elemental Lord",
+                      "displayName":  "Elemental Lord",
+                      "description":  "Supreme master of its element",
+                      "rarityWeight": 250
+                  },
+                  {
+                      "name":  "Plane Walker",
+                      "displayName":  "Plane Walker",
+                      "description":  "Can traverse elemental planes",
+                      "rarityWeight": 500
+                  }
+              ],
+    "components":  {
+                       "core_traits":  [
+                                           "Elemental Body",
+                                           "Elemental Immunity",
+                                           "Elemental Weakness"
+                                       ],
+                       "offensive":  [
+                                         "Engulf",
+                                         "Elemental Burst",
+                                         "Elemental Aura",
+                                         "Elemental Fury",
+                                         "Unstable"
+                                     ],
+                       "defensive":  [
+                                         "Incorporeal",
+                                         "Phase Shift",
+                                         "Adaptive Form"
+                                     ],
+                       "control":  [
+                                       "Summon Elementals",
+                                       "Environmental Control",
+                                       "Elemental Mastery"
+                                   ],
+                       "utility":  [
+                                       "Essence Drain"
+                                   ],
+                       "legendary":  [
+                                         "Primordial Power",
+                                         "Elemental Lord",
+                                         "Plane Walker"
+                                     ]
+                   },
+    "patterns":  [
+                     "element + trait (Fire Elemental Body)",
+                     "multiple traits for elder elementals (Primordial Power + Elemental Lord)",
+                     "elemental-specific abilities"
+                 ],
+    "rarity_distribution":  {
+                                "Common":  3,
+                                "Uncommon":  4,
+                                "Rare":  5,
+                                "Epic":  3,
+                                "Legendary":  2,
+                                "Mythic":  1
+                            },
+    "notes":  {
+                  "usage":  "Special traits and modifiers for elementals. Used to add unique characteristics and stat bonuses."
+              }
+}

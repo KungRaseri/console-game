@@ -1,0 +1,166 @@
+{
+    "metadata":  {
+                     "description":  "humanoids ability definitions and properties",
+                     "version":  "1.0",
+                     "lastUpdated":  "2025-12-17",
+                     "type":  "ability_catalog",
+                     "total_abilities":  18
+                 },
+    "items":  [
+                  {
+                      "name":  "Skilled Fighter",
+                      "displayName":  "Skilled Fighter",
+                      "description":  "Trained in combat techniques",
+                      "rarityWeight": 10
+                  },
+                  {
+                      "name":  "Tactical Mind",
+                      "displayName":  "Tactical Mind",
+                      "description":  "Uses advanced combat strategies",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Shield Mastery",
+                      "displayName":  "Shield Mastery",
+                      "description":  "Expert at blocking and parrying",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Dual Wielding",
+                      "displayName":  "Dual Wielding",
+                      "description":  "Fights with two weapons simultaneously",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Battle Cry",
+                      "displayName":  "Battle Cry",
+                      "description":  "Rallies allies and intimidates foes",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Opportunist",
+                      "displayName":  "Opportunist",
+                      "description":  "Takes advantage of enemy mistakes",
+                      "rarityWeight": 10
+                  },
+                  {
+                      "name":  "Marksman",
+                      "displayName":  "Marksman",
+                      "description":  "Deadly accurate with ranged weapons",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Berserker",
+                      "displayName":  "Berserker",
+                      "description":  "Enters rage state, trading defense for offense",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Magic Resistance",
+                      "displayName":  "Magic Resistance",
+                      "description":  "Natural resistance to spells",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Leadership",
+                      "displayName":  "Leadership",
+                      "description":  "Commands and coordinates allies",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Assassin Training",
+                      "displayName":  "Assassin Training",
+                      "description":  "Deadly from stealth, critical hit specialist",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Veteran Fighter",
+                      "displayName":  "Veteran Fighter",
+                      "description":  "Years of experience make them formidable",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Armor Expert",
+                      "displayName":  "Armor Expert",
+                      "description":  "Maximizes protection from armor",
+                      "rarityWeight": 10
+                  },
+                  {
+                      "name":  "Weapon Master",
+                      "displayName":  "Weapon Master",
+                      "description":  "Proficient with all weapon types",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Spellsword",
+                      "displayName":  "Spellsword",
+                      "description":  "Combines magic and melee combat",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Champion",
+                      "displayName":  "Champion",
+                      "description":  "Elite warrior of legendary skill",
+                      "rarityWeight": 250
+                  },
+                  {
+                      "name":  "Coordinated Strike",
+                      "displayName":  "Coordinated Strike",
+                      "description":  "Works seamlessly with allies",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Revenge",
+                      "displayName":  "Revenge",
+                      "description":  "Becomes more dangerous as allies fall",
+                      "rarityWeight": 75
+                  }
+              ],
+    "components":  {
+                       "combat_styles":  [
+                                             "Skilled Fighter",
+                                             "Dual Wielding",
+                                             "Shield Mastery",
+                                             "Marksman",
+                                             "Weapon Master"
+                                         ],
+                       "tactical":  [
+                                        "Tactical Mind",
+                                        "Opportunist",
+                                        "Coordinated Strike"
+                                    ],
+                       "aggression":  [
+                                          "Battle Cry",
+                                          "Berserker",
+                                          "Revenge"
+                                      ],
+                       "defensive":  [
+                                         "Armor Expert",
+                                         "Magic Resistance"
+                                     ],
+                       "specialized":  [
+                                           "Assassin Training",
+                                           "Spellsword",
+                                           "Veteran Fighter"
+                                       ],
+                       "elite":  [
+                                     "Leadership",
+                                     "Champion"
+                                 ]
+                   },
+    "patterns":  [
+                     "trait + class (Skilled Fighter Bandit)",
+                     "multiple traits for elite (Champion + Weapon Master)",
+                     "class-specific traits (Assassin Training Rogue)"
+                 ],
+    "rarity_distribution":  {
+                                "Common":  3,
+                                "Uncommon":  7,
+                                "Rare":  5,
+                                "Epic":  3,
+                                "Legendary":  1
+                            },
+    "notes":  {
+                  "usage":  "Special traits and modifiers for humanoids. Used to add unique characteristics and stat bonuses."
+              }
+}

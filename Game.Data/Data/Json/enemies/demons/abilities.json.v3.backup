@@ -1,0 +1,167 @@
+{
+    "metadata": {
+        "description": "demons ability definitions and properties",
+        "version": "1.0",
+        "lastUpdated": "2025-12-17",
+        "type": "ability_catalog",
+        "total_abilities": 18
+    },
+    "items": [
+        {
+            "name": "Infernal Flames",
+            "displayName": "Infernal Flames",
+            "description": "Wreathed in hellfire, burns attackers",
+            "rarityWeight": 35
+        },
+        {
+            "name": "Demonic Regeneration",
+            "displayName": "Demonic Regeneration",
+            "description": "Rapidly heals wounds",
+            "rarityWeight": 75
+        },
+        {
+            "name": "Soul Corruption",
+            "displayName": "Soul Corruption",
+            "description": "Attacks corrupt and weaken souls",
+            "rarityWeight": 150
+        },
+        {
+            "name": "Teleportation",
+            "displayName": "Teleportation",
+            "description": "Can teleport short distances",
+            "rarityWeight": 75
+        },
+        {
+            "name": "Fear Aura",
+            "displayName": "Fear Aura",
+            "description": "Terrifies nearby enemies",
+            "rarityWeight": 35
+        },
+        {
+            "name": "Magic Immunity",
+            "displayName": "Magic Immunity",
+            "description": "Cannot be harmed by spells",
+            "rarityWeight": 250
+        },
+        {
+            "name": "Summon Lesser Demons",
+            "displayName": "Summon Lesser Demons",
+            "description": "Calls forth minor demonic servants",
+            "rarityWeight": 150
+        },
+        {
+            "name": "Unholy Strength",
+            "displayName": "Unholy Strength",
+            "description": "Possesses supernatural physical power",
+            "rarityWeight": 35
+        },
+        {
+            "name": "Dark Pact",
+            "displayName": "Dark Pact",
+            "description": "Gains power from fallen allies and enemies",
+            "rarityWeight": 75
+        },
+        {
+            "name": "Hellfire Breath",
+            "displayName": "Hellfire Breath",
+            "description": "Exhales devastating flames",
+            "rarityWeight": 150
+        },
+        {
+            "name": "Cursed Weapons",
+            "displayName": "Cursed Weapons",
+            "description": "Attacks inflict lingering curses",
+            "rarityWeight": 75
+        },
+        {
+            "name": "Dimensional Shift",
+            "displayName": "Dimensional Shift",
+            "description": "Phases between realms to avoid damage",
+            "rarityWeight": 150
+        },
+        {
+            "name": "Charm",
+            "displayName": "Charm",
+            "description": "Can mind-control weak-willed foes",
+            "rarityWeight": 75
+        },
+        {
+            "name": "Blood Frenzy",
+            "displayName": "Blood Frenzy",
+            "description": "Becomes more dangerous as it bleeds",
+            "rarityWeight": 35
+        },
+        {
+            "name": "Hellborn Armor",
+            "displayName": "Hellborn Armor",
+            "description": "Natural resistance to physical damage",
+            "rarityWeight": 10
+        },
+        {
+            "name": "Toxic Miasma",
+            "displayName": "Toxic Miasma",
+            "description": "Emits poisonous fumes",
+            "rarityWeight": 35
+        },
+        {
+            "name": "Demon Lord",
+            "displayName": "Demon Lord",
+            "description": "Commands legions of lesser demons",
+            "rarityWeight": 250
+        },
+        {
+            "name": "Reality Warp",
+            "displayName": "Reality Warp",
+            "description": "Bends the laws of nature",
+            "rarityWeight": 500
+        }
+    ],
+    "components": {
+        "offensive": [
+            "Infernal Flames",
+            "Hellfire Breath",
+            "Cursed Weapons",
+            "Unholy Strength",
+            "Blood Frenzy"
+        ],
+        "defensive": [
+            "Demonic Regeneration",
+            "Hellborn Armor",
+            "Dimensional Shift",
+            "Magic Immunity"
+        ],
+        "control": [
+            "Fear Aura",
+            "Charm",
+            "Soul Corruption"
+        ],
+        "summoning": [
+            "Summon Lesser Demons"
+        ],
+        "utility": [
+            "Teleportation",
+            "Dark Pact",
+            "Toxic Miasma"
+        ],
+        "legendary": [
+            "Demon Lord",
+            "Reality Warp"
+        ]
+    },
+    "patterns": [
+        "trait + demon type (Infernal Flames Imp)",
+        "multiple traits for greater demons (Demon Lord + Magic Immunity)",
+        "elemental focus (hellfire-based abilities)"
+    ],
+    "rarity_distribution": {
+        "Common": 1,
+        "Uncommon": 5,
+        "Rare": 6,
+        "Epic": 4,
+        "Legendary": 2,
+        "Mythic": 1
+    },
+    "notes": {
+        "usage": "Special traits and modifiers for demons. Used to add unique characteristics and stat bonuses."
+    }
+}

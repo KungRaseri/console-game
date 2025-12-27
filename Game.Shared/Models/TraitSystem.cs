@@ -198,4 +198,30 @@ public static class StandardTraits
     public const string Quality = "quality";
     public const string LootQuality = "lootQuality";
     public const string DropChance = "dropChance";
+
+    // Ability-Specific Traits
+    public const string DamageType = "damageType";               // string: "fire", "ice", "poison", "physical", "magic", etc.
+    public const string BaseDamage = "baseDamage";               // string: dice notation "2d6", "1d10", etc.
+    public const string Cooldown = "cooldown";                   // number: seconds between uses
+    public const string CooldownReduction = "cooldownReduction"; // number: percentage or flat reduction
+    public const string Duration = "duration";                   // number: seconds the effect lasts
+    public const string DurationBonus = "durationBonus";         // number: additional duration seconds
+    public const string CastTime = "castTime";                   // number: seconds to activate
+    public const string RangeBonus = "rangeBonus";               // number: additional range units
+    public const string AreaOfEffect = "areaOfEffect";           // number: radius of effect
+    public const string TargetCount = "targetCount";             // number: maximum targets affected
+    public const string StatusEffect = "statusEffect";           // string: "burning", "frozen", "paralyzed", "poisoned", "stunned", "bleeding", "feared"
+    public const string StatusChance = "statusChance";           // number: percentage chance to apply status
+    public const string HealAmount = "healAmount";               // number: HP restored
+    public const string RegenInterval = "regenInterval";         // number: seconds between regen ticks
+    public const string ArmorBonus = "armorBonus";               // number: flat armor increase
+    public const string ResistBonus = "resistBonus";             // number: resistance percentage
+    public const string DamageReduction = "damageReduction";     // number: flat or percentage damage reduction
+    public const string SummonType = "summonType";               // string: type of creature summoned
+    public const string SummonCount = "summonCount";             // number: number of summons
+    public const string Cleave = "cleave";                       // boolean: hits multiple targets
+    public const string Piercing = "piercing";                   // boolean: ignores armor
+    public const string AbilityClass = "abilityClass";           // string: "active", "passive", "toggle", "channeled", "ultimate"
+    public const string TargetType = "targetType";               // string: "self", "enemy", "ally", "area", "all"
+    public const string Category = "category";                   // string: "offensive", "defensive", "control", "utility", "legendary"
 }

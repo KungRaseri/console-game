@@ -1,173 +1,173 @@
 {
-    "metadata":  {
-                     "description":  "Demon enemy name generation with pattern-based system and weight-based rarity",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "pattern_generation",
-                     "demon_categories":  4,
-                     "componentKeys":  [
-                                            "rank",
-                                            "aspect",
-                                            "descriptive",
-                                            "title"
-                                        ],
-                     "patternTokens":  [
-                                            "base",
-                                            "rank",
-                                            "aspect",
-                                            "descriptive",
-                                            "title"
-                                        ],
-                     "totalPatterns":  7,
-                     "raritySystem":  "weight-based",
-                     "notes":  [
-                                   "Base token resolves from enemies/demons/catalog.json",
-                                   "All components have rarityWeight for emergent rarity calculation",
-                                   "Component weights combine via multipliers from general/rarity_config.json",
-                                   "Upgraded to v4.0 with supportsTraits metadata"
-                               ],
-                     "supportsTraits":  true
-                 },
-    "components":  {
-                       "rank":  [
-                                    {
-                                        "value":  "Lesser",
-                                        "rarityWeight":  8
-                                    },
-                                    {
-                                        "value":  "Greater",
-                                        "rarityWeight":  35
-                                    },
-                                    {
-                                        "value":  "Arch",
-                                        "rarityWeight":  70
-                                    },
-                                    {
-                                        "value":  "Prime",
-                                        "rarityWeight":  85
-                                    },
-                                    {
-                                        "value":  "Lord",
-                                        "rarityWeight":  90
-                                    }
-                                ],
-                       "aspect":  [
-                                      {
-                                          "value":  "Fire",
-                                          "rarityWeight":  20
-                                      },
-                                      {
-                                          "value":  "Shadow",
-                                          "rarityWeight":  25
-                                      },
-                                      {
-                                          "value":  "Blood",
-                                          "rarityWeight":  30
-                                      },
-                                      {
-                                          "value":  "Chaos",
-                                          "rarityWeight":  40
-                                      },
-                                      {
-                                          "value":  "Corruption",
-                                          "rarityWeight":  45
-                                      },
-                                      {
-                                          "value":  "Void",
-                                          "rarityWeight":  60
-                                      },
-                                      {
-                                          "value":  "Plague",
-                                          "rarityWeight":  35
-                                      }
-                                  ],
-                       "descriptive":  [
-                                           {
-                                               "value":  "Infernal",
-                                               "rarityWeight":  35
-                                           },
-                                           {
-                                               "value":  "Abyssal",
-                                               "rarityWeight":  45
-                                           },
-                                           {
-                                               "value":  "Hellborn",
-                                               "rarityWeight":  40
-                                           },
-                                           {
-                                               "value":  "Cursed",
-                                               "rarityWeight":  28
-                                           },
-                                           {
-                                               "value":  "Dark",
-                                               "rarityWeight":  22
-                                           },
-                                           {
-                                               "value":  "Corrupted",
-                                               "rarityWeight":  32
-                                           },
-                                           {
-                                               "value":  "Vile",
-                                               "rarityWeight":  30
-                                           },
-                                           {
-                                               "value":  "Malevolent",
-                                               "rarityWeight":  38
-                                           },
-                                           {
-                                               "value":  "Sinister",
-                                               "rarityWeight":  36
-                                           },
-                                           {
-                                               "value":  "Wicked",
-                                               "rarityWeight":  34
-                                           }
-                                       ],
-                       "title":  [
-                                     {
-                                         "value":  "of the Abyss",
-                                         "rarityWeight":  60
-                                     },
-                                     {
-                                         "value":  "of Torment",
-                                         "rarityWeight":  55
-                                     },
-                                     {
-                                         "value":  "of Destruction",
-                                         "rarityWeight":  70
-                                     },
-                                     {
-                                         "value":  "of the Nine Hells",
-                                         "rarityWeight":  80
-                                     },
-                                     {
-                                         "value":  "the Destroyer",
-                                         "rarityWeight":  75
-                                     },
-                                     {
-                                         "value":  "the Defiler",
-                                         "rarityWeight":  65
-                                     },
-                                     {
-                                         "value":  "the Corruptor",
-                                         "rarityWeight":  68
-                                     },
-                                     {
-                                         "value":  "Spawn of Chaos",
-                                         "rarityWeight":  72
-                                     }
-                                 ]
-                   },
-    "patterns":  [
-                     "base",
-                     "{rank} {base}",
-                     "{descriptive} {base}",
-                     "{aspect} {base}",
-                     "{rank} {aspect} {base}",
-                     "{descriptive} {base} {title}",
-                     "{rank} {descriptive} {aspect} {base} {title}"
-                 ],
-    "notes":  {
-                  "usage":  "Pattern-based name generation for demons. Pick components by rarityWeight and apply patterns to generate procedural names."
-              }
+    "metadata": {
+        "description": "Demon enemy name generation with pattern-based system and weight-based rarity",
+        "version": "4.0",
+        "lastUpdated": "2025-12-17",
+        "type": "pattern_generation",
+        "demon_categories": 4,
+        "componentKeys": [
+            "rank",
+            "aspect",
+            "descriptive",
+            "title"
+        ],
+        "patternTokens": [
+            "base",
+            "rank",
+            "aspect",
+            "descriptive",
+            "title"
+        ],
+        "totalPatterns": 7,
+        "raritySystem": "weight-based",
+        "notes": [
+            "Base token resolves from enemies/demons/catalog.json",
+            "All components have rarityWeight for emergent rarity calculation",
+            "Component weights combine via multipliers from general/rarity_config.json",
+            "Upgraded to v4.0 with supportsTraits metadata"
+        ],
+        "supportsTraits": true
+    },
+    "components": {
+        "rank": [
+            {
+                "value": "Lesser",
+                "rarityWeight": 8
+            },
+            {
+                "value": "Greater",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Arch",
+                "rarityWeight": 70
+            },
+            {
+                "value": "Prime",
+                "rarityWeight": 85
+            },
+            {
+                "value": "Lord",
+                "rarityWeight": 90
+            }
+        ],
+        "aspect": [
+            {
+                "value": "Fire",
+                "rarityWeight": 20
+            },
+            {
+                "value": "Shadow",
+                "rarityWeight": 25
+            },
+            {
+                "value": "Blood",
+                "rarityWeight": 30
+            },
+            {
+                "value": "Chaos",
+                "rarityWeight": 40
+            },
+            {
+                "value": "Corruption",
+                "rarityWeight": 45
+            },
+            {
+                "value": "Void",
+                "rarityWeight": 60
+            },
+            {
+                "value": "Plague",
+                "rarityWeight": 35
+            }
+        ],
+        "descriptive": [
+            {
+                "value": "Infernal",
+                "rarityWeight": 35
+            },
+            {
+                "value": "Abyssal",
+                "rarityWeight": 45
+            },
+            {
+                "value": "Hellborn",
+                "rarityWeight": 40
+            },
+            {
+                "value": "Cursed",
+                "rarityWeight": 28
+            },
+            {
+                "value": "Dark",
+                "rarityWeight": 22
+            },
+            {
+                "value": "Corrupted",
+                "rarityWeight": 32
+            },
+            {
+                "value": "Vile",
+                "rarityWeight": 30
+            },
+            {
+                "value": "Malevolent",
+                "rarityWeight": 38
+            },
+            {
+                "value": "Sinister",
+                "rarityWeight": 36
+            },
+            {
+                "value": "Wicked",
+                "rarityWeight": 34
+            }
+        ],
+        "title": [
+            {
+                "value": "of the Abyss",
+                "rarityWeight": 60
+            },
+            {
+                "value": "of Torment",
+                "rarityWeight": 55
+            },
+            {
+                "value": "of Destruction",
+                "rarityWeight": 70
+            },
+            {
+                "value": "of the Nine Hells",
+                "rarityWeight": 80
+            },
+            {
+                "value": "the Destroyer",
+                "rarityWeight": 75
+            },
+            {
+                "value": "the Defiler",
+                "rarityWeight": 65
+            },
+            {
+                "value": "the Corruptor",
+                "rarityWeight": 68
+            },
+            {
+                "value": "Spawn of Chaos",
+                "rarityWeight": 72
+            }
+        ]
+    },
+    "patterns": [
+        "base",
+        "{rank} {base}",
+        "{descriptive} {base}",
+        "{aspect} {base}",
+        "{rank} {aspect} {base}",
+        "{descriptive} {base} {title}",
+        "{rank} {descriptive} {aspect} {base} {title}"
+    ],
+    "notes": {
+        "usage": "Pattern-based name generation for demons. Pick components by rarityWeight and apply patterns to generate procedural names."
+    }
 }

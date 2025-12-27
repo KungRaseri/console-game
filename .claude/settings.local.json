@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for dir in beasts demons dragons elementals goblinoids humanoids insects orcs plants reptilians trolls undead vampires)",
+      "Bash(do cp $dir/abilities.json $dir/abilities.json.v3.backup)",
+      "Bash(done)"
+    ]
+  }
+}

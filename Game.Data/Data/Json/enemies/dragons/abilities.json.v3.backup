@@ -1,0 +1,169 @@
+{
+    "metadata":  {
+                     "description":  "dragons ability definitions and properties",
+                     "version":  "1.0",
+                     "lastUpdated":  "2025-12-17",
+                     "type":  "ability_catalog",
+                     "total_abilities":  18
+                 },
+    "items":  [
+                  {
+                      "name":  "Dragon Breath",
+                      "displayName":  "Dragon Breath",
+                      "description":  "Devastating breath weapon attack",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Armored Scales",
+                      "displayName":  "Armored Scales",
+                      "description":  "Nearly impenetrable natural armor",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Flight",
+                      "displayName":  "Flight",
+                      "description":  "Can fly and attack from above",
+                      "rarityWeight": 10
+                  },
+                  {
+                      "name":  "Ancient Wisdom",
+                      "displayName":  "Ancient Wisdom",
+                      "description":  "Centuries of knowledge and magical power",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Frightful Presence",
+                      "displayName":  "Frightful Presence",
+                      "description":  "Terrifying aura that breaks enemy morale",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Tail Sweep",
+                      "displayName":  "Tail Sweep",
+                      "description":  "Can attack multiple enemies with tail",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Wing Buffet",
+                      "displayName":  "Wing Buffet",
+                      "description":  "Creates powerful wind gusts",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Magic Resistance",
+                      "displayName":  "Magic Resistance",
+                      "description":  "High resistance to magical attacks",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Treasure Sense",
+                      "displayName":  "Treasure Sense",
+                      "description":  "Can detect valuable items",
+                      "rarityWeight": 10
+                  },
+                  {
+                      "name":  "Spellcasting",
+                      "displayName":  "Spellcasting",
+                      "description":  "Can cast powerful magic",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Regeneration",
+                      "displayName":  "Regeneration",
+                      "description":  "Heals rapidly during combat",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Elemental Immunity",
+                      "displayName":  "Elemental Immunity",
+                      "description":  "Immune to its breath weapon\u0027s element",
+                      "rarityWeight": 75
+                  },
+                  {
+                      "name":  "Shape Shifting",
+                      "displayName":  "Shape Shifting",
+                      "description":  "Can assume humanoid form",
+                      "rarityWeight": 250
+                  },
+                  {
+                      "name":  "Legendary Resistance",
+                      "displayName":  "Legendary Resistance",
+                      "description":  "Can shrug off debilitating effects",
+                      "rarityWeight": 250
+                  },
+                  {
+                      "name":  "Lair Actions",
+                      "displayName":  "Lair Actions",
+                      "description":  "Environment bends to dragon\u0027s will",
+                      "rarityWeight": 150
+                  },
+                  {
+                      "name":  "Crushing Bite",
+                      "displayName":  "Crushing Bite",
+                      "description":  "Jaw strength can break armor",
+                      "rarityWeight": 35
+                  },
+                  {
+                      "name":  "Ancient Power",
+                      "displayName":  "Ancient Power",
+                      "description":  "Power grows with age",
+                      "rarityWeight": 250
+                  },
+                  {
+                      "name":  "Godlike Might",
+                      "displayName":  "Godlike Might",
+                      "description":  "Power rivaling the gods themselves",
+                      "rarityWeight": 500
+                  }
+              ],
+    "components":  {
+                       "offensive":  [
+                                         "Dragon Breath",
+                                         "Tail Sweep",
+                                         "Wing Buffet",
+                                         "Crushing Bite"
+                                     ],
+                       "defensive":  [
+                                         "Armored Scales",
+                                         "Magic Resistance",
+                                         "Elemental Immunity",
+                                         "Legendary Resistance"
+                                     ],
+                       "mobility":  [
+                                        "Flight"
+                                    ],
+                       "mental":  [
+                                      "Ancient Wisdom",
+                                      "Frightful Presence"
+                                  ],
+                       "magical":  [
+                                       "Spellcasting",
+                                       "Regeneration",
+                                       "Shape Shifting"
+                                   ],
+                       "environmental":  [
+                                             "Lair Actions",
+                                             "Treasure Sense"
+                                         ],
+                       "legendary":  [
+                                         "Ancient Power",
+                                         "Godlike Might"
+                                     ]
+                   },
+    "patterns":  [
+                     "trait + dragon color (Dragon Breath Red Dragon)",
+                     "multiple traits for ancient dragons (Ancient Wisdom + Spellcasting + Legendary Resistance)",
+                     "age-based power scaling"
+                 ],
+    "rarity_distribution":  {
+                                "Common":  2,
+                                "Uncommon":  4,
+                                "Rare":  4,
+                                "Epic":  4,
+                                "Legendary":  3,
+                                "Mythic":  1
+                            },
+    "notes":  {
+                  "usage":  "Special traits and modifiers for dragons. Used to add unique characteristics and stat bonuses."
+              }
+}

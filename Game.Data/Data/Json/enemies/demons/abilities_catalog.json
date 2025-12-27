@@ -1,0 +1,620 @@
+{
+  "metadata": {
+    "description": "Demon ability catalog with base definitions (v4.0)",
+    "version": "4.0",
+    "lastUpdated": "2025-12-26",
+    "type": "ability_catalog",
+    "supportsTraits": true,
+    "totalAbilityTypes": 5,
+    "totalAbilities": 18,
+    "usage": "Provides base ability definitions for pattern generation with abilities_names.json"
+  },
+  "ability_types": {
+    "offensive": {
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        },
+        "damageType": {
+          "value": "physical",
+          "type": "string"
+        },
+        "targetType": {
+          "value": "enemy",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "active",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "name": "Infernal Flames",
+          "displayName": "Infernal Flames",
+          "description": "Wreathed in hellfire, burns attackers",
+          "rarityWeight": 35,
+          "baseDamage": "2d6",
+          "cooldown": 10,
+          "range": 5,
+          "traits": {
+            "damageType": {
+              "value": "fire",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 3,
+              "type": "number"
+            },
+            "statusEffect": {
+              "value": "burning",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 3,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "Hellfire Breath",
+          "displayName": "Hellfire Breath",
+          "description": "Exhales devastating flames",
+          "rarityWeight": 150,
+          "baseDamage": "4d8",
+          "cooldown": 20,
+          "range": 10,
+          "traits": {
+            "damageType": {
+              "value": "fire",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 8,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 5,
+              "type": "number"
+            },
+            "statusEffect": {
+              "value": "burning",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 75,
+              "type": "number"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            },
+            "targetCount": {
+              "value": 5,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "Cursed Weapons",
+          "displayName": "Cursed Weapons",
+          "description": "Attacks inflict lingering curses",
+          "rarityWeight": 75,
+          "baseDamage": "1d6",
+          "traits": {
+            "damageType": {
+              "value": "dark",
+              "type": "string"
+            },
+            "statusEffect": {
+              "value": "cursed",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 100,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            },
+            "damageMultiplier": {
+              "value": 1.5,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "passive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Unholy Strength",
+          "displayName": "Unholy Strength",
+          "description": "Possesses supernatural physical power",
+          "rarityWeight": 35,
+          "traits": {
+            "damageBonus": {
+              "value": 5,
+              "type": "number"
+            },
+            "strengthBonus": {
+              "value": 4,
+              "type": "number"
+            },
+            "damageMultiplier": {
+              "value": 1.3,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "passive",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "self",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Blood Frenzy",
+          "displayName": "Blood Frenzy",
+          "description": "Becomes more dangerous as it bleeds",
+          "rarityWeight": 35,
+          "traits": {
+            "damageMultiplier": {
+              "value": 2.0,
+              "type": "number"
+            },
+            "attackSpeed": {
+              "value": 1.5,
+              "type": "number"
+            },
+            "criticalChance": {
+              "value": 25,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "passive",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "self",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "defensive": {
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        },
+        "targetType": {
+          "value": "self",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "passive",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "name": "Demonic Regeneration",
+          "displayName": "Demonic Regeneration",
+          "description": "Rapidly heals wounds",
+          "rarityWeight": 75,
+          "traits": {
+            "healthRegen": {
+              "value": 5,
+              "type": "number"
+            },
+            "regenInterval": {
+              "value": 5,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "Hellborn Armor",
+          "displayName": "Hellborn Armor",
+          "description": "Natural resistance to physical damage",
+          "rarityWeight": 10,
+          "traits": {
+            "armorBonus": {
+              "value": 5,
+              "type": "number"
+            },
+            "resistPhysical": {
+              "value": 25,
+              "type": "number"
+            },
+            "damageReduction": {
+              "value": 10,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "Dimensional Shift",
+          "displayName": "Dimensional Shift",
+          "description": "Phases between realms to avoid damage",
+          "rarityWeight": 150,
+          "cooldown": 30,
+          "traits": {
+            "dodgeChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "toggle",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Magic Immunity",
+          "displayName": "Magic Immunity",
+          "description": "Cannot be harmed by spells",
+          "rarityWeight": 250,
+          "traits": {
+            "resistMagic": {
+              "value": 100,
+              "type": "number"
+            },
+            "resistFire": {
+              "value": 100,
+              "type": "number"
+            },
+            "resistIce": {
+              "value": 100,
+              "type": "number"
+            },
+            "resistLightning": {
+              "value": 100,
+              "type": "number"
+            }
+          }
+        }
+      ]
+    },
+    "control": {
+      "traits": {
+        "category": {
+          "value": "control",
+          "type": "string"
+        },
+        "targetType": {
+          "value": "enemy",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "active",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "name": "Fear Aura",
+          "displayName": "Fear Aura",
+          "description": "Terrifies nearby enemies",
+          "rarityWeight": 35,
+          "cooldown": 30,
+          "traits": {
+            "statusEffect": {
+              "value": "feared",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 10,
+              "type": "number"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            },
+            "targetCount": {
+              "value": 5,
+              "type": "number"
+            },
+            "statusChance": {
+              "value": 75,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "Charm",
+          "displayName": "Charm",
+          "description": "Can mind-control weak-willed foes",
+          "rarityWeight": 75,
+          "cooldown": 60,
+          "range": 10,
+          "traits": {
+            "statusEffect": {
+              "value": "charmed",
+              "type": "string"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            },
+            "statusChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "targetCount": {
+              "value": 1,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "Soul Corruption",
+          "displayName": "Soul Corruption",
+          "description": "Attacks corrupt and weaken souls",
+          "rarityWeight": 150,
+          "baseDamage": "3d6",
+          "cooldown": 15,
+          "range": 5,
+          "traits": {
+            "damageType": {
+              "value": "dark",
+              "type": "string"
+            },
+            "statusEffect": {
+              "value": "weakened",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 100,
+              "type": "number"
+            },
+            "duration": {
+              "value": 15,
+              "type": "number"
+            },
+            "damageBonus": {
+              "value": 5,
+              "type": "number"
+            }
+          }
+        }
+      ]
+    },
+    "utility": {
+      "traits": {
+        "category": {
+          "value": "utility",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "active",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "name": "Teleportation",
+          "displayName": "Teleportation",
+          "description": "Can teleport short distances",
+          "rarityWeight": 75,
+          "cooldown": 10,
+          "range": 15,
+          "traits": {
+            "rangeBonus": {
+              "value": 5,
+              "type": "number"
+            },
+            "castTime": {
+              "value": 1,
+              "type": "number"
+            },
+            "targetType": {
+              "value": "self",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Dark Pact",
+          "displayName": "Dark Pact",
+          "description": "Gains power from fallen allies and enemies",
+          "rarityWeight": 75,
+          "traits": {
+            "damageBonus": {
+              "value": 2,
+              "type": "number"
+            },
+            "healthBonus": {
+              "value": 10,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "passive",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "self",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Toxic Miasma",
+          "displayName": "Toxic Miasma",
+          "description": "Emits poisonous fumes",
+          "rarityWeight": 35,
+          "baseDamage": "1d6",
+          "cooldown": 20,
+          "traits": {
+            "damageType": {
+              "value": "poison",
+              "type": "string"
+            },
+            "statusEffect": {
+              "value": "poisoned",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 100,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 5,
+              "type": "number"
+            },
+            "targetCount": {
+              "value": 5,
+              "type": "number"
+            },
+            "targetType": {
+              "value": "area",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Summon Lesser Demons",
+          "displayName": "Summon Lesser Demons",
+          "description": "Calls forth minor demonic servants",
+          "rarityWeight": 150,
+          "cooldown": 60,
+          "range": 10,
+          "traits": {
+            "summonType": {
+              "value": "demon",
+              "type": "string"
+            },
+            "summonCount": {
+              "value": 3,
+              "type": "number"
+            },
+            "duration": {
+              "value": 60,
+              "type": "number"
+            },
+            "castTime": {
+              "value": 3,
+              "type": "number"
+            },
+            "targetType": {
+              "value": "area",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "legendary": {
+      "traits": {
+        "category": {
+          "value": "legendary",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "ultimate",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "name": "Demon Lord",
+          "displayName": "Demon Lord",
+          "description": "Commands legions of lesser demons",
+          "rarityWeight": 250,
+          "cooldown": 120,
+          "traits": {
+            "damageMultiplier": {
+              "value": 2.0,
+              "type": "number"
+            },
+            "healthMultiplier": {
+              "value": 3.0,
+              "type": "number"
+            },
+            "armorBonus": {
+              "value": 10,
+              "type": "number"
+            },
+            "summonType": {
+              "value": "demon",
+              "type": "string"
+            },
+            "summonCount": {
+              "value": 10,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 50,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "passive",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "self",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Reality Warp",
+          "displayName": "Reality Warp",
+          "description": "Bends the laws of nature",
+          "rarityWeight": 500,
+          "baseDamage": "10d10",
+          "cooldown": 180,
+          "range": 20,
+          "traits": {
+            "damageType": {
+              "value": "magic",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 50,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 15,
+              "type": "number"
+            },
+            "targetCount": {
+              "value": 10,
+              "type": "number"
+            },
+            "castTime": {
+              "value": 5,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "channeled",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "area",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
