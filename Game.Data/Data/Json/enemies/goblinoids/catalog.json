@@ -1,190 +1,192 @@
 {
-    "metadata":  {
-                     "description":  "Goblinoid enemy type catalog with base stats and rarityWeight values",
-                     "version":  "1.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "item_catalog",
-                     "total_types":  12,
-                     "categories":  [
-                                        "goblins",
-                                        "hobgoblins",
-                                        "bugbears",
-                                        "special_goblinoids"
-                                    ],
-                     "usage":  "Provides base enemy types for pattern generation",
-                     "notes": ["Base catalog of goblinoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
-                 },
-    "goblinoid_types":  {
-                            "goblins":  {
-                                            "traits":  {
-                                                           "category":  "goblinoid",
-                                                           "size":  "small",
-                                                           "intelligence":  "low",
-                                                           "social":  "tribal",
-                                                           "behavior":  "cowardly",
-                                                           "damageType":  "physical"
-                                                       },
-                                            "items":  [
-                                                          {
-                                                              "name":  "Goblin",
-                                                              "health":  15,
-                                                              "attack":  5,
-                                                              "defense":  2,
-                                                              "speed":  6,
-                                                              "level":  1,
-                                                              "xp":  10,
-                                                              "rarityWeight":  3
-                                                          },
-                                                          {
-                                                              "name":  "Goblin Scout",
-                                                              "health":  18,
-                                                              "attack":  6,
-                                                              "defense":  3,
-                                                              "speed":  8,
-                                                              "level":  2,
-                                                              "xp":  15,
-                                                              "rarityWeight":  5
-                                                          },
-                                                          {
-                                                              "name":  "Goblin Shaman",
-                                                              "health":  20,
-                                                              "attack":  8,
-                                                              "defense":  2,
-                                                              "speed":  5,
-                                                              "level":  3,
-                                                              "xp":  25,
-                                                              "rarityWeight":  12
-                                                          },
-                                                          {
-                                                              "name":  "Goblin Chief",
-                                                              "health":  30,
-                                                              "attack":  10,
-                                                              "defense":  5,
-                                                              "speed":  6,
-                                                              "level":  4,
-                                                              "xp":  40,
-                                                              "rarityWeight":  18
-                                                          }
-                                                      ]
-                                        },
-                            "hobgoblins":  {
-                                               "traits":  {
-                                                              "category":  "goblinoid",
-                                                              "size":  "medium",
-                                                              "intelligence":  "medium",
-                                                              "social":  "military",
-                                                              "behavior":  "disciplined",
-                                                              "damageType":  "physical",
-                                                              "trained":  true
-                                                          },
-                                               "items":  [
-                                                             {
-                                                                 "name":  "Hobgoblin",
-                                                                 "health":  40,
-                                                                 "attack":  12,
-                                                                 "defense":  6,
-                                                                 "speed":  5,
-                                                                 "level":  3,
-                                                                 "xp":  35,
-                                                                 "rarityWeight":  8
-                                                             },
-                                                             {
-                                                                 "name":  "Hobgoblin Soldier",
-                                                                 "health":  50,
-                                                                 "attack":  14,
-                                                                 "defense":  8,
-                                                                 "speed":  5,
-                                                                 "level":  4,
-                                                                 "xp":  50,
-                                                                 "rarityWeight":  12
-                                                             },
-                                                             {
-                                                                 "name":  "Hobgoblin Captain",
-                                                                 "health":  65,
-                                                                 "attack":  18,
-                                                                 "defense":  10,
-                                                                 "speed":  6,
-                                                                 "level":  6,
-                                                                 "xp":  80,
-                                                                 "rarityWeight":  22
-                                                             },
-                                                             {
-                                                                 "name":  "Hobgoblin Warlord",
-                                                                 "health":  85,
-                                                                 "attack":  22,
-                                                                 "defense":  12,
-                                                                 "speed":  6,
-                                                                 "level":  8,
-                                                                 "xp":  120,
-                                                                 "rarityWeight":  35
-                                                             }
-                                                         ]
-                                           },
-                            "bugbears":  {
-                                             "traits":  {
-                                                            "category":  "goblinoid",
-                                                            "size":  "large",
-                                                            "intelligence":  "low",
-                                                            "social":  "pack",
-                                                            "behavior":  "brutal",
-                                                            "damageType":  "physical",
-                                                            "stealthy":  true
-                                                        },
-                                             "items":  [
-                                                           {
-                                                               "name":  "Bugbear",
-                                                               "health":  55,
-                                                               "attack":  16,
-                                                               "defense":  6,
-                                                               "speed":  5,
-                                                               "level":  4,
-                                                               "xp":  55,
-                                                               "rarityWeight":  10
-                                                           },
-                                                           {
-                                                               "name":  "Bugbear Hunter",
-                                                               "health":  70,
-                                                               "attack":  20,
-                                                               "defense":  8,
-                                                               "speed":  6,
-                                                               "level":  6,
-                                                               "xp":  85,
-                                                               "rarityWeight":  18
-                                                           },
-                                                           {
-                                                               "name":  "Bugbear Chieftain",
-                                                               "health":  90,
-                                                               "attack":  25,
-                                                               "defense":  10,
-                                                               "speed":  5,
-                                                               "level":  8,
-                                                               "xp":  130,
-                                                               "rarityWeight":  28
-                                                           }
-                                                       ]
-                                         },
-                            "special_goblinoids":  {
-                                                       "traits":  {
-                                                                      "category":  "goblinoid",
-                                                                      "intelligence":  "medium",
-                                                                      "social":  "unique",
-                                                                      "behavior":  "special",
-                                                                      "unique":  true
-                                                                  },
-                                                       "items":  [
-                                                                     {
-                                                                         "name":  "Goblin King",
-                                                                         "health":  100,
-                                                                         "attack":  28,
-                                                                         "defense":  15,
-                                                                         "speed":  7,
-                                                                         "level":  10,
-                                                                         "xp":  200,
-                                                                         "rarityWeight":  60,
-                                                                         "size":  "medium",
-                                                                         "damageType":  "physical"
-                                                                     }
-                                                                 ]
-                                                   }
-                        }
+  "metadata": {
+    "description": "Goblinoid enemy type catalog with base stats and rarityWeight values",
+    "version": "1.0",
+    "lastUpdated": "2025-12-17",
+    "type": "item_catalog",
+    "total_types": 12,
+    "categories": [
+      "goblins",
+      "hobgoblins",
+      "bugbears",
+      "special_goblinoids"
+    ],
+    "usage": "Provides base enemy types for pattern generation",
+    "notes": [
+      "Base catalog of goblinoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+    ]
+  },
+  "goblinoid_types": {
+    "goblins": {
+      "traits": {
+        "category": "goblinoid",
+        "size": "small",
+        "intelligence": "low",
+        "social": "tribal",
+        "behavior": "cowardly",
+        "damageType": "physical"
+      },
+      "items": [
+        {
+          "name": "Goblin",
+          "health": 15,
+          "attack": 5,
+          "defense": 2,
+          "speed": 6,
+          "level": 1,
+          "xp": 10,
+          "rarityWeight": 3
+        },
+        {
+          "name": "Goblin Scout",
+          "health": 18,
+          "attack": 6,
+          "defense": 3,
+          "speed": 8,
+          "level": 2,
+          "xp": 15,
+          "rarityWeight": 5
+        },
+        {
+          "name": "Goblin Shaman",
+          "health": 20,
+          "attack": 8,
+          "defense": 2,
+          "speed": 5,
+          "level": 3,
+          "xp": 25,
+          "rarityWeight": 12
+        },
+        {
+          "name": "Goblin Chief",
+          "health": 30,
+          "attack": 10,
+          "defense": 5,
+          "speed": 6,
+          "level": 4,
+          "xp": 40,
+          "rarityWeight": 18
+        }
+      ]
+    },
+    "hobgoblins": {
+      "traits": {
+        "category": "goblinoid",
+        "size": "medium",
+        "intelligence": "medium",
+        "social": "military",
+        "behavior": "disciplined",
+        "damageType": "physical",
+        "trained": true
+      },
+      "items": [
+        {
+          "name": "Hobgoblin",
+          "health": 40,
+          "attack": 12,
+          "defense": 6,
+          "speed": 5,
+          "level": 3,
+          "xp": 35,
+          "rarityWeight": 8
+        },
+        {
+          "name": "Hobgoblin Soldier",
+          "health": 50,
+          "attack": 14,
+          "defense": 8,
+          "speed": 5,
+          "level": 4,
+          "xp": 50,
+          "rarityWeight": 12
+        },
+        {
+          "name": "Hobgoblin Captain",
+          "health": 65,
+          "attack": 18,
+          "defense": 10,
+          "speed": 6,
+          "level": 6,
+          "xp": 80,
+          "rarityWeight": 22
+        },
+        {
+          "name": "Hobgoblin Warlord",
+          "health": 85,
+          "attack": 22,
+          "defense": 12,
+          "speed": 6,
+          "level": 8,
+          "xp": 120,
+          "rarityWeight": 35
+        }
+      ]
+    },
+    "bugbears": {
+      "traits": {
+        "category": "goblinoid",
+        "size": "large",
+        "intelligence": "low",
+        "social": "pack",
+        "behavior": "brutal",
+        "damageType": "physical",
+        "stealthy": true
+      },
+      "items": [
+        {
+          "name": "Bugbear",
+          "health": 55,
+          "attack": 16,
+          "defense": 6,
+          "speed": 5,
+          "level": 4,
+          "xp": 55,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Bugbear Hunter",
+          "health": 70,
+          "attack": 20,
+          "defense": 8,
+          "speed": 6,
+          "level": 6,
+          "xp": 85,
+          "rarityWeight": 18
+        },
+        {
+          "name": "Bugbear Chieftain",
+          "health": 90,
+          "attack": 25,
+          "defense": 10,
+          "speed": 5,
+          "level": 8,
+          "xp": 130,
+          "rarityWeight": 28
+        }
+      ]
+    },
+    "special_goblinoids": {
+      "traits": {
+        "category": "goblinoid",
+        "intelligence": "medium",
+        "social": "unique",
+        "behavior": "special",
+        "unique": true
+      },
+      "items": [
+        {
+          "name": "Goblin King",
+          "health": 100,
+          "attack": 28,
+          "defense": 15,
+          "speed": 7,
+          "level": 10,
+          "xp": 200,
+          "rarityWeight": 60,
+          "size": "medium",
+          "damageType": "physical"
+        }
+      ]
+    }
+  }
 }

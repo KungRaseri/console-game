@@ -1,190 +1,192 @@
 {
-    "metadata":  {
-                     "description":  "Elemental enemy type catalog with base stats and traits",
-                     "version":  "1.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "item_catalog",
-                     "total_elemental_types":  4,
-                     "total_elementals":  12,
-                     "usage":  "Provides base enemy types for pattern generation",
-                     "notes": ["Base catalog of elementals with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
-                 },
-    "elemental_types":  {
-                            "fire_elementals":  {
-                                                    "traits":  {
-                                                                   "category":  "elemental",
-                                                                   "element":  "fire",
-                                                                   "size":  "large",
-                                                                   "behavior":  "aggressive",
-                                                                   "immunity":  [
-                                                                                    "fire"
-                                                                                ],
-                                                                   "vulnerability":  "cold"
-                                                               },
-                                                    "items":  [
-                                                                  {
-                                                                      "name":  "Fire Elemental",
-                                                                      "health":  100,
-                                                                      "attack":  18,
-                                                                      "defense":  8,
-                                                                      "speed":  16,
-                                                                      "level":  10,
-                                                                      "xp":  300,
-                                                                      "rarityWeight":  20
-                                                                  },
-                                                                  {
-                                                                      "name":  "Salamander",
-                                                                      "health":  80,
-                                                                      "attack":  15,
-                                                                      "defense":  7,
-                                                                      "speed":  18,
-                                                                      "level":  8,
-                                                                      "xp":  200,
-                                                                      "rarityWeight":  15
-                                                                  },
-                                                                  {
-                                                                      "name":  "Efreeti",
-                                                                      "health":  150,
-                                                                      "attack":  25,
-                                                                      "defense":  12,
-                                                                      "speed":  14,
-                                                                      "level":  14,
-                                                                      "xp":  700,
-                                                                      "rarityWeight":  45
-                                                                  }
-                                                              ]
-                                                },
-                            "water_elementals":  {
-                                                     "traits":  {
-                                                                    "category":  "elemental",
-                                                                    "element":  "water",
-                                                                    "size":  "large",
-                                                                    "behavior":  "fluid",
-                                                                    "immunity":  [
-                                                                                     "cold"
-                                                                                 ],
-                                                                    "vulnerability":  "lightning"
-                                                                },
-                                                     "items":  [
-                                                                   {
-                                                                       "name":  "Water Elemental",
-                                                                       "health":  110,
-                                                                       "attack":  14,
-                                                                       "defense":  12,
-                                                                       "speed":  14,
-                                                                       "level":  10,
-                                                                       "xp":  300,
-                                                                       "rarityWeight":  20
-                                                                   },
-                                                                   {
-                                                                       "name":  "Undine",
-                                                                       "health":  90,
-                                                                       "attack":  12,
-                                                                       "defense":  10,
-                                                                       "speed":  16,
-                                                                       "level":  8,
-                                                                       "xp":  200,
-                                                                       "rarityWeight":  15
-                                                                   }
-                                                               ]
-                                                 },
-                            "earth_elementals":  {
-                                                     "traits":  {
-                                                                    "category":  "elemental",
-                                                                    "element":  "earth",
-                                                                    "size":  "large",
-                                                                    "behavior":  "defensive",
-                                                                    "immunity":  [
-                                                                                     "physical"
-                                                                                 ],
-                                                                    "vulnerability":  "thunder"
-                                                                },
-                                                     "items":  [
-                                                                   {
-                                                                       "name":  "Earth Elemental",
-                                                                       "health":  140,
-                                                                       "attack":  16,
-                                                                       "defense":  20,
-                                                                       "speed":  8,
-                                                                       "level":  11,
-                                                                       "xp":  400,
-                                                                       "rarityWeight":  22
-                                                                   },
-                                                                   {
-                                                                       "name":  "Golem",
-                                                                       "health":  160,
-                                                                       "attack":  18,
-                                                                       "defense":  25,
-                                                                       "speed":  6,
-                                                                       "level":  12,
-                                                                       "xp":  500,
-                                                                       "rarityWeight":  28
-                                                                   },
-                                                                   {
-                                                                       "name":  "Gnome",
-                                                                       "health":  80,
-                                                                       "attack":  10,
-                                                                       "defense":  15,
-                                                                       "speed":  10,
-                                                                       "level":  7,
-                                                                       "xp":  150,
-                                                                       "rarityWeight":  12
-                                                                   }
-                                                               ]
-                                                 },
-                            "air_elementals":  {
-                                                   "traits":  {
-                                                                  "category":  "elemental",
-                                                                  "element":  "air",
-                                                                  "size":  "large",
-                                                                  "behavior":  "evasive",
-                                                                  "immunity":  [
-                                                                                   "lightning"
-                                                                               ],
-                                                                  "vulnerability":  "none"
-                                                              },
-                                                   "items":  [
-                                                                 {
-                                                                     "name":  "Air Elemental",
-                                                                     "health":  90,
-                                                                     "attack":  16,
-                                                                     "defense":  6,
-                                                                     "speed":  25,
-                                                                     "level":  10,
-                                                                     "xp":  300,
-                                                                     "rarityWeight":  20
-                                                                 },
-                                                                 {
-                                                                     "name":  "Sylph",
-                                                                     "health":  70,
-                                                                     "attack":  14,
-                                                                     "defense":  5,
-                                                                     "speed":  28,
-                                                                     "level":  8,
-                                                                     "xp":  200,
-                                                                     "rarityWeight":  15
-                                                                 },
-                                                                 {
-                                                                     "name":  "Djinn",
-                                                                     "health":  130,
-                                                                     "attack":  22,
-                                                                     "defense":  10,
-                                                                     "speed":  22,
-                                                                     "level":  13,
-                                                                     "xp":  650,
-                                                                     "rarityWeight":  42
-                                                                 },
-                                                                 {
-                                                                     "name":  "Phoenix",
-                                                                     "health":  180,
-                                                                     "attack":  28,
-                                                                     "defense":  14,
-                                                                     "speed":  24,
-                                                                     "level":  16,
-                                                                     "xp":  1000,
-                                                                     "rarityWeight":  70
-                                                                 }
-                                                             ]
-                                               }
-                        }
+  "metadata": {
+    "description": "Elemental enemy type catalog with base stats and traits",
+    "version": "1.0",
+    "lastUpdated": "2025-12-17",
+    "type": "item_catalog",
+    "total_elemental_types": 4,
+    "total_elementals": 12,
+    "usage": "Provides base enemy types for pattern generation",
+    "notes": [
+      "Base catalog of elementals with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+    ]
+  },
+  "elemental_types": {
+    "fire_elementals": {
+      "traits": {
+        "category": "elemental",
+        "element": "fire",
+        "size": "large",
+        "behavior": "aggressive",
+        "immunity": [
+          "fire"
+        ],
+        "vulnerability": "cold"
+      },
+      "items": [
+        {
+          "name": "Fire Elemental",
+          "health": 100,
+          "attack": 18,
+          "defense": 8,
+          "speed": 16,
+          "level": 10,
+          "xp": 300,
+          "rarityWeight": 20
+        },
+        {
+          "name": "Salamander",
+          "health": 80,
+          "attack": 15,
+          "defense": 7,
+          "speed": 18,
+          "level": 8,
+          "xp": 200,
+          "rarityWeight": 15
+        },
+        {
+          "name": "Efreeti",
+          "health": 150,
+          "attack": 25,
+          "defense": 12,
+          "speed": 14,
+          "level": 14,
+          "xp": 700,
+          "rarityWeight": 45
+        }
+      ]
+    },
+    "water_elementals": {
+      "traits": {
+        "category": "elemental",
+        "element": "water",
+        "size": "large",
+        "behavior": "fluid",
+        "immunity": [
+          "cold"
+        ],
+        "vulnerability": "lightning"
+      },
+      "items": [
+        {
+          "name": "Water Elemental",
+          "health": 110,
+          "attack": 14,
+          "defense": 12,
+          "speed": 14,
+          "level": 10,
+          "xp": 300,
+          "rarityWeight": 20
+        },
+        {
+          "name": "Undine",
+          "health": 90,
+          "attack": 12,
+          "defense": 10,
+          "speed": 16,
+          "level": 8,
+          "xp": 200,
+          "rarityWeight": 15
+        }
+      ]
+    },
+    "earth_elementals": {
+      "traits": {
+        "category": "elemental",
+        "element": "earth",
+        "size": "large",
+        "behavior": "defensive",
+        "immunity": [
+          "physical"
+        ],
+        "vulnerability": "thunder"
+      },
+      "items": [
+        {
+          "name": "Earth Elemental",
+          "health": 140,
+          "attack": 16,
+          "defense": 20,
+          "speed": 8,
+          "level": 11,
+          "xp": 400,
+          "rarityWeight": 22
+        },
+        {
+          "name": "Golem",
+          "health": 160,
+          "attack": 18,
+          "defense": 25,
+          "speed": 6,
+          "level": 12,
+          "xp": 500,
+          "rarityWeight": 28
+        },
+        {
+          "name": "Gnome",
+          "health": 80,
+          "attack": 10,
+          "defense": 15,
+          "speed": 10,
+          "level": 7,
+          "xp": 150,
+          "rarityWeight": 12
+        }
+      ]
+    },
+    "air_elementals": {
+      "traits": {
+        "category": "elemental",
+        "element": "air",
+        "size": "large",
+        "behavior": "evasive",
+        "immunity": [
+          "lightning"
+        ],
+        "vulnerability": "none"
+      },
+      "items": [
+        {
+          "name": "Air Elemental",
+          "health": 90,
+          "attack": 16,
+          "defense": 6,
+          "speed": 25,
+          "level": 10,
+          "xp": 300,
+          "rarityWeight": 20
+        },
+        {
+          "name": "Sylph",
+          "health": 70,
+          "attack": 14,
+          "defense": 5,
+          "speed": 28,
+          "level": 8,
+          "xp": 200,
+          "rarityWeight": 15
+        },
+        {
+          "name": "Djinn",
+          "health": 130,
+          "attack": 22,
+          "defense": 10,
+          "speed": 22,
+          "level": 13,
+          "xp": 650,
+          "rarityWeight": 42
+        },
+        {
+          "name": "Phoenix",
+          "health": 180,
+          "attack": 28,
+          "defense": 14,
+          "speed": 24,
+          "level": 16,
+          "xp": 1000,
+          "rarityWeight": 70
+        }
+      ]
+    }
+  }
 }

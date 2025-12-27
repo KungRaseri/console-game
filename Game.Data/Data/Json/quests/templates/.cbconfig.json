@@ -1,9 +1,9 @@
-﻿{
-    "icon":  "FileDocument",
-    "sortOrder":  4,
-    "fileIcons":  {
-                      "names":  "FormatListBulleted",
-                      "quest_templates":  "FileDocumentOutline",
-                      "catalog":  "ShapeOutline"
-                  }
+{
+  "icon": "FileDocument",
+  "sortOrder": 4,
+  "fileIcons": {
+    "names": "FormatListBulleted",
+    "quest_templates": "FileDocumentOutline",
+    "catalog": "ShapeOutline"
+  }
 }

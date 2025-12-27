@@ -1,165 +1,165 @@
 {
-    "metadata":  {
-                     "description":  "Giant insect name generation patterns with weight-based rarity components",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "pattern_generation",
-                     "componentKeys":  [
-                                           "size",
-                                           "type",
-                                           "descriptive",
-                                           "title"
-                                       ],
-                     "patternTokens":  [
-                                           "base",
-                                           "size",
-                                           "type",
-                                           "descriptive",
-                                           "title"
-                                       ],
-                     "totalPatterns":  8,
-                     "raritySystem":  "weight-based",
-                     "notes":  [
-                                   {
-                                       "base_token":  "Resolves to item name from insects/catalog.json",
-                                       "insect_variety":  "Includes spiders, beetles, wasps, ants with hive/solitary behavior",
-                                       "weight_ranges":  "Small (5) → Colossal (40), Common (5) → Crystal (35)",
-                                       "traits":  "Many insects are venomous, armored, or have hive minds"
-                                   },
-                                   "Upgraded to v4.0 with supportsTraits metadata"
-                               ],
-                     "supportsTraits":  true
-                 },
-    "components":  {
-                       "size":  [
-                                    {
-                                        "value":  "Small",
-                                        "rarityWeight":  5
-                                    },
-                                    {
-                                        "value":  "Giant",
-                                        "rarityWeight":  8
-                                    },
-                                    {
-                                        "value":  "Huge",
-                                        "rarityWeight":  20
-                                    },
-                                    {
-                                        "value":  "Colossal",
-                                        "rarityWeight":  40
-                                    }
-                                ],
-                       "type":  [
-                                    {
-                                        "value":  "Common",
-                                        "rarityWeight":  5
-                                    },
-                                    {
-                                        "value":  "Fire",
-                                        "rarityWeight":  12
-                                    },
-                                    {
-                                        "value":  "Acid",
-                                        "rarityWeight":  15
-                                    },
-                                    {
-                                        "value":  "Frost",
-                                        "rarityWeight":  18
-                                    },
-                                    {
-                                        "value":  "Phase",
-                                        "rarityWeight":  30
-                                    },
-                                    {
-                                        "value":  "Crystal",
-                                        "rarityWeight":  35
-                                    }
-                                ],
-                       "descriptive":  [
-                                           {
-                                               "value":  "Aggressive",
-                                               "rarityWeight":  8
-                                           },
-                                           {
-                                               "value":  "Venomous",
-                                               "rarityWeight":  12
-                                           },
-                                           {
-                                               "value":  "Armored",
-                                               "rarityWeight":  15
-                                           },
-                                           {
-                                               "value":  "Swift",
-                                               "rarityWeight":  10
-                                           },
-                                           {
-                                               "value":  "Deadly",
-                                               "rarityWeight":  20
-                                           },
-                                           {
-                                               "value":  "Primordial",
-                                               "rarityWeight":  35
-                                           }
-                                       ],
-                       "title":  [
-                                     {
-                                         "value":  "Worker",
-                                         "rarityWeight":  5
-                                     },
-                                     {
-                                         "value":  "Soldier",
-                                         "rarityWeight":  10
-                                     },
-                                     {
-                                         "value":  "Hunter",
-                                         "rarityWeight":  15
-                                     },
-                                     {
-                                         "value":  "Guardian",
-                                         "rarityWeight":  20
-                                     },
-                                     {
-                                         "value":  "Matriarch",
-                                         "rarityWeight":  40
-                                     },
-                                     {
-                                         "value":  "Queen",
-                                         "rarityWeight":  45
-                                     }
-                                 ]
-                   },
-    "patterns":  [
-                     {
-                         "rarityWeight":  50,
-                         "pattern":  "base"
-                     },
-                     {
-                         "rarityWeight":  40,
-                         "pattern":  "{size} {base}"
-                     },
-                     {
-                         "rarityWeight":  35,
-                         "pattern":  "{type} {base}"
-                     },
-                     {
-                         "rarityWeight":  30,
-                         "pattern":  "{descriptive} {base}"
-                     },
-                     {
-                         "rarityWeight":  25,
-                         "pattern":  "{base} {title}"
-                     },
-                     {
-                         "rarityWeight":  20,
-                         "pattern":  "{size} {type} {base}"
-                     },
-                     {
-                         "rarityWeight":  15,
-                         "pattern":  "{descriptive} {base} {title}"
-                     },
-                     {
-                         "rarityWeight":  10,
-                         "pattern":  "{size} {type} {base} {title}"
-                     }
-                 ]
+  "metadata": {
+    "description": "Giant insect name generation patterns with weight-based rarity components",
+    "version": "4.0",
+    "lastUpdated": "2025-12-17",
+    "type": "pattern_generation",
+    "componentKeys": [
+      "size",
+      "type",
+      "descriptive",
+      "title"
+    ],
+    "patternTokens": [
+      "base",
+      "size",
+      "type",
+      "descriptive",
+      "title"
+    ],
+    "totalPatterns": 8,
+    "raritySystem": "weight-based",
+    "notes": [
+      {
+        "base_token": "Resolves to item name from insects/catalog.json",
+        "insect_variety": "Includes spiders, beetles, wasps, ants with hive/solitary behavior",
+        "weight_ranges": "Small (5) → Colossal (40), Common (5) → Crystal (35)",
+        "traits": "Many insects are venomous, armored, or have hive minds"
+      },
+      "Upgraded to v4.0 with supportsTraits metadata"
+    ],
+    "supportsTraits": true
+  },
+  "components": {
+    "size": [
+      {
+        "value": "Small",
+        "rarityWeight": 5
+      },
+      {
+        "value": "Giant",
+        "rarityWeight": 8
+      },
+      {
+        "value": "Huge",
+        "rarityWeight": 20
+      },
+      {
+        "value": "Colossal",
+        "rarityWeight": 40
+      }
+    ],
+    "type": [
+      {
+        "value": "Common",
+        "rarityWeight": 5
+      },
+      {
+        "value": "Fire",
+        "rarityWeight": 12
+      },
+      {
+        "value": "Acid",
+        "rarityWeight": 15
+      },
+      {
+        "value": "Frost",
+        "rarityWeight": 18
+      },
+      {
+        "value": "Phase",
+        "rarityWeight": 30
+      },
+      {
+        "value": "Crystal",
+        "rarityWeight": 35
+      }
+    ],
+    "descriptive": [
+      {
+        "value": "Aggressive",
+        "rarityWeight": 8
+      },
+      {
+        "value": "Venomous",
+        "rarityWeight": 12
+      },
+      {
+        "value": "Armored",
+        "rarityWeight": 15
+      },
+      {
+        "value": "Swift",
+        "rarityWeight": 10
+      },
+      {
+        "value": "Deadly",
+        "rarityWeight": 20
+      },
+      {
+        "value": "Primordial",
+        "rarityWeight": 35
+      }
+    ],
+    "title": [
+      {
+        "value": "Worker",
+        "rarityWeight": 5
+      },
+      {
+        "value": "Soldier",
+        "rarityWeight": 10
+      },
+      {
+        "value": "Hunter",
+        "rarityWeight": 15
+      },
+      {
+        "value": "Guardian",
+        "rarityWeight": 20
+      },
+      {
+        "value": "Matriarch",
+        "rarityWeight": 40
+      },
+      {
+        "value": "Queen",
+        "rarityWeight": 45
+      }
+    ]
+  },
+  "patterns": [
+    {
+      "rarityWeight": 50,
+      "pattern": "base"
+    },
+    {
+      "rarityWeight": 40,
+      "pattern": "{size} {base}"
+    },
+    {
+      "rarityWeight": 35,
+      "pattern": "{type} {base}"
+    },
+    {
+      "rarityWeight": 30,
+      "pattern": "{descriptive} {base}"
+    },
+    {
+      "rarityWeight": 25,
+      "pattern": "{base} {title}"
+    },
+    {
+      "rarityWeight": 20,
+      "pattern": "{size} {type} {base}"
+    },
+    {
+      "rarityWeight": 15,
+      "pattern": "{descriptive} {base} {title}"
+    },
+    {
+      "rarityWeight": 10,
+      "pattern": "{size} {type} {base} {title}"
+    }
+  ]
 }

@@ -1,176 +1,176 @@
 {
-    "metadata":  {
-                     "description":  "Reptilian name generation patterns with weight-based rarity components",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "pattern_generation",
-                     "componentKeys":  [
-                                           "size",
-                                           "scale",
-                                           "descriptive",
-                                           "title"
-                                       ],
-                     "patternTokens":  [
-                                           "base",
-                                           "size",
-                                           "scale",
-                                           "descriptive",
-                                           "title"
-                                       ],
-                     "totalPatterns":  8,
-                     "raritySystem":  "weight-based",
-                     "notes":  [
-                                   {
-                                       "base_token":  "Resolves to item name from reptilians/catalog.json",
-                                       "reptilian_culture":  "Includes kobolds (cowardly), lizardfolk (tribal), yuan-ti (cunning)",
-                                       "weight_ranges":  "Young (3) → Elder (35), Green (5) → Prismatic (45)"
-                                   },
-                                   "Upgraded to v4.0 with supportsTraits metadata"
-                               ],
-                     "supportsTraits":  true
-                 },
-    "components":  {
-                       "size":  [
-                                    {
-                                        "value":  "Young",
-                                        "rarityWeight":  3
-                                    },
-                                    {
-                                        "value":  "Lesser",
-                                        "rarityWeight":  5
-                                    },
-                                    {
-                                        "value":  "Common",
-                                        "rarityWeight":  8
-                                    },
-                                    {
-                                        "value":  "Greater",
-                                        "rarityWeight":  20
-                                    },
-                                    {
-                                        "value":  "Elder",
-                                        "rarityWeight":  35
-                                    }
-                                ],
-                       "scale":  [
-                                     {
-                                         "value":  "Green",
-                                         "rarityWeight":  5
-                                     },
-                                     {
-                                         "value":  "Brown",
-                                         "rarityWeight":  5
-                                     },
-                                     {
-                                         "value":  "Red",
-                                         "rarityWeight":  10
-                                     },
-                                     {
-                                         "value":  "Black",
-                                         "rarityWeight":  12
-                                     },
-                                     {
-                                         "value":  "Golden",
-                                         "rarityWeight":  25
-                                     },
-                                     {
-                                         "value":  "Obsidian",
-                                         "rarityWeight":  30
-                                     },
-                                     {
-                                         "value":  "Prismatic",
-                                         "rarityWeight":  45
-                                     }
-                                 ],
-                       "descriptive":  [
-                                           {
-                                               "value":  "Swift",
-                                               "rarityWeight":  8
-                                           },
-                                           {
-                                               "value":  "Cunning",
-                                               "rarityWeight":  10
-                                           },
-                                           {
-                                               "value":  "Venomous",
-                                               "rarityWeight":  15
-                                           },
-                                           {
-                                               "value":  "Ancient",
-                                               "rarityWeight":  25
-                                           },
-                                           {
-                                               "value":  "Mystical",
-                                               "rarityWeight":  30
-                                           },
-                                           {
-                                               "value":  "Primordial",
-                                               "rarityWeight":  40
-                                           }
-                                       ],
-                       "title":  [
-                                     {
-                                         "value":  "Scout",
-                                         "rarityWeight":  5
-                                     },
-                                     {
-                                         "value":  "Warrior",
-                                         "rarityWeight":  10
-                                     },
-                                     {
-                                         "value":  "Hunter",
-                                         "rarityWeight":  12
-                                     },
-                                     {
-                                         "value":  "Shaman",
-                                         "rarityWeight":  18
-                                     },
-                                     {
-                                         "value":  "Sorcerer",
-                                         "rarityWeight":  22
-                                     },
-                                     {
-                                         "value":  "King",
-                                         "rarityWeight":  35
-                                     },
-                                     {
-                                         "value":  "High Priest",
-                                         "rarityWeight":  40
-                                     }
-                                 ]
-                   },
-    "patterns":  [
-                     {
-                         "rarityWeight":  50,
-                         "pattern":  "base"
-                     },
-                     {
-                         "rarityWeight":  40,
-                         "pattern":  "{size} {base}"
-                     },
-                     {
-                         "rarityWeight":  35,
-                         "pattern":  "{scale} {base}"
-                     },
-                     {
-                         "rarityWeight":  30,
-                         "pattern":  "{descriptive} {base}"
-                     },
-                     {
-                         "rarityWeight":  25,
-                         "pattern":  "{base} {title}"
-                     },
-                     {
-                         "rarityWeight":  20,
-                         "pattern":  "{size} {scale} {base}"
-                     },
-                     {
-                         "rarityWeight":  15,
-                         "pattern":  "{descriptive} {base} {title}"
-                     },
-                     {
-                         "rarityWeight":  10,
-                         "pattern":  "{size} {scale} {base} {title}"
-                     }
-                 ]
+  "metadata": {
+    "description": "Reptilian name generation patterns with weight-based rarity components",
+    "version": "4.0",
+    "lastUpdated": "2025-12-17",
+    "type": "pattern_generation",
+    "componentKeys": [
+      "size",
+      "scale",
+      "descriptive",
+      "title"
+    ],
+    "patternTokens": [
+      "base",
+      "size",
+      "scale",
+      "descriptive",
+      "title"
+    ],
+    "totalPatterns": 8,
+    "raritySystem": "weight-based",
+    "notes": [
+      {
+        "base_token": "Resolves to item name from reptilians/catalog.json",
+        "reptilian_culture": "Includes kobolds (cowardly), lizardfolk (tribal), yuan-ti (cunning)",
+        "weight_ranges": "Young (3) → Elder (35), Green (5) → Prismatic (45)"
+      },
+      "Upgraded to v4.0 with supportsTraits metadata"
+    ],
+    "supportsTraits": true
+  },
+  "components": {
+    "size": [
+      {
+        "value": "Young",
+        "rarityWeight": 3
+      },
+      {
+        "value": "Lesser",
+        "rarityWeight": 5
+      },
+      {
+        "value": "Common",
+        "rarityWeight": 8
+      },
+      {
+        "value": "Greater",
+        "rarityWeight": 20
+      },
+      {
+        "value": "Elder",
+        "rarityWeight": 35
+      }
+    ],
+    "scale": [
+      {
+        "value": "Green",
+        "rarityWeight": 5
+      },
+      {
+        "value": "Brown",
+        "rarityWeight": 5
+      },
+      {
+        "value": "Red",
+        "rarityWeight": 10
+      },
+      {
+        "value": "Black",
+        "rarityWeight": 12
+      },
+      {
+        "value": "Golden",
+        "rarityWeight": 25
+      },
+      {
+        "value": "Obsidian",
+        "rarityWeight": 30
+      },
+      {
+        "value": "Prismatic",
+        "rarityWeight": 45
+      }
+    ],
+    "descriptive": [
+      {
+        "value": "Swift",
+        "rarityWeight": 8
+      },
+      {
+        "value": "Cunning",
+        "rarityWeight": 10
+      },
+      {
+        "value": "Venomous",
+        "rarityWeight": 15
+      },
+      {
+        "value": "Ancient",
+        "rarityWeight": 25
+      },
+      {
+        "value": "Mystical",
+        "rarityWeight": 30
+      },
+      {
+        "value": "Primordial",
+        "rarityWeight": 40
+      }
+    ],
+    "title": [
+      {
+        "value": "Scout",
+        "rarityWeight": 5
+      },
+      {
+        "value": "Warrior",
+        "rarityWeight": 10
+      },
+      {
+        "value": "Hunter",
+        "rarityWeight": 12
+      },
+      {
+        "value": "Shaman",
+        "rarityWeight": 18
+      },
+      {
+        "value": "Sorcerer",
+        "rarityWeight": 22
+      },
+      {
+        "value": "King",
+        "rarityWeight": 35
+      },
+      {
+        "value": "High Priest",
+        "rarityWeight": 40
+      }
+    ]
+  },
+  "patterns": [
+    {
+      "rarityWeight": 50,
+      "pattern": "base"
+    },
+    {
+      "rarityWeight": 40,
+      "pattern": "{size} {base}"
+    },
+    {
+      "rarityWeight": 35,
+      "pattern": "{scale} {base}"
+    },
+    {
+      "rarityWeight": 30,
+      "pattern": "{descriptive} {base}"
+    },
+    {
+      "rarityWeight": 25,
+      "pattern": "{base} {title}"
+    },
+    {
+      "rarityWeight": 20,
+      "pattern": "{size} {scale} {base}"
+    },
+    {
+      "rarityWeight": 15,
+      "pattern": "{descriptive} {base} {title}"
+    },
+    {
+      "rarityWeight": 10,
+      "pattern": "{size} {scale} {base} {title}"
+    }
+  ]
 }

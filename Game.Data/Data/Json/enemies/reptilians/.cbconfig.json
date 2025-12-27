@@ -1,9 +1,9 @@
-﻿{
-    "icon":  "Snake",
-    "sortOrder":  10,
-    "fileIcons":  {
-                      "names":  "FormatListBulleted",
-                      "abilities":  "FlashOutline",
-                      "catalog":  "ShapeOutline"
-                  }
+{
+  "icon": "Snake",
+  "sortOrder": 10,
+  "fileIcons": {
+    "names": "FormatListBulleted",
+    "abilities": "FlashOutline",
+    "catalog": "ShapeOutline"
+  }
 }

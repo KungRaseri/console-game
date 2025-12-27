@@ -1,266 +1,266 @@
 {
-    "metadata":  {
-                     "description":  "Ability catalog for active/defensive",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-27",
-                     "type":  "ability_catalog",
-                     "supportsTraits":  true,
-                     "totalAbilities":  18,
-                     "notes":  [
-                                   "Consolidated from enemy-specific abilities",
-                                   "Abilities are shared across enemies, players, and NPCs",
-                                   "rarityWeight determines selection probability"
-                               ]
-                 },
-    "items":  [
-                  {
-                      "name":  "Demonic Regeneration",
-                      "displayName":  "Demonic Regeneration",
-                      "description":  "Rapidly heals wounds",
-                      "rarityWeight":  75,
-                      "traits":  {
-                                     "healthRegen":  {
-                                                         "value":  5,
-                                                         "type":  "number"
-                                                     },
-                                     "regenInterval":  {
-                                                           "value":  5,
-                                                           "type":  "number"
-                                                       }
-                                 }
-                  },
-                  {
-                      "name":  "Hellborn Armor",
-                      "displayName":  "Hellborn Armor",
-                      "description":  "Natural resistance to physical damage",
-                      "rarityWeight":  10,
-                      "traits":  {
-                                     "armorBonus":  {
-                                                        "value":  5,
-                                                        "type":  "number"
-                                                    },
-                                     "resistPhysical":  {
-                                                            "value":  25,
-                                                            "type":  "number"
-                                                        },
-                                     "damageReduction":  {
-                                                             "value":  10,
-                                                             "type":  "number"
-                                                         }
-                                 }
-                  },
-                  {
-                      "name":  "Dimensional Shift",
-                      "displayName":  "Dimensional Shift",
-                      "description":  "Phases between realms to avoid damage",
-                      "rarityWeight":  150,
-                      "cooldown":  30,
-                      "traits":  {
-                                     "dodgeChance":  {
-                                                         "value":  50,
-                                                         "type":  "number"
-                                                     },
-                                     "duration":  {
-                                                      "value":  5,
-                                                      "type":  "number"
-                                                  },
-                                     "abilityClass":  {
-                                                          "value":  "toggle",
-                                                          "type":  "string"
-                                                      }
-                                 }
-                  },
-                  {
-                      "name":  "Magic Immunity",
-                      "displayName":  "Magic Immunity",
-                      "description":  "Cannot be harmed by spells",
-                      "rarityWeight":  250,
-                      "traits":  {
-                                     "resistMagic":  {
-                                                         "value":  100,
-                                                         "type":  "number"
-                                                     },
-                                     "resistFire":  {
-                                                        "value":  100,
-                                                        "type":  "number"
-                                                    },
-                                     "resistIce":  {
-                                                       "value":  100,
-                                                       "type":  "number"
-                                                   },
-                                     "resistLightning":  {
-                                                             "value":  100,
-                                                             "type":  "number"
-                                                         }
-                                 }
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Nearly impenetrable natural armor",
-                      "name":  "Armored Scales",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Armored Scales"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "High resistance to magical attacks",
-                      "name":  "Magic Resistance",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Magic Resistance"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Immune to its breath weapon\u0027s element",
-                      "name":  "Elemental Immunity",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Elemental Immunity"
-                  },
-                  {
-                      "rarityWeight":  250,
-                      "description":  "Can shrug off debilitating effects",
-                      "name":  "Legendary Resistance",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Legendary Resistance"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Physical attacks pass through",
-                      "name":  "Incorporeal",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Incorporeal"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Can merge with its element in environment",
-                      "name":  "Phase Shift",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Phase Shift"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Changes shape to avoid attacks",
-                      "name":  "Adaptive Form",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Adaptive Form"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Maximizes protection from armor",
-                      "name":  "Armor Expert",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Armor Expert"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Resistant to piercing, vulnerable to bludgeoning",
-                      "name":  "Skeletal Frame",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Skeletal Frame"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Slowly reforms from damage",
-                      "name":  "Regeneration",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Regeneration"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Cannot be permanently killed without holy magic",
-                      "name":  "Undying",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Undying"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Can transform into bat, wolf, or mist",
-                      "name":  "Shapeshifting",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Shapeshifting"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Becomes incorporeal fog",
-                      "name":  "Mist Form",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Mist Form"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Can teleport through darkness",
-                      "name":  "Shadow Walk",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Shadow Walk"
-                  }
-              ]
+  "metadata": {
+    "description": "Ability catalog for active/defensive",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "ability_catalog",
+    "supportsTraits": true,
+    "totalAbilities": 18,
+    "notes": [
+      "Consolidated from enemy-specific abilities",
+      "Abilities are shared across enemies, players, and NPCs",
+      "rarityWeight determines selection probability"
+    ]
+  },
+  "items": [
+    {
+      "name": "Demonic Regeneration",
+      "displayName": "Demonic Regeneration",
+      "description": "Rapidly heals wounds",
+      "rarityWeight": 75,
+      "traits": {
+        "healthRegen": {
+          "value": 5,
+          "type": "number"
+        },
+        "regenInterval": {
+          "value": 5,
+          "type": "number"
+        }
+      }
+    },
+    {
+      "name": "Hellborn Armor",
+      "displayName": "Hellborn Armor",
+      "description": "Natural resistance to physical damage",
+      "rarityWeight": 10,
+      "traits": {
+        "armorBonus": {
+          "value": 5,
+          "type": "number"
+        },
+        "resistPhysical": {
+          "value": 25,
+          "type": "number"
+        },
+        "damageReduction": {
+          "value": 10,
+          "type": "number"
+        }
+      }
+    },
+    {
+      "name": "Dimensional Shift",
+      "displayName": "Dimensional Shift",
+      "description": "Phases between realms to avoid damage",
+      "rarityWeight": 150,
+      "cooldown": 30,
+      "traits": {
+        "dodgeChance": {
+          "value": 50,
+          "type": "number"
+        },
+        "duration": {
+          "value": 5,
+          "type": "number"
+        },
+        "abilityClass": {
+          "value": "toggle",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "Magic Immunity",
+      "displayName": "Magic Immunity",
+      "description": "Cannot be harmed by spells",
+      "rarityWeight": 250,
+      "traits": {
+        "resistMagic": {
+          "value": 100,
+          "type": "number"
+        },
+        "resistFire": {
+          "value": 100,
+          "type": "number"
+        },
+        "resistIce": {
+          "value": 100,
+          "type": "number"
+        },
+        "resistLightning": {
+          "value": 100,
+          "type": "number"
+        }
+      }
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Nearly impenetrable natural armor",
+      "name": "Armored Scales",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Armored Scales"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "High resistance to magical attacks",
+      "name": "Magic Resistance",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Magic Resistance"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Immune to its breath weapon's element",
+      "name": "Elemental Immunity",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Elemental Immunity"
+    },
+    {
+      "rarityWeight": 250,
+      "description": "Can shrug off debilitating effects",
+      "name": "Legendary Resistance",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Legendary Resistance"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Physical attacks pass through",
+      "name": "Incorporeal",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Incorporeal"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Can merge with its element in environment",
+      "name": "Phase Shift",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Phase Shift"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Changes shape to avoid attacks",
+      "name": "Adaptive Form",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Adaptive Form"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Maximizes protection from armor",
+      "name": "Armor Expert",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Armor Expert"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Resistant to piercing, vulnerable to bludgeoning",
+      "name": "Skeletal Frame",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Skeletal Frame"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Slowly reforms from damage",
+      "name": "Regeneration",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Regeneration"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Cannot be permanently killed without holy magic",
+      "name": "Undying",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Undying"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Can transform into bat, wolf, or mist",
+      "name": "Shapeshifting",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Shapeshifting"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Becomes incorporeal fog",
+      "name": "Mist Form",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Mist Form"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Can teleport through darkness",
+      "name": "Shadow Walk",
+      "traits": {
+        "category": {
+          "value": "defensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Shadow Walk"
+    }
+  ]
 }

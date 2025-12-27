@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Consumable item catalog with base stats and traits",
     "version": "1.0",
@@ -23,14 +23,78 @@
         "oneUse": true
       },
       "items": [
-        { "name": "Potion", "effect": "heal", "power": 25, "duration": 0, "weight": 0.5, "value": 10, "rarityWeight": 5 },
-        { "name": "Elixir", "effect": "heal", "power": 50, "duration": 0, "weight": 0.5, "value": 25, "rarityWeight": 10 },
-        { "name": "Tonic", "effect": "buff", "power": 10, "duration": 300, "weight": 0.5, "value": 15, "rarityWeight": 7 },
-        { "name": "Brew", "effect": "buff", "power": 15, "duration": 300, "weight": 0.5, "value": 20, "rarityWeight": 8 },
-        { "name": "Draught", "effect": "heal", "power": 75, "duration": 0, "weight": 0.5, "value": 40, "rarityWeight": 15 },
-        { "name": "Philter", "effect": "buff", "power": 20, "duration": 600, "weight": 0.3, "value": 30, "rarityWeight": 12 },
-        { "name": "Concoction", "effect": "mixed", "power": 30, "duration": 300, "weight": 0.5, "value": 35, "rarityWeight": 14 },
-        { "name": "Panacea", "effect": "heal_all", "power": 100, "duration": 0, "weight": 0.3, "value": 100, "rarityWeight": 50 }
+        {
+          "name": "Potion",
+          "effect": "heal",
+          "power": 25,
+          "duration": 0,
+          "weight": 0.5,
+          "value": 10,
+          "rarityWeight": 5
+        },
+        {
+          "name": "Elixir",
+          "effect": "heal",
+          "power": 50,
+          "duration": 0,
+          "weight": 0.5,
+          "value": 25,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Tonic",
+          "effect": "buff",
+          "power": 10,
+          "duration": 300,
+          "weight": 0.5,
+          "value": 15,
+          "rarityWeight": 7
+        },
+        {
+          "name": "Brew",
+          "effect": "buff",
+          "power": 15,
+          "duration": 300,
+          "weight": 0.5,
+          "value": 20,
+          "rarityWeight": 8
+        },
+        {
+          "name": "Draught",
+          "effect": "heal",
+          "power": 75,
+          "duration": 0,
+          "weight": 0.5,
+          "value": 40,
+          "rarityWeight": 15
+        },
+        {
+          "name": "Philter",
+          "effect": "buff",
+          "power": 20,
+          "duration": 600,
+          "weight": 0.3,
+          "value": 30,
+          "rarityWeight": 12
+        },
+        {
+          "name": "Concoction",
+          "effect": "mixed",
+          "power": 30,
+          "duration": 300,
+          "weight": 0.5,
+          "value": 35,
+          "rarityWeight": 14
+        },
+        {
+          "name": "Panacea",
+          "effect": "heal_all",
+          "power": 100,
+          "duration": 0,
+          "weight": 0.3,
+          "value": 100,
+          "rarityWeight": 50
+        }
       ]
     },
     "salves": {
@@ -42,10 +106,42 @@
         "applicationType": "topical"
       },
       "items": [
-        { "name": "Salve", "effect": "heal_overtime", "power": 20, "duration": 180, "weight": 0.3, "value": 12, "rarityWeight": 6 },
-        { "name": "Ointment", "effect": "heal_overtime", "power": 30, "duration": 240, "weight": 0.3, "value": 18, "rarityWeight": 8 },
-        { "name": "Balm", "effect": "heal_overtime", "power": 40, "duration": 300, "weight": 0.3, "value": 25, "rarityWeight": 10 },
-        { "name": "Unguent", "effect": "cure_poison", "power": 50, "duration": 0, "weight": 0.2, "value": 30, "rarityWeight": 15 }
+        {
+          "name": "Salve",
+          "effect": "heal_overtime",
+          "power": 20,
+          "duration": 180,
+          "weight": 0.3,
+          "value": 12,
+          "rarityWeight": 6
+        },
+        {
+          "name": "Ointment",
+          "effect": "heal_overtime",
+          "power": 30,
+          "duration": 240,
+          "weight": 0.3,
+          "value": 18,
+          "rarityWeight": 8
+        },
+        {
+          "name": "Balm",
+          "effect": "heal_overtime",
+          "power": 40,
+          "duration": 300,
+          "weight": 0.3,
+          "value": 25,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Unguent",
+          "effect": "cure_poison",
+          "power": 50,
+          "duration": 0,
+          "weight": 0.2,
+          "value": 30,
+          "rarityWeight": 15
+        }
       ]
     },
     "essences": {
@@ -57,11 +153,51 @@
         "magicalPotency": "high"
       },
       "items": [
-        { "name": "Essence", "effect": "restore_mana", "power": 30, "duration": 0, "weight": 0.2, "value": 20, "rarityWeight": 10 },
-        { "name": "Extract", "effect": "restore_mana", "power": 50, "duration": 0, "weight": 0.2, "value": 35, "rarityWeight": 15 },
-        { "name": "Distillation", "effect": "restore_mana", "power": 75, "duration": 0, "weight": 0.2, "value": 50, "rarityWeight": 20 },
-        { "name": "Infusion", "effect": "magic_buff", "power": 25, "duration": 600, "weight": 0.2, "value": 40, "rarityWeight": 18 },
-        { "name": "Tincture", "effect": "mixed", "power": 40, "duration": 300, "weight": 0.2, "value": 45, "rarityWeight": 22 }
+        {
+          "name": "Essence",
+          "effect": "restore_mana",
+          "power": 30,
+          "duration": 0,
+          "weight": 0.2,
+          "value": 20,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Extract",
+          "effect": "restore_mana",
+          "power": 50,
+          "duration": 0,
+          "weight": 0.2,
+          "value": 35,
+          "rarityWeight": 15
+        },
+        {
+          "name": "Distillation",
+          "effect": "restore_mana",
+          "power": 75,
+          "duration": 0,
+          "weight": 0.2,
+          "value": 50,
+          "rarityWeight": 20
+        },
+        {
+          "name": "Infusion",
+          "effect": "magic_buff",
+          "power": 25,
+          "duration": 600,
+          "weight": 0.2,
+          "value": 40,
+          "rarityWeight": 18
+        },
+        {
+          "name": "Tincture",
+          "effect": "mixed",
+          "power": 40,
+          "duration": 300,
+          "weight": 0.2,
+          "value": 45,
+          "rarityWeight": 22
+        }
       ]
     },
     "boosters": {
@@ -73,14 +209,78 @@
         "enhancementType": "temporary"
       },
       "items": [
-        { "name": "Fortifier", "effect": "increase_defense", "power": 15, "duration": 300, "weight": 0.3, "value": 25, "rarityWeight": 12 },
-        { "name": "Strengthener", "effect": "increase_attack", "power": 15, "duration": 300, "weight": 0.3, "value": 25, "rarityWeight": 12 },
-        { "name": "Enhancer", "effect": "increase_all", "power": 10, "duration": 240, "weight": 0.3, "value": 30, "rarityWeight": 15 },
-        { "name": "Booster", "effect": "increase_speed", "power": 20, "duration": 180, "weight": 0.2, "value": 20, "rarityWeight": 10 },
-        { "name": "Amplifier", "effect": "increase_damage", "power": 25, "duration": 300, "weight": 0.3, "value": 35, "rarityWeight": 18 },
-        { "name": "Stimulant", "effect": "increase_stamina", "power": 30, "duration": 300, "weight": 0.2, "value": 22, "rarityWeight": 11 },
-        { "name": "Energizer", "effect": "restore_stamina", "power": 50, "duration": 0, "weight": 0.2, "value": 18, "rarityWeight": 9 },
-        { "name": "Invigorator", "effect": "restore_energy", "power": 40, "duration": 120, "weight": 0.2, "value": 20, "rarityWeight": 10 }
+        {
+          "name": "Fortifier",
+          "effect": "increase_defense",
+          "power": 15,
+          "duration": 300,
+          "weight": 0.3,
+          "value": 25,
+          "rarityWeight": 12
+        },
+        {
+          "name": "Strengthener",
+          "effect": "increase_attack",
+          "power": 15,
+          "duration": 300,
+          "weight": 0.3,
+          "value": 25,
+          "rarityWeight": 12
+        },
+        {
+          "name": "Enhancer",
+          "effect": "increase_all",
+          "power": 10,
+          "duration": 240,
+          "weight": 0.3,
+          "value": 30,
+          "rarityWeight": 15
+        },
+        {
+          "name": "Booster",
+          "effect": "increase_speed",
+          "power": 20,
+          "duration": 180,
+          "weight": 0.2,
+          "value": 20,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Amplifier",
+          "effect": "increase_damage",
+          "power": 25,
+          "duration": 300,
+          "weight": 0.3,
+          "value": 35,
+          "rarityWeight": 18
+        },
+        {
+          "name": "Stimulant",
+          "effect": "increase_stamina",
+          "power": 30,
+          "duration": 300,
+          "weight": 0.2,
+          "value": 22,
+          "rarityWeight": 11
+        },
+        {
+          "name": "Energizer",
+          "effect": "restore_stamina",
+          "power": 50,
+          "duration": 0,
+          "weight": 0.2,
+          "value": 18,
+          "rarityWeight": 9
+        },
+        {
+          "name": "Invigorator",
+          "effect": "restore_energy",
+          "power": 40,
+          "duration": 120,
+          "weight": 0.2,
+          "value": 20,
+          "rarityWeight": 10
+        }
       ]
     },
     "special": {
@@ -92,13 +292,69 @@
         "rarity": "rare"
       },
       "items": [
-        { "name": "Antidote", "effect": "cure_poison", "power": 100, "duration": 0, "weight": 0.2, "value": 50, "rarityWeight": 20 },
-        { "name": "Remedy", "effect": "cure_disease", "power": 100, "duration": 0, "weight": 0.2, "value": 60, "rarityWeight": 25 },
-        { "name": "Restorative", "effect": "restore_all", "power": 50, "duration": 0, "weight": 0.3, "value": 75, "rarityWeight": 30 },
-        { "name": "Rejuvenator", "effect": "restore_all", "power": 75, "duration": 0, "weight": 0.3, "value": 100, "rarityWeight": 40 },
-        { "name": "Refresher", "effect": "remove_debuff", "power": 100, "duration": 0, "weight": 0.2, "value": 45, "rarityWeight": 22 },
-        { "name": "Revitalizer", "effect": "revive", "power": 50, "duration": 0, "weight": 0.5, "value": 150, "rarityWeight": 60 },
-        { "name": "Nectar", "effect": "restore_all_overtime", "power": 100, "duration": 600, "weight": 0.3, "value": 200, "rarityWeight": 80 }
+        {
+          "name": "Antidote",
+          "effect": "cure_poison",
+          "power": 100,
+          "duration": 0,
+          "weight": 0.2,
+          "value": 50,
+          "rarityWeight": 20
+        },
+        {
+          "name": "Remedy",
+          "effect": "cure_disease",
+          "power": 100,
+          "duration": 0,
+          "weight": 0.2,
+          "value": 60,
+          "rarityWeight": 25
+        },
+        {
+          "name": "Restorative",
+          "effect": "restore_all",
+          "power": 50,
+          "duration": 0,
+          "weight": 0.3,
+          "value": 75,
+          "rarityWeight": 30
+        },
+        {
+          "name": "Rejuvenator",
+          "effect": "restore_all",
+          "power": 75,
+          "duration": 0,
+          "weight": 0.3,
+          "value": 100,
+          "rarityWeight": 40
+        },
+        {
+          "name": "Refresher",
+          "effect": "remove_debuff",
+          "power": 100,
+          "duration": 0,
+          "weight": 0.2,
+          "value": 45,
+          "rarityWeight": 22
+        },
+        {
+          "name": "Revitalizer",
+          "effect": "revive",
+          "power": 50,
+          "duration": 0,
+          "weight": 0.5,
+          "value": 150,
+          "rarityWeight": 60
+        },
+        {
+          "name": "Nectar",
+          "effect": "restore_all_overtime",
+          "power": 100,
+          "duration": 600,
+          "weight": 0.3,
+          "value": 200,
+          "rarityWeight": 80
+        }
       ]
     }
   }

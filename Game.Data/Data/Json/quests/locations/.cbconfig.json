@@ -1,8 +1,8 @@
-﻿{
-    "icon":  "MapMarker",
-    "sortOrder":  1,
-    "fileIcons":  {
-                      "names":  "FormatListBulleted",
-                      "catalog":  "ShapeOutline"
-                  }
+{
+  "icon": "MapMarker",
+  "sortOrder": 1,
+  "fileIcons": {
+    "names": "FormatListBulleted",
+    "catalog": "ShapeOutline"
+  }
 }

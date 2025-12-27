@@ -1,216 +1,218 @@
 {
-    "metadata":  {
-                     "description":  "Plant creature enemy type catalog with base stats and rarityWeight values",
-                     "version":  "1.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "item_catalog",
-                     "total_types":  13,
-                     "categories":  [
-                                        "aggressive_plants",
-                                        "defensive_plants",
-                                        "mobile_plants",
-                                        "ancient_plants"
-                                    ],
-                     "usage":  "Provides base enemy types for pattern generation",
-                     "notes": ["Base catalog of plants with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
-                 },
-    "plant_types":  {
-                        "aggressive_plants":  {
-                                                  "traits":  {
-                                                                 "category":  "plant",
-                                                                 "size":  "medium",
-                                                                 "intelligence":  "low",
-                                                                 "social":  "solitary",
-                                                                 "behavior":  "predatory",
-                                                                 "damageType":  "physical",
-                                                                 "rooted":  true,
-                                                                 "vulnerability":  "fire"
-                                                             },
-                                                  "items":  [
-                                                                {
-                                                                    "name":  "Vine",
-                                                                    "health":  35,
-                                                                    "attack":  12,
-                                                                    "defense":  4,
-                                                                    "speed":  3,
-                                                                    "level":  2,
-                                                                    "xp":  30,
-                                                                    "rarityWeight":  5
-                                                                },
-                                                                {
-                                                                    "name":  "Carnivorous Plant",
-                                                                    "health":  50,
-                                                                    "attack":  16,
-                                                                    "defense":  6,
-                                                                    "speed":  2,
-                                                                    "level":  4,
-                                                                    "xp":  55,
-                                                                    "rarityWeight":  10
-                                                                },
-                                                                {
-                                                                    "name":  "Venus Trap",
-                                                                    "health":  65,
-                                                                    "attack":  20,
-                                                                    "defense":  8,
-                                                                    "speed":  2,
-                                                                    "level":  5,
-                                                                    "xp":  75,
-                                                                    "rarityWeight":  15
-                                                                },
-                                                                {
-                                                                    "name":  "Man-Eater",
-                                                                    "health":  90,
-                                                                    "attack":  28,
-                                                                    "defense":  10,
-                                                                    "speed":  3,
-                                                                    "level":  7,
-                                                                    "xp":  120,
-                                                                    "rarityWeight":  25
-                                                                }
-                                                            ]
-                                              },
-                        "defensive_plants":  {
-                                                 "traits":  {
-                                                                "category":  "plant",
-                                                                "size":  "medium",
-                                                                "intelligence":  "low",
-                                                                "social":  "grove",
-                                                                "behavior":  "territorial",
-                                                                "damageType":  "physical",
-                                                                "rooted":  true,
-                                                                "vulnerability":  "fire",
-                                                                "thorned":  true
-                                                            },
-                                                 "items":  [
-                                                               {
-                                                                   "name":  "Thorn Bush",
-                                                                   "health":  40,
-                                                                   "attack":  10,
-                                                                   "defense":  8,
-                                                                   "speed":  1,
-                                                                   "level":  3,
-                                                                   "xp":  40,
-                                                                   "rarityWeight":  6
-                                                               },
-                                                               {
-                                                                   "name":  "Bramble",
-                                                                   "health":  55,
-                                                                   "attack":  14,
-                                                                   "defense":  12,
-                                                                   "speed":  1,
-                                                                   "level":  4,
-                                                                   "xp":  50,
-                                                                   "rarityWeight":  10
-                                                               },
-                                                               {
-                                                                   "name":  "Thorn Tree",
-                                                                   "health":  100,
-                                                                   "attack":  18,
-                                                                   "defense":  16,
-                                                                   "speed":  1,
-                                                                   "level":  7,
-                                                                   "xp":  110,
-                                                                   "rarityWeight":  20
-                                                               }
-                                                           ]
-                                             },
-                        "mobile_plants":  {
-                                              "traits":  {
-                                                             "category":  "plant",
-                                                             "size":  "varies",
-                                                             "intelligence":  "medium",
-                                                             "social":  "varies",
-                                                             "behavior":  "wandering",
-                                                             "damageType":  "physical",
-                                                             "rooted":  false,
-                                                             "vulnerability":  "fire"
-                                                         },
-                                              "items":  [
-                                                            {
-                                                                "name":  "Shambling Mound",
-                                                                "health":  110,
-                                                                "attack":  24,
-                                                                "defense":  14,
-                                                                "speed":  4,
-                                                                "level":  8,
-                                                                "xp":  140,
-                                                                "rarityWeight":  28,
-                                                                "size":  "large"
-                                                            },
-                                                            {
-                                                                "name":  "Treant",
-                                                                "health":  150,
-                                                                "attack":  32,
-                                                                "defense":  18,
-                                                                "speed":  3,
-                                                                "level":  10,
-                                                                "xp":  190,
-                                                                "rarityWeight":  40,
-                                                                "size":  "huge",
-                                                                "intelligence":  "high"
-                                                            },
-                                                            {
-                                                                "name":  "Myconid",
-                                                                "health":  70,
-                                                                "attack":  16,
-                                                                "defense":  10,
-                                                                "speed":  5,
-                                                                "level":  6,
-                                                                "xp":  85,
-                                                                "rarityWeight":  18,
-                                                                "size":  "medium",
-                                                                "spore_based":  true
-                                                            },
-                                                            {
-                                                                "name":  "Awakened Tree",
-                                                                "health":  130,
-                                                                "attack":  28,
-                                                                "defense":  16,
-                                                                "speed":  3,
-                                                                "level":  9,
-                                                                "xp":  160,
-                                                                "rarityWeight":  32,
-                                                                "size":  "huge"
-                                                            }
-                                                        ]
-                                          },
-                        "ancient_plants":  {
-                                               "traits":  {
-                                                              "category":  "plant",
-                                                              "size":  "huge",
-                                                              "intelligence":  "high",
-                                                              "social":  "unique",
-                                                              "behavior":  "legendary",
-                                                              "unique":  true,
-                                                              "vulnerability":  "fire",
-                                                              "magical":  true
-                                                          },
-                                               "items":  [
-                                                             {
-                                                                 "name":  "Elder Treant",
-                                                                 "health":  220,
-                                                                 "attack":  42,
-                                                                 "defense":  24,
-                                                                 "speed":  3,
-                                                                 "level":  13,
-                                                                 "xp":  300,
-                                                                 "rarityWeight":  60,
-                                                                 "damageType":  "physical",
-                                                                 "rooted":  false
-                                                             },
-                                                             {
-                                                                 "name":  "Ancient Grove Guardian",
-                                                                 "health":  280,
-                                                                 "attack":  50,
-                                                                 "defense":  28,
-                                                                 "speed":  4,
-                                                                 "level":  15,
-                                                                 "xp":  400,
-                                                                 "rarityWeight":  80,
-                                                                 "damageType":  "magical",
-                                                                 "rooted":  false
-                                                             }
-                                                         ]
-                                           }
-                    }
+  "metadata": {
+    "description": "Plant creature enemy type catalog with base stats and rarityWeight values",
+    "version": "1.0",
+    "lastUpdated": "2025-12-17",
+    "type": "item_catalog",
+    "total_types": 13,
+    "categories": [
+      "aggressive_plants",
+      "defensive_plants",
+      "mobile_plants",
+      "ancient_plants"
+    ],
+    "usage": "Provides base enemy types for pattern generation",
+    "notes": [
+      "Base catalog of plants with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+    ]
+  },
+  "plant_types": {
+    "aggressive_plants": {
+      "traits": {
+        "category": "plant",
+        "size": "medium",
+        "intelligence": "low",
+        "social": "solitary",
+        "behavior": "predatory",
+        "damageType": "physical",
+        "rooted": true,
+        "vulnerability": "fire"
+      },
+      "items": [
+        {
+          "name": "Vine",
+          "health": 35,
+          "attack": 12,
+          "defense": 4,
+          "speed": 3,
+          "level": 2,
+          "xp": 30,
+          "rarityWeight": 5
+        },
+        {
+          "name": "Carnivorous Plant",
+          "health": 50,
+          "attack": 16,
+          "defense": 6,
+          "speed": 2,
+          "level": 4,
+          "xp": 55,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Venus Trap",
+          "health": 65,
+          "attack": 20,
+          "defense": 8,
+          "speed": 2,
+          "level": 5,
+          "xp": 75,
+          "rarityWeight": 15
+        },
+        {
+          "name": "Man-Eater",
+          "health": 90,
+          "attack": 28,
+          "defense": 10,
+          "speed": 3,
+          "level": 7,
+          "xp": 120,
+          "rarityWeight": 25
+        }
+      ]
+    },
+    "defensive_plants": {
+      "traits": {
+        "category": "plant",
+        "size": "medium",
+        "intelligence": "low",
+        "social": "grove",
+        "behavior": "territorial",
+        "damageType": "physical",
+        "rooted": true,
+        "vulnerability": "fire",
+        "thorned": true
+      },
+      "items": [
+        {
+          "name": "Thorn Bush",
+          "health": 40,
+          "attack": 10,
+          "defense": 8,
+          "speed": 1,
+          "level": 3,
+          "xp": 40,
+          "rarityWeight": 6
+        },
+        {
+          "name": "Bramble",
+          "health": 55,
+          "attack": 14,
+          "defense": 12,
+          "speed": 1,
+          "level": 4,
+          "xp": 50,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Thorn Tree",
+          "health": 100,
+          "attack": 18,
+          "defense": 16,
+          "speed": 1,
+          "level": 7,
+          "xp": 110,
+          "rarityWeight": 20
+        }
+      ]
+    },
+    "mobile_plants": {
+      "traits": {
+        "category": "plant",
+        "size": "varies",
+        "intelligence": "medium",
+        "social": "varies",
+        "behavior": "wandering",
+        "damageType": "physical",
+        "rooted": false,
+        "vulnerability": "fire"
+      },
+      "items": [
+        {
+          "name": "Shambling Mound",
+          "health": 110,
+          "attack": 24,
+          "defense": 14,
+          "speed": 4,
+          "level": 8,
+          "xp": 140,
+          "rarityWeight": 28,
+          "size": "large"
+        },
+        {
+          "name": "Treant",
+          "health": 150,
+          "attack": 32,
+          "defense": 18,
+          "speed": 3,
+          "level": 10,
+          "xp": 190,
+          "rarityWeight": 40,
+          "size": "huge",
+          "intelligence": "high"
+        },
+        {
+          "name": "Myconid",
+          "health": 70,
+          "attack": 16,
+          "defense": 10,
+          "speed": 5,
+          "level": 6,
+          "xp": 85,
+          "rarityWeight": 18,
+          "size": "medium",
+          "spore_based": true
+        },
+        {
+          "name": "Awakened Tree",
+          "health": 130,
+          "attack": 28,
+          "defense": 16,
+          "speed": 3,
+          "level": 9,
+          "xp": 160,
+          "rarityWeight": 32,
+          "size": "huge"
+        }
+      ]
+    },
+    "ancient_plants": {
+      "traits": {
+        "category": "plant",
+        "size": "huge",
+        "intelligence": "high",
+        "social": "unique",
+        "behavior": "legendary",
+        "unique": true,
+        "vulnerability": "fire",
+        "magical": true
+      },
+      "items": [
+        {
+          "name": "Elder Treant",
+          "health": 220,
+          "attack": 42,
+          "defense": 24,
+          "speed": 3,
+          "level": 13,
+          "xp": 300,
+          "rarityWeight": 60,
+          "damageType": "physical",
+          "rooted": false
+        },
+        {
+          "name": "Ancient Grove Guardian",
+          "health": 280,
+          "attack": 50,
+          "defense": 28,
+          "speed": 4,
+          "level": 15,
+          "xp": 400,
+          "rarityWeight": 80,
+          "damageType": "magical",
+          "rooted": false
+        }
+      ]
+    }
+  }
 }

@@ -1,9 +1,9 @@
-﻿{
-    "icon":  "Paw",
-    "sortOrder":  1,
-    "fileIcons":  {
-                      "names":  "FormatListBulleted",
-                      "abilities":  "FlashOutline",
-                      "catalog":  "ShapeOutline"
-                  }
+{
+  "icon": "Paw",
+  "sortOrder": 1,
+  "fileIcons": {
+    "names": "FormatListBulleted",
+    "abilities": "FlashOutline",
+    "catalog": "ShapeOutline"
+  }
 }

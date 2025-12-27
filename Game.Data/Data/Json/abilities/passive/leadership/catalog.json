@@ -1,305 +1,305 @@
 {
-    "metadata":  {
-                     "description":  "Ability catalog for passive/leadership",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-27",
-                     "type":  "ability_catalog",
-                     "supportsTraits":  true,
-                     "totalAbilities":  24,
-                     "notes":  [
-                                   "Consolidated from enemy-specific abilities",
-                                   "Abilities are shared across enemies, players, and NPCs",
-                                   "rarityWeight determines selection probability"
-                               ]
-                 },
-    "items":  [
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Commands nearby beasts, increasing their power",
-                      "name":  "Alpha Predator",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Alpha Predator"
-                  },
-                  {
-                      "rarityWeight":  250,
-                      "description":  "Massive size and power, dominates all beasts",
-                      "name":  "Apex Predator",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Apex Predator"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Sets traps during combat",
-                      "name":  "TrapMaker",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "tactical_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Trap Maker"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "High dodge chance against melee attacks",
-                      "name":  "QuickReflexes",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "tactical_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Quick Reflexes"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Bonus defense in enclosed spaces",
-                      "name":  "TunnelFighter",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "tactical_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Tunnel Fighter"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Commands nearby goblinoids and buffs their stats",
-                      "name":  "WarChief",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "War Chief"
-                  },
-                  {
-                      "rarityWeight":  250,
-                      "description":  "Supreme leader with all goblinoid abilities",
-                      "name":  "KingOfGoblins",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "King of Goblins"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Summons and controls insect minions",
-                      "name":  "QueenCommand",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "command_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Queen Command"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Can take control of other creatures",
-                      "name":  "MindControl",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "command_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Mind Control"
-                  },
-                  {
-                      "rarityWeight":  250,
-                      "description":  "Commands infinite swarms of insects",
-                      "name":  "SwarmLord",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "command_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Swarm Lord"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Creates webs that slow and trap enemies",
-                      "name":  "WebSpinner",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "tactical_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Web Spinner"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Shares awareness with all nearby insects",
-                      "name":  "HiveMind",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "tactical_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Hive Mind"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Commands orc troops and grants them bonuses",
-                      "name":  "Warlord",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Warlord"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Casts primal magic and curses",
-                      "name":  "ShamanWisdom",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Shaman Wisdom"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Commands and buffs reptilian allies",
-                      "name":  "AlphaLeader",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Alpha Leader"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Deals bonus damage on first strike",
-                      "name":  "AmbushPredator",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "tactical_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Ambush Predator"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Intimidating roar that fears enemies",
-                      "name":  "PrimalRoar",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "tactical_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Primal Roar"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Leads troll tribes and buffs allies",
-                      "name":  "ChieftainCommand",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Chieftain Command"
-                  },
-                  {
-                      "rarityWeight":  250,
-                      "description":  "Sovereign ruler of all trolls",
-                      "name":  "TrollKing",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Troll King"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Weakens living enemies nearby",
-                      "name":  "Necromantic Aura",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "auras",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Necromantic Aura"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Instills terror in those who behold it",
-                      "name":  "Fearsome Presence",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "auras",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Fearsome Presence"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Centuries of accumulated strength",
-                      "name":  "Ancient Power",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Ancient Power"
-                  },
-                  {
-                      "rarityWeight":  250,
-                      "description":  "Rules over lesser vampires",
-                      "name":  "Vampire Lord",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Vampire Lord"
-                  },
-                  {
-                      "rarityWeight":  500,
-                      "description":  "One of the first vampires",
-                      "name":  "Progenitor",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "leadership",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Progenitor"
-                  }
-              ]
+  "metadata": {
+    "description": "Ability catalog for passive/leadership",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "ability_catalog",
+    "supportsTraits": true,
+    "totalAbilities": 24,
+    "notes": [
+      "Consolidated from enemy-specific abilities",
+      "Abilities are shared across enemies, players, and NPCs",
+      "rarityWeight determines selection probability"
+    ]
+  },
+  "items": [
+    {
+      "rarityWeight": 150,
+      "description": "Commands nearby beasts, increasing their power",
+      "name": "Alpha Predator",
+      "traits": {
+        "category": {
+          "value": "leadership",
+          "type": "string"
+        }
+      },
+      "displayName": "Alpha Predator"
+    },
+    {
+      "rarityWeight": 250,
+      "description": "Massive size and power, dominates all beasts",
+      "name": "Apex Predator",
+      "traits": {
+        "category": {
+          "value": "leadership",
+          "type": "string"
+        }
+      },
+      "displayName": "Apex Predator"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Sets traps during combat",
+      "name": "TrapMaker",
+      "traits": {
+        "category": {
+          "value": "tactical_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Trap Maker"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "High dodge chance against melee attacks",
+      "name": "QuickReflexes",
+      "traits": {
+        "category": {
+          "value": "tactical_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Quick Reflexes"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Bonus defense in enclosed spaces",
+      "name": "TunnelFighter",
+      "traits": {
+        "category": {
+          "value": "tactical_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Tunnel Fighter"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Commands nearby goblinoids and buffs their stats",
+      "name": "WarChief",
+      "traits": {
+        "category": {
+          "value": "leadership_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "War Chief"
+    },
+    {
+      "rarityWeight": 250,
+      "description": "Supreme leader with all goblinoid abilities",
+      "name": "KingOfGoblins",
+      "traits": {
+        "category": {
+          "value": "leadership_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "King of Goblins"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Summons and controls insect minions",
+      "name": "QueenCommand",
+      "traits": {
+        "category": {
+          "value": "command_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Queen Command"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Can take control of other creatures",
+      "name": "MindControl",
+      "traits": {
+        "category": {
+          "value": "command_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Mind Control"
+    },
+    {
+      "rarityWeight": 250,
+      "description": "Commands infinite swarms of insects",
+      "name": "SwarmLord",
+      "traits": {
+        "category": {
+          "value": "command_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Swarm Lord"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Creates webs that slow and trap enemies",
+      "name": "WebSpinner",
+      "traits": {
+        "category": {
+          "value": "tactical_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Web Spinner"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Shares awareness with all nearby insects",
+      "name": "HiveMind",
+      "traits": {
+        "category": {
+          "value": "tactical_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Hive Mind"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Commands orc troops and grants them bonuses",
+      "name": "Warlord",
+      "traits": {
+        "category": {
+          "value": "leadership_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Warlord"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Casts primal magic and curses",
+      "name": "ShamanWisdom",
+      "traits": {
+        "category": {
+          "value": "leadership_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Shaman Wisdom"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Commands and buffs reptilian allies",
+      "name": "AlphaLeader",
+      "traits": {
+        "category": {
+          "value": "leadership_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Alpha Leader"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Deals bonus damage on first strike",
+      "name": "AmbushPredator",
+      "traits": {
+        "category": {
+          "value": "tactical_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Ambush Predator"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Intimidating roar that fears enemies",
+      "name": "PrimalRoar",
+      "traits": {
+        "category": {
+          "value": "tactical_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Primal Roar"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Leads troll tribes and buffs allies",
+      "name": "ChieftainCommand",
+      "traits": {
+        "category": {
+          "value": "leadership_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Chieftain Command"
+    },
+    {
+      "rarityWeight": 250,
+      "description": "Sovereign ruler of all trolls",
+      "name": "TrollKing",
+      "traits": {
+        "category": {
+          "value": "leadership_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Troll King"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Weakens living enemies nearby",
+      "name": "Necromantic Aura",
+      "traits": {
+        "category": {
+          "value": "auras",
+          "type": "string"
+        }
+      },
+      "displayName": "Necromantic Aura"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Instills terror in those who behold it",
+      "name": "Fearsome Presence",
+      "traits": {
+        "category": {
+          "value": "auras",
+          "type": "string"
+        }
+      },
+      "displayName": "Fearsome Presence"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Centuries of accumulated strength",
+      "name": "Ancient Power",
+      "traits": {
+        "category": {
+          "value": "leadership",
+          "type": "string"
+        }
+      },
+      "displayName": "Ancient Power"
+    },
+    {
+      "rarityWeight": 250,
+      "description": "Rules over lesser vampires",
+      "name": "Vampire Lord",
+      "traits": {
+        "category": {
+          "value": "leadership",
+          "type": "string"
+        }
+      },
+      "displayName": "Vampire Lord"
+    },
+    {
+      "rarityWeight": 500,
+      "description": "One of the first vampires",
+      "name": "Progenitor",
+      "traits": {
+        "category": {
+          "value": "leadership",
+          "type": "string"
+        }
+      },
+      "displayName": "Progenitor"
+    }
+  ]
 }

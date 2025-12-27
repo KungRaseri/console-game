@@ -1,207 +1,209 @@
 {
-    "metadata":  {
-                     "description":  "Reptilian enemy type catalog with base stats and rarityWeight values",
-                     "version":  "1.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "item_catalog",
-                     "total_types":  13,
-                     "categories":  [
-                                        "kobolds",
-                                        "lizardfolk",
-                                        "yuan_ti",
-                                        "special_reptilians"
-                                    ],
-                     "usage":  "Provides base enemy types for pattern generation",
-                     "notes": ["Base catalog of reptilians with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
-                 },
-    "reptilian_types":  {
-                            "kobolds":  {
-                                            "traits":  {
-                                                           "category":  "reptilian",
-                                                           "size":  "small",
-                                                           "intelligence":  "low",
-                                                           "social":  "tribal",
-                                                           "behavior":  "cowardly",
-                                                           "damageType":  "physical",
-                                                           "pack_tactics":  true
-                                                       },
-                                            "items":  [
-                                                          {
-                                                              "name":  "Kobold",
-                                                              "health":  12,
-                                                              "attack":  4,
-                                                              "defense":  2,
-                                                              "speed":  5,
-                                                              "level":  1,
-                                                              "xp":  8,
-                                                              "rarityWeight":  3
-                                                          },
-                                                          {
-                                                              "name":  "Kobold Scout",
-                                                              "health":  15,
-                                                              "attack":  5,
-                                                              "defense":  3,
-                                                              "speed":  7,
-                                                              "level":  1,
-                                                              "xp":  12,
-                                                              "rarityWeight":  5
-                                                          },
-                                                          {
-                                                              "name":  "Kobold Trapmaker",
-                                                              "health":  18,
-                                                              "attack":  6,
-                                                              "defense":  2,
-                                                              "speed":  5,
-                                                              "level":  2,
-                                                              "xp":  18,
-                                                              "rarityWeight":  10
-                                                          },
-                                                          {
-                                                              "name":  "Kobold Sorcerer",
-                                                              "health":  20,
-                                                              "attack":  10,
-                                                              "defense":  2,
-                                                              "speed":  5,
-                                                              "level":  3,
-                                                              "xp":  30,
-                                                              "rarityWeight":  15
-                                                          }
-                                                      ]
-                                        },
-                            "lizardfolk":  {
-                                               "traits":  {
-                                                              "category":  "reptilian",
-                                                              "size":  "medium",
-                                                              "intelligence":  "medium",
-                                                              "social":  "tribal",
-                                                              "behavior":  "territorial",
-                                                              "damageType":  "physical",
-                                                              "amphibious":  true
-                                                          },
-                                               "items":  [
-                                                             {
-                                                                 "name":  "Lizardfolk",
-                                                                 "health":  55,
-                                                                 "attack":  15,
-                                                                 "defense":  8,
-                                                                 "speed":  5,
-                                                                 "level":  4,
-                                                                 "xp":  60,
-                                                                 "rarityWeight":  8
-                                                             },
-                                                             {
-                                                                 "name":  "Lizardfolk Warrior",
-                                                                 "health":  70,
-                                                                 "attack":  18,
-                                                                 "defense":  10,
-                                                                 "speed":  5,
-                                                                 "level":  5,
-                                                                 "xp":  80,
-                                                                 "rarityWeight":  12
-                                                             },
-                                                             {
-                                                                 "name":  "Lizardfolk Shaman",
-                                                                 "health":  65,
-                                                                 "attack":  20,
-                                                                 "defense":  9,
-                                                                 "speed":  5,
-                                                                 "level":  6,
-                                                                 "xp":  95,
-                                                                 "rarityWeight":  18
-                                                             },
-                                                             {
-                                                                 "name":  "Lizardfolk King",
-                                                                 "health":  100,
-                                                                 "attack":  28,
-                                                                 "defense":  14,
-                                                                 "speed":  6,
-                                                                 "level":  8,
-                                                                 "xp":  140,
-                                                                 "rarityWeight":  35
-                                                             }
-                                                         ]
-                                           },
-                            "yuan_ti":  {
-                                            "traits":  {
-                                                           "category":  "reptilian",
-                                                           "size":  "medium",
-                                                           "intelligence":  "high",
-                                                           "social":  "empire",
-                                                           "behavior":  "cunning",
-                                                           "damageType":  "physical",
-                                                           "magical":  true,
-                                                           "venomous":  true
-                                                       },
-                                            "items":  [
-                                                          {
-                                                              "name":  "Yuan-ti Pureblood",
-                                                              "health":  75,
-                                                              "attack":  20,
-                                                              "defense":  11,
-                                                              "speed":  6,
-                                                              "level":  6,
-                                                              "xp":  100,
-                                                              "rarityWeight":  20
-                                                          },
-                                                          {
-                                                              "name":  "Yuan-ti Malison",
-                                                              "health":  95,
-                                                              "attack":  26,
-                                                              "defense":  13,
-                                                              "speed":  6,
-                                                              "level":  8,
-                                                              "xp":  150,
-                                                              "rarityWeight":  32
-                                                          },
-                                                          {
-                                                              "name":  "Yuan-ti Abomination",
-                                                              "health":  130,
-                                                              "attack":  32,
-                                                              "defense":  16,
-                                                              "speed":  6,
-                                                              "level":  10,
-                                                              "xp":  200,
-                                                              "rarityWeight":  50
-                                                          }
-                                                      ]
-                                        },
-                            "special_reptilians":  {
-                                                       "traits":  {
-                                                                      "category":  "reptilian",
-                                                                      "intelligence":  "varies",
-                                                                      "social":  "varies",
-                                                                      "behavior":  "unique",
-                                                                      "unique":  true
-                                                                  },
-                                                       "items":  [
-                                                                     {
-                                                                         "name":  "Naga",
-                                                                         "health":  110,
-                                                                         "attack":  30,
-                                                                         "defense":  14,
-                                                                         "speed":  7,
-                                                                         "level":  9,
-                                                                         "xp":  170,
-                                                                         "rarityWeight":  45,
-                                                                         "size":  "large",
-                                                                         "damageType":  "magical",
-                                                                         "intelligence":  "high",
-                                                                         "venomous":  true
-                                                                     },
-                                                                     {
-                                                                         "name":  "Basilisk",
-                                                                         "health":  90,
-                                                                         "attack":  24,
-                                                                         "defense":  12,
-                                                                         "speed":  4,
-                                                                         "level":  7,
-                                                                         "xp":  130,
-                                                                         "rarityWeight":  38,
-                                                                         "size":  "medium",
-                                                                         "damageType":  "physical",
-                                                                         "petrifying_gaze":  true
-                                                                     }
-                                                                 ]
-                                                   }
-                        }
+  "metadata": {
+    "description": "Reptilian enemy type catalog with base stats and rarityWeight values",
+    "version": "1.0",
+    "lastUpdated": "2025-12-17",
+    "type": "item_catalog",
+    "total_types": 13,
+    "categories": [
+      "kobolds",
+      "lizardfolk",
+      "yuan_ti",
+      "special_reptilians"
+    ],
+    "usage": "Provides base enemy types for pattern generation",
+    "notes": [
+      "Base catalog of reptilians with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+    ]
+  },
+  "reptilian_types": {
+    "kobolds": {
+      "traits": {
+        "category": "reptilian",
+        "size": "small",
+        "intelligence": "low",
+        "social": "tribal",
+        "behavior": "cowardly",
+        "damageType": "physical",
+        "pack_tactics": true
+      },
+      "items": [
+        {
+          "name": "Kobold",
+          "health": 12,
+          "attack": 4,
+          "defense": 2,
+          "speed": 5,
+          "level": 1,
+          "xp": 8,
+          "rarityWeight": 3
+        },
+        {
+          "name": "Kobold Scout",
+          "health": 15,
+          "attack": 5,
+          "defense": 3,
+          "speed": 7,
+          "level": 1,
+          "xp": 12,
+          "rarityWeight": 5
+        },
+        {
+          "name": "Kobold Trapmaker",
+          "health": 18,
+          "attack": 6,
+          "defense": 2,
+          "speed": 5,
+          "level": 2,
+          "xp": 18,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Kobold Sorcerer",
+          "health": 20,
+          "attack": 10,
+          "defense": 2,
+          "speed": 5,
+          "level": 3,
+          "xp": 30,
+          "rarityWeight": 15
+        }
+      ]
+    },
+    "lizardfolk": {
+      "traits": {
+        "category": "reptilian",
+        "size": "medium",
+        "intelligence": "medium",
+        "social": "tribal",
+        "behavior": "territorial",
+        "damageType": "physical",
+        "amphibious": true
+      },
+      "items": [
+        {
+          "name": "Lizardfolk",
+          "health": 55,
+          "attack": 15,
+          "defense": 8,
+          "speed": 5,
+          "level": 4,
+          "xp": 60,
+          "rarityWeight": 8
+        },
+        {
+          "name": "Lizardfolk Warrior",
+          "health": 70,
+          "attack": 18,
+          "defense": 10,
+          "speed": 5,
+          "level": 5,
+          "xp": 80,
+          "rarityWeight": 12
+        },
+        {
+          "name": "Lizardfolk Shaman",
+          "health": 65,
+          "attack": 20,
+          "defense": 9,
+          "speed": 5,
+          "level": 6,
+          "xp": 95,
+          "rarityWeight": 18
+        },
+        {
+          "name": "Lizardfolk King",
+          "health": 100,
+          "attack": 28,
+          "defense": 14,
+          "speed": 6,
+          "level": 8,
+          "xp": 140,
+          "rarityWeight": 35
+        }
+      ]
+    },
+    "yuan_ti": {
+      "traits": {
+        "category": "reptilian",
+        "size": "medium",
+        "intelligence": "high",
+        "social": "empire",
+        "behavior": "cunning",
+        "damageType": "physical",
+        "magical": true,
+        "venomous": true
+      },
+      "items": [
+        {
+          "name": "Yuan-ti Pureblood",
+          "health": 75,
+          "attack": 20,
+          "defense": 11,
+          "speed": 6,
+          "level": 6,
+          "xp": 100,
+          "rarityWeight": 20
+        },
+        {
+          "name": "Yuan-ti Malison",
+          "health": 95,
+          "attack": 26,
+          "defense": 13,
+          "speed": 6,
+          "level": 8,
+          "xp": 150,
+          "rarityWeight": 32
+        },
+        {
+          "name": "Yuan-ti Abomination",
+          "health": 130,
+          "attack": 32,
+          "defense": 16,
+          "speed": 6,
+          "level": 10,
+          "xp": 200,
+          "rarityWeight": 50
+        }
+      ]
+    },
+    "special_reptilians": {
+      "traits": {
+        "category": "reptilian",
+        "intelligence": "varies",
+        "social": "varies",
+        "behavior": "unique",
+        "unique": true
+      },
+      "items": [
+        {
+          "name": "Naga",
+          "health": 110,
+          "attack": 30,
+          "defense": 14,
+          "speed": 7,
+          "level": 9,
+          "xp": 170,
+          "rarityWeight": 45,
+          "size": "large",
+          "damageType": "magical",
+          "intelligence": "high",
+          "venomous": true
+        },
+        {
+          "name": "Basilisk",
+          "health": 90,
+          "attack": 24,
+          "defense": 12,
+          "speed": 4,
+          "level": 7,
+          "xp": 130,
+          "rarityWeight": 38,
+          "size": "medium",
+          "damageType": "physical",
+          "petrifying_gaze": true
+        }
+      ]
+    }
+  }
 }

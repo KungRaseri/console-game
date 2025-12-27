@@ -1,204 +1,206 @@
 {
-    "metadata":  {
-                     "description":  "Undead enemy type catalog with base stats and traits",
-                     "version":  "1.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "item_catalog",
-                     "total_undead_types":  4,
-                     "total_undead":  14,
-                     "usage":  "Provides base enemy types for pattern generation",
-                     "notes": ["Base catalog of undead with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
-                 },
-    "undead_types":  {
-                         "zombies":  {
-                                         "traits":  {
-                                                        "category":  "undead",
-                                                        "size":  "medium",
-                                                        "behavior":  "shambling",
-                                                        "damageType":  "bludgeoning",
-                                                        "vulnerability":  "fire"
-                                                    },
-                                         "items":  [
-                                                       {
-                                                           "name":  "Zombie",
-                                                           "health":  40,
-                                                           "attack":  6,
-                                                           "defense":  2,
-                                                           "speed":  5,
-                                                           "level":  2,
-                                                           "xp":  30,
-                                                           "rarityWeight":  5
-                                                       },
-                                                       {
-                                                           "name":  "Corpse",
-                                                           "health":  35,
-                                                           "attack":  5,
-                                                           "defense":  1,
-                                                           "speed":  4,
-                                                           "level":  1,
-                                                           "xp":  20,
-                                                           "rarityWeight":  3
-                                                       },
-                                                       {
-                                                           "name":  "Ghoul",
-                                                           "health":  50,
-                                                           "attack":  9,
-                                                           "defense":  3,
-                                                           "speed":  8,
-                                                           "level":  4,
-                                                           "xp":  60,
-                                                           "rarityWeight":  10
-                                                       }
-                                                   ]
-                                     },
-                         "skeletons":  {
-                                           "traits":  {
-                                                          "category":  "undead",
-                                                          "size":  "medium",
-                                                          "behavior":  "aggressive",
-                                                          "damageType":  "piercing",
-                                                          "vulnerability":  "bludgeoning"
-                                                      },
-                                           "items":  [
-                                                         {
-                                                             "name":  "Skeleton",
-                                                             "health":  30,
-                                                             "attack":  7,
-                                                             "defense":  4,
-                                                             "speed":  10,
-                                                             "level":  3,
-                                                             "xp":  45,
-                                                             "rarityWeight":  6
-                                                         },
-                                                         {
-                                                             "name":  "Ghast",
-                                                             "health":  55,
-                                                             "attack":  10,
-                                                             "defense":  4,
-                                                             "speed":  9,
-                                                             "level":  5,
-                                                             "xp":  75,
-                                                             "rarityWeight":  12
-                                                         }
-                                                     ]
-                                       },
-                         "spirits":  {
-                                         "traits":  {
-                                                        "category":  "undead",
-                                                        "size":  "medium",
-                                                        "behavior":  "ethereal",
-                                                        "damageType":  "necrotic",
-                                                        "immunity":  [
-                                                                         "physical"
-                                                                     ],
-                                                        "vulnerability":  "radiant"
-                                                    },
-                                         "items":  [
-                                                       {
-                                                           "name":  "Wraith",
-                                                           "health":  60,
-                                                           "attack":  12,
-                                                           "defense":  8,
-                                                           "speed":  15,
-                                                           "level":  7,
-                                                           "xp":  140,
-                                                           "rarityWeight":  20
-                                                       },
-                                                       {
-                                                           "name":  "Specter",
-                                                           "health":  50,
-                                                           "attack":  10,
-                                                           "defense":  10,
-                                                           "speed":  16,
-                                                           "level":  6,
-                                                           "xp":  110,
-                                                           "rarityWeight":  18
-                                                       },
-                                                       {
-                                                           "name":  "Phantom",
-                                                           "health":  45,
-                                                           "attack":  9,
-                                                           "defense":  9,
-                                                           "speed":  17,
-                                                           "level":  5,
-                                                           "xp":  90,
-                                                           "rarityWeight":  15
-                                                       },
-                                                       {
-                                                           "name":  "Shade",
-                                                           "health":  40,
-                                                           "attack":  8,
-                                                           "defense":  8,
-                                                           "speed":  18,
-                                                           "level":  4,
-                                                           "xp":  70,
-                                                           "rarityWeight":  12
-                                                       },
-                                                       {
-                                                           "name":  "Banshee",
-                                                           "health":  70,
-                                                           "attack":  14,
-                                                           "defense":  6,
-                                                           "speed":  20,
-                                                           "level":  9,
-                                                           "xp":  200,
-                                                           "rarityWeight":  30
-                                                       }
-                                                   ]
-                                     },
-                         "greater_undead":  {
-                                                "traits":  {
-                                                               "category":  "undead",
-                                                               "size":  "medium",
-                                                               "behavior":  "intelligent",
-                                                               "damageType":  "mixed",
-                                                               "resistance":  [
-                                                                                  "physical",
-                                                                                  "necrotic"
-                                                                              ]
-                                                           },
-                                                "items":  [
-                                                              {
-                                                                  "name":  "Wight",
-                                                                  "health":  80,
-                                                                  "attack":  13,
-                                                                  "defense":  10,
-                                                                  "speed":  12,
-                                                                  "level":  8,
-                                                                  "xp":  180,
-                                                                  "rarityWeight":  25
-                                                              },
-                                                              {
-                                                                  "name":  "Revenant",
-                                                                  "health":  100,
-                                                                  "attack":  16,
-                                                                  "defense":  12,
-                                                                  "speed":  11,
-                                                                  "level":  10,
-                                                                  "xp":  250,
-                                                                  "rarityWeight":  35
-                                                              },
-                                                              {
-                                                                  "name":  "Mummy",
-                                                                  "health":  90,
-                                                                  "attack":  14,
-                                                                  "defense":  14,
-                                                                  "speed":  8,
-                                                                  "level":  9,
-                                                                  "xp":  220,
-                                                                  "rarityWeight":  28
-                                                              },
-                                                              {
-                                                                  "name":  "Lich",
-                                                                  "health":  150,
-                                                                  "attack":  20,
-                                                                  "defense":  15,
-                                                                  "speed":  13,
-                                                                  "level":  15,
-                                                                  "xp":  500,
-                                                                  "rarityWeight":  80
-                                                              }
-                                                          ]
-                                            }
-                     }
+  "metadata": {
+    "description": "Undead enemy type catalog with base stats and traits",
+    "version": "1.0",
+    "lastUpdated": "2025-12-17",
+    "type": "item_catalog",
+    "total_undead_types": 4,
+    "total_undead": 14,
+    "usage": "Provides base enemy types for pattern generation",
+    "notes": [
+      "Base catalog of undead with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+    ]
+  },
+  "undead_types": {
+    "zombies": {
+      "traits": {
+        "category": "undead",
+        "size": "medium",
+        "behavior": "shambling",
+        "damageType": "bludgeoning",
+        "vulnerability": "fire"
+      },
+      "items": [
+        {
+          "name": "Zombie",
+          "health": 40,
+          "attack": 6,
+          "defense": 2,
+          "speed": 5,
+          "level": 2,
+          "xp": 30,
+          "rarityWeight": 5
+        },
+        {
+          "name": "Corpse",
+          "health": 35,
+          "attack": 5,
+          "defense": 1,
+          "speed": 4,
+          "level": 1,
+          "xp": 20,
+          "rarityWeight": 3
+        },
+        {
+          "name": "Ghoul",
+          "health": 50,
+          "attack": 9,
+          "defense": 3,
+          "speed": 8,
+          "level": 4,
+          "xp": 60,
+          "rarityWeight": 10
+        }
+      ]
+    },
+    "skeletons": {
+      "traits": {
+        "category": "undead",
+        "size": "medium",
+        "behavior": "aggressive",
+        "damageType": "piercing",
+        "vulnerability": "bludgeoning"
+      },
+      "items": [
+        {
+          "name": "Skeleton",
+          "health": 30,
+          "attack": 7,
+          "defense": 4,
+          "speed": 10,
+          "level": 3,
+          "xp": 45,
+          "rarityWeight": 6
+        },
+        {
+          "name": "Ghast",
+          "health": 55,
+          "attack": 10,
+          "defense": 4,
+          "speed": 9,
+          "level": 5,
+          "xp": 75,
+          "rarityWeight": 12
+        }
+      ]
+    },
+    "spirits": {
+      "traits": {
+        "category": "undead",
+        "size": "medium",
+        "behavior": "ethereal",
+        "damageType": "necrotic",
+        "immunity": [
+          "physical"
+        ],
+        "vulnerability": "radiant"
+      },
+      "items": [
+        {
+          "name": "Wraith",
+          "health": 60,
+          "attack": 12,
+          "defense": 8,
+          "speed": 15,
+          "level": 7,
+          "xp": 140,
+          "rarityWeight": 20
+        },
+        {
+          "name": "Specter",
+          "health": 50,
+          "attack": 10,
+          "defense": 10,
+          "speed": 16,
+          "level": 6,
+          "xp": 110,
+          "rarityWeight": 18
+        },
+        {
+          "name": "Phantom",
+          "health": 45,
+          "attack": 9,
+          "defense": 9,
+          "speed": 17,
+          "level": 5,
+          "xp": 90,
+          "rarityWeight": 15
+        },
+        {
+          "name": "Shade",
+          "health": 40,
+          "attack": 8,
+          "defense": 8,
+          "speed": 18,
+          "level": 4,
+          "xp": 70,
+          "rarityWeight": 12
+        },
+        {
+          "name": "Banshee",
+          "health": 70,
+          "attack": 14,
+          "defense": 6,
+          "speed": 20,
+          "level": 9,
+          "xp": 200,
+          "rarityWeight": 30
+        }
+      ]
+    },
+    "greater_undead": {
+      "traits": {
+        "category": "undead",
+        "size": "medium",
+        "behavior": "intelligent",
+        "damageType": "mixed",
+        "resistance": [
+          "physical",
+          "necrotic"
+        ]
+      },
+      "items": [
+        {
+          "name": "Wight",
+          "health": 80,
+          "attack": 13,
+          "defense": 10,
+          "speed": 12,
+          "level": 8,
+          "xp": 180,
+          "rarityWeight": 25
+        },
+        {
+          "name": "Revenant",
+          "health": 100,
+          "attack": 16,
+          "defense": 12,
+          "speed": 11,
+          "level": 10,
+          "xp": 250,
+          "rarityWeight": 35
+        },
+        {
+          "name": "Mummy",
+          "health": 90,
+          "attack": 14,
+          "defense": 14,
+          "speed": 8,
+          "level": 9,
+          "xp": 220,
+          "rarityWeight": 28
+        },
+        {
+          "name": "Lich",
+          "health": 150,
+          "attack": 20,
+          "defense": 15,
+          "speed": 13,
+          "level": 15,
+          "xp": 500,
+          "rarityWeight": 80
+        }
+      ]
+    }
+  }
 }

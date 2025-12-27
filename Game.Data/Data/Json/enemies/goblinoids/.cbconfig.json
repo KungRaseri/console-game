@@ -1,9 +1,9 @@
-﻿{
-    "icon":  "Sword",
-    "sortOrder":  5,
-    "fileIcons":  {
-                      "names":  "FormatListBulleted",
-                      "abilities":  "FlashOutline",
-                      "catalog":  "ShapeOutline"
-                  }
+{
+  "icon": "Sword",
+  "sortOrder": 5,
+  "fileIcons": {
+    "names": "FormatListBulleted",
+    "abilities": "FlashOutline",
+    "catalog": "ShapeOutline"
+  }
 }

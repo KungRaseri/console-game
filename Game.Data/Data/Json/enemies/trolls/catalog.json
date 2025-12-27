@@ -1,173 +1,175 @@
 {
-    "metadata":  {
-                     "description":  "Troll enemy type catalog with base stats and rarityWeight values",
-                     "version":  "1.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "item_catalog",
-                     "total_types":  10,
-                     "categories":  [
-                                        "common_trolls",
-                                        "elemental_trolls",
-                                        "special_trolls"
-                                    ],
-                     "usage":  "Provides base enemy types for pattern generation",
-                     "notes": ["Base catalog of trolls with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
-                 },
-    "troll_types":  {
-                        "common_trolls":  {
-                                              "traits":  {
-                                                             "category":  "troll",
-                                                             "size":  "large",
-                                                             "intelligence":  "low",
-                                                             "social":  "solitary",
-                                                             "behavior":  "aggressive",
-                                                             "damageType":  "physical",
-                                                             "regeneration":  true,
-                                                             "vulnerability":  "fire"
-                                                         },
-                                              "items":  [
-                                                            {
-                                                                "name":  "Troll",
-                                                                "health":  120,
-                                                                "attack":  30,
-                                                                "defense":  10,
-                                                                "speed":  5,
-                                                                "level":  8,
-                                                                "xp":  140,
-                                                                "rarityWeight":  12
-                                                            },
-                                                            {
-                                                                "name":  "Cave Troll",
-                                                                "health":  140,
-                                                                "attack":  34,
-                                                                "defense":  12,
-                                                                "speed":  4,
-                                                                "level":  9,
-                                                                "xp":  160,
-                                                                "rarityWeight":  18
-                                                            },
-                                                            {
-                                                                "name":  "Mountain Troll",
-                                                                "health":  160,
-                                                                "attack":  38,
-                                                                "defense":  14,
-                                                                "speed":  5,
-                                                                "level":  10,
-                                                                "xp":  190,
-                                                                "rarityWeight":  25
-                                                            },
-                                                            {
-                                                                "name":  "War Troll",
-                                                                "health":  180,
-                                                                "attack":  42,
-                                                                "defense":  16,
-                                                                "speed":  6,
-                                                                "level":  11,
-                                                                "xp":  220,
-                                                                "rarityWeight":  32
-                                                            }
-                                                        ]
-                                          },
-                        "elemental_trolls":  {
-                                                 "traits":  {
-                                                                "category":  "troll",
-                                                                "size":  "large",
-                                                                "intelligence":  "low",
-                                                                "social":  "solitary",
-                                                                "behavior":  "elemental",
-                                                                "regeneration":  true,
-                                                                "magical":  true
-                                                            },
-                                                 "items":  [
-                                                               {
-                                                                   "name":  "Ice Troll",
-                                                                   "health":  150,
-                                                                   "attack":  36,
-                                                                   "defense":  13,
-                                                                   "speed":  5,
-                                                                   "level":  10,
-                                                                   "xp":  180,
-                                                                   "rarityWeight":  28,
-                                                                   "damageType":  "cold",
-                                                                   "vulnerability":  "fire"
-                                                               },
-                                                               {
-                                                                   "name":  "Fire Troll",
-                                                                   "health":  140,
-                                                                   "attack":  40,
-                                                                   "defense":  11,
-                                                                   "speed":  6,
-                                                                   "level":  10,
-                                                                   "xp":  185,
-                                                                   "rarityWeight":  30,
-                                                                   "damageType":  "fire",
-                                                                   "vulnerability":  "cold",
-                                                                   "immunity":  "fire"
-                                                               },
-                                                               {
-                                                                   "name":  "Venom Troll",
-                                                                   "health":  135,
-                                                                   "attack":  38,
-                                                                   "defense":  12,
-                                                                   "speed":  5,
-                                                                   "level":  10,
-                                                                   "xp":  190,
-                                                                   "rarityWeight":  35,
-                                                                   "damageType":  "poison",
-                                                                   "vulnerability":  "acid"
-                                                               }
-                                                           ]
-                                             },
-                        "special_trolls":  {
-                                               "traits":  {
-                                                              "category":  "troll",
-                                                              "size":  "huge",
-                                                              "intelligence":  "medium",
-                                                              "social":  "unique",
-                                                              "behavior":  "legendary",
-                                                              "unique":  true
-                                                          },
-                                               "items":  [
-                                                             {
-                                                                 "name":  "Dire Troll",
-                                                                 "health":  220,
-                                                                 "attack":  48,
-                                                                 "defense":  18,
-                                                                 "speed":  6,
-                                                                 "level":  13,
-                                                                 "xp":  280,
-                                                                 "rarityWeight":  50,
-                                                                 "damageType":  "physical",
-                                                                 "regeneration":  true,
-                                                                 "vulnerability":  "fire"
-                                                             },
-                                                             {
-                                                                 "name":  "Troll Chieftain",
-                                                                 "health":  200,
-                                                                 "attack":  45,
-                                                                 "defense":  17,
-                                                                 "speed":  6,
-                                                                 "level":  12,
-                                                                 "xp":  250,
-                                                                 "rarityWeight":  45,
-                                                                 "damageType":  "physical",
-                                                                 "regeneration":  true,
-                                                                 "intelligence":  "high"
-                                                             },
-                                                             {
-                                                                 "name":  "Ancient Troll",
-                                                                 "health":  280,
-                                                                 "attack":  55,
-                                                                 "defense":  22,
-                                                                 "speed":  5,
-                                                                 "level":  15,
-                                                                 "xp":  350,
-                                                                 "rarityWeight":  70,
-                                                                 "damageType":  "physical",
-                                                                 "regeneration":  true,
-                                                                 "magical":  true
-                                                             }
-                                                         ]
-                                           }
-                    }
+  "metadata": {
+    "description": "Troll enemy type catalog with base stats and rarityWeight values",
+    "version": "1.0",
+    "lastUpdated": "2025-12-17",
+    "type": "item_catalog",
+    "total_types": 10,
+    "categories": [
+      "common_trolls",
+      "elemental_trolls",
+      "special_trolls"
+    ],
+    "usage": "Provides base enemy types for pattern generation",
+    "notes": [
+      "Base catalog of trolls with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+    ]
+  },
+  "troll_types": {
+    "common_trolls": {
+      "traits": {
+        "category": "troll",
+        "size": "large",
+        "intelligence": "low",
+        "social": "solitary",
+        "behavior": "aggressive",
+        "damageType": "physical",
+        "regeneration": true,
+        "vulnerability": "fire"
+      },
+      "items": [
+        {
+          "name": "Troll",
+          "health": 120,
+          "attack": 30,
+          "defense": 10,
+          "speed": 5,
+          "level": 8,
+          "xp": 140,
+          "rarityWeight": 12
+        },
+        {
+          "name": "Cave Troll",
+          "health": 140,
+          "attack": 34,
+          "defense": 12,
+          "speed": 4,
+          "level": 9,
+          "xp": 160,
+          "rarityWeight": 18
+        },
+        {
+          "name": "Mountain Troll",
+          "health": 160,
+          "attack": 38,
+          "defense": 14,
+          "speed": 5,
+          "level": 10,
+          "xp": 190,
+          "rarityWeight": 25
+        },
+        {
+          "name": "War Troll",
+          "health": 180,
+          "attack": 42,
+          "defense": 16,
+          "speed": 6,
+          "level": 11,
+          "xp": 220,
+          "rarityWeight": 32
+        }
+      ]
+    },
+    "elemental_trolls": {
+      "traits": {
+        "category": "troll",
+        "size": "large",
+        "intelligence": "low",
+        "social": "solitary",
+        "behavior": "elemental",
+        "regeneration": true,
+        "magical": true
+      },
+      "items": [
+        {
+          "name": "Ice Troll",
+          "health": 150,
+          "attack": 36,
+          "defense": 13,
+          "speed": 5,
+          "level": 10,
+          "xp": 180,
+          "rarityWeight": 28,
+          "damageType": "cold",
+          "vulnerability": "fire"
+        },
+        {
+          "name": "Fire Troll",
+          "health": 140,
+          "attack": 40,
+          "defense": 11,
+          "speed": 6,
+          "level": 10,
+          "xp": 185,
+          "rarityWeight": 30,
+          "damageType": "fire",
+          "vulnerability": "cold",
+          "immunity": "fire"
+        },
+        {
+          "name": "Venom Troll",
+          "health": 135,
+          "attack": 38,
+          "defense": 12,
+          "speed": 5,
+          "level": 10,
+          "xp": 190,
+          "rarityWeight": 35,
+          "damageType": "poison",
+          "vulnerability": "acid"
+        }
+      ]
+    },
+    "special_trolls": {
+      "traits": {
+        "category": "troll",
+        "size": "huge",
+        "intelligence": "medium",
+        "social": "unique",
+        "behavior": "legendary",
+        "unique": true
+      },
+      "items": [
+        {
+          "name": "Dire Troll",
+          "health": 220,
+          "attack": 48,
+          "defense": 18,
+          "speed": 6,
+          "level": 13,
+          "xp": 280,
+          "rarityWeight": 50,
+          "damageType": "physical",
+          "regeneration": true,
+          "vulnerability": "fire"
+        },
+        {
+          "name": "Troll Chieftain",
+          "health": 200,
+          "attack": 45,
+          "defense": 17,
+          "speed": 6,
+          "level": 12,
+          "xp": 250,
+          "rarityWeight": 45,
+          "damageType": "physical",
+          "regeneration": true,
+          "intelligence": "high"
+        },
+        {
+          "name": "Ancient Troll",
+          "health": 280,
+          "attack": 55,
+          "defense": 22,
+          "speed": 5,
+          "level": 15,
+          "xp": 350,
+          "rarityWeight": 70,
+          "damageType": "physical",
+          "regeneration": true,
+          "magical": true
+        }
+      ]
+    }
+  }
 }

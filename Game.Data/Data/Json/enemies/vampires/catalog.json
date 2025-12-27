@@ -1,181 +1,181 @@
-﻿{
-    "metadata": {
-        "description": "Vampire enemy type catalog with base stats and rarityWeight values",
-        "version": "1.0",
-        "lastUpdated": "2025-12-17",
-        "type": "item_catalog",
-        "total_types": 11,
-        "categories": [
-            "lesser_vampires",
-            "true_vampires",
-            "ancient_vampires"
-        ],
-        "notes": [],
-        "usage": "Base catalog of vampires with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
-    },
-    "vampire_types": {
-        "lesser_vampires": {
-            "traits": {
-                "category": "vampire",
-                "size": "medium",
-                "intelligence": "high",
-                "social": "aristocratic",
-                "behavior": "predatory",
-                "damageType": "physical",
-                "undead": true,
-                "vulnerability": "radiant",
-                "regeneration": true
-            },
-            "items": [
-                {
-                    "name": "Vampire Spawn",
-                    "health": 80,
-                    "attack": 22,
-                    "defense": 10,
-                    "speed": 7,
-                    "level": 6,
-                    "xp": 100,
-                    "rarityWeight": 15
-                },
-                {
-                    "name": "Thrall",
-                    "health": 65,
-                    "attack": 18,
-                    "defense": 8,
-                    "speed": 6,
-                    "level": 5,
-                    "xp": 75,
-                    "rarityWeight": 10
-                },
-                {
-                    "name": "Fledgling",
-                    "health": 90,
-                    "attack": 24,
-                    "defense": 11,
-                    "speed": 7,
-                    "level": 7,
-                    "xp": 120,
-                    "rarityWeight": 20
-                }
-            ]
+{
+  "metadata": {
+    "description": "Vampire enemy type catalog with base stats and rarityWeight values",
+    "version": "1.0",
+    "lastUpdated": "2025-12-17",
+    "type": "item_catalog",
+    "total_types": 11,
+    "categories": [
+      "lesser_vampires",
+      "true_vampires",
+      "ancient_vampires"
+    ],
+    "notes": [],
+    "usage": "Base catalog of vampires with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+  },
+  "vampire_types": {
+    "lesser_vampires": {
+      "traits": {
+        "category": "vampire",
+        "size": "medium",
+        "intelligence": "high",
+        "social": "aristocratic",
+        "behavior": "predatory",
+        "damageType": "physical",
+        "undead": true,
+        "vulnerability": "radiant",
+        "regeneration": true
+      },
+      "items": [
+        {
+          "name": "Vampire Spawn",
+          "health": 80,
+          "attack": 22,
+          "defense": 10,
+          "speed": 7,
+          "level": 6,
+          "xp": 100,
+          "rarityWeight": 15
         },
-        "true_vampires": {
-            "traits": {
-                "category": "vampire",
-                "size": "medium",
-                "intelligence": "very_high",
-                "social": "aristocratic",
-                "behavior": "cunning",
-                "damageType": "physical",
-                "undead": true,
-                "vulnerability": "radiant",
-                "regeneration": true,
-                "magical": true,
-                "shapeshifter": true
-            },
-            "items": [
-                {
-                    "name": "Vampire",
-                    "health": 120,
-                    "attack": 30,
-                    "defense": 14,
-                    "speed": 8,
-                    "level": 9,
-                    "xp": 180,
-                    "rarityWeight": 30
-                },
-                {
-                    "name": "Vampire Knight",
-                    "health": 140,
-                    "attack": 34,
-                    "defense": 16,
-                    "speed": 8,
-                    "level": 10,
-                    "xp": 210,
-                    "rarityWeight": 38
-                },
-                {
-                    "name": "Vampire Mage",
-                    "health": 130,
-                    "attack": 36,
-                    "defense": 15,
-                    "speed": 7,
-                    "level": 10,
-                    "xp": 220,
-                    "rarityWeight": 42
-                },
-                {
-                    "name": "Vampire Lord",
-                    "health": 160,
-                    "attack": 40,
-                    "defense": 18,
-                    "speed": 9,
-                    "level": 12,
-                    "xp": 280,
-                    "rarityWeight": 55
-                }
-            ]
+        {
+          "name": "Thrall",
+          "health": 65,
+          "attack": 18,
+          "defense": 8,
+          "speed": 6,
+          "level": 5,
+          "xp": 75,
+          "rarityWeight": 10
         },
-        "ancient_vampires": {
-            "traits": {
-                "category": "vampire",
-                "size": "medium",
-                "intelligence": "genius",
-                "social": "aristocratic",
-                "behavior": "legendary",
-                "undead": true,
-                "unique": true,
-                "vulnerability": "radiant",
-                "regeneration": true,
-                "magical": true,
-                "shapeshifter": true
-            },
-            "items": [
-                {
-                    "name": "Elder Vampire",
-                    "health": 200,
-                    "attack": 48,
-                    "defense": 22,
-                    "speed": 10,
-                    "level": 14,
-                    "xp": 350,
-                    "rarityWeight": 70,
-                    "damageType": "magical"
-                },
-                {
-                    "name": "Vampire Prince",
-                    "health": 220,
-                    "attack": 50,
-                    "defense": 24,
-                    "speed": 10,
-                    "level": 15,
-                    "xp": 400,
-                    "rarityWeight": 80,
-                    "damageType": "magical"
-                },
-                {
-                    "name": "Vampire Progenitor",
-                    "health": 280,
-                    "attack": 60,
-                    "defense": 28,
-                    "speed": 11,
-                    "level": 18,
-                    "xp": 550,
-                    "rarityWeight": 100,
-                    "damageType": "magical"
-                },
-                {
-                    "name": "Nosferatu",
-                    "health": 180,
-                    "attack": 45,
-                    "defense": 20,
-                    "speed": 9,
-                    "level": 13,
-                    "xp": 320,
-                    "rarityWeight": 65,
-                    "damageType": "physical"
-                }
-            ]
+        {
+          "name": "Fledgling",
+          "health": 90,
+          "attack": 24,
+          "defense": 11,
+          "speed": 7,
+          "level": 7,
+          "xp": 120,
+          "rarityWeight": 20
         }
+      ]
+    },
+    "true_vampires": {
+      "traits": {
+        "category": "vampire",
+        "size": "medium",
+        "intelligence": "very_high",
+        "social": "aristocratic",
+        "behavior": "cunning",
+        "damageType": "physical",
+        "undead": true,
+        "vulnerability": "radiant",
+        "regeneration": true,
+        "magical": true,
+        "shapeshifter": true
+      },
+      "items": [
+        {
+          "name": "Vampire",
+          "health": 120,
+          "attack": 30,
+          "defense": 14,
+          "speed": 8,
+          "level": 9,
+          "xp": 180,
+          "rarityWeight": 30
+        },
+        {
+          "name": "Vampire Knight",
+          "health": 140,
+          "attack": 34,
+          "defense": 16,
+          "speed": 8,
+          "level": 10,
+          "xp": 210,
+          "rarityWeight": 38
+        },
+        {
+          "name": "Vampire Mage",
+          "health": 130,
+          "attack": 36,
+          "defense": 15,
+          "speed": 7,
+          "level": 10,
+          "xp": 220,
+          "rarityWeight": 42
+        },
+        {
+          "name": "Vampire Lord",
+          "health": 160,
+          "attack": 40,
+          "defense": 18,
+          "speed": 9,
+          "level": 12,
+          "xp": 280,
+          "rarityWeight": 55
+        }
+      ]
+    },
+    "ancient_vampires": {
+      "traits": {
+        "category": "vampire",
+        "size": "medium",
+        "intelligence": "genius",
+        "social": "aristocratic",
+        "behavior": "legendary",
+        "undead": true,
+        "unique": true,
+        "vulnerability": "radiant",
+        "regeneration": true,
+        "magical": true,
+        "shapeshifter": true
+      },
+      "items": [
+        {
+          "name": "Elder Vampire",
+          "health": 200,
+          "attack": 48,
+          "defense": 22,
+          "speed": 10,
+          "level": 14,
+          "xp": 350,
+          "rarityWeight": 70,
+          "damageType": "magical"
+        },
+        {
+          "name": "Vampire Prince",
+          "health": 220,
+          "attack": 50,
+          "defense": 24,
+          "speed": 10,
+          "level": 15,
+          "xp": 400,
+          "rarityWeight": 80,
+          "damageType": "magical"
+        },
+        {
+          "name": "Vampire Progenitor",
+          "health": 280,
+          "attack": 60,
+          "defense": 28,
+          "speed": 11,
+          "level": 18,
+          "xp": 550,
+          "rarityWeight": 100,
+          "damageType": "magical"
+        },
+        {
+          "name": "Nosferatu",
+          "health": 180,
+          "attack": 45,
+          "defense": 20,
+          "speed": 9,
+          "level": 13,
+          "xp": 320,
+          "rarityWeight": 65,
+          "damageType": "physical"
+        }
+      ]
     }
+  }
 }

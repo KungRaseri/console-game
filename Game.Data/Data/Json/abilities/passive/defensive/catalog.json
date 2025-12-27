@@ -1,485 +1,485 @@
 {
-    "metadata":  {
-                     "description":  "Ability catalog for passive/defensive",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-27",
-                     "type":  "ability_catalog",
-                     "supportsTraits":  true,
-                     "totalAbilities":  39,
-                     "notes":  [
-                                   "Consolidated from enemy-specific abilities",
-                                   "Abilities are shared across enemies, players, and NPCs",
-                                   "rarityWeight determines selection probability"
-                               ]
-                 },
-    "items":  [
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Natural armor provides extra protection",
-                      "name":  "Thick Hide",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Thick Hide"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Resistant to physical damage",
-                      "name":  "Armored Scales",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Armored Scales"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Slowly heals wounds during combat",
-                      "name":  "Regeneration",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Regeneration"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Difficult to detect in natural environments",
-                      "name":  "Camouflage",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Camouflage"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Made entirely of elemental matter",
-                      "name":  "Elemental Body",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "core_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Elemental Body"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Immune to its own element",
-                      "name":  "Elemental Immunity",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "core_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Elemental Immunity"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Vulnerable to opposing element",
-                      "name":  "Elemental Weakness",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "core_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Elemental Weakness"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Deals extra damage when attacking from stealth",
-                      "name":  "SneakAttack",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Sneak Attack"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Gains bonus when fighting alongside allies",
-                      "name":  "PackTactics",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Pack Tactics"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Flees when health drops below 30%",
-                      "name":  "Cowardly",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Cowardly"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "May loot random items during combat",
-                      "name":  "Scavenger",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "special_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Scavenger"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Deploys mechanical constructs to fight",
-                      "name":  "MechanicalGenius",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "special_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Mechanical Genius"
-                  },
-                  {
-                      "rarityWeight":  500,
-                      "description":  "Inflicts curses on attackers when damaged",
-                      "name":  "CursedBloodline",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "special_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Cursed Bloodline"
-                  },
-                  {
-                      "rarityWeight":  500,
-                      "description":  "Enhanced by demonic power, regenerates health",
-                      "name":  "DemonPact",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "special_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Demon Pact"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Attacks in groups, difficult to hit individually",
-                      "name":  "Swarm",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Swarm"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Hard exoskeleton provides natural armor",
-                      "name":  "Chitinous",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Chitinous"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Attacks inflict poison damage",
-                      "name":  "Venomous",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Venomous"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Reduced damage from physical attacks",
-                      "name":  "HeavyArmor",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Heavy Armor"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Skin like steel, resistant to most damage",
-                      "name":  "Ironhide",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Ironhide"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Heals slowly over time",
-                      "name":  "Regenerative",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Regenerative"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Bark-like skin provides exceptional defense",
-                      "name":  "NaturalArmor",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Natural Armor"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Cannot move but has high defense",
-                      "name":  "Rooted",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Rooted"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Reflects damage back to attackers",
-                      "name":  "Thorny",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Thorny"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Contact inflicts poison damage",
-                      "name":  "Poisonous",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Poisonous"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Natural armor from thick scales",
-                      "name":  "ScaledHide",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Scaled Hide"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Vulnerable to ice but resistant to fire",
-                      "name":  "ColdBlooded",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Cold Blooded"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Bite attacks inflict poison",
-                      "name":  "VenomousBite",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Venomous Bite"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Heavily armored with bone plates",
-                      "name":  "ArmoredPlates",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "defensive_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Armored Plates"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Natural damage resistance",
-                      "name":  "ThickSkin",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Thick Skin"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Large size with increased health and damage",
-                      "name":  "Massive",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Massive"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Takes extra damage from fire and stops regeneration",
-                      "name":  "FireWeakness",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Fire Weakness"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Cannot be poisoned or diseased",
-                      "name":  "Immune to Poison",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "immunities",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Immune to Poison"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Unaffected by ice and freezing",
-                      "name":  "Immune to Cold",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "immunities",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Immune to Cold"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Takes extra damage from flames",
-                      "name":  "Vulnerable to Fire",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "vulnerabilities",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Vulnerable to Fire"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Radiant magic is devastating",
-                      "name":  "Vulnerable to Holy",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "vulnerabilities",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Vulnerable to Holy"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Drains life force through bites",
-                      "name":  "Blood Drain",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "core_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Blood Drain"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Cannot die from age or disease",
-                      "name":  "Immortal",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "core_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Immortal"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Destroyed by direct sunlight",
-                      "name":  "Sunlight Weakness",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "core_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Sunlight Weakness"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Superior sight, hearing, and smell",
-                      "name":  "Enhanced Senses",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "core_traits",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Enhanced Senses"
-                  }
-              ]
+  "metadata": {
+    "description": "Ability catalog for passive/defensive",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "ability_catalog",
+    "supportsTraits": true,
+    "totalAbilities": 39,
+    "notes": [
+      "Consolidated from enemy-specific abilities",
+      "Abilities are shared across enemies, players, and NPCs",
+      "rarityWeight determines selection probability"
+    ]
+  },
+  "items": [
+    {
+      "rarityWeight": 10,
+      "description": "Natural armor provides extra protection",
+      "name": "Thick Hide",
+      "traits": {
+        "category": {
+          "value": "defensive_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Thick Hide"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Resistant to physical damage",
+      "name": "Armored Scales",
+      "traits": {
+        "category": {
+          "value": "defensive_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Armored Scales"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Slowly heals wounds during combat",
+      "name": "Regeneration",
+      "traits": {
+        "category": {
+          "value": "defensive_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Regeneration"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Difficult to detect in natural environments",
+      "name": "Camouflage",
+      "traits": {
+        "category": {
+          "value": "defensive_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Camouflage"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Made entirely of elemental matter",
+      "name": "Elemental Body",
+      "traits": {
+        "category": {
+          "value": "core_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Elemental Body"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Immune to its own element",
+      "name": "Elemental Immunity",
+      "traits": {
+        "category": {
+          "value": "core_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Elemental Immunity"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Vulnerable to opposing element",
+      "name": "Elemental Weakness",
+      "traits": {
+        "category": {
+          "value": "core_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Elemental Weakness"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Deals extra damage when attacking from stealth",
+      "name": "SneakAttack",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Sneak Attack"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Gains bonus when fighting alongside allies",
+      "name": "PackTactics",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Pack Tactics"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Flees when health drops below 30%",
+      "name": "Cowardly",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Cowardly"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "May loot random items during combat",
+      "name": "Scavenger",
+      "traits": {
+        "category": {
+          "value": "special_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Scavenger"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Deploys mechanical constructs to fight",
+      "name": "MechanicalGenius",
+      "traits": {
+        "category": {
+          "value": "special_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Mechanical Genius"
+    },
+    {
+      "rarityWeight": 500,
+      "description": "Inflicts curses on attackers when damaged",
+      "name": "CursedBloodline",
+      "traits": {
+        "category": {
+          "value": "special_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Cursed Bloodline"
+    },
+    {
+      "rarityWeight": 500,
+      "description": "Enhanced by demonic power, regenerates health",
+      "name": "DemonPact",
+      "traits": {
+        "category": {
+          "value": "special_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Demon Pact"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Attacks in groups, difficult to hit individually",
+      "name": "Swarm",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Swarm"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Hard exoskeleton provides natural armor",
+      "name": "Chitinous",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Chitinous"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Attacks inflict poison damage",
+      "name": "Venomous",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Venomous"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Reduced damage from physical attacks",
+      "name": "HeavyArmor",
+      "traits": {
+        "category": {
+          "value": "defensive_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Heavy Armor"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Skin like steel, resistant to most damage",
+      "name": "Ironhide",
+      "traits": {
+        "category": {
+          "value": "defensive_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Ironhide"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Heals slowly over time",
+      "name": "Regenerative",
+      "traits": {
+        "category": {
+          "value": "defensive_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Regenerative"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Bark-like skin provides exceptional defense",
+      "name": "NaturalArmor",
+      "traits": {
+        "category": {
+          "value": "defensive_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Natural Armor"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Cannot move but has high defense",
+      "name": "Rooted",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Rooted"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Reflects damage back to attackers",
+      "name": "Thorny",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Thorny"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Contact inflicts poison damage",
+      "name": "Poisonous",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Poisonous"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Natural armor from thick scales",
+      "name": "ScaledHide",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Scaled Hide"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Vulnerable to ice but resistant to fire",
+      "name": "ColdBlooded",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Cold Blooded"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Bite attacks inflict poison",
+      "name": "VenomousBite",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Venomous Bite"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Heavily armored with bone plates",
+      "name": "ArmoredPlates",
+      "traits": {
+        "category": {
+          "value": "defensive_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Armored Plates"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Natural damage resistance",
+      "name": "ThickSkin",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Thick Skin"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Large size with increased health and damage",
+      "name": "Massive",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Massive"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Takes extra damage from fire and stops regeneration",
+      "name": "FireWeakness",
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Fire Weakness"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Cannot be poisoned or diseased",
+      "name": "Immune to Poison",
+      "traits": {
+        "category": {
+          "value": "immunities",
+          "type": "string"
+        }
+      },
+      "displayName": "Immune to Poison"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Unaffected by ice and freezing",
+      "name": "Immune to Cold",
+      "traits": {
+        "category": {
+          "value": "immunities",
+          "type": "string"
+        }
+      },
+      "displayName": "Immune to Cold"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Takes extra damage from flames",
+      "name": "Vulnerable to Fire",
+      "traits": {
+        "category": {
+          "value": "vulnerabilities",
+          "type": "string"
+        }
+      },
+      "displayName": "Vulnerable to Fire"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Radiant magic is devastating",
+      "name": "Vulnerable to Holy",
+      "traits": {
+        "category": {
+          "value": "vulnerabilities",
+          "type": "string"
+        }
+      },
+      "displayName": "Vulnerable to Holy"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Drains life force through bites",
+      "name": "Blood Drain",
+      "traits": {
+        "category": {
+          "value": "core_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Blood Drain"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Cannot die from age or disease",
+      "name": "Immortal",
+      "traits": {
+        "category": {
+          "value": "core_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Immortal"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Destroyed by direct sunlight",
+      "name": "Sunlight Weakness",
+      "traits": {
+        "category": {
+          "value": "core_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Sunlight Weakness"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Superior sight, hearing, and smell",
+      "name": "Enhanced Senses",
+      "traits": {
+        "category": {
+          "value": "core_traits",
+          "type": "string"
+        }
+      },
+      "displayName": "Enhanced Senses"
+    }
+  ]
 }

@@ -1,413 +1,413 @@
 {
-    "metadata":  {
-                     "description":  "Pattern-based ability name generation for passive/sensory",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-27",
-                     "type":  "pattern_generation",
-                     "supportsTraits":  true,
-                     "componentKeys":  [
-                                           "prefix",
-                                           "suffix"
-                                       ],
-                     "patternTokens":  [
-                                           "base",
-                                           "prefix",
-                                           "suffix"
-                                       ],
-                     "totalPatterns":  4,
-                     "raritySystem":  "weight-based",
-                     "notes":  [
-                                   "Base token resolves from catalog.json",
-                                   "Components have rarityWeight for emergent rarity calculation",
-                                   "Traits are applied when components are selected in patterns"
-                               ]
-                 },
-    "components":  {
-                       "prefix":  [
-                                      {
-                                          "rarityWeight":  10,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  2,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Enhanced"
-                                      },
-                                      {
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Superior"
-                                      },
-                                      {
-                                          "rarityWeight":  75,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  5,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "Legendary"
-                                      },
-                                      {
-                                          "value":  "Hellborn",
-                                          "rarityWeight":  10,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  2,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "resistFire":  {
-                                                                            "value":  15,
-                                                                            "type":  "number"
-                                                                        }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Demonic",
-                                          "rarityWeight":  15,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "healthBonus":  {
-                                                                             "value":  5,
-                                                                             "type":  "number"
-                                                                         }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Unholy",
-                                          "rarityWeight":  20,
-                                          "traits":  {
-                                                         "damageMultiplier":  {
-                                                                                  "value":  1.1,
-                                                                                  "type":  "number"
-                                                                              },
-                                                         "resistFire":  {
-                                                                            "value":  10,
-                                                                            "type":  "number"
-                                                                        }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Infernal",
-                                          "rarityWeight":  30,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  5,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "statusChance":  {
-                                                                              "value":  10,
-                                                                              "type":  "number"
-                                                                          }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Hellfire",
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "damageType":  {
-                                                                            "value":  "fire",
-                                                                            "type":  "string"
-                                                                        },
-                                                         "damageBonus":  {
-                                                                             "value":  7,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "statusEffect":  {
-                                                                              "value":  "burning",
-                                                                              "type":  "string"
-                                                                          }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Cursed",
-                                          "rarityWeight":  40,
-                                          "traits":  {
-                                                         "statusEffect":  {
-                                                                              "value":  "cursed",
-                                                                              "type":  "string"
-                                                                          },
-                                                         "duration":  {
-                                                                          "value":  5,
-                                                                          "type":  "number"
-                                                                      }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Dark",
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "damageType":  {
-                                                                            "value":  "dark",
-                                                                            "type":  "string"
-                                                                        },
-                                                         "damageBonus":  {
-                                                                             "value":  4,
-                                                                             "type":  "number"
-                                                                         }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Blood",
-                                          "rarityWeight":  30,
-                                          "traits":  {
-                                                         "lifeSteal":  {
-                                                                           "value":  10,
-                                                                           "type":  "number"
-                                                                       },
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Soul",
-                                          "rarityWeight":  50,
-                                          "traits":  {
-                                                         "damageType":  {
-                                                                            "value":  "dark",
-                                                                            "type":  "string"
-                                                                        },
-                                                         "statusEffect":  {
-                                                                              "value":  "weakened",
-                                                                              "type":  "string"
-                                                                          }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Toxic",
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "damageType":  {
-                                                                            "value":  "poison",
-                                                                            "type":  "string"
-                                                                        },
-                                                         "statusEffect":  {
-                                                                              "value":  "poisoned",
-                                                                              "type":  "string"
-                                                                          }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Dimensional",
-                                          "rarityWeight":  75,
-                                          "traits":  {
-                                                         "dodgeChance":  {
-                                                                             "value":  15,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "cooldownReduction":  {
-                                                                                   "value":  10,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Greater",
-                                          "rarityWeight":  50,
-                                          "traits":  {
-                                                         "damageMultiplier":  {
-                                                                                  "value":  1.2,
-                                                                                  "type":  "number"
-                                                                              },
-                                                         "cooldownReduction":  {
-                                                                                   "value":  10,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Ancient",
-                                          "rarityWeight":  100,
-                                          "traits":  {
-                                                         "damageMultiplier":  {
-                                                                                  "value":  1.5,
-                                                                                  "type":  "number"
-                                                                              },
-                                                         "durationBonus":  {
-                                                                               "value":  5,
-                                                                               "type":  "number"
-                                                                           },
-                                                         "cooldownReduction":  {
-                                                                                   "value":  20,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "Prime",
-                                          "rarityWeight":  150,
-                                          "traits":  {
-                                                         "damageMultiplier":  {
-                                                                                  "value":  2.0,
-                                                                                  "type":  "number"
-                                                                              },
-                                                         "healthMultiplier":  {
-                                                                                  "value":  1.5,
-                                                                                  "type":  "number"
-                                                                              },
-                                                         "durationBonus":  {
-                                                                               "value":  10,
-                                                                               "type":  "number"
-                                                                           }
-                                                     }
-                                      }
-                                  ],
-                       "suffix":  [
-                                      {
-                                          "rarityWeight":  10,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  1,
-                                                                             "type":  "number"
-                                                                         }
-                                                     },
-                                          "value":  "of Power"
-                                      },
-                                      {
-                                          "rarityWeight":  35,
-                                          "traits":  {
-                                                         "cooldownReduction":  {
-                                                                                   "value":  2,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     },
-                                          "value":  "of Mastery"
-                                      },
-                                      {
-                                          "rarityWeight":  75,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  3,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "cooldownReduction":  {
-                                                                                   "value":  5,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     },
-                                          "value":  "of the Gods"
-                                      },
-                                      {
-                                          "value":  "of the Abyss",
-                                          "rarityWeight":  50,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  8,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "healthBonus":  {
-                                                                             "value":  10,
-                                                                             "type":  "number"
-                                                                         }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "of Torment",
-                                          "rarityWeight":  40,
-                                          "traits":  {
-                                                         "statusChance":  {
-                                                                              "value":  15,
-                                                                              "type":  "number"
-                                                                          },
-                                                         "duration":  {
-                                                                          "value":  3,
-                                                                          "type":  "number"
-                                                                      }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "of Doom",
-                                          "rarityWeight":  70,
-                                          "traits":  {
-                                                         "damageMultiplier":  {
-                                                                                  "value":  1.3,
-                                                                                  "type":  "number"
-                                                                              },
-                                                         "criticalChance":  {
-                                                                                "value":  10,
-                                                                                "type":  "number"
-                                                                            }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "of the Damned",
-                                          "rarityWeight":  100,
-                                          "traits":  {
-                                                         "damageMultiplier":  {
-                                                                                  "value":  1.5,
-                                                                                  "type":  "number"
-                                                                              },
-                                                         "healthBonus":  {
-                                                                             "value":  20,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "lifeSteal":  {
-                                                                           "value":  15,
-                                                                           "type":  "number"
-                                                                       }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "of Destruction",
-                                          "rarityWeight":  80,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  15,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "areaOfEffect":  {
-                                                                              "value":  3,
-                                                                              "type":  "number"
-                                                                          }
-                                                     }
-                                      },
-                                      {
-                                          "value":  "of the Ancients",
-                                          "rarityWeight":  150,
-                                          "traits":  {
-                                                         "damageBonus":  {
-                                                                             "value":  20,
-                                                                             "type":  "number"
-                                                                         },
-                                                         "rangeBonus":  {
-                                                                            "value":  5,
-                                                                            "type":  "number"
-                                                                        },
-                                                         "cooldownReduction":  {
-                                                                                   "value":  25,
-                                                                                   "type":  "number"
-                                                                               }
-                                                     }
-                                      }
-                                  ]
-                   },
-    "patterns":  [
-                     {
-                         "rarityWeight":  40,
-                         "pattern":  "{base}"
-                     },
-                     {
-                         "rarityWeight":  35,
-                         "pattern":  "{prefix} {base}"
-                     },
-                     {
-                         "rarityWeight":  20,
-                         "pattern":  "{base} {suffix}"
-                     },
-                     {
-                         "rarityWeight":  5,
-                         "pattern":  "{prefix} {base} {suffix}"
-                     }
-                 ]
+  "metadata": {
+    "description": "Pattern-based ability name generation for passive/sensory",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "pattern_generation",
+    "supportsTraits": true,
+    "componentKeys": [
+      "prefix",
+      "suffix"
+    ],
+    "patternTokens": [
+      "base",
+      "prefix",
+      "suffix"
+    ],
+    "totalPatterns": 4,
+    "raritySystem": "weight-based",
+    "notes": [
+      "Base token resolves from catalog.json",
+      "Components have rarityWeight for emergent rarity calculation",
+      "Traits are applied when components are selected in patterns"
+    ]
+  },
+  "components": {
+    "prefix": [
+      {
+        "rarityWeight": 10,
+        "traits": {
+          "damageBonus": {
+            "value": 2,
+            "type": "number"
+          }
+        },
+        "value": "Enhanced"
+      },
+      {
+        "rarityWeight": 35,
+        "traits": {
+          "damageBonus": {
+            "value": 3,
+            "type": "number"
+          }
+        },
+        "value": "Superior"
+      },
+      {
+        "rarityWeight": 75,
+        "traits": {
+          "damageBonus": {
+            "value": 5,
+            "type": "number"
+          }
+        },
+        "value": "Legendary"
+      },
+      {
+        "value": "Hellborn",
+        "rarityWeight": 10,
+        "traits": {
+          "damageBonus": {
+            "value": 2,
+            "type": "number"
+          },
+          "resistFire": {
+            "value": 15,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Demonic",
+        "rarityWeight": 15,
+        "traits": {
+          "damageBonus": {
+            "value": 3,
+            "type": "number"
+          },
+          "healthBonus": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Unholy",
+        "rarityWeight": 20,
+        "traits": {
+          "damageMultiplier": {
+            "value": 1.1,
+            "type": "number"
+          },
+          "resistFire": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Infernal",
+        "rarityWeight": 30,
+        "traits": {
+          "damageBonus": {
+            "value": 5,
+            "type": "number"
+          },
+          "statusChance": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Hellfire",
+        "rarityWeight": 35,
+        "traits": {
+          "damageType": {
+            "value": "fire",
+            "type": "string"
+          },
+          "damageBonus": {
+            "value": 7,
+            "type": "number"
+          },
+          "statusEffect": {
+            "value": "burning",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Cursed",
+        "rarityWeight": 40,
+        "traits": {
+          "statusEffect": {
+            "value": "cursed",
+            "type": "string"
+          },
+          "duration": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Dark",
+        "rarityWeight": 35,
+        "traits": {
+          "damageType": {
+            "value": "dark",
+            "type": "string"
+          },
+          "damageBonus": {
+            "value": 4,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Blood",
+        "rarityWeight": 30,
+        "traits": {
+          "lifeSteal": {
+            "value": 10,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 3,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Soul",
+        "rarityWeight": 50,
+        "traits": {
+          "damageType": {
+            "value": "dark",
+            "type": "string"
+          },
+          "statusEffect": {
+            "value": "weakened",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Toxic",
+        "rarityWeight": 35,
+        "traits": {
+          "damageType": {
+            "value": "poison",
+            "type": "string"
+          },
+          "statusEffect": {
+            "value": "poisoned",
+            "type": "string"
+          }
+        }
+      },
+      {
+        "value": "Dimensional",
+        "rarityWeight": 75,
+        "traits": {
+          "dodgeChance": {
+            "value": 15,
+            "type": "number"
+          },
+          "cooldownReduction": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Greater",
+        "rarityWeight": 50,
+        "traits": {
+          "damageMultiplier": {
+            "value": 1.2,
+            "type": "number"
+          },
+          "cooldownReduction": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Ancient",
+        "rarityWeight": 100,
+        "traits": {
+          "damageMultiplier": {
+            "value": 1.5,
+            "type": "number"
+          },
+          "durationBonus": {
+            "value": 5,
+            "type": "number"
+          },
+          "cooldownReduction": {
+            "value": 20,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Prime",
+        "rarityWeight": 150,
+        "traits": {
+          "damageMultiplier": {
+            "value": 2.0,
+            "type": "number"
+          },
+          "healthMultiplier": {
+            "value": 1.5,
+            "type": "number"
+          },
+          "durationBonus": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      }
+    ],
+    "suffix": [
+      {
+        "rarityWeight": 10,
+        "traits": {
+          "damageBonus": {
+            "value": 1,
+            "type": "number"
+          }
+        },
+        "value": "of Power"
+      },
+      {
+        "rarityWeight": 35,
+        "traits": {
+          "cooldownReduction": {
+            "value": 2,
+            "type": "number"
+          }
+        },
+        "value": "of Mastery"
+      },
+      {
+        "rarityWeight": 75,
+        "traits": {
+          "damageBonus": {
+            "value": 3,
+            "type": "number"
+          },
+          "cooldownReduction": {
+            "value": 5,
+            "type": "number"
+          }
+        },
+        "value": "of the Gods"
+      },
+      {
+        "value": "of the Abyss",
+        "rarityWeight": 50,
+        "traits": {
+          "damageBonus": {
+            "value": 8,
+            "type": "number"
+          },
+          "healthBonus": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Torment",
+        "rarityWeight": 40,
+        "traits": {
+          "statusChance": {
+            "value": 15,
+            "type": "number"
+          },
+          "duration": {
+            "value": 3,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Doom",
+        "rarityWeight": 70,
+        "traits": {
+          "damageMultiplier": {
+            "value": 1.3,
+            "type": "number"
+          },
+          "criticalChance": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Damned",
+        "rarityWeight": 100,
+        "traits": {
+          "damageMultiplier": {
+            "value": 1.5,
+            "type": "number"
+          },
+          "healthBonus": {
+            "value": 20,
+            "type": "number"
+          },
+          "lifeSteal": {
+            "value": 15,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Destruction",
+        "rarityWeight": 80,
+        "traits": {
+          "damageBonus": {
+            "value": 15,
+            "type": "number"
+          },
+          "areaOfEffect": {
+            "value": 3,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Ancients",
+        "rarityWeight": 150,
+        "traits": {
+          "damageBonus": {
+            "value": 20,
+            "type": "number"
+          },
+          "rangeBonus": {
+            "value": 5,
+            "type": "number"
+          },
+          "cooldownReduction": {
+            "value": 25,
+            "type": "number"
+          }
+        }
+      }
+    ]
+  },
+  "patterns": [
+    {
+      "rarityWeight": 40,
+      "pattern": "{base}"
+    },
+    {
+      "rarityWeight": 35,
+      "pattern": "{prefix} {base}"
+    },
+    {
+      "rarityWeight": 20,
+      "pattern": "{base} {suffix}"
+    },
+    {
+      "rarityWeight": 5,
+      "pattern": "{prefix} {base} {suffix}"
+    }
+  ]
 }

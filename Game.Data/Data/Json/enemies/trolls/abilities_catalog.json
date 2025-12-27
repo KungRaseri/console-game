@@ -1,314 +1,314 @@
-﻿{
-    "metadata":  {
-                     "supportsTraits":  true,
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-26",
-                     "totalAbilities":  18,
-                     "type":  "ability_catalog",
-                     "description":  "trolls ability catalog with base definitions (v4.0)",
-                     "totalAbilityTypes":  6,
-                     "usage":  "Provides base ability definitions for pattern generation with abilities_names.json"
-                 },
-    "ability_types":  {
-                          "power_traits":  {
-                                               "traits":  {
-                                                              "category":  {
-                                                                               "value":  "power_traits",
-                                                                               "type":  "string"
-                                                                           },
-                                                              "abilityClass":  {
-                                                                                   "value":  "active",
-                                                                                   "type":  "string"
-                                                                               }
-                                                          },
-                                               "items":  [
-                                                             {
-                                                                 "rarityWeight":  75,
-                                                                 "description":  "Enters berserk state when injured",
-                                                                 "name":  "Rage",
-                                                                 "traits":  {
-                                                                                "category":  {
-                                                                                                 "value":  "power_traits",
-                                                                                                 "type":  "string"
-                                                                                             }
-                                                                            },
-                                                                 "displayName":  "Rage"
-                                                             },
-                                                             {
-                                                                 "rarityWeight":  75,
-                                                                 "description":  "Incredible physical power",
-                                                                 "name":  "MountainStrength",
-                                                                 "traits":  {
-                                                                                "category":  {
-                                                                                                 "value":  "power_traits",
-                                                                                                 "type":  "string"
-                                                                                             }
-                                                                            },
-                                                                 "displayName":  "Mountain Strength"
-                                                             }
-                                                         ]
-                                           },
-                          "basic_traits":  {
-                                               "traits":  {
-                                                              "category":  {
-                                                                               "value":  "basic_traits",
-                                                                               "type":  "string"
-                                                                           },
-                                                              "abilityClass":  {
-                                                                                   "value":  "active",
-                                                                                   "type":  "string"
-                                                                               }
-                                                          },
-                                               "items":  [
-                                                             {
-                                                                 "rarityWeight":  10,
-                                                                 "description":  "Rapidly heals wounds unless burned",
-                                                                 "name":  "Regeneration",
-                                                                 "traits":  {
-                                                                                "category":  {
-                                                                                                 "value":  "basic_traits",
-                                                                                                 "type":  "string"
-                                                                                             }
-                                                                            },
-                                                                 "displayName":  "Regeneration"
-                                                             },
-                                                             {
-                                                                 "rarityWeight":  10,
-                                                                 "description":  "Natural damage resistance",
-                                                                 "name":  "ThickSkin",
-                                                                 "traits":  {
-                                                                                "category":  {
-                                                                                                 "value":  "basic_traits",
-                                                                                                 "type":  "string"
-                                                                                             }
-                                                                            },
-                                                                 "displayName":  "Thick Skin"
-                                                             },
-                                                             {
-                                                                 "rarityWeight":  10,
-                                                                 "description":  "Large size with increased health and damage",
-                                                                 "name":  "Massive",
-                                                                 "traits":  {
-                                                                                "category":  {
-                                                                                                 "value":  "basic_traits",
-                                                                                                 "type":  "string"
-                                                                                             }
-                                                                            },
-                                                                 "displayName":  "Massive"
-                                                             },
-                                                             {
-                                                                 "rarityWeight":  35,
-                                                                 "description":  "Takes extra damage from fire and stops regeneration",
-                                                                 "name":  "FireWeakness",
-                                                                 "traits":  {
-                                                                                "category":  {
-                                                                                                 "value":  "basic_traits",
-                                                                                                 "type":  "string"
-                                                                                             }
-                                                                            },
-                                                                 "displayName":  "Fire Weakness"
-                                                             }
-                                                         ]
-                                           },
-                          "colossal_traits":  {
-                                                  "traits":  {
-                                                                 "category":  {
-                                                                                  "value":  "colossal_traits",
-                                                                                  "type":  "string"
-                                                                              },
-                                                                 "abilityClass":  {
-                                                                                      "value":  "active",
-                                                                                      "type":  "string"
-                                                                                  }
-                                                             },
-                                                  "items":  [
-                                                                {
-                                                                    "rarityWeight":  250,
-                                                                    "description":  "Gigantic troll of legendary size",
-                                                                    "name":  "Colossus",
-                                                                    "traits":  {
-                                                                                   "category":  {
-                                                                                                    "value":  "colossal_traits",
-                                                                                                    "type":  "string"
-                                                                                                }
-                                                                               },
-                                                                    "displayName":  "Colossus"
-                                                                },
-                                                                {
-                                                                    "rarityWeight":  500,
-                                                                    "description":  "Ancient troll of unimaginable power",
-                                                                    "name":  "PrimalTitan",
-                                                                    "traits":  {
-                                                                                   "category":  {
-                                                                                                    "value":  "colossal_traits",
-                                                                                                    "type":  "string"
-                                                                                                }
-                                                                               },
-                                                                    "displayName":  "Primal Titan"
-                                                                },
-                                                                {
-                                                                    "rarityWeight":  500,
-                                                                    "description":  "Mythical troll that devours mountains",
-                                                                    "name":  "WorldEater",
-                                                                    "traits":  {
-                                                                                   "category":  {
-                                                                                                    "value":  "colossal_traits",
-                                                                                                    "type":  "string"
-                                                                                                }
-                                                                               },
-                                                                    "displayName":  "World Eater"
-                                                                }
-                                                            ]
-                                              },
-                          "environmental_traits":  {
-                                                       "traits":  {
-                                                                      "category":  {
-                                                                                       "value":  "environmental_traits",
-                                                                                       "type":  "string"
-                                                                                   },
-                                                                      "abilityClass":  {
-                                                                                           "value":  "active",
-                                                                                           "type":  "string"
-                                                                                       }
-                                                                  },
-                                                       "items":  [
-                                                                     {
-                                                                         "rarityWeight":  35,
-                                                                         "description":  "Turns to stone in sunlight, becoming immobile but invincible",
-                                                                         "name":  "StoneForm",
-                                                                         "traits":  {
-                                                                                        "category":  {
-                                                                                                         "value":  "environmental_traits",
-                                                                                                         "type":  "string"
-                                                                                                     }
-                                                                                    },
-                                                                         "displayName":  "Stone Form"
-                                                                     },
-                                                                     {
-                                                                         "rarityWeight":  75,
-                                                                         "description":  "Bonus stats in underground environments",
-                                                                         "name":  "CaveAdaptation",
-                                                                         "traits":  {
-                                                                                        "category":  {
-                                                                                                         "value":  "environmental_traits",
-                                                                                                         "type":  "string"
-                                                                                                     }
-                                                                                    },
-                                                                         "displayName":  "Cave Adaptation"
-                                                                     },
-                                                                     {
-                                                                         "rarityWeight":  150,
-                                                                         "description":  "Frost-resistant variant with ice attacks",
-                                                                         "name":  "IceTroll",
-                                                                         "traits":  {
-                                                                                        "category":  {
-                                                                                                         "value":  "environmental_traits",
-                                                                                                         "type":  "string"
-                                                                                                     }
-                                                                                    },
-                                                                         "displayName":  "Ice Troll"
-                                                                     },
-                                                                     {
-                                                                         "rarityWeight":  150,
-                                                                         "description":  "Immune to fire, adapted to volcanic regions",
-                                                                         "name":  "LavaImmunity",
-                                                                         "traits":  {
-                                                                                        "category":  {
-                                                                                                         "value":  "environmental_traits",
-                                                                                                         "type":  "string"
-                                                                                                     }
-                                                                                    },
-                                                                         "displayName":  "Lava Immunity"
-                                                                     }
-                                                                 ]
-                                                   },
-                          "combat_traits":  {
-                                                "traits":  {
-                                                               "category":  {
-                                                                                "value":  "combat_traits",
-                                                                                "type":  "string"
-                                                                            },
-                                                               "abilityClass":  {
-                                                                                    "value":  "active",
-                                                                                    "type":  "string"
-                                                                                }
-                                                           },
-                                                "items":  [
-                                                              {
-                                                                  "rarityWeight":  35,
-                                                                  "description":  "Hurls boulders at enemies",
-                                                                  "name":  "RockThrow",
-                                                                  "traits":  {
-                                                                                 "category":  {
-                                                                                                  "value":  "combat_traits",
-                                                                                                  "type":  "string"
-                                                                                              }
-                                                                             },
-                                                                  "displayName":  "Rock Throw"
-                                                              },
-                                                              {
-                                                                  "rarityWeight":  35,
-                                                                  "description":  "Devastating ground pound attack",
-                                                                  "name":  "Smash",
-                                                                  "traits":  {
-                                                                                 "category":  {
-                                                                                                  "value":  "combat_traits",
-                                                                                                  "type":  "string"
-                                                                                              }
-                                                                             },
-                                                                  "displayName":  "Smash"
-                                                              },
-                                                              {
-                                                                  "rarityWeight":  75,
-                                                                  "description":  "Expertise with massive clubs and mauls",
-                                                                  "name":  "ClubMaster",
-                                                                  "traits":  {
-                                                                                 "category":  {
-                                                                                                  "value":  "combat_traits",
-                                                                                                  "type":  "string"
-                                                                                              }
-                                                                             },
-                                                                  "displayName":  "Club Master"
-                                                              }
-                                                          ]
-                                            },
-                          "leadership_traits":  {
-                                                    "traits":  {
-                                                                   "category":  {
-                                                                                    "value":  "leadership_traits",
-                                                                                    "type":  "string"
-                                                                                },
-                                                                   "abilityClass":  {
-                                                                                        "value":  "active",
-                                                                                        "type":  "string"
-                                                                                    }
-                                                               },
-                                                    "items":  [
-                                                                  {
-                                                                      "rarityWeight":  150,
-                                                                      "description":  "Leads troll tribes and buffs allies",
-                                                                      "name":  "ChieftainCommand",
-                                                                      "traits":  {
-                                                                                     "category":  {
-                                                                                                      "value":  "leadership_traits",
-                                                                                                      "type":  "string"
-                                                                                                  }
-                                                                                 },
-                                                                      "displayName":  "Chieftain Command"
-                                                                  },
-                                                                  {
-                                                                      "rarityWeight":  250,
-                                                                      "description":  "Sovereign ruler of all trolls",
-                                                                      "name":  "TrollKing",
-                                                                      "traits":  {
-                                                                                     "category":  {
-                                                                                                      "value":  "leadership_traits",
-                                                                                                      "type":  "string"
-                                                                                                  }
-                                                                                 },
-                                                                      "displayName":  "Troll King"
-                                                                  }
-                                                              ]
-                                                }
-                      }
+{
+  "metadata": {
+    "supportsTraits": true,
+    "version": "4.0",
+    "lastUpdated": "2025-12-26",
+    "totalAbilities": 18,
+    "type": "ability_catalog",
+    "description": "trolls ability catalog with base definitions (v4.0)",
+    "totalAbilityTypes": 6,
+    "usage": "Provides base ability definitions for pattern generation with abilities_names.json"
+  },
+  "ability_types": {
+    "power_traits": {
+      "traits": {
+        "category": {
+          "value": "power_traits",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "active",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "rarityWeight": 75,
+          "description": "Enters berserk state when injured",
+          "name": "Rage",
+          "traits": {
+            "category": {
+              "value": "power_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Rage"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Incredible physical power",
+          "name": "MountainStrength",
+          "traits": {
+            "category": {
+              "value": "power_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Mountain Strength"
+        }
+      ]
+    },
+    "basic_traits": {
+      "traits": {
+        "category": {
+          "value": "basic_traits",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "active",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "rarityWeight": 10,
+          "description": "Rapidly heals wounds unless burned",
+          "name": "Regeneration",
+          "traits": {
+            "category": {
+              "value": "basic_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Regeneration"
+        },
+        {
+          "rarityWeight": 10,
+          "description": "Natural damage resistance",
+          "name": "ThickSkin",
+          "traits": {
+            "category": {
+              "value": "basic_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Thick Skin"
+        },
+        {
+          "rarityWeight": 10,
+          "description": "Large size with increased health and damage",
+          "name": "Massive",
+          "traits": {
+            "category": {
+              "value": "basic_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Massive"
+        },
+        {
+          "rarityWeight": 35,
+          "description": "Takes extra damage from fire and stops regeneration",
+          "name": "FireWeakness",
+          "traits": {
+            "category": {
+              "value": "basic_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Fire Weakness"
+        }
+      ]
+    },
+    "colossal_traits": {
+      "traits": {
+        "category": {
+          "value": "colossal_traits",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "active",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "rarityWeight": 250,
+          "description": "Gigantic troll of legendary size",
+          "name": "Colossus",
+          "traits": {
+            "category": {
+              "value": "colossal_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Colossus"
+        },
+        {
+          "rarityWeight": 500,
+          "description": "Ancient troll of unimaginable power",
+          "name": "PrimalTitan",
+          "traits": {
+            "category": {
+              "value": "colossal_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Primal Titan"
+        },
+        {
+          "rarityWeight": 500,
+          "description": "Mythical troll that devours mountains",
+          "name": "WorldEater",
+          "traits": {
+            "category": {
+              "value": "colossal_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "World Eater"
+        }
+      ]
+    },
+    "environmental_traits": {
+      "traits": {
+        "category": {
+          "value": "environmental_traits",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "active",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "rarityWeight": 35,
+          "description": "Turns to stone in sunlight, becoming immobile but invincible",
+          "name": "StoneForm",
+          "traits": {
+            "category": {
+              "value": "environmental_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Stone Form"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Bonus stats in underground environments",
+          "name": "CaveAdaptation",
+          "traits": {
+            "category": {
+              "value": "environmental_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Cave Adaptation"
+        },
+        {
+          "rarityWeight": 150,
+          "description": "Frost-resistant variant with ice attacks",
+          "name": "IceTroll",
+          "traits": {
+            "category": {
+              "value": "environmental_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Ice Troll"
+        },
+        {
+          "rarityWeight": 150,
+          "description": "Immune to fire, adapted to volcanic regions",
+          "name": "LavaImmunity",
+          "traits": {
+            "category": {
+              "value": "environmental_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Lava Immunity"
+        }
+      ]
+    },
+    "combat_traits": {
+      "traits": {
+        "category": {
+          "value": "combat_traits",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "active",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "rarityWeight": 35,
+          "description": "Hurls boulders at enemies",
+          "name": "RockThrow",
+          "traits": {
+            "category": {
+              "value": "combat_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Rock Throw"
+        },
+        {
+          "rarityWeight": 35,
+          "description": "Devastating ground pound attack",
+          "name": "Smash",
+          "traits": {
+            "category": {
+              "value": "combat_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Smash"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Expertise with massive clubs and mauls",
+          "name": "ClubMaster",
+          "traits": {
+            "category": {
+              "value": "combat_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Club Master"
+        }
+      ]
+    },
+    "leadership_traits": {
+      "traits": {
+        "category": {
+          "value": "leadership_traits",
+          "type": "string"
+        },
+        "abilityClass": {
+          "value": "active",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "rarityWeight": 150,
+          "description": "Leads troll tribes and buffs allies",
+          "name": "ChieftainCommand",
+          "traits": {
+            "category": {
+              "value": "leadership_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Chieftain Command"
+        },
+        {
+          "rarityWeight": 250,
+          "description": "Sovereign ruler of all trolls",
+          "name": "TrollKing",
+          "traits": {
+            "category": {
+              "value": "leadership_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Troll King"
+        }
+      ]
+    }
+  }
 }

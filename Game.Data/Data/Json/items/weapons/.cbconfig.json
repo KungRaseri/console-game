@@ -1,12 +1,12 @@
 {
-    "icon": "SwordCross",
-    "displayName": "Weapons",
-    "description": "Weapon definitions with names.json (v4.0 pattern generation) and catalog.json (base weapons)",
-    "defaultFileIcon": "FileDocument",
-    "showFileCount": true,
-    "sortOrder": 1,
-    "fileIcons": {
-        "names": "FormatListBulleted",
-        "catalog": "ShapeOutline"
-    }
+  "icon": "SwordCross",
+  "displayName": "Weapons",
+  "description": "Weapon definitions with names.json (v4.0 pattern generation) and catalog.json (base weapons)",
+  "defaultFileIcon": "FileDocument",
+  "showFileCount": true,
+  "sortOrder": 1,
+  "fileIcons": {
+    "names": "FormatListBulleted",
+    "catalog": "ShapeOutline"
+  }
 }

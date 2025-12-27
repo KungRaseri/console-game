@@ -1,464 +1,464 @@
 {
-    "metadata":  {
-                     "description":  "Ability catalog for active/offensive",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-27",
-                     "type":  "ability_catalog",
-                     "supportsTraits":  true,
-                     "totalAbilities":  29,
-                     "notes":  [
-                                   "Consolidated from enemy-specific abilities",
-                                   "Abilities are shared across enemies, players, and NPCs",
-                                   "rarityWeight determines selection probability"
-                               ]
-                 },
-    "items":  [
-                  {
-                      "name":  "Infernal Flames",
-                      "displayName":  "Infernal Flames",
-                      "description":  "Wreathed in hellfire, burns attackers",
-                      "rarityWeight":  35,
-                      "baseDamage":  "2d6",
-                      "cooldown":  10,
-                      "range":  5,
-                      "traits":  {
-                                     "damageType":  {
-                                                        "value":  "fire",
-                                                        "type":  "string"
-                                                    },
-                                     "damageBonus":  {
-                                                         "value":  3,
-                                                         "type":  "number"
-                                                     },
-                                     "statusEffect":  {
-                                                          "value":  "burning",
-                                                          "type":  "string"
-                                                      },
-                                     "statusChance":  {
-                                                          "value":  50,
-                                                          "type":  "number"
-                                                      },
-                                     "duration":  {
-                                                      "value":  3,
-                                                      "type":  "number"
-                                                  }
-                                 }
-                  },
-                  {
-                      "name":  "Hellfire Breath",
-                      "displayName":  "Hellfire Breath",
-                      "description":  "Exhales devastating flames",
-                      "rarityWeight":  150,
-                      "baseDamage":  "4d8",
-                      "cooldown":  20,
-                      "range":  10,
-                      "traits":  {
-                                     "damageType":  {
-                                                        "value":  "fire",
-                                                        "type":  "string"
-                                                    },
-                                     "damageBonus":  {
-                                                         "value":  8,
-                                                         "type":  "number"
-                                                     },
-                                     "areaOfEffect":  {
-                                                          "value":  5,
-                                                          "type":  "number"
-                                                      },
-                                     "statusEffect":  {
-                                                          "value":  "burning",
-                                                          "type":  "string"
-                                                      },
-                                     "statusChance":  {
-                                                          "value":  75,
-                                                          "type":  "number"
-                                                      },
-                                     "duration":  {
-                                                      "value":  5,
-                                                      "type":  "number"
-                                                  },
-                                     "targetCount":  {
-                                                         "value":  5,
-                                                         "type":  "number"
-                                                     }
-                                 }
-                  },
-                  {
-                      "name":  "Cursed Weapons",
-                      "displayName":  "Cursed Weapons",
-                      "description":  "Attacks inflict lingering curses",
-                      "rarityWeight":  75,
-                      "baseDamage":  "1d6",
-                      "traits":  {
-                                     "damageType":  {
-                                                        "value":  "dark",
-                                                        "type":  "string"
-                                                    },
-                                     "statusEffect":  {
-                                                          "value":  "cursed",
-                                                          "type":  "string"
-                                                      },
-                                     "statusChance":  {
-                                                          "value":  100,
-                                                          "type":  "number"
-                                                      },
-                                     "duration":  {
-                                                      "value":  10,
-                                                      "type":  "number"
-                                                  },
-                                     "damageMultiplier":  {
-                                                              "value":  1.5,
-                                                              "type":  "number"
-                                                          },
-                                     "abilityClass":  {
-                                                          "value":  "passive",
-                                                          "type":  "string"
-                                                      }
-                                 }
-                  },
-                  {
-                      "name":  "Unholy Strength",
-                      "displayName":  "Unholy Strength",
-                      "description":  "Possesses supernatural physical power",
-                      "rarityWeight":  35,
-                      "traits":  {
-                                     "damageBonus":  {
-                                                         "value":  5,
-                                                         "type":  "number"
-                                                     },
-                                     "strengthBonus":  {
-                                                           "value":  4,
-                                                           "type":  "number"
-                                                       },
-                                     "damageMultiplier":  {
-                                                              "value":  1.3,
-                                                              "type":  "number"
-                                                          },
-                                     "abilityClass":  {
-                                                          "value":  "passive",
-                                                          "type":  "string"
-                                                      },
-                                     "targetType":  {
-                                                        "value":  "self",
-                                                        "type":  "string"
-                                                    }
-                                 }
-                  },
-                  {
-                      "name":  "Blood Frenzy",
-                      "displayName":  "Blood Frenzy",
-                      "description":  "Becomes more dangerous as it bleeds",
-                      "rarityWeight":  35,
-                      "traits":  {
-                                     "damageMultiplier":  {
-                                                              "value":  2.0,
-                                                              "type":  "number"
-                                                          },
-                                     "attackSpeed":  {
-                                                         "value":  1.5,
-                                                         "type":  "number"
-                                                     },
-                                     "criticalChance":  {
-                                                            "value":  25,
-                                                            "type":  "number"
-                                                        },
-                                     "abilityClass":  {
-                                                          "value":  "passive",
-                                                          "type":  "string"
-                                                      },
-                                     "targetType":  {
-                                                        "value":  "self",
-                                                        "type":  "string"
-                                                    }
-                                 }
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Devastating breath weapon attack",
-                      "name":  "Dragon Breath",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Dragon Breath"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Can attack multiple enemies with tail",
-                      "name":  "Tail Sweep",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Tail Sweep"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Creates powerful wind gusts",
-                      "name":  "Wing Buffet",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Wing Buffet"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Jaw strength can break armor",
-                      "name":  "Crushing Bite",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Crushing Bite"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Can surround and trap enemies",
-                      "name":  "Engulf",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Engulf"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Explosive discharge of elemental energy",
-                      "name":  "Elemental Burst",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Elemental Burst"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Damages nearby enemies with elemental energy",
-                      "name":  "Elemental Aura",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Elemental Aura"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Unleashes devastating elemental storms",
-                      "name":  "Elemental Fury",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Elemental Fury"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Explodes when defeated",
-                      "name":  "Unstable",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Unstable"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Trained in combat techniques",
-                      "name":  "Skilled Fighter",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "combat_styles",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Skilled Fighter"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Fights with two weapons simultaneously",
-                      "name":  "Dual Wielding",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "combat_styles",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Dual Wielding"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Expert at blocking and parrying",
-                      "name":  "Shield Mastery",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "combat_styles",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Shield Mastery"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Deadly accurate with ranged weapons",
-                      "name":  "Marksman",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "combat_styles",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Marksman"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Proficient with all weapon types",
-                      "name":  "Weapon Master",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "combat_styles",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Weapon Master"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Deals increased melee damage",
-                      "name":  "BrutalStrength",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_combat",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Brutal Strength"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Increased maximum health",
-                      "name":  "Tough",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_combat",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Tough"
-                  },
-                  {
-                      "rarityWeight":  10,
-                      "description":  "Damage increases as health decreases",
-                      "name":  "BattleRage",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_combat",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Battle Rage"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Immune to fear and intimidation effects",
-                      "name":  "Fearless",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "basic_combat",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Fearless"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Steals life force from living creatures",
-                      "name":  "Life Drain",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Life Drain"
-                  },
-                  {
-                      "rarityWeight":  150,
-                      "description":  "Can instantly kill weak enemies",
-                      "name":  "Death Touch",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Death Touch"
-                  },
-                  {
-                      "rarityWeight":  75,
-                      "description":  "Attacks may paralyze victims",
-                      "name":  "Paralytic Touch",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Paralytic Touch"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Spreads disease with attacks",
-                      "name":  "Plague Bearer",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Plague Bearer"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Possesses incredible physical power",
-                      "name":  "Superhuman Strength",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Superhuman Strength"
-                  },
-                  {
-                      "rarityWeight":  35,
-                      "description":  "Hypnotic gaze controls minds",
-                      "name":  "Charm",
-                      "traits":  {
-                                     "category":  {
-                                                      "value":  "offensive",
-                                                      "type":  "string"
-                                                  }
-                                 },
-                      "displayName":  "Charm"
-                  }
-              ]
+  "metadata": {
+    "description": "Ability catalog for active/offensive",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "ability_catalog",
+    "supportsTraits": true,
+    "totalAbilities": 29,
+    "notes": [
+      "Consolidated from enemy-specific abilities",
+      "Abilities are shared across enemies, players, and NPCs",
+      "rarityWeight determines selection probability"
+    ]
+  },
+  "items": [
+    {
+      "name": "Infernal Flames",
+      "displayName": "Infernal Flames",
+      "description": "Wreathed in hellfire, burns attackers",
+      "rarityWeight": 35,
+      "baseDamage": "2d6",
+      "cooldown": 10,
+      "range": 5,
+      "traits": {
+        "damageType": {
+          "value": "fire",
+          "type": "string"
+        },
+        "damageBonus": {
+          "value": 3,
+          "type": "number"
+        },
+        "statusEffect": {
+          "value": "burning",
+          "type": "string"
+        },
+        "statusChance": {
+          "value": 50,
+          "type": "number"
+        },
+        "duration": {
+          "value": 3,
+          "type": "number"
+        }
+      }
+    },
+    {
+      "name": "Hellfire Breath",
+      "displayName": "Hellfire Breath",
+      "description": "Exhales devastating flames",
+      "rarityWeight": 150,
+      "baseDamage": "4d8",
+      "cooldown": 20,
+      "range": 10,
+      "traits": {
+        "damageType": {
+          "value": "fire",
+          "type": "string"
+        },
+        "damageBonus": {
+          "value": 8,
+          "type": "number"
+        },
+        "areaOfEffect": {
+          "value": 5,
+          "type": "number"
+        },
+        "statusEffect": {
+          "value": "burning",
+          "type": "string"
+        },
+        "statusChance": {
+          "value": 75,
+          "type": "number"
+        },
+        "duration": {
+          "value": 5,
+          "type": "number"
+        },
+        "targetCount": {
+          "value": 5,
+          "type": "number"
+        }
+      }
+    },
+    {
+      "name": "Cursed Weapons",
+      "displayName": "Cursed Weapons",
+      "description": "Attacks inflict lingering curses",
+      "rarityWeight": 75,
+      "baseDamage": "1d6",
+      "traits": {
+        "damageType": {
+          "value": "dark",
+          "type": "string"
+        },
+        "statusEffect": {
+          "value": "cursed",
+          "type": "string"
+        },
+        "statusChance": {
+          "value": 100,
+          "type": "number"
+        },
+        "duration": {
+          "value": 10,
+          "type": "number"
+        },
+        "damageMultiplier": {
+          "value": 1.5,
+          "type": "number"
+        },
+        "abilityClass": {
+          "value": "passive",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "Unholy Strength",
+      "displayName": "Unholy Strength",
+      "description": "Possesses supernatural physical power",
+      "rarityWeight": 35,
+      "traits": {
+        "damageBonus": {
+          "value": 5,
+          "type": "number"
+        },
+        "strengthBonus": {
+          "value": 4,
+          "type": "number"
+        },
+        "damageMultiplier": {
+          "value": 1.3,
+          "type": "number"
+        },
+        "abilityClass": {
+          "value": "passive",
+          "type": "string"
+        },
+        "targetType": {
+          "value": "self",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "name": "Blood Frenzy",
+      "displayName": "Blood Frenzy",
+      "description": "Becomes more dangerous as it bleeds",
+      "rarityWeight": 35,
+      "traits": {
+        "damageMultiplier": {
+          "value": 2.0,
+          "type": "number"
+        },
+        "attackSpeed": {
+          "value": 1.5,
+          "type": "number"
+        },
+        "criticalChance": {
+          "value": 25,
+          "type": "number"
+        },
+        "abilityClass": {
+          "value": "passive",
+          "type": "string"
+        },
+        "targetType": {
+          "value": "self",
+          "type": "string"
+        }
+      }
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Devastating breath weapon attack",
+      "name": "Dragon Breath",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Dragon Breath"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Can attack multiple enemies with tail",
+      "name": "Tail Sweep",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Tail Sweep"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Creates powerful wind gusts",
+      "name": "Wing Buffet",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Wing Buffet"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Jaw strength can break armor",
+      "name": "Crushing Bite",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Crushing Bite"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Can surround and trap enemies",
+      "name": "Engulf",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Engulf"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Explosive discharge of elemental energy",
+      "name": "Elemental Burst",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Elemental Burst"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Damages nearby enemies with elemental energy",
+      "name": "Elemental Aura",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Elemental Aura"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Unleashes devastating elemental storms",
+      "name": "Elemental Fury",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Elemental Fury"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Explodes when defeated",
+      "name": "Unstable",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Unstable"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Trained in combat techniques",
+      "name": "Skilled Fighter",
+      "traits": {
+        "category": {
+          "value": "combat_styles",
+          "type": "string"
+        }
+      },
+      "displayName": "Skilled Fighter"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Fights with two weapons simultaneously",
+      "name": "Dual Wielding",
+      "traits": {
+        "category": {
+          "value": "combat_styles",
+          "type": "string"
+        }
+      },
+      "displayName": "Dual Wielding"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Expert at blocking and parrying",
+      "name": "Shield Mastery",
+      "traits": {
+        "category": {
+          "value": "combat_styles",
+          "type": "string"
+        }
+      },
+      "displayName": "Shield Mastery"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Deadly accurate with ranged weapons",
+      "name": "Marksman",
+      "traits": {
+        "category": {
+          "value": "combat_styles",
+          "type": "string"
+        }
+      },
+      "displayName": "Marksman"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Proficient with all weapon types",
+      "name": "Weapon Master",
+      "traits": {
+        "category": {
+          "value": "combat_styles",
+          "type": "string"
+        }
+      },
+      "displayName": "Weapon Master"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Deals increased melee damage",
+      "name": "BrutalStrength",
+      "traits": {
+        "category": {
+          "value": "basic_combat",
+          "type": "string"
+        }
+      },
+      "displayName": "Brutal Strength"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Increased maximum health",
+      "name": "Tough",
+      "traits": {
+        "category": {
+          "value": "basic_combat",
+          "type": "string"
+        }
+      },
+      "displayName": "Tough"
+    },
+    {
+      "rarityWeight": 10,
+      "description": "Damage increases as health decreases",
+      "name": "BattleRage",
+      "traits": {
+        "category": {
+          "value": "basic_combat",
+          "type": "string"
+        }
+      },
+      "displayName": "Battle Rage"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Immune to fear and intimidation effects",
+      "name": "Fearless",
+      "traits": {
+        "category": {
+          "value": "basic_combat",
+          "type": "string"
+        }
+      },
+      "displayName": "Fearless"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Steals life force from living creatures",
+      "name": "Life Drain",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Life Drain"
+    },
+    {
+      "rarityWeight": 150,
+      "description": "Can instantly kill weak enemies",
+      "name": "Death Touch",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Death Touch"
+    },
+    {
+      "rarityWeight": 75,
+      "description": "Attacks may paralyze victims",
+      "name": "Paralytic Touch",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Paralytic Touch"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Spreads disease with attacks",
+      "name": "Plague Bearer",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Plague Bearer"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Possesses incredible physical power",
+      "name": "Superhuman Strength",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Superhuman Strength"
+    },
+    {
+      "rarityWeight": 35,
+      "description": "Hypnotic gaze controls minds",
+      "name": "Charm",
+      "traits": {
+        "category": {
+          "value": "offensive",
+          "type": "string"
+        }
+      },
+      "displayName": "Charm"
+    }
+  ]
 }

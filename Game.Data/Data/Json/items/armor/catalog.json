@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Armor type catalog with base stats and traits",
     "version": "1.0",
@@ -22,17 +22,94 @@
         "defenseType": "physical"
       },
       "items": [
-        { "name": "Helm", "defense": 3, "weight": 3.0, "value": 20, "armorClass": "heavy", "rarityWeight": 8 },
-        { "name": "Helmet", "defense": 3, "weight": 3.0, "value": 18, "armorClass": "heavy", "rarityWeight": 7 },
-        { "name": "Great Helm", "defense": 5, "weight": 5.0, "value": 40, "armorClass": "heavy", "rarityWeight": 12 },
-        { "name": "Armet", "defense": 4, "weight": 3.5, "value": 35, "armorClass": "heavy", "rarityWeight": 15 },
-        { "name": "Sallet", "defense": 3, "weight": 2.5, "value": 25, "armorClass": "medium", "rarityWeight": 10 },
-        { "name": "Barbute", "defense": 4, "weight": 3.0, "value": 30, "armorClass": "heavy", "rarityWeight": 12 },
-        { "name": "Coif", "defense": 2, "weight": 1.5, "value": 12, "armorClass": "light", "rarityWeight": 5 },
-        { "name": "Cowl", "defense": 1, "weight": 0.5, "value": 8, "armorClass": "light", "rarityWeight": 4 },
-        { "name": "Hood", "defense": 1, "weight": 0.3, "value": 5, "armorClass": "light", "rarityWeight": 3 },
-        { "name": "Crown", "defense": 1, "weight": 1.0, "value": 100, "armorClass": "light", "rarityWeight": 50 },
-        { "name": "Circlet", "defense": 1, "weight": 0.5, "value": 80, "armorClass": "light", "rarityWeight": 45 }
+        {
+          "name": "Helm",
+          "defense": 3,
+          "weight": 3.0,
+          "value": 20,
+          "armorClass": "heavy",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Helmet",
+          "defense": 3,
+          "weight": 3.0,
+          "value": 18,
+          "armorClass": "heavy",
+          "rarityWeight": 7
+        },
+        {
+          "name": "Great Helm",
+          "defense": 5,
+          "weight": 5.0,
+          "value": 40,
+          "armorClass": "heavy",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Armet",
+          "defense": 4,
+          "weight": 3.5,
+          "value": 35,
+          "armorClass": "heavy",
+          "rarityWeight": 15
+        },
+        {
+          "name": "Sallet",
+          "defense": 3,
+          "weight": 2.5,
+          "value": 25,
+          "armorClass": "medium",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Barbute",
+          "defense": 4,
+          "weight": 3.0,
+          "value": 30,
+          "armorClass": "heavy",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Coif",
+          "defense": 2,
+          "weight": 1.5,
+          "value": 12,
+          "armorClass": "light",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Cowl",
+          "defense": 1,
+          "weight": 0.5,
+          "value": 8,
+          "armorClass": "light",
+          "rarityWeight": 4
+        },
+        {
+          "name": "Hood",
+          "defense": 1,
+          "weight": 0.3,
+          "value": 5,
+          "armorClass": "light",
+          "rarityWeight": 3
+        },
+        {
+          "name": "Crown",
+          "defense": 1,
+          "weight": 1.0,
+          "value": 100,
+          "armorClass": "light",
+          "rarityWeight": 50
+        },
+        {
+          "name": "Circlet",
+          "defense": 1,
+          "weight": 0.5,
+          "value": 80,
+          "armorClass": "light",
+          "rarityWeight": 45
+        }
       ]
     },
     "chest": {
@@ -42,17 +119,94 @@
         "defenseType": "physical"
       },
       "items": [
-        { "name": "Cuirass", "defense": 8, "weight": 15.0, "value": 80, "armorClass": "heavy", "rarityWeight": 15 },
-        { "name": "Breastplate", "defense": 7, "weight": 12.0, "value": 70, "armorClass": "heavy", "rarityWeight": 12 },
-        { "name": "Chestplate", "defense": 8, "weight": 14.0, "value": 75, "armorClass": "heavy", "rarityWeight": 14 },
-        { "name": "Hauberk", "defense": 6, "weight": 20.0, "value": 60, "armorClass": "medium", "rarityWeight": 10 },
-        { "name": "Chainmail", "defense": 5, "weight": 18.0, "value": 50, "armorClass": "medium", "rarityWeight": 8 },
-        { "name": "Plate Mail", "defense": 9, "weight": 25.0, "value": 120, "armorClass": "heavy", "rarityWeight": 20 },
-        { "name": "Scale Mail", "defense": 5, "weight": 15.0, "value": 45, "armorClass": "medium", "rarityWeight": 9 },
-        { "name": "Ring Mail", "defense": 4, "weight": 12.0, "value": 35, "armorClass": "medium", "rarityWeight": 7 },
-        { "name": "Banded Mail", "defense": 6, "weight": 16.0, "value": 55, "armorClass": "medium", "rarityWeight": 10 },
-        { "name": "Vest", "defense": 2, "weight": 3.0, "value": 15, "armorClass": "light", "rarityWeight": 4 },
-        { "name": "Jerkin", "defense": 3, "weight": 4.0, "value": 20, "armorClass": "light", "rarityWeight": 5 }
+        {
+          "name": "Cuirass",
+          "defense": 8,
+          "weight": 15.0,
+          "value": 80,
+          "armorClass": "heavy",
+          "rarityWeight": 15
+        },
+        {
+          "name": "Breastplate",
+          "defense": 7,
+          "weight": 12.0,
+          "value": 70,
+          "armorClass": "heavy",
+          "rarityWeight": 12
+        },
+        {
+          "name": "Chestplate",
+          "defense": 8,
+          "weight": 14.0,
+          "value": 75,
+          "armorClass": "heavy",
+          "rarityWeight": 14
+        },
+        {
+          "name": "Hauberk",
+          "defense": 6,
+          "weight": 20.0,
+          "value": 60,
+          "armorClass": "medium",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Chainmail",
+          "defense": 5,
+          "weight": 18.0,
+          "value": 50,
+          "armorClass": "medium",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Plate Mail",
+          "defense": 9,
+          "weight": 25.0,
+          "value": 120,
+          "armorClass": "heavy",
+          "rarityWeight": 20
+        },
+        {
+          "name": "Scale Mail",
+          "defense": 5,
+          "weight": 15.0,
+          "value": 45,
+          "armorClass": "medium",
+          "rarityWeight": 9
+        },
+        {
+          "name": "Ring Mail",
+          "defense": 4,
+          "weight": 12.0,
+          "value": 35,
+          "armorClass": "medium",
+          "rarityWeight": 7
+        },
+        {
+          "name": "Banded Mail",
+          "defense": 6,
+          "weight": 16.0,
+          "value": 55,
+          "armorClass": "medium",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Vest",
+          "defense": 2,
+          "weight": 3.0,
+          "value": 15,
+          "armorClass": "light",
+          "rarityWeight": 4
+        },
+        {
+          "name": "Jerkin",
+          "defense": 3,
+          "weight": 4.0,
+          "value": 20,
+          "armorClass": "light",
+          "rarityWeight": 5
+        }
       ]
     },
     "hands": {
@@ -62,11 +216,46 @@
         "defenseType": "physical"
       },
       "items": [
-        { "name": "Gauntlets", "defense": 2, "weight": 2.0, "value": 15, "armorClass": "heavy", "rarityWeight": 8 },
-        { "name": "Gloves", "defense": 1, "weight": 0.5, "value": 8, "armorClass": "light", "rarityWeight": 4 },
-        { "name": "Vambraces", "defense": 2, "weight": 1.5, "value": 12, "armorClass": "medium", "rarityWeight": 6 },
-        { "name": "Bracers", "defense": 1, "weight": 1.0, "value": 10, "armorClass": "light", "rarityWeight": 5 },
-        { "name": "Mittens", "defense": 1, "weight": 0.3, "value": 5, "armorClass": "light", "rarityWeight": 3 }
+        {
+          "name": "Gauntlets",
+          "defense": 2,
+          "weight": 2.0,
+          "value": 15,
+          "armorClass": "heavy",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Gloves",
+          "defense": 1,
+          "weight": 0.5,
+          "value": 8,
+          "armorClass": "light",
+          "rarityWeight": 4
+        },
+        {
+          "name": "Vambraces",
+          "defense": 2,
+          "weight": 1.5,
+          "value": 12,
+          "armorClass": "medium",
+          "rarityWeight": 6
+        },
+        {
+          "name": "Bracers",
+          "defense": 1,
+          "weight": 1.0,
+          "value": 10,
+          "armorClass": "light",
+          "rarityWeight": 5
+        },
+        {
+          "name": "Mittens",
+          "defense": 1,
+          "weight": 0.3,
+          "value": 5,
+          "armorClass": "light",
+          "rarityWeight": 3
+        }
       ]
     },
     "legs": {
@@ -76,10 +265,38 @@
         "defenseType": "physical"
       },
       "items": [
-        { "name": "Greaves", "defense": 4, "weight": 6.0, "value": 30, "armorClass": "heavy", "rarityWeight": 10 },
-        { "name": "Leggings", "defense": 3, "weight": 4.0, "value": 20, "armorClass": "medium", "rarityWeight": 7 },
-        { "name": "Chausses", "defense": 3, "weight": 5.0, "value": 25, "armorClass": "medium", "rarityWeight": 8 },
-        { "name": "Tassets", "defense": 2, "weight": 3.0, "value": 15, "armorClass": "light", "rarityWeight": 6 }
+        {
+          "name": "Greaves",
+          "defense": 4,
+          "weight": 6.0,
+          "value": 30,
+          "armorClass": "heavy",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Leggings",
+          "defense": 3,
+          "weight": 4.0,
+          "value": 20,
+          "armorClass": "medium",
+          "rarityWeight": 7
+        },
+        {
+          "name": "Chausses",
+          "defense": 3,
+          "weight": 5.0,
+          "value": 25,
+          "armorClass": "medium",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Tassets",
+          "defense": 2,
+          "weight": 3.0,
+          "value": 15,
+          "armorClass": "light",
+          "rarityWeight": 6
+        }
       ]
     },
     "feet": {
@@ -89,11 +306,46 @@
         "defenseType": "physical"
       },
       "items": [
-        { "name": "Boots", "defense": 2, "weight": 2.0, "value": 12, "armorClass": "medium", "rarityWeight": 6 },
-        { "name": "Sabatons", "defense": 3, "weight": 4.0, "value": 20, "armorClass": "heavy", "rarityWeight": 10 },
-        { "name": "Sollerets", "defense": 3, "weight": 3.5, "value": 18, "armorClass": "heavy", "rarityWeight": 9 },
-        { "name": "Shoes", "defense": 1, "weight": 1.0, "value": 5, "armorClass": "light", "rarityWeight": 3 },
-        { "name": "Sandals", "defense": 1, "weight": 0.5, "value": 3, "armorClass": "light", "rarityWeight": 2 }
+        {
+          "name": "Boots",
+          "defense": 2,
+          "weight": 2.0,
+          "value": 12,
+          "armorClass": "medium",
+          "rarityWeight": 6
+        },
+        {
+          "name": "Sabatons",
+          "defense": 3,
+          "weight": 4.0,
+          "value": 20,
+          "armorClass": "heavy",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Sollerets",
+          "defense": 3,
+          "weight": 3.5,
+          "value": 18,
+          "armorClass": "heavy",
+          "rarityWeight": 9
+        },
+        {
+          "name": "Shoes",
+          "defense": 1,
+          "weight": 1.0,
+          "value": 5,
+          "armorClass": "light",
+          "rarityWeight": 3
+        },
+        {
+          "name": "Sandals",
+          "defense": 1,
+          "weight": 0.5,
+          "value": 3,
+          "armorClass": "light",
+          "rarityWeight": 2
+        }
       ]
     },
     "shoulders": {
@@ -103,10 +355,38 @@
         "defenseType": "physical"
       },
       "items": [
-        { "name": "Pauldrons", "defense": 3, "weight": 4.0, "value": 25, "armorClass": "heavy", "rarityWeight": 10 },
-        { "name": "Spaulders", "defense": 2, "weight": 3.0, "value": 18, "armorClass": "medium", "rarityWeight": 8 },
-        { "name": "Shoulderguards", "defense": 2, "weight": 2.5, "value": 15, "armorClass": "medium", "rarityWeight": 7 },
-        { "name": "Mantle", "defense": 1, "weight": 1.0, "value": 10, "armorClass": "light", "rarityWeight": 5 }
+        {
+          "name": "Pauldrons",
+          "defense": 3,
+          "weight": 4.0,
+          "value": 25,
+          "armorClass": "heavy",
+          "rarityWeight": 10
+        },
+        {
+          "name": "Spaulders",
+          "defense": 2,
+          "weight": 3.0,
+          "value": 18,
+          "armorClass": "medium",
+          "rarityWeight": 8
+        },
+        {
+          "name": "Shoulderguards",
+          "defense": 2,
+          "weight": 2.5,
+          "value": 15,
+          "armorClass": "medium",
+          "rarityWeight": 7
+        },
+        {
+          "name": "Mantle",
+          "defense": 1,
+          "weight": 1.0,
+          "value": 10,
+          "armorClass": "light",
+          "rarityWeight": 5
+        }
       ]
     },
     "shield": {
@@ -117,11 +397,46 @@
         "blockChance": true
       },
       "items": [
-        { "name": "Shield", "defense": 3, "weight": 6.0, "value": 25, "blockChance": 15, "rarityWeight": 8 },
-        { "name": "Buckler", "defense": 2, "weight": 3.0, "value": 15, "blockChance": 10, "rarityWeight": 6 },
-        { "name": "Tower Shield", "defense": 5, "weight": 15.0, "value": 60, "blockChance": 25, "rarityWeight": 15 },
-        { "name": "Kite Shield", "defense": 4, "weight": 8.0, "value": 35, "blockChance": 18, "rarityWeight": 10 },
-        { "name": "Heater", "defense": 3, "weight": 5.0, "value": 20, "blockChance": 12, "rarityWeight": 7 }
+        {
+          "name": "Shield",
+          "defense": 3,
+          "weight": 6.0,
+          "value": 25,
+          "blockChance": 15,
+          "rarityWeight": 8
+        },
+        {
+          "name": "Buckler",
+          "defense": 2,
+          "weight": 3.0,
+          "value": 15,
+          "blockChance": 10,
+          "rarityWeight": 6
+        },
+        {
+          "name": "Tower Shield",
+          "defense": 5,
+          "weight": 15.0,
+          "value": 60,
+          "blockChance": 25,
+          "rarityWeight": 15
+        },
+        {
+          "name": "Kite Shield",
+          "defense": 4,
+          "weight": 8.0,
+          "value": 35,
+          "blockChance": 18,
+          "rarityWeight": 10
+        },
+        {
+          "name": "Heater",
+          "defense": 3,
+          "weight": 5.0,
+          "value": 20,
+          "blockChance": 12,
+          "rarityWeight": 7
+        }
       ]
     }
   }

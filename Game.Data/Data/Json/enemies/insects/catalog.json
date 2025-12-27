@@ -1,223 +1,225 @@
 {
-    "metadata":  {
-                     "description":  "Giant insect enemy type catalog with base stats and rarityWeight values",
-                     "version":  "1.0",
-                     "lastUpdated":  "2025-12-17",
-                     "type":  "item_catalog",
-                     "total_types":  14,
-                     "categories":  [
-                                        "spiders",
-                                        "beetles",
-                                        "flying_insects",
-                                        "hive_insects"
-                                    ],
-                     "usage":  "Provides base enemy types for pattern generation",
-                     "notes": ["Base catalog of insects with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."]
-                 },
-    "insect_types":  {
-                         "spiders":  {
-                                         "traits":  {
-                                                        "category":  "insect",
-                                                        "size":  "varies",
-                                                        "intelligence":  "low",
-                                                        "social":  "solitary",
-                                                        "behavior":  "ambush",
-                                                        "damageType":  "physical",
-                                                        "venomous":  true,
-                                                        "web_spinner":  true
-                                                    },
-                                         "items":  [
-                                                       {
-                                                           "name":  "Giant Spider",
-                                                           "health":  40,
-                                                           "attack":  14,
-                                                           "defense":  6,
-                                                           "speed":  7,
-                                                           "level":  3,
-                                                           "xp":  45,
-                                                           "rarityWeight":  8,
-                                                           "size":  "medium"
-                                                       },
-                                                       {
-                                                           "name":  "Phase Spider",
-                                                           "health":  60,
-                                                           "attack":  20,
-                                                           "defense":  8,
-                                                           "speed":  9,
-                                                           "level":  6,
-                                                           "xp":  90,
-                                                           "rarityWeight":  25,
-                                                           "size":  "large",
-                                                           "magical":  true
-                                                       },
-                                                       {
-                                                           "name":  "Widow Spider",
-                                                           "health":  55,
-                                                           "attack":  18,
-                                                           "defense":  7,
-                                                           "speed":  8,
-                                                           "level":  5,
-                                                           "xp":  75,
-                                                           "rarityWeight":  18,
-                                                           "size":  "medium"
-                                                       },
-                                                       {
-                                                           "name":  "Spider Matriarch",
-                                                           "health":  100,
-                                                           "attack":  28,
-                                                           "defense":  12,
-                                                           "speed":  8,
-                                                           "level":  9,
-                                                           "xp":  160,
-                                                           "rarityWeight":  40,
-                                                           "size":  "huge"
-                                                       }
-                                                   ]
-                                     },
-                         "beetles":  {
-                                         "traits":  {
-                                                        "category":  "insect",
-                                                        "size":  "medium",
-                                                        "intelligence":  "low",
-                                                        "social":  "swarm",
-                                                        "behavior":  "defensive",
-                                                        "damageType":  "physical",
-                                                        "armored":  true
-                                                    },
-                                         "items":  [
-                                                       {
-                                                           "name":  "Giant Beetle",
-                                                           "health":  50,
-                                                           "attack":  12,
-                                                           "defense":  10,
-                                                           "speed":  4,
-                                                           "level":  3,
-                                                           "xp":  40,
-                                                           "rarityWeight":  6
-                                                       },
-                                                       {
-                                                           "name":  "Fire Beetle",
-                                                           "health":  45,
-                                                           "attack":  14,
-                                                           "defense":  9,
-                                                           "speed":  5,
-                                                           "level":  3,
-                                                           "xp":  45,
-                                                           "rarityWeight":  10,
-                                                           "damageType":  "fire"
-                                                       },
-                                                       {
-                                                           "name":  "Bombardier Beetle",
-                                                           "health":  60,
-                                                           "attack":  18,
-                                                           "defense":  11,
-                                                           "speed":  5,
-                                                           "level":  5,
-                                                           "xp":  70,
-                                                           "rarityWeight":  18,
-                                                           "damageType":  "acid"
-                                                       }
-                                                   ]
-                                     },
-                         "flying_insects":  {
-                                                "traits":  {
-                                                               "category":  "insect",
-                                                               "size":  "medium",
-                                                               "intelligence":  "low",
-                                                               "social":  "swarm",
-                                                               "behavior":  "aggressive",
-                                                               "damageType":  "physical",
-                                                               "flying":  true
-                                                           },
-                                                "items":  [
-                                                              {
-                                                                  "name":  "Giant Wasp",
-                                                                  "health":  35,
-                                                                  "attack":  16,
-                                                                  "defense":  5,
-                                                                  "speed":  10,
-                                                                  "level":  4,
-                                                                  "xp":  50,
-                                                                  "rarityWeight":  10,
-                                                                  "venomous":  true
-                                                              },
-                                                              {
-                                                                  "name":  "Giant Hornet",
-                                                                  "health":  45,
-                                                                  "attack":  20,
-                                                                  "defense":  6,
-                                                                  "speed":  11,
-                                                                  "level":  5,
-                                                                  "xp":  70,
-                                                                  "rarityWeight":  15,
-                                                                  "venomous":  true
-                                                              },
-                                                              {
-                                                                  "name":  "Giant Dragonfly",
-                                                                  "health":  40,
-                                                                  "attack":  18,
-                                                                  "defense":  7,
-                                                                  "speed":  12,
-                                                                  "level":  5,
-                                                                  "xp":  65,
-                                                                  "rarityWeight":  12
-                                                              },
-                                                              {
-                                                                  "name":  "Giant Mantis",
-                                                                  "health":  70,
-                                                                  "attack":  24,
-                                                                  "defense":  9,
-                                                                  "speed":  8,
-                                                                  "level":  7,
-                                                                  "xp":  110,
-                                                                  "rarityWeight":  22
-                                                              }
-                                                          ]
-                                            },
-                         "hive_insects":  {
-                                              "traits":  {
-                                                             "category":  "insect",
-                                                             "size":  "varies",
-                                                             "intelligence":  "hive_mind",
-                                                             "social":  "colony",
-                                                             "behavior":  "organized",
-                                                             "damageType":  "physical"
-                                                         },
-                                              "items":  [
-                                                            {
-                                                                "name":  "Giant Ant",
-                                                                "health":  30,
-                                                                "attack":  10,
-                                                                "defense":  8,
-                                                                "speed":  6,
-                                                                "level":  2,
-                                                                "xp":  25,
-                                                                "rarityWeight":  5,
-                                                                "size":  "small"
-                                                            },
-                                                            {
-                                                                "name":  "Giant Ant Soldier",
-                                                                "health":  50,
-                                                                "attack":  16,
-                                                                "defense":  12,
-                                                                "speed":  6,
-                                                                "level":  4,
-                                                                "xp":  50,
-                                                                "rarityWeight":  10,
-                                                                "size":  "medium"
-                                                            },
-                                                            {
-                                                                "name":  "Giant Ant Queen",
-                                                                "health":  120,
-                                                                "attack":  26,
-                                                                "defense":  16,
-                                                                "speed":  4,
-                                                                "level":  9,
-                                                                "xp":  170,
-                                                                "rarityWeight":  45,
-                                                                "size":  "huge"
-                                                            }
-                                                        ]
-                                          }
-                     }
+  "metadata": {
+    "description": "Giant insect enemy type catalog with base stats and rarityWeight values",
+    "version": "1.0",
+    "lastUpdated": "2025-12-17",
+    "type": "item_catalog",
+    "total_types": 14,
+    "categories": [
+      "spiders",
+      "beetles",
+      "flying_insects",
+      "hive_insects"
+    ],
+    "usage": "Provides base enemy types for pattern generation",
+    "notes": [
+      "Base catalog of insects with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+    ]
+  },
+  "insect_types": {
+    "spiders": {
+      "traits": {
+        "category": "insect",
+        "size": "varies",
+        "intelligence": "low",
+        "social": "solitary",
+        "behavior": "ambush",
+        "damageType": "physical",
+        "venomous": true,
+        "web_spinner": true
+      },
+      "items": [
+        {
+          "name": "Giant Spider",
+          "health": 40,
+          "attack": 14,
+          "defense": 6,
+          "speed": 7,
+          "level": 3,
+          "xp": 45,
+          "rarityWeight": 8,
+          "size": "medium"
+        },
+        {
+          "name": "Phase Spider",
+          "health": 60,
+          "attack": 20,
+          "defense": 8,
+          "speed": 9,
+          "level": 6,
+          "xp": 90,
+          "rarityWeight": 25,
+          "size": "large",
+          "magical": true
+        },
+        {
+          "name": "Widow Spider",
+          "health": 55,
+          "attack": 18,
+          "defense": 7,
+          "speed": 8,
+          "level": 5,
+          "xp": 75,
+          "rarityWeight": 18,
+          "size": "medium"
+        },
+        {
+          "name": "Spider Matriarch",
+          "health": 100,
+          "attack": 28,
+          "defense": 12,
+          "speed": 8,
+          "level": 9,
+          "xp": 160,
+          "rarityWeight": 40,
+          "size": "huge"
+        }
+      ]
+    },
+    "beetles": {
+      "traits": {
+        "category": "insect",
+        "size": "medium",
+        "intelligence": "low",
+        "social": "swarm",
+        "behavior": "defensive",
+        "damageType": "physical",
+        "armored": true
+      },
+      "items": [
+        {
+          "name": "Giant Beetle",
+          "health": 50,
+          "attack": 12,
+          "defense": 10,
+          "speed": 4,
+          "level": 3,
+          "xp": 40,
+          "rarityWeight": 6
+        },
+        {
+          "name": "Fire Beetle",
+          "health": 45,
+          "attack": 14,
+          "defense": 9,
+          "speed": 5,
+          "level": 3,
+          "xp": 45,
+          "rarityWeight": 10,
+          "damageType": "fire"
+        },
+        {
+          "name": "Bombardier Beetle",
+          "health": 60,
+          "attack": 18,
+          "defense": 11,
+          "speed": 5,
+          "level": 5,
+          "xp": 70,
+          "rarityWeight": 18,
+          "damageType": "acid"
+        }
+      ]
+    },
+    "flying_insects": {
+      "traits": {
+        "category": "insect",
+        "size": "medium",
+        "intelligence": "low",
+        "social": "swarm",
+        "behavior": "aggressive",
+        "damageType": "physical",
+        "flying": true
+      },
+      "items": [
+        {
+          "name": "Giant Wasp",
+          "health": 35,
+          "attack": 16,
+          "defense": 5,
+          "speed": 10,
+          "level": 4,
+          "xp": 50,
+          "rarityWeight": 10,
+          "venomous": true
+        },
+        {
+          "name": "Giant Hornet",
+          "health": 45,
+          "attack": 20,
+          "defense": 6,
+          "speed": 11,
+          "level": 5,
+          "xp": 70,
+          "rarityWeight": 15,
+          "venomous": true
+        },
+        {
+          "name": "Giant Dragonfly",
+          "health": 40,
+          "attack": 18,
+          "defense": 7,
+          "speed": 12,
+          "level": 5,
+          "xp": 65,
+          "rarityWeight": 12
+        },
+        {
+          "name": "Giant Mantis",
+          "health": 70,
+          "attack": 24,
+          "defense": 9,
+          "speed": 8,
+          "level": 7,
+          "xp": 110,
+          "rarityWeight": 22
+        }
+      ]
+    },
+    "hive_insects": {
+      "traits": {
+        "category": "insect",
+        "size": "varies",
+        "intelligence": "hive_mind",
+        "social": "colony",
+        "behavior": "organized",
+        "damageType": "physical"
+      },
+      "items": [
+        {
+          "name": "Giant Ant",
+          "health": 30,
+          "attack": 10,
+          "defense": 8,
+          "speed": 6,
+          "level": 2,
+          "xp": 25,
+          "rarityWeight": 5,
+          "size": "small"
+        },
+        {
+          "name": "Giant Ant Soldier",
+          "health": 50,
+          "attack": 16,
+          "defense": 12,
+          "speed": 6,
+          "level": 4,
+          "xp": 50,
+          "rarityWeight": 10,
+          "size": "medium"
+        },
+        {
+          "name": "Giant Ant Queen",
+          "health": 120,
+          "attack": 26,
+          "defense": 16,
+          "speed": 4,
+          "level": 9,
+          "xp": 170,
+          "rarityWeight": 45,
+          "size": "huge"
+        }
+      ]
+    }
+  }
 }
