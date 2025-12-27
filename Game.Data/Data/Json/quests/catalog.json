@@ -7,8 +7,19 @@
     "notes": "Consolidated from quest_templates.json, wilderness.json, towns.json, and dungeons.json. Supports weighted random selection using rarityWeight formula: probability = 100 / rarityWeight. Templates define quest types with base rewards. Locations are selected separately and populated into template variables like {location}.",
     "total_templates": 27,
     "total_locations": 51,
-    "quest_types": ["fetch", "kill", "escort", "delivery", "investigate"],
-    "difficulty_levels": ["easy", "medium", "hard", "epic"],
+    "quest_types": [
+      "fetch",
+      "kill",
+      "escort",
+      "delivery",
+      "investigate"
+    ],
+    "difficulty_levels": [
+      "easy",
+      "medium",
+      "hard",
+      "epic"
+    ],
     "usage": "Load via GameDataService.QuestCatalog. Use SelectByRarityWeight() for weighted selection of templates and locations. Match location danger/difficulty to quest tier (easy quests = low danger, hard quests = high danger).",
     "categories": {
       "templates": [
@@ -835,7 +846,9 @@
             "description": "Fortified camp of outlaws",
             "type": "Camp",
             "difficulty": "Easy",
-            "enemy_types": ["Humanoids"],
+            "enemy_types": [
+              "Humanoids"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -845,7 +858,9 @@
             "description": "Sprawling network of tunnels",
             "type": "Tunnels",
             "difficulty": "Easy",
-            "enemy_types": ["Goblinoids"],
+            "enemy_types": [
+              "Goblinoids"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -855,7 +870,9 @@
             "description": "Web-filled cave of giant spiders",
             "type": "Cave",
             "difficulty": "Easy",
-            "enemy_types": ["Insects"],
+            "enemy_types": [
+              "Insects"
+            ],
             "locationType": "dungeon"
           }
         ],
@@ -867,7 +884,9 @@
             "description": "Ancient burial ground filled with undead",
             "type": "Crypt",
             "difficulty": "Medium",
-            "enemy_types": ["Undead"],
+            "enemy_types": [
+              "Undead"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -877,7 +896,10 @@
             "description": "Ruins of an ancient civilization",
             "type": "Ruins",
             "difficulty": "Medium",
-            "enemy_types": ["Undead", "Demons"],
+            "enemy_types": [
+              "Undead",
+              "Demons"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -887,7 +909,10 @@
             "description": "Frozen caves in the northern mountains",
             "type": "Cave",
             "difficulty": "Medium",
-            "enemy_types": ["Beasts", "Trolls"],
+            "enemy_types": [
+              "Beasts",
+              "Trolls"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -897,7 +922,10 @@
             "description": "Murky den of monsters",
             "type": "Lair",
             "difficulty": "Medium",
-            "enemy_types": ["Reptilians", "Insects"],
+            "enemy_types": [
+              "Reptilians",
+              "Insects"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -907,7 +935,10 @@
             "description": "Abandoned mines infested with creatures",
             "type": "Mine",
             "difficulty": "Medium",
-            "enemy_types": ["Goblinoids", "Trolls"],
+            "enemy_types": [
+              "Goblinoids",
+              "Trolls"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -917,7 +948,10 @@
             "description": "Magical woods with hostile plant life",
             "type": "Forest",
             "difficulty": "Medium",
-            "enemy_types": ["Plants", "Beasts"],
+            "enemy_types": [
+              "Plants",
+              "Beasts"
+            ],
             "locationType": "dungeon"
           }
         ],
@@ -929,7 +963,10 @@
             "description": "Tower filled with magical knowledge and guardians",
             "type": "Tower",
             "difficulty": "Hard",
-            "enemy_types": ["Elementals", "Demons"],
+            "enemy_types": [
+              "Elementals",
+              "Demons"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -939,7 +976,9 @@
             "description": "Massive underground burial complex",
             "type": "Catacombs",
             "difficulty": "Hard",
-            "enemy_types": ["Undead"],
+            "enemy_types": [
+              "Undead"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -949,7 +988,9 @@
             "description": "Fortified war camp of orc tribes",
             "type": "Fortress",
             "difficulty": "Hard",
-            "enemy_types": ["Orcs"],
+            "enemy_types": [
+              "Orcs"
+            ],
             "locationType": "dungeon"
           }
         ],
@@ -961,7 +1002,10 @@
             "description": "Volcanic cave housing a mighty dragon",
             "type": "Cave",
             "difficulty": "Very Hard",
-            "enemy_types": ["Dragons", "Elementals"],
+            "enemy_types": [
+              "Dragons",
+              "Elementals"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -971,7 +1015,9 @@
             "description": "Dark spire of death magic",
             "type": "Tower",
             "difficulty": "Very Hard",
-            "enemy_types": ["Undead"],
+            "enemy_types": [
+              "Undead"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -981,7 +1027,10 @@
             "description": "Gothic fortress of vampiric lords",
             "type": "Castle",
             "difficulty": "Very Hard",
-            "enemy_types": ["Vampires", "Undead"],
+            "enemy_types": [
+              "Vampires",
+              "Undead"
+            ],
             "locationType": "dungeon"
           }
         ],
@@ -993,7 +1042,9 @@
             "description": "Demonic realm accessible through portal",
             "type": "Plane",
             "difficulty": "Epic",
-            "enemy_types": ["Demons"],
+            "enemy_types": [
+              "Demons"
+            ],
             "locationType": "dungeon"
           },
           {
@@ -1003,7 +1054,9 @@
             "description": "Realm of pure elemental energy",
             "type": "Plane",
             "difficulty": "Epic",
-            "enemy_types": ["Elementals"],
+            "enemy_types": [
+              "Elementals"
+            ],
             "locationType": "dungeon"
           }
         ],
@@ -1015,7 +1068,11 @@
             "description": "Dark dimension between worlds",
             "type": "Plane",
             "difficulty": "Legendary",
-            "enemy_types": ["Demons", "Undead", "Vampires"],
+            "enemy_types": [
+              "Demons",
+              "Undead",
+              "Vampires"
+            ],
             "locationType": "dungeon"
           }
         ]

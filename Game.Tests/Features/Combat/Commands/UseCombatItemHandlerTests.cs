@@ -24,19 +24,19 @@ public class UseCombatItemHandlerTests
     public async Task Handle_Should_Return_Failure_When_Item_Is_Not_Consumable()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Hero",
             Health = 50,
             MaxHealth = 100
         };
-        var item = new Item 
-        { 
+        var item = new Item
+        {
             Name = "Sword",
             Type = ItemType.Weapon
         };
-        var command = new UseCombatItemCommand 
-        { 
+        var command = new UseCombatItemCommand
+        {
             Player = player,
             Item = item
         };
@@ -59,22 +59,22 @@ public class UseCombatItemHandlerTests
     public async Task Handle_Should_Heal_Based_On_Rarity(ItemRarity rarity, int expectedHeal)
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Warrior",
             Health = 10,
             MaxHealth = 200
         };
-        var item = new Item 
-        { 
+        var item = new Item
+        {
             Name = "Potion",
             Type = ItemType.Consumable,
             Rarity = rarity
         };
         player.Inventory.Add(item);
-        
-        var command = new UseCombatItemCommand 
-        { 
+
+        var command = new UseCombatItemCommand
+        {
             Player = player,
             Item = item
         };
@@ -92,22 +92,22 @@ public class UseCombatItemHandlerTests
     public async Task Handle_Should_Not_Exceed_MaxHealth()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Mage",
             Health = 80,
             MaxHealth = 100
         };
-        var item = new Item 
-        { 
+        var item = new Item
+        {
             Name = "Major Health Potion",
             Type = ItemType.Consumable,
             Rarity = ItemRarity.Legendary // Heals 150
         };
         player.Inventory.Add(item);
-        
-        var command = new UseCombatItemCommand 
-        { 
+
+        var command = new UseCombatItemCommand
+        {
             Player = player,
             Item = item
         };
@@ -125,22 +125,22 @@ public class UseCombatItemHandlerTests
     public async Task Handle_Should_Remove_Item_From_Inventory()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Rogue",
             Health = 50,
             MaxHealth = 100
         };
-        var item = new Item 
-        { 
+        var item = new Item
+        {
             Name = "Small Potion",
             Type = ItemType.Consumable,
             Rarity = ItemRarity.Common
         };
         player.Inventory.Add(item);
-        
-        var command = new UseCombatItemCommand 
-        { 
+
+        var command = new UseCombatItemCommand
+        {
             Player = player,
             Item = item
         };
@@ -156,23 +156,23 @@ public class UseCombatItemHandlerTests
     public async Task Handle_Should_Add_Entry_To_CombatLog()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Knight",
             Health = 30,
             MaxHealth = 100
         };
-        var item = new Item 
-        { 
+        var item = new Item
+        {
             Name = "Healing Potion",
             Type = ItemType.Consumable,
             Rarity = ItemRarity.Uncommon
         };
         player.Inventory.Add(item);
         var combatLog = new CombatLog();
-        
-        var command = new UseCombatItemCommand 
-        { 
+
+        var command = new UseCombatItemCommand
+        {
             Player = player,
             Item = item,
             CombatLog = combatLog
@@ -183,9 +183,9 @@ public class UseCombatItemHandlerTests
 
         // Assert
         combatLog.Entries.Should().ContainSingle();
-        combatLog.Entries.Should().Contain(e => 
-            e.Message.Contains("Knight") && 
-            e.Message.Contains("Healing Potion") && 
+        combatLog.Entries.Should().Contain(e =>
+            e.Message.Contains("Knight") &&
+            e.Message.Contains("Healing Potion") &&
             e.Message.Contains("50"));
     }
 
@@ -193,22 +193,22 @@ public class UseCombatItemHandlerTests
     public async Task Handle_Should_Not_Throw_When_CombatLog_Is_Null()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Paladin",
             Health = 40,
             MaxHealth = 100
         };
-        var item = new Item 
-        { 
+        var item = new Item
+        {
             Name = "Potion",
             Type = ItemType.Consumable,
             Rarity = ItemRarity.Common
         };
         player.Inventory.Add(item);
-        
-        var command = new UseCombatItemCommand 
-        { 
+
+        var command = new UseCombatItemCommand
+        {
             Player = player,
             Item = item,
             CombatLog = null
@@ -225,22 +225,22 @@ public class UseCombatItemHandlerTests
     public async Task Handle_Should_Publish_ItemAcquired_Event()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Druid",
             Health = 60,
             MaxHealth = 100
         };
-        var item = new Item 
-        { 
+        var item = new Item
+        {
             Name = "Super Potion",
             Type = ItemType.Consumable,
             Rarity = ItemRarity.Rare
         };
         player.Inventory.Add(item);
-        
-        var command = new UseCombatItemCommand 
-        { 
+
+        var command = new UseCombatItemCommand
+        {
             Player = player,
             Item = item
         };
@@ -260,22 +260,22 @@ public class UseCombatItemHandlerTests
     public async Task Handle_Should_Return_Success_Message()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Barbarian",
             Health = 20,
             MaxHealth = 150
         };
-        var item = new Item 
-        { 
+        var item = new Item
+        {
             Name = "Epic Potion",
             Type = ItemType.Consumable,
             Rarity = ItemRarity.Epic
         };
         player.Inventory.Add(item);
-        
-        var command = new UseCombatItemCommand 
-        { 
+
+        var command = new UseCombatItemCommand
+        {
             Player = player,
             Item = item
         };
@@ -291,22 +291,22 @@ public class UseCombatItemHandlerTests
     public async Task Handle_Should_Heal_Zero_When_Health_Already_Full()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Cleric",
             Health = 100,
             MaxHealth = 100
         };
-        var item = new Item 
-        { 
+        var item = new Item
+        {
             Name = "Potion",
             Type = ItemType.Consumable,
             Rarity = ItemRarity.Common
         };
         player.Inventory.Add(item);
-        
-        var command = new UseCombatItemCommand 
-        { 
+
+        var command = new UseCombatItemCommand
+        {
             Player = player,
             Item = item
         };

@@ -9,16 +9,16 @@ public record UpdateQuestProgressResult(bool Success, bool ObjectiveCompleted, b
 public class UpdateQuestProgressHandler : IRequestHandler<UpdateQuestProgressCommand, UpdateQuestProgressResult>
 {
     private readonly Services.QuestProgressService _progressService;
-    
+
     public UpdateQuestProgressHandler(Services.QuestProgressService progressService)
     {
         _progressService = progressService;
     }
-    
+
     public async Task<UpdateQuestProgressResult> Handle(UpdateQuestProgressCommand request, CancellationToken cancellationToken)
     {
         var result = await _progressService.UpdateProgressAsync(request.QuestId, request.ObjectiveId, request.Amount);
-        
+
         return new UpdateQuestProgressResult(
             result.Success,
             result.ObjectiveCompleted,

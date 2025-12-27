@@ -34,7 +34,7 @@ public class TravelToLocationCommandHandler : IRequestHandler<TravelToLocationCo
             }
 
             _gameState.UpdateLocation(request.Destination);
-            
+
             _console.ShowSuccess($"Traveled to {_gameState.CurrentLocation}");
             Log.Information("Player traveled to {Location}", _gameState.CurrentLocation);
 

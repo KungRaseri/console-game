@@ -18,7 +18,7 @@ public class QuestServiceTests
         _mockSaveGameService = new Mock<ISaveGameService>();
         _mockMainQuestService = new Mock<MainQuestService>();
         _questService = new QuestService(_mockSaveGameService.Object, _mockMainQuestService.Object);
-        
+
         _testSaveGame = new SaveGame
         {
             Id = "test-save",
@@ -56,7 +56,7 @@ public class QuestServiceTests
             Prerequisites = new List<string>(),
             Objectives = new Dictionary<string, int> { { "kill_enemies", 10 } }
         };
-        
+
         _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(_testSaveGame);
         _mockMainQuestService.Setup(m => m.GetQuestByIdAsync("quest-1")).ReturnsAsync(quest);
 
@@ -68,7 +68,7 @@ public class QuestServiceTests
         result.Quest.Should().NotBeNull();
         result.Quest!.Id.Should().Be("quest-1");
         result.Quest.IsActive.Should().BeTrue();
-        
+
         _testSaveGame.ActiveQuests.Should().ContainSingle();
         _mockSaveGameService.Verify(s => s.SaveGame(_testSaveGame), Times.Once);
     }
@@ -85,7 +85,7 @@ public class QuestServiceTests
             Objectives = new Dictionary<string, int> { { "kill_enemies", 10 } },
             ObjectiveProgress = new Dictionary<string, int> { { "kill_enemies", 10 } }
         };
-        
+
         _testSaveGame.ActiveQuests.Add(quest);
         _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(_testSaveGame);
 
@@ -96,7 +96,7 @@ public class QuestServiceTests
         result.Success.Should().BeTrue();
         result.Quest.Should().NotBeNull();
         result.Quest!.IsCompleted.Should().BeTrue();
-        
+
         _testSaveGame.ActiveQuests.Should().BeEmpty();
         _testSaveGame.CompletedQuests.Should().ContainSingle();
         _testSaveGame.QuestsCompleted.Should().Be(1);
@@ -108,7 +108,7 @@ public class QuestServiceTests
         // Arrange
         var quest1 = new Quest { Id = "quest-1", Title = "Quest 1", IsActive = true };
         var quest2 = new Quest { Id = "quest-2", Title = "Quest 2", IsActive = true };
-        
+
         _testSaveGame.ActiveQuests.AddRange(new[] { quest1, quest2 });
         _mockSaveGameService.Setup(s => s.GetCurrentSave()).Returns(_testSaveGame);
 

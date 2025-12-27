@@ -10,57 +10,57 @@ public class AchievementService
     private readonly SaveGameService _saveGameService;
     private readonly List<Models.Achievement> _allAchievements;
     private readonly IGameUI _console;
-    
+
     public AchievementService(SaveGameService saveGameService, IGameUI console)
     {
         _saveGameService = saveGameService;
         _console = console;
         _allAchievements = InitializeAchievements();
     }
-    
+
     public async Task<Models.Achievement?> UnlockAchievementAsync(string achievementId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
             return null;
-        
+
         // Check if already unlocked using the existing UnlockedAchievements list
         if (saveGame.UnlockedAchievements.Contains(achievementId))
             return null;
-        
+
         var achievement = _allAchievements.FirstOrDefault(a => a.Id == achievementId);
         if (achievement == null)
             return null;
-        
+
         // Unlock achievement
         achievement.IsUnlocked = true;
         achievement.UnlockedAt = DateTime.Now;
-        
+
         saveGame.UnlockedAchievements.Add(achievementId);
         _saveGameService.SaveGame(saveGame);
-        
+
         // Show unlock notification
         ShowAchievementUnlock(achievement);
-        
+
         Log.Information("Achievement unlocked: {AchievementId} - {Title}", achievementId, achievement.Title);
-        
+
         return await Task.FromResult(achievement);
     }
-    
+
     public async Task<List<Models.Achievement>> CheckAllAchievementsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
             return new List<Models.Achievement>();
-        
+
         var newlyUnlocked = new List<Models.Achievement>();
-        
+
         foreach (var achievement in _allAchievements)
         {
             // Skip if already unlocked
             if (saveGame.UnlockedAchievements.Contains(achievement.Id))
                 continue;
-            
+
             // Check criteria
             if (CheckCriteria(achievement, saveGame))
             {
@@ -69,27 +69,27 @@ public class AchievementService
                     newlyUnlocked.Add(unlocked);
             }
         }
-        
+
         return newlyUnlocked;
     }
-    
+
     public async Task<List<Models.Achievement>> GetUnlockedAchievementsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
             return new List<Models.Achievement>();
-        
+
         var unlockedIds = saveGame.UnlockedAchievements;
         var unlocked = _allAchievements.Where(a => unlockedIds.Contains(a.Id)).ToList();
-        
+
         foreach (var achievement in unlocked)
         {
             achievement.IsUnlocked = true;
         }
-        
+
         return await Task.FromResult(unlocked);
     }
-    
+
     private bool CheckCriteria(Models.Achievement achievement, SaveGame saveGame)
     {
         return achievement.Criteria.Type switch
@@ -100,13 +100,13 @@ public class AchievementService
             AchievementType.CollectGold => saveGame.Character.Gold >= achievement.Criteria.RequiredValue,
             AchievementType.SurviveTime => saveGame.PlayTimeMinutes >= achievement.Criteria.RequiredValue,
             AchievementType.CompleteGame => saveGame.CompletedQuests.Any(q => q.Id == "main_06_final_boss"),
-            AchievementType.CompleteDifficulty => saveGame.CompletedQuests.Any(q => q.Id == "main_06_final_boss") && 
+            AchievementType.CompleteDifficulty => saveGame.CompletedQuests.Any(q => q.Id == "main_06_final_boss") &&
                                                    saveGame.DifficultyLevel == achievement.Criteria.RequiredId,
             AchievementType.Deathless => saveGame.DeathCount == 0 && saveGame.CompletedQuests.Any(q => q.Id == "main_06_final_boss"),
             _ => false
         };
     }
-    
+
     private void ShowAchievementUnlock(Models.Achievement achievement)
     {
         _console.Clear();
@@ -119,7 +119,7 @@ public class AchievementService
         _console.ShowSuccess("═══════════════════════════════════════");
         Thread.Sleep(3000);
     }
-    
+
     private List<Models.Achievement> InitializeAchievements()
     {
         return new List<Models.Achievement>

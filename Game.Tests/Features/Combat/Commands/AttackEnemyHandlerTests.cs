@@ -39,7 +39,7 @@ public class AttackEnemyHandlerTests : IDisposable
 
         // Create mock repository
         _saveGameRepositoryMock = new Mock<ISaveGameRepository>();
-        
+
         // Create a single mock instance to avoid creating multiple database connections
         _saveGameServiceMock = new Mock<SaveGameService>(MockBehavior.Loose, _saveGameRepositoryMock.Object, apocalypseTimer);
         _combatServiceMock = new Mock<CombatService>(MockBehavior.Loose, _saveGameServiceMock.Object);

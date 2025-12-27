@@ -52,8 +52,8 @@ public class GetEquippedItemsHandlerTests
         // Arrange
         var handler = new GetEquippedItemsHandler();
         var sword = new Item { Name = "Iron Sword", Type = ItemType.Weapon };
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Test",
             EquippedMainHand = sword
         };
@@ -75,9 +75,9 @@ public class GetEquippedItemsHandlerTests
         var sword = new Item { Name = "Iron Sword", Type = ItemType.Weapon };
         var helmet = new Item { Name = "Iron Helmet", Type = ItemType.Helmet };
         var ring = new Item { Name = "Gold Ring", Type = ItemType.Ring };
-        
-        var player = new Character 
-        { 
+
+        var player = new Character
+        {
             Name = "Test",
             EquippedMainHand = sword,
             EquippedHelmet = helmet,
@@ -107,7 +107,7 @@ public class GetEquippedItemsHandlerTests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
-        result.EquippedItems.Keys.Should().Contain(new[] 
+        result.EquippedItems.Keys.Should().Contain(new[]
         {
             "Helmet", "Shoulders", "Chest", "Bracers", "Gloves", "Belt", "Legs", "Boots"
         });

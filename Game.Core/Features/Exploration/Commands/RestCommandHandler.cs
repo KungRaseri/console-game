@@ -24,7 +24,7 @@ public class RestCommandHandler : IRequestHandler<RestCommand, RestResult>
         try
         {
             var player = _gameState.Player;
-            
+
             if (player == null)
             {
                 return Task.FromResult(new RestResult(false, ErrorMessage: "No active player"));
@@ -39,7 +39,7 @@ public class RestCommandHandler : IRequestHandler<RestCommand, RestResult>
             player.Mana = player.MaxMana;
 
             _console.ShowSuccess("Fully rested!");
-            
+
             Log.Information("Player {PlayerName} rested", player.Name);
 
             return Task.FromResult(new RestResult(

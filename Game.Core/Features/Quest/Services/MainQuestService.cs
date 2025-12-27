@@ -6,12 +6,12 @@ namespace Game.Core.Features.Quest.Services;
 public class MainQuestService
 {
     private readonly List<Models.Quest> _allQuests;
-    
+
     public MainQuestService()
     {
         _allQuests = InitializeQuestDatabase();
     }
-    
+
     public async Task<List<Models.Quest>> GetMainQuestChainAsync()
     {
         return await Task.FromResult(
@@ -20,12 +20,12 @@ public class MainQuestService
                       .ToList()
         );
     }
-    
+
     public virtual async Task<Models.Quest?> GetQuestByIdAsync(string questId)
     {
         return await Task.FromResult(_allQuests.FirstOrDefault(q => q.Id == questId));
     }
-    
+
     private List<Models.Quest> InitializeQuestDatabase()
     {
         return new List<Models.Quest>
@@ -102,13 +102,13 @@ public class MainQuestService
                 Description = "Enter the Abyssal Depths and confront the source of evil.",
                 Type = "main",
                 Difficulty = "hard",
-                Objectives = new Dictionary<string, int> 
-                { 
+                Objectives = new Dictionary<string, int>
+                {
                     { "reach_abyssal_depths", 1 },
                     { "defeat_abyssal_demons", 5 }
                 },
-                ObjectiveProgress = new Dictionary<string, int> 
-                { 
+                ObjectiveProgress = new Dictionary<string, int>
+                {
                     { "reach_abyssal_depths", 0 },
                     { "defeat_abyssal_demons", 0 }
                 },

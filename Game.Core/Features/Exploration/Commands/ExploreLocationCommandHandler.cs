@@ -28,7 +28,7 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
         try
         {
             var player = _gameState.Player;
-            
+
             _console.ShowInfo($"Exploring {_gameState.CurrentLocation}...");
 
             // Simulate exploration
@@ -37,7 +37,7 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
 
             // 60% chance of combat encounter, 40% chance of peaceful exploration
             var encounterRoll = Random.Shared.Next(100);
-            
+
             if (encounterRoll < 60)
             {
                 // Combat encounter!
@@ -70,10 +70,10 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
             if (Random.Shared.Next(100) < 30)
             {
                 var foundItem = ItemGenerator.Generate();
-                
+
                 player.Inventory.Add(foundItem);
                 await _mediator.Publish(new ItemAcquired(player.Name, foundItem.Name), cancellationToken);
-                
+
                 var rarityColor = GetRarityColor(foundItem.Rarity);
                 _console.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
                 itemFound = foundItem.Name;

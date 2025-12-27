@@ -22,22 +22,22 @@ public record VictoryStatistics(
 public class TriggerVictoryHandler : IRequestHandler<TriggerVictoryCommand, TriggerVictoryResult>
 {
     private readonly Services.VictoryService _victoryService;
-    
+
     public TriggerVictoryHandler(Services.VictoryService victoryService)
     {
         _victoryService = victoryService;
     }
-    
+
     public async Task<TriggerVictoryResult> Handle(TriggerVictoryCommand request, CancellationToken cancellationToken)
     {
         var statistics = await _victoryService.CalculateVictoryStatisticsAsync();
-        
+
         if (statistics != null)
         {
             await _victoryService.MarkGameCompleteAsync();
             return new TriggerVictoryResult(true, statistics);
         }
-        
+
         return new TriggerVictoryResult(false);
     }
 }

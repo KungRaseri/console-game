@@ -7,23 +7,23 @@ namespace Game.Core.Features.Victory.Services;
 public class NewGamePlusService
 {
     private readonly ISaveGameService _saveGameService;
-    
+
     public NewGamePlusService(ISaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
-    
+
     public async Task<(bool Success, SaveGame? NewSave)> StartNewGamePlusAsync()
     {
         var completedSave = _saveGameService.GetCurrentSave();
         if (completedSave == null)
             return (false, null);
-        
+
         // Check if game is completed
         var gameCompleted = completedSave.GameFlags.ContainsKey("GameCompleted") && completedSave.GameFlags["GameCompleted"];
         if (!gameCompleted)
             return (false, null);
-        
+
         // Create New Game+ character with bonuses
         var ngPlusCharacter = new Character
         {
@@ -39,7 +39,7 @@ public class NewGamePlusService
             Dexterity = completedSave.Character.Dexterity + 5,
             Gold = 500 // Starting gold bonus
         };
-        
+
         // Create new save game with NG+ character
         var ngPlusSave = new SaveGame
         {
@@ -50,15 +50,15 @@ public class NewGamePlusService
             DifficultyLevel = completedSave.DifficultyLevel + " NG+",
             UnlockedAchievements = new List<string>(completedSave.UnlockedAchievements) // Carry over achievements
         };
-        
+
         // Mark as NG+
         ngPlusSave.GameFlags["IsNewGamePlus"] = true;
         ngPlusSave.GameFlags["NewGamePlusGeneration"] = true;
-        
+
         _saveGameService.SaveGame(ngPlusSave);
-        
+
         Log.Information("New Game+ started for {PlayerName}", completedSave.Character.Name);
-        
+
         return await Task.FromResult((true, ngPlusSave));
     }
 }

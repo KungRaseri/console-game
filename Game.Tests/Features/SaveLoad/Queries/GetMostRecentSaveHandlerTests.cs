@@ -32,7 +32,7 @@ public class GetMostRecentSaveHandlerTests : IDisposable
     {
         // Arrange
         var handler = new GetMostRecentSaveHandler(_saveGameService);
-        
+
         // Create first save
         var player1 = new Character { Name = "OldSave", Level = 1, Health = 100, MaxHealth = 100 };
         var save1 = _saveGameService.CreateNewGame(player1, DifficultySettings.Normal);
@@ -94,7 +94,7 @@ public class GetMostRecentSaveHandlerTests : IDisposable
     {
         // Arrange
         var handler = new GetMostRecentSaveHandler(_saveGameService);
-        
+
         // Create two saves
         var player1 = new Character { Name = "First", Level = 1, Health = 100, MaxHealth = 100 };
         var save1 = _saveGameService.CreateNewGame(player1, DifficultySettings.Normal);
@@ -168,7 +168,7 @@ public class GetMostRecentSaveHandlerTests : IDisposable
     {
         // Arrange
         var handler = new GetMostRecentSaveHandler(_saveGameService);
-        
+
         // Create multiple saves with delays to ensure different timestamps
         for (int i = 1; i <= 5; i++)
         {
@@ -223,7 +223,7 @@ public class GetMostRecentSaveHandlerTests : IDisposable
             {
                 File.Delete(_testDbPath);
             }
-            
+
             var logDbPath = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logDbPath))
             {

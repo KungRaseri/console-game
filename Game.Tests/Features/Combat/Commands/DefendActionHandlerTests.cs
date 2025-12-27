@@ -15,16 +15,16 @@ public class DefendActionHandlerTests
     public async Task Handle_Should_Return_DefenseBonus_Based_On_Constitution()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Hero",
             Constitution = 20,
             Health = 100,
             MaxHealth = 100
         };
-        var command = new DefendActionCommand 
-        { 
-            Player = player 
+        var command = new DefendActionCommand
+        {
+            Player = player
         };
 
         // Act
@@ -44,16 +44,16 @@ public class DefendActionHandlerTests
     public async Task Handle_Should_Calculate_Correct_DefenseBonus(int constitution, int expectedBonus)
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Defender",
             Constitution = constitution,
             Health = 80,
             MaxHealth = 100
         };
-        var command = new DefendActionCommand 
-        { 
-            Player = player 
+        var command = new DefendActionCommand
+        {
+            Player = player
         };
 
         // Act
@@ -67,16 +67,16 @@ public class DefendActionHandlerTests
     public async Task Handle_Should_Add_Entry_To_CombatLog_When_Provided()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Warrior",
             Constitution = 16,
             Health = 90,
             MaxHealth = 100
         };
         var combatLog = new CombatLog();
-        var command = new DefendActionCommand 
-        { 
+        var command = new DefendActionCommand
+        {
             Player = player,
             CombatLog = combatLog
         };
@@ -94,15 +94,15 @@ public class DefendActionHandlerTests
     public async Task Handle_Should_Not_Throw_When_CombatLog_Is_Null()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Hero",
             Constitution = 12,
             Health = 70,
             MaxHealth = 100
         };
-        var command = new DefendActionCommand 
-        { 
+        var command = new DefendActionCommand
+        {
             Player = player,
             CombatLog = null
         };
@@ -120,16 +120,16 @@ public class DefendActionHandlerTests
     public async Task Handle_Should_Return_Message_With_Player_Friendly_Text()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Knight",
             Constitution = 18,
             Health = 100,
             MaxHealth = 100
         };
-        var command = new DefendActionCommand 
-        { 
-            Player = player 
+        var command = new DefendActionCommand
+        {
+            Player = player
         };
 
         // Act
@@ -143,16 +143,16 @@ public class DefendActionHandlerTests
     public async Task Handle_Should_Work_With_Low_Constitution()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Mage",
             Constitution = 5,
             Health = 50,
             MaxHealth = 50
         };
-        var command = new DefendActionCommand 
-        { 
-            Player = player 
+        var command = new DefendActionCommand
+        {
+            Player = player
         };
 
         // Act
@@ -166,16 +166,16 @@ public class DefendActionHandlerTests
     public async Task Handle_Should_Work_With_High_Constitution()
     {
         // Arrange
-        var player = new Character 
-        { 
+        var player = new Character
+        {
             Name = "Tank",
             Constitution = 50,
             Health = 200,
             MaxHealth = 200
         };
-        var command = new DefendActionCommand 
-        { 
-            Player = player 
+        var command = new DefendActionCommand
+        {
+            Player = player
         };
 
         // Act

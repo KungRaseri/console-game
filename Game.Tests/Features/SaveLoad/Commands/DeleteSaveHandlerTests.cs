@@ -106,7 +106,7 @@ public class DeleteSaveHandlerTests : IDisposable
     {
         // Arrange
         var handler = new DeleteSaveHandler(_saveGameService);
-        
+
         // Create two saves
         var player1 = new Character { Name = "Player1", Level = 1, Health = 100, MaxHealth = 100 };
         var saveGame1 = _saveGameService.CreateNewGame(player1, DifficultySettings.Normal);
@@ -124,7 +124,7 @@ public class DeleteSaveHandlerTests : IDisposable
         // Assert
         var deleted = _saveGameService.LoadGame(saveGame1.Id);
         var remaining = _saveGameService.LoadGame(saveGame2.Id);
-        
+
         deleted.Should().BeNull();
         remaining.Should().NotBeNull();
         remaining!.Character.Name.Should().Be("Player2");
@@ -173,7 +173,7 @@ public class DeleteSaveHandlerTests : IDisposable
             {
                 File.Delete(_testDbPath);
             }
-            
+
             var logDbPath = _testDbPath.Replace(".db", "-log.db");
             if (File.Exists(logDbPath))
             {

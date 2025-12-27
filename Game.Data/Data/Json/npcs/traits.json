@@ -4,7 +4,10 @@
     "version": "4.0",
     "description": "NPC personality traits and quirks for characterization",
     "lastModified": "2025-12-18",
-    "componentKeys": ["personality_traits", "quirks"],
+    "componentKeys": [
+      "personality_traits",
+      "quirks"
+    ],
     "totalTraits": 40,
     "totalQuirks": 35,
     "notes": [
@@ -14,7 +17,6 @@
       "Shop modifiers from traits affect prices and availability"
     ]
   },
-  
   "personality_traits": {
     "social_positive": {
       "metadata": {
@@ -62,7 +64,6 @@
         }
       ]
     },
-    
     "social_negative": {
       "metadata": {
         "description": "Rough or unfriendly social traits",
@@ -109,7 +110,6 @@
         }
       ]
     },
-    
     "moral_virtuous": {
       "metadata": {
         "description": "Ethical and principled traits",
@@ -159,7 +159,6 @@
         }
       ]
     },
-    
     "moral_flawed": {
       "metadata": {
         "description": "Morally questionable traits",
@@ -208,7 +207,6 @@
         }
       ]
     },
-    
     "courage_spectrum": {
       "metadata": {
         "description": "Traits related to bravery and fear",
@@ -256,7 +254,6 @@
         }
       ]
     },
-    
     "emotional_stable": {
       "metadata": {
         "description": "Emotionally composed traits",
@@ -293,7 +290,6 @@
         }
       ]
     },
-    
     "emotional_volatile": {
       "metadata": {
         "description": "Emotionally intense traits",
@@ -331,7 +327,6 @@
         }
       ]
     },
-    
     "intellectual_gifted": {
       "metadata": {
         "description": "Intellectually superior traits",
@@ -379,7 +374,6 @@
         }
       ]
     },
-    
     "intellectual_challenged": {
       "metadata": {
         "description": "Intellectually limited traits",
@@ -426,7 +420,6 @@
         }
       ]
     },
-    
     "unique_traits": {
       "metadata": {
         "description": "Rare and distinctive personality traits",
@@ -476,7 +469,6 @@
       ]
     }
   },
-  
   "quirks": {
     "speech_common": {
       "metadata": {
@@ -510,7 +502,6 @@
         }
       ]
     },
-    
     "speech_unusual": {
       "metadata": {
         "description": "Unusual or distinctive speech patterns",
@@ -543,7 +534,6 @@
         }
       ]
     },
-    
     "physical_tics": {
       "metadata": {
         "description": "Physical mannerisms and tics",
@@ -576,7 +566,6 @@
         }
       ]
     },
-    
     "behavioral_habits": {
       "metadata": {
         "description": "Behavioral quirks and habits",
@@ -609,7 +598,6 @@
         }
       ]
     },
-    
     "obsessive_compulsive": {
       "metadata": {
         "description": "Obsessive or compulsive behaviors",
@@ -642,7 +630,6 @@
         }
       ]
     },
-    
     "superstitious_fears": {
       "metadata": {
         "description": "Superstitions and irrational fears",
@@ -675,7 +662,6 @@
         }
       ]
     },
-    
     "unusual_unique": {
       "metadata": {
         "description": "Unusual and unique quirks",
@@ -714,7 +700,6 @@
         }
       ]
     },
-    
     "memorable_quirks": {
       "metadata": {
         "description": "Highly memorable and distinctive quirks",
