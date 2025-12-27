@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata": {
         "description": "vampires ability definitions and properties",
         "version": "1.0",
@@ -13,109 +13,109 @@
             "name": "Blood Drain",
             "displayName": "Blood Drain",
             "description": "Drains life force through bites",
-            "rarity": "Common"
+            "rarityWeight": 10
         },
         {
             "name": "Regeneration",
             "displayName": "Regeneration",
             "description": "Rapidly heals from all but fatal wounds",
-            "rarity": "Uncommon"
+            "rarityWeight": 35
         },
         {
             "name": "Sunlight Weakness",
             "displayName": "Sunlight Weakness",
             "description": "Destroyed by direct sunlight",
-            "rarity": "Common"
+            "rarityWeight": 10
         },
         {
             "name": "Shapeshifting",
             "displayName": "Shapeshifting",
             "description": "Can transform into bat, wolf, or mist",
-            "rarity": "Rare"
+            "rarityWeight": 75
         },
         {
             "name": "Charm",
             "displayName": "Charm",
             "description": "Hypnotic gaze controls minds",
-            "rarity": "Uncommon"
+            "rarityWeight": 35
         },
         {
             "name": "Immortal",
             "displayName": "Immortal",
             "description": "Cannot die from age or disease",
-            "rarity": "Common"
+            "rarityWeight": 10
         },
         {
             "name": "Enhanced Senses",
             "displayName": "Enhanced Senses",
             "description": "Superior sight, hearing, and smell",
-            "rarity": "Common"
+            "rarityWeight": 10
         },
         {
             "name": "Superhuman Strength",
             "displayName": "Superhuman Strength",
             "description": "Possesses incredible physical power",
-            "rarity": "Uncommon"
+            "rarityWeight": 35
         },
         {
             "name": "Shadow Walk",
             "displayName": "Shadow Walk",
             "description": "Can teleport through darkness",
-            "rarity": "Rare"
+            "rarityWeight": 75
         },
         {
             "name": "Summon Minions",
             "displayName": "Summon Minions",
             "description": "Calls forth rats, bats, or wolves",
-            "rarity": "Uncommon"
+            "rarityWeight": 35
         },
         {
             "name": "Create Spawn",
             "displayName": "Create Spawn",
             "description": "Can turn victims into vampire thralls",
-            "rarity": "Rare"
+            "rarityWeight": 75
         },
         {
             "name": "Mist Form",
             "displayName": "Mist Form",
             "description": "Becomes incorporeal fog",
-            "rarity": "Rare"
+            "rarityWeight": 75
         },
         {
             "name": "Blood Frenzy",
             "displayName": "Blood Frenzy",
             "description": "Becomes more dangerous when wounded",
-            "rarity": "Uncommon"
+            "rarityWeight": 35
         },
         {
             "name": "Ancient Power",
             "displayName": "Ancient Power",
             "description": "Centuries of accumulated strength",
-            "rarity": "Epic"
+            "rarityWeight": 150
         },
         {
             "name": "Necromancy",
             "displayName": "Necromancy",
             "description": "Commands the undead",
-            "rarity": "Epic"
+            "rarityWeight": 150
         },
         {
             "name": "Vampire Lord",
             "displayName": "Vampire Lord",
             "description": "Rules over lesser vampires",
-            "rarity": "Legendary"
+            "rarityWeight": 250
         },
         {
             "name": "Children of the Night",
             "displayName": "Children of the Night",
             "description": "Controls all creatures of darkness",
-            "rarity": "Epic"
+            "rarityWeight": 150
         },
         {
             "name": "Progenitor",
             "displayName": "Progenitor",
             "description": "One of the first vampires",
-            "rarity": "Mythic"
+            "rarityWeight": 500
         }
     ],
     "components": {

@@ -61,7 +61,7 @@ public partial class AbilitiesEditorViewModel : ObservableObject
     private string _editDescription = string.Empty;
 
     [ObservableProperty]
-    private string _editRarity = "Common";
+    private int _editRarityWeight = 10;
 
     // Search/Filter
     [ObservableProperty]
@@ -152,7 +152,7 @@ public partial class AbilitiesEditorViewModel : ObservableObject
                 Name = item["name"]?.ToString() ?? "",
                 DisplayName = item["displayName"]?.ToString() ?? "",
                 Description = item["description"]?.ToString() ?? "",
-                Rarity = item["rarity"]?.ToString() ?? "Common"
+                RarityWeight = item["rarityWeight"]?.ToObject<int>() ?? 10
             };
 
             Abilities.Add(ability);
@@ -179,9 +179,13 @@ public partial class AbilitiesEditorViewModel : ObservableObject
 
         foreach (var ability in Abilities)
         {
-            // Apply rarity filter
-            if (FilterRarity != "All" && ability.Rarity != FilterRarity)
-                continue;
+            // Apply rarity filter based on weight ranges
+            if (FilterRarity != "All")
+            {
+                var rarityName = GetRarityName(ability.RarityWeight);
+                if (rarityName != FilterRarity)
+                    continue;
+            }
 
             // Apply search filter
             if (!string.IsNullOrWhiteSpace(searchLower))
@@ -206,7 +210,7 @@ public partial class AbilitiesEditorViewModel : ObservableObject
         EditName = "";
         EditDisplayName = "";
         EditDescription = "";
-        EditRarity = "Common";
+        EditRarityWeight = 10;
         IsEditing = true;
         StatusMessage = "Adding new ability...";
     }
@@ -219,7 +223,7 @@ public partial class AbilitiesEditorViewModel : ObservableObject
         EditName = SelectedAbility.Name;
         EditDisplayName = SelectedAbility.DisplayName;
         EditDescription = SelectedAbility.Description;
-        EditRarity = SelectedAbility.Rarity;
+        EditRarityWeight = SelectedAbility.RarityWeight;
         IsEditing = true;
         StatusMessage = $"Editing {SelectedAbility.DisplayName}...";
     }
@@ -241,7 +245,7 @@ public partial class AbilitiesEditorViewModel : ObservableObject
                 Name = EditName,
                 DisplayName = string.IsNullOrWhiteSpace(EditDisplayName) ? EditName : EditDisplayName,
                 Description = EditDescription,
-                Rarity = EditRarity
+                RarityWeight = EditRarityWeight
             };
 
             Abilities.Add(newAbility);
@@ -254,7 +258,7 @@ public partial class AbilitiesEditorViewModel : ObservableObject
             SelectedAbility.Name = EditName;
             SelectedAbility.DisplayName = string.IsNullOrWhiteSpace(EditDisplayName) ? EditName : EditDisplayName;
             SelectedAbility.Description = EditDescription;
-            SelectedAbility.Rarity = EditRarity;
+            SelectedAbility.RarityWeight = EditRarityWeight;
             StatusMessage = $"Updated ability: {SelectedAbility.DisplayName}";
             Log.Information("Updated ability: {Name}", SelectedAbility.Name);
         }
@@ -311,7 +315,7 @@ public partial class AbilitiesEditorViewModel : ObservableObject
                     ["name"] = ability.Name,
                     ["displayName"] = ability.DisplayName,
                     ["description"] = ability.Description,
-                    ["rarity"] = ability.Rarity
+                    ["rarityWeight"] = ability.RarityWeight
                 };
                 items.Add(item);
             }
@@ -350,6 +354,11 @@ public partial class AbilitiesEditorViewModel : ObservableObject
         SearchText = string.Empty;
         FilterRarity = "All";
     }
+
+    private static string GetRarityName(int weight)
+    {
+        return RarityConfigService.Instance.GetRarityName(weight);
+    }
 }
 
 /// <summary>
@@ -367,5 +376,5 @@ public partial class AbilityItem : ObservableObject
     private string _description = string.Empty;
 
     [ObservableProperty]
-    private string _rarity = "Common";
+    private int _rarityWeight = 10;
 }

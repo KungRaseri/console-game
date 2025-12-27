@@ -53,35 +53,35 @@ public class AbilitiesEditorViewModelTests : IDisposable
                     ["name"] = "fireball",
                     ["displayName"] = "Fireball",
                     ["description"] = "Launches a ball of fire",
-                    ["rarity"] = "Common"
+                    ["rarityWeight"] = 10
                 },
                 new JObject
                 {
                     ["name"] = "ice_blast",
                     ["displayName"] = "Ice Blast",
                     ["description"] = "Freezes enemies in place",
-                    ["rarity"] = "Uncommon"
+                    ["rarityWeight"] = 35
                 },
                 new JObject
                 {
                     ["name"] = "lightning_strike",
                     ["displayName"] = "Lightning Strike",
                     ["description"] = "Calls down a lightning bolt",
-                    ["rarity"] = "Rare"
+                    ["rarityWeight"] = 75
                 },
                 new JObject
                 {
                     ["name"] = "earthquake",
                     ["displayName"] = "Earthquake",
                     ["description"] = "Shakes the ground violently",
-                    ["rarity"] = "Epic"
+                    ["rarityWeight"] = 150
                 },
                 new JObject
                 {
                     ["name"] = "meteor_shower",
                     ["displayName"] = "Meteor Shower",
                     ["description"] = "Summons meteors from the sky",
-                    ["rarity"] = "Legendary"
+                    ["rarityWeight"] = 250
                 }
             }
         };
@@ -152,7 +152,7 @@ public class AbilitiesEditorViewModelTests : IDisposable
         var fireball = viewModel.Abilities.First(a => a.Name == "fireball");
         fireball.DisplayName.Should().Be("Fireball");
         fireball.Description.Should().Be("Launches a ball of fire");
-        fireball.Rarity.Should().Be("Common");
+        fireball.RarityWeight.Should().Be(10);
     }
 
     [Fact]
@@ -231,7 +231,7 @@ public class AbilitiesEditorViewModelTests : IDisposable
 
         // Assert
         viewModel.FilteredAbilities.Should().HaveCount(1);
-        viewModel.FilteredAbilities.First().Rarity.Should().Be("Rare");
+        viewModel.FilteredAbilities.First().RarityWeight.Should().Be(75);
     }
 
     [Fact]
@@ -304,7 +304,7 @@ public class AbilitiesEditorViewModelTests : IDisposable
         viewModel.FilteredAbilities.Should().HaveCount(1);
         var ability = viewModel.FilteredAbilities.First();
         ability.Name.Should().Contain("strike");
-        ability.Rarity.Should().Be("Rare");
+        ability.RarityWeight.Should().Be(75);
     }
 
     [Fact]
@@ -321,7 +321,7 @@ public class AbilitiesEditorViewModelTests : IDisposable
         viewModel.EditName.Should().BeEmpty();
         viewModel.EditDisplayName.Should().BeEmpty();
         viewModel.EditDescription.Should().BeEmpty();
-        viewModel.EditRarity.Should().Be("Common");
+        viewModel.EditRarityWeight.Should().Be(10);
     }
 
     [Fact]
@@ -340,7 +340,7 @@ public class AbilitiesEditorViewModelTests : IDisposable
         viewModel.EditName.Should().Be(ability.Name);
         viewModel.EditDisplayName.Should().Be(ability.DisplayName);
         viewModel.EditDescription.Should().Be(ability.Description);
-        viewModel.EditRarity.Should().Be(ability.Rarity);
+        viewModel.EditRarityWeight.Should().Be(ability.RarityWeight);
     }
 
     [Fact]
@@ -355,7 +355,7 @@ public class AbilitiesEditorViewModelTests : IDisposable
         viewModel.EditName = "new_ability";
         viewModel.EditDisplayName = "New Ability";
         viewModel.EditDescription = "A new test ability";
-        viewModel.EditRarity = "Uncommon";
+        viewModel.EditRarityWeight = 35;
         viewModel.SaveEditCommand.Execute(null);
 
         // Assert
@@ -366,7 +366,7 @@ public class AbilitiesEditorViewModelTests : IDisposable
         var newAbility = viewModel.Abilities.Last();
         newAbility.Name.Should().Be("new_ability");
         newAbility.DisplayName.Should().Be("New Ability");
-        newAbility.Rarity.Should().Be("Uncommon");
+        newAbility.RarityWeight.Should().Be(35);
     }
 
     [Fact]
@@ -399,14 +399,14 @@ public class AbilitiesEditorViewModelTests : IDisposable
         viewModel.EditName = "updated_name";
         viewModel.EditDisplayName = "Updated Display";
         viewModel.EditDescription = "Updated description";
-        viewModel.EditRarity = "Epic";
+        viewModel.EditRarityWeight = 150;
         viewModel.SaveEditCommand.Execute(null);
 
         // Assert
         ability.Name.Should().Be("updated_name");
         ability.DisplayName.Should().Be("Updated Display");
         ability.Description.Should().Be("Updated description");
-        ability.Rarity.Should().Be("Epic");
+        ability.RarityWeight.Should().Be(150);
         viewModel.IsEditing.Should().BeFalse();
         viewModel.IsDirty.Should().BeTrue();
     }

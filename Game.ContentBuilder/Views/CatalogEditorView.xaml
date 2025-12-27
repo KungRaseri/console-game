@@ -264,12 +264,31 @@
                                      AutomationProperties.AutomationId="ItemNameTextBox"
                                      Margin="0,0,0,16"/>
 
-                            <TextBox Text="{Binding RarityWeight, UpdateSourceTrigger=PropertyChanged}"
-                                     materialDesign:HintAssist.Hint="Rarity Weight"
-                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                     AutomationProperties.AutomationId="ItemRarityWeightTextBox"
-                                     ToolTip="Numeric weight for rarity calculation"
-                                     Margin="0,0,0,16"/>
+                            <Grid Margin="0,0,0,16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBox Grid.Column="0"
+                                         Text="{Binding RarityWeight, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Rarity Weight"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         AutomationProperties.AutomationId="ItemRarityWeightTextBox"
+                                         ToolTip="Numeric weight for rarity calculation"/>
+                                
+                                <Border Grid.Column="1"
+                                        Background="{Binding RarityWeight, Converter={StaticResource RarityWeightToColorConverter}}"
+                                        CornerRadius="12"
+                                        Padding="12,4"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding RarityWeight, Converter={StaticResource RarityWeightToNameConverter}}"
+                                               FontSize="11"
+                                               FontWeight="Bold"
+                                               Foreground="White"/>
+                                </Border>
+                            </Grid>
 
                             <TextBlock Text="Properties" 
                                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"

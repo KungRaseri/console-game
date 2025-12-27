@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "trolls ability definitions and properties",
                      "version":  "1.0",
@@ -11,109 +11,109 @@
                       "name":  "Regeneration",
                       "displayName":  "Regeneration",
                       "description":  "Rapidly heals wounds unless burned",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "ThickSkin",
                       "displayName":  "Thick Skin",
                       "description":  "Natural damage resistance",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Massive",
                       "displayName":  "Massive",
                       "description":  "Large size with increased health and damage",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "FireWeakness",
                       "displayName":  "Fire Weakness",
                       "description":  "Takes extra damage from fire and stops regeneration",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "RockThrow",
                       "displayName":  "Rock Throw",
                       "description":  "Hurls boulders at enemies",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Smash",
                       "displayName":  "Smash",
                       "description":  "Devastating ground pound attack",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "StoneForm",
                       "displayName":  "Stone Form",
                       "description":  "Turns to stone in sunlight, becoming immobile but invincible",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Rage",
                       "displayName":  "Rage",
                       "description":  "Enters berserk state when injured",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "ClubMaster",
                       "displayName":  "Club Master",
                       "description":  "Expertise with massive clubs and mauls",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "MountainStrength",
                       "displayName":  "Mountain Strength",
                       "description":  "Incredible physical power",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "CaveAdaptation",
                       "displayName":  "Cave Adaptation",
                       "description":  "Bonus stats in underground environments",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "IceTroll",
                       "displayName":  "Ice Troll",
                       "description":  "Frost-resistant variant with ice attacks",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "LavaImmunity",
                       "displayName":  "Lava Immunity",
                       "description":  "Immune to fire, adapted to volcanic regions",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "ChieftainCommand",
                       "displayName":  "Chieftain Command",
                       "description":  "Leads troll tribes and buffs allies",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Colossus",
                       "displayName":  "Colossus",
                       "description":  "Gigantic troll of legendary size",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "TrollKing",
                       "displayName":  "Troll King",
                       "description":  "Sovereign ruler of all trolls",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "PrimalTitan",
                       "displayName":  "Primal Titan",
                       "description":  "Ancient troll of unimaginable power",
-                      "rarity":  "Mythic"
+                      "rarityWeight": 500
                   },
                   {
                       "name":  "WorldEater",
                       "displayName":  "World Eater",
                       "description":  "Mythical troll that devours mountains",
-                      "rarity":  "Mythic"
+                      "rarityWeight": 500
                   }
               ],
     "components":  {

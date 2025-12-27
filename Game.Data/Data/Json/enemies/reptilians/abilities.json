@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "reptilians ability definitions and properties",
                      "version":  "1.0",
@@ -11,109 +11,109 @@
                       "name":  "ScaledHide",
                       "displayName":  "Scaled Hide",
                       "description":  "Natural armor from thick scales",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "ColdBlooded",
                       "displayName":  "Cold Blooded",
                       "description":  "Vulnerable to ice but resistant to fire",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "VenomousBite",
                       "displayName":  "Venomous Bite",
                       "description":  "Bite attacks inflict poison",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "SwiftSwimmer",
                       "displayName":  "Swift Swimmer",
                       "description":  "Moves quickly through water",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "AmbushPredator",
                       "displayName":  "Ambush Predator",
                       "description":  "Deals bonus damage on first strike",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "TailWhip",
                       "displayName":  "Tail Whip",
                       "description":  "Powerful tail attack with knockback",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Camouflage",
                       "displayName":  "Camouflage",
                       "description":  "Can become invisible in natural environments",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Regeneration",
                       "displayName":  "Regeneration",
                       "description":  "Can regrow lost limbs and heal rapidly",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "PrimalRoar",
                       "displayName":  "Primal Roar",
                       "description":  "Intimidating roar that fears enemies",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "ArmoredPlates",
                       "displayName":  "Armored Plates",
                       "description":  "Heavily armored with bone plates",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "DeathRoll",
                       "displayName":  "Death Roll",
                       "description":  "Grabs and spins enemies for massive damage",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "ShamanWisdom",
                       "displayName":  "Shaman Wisdom",
                       "description":  "Casts primal magic and curses",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "AlphaLeader",
                       "displayName":  "Alpha Leader",
                       "description":  "Commands and buffs reptilian allies",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "AcidSpit",
                       "displayName":  "Acid Spit",
                       "description":  "Ranged acid attack that corrodes armor",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Titanic",
                       "displayName":  "Titanic",
                       "description":  "Enormous size with devastating power",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "DragonAncestor",
                       "displayName":  "Dragon Ancestor",
                       "description":  "Descended from dragons, can breathe fire",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "DinosaurKing",
                       "displayName":  "Dinosaur King",
                       "description":  "Apex predator from prehistoric times",
-                      "rarity":  "Mythic"
+                      "rarityWeight": 500
                   },
                   {
                       "name":  "Basilisk",
                       "displayName":  "Basilisk",
                       "description":  "Legendary serpent with petrifying gaze",
-                      "rarity":  "Mythic"
+                      "rarityWeight": 500
                   }
               ],
     "components":  {

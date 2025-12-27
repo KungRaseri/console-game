@@ -53,6 +53,16 @@
                                                          HorizontalContentAlignment="Right"
                                                          FontSize="13"
                                                          VerticalAlignment="Center"/>
+                                                <Border Background="{Binding RarityWeight, Converter={StaticResource RarityWeightToColorConverter}}"
+                                                        CornerRadius="8"
+                                                        Padding="8,2"
+                                                        Margin="8,0,0,0"
+                                                        VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding RarityWeight, Converter={StaticResource RarityWeightToNameConverter}}"
+                                                               FontSize="10"
+                                                               FontWeight="Bold"
+                                                               Foreground="White"/>
+                                                </Border>
                                         </StackPanel>
                                         
                                         <Button Grid.Column="2"

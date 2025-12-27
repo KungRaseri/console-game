@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "goblinoids ability definitions and properties",
                      "version":  "1.0",
@@ -11,109 +11,109 @@
                       "name":  "SneakAttack",
                       "displayName":  "Sneak Attack",
                       "description":  "Deals extra damage when attacking from stealth",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "PackTactics",
                       "displayName":  "Pack Tactics",
                       "description":  "Gains bonus when fighting alongside allies",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Cowardly",
                       "displayName":  "Cowardly",
                       "description":  "Flees when health drops below 30%",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "TrapMaker",
                       "displayName":  "Trap Maker",
                       "description":  "Sets traps during combat",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "PoisonWeapons",
                       "displayName":  "Poison Weapons",
                       "description":  "Attacks inflict poison damage over time",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "QuickReflexes",
                       "displayName":  "Quick Reflexes",
                       "description":  "High dodge chance against melee attacks",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Scavenger",
                       "displayName":  "Scavenger",
                       "description":  "May loot random items during combat",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Berserker",
                       "displayName":  "Berserker",
                       "description":  "Enters rage when damaged, increasing damage output",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "TunnelFighter",
                       "displayName":  "Tunnel Fighter",
                       "description":  "Bonus defense in enclosed spaces",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "ShamanMagic",
                       "displayName":  "Shaman Magic",
                       "description":  "Can cast basic elemental spells",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "BombThrower",
                       "displayName":  "Bomb Thrower",
                       "description":  "Throws explosive devices that deal area damage",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "WarChief",
                       "displayName":  "War Chief",
                       "description":  "Commands nearby goblinoids and buffs their stats",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "ShadowStep",
                       "displayName":  "Shadow Step",
                       "description":  "Can teleport short distances in darkness",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "MechanicalGenius",
                       "displayName":  "Mechanical Genius",
                       "description":  "Deploys mechanical constructs to fight",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "VenomMaster",
                       "displayName":  "Venom Master",
                       "description":  "Advanced poison attacks that stack and spread",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "KingOfGoblins",
                       "displayName":  "King of Goblins",
                       "description":  "Supreme leader with all goblinoid abilities",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "CursedBloodline",
                       "displayName":  "Cursed Bloodline",
                       "description":  "Inflicts curses on attackers when damaged",
-                      "rarity":  "Mythic"
+                      "rarityWeight": 500
                   },
                   {
                       "name":  "DemonPact",
                       "displayName":  "Demon Pact",
                       "description":  "Enhanced by demonic power, regenerates health",
-                      "rarity":  "Mythic"
+                      "rarityWeight": 500
                   }
               ],
     "components":  {

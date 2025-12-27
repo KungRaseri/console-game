@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "dragons ability definitions and properties",
                      "version":  "1.0",
@@ -11,109 +11,109 @@
                       "name":  "Dragon Breath",
                       "displayName":  "Dragon Breath",
                       "description":  "Devastating breath weapon attack",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Armored Scales",
                       "displayName":  "Armored Scales",
                       "description":  "Nearly impenetrable natural armor",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Flight",
                       "displayName":  "Flight",
                       "description":  "Can fly and attack from above",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Ancient Wisdom",
                       "displayName":  "Ancient Wisdom",
                       "description":  "Centuries of knowledge and magical power",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Frightful Presence",
                       "displayName":  "Frightful Presence",
                       "description":  "Terrifying aura that breaks enemy morale",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Tail Sweep",
                       "displayName":  "Tail Sweep",
                       "description":  "Can attack multiple enemies with tail",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Wing Buffet",
                       "displayName":  "Wing Buffet",
                       "description":  "Creates powerful wind gusts",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Magic Resistance",
                       "displayName":  "Magic Resistance",
                       "description":  "High resistance to magical attacks",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Treasure Sense",
                       "displayName":  "Treasure Sense",
                       "description":  "Can detect valuable items",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Spellcasting",
                       "displayName":  "Spellcasting",
                       "description":  "Can cast powerful magic",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Regeneration",
                       "displayName":  "Regeneration",
                       "description":  "Heals rapidly during combat",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Elemental Immunity",
                       "displayName":  "Elemental Immunity",
                       "description":  "Immune to its breath weapon\u0027s element",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Shape Shifting",
                       "displayName":  "Shape Shifting",
                       "description":  "Can assume humanoid form",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "Legendary Resistance",
                       "displayName":  "Legendary Resistance",
                       "description":  "Can shrug off debilitating effects",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "Lair Actions",
                       "displayName":  "Lair Actions",
                       "description":  "Environment bends to dragon\u0027s will",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Crushing Bite",
                       "displayName":  "Crushing Bite",
                       "description":  "Jaw strength can break armor",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Ancient Power",
                       "displayName":  "Ancient Power",
                       "description":  "Power grows with age",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "Godlike Might",
                       "displayName":  "Godlike Might",
                       "description":  "Power rivaling the gods themselves",
-                      "rarity":  "Mythic"
+                      "rarityWeight": 500
                   }
               ],
     "components":  {

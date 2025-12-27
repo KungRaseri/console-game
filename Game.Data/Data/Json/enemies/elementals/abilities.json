@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "elementals ability definitions and properties",
                      "version":  "1.0",
@@ -11,109 +11,109 @@
                       "name":  "Elemental Body",
                       "displayName":  "Elemental Body",
                       "description":  "Made entirely of elemental matter",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Elemental Immunity",
                       "displayName":  "Elemental Immunity",
                       "description":  "Immune to its own element",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Elemental Weakness",
                       "displayName":  "Elemental Weakness",
                       "description":  "Vulnerable to opposing element",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Engulf",
                       "displayName":  "Engulf",
                       "description":  "Can surround and trap enemies",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Elemental Burst",
                       "displayName":  "Elemental Burst",
                       "description":  "Explosive discharge of elemental energy",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Incorporeal",
                       "displayName":  "Incorporeal",
                       "description":  "Physical attacks pass through",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Elemental Aura",
                       "displayName":  "Elemental Aura",
                       "description":  "Damages nearby enemies with elemental energy",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Summon Elementals",
                       "displayName":  "Summon Elementals",
                       "description":  "Can call forth lesser elementals",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Elemental Mastery",
                       "displayName":  "Elemental Mastery",
                       "description":  "Perfect control over its element",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Phase Shift",
                       "displayName":  "Phase Shift",
                       "description":  "Can merge with its element in environment",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Adaptive Form",
                       "displayName":  "Adaptive Form",
                       "description":  "Changes shape to avoid attacks",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Elemental Fury",
                       "displayName":  "Elemental Fury",
                       "description":  "Unleashes devastating elemental storms",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Primordial Power",
                       "displayName":  "Primordial Power",
                       "description":  "Raw elemental force from creation",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "Environmental Control",
                       "displayName":  "Environmental Control",
                       "description":  "Shapes the battlefield to its advantage",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Essence Drain",
                       "displayName":  "Essence Drain",
                       "description":  "Absorbs enemy energy to heal",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Unstable",
                       "displayName":  "Unstable",
                       "description":  "Explodes when defeated",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Elemental Lord",
                       "displayName":  "Elemental Lord",
                       "description":  "Supreme master of its element",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "Plane Walker",
                       "displayName":  "Plane Walker",
                       "description":  "Can traverse elemental planes",
-                      "rarity":  "Mythic"
+                      "rarityWeight": 500
                   }
               ],
     "components":  {

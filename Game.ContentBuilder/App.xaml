@@ -21,6 +21,10 @@
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter"/>
             <converters:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter"/>
+            <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+            <converters:RarityWeightToNameConverter x:Key="RarityWeightToNameConverter"/>
+            <converters:RarityWeightToColorConverter x:Key="RarityWeightToColorConverter"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

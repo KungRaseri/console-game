@@ -161,29 +161,13 @@
                                 <GridViewColumn Header="Rarity" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Border CornerRadius="4" Padding="8,2" HorizontalAlignment="Left">
-                                                <Border.Style>
-                                                    <Style TargetType="Border">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Rarity}" Value="Common">
-                                                                <Setter Property="Background" Value="#E0E0E0"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Rarity}" Value="Uncommon">
-                                                                <Setter Property="Background" Value="#81C784"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Rarity}" Value="Rare">
-                                                                <Setter Property="Background" Value="#64B5F6"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Rarity}" Value="Epic">
-                                                                <Setter Property="Background" Value="#BA68C8"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Rarity}" Value="Legendary">
-                                                                <Setter Property="Background" Value="#FFB74D"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-                                                <TextBlock Text="{Binding Rarity}" FontSize="10" FontWeight="Bold"/>
+                                            <Border CornerRadius="4" Padding="8,2" HorizontalAlignment="Left"
+                                                    Background="{Binding RarityWeight, Converter={StaticResource RarityWeightToColorConverter}}">
+                                                <TextBlock FontSize="10" FontWeight="Bold" Foreground="White">
+                                                    <Run Text="{Binding RarityWeight, Mode=OneWay}"/>
+                                                    <Run Text=" "/>
+                                                    <Run Text="{Binding RarityWeight, Converter={StaticResource RarityWeightToNameConverter}, Mode=OneWay}"/>
+                                                </TextBlock>
                                             </Border>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -264,12 +248,24 @@
                                        TextWrapping="Wrap"
                                        Margin="0,0,0,16"/>
 
-                            <TextBlock Text="Rarity" 
+                            <TextBlock Text="Rarity Weight" 
                                        Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                        Foreground="{DynamicResource MaterialDesignBodyLight}"
                                        Margin="0,0,0,4"/>
-                            <TextBlock Text="{Binding SelectedAbility.Rarity}" 
-                                       Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding SelectedAbility.RarityWeight}" 
+                                           Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                           VerticalAlignment="Center"/>
+                                <Border Background="{Binding SelectedAbility.RarityWeight, Converter={StaticResource RarityWeightToColorConverter}}"
+                                        CornerRadius="8"
+                                        Padding="8,2"
+                                        Margin="12,0,0,0">
+                                    <TextBlock Text="{Binding SelectedAbility.RarityWeight, Converter={StaticResource RarityWeightToNameConverter}}"
+                                               FontSize="10"
+                                               FontWeight="Bold"
+                                               Foreground="White"/>
+                                </Border>
+                            </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
 
@@ -300,20 +296,31 @@
                                      MaxLines="6"
                                      Margin="0,0,0,16"/>
 
-                            <ComboBox SelectedItem="{Binding EditRarity}"
-                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                      materialDesign:HintAssist.Hint="Rarity"
-                                      AutomationProperties.AutomationId="AbilityRarityComboBox">
-                                <ComboBox.ItemsSource>
-                                    <x:Array Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-                                        <sys:String>Common</sys:String>
-                                        <sys:String>Uncommon</sys:String>
-                                        <sys:String>Rare</sys:String>
-                                        <sys:String>Epic</sys:String>
-                                        <sys:String>Legendary</sys:String>
-                                    </x:Array>
-                                </ComboBox.ItemsSource>
-                            </ComboBox>
+                            <Grid Margin="0,0,0,16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBox Grid.Column="0"
+                                         Text="{Binding EditRarityWeight, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         materialDesign:HintAssist.Hint="Rarity Weight"
+                                         AutomationProperties.AutomationId="AbilityRarityWeightTextBox"
+                                         ToolTip="Numeric weight for rarity calculation (0-20:Common, 21-50:Uncommon, 51-100:Rare, 101-200:Epic, 201+:Legendary)"/>
+                                
+                                <Border Grid.Column="1"
+                                        Background="{Binding EditRarityWeight, Converter={StaticResource RarityWeightToColorConverter}}"
+                                        CornerRadius="12"
+                                        Padding="12,4"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding EditRarityWeight, Converter={StaticResource RarityWeightToNameConverter}}"
+                                               FontSize="11"
+                                               FontWeight="Bold"
+                                               Foreground="White"/>
+                                </Border>
+                            </Grid>
                         </StackPanel>
                     </ScrollViewer>
 
@@ -344,40 +351,47 @@
         </Grid>
 
         <!-- Status Bar -->
-        <materialDesign:Card Grid.Row="4" Margin="8" AutomationProperties.AutomationId="StatusBar">
-            <Grid Margin="16,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+        <StatusBar Grid.Row="4"
+                   Background="{DynamicResource MaterialDesignPaper}"
+                   BorderBrush="#E0E0E0"
+                   BorderThickness="0,1,0,0"
+                   Padding="16,8"
+                   Margin="8"
+                   AutomationProperties.AutomationId="StatusBar">
+            <StatusBarItem HorizontalContentAlignment="Stretch">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" 
-                           Text="{Binding StatusMessage}" 
-                           VerticalAlignment="Center"
-                           Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                    <TextBlock Grid.Column="0" 
+                               Text="{Binding StatusMessage}" 
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MaterialDesignBody2TextBlock}"/>
 
-                <Button Grid.Column="1" 
-                        Command="{Binding ReloadFileCommand}"
-                        Style="{StaticResource MaterialDesignOutlinedButton}"
-                        ToolTip="Reload from disk"
-                        Margin="0,0,8,0">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Refresh" VerticalAlignment="Center"/>
-                        <TextBlock Text="Reload" Margin="4,0,0,0"/>
-                    </StackPanel>
-                </Button>
+                    <Button Grid.Column="1" 
+                            Command="{Binding ReloadFileCommand}"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            ToolTip="Reload from disk"
+                            Margin="0,0,8,0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Refresh" VerticalAlignment="Center"/>
+                            <TextBlock Text="Reload" Margin="4,0,0,0"/>
+                        </StackPanel>
+                    </Button>
 
-                <Button Grid.Column="2" 
-                        Command="{Binding SaveFileCommand}"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        IsEnabled="{Binding IsDirty}">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="ContentSave" VerticalAlignment="Center"/>
-                        <TextBlock Text="Save File" Margin="4,0,0,0"/>
-                    </StackPanel>
-                </Button>
-            </Grid>
-        </materialDesign:Card>
-    </Grid>
-</UserControl>
+                    <Button Grid.Column="2" 
+                            Command="{Binding SaveFileCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            IsEnabled="{Binding IsDirty}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ContentSave" VerticalAlignment="Center"/>
+                            <TextBlock Text="Save File" Margin="4,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid></UserControl>

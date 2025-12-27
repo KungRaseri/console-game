@@ -1,4 +1,4 @@
-﻿{
+{
     "metadata":  {
                      "description":  "undead ability definitions and properties",
                      "version":  "1.0",
@@ -11,109 +11,109 @@
                       "name":  "Undying",
                       "displayName":  "Undying",
                       "description":  "Cannot be permanently killed without holy magic",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Life Drain",
                       "displayName":  "Life Drain",
                       "description":  "Steals life force from living creatures",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Necromantic Aura",
                       "displayName":  "Necromantic Aura",
                       "description":  "Weakens living enemies nearby",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Fearsome Presence",
                       "displayName":  "Fearsome Presence",
                       "description":  "Instills terror in those who behold it",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Immune to Poison",
                       "displayName":  "Immune to Poison",
                       "description":  "Cannot be poisoned or diseased",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Immune to Cold",
                       "displayName":  "Immune to Cold",
                       "description":  "Unaffected by ice and freezing",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Vulnerable to Fire",
                       "displayName":  "Vulnerable to Fire",
                       "description":  "Takes extra damage from flames",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Vulnerable to Holy",
                       "displayName":  "Vulnerable to Holy",
                       "description":  "Radiant magic is devastating",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Skeletal Frame",
                       "displayName":  "Skeletal Frame",
                       "description":  "Resistant to piercing, vulnerable to bludgeoning",
-                      "rarity":  "Common"
+                      "rarityWeight": 10
                   },
                   {
                       "name":  "Regeneration",
                       "displayName":  "Regeneration",
                       "description":  "Slowly reforms from damage",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Plague Bearer",
                       "displayName":  "Plague Bearer",
                       "description":  "Spreads disease with attacks",
-                      "rarity":  "Uncommon"
+                      "rarityWeight": 35
                   },
                   {
                       "name":  "Raise Dead",
                       "displayName":  "Raise Dead",
                       "description":  "Can summon lesser undead",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Death Touch",
                       "displayName":  "Death Touch",
                       "description":  "Can instantly kill weak enemies",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Incorporeal",
                       "displayName":  "Incorporeal",
                       "description":  "Physical attacks barely harm it",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "Ancient Evil",
                       "displayName":  "Ancient Evil",
                       "description":  "Powered by centuries of dark magic",
-                      "rarity":  "Legendary"
+                      "rarityWeight": 250
                   },
                   {
                       "name":  "Paralytic Touch",
                       "displayName":  "Paralytic Touch",
                       "description":  "Attacks may paralyze victims",
-                      "rarity":  "Rare"
+                      "rarityWeight": 75
                   },
                   {
                       "name":  "Shadow Walk",
                       "displayName":  "Shadow Walk",
                       "description":  "Can teleport through darkness",
-                      "rarity":  "Epic"
+                      "rarityWeight": 150
                   },
                   {
                       "name":  "Soul Harvest",
                       "displayName":  "Soul Harvest",
                       "description":  "Grows stronger with each kill",
-                      "rarity":  "Mythic"
+                      "rarityWeight": 500
                   }
               ],
     "components":  {
