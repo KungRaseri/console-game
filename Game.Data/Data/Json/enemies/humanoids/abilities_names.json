@@ -2,22 +2,22 @@
     "patterns":  [
                      {
                          "weight":  40,
-                         "pattern":  "[base]",
+                         "pattern":  "{base}",
                          "example":  "Ability Name"
                      },
                      {
                          "weight":  35,
-                         "pattern":  "[prefix] [base]",
+                         "pattern":  "{prefix} {base}",
                          "example":  "Enhanced Ability Name"
                      },
                      {
                          "weight":  20,
-                         "pattern":  "[base] [suffix]",
+                         "pattern":  "{base} {suffix}",
                          "example":  "Ability Name of Power"
                      },
                      {
                          "weight":  5,
-                         "pattern":  "[prefix] [base] [suffix]",
+                         "pattern":  "{prefix} {base} {suffix}",
                          "example":  "Enhanced Ability Name of Power"
                      }
                  ],
@@ -92,184 +92,76 @@
                                   ],
                        "base":  [
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Skilled Fighter",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Skilled Fighter"
+                                        "value":  "Tactical Mind",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Tactical Mind",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Tactical Mind"
+                                        "value":  "Opportunist",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Shield Mastery",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Shield Mastery"
+                                        "value":  "Coordinated Strike",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Dual Wielding",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Dual Wielding"
+                                        "value":  "Armor Expert",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Battle Cry",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Battle Cry"
+                                        "value":  "Magic Resistance",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Opportunist",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Opportunist"
+                                        "value":  "Skilled Fighter",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Marksman",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Marksman"
+                                        "value":  "Dual Wielding",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Berserker",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Berserker"
+                                        "value":  "Shield Mastery",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Magic Resistance",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Magic Resistance"
+                                        "value":  "Marksman",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Leadership",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Leadership"
+                                        "value":  "Weapon Master",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Assassin Training",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Assassin Training"
+                                        "value":  "Leadership",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Veteran Fighter",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Veteran Fighter"
+                                        "value":  "Champion",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Armor Expert",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Armor Expert"
+                                        "value":  "Battle Cry",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Weapon Master",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Weapon Master"
+                                        "value":  "Berserker",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Spellsword",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Spellsword"
+                                        "value":  "Revenge",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Champion",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Champion"
+                                        "value":  "Assassin Training",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Coordinated Strike",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Coordinated Strike"
+                                        "value":  "Spellsword",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Revenge",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Revenge"
+                                        "value":  "Veteran Fighter",
+                                        "rarityWeight":  35
                                     }
                                 ]
                    },

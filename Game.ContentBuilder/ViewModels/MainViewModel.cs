@@ -87,9 +87,6 @@ public partial class MainViewModel : ObservableObject
                 case EditorType.CatalogEditor:
                     LoadCatalogEditor(value.Tag?.ToString() ?? string.Empty);
                     break;
-                case EditorType.AbilitiesEditor:
-                    LoadAbilitiesEditor(value.Tag?.ToString() ?? string.Empty);
-                    break;
                 default:
                     CurrentEditor = null;
                     break;
@@ -145,31 +142,6 @@ public partial class MainViewModel : ObservableObject
         {
             StatusMessage = $"Failed to load types editor: {ex.Message}";
             Log.Error(ex, "Failed to load CatalogEditor for {FileName}", fileName);
-            CurrentEditor = null;
-        }
-    }
-
-    private void LoadAbilitiesEditor(string fileName)
-    {
-        try
-        {
-            Log.Debug("Loading AbilitiesEditor for {FileName}", fileName);
-
-            var viewModel = new AbilitiesEditorViewModel(_jsonEditorService, fileName);
-
-            var view = new AbilitiesEditorView
-            {
-                DataContext = viewModel
-            };
-
-            CurrentEditor = view;
-            StatusMessage = $"Loaded abilities editor for {fileName}";
-            Log.Information("AbilitiesEditor loaded successfully for {FileName}", fileName);
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Failed to load abilities editor: {ex.Message}";
-            Log.Error(ex, "Failed to load AbilitiesEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }

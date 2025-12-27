@@ -2,22 +2,22 @@
     "patterns":  [
                      {
                          "weight":  40,
-                         "pattern":  "[base]",
+                         "pattern":  "{base}",
                          "example":  "Ability Name"
                      },
                      {
                          "weight":  35,
-                         "pattern":  "[prefix] [base]",
+                         "pattern":  "{prefix} {base}",
                          "example":  "Enhanced Ability Name"
                      },
                      {
                          "weight":  20,
-                         "pattern":  "[base] [suffix]",
+                         "pattern":  "{base} {suffix}",
                          "example":  "Ability Name of Power"
                      },
                      {
                          "weight":  5,
-                         "pattern":  "[prefix] [base] [suffix]",
+                         "pattern":  "{prefix} {base} {suffix}",
                          "example":  "Enhanced Ability Name of Power"
                      }
                  ],
@@ -92,184 +92,76 @@
                                   ],
                        "base":  [
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Dragon Breath",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Dragon Breath"
+                                        "value":  "Lair Actions",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Armored Scales",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Armored Scales"
+                                        "value":  "Treasure Sense",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Flight",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Flight"
+                                        "value":  "Armored Scales",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Ancient Wisdom",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Ancient Wisdom"
+                                        "value":  "Magic Resistance",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Frightful Presence",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Frightful Presence"
+                                        "value":  "Elemental Immunity",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Tail Sweep",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Tail Sweep"
+                                        "value":  "Legendary Resistance",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Wing Buffet",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Wing Buffet"
+                                        "value":  "Dragon Breath",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Magic Resistance",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Magic Resistance"
+                                        "value":  "Tail Sweep",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Treasure Sense",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Treasure Sense"
+                                        "value":  "Wing Buffet",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Spellcasting",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Spellcasting"
+                                        "value":  "Crushing Bite",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Regeneration",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Regeneration"
+                                        "value":  "Spellcasting",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Elemental Immunity",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Elemental Immunity"
+                                        "value":  "Regeneration",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Shape Shifting",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Shape Shifting"
+                                        "value":  "Shape Shifting",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Legendary Resistance",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Legendary Resistance"
+                                        "value":  "Ancient Wisdom",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Lair Actions",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Lair Actions"
+                                        "value":  "Frightful Presence",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Crushing Bite",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Crushing Bite"
+                                        "value":  "Ancient Power",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Ancient Power",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Ancient Power"
+                                        "value":  "Godlike Might",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Godlike Might",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Godlike Might"
+                                        "value":  "Flight",
+                                        "rarityWeight":  10
                                     }
                                 ]
                    },

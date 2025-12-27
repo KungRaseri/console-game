@@ -2,22 +2,22 @@
     "patterns":  [
                      {
                          "weight":  40,
-                         "pattern":  "[base]",
+                         "pattern":  "{base}",
                          "example":  "Ability Name"
                      },
                      {
                          "weight":  35,
-                         "pattern":  "[prefix] [base]",
+                         "pattern":  "{prefix} {base}",
                          "example":  "Enhanced Ability Name"
                      },
                      {
                          "weight":  20,
-                         "pattern":  "[base] [suffix]",
+                         "pattern":  "{base} {suffix}",
                          "example":  "Ability Name of Power"
                      },
                      {
                          "weight":  5,
-                         "pattern":  "[prefix] [base] [suffix]",
+                         "pattern":  "{prefix} {base} {suffix}",
                          "example":  "Enhanced Ability Name of Power"
                      }
                  ],
@@ -92,184 +92,76 @@
                                   ],
                        "base":  [
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Regeneration",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Regeneration"
+                                        "value":  "Rage",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "ThickSkin",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "ThickSkin"
+                                        "value":  "MountainStrength",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Massive",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Massive"
+                                        "value":  "Regeneration",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "FireWeakness",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "FireWeakness"
+                                        "value":  "ThickSkin",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "RockThrow",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "RockThrow"
+                                        "value":  "Massive",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Smash",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Smash"
+                                        "value":  "FireWeakness",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "StoneForm",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "StoneForm"
+                                        "value":  "Colossus",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Rage",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Rage"
+                                        "value":  "PrimalTitan",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "ClubMaster",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "ClubMaster"
+                                        "value":  "WorldEater",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "MountainStrength",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "MountainStrength"
+                                        "value":  "StoneForm",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "CaveAdaptation",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "CaveAdaptation"
+                                        "value":  "CaveAdaptation",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "IceTroll",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "IceTroll"
+                                        "value":  "IceTroll",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "LavaImmunity",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "LavaImmunity"
+                                        "value":  "LavaImmunity",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "ChieftainCommand",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "ChieftainCommand"
+                                        "value":  "RockThrow",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Colossus",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Colossus"
+                                        "value":  "Smash",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "TrollKing",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "TrollKing"
+                                        "value":  "ClubMaster",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "PrimalTitan",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "PrimalTitan"
+                                        "value":  "ChieftainCommand",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "WorldEater",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "WorldEater"
+                                        "value":  "TrollKing",
+                                        "rarityWeight":  250
                                     }
                                 ]
                    },

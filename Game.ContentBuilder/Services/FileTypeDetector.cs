@@ -30,20 +30,25 @@ public static class FileTypeDetector
             var json = File.ReadAllText(filePath);
             var root = JObject.Parse(json);
 
+            // Check if filename contains patterns (more flexible matching)
+            if (fileName.Contains("names") && fileName.EndsWith(".json"))
+            {
+                return JsonFileType.NamesFile;
+            }
+
+            if (fileName.Contains("catalog") && fileName.EndsWith(".json"))
+            {
+                if (directoryName == "quests")
+                    return JsonFileType.QuestCatalog;  // Planned v4.0
+                
+                return JsonFileType.GenericCatalog;
+            }
+
             switch (fileName)
             {
                 // Active v4.0 Files
-                case "names.json":
-                    return JsonFileType.NamesFile;
-
                 case "abilities.json":
                     return JsonFileType.AbilityCatalog;
-
-                case "catalog.json" when directoryName == "quests":
-                    return JsonFileType.QuestCatalog;  // Planned v4.0
-
-                case "catalog.json":
-                    return JsonFileType.GenericCatalog;
 
                 // Planned v4.0 Files
                 case "rewards.json":
@@ -73,7 +78,6 @@ public static class FileTypeDetector
         {
             // Active v4.0 Editors
             JsonFileType.NamesFile => EditorType.NameListEditor,
-            JsonFileType.AbilityCatalog => EditorType.AbilitiesEditor,
             JsonFileType.GenericCatalog => EditorType.CatalogEditor,
             
             // Planned v4.0 Editors (not implemented yet)

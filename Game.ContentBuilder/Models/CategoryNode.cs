@@ -58,7 +58,6 @@ public enum EditorType
     // Active Editors (v4.0)
     NameListEditor,        // names.json: metadata + components + patterns + name generation
     CatalogEditor,         // catalog.json: item types (weapons, armor, etc.) with categories
-    AbilitiesEditor,       // abilities.json: enemy ability catalog with rarity
     
     // Future Editors (Planned for v4.0)
     QuestEditor,           // quests/catalog.json: quest templates, objectives, rewards

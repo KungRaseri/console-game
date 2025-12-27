@@ -2,22 +2,22 @@
     "patterns":  [
                      {
                          "weight":  40,
-                         "pattern":  "[base]",
+                         "pattern":  "{base}",
                          "example":  "Ability Name"
                      },
                      {
                          "weight":  35,
-                         "pattern":  "[prefix] [base]",
+                         "pattern":  "{prefix} {base}",
                          "example":  "Enhanced Ability Name"
                      },
                      {
                          "weight":  20,
-                         "pattern":  "[base] [suffix]",
+                         "pattern":  "{base} {suffix}",
                          "example":  "Ability Name of Power"
                      },
                      {
                          "weight":  5,
-                         "pattern":  "[prefix] [base] [suffix]",
+                         "pattern":  "{prefix} {base} {suffix}",
                          "example":  "Enhanced Ability Name of Power"
                      }
                  ],
@@ -92,184 +92,76 @@
                                   ],
                        "base":  [
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "SneakAttack",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "SneakAttack"
+                                        "value":  "PoisonWeapons",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "PackTactics",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "PackTactics"
+                                        "value":  "Berserker",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Cowardly",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Cowardly"
+                                        "value":  "BombThrower",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "TrapMaker",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "TrapMaker"
+                                        "value":  "SneakAttack",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "PoisonWeapons",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "PoisonWeapons"
+                                        "value":  "PackTactics",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "QuickReflexes",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "QuickReflexes"
+                                        "value":  "Cowardly",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Scavenger",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Scavenger"
+                                        "value":  "ShamanMagic",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Berserker",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Berserker"
+                                        "value":  "ShadowStep",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "TunnelFighter",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "TunnelFighter"
+                                        "value":  "VenomMaster",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "ShamanMagic",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "ShamanMagic"
+                                        "value":  "Scavenger",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "BombThrower",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "BombThrower"
+                                        "value":  "MechanicalGenius",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "WarChief",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "WarChief"
+                                        "value":  "CursedBloodline",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "ShadowStep",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "ShadowStep"
+                                        "value":  "DemonPact",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "MechanicalGenius",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "MechanicalGenius"
+                                        "value":  "TrapMaker",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "VenomMaster",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "VenomMaster"
+                                        "value":  "QuickReflexes",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "KingOfGoblins",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "KingOfGoblins"
+                                        "value":  "TunnelFighter",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "CursedBloodline",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "CursedBloodline"
+                                        "value":  "WarChief",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "DemonPact",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "DemonPact"
+                                        "value":  "KingOfGoblins",
+                                        "rarityWeight":  250
                                     }
                                 ]
                    },

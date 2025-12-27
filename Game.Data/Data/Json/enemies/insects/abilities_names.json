@@ -2,22 +2,22 @@
     "patterns":  [
                      {
                          "weight":  40,
-                         "pattern":  "[base]",
+                         "pattern":  "{base}",
                          "example":  "Ability Name"
                      },
                      {
                          "weight":  35,
-                         "pattern":  "[prefix] [base]",
+                         "pattern":  "{prefix} {base}",
                          "example":  "Enhanced Ability Name"
                      },
                      {
                          "weight":  20,
-                         "pattern":  "[base] [suffix]",
+                         "pattern":  "{base} {suffix}",
                          "example":  "Ability Name of Power"
                      },
                      {
                          "weight":  5,
-                         "pattern":  "[prefix] [base] [suffix]",
+                         "pattern":  "{prefix} {base} {suffix}",
                          "example":  "Enhanced Ability Name of Power"
                      }
                  ],
@@ -92,184 +92,76 @@
                                   ],
                        "base":  [
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Swarm",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Swarm"
+                                        "value":  "Regeneration",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Chitinous",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Chitinous"
+                                        "value":  "Metamorphosis",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Venomous",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Venomous"
+                                        "value":  "Flying",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Flying",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Flying"
+                                        "value":  "Burrowing",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Burrowing",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Burrowing"
+                                        "value":  "Swarm",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Acidic",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Acidic"
+                                        "value":  "Chitinous",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "WebSpinner",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "WebSpinner"
+                                        "value":  "Venomous",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Paralyzing",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Paralyzing"
+                                        "value":  "ColossalSize",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "HiveMind",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "HiveMind"
+                                        "value":  "Primordial",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Regeneration",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Regeneration"
+                                        "value":  "EldritchHorror",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Metamorphosis",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Metamorphosis"
+                                        "value":  "QueenCommand",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "QueenCommand",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "QueenCommand"
+                                        "value":  "MindControl",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "PlagueCarrier",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "PlagueCarrier"
+                                        "value":  "SwarmLord",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "MindControl",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "MindControl"
+                                        "value":  "WebSpinner",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "ColossalSize",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "ColossalSize"
+                                        "value":  "HiveMind",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "SwarmLord",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "SwarmLord"
+                                        "value":  "Acidic",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Primordial",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Primordial"
+                                        "value":  "Paralyzing",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "EldritchHorror",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "EldritchHorror"
+                                        "value":  "PlagueCarrier",
+                                        "rarityWeight":  150
                                     }
                                 ]
                    },

@@ -2,22 +2,22 @@
     "patterns":  [
                      {
                          "weight":  40,
-                         "pattern":  "[base]",
+                         "pattern":  "{base}",
                          "example":  "Ability Name"
                      },
                      {
                          "weight":  35,
-                         "pattern":  "[prefix] [base]",
+                         "pattern":  "{prefix} {base}",
                          "example":  "Enhanced Ability Name"
                      },
                      {
                          "weight":  20,
-                         "pattern":  "[base] [suffix]",
+                         "pattern":  "{base} {suffix}",
                          "example":  "Ability Name of Power"
                      },
                      {
                          "weight":  5,
-                         "pattern":  "[prefix] [base] [suffix]",
+                         "pattern":  "{prefix} {base} {suffix}",
                          "example":  "Enhanced Ability Name of Power"
                      }
                  ],
@@ -92,184 +92,76 @@
                                   ],
                        "base":  [
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Rooted",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Rooted"
+                                        "value":  "Regenerative",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Thorny",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Thorny"
+                                        "value":  "NaturalArmor",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Poisonous",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Poisonous"
+                                        "value":  "SeedSpawner",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Regenerative",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Regenerative"
+                                        "value":  "Ambulatory",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "SporeCloud",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "SporeCloud"
+                                        "value":  "Rooted",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "VineWhip",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "VineWhip"
+                                        "value":  "Thorny",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Carnivorous",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Carnivorous"
+                                        "value":  "Poisonous",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Parasitic",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Parasitic"
+                                        "value":  "Carnivorous",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Ambulatory",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Ambulatory"
+                                        "value":  "Parasitic",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Entangling",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Entangling"
+                                        "value":  "Entangling",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "NaturalArmor",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "NaturalArmor"
+                                        "value":  "Bioluminescent",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "SeedSpawner",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "SeedSpawner"
+                                        "value":  "AncientTreent",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Bioluminescent",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Bioluminescent"
+                                        "value":  "ForestSpirit",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "ToxicAura",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "ToxicAura"
+                                        "value":  "WorldTree",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "AncientTreent",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "AncientTreent"
+                                        "value":  "PrimalGrowth",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "ForestSpirit",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "ForestSpirit"
+                                        "value":  "SporeCloud",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "WorldTree",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "WorldTree"
+                                        "value":  "VineWhip",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "PrimalGrowth",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "PrimalGrowth"
+                                        "value":  "ToxicAura",
+                                        "rarityWeight":  150
                                     }
                                 ]
                    },

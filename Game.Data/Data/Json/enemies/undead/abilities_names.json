@@ -2,22 +2,22 @@
     "patterns":  [
                      {
                          "weight":  40,
-                         "pattern":  "[base]",
+                         "pattern":  "{base}",
                          "example":  "Ability Name"
                      },
                      {
                          "weight":  35,
-                         "pattern":  "[prefix] [base]",
+                         "pattern":  "{prefix} {base}",
                          "example":  "Enhanced Ability Name"
                      },
                      {
                          "weight":  20,
-                         "pattern":  "[base] [suffix]",
+                         "pattern":  "{base} {suffix}",
                          "example":  "Ability Name of Power"
                      },
                      {
                          "weight":  5,
-                         "pattern":  "[prefix] [base] [suffix]",
+                         "pattern":  "{prefix} {base} {suffix}",
                          "example":  "Enhanced Ability Name of Power"
                      }
                  ],
@@ -92,184 +92,76 @@
                                   ],
                        "base":  [
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Undying",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Undying"
+                                        "value":  "Necromantic Aura",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Life Drain",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Life Drain"
+                                        "value":  "Fearsome Presence",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Necromantic Aura",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Necromantic Aura"
+                                        "value":  "Life Drain",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Fearsome Presence",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Fearsome Presence"
+                                        "value":  "Death Touch",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Immune to Poison",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Immune to Poison"
+                                        "value":  "Paralytic Touch",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Immune to Cold",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Immune to Cold"
+                                        "value":  "Plague Bearer",
+                                        "rarityWeight":  35
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Vulnerable to Fire",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Vulnerable to Fire"
+                                        "value":  "Ancient Evil",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Vulnerable to Holy",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Vulnerable to Holy"
+                                        "value":  "Soul Harvest",
+                                        "rarityWeight":  500
                                     },
                                     {
-                                        "rarityWeight":  10,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Skeletal Frame",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Skeletal Frame"
+                                        "value":  "Immune to Poison",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Regeneration",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Regeneration"
+                                        "value":  "Immune to Cold",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  35,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Plague Bearer",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Plague Bearer"
+                                        "value":  "Shadow Walk",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Raise Dead",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Raise Dead"
+                                        "value":  "Raise Dead",
+                                        "rarityWeight":  150
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Death Touch",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Death Touch"
+                                        "value":  "Skeletal Frame",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Incorporeal",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Incorporeal"
+                                        "value":  "Regeneration",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  250,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Ancient Evil",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Ancient Evil"
+                                        "value":  "Incorporeal",
+                                        "rarityWeight":  250
                                     },
                                     {
-                                        "rarityWeight":  75,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Paralytic Touch",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Paralytic Touch"
+                                        "value":  "Undying",
+                                        "rarityWeight":  75
                                     },
                                     {
-                                        "rarityWeight":  150,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Shadow Walk",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Shadow Walk"
+                                        "value":  "Vulnerable to Fire",
+                                        "rarityWeight":  10
                                     },
                                     {
-                                        "rarityWeight":  500,
-                                        "traits":  {
-                                                       "abilityName":  {
-                                                                           "value":  "Soul Harvest",
-                                                                           "type":  "string"
-                                                                       }
-                                                   },
-                                        "value":  "Soul Harvest"
+                                        "value":  "Vulnerable to Holy",
+                                        "rarityWeight":  10
                                     }
                                 ]
                    },
