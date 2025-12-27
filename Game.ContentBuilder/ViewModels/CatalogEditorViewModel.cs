@@ -155,6 +155,37 @@ public partial class CatalogEditorViewModel : ObservableObject
 
         TypeCatalogs.Clear();
 
+        // Check for flat "items" array structure (new abilities format)
+        if (_jsonData["items"] is JArray flatItemsArray)
+        {
+            var catalog = new TypeCatalog
+            {
+                Name = "abilities",
+                Categories = new ObservableCollection<TypeCategory>()
+            };
+
+            var category = new TypeCategory
+            {
+                Name = "All Abilities",
+                Items = new ObservableCollection<TypeItem>(),
+                Traits = new ObservableCollection<TraitItem>()
+            };
+
+            foreach (var itemToken in flatItemsArray)
+            {
+                if (itemToken is JObject itemObj)
+                {
+                    var item = LoadTypeItem(itemObj);
+                    category.Items.Add(item);
+                }
+            }
+
+            catalog.Categories.Add(category);
+            TypeCatalogs.Add(catalog);
+            return;
+        }
+
+        // Handle nested *_types structure (old format)
         foreach (var prop in _jsonData.Properties())
         {
             // Skip metadata
@@ -203,36 +234,7 @@ public partial class CatalogEditorViewModel : ObservableObject
                         {
                             if (itemToken is JObject itemObj)
                             {
-                                var item = new TypeItem
-                                {
-                                    Name = itemObj["name"]?.ToString() ?? string.Empty,
-                                    RarityWeight = itemObj["rarityWeight"]?.ToObject<int>() ?? 1,
-                                    Properties = new ObservableCollection<PropertyItem>()
-                                };
-
-                                // Load all other properties dynamically
-                                foreach (var itemProp in itemObj.Properties())
-                                {
-                                    if (itemProp.Name == "name" || itemProp.Name == "rarityWeight" || itemProp.Name == "traits")
-                                        continue;
-
-                                    item.Properties.Add(new PropertyItem
-                                    {
-                                        Key = itemProp.Name,
-                                        Value = itemProp.Value.ToString()
-                                    });
-                                }
-
-                                // Load traits
-                                var traits = itemObj["traits"] as JArray;
-                                if (traits != null)
-                                {
-                                    foreach (var trait in traits)
-                                    {
-                                        item.Traits.Add(trait.ToString());
-                                    }
-                                }
-
+                                var item = LoadTypeItem(itemObj);
                                 category.Items.Add(item);
                             }
                         }
@@ -244,6 +246,52 @@ public partial class CatalogEditorViewModel : ObservableObject
                 TypeCatalogs.Add(catalog);
             }
         }
+    }
+
+    /// <summary>
+    /// Loads a TypeItem from a JObject (extracted for reuse)
+    /// </summary>
+    private TypeItem LoadTypeItem(JObject itemObj)
+    {
+        var item = new TypeItem
+        {
+            Name = itemObj["name"]?.ToString() ?? string.Empty,
+            RarityWeight = itemObj["rarityWeight"]?.ToObject<int>() ?? 1,
+            Properties = new ObservableCollection<PropertyItem>()
+        };
+
+        // Load all other properties dynamically
+        foreach (var itemProp in itemObj.Properties())
+        {
+            if (itemProp.Name == "name" || itemProp.Name == "rarityWeight" || itemProp.Name == "traits")
+                continue;
+
+            item.Properties.Add(new PropertyItem
+            {
+                Key = itemProp.Name,
+                Value = itemProp.Value.ToString()
+            });
+        }
+
+        // Load traits (handle both object and array formats)
+        if (itemObj["traits"] is JArray traitsArray)
+        {
+            foreach (var trait in traitsArray)
+            {
+                item.Traits.Add(trait.ToString());
+            }
+        }
+        else if (itemObj["traits"] is JObject traitsObj)
+        {
+            // New format: traits are objects with value/type
+            foreach (var traitProp in traitsObj.Properties())
+            {
+                var traitValue = traitProp.Value["value"]?.ToString() ?? traitProp.Value.ToString();
+                item.Traits.Add($"{traitProp.Name}: {traitValue}");
+            }
+        }
+
+        return item;
     }
 
     [RelayCommand]

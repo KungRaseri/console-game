@@ -139,7 +139,17 @@
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal">
                                                         <materialDesign:PackIcon Kind="ShapeSquarePlus" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                                                        <TextBlock Text="{Binding Name}"/>
+                                                        <TextBlock Text="{Binding Name}" Margin="0,0,8,0"/>
+                                                        <!-- Rarity Badge -->
+                                                        <Border Background="{Binding RarityWeight, Converter={StaticResource RarityWeightToColorConverter}}"
+                                                                CornerRadius="10" 
+                                                                Padding="6,2"
+                                                                VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding RarityWeight, Converter={StaticResource RarityWeightToNameConverter}}"
+                                                                       FontSize="10" 
+                                                                       FontWeight="Bold" 
+                                                                       Foreground="White"/>
+                                                        </Border>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </HierarchicalDataTemplate.ItemTemplate>

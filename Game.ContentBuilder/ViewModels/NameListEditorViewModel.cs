@@ -426,9 +426,15 @@ public partial class NameListEditorViewModel : ObservableObject
 
         try
         {
-            // Get the directory of the current names file
-            string directory = Path.GetDirectoryName(_fileName) ?? string.Empty;
+            // Get the full path first, then extract directory
+            string fullPath = _jsonEditorService.GetFilePath(_fileName);
+            string directory = Path.GetDirectoryName(fullPath) ?? string.Empty;
             string fileName = Path.GetFileName(_fileName);
+
+            Log.Information("=== LoadBaseNamesFromCatalog Debug ===");
+            Log.Information("Names file: {FileName}", fileName);
+            Log.Information("Full path: {FullPath}", fullPath);
+            Log.Information("Directory: {Directory}", directory);
 
             // Determine the catalog filename based on the names filename pattern
             // abilities_names.json → abilities_catalog.json
@@ -449,6 +455,8 @@ public partial class NameListEditorViewModel : ObservableObject
             }
 
             string catalogPath = Path.Combine(directory, catalogFileName);
+            Log.Information("Expected catalog path: {CatalogPath}", catalogPath);
+            Log.Information("Catalog exists: {Exists}", File.Exists(catalogPath));
 
             if (!File.Exists(catalogPath))
             {
@@ -474,11 +482,39 @@ public partial class NameListEditorViewModel : ObservableObject
             string catalogJson = File.ReadAllText(catalogPath);
             var catalog = JObject.Parse(catalogJson);
 
-            // Extract names from catalog structure
-            // For abilities_catalog.json: { "ability_types": { "offensive": { "items": [{ "name": "Infernal Flames" }] } } }
-            // For catalog.json: { "item_types": { "swords": { "items": [{ "name": "Longsword" }] } } }
+            Log.Information("Catalog parsed successfully");
+            Log.Information("Catalog root properties: {Props}", string.Join(", ", catalog.Properties().Select(p => p.Name)));
 
-            // Try common top-level keys
+            // Extract names from catalog structure
+            // New flat format: { "items": [{ "name": "Regeneration" }] }
+            // Old nested format: { "ability_types": { "offensive": { "items": [{ "name": "Infernal Flames" }] } } }
+
+            // First try flat "items" array at root (new abilities format)
+            if (catalog["items"] is JArray flatItems)
+            {
+                Log.Information("Found flat items array with {Count} items", flatItems.Count);
+                foreach (var item in flatItems)
+                {
+                    string? name = item["name"]?.ToString();
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        baseNames.Add(name);
+                    }
+                }
+
+                if (baseNames.Count > 0)
+                {
+                    Log.Information("✓ Loaded {Count} base names from {CatalogFile} (flat structure)", baseNames.Count, Path.GetFileName(catalogPath));
+                    Log.Information("First few names: {Names}", string.Join(", ", baseNames.Take(5)));
+                    return baseNames;
+                }
+            }
+            else
+            {
+                Log.Information("No flat items array found at root");
+            }
+
+            // Try nested structure (old format)
             var topLevelKeys = new[] { "ability_types", "beast_types", "item_types", "npc_types", "types" };
 
             foreach (var topKey in topLevelKeys)
@@ -504,11 +540,11 @@ public partial class NameListEditorViewModel : ObservableObject
 
             if (baseNames.Count > 0)
             {
-                Log.Information("✓ Loaded {Count} base names from {CatalogFile}", baseNames.Count, Path.GetFileName(catalogPath));
+                Log.Information("✓ Loaded {Count} base names from {CatalogFile} (nested structure)", baseNames.Count, Path.GetFileName(catalogPath));
             }
             else
             {
-                Log.Warning("✗ No base names found in {CatalogFile} - checked keys: {Keys}", Path.GetFileName(catalogPath), string.Join(", ", topLevelKeys));
+                Log.Warning("✗ No base names found in {CatalogFile} - checked both flat and nested structures", Path.GetFileName(catalogPath));
             }
         }
         catch (Exception ex)
@@ -996,6 +1032,15 @@ public partial class NameListEditorViewModel : ObservableObject
         {
             var random = new Random();
             var baseNames = LoadBaseNamesFromCatalog();
+            
+            Log.Information("=== GenerateExampleForPattern Debug ===");
+            Log.Information("Pattern: {Pattern}", pattern.PatternTemplate);
+            Log.Information("Base names loaded: {Count}", baseNames.Count);
+            if (baseNames.Count > 0)
+            {
+                Log.Information("Sample base names: {Names}", string.Join(", ", baseNames.Take(3)));
+            }
+            
             var examples = new List<string>();
             var usedExamples = new HashSet<string>();
 
