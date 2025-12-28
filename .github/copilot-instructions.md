@@ -57,9 +57,32 @@ console-game/
 - ✅ All 60 JSON data files (names.json + catalog.json) 100% compliant
 - ✅ All 33 .cbconfig.json files 100% compliant
 
-## JSON Data Standards (v4.0)
+## JSON Data Standards (v4.0 + v4.1 References)
 
 **All game data files follow strict standards documented in `docs/standards/json/`:**
+
+### JSON Reference System v4.1
+
+**Purpose**: Unified system for linking game data across domains to eliminate duplication
+
+**Reference Syntax**: `@domain/path/category:item-name[filters]?.property.nested`
+
+**Common Reference Patterns**:
+- Abilities: `@abilities/active/offensive:basic-attack`
+- Classes: `@classes/warriors:fighter`
+- Items: `@items/weapons/swords:iron-longsword`
+- Enemies: `@enemies/humanoid:goblin-warrior`
+- NPCs: `@npcs/merchants:blacksmith`
+- Quests: `@quests/main-story:chapter-1`
+
+**Features**:
+- Direct references: Link to specific items
+- Property access: Use dot notation (`.property.nested`)
+- Wildcard selection: `:*` for random item respecting rarityWeight
+- Optional references: `?` suffix returns null instead of error
+- Filtering: Support for operators (=, !=, <, <=, >, >=, EXISTS, NOT EXISTS, MATCHES)
+
+**Documentation**: `docs/standards/json/JSON_REFERENCE_STANDARDS.md`
 
 ### names.json Standard (Pattern Generation)
 
@@ -74,7 +97,7 @@ console-game/
 
 **Pattern Syntax:**
 - Component tokens: `{base}`, `{prefix}`, `{suffix}`, `{quality}`
-- External references: `[@materialRef/weapon]`, `[@materialRef/armor]`
+- External references: Use v4.1 syntax `@items/materials/metals` instead of old `[@materialRef/weapon]`
 - NO "example" fields allowed
 
 ### catalog.json Standard (Item/Enemy Definitions)
@@ -85,6 +108,7 @@ console-game/
 **Structure:**
 - All items MUST have `name` and `rarityWeight`
 - Physical "weight" allowed (item weight in lbs)
+- Use references instead of hardcoded names (e.g., `@abilities/...` not "Basic Attack")
 
 ### .cbconfig.json Standard (ContentBuilder UI)
 
@@ -94,13 +118,17 @@ console-game/
 
 ### Compliance Status
 
-✅ **100% Compliance Achieved (December 27, 2025)**
-
+✅ **JSON v4.0 Standards Compliance (December 27, 2025)**
 - **names.json**: 30/30 files compliant
 - **catalog.json**: 28/28 files compliant
 - **.cbconfig.json**: 33/33 files compliant
 
+✅ **JSON v4.1 Reference System (December 28, 2025)**
+- **classes/catalog.json**: ✅ All abilities and parentClass use references
+- **classes/progression.json**: ✅ Merged into catalog.json (deleted)
+
 **Standards Documentation:**
+- `docs/standards/json/JSON_REFERENCE_STANDARDS.md` - **NEW v4.1**
 - `docs/standards/json/NAMES_JSON_STANDARD.md`
 - `docs/standards/json/CATALOG_JSON_STANDARD.md`
 - `docs/standards/json/CBCONFIG_STANDARD.md`

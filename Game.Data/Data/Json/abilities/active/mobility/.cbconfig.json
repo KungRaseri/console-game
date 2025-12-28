@@ -1,0 +1,6 @@
+{
+  "icon": "Run",
+  "displayName": "Mobility Abilities",
+  "description": "Movement, teleportation, and positioning abilities",
+  "sortOrder": 30
+}
