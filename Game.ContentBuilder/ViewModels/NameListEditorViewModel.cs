@@ -119,13 +119,13 @@ public partial class NameListEditorViewModel : ObservableObject
             if (root["components"] is JObject compsObj)
             {
                 Log.Debug("Found components object with {Count} properties", compsObj.Properties().Count());
-                
+
                 // Process components in parallel for faster loading
                 await Task.Run(() =>
                 {
                     var componentsList = new List<KeyValuePair<string, ObservableCollection<NameComponentBase>>>();
                     var componentNames = new List<string>();
-                    
+
                     foreach (var prop in compsObj.Properties())
                     {
                         var name = prop.Name;
@@ -210,7 +210,7 @@ public partial class NameListEditorViewModel : ObservableObject
                         }
                         componentsList.Add(new KeyValuePair<string, ObservableCollection<NameComponentBase>>(name, list));
                     }
-                    
+
                     // Update UI collections on UI thread
                     System.Windows.Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -224,7 +224,7 @@ public partial class NameListEditorViewModel : ObservableObject
                         }
                     });
                 });
-                
+
                 Log.Information("Loaded {Count} component groups with {Total} total components", Components.Count, Components.Sum(kvp => kvp.Value.Count));
                 MainWindow.AddLog($"Loaded {Components.Count} component groups with {Components.Sum(kvp => kvp.Value.Count)} total components");
             }
@@ -241,7 +241,7 @@ public partial class NameListEditorViewModel : ObservableObject
                 IsReadOnly = true
             };
             Patterns.Add(basePattern);
-            
+
             // Defer token parsing to avoid blocking UI
             await Task.Run(() => ParsePatternIntoTokens(basePattern));
 
@@ -333,13 +333,10 @@ public partial class NameListEditorViewModel : ObservableObject
             // Generate examples for patterns asynchronously
             _ = Task.Run(() => GeneratePatternExamples());
 
-            // Update statistics and validation asynchronously
-            await Task.Run(() =>
-            {
-                UpdateStats();
-                ValidateData();
-            });
-            
+            // Update statistics and validation on UI thread
+            UpdateStats();
+            ValidateData();
+
             ApplyPatternFilter();
 
             StatusMessage = $"Loaded v4 names.json from {filePath}";
