@@ -1,12 +1,17 @@
 # JSON Structure Types v4.0
 
 **Version**: 4.0  
-**Last Updated**: December 27, 2025  
+**Last Updated**: December 28, 2025  
 **Status**: Standard
 
 ## Overview
 
 This document defines the five core JSON structure types used throughout the game data system. Each type serves a specific purpose and follows a standardized schema to ensure consistency, maintainability, and compatibility with the ContentBuilder UI.
+
+**Related Documentation:**
+- [JSON_REFERENCE_STANDARDS.md](./JSON_REFERENCE_STANDARDS.md) - Reference system for linking between files
+- [CATALOG_JSON_STANDARD.md](./CATALOG_JSON_STANDARD.md) - Detailed catalog specifications
+- [NAMES_JSON_STANDARD.md](./NAMES_JSON_STANDARD.md) - Pattern generation specifications
 
 ---
 

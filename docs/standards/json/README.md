@@ -8,10 +8,15 @@
 
 ## Quick Reference
 
+### Core Standards
+| Standard | Document | Purpose |
+|----------|----------|---------|
+| **Structure Types** | [JSON_STRUCTURE_TYPES.md](JSON_STRUCTURE_TYPES.md) | All 5 structure types (CATALOG, PATTERN_GENERATION, etc.) |
+| **References** | [JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md) | Unified reference system for linking JSON files |
+
 ### Structure Types
 | Structure Type | Standard Document | Purpose |
 |----------------|-------------------|---------|
-| **ALL TYPES** | [JSON_STRUCTURE_TYPES.md](JSON_STRUCTURE_TYPES.md) | Comprehensive guide to all 5 structure types |
 | CATALOG | [CATALOG_JSON_STANDARD.md](CATALOG_JSON_STANDARD.md) | Selectable entities (abilities, items, enemies) |
 | PATTERN_GENERATION | [NAMES_JSON_STANDARD.md](NAMES_JSON_STANDARD.md) | Procedural name generation |
 | COMPONENT_LIBRARY | [JSON_STRUCTURE_TYPES.md#3-component_library-structure](JSON_STRUCTURE_TYPES.md#3-component_library-structure) | Reusable data arrays (adjectives, colors) |
