@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Unified armor naming system with prefix/suffix support and trait assignment (v4.0)",
     "version": "4.0",
-    "lastUpdated": "2025-12-17",
+    "lastUpdated": "2025-12-27",
     "type": "pattern_generation",
     "supportsTraits": true,
     "componentKeys": [
@@ -13,7 +13,6 @@
     "patternTokens": [
       "base",
       "prefix",
-      "material",
       "quality",
       "descriptive",
       "suffix"
@@ -22,6 +21,7 @@
     "raritySystem": "weight-based",
     "notes": [
       "Base token resolves from items/armor/catalog.json",
+      "Material references ([@materialRef/armor]) dynamically load from materials/catalog.json",
       "Prefixes and suffixes merged from separate files (deprecated in v4.0)",
       "Traits are applied when components are selected in patterns",
       "Trait merging: numbers take highest, strings take last, booleans use OR",
@@ -1244,7 +1244,7 @@
       "rarityWeight": 100
     },
     {
-      "pattern": "{material} {base}",
+      "pattern": "[@materialRef/armor] {base}",
       "rarityWeight": 50
     },
     {
@@ -1264,15 +1264,15 @@
       "rarityWeight": 30
     },
     {
-      "pattern": "{material} {base} {suffix}",
+      "pattern": "[@materialRef/armor] {base} {suffix}",
       "rarityWeight": 20
     },
     {
-      "pattern": "{quality} {material} {base}",
+      "pattern": "{quality} [@materialRef/armor] {base}",
       "rarityWeight": 15
     },
     {
-      "pattern": "{prefix} {material} {base}",
+      "pattern": "{prefix} [@materialRef/armor] {base}",
       "rarityWeight": 10
     },
     {
@@ -1288,19 +1288,19 @@
       "rarityWeight": 8
     },
     {
-      "pattern": "{quality} {material} {base} {suffix}",
+      "pattern": "{quality} [@materialRef/armor] {base} {suffix}",
       "rarityWeight": 5
     },
     {
-      "pattern": "{prefix} {material} {base} {suffix}",
+      "pattern": "{prefix} [@materialRef/armor] {base} {suffix}",
       "rarityWeight": 3
     },
     {
-      "pattern": "{descriptive} {material} {base} {suffix}",
+      "pattern": "{descriptive} [@materialRef/armor] {base} {suffix}",
       "rarityWeight": 4
     },
     {
-      "pattern": "{prefix} {quality} {material} {base} {suffix}",
+      "pattern": "{prefix} {quality} [@materialRef/armor] {base} {suffix}",
       "rarityWeight": 1
     }
   ]

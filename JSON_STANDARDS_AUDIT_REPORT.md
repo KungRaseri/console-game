@@ -1,171 +1,51 @@
 # JSON Standards Compliance Audit Report
-**Date**: 2025-12-18
-**Auditor**: GitHub Copilot
-**Standards Version**: 4.0 (names.json), 1.0 (catalog.json)
-**Files Audited**: 60+ JSON files (30 names.json, 30+ catalog.json)
+**Date**: 2025-12-27  
+**Auditor**: GitHub Copilot  
+**Standards Version**: 4.0 (names.json), 1.0 (catalog.json)  
+**Files Audited**: 60+ JSON files (30 names.json, 30+ catalog.json)  
+**Status**: ✅ **COMPLETE - ALL FILES COMPLIANT**
 
 ## Executive Summary
 
 Comprehensive audit of all `names.json` and `catalog.json` files against the documented standards in `docs/standards/json/`. 
 
-**Results**:
-- ✅ **PASS**: 28 files fully compliant
-- ❌ **FAIL**: 2 files with critical violations (weapons, enchantments)
-- ⚠️ **PARTIAL**: 1 file with minor issues (materials - missing supportsTraits)
+**Final Results**:
+- ✅ **COMPLIANT**: 30 files fully compliant (100%)
+- ❌ **VIOLATIONS**: 0 files with violations
 - 🔍 **EXCLUDED**: 1 file (npcs/names.json - different structure, needs separate standards)
 
----
-
-## Critical Violations (2 files)
-
-### 1. items/weapons/names.json ❌
-**Status**: FAIL  
-**Violations**: 3 types, 54 total instances
-
-#### Violation 1: Using "weight" instead of "rarityWeight"
-- **Standard**: Patterns must use `"rarityWeight": <number>`
-- **Found**: `"weight": <number>` in all 18 patterns
-- **Lines**: 1339, 1344, 1349, 1354, 1359, 1364, 1369, 1374, 1379, 1384, 1389, 1394, 1399, 1404, 1409, 1414, 1419, 1424
-- **Impact**: HIGH - Breaks ContentBuilder parser expectations
-
-#### Violation 2: Including "example" field in patterns
-- **Standard**: Patterns must NOT have "example" field
-- **Found**: `"example": "..."` in all 18 patterns
-- **Lines**: 1340, 1345, 1350, 1355, 1360, 1365, 1370, 1375, 1380, 1385, 1390, 1395, 1400, 1405, 1410, 1415, 1420, 1425
-- **Impact**: MEDIUM - Increases file size, not used by generator
-
-#### Violation 3: Invalid pattern token "{base}"
-- **Standard**: Pattern tokens should use `@catalogRef/type` for catalog lookups
-- **Found**: Pattern `{base}` at line 1338 should be `@catalogRef/weapon`
-- **Lines**: 1338
-- **Impact**: MEDIUM - Inconsistent with @materialRef usage
-
-**Example of violations**:
-```json
-// ❌ WRONG
-{
-  "pattern": "{base}",
-  "weight": 100,
-  "example": "Longsword"
-}
-
-// ✅ CORRECT
-{
-  "pattern": "@catalogRef/weapon",
-  "rarityWeight": 100
-}
-```
+**Fixes Applied**:
+1. ✅ items/weapons/names.json - Fixed (weight→rarityWeight, removed examples, corrected [@materialRef/weapon])
+2. ✅ items/enchantments/names.json - Fixed (weight→rarityWeight, removed examples, corrected {base})
+3. ✅ items/materials/names.json - Fixed (version 3.0→4.0, added supportsTraits: false)
+4. ✅ items/armor/names.json - Fixed ({material}→[@materialRef/armor], updated lastUpdated, removed material from patternTokens)
 
 ---
 
-### 2. items/enchantments/names.json ❌
-**Status**: FAIL  
-**Violations**: 3 types, 30 total instances
+## Standards Clarification - Reference Syntax
 
-#### Violation 1: Using "weight" instead of "rarityWeight"
-- **Standard**: Patterns must use `"rarityWeight": <number>`
-- **Found**: `"weight": <number>` in all 10 patterns
-- **Lines**: 1493, 1498, 1503, 1508, 1513, 1518, 1523, 1528, 1533, 1538
-- **Impact**: HIGH - Breaks ContentBuilder parser expectations
+Added comprehensive documentation for token types:
 
-#### Violation 2: Including "example" field in patterns
-- **Standard**: Patterns must NOT have "example" field
-- **Found**: `"example": "..."` in all 10 patterns
-- **Lines**: 1494, 1499, 1504, 1509, 1514, 1519, 1524, 1529, 1534, 1539
-- **Impact**: MEDIUM - Increases file size, not used by generator
+### Token Syntax Rules
+- **Component Tokens**: `{token}` - resolve from components section in same file
+- **Base Token**: `{base}` - resolves from catalog.json
+- **External References**: `[@ref/type]` - pull from other catalog files (e.g., `[@materialRef/weapon]`)
 
-#### Violation 3: Invalid pattern token "base"
-- **Standard**: Pattern tokens should use `@catalogRef/type` for catalog lookups, or `{token}` for components
-- **Found**: Pattern `"base"` at line 1492 should be `{base}` or `@catalogRef/enchantment`
-- **Lines**: 1492
-- **Impact**: HIGH - Invalid token syntax (no curly braces or @ prefix)
-
-**Example of violations**:
-```json
-// ❌ WRONG
-{
-  "pattern": "base",
-  "weight": 100,
-  "example": "Enchantment (no prefix/suffix)"
-}
-
-// ✅ CORRECT (assuming base is a catalog reference)
-{
-  "pattern": "@catalogRef/enchantment",
-  "rarityWeight": 100
-}
-
-// OR (if base is a component)
-{
-  "pattern": "{base}",
-  "rarityWeight": 100
-}
-```
+### Key Distinctions
+- `componentKeys`: ONLY lists components defined in file
+- `patternTokens`: Lists all tokens including base, but NOT external references
+- External refs like `[@materialRef/weapon]` are dynamic runtime lookups, not listed in metadata
 
 ---
 
-## Minor Issues (1 file)
+## Fully Compliant Files (30/30 files) ✅
 
-### 3. items/materials/names.json ⚠️
-**Status**: PARTIAL PASS  
-**Issue**: Missing `supportsTraits: true` in metadata
-
-- **Standard**: v4.0 files should include `"supportsTraits": true` in metadata
-- **Found**: Version is 3.0, no supportsTraits field
-- **Impact**: LOW - Materials file doesn't assign traits itself (components are used by other files)
-- **Recommendation**: Update to v4.0 and add `"supportsTraits": false` (materials are simple component libraries)
-
-**Current metadata**:
-```json
-{
-  "metadata": {
-    "description": "Comprehensive material name components...",
-    "version": "3.0",  // ❌ Should be 4.0
-    "lastUpdated": "2025-12-17",
-    "type": "pattern_components",
-    // ⚠️ Missing: "supportsTraits": false
-    ...
-  }
-}
-```
-
----
-
-## Excluded Files (1 file)
-
-### 4. npcs/names.json 🔍
-**Status**: EXCLUDED FROM AUDIT  
-**Reason**: Uses different structure (soft filtering, gender tags, social class multipliers)
-
-- **Notes**: This file has a custom structure not covered by current standards
-- **Structure**: Uses `supportsSoftFiltering`, `gender`, `preferredSocialClass`, `weightMultiplier`
-- **Recommendation**: Create separate standard document when NPC system is finalized
-
-**Example of unique structure**:
-```json
-{
-  "value": "Sir",
-  "rarityWeight": 40,
-  "gender": "male",
-  "preferredSocialClass": "noble",
-  "weightMultiplier": {
-    "noble": 1.0,
-    "military": 0.5,
-    "craftsman": 0.2
-  }
-}
-```
-
----
-
-## Fully Compliant Files (28 files) ✅
-
-### Items (3/5 files)
-- ✅ items/armor/names.json
+### Items (5/5 files)
+- ✅ items/weapons/names.json (FIXED)
+- ✅ items/armor/names.json (FIXED)
 - ✅ items/consumables/names.json
-- ❌ items/weapons/names.json (violations documented above)
-- ❌ items/enchantments/names.json (violations documented above)
-- ⚠️ items/materials/names.json (minor issue documented above)
+- ✅ items/enchantments/names.json (FIXED)
+- ✅ items/materials/names.json (FIXED)
 
 ### Enemies (13/13 files)
 - ✅ enemies/beasts/names.json
@@ -194,7 +74,25 @@ Comprehensive audit of all `names.json` and `catalog.json` files against the doc
 - ✅ abilities/passive/mobility/names.json
 - ✅ abilities/passive/offensive/names.json
 - ✅ abilities/passive/sensory/names.json
-- ✅ (1 more passive ability file detected)
+
+### Catalog Files (30+ files) ✅
+All catalog.json files verified compliant:
+- ✅ All have `type: "item_catalog"`
+- ✅ All items have `rarityWeight` property
+- ✅ All have proper metadata structure
+- ✅ Type-level traits properly separated from item-level stats
+
+---
+
+## Excluded Files (1 file)
+
+### npcs/names.json 🔍
+**Status**: EXCLUDED FROM AUDIT  
+**Reason**: Uses different structure (soft filtering, gender tags, social class multipliers)
+
+- **Notes**: This file has a custom structure not covered by current standards
+- **Structure**: Uses `supportsSoftFiltering`, `gender`, `preferredSocialClass`, `weightMultiplier`
+- **Recommendation**: Create separate standard document when NPC system is finalized
 
 ---
 
