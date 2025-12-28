@@ -17,6 +17,7 @@
       "suffix"
     ],
     "raritySystem": "weight-based",
+    "supportsTraits": true,
     "supportsSoftFiltering": true,
     "notes": [
       "Titles use soft filtering with weight multipliers based on social class",
