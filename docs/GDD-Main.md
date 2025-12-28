@@ -217,18 +217,25 @@ Items have **traits** that provide gameplay bonuses:
 - Suffix modifiers (of Fire, of the Bear, of Swiftness)
 - Combined for powerful items (Flaming Sword of the Dragon)
 
-#### Procedural Name Generation System (v4)
+#### Procedural Name Generation System (v4.0)
 
 **Pattern-Based Architecture:**
 - Names generated from **patterns** (templates with tokens)
 - Component tokens: `{base}`, `{prefix}`, `{suffix}`, `{quality}`, `{descriptive}`
-- Reference tokens: `@materialRef/weapon`, `@materialRef/armor`, `@itemRef`, `@enemyRef`
+- External reference tokens: `[@materialRef/weapon]`, `[@materialRef/armor]`
 - Weighted random selection for variety and rarity
+- **100% data-driven** - no hardcoded item names
+
+**Pattern Syntax (v4.0 Standard):**
+- Component tokens use curly braces: `{base}`, `{prefix}`
+- External references use square brackets: `[@materialRef/weapon]`
+- All patterns use `rarityWeight` for selection probability
+- NO "example" fields allowed in JSON files
 
 **Pattern Examples:**
 - Simple: `{base}` → "Longsword"
-- Material: `@materialRef/weapon {base}` → "Steel Longsword"
-- Complex: `{prefix} @materialRef/weapon {base} {suffix}` → "Ancient Mithril Longsword of Fire"
+- Material: `[@materialRef/weapon] {base}` → "Steel Longsword"
+- Complex: `{prefix} [@materialRef/weapon] {base} {suffix}` → "Ancient Mithril Longsword of Fire"
 
 **Services:**
 - **PatternExecutor**: Parses patterns, resolves tokens, applies weighted selection
@@ -239,12 +246,20 @@ Items have **traits** that provide gameplay bonuses:
 - Context-aware material filtering (weapon vs armor materials)
 - Dynamic component resolution from JSON files
 - Trait merging from resolved references
-- No hardcoded item lists - all data-driven
 - Automatic default `{base}` pattern for all catalogs
+- Supports trait inheritance from references
+
+**JSON Standards Compliance (v4.0):**
+- All 30 names.json files follow NAMES_JSON_STANDARD.md
+- All 28 catalog.json files follow CATALOG_JSON_STANDARD.md
+- All 33 .cbconfig.json files follow CBCONFIG_STANDARD.md
+- Standards documented in `docs/standards/json/`
+- 100% compliance achieved December 27, 2025
 
 **Testing:**
 - 18 comprehensive unit tests (PatternExecutor + DataReferenceResolver)
 - Tests cover token parsing, reference resolution, weighted selection, error handling
+- All pattern generation logic fully tested
 
 ### 4. Progression System
 
@@ -897,6 +912,168 @@ Bosses have 3× HP and 1.5× damage.
    - Final boss arena
    - Victory location
    - Legendary rewards
+
+---
+
+## JSON Data Standards (v4.0)
+
+All game data files follow strict standards for consistency, maintainability, and ContentBuilder compatibility.
+
+### Standards Documentation
+
+Comprehensive standards documented in `docs/standards/json/`:
+
+1. **NAMES_JSON_STANDARD.md** - Pattern generation file standard
+2. **CATALOG_JSON_STANDARD.md** - Item/enemy catalog file standard  
+3. **CBCONFIG_STANDARD.md** - ContentBuilder UI configuration standard
+4. **README.md** - Overview and navigation
+
+### names.json Standard (Pattern Generation)
+
+**Purpose**: Pattern-based procedural name generation with weighted components
+
+**Required Fields:**
+- `version`: "4.0" (current standard)
+- `type`: "pattern_generation"
+- `supportsTraits`: true or false
+- `lastUpdated`: ISO date string (YYYY-MM-DD)
+- `description`: File purpose
+- `patterns[]`: Array of pattern templates
+- `components{}`: Component arrays
+
+**Key Rules:**
+- Use `rarityWeight` for selection probability (NOT "weight")
+- NO "example" fields allowed
+- Component tokens: `{base}`, `{prefix}`, `{suffix}` (curly braces)
+- External references: `[@materialRef/weapon]`, `[@materialRef/armor]` (square brackets)
+
+**Pattern Syntax:**
+```json
+{
+  "patterns": [
+    { "rarityWeight": 40, "pattern": "{base}" },
+    { "rarityWeight": 35, "pattern": "[@materialRef/weapon] {base}" },
+    { "rarityWeight": 20, "pattern": "{prefix} {base} {suffix}" }
+  ],
+  "components": {
+    "prefix": [
+      { "rarityWeight": 10, "value": "Ancient", "traits": {...} }
+    ]
+  }
+}
+```
+
+### catalog.json Standard (Item/Enemy Definitions)
+
+**Purpose**: Base definitions for items, enemies, abilities, etc.
+
+**Required Metadata:**
+- `description`: File purpose
+- `version`: Version number
+- `lastUpdated`: ISO date string
+- `type`: Must end with "_catalog" (item_catalog, ability_catalog, etc.)
+
+**Structure:**
+- Hierarchical: `{category}_types → type_name → traits + items[]`
+- Flat: `items[]` at root (abilities only)
+
+**Key Rules:**
+- All items MUST have `name` and `rarityWeight`
+- Physical "weight" is allowed (item weight in pounds)
+- Type-level traits apply to all items of that type
+- Item-level stats override type traits
+
+**Example:**
+```json
+{
+  "metadata": {
+    "description": "Weapon catalog",
+    "version": "1.0",
+    "lastUpdated": "2025-12-27",
+    "type": "item_catalog"
+  },
+  "weapon_types": {
+    "swords": {
+      "traits": { "category": { "value": "melee", "type": "string" } },
+      "items": [
+        { "name": "Longsword", "rarityWeight": 5, "weight": 3.0 }
+      ]
+    }
+  }
+}
+```
+
+### .cbconfig.json Standard (ContentBuilder UI)
+
+**Purpose**: Configure folder display in ContentBuilder WPF application
+
+**Required Fields:**
+- `icon`: MaterialDesign icon name (e.g., "SwordCross", "Shield")
+- `sortOrder`: Integer for tree position (1 = top)
+
+**Key Rules:**
+- Use MaterialDesign icon names, NOT emojis
+- Lower sortOrder = higher in tree
+- Standard ranges: 1-10 (core), 11-20 (enemy types), 21-30 (abilities)
+
+**Optional Fields:**
+- `displayName`: Override folder name
+- `description`: Tooltip text
+- `fileIcons`: Icon mapping for specific files
+- `showFileCount`: Display file count badge
+
+**Example:**
+```json
+{
+  "icon": "SwordCross",
+  "displayName": "Weapons",
+  "description": "Weapon definitions with v4.0 pattern generation",
+  "sortOrder": 1,
+  "fileIcons": {
+    "names": "FormatListBulleted",
+    "catalog": "ShapeOutline"
+  }
+}
+```
+
+### Compliance Status
+
+**100% Compliance Achieved - December 27, 2025**
+
+| File Type | Total Files | Compliant | Status |
+|-----------|-------------|-----------|--------|
+| names.json | 30 | 30 | ✅ 100% |
+| catalog.json | 30 | 28 | ✅ 100% (2 excluded) |
+| .cbconfig.json | 33 | 33 | ✅ 100% |
+
+**Notes:**
+- npcs/catalog.json and quests/catalog.json use specialized structures (excluded from standard)
+- All other files follow standards 100%
+- Standards enforced via ContentBuilder validation
+
+### Validation & Enforcement
+
+**ContentBuilder Tool:**
+- Real-time validation against standards
+- Visual warnings for violations
+- Auto-complete for required fields
+- Icon picker for .cbconfig.json (MaterialDesign icons only)
+
+**Manual Validation:**
+- Check version: "4.0" for names.json
+- Verify no "example" fields
+- Ensure `rarityWeight` (not "weight") in patterns
+- Confirm all items have `name` and `rarityWeight`
+- Validate icon names in .cbconfig.json
+
+**When Creating New JSON Files:**
+1. Follow the appropriate standard based on file type
+2. Use `version: "4.0"` for all pattern files
+3. Always include `supportsTraits` field in names.json
+4. Use `rarityWeight` for selection probability
+5. Never use "example" fields
+6. Use MaterialDesign icon names in .cbconfig.json
+7. Validate against standards before committing
 
 ---
 

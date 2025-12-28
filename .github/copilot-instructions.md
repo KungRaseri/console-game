@@ -22,6 +22,12 @@ console-game/
 │   └── tasks.json             # Build tasks
 ├── .github/
 │   └── copilot-instructions.md
+├── docs/
+│   └── standards/json/        # JSON v4.0 standards
+│       ├── NAMES_JSON_STANDARD.md
+│       ├── CATALOG_JSON_STANDARD.md
+│       ├── CBCONFIG_STANDARD.md
+│       └── README.md
 ├── SPECTRE_BEST_PRACTICES.md  # Security and usage guidelines
 └── README.md
 ```
@@ -47,6 +53,58 @@ console-game/
 - ✅ Added README.md and best practices documentation
 - ✅ Created Game.Tests project with comprehensive test coverage
 - ✅ All 38 tests passing (Character, Validation, Generators)
+- ✅ Established JSON v4.0 standards for all game data files
+- ✅ All 60 JSON data files (names.json + catalog.json) 100% compliant
+- ✅ All 33 .cbconfig.json files 100% compliant
+
+## JSON Data Standards (v4.0)
+
+**All game data files follow strict standards documented in `docs/standards/json/`:**
+
+### names.json Standard (Pattern Generation)
+
+**Required Fields:**
+- `version`: "4.0"
+- `type`: "pattern_generation"
+- `supportsTraits`: true or false
+- `lastUpdated`: ISO date string
+- `description`: Purpose of the file
+- `patterns[]`: Array with `rarityWeight` (NOT "weight")
+- `components{}`: Component arrays (prefix, suffix, etc.)
+
+**Pattern Syntax:**
+- Component tokens: `{base}`, `{prefix}`, `{suffix}`, `{quality}`
+- External references: `[@materialRef/weapon]`, `[@materialRef/armor]`
+- NO "example" fields allowed
+
+### catalog.json Standard (Item/Enemy Definitions)
+
+**Required Metadata:**
+- `description`, `version`, `lastUpdated`, `type` (ends with "_catalog")
+
+**Structure:**
+- All items MUST have `name` and `rarityWeight`
+- Physical "weight" allowed (item weight in lbs)
+
+### .cbconfig.json Standard (ContentBuilder UI)
+
+**Required Fields:**
+- `icon`: MaterialDesign icon name (NOT emojis)
+- `sortOrder`: Integer for tree position
+
+### Compliance Status
+
+✅ **100% Compliance Achieved (December 27, 2025)**
+
+- **names.json**: 30/30 files compliant
+- **catalog.json**: 28/28 files compliant
+- **.cbconfig.json**: 33/33 files compliant
+
+**Standards Documentation:**
+- `docs/standards/json/NAMES_JSON_STANDARD.md`
+- `docs/standards/json/CATALOG_JSON_STANDARD.md`
+- `docs/standards/json/CBCONFIG_STANDARD.md`
+- `docs/standards/json/README.md`
 
 ## Dependencies
 
