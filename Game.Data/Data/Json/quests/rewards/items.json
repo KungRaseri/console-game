@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "version": "2.0",
-    "lastUpdated": "2025-01-27",
-    "type": "quest_rewards_items",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "catalog",
     "total_rewards": 20,
     "categories": [
       "consumable_rewards",

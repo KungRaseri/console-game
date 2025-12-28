@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "description": "Pattern-based ability name generation for reactive/offensive",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "pattern_generation",
+    "supportsTraits": true,
+    "componentKeys": [
+      "prefix",
+      "suffix"
+    ],
+    "patternTokens": [
+      "base",
+      "prefix",
+      "suffix"
+    ],
+    "totalPatterns": 4,
+    "raritySystem": "weight-based",
+    "notes": [
+      "Base token resolves from catalog.json",
+      "Components have rarityWeight for emergent rarity calculation",
+      "Traits are applied when components are selected in patterns"
+    ]
+  },
+  "components": {
+    "prefix": [
+      {
+        "rarityWeight": 10,
+        "traits": {
+          "damageBonus": {
+            "value": 3,
+            "type": "number"
+          }
+        },
+        "value": "Swift"
+      },
+      {
+        "rarityWeight": 35,
+        "traits": {
+          "critChance": {
+            "value": 10,
+            "type": "number"
+          }
+        },
+        "value": "Brutal"
+      },
+      {
+        "rarityWeight": 75,
+        "traits": {
+          "damageMultiplier": {
+            "value": 1.25,
+            "type": "number"
+          }
+        },
+        "value": "Devastating"
+      },
+      {
+        "value": "Wrathful",
+        "rarityWeight": 10,
+        "traits": {
+          "damageBonus": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Furious",
+        "rarityWeight": 35,
+        "traits": {
+          "attackSpeedBonus": {
+            "value": 15,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Vengeful",
+        "rarityWeight": 75,
+        "traits": {
+          "damageBonus": {
+            "value": 10,
+            "type": "number"
+          },
+          "counterChance": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      }
+    ],
+    "suffix": [
+      {
+        "rarityWeight": 10,
+        "traits": {
+          "lifeStealPercent": {
+            "value": 5,
+            "type": "number"
+          }
+        },
+        "value": "of Blood"
+      },
+      {
+        "rarityWeight": 35,
+        "traits": {
+          "critChance": {
+            "value": 15,
+            "type": "number"
+          }
+        },
+        "value": "of Precision"
+      },
+      {
+        "rarityWeight": 75,
+        "traits": {
+          "damageBonus": {
+            "value": 15,
+            "type": "number"
+          },
+          "attackSpeedBonus": {
+            "value": 10,
+            "type": "number"
+          }
+        },
+        "value": "of Carnage"
+      },
+      {
+        "value": "of Vengeance",
+        "rarityWeight": 10,
+        "traits": {
+          "damageBonus": {
+            "value": 8,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Fury",
+        "rarityWeight": 35,
+        "traits": {
+          "damageMultiplier": {
+            "value": 1.15,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Executioner",
+        "rarityWeight": 75,
+        "traits": {
+          "critChance": {
+            "value": 20,
+            "type": "number"
+          },
+          "damageBonus": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      }
+    ]
+  },
+  "patterns": [
+    {
+      "rarityWeight": 40,
+      "pattern": "{base}"
+    },
+    {
+      "rarityWeight": 35,
+      "pattern": "{prefix} {base}"
+    },
+    {
+      "rarityWeight": 20,
+      "pattern": "{base} {suffix}"
+    },
+    {
+      "rarityWeight": 5,
+      "pattern": "{prefix} {base} {suffix}"
+    }
+  ]
+}

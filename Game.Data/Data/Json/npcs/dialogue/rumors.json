@@ -3,7 +3,7 @@
     "description": "Rumor templates catalog for NPC gossip and information sharing",
     "version": "4.0",
     "lastUpdated": "2025-12-18",
-    "type": "rumor_template_catalog",
+    "type": "catalog",
     "total_rumors": 30,
     "categories": [
       "danger",

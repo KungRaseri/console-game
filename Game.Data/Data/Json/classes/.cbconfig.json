@@ -1,0 +1,11 @@
+{
+  "icon": "SchoolOutline",
+  "displayName": "Classes",
+  "description": "Player and NPC class definitions with progression trees",
+  "sortOrder": 15,
+  "fileIcons": {
+    "catalog": "AccountMultiple",
+    "names": "FormatTextVariant",
+    "progression": "ChartLine"
+  }
+}

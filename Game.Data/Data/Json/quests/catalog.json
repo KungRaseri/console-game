@@ -3,7 +3,7 @@
     "version": "4.0",
     "lastUpdated": "2025-12-18",
     "description": "Quest templates and location catalog for procedural quest generation",
-    "type": "quest_catalog",
+    "type": "hierarchical_catalog",
     "notes": "Consolidated from quest_templates.json, wilderness.json, towns.json, and dungeons.json. Supports weighted random selection using rarityWeight formula: probability = 100 / rarityWeight. Templates define quest types with base rewards. Locations are selected separately and populated into template variables like {location}.",
     "total_templates": 27,
     "total_locations": 51,

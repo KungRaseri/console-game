@@ -3,7 +3,7 @@
     "description": "Farewell dialogue templates with personality and formality variations",
     "version": "4.0",
     "lastUpdated": "2025-12-18",
-    "type": "dialogue_template_catalog",
+    "type": "catalog",
     "total_farewells": 25,
     "categories": [
       "friendly",

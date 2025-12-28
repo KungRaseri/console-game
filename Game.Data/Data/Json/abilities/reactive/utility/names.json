@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "version": "4.0",
+    "type": "pattern_generation",
+    "supportsTraits": true,
+    "lastUpdated": "2025-12-27",
+    "description": "Pattern generation for reactive utility ability names",
+    "notes": [
+      "Generates procedural names for reactive utility abilities",
+      "Supports trait-based modifiers",
+      "rarityWeight determines selection probability (NOT 'weight')"
+    ]
+  },
+  "components": {
+    "prefix": [
+      {
+        "value": "Tactical",
+        "traits": {
+          "cooldownReduction": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Adaptive",
+        "traits": {
+          "effectDuration": {
+            "value": 2,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Emergency",
+        "traits": {
+          "triggerThreshold": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Reactive",
+        "traits": {
+          "procChance": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Survivor's",
+        "traits": {
+          "healthThreshold": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "Evasive",
+        "traits": {
+          "dodgeBonus": {
+            "value": 15,
+            "type": "number"
+          }
+        }
+      }
+    ],
+    "suffix": [
+      {
+        "value": "of Freedom",
+        "traits": {
+          "controlResist": {
+            "value": 20,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Escape",
+        "traits": {
+          "movementSpeedBonus": {
+            "value": 15,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Rebirth",
+        "traits": {
+          "reviveChance": {
+            "value": 10,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of the Tactician",
+        "traits": {
+          "cooldownReduction": {
+            "value": 15,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Adaptation",
+        "traits": {
+          "effectDuration": {
+            "value": 3,
+            "type": "number"
+          }
+        }
+      },
+      {
+        "value": "of Survival",
+        "traits": {
+          "healthThreshold": {
+            "value": 5,
+            "type": "number"
+          }
+        }
+      }
+    ]
+  },
+  "patterns": [
+    {
+      "value": "{base}",
+      "rarityWeight": 40,
+      "traits": {}
+    },
+    {
+      "value": "{prefix} {base}",
+      "rarityWeight": 35,
+      "traits": {}
+    },
+    {
+      "value": "{base} {suffix}",
+      "rarityWeight": 20,
+      "traits": {}
+    },
+    {
+      "value": "{prefix} {base} {suffix}",
+      "rarityWeight": 5,
+      "traits": {}
+    }
+  ]
+}

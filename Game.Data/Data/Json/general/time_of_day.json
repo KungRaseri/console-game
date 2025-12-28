@@ -35,9 +35,9 @@
   ],
   "metadata": {
     "description": "Time of day descriptions for narrative and environmental atmosphere",
-    "version": "1.0",
+    "version": "4.0",
     "type": "pattern_generation",
-    "lastUpdated": "2025-12-16",
+    "lastUpdated": "2025-12-27",
     "componentKeys": [
       "period",
       "modifier",

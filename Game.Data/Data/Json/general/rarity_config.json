@@ -1,9 +1,9 @@
 {
   "metadata": {
     "description": "Global rarity system configuration - thresholds and component multipliers for weight-based rarity calculation",
-    "version": "1.0",
-    "lastUpdated": "2025-12-16",
-    "type": "configuration",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "config",
     "notes": [
       "Rarity emerges from component combinations rather than being pre-assigned",
       "Component weights can vary within categories (e.g., Steel=20, Mithril=50, Dragonbone=100)",
@@ -12,7 +12,7 @@
       "Adjust individual component weights and category multipliers to fine-tune rarity distribution"
     ]
   },
-  "thresholds": {
+  "settings": {${newline}    "thresholds": {
     "common": {
       "min": 0,
       "max": 20,
@@ -242,5 +242,7 @@
       "rarity": "legendary",
       "reasoning": "Ancient + exotic origin + legendary material + prestigious title = legendary item"
     }
+  }
+}
   }
 }

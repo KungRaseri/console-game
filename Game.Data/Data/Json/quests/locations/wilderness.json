@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "version": "2.0",
-    "lastUpdated": "2025-01-27",
-    "type": "quest_locations_wilderness",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "catalog",
     "total_locations": 18,
     "categories": [
       "low_danger",

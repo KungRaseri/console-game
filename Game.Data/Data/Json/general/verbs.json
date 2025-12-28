@@ -95,9 +95,9 @@
   },
   "metadata": {
     "description": "Categorized action verbs for combat, magic, movement, and interactions",
-    "version": "1.0",
+    "version": "4.0",
     "type": "component_library",
-    "lastUpdated": "2025-12-16",
+    "lastUpdated": "2025-12-27",
     "componentKeys": [
       "combat_offensive",
       "combat_defensive",

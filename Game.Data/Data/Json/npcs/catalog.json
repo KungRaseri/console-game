@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "type": "npc_catalog",
+    "type": "hierarchical_catalog",
     "version": "4.0",
     "description": "NPC backgrounds and occupations for character generation with shop economy system",
     "lastModified": "2025-12-18",

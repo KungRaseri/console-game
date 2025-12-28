@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "version": "4.0",
+    "type": "pattern_generation",
+    "supportsTraits": true,
+    "lastUpdated": "2025-12-27",
+    "description": "Class-specific name generation for NPCs and player character titles",
+    "notes": [
+      "Generates class-based character names and titles",
+      "Supports trait-based modifiers for reputation and specialization",
+      "Can reference class catalog for dynamic titles"
+    ]
+  },
+  "components": {
+    "prefix": [
+      {
+        "value": "Master",
+        "traits": {
+          "levelRequirement": {"value": 50, "type": "number"},
+          "reputationBonus": {"value": 10, "type": "number"}
+        }
+      },
+      {
+        "value": "Grand",
+        "traits": {
+          "levelRequirement": {"value": 70, "type": "number"},
+          "reputationBonus": {"value": 20, "type": "number"}
+        }
+      },
+      {
+        "value": "Legendary",
+        "traits": {
+          "levelRequirement": {"value": 90, "type": "number"},
+          "reputationBonus": {"value": 50, "type": "number"}
+        }
+      },
+      {
+        "value": "Elite",
+        "traits": {
+          "levelRequirement": {"value": 40, "type": "number"},
+          "reputationBonus": {"value": 5, "type": "number"}
+        }
+      },
+      {
+        "value": "Veteran",
+        "traits": {
+          "levelRequirement": {"value": 30, "type": "number"},
+          "reputationBonus": {"value": 3, "type": "number"}
+        }
+      },
+      {
+        "value": "Apprentice",
+        "traits": {
+          "levelRequirement": {"value": 1, "type": "number"},
+          "reputationBonus": {"value": 0, "type": "number"}
+        }
+      }
+    ],
+    "suffix": [
+      {
+        "value": "the Brave",
+        "traits": {
+          "strengthBonus": {"value": 2, "type": "number"}
+        }
+      },
+      {
+        "value": "the Wise",
+        "traits": {
+          "wisdomBonus": {"value": 2, "type": "number"}
+        }
+      },
+      {
+        "value": "the Swift",
+        "traits": {
+          "dexterityBonus": {"value": 2, "type": "number"}
+        }
+      },
+      {
+        "value": "the Cunning",
+        "traits": {
+          "intelligenceBonus": {"value": 2, "type": "number"}
+        }
+      },
+      {
+        "value": "the Mighty",
+        "traits": {
+          "strengthBonus": {"value": 3, "type": "number"}
+        }
+      },
+      {
+        "value": "the Immortal",
+        "traits": {
+          "constitutionBonus": {"value": 3, "type": "number"}
+        }
+      }
+    ],
+    "title": [
+      {
+        "value": "Slayer of Dragons",
+        "traits": {
+          "questsCompleted": {"value": 100, "type": "number"}
+        }
+      },
+      {
+        "value": "Champion of the Realm",
+        "traits": {
+          "questsCompleted": {"value": 50, "type": "number"}
+        }
+      },
+      {
+        "value": "Defender of the Weak",
+        "traits": {
+          "questsCompleted": {"value": 25, "type": "number"}
+        }
+      },
+      {
+        "value": "Wanderer",
+        "traits": {
+          "questsCompleted": {"value": 0, "type": "number"}
+        }
+      }
+    ]
+  },
+  "patterns": [
+    {
+      "value": "{base}",
+      "rarityWeight": 50,
+      "traits": {},
+      "description": "Plain class name"
+    },
+    {
+      "value": "{prefix} {base}",
+      "rarityWeight": 30,
+      "traits": {},
+      "description": "Class with rank prefix"
+    },
+    {
+      "value": "{base} {suffix}",
+      "rarityWeight": 15,
+      "traits": {},
+      "description": "Class with epithet"
+    },
+    {
+      "value": "{prefix} {base}, {title}",
+      "rarityWeight": 5,
+      "traits": {},
+      "description": "Full title with accomplishment"
+    }
+  ]
+}

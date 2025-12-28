@@ -70,9 +70,9 @@
   ],
   "metadata": {
     "description": "Texture descriptions for tactile immersion, item details, and environmental richness",
-    "version": "1.0",
+    "version": "4.0",
     "type": "pattern_generation",
-    "lastUpdated": "2025-12-16",
+    "lastUpdated": "2025-12-27",
     "componentKeys": [
       "surface_quality",
       "temperature",

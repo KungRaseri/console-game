@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "version": "2.0",
-    "lastUpdated": "2025-01-27",
-    "type": "quest_rewards_experience",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "catalog",
     "total_tiers": 9,
     "categories": [
       "trivial_xp",

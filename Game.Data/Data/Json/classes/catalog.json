@@ -1,0 +1,377 @@
+{
+  "metadata": {
+    "description": "Player and NPC class definitions with archetypes, subclasses, and specializations",
+    "version": "4.0",
+    "lastUpdated": "2025-12-27",
+    "type": "hierarchical_catalog",
+    "componentKeys": ["warriors", "rogues", "mages", "clerics", "rangers"],
+    "notes": [
+      "Classes define starting stats, abilities, and progression paths",
+      "Archetypes are main class categories",
+      "Subclasses are specialized variants within archetypes",
+      "rarityWeight determines NPC class distribution and player unlock difficulty"
+    ]
+  },
+  "warriors": {
+    "metadata": {
+      "description": "Melee combatants focused on strength and durability",
+      "primaryStats": ["strength", "constitution"],
+      "armorProficiency": ["heavy", "medium", "light", "shields"]
+    },
+    "items": [
+      {
+        "name": "Fighter",
+        "displayName": "Fighter",
+        "description": "Versatile warrior skilled in all forms of combat",
+        "rarityWeight": 5,
+        "isSubclass": false,
+        "startingStats": {
+          "health": 120,
+          "mana": 30,
+          "strength": 16,
+          "dexterity": 12,
+          "constitution": 14,
+          "intelligence": 8,
+          "wisdom": 10,
+          "charisma": 10
+        },
+        "startingAbilities": ["Basic Attack", "Defend", "Second Wind"],
+        "traits": {
+          "weaponProficiency": {"value": "all", "type": "string"},
+          "combatBonus": {"value": 10, "type": "number"}
+        }
+      },
+      {
+        "name": "Berserker",
+        "displayName": "Berserker",
+        "description": "Rage-fueled warrior who sacrifices defense for devastating offense",
+        "rarityWeight": 50,
+        "isSubclass": true,
+        "parentClass": "Fighter",
+        "startingStats": {
+          "health": 140,
+          "mana": 20,
+          "strength": 18,
+          "dexterity": 10,
+          "constitution": 16,
+          "intelligence": 6,
+          "wisdom": 8,
+          "charisma": 8
+        },
+        "startingAbilities": ["Basic Attack", "Berserker Rage", "Reckless Attack"],
+        "traits": {
+          "rageBonus": {"value": 25, "type": "number"},
+          "damageReduction": {"value": -10, "type": "number"}
+        }
+      },
+      {
+        "name": "Knight",
+        "displayName": "Knight",
+        "description": "Heavily armored defender who protects allies",
+        "rarityWeight": 35,
+        "isSubclass": true,
+        "parentClass": "Fighter",
+        "startingStats": {
+          "health": 150,
+          "mana": 25,
+          "strength": 15,
+          "dexterity": 8,
+          "constitution": 17,
+          "intelligence": 8,
+          "wisdom": 12,
+          "charisma": 11
+        },
+        "startingAbilities": ["Basic Attack", "Shield Bash", "Taunt", "Guardian"],
+        "traits": {
+          "armorBonus": {"value": 15, "type": "number"},
+          "blockChance": {"value": 30, "type": "number"}
+        }
+      },
+      {
+        "name": "Duelist",
+        "displayName": "Duelist",
+        "description": "Agile warrior specializing in single-weapon finesse combat",
+        "rarityWeight": 75,
+        "isSubclass": true,
+        "parentClass": "Fighter",
+        "startingStats": {
+          "health": 110,
+          "mana": 35,
+          "strength": 14,
+          "dexterity": 17,
+          "constitution": 12,
+          "intelligence": 10,
+          "wisdom": 10,
+          "charisma": 13
+        },
+        "startingAbilities": ["Basic Attack", "Riposte", "Parry", "Precision Strike"],
+        "traits": {
+          "dodgeBonus": {"value": 20, "type": "number"},
+          "critChance": {"value": 15, "type": "number"}
+        }
+      }
+    ]
+  },
+  "rogues": {
+    "metadata": {
+      "description": "Stealthy specialists in deception, agility, and precision strikes",
+      "primaryStats": ["dexterity", "intelligence"],
+      "armorProficiency": ["light"]
+    },
+    "items": [
+      {
+        "name": "Thief",
+        "displayName": "Thief",
+        "description": "Master of stealth, lockpicking, and cunning strikes",
+        "rarityWeight": 10,
+        "isSubclass": false,
+        "startingStats": {
+          "health": 80,
+          "mana": 50,
+          "strength": 10,
+          "dexterity": 18,
+          "constitution": 10,
+          "intelligence": 14,
+          "wisdom": 12,
+          "charisma": 12
+        },
+        "startingAbilities": ["Sneak Attack", "Lockpicking", "Steal"],
+        "traits": {
+          "stealthBonus": {"value": 25, "type": "number"},
+          "critMultiplier": {"value": 2.0, "type": "number"}
+        }
+      },
+      {
+        "name": "Assassin",
+        "displayName": "Assassin",
+        "description": "Deadly killer specializing in instant-kill techniques",
+        "rarityWeight": 150,
+        "isSubclass": true,
+        "parentClass": "Thief",
+        "startingStats": {
+          "health": 70,
+          "mana": 60,
+          "strength": 12,
+          "dexterity": 20,
+          "constitution": 8,
+          "intelligence": 15,
+          "wisdom": 10,
+          "charisma": 10
+        },
+        "startingAbilities": ["Sneak Attack", "Assassinate", "Poison Blade", "Shadow Step"],
+        "traits": {
+          "backstabBonus": {"value": 100, "type": "number"},
+          "executionThreshold": {"value": 20, "type": "number"}
+        }
+      },
+      {
+        "name": "Swashbuckler",
+        "displayName": "Swashbuckler",
+        "description": "Charismatic rogue combining agility with showmanship",
+        "rarityWeight": 100,
+        "isSubclass": true,
+        "parentClass": "Thief",
+        "startingStats": {
+          "health": 85,
+          "mana": 55,
+          "strength": 12,
+          "dexterity": 17,
+          "constitution": 11,
+          "intelligence": 12,
+          "wisdom": 10,
+          "charisma": 16
+        },
+        "startingAbilities": ["Sneak Attack", "Flourish", "Panache", "Riposte"],
+        "traits": {
+          "dodgeBonus": {"value": 25, "type": "number"},
+          "charmChance": {"value": 15, "type": "number"}
+        }
+      }
+    ]
+  },
+  "mages": {
+    "metadata": {
+      "description": "Arcane spellcasters wielding elemental and mystical magic",
+      "primaryStats": ["intelligence", "wisdom"],
+      "armorProficiency": ["light"]
+    },
+    "items": [
+      {
+        "name": "Wizard",
+        "displayName": "Wizard",
+        "description": "Scholar of arcane arts mastering elemental and utility spells",
+        "rarityWeight": 15,
+        "isSubclass": false,
+        "startingStats": {
+          "health": 60,
+          "mana": 150,
+          "strength": 6,
+          "dexterity": 10,
+          "constitution": 8,
+          "intelligence": 20,
+          "wisdom": 14,
+          "charisma": 10
+        },
+        "startingAbilities": ["Fireball", "Ice Shard", "Magic Missile", "Arcane Shield"],
+        "traits": {
+          "spellPower": {"value": 30, "type": "number"},
+          "manaEfficiency": {"value": 15, "type": "number"}
+        }
+      },
+      {
+        "name": "Elementalist",
+        "displayName": "Elementalist",
+        "description": "Specialized mage focusing on a single element for devastating power",
+        "rarityWeight": 100,
+        "isSubclass": true,
+        "parentClass": "Wizard",
+        "startingStats": {
+          "health": 55,
+          "mana": 170,
+          "strength": 5,
+          "dexterity": 10,
+          "constitution": 7,
+          "intelligence": 22,
+          "wisdom": 13,
+          "charisma": 9
+        },
+        "startingAbilities": ["Elemental Bolt", "Elemental Mastery", "Elemental Shield"],
+        "traits": {
+          "elementalBonus": {"value": 50, "type": "number"},
+          "elementalResist": {"value": 40, "type": "number"}
+        }
+      },
+      {
+        "name": "Necromancer",
+        "displayName": "Necromancer",
+        "description": "Dark mage commanding death magic and undead minions",
+        "rarityWeight": 250,
+        "isSubclass": true,
+        "parentClass": "Wizard",
+        "startingStats": {
+          "health": 65,
+          "mana": 140,
+          "strength": 6,
+          "dexterity": 9,
+          "constitution": 9,
+          "intelligence": 19,
+          "wisdom": 15,
+          "charisma": 8
+        },
+        "startingAbilities": ["Drain Life", "Summon Skeleton", "Death Bolt", "Soul Harvest"],
+        "traits": {
+          "lifesteal": {"value": 20, "type": "number"},
+          "minionCount": {"value": 3, "type": "number"}
+        }
+      }
+    ]
+  },
+  "clerics": {
+    "metadata": {
+      "description": "Divine spellcasters channeling holy power for healing and protection",
+      "primaryStats": ["wisdom", "constitution"],
+      "armorProficiency": ["medium", "light", "shields"]
+    },
+    "items": [
+      {
+        "name": "Priest",
+        "displayName": "Priest",
+        "description": "Holy healer devoted to protecting and restoring allies",
+        "rarityWeight": 20,
+        "isSubclass": false,
+        "startingStats": {
+          "health": 90,
+          "mana": 120,
+          "strength": 10,
+          "dexterity": 10,
+          "constitution": 13,
+          "intelligence": 12,
+          "wisdom": 18,
+          "charisma": 14
+        },
+        "startingAbilities": ["Heal", "Bless", "Smite", "Divine Shield"],
+        "traits": {
+          "healingPower": {"value": 30, "type": "number"},
+          "holyResist": {"value": 25, "type": "number"}
+        }
+      },
+      {
+        "name": "Paladin",
+        "displayName": "Paladin",
+        "description": "Holy warrior combining divine magic with martial prowess",
+        "rarityWeight": 75,
+        "isSubclass": true,
+        "parentClass": "Priest",
+        "startingStats": {
+          "health": 130,
+          "mana": 80,
+          "strength": 16,
+          "dexterity": 10,
+          "constitution": 15,
+          "intelligence": 10,
+          "wisdom": 16,
+          "charisma": 14
+        },
+        "startingAbilities": ["Divine Strike", "Lay on Hands", "Holy Aura", "Consecrate"],
+        "traits": {
+          "holyDamage": {"value": 25, "type": "number"},
+          "selfHeal": {"value": 15, "type": "number"}
+        }
+      }
+    ]
+  },
+  "rangers": {
+    "metadata": {
+      "description": "Wilderness survivalists skilled in archery, tracking, and beast mastery",
+      "primaryStats": ["dexterity", "wisdom"],
+      "armorProficiency": ["medium", "light"]
+    },
+    "items": [
+      {
+        "name": "Hunter",
+        "displayName": "Hunter",
+        "description": "Expert tracker and archer specializing in ranged combat",
+        "rarityWeight": 15,
+        "isSubclass": false,
+        "startingStats": {
+          "health": 100,
+          "mana": 60,
+          "strength": 12,
+          "dexterity": 18,
+          "constitution": 12,
+          "intelligence": 10,
+          "wisdom": 16,
+          "charisma": 10
+        },
+        "startingAbilities": ["Bow Shot", "Track", "Trap", "Animal Companion"],
+        "traits": {
+          "rangedBonus": {"value": 20, "type": "number"},
+          "petDamage": {"value": 15, "type": "number"}
+        }
+      },
+      {
+        "name": "Beastmaster",
+        "displayName": "Beastmaster",
+        "description": "Ranger who commands powerful animal companions in battle",
+        "rarityWeight": 100,
+        "isSubclass": true,
+        "parentClass": "Hunter",
+        "startingStats": {
+          "health": 95,
+          "mana": 70,
+          "strength": 12,
+          "dexterity": 16,
+          "constitution": 13,
+          "intelligence": 10,
+          "wisdom": 18,
+          "charisma": 12
+        },
+        "startingAbilities": ["Bow Shot", "Beast Command", "Pack Tactics", "Wild Growth"],
+        "traits": {
+          "petCount": {"value": 2, "type": "number"},
+          "petHealth": {"value": 50, "type": "number"}
+        }
+      }
+    ]
+  }
+}

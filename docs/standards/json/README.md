@@ -8,15 +8,57 @@
 
 ## Quick Reference
 
+### Structure Types
+| Structure Type | Standard Document | Purpose |
+|----------------|-------------------|---------|
+| **ALL TYPES** | [JSON_STRUCTURE_TYPES.md](JSON_STRUCTURE_TYPES.md) | Comprehensive guide to all 5 structure types |
+| CATALOG | [CATALOG_JSON_STANDARD.md](CATALOG_JSON_STANDARD.md) | Selectable entities (abilities, items, enemies) |
+| PATTERN_GENERATION | [NAMES_JSON_STANDARD.md](NAMES_JSON_STANDARD.md) | Procedural name generation |
+| COMPONENT_LIBRARY | [JSON_STRUCTURE_TYPES.md#3-component_library-structure](JSON_STRUCTURE_TYPES.md#3-component_library-structure) | Reusable data arrays (adjectives, colors) |
+| CONFIG | [JSON_STRUCTURE_TYPES.md#4-config-structure](JSON_STRUCTURE_TYPES.md#4-config-structure) | Game rules and settings |
+| HIERARCHICAL_CATALOG | [JSON_STRUCTURE_TYPES.md#5-hierarchical_catalog-structure](JSON_STRUCTURE_TYPES.md#5-hierarchical_catalog-structure) | Multi-category catalogs (NPCs, quests) |
+
+### Special Files
 | File Type | Standard Document | Purpose |
 |-----------|------------------|---------|
 | `.cbconfig.json` | [CBCONFIG_STANDARD.md](CBCONFIG_STANDARD.md) | ContentBuilder UI configuration |
-| `names.json` | [NAMES_JSON_STANDARD.md](NAMES_JSON_STANDARD.md) | Pattern-based procedural name generation |
-| `catalog.json` | [CATALOG_JSON_STANDARD.md](CATALOG_JSON_STANDARD.md) | Base item/enemy definitions with stats |
 
 ---
 
-## File Type Overview
+## Structure Type Overview
+
+The game uses **5 core JSON structure types**, each designed for specific data patterns:
+
+### 1. CATALOG - Selectable Entities
+**Purpose:** Game entities with stats and rarity-based selection  
+**Examples:** abilities, enemies, items, weapons, armor  
+**Key Feature:** `rarityWeight` for weighted random selection
+
+### 2. PATTERN_GENERATION - Procedural Names
+**Purpose:** Dynamic name generation from component patterns  
+**Examples:** All `names.json` files  
+**Key Feature:** `{token}` syntax and trait support
+
+### 3. COMPONENT_LIBRARY - Data Arrays
+**Purpose:** Simple reusable data collections  
+**Examples:** adjectives, colors, sounds, verbs  
+**Key Feature:** Categorized arrays without complex selection
+
+### 4. CONFIG - Game Settings
+**Purpose:** Rules, constants, and configuration values  
+**Examples:** rarity_config, progression tables  
+**Key Feature:** Key-value settings without rarityWeight
+
+### 5. HIERARCHICAL_CATALOG - Multi-Category
+**Purpose:** Complex entities with multiple logical groups  
+**Examples:** NPCs (backgrounds + occupations), quests (templates + locations)  
+**Key Feature:** Top-level categories with separate items arrays
+
+**📘 See [JSON_STRUCTURE_TYPES.md](JSON_STRUCTURE_TYPES.md) for detailed schemas and examples**
+
+---
+
+## Legacy Documentation
 
 ### .cbconfig.json - UI Configuration
 

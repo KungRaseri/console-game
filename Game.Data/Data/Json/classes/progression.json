@@ -1,0 +1,347 @@
+{
+  "metadata": {
+    "version": "4.0",
+    "type": "config",
+    "lastUpdated": "2025-12-27",
+    "description": "Class progression tables defining stat growth, ability unlocks, and level-up rewards",
+    "notes": [
+      "Each class has unique stat growth per level",
+      "Abilities unlock at specific levels",
+      "Subclasses inherit base class progression with modifications",
+      "XP requirements follow exponential curve: baseXP * (level ^ 1.5)"
+    ]
+  },
+  "settings": {
+    "baseXPPerLevel": 100,
+    "xpScaling": 1.5,
+    "maxLevel": 100,
+    "statPointsPerLevel": 2,
+    "abilitySlots": {
+      "1": 2,
+      "10": 3,
+      "20": 4,
+      "30": 5,
+      "50": 6
+    },
+    "warriors": {
+      "Fighter": {
+        "statGrowth": {
+          "healthPerLevel": 10,
+          "manaPerLevel": 2,
+          "strengthPerLevel": 2,
+          "dexterityPerLevel": 1,
+          "constitutionPerLevel": 1.5,
+          "intelligencePerLevel": 0.5,
+          "wisdomPerLevel": 0.5,
+          "charismaPerLevel": 0.5
+        },
+        "abilityUnlocks": {
+          "1": ["Basic Attack", "Defend"],
+          "3": ["Second Wind"],
+          "5": ["Power Strike"],
+          "8": ["Cleave"],
+          "10": ["Whirlwind"],
+          "15": ["Battle Cry"],
+          "20": ["Indomitable"],
+          "25": ["Weapon Mastery"],
+          "30": ["Devastating Blow"],
+          "40": ["Combat Supremacy"],
+          "50": ["Titan's Strength"]
+        }
+      },
+      "Berserker": {
+        "statGrowth": {
+          "healthPerLevel": 12,
+          "manaPerLevel": 1,
+          "strengthPerLevel": 2.5,
+          "dexterityPerLevel": 0.5,
+          "constitutionPerLevel": 2,
+          "intelligencePerLevel": 0,
+          "wisdomPerLevel": 0,
+          "charismaPerLevel": 0
+        },
+        "abilityUnlocks": {
+          "1": ["Basic Attack", "Berserker Rage"],
+          "3": ["Reckless Attack"],
+          "5": ["Bloodlust"],
+          "10": ["Primal Roar"],
+          "15": ["Frenzy"],
+          "20": ["Unstoppable"],
+          "30": ["Death's Door"],
+          "50": ["Ragnarok"]
+        }
+      },
+      "Knight": {
+        "statGrowth": {
+          "healthPerLevel": 13,
+          "manaPerLevel": 1.5,
+          "strengthPerLevel": 1.5,
+          "dexterityPerLevel": 0.5,
+          "constitutionPerLevel": 2.5,
+          "intelligencePerLevel": 0.5,
+          "wisdomPerLevel": 1,
+          "charismaPerLevel": 1
+        },
+        "abilityUnlocks": {
+          "1": ["Basic Attack", "Shield Bash", "Taunt"],
+          "3": ["Guardian"],
+          "5": ["Shield Wall"],
+          "10": ["Sentinel"],
+          "15": ["Bulwark"],
+          "20": ["Aegis"],
+          "30": ["Last Stand"],
+          "50": ["Fortress"]
+        }
+      },
+      "Duelist": {
+        "statGrowth": {
+          "healthPerLevel": 9,
+          "manaPerLevel": 2.5,
+          "strengthPerLevel": 1.5,
+          "dexterityPerLevel": 2.5,
+          "constitutionPerLevel": 1,
+          "intelligencePerLevel": 1,
+          "wisdomPerLevel": 1,
+          "charismaPerLevel": 1.5
+        },
+        "abilityUnlocks": {
+          "1": ["Basic Attack", "Riposte", "Parry"],
+          "3": ["Precision Strike"],
+          "5": ["Feint"],
+          "10": ["Flurry"],
+          "15": ["Bladework"],
+          "20": ["Perfect Parry"],
+          "30": ["Dance of Blades"],
+          "50": ["Grandmaster Duelist"]
+        }
+      }
+    },
+    "rogues": {
+      "Thief": {
+        "statGrowth": {
+          "healthPerLevel": 7,
+          "manaPerLevel": 3,
+          "strengthPerLevel": 1,
+          "dexterityPerLevel": 2.5,
+          "constitutionPerLevel": 1,
+          "intelligencePerLevel": 1.5,
+          "wisdomPerLevel": 1,
+          "charismaPerLevel": 1
+        },
+        "abilityUnlocks": {
+          "1": ["Sneak Attack", "Lockpicking"],
+          "3": ["Steal"],
+          "5": ["Backstab"],
+          "10": ["Evasion"],
+          "15": ["Shadow Step"],
+          "20": ["Master Thief"],
+          "30": ["Vanish"],
+          "50": ["Perfect Crime"]
+        }
+      },
+      "Assassin": {
+        "statGrowth": {
+          "healthPerLevel": 6,
+          "manaPerLevel": 3.5,
+          "strengthPerLevel": 1.5,
+          "dexterityPerLevel": 3,
+          "constitutionPerLevel": 0.5,
+          "intelligencePerLevel": 2,
+          "wisdomPerLevel": 1,
+          "charismaPerLevel": 0.5
+        },
+        "abilityUnlocks": {
+          "1": ["Sneak Attack", "Assassinate"],
+          "3": ["Poison Blade"],
+          "5": ["Shadow Step"],
+          "10": ["Death Mark"],
+          "15": ["Silent Kill"],
+          "20": ["Execute"],
+          "30": ["Shadow Master"],
+          "50": ["Death Incarnate"]
+        }
+      },
+      "Swashbuckler": {
+        "statGrowth": {
+          "healthPerLevel": 8,
+          "manaPerLevel": 3,
+          "strengthPerLevel": 1.5,
+          "dexterityPerLevel": 2.5,
+          "constitutionPerLevel": 1,
+          "intelligencePerLevel": 1.5,
+          "wisdomPerLevel": 1,
+          "charismaPerLevel": 2
+        },
+        "abilityUnlocks": {
+          "1": ["Sneak Attack", "Flourish", "Panache"],
+          "3": ["Riposte"],
+          "5": ["En Garde"],
+          "10": ["Daring Gambit"],
+          "15": ["Showstopper"],
+          "20": ["Master of Blades"],
+          "30": ["Legendary Swagger"],
+          "50": ["Dread Pirate"]
+        }
+      }
+    },
+    "mages": {
+      "Wizard": {
+        "statGrowth": {
+          "healthPerLevel": 5,
+          "manaPerLevel": 10,
+          "strengthPerLevel": 0.5,
+          "dexterityPerLevel": 1,
+          "constitutionPerLevel": 0.5,
+          "intelligencePerLevel": 3,
+          "wisdomPerLevel": 2,
+          "charismaPerLevel": 1
+        },
+        "abilityUnlocks": {
+          "1": ["Magic Missile", "Fireball"],
+          "3": ["Ice Shard"],
+          "5": ["Arcane Shield"],
+          "10": ["Lightning Bolt"],
+          "15": ["Teleport"],
+          "20": ["Meteor"],
+          "30": ["Time Stop"],
+          "50": ["Archmage's Supremacy"]
+        }
+      },
+      "Elementalist": {
+        "statGrowth": {
+          "healthPerLevel": 4.5,
+          "manaPerLevel": 12,
+          "strengthPerLevel": 0.5,
+          "dexterityPerLevel": 1,
+          "constitutionPerLevel": 0.5,
+          "intelligencePerLevel": 3.5,
+          "wisdomPerLevel": 1.5,
+          "charismaPerLevel": 0.5
+        },
+        "abilityUnlocks": {
+          "1": ["Elemental Bolt", "Elemental Mastery"],
+          "5": ["Elemental Shield"],
+          "10": ["Elemental Storm"],
+          "15": ["Elemental Fury"],
+          "20": ["Elemental Avatar"],
+          "30": ["Elemental Apocalypse"],
+          "50": ["Master of Elements"]
+        }
+      },
+      "Necromancer": {
+        "statGrowth": {
+          "healthPerLevel": 5.5,
+          "manaPerLevel": 9,
+          "strengthPerLevel": 0.5,
+          "dexterityPerLevel": 1,
+          "constitutionPerLevel": 1,
+          "intelligencePerLevel": 2.5,
+          "wisdomPerLevel": 2.5,
+          "charismaPerLevel": 0.5
+        },
+        "abilityUnlocks": {
+          "1": ["Drain Life", "Summon Skeleton"],
+          "3": ["Death Bolt"],
+          "5": ["Soul Harvest"],
+          "10": ["Raise Dead"],
+          "15": ["Death and Decay"],
+          "20": ["Army of the Dead"],
+          "30": ["Lich Form"],
+          "50": ["Death Lord"]
+        }
+      }
+    },
+    "clerics": {
+      "Priest": {
+        "statGrowth": {
+          "healthPerLevel": 8,
+          "manaPerLevel": 8,
+          "strengthPerLevel": 1,
+          "dexterityPerLevel": 1,
+          "constitutionPerLevel": 1.5,
+          "intelligencePerLevel": 1.5,
+          "wisdomPerLevel": 2.5,
+          "charismaPerLevel": 2
+        },
+        "abilityUnlocks": {
+          "1": ["Heal", "Bless"],
+          "3": ["Smite"],
+          "5": ["Divine Shield"],
+          "10": ["Resurrection"],
+          "15": ["Mass Heal"],
+          "20": ["Holy Nova"],
+          "30": ["Divine Intervention"],
+          "50": ["Avatar of Light"]
+        }
+      },
+      "Paladin": {
+        "statGrowth": {
+          "healthPerLevel": 11,
+          "manaPerLevel": 5,
+          "strengthPerLevel": 2,
+          "dexterityPerLevel": 1,
+          "constitutionPerLevel": 2,
+          "intelligencePerLevel": 1,
+          "wisdomPerLevel": 2,
+          "charismaPerLevel": 1.5
+        },
+        "abilityUnlocks": {
+          "1": ["Divine Strike", "Lay on Hands"],
+          "3": ["Holy Aura"],
+          "5": ["Consecrate"],
+          "10": ["Divine Shield"],
+          "15": ["Hammer of Justice"],
+          "20": ["Avenging Wrath"],
+          "30": ["Crusader"],
+          "50": ["Holy Champion"]
+        }
+      }
+    },
+    "rangers": {
+      "Hunter": {
+        "statGrowth": {
+          "healthPerLevel": 9,
+          "manaPerLevel": 4,
+          "strengthPerLevel": 1.5,
+          "dexterityPerLevel": 2.5,
+          "constitutionPerLevel": 1.5,
+          "intelligencePerLevel": 1,
+          "wisdomPerLevel": 2,
+          "charismaPerLevel": 1
+        },
+        "abilityUnlocks": {
+          "1": ["Bow Shot", "Track"],
+          "3": ["Trap"],
+          "5": ["Animal Companion"],
+          "10": ["Multi-Shot"],
+          "15": ["Hunter's Mark"],
+          "20": ["Volley"],
+          "30": ["Master Tracker"],
+          "50": ["Apex Predator"]
+        }
+      },
+      "Beastmaster": {
+        "statGrowth": {
+          "healthPerLevel": 9,
+          "manaPerLevel": 5,
+          "strengthPerLevel": 1.5,
+          "dexterityPerLevel": 2,
+          "constitutionPerLevel": 1.5,
+          "intelligencePerLevel": 1,
+          "wisdomPerLevel": 2.5,
+          "charismaPerLevel": 1.5
+        },
+        "abilityUnlocks": {
+          "1": ["Bow Shot", "Beast Command"],
+          "3": ["Pack Tactics"],
+          "5": ["Wild Growth"],
+          "10": ["Beast Fury"],
+          "15": ["Alpha Strike"],
+          "20": ["Primal Bond"],
+          "30": ["King of Beasts"],
+          "50": ["Nature's Wrath"]
+        }
+      }
+    }
+  }
+}
