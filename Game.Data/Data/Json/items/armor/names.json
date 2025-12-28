@@ -7,8 +7,6 @@
     "supportsTraits": true,
     "componentKeys": [
       "prefix",
-      "material",
-      "quality",
       "descriptive",
       "suffix"
     ],
@@ -635,466 +633,6 @@
         }
       }
     ],
-    "material": [
-      {
-        "value": "Cloth",
-        "rarityWeight": 5,
-        "traits": {
-          "armorBase": {
-            "value": 5,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 0.3,
-            "type": "number"
-          },
-          "durability": {
-            "value": 50,
-            "type": "number"
-          },
-          "manaRegen": {
-            "value": 1,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Leather",
-        "rarityWeight": 10,
-        "traits": {
-          "armorBase": {
-            "value": 10,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 0.5,
-            "type": "number"
-          },
-          "durability": {
-            "value": 80,
-            "type": "number"
-          },
-          "dexterityBonus": {
-            "value": 1,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Hide",
-        "rarityWeight": 12,
-        "traits": {
-          "armorBase": {
-            "value": 12,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 0.6,
-            "type": "number"
-          },
-          "durability": {
-            "value": 100,
-            "type": "number"
-          },
-          "resistCold": {
-            "value": 5,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Iron",
-        "rarityWeight": 15,
-        "traits": {
-          "armorBase": {
-            "value": 20,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 1.0,
-            "type": "number"
-          },
-          "durability": {
-            "value": 120,
-            "type": "number"
-          },
-          "resistPhysical": {
-            "value": 5,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Steel",
-        "rarityWeight": 25,
-        "traits": {
-          "armorBase": {
-            "value": 30,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 1.1,
-            "type": "number"
-          },
-          "durability": {
-            "value": 150,
-            "type": "number"
-          },
-          "resistPhysical": {
-            "value": 10,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Mithril",
-        "rarityWeight": 55,
-        "traits": {
-          "armorBase": {
-            "value": 40,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 0.5,
-            "type": "number"
-          },
-          "durability": {
-            "value": 200,
-            "type": "number"
-          },
-          "resistMagic": {
-            "value": 10,
-            "type": "number"
-          },
-          "glowEffect": {
-            "value": true,
-            "type": "boolean"
-          }
-        }
-      },
-      {
-        "value": "Adamantine",
-        "rarityWeight": 85,
-        "traits": {
-          "armorBase": {
-            "value": 50,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 1.2,
-            "type": "number"
-          },
-          "durability": {
-            "value": 300,
-            "type": "number"
-          },
-          "resistPhysical": {
-            "value": 20,
-            "type": "number"
-          },
-          "armorPierceResist": {
-            "value": 30,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Dragon",
-        "rarityWeight": 95,
-        "traits": {
-          "armorBase": {
-            "value": 45,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 0.8,
-            "type": "number"
-          },
-          "durability": {
-            "value": 350,
-            "type": "number"
-          },
-          "resistFire": {
-            "value": 30,
-            "type": "number"
-          },
-          "resistAll": {
-            "value": 10,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Elven",
-        "rarityWeight": 65,
-        "traits": {
-          "armorBase": {
-            "value": 35,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 0.6,
-            "type": "number"
-          },
-          "durability": {
-            "value": 180,
-            "type": "number"
-          },
-          "dexterityBonus": {
-            "value": 2,
-            "type": "number"
-          },
-          "dodgeChance": {
-            "value": 5,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Dwarven",
-        "rarityWeight": 60,
-        "traits": {
-          "armorBase": {
-            "value": 42,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 1.3,
-            "type": "number"
-          },
-          "durability": {
-            "value": 250,
-            "type": "number"
-          },
-          "constitutionBonus": {
-            "value": 2,
-            "type": "number"
-          },
-          "resistPhysical": {
-            "value": 15,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Orcish",
-        "rarityWeight": 30,
-        "traits": {
-          "armorBase": {
-            "value": 28,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 1.4,
-            "type": "number"
-          },
-          "durability": {
-            "value": 140,
-            "type": "number"
-          },
-          "strengthBonus": {
-            "value": 1,
-            "type": "number"
-          },
-          "intimidationBonus": {
-            "value": 10,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Daedric",
-        "rarityWeight": 90,
-        "traits": {
-          "armorBase": {
-            "value": 55,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 1.5,
-            "type": "number"
-          },
-          "durability": {
-            "value": 400,
-            "type": "number"
-          },
-          "resistDark": {
-            "value": 30,
-            "type": "number"
-          },
-          "darkDamageReflect": {
-            "value": 10,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Glass",
-        "rarityWeight": 50,
-        "traits": {
-          "armorBase": {
-            "value": 32,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 0.7,
-            "type": "number"
-          },
-          "durability": {
-            "value": 90,
-            "type": "number"
-          },
-          "resistMagic": {
-            "value": 15,
-            "type": "number"
-          },
-          "visualColor": {
-            "value": "translucent",
-            "type": "string"
-          }
-        }
-      },
-      {
-        "value": "Dragonscale",
-        "rarityWeight": 100,
-        "traits": {
-          "armorBase": {
-            "value": 60,
-            "type": "number"
-          },
-          "weightMultiplier": {
-            "value": 0.9,
-            "type": "number"
-          },
-          "durability": {
-            "value": 500,
-            "type": "number"
-          },
-          "resistFire": {
-            "value": 40,
-            "type": "number"
-          },
-          "resistIce": {
-            "value": 40,
-            "type": "number"
-          },
-          "resistAll": {
-            "value": 15,
-            "type": "number"
-          }
-        }
-      }
-    ],
-    "quality": [
-      {
-        "value": "Crude",
-        "rarityWeight": 5,
-        "traits": {
-          "armorBonus": {
-            "value": -5,
-            "type": "number"
-          },
-          "durability": {
-            "value": 40,
-            "type": "number"
-          },
-          "valueMultiplier": {
-            "value": 0.3,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Standard",
-        "rarityWeight": 10,
-        "traits": {
-          "durability": {
-            "value": 100,
-            "type": "number"
-          },
-          "valueMultiplier": {
-            "value": 1.0,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Fine",
-        "rarityWeight": 20,
-        "traits": {
-          "armorBonus": {
-            "value": 3,
-            "type": "number"
-          },
-          "durability": {
-            "value": 130,
-            "type": "number"
-          },
-          "valueMultiplier": {
-            "value": 1.3,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Superior",
-        "rarityWeight": 30,
-        "traits": {
-          "armorBonus": {
-            "value": 5,
-            "type": "number"
-          },
-          "durability": {
-            "value": 160,
-            "type": "number"
-          },
-          "valueMultiplier": {
-            "value": 1.5,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Exceptional",
-        "rarityWeight": 40,
-        "traits": {
-          "armorBonus": {
-            "value": 8,
-            "type": "number"
-          },
-          "durability": {
-            "value": 200,
-            "type": "number"
-          },
-          "valueMultiplier": {
-            "value": 1.8,
-            "type": "number"
-          }
-        }
-      },
-      {
-        "value": "Flawless",
-        "rarityWeight": 60,
-        "traits": {
-          "armorBonus": {
-            "value": 12,
-            "type": "number"
-          },
-          "durability": {
-            "value": 250,
-            "type": "number"
-          },
-          "valueMultiplier": {
-            "value": 2.5,
-            "type": "number"
-          },
-          "allStatsBonus": {
-            "value": 1,
-            "type": "number"
-          }
-        }
-      }
-    ],
     "descriptive": [
       {
         "value": "Blazing",
@@ -1703,83 +1241,67 @@
   "patterns": [
     {
       "pattern": "base",
-      "weight": 100,
-      "example": "Chainmail"
+      "rarityWeight": 100
     },
     {
       "pattern": "{material} {base}",
-      "weight": 50,
-      "example": "Mithril Chainmail"
+      "rarityWeight": 50
     },
     {
       "pattern": "{quality} {base}",
-      "weight": 40,
-      "example": "Fine Chainmail"
+      "rarityWeight": 40
     },
     {
       "pattern": "{prefix} {base}",
-      "weight": 30,
-      "example": "Sturdy Chainmail"
+      "rarityWeight": 30
     },
     {
       "pattern": "{descriptive} {base}",
-      "weight": 35,
-      "example": "Blazing Chainmail"
+      "rarityWeight": 35
     },
     {
       "pattern": "{base} {suffix}",
-      "weight": 30,
-      "example": "Chainmail of Protection"
+      "rarityWeight": 30
     },
     {
       "pattern": "{material} {base} {suffix}",
-      "weight": 20,
-      "example": "Mithril Chainmail of the Guardian"
+      "rarityWeight": 20
     },
     {
       "pattern": "{quality} {material} {base}",
-      "weight": 15,
-      "example": "Fine Mithril Chainmail"
+      "rarityWeight": 15
     },
     {
       "pattern": "{prefix} {material} {base}",
-      "weight": 10,
-      "example": "Blessed Dragonscale Chainmail"
+      "rarityWeight": 10
     },
     {
       "pattern": "{descriptive} {base} {suffix}",
-      "weight": 12,
-      "example": "Holy Chainmail of the Crusader"
+      "rarityWeight": 12
     },
     {
       "pattern": "{quality} {base} {suffix}",
-      "weight": 15,
-      "example": "Flawless Chainmail of the Champion"
+      "rarityWeight": 15
     },
     {
       "pattern": "{prefix} {base} {suffix}",
-      "weight": 8,
-      "example": "Ancient Chainmail of the Aegis"
+      "rarityWeight": 8
     },
     {
       "pattern": "{quality} {material} {base} {suffix}",
-      "weight": 5,
-      "example": "Exceptional Adamantine Chainmail of the Mountain"
+      "rarityWeight": 5
     },
     {
       "pattern": "{prefix} {material} {base} {suffix}",
-      "weight": 3,
-      "example": "Celestial Dragonscale Chainmail of the Phoenix"
+      "rarityWeight": 3
     },
     {
       "pattern": "{descriptive} {material} {base} {suffix}",
-      "weight": 4,
-      "example": "Holy Mithril Chainmail of the Gods"
+      "rarityWeight": 4
     },
     {
       "pattern": "{prefix} {quality} {material} {base} {suffix}",
-      "weight": 1,
-      "example": "Primordial Flawless Dragonscale Chainmail of the Gods"
+      "rarityWeight": 1
     }
   ]
 }

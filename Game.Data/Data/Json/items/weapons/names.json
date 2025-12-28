@@ -7,7 +7,6 @@
     "supportsTraits": true,
     "componentKeys": [
       "prefix",
-      "material",
       "quality",
       "descriptive",
       "suffix"
@@ -33,56 +32,6 @@
     ]
   },
   "components": {
-    "base": [
-      {
-        "value": "Longsword",
-        "rarityWeight": 100
-      },
-      {
-        "value": "Shortsword",
-        "rarityWeight": 100
-      },
-      {
-        "value": "Dagger",
-        "rarityWeight": 100
-      },
-      {
-        "value": "Axe",
-        "rarityWeight": 80
-      },
-      {
-        "value": "Bow",
-        "rarityWeight": 80
-      },
-      {
-        "value": "Staff",
-        "rarityWeight": 80
-      },
-      {
-        "value": "Mace",
-        "rarityWeight": 70
-      },
-      {
-        "value": "Spear",
-        "rarityWeight": 70
-      },
-      {
-        "value": "Greatsword",
-        "rarityWeight": 50
-      },
-      {
-        "value": "Warhammer",
-        "rarityWeight": 50
-      },
-      {
-        "value": "Katana",
-        "rarityWeight": 30
-      },
-      {
-        "value": "Scimitar",
-        "rarityWeight": 30
-      }
-    ],
     "prefix": [
       {
         "value": "Rusty",

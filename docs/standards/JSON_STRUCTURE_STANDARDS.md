@@ -67,9 +67,8 @@
   },
   "patterns": [
     {
-      "pattern": "token1 + token2",
-      "weight": 50,
-      "example": "Example Output"
+      "pattern": "{token1} {token2}",
+      "rarityWeight": 50
     }
   ]
 }
@@ -83,7 +82,7 @@
 
 ---
 
-### Item Catalog Files (`types.json`)
+### Item Catalog Files (`catalog.json`)
 
 **Type:** `"item_catalog"`
 
@@ -111,9 +110,9 @@
 ```
 
 **Examples:**
-- `items/weapons/types.json`
-- `items/armor/types.json`
-- `items/consumables/types.json`
+- `items/weapons/catalog.json`
+- `items/armor/catalog.json`
+- `items/consumables/catalog.json`
 
 ---
 
@@ -236,14 +235,14 @@ Before committing JSON changes:
 | File | Old Structure | New Structure | Status |
 |------|---------------|---------------|--------|
 | `items/weapons/names.json` | Metadata only ✅ | No change needed | ✅ |
-| `items/weapons/types.json` | Root notes ❌ | Moved to metadata | ✅ |
+| `items/weapons/catalog.json` | Root notes ❌ | Moved to metadata | ✅ |
 | `items/armor/names.json` | Metadata only ✅ | No change needed | ✅ |
-| `items/armor/types.json` | Root notes ❌ | Moved to metadata | ✅ |
+| `items/armor/catalog.json` | Root notes ❌ | Moved to metadata | ✅ |
 | `items/enchantments/names.json` | Metadata only ✅ | No change needed | ✅ |
 | `items/consumables/names.json` | Root notes ❌ | Moved to metadata | ✅ |
-| `items/consumables/types.json` | Root notes ❌ | Moved to metadata | ✅ |
+| `items/consumables/catalog.json` | Root notes ❌ | Moved to metadata | ✅ |
 | `items/materials/names.json` | Metadata at end ❌ | Moved to top | ✅ |
-| `items/materials/types.json` | Root notes ❌ | Moved to metadata | ✅ |
+| `items/materials/catalog.json` | Root notes ❌ | Moved to metadata | ✅ |
 
 **Build Status:** ✅ All projects compile successfully
 

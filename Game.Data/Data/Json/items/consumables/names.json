@@ -1214,38 +1214,31 @@
   "patterns": [
     {
       "pattern": "base",
-      "weight": 100,
-      "example": "Potion"
+      "rarityWeight": 100
     },
     {
       "pattern": "{quality} {base}",
-      "weight": 50,
-      "example": "Greater Potion"
+      "rarityWeight": 50
     },
     {
       "pattern": "{effect} {base}",
-      "weight": 40,
-      "example": "Healing Potion"
+      "rarityWeight": 40
     },
     {
       "pattern": "{base} {suffix}",
-      "weight": 35,
-      "example": "Potion of Healing"
+      "rarityWeight": 35
     },
     {
       "pattern": "{quality} {effect} {base}",
-      "weight": 20,
-      "example": "Superior Healing Potion"
+      "rarityWeight": 20
     },
     {
       "pattern": "{descriptive} {base} {suffix}",
-      "weight": 15,
-      "example": "Divine Potion of the Phoenix"
+      "rarityWeight": 15
     },
     {
       "pattern": "{quality} {effect} {base} {suffix}",
-      "weight": 8,
-      "example": "Legendary Restoration Potion of the Dragon"
+      "rarityWeight": 8
     }
   ]
 }
