@@ -31,6 +31,10 @@ namespace Game.ContentBuilder.Views.Components
             DependencyProperty.Register(nameof(AddTraitCommand), typeof(ICommand), typeof(ComponentItemControl),
                 new PropertyMetadata(null));
 
+        public static readonly DependencyProperty RemoveTraitCommandProperty =
+            DependencyProperty.Register(nameof(RemoveTraitCommand), typeof(ICommand), typeof(ComponentItemControl),
+                new PropertyMetadata(null));
+
         public ComponentItemControl()
         {
             InitializeComponent();
@@ -64,6 +68,12 @@ namespace Game.ContentBuilder.Views.Components
         {
             get => (ICommand)GetValue(AddTraitCommandProperty);
             set => SetValue(AddTraitCommandProperty, value);
+        }
+
+        public ICommand RemoveTraitCommand
+        {
+            get => (ICommand)GetValue(RemoveTraitCommandProperty);
+            set => SetValue(RemoveTraitCommandProperty, value);
         }
     }
 }

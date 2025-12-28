@@ -153,7 +153,9 @@
                                   Margin="16,8,16,8"
                                   ItemsSource="{Binding TypeCatalogs}"
                                   BorderThickness="0"
-                                  SelectedItemChanged="CatalogTreeView_SelectedItemChanged">
+                                  SelectedItemChanged="CatalogTreeView_SelectedItemChanged"
+                                  VirtualizingPanel.IsVirtualizing="True"
+                                  VirtualizingPanel.VirtualizationMode="Recycling">
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding Categories}">
                                     <StackPanel Orientation="Horizontal">

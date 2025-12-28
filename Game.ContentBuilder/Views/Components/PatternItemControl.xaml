@@ -141,8 +141,9 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Content="{Binding StringFormat='{}{0}'}"
-                                        x:Name="ComponentTokenButton"                                        Command="{Binding DataContext.InsertComponentTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                        CommandParameter="{Binding}"                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        x:Name="ComponentTokenButton"
+                                        Command="{Binding DataContext.InsertComponentTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
                                         materialDesign:ButtonAssist.CornerRadius="4"
                                         Background="#4CAF50"
                                         Height="26"
@@ -150,7 +151,14 @@
                                         FontSize="11"
                                         FontFamily="Consolas"
                                         Margin="0,0,4,4"
-                                        ToolTip="{Binding StringFormat='Insert {{0}} token'}"/>
+                                        ToolTip="{Binding StringFormat='Insert {{0}} token'}">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource TupleConverter}">
+                                            <Binding Path="."/>
+                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
+                                </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -172,7 +180,6 @@
                         <Button x:Name="MaterialRefButton"
                                 Content="@materialRef"
                                 Command="{Binding InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                CommandParameter="@materialRef"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 Height="24"
                                 Padding="8,0"
@@ -180,29 +187,48 @@
                                 FontFamily="Consolas"
                                 Margin="0,0,4,4"
                                 ToolTip="All materials (metals, leathers, woods, gemstones)"
-                                AutomationProperties.AutomationId="ReferenceInsertButton"/>
+                                AutomationProperties.AutomationId="ReferenceInsertButton">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource TupleConverter}">
+                                    <Binding Source="@materialRef"/>
+                                    <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
                         <Button x:Name="WeaponRefButton"
                                 Content="@weaponRef"
                                 Command="{Binding InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                CommandParameter="@weaponRef"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 Height="24"
                                 Padding="8,0"
                                 FontSize="10"
                                 FontFamily="Consolas"
                                 Margin="0,0,4,4"
-                                ToolTip="All weapons"/>
+                                ToolTip="All weapons">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource TupleConverter}">
+                                    <Binding Source="@weaponRef"/>
+                                    <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
                         <Button x:Name="EnemyRefButton"
                                 Content="@enemyRef"
                                 Command="{Binding InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                CommandParameter="@enemyRef"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 Height="24"
                                 Padding="8,0"
                                 FontSize="10"
                                 FontFamily="Consolas"
                                 Margin="0,0,4,4"
-                                ToolTip="All enemies"/>
+                                ToolTip="All enemies">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource TupleConverter}">
+                                    <Binding Source="@enemyRef"/>
+                                    <Binding RelativeSource="{RelativeSource AncestorType={x:Type materialDesign:Card}}" Path="DataContext"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
                         <Button x:Name="BrowseButton"
                                 Command="{Binding BrowseReferenceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext}"

@@ -86,7 +86,7 @@ public partial class NameListEditorViewModel : ObservableObject
     /// <summary>
     /// Loads v4 names.json data (metadata, patternTokens, componentKeys, components)
     /// </summary>
-    private void LoadData()
+    private async void LoadData()
     {
         try
         {
@@ -94,10 +94,12 @@ public partial class NameListEditorViewModel : ObservableObject
             Log.Information("Loading names.json from {FilePath}", filePath);
             MainWindow.AddLog($"Loading {Path.GetFileName(filePath)}...");
 
-            var json = System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath));
+            // Read file asynchronously
+            var json = await Task.Run(() => System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath)));
             Log.Debug("Read {Length} characters from file", json.Length);
 
-            var root = JObject.Parse(json);
+            // Parse JSON asynchronously
+            var root = await Task.Run(() => JObject.Parse(json));
             Log.Debug("Parsed JSON successfully");
             MainWindow.AddLog("JSON parsed successfully");
 
@@ -110,97 +112,119 @@ public partial class NameListEditorViewModel : ObservableObject
                 Log.Debug("Loaded metadata");
             }
 
-            // Dynamic components
+            // Dynamic components - process asynchronously for better performance
             Components.Clear();
             ComponentNames.Clear();
             Log.Debug("Loading components...");
             if (root["components"] is JObject compsObj)
             {
                 Log.Debug("Found components object with {Count} properties", compsObj.Properties().Count());
-                foreach (var prop in compsObj.Properties())
+                
+                // Process components in parallel for faster loading
+                await Task.Run(() =>
                 {
-                    var name = prop.Name;
-                    ComponentNames.Add(name);
-                    var list = new ObservableCollection<NameComponentBase>();
-                    if (prop.Value is JArray arr)
+                    var componentsList = new List<KeyValuePair<string, ObservableCollection<NameComponentBase>>>();
+                    var componentNames = new List<string>();
+                    
+                    foreach (var prop in compsObj.Properties())
                     {
-                        for (int i = 0; i < arr.Count; i++)
+                        var name = prop.Name;
+                        componentNames.Add(name);
+                        var list = new ObservableCollection<NameComponentBase>();
+                        if (prop.Value is JArray arr)
                         {
-                            try
+                            for (int i = 0; i < arr.Count; i++)
                             {
-                                var obj = arr[i] as JObject;
-                                if (obj == null) continue;
-
-                                // Manual deserialization to avoid converter recursion
-                                NameComponentBase? comp = null;
-
-                                // Check for NPC-specific fields
-                                if (obj.ContainsKey("gender") || obj.ContainsKey("preferredSocialClass") || obj.ContainsKey("weightMultiplier"))
+                                try
                                 {
-                                    comp = new NpcNameComponent
-                                    {
-                                        Value = obj["value"]?.ToString() ?? string.Empty,
-                                        RarityWeight = obj["rarityWeight"]?.Value<int>() ?? 0,
-                                        Gender = obj["gender"]?.ToString(),
-                                        PreferredSocialClass = obj["preferredSocialClass"]?.ToString(),
-                                        WeightMultiplier = obj["weightMultiplier"]?.ToObject<Dictionary<string, double>>()
-                                    };
-                                }
-                                // Check for Item-specific fields
-                                else if (obj.ContainsKey("traits"))
-                                {
-                                    var itemComp = new ItemNameComponent
-                                    {
-                                        Value = obj["value"]?.ToString() ?? string.Empty,
-                                        RarityWeight = obj["rarityWeight"]?.Value<int>() ?? 0,
-                                        TraitsJson = new Dictionary<string, JObject>()
-                                    };
+                                    var obj = arr[i] as JObject;
+                                    if (obj == null) continue;
 
-                                    if (obj["traits"] is JObject traitsObj)
+                                    // Manual deserialization to avoid converter recursion
+                                    NameComponentBase? comp = null;
+
+                                    // Check for NPC-specific fields
+                                    if (obj.ContainsKey("gender") || obj.ContainsKey("preferredSocialClass") || obj.ContainsKey("weightMultiplier"))
                                     {
-                                        foreach (var trait in traitsObj)
+                                        comp = new NpcNameComponent
                                         {
-                                            itemComp.TraitsJson[trait.Key] = trait.Value as JObject ?? new JObject();
+                                            Value = obj["value"]?.ToString() ?? string.Empty,
+                                            RarityWeight = obj["rarityWeight"]?.Value<int>() ?? 0,
+                                            Gender = obj["gender"]?.ToString(),
+                                            PreferredSocialClass = obj["preferredSocialClass"]?.ToString(),
+                                            WeightMultiplier = obj["weightMultiplier"]?.ToObject<Dictionary<string, double>>()
+                                        };
+                                    }
+                                    // Check for Item-specific fields
+                                    else if (obj.ContainsKey("traits"))
+                                    {
+                                        var itemComp = new ItemNameComponent
+                                        {
+                                            Value = obj["value"]?.ToString() ?? string.Empty,
+                                            RarityWeight = obj["rarityWeight"]?.Value<int>() ?? 0,
+                                            TraitsJson = new Dictionary<string, JObject>()
+                                        };
 
-                                            // Parse trait into ComponentTrait for editing
-                                            var traitData = trait.Value as JObject;
-                                            if (traitData != null)
+                                        if (obj["traits"] is JObject traitsObj)
+                                        {
+                                            foreach (var trait in traitsObj)
                                             {
-                                                itemComp.Traits.Add(new ComponentTrait
+                                                itemComp.TraitsJson[trait.Key] = trait.Value as JObject ?? new JObject();
+
+                                                // Parse trait into ComponentTrait for editing
+                                                var traitData = trait.Value as JObject;
+                                                if (traitData != null)
                                                 {
-                                                    Name = trait.Key,
-                                                    Value = traitData["value"]?.ToString() ?? string.Empty,
-                                                    Type = traitData["type"]?.ToString() ?? "number"
-                                                });
+                                                    itemComp.Traits.Add(new ComponentTrait
+                                                    {
+                                                        Name = trait.Key,
+                                                        Value = traitData["value"]?.ToString() ?? string.Empty,
+                                                        Type = traitData["type"]?.ToString() ?? "number"
+                                                    });
+                                                }
                                             }
                                         }
+                                        comp = itemComp;
                                     }
-                                    comp = itemComp;
-                                }
-                                // Default/Basic component (just value + rarityWeight)
-                                else
-                                {
-                                    comp = new ItemNameComponent
+                                    // Default/Basic component (just value + rarityWeight)
+                                    else
                                     {
-                                        Value = obj["value"]?.ToString() ?? string.Empty,
-                                        RarityWeight = obj["rarityWeight"]?.Value<int>() ?? 0
-                                    };
-                                }
+                                        comp = new ItemNameComponent
+                                        {
+                                            Value = obj["value"]?.ToString() ?? string.Empty,
+                                            RarityWeight = obj["rarityWeight"]?.Value<int>() ?? 0
+                                        };
+                                    }
 
-                                if (comp != null)
-                                {
-                                    list.Add(comp);
+                                    if (comp != null)
+                                    {
+                                        list.Add(comp);
+                                    }
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                Log.Error(ex, "Failed to deserialize component {Index} of {Total} for {Name}. JSON: {Json}", i + 1, arr.Count, name, arr[i].ToString());
-                                // Continue to next item instead of failing completely
+                                catch (Exception ex)
+                                {
+                                    Log.Error(ex, "Failed to deserialize component {Index} of {Total} for {Name}. JSON: {Json}", i + 1, arr.Count, name, arr[i].ToString());
+                                    // Continue to next item instead of failing completely
+                                }
                             }
                         }
+                        componentsList.Add(new KeyValuePair<string, ObservableCollection<NameComponentBase>>(name, list));
                     }
-                    Components.Add(new KeyValuePair<string, ObservableCollection<NameComponentBase>>(name, list));
-                }
+                    
+                    // Update UI collections on UI thread
+                    System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        foreach (var name in componentNames)
+                        {
+                            ComponentNames.Add(name);
+                        }
+                        foreach (var kvp in componentsList)
+                        {
+                            Components.Add(kvp);
+                        }
+                    });
+                });
+                
                 Log.Information("Loaded {Count} component groups with {Total} total components", Components.Count, Components.Sum(kvp => kvp.Value.Count));
                 MainWindow.AddLog($"Loaded {Components.Count} component groups with {Components.Sum(kvp => kvp.Value.Count)} total components");
             }
@@ -217,7 +241,9 @@ public partial class NameListEditorViewModel : ObservableObject
                 IsReadOnly = true
             };
             Patterns.Add(basePattern);
-            ParsePatternIntoTokens(basePattern);
+            
+            // Defer token parsing to avoid blocking UI
+            await Task.Run(() => ParsePatternIntoTokens(basePattern));
 
             if (root["patterns"] is JArray patternsArr)
             {
@@ -290,7 +316,8 @@ public partial class NameListEditorViewModel : ObservableObject
                         if (pattern != null)
                         {
                             Patterns.Add(pattern);
-                            ParsePatternIntoTokens(pattern);
+                            // Defer token parsing to background thread
+                            _ = Task.Run(() => ParsePatternIntoTokens(pattern));
                         }
                     }
                     catch (Exception ex)
@@ -303,12 +330,16 @@ public partial class NameListEditorViewModel : ObservableObject
                 MainWindow.AddLog($"Loaded {Patterns.Count} patterns");
             }
 
-            // Generate examples for patterns
-            GeneratePatternExamples();
+            // Generate examples for patterns asynchronously
+            _ = Task.Run(() => GeneratePatternExamples());
 
-            // Update statistics and validation
-            UpdateStats();
-            ValidateData();
+            // Update statistics and validation asynchronously
+            await Task.Run(() =>
+            {
+                UpdateStats();
+                ValidateData();
+            });
+            
             ApplyPatternFilter();
 
             StatusMessage = $"Loaded v4 names.json from {filePath}";
