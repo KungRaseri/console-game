@@ -1336,93 +1336,75 @@
   "patterns": [
     {
       "pattern": "{base}",
-      "weight": 100,
-      "example": "Longsword"
+      "rarityWeight": 100
     },
     {
-      "pattern": "@materialRef/weapon {base}",
-      "weight": 50,
-      "example": "Iron Longsword"
+      "pattern": "[@materialRef/weapon] {base}",
+      "rarityWeight": 50
     },
     {
       "pattern": "{quality} {base}",
-      "weight": 40,
-      "example": "Fine Longsword"
+      "rarityWeight": 40
     },
     {
       "pattern": "{prefix} {base}",
-      "weight": 30,
-      "example": "Rusty Longsword"
+      "rarityWeight": 30
     },
     {
       "pattern": "{descriptive} {base}",
-      "weight": 35,
-      "example": "Flaming Longsword"
+      "rarityWeight": 35
     },
     {
       "pattern": "{base} {suffix}",
-      "weight": 30,
-      "example": "Longsword of Slaying"
+      "rarityWeight": 30
     },
     {
-      "pattern": "@materialRef/weapon {base} {suffix}",
-      "weight": 20,
-      "example": "Mithril Longsword of Fire"
+      "pattern": "[@materialRef/weapon] {base} {suffix}",
+      "rarityWeight": 20
     },
     {
-      "pattern": "{quality} @materialRef/weapon {base}",
-      "weight": 15,
-      "example": "Fine Iron Longsword"
+      "pattern": "{quality} [@materialRef/weapon] {base}",
+      "rarityWeight": 15
     },
     {
-      "pattern": "{prefix} @materialRef/weapon {base}",
-      "weight": 10,
-      "example": "Blessed Mithril Longsword"
+      "pattern": "{prefix} [@materialRef/weapon] {base}",
+      "rarityWeight": 10
     },
     {
       "pattern": "{descriptive} {base} {suffix}",
-      "weight": 12,
-      "example": "Flaming Longsword of Power"
+      "rarityWeight": 12
     },
     {
       "pattern": "{quality} {base} {suffix}",
-      "weight": 15,
-      "example": "Masterwork Longsword of the Hero"
+      "rarityWeight": 15
     },
     {
       "pattern": "{prefix} {base} {suffix}",
-      "weight": 8,
-      "example": "Ancient Longsword of the Dragon"
+      "rarityWeight": 8
     },
     {
-      "pattern": "{quality} @materialRef/weapon {base} {suffix}",
-      "weight": 5,
-      "example": "Exceptional Mithril Longsword of Fire"
+      "pattern": "{quality} [@materialRef/weapon] {base} {suffix}",
+      "rarityWeight": 5
     },
     {
-      "pattern": "{prefix} @materialRef/weapon {base} {suffix}",
-      "weight": 3,
-      "example": "Blessed Dragonbone Longsword of the Phoenix"
+      "pattern": "{prefix} [@materialRef/weapon] {base} {suffix}",
+      "rarityWeight": 3
     },
     {
-      "pattern": "{descriptive} @materialRef/weapon {base} {suffix}",
-      "weight": 4,
-      "example": "Holy Adamantine Longsword of the Gods"
+      "pattern": "{descriptive} [@materialRef/weapon] {base} {suffix}",
+      "rarityWeight": 4
     },
     {
-      "pattern": "{prefix} {quality} @materialRef/weapon {base}",
-      "weight": 2,
-      "example": "Ancient Masterwork Dragonbone Longsword"
+      "pattern": "{prefix} {quality} [@materialRef/weapon] {base}",
+      "rarityWeight": 2
     },
     {
       "pattern": "{prefix} {descriptive} {base} {suffix}",
-      "weight": 2,
-      "example": "Divine Holy Longsword of Annihilation"
+      "rarityWeight": 2
     },
     {
-      "pattern": "{prefix} {quality} @materialRef/weapon {base} {suffix}",
-      "weight": 1,
-      "example": "Eternal Legendary Dragonbone Longsword of the Gods"
+      "pattern": "{prefix} {quality} [@materialRef/weapon] {base} {suffix}",
+      "rarityWeight": 1
     }
   ]
 }
