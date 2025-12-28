@@ -30,6 +30,7 @@
 
                     <TextBox Grid.Column="0"
                              x:Name="ValueTextBox"
+                             Text="{Binding Value, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              BorderThickness="0"
                              FontSize="14"
                              FontWeight="SemiBold"
@@ -46,6 +47,7 @@
                                    FontSize="11"
                                    Foreground="Gray"/>
                         <TextBox x:Name="WeightTextBox"
+                                 Text="{Binding RarityWeight, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Width="50"
                                  BorderThickness="0,0,0,1"
                                  Padding="4,2"
@@ -53,11 +55,13 @@
                                  FontSize="13"
                                  VerticalAlignment="Center"/>
                         <Border x:Name="WeightBadge"
+                                Background="{Binding RarityWeight, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource RarityWeightToColorConverter}}"
                                 CornerRadius="8"
                                 Padding="8,2"
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center">
                             <TextBlock x:Name="WeightName"
+                                       Text="{Binding RarityWeight, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource RarityWeightToNameConverter}}"
                                        FontSize="10"
                                        FontWeight="Bold"
                                        Foreground="White"/>
@@ -66,6 +70,8 @@
 
                     <Button Grid.Column="2"
                             x:Name="DeleteButton"
+                            Command="{Binding DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext}"
                             Style="{StaticResource MaterialDesignIconButton}"
                             Width="28"
                             Height="28"
@@ -104,6 +110,8 @@
                                VerticalAlignment="Center"/>
                     <Button Grid.Column="2"
                             x:Name="AddTraitButton"
+                            Command="{Binding AddTraitCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext}"
                             Style="{StaticResource MaterialDesignIconButton}"
                             Width="20"
                             Height="20"
@@ -115,7 +123,7 @@
                     </Button>
                 </Grid>
 
-                <ItemsControl x:Name="TraitsItemsControl">
+                <ItemsControl x:Name="TraitsItemsControl" ItemsSource="{Binding Traits, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Background="{DynamicResource MaterialDesignToolBarBackground}"

@@ -22,6 +22,7 @@
                                          Margin="0,0,8,0"
                                          VerticalAlignment="Center"/>
                 <TextBlock x:Name="GroupKeyTextBlock"
+                           Text="{Binding GroupKey, RelativeSource={RelativeSource AncestorType=UserControl}}"
                            FontWeight="SemiBold"
                            FontSize="14"
                            VerticalAlignment="Center"/>
@@ -31,6 +32,7 @@
                         Margin="8,0,0,0"
                         VerticalAlignment="Center">
                     <TextBlock x:Name="CountTextBlock"
+                               Text="{Binding ItemCount, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                FontSize="11"
                                FontWeight="Bold"
                                Foreground="White"/>
@@ -39,6 +41,8 @@
 
             <Button Grid.Column="1"
                     x:Name="AddButton"
+                    Command="{Binding AddCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding GroupKey, RelativeSource={RelativeSource AncestorType=UserControl}}"
                     Style="{StaticResource MaterialDesignIconButton}"
                     Width="24"
                     Height="24"
@@ -52,6 +56,8 @@
 
             <Button Grid.Column="2"
                     x:Name="DeleteButton"
+                    Command="{Binding DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                    CommandParameter="{Binding GroupKey, RelativeSource={RelativeSource AncestorType=UserControl}}"
                     Style="{StaticResource MaterialDesignIconButton}"
                     Width="24"
                     Height="24"

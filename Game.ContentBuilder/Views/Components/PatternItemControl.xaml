@@ -40,6 +40,7 @@
                         ToolTip="Pattern badges - Click component buttons below to add tokens. Drag badges to reorder. {base} is required."
                         AutomationProperties.AutomationId="TemplateTextBox">
                     <ItemsControl x:Name="TokensItemsControl"
+                                  ItemsSource="{Binding Tokens, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                   AllowDrop="True">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -50,6 +51,7 @@
                             <DataTemplate>
                                 <!-- Token Badge -->
                                 <Border x:Name="TokenBadge"
+                                        Background="{Binding BadgeColor}"
                                         CornerRadius="12"
                                         Padding="10,4"
                                         Margin="0,0,6,4"
@@ -59,6 +61,7 @@
                                         AutomationProperties.AutomationId="TokenBadge">
                                     <Grid>
                                         <TextBlock x:Name="TokenText"
+                                                   Text="{Binding DisplayText}"
                                                    FontFamily="Consolas"
                                                    FontSize="11"
                                                    FontWeight="SemiBold"
@@ -88,6 +91,8 @@
 
                 <StackPanel Grid.Column="1">
                     <TextBox x:Name="WeightTextBox"
+                             Text="{Binding Weight, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource AncestorType=UserControl}}"
                              HorizontalContentAlignment="Center"
                              materialDesign:HintAssist.Hint="Weight"
                              Margin="0,0,0,4">
@@ -103,6 +108,7 @@
                         </TextBox.Style>
                     </TextBox>
                     <ProgressBar x:Name="WeightProgressBar"
+                                 Value="{Binding WeightPercentage, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                  Maximum="100"
                                  Height="4"
                                  Foreground="#4CAF50"/>
@@ -112,6 +118,7 @@
             <!-- Pattern Token Helpers -->
             <Border Grid.Row="1"
                     x:Name="TokenHelpersBorder"
+                    Visibility="{Binding IsReadOnly, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                     Background="#F0F0F0"
                     CornerRadius="4"
                     Padding="8,6"
@@ -124,6 +131,7 @@
                                Foreground="Gray"
                                Margin="0,0,0,4"/>
                     <ItemsControl x:Name="ComponentTokensItemsControl"
+                                  ItemsSource="{Binding ComponentNames, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                   Margin="0,0,0,8">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -133,8 +141,8 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Content="{Binding StringFormat='{}{0}'}"
-                                        x:Name="ComponentTokenButton"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        x:Name="ComponentTokenButton"                                        Command="{Binding DataContext.InsertComponentTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"                                        Style="{StaticResource MaterialDesignRaisedButton}"
                                         materialDesign:ButtonAssist.CornerRadius="4"
                                         Background="#4CAF50"
                                         Height="26"
@@ -163,6 +171,8 @@
                         <!-- Quick Insert: Common References -->
                         <Button x:Name="MaterialRefButton"
                                 Content="@materialRef"
+                                Command="{Binding InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="@materialRef"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 Height="24"
                                 Padding="8,0"
@@ -173,6 +183,8 @@
                                 AutomationProperties.AutomationId="ReferenceInsertButton"/>
                         <Button x:Name="WeaponRefButton"
                                 Content="@weaponRef"
+                                Command="{Binding InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="@weaponRef"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 Height="24"
                                 Padding="8,0"
@@ -182,6 +194,8 @@
                                 ToolTip="All weapons"/>
                         <Button x:Name="EnemyRefButton"
                                 Content="@enemyRef"
+                                Command="{Binding InsertReferenceTokenCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="@enemyRef"
                                 Style="{StaticResource MaterialDesignOutlinedButton}"
                                 Height="24"
                                 Padding="8,0"
@@ -190,6 +204,8 @@
                                 Margin="0,0,4,4"
                                 ToolTip="All enemies"/>
                         <Button x:Name="BrowseButton"
+                                Command="{Binding BrowseReferenceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext}"
                                 Style="{StaticResource MaterialDesignFlatButton}"
                                 Height="24"
                                 Padding="8,0"
@@ -213,6 +229,7 @@
             <!-- Pattern Description -->
             <TextBlock Grid.Row="2"
                        x:Name="DescriptionTextBlock"
+                       Text="{Binding Description, RelativeSource={RelativeSource AncestorType=UserControl}}"
                        Style="{StaticResource MaterialDesignBody2TextBlock}"
                        Foreground="{DynamicResource MaterialDesignBodyLight}"
                        TextWrapping="Wrap"
@@ -240,6 +257,7 @@
                                    Foreground="Gray"
                                    Margin="0,0,0,4"/>
                         <TextBlock x:Name="ExamplesTextBlock"
+                                   Text="{Binding GeneratedExamples, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                    FontSize="11"
                                    FontFamily="Consolas"
                                    Foreground="#555"
@@ -251,6 +269,8 @@
                                 VerticalAlignment="Top"
                                 Margin="8,0,0,0">
                         <Button x:Name="RegenerateButton"
+                                Command="{Binding RegenerateExamplesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext}"
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 Width="24"
                                 Height="24"
@@ -261,6 +281,8 @@
                                                      Height="16"/>
                         </Button>
                         <Button x:Name="DuplicateButton"
+                                Command="{Binding DuplicatePatternCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext}"
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 Width="24"
                                 Height="24"

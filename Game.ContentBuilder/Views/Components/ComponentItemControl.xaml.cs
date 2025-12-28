@@ -17,7 +17,7 @@ namespace Game.ContentBuilder.Views.Components
 
         public static readonly DependencyProperty RarityWeightProperty =
             DependencyProperty.Register(nameof(RarityWeight), typeof(int), typeof(ComponentItemControl),
-                new FrameworkPropertyMetadata(50, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnRarityWeightChanged));
+                new FrameworkPropertyMetadata(50, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public static readonly DependencyProperty TraitsProperty =
             DependencyProperty.Register(nameof(Traits), typeof(object), typeof(ComponentItemControl),
@@ -34,7 +34,6 @@ namespace Game.ContentBuilder.Views.Components
         public ComponentItemControl()
         {
             InitializeComponent();
-            UpdateRarityBadge(RarityWeight);
         }
 
         public string Value
@@ -65,33 +64,6 @@ namespace Game.ContentBuilder.Views.Components
         {
             get => (ICommand)GetValue(AddTraitCommandProperty);
             set => SetValue(AddTraitCommandProperty, value);
-        }
-
-        private static void OnRarityWeightChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is ComponentItemControl control && e.NewValue is int weight)
-            {
-                control.UpdateRarityBadge(weight);
-            }
-        }
-
-        private void UpdateRarityBadge(int weight)
-        {
-            var colorConverter = new RarityWeightToColorConverter();
-            var nameConverter = new RarityWeightToNameConverter();
-
-            var color = colorConverter.Convert(weight, typeof(System.Windows.Media.Brush), null!, System.Globalization.CultureInfo.CurrentCulture);
-            var name = nameConverter.Convert(weight, typeof(string), null!, System.Globalization.CultureInfo.CurrentCulture);
-
-            if (color is System.Windows.Media.Brush brush)
-            {
-                WeightBadge.Background = brush;
-            }
-
-            if (name is string rarityName)
-            {
-                WeightName.Text = rarityName;
-            }
         }
     }
 }
