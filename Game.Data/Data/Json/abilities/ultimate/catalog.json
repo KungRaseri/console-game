@@ -2,12 +2,13 @@
   "metadata": {
     "description": "Ability catalog for ultimate",
     "version": "4.0",
-    "lastUpdated": "2025-12-27",
+    "lastUpdated": "2025-12-28",
     "type": "ability_catalog",
     "supportsTraits": true,
-    "totalAbilities": 20,
+    "totalAbilities": 34,
     "notes": [
       "Consolidated from enemy-specific abilities",
+      "Player ultimate abilities added for all classes",
       "Abilities are shared across enemies, players, and NPCs",
       "rarityWeight determines selection probability"
     ]
@@ -308,6 +309,207 @@
         }
       },
       "displayName": "Soul Harvest"
+    },
+    {
+      "name": "ragnarok",
+      "displayName": "Ragnarok",
+      "description": "Call down the apocalypse itself",
+      "rarityWeight": 5,
+      "cooldown": 300,
+      "manaCost": 500,
+      "traits": {
+        "damage": {"value": "10d100", "type": "string"},
+        "damageType": {"value": "fire", "type": "string"},
+        "areaOfEffect": {"value": 100, "type": "number"},
+        "stunDuration": {"value": 5, "type": "number"},
+        "channelTime": {"value": 3, "type": "number"},
+        "description": {"value": "Deals massive area damage and stuns all enemies", "type": "string"}
+      }
+    },
+    {
+      "name": "fortress",
+      "displayName": "Fortress",
+      "description": "Become an impenetrable wall",
+      "rarityWeight": 75,
+      "cooldown": 120,
+      "traits": {
+        "damageReduction": {"value": 90, "type": "number"},
+        "healthRegen": {"value": 100, "type": "number"},
+        "duration": {"value": 30, "type": "number"},
+        "ccImmunity": {"value": true, "type": "boolean"},
+        "reflectDamage": {"value": 50, "type": "number"}
+      }
+    },
+    {
+      "name": "grandmaster-duelist",
+      "displayName": "Grandmaster Duelist",
+      "description": "Perfection in single combat",
+      "rarityWeight": 50,
+      "cooldown": 180,
+      "traits": {
+        "critChance": {"value": 100, "type": "number"},
+        "critMultiplier": {"value": 3.0, "type": "number"},
+        "parryChance": {"value": 75, "type": "number"},
+        "riposteDamage": {"value": 200, "type": "number"},
+        "duration": {"value": 20, "type": "number"}
+      }
+    },
+    {
+      "name": "holy-champion",
+      "displayName": "Holy Champion",
+      "description": "Become a vessel of divine power",
+      "rarityWeight": 100,
+      "cooldown": 200,
+      "traits": {
+        "holyDamageBonus": {"value": 200, "type": "number"},
+        "healPerSecond": {"value": 50, "type": "number"},
+        "allyHealAura": {"value": 25, "type": "number"},
+        "undeadBonus": {"value": 300, "type": "number"},
+        "duration": {"value": 30, "type": "number"},
+        "auraRadius": {"value": 20, "type": "number"}
+      }
+    },
+    {
+      "name": "apex-predator",
+      "displayName": "Apex Predator",
+      "description": "Ultimate hunter commanding nature itself",
+      "rarityWeight": 75,
+      "cooldown": 150,
+      "traits": {
+        "petCount": {"value": 10, "type": "number"},
+        "petDamageBonus": {"value": 300, "type": "number"},
+        "petHealthBonus": {"value": 500, "type": "number"},
+        "rangedDamageBonus": {"value": 150, "type": "number"},
+        "duration": {"value": 45, "type": "number"}
+      }
+    },
+    {
+      "name": "archmages-supremacy",
+      "displayName": "Archmage's Supremacy",
+      "description": "Transcend mortal magical limits",
+      "rarityWeight": 100,
+      "cooldown": 240,
+      "traits": {
+        "spellPowerBonus": {"value": 300, "type": "number"},
+        "cooldownReduction": {"value": 75, "type": "number"},
+        "manaCostReduction": {"value": 90, "type": "number"},
+        "castTimeReduction": {"value": 50, "type": "number"},
+        "duration": {"value": 30, "type": "number"}
+      }
+    },
+    {
+      "name": "avatar-of-light",
+      "displayName": "Avatar of Light",
+      "description": "Pure divine radiance incarnate",
+      "rarityWeight": 50,
+      "cooldown": 300,
+      "traits": {
+        "holyNova": {"value": "5d50", "type": "string"},
+        "massResurrection": {"value": true, "type": "boolean"},
+        "invulnerability": {"value": 10, "type": "number"},
+        "auraRadius": {"value": 50, "type": "number"},
+        "undeadInstakill": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "death-incarnate",
+      "displayName": "Death Incarnate",
+      "description": "Embody death itself",
+      "rarityWeight": 35,
+      "cooldown": 180,
+      "traits": {
+        "lifeDrain": {"value": 100, "type": "number"},
+        "instantKillChance": {"value": 25, "type": "number"},
+        "undeadDamageBonus": {"value": 500, "type": "number"},
+        "auraRadius": {"value": 30, "type": "number"},
+        "duration": {"value": 20, "type": "number"}
+      }
+    },
+    {
+      "name": "death-lord",
+      "displayName": "Death Lord",
+      "description": "Supreme necromantic mastery",
+      "rarityWeight": 50,
+      "cooldown": 200,
+      "traits": {
+        "undeadSummons": {"value": 20, "type": "number"},
+        "lichTransform": {"value": true, "type": "boolean"},
+        "necroDamageBonus": {"value": 300, "type": "number"},
+        "soulCollectionBonus": {"value": 500, "type": "number"},
+        "duration": {"value": 60, "type": "number"}
+      }
+    },
+    {
+      "name": "dread-pirate",
+      "displayName": "Dread Pirate",
+      "description": "Legendary status of infamy",
+      "rarityWeight": 100,
+      "cooldown": 120,
+      "traits": {
+        "goldMultiplier": {"value": 5.0, "type": "number"},
+        "critChance": {"value": 75, "type": "number"},
+        "dodgeChance": {"value": 60, "type": "number"},
+        "allyMoraleBonus": {"value": 100, "type": "number"},
+        "enemyFearAura": {"value": 50, "type": "number"},
+        "duration": {"value": 45, "type": "number"}
+      }
+    },
+    {
+      "name": "elemental-apocalypse",
+      "displayName": "Elemental Apocalypse",
+      "description": "Unleash all elements at once",
+      "rarityWeight": 25,
+      "cooldown": 300,
+      "manaCost": 750,
+      "traits": {
+        "fireDamage": {"value": "3d100", "type": "string"},
+        "iceDamage": {"value": "3d100", "type": "string"},
+        "lightningDamage": {"value": "3d100", "type": "string"},
+        "areaOfEffect": {"value": 75, "type": "number"},
+        "elementalFusion": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "master-of-elements",
+      "displayName": "Master of Elements",
+      "description": "Perfect elemental control",
+      "rarityWeight": 75,
+      "cooldown": 180,
+      "traits": {
+        "elementalDamageBonus": {"value": 250, "type": "number"},
+        "elementalResist": {"value": 90, "type": "number"},
+        "instantCast": {"value": true, "type": "boolean"},
+        "noManaCost": {"value": true, "type": "boolean"},
+        "duration": {"value": 30, "type": "number"}
+      }
+    },
+    {
+      "name": "perfect-crime",
+      "displayName": "Perfect Crime",
+      "description": "The ultimate heist",
+      "rarityWeight": 100,
+      "cooldown": 600,
+      "traits": {
+        "goldSteal": {"value": 10000, "type": "number"},
+        "stealthBonus": {"value": 1000, "type": "number"},
+        "lockpickSuccess": {"value": 100, "type": "number"},
+        "detectionImmune": {"value": true, "type": "boolean"},
+        "escapeGuaranteed": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "natures-wrath",
+      "displayName": "Nature's Wrath",
+      "description": "Call upon primal nature's fury",
+      "rarityWeight": 50,
+      "cooldown": 180,
+      "traits": {
+        "natureDamage": {"value": "5d50", "type": "string"},
+        "animalSummons": {"value": 15, "type": "number"},
+        "plantEntangle": {"value": true, "type": "boolean"},
+        "areaOfEffect": {"value": 60, "type": "number"},
+        "duration": {"value": 40, "type": "number"}
+      }
     }
   ]
 }

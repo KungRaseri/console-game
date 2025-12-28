@@ -2,12 +2,13 @@
   "metadata": {
     "description": "Ability catalog for active/utility",
     "version": "4.0",
-    "lastUpdated": "2025-12-27",
+    "lastUpdated": "2025-12-28",
     "type": "ability_catalog",
     "supportsTraits": true,
-    "totalAbilities": 20,
+    "totalAbilities": 28,
     "notes": [
       "Consolidated from enemy-specific abilities",
+      "Player utility abilities added for all classes",
       "Abilities are shared across enemies, players, and NPCs",
       "rarityWeight determines selection probability"
     ]
@@ -318,6 +319,102 @@
         }
       },
       "displayName": "Children of the Night"
+    },
+    {
+      "name": "lockpicking",
+      "displayName": "Lockpicking",
+      "description": "Pick locks and disarm traps",
+      "rarityWeight": 10,
+      "cooldown": 0,
+      "traits": {
+        "successChance": {"value": 75, "type": "number"},
+        "requiresTools": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "steal",
+      "displayName": "Steal",
+      "description": "Pickpocket items from targets",
+      "rarityWeight": 10,
+      "cooldown": 10,
+      "traits": {
+        "successChance": {"value": 60, "type": "number"},
+        "detectionRisk": {"value": 30, "type": "number"},
+        "requiresStealth": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "vanish",
+      "displayName": "Vanish",
+      "description": "Disappear from sight, entering stealth",
+      "rarityWeight": 10,
+      "cooldown": 120,
+      "traits": {
+        "stealthBonus": {"value": 100, "type": "number"},
+        "duration": {"value": 10, "type": "number"},
+        "breaksOnAttack": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "track",
+      "displayName": "Track",
+      "description": "Follow tracks and signs of prey",
+      "rarityWeight": 15,
+      "cooldown": 0,
+      "traits": {
+        "detectionRange": {"value": 50, "type": "number"},
+        "revealsStealth": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "trap",
+      "displayName": "Trap",
+      "description": "Set traps to damage and hinder enemies",
+      "rarityWeight": 15,
+      "baseDamage": "3d6",
+      "cooldown": 15,
+      "traits": {
+        "damageType": {"value": "physical", "type": "string"},
+        "slowDuration": {"value": 5, "type": "number"},
+        "maxTraps": {"value": 3, "type": "number"}
+      }
+    },
+    {
+      "name": "soul-harvest",
+      "displayName": "Soul Harvest",
+      "description": "Collect souls from slain enemies",
+      "rarityWeight": 250,
+      "cooldown": 20,
+      "traits": {
+        "soulCharges": {"value": 5, "type": "number"},
+        "damagePerSoul": {"value": 10, "type": "number"},
+        "duration": {"value": 60, "type": "number"}
+      }
+    },
+    {
+      "name": "time-stop",
+      "displayName": "Time Stop",
+      "description": "Freezes time briefly",
+      "rarityWeight": 15,
+      "cooldown": 300,
+      "traits": {
+        "duration": {"value": 5, "type": "number"},
+        "manaCost": {"value": 200, "type": "number"},
+        "selfOnly": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "resurrection",
+      "displayName": "Resurrection",
+      "description": "Brings the dead back to life",
+      "rarityWeight": 20,
+      "cooldown": 600,
+      "traits": {
+        "requiresCorpse": {"value": true, "type": "boolean"},
+        "healthPercent": {"value": 50, "type": "number"},
+        "castTime": {"value": 10, "type": "number"},
+        "manaCost": {"value": 300, "type": "number"}
+      }
     }
   ]
 }

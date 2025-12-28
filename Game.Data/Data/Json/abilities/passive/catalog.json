@@ -1,0 +1,193 @@
+{
+  "metadata": {
+    "description": "Top-level passive ability catalog - always-active abilities providing continuous effects",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
+    "type": "ability_catalog",
+    "supportsTraits": true,
+    "totalAbilities": 16,
+    "notes": [
+      "Passive abilities are always active and don't require activation",
+      "Includes mastery abilities, traits, and permanent bonuses",
+      "Uses JSON Reference Standards v4.1 for cross-domain links",
+      "Organized by class and combat role"
+    ]
+  },
+  "items": [
+    {
+      "name": "weapon-mastery",
+      "displayName": "Weapon Mastery",
+      "description": "Expert proficiency with all weapons",
+      "rarityWeight": 5,
+      "traits": {
+        "damageBonus": {"value": 15, "type": "number"},
+        "critChance": {"value": 10, "type": "number"},
+        "attackSpeed": {"value": 10, "type": "number"}
+      }
+    },
+    {
+      "name": "combat-supremacy",
+      "displayName": "Combat Supremacy",
+      "description": "Unmatched battle prowess",
+      "rarityWeight": 5,
+      "traits": {
+        "damageBonus": {"value": 25, "type": "number"},
+        "armorBonus": {"value": 20, "type": "number"},
+        "critMultiplier": {"value": 1.5, "type": "number"}
+      }
+    },
+    {
+      "name": "titans-strength",
+      "displayName": "Titan's Strength",
+      "description": "Strength of ancient titans",
+      "rarityWeight": 5,
+      "traits": {
+        "strengthBonus": {"value": 50, "type": "number"},
+        "carryCapacity": {"value": 200, "type": "number"},
+        "knockbackResist": {"value": 100, "type": "number"}
+      }
+    },
+    {
+      "name": "unstoppable",
+      "displayName": "Unstoppable",
+      "description": "Cannot be slowed or stopped",
+      "rarityWeight": 50,
+      "traits": {
+        "ccReduction": {"value": 75, "type": "number"},
+        "movementBonus": {"value": 20, "type": "number"},
+        "knockbackImmune": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "deaths-door",
+      "displayName": "Death's Door",
+      "description": "Grows stronger as death approaches",
+      "rarityWeight": 50,
+      "traits": {
+        "damagePerMissingHP": {"value": 1, "type": "number"},
+        "armorPerMissingHP": {"value": 0.5, "type": "number"}
+      }
+    },
+    {
+      "name": "sentinel",
+      "displayName": "Sentinel",
+      "description": "Watchful guardian protecting allies",
+      "rarityWeight": 35,
+      "traits": {
+        "allyArmorBonus": {"value": 15, "type": "number"},
+        "threatGeneration": {"value": 50, "type": "number"},
+        "areaOfEffect": {"value": 10, "type": "number"}
+      }
+    },
+    {
+      "name": "bladework",
+      "displayName": "Bladework",
+      "description": "Masterful swordplay techniques",
+      "rarityWeight": 75,
+      "traits": {
+        "attackSpeed": {"value": 20, "type": "number"},
+        "parryChance": {"value": 25, "type": "number"},
+        "critChance": {"value": 15, "type": "number"}
+      }
+    },
+    {
+      "name": "master-thief",
+      "displayName": "Master Thief",
+      "description": "Legendary thieving skills",
+      "rarityWeight": 10,
+      "traits": {
+        "stealthBonus": {"value": 50, "type": "number"},
+        "lockpickingBonus": {"value": 50, "type": "number"},
+        "goldFindBonus": {"value": 100, "type": "number"}
+      }
+    },
+    {
+      "name": "shadow-master",
+      "displayName": "Shadow Master",
+      "description": "One with the shadows",
+      "rarityWeight": 150,
+      "traits": {
+        "stealthBonus": {"value": 75, "type": "number"},
+        "backstabBonus": {"value": 50, "type": "number"},
+        "shadowResist": {"value": 50, "type": "number"}
+      }
+    },
+    {
+      "name": "master-of-blades",
+      "displayName": "Master of Blades",
+      "description": "Supreme dueling expertise",
+      "rarityWeight": 100,
+      "traits": {
+        "critChance": {"value": 30, "type": "number"},
+        "parryChance": {"value": 40, "type": "number"},
+        "riposteBonus": {"value": 100, "type": "number"}
+      }
+    },
+    {
+      "name": "legendary-swagger",
+      "displayName": "Legendary Swagger",
+      "description": "Unmatched charisma and presence",
+      "rarityWeight": 100,
+      "traits": {
+        "charismaBonus": {"value": 50, "type": "number"},
+        "allyMoraleBonus": {"value": 30, "type": "number"},
+        "enemyMoraleReduction": {"value": 30, "type": "number"}
+      }
+    },
+    {
+      "name": "elemental-mastery",
+      "displayName": "Elemental Mastery",
+      "description": "Perfect control over chosen element",
+      "rarityWeight": 100,
+      "traits": {
+        "elementalDamage": {"value": 50, "type": "number"},
+        "elementalResist": {"value": 75, "type": "number"},
+        "manaCostReduction": {"value": 25, "type": "number"}
+      }
+    },
+    {
+      "name": "crusader",
+      "displayName": "Crusader",
+      "description": "Holy warrior's aura",
+      "rarityWeight": 75,
+      "traits": {
+        "holyDamage": {"value": 30, "type": "number"},
+        "allyHolyResist": {"value": 25, "type": "number"},
+        "undeadBonus": {"value": 50, "type": "number"}
+      }
+    },
+    {
+      "name": "master-tracker",
+      "displayName": "Master Tracker",
+      "description": "Supreme tracking and hunting skills",
+      "rarityWeight": 15,
+      "traits": {
+        "detectionRange": {"value": 100, "type": "number"},
+        "trackingSpeed": {"value": 50, "type": "number"},
+        "rangedBonus": {"value": 25, "type": "number"}
+      }
+    },
+    {
+      "name": "primal-bond",
+      "displayName": "Primal Bond",
+      "description": "Deep connection with animal companions",
+      "rarityWeight": 100,
+      "traits": {
+        "petHealthBonus": {"value": 75, "type": "number"},
+        "petDamageBonus": {"value": 50, "type": "number"},
+        "petResurrection": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "king-of-beasts",
+      "displayName": "King of Beasts",
+      "description": "Commands all creatures of the wild",
+      "rarityWeight": 100,
+      "traits": {
+        "maxPets": {"value": 5, "type": "number"},
+        "petDamageBonus": {"value": 100, "type": "number"},
+        "beastControlRange": {"value": 50, "type": "number"}
+      }
+    }
+  ]
+}

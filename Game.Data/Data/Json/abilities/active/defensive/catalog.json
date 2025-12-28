@@ -2,12 +2,13 @@
   "metadata": {
     "description": "Ability catalog for active/defensive",
     "version": "4.0",
-    "lastUpdated": "2025-12-27",
+    "lastUpdated": "2025-12-28",
     "type": "ability_catalog",
     "supportsTraits": true,
-    "totalAbilities": 18,
+    "totalAbilities": 33,
     "notes": [
       "Consolidated from enemy-specific abilities",
+      "Player defensive abilities added for all classes",
       "Abilities are shared across enemies, players, and NPCs",
       "rarityWeight determines selection probability"
     ]
@@ -261,6 +262,185 @@
         }
       },
       "displayName": "Shadow Walk"
+    },
+    {
+      "name": "defend",
+      "displayName": "Defend",
+      "description": "Defensive stance that reduces incoming damage",
+      "rarityWeight": 5,
+      "cooldown": 0,
+      "traits": {
+        "damageReduction": {"value": 50, "type": "number"},
+        "duration": {"value": 5, "type": "number"},
+        "movementPenalty": {"value": -50, "type": "number"}
+      }
+    },
+    {
+      "name": "indomitable",
+      "displayName": "Indomitable",
+      "description": "Becomes immune to crowd control effects",
+      "rarityWeight": 5,
+      "cooldown": 120,
+      "traits": {
+        "ccImmunity": {"value": true, "type": "boolean"},
+        "duration": {"value": 10, "type": "number"}
+      }
+    },
+    {
+      "name": "guardian",
+      "displayName": "Guardian",
+      "description": "Protects nearby allies by redirecting damage",
+      "rarityWeight": 35,
+      "cooldown": 30,
+      "traits": {
+        "damageRedirect": {"value": 50, "type": "number"},
+        "areaOfEffect": {"value": 5, "type": "number"},
+        "duration": {"value": 10, "type": "number"}
+      }
+    },
+    {
+      "name": "shield-wall",
+      "displayName": "Shield Wall",
+      "description": "Raises shield to block all frontal attacks",
+      "rarityWeight": 35,
+      "cooldown": 45,
+      "traits": {
+        "blockChance": {"value": 100, "type": "number"},
+        "frontalOnly": {"value": true, "type": "boolean"},
+        "duration": {"value": 8, "type": "number"},
+        "requiresShield": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "bulwark",
+      "displayName": "Bulwark",
+      "description": "Massive defense boost and damage reflection",
+      "rarityWeight": 35,
+      "cooldown": 60,
+      "traits": {
+        "armorBonus": {"value": 50, "type": "number"},
+        "damageReflect": {"value": 25, "type": "number"},
+        "duration": {"value": 15, "type": "number"}
+      }
+    },
+    {
+      "name": "aegis",
+      "displayName": "Aegis",
+      "description": "Divine shield that absorbs damage",
+      "rarityWeight": 35,
+      "cooldown": 90,
+      "traits": {
+        "shieldAmount": {"value": 200, "type": "number"},
+        "duration": {"value": 10, "type": "number"}
+      }
+    },
+    {
+      "name": "last-stand",
+      "displayName": "Last Stand",
+      "description": "Cannot be reduced below 1 HP",
+      "rarityWeight": 35,
+      "cooldown": 180,
+      "traits": {
+        "immortalityDuration": {"value": 8, "type": "number"},
+        "damageBonus": {"value": 50, "type": "number"}
+      }
+    },
+    {
+      "name": "riposte",
+      "displayName": "Riposte",
+      "description": "Counter-attack after successful parry",
+      "rarityWeight": 75,
+      "baseDamage": "2d8",
+      "cooldown": 8,
+      "traits": {
+        "damageType": {"value": "physical", "type": "string"},
+        "requiresParry": {"value": true, "type": "boolean"},
+        "damageMultiplier": {"value": 1.5, "type": "number"}
+      }
+    },
+    {
+      "name": "parry",
+      "displayName": "Parry",
+      "description": "Deflect incoming melee attack",
+      "rarityWeight": 75,
+      "cooldown": 6,
+      "traits": {
+        "blockChance": {"value": 75, "type": "number"},
+        "enablesRiposte": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "perfect-parry",
+      "displayName": "Perfect Parry",
+      "description": "Flawlessly deflects all attacks briefly",
+      "rarityWeight": 75,
+      "cooldown": 45,
+      "traits": {
+        "blockChance": {"value": 100, "type": "number"},
+        "reflectDamage": {"value": true, "type": "boolean"},
+        "duration": {"value": 5, "type": "number"}
+      }
+    },
+    {
+      "name": "en-garde",
+      "displayName": "En Garde",
+      "description": "Defensive stance increasing parry chance",
+      "rarityWeight": 100,
+      "cooldown": 20,
+      "traits": {
+        "dodgeBonus": {"value": 30, "type": "number"},
+        "parryBonus": {"value": 40, "type": "number"},
+        "duration": {"value": 10, "type": "number"}
+      }
+    },
+    {
+      "name": "evasion",
+      "displayName": "Evasion",
+      "description": "Greatly increases chance to dodge attacks",
+      "rarityWeight": 10,
+      "cooldown": 30,
+      "traits": {
+        "dodgeChance": {"value": 50, "type": "number"},
+        "duration": {"value": 8, "type": "number"}
+      }
+    },
+    {
+      "name": "arcane-shield",
+      "displayName": "Arcane Shield",
+      "description": "Magical barrier that absorbs spell damage",
+      "rarityWeight": 15,
+      "cooldown": 30,
+      "traits": {
+        "shieldAmount": {"value": 100, "type": "number"},
+        "magicOnly": {"value": true, "type": "boolean"},
+        "duration": {"value": 20, "type": "number"},
+        "manaCost": {"value": 40, "type": "number"}
+      }
+    },
+    {
+      "name": "elemental-shield",
+      "displayName": "Elemental Shield",
+      "description": "Absorbs damage from chosen element",
+      "rarityWeight": 100,
+      "cooldown": 45,
+      "traits": {
+        "elementalResist": {"value": 100, "type": "number"},
+        "elementChoice": {"value": true, "type": "boolean"},
+        "duration": {"value": 30, "type": "number"},
+        "manaCost": {"value": 50, "type": "number"}
+      }
+    },
+    {
+      "name": "divine-shield",
+      "displayName": "Divine Shield",
+      "description": "Invulnerability granted by divine power",
+      "rarityWeight": 20,
+      "cooldown": 180,
+      "traits": {
+        "invulnerability": {"value": true, "type": "boolean"},
+        "duration": {"value": 8, "type": "number"},
+        "manaCost": {"value": 100, "type": "number"}
+      }
     }
   ]
 }
