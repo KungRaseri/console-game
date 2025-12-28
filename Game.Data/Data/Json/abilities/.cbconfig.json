@@ -1,7 +1,7 @@
 {
   "folderName": "Abilities",
   "description": "Character abilities shared across enemies, players, and NPCs",
-  "icon": "✨",
+  "icon": "Sparkles",
   "sortOrder": 40,
   "notes": [
     "Abilities are organized by activation type and effect category",

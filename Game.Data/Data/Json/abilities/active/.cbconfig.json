@@ -1,7 +1,7 @@
 {
   "folderName": "Active Abilities",
   "description": "Abilities that require conscious activation with cooldowns",
-  "icon": "⚔️",
+  "icon": "SwordCross",
   "sortOrder": 20,
   "subcategories": {
     "offensive": "Direct damage abilities",

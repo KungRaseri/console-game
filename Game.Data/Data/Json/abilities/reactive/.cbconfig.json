@@ -1,7 +1,7 @@
 {
   "folderName": "Reactive Abilities",
   "description": "Condition-triggered abilities that respond to events",
-  "icon": "⚡",
+  "icon": "FlashOutline",
   "sortOrder": 30,
   "subcategories": {
     "defensive": "Counter-attacks, last stand",

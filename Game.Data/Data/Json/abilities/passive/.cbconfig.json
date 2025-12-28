@@ -1,7 +1,7 @@
 {
   "folderName": "Passive Abilities",
   "description": "Always-active abilities that provide continuous effects",
-  "icon": "🛡️",
+  "icon": "ShieldOutline",
   "sortOrder": 10,
   "subcategories": {
     "defensive": "Armor, resistances, regeneration",
