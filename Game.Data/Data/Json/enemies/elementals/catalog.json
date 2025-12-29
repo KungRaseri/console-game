@@ -27,6 +27,12 @@
       "items": [
         {
           "name": "Fire Elemental",
+          "strength": 14,
+          "dexterity": 15,
+          "constitution": 16,
+          "intelligence": 6,
+          "wisdom": 10,
+          "charisma": 8,
           "health": 100,
           "attack": 18,
           "defense": 8,
@@ -42,6 +48,12 @@
         },
         {
           "name": "Salamander",
+          "strength": 13,
+          "dexterity": 16,
+          "constitution": 14,
+          "intelligence": 6,
+          "wisdom": 10,
+          "charisma": 8,
           "health": 80,
           "attack": 15,
           "defense": 7,
@@ -56,6 +68,12 @@
         },
         {
           "name": "Efreeti",
+          "strength": 19,
+          "dexterity": 14,
+          "constitution": 18,
+          "intelligence": 14,
+          "wisdom": 14,
+          "charisma": 16,
           "health": 150,
           "attack": 25,
           "defense": 12,
@@ -86,6 +104,12 @@
       "items": [
         {
           "name": "Water Elemental",
+          "strength": 14,
+          "dexterity": 12,
+          "constitution": 18,
+          "intelligence": 8,
+          "wisdom": 12,
+          "charisma": 8,
           "health": 110,
           "attack": 14,
           "defense": 12,

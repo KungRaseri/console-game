@@ -21,7 +21,12 @@
         "behavior": "shambling",
         "damageType": "bludgeoning",
         "vulnerability": "fire",
-        "intelligence": 1
+        "strength": 14,
+        "dexterity": 8,
+        "constitution": 14,
+        "intelligence": 1,
+        "wisdom": 6,
+        "charisma": 5
       },
       "items": [
         {
@@ -88,6 +93,12 @@
       "items": [
         {
           "name": "Skeleton",
+          "strength": 13,
+          "dexterity": 12,
+          "constitution": 13,
+          "intelligence": 2,
+          "wisdom": 6,
+          "charisma": 5,
           "health": 30,
           "attack": 7,
           "defense": 4,
@@ -105,6 +116,12 @@
         },
         {
           "name": "Ghast",
+          "strength": 15,
+          "dexterity": 10,
+          "constitution": 14,
+          "intelligence": 2,
+          "wisdom": 7,
+          "charisma": 5,
           "health": 55,
           "attack": 10,
           "defense": 4,
@@ -137,6 +154,12 @@
       "items": [
         {
           "name": "Wraith",
+          "strength": 8,
+          "dexterity": 16,
+          "constitution": 12,
+          "intelligence": 10,
+          "wisdom": 14,
+          "charisma": 12,
           "health": 60,
           "attack": 12,
           "defense": 8,
@@ -156,6 +179,12 @@
         },
         {
           "name": "Specter",
+          "strength": 7,
+          "dexterity": 15,
+          "constitution": 11,
+          "intelligence": 10,
+          "wisdom": 13,
+          "charisma": 11,
           "health": 50,
           "attack": 10,
           "defense": 10,
@@ -174,6 +203,12 @@
         },
         {
           "name": "Phantom",
+          "strength": 7,
+          "dexterity": 14,
+          "constitution": 10,
+          "intelligence": 9,
+          "wisdom": 12,
+          "charisma": 10,
           "health": 45,
           "attack": 9,
           "defense": 9,

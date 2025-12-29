@@ -29,6 +29,12 @@
       "items": [
         {
           "name": "Vampire Spawn",
+          "strength": 14,
+          "dexterity": 16,
+          "constitution": 14,
+          "intelligence": 14,
+          "wisdom": 12,
+          "charisma": 15,
           "health": 80,
           "attack": 22,
           "defense": 10,
@@ -43,6 +49,12 @@
         },
         {
           "name": "Thrall",
+          "strength": 13,
+          "dexterity": 14,
+          "constitution": 13,
+          "intelligence": 10,
+          "wisdom": 10,
+          "charisma": 12,
           "health": 65,
           "attack": 18,
           "defense": 8,

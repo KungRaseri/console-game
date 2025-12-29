@@ -21,7 +21,12 @@
         "size": "huge",
         "behavior": "territorial",
         "alignment": "evil",
-        "intelligence": 16
+        "strength": 24,
+        "dexterity": 12,
+        "constitution": 22,
+        "intelligence": 16,
+        "wisdom": 14,
+        "charisma": 18
       },
       "items": [
         {
@@ -142,6 +147,12 @@
       "items": [
         {
           "name": "Gold Dragon",
+          "strength": 26,
+          "dexterity": 14,
+          "constitution": 24,
+          "intelligence": 20,
+          "wisdom": 18,
+          "charisma": 22,
           "health": 350,
           "attack": 38,
           "defense": 30,
@@ -164,6 +175,12 @@
         },
         {
           "name": "Silver Dragon",
+          "strength": 25,
+          "dexterity": 13,
+          "constitution": 23,
+          "intelligence": 19,
+          "wisdom": 17,
+          "charisma": 21,
           "health": 320,
           "attack": 36,
           "defense": 28,
@@ -185,6 +202,12 @@
         },
         {
           "name": "Bronze Dragon",
+          "strength": 24,
+          "dexterity": 13,
+          "constitution": 22,
+          "intelligence": 18,
+          "wisdom": 16,
+          "charisma": 19,
           "health": 290,
           "attack": 33,
           "defense": 26,
@@ -206,6 +229,12 @@
         },
         {
           "name": "Copper Dragon",
+          "strength": 23,
+          "dexterity": 13,
+          "constitution": 21,
+          "intelligence": 17,
+          "wisdom": 15,
+          "charisma": 18,
           "health": 280,
           "attack": 31,
           "defense": 24,
@@ -227,6 +256,12 @@
         },
         {
           "name": "Brass Dragon",
+          "strength": 23,
+          "dexterity": 12,
+          "constitution": 21,
+          "intelligence": 16,
+          "wisdom": 14,
+          "charisma": 17,
           "health": 270,
           "attack": 29,
           "defense": 23,
@@ -258,6 +293,12 @@
       "items": [
         {
           "name": "Drake",
+          "strength": 20,
+          "dexterity": 12,
+          "constitution": 18,
+          "intelligence": 6,
+          "wisdom": 12,
+          "charisma": 10,
           "health": 150,
           "attack": 20,
           "defense": 15,
@@ -276,6 +317,12 @@
         },
         {
           "name": "Wyrm",
+          "strength": 21,
+          "dexterity": 11,
+          "constitution": 19,
+          "intelligence": 8,
+          "wisdom": 13,
+          "charisma": 11,
           "health": 180,
           "attack": 24,
           "defense": 18,
@@ -295,6 +342,12 @@
         },
         {
           "name": "Wyvern",
+          "strength": 19,
+          "dexterity": 14,
+          "constitution": 17,
+          "intelligence": 5,
+          "wisdom": 11,
+          "charisma": 9,
           "health": 140,
           "attack": 18,
           "defense": 14,

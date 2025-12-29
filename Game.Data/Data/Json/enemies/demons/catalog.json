@@ -27,6 +27,12 @@
       "items": [
         {
           "name": "Imp",
+          "strength": 9,
+          "dexterity": 15,
+          "constitution": 11,
+          "intelligence": 12,
+          "wisdom": 10,
+          "charisma": 10,
           "health": 20,
           "attack": 6,
           "defense": 3,
@@ -41,6 +47,12 @@
         },
         {
           "name": "Shadow Demon",
+          "strength": 10,
+          "dexterity": 16,
+          "constitution": 12,
+          "intelligence": 13,
+          "wisdom": 12,
+          "charisma": 11,
           "health": 35,
           "attack": 9,
           "defense": 4,
@@ -70,6 +82,12 @@
       "items": [
         {
           "name": "Demon",
+          "strength": 14,
+          "dexterity": 13,
+          "constitution": 16,
+          "intelligence": 16,
+          "wisdom": 12,
+          "charisma": 14,
           "health": 80,
           "attack": 16,
           "defense": 10,
@@ -85,6 +103,12 @@
         },
         {
           "name": "Vrock",
+          "strength": 18,
+          "dexterity": 15,
+          "constitution": 18,
+          "intelligence": 8,
+          "wisdom": 12,
+          "charisma": 10,
           "health": 100,
           "attack": 18,
           "defense": 12,

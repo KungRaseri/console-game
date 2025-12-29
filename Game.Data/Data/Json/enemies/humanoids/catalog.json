@@ -19,7 +19,12 @@
         "category": "humanoid",
         "size": "medium",
         "behavior": "opportunistic",
-        "intelligence": 10
+        "strength": 12,
+        "dexterity": 14,
+        "constitution": 12,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10
       },
       "items": [
         {
@@ -106,6 +111,12 @@
       "items": [
         {
           "name": "Warrior",
+          "strength": 13,
+          "dexterity": 12,
+          "constitution": 13,
+          "intelligence": 10,
+          "wisdom": 12,
+          "charisma": 10,
           "health": 55,
           "attack": 12,
           "defense": 10,
@@ -125,6 +136,12 @@
         },
         {
           "name": "Mercenary",
+          "strength": 14,
+          "dexterity": 13,
+          "constitution": 14,
+          "intelligence": 10,
+          "wisdom": 11,
+          "charisma": 10,
           "health": 60,
           "attack": 13,
           "defense": 11,
@@ -145,6 +162,12 @@
         },
         {
           "name": "Captain",
+          "strength": 14,
+          "dexterity": 12,
+          "constitution": 15,
+          "intelligence": 13,
+          "wisdom": 14,
+          "charisma": 16,
           "health": 80,
           "attack": 16,
           "defense": 14,
@@ -165,6 +188,12 @@
         },
         {
           "name": "Champion",
+          "strength": 16,
+          "dexterity": 14,
+          "constitution": 16,
+          "intelligence": 14,
+          "wisdom": 14,
+          "charisma": 18,
           "health": 100,
           "attack": 18,
           "defense": 16,
@@ -198,6 +227,12 @@
       "items": [
         {
           "name": "Assassin",
+          "strength": 12,
+          "dexterity": 18,
+          "constitution": 13,
+          "intelligence": 13,
+          "wisdom": 14,
+          "charisma": 10,
           "health": 50,
           "attack": 15,
           "defense": 8,
@@ -219,6 +254,12 @@
         },
         {
           "name": "Archer",
+          "strength": 11,
+          "dexterity": 17,
+          "constitution": 12,
+          "intelligence": 11,
+          "wisdom": 15,
+          "charisma": 10,
           "health": 45,
           "attack": 14,
           "defense": 7,
@@ -238,6 +279,12 @@
         },
         {
           "name": "Mage",
+          "strength": 8,
+          "dexterity": 13,
+          "constitution": 11,
+          "intelligence": 18,
+          "wisdom": 13,
+          "charisma": 11,
           "health": 40,
           "attack": 16,
           "defense": 6,
@@ -259,6 +306,12 @@
         },
         {
           "name": "Berserker",
+          "strength": 18,
+          "dexterity": 14,
+          "constitution": 17,
+          "intelligence": 8,
+          "wisdom": 10,
+          "charisma": 8,
           "health": 70,
           "attack": 17,
           "defense": 9,
@@ -291,6 +344,12 @@
       "items": [
         {
           "name": "Cultist",
+          "strength": 9,
+          "dexterity": 11,
+          "constitution": 11,
+          "intelligence": 15,
+          "wisdom": 12,
+          "charisma": 11,
           "health": 38,
           "attack": 9,
           "defense": 5,
@@ -309,6 +368,12 @@
         },
         {
           "name": "Zealot",
+          "strength": 13,
+          "dexterity": 11,
+          "constitution": 14,
+          "intelligence": 12,
+          "wisdom": 16,
+          "charisma": 13,
           "health": 50,
           "attack": 12,
           "defense": 7,

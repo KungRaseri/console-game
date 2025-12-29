@@ -30,6 +30,12 @@
       "items": [
         {
           "name": "Kobold",
+          "strength": 7,
+          "dexterity": 15,
+          "constitution": 10,
+          "intelligence": 8,
+          "wisdom": 9,
+          "charisma": 7,
           "health": 12,
           "attack": 4,
           "defense": 2,
@@ -44,6 +50,12 @@
         },
         {
           "name": "Kobold Scout",
+          "strength": 7,
+          "dexterity": 16,
+          "constitution": 10,
+          "intelligence": 8,
+          "wisdom": 11,
+          "charisma": 7,
           "health": 15,
           "attack": 5,
           "defense": 3,

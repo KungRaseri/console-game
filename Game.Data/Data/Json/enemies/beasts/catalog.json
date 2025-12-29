@@ -21,7 +21,12 @@
         "behavior": "pack",
         "damageType": "piercing",
         "habitat": "forest",
-        "intelligence": 4
+        "strength": 14,
+        "dexterity": 15,
+        "constitution": 14,
+        "intelligence": 4,
+        "wisdom": 12,
+        "charisma": 6
       },
       "items": [
         {
@@ -92,6 +97,12 @@
       "items": [
         {
           "name": "Bear",
+          "strength": 16,
+          "dexterity": 12,
+          "constitution": 15,
+          "intelligence": 4,
+          "wisdom": 12,
+          "charisma": 6,
           "health": 80,
           "attack": 15,
           "defense": 8,
@@ -110,6 +121,12 @@
         },
         {
           "name": "Black Bear",
+          "strength": 15,
+          "dexterity": 13,
+          "constitution": 14,
+          "intelligence": 4,
+          "wisdom": 12,
+          "charisma": 6,
           "health": 70,
           "attack": 12,
           "defense": 7,
@@ -128,6 +145,12 @@
         },
         {
           "name": "Grizzly Bear",
+          "strength": 18,
+          "dexterity": 12,
+          "constitution": 17,
+          "intelligence": 4,
+          "wisdom": 13,
+          "charisma": 6,
           "health": 100,
           "attack": 18,
           "defense": 10,
@@ -147,6 +170,12 @@
         },
         {
           "name": "Cave Bear",
+          "strength": 20,
+          "dexterity": 11,
+          "constitution": 18,
+          "intelligence": 4,
+          "wisdom": 13,
+          "charisma": 6,
           "health": 120,
           "attack": 20,
           "defense": 12,
@@ -178,6 +207,12 @@
       "items": [
         {
           "name": "Tiger",
+          "strength": 15,
+          "dexterity": 16,
+          "constitution": 14,
+          "intelligence": 4,
+          "wisdom": 13,
+          "charisma": 7,
           "health": 60,
           "attack": 14,
           "defense": 6,
