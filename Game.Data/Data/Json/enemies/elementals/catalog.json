@@ -125,6 +125,12 @@
         },
         {
           "name": "Undine",
+          "strength": 12,
+          "dexterity": 15,
+          "constitution": 14,
+          "intelligence": 8,
+          "wisdom": 13,
+          "charisma": 10,
           "health": 90,
           "attack": 12,
           "defense": 10,
