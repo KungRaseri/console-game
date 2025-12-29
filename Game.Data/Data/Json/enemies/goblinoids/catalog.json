@@ -21,7 +21,7 @@
       "traits": {
         "category": "goblinoid",
         "size": "small",
-        "intelligence": "low",
+        "intelligence": 8,
         "social": "tribal",
         "behavior": "cowardly",
         "damageType": "physical"

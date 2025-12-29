@@ -21,7 +21,7 @@
       "traits": {
         "category": "insect",
         "size": "varies",
-        "intelligence": "low",
+        "intelligence": 3,
         "social": "solitary",
         "behavior": "ambush",
         "damageType": "physical",
@@ -97,7 +97,7 @@
       "traits": {
         "category": "insect",
         "size": "medium",
-        "intelligence": "low",
+        "intelligence": 2,
         "social": "swarm",
         "behavior": "defensive",
         "damageType": "physical",

@@ -20,7 +20,8 @@
         "size": "medium",
         "behavior": "pack",
         "damageType": "piercing",
-        "habitat": "forest"
+        "habitat": "forest",
+        "intelligence": 4
       },
       "items": [
         {
@@ -85,7 +86,8 @@
         "size": "large",
         "behavior": "territorial",
         "damageType": "slashing",
-        "habitat": "forest"
+        "habitat": "forest",
+        "intelligence": 4
       },
       "items": [
         {

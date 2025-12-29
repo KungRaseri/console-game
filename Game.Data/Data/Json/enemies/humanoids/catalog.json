@@ -19,7 +19,7 @@
         "category": "humanoid",
         "size": "medium",
         "behavior": "opportunistic",
-        "intelligence": "medium"
+        "intelligence": 10
       },
       "items": [
         {
@@ -285,7 +285,7 @@
         "category": "humanoid",
         "size": "medium",
         "behavior": "fanatical",
-        "intelligence": "medium",
+        "intelligence": 14,
         "magical": true
       },
       "items": [

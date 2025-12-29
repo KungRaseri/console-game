@@ -214,8 +214,7 @@
     "special_reptilians": {
       "traits": {
         "category": "reptilian",
-        "intelligence": "varies",
-        "social": "varies",
+        "intelligence": 12,
         "behavior": "unique",
         "unique": true
       },
@@ -231,8 +230,6 @@
           "rarityWeight": 45,
           "size": "large",
           "damageType": "magical",
-          "intelligence": "high",
-          "venomous": true,
           "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:poison-bite", "@abilities/active/offensive:lightning-bolt"],
           "abilityUnlocks": {
             "12": ["@abilities/active/support:chain-lightning"]
@@ -249,7 +246,6 @@
           "rarityWeight": 38,
           "size": "medium",
           "damageType": "physical",
-          "petrifying_gaze": true,
           "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:petrifying-gaze"],
           "abilityUnlocks": {
             "9": ["@abilities/active/offensive:stone-touch"]

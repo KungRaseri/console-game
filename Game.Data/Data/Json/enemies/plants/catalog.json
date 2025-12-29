@@ -21,7 +21,7 @@
       "traits": {
         "category": "plant",
         "size": "medium",
-        "intelligence": "low",
+        "intelligence": 2,
         "social": "solitary",
         "behavior": "predatory",
         "damageType": "physical",

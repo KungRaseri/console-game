@@ -16,6 +16,7 @@
       "traits": {
         "category": "demon",
         "size": "small",
+        "intelligence": 8,
         "behavior": "chaotic",
         "alignment": "evil",
         "immunity": [

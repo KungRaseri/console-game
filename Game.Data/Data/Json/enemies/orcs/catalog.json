@@ -20,7 +20,7 @@
       "traits": {
         "category": "orc",
         "size": "medium",
-        "intelligence": "low",
+        "intelligence": 8,
         "social": "clan",
         "behavior": "aggressive",
         "damageType": "physical"

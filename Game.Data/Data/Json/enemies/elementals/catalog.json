@@ -17,6 +17,7 @@
         "category": "elemental",
         "element": "fire",
         "size": "large",
+        "intelligence": 6,
         "behavior": "aggressive",
         "immunity": [
           "fire"
@@ -75,6 +76,7 @@
         "category": "elemental",
         "element": "water",
         "size": "large",
+        "intelligence": 8,
         "behavior": "fluid",
         "immunity": [
           "cold"
@@ -175,8 +177,7 @@
       "traits": {
         "category": "elemental",
         "element": "air",
-        "size": "large",
-        "behavior": "evasive",
+        "size": "large",        "intelligence": 10,        "behavior": "evasive",
         "immunity": [
           "lightning"
         ],

@@ -20,7 +20,7 @@
       "traits": {
         "category": "troll",
         "size": "large",
-        "intelligence": "low",
+        "intelligence": 5,
         "social": "solitary",
         "behavior": "aggressive",
         "damageType": "physical",

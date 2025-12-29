@@ -13,6 +13,7 @@
 |----------|----------|---------|
 | **Structure Types** | [JSON_STRUCTURE_TYPES.md](JSON_STRUCTURE_TYPES.md) | All 5 structure types (CATALOG, PATTERN_GENERATION, etc.) |
 | **References** | [JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md) | Unified reference system for linking JSON files |
+| **Traits** | [TRAIT_STANDARDS.md](TRAIT_STANDARDS.md) | Standardized trait formats and value enums |
 
 ### Structure Types
 | Structure Type | Standard Document | Purpose |
@@ -22,6 +23,12 @@
 | COMPONENT_LIBRARY | [JSON_STRUCTURE_TYPES.md#3-component_library-structure](JSON_STRUCTURE_TYPES.md#3-component_library-structure) | Reusable data arrays (adjectives, colors) |
 | CONFIG | [JSON_STRUCTURE_TYPES.md#4-config-structure](JSON_STRUCTURE_TYPES.md#4-config-structure) | Game rules and settings |
 | HIERARCHICAL_CATALOG | [JSON_STRUCTURE_TYPES.md#5-hierarchical_catalog-structure](JSON_STRUCTURE_TYPES.md#5-hierarchical_catalog-structure) | Multi-category catalogs (NPCs, quests) |
+
+### Cross-Cutting Standards
+| Standard | Document | Purpose |
+|----------|----------|---------|
+| TRAITS | [TRAIT_STANDARDS.md](TRAIT_STANDARDS.md) | Trait formats and value enums for all entities |
+| REFERENCES | [JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md) | Linking game data across domains |
 
 ### Special Files
 | File Type | Standard Document | Purpose |

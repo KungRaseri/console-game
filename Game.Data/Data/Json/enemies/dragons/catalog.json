@@ -21,7 +21,7 @@
         "size": "huge",
         "behavior": "territorial",
         "alignment": "evil",
-        "breath_weapon": true
+        "intelligence": 16
       },
       "items": [
         {
@@ -137,7 +137,7 @@
         "size": "huge",
         "behavior": "noble",
         "alignment": "good",
-        "breath_weapon": true
+        "intelligence": 18
       },
       "items": [
         {

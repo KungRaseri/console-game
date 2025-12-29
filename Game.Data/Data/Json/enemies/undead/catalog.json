@@ -20,7 +20,8 @@
         "size": "medium",
         "behavior": "shambling",
         "damageType": "bludgeoning",
-        "vulnerability": "fire"
+        "vulnerability": "fire",
+        "intelligence": 1
       },
       "items": [
         {
@@ -81,7 +82,8 @@
         "size": "medium",
         "behavior": "aggressive",
         "damageType": "piercing",
-        "vulnerability": "bludgeoning"
+        "vulnerability": "bludgeoning",
+        "intelligence": 2
       },
       "items": [
         {

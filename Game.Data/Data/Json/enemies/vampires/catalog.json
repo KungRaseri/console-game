@@ -18,7 +18,7 @@
       "traits": {
         "category": "vampire",
         "size": "medium",
-        "intelligence": "high",
+        "intelligence": 14,
         "social": "aristocratic",
         "behavior": "predatory",
         "damageType": "physical",
@@ -75,7 +75,7 @@
       "traits": {
         "category": "vampire",
         "size": "medium",
-        "intelligence": "very_high",
+        "intelligence": 18,
         "social": "aristocratic",
         "behavior": "cunning",
         "damageType": "physical",
@@ -148,7 +148,7 @@
       "traits": {
         "category": "vampire",
         "size": "medium",
-        "intelligence": "genius",
+        "intelligence": 20,
         "social": "aristocratic",
         "behavior": "legendary",
         "undead": true,
