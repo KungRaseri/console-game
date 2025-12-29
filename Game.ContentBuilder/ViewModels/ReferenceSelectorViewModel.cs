@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Game.ContentBuilder.Services;
 using Newtonsoft.Json.Linq;
 using Serilog;
 using System.Collections.ObjectModel;
@@ -7,19 +8,31 @@ using System.IO;
 
 namespace Game.ContentBuilder.ViewModels;
 
+/// <summary>
+/// ViewModel for selecting JSON v4.1 references across all domains
+/// </summary>
 public partial class ReferenceSelectorViewModel : ObservableObject
 {
     [ObservableProperty]
-    private string _selectedReferenceType = "material";
+    private string? _selectedDomain;
 
     [ObservableProperty]
-    private ObservableCollection<ReferenceTypeOption> _referenceTypes = new();
+    private string? _selectedPath;
 
     [ObservableProperty]
-    private ObservableCollection<ReferenceCategory> _categories = new();
+    private string? _selectedCategory;
 
     [ObservableProperty]
-    private ReferenceCategory? _selectedCategory;
+    private ObservableCollection<DomainOption> _domains = new();
+
+    [ObservableProperty]
+    private ObservableCollection<PathOption> _paths = new();
+
+    [ObservableProperty]
+    private ObservableCollection<CategoryOption> _categories = new();
+
+    [ObservableProperty]
+    private ObservableCollection<ReferenceItem> _items = new();
 
     [ObservableProperty]
     private ReferenceItem? _selectedItem;
@@ -33,83 +46,76 @@ public partial class ReferenceSelectorViewModel : ObservableObject
     [ObservableProperty]
     private string _previewText = string.Empty;
 
+    [ObservableProperty]
+    private bool _useWildcard;
+
+    [ObservableProperty]
+    private bool _isOptional;
+
+    [ObservableProperty]
+    private string? _propertyAccess;
+
+    private readonly ReferenceResolverService _referenceResolver;
     private readonly string _dataRootPath;
 
-    public ReferenceSelectorViewModel(string? initialReferenceType = null)
+    public ReferenceSelectorViewModel(string? initialDomain = null)
     {
         // Try multiple path resolution strategies
         var baseDir = AppDomain.CurrentDomain.BaseDirectory;
         var dataPath = Path.Combine(baseDir, "Data", "Json");
 
-        // Check if actual catalog files exist, not just the directory
-        var testCatalogPath = Path.Combine(dataPath, "items", "materials", "catalog.json");
-
-        if (!File.Exists(testCatalogPath))
+        // Navigate from bin/Debug/net9.0-windows to Game.Data/Data/Json
+        if (!Directory.Exists(Path.Combine(dataPath, "items")))
         {
-            MainWindow.AddLog($"Test catalog not found at: {testCatalogPath}");
-            // Navigate up from bin/Debug/net9.0-windows to solution root
-            var binFolder = baseDir; // e.g., C:\...\Game.ContentBuilder\bin\Debug\net9.0-windows
-            var projectFolder = Directory.GetParent(binFolder)?.Parent?.Parent?.FullName; // e.g., C:\...\Game.ContentBuilder
-            MainWindow.AddLog($"Project folder: {projectFolder}");
-
+            MainWindow.AddLog($"Navigating from bin folder to find Game.Data");
+            var projectFolder = Directory.GetParent(baseDir)?.Parent?.Parent?.FullName;
             if (projectFolder != null)
             {
-                var solutionFolder = Directory.GetParent(projectFolder)?.FullName; // e.g., C:\...\console-game
-                MainWindow.AddLog($"Solution folder: {solutionFolder}");
-
+                var solutionFolder = Directory.GetParent(projectFolder)?.FullName;
                 if (solutionFolder != null)
                 {
                     var gameDataPath = Path.Combine(solutionFolder, "Game.Data", "Data", "Json");
-                    MainWindow.AddLog($"Trying Game.Data path: {gameDataPath}");
-
                     if (Directory.Exists(gameDataPath))
                     {
                         dataPath = gameDataPath;
-                        MainWindow.AddLog($"SUCCESS - Found Game.Data path!");
-                    }
-                    else
-                    {
-                        MainWindow.AddLog($"[ERROR] Game.Data path does not exist!");
+                        MainWindow.AddLog($"Found Game.Data path: {dataPath}");
                     }
                 }
             }
         }
-        else
-        {
-            MainWindow.AddLog($"Test catalog found in bin directory");
-        }
 
         _dataRootPath = dataPath;
-        MainWindow.AddLog($"ReferenceSelectorViewModel initialized with data path: {_dataRootPath}");
+        _referenceResolver = new ReferenceResolverService(_dataRootPath);
 
-        // Define available reference types
-        ReferenceTypes.Add(new ReferenceTypeOption("material", "Materials", "Diamond", "items/materials/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("weapon", "Weapons", "Sword", "items/weapons/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("armor", "Armor", "Shield", "items/armor/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("consumable", "Consumables", "Potion", "items/consumables/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("enemy", "Enemies", "Skull", "enemies/*/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("npc", "NPCs", "Account", "npcs/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("quest", "Quests", "QuestMarker", "quests/catalog.json"));
-        ReferenceTypes.Add(new ReferenceTypeOption("general", "General", "FormatListBulleted", "general/*.json"));
+        MainWindow.AddLog($"ReferenceSelectorViewModel initialized with path: {_dataRootPath}");
 
-        if (initialReferenceType != null)
+        LoadDomains();
+
+        if (initialDomain != null)
         {
-            SelectedReferenceType = initialReferenceType;
+            SelectedDomain = initialDomain;
         }
-
-        LoadCatalog();
     }
 
-    partial void OnSelectedReferenceTypeChanged(string value)
+    partial void OnSelectedDomainChanged(string? value)
     {
-        MainWindow.AddLog($"OnSelectedReferenceTypeChanged: {value}");
-        LoadCatalog();
-    }
-
-    partial void OnSelectedCategoryChanged(ReferenceCategory? value)
-    {
+        MainWindow.AddLog($"Domain changed to: {value}");
+        LoadPaths();
         UpdateSelectedReference();
-        UpdatePreview();
+    }
+
+    partial void OnSelectedPathChanged(string? value)
+    {
+        MainWindow.AddLog($"Path changed to: {value}");
+        LoadCategories();
+        UpdateSelectedReference();
+    }
+
+    partial void OnSelectedCategoryChanged(string? value)
+    {
+        MainWindow.AddLog($"Category changed to: {value}");
+        LoadItems();
+        UpdateSelectedReference();
     }
 
     partial void OnSelectedItemChanged(ReferenceItem? value)
@@ -123,437 +129,266 @@ public partial class ReferenceSelectorViewModel : ObservableObject
         FilterItems();
     }
 
-    private void LoadCatalog()
+    partial void OnUseWildcardChanged(bool value)
     {
-        MainWindow.AddLog($"LoadCatalog called for type: {SelectedReferenceType}");
-        MainWindow.AddLog($"Categories collection before clear: {Categories.Count}");
-        Categories.Clear();
-        SelectedCategory = null;
-        SelectedItem = null;
-        MainWindow.AddLog($"Categories cleared. Count: {Categories.Count}");
+        UpdateSelectedReference();
+    }
+
+    partial void OnIsOptionalChanged(bool value)
+    {
+        UpdateSelectedReference();
+    }
+
+    partial void OnPropertyAccessChanged(string? value)
+    {
+        UpdateSelectedReference();
+    }
+
+    private void LoadDomains()
+    {
+        Domains.Clear();
 
         try
         {
-            var refType = ReferenceTypes.FirstOrDefault(r => r.Key == SelectedReferenceType);
-            if (refType == null)
+            var domains = _referenceResolver.GetAvailableDomains();
+            
+            foreach (var domain in domains.OrderBy(d => d))
             {
-                MainWindow.AddLog($"Reference type not found: {SelectedReferenceType}");
-                return;
-            }
-            MainWindow.AddLog($"Found reference type: {refType.DisplayName}, path: {refType.CatalogPath}");
-
-
-            // Handle special cases first
-            if (SelectedReferenceType == "general")
-            {
-                LoadGeneralWordLists();
-                return;
+                // Map domain to friendly names and icons
+                var (displayName, icon) = GetDomainInfo(domain);
+                Domains.Add(new DomainOption(domain, displayName, icon));
             }
 
-            // Handle wildcards for enemies (multiple category folders)
-            if (refType.CatalogPath.Contains("*"))
-            {
-                LoadEnemyCatalogs();
-                return;
-            }
-
-            var catalogPath = Path.Combine(_dataRootPath, refType.CatalogPath);
-            MainWindow.AddLog($"Looking for catalog at: {catalogPath}");
-
-            if (!File.Exists(catalogPath))
-            {
-                Log.Warning("Catalog not found: {Path}", catalogPath);
-                MainWindow.AddLog($"[ERROR] Catalog file not found: {catalogPath}");
-                return;
-            }
-            MainWindow.AddLog("Catalog file found, reading...");
-
-            var json = File.ReadAllText(catalogPath);
-            var catalog = JObject.Parse(json);
-
-            // Parse based on reference type
-            if (SelectedReferenceType == "material")
-            {
-                LoadMaterialsCatalog(catalog);
-            }
-            else if (SelectedReferenceType == "weapon" || SelectedReferenceType == "armor" || SelectedReferenceType == "consumable")
-            {
-                LoadEquipmentCatalog(catalog);
-            }
-            else if (SelectedReferenceType == "npc")
-            {
-                LoadNpcCatalog(catalog);
-            }
-            else if (SelectedReferenceType == "quest")
-            {
-                LoadQuestCatalog(catalog);
-            }
-            else
-            {
-                LoadGenericCatalog(catalog);
-            }
-
-            MainWindow.AddLog($"LoadCatalog complete. Final Categories.Count: {Categories.Count}");
+            MainWindow.AddLog($"Loaded {Domains.Count} domains");
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to load catalog for {Type}", SelectedReferenceType);
-            MainWindow.AddLog($"[ERROR] Exception in LoadCatalog: {ex.Message}");
+            Log.Error(ex, "Failed to load domains");
+            MainWindow.AddLog($"ERROR loading domains: {ex.Message}");
         }
     }
 
-    private void LoadMaterialsCatalog(JObject catalog)
+    private void LoadPaths()
     {
-        MainWindow.AddLog("LoadMaterialsCatalog called");
-        var materialTypes = catalog["material_types"] as JObject;
-        if (materialTypes == null)
+        Paths.Clear();
+        Categories.Clear();
+        Items.Clear();
+        SelectedPath = null;
+        SelectedCategory = null;
+        SelectedItem = null;
+
+        if (string.IsNullOrEmpty(SelectedDomain)) return;
+
+        try
         {
-            MainWindow.AddLog("[ERROR] material_types not found in catalog");
+            var domainPath = Path.Combine(_dataRootPath, SelectedDomain);
+            if (!Directory.Exists(domainPath)) return;
+
+            // Get all subdirectories that contain catalog.json
+            var pathsWithCatalogs = Directory.GetDirectories(domainPath, "*", SearchOption.AllDirectories)
+                .Where(dir => File.Exists(Path.Combine(dir, "catalog.json")))
+                .Select(dir => Path.GetRelativePath(domainPath, dir).Replace("\\", "/"))
+                .ToList();
+
+            foreach (var path in pathsWithCatalogs.OrderBy(p => p))
+            {
+                var displayName = FormatDisplayName(path);
+                Paths.Add(new PathOption(path, displayName));
+            }
+
+            MainWindow.AddLog($"Loaded {Paths.Count} paths for domain: {SelectedDomain}");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to load paths for domain {Domain}", SelectedDomain);
+            MainWindow.AddLog($"ERROR loading paths: {ex.Message}");
+        }
+    }
+
+    private void LoadCategories()
+    {
+        Categories.Clear();
+        Items.Clear();
+        SelectedCategory = null;
+        SelectedItem = null;
+
+        if (string.IsNullOrEmpty(SelectedDomain) || string.IsNullOrEmpty(SelectedPath)) return;
+
+        try
+        {
+            var categories = _referenceResolver.GetAvailableCategories(SelectedDomain, SelectedPath);
+
+            foreach (var category in categories.OrderBy(c => c))
+            {
+                var displayName = FormatDisplayName(category);
+                Categories.Add(new CategoryOption(category, displayName));
+            }
+
+            MainWindow.AddLog($"Loaded {Categories.Count} categories for {SelectedDomain}/{SelectedPath}");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to load categories for {Domain}/{Path}", SelectedDomain, SelectedPath);
+            MainWindow.AddLog($"ERROR loading categories: {ex.Message}");
+        }
+    }
+
+    private void LoadItems()
+    {
+        Items.Clear();
+        SelectedItem = null;
+
+        if (string.IsNullOrEmpty(SelectedDomain) || string.IsNullOrEmpty(SelectedPath) || string.IsNullOrEmpty(SelectedCategory))
             return;
-        }
-        MainWindow.AddLog($"Found {materialTypes.Count} material categories");
 
-        foreach (var category in materialTypes)
+        try
         {
-            var categoryName = category.Key;
-            var categoryObj = category.Value as JObject;
-            if (categoryObj == null) continue;
+            var references = _referenceResolver.GetAvailableReferences(SelectedDomain, SelectedPath, SelectedCategory);
 
-            var items = categoryObj["items"] as JArray;
-            if (items == null) continue;
-
-            var categoryNode = new ReferenceCategory(categoryName, categoryName);
-
-            foreach (var item in items.OfType<JObject>())
+            foreach (var reference in references)
             {
-                var name = item["name"]?.ToString();
-                if (name != null)
+                // Resolve item to get full data
+                var itemData = _referenceResolver.ResolveReference(reference);
+                if (itemData != null)
                 {
-                    var traits = ExtractTraits(item);
-                    categoryNode.Items.Add(new ReferenceItem(name, $"{categoryName}/{name}", traits));
+                    var name = itemData["name"]?.ToString() ?? "Unknown";
+                    var rarityWeight = itemData["rarityWeight"]?.ToString() ?? "N/A";
+                    var description = itemData["description"]?.ToString() ?? "";
+
+                    Items.Add(new ReferenceItem(name, reference, description, rarityWeight));
                 }
             }
 
-            if (categoryNode.Items.Count > 0)
-            {
-                Categories.Add(categoryNode);
-                MainWindow.AddLog($"Added category: {categoryName} with {categoryNode.Items.Count} items");
-            }
+            MainWindow.AddLog($"Loaded {Items.Count} items for {SelectedDomain}/{SelectedPath}/{SelectedCategory}");
         }
-        MainWindow.AddLog($"LoadMaterialsCatalog complete. Total categories: {Categories.Count}");
-    }
-
-    private void LoadEquipmentCatalog(JObject catalog)
-    {
-        // Determine the types key based on reference type
-        string typesKey = SelectedReferenceType switch
+        catch (Exception ex)
         {
-            "weapon" => "weapon_types",
-            "armor" => "armor_types",
-            "consumable" => "consumable_types",
-            _ => SelectedReferenceType + "_types"
-        };
-
-        var types = catalog[typesKey] as JObject;
-        if (types == null) return;
-
-        foreach (var category in types)
-        {
-            var categoryName = category.Key;
-            var categoryObj = category.Value as JObject;
-            if (categoryObj == null) continue;
-
-            var items = categoryObj["items"] as JArray;
-            if (items == null) continue;
-
-            var categoryNode = new ReferenceCategory(categoryName, categoryName);
-
-            foreach (var item in items.OfType<JObject>())
-            {
-                var name = item["name"]?.ToString();
-                var weight = item["rarityWeight"]?.ToString();
-                if (name != null)
-                {
-                    var traits = ExtractTraits(item);
-                    categoryNode.Items.Add(new ReferenceItem(name, $"{categoryName}/{name}", traits, weight));
-                }
-            }
-
-            if (categoryNode.Items.Count > 0)
-            {
-                Categories.Add(categoryNode);
-            }
+            Log.Error(ex, "Failed to load items for {Domain}/{Path}/{Category}", SelectedDomain, SelectedPath, SelectedCategory);
+            MainWindow.AddLog($"ERROR loading items: {ex.Message}");
         }
-    }
-
-    private void LoadNpcCatalog(JObject catalog)
-    {
-        var npcTypes = catalog["npc_types"] as JObject;
-        if (npcTypes == null) return;
-
-        foreach (var category in npcTypes)
-        {
-            var categoryName = category.Key;
-            var categoryObj = category.Value as JObject;
-            if (categoryObj == null) continue;
-
-            var items = categoryObj["items"] as JArray;
-            if (items == null) continue;
-
-            var categoryNode = new ReferenceCategory(categoryName, categoryName);
-
-            foreach (var item in items.OfType<JObject>())
-            {
-                var name = item["name"]?.ToString();
-                if (name != null)
-                {
-                    var traits = ExtractTraits(item);
-                    categoryNode.Items.Add(new ReferenceItem(name, $"{categoryName}/{name}", traits));
-                }
-            }
-
-            if (categoryNode.Items.Count > 0)
-            {
-                Categories.Add(categoryNode);
-            }
-        }
-    }
-
-    private void LoadQuestCatalog(JObject catalog)
-    {
-        var questTypes = catalog["quest_types"] as JObject;
-        if (questTypes == null) return;
-
-        foreach (var category in questTypes)
-        {
-            var categoryName = category.Key;
-            var categoryObj = category.Value as JObject;
-            if (categoryObj == null) continue;
-
-            var items = categoryObj["items"] as JArray;
-            if (items == null) continue;
-
-            var categoryNode = new ReferenceCategory(categoryName, categoryName);
-
-            foreach (var item in items.OfType<JObject>())
-            {
-                var name = item["name"]?.ToString();
-                if (name != null)
-                {
-                    var traits = item["description"]?.ToString() ?? "";
-                    categoryNode.Items.Add(new ReferenceItem(name, $"{categoryName}/{name}", traits));
-                }
-            }
-
-            if (categoryNode.Items.Count > 0)
-            {
-                Categories.Add(categoryNode);
-            }
-        }
-    }
-
-    private void LoadGeneralWordLists()
-    {
-        var generalPath = Path.Combine(_dataRootPath, "general");
-        if (!Directory.Exists(generalPath))
-        {
-            Log.Warning("General folder not found: {Path}", generalPath);
-            return;
-        }
-
-        foreach (var jsonFile in Directory.GetFiles(generalPath, "*.json"))
-        {
-            try
-            {
-                var categoryName = Path.GetFileNameWithoutExtension(jsonFile);
-                var json = File.ReadAllText(jsonFile);
-                var data = JArray.Parse(json);
-
-                var categoryNode = new ReferenceCategory(categoryName, categoryName);
-
-                foreach (var item in data.OfType<JValue>())
-                {
-                    var value = item.ToString();
-                    if (!string.IsNullOrEmpty(value))
-                    {
-                        categoryNode.Items.Add(new ReferenceItem(value, $"{categoryName}/{value}", ""));
-                    }
-                }
-
-                if (categoryNode.Items.Count > 0)
-                {
-                    Categories.Add(categoryNode);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Failed to load general word list: {File}", jsonFile);
-            }
-        }
-    }
-
-    private void LoadEnemyCatalogs()
-    {
-        var enemiesPath = Path.Combine(_dataRootPath, "enemies");
-        if (!Directory.Exists(enemiesPath)) return;
-
-        foreach (var categoryDir in Directory.GetDirectories(enemiesPath))
-        {
-            var catalogPath = Path.Combine(categoryDir, "catalog.json");
-            if (!File.Exists(catalogPath)) continue;
-
-            var categoryName = Path.GetFileName(categoryDir);
-            var json = File.ReadAllText(catalogPath);
-            var catalog = JObject.Parse(json);
-
-            var categoryNode = new ReferenceCategory(categoryName, categoryName);
-
-            // Enemy catalogs may have different structures - adapt as needed
-            var enemyTypes = catalog[$"{categoryName}_types"] as JArray;
-            if (enemyTypes != null)
-            {
-                foreach (var enemy in enemyTypes.OfType<JObject>())
-                {
-                    var name = enemy["name"]?.ToString();
-                    if (name != null)
-                    {
-                        var traits = ExtractTraits(enemy);
-                        categoryNode.Items.Add(new ReferenceItem(name, $"{categoryName}/{name}", traits));
-                    }
-                }
-            }
-
-            if (categoryNode.Items.Count > 0)
-            {
-                Categories.Add(categoryNode);
-            }
-        }
-    }
-
-    private void LoadGenericCatalog(JObject catalog)
-    {
-        // Generic loader for future catalog types
-        foreach (var property in catalog.Properties())
-        {
-            if (property.Name.EndsWith("_types"))
-            {
-                var types = property.Value as JObject;
-                if (types == null) continue;
-
-                foreach (var category in types)
-                {
-                    var categoryName = category.Key;
-                    var items = category.Value as JArray;
-                    if (items == null) continue;
-
-                    var categoryNode = new ReferenceCategory(categoryName, categoryName);
-
-                    foreach (var item in items.OfType<JObject>())
-                    {
-                        var name = item["name"]?.ToString();
-                        if (name != null)
-                        {
-                            var traits = ExtractTraits(item);
-                            categoryNode.Items.Add(new ReferenceItem(name, $"{categoryName}/{name}", traits));
-                        }
-                    }
-
-                    if (categoryNode.Items.Count > 0)
-                    {
-                        Categories.Add(categoryNode);
-                    }
-                }
-            }
-        }
-    }
-
-    private string ExtractTraits(JObject item)
-    {
-        var traits = item["traits"] as JObject;
-        if (traits == null || traits.Count == 0) return string.Empty;
-
-        var traitStrings = traits.Properties()
-            .Select(p => $"{p.Name}: {p.Value}")
-            .Take(5);
-
-        return string.Join(", ", traitStrings);
     }
 
     private void FilterItems()
     {
-        // Re-load catalog and filter
-        LoadCatalog();
+        // Re-load items and filter
+        LoadItems();
 
         if (string.IsNullOrWhiteSpace(SearchText)) return;
 
         var searchLower = SearchText.ToLowerInvariant();
+        var filtered = Items.Where(i => i.Name.ToLowerInvariant().Contains(searchLower)).ToList();
 
-        foreach (var category in Categories.ToList())
+        Items.Clear();
+        foreach (var item in filtered)
         {
-            var filteredItems = category.Items
-                .Where(i => i.Name.ToLowerInvariant().Contains(searchLower))
-                .ToList();
-
-            if (filteredItems.Count == 0)
-            {
-                Categories.Remove(category);
-            }
-            else
-            {
-                category.Items.Clear();
-                foreach (var item in filteredItems)
-                {
-                    category.Items.Add(item);
-                }
-            }
+            Items.Add(item);
         }
+
+        MainWindow.AddLog($"Filtered to {Items.Count} items matching: {SearchText}");
     }
 
     private void UpdateSelectedReference()
     {
-        if (SelectedItem != null && SelectedCategory != null)
+        if (string.IsNullOrEmpty(SelectedDomain) || string.IsNullOrEmpty(SelectedPath) || string.IsNullOrEmpty(SelectedCategory))
         {
-            // Generate reference in format: @materialRef/metals or @itemRef/weapons
-            SelectedReference = $"{SelectedReferenceType}Ref/{SelectedCategory.Key}";
+            SelectedReference = null;
+            return;
         }
-        else if (SelectedCategory != null)
+
+        // Build reference: @domain/path/category:item[filters]?.property
+        var reference = $"@{SelectedDomain}/{SelectedPath}/{SelectedCategory}:";
+
+        if (UseWildcard)
         {
-            // Just category selected: @materialRef/metals
-            SelectedReference = $"{SelectedReferenceType}Ref/{SelectedCategory.Key}";
+            reference += "*";
+        }
+        else if (SelectedItem != null)
+        {
+            // Extract item name from reference
+            var itemName = SelectedItem.Reference.Split(':').Last();
+            reference += itemName;
         }
         else
         {
             SelectedReference = null;
+            return;
         }
+
+        // Add optional marker
+        if (IsOptional)
+        {
+            reference += "?";
+        }
+
+        // Add property access
+        if (!string.IsNullOrWhiteSpace(PropertyAccess))
+        {
+            if (!PropertyAccess.StartsWith("."))
+            {
+                reference += ".";
+            }
+            reference += PropertyAccess;
+        }
+
+        SelectedReference = reference;
+        MainWindow.AddLog($"Updated reference: {SelectedReference}");
     }
 
     private void UpdatePreview()
     {
-        if (SelectedItem != null)
-        {
-            PreviewText = $"Reference: {SelectedReference}\n\nTraits: {SelectedItem.Traits}";
-        }
-        else
+        if (SelectedReference == null)
         {
             PreviewText = string.Empty;
+            return;
+        }
+
+        try
+        {
+            var resolved = _referenceResolver.ResolveReference(SelectedReference);
+            if (resolved != null)
+            {
+                PreviewText = $"Reference: {SelectedReference}\n\n{resolved.ToString(Newtonsoft.Json.Formatting.Indented)}";
+            }
+            else
+            {
+                PreviewText = $"Reference: {SelectedReference}\n\n(Could not resolve)";
+            }
+        }
+        catch (Exception ex)
+        {
+            PreviewText = $"Reference: {SelectedReference}\n\nError: {ex.Message}";
         }
     }
-}
 
-public record ReferenceTypeOption(string Key, string DisplayName, string Icon, string CatalogPath);
-
-public class ReferenceCategory : ObservableObject
-{
-    public string Key { get; }
-    public string DisplayName { get; }
-    public ObservableCollection<ReferenceItem> Items { get; } = new();
-
-    public ReferenceCategory(string key, string displayName)
+    private (string DisplayName, string Icon) GetDomainInfo(string domain)
     {
-        Key = key;
-        DisplayName = displayName;
+        return domain switch
+        {
+            "items" => ("Items", "Sword"),
+            "enemies" => ("Enemies", "Skull"),
+            "npcs" => ("NPCs", "AccountGroup"),
+            "quests" => ("Quests", "BookOpenVariant"),
+            "abilities" => ("Abilities", "AutoFix"),
+            "classes" => ("Classes", "ShieldAccount"),
+            "world" => ("World", "Earth"),
+            "social" => ("Social", "AccountGroup"),
+            "organizations" => ("Organizations", "OfficeBuildingOutline"),
+            "general" => ("General", "FormatListBulleted"),
+            _ => (FormatDisplayName(domain), "Folder")
+        };
+    }
+
+    private string FormatDisplayName(string name)
+    {
+        // Convert snake_case and kebab-case to Title Case
+        var parts = name.Split(new[] { '_', '-', '/' }, StringSplitOptions.RemoveEmptyEntries);
+        return string.Join(" ", parts.Select(p => char.ToUpper(p[0]) + p[1..]));
     }
 }
+
+public record DomainOption(string Key, string DisplayName, string Icon);
+public record PathOption(string Key, string DisplayName);
+public record CategoryOption(string Key, string DisplayName);
 
 public class ReferenceItem
 {
@@ -570,3 +405,4 @@ public class ReferenceItem
         Weight = weight;
     }
 }
+

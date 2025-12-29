@@ -24,7 +24,30 @@ public class FileTreeService
         { "npcs", "AccountGroup" },
         { "quests", "BookOpenVariant" },
         { "locations", "MapMarker" },
+        { "abilities", "AutoFix" },
+        { "classes", "ShieldAccount" },
         { "world", "Earth" },
+        { "social", "AccountGroup" },
+        { "organizations", "OfficeBuildingOutline" },
+        
+        // World subcategories
+        { "regions", "MapMarkerPath" },
+        { "environments", "WeatherPartlyCloudy" },
+        { "settlements", "TownHall" },
+        { "points_of_interest", "MapMarker" },
+        { "locations", "MapMarker" },
+        
+        // Social subcategories
+        { "dialogue", "CommentText" },
+        { "relationships", "HeartMultiple" },
+        { "personalities", "EmoticonHappy" },
+        { "backgrounds", "BookOpenPageVariant" },
+        
+        // Organizations subcategories
+        { "factions", "ShieldStar" },
+        { "guilds", "BankOutline" },
+        { "shops", "StoreOutline" },
+        { "businesses", "OfficeBuildingMarker" },
         
         // Items subcategories
         { "weapons", "SwordCross" },
