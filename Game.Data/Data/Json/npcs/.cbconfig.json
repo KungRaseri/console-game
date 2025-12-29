@@ -1,22 +1,53 @@
 {
   "icon": "AccountGroup",
   "displayName": "NPCs",
-  "description": "Non-player character data - catalog, traits, names, and dialogue",
+  "description": "Non-player character data - organized by social class with traits, names, and dialogue",
   "sortOrder": 30,
   "dataFiles": [
     "catalog.json",
     "traits.json",
-    "names.json"
+    "names.json",
+    "relationships.json",
+    "schedules.json"
   ],
   "childDirectories": [
+    "common",
+    "craftsmen",
+    "merchants",
+    "professionals",
+    "service",
+    "military",
+    "criminal",
+    "noble",
+    "magical",
+    "religious",
     "dialogue"
   ],
   "fileIcons": {
     "catalog": "ViewList",
     "traits": "EmoticonHappy",
     "names": "Account",
-    "dialogue": "MessageText"
+    "relationships": "AccountMultiple",
+    "schedules": "ClockOutline",
+    "dialogue": "MessageText",
+    "common": "AccountGroup",
+    "craftsmen": "Hammer",
+    "merchants": "StoreFront",
+    "professionals": "BookOpenPageVariant",
+    "service": "Bed",
+    "military": "ShieldSword",
+    "criminal": "Incognito",
+    "noble": "Crown",
+    "magical": "AutoFix",
+    "religious": "ChurchOutline"
   },
   "defaultFileIcon": "Account",
-  "showFileCount": true
+  "showFileCount": true,
+  "notes": [
+    "NPCs organized into 10 social class categories",
+    "56 total NPC types (31 backgrounds + 25 occupations)",
+    "Faction system with 10 factions",
+    "Time-of-day schedules with 14 templates",
+    "Full dialogue integration (styles, greetings, farewells)"
+  ]
 }
