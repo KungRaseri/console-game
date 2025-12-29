@@ -1,14 +1,16 @@
 {
   "metadata": {
     "description": "Undead enemy type catalog with base stats and traits",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_undead_types": 4,
     "total_undead": 14,
     "usage": "Provides base enemy types for pattern generation",
     "notes": [
-      "Base catalog of undead with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+      "Base catalog of undead with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
+      "Abilities use JSON Reference System v4.1 (@abilities/category:name)",
+      "Level-based ability unlocks provide enemy progression"
     ]
   },
   "undead_types": {
@@ -29,7 +31,13 @@
           "speed": 5,
           "level": 2,
           "xp": 30,
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "abilities": [
+            "@abilities/active/offensive:bite"
+          ],
+          "abilityUnlocks": {
+            "4": ["@abilities/active/offensive:grab"]
+          }
         },
         {
           "name": "Corpse",
@@ -39,7 +47,13 @@
           "speed": 4,
           "level": 1,
           "xp": 20,
-          "rarityWeight": 3
+          "rarityWeight": 3,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack"
+          ],
+          "abilityUnlocks": {
+            "3": ["@abilities/active/offensive:bite"]
+          }
         },
         {
           "name": "Ghoul",
@@ -49,7 +63,15 @@
           "speed": 8,
           "level": 4,
           "xp": 60,
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite"
+          ],
+          "abilityUnlocks": {
+            "6": ["@abilities/active/offensive:paralysis-touch"],
+            "8": ["@abilities/active/offensive:disease-cloud"]
+          }
         }
       ]
     },
@@ -70,7 +92,14 @@
           "speed": 10,
           "level": 3,
           "xp": 45,
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack"
+          ],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/defensive:bone-shield"],
+            "7": ["@abilities/active/offensive:power-strike"]
+          }
         },
         {
           "name": "Ghast",
@@ -80,7 +109,15 @@
           "speed": 9,
           "level": 5,
           "xp": 75,
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:paralysis-touch"
+          ],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/offensive:disease-cloud"],
+            "10": ["@abilities/active/offensive:necrotic-burst"]
+          }
         }
       ]
     },
@@ -104,7 +141,16 @@
           "speed": 15,
           "level": 7,
           "xp": 140,
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "abilities": [
+            "@abilities/active/offensive:drain-life",
+            "@abilities/active/utility:phase"
+          ],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/offensive:life-steal"],
+            "12": ["@abilities/active/offensive:soul-rend"],
+            "15": ["@abilities/ultimate:death-incarnate"]
+          }
         },
         {
           "name": "Specter",
@@ -114,7 +160,15 @@
           "speed": 16,
           "level": 6,
           "xp": 110,
-          "rarityWeight": 18
+          "rarityWeight": 18,
+          "abilities": [
+            "@abilities/active/offensive:drain-life",
+            "@abilities/active/utility:phase"
+          ],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/offensive:possession"],
+            "10": ["@abilities/active/offensive:terror-scream"]
+          }
         },
         {
           "name": "Phantom",
@@ -124,7 +178,15 @@
           "speed": 17,
           "level": 5,
           "xp": 90,
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "abilities": [
+            "@abilities/active/offensive:drain-life",
+            "@abilities/active/utility:phase"
+          ],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/offensive:spectral-touch"],
+            "9": ["@abilities/active/utility:invisibility"]
+          }
         },
         {
           "name": "Shade",
@@ -134,7 +196,14 @@
           "speed": 18,
           "level": 4,
           "xp": 70,
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "abilities": [
+            "@abilities/active/offensive:drain-life"
+          ],
+          "abilityUnlocks": {
+            "6": ["@abilities/active/utility:phase"],
+            "8": ["@abilities/active/mobility:shadow-step"]
+          }
         },
         {
           "name": "Banshee",
@@ -144,7 +213,15 @@
           "speed": 20,
           "level": 9,
           "xp": 200,
-          "rarityWeight": 30
+          "rarityWeight": 30,
+          "abilities": [
+            "@abilities/active/offensive:banshee-wail",
+            "@abilities/active/utility:phase"
+          ],
+          "abilityUnlocks": {
+            "12": ["@abilities/active/offensive:death-song"],
+            "15": ["@abilities/ultimate:soul-reaver"]
+          }
         }
       ]
     },
@@ -168,7 +245,16 @@
           "speed": 12,
           "level": 8,
           "xp": 180,
-          "rarityWeight": 25
+          "rarityWeight": 25,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:drain-life"
+          ],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/offensive:life-steal"],
+            "13": ["@abilities/active/summon:summon-skeleton"],
+            "15": ["@abilities/active/offensive:death-bolt"]
+          }
         },
         {
           "name": "Revenant",
@@ -178,7 +264,17 @@
           "speed": 11,
           "level": 10,
           "xp": 250,
-          "rarityWeight": 35
+          "rarityWeight": 35,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:vengeful-strike",
+            "@abilities/passive:unstoppable"
+          ],
+          "abilityUnlocks": {
+            "13": ["@abilities/active/offensive:execute"],
+            "16": ["@abilities/active/support:undying-rage"],
+            "20": ["@abilities/ultimate:eternal-vengeance"]
+          }
         },
         {
           "name": "Mummy",
@@ -188,7 +284,16 @@
           "speed": 8,
           "level": 9,
           "xp": 220,
-          "rarityWeight": 28
+          "rarityWeight": 28,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:mummy-rot"
+          ],
+          "abilityUnlocks": {
+            "12": ["@abilities/active/offensive:curse-of-ages"],
+            "15": ["@abilities/active/summon:summon-scarabs"],
+            "18": ["@abilities/ultimate:plague-lord"]
+          }
         },
         {
           "name": "Lich",
@@ -198,7 +303,18 @@
           "speed": 13,
           "level": 15,
           "xp": 500,
-          "rarityWeight": 80
+          "rarityWeight": 80,
+          "abilities": [
+            "@abilities/active/offensive:drain-life",
+            "@abilities/active/offensive:death-bolt",
+            "@abilities/active/summon:summon-skeleton",
+            "@abilities/active/support:lich-form"
+          ],
+          "abilityUnlocks": {
+            "18": ["@abilities/active/offensive:death-and-decay"],
+            "20": ["@abilities/active/summon:army-of-the-dead"],
+            "25": ["@abilities/ultimate:death-lord"]
+          }
         }
       ]
     }

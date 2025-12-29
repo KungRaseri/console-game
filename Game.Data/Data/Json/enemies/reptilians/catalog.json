@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Reptilian enemy type catalog with base stats and rarityWeight values",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_types": 13,
     "categories": [
@@ -36,7 +36,11 @@
           "speed": 5,
           "level": 1,
           "xp": 8,
-          "rarityWeight": 3
+          "rarityWeight": 3,
+          "abilities": ["@abilities/active/offensive:backstab"],
+          "abilityUnlocks": {
+            "2": ["@abilities/active/support:pack-tactics"]
+          }
         },
         {
           "name": "Kobold Scout",
@@ -46,7 +50,11 @@
           "speed": 7,
           "level": 1,
           "xp": 12,
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "abilities": ["@abilities/active/offensive:backstab", "@abilities/active/mobility:stealth"],
+          "abilityUnlocks": {
+            "2": ["@abilities/active/support:pack-tactics"]
+          }
         },
         {
           "name": "Kobold Trapmaker",
@@ -56,7 +64,11 @@
           "speed": 5,
           "level": 2,
           "xp": 18,
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "abilities": ["@abilities/active/offensive:backstab", "@abilities/active/support:trap"],
+          "abilityUnlocks": {
+            "3": ["@abilities/active/support:snare"]
+          }
         },
         {
           "name": "Kobold Sorcerer",
@@ -66,7 +78,11 @@
           "speed": 5,
           "level": 3,
           "xp": 30,
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:magic-missile"],
+          "abilityUnlocks": {
+            "4": ["@abilities/active/offensive:lightning-bolt"]
+          }
         }
       ]
     },
@@ -89,7 +105,11 @@
           "speed": 5,
           "level": 4,
           "xp": 60,
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:bite"],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/offensive:javelin-throw"]
+          }
         },
         {
           "name": "Lizardfolk Warrior",
@@ -99,7 +119,11 @@
           "speed": 5,
           "level": 5,
           "xp": 80,
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:power-strike"],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/offensive:cleave"]
+          }
         },
         {
           "name": "Lizardfolk Shaman",
@@ -109,7 +133,11 @@
           "speed": 5,
           "level": 6,
           "xp": 95,
-          "rarityWeight": 18
+          "rarityWeight": 18,
+          "abilities": ["@abilities/active/offensive:lightning-bolt", "@abilities/active/support:heal"],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/support:bless"]
+          }
         },
         {
           "name": "Lizardfolk King",
@@ -119,7 +147,11 @@
           "speed": 6,
           "level": 8,
           "xp": 140,
-          "rarityWeight": 35
+          "rarityWeight": 35,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/active/support:rally"],
+          "abilityUnlocks": {
+            "10": ["@abilities/ultimate:devastating-blow"]
+          }
         }
       ]
     },
@@ -143,7 +175,11 @@
           "speed": 6,
           "level": 6,
           "xp": 100,
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:poison-bite", "@abilities/active/support:charm"],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/offensive:suggestion"]
+          }
         },
         {
           "name": "Yuan-ti Malison",
@@ -153,7 +189,11 @@
           "speed": 6,
           "level": 8,
           "xp": 150,
-          "rarityWeight": 32
+          "rarityWeight": 32,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:poison-bite", "@abilities/active/support:charm"],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/offensive:constrict"]
+          }
         },
         {
           "name": "Yuan-ti Abomination",
@@ -163,7 +203,11 @@
           "speed": 6,
           "level": 10,
           "xp": 200,
-          "rarityWeight": 50
+          "rarityWeight": 50,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:poison-bite", "@abilities/active/offensive:constrict", "@abilities/active/support:charm"],
+          "abilityUnlocks": {
+            "13": ["@abilities/ultimate:serpent-lord"]
+          }
         }
       ]
     },
@@ -188,7 +232,11 @@
           "size": "large",
           "damageType": "magical",
           "intelligence": "high",
-          "venomous": true
+          "venomous": true,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:poison-bite", "@abilities/active/offensive:lightning-bolt"],
+          "abilityUnlocks": {
+            "12": ["@abilities/active/support:chain-lightning"]
+          }
         },
         {
           "name": "Basilisk",
@@ -201,7 +249,11 @@
           "rarityWeight": 38,
           "size": "medium",
           "damageType": "physical",
-          "petrifying_gaze": true
+          "petrifying_gaze": true,
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:petrifying-gaze"],
+          "abilityUnlocks": {
+            "9": ["@abilities/active/offensive:stone-touch"]
+          }
         }
       ]
     }

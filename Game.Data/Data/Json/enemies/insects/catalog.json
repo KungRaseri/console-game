@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Giant insect enemy type catalog with base stats and rarityWeight values",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_types": 14,
     "categories": [
@@ -38,7 +38,11 @@
           "level": 3,
           "xp": 45,
           "rarityWeight": 8,
-          "size": "medium"
+          "size": "medium",
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/support:web"],
+          "abilityUnlocks": {
+            "4": ["@abilities/active/offensive:poison-bite"]
+          }
         },
         {
           "name": "Phase Spider",
@@ -50,7 +54,11 @@
           "xp": 90,
           "rarityWeight": 25,
           "size": "large",
-          "magical": true
+          "magical": true,
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:poison-bite", "@abilities/active/defensive:phase"],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/mobility:blink"]
+          }
         },
         {
           "name": "Widow Spider",
@@ -61,7 +69,11 @@
           "level": 5,
           "xp": 75,
           "rarityWeight": 18,
-          "size": "medium"
+          "size": "medium",
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:poison-bite", "@abilities/active/support:web"],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/offensive:venom-strike"]
+          }
         },
         {
           "name": "Spider Matriarch",
@@ -72,7 +84,12 @@
           "level": 9,
           "xp": 160,
           "rarityWeight": 40,
-          "size": "huge"
+          "size": "huge",
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:poison-bite", "@abilities/active/support:web"],
+          "abilityUnlocks": {
+            "12": ["@abilities/active/support:web-trap"],
+            "15": ["@abilities/ultimate:spider-queen"]
+          }
         }
       ]
     },
@@ -95,7 +112,11 @@
           "speed": 4,
           "level": 3,
           "xp": 40,
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/passive:carapace"],
+          "abilityUnlocks": {
+            "4": ["@abilities/active/offensive:charge"]
+          }
         },
         {
           "name": "Fire Beetle",
@@ -106,7 +127,11 @@
           "level": 3,
           "xp": 45,
           "rarityWeight": 10,
-          "damageType": "fire"
+          "damageType": "fire",
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:fire-breath"],
+          "abilityUnlocks": {
+            "4": ["@abilities/active/defensive:fire-aura"]
+          }
         },
         {
           "name": "Bombardier Beetle",
@@ -117,7 +142,11 @@
           "level": 5,
           "xp": 70,
           "rarityWeight": 18,
-          "damageType": "acid"
+          "damageType": "acid",
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:acid-spray"],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/offensive:acid-pool"]
+          }
         }
       ]
     },
@@ -141,7 +170,11 @@
           "level": 4,
           "xp": 50,
           "rarityWeight": 10,
-          "venomous": true
+          "venomous": true,
+          "abilities": ["@abilities/active/offensive:sting", "@abilities/passive:flight"],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/offensive:poison-sting"]
+          }
         },
         {
           "name": "Giant Hornet",
@@ -152,7 +185,11 @@
           "level": 5,
           "xp": 70,
           "rarityWeight": 15,
-          "venomous": true
+          "venomous": true,
+          "abilities": ["@abilities/active/offensive:sting", "@abilities/active/offensive:poison-sting", "@abilities/passive:flight"],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/offensive:dive-attack"]
+          }
         },
         {
           "name": "Giant Dragonfly",
@@ -162,7 +199,11 @@
           "speed": 12,
           "level": 5,
           "xp": 65,
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/passive:flight"],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/mobility:aerial-dodge"]
+          }
         },
         {
           "name": "Giant Mantis",
@@ -172,7 +213,11 @@
           "speed": 8,
           "level": 7,
           "xp": 110,
-          "rarityWeight": 22
+          "rarityWeight": 22,
+          "abilities": ["@abilities/active/offensive:claw-attack", "@abilities/active/offensive:ambush"],
+          "abilityUnlocks": {
+            "9": ["@abilities/active/offensive:decapitate"]
+          }
         }
       ]
     },
@@ -195,7 +240,11 @@
           "level": 2,
           "xp": 25,
           "rarityWeight": 5,
-          "size": "small"
+          "size": "small",
+          "abilities": ["@abilities/active/offensive:bite"],
+          "abilityUnlocks": {
+            "3": ["@abilities/active/support:swarm-tactics"]
+          }
         },
         {
           "name": "Giant Ant Soldier",
@@ -206,7 +255,11 @@
           "level": 4,
           "xp": 50,
           "rarityWeight": 10,
-          "size": "medium"
+          "size": "medium",
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/support:swarm-tactics"],
+          "abilityUnlocks": {
+            "6": ["@abilities/active/offensive:mandible-crush"]
+          }
         },
         {
           "name": "Giant Ant Queen",
@@ -217,7 +270,11 @@
           "level": 9,
           "xp": 170,
           "rarityWeight": 45,
-          "size": "huge"
+          "size": "huge",
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/support:swarm-tactics", "@abilities/active/support:summon-ants"],
+          "abilityUnlocks": {
+            "12": ["@abilities/ultimate:hive-mind"]
+          }
         }
       ]
     }

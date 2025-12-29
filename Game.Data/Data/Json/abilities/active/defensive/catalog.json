@@ -5,7 +5,7 @@
     "lastUpdated": "2025-12-28",
     "type": "ability_catalog",
     "supportsTraits": true,
-    "totalAbilities": 33,
+    "totalAbilities": 34,
     "notes": [
       "Consolidated from enemy-specific abilities",
       "Player defensive abilities added for all classes",
@@ -440,6 +440,19 @@
         "invulnerability": {"value": true, "type": "boolean"},
         "duration": {"value": 8, "type": "number"},
         "manaCost": {"value": 100, "type": "number"}
+      }
+    },
+    {
+      "name": "frightful-presence",
+      "displayName": "Frightful Presence",
+      "description": "Terrifying aura that strikes fear into enemies",
+      "rarityWeight": 75,
+      "cooldown": 60,
+      "traits": {
+        "areaOfEffect": {"value": 30, "type": "number"},
+        "fearDuration": {"value": 10, "type": "number"},
+        "damageReduction": {"value": 25, "type": "number"},
+        "attackSpeedReduction": {"value": 50, "type": "number"}
       }
     }
   ]

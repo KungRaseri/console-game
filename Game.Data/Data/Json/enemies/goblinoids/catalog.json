@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Goblinoid enemy type catalog with base stats and rarityWeight values",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_types": 12,
     "categories": [
@@ -35,7 +35,11 @@
           "speed": 6,
           "level": 1,
           "xp": 10,
-          "rarityWeight": 3
+          "rarityWeight": 3,
+          "abilities": ["@abilities/active/offensive:backstab"],
+          "abilityUnlocks": {
+            "2": ["@abilities/active/offensive:sneak-attack"]
+          }
         },
         {
           "name": "Goblin Scout",
@@ -45,7 +49,11 @@
           "speed": 8,
           "level": 2,
           "xp": 15,
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "abilities": ["@abilities/active/offensive:backstab", "@abilities/active/offensive:sneak-attack"],
+          "abilityUnlocks": {
+            "3": ["@abilities/active/defensive:evasion"]
+          }
         },
         {
           "name": "Goblin Shaman",
@@ -55,7 +63,11 @@
           "speed": 5,
           "level": 3,
           "xp": 25,
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:lightning-bolt"],
+          "abilityUnlocks": {
+            "4": ["@abilities/active/support:mana-shield"]
+          }
         },
         {
           "name": "Goblin Chief",
@@ -65,7 +77,11 @@
           "speed": 6,
           "level": 4,
           "xp": 40,
-          "rarityWeight": 18
+          "rarityWeight": 18,
+          "abilities": ["@abilities/active/offensive:backstab", "@abilities/active/support:battle-cry"],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/offensive:shadow-step"]
+          }
         }
       ]
     },
@@ -88,7 +104,11 @@
           "speed": 5,
           "level": 3,
           "xp": 35,
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "abilities": ["@abilities/active/offensive:basic-attack"],
+          "abilityUnlocks": {
+            "4": ["@abilities/active/defensive:shield-wall"]
+          }
         },
         {
           "name": "Hobgoblin Soldier",
@@ -98,7 +118,11 @@
           "speed": 5,
           "level": 4,
           "xp": 50,
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/defensive:shield-wall"],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/offensive:cleave"]
+          }
         },
         {
           "name": "Hobgoblin Captain",
@@ -108,7 +132,11 @@
           "speed": 6,
           "level": 6,
           "xp": 80,
-          "rarityWeight": 22
+          "rarityWeight": 22,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/active/support:rally"],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/offensive:devastating-blow"]
+          }
         },
         {
           "name": "Hobgoblin Warlord",
@@ -118,7 +146,11 @@
           "speed": 6,
           "level": 8,
           "xp": 120,
-          "rarityWeight": 35
+          "rarityWeight": 35,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/active/offensive:devastating-blow", "@abilities/active/support:rally"],
+          "abilityUnlocks": {
+            "10": ["@abilities/ultimate:ragnarok"]
+          }
         }
       ]
     },
@@ -141,7 +173,11 @@
           "speed": 5,
           "level": 4,
           "xp": 55,
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:backstab"],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/offensive:sneak-attack"]
+          }
         },
         {
           "name": "Bugbear Hunter",
@@ -151,7 +187,11 @@
           "speed": 6,
           "level": 6,
           "xp": 85,
-          "rarityWeight": 18
+          "rarityWeight": 18,
+          "abilities": ["@abilities/active/offensive:backstab", "@abilities/active/offensive:sneak-attack"],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/offensive:shadow-step", "@abilities/active/offensive:poisoned-blade"]
+          }
         },
         {
           "name": "Bugbear Chieftain",
@@ -161,7 +201,11 @@
           "speed": 5,
           "level": 8,
           "xp": 130,
-          "rarityWeight": 28
+          "rarityWeight": 28,
+          "abilities": ["@abilities/active/offensive:backstab", "@abilities/active/offensive:sneak-attack", "@abilities/active/offensive:shadow-step"],
+          "abilityUnlocks": {
+            "10": ["@abilities/ultimate:assassinate"]
+          }
         }
       ]
     },
@@ -184,7 +228,12 @@
           "xp": 200,
           "rarityWeight": 60,
           "size": "medium",
-          "damageType": "physical"
+          "damageType": "physical",
+          "abilities": ["@abilities/active/offensive:backstab", "@abilities/active/offensive:sneak-attack", "@abilities/active/offensive:shadow-step", "@abilities/active/support:rally", "@abilities/active/support:battle-cry"],
+          "abilityUnlocks": {
+            "13": ["@abilities/ultimate:assassinate"],
+            "16": ["@abilities/ultimate:death-incarnate"]
+          }
         }
       ]
     }

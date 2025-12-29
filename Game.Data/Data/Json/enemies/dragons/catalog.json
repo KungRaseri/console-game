@@ -1,14 +1,17 @@
 {
   "metadata": {
     "description": "Dragon enemy type catalog with base stats and traits",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_dragon_types": 5,
     "total_dragons": 13,
     "usage": "Provides base enemy types for pattern generation",
     "notes": [
-      "Base catalog of dragons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+      "Base catalog of dragons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
+      "Abilities use JSON Reference System v4.1 (@abilities/category:name)",
+      "Level-based ability unlocks provide enemy progression",
+      "Dragons have breath weapon abilities based on breathType trait"
     ]
   },
   "dragon_types": {
@@ -30,7 +33,17 @@
           "level": 20,
           "xp": 2000,
           "breathType": "fire",
-          "rarityWeight": 80
+          "rarityWeight": 80,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath"
+          ],
+          "abilityUnlocks": {
+            "22": ["@abilities/active/defensive:frightful-presence"],
+            "25": ["@abilities/active/offensive:tail-sweep"],
+            "30": ["@abilities/ultimate:ancient-power"]
+          }
         },
         {
           "name": "Blue Dragon",
@@ -41,7 +54,17 @@
           "level": 19,
           "xp": 1800,
           "breathType": "lightning",
-          "rarityWeight": 75
+          "rarityWeight": 75,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath"
+          ],
+          "abilityUnlocks": {
+            "22": ["@abilities/active/defensive:frightful-presence"],
+            "25": ["@abilities/active/offensive:wing-buffet"],
+            "28": ["@abilities/ultimate:storm-fury"]
+          }
         },
         {
           "name": "Green Dragon",
@@ -52,7 +75,17 @@
           "level": 18,
           "xp": 1600,
           "breathType": "poison",
-          "rarityWeight": 70
+          "rarityWeight": 70,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath"
+          ],
+          "abilityUnlocks": {
+            "20": ["@abilities/active/defensive:frightful-presence"],
+            "24": ["@abilities/active/offensive:poison-cloud"],
+            "28": ["@abilities/ultimate:plague-bearer"]
+          }
         },
         {
           "name": "Black Dragon",
@@ -63,7 +96,17 @@
           "level": 17,
           "xp": 1500,
           "breathType": "acid",
-          "rarityWeight": 68
+          "rarityWeight": 68,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath"
+          ],
+          "abilityUnlocks": {
+            "20": ["@abilities/active/defensive:frightful-presence"],
+            "23": ["@abilities/active/offensive:acid-pool"],
+            "26": ["@abilities/ultimate:corruption-wave"]
+          }
         },
         {
           "name": "White Dragon",
@@ -74,7 +117,17 @@
           "level": 16,
           "xp": 1400,
           "breathType": "cold",
-          "rarityWeight": 65
+          "rarityWeight": 65,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath"
+          ],
+          "abilityUnlocks": {
+            "18": ["@abilities/active/defensive:frightful-presence"],
+            "22": ["@abilities/active/offensive:ice-storm"],
+            "25": ["@abilities/ultimate:blizzard"]
+          }
         }
       ]
     },
@@ -96,7 +149,18 @@
           "level": 22,
           "xp": 2500,
           "breathType": "fire",
-          "rarityWeight": 100
+          "rarityWeight": 100,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath",
+            "@abilities/active/support:bless"
+          ],
+          "abilityUnlocks": {
+            "24": ["@abilities/active/defensive:frightful-presence"],
+            "26": ["@abilities/active/support:divine-intervention"],
+            "30": ["@abilities/ultimate:avatar-of-light"]
+          }
         },
         {
           "name": "Silver Dragon",
@@ -107,7 +171,17 @@
           "level": 21,
           "xp": 2200,
           "breathType": "cold",
-          "rarityWeight": 90
+          "rarityWeight": 90,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath"
+          ],
+          "abilityUnlocks": {
+            "23": ["@abilities/active/defensive:frightful-presence"],
+            "26": ["@abilities/active/offensive:ice-storm"],
+            "29": ["@abilities/ultimate:blizzard"]
+          }
         },
         {
           "name": "Bronze Dragon",
@@ -118,7 +192,17 @@
           "level": 19,
           "xp": 1900,
           "breathType": "lightning",
-          "rarityWeight": 78
+          "rarityWeight": 78,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath"
+          ],
+          "abilityUnlocks": {
+            "22": ["@abilities/active/defensive:frightful-presence"],
+            "25": ["@abilities/active/offensive:lightning-bolt"],
+            "28": ["@abilities/ultimate:storm-fury"]
+          }
         },
         {
           "name": "Copper Dragon",
@@ -129,7 +213,17 @@
           "level": 18,
           "xp": 1700,
           "breathType": "acid",
-          "rarityWeight": 72
+          "rarityWeight": 72,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath"
+          ],
+          "abilityUnlocks": {
+            "20": ["@abilities/active/defensive:frightful-presence"],
+            "24": ["@abilities/active/offensive:acid-pool"],
+            "27": ["@abilities/ultimate:ancient-power"]
+          }
         },
         {
           "name": "Brass Dragon",
@@ -140,7 +234,17 @@
           "level": 17,
           "xp": 1600,
           "breathType": "fire",
-          "rarityWeight": 68
+          "rarityWeight": 68,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:dragon-breath"
+          ],
+          "abilityUnlocks": {
+            "20": ["@abilities/active/defensive:frightful-presence"],
+            "23": ["@abilities/active/offensive:fireball"],
+            "26": ["@abilities/ultimate:ancient-power"]
+          }
         }
       ]
     },
@@ -160,7 +264,15 @@
           "speed": 18,
           "level": 12,
           "xp": 600,
-          "rarityWeight": 30
+          "rarityWeight": 30,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite"
+          ],
+          "abilityUnlocks": {
+            "15": ["@abilities/active/offensive:tail-sweep"],
+            "18": ["@abilities/active/defensive:frightful-presence"]
+          }
         },
         {
           "name": "Wyrm",
@@ -170,7 +282,16 @@
           "speed": 16,
           "level": 14,
           "xp": 800,
-          "rarityWeight": 40
+          "rarityWeight": 40,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:tail-sweep"
+          ],
+          "abilityUnlocks": {
+            "16": ["@abilities/active/offensive:dragon-breath"],
+            "19": ["@abilities/active/defensive:frightful-presence"]
+          }
         },
         {
           "name": "Wyvern",
@@ -180,7 +301,15 @@
           "speed": 22,
           "level": 11,
           "xp": 550,
-          "rarityWeight": 28
+          "rarityWeight": 28,
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:bite"
+          ],
+          "abilityUnlocks": {
+            "13": ["@abilities/active/offensive:tail-sweep"],
+            "16": ["@abilities/active/offensive:wing-buffet"]
+          }
         }
       ]
     }

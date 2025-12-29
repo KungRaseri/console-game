@@ -5,7 +5,7 @@
     "lastUpdated": "2025-12-28",
     "type": "ability_catalog",
     "supportsTraits": true,
-    "totalAbilities": 34,
+    "totalAbilities": 39,
     "notes": [
       "Consolidated from enemy-specific abilities",
       "Player ultimate abilities added for all classes",
@@ -509,6 +509,75 @@
         "plantEntangle": {"value": true, "type": "boolean"},
         "areaOfEffect": {"value": 60, "type": "number"},
         "duration": {"value": 40, "type": "number"}
+      }
+    },
+    {
+      "name": "ancient-power",
+      "displayName": "Ancient Power",
+      "description": "Tap into primordial draconic might",
+      "rarityWeight": 150,
+      "cooldown": 240,
+      "traits": {
+        "damageBonus": {"value": 200, "type": "number"},
+        "armorBonus": {"value": 100, "type": "number"},
+        "healthRegen": {"value": 50, "type": "number"},
+        "spellAmplification": {"value": 150, "type": "number"},
+        "duration": {"value": 45, "type": "number"}
+      }
+    },
+    {
+      "name": "storm-fury",
+      "displayName": "Storm Fury",
+      "description": "Become the embodiment of the storm",
+      "rarityWeight": 150,
+      "cooldown": 200,
+      "traits": {
+        "lightningDamage": {"value": "8d50", "type": "string"},
+        "chainLightning": {"value": 10, "type": "number"},
+        "areaOfEffect": {"value": 40, "type": "number"},
+        "stunDuration": {"value": 5, "type": "number"}
+      }
+    },
+    {
+      "name": "plague-bearer",
+      "displayName": "Plague Bearer",
+      "description": "Spread disease and corruption",
+      "rarityWeight": 150,
+      "cooldown": 180,
+      "traits": {
+        "poisonDamage": {"value": "5d50", "type": "string"},
+        "diseaseSpread": {"value": true, "type": "boolean"},
+        "areaOfEffect": {"value": 50, "type": "number"},
+        "damageOverTime": {"value": "3d20", "type": "string"},
+        "duration": {"value": 60, "type": "number"}
+      }
+    },
+    {
+      "name": "corruption-wave",
+      "displayName": "Corruption Wave",
+      "description": "Unleash wave of pure corruption",
+      "rarityWeight": 150,
+      "cooldown": 200,
+      "traits": {
+        "acidDamage": {"value": "7d50", "type": "string"},
+        "armorReduction": {"value": 50, "type": "number"},
+        "healingReduction": {"value": 75, "type": "number"},
+        "areaOfEffect": {"value": 35, "type": "number"},
+        "duration": {"value": 30, "type": "number"}
+      }
+    },
+    {
+      "name": "blizzard",
+      "displayName": "Blizzard",
+      "description": "Summon devastating ice storm",
+      "rarityWeight": 150,
+      "cooldown": 180,
+      "traits": {
+        "coldDamage": {"value": "6d50", "type": "string"},
+        "freezeChance": {"value": 50, "type": "number"},
+        "slowPercent": {"value": 75, "type": "number"},
+        "areaOfEffect": {"value": 45, "type": "number"},
+        "duration": {"value": 20, "type": "number"}
       }
     }
   ]

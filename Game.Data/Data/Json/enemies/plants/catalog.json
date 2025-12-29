@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Plant creature enemy type catalog with base stats and rarityWeight values",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_types": 13,
     "categories": [
@@ -37,7 +37,11 @@
           "speed": 3,
           "level": 2,
           "xp": 30,
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "abilities": ["@abilities/active/offensive:vine-whip"],
+          "abilityUnlocks": {
+            "3": ["@abilities/active/support:entangle"]
+          }
         },
         {
           "name": "Carnivorous Plant",
@@ -47,7 +51,11 @@
           "speed": 2,
           "level": 4,
           "xp": 55,
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/support:entangle"],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/offensive:acid-spray"]
+          }
         },
         {
           "name": "Venus Trap",
@@ -57,7 +65,11 @@
           "speed": 2,
           "level": 5,
           "xp": 75,
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:grab"],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/offensive:crush"]
+          }
         },
         {
           "name": "Man-Eater",
@@ -67,7 +79,11 @@
           "speed": 3,
           "level": 7,
           "xp": 120,
-          "rarityWeight": 25
+          "rarityWeight": 25,
+          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:grab", "@abilities/active/support:entangle"],
+          "abilityUnlocks": {
+            "9": ["@abilities/active/offensive:devour"]
+          }
         }
       ]
     },
@@ -92,7 +108,11 @@
           "speed": 1,
           "level": 3,
           "xp": 40,
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "abilities": ["@abilities/active/offensive:thorn-spray", "@abilities/passive:thorns"],
+          "abilityUnlocks": {
+            "4": ["@abilities/active/support:entangle"]
+          }
         },
         {
           "name": "Bramble",
@@ -102,7 +122,11 @@
           "speed": 1,
           "level": 4,
           "xp": 50,
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "abilities": ["@abilities/active/offensive:thorn-spray", "@abilities/passive:thorns"],
+          "abilityUnlocks": {
+            "6": ["@abilities/active/support:thorn-barrier"]
+          }
         },
         {
           "name": "Thorn Tree",
@@ -112,7 +136,11 @@
           "speed": 1,
           "level": 7,
           "xp": 110,
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "abilities": ["@abilities/active/offensive:thorn-spray", "@abilities/passive:thorns", "@abilities/active/support:entangle"],
+          "abilityUnlocks": {
+            "9": ["@abilities/active/offensive:thorn-volley"]
+          }
         }
       ]
     },
@@ -137,7 +165,11 @@
           "level": 8,
           "xp": 140,
           "rarityWeight": 28,
-          "size": "large"
+          "size": "large",
+          "abilities": ["@abilities/active/offensive:slam", "@abilities/active/support:entangle", "@abilities/passive:regeneration"],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/offensive:engulf"]
+          }
         },
         {
           "name": "Treant",
@@ -149,7 +181,11 @@
           "xp": 190,
           "rarityWeight": 40,
           "size": "huge",
-          "intelligence": "high"
+          "intelligence": "high",
+          "abilities": ["@abilities/active/offensive:slam", "@abilities/active/offensive:rock-throw", "@abilities/active/support:animate-trees"],
+          "abilityUnlocks": {
+            "13": ["@abilities/ultimate:forest-guardian"]
+          }
         },
         {
           "name": "Myconid",
@@ -161,7 +197,11 @@
           "xp": 85,
           "rarityWeight": 18,
           "size": "medium",
-          "spore_based": true
+          "spore_based": true,
+          "abilities": ["@abilities/active/offensive:spore-cloud", "@abilities/active/support:hallucination-spores"],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/offensive:death-spores"]
+          }
         },
         {
           "name": "Awakened Tree",
@@ -172,7 +212,11 @@
           "level": 9,
           "xp": 160,
           "rarityWeight": 32,
-          "size": "huge"
+          "size": "huge",
+          "abilities": ["@abilities/active/offensive:slam", "@abilities/active/offensive:branch-strike"],
+          "abilityUnlocks": {
+            "12": ["@abilities/active/support:root-grasp"]
+          }
         }
       ]
     },
@@ -198,7 +242,12 @@
           "xp": 300,
           "rarityWeight": 60,
           "damageType": "physical",
-          "rooted": false
+          "rooted": false,
+          "abilities": ["@abilities/active/offensive:slam", "@abilities/active/offensive:rock-throw", "@abilities/active/support:animate-trees", "@abilities/passive:regeneration"],
+          "abilityUnlocks": {
+            "16": ["@abilities/ultimate:forest-guardian"],
+            "19": ["@abilities/ultimate:natures-wrath"]
+          }
         },
         {
           "name": "Ancient Grove Guardian",
@@ -210,7 +259,12 @@
           "xp": 400,
           "rarityWeight": 80,
           "damageType": "magical",
-          "rooted": false
+          "rooted": false,
+          "abilities": ["@abilities/active/offensive:slam", "@abilities/active/offensive:rock-throw", "@abilities/active/support:animate-trees", "@abilities/passive:regeneration", "@abilities/passive:ancient-bark"],
+          "abilityUnlocks": {
+            "18": ["@abilities/ultimate:forest-guardian"],
+            "21": ["@abilities/ultimate:natures-wrath"]
+          }
         }
       ]
     }

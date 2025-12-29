@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Orc enemy type catalog with base stats and rarityWeight values",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_types": 11,
     "categories": [
@@ -34,7 +34,11 @@
           "speed": 5,
           "level": 3,
           "xp": 40,
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "abilities": ["@abilities/active/offensive:basic-attack"],
+          "abilityUnlocks": {
+            "4": ["@abilities/active/offensive:reckless-attack"]
+          }
         },
         {
           "name": "Orc Grunt",
@@ -44,7 +48,11 @@
           "speed": 5,
           "level": 4,
           "xp": 50,
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/support:battle-rage"],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/offensive:cleave"]
+          }
         },
         {
           "name": "Orc Warrior",
@@ -54,7 +62,11 @@
           "speed": 5,
           "level": 5,
           "xp": 70,
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/active/support:battle-rage"],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/offensive:devastating-blow"]
+          }
         },
         {
           "name": "Orc Berserker",
@@ -64,7 +76,12 @@
           "speed": 6,
           "level": 6,
           "xp": 90,
-          "rarityWeight": 18
+          "rarityWeight": 18,
+          "abilities": ["@abilities/active/offensive:reckless-attack", "@abilities/active/support:battle-rage", "@abilities/active/support:bloodlust"],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/offensive:whirlwind"],
+            "10": ["@abilities/ultimate:ragnarok"]
+          }
         }
       ]
     },
@@ -87,7 +104,11 @@
           "speed": 6,
           "level": 7,
           "xp": 110,
-          "rarityWeight": 22
+          "rarityWeight": 22,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/active/offensive:devastating-blow"],
+          "abilityUnlocks": {
+            "9": ["@abilities/active/offensive:execute"]
+          }
         },
         {
           "name": "Orc Shaman",
@@ -97,7 +118,11 @@
           "speed": 5,
           "level": 7,
           "xp": 115,
-          "rarityWeight": 25
+          "rarityWeight": 25,
+          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:lightning-bolt", "@abilities/active/support:chain-lightning"],
+          "abilityUnlocks": {
+            "9": ["@abilities/active/offensive:meteor-strike"]
+          }
         },
         {
           "name": "Orc Warlord",
@@ -107,7 +132,11 @@
           "speed": 6,
           "level": 9,
           "xp": 150,
-          "rarityWeight": 35
+          "rarityWeight": 35,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/active/offensive:devastating-blow", "@abilities/active/support:rally"],
+          "abilityUnlocks": {
+            "12": ["@abilities/ultimate:ragnarok"]
+          }
         },
         {
           "name": "Orc Chieftain",
@@ -117,7 +146,12 @@
           "speed": 6,
           "level": 10,
           "xp": 180,
-          "rarityWeight": 42
+          "rarityWeight": 42,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/active/offensive:devastating-blow", "@abilities/active/support:rally", "@abilities/active/support:battle-cry"],
+          "abilityUnlocks": {
+            "13": ["@abilities/ultimate:ragnarok"],
+            "16": ["@abilities/ultimate:avatar-of-war"]
+          }
         }
       ]
     },
@@ -140,7 +174,12 @@
           "level": 12,
           "xp": 250,
           "rarityWeight": 65,
-          "damageType": "physical"
+          "damageType": "physical",
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/active/offensive:devastating-blow", "@abilities/active/offensive:execute", "@abilities/active/support:rally", "@abilities/active/support:battle-cry"],
+          "abilityUnlocks": {
+            "15": ["@abilities/ultimate:ragnarok"],
+            "18": ["@abilities/ultimate:avatar-of-war"]
+          }
         },
         {
           "name": "Half-Orc",
@@ -152,7 +191,11 @@
           "xp": 55,
           "rarityWeight": 15,
           "damageType": "physical",
-          "intelligence": "high"
+          "intelligence": "high",
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:power-strike"],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/offensive:cleave"]
+          }
         },
         {
           "name": "Orc Brute",
@@ -164,7 +207,12 @@
           "xp": 170,
           "rarityWeight": 30,
           "damageType": "physical",
-          "size": "huge"
+          "size": "huge",
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:power-strike", "@abilities/active/support:battle-rage"],
+          "abilityUnlocks": {
+            "13": ["@abilities/active/offensive:devastating-blow"],
+            "16": ["@abilities/ultimate:avatar-of-war"]
+          }
         }
       ]
     }

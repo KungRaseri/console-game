@@ -1,14 +1,16 @@
 {
   "metadata": {
     "description": "Humanoid enemy type catalog with base stats and traits",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_humanoid_types": 4,
     "total_humanoids": 14,
     "usage": "Provides base enemy types for pattern generation",
     "notes": [
-      "Base catalog of humanoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category."
+      "Base catalog of humanoids with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
+      "Abilities use JSON Reference System v4.1 (@abilities/category:name)",
+      "Level-based ability unlocks provide enemy progression"
     ]
   },
   "humanoid_types": {
@@ -28,7 +30,13 @@
           "speed": 12,
           "level": 3,
           "xp": 50,
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack"
+          ],
+          "abilityUnlocks": {
+            "5": ["@abilities/active/offensive:backstab"]
+          }
         },
         {
           "name": "Thug",
@@ -38,7 +46,15 @@
           "speed": 11,
           "level": 4,
           "xp": 60,
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:power-strike"
+          ],
+          "abilityUnlocks": {
+            "6": ["@abilities/active/support:battle-cry"],
+            "8": ["@abilities/active/offensive:cleave"]
+          }
         },
         {
           "name": "Brigand",
@@ -48,7 +64,15 @@
           "speed": 13,
           "level": 5,
           "xp": 75,
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:backstab"
+          ],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/utility:steal"],
+            "10": ["@abilities/active/offensive:sneak-attack"]
+          }
         },
         {
           "name": "Highwayman",
@@ -58,7 +82,16 @@
           "speed": 14,
           "level": 6,
           "xp": 90,
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:sneak-attack",
+            "@abilities/active/utility:steal"
+          ],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/mobility:shadow-step"],
+            "12": ["@abilities/active/offensive:assassinate"]
+          }
         }
       ]
     },
@@ -79,7 +112,16 @@
           "speed": 12,
           "level": 6,
           "xp": 100,
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/defensive:defend"
+          ],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/offensive:power-strike"],
+            "10": ["@abilities/active/support:battle-cry"],
+            "12": ["@abilities/active/offensive:cleave"]
+          }
         },
         {
           "name": "Mercenary",
@@ -89,7 +131,17 @@
           "speed": 13,
           "level": 7,
           "xp": 120,
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:power-strike",
+            "@abilities/active/defensive:defend"
+          ],
+          "abilityUnlocks": {
+            "9": ["@abilities/active/support:second-wind"],
+            "12": ["@abilities/active/offensive:whirlwind"],
+            "15": ["@abilities/active/defensive:indomitable"]
+          }
         },
         {
           "name": "Captain",
@@ -99,7 +151,17 @@
           "speed": 12,
           "level": 9,
           "xp": 200,
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:power-strike",
+            "@abilities/active/support:battle-cry"
+          ],
+          "abilityUnlocks": {
+            "12": ["@abilities/active/offensive:devastating-blow"],
+            "15": ["@abilities/active/support:taunt"],
+            "18": ["@abilities/passive:weapon-mastery"]
+          }
         },
         {
           "name": "Champion",
@@ -109,7 +171,19 @@
           "speed": 13,
           "level": 11,
           "xp": 300,
-          "rarityWeight": 30
+          "rarityWeight": 30,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:power-strike",
+            "@abilities/active/offensive:cleave",
+            "@abilities/active/support:battle-cry"
+          ],
+          "abilityUnlocks": {
+            "15": ["@abilities/active/offensive:devastating-blow"],
+            "18": ["@abilities/active/defensive:indomitable"],
+            "20": ["@abilities/passive:combat-supremacy"],
+            "25": ["@abilities/ultimate:ragnarok"]
+          }
         }
       ]
     },
@@ -130,7 +204,18 @@
           "speed": 18,
           "level": 8,
           "xp": 180,
-          "rarityWeight": 22
+          "rarityWeight": 22,
+          "abilities": [
+            "@abilities/active/offensive:sneak-attack",
+            "@abilities/active/offensive:backstab",
+            "@abilities/active/mobility:shadow-step"
+          ],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/offensive:assassinate"],
+            "12": ["@abilities/active/offensive:poison-blade"],
+            "15": ["@abilities/passive:shadow-master"],
+            "18": ["@abilities/ultimate:death-incarnate"]
+          }
         },
         {
           "name": "Archer",
@@ -140,7 +225,16 @@
           "speed": 14,
           "level": 7,
           "xp": 140,
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "abilities": [
+            "@abilities/active/offensive:bow-shot",
+            "@abilities/active/utility:track"
+          ],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/offensive:multi-shot"],
+            "12": ["@abilities/active/support:hunters-mark"],
+            "15": ["@abilities/active/offensive:volley"]
+          }
         },
         {
           "name": "Mage",
@@ -150,7 +244,18 @@
           "speed": 11,
           "level": 8,
           "xp": 200,
-          "rarityWeight": 25
+          "rarityWeight": 25,
+          "abilities": [
+            "@abilities/active/offensive:magic-missile",
+            "@abilities/active/offensive:fireball"
+          ],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/offensive:ice-shard"],
+            "12": ["@abilities/active/defensive:arcane-shield"],
+            "15": ["@abilities/active/offensive:lightning-bolt"],
+            "18": ["@abilities/active/offensive:meteor"],
+            "20": ["@abilities/ultimate:archmages-supremacy"]
+          }
         },
         {
           "name": "Berserker",
@@ -160,7 +265,18 @@
           "speed": 15,
           "level": 9,
           "xp": 220,
-          "rarityWeight": 24
+          "rarityWeight": 24,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/support:berserker-rage",
+            "@abilities/active/offensive:reckless-attack"
+          ],
+          "abilityUnlocks": {
+            "12": ["@abilities/active/support:bloodlust"],
+            "15": ["@abilities/active/offensive:frenzy"],
+            "18": ["@abilities/passive:unstoppable"],
+            "20": ["@abilities/ultimate:ragnarok"]
+          }
         }
       ]
     },
@@ -181,7 +297,15 @@
           "speed": 11,
           "level": 4,
           "xp": 65,
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:drain-life"
+          ],
+          "abilityUnlocks": {
+            "6": ["@abilities/active/offensive:death-bolt"],
+            "8": ["@abilities/active/summon:summon-skeleton"]
+          }
         },
         {
           "name": "Zealot",
@@ -191,7 +315,17 @@
           "speed": 12,
           "level": 6,
           "xp": 110,
-          "rarityWeight": 14
+          "rarityWeight": 14,
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:smite",
+            "@abilities/active/support:bless"
+          ],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/defensive:divine-shield"],
+            "10": ["@abilities/active/offensive:holy-nova"],
+            "12": ["@abilities/active/support:divine-intervention"]
+          }
         }
       ]
     }

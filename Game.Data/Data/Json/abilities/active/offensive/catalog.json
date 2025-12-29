@@ -5,7 +5,7 @@
     "lastUpdated": "2025-12-28",
     "type": "ability_catalog",
     "supportsTraits": true,
-    "totalAbilities": 80,
+    "totalAbilities": 88,
     "notes": [
       "Consolidated from enemy-specific abilities",
       "Player offensive abilities added for all classes",
@@ -929,6 +929,114 @@
         "damageType": {"value": "physical", "type": "string"},
         "requiresPet": {"value": true, "type": "boolean"},
         "petDamageBonus": {"value": 100, "type": "number"}
+      }
+    },
+    {
+      "name": "claw-attack",
+      "displayName": "Claw Attack",
+      "description": "Vicious claw swipe",
+      "rarityWeight": 5,
+      "baseDamage": "2d8",
+      "cooldown": 3,
+      "traits": {
+        "damageType": {"value": "slashing", "type": "string"},
+        "bleedChance": {"value": 20, "type": "number"}
+      }
+    },
+    {
+      "name": "bite",
+      "displayName": "Bite",
+      "description": "Powerful bite attack",
+      "rarityWeight": 5,
+      "baseDamage": "2d10",
+      "cooldown": 4,
+      "traits": {
+        "damageType": {"value": "piercing", "type": "string"},
+        "grappleChance": {"value": 30, "type": "number"}
+      }
+    },
+    {
+      "name": "dragon-breath",
+      "displayName": "Dragon Breath",
+      "description": "Devastating breath weapon",
+      "rarityWeight": 50,
+      "baseDamage": "4d12",
+      "cooldown": 20,
+      "traits": {
+        "damageType": {"value": "elemental", "type": "string"},
+        "areaOfEffect": {"value": 15, "type": "number"},
+        "cone": {"value": true, "type": "boolean"},
+        "elementVaries": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "tail-sweep",
+      "displayName": "Tail Sweep",
+      "description": "Sweep tail to knock back enemies",
+      "rarityWeight": 75,
+      "baseDamage": "3d8",
+      "cooldown": 12,
+      "traits": {
+        "damageType": {"value": "bludgeoning", "type": "string"},
+        "areaOfEffect": {"value": 10, "type": "number"},
+        "knockbackDistance": {"value": 15, "type": "number"}
+      }
+    },
+    {
+      "name": "wing-buffet",
+      "displayName": "Wing Buffet",
+      "description": "Powerful wing flap creates shockwave",
+      "rarityWeight": 75,
+      "baseDamage": "2d10",
+      "cooldown": 15,
+      "traits": {
+        "damageType": {"value": "force", "type": "string"},
+        "areaOfEffect": {"value": 20, "type": "number"},
+        "knockbackDistance": {"value": 20, "type": "number"},
+        "stunDuration": {"value": 2, "type": "number"}
+      }
+    },
+    {
+      "name": "poison-cloud",
+      "displayName": "Poison Cloud",
+      "description": "Exhale toxic cloud",
+      "rarityWeight": 100,
+      "baseDamage": "2d6",
+      "cooldown": 30,
+      "traits": {
+        "damageType": {"value": "poison", "type": "string"},
+        "damageOverTime": {"value": "2d6", "type": "string"},
+        "duration": {"value": 12, "type": "number"},
+        "areaOfEffect": {"value": 15, "type": "number"}
+      }
+    },
+    {
+      "name": "acid-pool",
+      "displayName": "Acid Pool",
+      "description": "Create pool of corrosive acid",
+      "rarityWeight": 100,
+      "baseDamage": "3d8",
+      "cooldown": 25,
+      "traits": {
+        "damageType": {"value": "acid", "type": "string"},
+        "damageOverTime": {"value": "3d8", "type": "string"},
+        "duration": {"value": 20, "type": "number"},
+        "areaOfEffect": {"value": 10, "type": "number"},
+        "persistentZone": {"value": true, "type": "boolean"}
+      }
+    },
+    {
+      "name": "ice-storm",
+      "displayName": "Ice Storm",
+      "description": "Summon freezing ice storm",
+      "rarityWeight": 100,
+      "baseDamage": "4d10",
+      "cooldown": 35,
+      "traits": {
+        "damageType": {"value": "cold", "type": "string"},
+        "areaOfEffect": {"value": 25, "type": "number"},
+        "slowPercent": {"value": 50, "type": "number"},
+        "duration": {"value": 10, "type": "number"}
       }
     }
   ]

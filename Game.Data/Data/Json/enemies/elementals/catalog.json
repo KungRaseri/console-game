@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Elemental enemy type catalog with base stats and traits",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_elemental_types": 4,
     "total_elementals": 12,
@@ -32,7 +32,12 @@
           "speed": 16,
           "level": 10,
           "xp": 300,
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:fire-blast"],
+          "abilityUnlocks": {
+            "13": ["@abilities/active/defensive:fire-aura"],
+            "16": ["@abilities/ultimate:inferno"]
+          }
         },
         {
           "name": "Salamander",
@@ -42,7 +47,11 @@
           "speed": 18,
           "level": 8,
           "xp": 200,
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:flame-whip"],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/offensive:hellfire"]
+          }
         },
         {
           "name": "Efreeti",
@@ -52,7 +61,12 @@
           "speed": 14,
           "level": 14,
           "xp": 700,
-          "rarityWeight": 45
+          "rarityWeight": 45,
+          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:fire-blast", "@abilities/active/offensive:hellfire", "@abilities/active/defensive:fire-aura"],
+          "abilityUnlocks": {
+            "17": ["@abilities/ultimate:inferno"],
+            "20": ["@abilities/ultimate:wish"]
+          }
         }
       ]
     },
@@ -76,7 +90,12 @@
           "speed": 14,
           "level": 10,
           "xp": 300,
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "abilities": ["@abilities/active/offensive:frost-bolt", "@abilities/active/support:tidal-wave"],
+          "abilityUnlocks": {
+            "13": ["@abilities/active/support:water-shield"],
+            "16": ["@abilities/ultimate:tsunami"]
+          }
         },
         {
           "name": "Undine",
@@ -86,7 +105,11 @@
           "speed": 16,
           "level": 8,
           "xp": 200,
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "abilities": ["@abilities/active/offensive:frost-bolt", "@abilities/active/offensive:ice-shard"],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/support:healing-waters"]
+          }
         }
       ]
     },
@@ -110,7 +133,12 @@
           "speed": 8,
           "level": 11,
           "xp": 400,
-          "rarityWeight": 22
+          "rarityWeight": 22,
+          "abilities": ["@abilities/active/offensive:rock-throw", "@abilities/active/offensive:earthquake-stomp"],
+          "abilityUnlocks": {
+            "14": ["@abilities/passive:stone-skin"],
+            "17": ["@abilities/ultimate:earthquake"]
+          }
         },
         {
           "name": "Golem",
@@ -120,7 +148,12 @@
           "speed": 6,
           "level": 12,
           "xp": 500,
-          "rarityWeight": 28
+          "rarityWeight": 28,
+          "abilities": ["@abilities/active/offensive:slam", "@abilities/passive:stone-skin"],
+          "abilityUnlocks": {
+            "15": ["@abilities/active/offensive:earthquake-stomp"],
+            "18": ["@abilities/passive:adamantine-body"]
+          }
         },
         {
           "name": "Gnome",
@@ -130,7 +163,11 @@
           "speed": 10,
           "level": 7,
           "xp": 150,
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "abilities": ["@abilities/active/offensive:rock-throw", "@abilities/active/support:burrow"],
+          "abilityUnlocks": {
+            "9": ["@abilities/passive:earth-glide"]
+          }
         }
       ]
     },
@@ -154,7 +191,12 @@
           "speed": 25,
           "level": 10,
           "xp": 300,
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "abilities": ["@abilities/active/offensive:gust", "@abilities/active/offensive:lightning-bolt"],
+          "abilityUnlocks": {
+            "13": ["@abilities/active/support:whirlwind"],
+            "16": ["@abilities/ultimate:storm-fury"]
+          }
         },
         {
           "name": "Sylph",
@@ -164,7 +206,11 @@
           "speed": 28,
           "level": 8,
           "xp": 200,
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "abilities": ["@abilities/active/offensive:gust", "@abilities/passive:flight"],
+          "abilityUnlocks": {
+            "10": ["@abilities/active/support:haste"]
+          }
         },
         {
           "name": "Djinn",
@@ -174,7 +220,12 @@
           "speed": 22,
           "level": 13,
           "xp": 650,
-          "rarityWeight": 42
+          "rarityWeight": 42,
+          "abilities": ["@abilities/active/offensive:lightning-bolt", "@abilities/active/support:chain-lightning", "@abilities/active/support:whirlwind"],
+          "abilityUnlocks": {
+            "16": ["@abilities/ultimate:storm-fury"],
+            "19": ["@abilities/ultimate:wish"]
+          }
         },
         {
           "name": "Phoenix",
@@ -184,7 +235,12 @@
           "speed": 24,
           "level": 16,
           "xp": 1000,
-          "rarityWeight": 70
+          "rarityWeight": 70,
+          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:flame-strike", "@abilities/passive:flight", "@abilities/passive:rebirth"],
+          "abilityUnlocks": {
+            "19": ["@abilities/ultimate:inferno"],
+            "22": ["@abilities/ultimate:supernova"]
+          }
         }
       ]
     }

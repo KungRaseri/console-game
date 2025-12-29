@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Vampire enemy type catalog with base stats and rarityWeight values",
-    "version": "1.0",
-    "lastUpdated": "2025-12-17",
+    "version": "4.0",
+    "lastUpdated": "2025-12-28",
     "type": "item_catalog",
     "total_types": 11,
     "categories": [
@@ -35,7 +35,11 @@
           "speed": 7,
           "level": 6,
           "xp": 100,
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "abilities": ["@abilities/active/offensive:drain-life", "@abilities/active/support:charm"],
+          "abilityUnlocks": {
+            "8": ["@abilities/active/offensive:blood-magic"]
+          }
         },
         {
           "name": "Thrall",
@@ -45,7 +49,11 @@
           "speed": 6,
           "level": 5,
           "xp": 75,
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "abilities": ["@abilities/active/offensive:drain-life"],
+          "abilityUnlocks": {
+            "7": ["@abilities/active/support:charm"]
+          }
         },
         {
           "name": "Fledgling",
@@ -55,7 +63,11 @@
           "speed": 7,
           "level": 7,
           "xp": 120,
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "abilities": ["@abilities/active/offensive:drain-life", "@abilities/active/support:charm", "@abilities/active/offensive:blood-magic"],
+          "abilityUnlocks": {
+            "9": ["@abilities/active/offensive:suggestion"]
+          }
         }
       ]
     },
@@ -82,7 +94,11 @@
           "speed": 8,
           "level": 9,
           "xp": 180,
-          "rarityWeight": 30
+          "rarityWeight": 30,
+          "abilities": ["@abilities/active/offensive:drain-life", "@abilities/active/offensive:blood-magic", "@abilities/active/support:charm", "@abilities/active/movement:mist-form"],
+          "abilityUnlocks": {
+            "11": ["@abilities/active/offensive:shapeshifting"]
+          }
         },
         {
           "name": "Vampire Knight",
@@ -92,7 +108,11 @@
           "speed": 8,
           "level": 10,
           "xp": 210,
-          "rarityWeight": 38
+          "rarityWeight": 38,
+          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:drain-life", "@abilities/active/offensive:power-strike", "@abilities/active/offensive:blood-magic"],
+          "abilityUnlocks": {
+            "12": ["@abilities/ultimate:vampiric-aura"]
+          }
         },
         {
           "name": "Vampire Mage",
@@ -102,7 +122,11 @@
           "speed": 7,
           "level": 10,
           "xp": 220,
-          "rarityWeight": 42
+          "rarityWeight": 42,
+          "abilities": ["@abilities/active/offensive:drain-life", "@abilities/active/offensive:blood-magic", "@abilities/active/offensive:fireball", "@abilities/active/support:charm"],
+          "abilityUnlocks": {
+            "13": ["@abilities/ultimate:vampiric-ascension"]
+          }
         },
         {
           "name": "Vampire Lord",
@@ -112,7 +136,11 @@
           "speed": 9,
           "level": 12,
           "xp": 280,
-          "rarityWeight": 55
+          "rarityWeight": 55,
+          "abilities": ["@abilities/active/offensive:drain-life", "@abilities/active/offensive:blood-magic", "@abilities/active/support:charm", "@abilities/active/movement:mist-form", "@abilities/active/offensive:shapeshifting"],
+          "abilityUnlocks": {
+            "15": ["@abilities/ultimate:blood-lord"]
+          }
         }
       ]
     },
@@ -140,7 +168,11 @@
           "level": 14,
           "xp": 350,
           "rarityWeight": 70,
-          "damageType": "magical"
+          "damageType": "magical",
+          "abilities": ["@abilities/active/offensive:drain-life", "@abilities/active/offensive:blood-magic", "@abilities/active/support:charm", "@abilities/active/movement:mist-form", "@abilities/active/offensive:shapeshifting"],
+          "abilityUnlocks": {
+            "17": ["@abilities/ultimate:ancient-bloodline"]
+          }
         },
         {
           "name": "Vampire Prince",
@@ -151,7 +183,11 @@
           "level": 15,
           "xp": 400,
           "rarityWeight": 80,
-          "damageType": "magical"
+          "damageType": "magical",
+          "abilities": ["@abilities/active/offensive:drain-life", "@abilities/active/offensive:blood-magic", "@abilities/active/support:charm", "@abilities/active/movement:mist-form", "@abilities/active/offensive:shapeshifting", "@abilities/active/support:dominate"],
+          "abilityUnlocks": {
+            "18": ["@abilities/ultimate:crimson-throne"]
+          }
         },
         {
           "name": "Vampire Progenitor",
@@ -162,7 +198,11 @@
           "level": 18,
           "xp": 550,
           "rarityWeight": 100,
-          "damageType": "magical"
+          "damageType": "magical",
+          "abilities": ["@abilities/active/offensive:drain-life", "@abilities/active/offensive:blood-magic", "@abilities/active/support:charm", "@abilities/active/movement:mist-form", "@abilities/active/offensive:shapeshifting", "@abilities/active/support:dominate"],
+          "abilityUnlocks": {
+            "21": ["@abilities/ultimate:progenitors-blessing", "@abilities/ultimate:blood-god"]
+          }
         },
         {
           "name": "Nosferatu",
@@ -173,7 +213,11 @@
           "level": 13,
           "xp": 320,
           "rarityWeight": 65,
-          "damageType": "physical"
+          "damageType": "physical",
+          "abilities": ["@abilities/active/offensive:drain-life", "@abilities/active/offensive:blood-magic", "@abilities/active/movement:mist-form", "@abilities/active/offensive:plague-touch"],
+          "abilityUnlocks": {
+            "16": ["@abilities/ultimate:shadow-lord"]
+          }
         }
       ]
     }
