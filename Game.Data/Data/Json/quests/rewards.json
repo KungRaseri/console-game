@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "4.0",
-    "lastUpdated": "2025-12-18",
+    "lastUpdated": "2025-12-29",
     "description": "Quest rewards catalog including items, gold, and experience scaling formulas",
     "type": "hierarchical_catalog",
     "notes": "Consolidated from items.json, gold.json, and experience.json. Supports weighted selection and dynamic scaling based on player level and quest difficulty. Item rewards provide equipment/consumables/progression. Gold rewards are tiered by amount. Experience rewards scale with player level to maintain progression balance.",

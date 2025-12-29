@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "4.0",
-    "lastUpdated": "2025-12-18",
+    "lastUpdated": "2025-12-29",
     "description": "Quest templates and location catalog for procedural quest generation",
     "type": "hierarchical_catalog",
     "notes": "Consolidated from quest_templates.json, wilderness.json, towns.json, and dungeons.json. Supports weighted random selection using rarityWeight formula: probability = 100 / rarityWeight. Templates define quest types with base rewards. Locations are selected separately and populated into template variables like {location}.",
@@ -69,12 +69,13 @@
             "rarityWeight": 10,
             "questType": "fetch",
             "difficulty": "easy",
-            "itemType": "herb",
+            "itemType": "@items/consumables/herbs",
             "minQuantity": 5,
             "maxQuantity": 10,
             "baseGoldReward": 30,
             "baseXpReward": 50,
             "location": "Wilderness",
+            "quest_giver_types": ["professional", "religious", "common"],
             "description": "Gather {quantity} {itemType} from the surrounding area"
           },
           {
@@ -83,12 +84,13 @@
             "rarityWeight": 12,
             "questType": "fetch",
             "difficulty": "easy",
-            "itemType": "mineral",
+            "itemType": "@items/materials/minerals",
             "minQuantity": 3,
             "maxQuantity": 8,
             "baseGoldReward": 40,
             "baseXpReward": 60,
             "location": "Mountain",
+            "quest_giver_types": ["craftsmen", "merchant", "professional"],
             "description": "Collect {quantity} {itemType} from the mines"
           },
           {
@@ -97,12 +99,13 @@
             "rarityWeight": 8,
             "questType": "fetch",
             "difficulty": "easy",
-            "itemType": "wood",
+            "itemType": "@items/materials/woods",
             "minQuantity": 10,
             "maxQuantity": 15,
             "baseGoldReward": 25,
             "baseXpReward": 45,
             "location": "Forest",
+            "quest_giver_types": ["craftsmen", "common", "service"],
             "description": "Collect {quantity} pieces of quality {itemType}"
           },
           {
@@ -111,13 +114,14 @@
             "rarityWeight": 15,
             "questType": "fetch",
             "difficulty": "easy",
-            "itemType": "pelt",
-            "targetType": "beast",
+            "itemType": "@items/materials/leathers",
+            "targetType": "@enemies/beast",
             "minQuantity": 3,
             "maxQuantity": 5,
             "baseGoldReward": 45,
             "baseXpReward": 40,
             "location": "Wilderness",
+            "quest_giver_types": ["craftsmen", "merchant", "common"],
             "description": "Hunt {quantity} {animalType} and bring back their pelts"
           }
         ],
@@ -128,7 +132,7 @@
             "rarityWeight": 30,
             "questType": "fetch",
             "difficulty": "medium",
-            "itemType": "questitem",
+            "itemType": "@items/quest-items",
             "minQuantity": 1,
             "maxQuantity": 1,
             "baseGoldReward": 300,
@@ -136,6 +140,7 @@
             "location": "Dungeon",
             "guardians": true,
             "timeLimit": 48,
+            "quest_giver_types": ["noble", "magical", "religious"],
             "description": "Retrieve the ancient {itemName} from {location}"
           },
           {
@@ -144,13 +149,15 @@
             "rarityWeight": 35,
             "questType": "fetch",
             "difficulty": "medium",
-            "itemType": "treasure",
+            "itemType": "@items/valuables",
             "minQuantity": 1,
             "maxQuantity": 3,
             "baseGoldReward": 400,
             "baseXpReward": 500,
             "stealthRequired": 70,
             "moralChoice": "evil",
+            "quest_giver_types": ["criminal"],
+            "required_faction": "thieves_guild",
             "description": "Steal {quantity} valuable items from the noble's vault"
           }
         ],
@@ -161,7 +168,7 @@
             "rarityWeight": 60,
             "questType": "fetch",
             "difficulty": "hard",
-            "itemType": "weapon",
+            "itemType": "@items/weapons",
             "itemRarity": "legendary",
             "minQuantity": 1,
             "maxQuantity": 1,
@@ -170,6 +177,7 @@
             "location": "Ancient Temple",
             "bossFight": true,
             "legendary": true,
+            "quest_giver_types": ["noble", "military", "magical"],
             "description": "Seek the legendary {itemName} hidden in {location}"
           }
         ]
@@ -182,12 +190,13 @@
             "rarityWeight": 8,
             "questType": "kill",
             "difficulty": "easy",
-            "targetType": "beast",
+            "targetType": "@enemies/beast",
             "minQuantity": 3,
             "maxQuantity": 5,
             "baseGoldReward": 50,
             "baseXpReward": 100,
             "timeLimit": 0,
+            "quest_giver_types": ["common", "service", "military"],
             "description": "Eliminate {quantity} {target} threatening the area"
           },
           {
@@ -196,12 +205,13 @@
             "rarityWeight": 10,
             "questType": "kill",
             "difficulty": "easy",
-            "targetType": "undead",
+            "targetType": "@enemies/undead",
             "minQuantity": 4,
             "maxQuantity": 6,
             "baseGoldReward": 75,
             "baseXpReward": 150,
             "timeLimit": 0,
+            "quest_giver_types": ["religious", "military", "noble"],
             "description": "Cleanse {quantity} {target} from the graveyard"
           }
         ],
@@ -212,13 +222,14 @@
             "rarityWeight": 35,
             "questType": "kill",
             "difficulty": "medium",
-            "targetType": "demon",
+            "targetType": "@enemies/demon",
             "minQuantity": 3,
             "maxQuantity": 4,
             "baseGoldReward": 200,
             "baseXpReward": 400,
             "timeLimit": 72,
             "failureConsequence": "Village destroyed",
+            "quest_giver_types": ["religious", "magical", "noble"],
             "description": "Hunt down {quantity} {target} before they summon reinforcements"
           },
           {
@@ -227,13 +238,14 @@
             "rarityWeight": 30,
             "questType": "kill",
             "difficulty": "medium",
-            "targetType": "elemental",
+            "targetType": "@enemies/elemental",
             "minQuantity": 2,
             "maxQuantity": 3,
             "baseGoldReward": 250,
             "baseXpReward": 500,
             "timeLimit": 0,
             "location": "Ancient Ruins",
+            "quest_giver_types": ["magical", "religious", "noble"],
             "description": "Banish {quantity} {target} from {location}"
           }
         ],
@@ -244,15 +256,16 @@
             "rarityWeight": 70,
             "questType": "kill",
             "difficulty": "hard",
-            "targetType": "dragon",
+            "targetType": "@enemies/dragon",
             "minQuantity": 1,
             "maxQuantity": 2,
             "baseGoldReward": 1000,
             "baseXpReward": 2000,
             "timeLimit": 168,
             "failureConsequence": "Kingdom falls",
-            "bonusReward": "Dragon Scales",
+            "bonusReward": "@items/materials/dragon-scales",
             "legendary": true,
+            "quest_giver_types": ["noble", "military"],
             "description": "Defeat the legendary {target} terrorizing the mountains"
           },
           {
@@ -261,13 +274,14 @@
             "rarityWeight": 55,
             "questType": "kill",
             "difficulty": "hard",
-            "targetType": "humanoid",
+            "targetType": "@enemies/humanoid",
             "minQuantity": 3,
             "maxQuantity": 5,
             "baseGoldReward": 800,
             "baseXpReward": 1500,
             "timeLimit": 96,
             "pvpQuest": true,
+            "quest_giver_types": ["noble", "military"],
             "description": "Challenge {quantity} arena champions to prove your worth"
           }
         ]
@@ -280,12 +294,13 @@
             "rarityWeight": 12,
             "questType": "escort",
             "difficulty": "easy",
-            "npcType": "merchant",
+            "npcType": "@npcs/merchant",
             "baseGoldReward": 60,
             "baseXpReward": 120,
             "distance": "short",
             "ambushChance": 30,
             "npcCanDie": false,
+            "quest_giver_types": ["merchant", "service", "common"],
             "description": "Escort the merchant safely to the next town"
           },
           {
@@ -294,12 +309,13 @@
             "rarityWeight": 10,
             "questType": "escort",
             "difficulty": "easy",
-            "npcType": "civilian",
+            "npcType": "@npcs/common",
             "baseGoldReward": 40,
             "baseXpReward": 80,
             "distance": "short",
             "ambushChance": 20,
             "npcCanDie": false,
+            "quest_giver_types": ["common", "service", "military"],
             "description": "Guide the lost traveler back to civilization"
           }
         ],
@@ -310,13 +326,14 @@
             "rarityWeight": 32,
             "questType": "escort",
             "difficulty": "medium",
-            "npcType": "noble",
+            "npcType": "@npcs/noble",
             "baseGoldReward": 350,
             "baseXpReward": 700,
             "distance": "medium",
             "ambushChance": 60,
             "npcCanDie": true,
             "failureConsequence": "War declared",
+            "quest_giver_types": ["noble", "military"],
             "description": "Guard the noble on their journey through dangerous territory"
           },
           {
@@ -325,13 +342,14 @@
             "rarityWeight": 38,
             "questType": "escort",
             "difficulty": "medium",
-            "npcType": "magical",
+            "npcType": "@npcs/magical",
             "baseGoldReward": 400,
             "baseXpReward": 800,
             "distance": "medium",
             "ambushChance": 70,
             "npcCanDie": true,
             "failureConsequence": "Knowledge lost",
+            "quest_giver_types": ["magical", "noble"],
             "description": "Protect the wizard carrying dangerous artifacts to the academy"
           }
         ],
@@ -342,7 +360,7 @@
             "rarityWeight": 65,
             "questType": "escort",
             "difficulty": "hard",
-            "npcType": "religious",
+            "npcType": "@npcs/religious",
             "baseGoldReward": 700,
             "baseXpReward": 1800,
             "distance": "long",
@@ -350,6 +368,7 @@
             "npcCanDie": true,
             "timeLimit": 120,
             "legendary": true,
+            "quest_giver_types": ["religious", "noble"],
             "description": "Protect the prophet from assassins during their pilgrimage"
           }
         ]
@@ -367,6 +386,7 @@
             "baseXpReward": 40,
             "distance": "short",
             "urgent": false,
+            "quest_giver_types": ["common", "service", "merchant"],
             "description": "Deliver this message to the recipient in the neighboring town"
           },
           {
@@ -380,6 +400,7 @@
             "baseXpReward": 60,
             "distance": "short",
             "urgent": false,
+            "quest_giver_types": ["merchant", "common", "service"],
             "description": "Bring this package to {recipient} in {destination}"
           }
         ],
@@ -396,6 +417,7 @@
             "distance": "medium",
             "timeLimit": 48,
             "bandits": true,
+            "quest_giver_types": ["merchant", "craftsmen", "noble"],
             "description": "Transport fragile goods safely across dangerous roads"
           },
           {
@@ -410,6 +432,7 @@
             "distance": "medium",
             "timeLimit": 24,
             "urgent": true,
+            "quest_giver_types": ["noble", "military", "service"],
             "description": "Rush this urgent delivery across the kingdom before time runs out"
           }
         ],
@@ -428,6 +451,7 @@
             "cursed": true,
             "pursued": true,
             "legendary": true,
+            "quest_giver_types": ["religious", "magical", "noble"],
             "description": "Deliver the cursed relic while evading those who hunt it"
           }
         ]
@@ -446,6 +470,7 @@
             "baseXpReward": 150,
             "location": "Village",
             "combatOptional": true,
+            "quest_giver_types": ["common", "service", "military"],
             "description": "Investigate the mysterious occurrences in {location}"
           },
           {
@@ -460,6 +485,7 @@
             "baseXpReward": 180,
             "location": "Town",
             "combatOptional": true,
+            "quest_giver_types": ["merchant", "service", "military"],
             "description": "Follow the clues to catch the thief who stole from the market"
           }
         ],
@@ -477,6 +503,7 @@
             "location": "Manor",
             "timeLimit": 72,
             "multipleEndings": true,
+            "quest_giver_types": ["noble", "military", "professional"],
             "description": "Uncover the truth behind the strange events at {location}"
           },
           {
@@ -492,6 +519,7 @@
             "location": "City",
             "timeLimit": 48,
             "multipleEndings": true,
+            "quest_giver_types": ["military", "noble", "service"],
             "description": "Solve the murder case before the trail goes cold"
           }
         ],
@@ -510,6 +538,7 @@
             "stealth": 80,
             "betrayal": true,
             "legendary": true,
+            "quest_giver_types": ["noble", "military", "magical"],
             "description": "Expose the conspiracy threatening the kingdom"
           }
         ]

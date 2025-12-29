@@ -1,6 +1,12 @@
 {
   "icon": "TreasureChest",
+  "displayName": "Rewards",
+  "description": "Quest rewards consolidated into root rewards.json",
   "sortOrder": 3,
+  "notes": [
+    "items.json, gold.json, experience.json DELETED",
+    "All rewards now in ../rewards.json"
+  ],
   "fileIcons": {
     "names": "FormatListBulleted",
     "catalog": "ShapeOutline"

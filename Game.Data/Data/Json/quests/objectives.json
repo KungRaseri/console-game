@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "4.0",
-    "lastUpdated": "2025-12-18",
+    "lastUpdated": "2025-12-29",
     "description": "Quest objectives catalog including primary, secondary, and hidden objectives",
     "type": "hierarchical_catalog",
     "notes": "Consolidated from primary.json, secondary.json, and hidden.json. Primary objectives are core quest goals. Secondary objectives provide bonus rewards (optional). Hidden objectives are discovered during gameplay and unlock alternate endings or secrets. All objectives support weighted random selection via rarityWeight.",

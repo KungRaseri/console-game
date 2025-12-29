@@ -1,6 +1,12 @@
 {
   "icon": "FileDocument",
+  "displayName": "Templates",
+  "description": "Quest templates consolidated into root catalog.json",
   "sortOrder": 4,
+  "notes": [
+    "quest_templates.json DELETED (consolidated into ../catalog.json)",
+    "All 27 quest templates now in root catalog.json"
+  ],
   "fileIcons": {
     "names": "FormatListBulleted",
     "quest_templates": "FileDocumentOutline",
