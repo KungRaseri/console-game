@@ -62,7 +62,15 @@
           "description": "Defeat {enemy_name} in {location}",
           "category": "Combat",
           "difficulty": "Hard",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "enemy_pool": [
+            "@enemies/humanoid",
+            "@enemies/beast",
+            "@enemies/demon",
+            "@enemies/undead"
+          ],
+          "rarityFilter": "rare",
+          "selectRandom": true
         },
         {
           "name": "SlayDragon",
@@ -71,7 +79,12 @@
           "description": "Kill the dragon terrorizing {location}",
           "category": "Combat",
           "difficulty": "Very Hard",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "enemy_pool": [
+            "@enemies/dragon"
+          ],
+          "rarityFilter": "epic",
+          "selectRandom": true
         },
         {
           "name": "DestroyNecromancer",
@@ -80,7 +93,12 @@
           "description": "Defeat the necromancer and end the undead plague",
           "category": "Combat",
           "difficulty": "Very Hard",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "enemy_pool": [
+            "@enemies/undead"
+          ],
+          "rarityFilter": "epic",
+          "selectRandom": true
         }
       ],
       "retrieval_objectives": [
@@ -100,7 +118,13 @@
           "description": "Recover the {item_name} from {location}",
           "category": "Retrieval",
           "difficulty": "Medium",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "item_pool": [
+            "@items/artifacts",
+            "@items/quest-items"
+          ],
+          "rarityFilter": "rare",
+          "selectRandom": true
         },
         {
           "name": "RecoverRelic",
@@ -109,7 +133,12 @@
           "description": "Find the legendary {item_name}",
           "category": "Retrieval",
           "difficulty": "Hard",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "item_pool": [
+            "@items/artifacts"
+          ],
+          "rarityFilter": "legendary",
+          "selectRandom": true
         }
       ],
       "rescue_objectives": [
@@ -120,7 +149,13 @@
           "description": "Rescue {npc_name} from {location}",
           "category": "Rescue",
           "difficulty": "Medium",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "npc_pool": [
+            "@npcs/noble",
+            "@npcs/merchant",
+            "@npcs/common"
+          ],
+          "selectRandom": true
         }
       ],
       "purification_objectives": [
@@ -149,7 +184,14 @@
           "description": "Restore the natural order disturbed by {enemy_name}",
           "category": "Purification",
           "difficulty": "Hard",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "enemy_pool": [
+            "@enemies/demon",
+            "@enemies/elemental",
+            "@enemies/undead"
+          ],
+          "rarityFilter": "rare",
+          "selectRandom": true
         },
         {
           "name": "SealPortal",
@@ -178,7 +220,14 @@
           "description": "Protect {location} from the {enemy_type} invasion",
           "category": "Defense",
           "difficulty": "Hard",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "enemy_pool": [
+            "@enemies/humanoid",
+            "@enemies/beast",
+            "@enemies/undead",
+            "@enemies/demon"
+          ],
+          "selectRandom": true
         },
         {
           "name": "SaveKingdom",
@@ -187,7 +236,14 @@
           "description": "Stop the {enemy_type} army before they reach the capital",
           "category": "Defense",
           "difficulty": "Epic",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "enemy_pool": [
+            "@enemies/humanoid",
+            "@enemies/demon",
+            "@enemies/undead",
+            "@enemies/dragon"
+          ],
+          "selectRandom": true
         },
         {
           "name": "SaveWorld",
@@ -207,7 +263,13 @@
           "description": "Find evidence of {npc_name}'s betrayal",
           "category": "Investigation",
           "difficulty": "Medium",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "npc_pool": [
+            "@npcs/noble",
+            "@npcs/military",
+            "@npcs/merchant"
+          ],
+          "selectRandom": true
         },
         {
           "name": "UniteTribes",
@@ -225,7 +287,15 @@
           "description": "Stop the war between {faction_1} and {faction_2}",
           "category": "Diplomacy",
           "difficulty": "Hard",
-          "objectiveType": "primary"
+          "objectiveType": "primary",
+          "faction_pool": [
+            "nobility",
+            "church",
+            "merchants_guild",
+            "city_guard",
+            "mages_guild"
+          ],
+          "selectRandomFactions": 2
         }
       ],
       "timed_objectives": [
@@ -309,7 +379,15 @@
           "description": "Find all {count} hidden items in the area",
           "category": "Collection",
           "bonus": "Rare item reward",
-          "objectiveType": "secondary"
+          "objectiveType": "secondary",
+          "item_pool": [
+            "@items/consumables",
+            "@items/materials",
+            "@items/valuables"
+          ],
+          "rarityFilter": "uncommon",
+          "minCount": 3,
+          "maxCount": 8
         },
         {
           "name": "FindSecrets",
@@ -329,7 +407,13 @@
           "description": "Complete without killing {npc_name}",
           "category": "Mercy",
           "bonus": "Reputation increase",
-          "objectiveType": "secondary"
+          "objectiveType": "secondary",
+          "npc_pool": [
+            "@npcs/military",
+            "@npcs/criminal",
+            "@npcs/noble"
+          ],
+          "selectRandom": true
         },
         {
           "name": "SaveAllHostages",
@@ -349,7 +433,16 @@
           "description": "Find and defeat the hidden {boss_name}",
           "category": "Combat",
           "bonus": "Legendary item",
-          "objectiveType": "secondary"
+          "objectiveType": "secondary",
+          "enemy_pool": [
+            "@enemies/humanoid",
+            "@enemies/beast",
+            "@enemies/demon",
+            "@enemies/dragon",
+            "@enemies/undead"
+          ],
+          "rarityFilter": "epic",
+          "selectRandom": true
         },
         {
           "name": "UseNoMagic",
@@ -429,7 +522,13 @@
           "description": "Locate the legendary treasure of {npc_name}",
           "category": "Exploration",
           "reveal": "Hinted at in optional dialogue",
-          "objectiveType": "hidden"
+          "objectiveType": "hidden",
+          "npc_pool": [
+            "@npcs/noble",
+            "@npcs/criminal",
+            "@npcs/merchant"
+          ],
+          "selectRandom": true
         }
       ],
       "lore_secrets": [
@@ -460,7 +559,15 @@
           "description": "Find and defeat the real mastermind behind the quest",
           "category": "Combat",
           "reveal": "Triggered by finding secret evidence",
-          "objectiveType": "hidden"
+          "objectiveType": "hidden",
+          "enemy_pool": [
+            "@enemies/humanoid",
+            "@enemies/demon",
+            "@enemies/dragon",
+            "@enemies/undead"
+          ],
+          "rarityFilter": "legendary",
+          "selectRandom": true
         }
       ],
       "branching_secrets": [
