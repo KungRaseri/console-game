@@ -1,7 +1,7 @@
-# Trait Standards v1.0
+# Trait Standards v1.2
 
-**Version:** 1.0  
-**Date:** December 28, 2025  
+**Version:** 1.2  
+**Date:** December 29, 2025  
 **Status:** ACTIVE  
 **Purpose:** Standardized trait formats and value enums for all game entities
 
@@ -15,6 +15,138 @@
 - **Type-Level vs Individual** - Traits that apply to categories vs specific items
 - **Value Standards** - Standardized enums and numeric scales
 - **Attribute Traits** - All attribute-like traits use numeric values (1-20+)
+
+---
+
+## Fundamental Concepts
+
+### Traits vs Abilities vs Skills
+
+These three systems serve different purposes and should never be confused:
+
+#### **Traits** - What You ARE
+**Definition:** Inherent, relatively permanent properties that define an entity's fundamental nature
+
+**Characteristics:**
+- Describe BEING, not DOING
+- Usually passive (don't require activation)
+- Typically immutable during gameplay
+- Examples: undead, size, intelligence, flying, incorporeal
+
+**Questions to Ask:**
+- Is this a fundamental property of what the entity IS?
+- Would this trait still be true if the entity was unconscious?
+- Is this a descriptor rather than an action?
+
+**Examples:**
+- ✅ `undead: true` - A zombie IS undead
+- ✅ `intelligence: 14` - A cultist HAS intelligence 14
+- ✅ `size: "large"` - A troll IS large
+- ❌ `petrifying_gaze: true` - This is an ACTION (ability)
+- ❌ `swordmastery: 15` - This is a PROFICIENCY (skill)
+
+---
+
+#### **Abilities** - What You CAN DO
+**Definition:** Actions, powers, and special capabilities that entities can perform or use
+
+**Characteristics:**
+- Describe ACTIONS and POWERS
+- Can be active (require activation) or passive (always on, but still a "doing")
+- Can be used, triggered, or activated
+- Examples: dragon-breath, petrifying-gaze, drain-life, regeneration (passive ability)
+
+**Questions to Ask:**
+- Is this something the entity DOES or CAN DO?
+- Does this require activation or have an effect?
+- Could this be used in combat or gameplay?
+
+**Ability Types:**
+- **Active/Offensive**: Attacks, damage-dealing powers
+- **Active/Defensive**: Defensive maneuvers, blocks
+- **Active/Utility**: Non-combat actions
+- **Passive**: Always-on effects (regeneration, aura)
+- **Ultimate**: Powerful special moves
+
+**Examples:**
+- ✅ `@abilities/active/offensive:dragon-breath` - Action the dragon takes
+- ✅ `@abilities/passive:regeneration` - Ongoing effect (also trait: `regeneration: true`)
+- ✅ `@abilities/active/offensive:petrifying-gaze` - Special power activation
+- ❌ `undead: true` - This is inherent NATURE (trait)
+- ❌ `blade: 15` - This is PROFICIENCY (skill)
+
+**Note:** Some properties can be BOTH trait and ability:
+- `regeneration: true` (trait) - The troll IS a regenerating creature
+- `@abilities/passive:regeneration` (ability) - The game mechanic for regeneration
+
+---
+
+#### **Skills** - What You've LEARNED
+**Definition:** Trained proficiencies and learned capabilities that represent expertise
+
+**Characteristics:**
+- Describe LEARNED PROFICIENCY, not inherent nature
+- Numeric values represent mastery level
+- Can improve through practice/training
+- Examples: swordplay, lockpicking, persuasion, crafting
+
+**Questions to Ask:**
+- Is this something learned through training or practice?
+- Can this improve over time?
+- Does this represent expertise rather than nature?
+
+**Skill Types (Future Implementation):**
+- **Combat Skills**: blade, axe, bow, unarmed
+- **Magic Skills**: fire magic, healing, necromancy
+- **Social Skills**: persuasion, intimidation, deception
+- **Utility Skills**: lockpicking, stealth, perception
+- **Crafting Skills**: blacksmithing, alchemy, enchanting
+
+**Examples:**
+- ✅ `blade: 15` - Proficiency with bladed weapons
+- ✅ `persuasion: 12` - Social skill
+- ✅ `lockpicking: 8` - Utility skill
+- ❌ `intelligence: 14` - This is INHERENT CAPABILITY (attribute/trait)
+- ❌ `@abilities/active/offensive:power-attack` - This is an ACTION (ability)
+
+**Current Status:** Skills are NOT yet implemented in the game. This is for future reference.
+
+---
+
+### Design Decision Tree
+
+When adding new game content, use this tree to determine classification:
+
+```
+Is this a property of an entity?
+├─ YES → Is it inherent to what the entity IS?
+│  ├─ YES → TRAIT (undead, size, intelligence)
+│  └─ NO → Is it something the entity CAN DO?
+│     ├─ YES → ABILITY (dragon-breath, regeneration effect)
+│     └─ NO → Is it something LEARNED?
+│        ├─ YES → SKILL (blade proficiency, persuasion)
+│        └─ NO → METADATA (name, description, rarityWeight)
+└─ NO → Not a trait/ability/skill (probably metadata or game data)
+```
+
+---
+
+### Examples Across All Three Systems
+
+**Dragon:**
+- **Traits**: `size: "huge"`, `intelligence: 16`, `flying: true`, `element: "fire"`
+- **Abilities**: `@abilities/active/offensive:dragon-breath`, `@abilities/passive:frightful-presence`
+- **Skills** (future): `intimidation: 18`, `perception: 14`
+
+**Vampire:**
+- **Traits**: `undead: true`, `intelligence: 18`, `shapeshifter: true`, `regeneration: true`
+- **Abilities**: `@abilities/active/offensive:drain-life`, `@abilities/passive:regeneration`
+- **Skills** (future): `persuasion: 16`, `stealth: 14`
+
+**Player Character (future):**
+- **Traits**: `size: "medium"`, `intelligence: 12`, `strength: 16`
+- **Abilities**: `@abilities/active/offensive:power-attack`, `@abilities/ultimate:berserk-rage`
+- **Skills**: `blade: 15`, `athletics: 12`, `persuasion: 8`
 
 ---
 
@@ -32,134 +164,515 @@
 
 ### Categories of Traits
 
-Traits are organized into **7 major categories** based on their conceptual domain:
+Traits are organized into **7 main categories**, each with focused subcategories:
 
-#### 1. Physical Traits
-**Definition:** Tangible, observable characteristics of an entity's physical form
+**Organizational Principle:** Main categories represent broad domains, subcategories organize related traits within those domains.
+
+---
+
+#### 1. Attributes (Core Stats)
+**Definition:** D&D-style character/enemy statistics that measure fundamental capabilities
+
+**Critical Design Rule:** ALL attributes are numeric 1-20+ scale, NEVER string enums
+
+**No Subcategories** - Attributes are foundational and don't require subdivision
+
+| Attribute | Purpose | Range | Current Status |
+|-----------|---------|-------|----------------|
+| `intelligence` | Mental acuity, reasoning, memory | 1-20+ | ✅ **ACTIVE** (all 163 enemies) |
+| `wisdom` | Perception, intuition, insight | 1-20+ | ⏸️ Deferred |
+| `charisma` | Force of personality, leadership | 1-20+ | ⏸️ Deferred |
+| `strength` | Physical power, melee effectiveness | 1-20+ | ⏸️ Deferred |
+| `dexterity` | Agility, reflexes, accuracy | 1-20+ | ⏸️ Deferred |
+| `constitution` | Endurance, health, resilience | 1-20+ | ⏸️ Deferred |
+
+**Attribute Scale Reference:**
+
+| Range | Category | Examples |
+|-------|----------|----------|
+| 1-2 | Mindless | Zombies (1), Skeletons (2) |
+| 3-5 | Animal | Beasts (3-5), Plants (2-4) |
+| 6-9 | Below Average | Trolls (5-8), Goblins (8) |
+| 10-12 | Average (Human) | Humanoids (10), Orcs (8-10) |
+| 13-15 | Above Average | Hobgoblins (12), Cultists (14) |
+| 16-17 | Brilliant | Yuan-ti (16), Dragons (16-18) |
+| 18-19 | Genius | Vampires (18), Devils (18) |
+| 20+ | Legendary | Ancient Dragons (20), Liches (20) |
+
+**Scope:** Typically Type-Level, but can be overridden for exceptional individuals
+
+**Examples:**
+```json
+{
+  "traits": {
+    "intelligence": 14,
+    "wisdom": 12,
+    "charisma": 16
+  }
+}
+```
+
+**Why Separate from Other Traits:**
+- Attributes follow strict 1-20+ numeric scale
+- Directly map to D&D/RPG stat system
+- Used for skill checks, stat requirements
+- Never boolean, never string enum, never arrays
+- Form the foundational stat framework
+
+---
+
+#### 2. Physical Traits
+**Definition:** Tangible, observable characteristics of an entity's physical form and capabilities
+
+##### 2.1 Core Physical Properties
+
+**Body and form characteristics:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `size` | string enum | tiny, small, medium, large, huge, gargantuan | Type-Level | ✅ Active |
+| `weight` | number | Physical weight in lbs | Individual | ⏸️ Deferred |
+| `appearance` | string | Description text | Individual | ⏸️ Deferred |
+| `incorporeal` | boolean | Non-physical form | Type-Level | ✅ Active |
+| `armored` | boolean | Natural armor plating | Type-Level | ✅ Active |
+| `twoHanded` | boolean | Requires both hands (items) | Individual | ⏸️ Deferred |
+
+**Examples:**
+- Dragons: `size: "huge"`
+- Ghosts: `incorporeal: true`
+- Beetles: `armored: true`
+- Greatswords: `twoHanded: true`
+
+##### 2.2 Movement
+
+**Locomotion and mobility capabilities:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `speed` | number | Movement rate (game units) | Type-Level | ⏸️ Deferred |
+| `flying` | boolean | Can fly | Type-Level | ✅ Active |
+| `swimming` | boolean | Can swim efficiently | Type-Level | ⏸️ Deferred |
+| `climbing` | boolean | Can climb walls/surfaces | Type-Level | ⏸️ Deferred |
+| `burrowing` | boolean | Can burrow underground | Type-Level | ⏸️ Deferred |
+| `hover` | boolean | Can hover in place | Type-Level | ⏸️ Deferred |
+| `teleportation` | boolean | Can teleport | Type-Level | ⏸️ Deferred |
+
+**Examples:**
+- Dragons: `flying: true`, `speed: 40`
+- Fish Creatures: `swimming: true`, `speed: 30`
+- Spiders: `climbing: true`
+- Blink Dogs: `teleportation: true`
+
+##### 2.3 Sensory
+
+**Biological perception and sensory capabilities:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `darkvision` | number | Range in feet | Type-Level | ⏸️ Deferred |
+| `blindsight` | number | Sense without sight (range) | Type-Level | ⏸️ Deferred |
+| `tremorsense` | number | Sense through vibrations (range) | Type-Level | ⏸️ Deferred |
+| `truesight` | number | See through illusions (range) | Type-Level | ⏸️ Deferred |
+| `keenSenses` | boolean | Enhanced perception | Type-Level | ⏸️ Deferred |
+| `echolocation` | boolean | Sound-based sensing | Type-Level | ⏸️ Deferred |
+| `heatVision` | boolean | See heat signatures | Type-Level | ⏸️ Deferred |
+| `blind` | boolean | Cannot see | Type-Level | ⏸️ Deferred |
+| `deaf` | boolean | Cannot hear | Type-Level | ⏸️ Deferred |
+
+**Note:** Perception checks may combine `wisdom` (attribute) + `keenSenses` (trait) + `perception` (skill - future)
+
+**Examples:**
+- Bats: `darkvision: 60`, `echolocation: true`
+- Snakes: `blindsight: 30`, `heatVision: true`
+- Underground Creatures: `darkvision: 120`, `tremorsense: 60`
+- Angels: `truesight: 120`
+- Oozes: `blindsight: 60`, `blind: true`
+
+**Physical Trait Summary:**
+All subcategories represent observable, physical/biological capabilities - not mental states or magical properties.
+
+---
+
+#### 3. Mental/Psychological Traits
+**Definition:** Cognitive, behavioral, and social characteristics that define how entities think and interact
+
+##### 3.1 Behavior
+
+**Combat and general behavioral patterns:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `behavior` | string enum | passive, aggressive, tactical, cunning, legendary, etc. | Type-Level | ✅ Active |
+| `nocturnal` | boolean | Active at night | Type-Level | ⏸️ Deferred |
+| `sentient` | boolean | Self-aware, intelligent | Type-Level | ⏸️ Deferred |
+
+**Behavior Values:**
+- `passive` - Won't attack unless provoked
+- `defensive` - Defends territory
+- `opportunistic` - Attacks weak targets
+- `aggressive` - Attacks on sight
+- `tactical` - Uses strategy
+- `cunning` - Sets traps, ambushes
+- `territorial` - Guards areas
+- `predatory` - Hunts prey
+- `legendary` - Boss-level behavior
+- `chaotic` - Unpredictable
+- `calculating` - Methodical planning
+
+**Examples:**
+- Beasts: `behavior: "aggressive"`, `intelligence: 4`
+- Vampires: `behavior: "cunning"`, `intelligence: 18`
+- Hobgoblins: `behavior: "tactical"`, `intelligence: 12`
+
+##### 3.2 Alignment
+
+**Moral and ethical orientation:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `alignment` | string enum | good, evil, lawful_good, chaotic_evil, neutral, etc. | Type-Level | ✅ Active |
+
+**Alignment Values:**
+- `good` - Benevolent
+- `evil` - Malevolent
+- `lawful_good` - Honorable heroes
+- `lawful_evil` - Tyrannical, follows rules
+- `chaotic_good` - Freedom fighters
+- `chaotic_evil` - Destructive chaos
+- `neutral` - Balanced or indifferent
+
+**Examples:**
+- Dragons (Chromatic): `alignment: "evil"`
+- Dragons (Metallic): `alignment: "good"`
+- Yuan-ti: `alignment: "evil"`
+
+##### 3.3 Social Structure
+
+**How entities organize and relate to their kind:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `social` | string enum | solitary, pack, tribal, clan, hive_mind, etc. | Type-Level | ✅ Active |
+| `aristocratic` | boolean | Noble hierarchy | Type-Level | ⏸️ Deferred |
+
+**Social Values:**
+- `solitary` - Lives alone
+- `pack` - Small groups
+- `tribal` - Tribe structure
+- `clan` - Clan-based
+- `military` - Organized ranks
+- `hive_mind` - Shared consciousness
+- `aristocratic` - Noble hierarchy
+- `cult` - Religious group
+- `leadership` - Has leaders
+
+**Examples:**
+- Wolves: `social: "pack"`
+- Vampires: `social: "aristocratic"`
+- Kobolds: `social: "tribal"`
+- Insects: `social: "hive_mind"`
+
+**Mental/Psychological Trait Summary:**
+- **Behavior**: How entity ACTS (aggressive vs tactical)
+- **Alignment**: Moral compass (good vs evil)
+- **Social**: Group organization (pack vs solitary)
+- **vs Attributes**: `intelligence` measures capability, behavior describes ACTION
+
+---
+
+#### 4. Combat Traits
+**Definition:** Properties that directly affect combat mechanics, damage, and survivability
+
+##### 4.1 Damage Types
+
+**Offensive and defensive damage properties:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `damageType` | string enum | physical, fire, slashing, piercing, etc. | Type-Level or Individual | ✅ Active |
+| `vulnerability` | string or array | Damage types causing extra damage | Type-Level | ✅ Active |
+| `immunity` | array | Damage types that don't affect entity | Type-Level | ✅ Active |
+| `resistance` | array | Damage types with reduced effect | Type-Level | ⏸️ Deferred |
+
+**Damage Type Values:**
+- **Physical**: physical, slashing, piercing, bludgeoning
+- **Elemental**: fire, cold, lightning, acid
+- **Magical**: magical, radiant, necrotic, psychic
+- **Other**: poison
+
+**Examples:**
+- Fire Elementals: `damageType: "fire"`, `immunity: ["fire"]`, `vulnerability: "cold"`
+- Trolls: `damageType: "physical"`, `vulnerability: "fire"`
+- Undead: `immunity: ["poison", "necrotic"]`, `vulnerability: "radiant"`
+
+##### 4.2 Special Combat Properties
+
+**Unique combat-related abilities:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `regeneration` | boolean | Passive health regeneration | Type-Level | ✅ Active |
+
+**Note:** `regeneration` exists as both:
+- **Trait** (`regeneration: true`) - Inherent property (troll IS regenerating)
+- **Ability** (`@abilities/passive:regeneration`) - Game mechanic implementation
+
+**Examples:**
+- Trolls: `regeneration: true`, `vulnerability: "fire"`
+- Vampires: `regeneration: true`
+
+**Combat Trait Summary:**
+Focus on mechanics that affect damage calculation, resistances, and combat behavior.
+
+---
+
+#### 5. Supernatural Traits
+**Definition:** Magical, otherworldly, and supernatural properties that defy natural laws
+
+##### 5.1 Elemental
+
+**Elemental affinity and powers:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `element` | string enum | fire, water, earth, air, lightning, ice | Type-Level | ✅ Active |
+| `breathType` | string enum | fire, acid, lightning, poison, cold | Individual | ✅ Active |
+
+**Element Values:**
+- `fire` - Fire elementals/dragons
+- `water` - Water elementals
+- `earth` - Earth elementals
+- `air` - Air elementals
+- `lightning` - Storm/lightning
+- `ice` - Ice elementals
+
+**Examples:**
+- Fire Elementals: `element: "fire"`
+- Red Dragon: `element: "fire"`, `breathType: "fire"`
+- Blue Dragon: `element: "lightning"`, `breathType: "lightning"`
+
+##### 5.2 Magical Properties
+
+**Supernatural and magical characteristics:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `undead` | boolean | Animated dead | Type-Level | ✅ Active |
+| `magical` | boolean | Uses/is infused with magic | Type-Level | ✅ Active |
+| `shapeshifter` | boolean | Can change form | Type-Level | ✅ Active |
+| `unique` | boolean | Special/boss enemy | Type-Level or Individual | ⏸️ Deferred |
+
+**Examples:**
+- Undead: `undead: true`, `vulnerability: "radiant"`
+- Vampires: `undead: true`, `shapeshifter: true`, `magical: true`
+- Liches: `undead: true`, `magical: true`
+- Demons: `magical: true`
+
+**Supernatural Trait Summary:**
+- **Elemental**: Natural element affinity
+- **Magical**: Supernatural properties that break natural laws
+- **vs Physical**: Incorporeal is physical (non-solid), magical is supernatural
+
+---
+
+#### 6. Environmental Traits
+**Definition:** Habitat preferences and environmental adaptations
+
+##### 6.1 Habitat
+
+**Where entities naturally live:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `habitat` | string or array | forest, mountain, cave, water, underground, etc. | Type-Level | ✅ Active |
+
+**Habitat Values:**
+- `forest` - Woodland areas
+- `mountain` - High altitude
+- `cave` - Underground caves
+- `water` - Aquatic environments
+- `underground` - Deep underground
+- `desert` - Arid regions
+- `tundra` - Arctic/cold regions
+- `swamp` - Wetlands
+
+**Examples:**
+- Wolves: `habitat: "forest"`
+- Bears: `habitat: ["forest", "mountain"]`
+- Fish Creatures: `habitat: "water"`
+
+##### 6.2 Environmental Adaptations
+
+**Special adaptations to environments:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `rooted` | boolean | Cannot move (plants) | Type-Level | ✅ Active |
+| `aquatic` | boolean | Lives in water | Type-Level | ⏸️ Deferred |
+| `nocturnal` | boolean | Active at night | Type-Level | ⏸️ Deferred |
+
+**Examples:**
+- Plants: `rooted: true`, `habitat: "forest"`
+- Fish: `aquatic: true`, `habitat: "water"`
+- Bats: `nocturnal: true`, `habitat: "cave"`
+
+**Environmental Trait Summary:**
+Where entities live and how they've adapted to those environments.
+
+---
+
+#### 7. Functional Traits (Game Systems)
+**Definition:** Game mechanics, professions, and system-level properties
+
+##### 7.1 Profession (NPCs)
+
+**Occupation and professional characteristics:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `profession` | string enum | blacksmith, merchant, guard, healer, etc. | Individual | ⏸️ Deferred |
+| `skillLevel` | string enum | apprentice, journeyman, master, legendary | Individual | ⏸️ Deferred |
+| `reputation` | number | 1-100 standing in community | Individual | ⏸️ Deferred |
+| `merchant` | boolean | Can buy/sell items | Individual | ⏸️ Deferred |
+| `trainer` | boolean | Can teach skills | Individual | ⏸️ Deferred |
+| `questGiver` | boolean | Provides quests | Individual | ⏸️ Deferred |
+
+**Profession Values:**
+- **Crafting**: blacksmith, weaponsmith, armorsmith, leatherworker, tailor, alchemist, enchanter
+- **Trade**: merchant, trader, innkeeper, shopkeeper
+- **Service**: healer, priest, mage, scholar, librarian
+- **Labor**: miner, farmer, lumberjack, fisherman
+- **Military**: guard, soldier, captain, trainer
+- **Social**: noble, beggar, performer, spy
+
+**Examples:**
+- Blacksmith NPC: `profession: "blacksmith"`, `skillLevel: "master"`, `merchant: true`, `trainer: true`
+- Guard NPC: `profession: "guard"`, `reputation: 75`
+
+##### 7.2 Mechanical (Items)
+
+**Item system properties:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `slot` | string enum | mainhand, offhand, head, chest, consumable | Type-Level | ⏸️ Deferred |
+| `category` | string enum | weapon, armor, potion, scroll | Type-Level | ✅ Active |
+| `stackable` | boolean | Can stack in inventory | Type-Level | ⏸️ Deferred |
+| `oneUse` | boolean | Consumed on use | Type-Level | ⏸️ Deferred |
+| `twoHanded` | boolean | Requires both hands | Individual | ⏸️ Deferred |
+| `skillType` | string enum | blade, axe, bow, magic | Type-Level | ⏸️ Deferred |
+
+**Examples:**
+- Weapons: `slot: "mainhand"`, `category: "weapon"`, `skillType: "blade"`
+- Potions: `slot: "consumable"`, `stackable: true`, `oneUse: true`
+- Greatswords: `twoHanded: true`
+
+**Functional Trait Summary:**
+Game system traits for NPCs and items - not inherent properties but gameplay mechanics.
+
+---
+
+### Summary: 7 Main Categories
+
+| # | Category | Subcategories | Purpose |
+|---|----------|---------------|---------|
+| 1 | **Attributes** | _(none)_ | Core D&D-style stats (1-20+) |
+| 2 | **Physical** | Core, Movement, Sensory | Observable body/form characteristics |
+| 3 | **Mental/Psychological** | Behavior, Alignment, Social | How entities think and interact |
+| 4 | **Combat** | Damage Types, Special | Combat mechanics and damage |
+| 5 | **Supernatural** | Elemental, Magical | Otherworldly and magical properties |
+| 6 | **Environmental** | Habitat, Adaptations | Where entities live |
+| 7 | **Functional** | Profession, Mechanical | Game systems (NPCs, items) |
+**Definition:** D&D-style character/enemy statistics that measure fundamental capabilities
+
+**Critical Design Rule:** ALL attributes are numeric 1-20+ scale, NEVER string enums
+
+| Attribute | Purpose | Range | Current Status |
+|-----------|---------|-------|----------------|
+| `intelligence` | Mental acuity, reasoning, memory | 1-20+ | ✅ **ACTIVE** (all 163 enemies) |
+| `wisdom` | Perception, intuition, insight | 1-20+ | ⏸️ Deferred |
+| `charisma` | Force of personality, leadership | 1-20+ | ⏸️ Deferred |
+| `strength` | Physical power, melee effectiveness | 1-20+ | ⏸️ Deferred |
+| `dexterity` | Agility, reflexes, accuracy | 1-20+ | ⏸️ Deferred |
+| `constitution` | Endurance, health, resilience | 1-20+ | ⏸️ Deferred |
+
+**Attribute Scale Reference:**
+
+| Range | Category | Examples |
+|-------|----------|----------|
+| 1-2 | Mindless | Zombies (1), Skeletons (2) |
+| 3-5 | Animal | Beasts (3-5), Plants (2-4) |
+| 6-9 | Below Average | Trolls (5-8), Goblins (8) |
+| 10-12 | Average (Human) | Humanoids (10), Orcs (8-10) |
+| 13-15 | Above Average | Hobgoblins (12), Cultists (14) |
+| 16-17 | Brilliant | Yuan-ti (16), Dragons (16-18) |
+| 18-19 | Genius | Vampires (18), Devils (18) |
+| 20+ | Legendary | Ancient Dragons (20), Liches (20) |
+
+**Scope:** Typically Type-Level, but can be overridden for exceptional individuals (e.g., "Ancient Troll" has higher intelligence)
+
+**Examples:**
+```json
+{
+  "traits": {
+    "intelligence": 14,    // Cultist intelligence
+    "wisdom": 12,          // (future) Perception/insight
+    "charisma": 16         // (future) Leadership ability
+  }
+}
+```
+
+**Why Separate from Other Traits:**
+- Attributes follow strict 1-20+ numeric scale
+- Directly map to D&D/RPG stat system
+- Used for skill checks, stat requirements
+- Never boolean, never string enum, never arrays
+- Form the foundational stat framework
+
+---
+
+#### 2. Physical Traits (Non-Attribute)
+**Definition:** Tangible, observable characteristics of an entity's physical form (NOT stat-based)
+
+##### Core Physical Properties
 
 | Trait | Type | Values | Scope |
 |-------|------|--------|-------|
 | `size` | string enum | tiny, small, medium, large, huge, gargantuan | Type-Level |
 | `weight` | number | Physical weight in lbs | Individual |
 | `appearance` | string | Description text | Individual |
-| `flying` | boolean | Can fly | Type-Level |
 | `incorporeal` | boolean | Non-physical form | Type-Level |
-| `armored` | boolean | Natural armor | Type-Level |
+| `armored` | boolean | Natural armor plating | Type-Level |
+| `twoHanded` | boolean | Requires both hands (items) | Individual |
+
+##### Movement Subcategory
+
+**Movement-related physical traits:**
+
+| Trait | Type | Values | Scope | Status |
+|-------|------|--------|-------|--------|
+| `speed` | number | Movement rate (game units) | Type-Level | ⏸️ Deferred |
+| `flying` | boolean | Can fly | Type-Level | ✅ Active |
+| `swimming` | boolean | Can swim efficiently | Type-Level | ⏸️ Deferred |
+| `climbing` | boolean | Can climb walls/surfaces | Type-Level | ⏸️ Deferred |
+| `burrowing` | boolean | Can burrow underground | Type-Level | ⏸️ Deferred |
+| `hover` | boolean | Can hover in place (flying) | Type-Level | ⏸️ Deferred |
+| `teleportation` | boolean | Can teleport | Type-Level | ⏸️ Deferred |
+
+**Movement Examples:**
+- Dragons: `flying: true`, `speed: 40`
+- Fish Creatures: `swimming: true`, `speed: 30`
+- Spiders: `climbing: true`, `speed: 30`
+- Burrowing Insects: `burrowing: true`, `speed: 20`
+- Blink Dogs: `teleportation: true`
+
+**Physical vs Attribute:**
+- **Physical Trait:** Observable property (size, appearance, flying)
+- **Attribute:** Measurable capability (strength, dexterity)
 
 **Examples:**
-- Dragons: `size: "huge"`, `flying: true`
-- Ghosts: `incorporeal: true`
-- Beetles: `armored: true`
-
----
-
-#### 2. Mental/Attribute Traits
-**Definition:** Cognitive and mental characteristics (always numeric 1-20+)
-
-| Trait | Type | Range | Scope |
-|-------|------|-------|-------|
-| `intelligence` | number | 1-20+ | Type-Level |
-| `wisdom` | number | 1-20+ | Type-Level or Individual |
-| `charisma` | number | 1-20+ | Type-Level or Individual |
-| `perception` | number | 1-20+ | Type-Level or Individual |
-
-**Design Rule:** All D&D-style attributes MUST be numeric, never string enums
-
-**Current Implementation:** Only `intelligence` is currently used across all enemy catalogs
-
-**Future Expansion:** wisdom, charisma, perception can be added when game mechanics require them
-
----
-
-#### 3. Combat Traits
-**Definition:** Properties that affect combat behavior and damage interactions
-
-| Trait | Type | Values | Scope |
-|-------|------|--------|-------|
-| `behavior` | string enum | passive, aggressive, tactical, etc. | Type-Level |
-| `damageType` | string enum | physical, fire, slashing, etc. | Type-Level or Individual |
-| `vulnerability` | string or array | Damage type(s) that cause extra damage | Type-Level |
-| `immunity` | array | Damage type(s) that don't affect entity | Type-Level |
-| `resistance` | array | Damage type(s) with reduced effect | Type-Level |
-| `regeneration` | boolean | Passive health regeneration | Type-Level |
-
-**Examples:**
-- Trolls: `regeneration: true`, `vulnerability: "fire"`
-- Fire Elementals: `immunity: ["fire"]`, `vulnerability: "cold"`
-- Tactical Enemies: `behavior: "tactical"`
-
----
-
-#### 4. Social/Organizational Traits
-**Definition:** How entities relate to others of their kind
-
-| Trait | Type | Values | Scope |
-|-------|------|--------|-------|
-| `social` | string enum | solitary, pack, tribal, clan, hive_mind, etc. | Type-Level |
-| `alignment` | string enum | good, evil, lawful_good, etc. | Type-Level |
-| `aristocratic` | boolean | Noble hierarchy | Type-Level |
-| `intelligence_level` | derived | Based on intelligence number | Calculated |
-
-**Examples:**
-- Wolves: `social: "pack"`
-- Vampires: `social: "aristocratic"`
-- Kobolds: `social: "tribal"`
-
----
-
-#### 5. Elemental/Supernatural Traits
-**Definition:** Magical and otherworldly properties
-
-| Trait | Type | Values | Scope |
-|-------|------|--------|-------|
-| `element` | string enum | fire, water, earth, air, lightning, ice | Type-Level |
-| `undead` | boolean | Animated dead | Type-Level |
-| `magical` | boolean | Uses magic | Type-Level |
-| `shapeshifter` | boolean | Can change form | Type-Level |
-| `breathType` | string enum | fire, acid, lightning, poison | Individual |
-| `unique` | boolean | Special/boss enemy | Type-Level or Individual |
-
-**Examples:**
-- Undead: `undead: true`, `vulnerability: "radiant"`
-- Dragons: `breathType: "fire"` (individual), `element: "fire"` (type)
-- Vampires: `shapeshifter: true`, `magical: true`
-
----
-
-#### 6. Environmental Traits
-**Definition:** Habitat and environmental preferences
-
-| Trait | Type | Values | Scope |
-|-------|------|--------|-------|
-| `habitat` | string or array | forest, mountain, cave, water, underground | Type-Level |
-| `rooted` | boolean | Cannot move (plants) | Type-Level |
-| `aquatic` | boolean | Lives in water | Type-Level |
-| `nocturnal` | boolean | Active at night | Type-Level |
-
-**Examples:**
-- Wolves: `habitat: "forest"`
-- Plants: `rooted: true`, `vulnerability: "fire"`
-- Fish Creatures: `aquatic: true`
-
----
-
-#### 7. Mechanical/Game Traits (Items)
-**Definition:** Game system properties for items and equipment
-
-| Trait | Type | Values | Scope |
-|-------|------|--------|-------|
-| `slot` | string enum | mainhand, offhand, head, chest, consumable | Type-Level |
-| `category` | string enum | weapon, armor, potion, scroll | Type-Level |
-| `stackable` | boolean | Can stack in inventory | Type-Level |
-| `oneUse` | boolean | Consumed on use | Type-Level |
-| `twoHanded` | boolean | Requires both hands | Individual |
-| `skillType` | string enum | blade, axe, bow, magic | Type-Level |
-
-**Examples:**
-- Weapons: `slot: "mainhand"`, `category: "weapon"`
-- Potions: `stackable: true`, `oneUse: true`
-- Greatswords: `twoHanded: true`
-
+- Dragons: `size: "huge"`, `flying: true`, `speed: 40`
+- Ghosts: `incorporeal: true`, `flying: true`
 ---
 
 ### Types of Traits by Scope
@@ -1046,7 +1559,15 @@ All enemy types **MUST** have:
 
 ## Related Standards
 
-- **[CATALOG_JSON_STANDARD.md](CATALOG_JSON_STANDARD.md)** - Catalog structure and rarityWeight
+- **[CA1 (December 28, 2025)
+- ✅ Added Fundamental Concepts section (Traits vs Abilities vs Skills)
+- ✅ Added Decision Tree for classification
+- ✅ Expanded Physical Traits with Movement subcategory
+- ✅ Added Sensory Traits category (future-proofing)
+- ✅ Added Profession Traits category (future-proofing)
+- ✅ Updated to 11 total categories
+
+### v1.TALOG_JSON_STANDARD.md](CATALOG_JSON_STANDARD.md)** - Catalog structure and rarityWeight
 - **[JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md)** - Ability reference syntax
 - **[JSON_STRUCTURE_TYPES.md](JSON_STRUCTURE_TYPES.md)** - Overall JSON structure patterns
 
