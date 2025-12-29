@@ -188,6 +188,12 @@
       "items": [
         {
           "name": "Dire Troll",
+          "strength": 22,
+          "dexterity": 8,
+          "constitution": 22,
+          "intelligence": 6,
+          "wisdom": 9,
+          "charisma": 6,
           "health": 220,
           "attack": 48,
           "defense": 18,
@@ -205,6 +211,12 @@
         },
         {
           "name": "Troll Chieftain",
+          "strength": 21,
+          "dexterity": 9,
+          "constitution": 21,
+          "intelligence": 10,
+          "wisdom": 11,
+          "charisma": 14,
           "health": 200,
           "attack": 45,
           "defense": 17,
@@ -222,6 +234,12 @@
         },
         {
           "name": "Ancient Troll",
+          "strength": 23,
+          "dexterity": 10,
+          "constitution": 22,
+          "intelligence": 12,
+          "wisdom": 10,
+          "charisma": 8,
           "health": 280,
           "attack": 55,
           "defense": 22,
