@@ -1,0 +1,13 @@
+{
+  "displayName": "Common Folk",
+  "icon": "AccountGroup",
+  "sortOrder": 1,
+  "description": "Everyday people from humble origins - farmers, laborers, refugees, and those who survive through simple means",
+  "metadata": {
+    "socialClass": "common",
+    "npcCount": 11,
+    "hasShop": false,
+    "primaryAttributes": ["constitution", "wisdom"],
+    "commonSkills": ["survival", "endurance", "labor", "street_smarts"]
+  }
+}

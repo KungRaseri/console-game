@@ -1,0 +1,14 @@
+{
+  "displayName": "Criminals",
+  "icon": "Incognito",
+  "sortOrder": 7,
+  "description": "Those who lived outside the law - thieves, spies, smugglers, pirates with underworld connections and covert skills",
+  "metadata": {
+    "socialClass": "criminal",
+    "npcCount": 5,
+    "hasShop": false,
+    "primaryAttributes": ["dexterity", "intelligence", "charisma"],
+    "commonSkills": ["stealth", "deception", "lockpicking", "sleight_of_hand"],
+    "specialFeatures": ["underworld_connections", "stolen_goods"]
+  }
+}

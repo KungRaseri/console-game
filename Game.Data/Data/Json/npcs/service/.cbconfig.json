@@ -1,0 +1,14 @@
+{
+  "displayName": "Service Workers",
+  "icon": "Bed",
+  "sortOrder": 5,
+  "description": "Hospitality and maintenance providers - innkeepers, tavern keepers, cooks, and stable masters offering lodging, food, and care",
+  "metadata": {
+    "socialClass": "service",
+    "npcCount": 4,
+    "hasShop": true,
+    "primaryAttributes": ["constitution", "charisma"],
+    "commonSkills": ["hospitality", "cooking", "rumors", "animal_handling"],
+    "specialFeatures": ["lodging", "food_and_drink", "rumors", "24_7_availability"]
+  }
+}
