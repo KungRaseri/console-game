@@ -1,0 +1,310 @@
+{
+  "description": "Shop templates with dynamic inventory systems and pricing",
+  "version": "4.0",
+  "lastUpdated": "2025-12-29",
+  "type": "hierarchical_catalog",
+  "componentKeys": ["weapons", "armor", "magic", "general", "specialty"],
+  "components": {
+    "weapons": [
+      {
+        "name": "blacksmith",
+        "displayName": "Blacksmith",
+        "rarityWeight": 5,
+        "description": "Forge and armory selling weapons and armor",
+        "inventory": {
+          "categories": [
+            {"category": "@items/weapons/swords", "count": "5-10", "quality": "common-rare"},
+            {"category": "@items/weapons/axes", "count": "3-8", "quality": "common-rare"},
+            {"category": "@items/weapons/hammers", "count": "2-5", "quality": "common-uncommon"},
+            {"category": "@items/armor/heavy", "count": "4-8", "quality": "common-rare"}
+          ],
+          "specialty": "Custom weapon forging",
+          "services": ["repair", "sharpen", "custom_orders"]
+        },
+        "pricing": {
+          "markup": 1.5,
+          "buyback": 0.4,
+          "repair_cost": 0.2
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:craftsmen",
+          "personality": ["gruff", "professional"],
+          "skills": ["smithing", "metalwork"]
+        },
+        "location_types": ["towns", "cities"],
+        "required_population": 500
+      },
+      {
+        "name": "weapon_master",
+        "displayName": "Weapon Master",
+        "rarityWeight": 15,
+        "description": "High-end weaponry and exotic arms dealer",
+        "inventory": {
+          "categories": [
+            {"category": "@items/weapons/swords", "count": "3-5", "quality": "rare-legendary"},
+            {"category": "@items/weapons/exotic", "count": "2-4", "quality": "uncommon-epic"},
+            {"category": "@items/enchanted", "count": "1-3", "quality": "rare-legendary"}
+          ],
+          "specialty": "Masterwork and enchanted weapons",
+          "services": ["enchanting", "custom_legendary"]
+        },
+        "pricing": {
+          "markup": 2.0,
+          "buyback": 0.5,
+          "enchant_cost": 500
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:masters",
+          "personality": ["expert", "proud"],
+          "skills": ["weapon_lore", "enchanting"]
+        },
+        "location_types": ["cities"],
+        "required_population": 5000
+      }
+    ],
+    "armor": [
+      {
+        "name": "armorer",
+        "displayName": "Armorer",
+        "rarityWeight": 8,
+        "description": "Protective gear and shields",
+        "inventory": {
+          "categories": [
+            {"category": "@items/armor/light", "count": "5-10", "quality": "common-rare"},
+            {"category": "@items/armor/medium", "count": "4-8", "quality": "common-rare"},
+            {"category": "@items/armor/heavy", "count": "3-6", "quality": "uncommon-rare"},
+            {"category": "@items/shields", "count": "3-5", "quality": "common-uncommon"}
+          ],
+          "specialty": "Custom armor fitting",
+          "services": ["repair", "resize", "reinforcement"]
+        },
+        "pricing": {
+          "markup": 1.6,
+          "buyback": 0.4,
+          "repair_cost": 0.25
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:craftsmen",
+          "personality": ["meticulous", "professional"],
+          "skills": ["armorsmithing", "leatherwork"]
+        },
+        "location_types": ["towns", "cities"],
+        "required_population": 800
+      }
+    ],
+    "magic": [
+      {
+        "name": "alchemist",
+        "displayName": "Alchemist",
+        "rarityWeight": 12,
+        "description": "Potions, elixirs, and alchemical supplies",
+        "inventory": {
+          "categories": [
+            {"category": "@items/potions/healing", "count": "10-20", "quality": "common-rare"},
+            {"category": "@items/potions/mana", "count": "8-15", "quality": "common-rare"},
+            {"category": "@items/potions/buffs", "count": "5-10", "quality": "uncommon-rare"},
+            {"category": "@items/materials/herbs", "count": "15-30", "quality": "common-uncommon"}
+          ],
+          "specialty": "Custom potion brewing",
+          "services": ["brewing", "identification", "poison_antidotes"]
+        },
+        "pricing": {
+          "markup": 1.8,
+          "buyback": 0.3,
+          "brewing_cost": 50
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:scholars",
+          "personality": ["curious", "eccentric"],
+          "skills": ["alchemy", "herbalism"]
+        },
+        "location_types": ["towns", "cities"],
+        "required_population": 1000
+      },
+      {
+        "name": "magic_shop",
+        "displayName": "Magic Shop",
+        "rarityWeight": 20,
+        "description": "Arcane items, scrolls, and enchantments",
+        "inventory": {
+          "categories": [
+            {"category": "@items/scrolls", "count": "8-15", "quality": "common-epic"},
+            {"category": "@items/wands", "count": "3-6", "quality": "uncommon-rare"},
+            {"category": "@items/reagents/magical", "count": "10-20", "quality": "common-rare"},
+            {"category": "@items/enchanted", "count": "2-5", "quality": "rare-legendary"}
+          ],
+          "specialty": "Spell research and enchanting",
+          "services": ["enchanting", "spell_copying", "item_identification"]
+        },
+        "pricing": {
+          "markup": 2.5,
+          "buyback": 0.4,
+          "enchant_cost": 750
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:mages",
+          "personality": ["mystical", "knowledgeable"],
+          "skills": ["arcana", "enchanting"]
+        },
+        "location_types": ["cities", "towers"],
+        "required_population": 3000
+      }
+    ],
+    "general": [
+      {
+        "name": "general_store",
+        "displayName": "General Store",
+        "rarityWeight": 3,
+        "description": "Basic supplies and everyday goods",
+        "inventory": {
+          "categories": [
+            {"category": "@items/supplies/food", "count": "20-40", "quality": "common"},
+            {"category": "@items/supplies/tools", "count": "10-20", "quality": "common-uncommon"},
+            {"category": "@items/supplies/camping", "count": "8-15", "quality": "common"},
+            {"category": "@items/misc", "count": "15-30", "quality": "common"}
+          ],
+          "specialty": "Everyday necessities",
+          "services": ["bartering", "news"]
+        },
+        "pricing": {
+          "markup": 1.3,
+          "buyback": 0.3,
+          "bulk_discount": 0.9
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:merchants",
+          "personality": ["friendly", "chatty"],
+          "skills": ["persuasion", "bartering"]
+        },
+        "location_types": ["towns", "villages"],
+        "required_population": 100
+      },
+      {
+        "name": "trading_post",
+        "displayName": "Trading Post",
+        "rarityWeight": 10,
+        "description": "Frontier outpost for travelers and adventurers",
+        "inventory": {
+          "categories": [
+            {"category": "@items/supplies/survival", "count": "10-20", "quality": "common-uncommon"},
+            {"category": "@items/weapons/simple", "count": "5-10", "quality": "common"},
+            {"category": "@items/supplies/food", "count": "15-25", "quality": "common"},
+            {"category": "@items/maps", "count": "3-8", "quality": "common-rare"}
+          ],
+          "specialty": "Wilderness survival gear",
+          "services": ["information", "maps", "guides"]
+        },
+        "pricing": {
+          "markup": 1.4,
+          "buyback": 0.35,
+          "map_cost": 25
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:frontiersmen",
+          "personality": ["rugged", "helpful"],
+          "skills": ["survival", "navigation"]
+        },
+        "location_types": ["wilderness", "frontiers"],
+        "required_population": 50
+      }
+    ],
+    "specialty": [
+      {
+        "name": "jeweler",
+        "displayName": "Jeweler",
+        "rarityWeight": 18,
+        "description": "Fine gems, jewelry, and precious items",
+        "inventory": {
+          "categories": [
+            {"category": "@items/jewelry/rings", "count": "5-10", "quality": "uncommon-epic"},
+            {"category": "@items/jewelry/amulets", "count": "4-8", "quality": "uncommon-rare"},
+            {"category": "@items/materials/gems", "count": "10-20", "quality": "common-legendary"},
+            {"category": "@items/enchanted/jewelry", "count": "2-4", "quality": "rare-legendary"}
+          ],
+          "specialty": "Custom jewelry crafting",
+          "services": ["appraisal", "gem_cutting", "enchanting"]
+        },
+        "pricing": {
+          "markup": 2.0,
+          "buyback": 0.6,
+          "appraisal_cost": 10
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:artisans",
+          "personality": ["refined", "meticulous"],
+          "skills": ["jewelry", "appraisal"]
+        },
+        "location_types": ["cities"],
+        "required_population": 2000
+      },
+      {
+        "name": "fletcher",
+        "displayName": "Fletcher",
+        "rarityWeight": 14,
+        "description": "Bows, arrows, and ranged weaponry",
+        "inventory": {
+          "categories": [
+            {"category": "@items/weapons/bows", "count": "5-10", "quality": "common-rare"},
+            {"category": "@items/weapons/crossbows", "count": "3-6", "quality": "uncommon-rare"},
+            {"category": "@items/ammunition/arrows", "count": "50-100", "quality": "common-uncommon"},
+            {"category": "@items/ammunition/bolts", "count": "30-60", "quality": "common-uncommon"}
+          ],
+          "specialty": "Custom bow crafting",
+          "services": ["arrow_fletching", "bow_tuning", "repair"]
+        },
+        "pricing": {
+          "markup": 1.5,
+          "buyback": 0.4,
+          "arrow_cost": 1
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:craftsmen",
+          "personality": ["patient", "precise"],
+          "skills": ["bowyer", "woodworking"]
+        },
+        "location_types": ["towns", "forests"],
+        "required_population": 500
+      },
+      {
+        "name": "black_market",
+        "displayName": "Black Market",
+        "rarityWeight": 40,
+        "description": "Illicit goods and stolen items",
+        "inventory": {
+          "categories": [
+            {"category": "@items/weapons/exotic", "count": "2-5", "quality": "rare-legendary"},
+            {"category": "@items/stolen", "count": "5-10", "quality": "uncommon-epic"},
+            {"category": "@items/forbidden", "count": "1-3", "quality": "rare-legendary"},
+            {"category": "@items/poisons", "count": "3-8", "quality": "uncommon-rare"}
+          ],
+          "specialty": "Rare and illegal items",
+          "services": ["fencing", "information", "contracts"]
+        },
+        "pricing": {
+          "markup": 1.2,
+          "buyback": 0.5,
+          "no_questions_asked": true
+        },
+        "owner": {
+          "type": "random",
+          "social_class": "@npcs/social_classes:criminals",
+          "personality": ["suspicious", "greedy"],
+          "skills": ["streetwise", "deception"]
+        },
+        "location_types": ["cities", "underworld"],
+        "required_population": 5000,
+        "hidden": true,
+        "reputation_required": -20
+      }
+    ]
+  }
+}
