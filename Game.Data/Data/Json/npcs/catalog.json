@@ -3,7 +3,7 @@
     "type": "hierarchical_catalog",
     "version": "4.0",
     "description": "NPC backgrounds and occupations for character generation with shop economy system",
-    "lastModified": "2025-12-18",
+    "lastUpdated": "2025-12-29",
     "componentKeys": [
       "backgrounds",
       "occupations"
@@ -1181,17 +1181,17 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Torch",
+                "item": "@items/consumables/utilities:torch",
                 "baseQuantity": 10,
                 "restockDaily": true
               },
               {
-                "item": "Rope",
+                "item": "@items/consumables/utilities:rope",
                 "baseQuantity": 5,
                 "restockDaily": true
               },
               {
-                "item": "Rations",
+                "item": "@items/consumables/food:rations",
                 "baseQuantity": 20,
                 "restockDaily": true
               }
@@ -1253,16 +1253,16 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Longsword",
+                "item": "@items/weapons/swords:longsword",
                 "baseQuantity": "infinite"
               },
               {
-                "item": "Chainmail",
+                "item": "@items/armor/medium:chainmail",
                 "baseQuantity": 2,
                 "restockDaily": true
               },
               {
-                "item": "IronDagger",
+                "item": "@items/weapons/daggers:iron-dagger",
                 "baseQuantity": 3,
                 "restockDaily": true
               }
@@ -1318,11 +1318,11 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Longsword",
+                "item": "@items/weapons/swords:longsword",
                 "baseQuantity": "infinite"
               },
               {
-                "item": "Greatsword",
+                "item": "@items/weapons/swords:greatsword",
                 "baseQuantity": 1,
                 "restockDaily": true
               }
@@ -1375,11 +1375,11 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Chainmail",
+                "item": "@items/armor/medium:chainmail",
                 "baseQuantity": "infinite"
               },
               {
-                "item": "PlateArmor",
+                "item": "@items/armor/heavy:plate-armor",
                 "baseQuantity": 1,
                 "restockDaily": true
               }
@@ -1432,12 +1432,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Arrows",
+                "item": "@items/ammunition/arrows:basic-arrows",
                 "baseQuantity": 50,
                 "restockDaily": true
               },
               {
-                "item": "Shortbow",
+                "item": "@items/weapons/bows:shortbow",
                 "baseQuantity": 2,
                 "restockDaily": true
               }
@@ -1491,7 +1491,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "LeatherArmor",
+                "item": "@items/armor/light:leather-armor",
                 "baseQuantity": 3,
                 "restockDaily": true
               }
@@ -1546,7 +1546,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "SilverRing",
+                "item": "@items/accessories/rings:silver-ring",
                 "baseQuantity": 3,
                 "restockDaily": true
               }
@@ -1602,7 +1602,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "MagicScroll",
+                "item": "@items/consumables/scrolls:magic-scroll",
                 "baseQuantity": 3,
                 "restockDaily": true
               }
@@ -1671,12 +1671,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "HealthPotion",
+                "item": "@items/consumables/potions:health-potion",
                 "baseQuantity": 5,
                 "restockDaily": true
               },
               {
-                "item": "ManaPotion",
+                "item": "@items/consumables/potions:mana-potion",
                 "baseQuantity": 3,
                 "restockDaily": true
               }
@@ -1728,12 +1728,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "HealthPotion",
+                "item": "@items/consumables/potions:health-potion",
                 "baseQuantity": 10,
                 "restockDaily": true
               },
               {
-                "item": "Bandages",
+                "item": "@items/consumables/medical:bandages",
                 "baseQuantity": 20,
                 "restockDaily": true
               }
@@ -1782,7 +1782,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "HealingHerb",
+                "item": "@items/consumables/herbs:healing-herb",
                 "baseQuantity": 15,
                 "restockDaily": true
               }
@@ -1836,7 +1836,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Book",
+                "item": "@items/books/common:basic-book",
                 "baseQuantity": 5,
                 "restockDaily": false
               }
@@ -1893,7 +1893,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "AncientTome",
+                "item": "@items/books/rare:ancient-tome",
                 "baseQuantity": 1,
                 "restockDaily": false
               }
@@ -1950,7 +1950,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "LocalMap",
+                "item": "@items/maps/common:local-map",
                 "baseQuantity": 5,
                 "restockDaily": true
               }
@@ -2016,17 +2016,17 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Ale",
+                "item": "@items/consumables/drinks:ale",
                 "baseQuantity": 30,
                 "restockDaily": true
               },
               {
-                "item": "Bread",
+                "item": "@items/consumables/food:bread",
                 "baseQuantity": 20,
                 "restockDaily": true
               },
               {
-                "item": "Stew",
+                "item": "@items/consumables/food:stew",
                 "baseQuantity": 10,
                 "restockDaily": true
               }
@@ -2076,12 +2076,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Ale",
+                "item": "@items/consumables/drinks:ale",
                 "baseQuantity": 40,
                 "restockDaily": true
               },
               {
-                "item": "Wine",
+                "item": "@items/consumables/drinks:wine",
                 "baseQuantity": 10,
                 "restockDaily": true
               }
@@ -2129,12 +2129,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Bread",
+                "item": "@items/consumables/food:bread",
                 "baseQuantity": 30,
                 "restockDaily": true
               },
               {
-                "item": "Pie",
+                "item": "@items/consumables/food:pie",
                 "baseQuantity": 10,
                 "restockDaily": true
               }
@@ -2180,7 +2180,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "Hay",
+                "item": "@items/consumables/feed:hay",
                 "baseQuantity": 50,
                 "restockDaily": true
               }

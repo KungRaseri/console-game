@@ -3,7 +3,7 @@
     "type": "pattern_generation",
     "version": "4.0",
     "description": "Pattern-based NPC name generation system with soft filtering",
-    "lastModified": "2025-12-18",
+    "lastUpdated": "2025-12-29",
     "componentKeys": [
       "title",
       "first_name",
