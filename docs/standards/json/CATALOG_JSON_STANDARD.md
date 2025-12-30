@@ -239,7 +239,6 @@ Every item MUST have:
   "damage": "1d8",
   "weight": 3.0,
   "value": 15,
-  "rarity": "common",
   "rarityWeight": 5
 }
 ```
@@ -251,7 +250,6 @@ Every item MUST have:
   "armor": 16,
   "weight": 55.0,
   "value": 75,
-  "rarity": "common",
   "rarityWeight": 10
 }
 ```
@@ -312,7 +310,6 @@ Every item MUST have:
           "damage": "1d8",
           "weight": 3.0,
           "value": 15,
-          "rarity": "common",
           "rarityWeight": 5
         },
         {
@@ -320,7 +317,6 @@ Every item MUST have:
           "damage": "1d6",
           "weight": 2.0,
           "value": 10,
-          "rarity": "common",
           "rarityWeight": 5
         },
         {
@@ -328,7 +324,6 @@ Every item MUST have:
           "damage": "2d6",
           "weight": 6.0,
           "value": 50,
-          "rarity": "uncommon",
           "rarityWeight": 10,
           "twoHanded": true
         }
@@ -347,7 +342,6 @@ Every item MUST have:
           "damage": "1d6",
           "weight": 2.0,
           "value": 10,
-          "rarity": "common",
           "rarityWeight": 5,
           "throwable": true
         },
@@ -356,7 +350,6 @@ Every item MUST have:
           "damage": "1d8",
           "weight": 4.0,
           "value": 20,
-          "rarity": "common",
           "rarityWeight": 8
         }
       ]

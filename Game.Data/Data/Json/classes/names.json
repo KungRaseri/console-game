@@ -15,6 +15,7 @@
     "prefix": [
       {
         "value": "Master",
+        "rarityWeight": 10,
         "traits": {
           "levelRequirement": {"value": 50, "type": "number"},
           "reputationBonus": {"value": 10, "type": "number"}
@@ -22,6 +23,7 @@
       },
       {
         "value": "Grand",
+        "rarityWeight": 5,
         "traits": {
           "levelRequirement": {"value": 70, "type": "number"},
           "reputationBonus": {"value": 20, "type": "number"}
@@ -29,6 +31,7 @@
       },
       {
         "value": "Legendary",
+        "rarityWeight": 1,
         "traits": {
           "levelRequirement": {"value": 90, "type": "number"},
           "reputationBonus": {"value": 50, "type": "number"}
@@ -36,6 +39,7 @@
       },
       {
         "value": "Elite",
+        "rarityWeight": 15,
         "traits": {
           "levelRequirement": {"value": 40, "type": "number"},
           "reputationBonus": {"value": 5, "type": "number"}
@@ -43,6 +47,7 @@
       },
       {
         "value": "Veteran",
+        "rarityWeight": 20,
         "traits": {
           "levelRequirement": {"value": 30, "type": "number"},
           "reputationBonus": {"value": 3, "type": "number"}
@@ -50,6 +55,7 @@
       },
       {
         "value": "Apprentice",
+        "rarityWeight": 50,
         "traits": {
           "levelRequirement": {"value": 1, "type": "number"},
           "reputationBonus": {"value": 0, "type": "number"}
@@ -59,36 +65,42 @@
     "suffix": [
       {
         "value": "the Brave",
+        "rarityWeight": 30,
         "traits": {
           "strengthBonus": {"value": 2, "type": "number"}
         }
       },
       {
         "value": "the Wise",
+        "rarityWeight": 30,
         "traits": {
           "wisdomBonus": {"value": 2, "type": "number"}
         }
       },
       {
         "value": "the Swift",
+        "rarityWeight": 30,
         "traits": {
           "dexterityBonus": {"value": 2, "type": "number"}
         }
       },
       {
         "value": "the Cunning",
+        "rarityWeight": 30,
         "traits": {
           "intelligenceBonus": {"value": 2, "type": "number"}
         }
       },
       {
         "value": "the Mighty",
+        "rarityWeight": 15,
         "traits": {
           "strengthBonus": {"value": 3, "type": "number"}
         }
       },
       {
         "value": "the Immortal",
+        "rarityWeight": 10,
         "traits": {
           "constitutionBonus": {"value": 3, "type": "number"}
         }
@@ -97,24 +109,28 @@
     "title": [
       {
         "value": "Slayer of Dragons",
+        "rarityWeight": 5,
         "traits": {
           "questsCompleted": {"value": 100, "type": "number"}
         }
       },
       {
         "value": "Champion of the Realm",
+        "rarityWeight": 15,
         "traits": {
           "questsCompleted": {"value": 50, "type": "number"}
         }
       },
       {
         "value": "Defender of the Weak",
+        "rarityWeight": 30,
         "traits": {
           "questsCompleted": {"value": 25, "type": "number"}
         }
       },
       {
         "value": "Wanderer",
+        "rarityWeight": 50,
         "traits": {
           "questsCompleted": {"value": 0, "type": "number"}
         }
@@ -123,25 +139,25 @@
   },
   "patterns": [
     {
-      "value": "{base}",
+      "template": "{base}",
       "rarityWeight": 50,
       "traits": {},
       "description": "Plain class name"
     },
     {
-      "value": "{prefix} {base}",
+      "template": "{prefix} {base}",
       "rarityWeight": 30,
       "traits": {},
       "description": "Class with rank prefix"
     },
     {
-      "value": "{base} {suffix}",
+      "template": "{base} {suffix}",
       "rarityWeight": 15,
       "traits": {},
       "description": "Class with epithet"
     },
     {
-      "value": "{prefix} {base}, {title}",
+      "template": "{prefix} {base}, {title}",
       "rarityWeight": 5,
       "traits": {},
       "description": "Full title with accomplishment"

@@ -15,6 +15,7 @@
     "prefix": [
       {
         "value": "Tactical",
+        "rarityWeight": 20,
         "traits": {
           "cooldownReduction": {
             "value": 10,
@@ -24,6 +25,7 @@
       },
       {
         "value": "Adaptive",
+        "rarityWeight": 25,
         "traits": {
           "effectDuration": {
             "value": 2,
@@ -33,6 +35,7 @@
       },
       {
         "value": "Emergency",
+        "rarityWeight": 15,
         "traits": {
           "triggerThreshold": {
             "value": 5,
@@ -42,6 +45,7 @@
       },
       {
         "value": "Reactive",
+        "rarityWeight": 30,
         "traits": {
           "procChance": {
             "value": 10,
@@ -51,6 +55,7 @@
       },
       {
         "value": "Survivor's",
+        "rarityWeight": 10,
         "traits": {
           "healthThreshold": {
             "value": 10,
@@ -60,6 +65,7 @@
       },
       {
         "value": "Evasive",
+        "rarityWeight": 20,
         "traits": {
           "dodgeBonus": {
             "value": 15,
@@ -71,6 +77,7 @@
     "suffix": [
       {
         "value": "of Freedom",
+        "rarityWeight": 20,
         "traits": {
           "controlResist": {
             "value": 20,
@@ -80,6 +87,7 @@
       },
       {
         "value": "of Escape",
+        "rarityWeight": 25,
         "traits": {
           "movementSpeedBonus": {
             "value": 15,
@@ -89,6 +97,7 @@
       },
       {
         "value": "of Rebirth",
+        "rarityWeight": 10,
         "traits": {
           "reviveChance": {
             "value": 10,
@@ -98,6 +107,7 @@
       },
       {
         "value": "of the Tactician",
+        "rarityWeight": 15,
         "traits": {
           "cooldownReduction": {
             "value": 15,
@@ -107,6 +117,7 @@
       },
       {
         "value": "of Adaptation",
+        "rarityWeight": 25,
         "traits": {
           "effectDuration": {
             "value": 3,
@@ -116,6 +127,7 @@
       },
       {
         "value": "of Survival",
+        "rarityWeight": 30,
         "traits": {
           "healthThreshold": {
             "value": 5,
@@ -127,22 +139,22 @@
   },
   "patterns": [
     {
-      "value": "{base}",
+      "template": "{base}",
       "rarityWeight": 40,
       "traits": {}
     },
     {
-      "value": "{prefix} {base}",
+      "template": "{prefix} {base}",
       "rarityWeight": 35,
       "traits": {}
     },
     {
-      "value": "{base} {suffix}",
+      "template": "{base} {suffix}",
       "rarityWeight": 20,
       "traits": {}
     },
     {
-      "value": "{prefix} {base} {suffix}",
+      "template": "{prefix} {base} {suffix}",
       "rarityWeight": 5,
       "traits": {}
     }

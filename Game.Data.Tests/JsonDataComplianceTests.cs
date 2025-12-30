@@ -904,19 +904,57 @@ public class JsonDataComplianceTests
                 {
                     items.AddRange(componentItems.OfType<JObject>());
                 }
+                // Pattern 2a: Nested objects with items arrays (e.g., components.subcategory.items)
+                else if (prop.Value is JObject nestedObj && nestedObj["items"] is JArray nestedItems)
+                {
+                    items.AddRange(nestedItems.OfType<JObject>());
+                }
             }
         }
 
-        // Pattern 3: {type}_types structure (legacy)
+        // Pattern 3: {type}_types structure (e.g., weapon_types, consumableTypes)
         foreach (var prop in catalog.Properties())
         {
-            if (prop.Name.EndsWith("_types") && prop.Value is JObject types)
+            if (prop.Name.EndsWith("_types") || prop.Name.EndsWith("Types"))
             {
-                foreach (var category in types.Properties())
+                if (prop.Value is JObject types)
                 {
-                    if (category.Value["items"] is JArray categoryItems)
+                    foreach (var category in types.Properties())
                     {
-                        items.AddRange(categoryItems.OfType<JObject>());
+                        if (category.Value["items"] is JArray categoryItems)
+                        {
+                            items.AddRange(categoryItems.OfType<JObject>());
+                        }
+                    }
+                }
+            }
+        }
+
+        // Pattern 4: Hierarchical/category structure (e.g., classes, npcs)
+        // Top-level categories (warriors, rogues, backgrounds, occupations) with items arrays
+        foreach (var prop in catalog.Properties())
+        {
+            // Skip metadata and known special keys
+            if (prop.Name == "metadata" || prop.Name == "components" || 
+                prop.Name == "items" || prop.Name.EndsWith("_types") || prop.Name.EndsWith("Types"))
+            {
+                continue;
+            }
+
+            if (prop.Value is JObject category)
+            {
+                // Direct items array in category
+                if (category["items"] is JArray directItems)
+                {
+                    items.AddRange(directItems.OfType<JObject>());
+                }
+
+                // Nested subcategories with items (e.g., backgrounds.former_military.items)
+                foreach (var subcatProp in category.Properties())
+                {
+                    if (subcatProp.Value is JObject subcat && subcat["items"] is JArray subcatItems)
+                    {
+                        items.AddRange(subcatItems.OfType<JObject>());
                     }
                 }
             }

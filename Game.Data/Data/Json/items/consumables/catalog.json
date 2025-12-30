@@ -30,7 +30,8 @@
           "duration": 0,
           "weight": 0.5,
           "value": 10,
-          "rarityWeight": 5
+          "rarityWeight": 50,
+          "rarity": "common"
         },
         {
           "name": "Elixir",
@@ -39,7 +40,8 @@
           "duration": 0,
           "weight": 0.5,
           "value": 25,
-          "rarityWeight": 10
+          "rarityWeight": 30,
+          "rarity": "uncommon"
         },
         {
           "name": "Tonic",
@@ -48,50 +50,32 @@
           "duration": 300,
           "weight": 0.5,
           "value": 15,
-          "rarityWeight": 7
+          "rarityWeight": 40,
+          "rarity": "common"
         },
         {
-          "name": "Brew",
-          "effect": "buff",
-          "power": 15,
-          "duration": 300,
-          "weight": 0.5,
-          "value": 20,
-          "rarityWeight": 8
-        },
-        {
-          "name": "Draught",
+          "name": "Greater Potion",
           "effect": "heal",
-          "power": 75,
-          "duration": 0,
-          "weight": 0.5,
-          "value": 40,
-          "rarityWeight": 15
-        },
-        {
-          "name": "Philter",
-          "effect": "buff",
-          "power": 20,
-          "duration": 600,
-          "weight": 0.3,
-          "value": 30,
-          "rarityWeight": 12
-        },
-        {
-          "name": "Concoction",
-          "effect": "mixed",
-          "power": 30,
-          "duration": 300,
-          "weight": 0.5,
-          "value": 35,
-          "rarityWeight": 14
-        },
-        {
-          "name": "Panacea",
-          "effect": "heal_all",
           "power": 100,
           "duration": 0,
-          "weight": 0.3,
+          "weight": 0.6,
+          "value": 50,
+          "rarityWeight": 15,
+          "rarity": "rare"
+        },
+        {
+          "name": "Superior Elixir",
+          "effect": "heal",
+          "power": 150,
+          "duration": 0,
+          "weight": 0.7,
+          "value": 100,
+          "rarityWeight": 5,
+          "rarity": "epic"
+        }
+      ]
+    },
+    "elixirs": {
           "value": 100,
           "rarityWeight": 50
         }
