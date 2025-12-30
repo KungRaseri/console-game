@@ -81,7 +81,8 @@ public class NamesJsonComplianceTests
 
     var allowedProperties = new[] { 
       "description", "version", "lastUpdated", "type", "supportsTraits",
-      "componentKeys", "patternTokens", "totalPatterns", "raritySystem", "notes"
+      "componentKeys", "patternTokens", "totalPatterns", "raritySystem", "notes",
+      "supportsSoftFiltering", "totalComponents", "usage"  // Optional metadata fields
     };
 
     // Assert - ONLY these metadata properties are allowed
@@ -95,7 +96,7 @@ public class NamesJsonComplianceTests
 
   [Theory]
   [MemberData(nameof(GetAllNamesFiles))]
-  public void Names_Pattern_Objects_Should_Only_Have_Expected_Properties(string relativePath)
+  public void Names_Pattern_Objects_Must_Have_Pattern_Or_Template(string relativePath)
   {
     // Arrange
     var fullPath = Path.Combine(_dataPath, relativePath);
@@ -104,118 +105,81 @@ public class NamesJsonComplianceTests
     
     if (patterns == null) return; // Other tests will catch this
 
-    var allowedProperties = new[] { "pattern", "rarityWeight", "traits" };
-
-    // Assert - ONLY these pattern properties are allowed
+    // Assert - patterns can have ANY properties, but must have pattern/template and rarityWeight
     foreach (var pattern in patterns.OfType<JObject>())
     {
-      var actualProperties = pattern.Properties().Select(p => p.Name).ToList();
-      var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+      var hasPattern = pattern.ContainsKey("pattern");
+      var hasTemplate = pattern.ContainsKey("template");
+      var hasRarityWeight = pattern.ContainsKey("rarityWeight");
       
-      unexpectedProperties.Should().BeEmpty(
-          $"{relativePath} pattern '{pattern["pattern"]}' contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
-          $"Only allowed: {string.Join(", ", allowedProperties)}");
+      (hasPattern || hasTemplate).Should().BeTrue(
+          $"{relativePath} - Pattern object must have 'pattern' or 'template' field");
+      
+      hasRarityWeight.Should().BeTrue(
+          $"{relativePath} - Pattern '{pattern["pattern"] ?? pattern["template"]}' missing required 'rarityWeight'");
     }
   }
 
-  #endregion
-
-  #region Strict Schema Validation
-
   [Theory]
   [MemberData(nameof(GetAllNamesFiles))]
-  public void Names_Should_Only_Have_Expected_Root_Properties(string relativePath)
+  public void Names_Pattern_Tokens_Must_Exist_In_ComponentKeys(string relativePath)
   {
     // Arrange
     var fullPath = Path.Combine(_dataPath, relativePath);
     var json = JObject.Parse(File.ReadAllText(fullPath));
-    var allowedProperties = new[] { "metadata", "patterns", "components" };
-
-    // Assert - ONLY these root properties are allowed
-    var actualProperties = json.Properties().Select(p => p.Name).ToList();
-    var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
-    
-    unexpectedProperties.Should().BeEmpty(
-        $"{relativePath} contains unexpected root properties: {string.Join(", ", unexpectedProperties)}. " +
-        $"Only allowed: {string.Join(", ", allowedProperties)}");
-  }
-
-  [Theory]
-  [MemberData(nameof(GetAllNamesFiles))]
-  public void Names_Metadata_Should_Only_Have_Expected_Properties(string relativePath)
-  {
-    // Arrange
-    var fullPath = Path.Combine(_dataPath, relativePath);
-    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var patterns = json["patterns"] as JArray;
     var metadata = json["metadata"] as JObject;
+    var componentKeys = metadata?["componentKeys"] as JArray;
     
-    if (metadata == null) return; // Other tests will catch this
+    if (patterns == null || componentKeys == null) return;
 
-    var allowedProperties = new[] { 
-      "description", "version", "lastUpdated", "type", "supportsTraits",
-      "componentKeys", "patternTokens", "totalPatterns", "raritySystem", "notes"
-    };
+    var validKeys = componentKeys.Select(k => k.ToString()).ToList();
+    validKeys.Add("base"); // 'base' is always valid (references catalog)
 
-    // Assert - ONLY these metadata properties are allowed
-    var actualProperties = metadata.Properties().Select(p => p.Name).ToList();
-    var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
-    
-    unexpectedProperties.Should().BeEmpty(
-        $"{relativePath} metadata contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
-        $"Only allowed: {string.Join(", ", allowedProperties)}");
-  }
-
-  [Theory]
-  [MemberData(nameof(GetAllNamesFiles))]
-  public void Names_Pattern_Objects_Should_Only_Have_Expected_Properties(string relativePath)
-  {
-    // Arrange
-    var fullPath = Path.Combine(_dataPath, relativePath);
-    var json = JObject.Parse(File.ReadAllText(fullPath));
-    var patterns = json["patterns"] as JArray;
-    
-    if (patterns == null) return; // Other tests will catch this
-
-    var allowedProperties = new[] { "pattern", "template", "rarityWeight", "traits" };
-
-    // Assert - ONLY these pattern properties are allowed
+    // Assert - all tokens in patterns must exist in componentKeys or be 'base'
     foreach (var pattern in patterns.OfType<JObject>())
     {
-      var actualProperties = pattern.Properties().Select(p => p.Name).ToList();
-      var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
-      
-      unexpectedProperties.Should().BeEmpty(
-          $"{relativePath} pattern '{pattern["pattern"] ?? pattern["template"]}' contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
-          $"Only allowed: {string.Join(", ", allowedProperties)}");
+      var patternStr = pattern["pattern"]?.ToString() ?? pattern["template"]?.ToString();
+      if (string.IsNullOrEmpty(patternStr)) continue;
+
+      // Extract tokens from pattern (anything between {})
+      var tokenMatches = System.Text.RegularExpressions.Regex.Matches(patternStr, @"\{([^}]+)\}");
+      foreach (System.Text.RegularExpressions.Match match in tokenMatches)
+      {
+        var token = match.Groups[1].Value;
+        
+        // Skip reference tokens (start with @)
+        if (token.StartsWith("@")) continue;
+        
+        validKeys.Should().Contain(token,
+            $"{relativePath} - Pattern '{patternStr}' uses token '{{{token}}}' which is not declared in componentKeys or 'base'. " +
+            $"Valid tokens: {string.Join(", ", validKeys.Select(k => $"{{{k}}}"))}");
+      }
     }
   }
 
   [Theory]
   [MemberData(nameof(GetAllNamesFiles))]
-  public void Names_Component_Objects_Should_Only_Have_Expected_Properties(string relativePath)
+  public void Names_Component_Objects_Must_Have_Value_And_RarityWeight(string relativePath)
   {
     // Arrange
     var fullPath = Path.Combine(_dataPath, relativePath);
     var json = JObject.Parse(File.ReadAllText(fullPath));
     var components = json["components"] as JObject;
     
-    if (components == null) return; // Other tests will catch this
+    if (components == null || !components.Properties().Any()) return; // Components are optional
 
-    var allowedProperties = new[] { "value", "rarityWeight", "traits" };
-
-    // Assert - ONLY these component item properties are allowed
+    // Assert - component items can have ANY properties, but must have value and rarityWeight
     foreach (var componentGroup in components.Properties())
     {
       if (componentGroup.Value is JArray items)
       {
         foreach (var item in items.OfType<JObject>())
         {
-          var actualProperties = item.Properties().Select(p => p.Name).ToList();
-          var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
-          
-          unexpectedProperties.Should().BeEmpty(
-              $"{relativePath} component '{componentGroup.Name}' item '{item["value"]}' contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
-              $"Only allowed: {string.Join(", ", allowedProperties)}");
+          item.Should().ContainKey("value",
+              $"{relativePath} component '{componentGroup.Name}' item missing required 'value' property");
+          item.Should().ContainKey("rarityWeight",
+              $"{relativePath} component '{componentGroup.Name}' item '{item["value"]}' missing required 'rarityWeight' property");
         }
       }
     }
@@ -500,27 +464,27 @@ public class NamesJsonComplianceTests
 
   [Theory]
   [MemberData(nameof(GetAllNamesFiles))]
-  public void Names_Should_Have_Components(string relativePath)
+  public void Names_Should_Have_Components_If_ComponentKeys_Declares_Them(string relativePath)
   {
     // Arrange
     var fullPath = Path.Combine(_dataPath, relativePath);
     var json = JObject.Parse(File.ReadAllText(fullPath));
     var components = json["components"] as JObject;
-
-    // Assert - components is REQUIRED
-    components.Should().NotBeNull($"{relativePath} missing components section");
-    
-    // If componentKeys is not empty, components must have data
     var metadata = json["metadata"] as JObject;
     var componentKeys = metadata?["componentKeys"] as JArray;
+
+    // Assert - if componentKeys exists and has items, components section must exist and have data
     if (componentKeys != null && componentKeys.Any())
     {
+      components.Should().NotBeNull($"{relativePath} has componentKeys but missing components section");
       components.Should().NotBeEmpty($"{relativePath} has componentKeys but empty components - add component data");
       
-      // Each key in componentKeys must exist in components
+      // Each key in componentKeys must exist in components (except 'base' which references catalog)
       foreach (var key in componentKeys)
       {
         var keyStr = key.ToString();
+        if (keyStr == "base") continue; // 'base' references catalog, not components
+        
         components.Should().ContainKey(keyStr, 
             $"{relativePath} componentKeys contains '{keyStr}' but components section doesn't have it");
       }

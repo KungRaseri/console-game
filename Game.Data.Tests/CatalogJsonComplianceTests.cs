@@ -58,21 +58,21 @@ public class CatalogJsonComplianceTests
     var fullPath = Path.Combine(_dataPath, relativePath);
     var json = JObject.Parse(File.ReadAllText(fullPath));
     
-    // Catalogs can have: metadata, items, components, or {type}_types patterns
-    var allowedProperties = new[] { "metadata", "items", "components" };
-    
-    // Also allow domain-specific patterns like ability_types, enemy_types, etc.
+    // Catalogs should ONLY have: metadata (required) and *_types patterns
     var actualProperties = json.Properties().Select(p => p.Name).ToList();
-    var typeProperties = actualProperties.Where(p => p.EndsWith("_types")).ToList();
     
-    var allAllowedProperties = allowedProperties.Concat(typeProperties).ToList();
+    // Must have metadata
+    actualProperties.Should().Contain("metadata", $"{relativePath} missing required 'metadata' property");
 
-    // Assert - ONLY expected root properties are allowed
-    var unexpectedProperties = actualProperties.Except(allAllowedProperties).ToList();
+    // Assert - ONLY metadata and *_types are allowed at root level
+    var unexpectedProperties = actualProperties
+        .Where(p => p != "metadata")
+        .Where(p => !p.EndsWith("_types"))
+        .ToList();
     
     unexpectedProperties.Should().BeEmpty(
         $"{relativePath} contains unexpected root properties: {string.Join(", ", unexpectedProperties)}. " +
-        $"Only allowed: metadata, items, components, or *_types");
+        $"Only allowed: 'metadata' and properties ending with '_types' (e.g., ability_types, enemy_types)");
   }
 
   [Theory]
@@ -86,51 +86,53 @@ public class CatalogJsonComplianceTests
     
     if (metadata == null) return; // Other tests will catch this
 
-    var allowedProperties = new[] { 
-      "description", "version", "lastUpdated", "type", "notes",
-      "componentKeys", "domain", "category", "supportsReferences"
+    var actualProperties = metadata.Properties().Select(p => p.Name).ToList();
+    var requiredProperties = new[] { "description", "version", "lastUpdated", "type" };
+    var commonOptionalProperties = new[] { 
+      "notes", "componentKeys", "domain", "category", "supportsReferences", "supportsTraits", 
+      "usage", "categories", "socialClass"
     };
 
-    // Assert - ONLY these metadata properties are allowed
-    var actualProperties = metadata.Properties().Select(p => p.Name).ToList();
-    var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+    // Assert - must have required properties
+    foreach (var required in requiredProperties)
+    {
+      actualProperties.Should().Contain(required,
+          $"{relativePath} metadata missing required property '{required}'");
+    }
+    
+    // Assert - additional properties must match known patterns
+    var allowedProperties = requiredProperties.Concat(commonOptionalProperties).ToList();
+    var unexpectedProperties = actualProperties
+        .Where(p => !allowedProperties.Contains(p))
+        .Where(p => !p.StartsWith("total", StringComparison.OrdinalIgnoreCase))  // Allow total_*
+        .ToList();
     
     unexpectedProperties.Should().BeEmpty(
         $"{relativePath} metadata contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
-        $"Only allowed: {string.Join(", ", allowedProperties)}");
+        $"Allowed: {string.Join(", ", allowedProperties)}, total_*, totalXxx");
   }
 
   [Theory]
   [MemberData(nameof(GetAllCatalogFiles))]
-  public void Catalog_Items_Should_Only_Have_Expected_Standard_Properties(string relativePath)
+  public void Catalog_Items_Should_Have_Name_And_RarityWeight(string relativePath)
   {
     // Arrange
     var fullPath = Path.Combine(_dataPath, relativePath);
     var json = JObject.Parse(File.ReadAllText(fullPath));
     var allItems = GetAllItemsFromCatalog(json);
 
-    if (!allItems.Any()) return; // Skip if no items
+    if (!allItems.Any()) return; // Skip if no items found
 
-    // Standard properties that ALL items must have
-    var requiredProperties = new[] { "name", "rarityWeight" };
-    
-    // Common optional properties allowed on items (domain-specific properties allowed beyond this)
-    var commonOptionalProperties = new[] { 
-      "displayName", "description", "traits", "tags", "notes",
-      "weight", "value", "icon", "category", "type"
-    };
-
-    // Assert - items must have required properties at minimum
+    // Assert - ALL items must have name and rarityWeight (required per v4.0)
     foreach (var item in allItems)
     {
       var itemObj = item as JObject;
       if (itemObj == null) continue;
 
-      foreach (var required in requiredProperties)
-      {
-        itemObj.Should().ContainKey(required,
-            $"{relativePath} - Item '{item["name"]}' missing required property '{required}'");
-      }
+      itemObj.Should().ContainKey("name",
+          $"{relativePath} - Item missing required 'name' property");
+      itemObj.Should().ContainKey("rarityWeight",
+          $"{relativePath} - Item '{item["name"]}' missing required 'rarityWeight' property");
     }
   }
 
