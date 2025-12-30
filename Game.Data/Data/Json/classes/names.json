@@ -5,8 +5,8 @@
     "supportsTraits": true,
     "lastUpdated": "2025-12-30",
     "description": "Class-specific name generation for NPCs and player character titles",
-    "componentKeys": ["prefix", "class", "suffix"],
-    "patternTokens": ["prefix", "class", "suffix"],
+    "componentKeys": ["prefix", "class", "suffix", "title"],
+    "patternTokens": ["prefix", "class", "suffix", "title", "base"],
     "totalPatterns": 7,
     "raritySystem": "weight-based",
     "notes": [
