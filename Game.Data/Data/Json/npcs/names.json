@@ -16,6 +16,7 @@
       "surname",
       "suffix"
     ],
+    "totalPatterns": 16,
     "raritySystem": "weight-based",
     "supportsTraits": true,
     "supportsSoftFiltering": true,

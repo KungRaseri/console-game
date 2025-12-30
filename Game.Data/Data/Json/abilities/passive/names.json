@@ -2,36 +2,22 @@
   "metadata": {
     "description": "Pattern generation for passive abilities",
     "version": "4.0",
-    "lastUpdated": "2025-12-28",
+    "lastUpdated": "2025-12-30",
     "type": "pattern_generation",
     "supportsTraits": true,
+    "componentKeys": [],
+    "patternTokens": ["base"],
+    "totalPatterns": 1,
+    "raritySystem": "weight-based",
     "notes": [
       "Passive abilities are always-active bonuses",
       "Pattern generation supports trait filtering",
-      "No activation required"
+      "No activation required",
+      "The {base} token references items from catalog.json"
     ]
   },
   "patterns": [
     {"pattern": "{base}", "rarityWeight": 100}
   ],
-  "components": {
-    "base": [
-      "weapon-mastery",
-      "combat-supremacy",
-      "titans-strength",
-      "unstoppable",
-      "deaths-door",
-      "sentinel",
-      "bladework",
-      "master-thief",
-      "shadow-master",
-      "master-of-blades",
-      "legendary-swagger",
-      "elemental-mastery",
-      "crusader",
-      "master-tracker",
-      "primal-bond",
-      "king-of-beasts"
-    ]
-  }
+  "components": {}
 }

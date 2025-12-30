@@ -76,6 +76,20 @@
       ]
     },
     "elixirs": {
+      "traits": {
+        "slot": "consumable",
+        "category": "elixir",
+        "stackable": true,
+        "oneUse": true,
+        "applicationType": "drinkable"
+      },
+      "items": [
+        {
+          "name": "Elixir of Vitality",
+          "effect": "healthRegeneration",
+          "power": 50,
+          "duration": 300,
+          "weight": 0.5,
           "value": 100,
           "rarityWeight": 50
         }

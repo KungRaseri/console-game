@@ -2,47 +2,22 @@
   "metadata": {
     "description": "Pattern generation for support abilities",
     "version": "4.0",
-    "lastUpdated": "2025-12-28",
+    "lastUpdated": "2025-12-30",
     "type": "pattern_generation",
     "supportsTraits": true,
+    "componentKeys": [],
+    "patternTokens": ["base"],
+    "totalPatterns": 1,
+    "raritySystem": "weight-based",
     "notes": [
       "Support abilities provide buffs, heals, and ally enhancement",
       "Pattern generation supports trait filtering",
-      "Includes warrior buffs, heals, taunts, and auras"
+      "Includes warrior buffs, heals, taunts, and auras",
+      "The {base} token references items from catalog.json"
     ]
   },
   "patterns": [
     {"pattern": "{base}", "rarityWeight": 100}
   ],
-  "components": {
-    "base": [
-      "second-wind",
-      "battle-cry",
-      "berserker-rage",
-      "bloodlust",
-      "primal-roar",
-      "taunt",
-      "feint",
-      "flourish",
-      "panache",
-      "daring-gambit",
-      "showstopper",
-      "elemental-avatar",
-      "lich-form",
-      "heal",
-      "bless",
-      "mass-heal",
-      "divine-intervention",
-      "lay-on-hands",
-      "holy-aura",
-      "consecrate",
-      "avenging-wrath",
-      "hunters-mark",
-      "beast-command",
-      "pack-tactics",
-      "wild-growth",
-      "beast-fury",
-      "death-mark"
-    ]
-  }
+  "components": {}
 }

@@ -18,6 +18,7 @@
       "base"
     ],
     "totalPatterns": 6,
+    "raritySystem": "weight-based",
     "totalComponents": 91,
     "usage": "Material name components for pattern-based generation. Use 'material' token in patterns to pick from these components. rarityWeight determines selection probability and contributes to final item rarity calculation.",
     "notes": [

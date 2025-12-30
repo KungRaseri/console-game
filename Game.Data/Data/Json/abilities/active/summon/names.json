@@ -2,24 +2,22 @@
   "metadata": {
     "description": "Pattern generation for summon abilities",
     "version": "4.0",
-    "lastUpdated": "2025-12-28",
+    "lastUpdated": "2025-12-30",
     "type": "pattern_generation",
     "supportsTraits": true,
+    "componentKeys": [],
+    "patternTokens": ["base"],
+    "totalPatterns": 1,
+    "raritySystem": "weight-based",
     "notes": [
       "Summon abilities create minions and pets",
       "Used by rangers, necromancers, and beastmasters",
-      "Includes permanent companions and temporary summons"
+      "Includes permanent companions and temporary summons",
+      "The {base} token references items from catalog.json"
     ]
   },
   "patterns": [
     {"pattern": "{base}", "rarityWeight": 100}
   ],
-  "components": {
-    "base": [
-      "animal-companion",
-      "summon-skeleton",
-      "raise-dead",
-      "army-of-the-dead"
-    ]
-  }
+  "components": {}
 }

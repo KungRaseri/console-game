@@ -362,12 +362,12 @@ public class JsonDataComplianceTests
         var json = JObject.Parse(File.ReadAllText(fullPath));
         var metadata = json["metadata"] as JObject;
 
-        // Assert - componentKeys is REQUIRED per v4.0 standard
+        // Assert - componentKeys is REQUIRED per v4.0 standard (can be empty array if no components)
         metadata.Should().NotBeNull($"{relativePath} missing metadata");
         metadata!["componentKeys"].Should().NotBeNull($"{relativePath} missing required field 'componentKeys'");
         var componentKeys = metadata["componentKeys"] as JArray;
         componentKeys.Should().NotBeNull($"{relativePath} componentKeys must be array");
-        componentKeys.Should().NotBeEmpty($"{relativePath} componentKeys array cannot be empty");
+        // Note: componentKeys CAN be empty array if components section is empty (e.g., only uses {base} token from catalog)
     }
 
     [Theory]
