@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Consumable item catalog with base stats and traits",
     "version": "4.0",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2025-12-30",
     "type": "item_catalog",
     "total_consumableTypes": 5,
     "total_consumables": 50,
@@ -14,7 +14,7 @@
       "Effect types: heal, buff, heal_overtime, cure_poison, restore, stat_boost, etc."
     ]
   },
-  "consumableTypes": {
+  "consumable_types": {
     "potions": {
       "traits": {
         "slot": "consumable",
