@@ -4,6 +4,7 @@ using System.Windows.Threading;
 using Serilog;
 using Serilog.Events;
 using Game.ContentBuilder.Services;
+using Game.Data.Services;
 
 namespace Game.ContentBuilder;
 
@@ -16,6 +17,14 @@ public partial class App : Application
     private static readonly string _logsDirectory = Path.Combine(
         AppDomain.CurrentDomain.BaseDirectory,
         "logs");
+    private static GameDataCache? _dataCache;
+
+    /// <summary>
+    /// Global access to the JSON data cache.
+    /// Loaded at startup and available to all ViewModels.
+    /// </summary>
+    public static GameDataCache DataCache => _dataCache 
+        ?? throw new InvalidOperationException("DataCache not initialized. Call LoadDataCache() during startup.");
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -54,6 +63,9 @@ public partial class App : Application
 
         // Setup global exception handlers
         SetupGlobalExceptionHandlers();
+
+        // Load all JSON data into memory
+        LoadDataCache();
 
         Log.Information("Application startup complete");
     }
@@ -120,6 +132,49 @@ public partial class App : Application
         TaskScheduler.UnobservedTaskException += OnUnobservedTaskException;
 
         Log.Information("Global exception handlers configured");
+    }
+
+    /// <summary>
+    /// Load all JSON data files into memory at startup
+    /// </summary>
+    private static void LoadDataCache()
+    {
+        try
+        {
+            Log.Information("Initializing GameDataCache...");
+
+            // Navigate from ContentBuilder bin folder to Game.Data/Data/Json
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory; // bin/Debug/net9.0-windows/
+            var solutionRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..")); // console-game/
+            var dataPath = Path.Combine(solutionRoot, "Game.Data", "Data", "Json");
+
+            if (!Directory.Exists(dataPath))
+            {
+                Log.Error("Data directory not found: {DataPath}", dataPath);
+                throw new DirectoryNotFoundException($"Data directory not found: {dataPath}");
+            }
+
+            Log.Information("Data directory located: {DataPath}", dataPath);
+
+            // Create and load cache
+            _dataCache = new GameDataCache(dataPath);
+            _dataCache.LoadAllData();
+
+            // Log statistics
+            var stats = _dataCache.GetStats();
+            Log.Information("GameDataCache loaded successfully:");
+            Log.Information("  - Total Files: {TotalFiles}", stats.TotalFiles);
+            Log.Information("  - Catalogs: {Catalogs}", stats.CatalogFiles);
+            Log.Information("  - Names: {Names}", stats.NamesFiles);
+            Log.Information("  - Configs: {Configs}", stats.ConfigFiles);
+            Log.Information("  - Component Data: {Components}", stats.ComponentFiles);
+            Log.Information("  - Domains: {Domains}", string.Join(", ", stats.Domains));
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Failed to initialize GameDataCache");
+            throw;
+        }
     }
 
     /// <summary>

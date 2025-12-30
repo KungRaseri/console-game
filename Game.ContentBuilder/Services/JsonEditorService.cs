@@ -2,26 +2,39 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
+using Game.Data.Services;
 
 namespace Game.ContentBuilder.Services;
 
 /// <summary>
-/// Service for loading and saving JSON data files with automatic backup
+/// Service for loading and saving JSON data files with automatic backup.
+/// Uses GameDataCache for fast in-memory reads when available.
 /// </summary>
 public class JsonEditorService
 {
     private readonly string _dataDirectory;
     private readonly string _backupDirectory;
+    private readonly GameDataCache? _dataCache;
 
-    public JsonEditorService(string dataDirectory)
+    public JsonEditorService(string dataDirectory, GameDataCache? dataCache = null)
     {
         _dataDirectory = dataDirectory;
         _backupDirectory = Path.Combine(dataDirectory, "backups");
+        _dataCache = dataCache;
 
         // Ensure backup directory exists
         if (!Directory.Exists(_backupDirectory))
         {
             Directory.CreateDirectory(_backupDirectory);
+        }
+
+        if (_dataCache != null)
+        {
+            Log.Information("JsonEditorService initialized with cache - fast in-memory reads enabled");
+        }
+        else
+        {
+            Log.Warning("JsonEditorService initialized without cache - using file I/O for reads");
         }
     }
 
@@ -57,7 +70,8 @@ public class JsonEditorService
     }
 
     /// <summary>
-    /// Loads JSON data as a JObject for dynamic editing
+    /// Loads JSON data as a JObject for dynamic editing.
+    /// Uses in-memory cache when available for instant loading.
     /// </summary>
     /// <param name="fileName">Name of the JSON file (e.g., "colors.json")</param>
     /// <returns>JObject or null if file doesn't exist</returns>
@@ -65,6 +79,20 @@ public class JsonEditorService
     {
         try
         {
+            // Try cache first for fast in-memory access
+            if (_dataCache != null)
+            {
+                var cachedFile = _dataCache.GetFile(fileName);
+                if (cachedFile != null)
+                {
+                    Log.Debug("✅ Loaded from cache: {FileName}", fileName);
+                    // Return a deep clone to prevent accidental mutations of cached data
+                    return (JObject)cachedFile.JsonData.DeepClone();
+                }
+                Log.Debug("⚠️ Cache miss: {FileName} - falling back to file I/O", fileName);
+            }
+
+            // Fallback to file I/O if cache unavailable or file not cached
             var filePath = Path.Combine(_dataDirectory, fileName);
 
             if (!File.Exists(filePath))

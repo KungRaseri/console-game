@@ -37,7 +37,7 @@ public partial class MainViewModel : ObservableObject
     {
         // Initialize services with path to Game.Shared Data directory
         var dataPath = GetDataDirectory();
-        _jsonEditorService = new JsonEditorService(dataPath);
+        _jsonEditorService = new JsonEditorService(dataPath, App.DataCache);
         _catalogTokenService = new CatalogTokenService(_jsonEditorService);
         _fileTreeService = new FileTreeService(dataPath);
 

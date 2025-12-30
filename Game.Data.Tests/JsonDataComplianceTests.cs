@@ -7,13 +7,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.Integration;
+namespace Game.Data.Tests;
 
 /// <summary>
 /// Comprehensive JSON data validation tests for ALL Game.Data files
 /// Tests catalog.json, names.json, .cbconfig.json, and component data files for v4.0/v4.1 compliance
 /// </summary>
-[Trait("Category", "Integration")]
+[Trait("Category", "DataValidation")]
 public class JsonDataComplianceTests
 {
     private readonly string _dataPath;
