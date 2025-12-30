@@ -20,12 +20,10 @@
     "totalPatterns": 8,
     "raritySystem": "weight-based",
     "notes": [
-      {
-        "base_token": "Resolves to item name from plants/catalog.json",
-        "plant_variety": "Includes carnivorous plants, treants, myconids, awakened plants",
-        "weight_ranges": "Young (5) → Primordial (80), Vine (5) → Primal (35)",
-        "traits": "Most plants vulnerable to fire, some rooted, some mobile"
-      },
+      "base_token: Resolves to item name from plants/catalog.json",
+      "plant_variety: Includes carnivorous plants, treants, myconids, awakened plants",
+      "weight_ranges: Young (5) → Primordial (80), Vine (5) → Primal (35)",
+      "traits: Most plants vulnerable to fire, some rooted, some mobile",
       "Upgraded to v4.0 with supportsTraits metadata"
     ],
     "supportsTraits": true

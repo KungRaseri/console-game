@@ -20,12 +20,10 @@
     "totalPatterns": 8,
     "raritySystem": "weight-based",
     "notes": [
-      {
-        "base_token": "Resolves to item name from trolls/catalog.json",
-        "troll_nature": "Large regenerating creatures with elemental variants",
-        "weight_ranges": "Young (10) → Ancient (70), Cave (12) → Volcanic (30)",
-        "regeneration": "All trolls have regeneration trait, vulnerable to fire"
-      },
+      "base_token: Resolves to item name from trolls/catalog.json",
+      "troll_nature: Large regenerating creatures with elemental variants",
+      "weight_ranges: Young (10) → Ancient (70), Cave (12) → Volcanic (30)",
+      "regeneration: All trolls have regeneration trait, vulnerable to fire",
       "Upgraded to v4.0 with supportsTraits metadata"
     ],
     "supportsTraits": true

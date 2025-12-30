@@ -20,11 +20,9 @@
     "totalPatterns": 8,
     "raritySystem": "weight-based",
     "notes": [
-      {
-        "base_token": "Resolves to item name from reptilians/catalog.json",
-        "reptilian_culture": "Includes kobolds (cowardly), lizardfolk (tribal), yuan-ti (cunning)",
-        "weight_ranges": "Young (3) → Elder (35), Green (5) → Prismatic (45)"
-      },
+      "base_token: Resolves to item name from reptilians/catalog.json",
+      "reptilian_culture: Includes kobolds (cowardly), lizardfolk (tribal), yuan-ti (cunning)",
+      "weight_ranges: Young (3) → Elder (35), Green (5) → Prismatic (45)",
       "Upgraded to v4.0 with supportsTraits metadata"
     ],
     "supportsTraits": true

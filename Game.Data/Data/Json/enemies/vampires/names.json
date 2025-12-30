@@ -20,12 +20,10 @@
     "totalPatterns": 8,
     "raritySystem": "weight-based",
     "notes": [
-      {
-        "base_token": "Resolves to item name from vampires/catalog.json",
-        "vampire_culture": "Aristocratic undead with bloodlines and nobility titles",
-        "weight_ranges": "Spawn (10) → Progenitor (100), Cursed (15) → Eternis (60)",
-        "traits": "All vampires are undead, vulnerable to radiant, have regeneration"
-      },
+      "base_token: Resolves to item name from vampires/catalog.json",
+      "vampire_culture: Aristocratic undead with bloodlines and nobility titles",
+      "weight_ranges: Spawn (10) → Progenitor (100), Cursed (15) → Eternis (60)",
+      "traits: All vampires are undead, vulnerable to radiant, have regeneration",
       "Upgraded to v4.0 with supportsTraits metadata"
     ],
     "usage": "Pattern-based name generation for vampires. Pick components by rarityWeight and apply patterns to generate procedural names.",

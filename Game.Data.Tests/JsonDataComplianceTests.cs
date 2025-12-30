@@ -196,6 +196,97 @@ public class JsonDataComplianceTests
         }
     }
 
+    [Theory]
+    [MemberData(nameof(GetAllCatalogFiles))]
+    public void Catalog_Description_Should_Not_Be_Empty(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var description = json["metadata"]?["description"]?.ToString();
+
+        // Assert
+        description.Should().NotBeNullOrWhiteSpace($"{relativePath} has empty description");
+        description!.Length.Should().BeGreaterThan(10, $"{relativePath} description too short");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllCatalogFiles))]
+    public void Catalog_Should_Have_Items_Or_Components(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var allItems = GetAllItemsFromCatalog(json);
+
+        // Assert - catalogs should have actual content
+        allItems.Should().NotBeEmpty($"{relativePath} has no items/components");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllCatalogFiles))]
+    public void Catalog_Item_Names_Should_Not_Be_Empty(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var allItems = GetAllItemsFromCatalog(json);
+
+        // Assert
+        foreach (var item in allItems)
+        {
+            var name = item["name"]?.ToString();
+            name.Should().NotBeNullOrWhiteSpace($"{relativePath} has item with empty name");
+            name!.Length.Should().BeGreaterThan(1, $"{relativePath} has single-char name");
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllCatalogFiles))]
+    public void Catalog_Should_Use_References_For_Abilities(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var allItems = GetAllItemsFromCatalog(json);
+
+        // Assert - v4.1 standard: abilities should use @references, not hardcoded strings
+        foreach (var item in allItems)
+        {
+            if (item["abilities"] is JArray abilities)
+            {
+                foreach (var ability in abilities)
+                {
+                    var abilityStr = ability.ToString();
+                    if (!string.IsNullOrWhiteSpace(abilityStr) && !abilityStr.StartsWith("@"))
+                    {
+                        Assert.Fail($"{relativePath} - Item '{item["name"]}' has hardcoded ability '{abilityStr}' instead of reference");
+                    }
+                }
+            }
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllCatalogFiles))]
+    public void Catalog_References_Should_Have_Valid_Syntax(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var jsonText = File.ReadAllText(fullPath);
+        var json = JObject.Parse(jsonText);
+
+        // Find all references in the JSON
+        var references = FindAllReferences(jsonText);
+
+        // Assert - all @ references should follow v4.1 syntax
+        foreach (var reference in references)
+        {
+            reference.Should().MatchRegex(@"^@[\w-]+/[\w-/]+:[\w-*\s]+(\?)?(\.\w+)*$", 
+                $"{relativePath} has invalid reference syntax: {reference}");
+        }
+    }
+
     #endregion
 
     #region Names.json Tests (v4.0 Pattern Generation)
@@ -303,6 +394,159 @@ public class JsonDataComplianceTests
         components.Should().NotBeNull($"{relativePath} missing components section");
     }
 
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Metadata_Notes_Should_Be_String_Array_Only(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var notes = json["metadata"]?["notes"] as JArray;
+
+        if (notes == null) return; // notes is optional
+
+        // Assert - v4.0 standard: notes must be array of strings ONLY, no objects
+        foreach (var note in notes)
+        {
+            note.Type.Should().Be(JTokenType.String, 
+                $"{relativePath} - metadata.notes contains non-string element: {note.Type}. Expected only strings.");
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Version_Should_Be_4_0(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var version = json["metadata"]?["version"]?.ToString();
+
+        // Assert
+        version.Should().Be("4.0", $"{relativePath} not using v4.0");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_LastUpdated_Should_Be_Valid_Date(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var dateStr = json["metadata"]?["lastUpdated"]?.ToString();
+
+        // Act
+        var isValid = DateTime.TryParse(dateStr, out var date);
+
+        // Assert
+        isValid.Should().BeTrue($"{relativePath} has invalid date: {dateStr}");
+        date.Should().BeOnOrBefore(DateTime.UtcNow, $"{relativePath} date in future");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Components_Should_Have_RarityWeight(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var components = json["components"] as JObject;
+
+        if (components == null) return;
+
+        // Assert - all component items must have rarityWeight
+        foreach (var componentGroup in components.Properties())
+        {
+            if (componentGroup.Value is JArray items)
+            {
+                foreach (var item in items.OfType<JObject>())
+                {
+                    item.Should().ContainKey("rarityWeight", 
+                        $"{relativePath} - Component '{componentGroup.Name}' item '{item["value"]}' missing rarityWeight");
+                    
+                    var weight = item["rarityWeight"]?.Value<int>();
+                    weight.Should().BeGreaterThan(0, 
+                        $"{relativePath} - Component '{componentGroup.Name}' item '{item["value"]}' has invalid rarityWeight");
+                }
+            }
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Components_Should_Have_Value(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var components = json["components"] as JObject;
+
+        if (components == null) return;
+
+        // Assert - all component items must have value
+        foreach (var componentGroup in components.Properties())
+        {
+            if (componentGroup.Value is JArray items)
+            {
+                foreach (var item in items.OfType<JObject>())
+                {
+                    item.Should().ContainKey("value", 
+                        $"{relativePath} - Component '{componentGroup.Name}' item missing 'value' field");
+                    
+                    var value = item["value"]?.ToString();
+                    value.Should().NotBeNullOrWhiteSpace(
+                        $"{relativePath} - Component '{componentGroup.Name}' has empty value");
+                }
+            }
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Patterns_Should_Have_Template_Or_Pattern_Field(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var patterns = json["patterns"] as JArray;
+
+        if (patterns == null) return;
+
+        // Assert - patterns can be strings OR objects with template/pattern field
+        foreach (var pattern in patterns)
+        {
+            if (pattern is JObject obj)
+            {
+                var hasTemplate = obj.ContainsKey("template");
+                var hasPattern = obj.ContainsKey("pattern");
+                
+                (hasTemplate || hasPattern).Should().BeTrue(
+                    $"{relativePath} - Pattern object missing both 'template' and 'pattern' fields");
+            }
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Should_Not_Use_Weight_Instead_Of_RarityWeight(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var patterns = json["patterns"] as JArray;
+
+        if (patterns == null) return;
+
+        // Assert - patterns should use rarityWeight, not weight
+        foreach (var pattern in patterns.OfType<JObject>())
+        {
+            if (pattern.ContainsKey("weight") && !pattern.ContainsKey("rarityWeight"))
+            {
+                Assert.Fail($"{relativePath} - Pattern uses 'weight' instead of 'rarityWeight'");
+            }
+        }
+    }
+
     #endregion
 
     #region .cbconfig.json Tests (ContentBuilder UI)
@@ -356,6 +600,41 @@ public class JsonDataComplianceTests
 
         // Assert
         parse.Should().NotThrow($"{relativePath} is not valid JSON");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllConfigFiles))]
+    public void Config_Icon_Should_Not_Be_Emoji(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var icon = json["icon"]?.ToString();
+
+        // Assert - should use MaterialDesign icon names, not emojis
+        if (!string.IsNullOrEmpty(icon))
+        {
+            // Check for common emoji patterns (Unicode ranges)
+            var hasEmoji = icon.Any(c => c >= 0x1F300 && c <= 0x1F9FF);
+            hasEmoji.Should().BeFalse($"{relativePath} uses emoji instead of MaterialDesign icon");
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllConfigFiles))]
+    public void Config_SortOrder_Should_Be_Positive(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var sortOrder = json["sortOrder"]?.Value<int>();
+
+        // Assert
+        if (sortOrder.HasValue)
+        {
+            sortOrder.Value.Should().BeGreaterThanOrEqualTo(0, 
+                $"{relativePath} has negative sortOrder");
+        }
     }
 
     #endregion
@@ -644,6 +923,20 @@ public class JsonDataComplianceTests
         }
 
         return items;
+    }
+
+    private List<string> FindAllReferences(string jsonText)
+    {
+        var references = new List<string>();
+        var regex = new System.Text.RegularExpressions.Regex(@"@[\w-]+/[\w-/]+:[\w-*\s]+(\?)?(\.\w+)*");
+        var matches = regex.Matches(jsonText);
+        
+        foreach (System.Text.RegularExpressions.Match match in matches)
+        {
+            references.Add(match.Value);
+        }
+        
+        return references;
     }
 
     #endregion
