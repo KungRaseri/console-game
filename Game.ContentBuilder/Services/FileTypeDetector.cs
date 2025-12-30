@@ -31,6 +31,10 @@ public static class FileTypeDetector
             var json = File.ReadAllText(filePath);
             var root = JObject.Parse(json);
 
+            // Check for .cbconfig.json files
+            if (fileName == ".cbconfig.json")
+                return JsonFileType.ConfigFile;
+
             // Check for abilities domain files (new architecture)
             if (normalizedPath.Contains("/abilities/"))
             {
@@ -53,6 +57,13 @@ public static class FileTypeDetector
                     return JsonFileType.QuestCatalog;  // Planned v4.0
 
                 return JsonFileType.GenericCatalog;
+            }
+
+            // Check for component/data files (everything else that's not catalog or names)
+            // These are files like: colors.json, traits.json, objectives.json, rewards.json, etc.
+            if (fileName.EndsWith(".json") && !fileName.Contains("catalog") && !fileName.Contains("names"))
+            {
+                return JsonFileType.ComponentData;
             }
 
             switch (fileName)
@@ -90,6 +101,8 @@ public static class FileTypeDetector
             // Active v4.0 Editors
             JsonFileType.NamesFile => EditorType.NameListEditor,
             JsonFileType.GenericCatalog => EditorType.CatalogEditor,
+            JsonFileType.ComponentData => EditorType.ComponentDataEditor,
+            JsonFileType.ConfigFile => EditorType.ConfigEditor,
 
             // Planned v4.0 Editors (not implemented yet)
             JsonFileType.QuestCatalog => EditorType.QuestEditor,
@@ -150,6 +163,8 @@ public enum JsonFileType
     NamesFile,          // names.json - pattern generation files
     AbilityCatalog,     // abilities.json - ability catalog files
     GenericCatalog,     // Generic catalogs (occupations, traits, dialogue, items, etc.)
+    ComponentData,      // Component/data files (colors.json, traits.json, objectives.json, etc.)
+    ConfigFile,         // .cbconfig.json - folder configuration files
 
     // Planned v4.0 File Types
     QuestCatalog,       // Quest catalog.json (v4.0: templates + locations)

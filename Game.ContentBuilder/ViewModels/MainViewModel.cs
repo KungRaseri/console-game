@@ -89,6 +89,12 @@ public partial class MainViewModel : ObservableObject
                 case EditorType.CatalogEditor:
                     LoadCatalogEditor(value.Tag?.ToString() ?? string.Empty);
                     break;
+                case EditorType.ComponentDataEditor:
+                    LoadComponentDataEditor(value.Tag?.ToString() ?? string.Empty);
+                    break;
+                case EditorType.ConfigEditor:
+                    LoadConfigEditor(value.Tag?.ToString() ?? string.Empty);
+                    break;
                 default:
                     CurrentEditor = null;
                     break;
@@ -144,6 +150,56 @@ public partial class MainViewModel : ObservableObject
         {
             StatusMessage = $"Failed to load types editor: {ex.Message}";
             Log.Error(ex, "Failed to load CatalogEditor for {FileName}", fileName);
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadComponentDataEditor(string fileName)
+    {
+        try
+        {
+            Log.Debug("Loading ComponentDataEditor for {FileName}", fileName);
+
+            var viewModel = new ComponentDataEditorViewModel(_jsonEditorService, fileName);
+
+            var view = new ComponentDataEditorView
+            {
+                DataContext = viewModel
+            };
+
+            CurrentEditor = view;
+            StatusMessage = $"Loaded component editor for {fileName}";
+            Log.Information("ComponentDataEditor loaded successfully for {FileName}", fileName);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load component editor: {ex.Message}";
+            Log.Error(ex, "Failed to load ComponentDataEditor for {FileName}", fileName);
+            CurrentEditor = null;
+        }
+    }
+
+    private void LoadConfigEditor(string fileName)
+    {
+        try
+        {
+            Log.Debug("Loading ConfigEditor for {FileName}", fileName);
+
+            var viewModel = new ConfigEditorViewModel(_jsonEditorService, fileName);
+
+            var view = new ConfigEditorView
+            {
+                DataContext = viewModel
+            };
+
+            CurrentEditor = view;
+            StatusMessage = $"Loaded config editor for {fileName}";
+            Log.Information("ConfigEditor loaded successfully for {FileName}", fileName);
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = $"Failed to load config editor: {ex.Message}";
+            Log.Error(ex, "Failed to load ConfigEditor for {FileName}", fileName);
             CurrentEditor = null;
         }
     }

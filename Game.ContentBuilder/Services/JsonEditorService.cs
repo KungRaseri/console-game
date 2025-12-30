@@ -1,5 +1,6 @@
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Serilog;
 
 namespace Game.ContentBuilder.Services;
@@ -56,6 +57,36 @@ public class JsonEditorService
     }
 
     /// <summary>
+    /// Loads JSON data as a JObject for dynamic editing
+    /// </summary>
+    /// <param name="fileName">Name of the JSON file (e.g., "colors.json")</param>
+    /// <returns>JObject or null if file doesn't exist</returns>
+    public JObject? LoadJObject(string fileName)
+    {
+        try
+        {
+            var filePath = Path.Combine(_dataDirectory, fileName);
+
+            if (!File.Exists(filePath))
+            {
+                Log.Warning("JSON file not found: {FilePath}", filePath);
+                return null;
+            }
+
+            var json = File.ReadAllText(filePath);
+            var data = JObject.Parse(json);
+
+            Log.Information("Loaded JSON file as JObject: {FileName}", fileName);
+            return data;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to load JSON file as JObject: {FileName}", fileName);
+            throw new InvalidOperationException($"Failed to load {fileName}: {ex.Message}", ex);
+        }
+    }
+
+    /// <summary>
     /// Saves data to a JSON file with automatic backup of the existing file
     /// </summary>
     /// <typeparam name="T">Type to serialize</typeparam>
@@ -82,6 +113,36 @@ public class JsonEditorService
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to save JSON file: {FileName}", fileName);
+            throw new InvalidOperationException($"Failed to save {fileName}: {ex.Message}", ex);
+        }
+    }
+
+    /// <summary>
+    /// Saves a JObject to a JSON file with automatic backup
+    /// </summary>
+    /// <param name="fileName">Name of the JSON file (e.g., "colors.json")</param>
+    /// <param name="data">JObject to save</param>
+    public void SaveJObject(string fileName, JObject data)
+    {
+        try
+        {
+            var filePath = Path.Combine(_dataDirectory, fileName);
+
+            // Create backup if file exists
+            if (File.Exists(filePath))
+            {
+                CreateBackup(fileName);
+            }
+
+            // Serialize with formatting for readability
+            var json = data.ToString(Formatting.Indented);
+            File.WriteAllText(filePath, json);
+
+            Log.Information("Saved JObject to file: {FileName}", fileName);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to save JObject to file: {FileName}", fileName);
             throw new InvalidOperationException($"Failed to save {fileName}: {ex.Message}", ex);
         }
     }

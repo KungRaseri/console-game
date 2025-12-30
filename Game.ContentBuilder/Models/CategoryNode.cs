@@ -58,6 +58,8 @@ public enum EditorType
     // Active Editors (v4.0)
     NameListEditor,        // names.json: metadata + components + patterns + name generation
     CatalogEditor,         // catalog.json: item types (weapons, armor, etc.) with categories
+    ComponentDataEditor,   // Component/data files: colors.json, traits.json, objectives.json, etc.
+    ConfigEditor,          // .cbconfig.json: folder configuration files
 
     // Future Editors (Planned for v4.0)
     QuestEditor,           // quests/catalog.json: quest templates, objectives, rewards
