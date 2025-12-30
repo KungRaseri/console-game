@@ -113,7 +113,7 @@ Game.Data/Data/Json/
     "usage": "Base catalog of weapons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
     "notes": [
       "Base items used in pattern generation with names.json",
-      "Each weapon has damage, weight, value, rarity, and rarityWeight",
+      "Each weapon has damage, weight, value, and rarityWeight",
       "Type-level traits (damageType, slot, category) apply to all items in that weapon type"
     ]
   }
@@ -679,6 +679,84 @@ If an item defines a property that exists in type traits, **item-level wins**:
   "valueMultiplier": 1.3     // From quality component trait
 }
 ```
+
+---
+
+## v4.1 Reference System
+
+### Referencing Catalog Items
+
+Catalog items can be referenced from other JSON files using the v4.1 reference syntax:
+
+**Syntax:** `@domain/path/category:item-name[filters]?.property.nested`
+
+### Reference Examples
+
+**Specific Item Reference:**
+```json
+{
+  "parentClass": "@classes/warriors:fighter",
+  "weapon": "@items/weapons/swords:longsword",
+  "ability": "@abilities/active/offensive:fireball"
+}
+```
+
+**Random Selection (Wildcard):**
+```json
+{
+  "randomWeapon": "@items/weapons/swords:*",
+  "randomEnemy": "@enemies/goblinoids:*",
+  "randomAbility": "@abilities/passive/defensive:*"
+}
+```
+*Wildcard `:*` selects random item using rarityWeight-based probability*
+
+**Property Access:**
+```json
+{
+  "weaponDamage": "@items/weapons/swords:longsword.damage",
+  "className": "@classes/warriors:fighter.name",
+  "abilityPower": "@abilities/active/offensive:fireball.power"
+}
+```
+
+**Optional References (Nullable):**
+```json
+{
+  "optionalParent": "@classes/warriors:paladin?",
+  "optionalWeapon": "@items/weapons/exotic:whip?"
+}
+```
+*The `?` suffix returns null instead of error if item not found*
+
+### Reference Filters
+
+**Filter by Property:**
+```json
+{
+  "heavyWeapon": "@items/weapons/swords:*[weight>5]",
+  "rareItems": "@items/weapons:*[rarityWeight>=50]",
+  "fireAbilities": "@abilities/active/offensive:*[element=fire]"
+}
+```
+
+**Supported Operators:**
+- `=`, `!=` - Equality
+- `<`, `<=`, `>`, `>=` - Comparison
+- `EXISTS`, `NOT EXISTS` - Property existence
+- `MATCHES` - Regex pattern matching
+
+### Benefits of References
+
+✅ **Eliminates Duplication** - Define once, reference many times  
+✅ **Type Safety** - ContentBuilder validates references at design time  
+✅ **Auto-Updates** - Changes to source catalog propagate automatically  
+✅ **Maintainability** - Single source of truth for all game data  
+
+### Reference Documentation
+
+For complete reference system documentation, see:  
+**[docs/standards/json/JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md)**
 
 ---
 

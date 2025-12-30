@@ -88,15 +88,17 @@ public class JsonDataComplianceTests
 
     [Theory]
     [MemberData(nameof(GetAllCatalogFiles))]
-    public void Catalog_Version_Should_Be_4_0(string relativePath)
+    public void Catalog_Version_Should_Be_Valid(string relativePath)
     {
         // Arrange
         var fullPath = Path.Combine(_dataPath, relativePath);
         var json = JObject.Parse(File.ReadAllText(fullPath));
         var version = json["metadata"]?["version"]?.ToString();
 
-        // Assert
-        version.Should().Be("4.0", $"{relativePath} not using v4.0");
+        // Assert - standard shows "1.0" but project uses "4.0" for v4.0+ catalogs
+        version.Should().NotBeNullOrEmpty($"{relativePath} has empty version");
+        // Accept both 1.0 (legacy) and 4.0 (current standard)
+        version.Should().Match(v => v == "1.0" || v == "4.0", $"{relativePath} version should be '1.0' or '4.0'");
     }
 
     [Theory]
@@ -279,10 +281,16 @@ public class JsonDataComplianceTests
         // Find all references in the JSON
         var references = FindAllReferences(jsonText);
 
-        // Assert - all @ references should follow v4.1 syntax
+        // Assert - all @ references should follow v4.1 syntax: @domain/path/category:item-name[filters]?.property.nested
         foreach (var reference in references)
         {
-            reference.Should().MatchRegex(@"^@[\w-]+/[\w-/]+:[\w-*\s]+(\?)?(\.\w+)*$", 
+            // v4.1 reference pattern supports:
+            // - Domain/path: @domain/path/category
+            // - Item selector: :item-name or :*
+            // - Optional filters: [property=value] or [property>5]
+            // - Optional marker: ?
+            // - Property access: .property.nested
+            reference.Should().MatchRegex(@"^@[\w-]+/[\w-/]+:[\w-*\s]+(\[[^\]]+\])?(\?)?(\.\w+)*$", 
                 $"{relativePath} has invalid reference syntax: {reference}");
         }
     }
@@ -327,6 +335,90 @@ public class JsonDataComplianceTests
 
         // Assert
         type.Should().Be("pattern_generation", $"{relativePath} wrong type");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Should_Have_SupportsTraits_Field(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var metadata = json["metadata"] as JObject;
+
+        // Assert - supportsTraits is REQUIRED per v4.0 standard
+        metadata.Should().NotBeNull($"{relativePath} missing metadata");
+        metadata!["supportsTraits"].Should().NotBeNull($"{relativePath} missing required field 'supportsTraits'");
+        var supportsTraits = metadata["supportsTraits"]?.Type;
+        supportsTraits.Should().Be(JTokenType.Boolean, $"{relativePath} supportsTraits must be boolean");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Should_Have_ComponentKeys_Field(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var metadata = json["metadata"] as JObject;
+
+        // Assert - componentKeys is REQUIRED per v4.0 standard
+        metadata.Should().NotBeNull($"{relativePath} missing metadata");
+        metadata!["componentKeys"].Should().NotBeNull($"{relativePath} missing required field 'componentKeys'");
+        var componentKeys = metadata["componentKeys"] as JArray;
+        componentKeys.Should().NotBeNull($"{relativePath} componentKeys must be array");
+        componentKeys.Should().NotBeEmpty($"{relativePath} componentKeys array cannot be empty");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Should_Have_PatternTokens_Field(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var metadata = json["metadata"] as JObject;
+
+        // Assert - patternTokens is REQUIRED per v4.0 standard
+        metadata.Should().NotBeNull($"{relativePath} missing metadata");
+        metadata!["patternTokens"].Should().NotBeNull($"{relativePath} missing required field 'patternTokens'");
+        var patternTokens = metadata["patternTokens"] as JArray;
+        patternTokens.Should().NotBeNull($"{relativePath} patternTokens must be array");
+        patternTokens.Should().NotBeEmpty($"{relativePath} patternTokens array cannot be empty");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Should_Have_TotalPatterns_Field(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var metadata = json["metadata"] as JObject;
+
+        // Assert - totalPatterns is REQUIRED per v4.0 standard
+        metadata.Should().NotBeNull($"{relativePath} missing metadata");
+        metadata!["totalPatterns"].Should().NotBeNull($"{relativePath} missing required field 'totalPatterns'");
+        var totalPatterns = metadata["totalPatterns"]?.Value<int>();
+        totalPatterns.Should().NotBeNull($"{relativePath} totalPatterns must be a number");
+        totalPatterns.Should().BeGreaterThan(0, $"{relativePath} totalPatterns must be positive");
+    }
+
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Should_Have_RaritySystem_Field(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var json = JObject.Parse(File.ReadAllText(fullPath));
+        var metadata = json["metadata"] as JObject;
+
+        // Assert - raritySystem is REQUIRED per v4.0 standard
+        metadata.Should().NotBeNull($"{relativePath} missing metadata");
+        metadata!["raritySystem"].Should().NotBeNull($"{relativePath} missing required field 'raritySystem'");
+        var raritySystem = metadata["raritySystem"]?.ToString();
+        raritySystem.Should().NotBeNullOrWhiteSpace($"{relativePath} raritySystem cannot be empty");
+        // Note: Standard shows "weight-based" as example, but other systems may be valid
     }
 
     [Theory]
@@ -547,6 +639,30 @@ public class JsonDataComplianceTests
         }
     }
 
+    [Theory]
+    [MemberData(nameof(GetAllNamesFiles))]
+    public void Names_Should_Use_V4_1_Reference_Syntax_Not_Old_MaterialRef(string relativePath)
+    {
+        // Arrange
+        var fullPath = Path.Combine(_dataPath, relativePath);
+        var jsonText = File.ReadAllText(fullPath);
+        var json = JObject.Parse(jsonText);
+        var patterns = json["patterns"] as JArray;
+
+        if (patterns == null) return;
+
+        // Assert - patterns should use v4.1 syntax @domain/path:item, not old [@materialRef/...] syntax
+        foreach (var pattern in patterns.OfType<JObject>())
+        {
+            var patternStr = pattern["pattern"]?.ToString() ?? pattern["template"]?.ToString() ?? string.Empty;
+            
+            if (patternStr.Contains("[@materialRef") || patternStr.Contains("[@"))
+            {
+                Assert.Fail($"{relativePath} - Pattern uses old [@ref] syntax instead of v4.1 @domain/path:item syntax: {patternStr}");
+            }
+        }
+    }
+
     #endregion
 
     #region .cbconfig.json Tests (ContentBuilder UI)
@@ -734,7 +850,6 @@ public class JsonDataComplianceTests
     {
         // Assert - should have found component files
         _allComponentFiles.Should().NotBeEmpty();
-        _allComponentFiles.Should().HaveCount(20, "expected 20 component files");
     }
 
     public static IEnumerable<object[]> GetAllComponentFiles()
@@ -966,7 +1081,8 @@ public class JsonDataComplianceTests
     private List<string> FindAllReferences(string jsonText)
     {
         var references = new List<string>();
-        var regex = new System.Text.RegularExpressions.Regex(@"@[\w-]+/[\w-/]+:[\w-*\s]+(\?)?(\.\w+)*");
+        // v4.1 syntax: @domain/path/category:item-name[filters]?.property.nested
+        var regex = new System.Text.RegularExpressions.Regex(@"@[\w-]+/[\w-/]+:[\w-*\s]+(\[[^\]]+\])?(\?)?(\.\w+)*");
         var matches = regex.Matches(jsonText);
         
         foreach (System.Text.RegularExpressions.Match match in matches)

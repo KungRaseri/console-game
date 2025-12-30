@@ -135,7 +135,7 @@ Game.Data/Data/Json/
     "raritySystem": "weight-based",
     "notes": [
       "Base token resolves from items/weapons/catalog.json",
-      "Material references (@materialRef/weapon) dynamically load from materials/catalog.json",
+      "References use v4.1 syntax: @items/materials/metals:steel (not old [@materialRef] syntax)",
       "Traits are applied when components are selected in patterns",
       "Trait merging: numbers take highest, strings take last, booleans use OR",
       "Emergent rarity calculated from combined component weights"
@@ -360,17 +360,20 @@ Patterns are templates that combine tokens:
 {base}         → "Longsword" (from weapons/catalog.json)
 ```
 
-**External References:** Pull from other catalog files (use square brackets)
+**External References (v4.1 Syntax):** Pull from other catalog files using reference syntax
 ```
-[@materialRef/weapon]  → "Iron" (from materials/catalog.json, filtered by weapon-compatible materials)
-[@materialRef/armor]   → "Leather" (from materials/catalog.json, filtered by armor-compatible materials)
+@items/materials/metals:steel  → "Steel" (from materials/catalog.json)
+@items/materials/metals:*      → Random metal (rarityWeight-based selection)
+@abilities/active/offensive:*  → Random offensive ability
 ```
 
 **Reference Syntax Rules:**
 - **Internal components** use `{token}` - defined in same file's components section
-- **External references** use `[@ref/type]` - pull from other catalog files
-- References always use square brackets `[]` with `@` prefix
-- The `/type` suffix filters materials by compatibility (weapon, armor, etc.)
+- **External references** use `@domain/path/category:item-name` - pull from other catalog files
+- References use `@` prefix with domain/path navigation
+- Use `:*` for random selection based on rarityWeight
+- Use `:item-name` to reference specific items
+- Optional `?` suffix for nullable references (returns null instead of error)
 
 ### Pattern Examples
 
@@ -386,7 +389,7 @@ Patterns are templates that combine tokens:
       "rarityWeight": 40
     },
     {
-      "pattern": "[@materialRef/weapon] {base}",
+      "pattern": "@items/materials/metals:* {base}",
       "rarityWeight": 50
     },
     {
@@ -402,11 +405,11 @@ Patterns are templates that combine tokens:
       "rarityWeight": 30
     },
     {
-      "pattern": "{quality} [@materialRef/weapon] {base}",
+      "pattern": "{quality} @items/materials/metals:* {base}",
       "rarityWeight": 15
     },
     {
-      "pattern": "{prefix} [@materialRef/weapon] {base} {suffix}",
+      "pattern": "{prefix} @items/materials/metals:* {base} {suffix}",
       "rarityWeight": 3
     }
   ]
@@ -416,12 +419,83 @@ Patterns are templates that combine tokens:
 **Generated Names:**
 - "Longsword" (base only)
 - "Fine Longsword" (quality + base)
-- "Iron Longsword" (material reference + base)
+- "Steel Longsword" (material reference + base)
 - "Sharp Longsword" (prefix + base)
 - "Ancient Longsword" (descriptive + base)
 - "Longsword of Fire" (base + suffix)
-- "Fine Iron Longsword" (quality + material + base)
-- "Sharp Iron Longsword of Fire" (prefix + material + base + suffix)
+- "Fine Steel Longsword" (quality + material + base)
+- "Sharp Steel Longsword of Fire" (prefix + material + base + suffix)
+
+---
+
+## v4.1 Reference System in Patterns
+
+### Using References in Pattern Generation
+
+Patterns can include v4.1 references to pull data from other catalog files at generation time.
+
+**Syntax:** `@domain/path/category:item-name[filters]?.property`
+
+### Reference Use Cases
+
+**Material References:**
+```json
+{
+  "pattern": "@items/materials/metals:* {base}",
+  "rarityWeight": 50
+}
+```
+Generates: "Steel Longsword", "Iron Dagger", "Mithril Axe"
+
+**Ability Injection:**
+```json
+{
+  "pattern": "{base} of @abilities/active/offensive:*.name",
+  "rarityWeight": 30
+}
+```
+Generates: "Sword of Fireball", "Staff of Lightning Bolt"
+
+**Enemy Variant Generation:**
+```json
+{
+  "pattern": "@world/regions:* {base}",
+  "rarityWeight": 40
+}
+```
+Generates: "Mountain Troll", "Swamp Troll", "Forest Troll"
+
+### Reference Filters in Patterns
+
+**Filter by Property:**
+```json
+{
+  "pattern": "@items/materials/metals:*[rarityWeight>=50] {base}",
+  "rarityWeight": 20
+}
+```
+Only selects rare metals (rarityWeight ≥ 50)
+
+**Filter by Type:**
+```json
+{
+  "pattern": "@items/materials:*[type=metal,weight<10] {base}",
+  "rarityWeight": 30
+}
+```
+Only lightweight metals
+
+### Benefits
+
+✅ **Dynamic Content** - Materials/abilities change without updating patterns  
+✅ **Consistency** - Same material properties across all items  
+✅ **Filtering** - Target specific subsets (rare, heavy, magical)  
+✅ **Cross-Domain** - Pull from any catalog (items, abilities, world, etc.)
+
+### Reference Documentation
+
+For complete reference system documentation, see:  
+**[docs/standards/json/JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md)**
 
 ---
 
@@ -463,17 +537,17 @@ Patterns are templates that combine tokens:
   "patterns": [
     {"pattern": "{base}", "rarityWeight": 100},
     {"pattern": "{quality} {base}", "rarityWeight": 40},
-    {"pattern": "[@materialRef/weapon] {base}", "rarityWeight": 50}
+    {"pattern": "@items/materials/metals:* {base}", "rarityWeight": 50}
   ]
 }
 ```
 
-**Note:** `patternTokens` includes `base` but NOT external references like `[@materialRef/weapon]` since those are dynamic lookups, not fixed tokens.
+**Note:** `patternTokens` includes `base` but NOT external references like `@items/materials/metals:*` since those are dynamic lookups, not fixed tokens.
 
 **Key Difference:**
 - `componentKeys` = ONLY groups in components section
 - `patternTokens` = ALL tokens patterns can reference (includes `base` from catalog)
-- External references (`[@ref/type]`) are NOT listed in either - they're runtime lookups
+- External references (v4.1 `@domain/path:item`) are NOT listed in either - they're runtime lookups
 
 ---
 
@@ -589,8 +663,8 @@ These work across ALL domains (items, enemies):
 ```
 
 **RIGHT:**
-- `material` resolves from `materials/catalog.json`
-- Use `{material}` or `@materialRef` token in patterns
+- `material` resolves from `materials/catalog.json` via references
+- Use v4.1 reference syntax in patterns: `@items/materials/metals:*` or `@items/materials/metals:steel`
 
 ### ❌ Don't Use "weight" Instead of "rarityWeight"
 
