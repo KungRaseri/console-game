@@ -85,35 +85,70 @@ public partial class ConfigEditorViewModel : ObservableObject
 
     private void UpdateRawJsonPreview()
     {
-        if (_jsonData != null)
+        // Rebuild preview from current property values to reflect unsaved changes
+        var preview = new JObject
         {
-            RawJsonPreview = _jsonData.ToString(Newtonsoft.Json.Formatting.Indented);
+            ["displayName"] = DisplayName,
+            ["icon"] = Icon,
+            ["sortOrder"] = SortOrder
+        };
+
+        if (!string.IsNullOrWhiteSpace(Description))
+        {
+            preview["description"] = Description;
         }
+
+        if (!string.IsNullOrWhiteSpace(DefaultFileIcon))
+        {
+            preview["defaultFileIcon"] = DefaultFileIcon;
+        }
+
+        RawJsonPreview = preview.ToString(Newtonsoft.Json.Formatting.Indented);
     }
 
     partial void OnDisplayNameChanged(string value)
     {
-        IsDirty = true;
+        if (_jsonData != null) // Only mark dirty after initial load
+        {
+            IsDirty = true;
+            UpdateRawJsonPreview();
+        }
     }
 
     partial void OnIconChanged(string value)
     {
-        IsDirty = true;
+        if (_jsonData != null)
+        {
+            IsDirty = true;
+            UpdateRawJsonPreview();
+        }
     }
 
     partial void OnSortOrderChanged(int value)
     {
-        IsDirty = true;
+        if (_jsonData != null)
+        {
+            IsDirty = true;
+            UpdateRawJsonPreview();
+        }
     }
 
     partial void OnDescriptionChanged(string value)
     {
-        IsDirty = true;
+        if (_jsonData != null)
+        {
+            IsDirty = true;
+            UpdateRawJsonPreview();
+        }
     }
 
     partial void OnDefaultFileIconChanged(string value)
     {
-        IsDirty = true;
+        if (_jsonData != null)
+        {
+            IsDirty = true;
+            UpdateRawJsonPreview();
+        }
     }
 
     [RelayCommand]

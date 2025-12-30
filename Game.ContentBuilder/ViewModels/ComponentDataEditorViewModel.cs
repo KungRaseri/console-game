@@ -66,7 +66,26 @@ public partial class ComponentDataEditorViewModel : ObservableObject
                 }
             }
             OnPropertyChanged(nameof(MetadataNotesText));
+            IsDirty = true;
         }
+    }
+
+    partial void OnMetadataVersionChanged(string value)
+    {
+        if (_jsonData != null) // Only mark dirty after initial load
+            IsDirty = true;
+    }
+
+    partial void OnMetadataTypeChanged(string value)
+    {
+        if (_jsonData != null)
+            IsDirty = true;
+    }
+
+    partial void OnMetadataDescriptionChanged(string value)
+    {
+        if (_jsonData != null)
+            IsDirty = true;
     }
 
     public ComponentDataEditorViewModel(JsonEditorService jsonEditorService, string fileName)
@@ -183,24 +202,95 @@ public partial class ComponentDataEditorViewModel : ObservableObject
 
     private void UpdateRawJsonPreview()
     {
-        if (_jsonData != null)
+        // Rebuild preview from current data to reflect unsaved changes
+        var preview = new JObject();
+        
+        if (HasMetadata)
         {
-            RawJsonPreview = _jsonData.ToString(Newtonsoft.Json.Formatting.Indented);
+            var metadata = new JObject
+            {
+                ["version"] = MetadataVersion,
+                ["type"] = MetadataType,
+                ["description"] = MetadataDescription
+            };
+            
+            if (MetadataNotes.Any())
+            {
+                metadata["notes"] = new JArray(MetadataNotes);
+            }
+            
+            preview["metadata"] = metadata;
         }
+        
+        // Rebuild data section from Items
+        var dataSection = new JObject();
+        foreach (var item in Items)
+        {
+            try
+            {
+                var token = JToken.Parse(item.Value);
+                dataSection[item.Key] = token;
+            }
+            catch
+            {
+                dataSection[item.Key] = item.Value;
+            }
+        }
+        
+        // Add data section to preview
+        if (_jsonData?["components"] != null)
+        {
+            preview["components"] = dataSection;
+        }
+        else if (_jsonData?["settings"] != null)
+        {
+            preview["settings"] = dataSection;
+        }
+        else
+        {
+            // Merge into root
+            foreach (var prop in dataSection.Properties())
+            {
+                preview[prop.Name] = prop.Value;
+            }
+        }
+        
+        RawJsonPreview = preview.ToString(Newtonsoft.Json.Formatting.Indented);
     }
 
     [RelayCommand]
     private void AddItem()
     {
+        // Generate unique key
+        int maxNum = 0;
+        foreach (var item in Items)
+        {
+            if (item.Key.StartsWith("newKey"))
+            {
+                var numPart = item.Key.Substring(6); // After "newKey"
+                if (int.TryParse(numPart, out int num))
+                {
+                    maxNum = Math.Max(maxNum, num);
+                }
+            }
+            else if (item.Key == "newKey")
+            {
+                maxNum = Math.Max(maxNum, 0);
+            }
+        }
+        
+        string newKey = maxNum == 0 ? "newKey" : $"newKey{maxNum + 1}";
+        
         var newItem = new ComponentItem
         {
-            Key = "new_item",
+            Key = newKey,
             Value = "{}",
             JsonToken = new JObject()
         };
         Items.Add(newItem);
         SelectedItem = newItem;
         IsDirty = true;
+        UpdateRawJsonPreview();
         StatusMessage = "Added new item";
     }
 
@@ -209,9 +299,11 @@ public partial class ComponentDataEditorViewModel : ObservableObject
     {
         if (SelectedItem != null)
         {
+            var key = SelectedItem.Key;
             Items.Remove(SelectedItem);
             IsDirty = true;
-            StatusMessage = $"Deleted item: {SelectedItem.Key}";
+            UpdateRawJsonPreview();
+            StatusMessage = $"Deleted item: {key}";
         }
     }
 
@@ -245,9 +337,22 @@ public partial class ComponentDataEditorViewModel : ObservableObject
             // Reconstruct the full JSON
             var newRoot = new JObject();
             
-            if (HasMetadata && _jsonData["metadata"] != null)
+            if (HasMetadata)
             {
-                newRoot["metadata"] = _jsonData["metadata"];
+                // Build metadata from current property values
+                var metadata = new JObject
+                {
+                    ["version"] = MetadataVersion,
+                    ["type"] = MetadataType,
+                    ["description"] = MetadataDescription
+                };
+                
+                if (MetadataNotes.Any())
+                {
+                    metadata["notes"] = new JArray(MetadataNotes);
+                }
+                
+                newRoot["metadata"] = metadata;
             }
 
             // Determine where to put the data
