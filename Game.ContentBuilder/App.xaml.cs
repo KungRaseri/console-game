@@ -23,7 +23,7 @@ public partial class App : Application
     /// Global access to the JSON data cache.
     /// Loaded at startup and available to all ViewModels.
     /// </summary>
-    public static GameDataCache DataCache => _dataCache 
+    public static GameDataCache DataCache => _dataCache
         ?? throw new InvalidOperationException("DataCache not initialized. Call LoadDataCache() during startup.");
 
     protected override void OnStartup(StartupEventArgs e)
@@ -78,6 +78,12 @@ public partial class App : Application
         Log.Information("Application Exiting - Exit Code: {ExitCode}, Duration: {Duration}",
             e.ApplicationExitCode,
             duration.ToString(@"hh\:mm\:ss"));
+
+        // Log cache performance statistics before exit
+        if (_dataCache != null)
+        {
+            _dataCache.LogPerformanceStats();
+        }
 
         // Flush and close Serilog
         Log.CloseAndFlush();
@@ -159,6 +165,7 @@ public partial class App : Application
             // Create and load cache
             _dataCache = new GameDataCache(dataPath);
             _dataCache.LoadAllData();
+            _dataCache.EnableHotReload(); // Enable file watching for development
 
             // Log statistics
             var stats = _dataCache.GetStats();

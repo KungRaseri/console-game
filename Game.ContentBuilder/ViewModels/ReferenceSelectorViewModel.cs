@@ -85,7 +85,7 @@ public partial class ReferenceSelectorViewModel : ObservableObject
         }
 
         _dataRootPath = dataPath;
-        _referenceResolver = new ReferenceResolverService(_dataRootPath);
+        _referenceResolver = new ReferenceResolverService(_dataRootPath, App.DataCache);
 
         MainWindow.AddLog($"ReferenceSelectorViewModel initialized with path: {_dataRootPath}");
 

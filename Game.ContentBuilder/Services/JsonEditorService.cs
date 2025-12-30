@@ -79,17 +79,20 @@ public class JsonEditorService
     {
         try
         {
+            var startTime = DateTime.Now;
+            
             // Try cache first for fast in-memory access
             if (_dataCache != null)
             {
                 var cachedFile = _dataCache.GetFile(fileName);
                 if (cachedFile != null)
                 {
-                    Log.Debug("✅ Loaded from cache: {FileName}", fileName);
+                    var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                    Log.Debug("⚡ LoadJObject CACHE HIT: {FileName} ({Time:F3}ms)", fileName, elapsed);
                     // Return a deep clone to prevent accidental mutations of cached data
                     return (JObject)cachedFile.JsonData.DeepClone();
                 }
-                Log.Debug("⚠️ Cache miss: {FileName} - falling back to file I/O", fileName);
+                Log.Warning("💾 LoadJObject CACHE MISS: {FileName} - falling back to file I/O", fileName);
             }
 
             // Fallback to file I/O if cache unavailable or file not cached
@@ -103,13 +106,60 @@ public class JsonEditorService
 
             var json = File.ReadAllText(filePath);
             var data = JObject.Parse(json);
-
-            Log.Information("Loaded JSON file as JObject: {FileName}", fileName);
+            
+            var totalElapsed = (DateTime.Now - startTime).TotalMilliseconds;
+            Log.Information("💾 LoadJObject from disk: {FileName} ({Time:F1}ms)", fileName, totalElapsed);
             return data;
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to load JSON file as JObject: {FileName}", fileName);
+            throw new InvalidOperationException($"Failed to load {fileName}: {ex.Message}", ex);
+        }
+    }
+
+    /// <summary>
+    /// Loads JSON data as raw text string.
+    /// Uses in-memory cache when available for instant loading.
+    /// </summary>
+    /// <param name="fileName">Name of the JSON file (e.g., "catalog.json")</param>
+    /// <returns>Raw JSON string or null if file doesn't exist</returns>
+    public string? LoadJsonText(string fileName)
+    {
+        try
+        {
+            var startTime = DateTime.Now;
+            
+            // Try cache first for fast in-memory access
+            if (_dataCache != null)
+            {
+                var cachedFile = _dataCache.GetFile(fileName);
+                if (cachedFile != null)
+                {
+                    var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                    Log.Debug("⚡ LoadJsonText CACHE HIT: {FileName} ({Time:F3}ms)", fileName, elapsed);
+                    return cachedFile.JsonData.ToString(Formatting.Indented);
+                }
+                Log.Warning("💾 LoadJsonText CACHE MISS: {FileName} - falling back to file I/O", fileName);
+            }
+
+            // Fallback to file I/O if cache unavailable or file not cached
+            var filePath = Path.Combine(_dataDirectory, fileName);
+
+            if (!File.Exists(filePath))
+            {
+                Log.Warning("JSON file not found: {FilePath}", filePath);
+                return null;
+            }
+
+            var json = File.ReadAllText(filePath);
+            var totalElapsed = (DateTime.Now - startTime).TotalMilliseconds;
+            Log.Information("💾 LoadJsonText from disk: {FileName} ({Time:F1}ms)", fileName, totalElapsed);
+            return json;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to load JSON text: {FileName}", fileName);
             throw new InvalidOperationException($"Failed to load {fileName}: {ex.Message}", ex);
         }
     }

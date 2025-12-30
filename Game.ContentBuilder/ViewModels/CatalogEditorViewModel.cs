@@ -103,8 +103,12 @@ public partial class CatalogEditorViewModel : ObservableObject
     {
         try
         {
-            var filePath = _jsonEditorService.GetFilePath(_storedFileName);
-            var json = File.ReadAllText(filePath);
+            // Load from cache for instant access
+            var json = _jsonEditorService.LoadJsonText(_storedFileName);
+            if (json == null)
+            {
+                throw new FileNotFoundException($"File not found: {_storedFileName}");
+            }
             _jsonData = JObject.Parse(json);
 
             LoadMetadata();
@@ -112,12 +116,11 @@ public partial class CatalogEditorViewModel : ObservableObject
 
             IsDirty = false;
             StatusMessage = $"Loaded {FileName}";
-            Log.Information("Loaded catalog.json file: {FilePath}", filePath);
+            Log.Information("Loaded catalog.json file: {FileName}", _storedFileName);
         }
         catch (Exception ex)
         {
-            var filePath = _jsonEditorService.GetFilePath(_storedFileName);
-            Log.Error(ex, "Failed to load catalog.json file: {FilePath}", filePath);
+            Log.Error(ex, "Failed to load catalog.json file: {FileName}", _storedFileName);
             StatusMessage = $"Error loading file: {ex.Message}";
         }
     }

@@ -110,7 +110,14 @@ public class CatalogTokenService
         return new List<string>();
       }
 
-      string catalogJson = File.ReadAllText(catalogPath);
+      // Use JsonEditorService to load from cache
+      var relativePath = Path.GetRelativePath(_jsonEditorService.GetFilePath(""), catalogPath);
+      var catalogJson = _jsonEditorService.LoadJsonText(relativePath);
+      if (catalogJson == null)
+      {
+        Log.Warning("Failed to load catalog: {Path}", relativePath);
+        return new List<string>();
+      }
       var catalog = JObject.Parse(catalogJson);
 
       Log.Debug("Catalog root properties: {Props}", string.Join(", ", catalog.Properties().Select(p => p.Name)));

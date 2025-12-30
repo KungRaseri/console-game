@@ -39,7 +39,7 @@ public partial class MainViewModel : ObservableObject
         var dataPath = GetDataDirectory();
         _jsonEditorService = new JsonEditorService(dataPath, App.DataCache);
         _catalogTokenService = new CatalogTokenService(_jsonEditorService);
-        _fileTreeService = new FileTreeService(dataPath);
+        _fileTreeService = new FileTreeService(dataPath, App.DataCache);
 
         Log.Information("MainViewModel initialized - Data directory: {DataPath}", dataPath);
 

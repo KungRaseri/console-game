@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 using Serilog;
 using System.IO;
 using System.Text.RegularExpressions;
+using Game.Data.Services;
 
 namespace Game.ContentBuilder.Services;
 
@@ -12,14 +13,16 @@ namespace Game.ContentBuilder.Services;
 public class ReferenceResolverService
 {
     private readonly string _dataRootPath;
+    private readonly GameDataCache? _dataCache;
     private readonly Dictionary<string, JObject> _catalogCache;
     private static readonly Regex ReferencePattern = new(@"^@(?<domain>[\w-]+)/(?<path>[\w-]+(/[\w-]+)*):(?<item>[\w-*\s]+)(?<optional>\?)?(?<property>\.[\w.]+)?$", RegexOptions.Compiled);
 
-    public ReferenceResolverService(string dataRootPath)
+    public ReferenceResolverService(string dataRootPath, GameDataCache? dataCache = null)
     {
         _dataRootPath = dataRootPath;
+        _dataCache = dataCache;
         _catalogCache = new Dictionary<string, JObject>();
-        Log.Information("ReferenceResolverService initialized with path: {Path}", dataRootPath);
+        Log.Information("ReferenceResolverService initialized with path: {Path} (cache: {HasCache})", dataRootPath, dataCache != null);
     }
 
     /// <summary>
@@ -254,7 +257,31 @@ public class ReferenceResolverService
 
         try
         {
-            var content = File.ReadAllText(catalogPath);
+            var startTime = DateTime.Now;
+            string? content = null;
+
+            // Try cache first
+            if (_dataCache != null)
+            {
+                var relativePath = Path.GetRelativePath(_dataRootPath, catalogPath);
+                var cachedFile = _dataCache.GetFile(relativePath);
+                if (cachedFile != null)
+                {
+                    var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                    Log.Debug("⚡ ValidateCatalogReferences CACHE HIT: {Path} ({Time:F3}ms)", relativePath, elapsed);
+                    content = cachedFile.JsonData.ToString();
+                }
+            }
+
+            // Fallback to disk
+            if (content == null)
+            {
+                Log.Debug("💾 ValidateCatalogReferences CACHE MISS: Loading from disk: {Path}", catalogPath);
+                content = File.ReadAllText(catalogPath);
+                var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                Log.Debug("💾 Disk load completed: {Path} ({Time:F3}ms)", catalogPath, elapsed);
+            }
+
             var json = JObject.Parse(content);
 
             // Find all references recursively
@@ -359,15 +386,39 @@ public class ReferenceResolverService
             ? Path.Combine(_dataRootPath, domain, "catalog.json")
             : Path.Combine(_dataRootPath, domain, path, "catalog.json");
         
-        if (!File.Exists(catalogPath))
-        {
-            Log.Warning("Catalog file not found: {Path}", catalogPath);
-            return null;
-        }
-
         try
         {
-            var content = File.ReadAllText(catalogPath);
+            var startTime = DateTime.Now;
+            string? content = null;
+
+            // Try cache first
+            if (_dataCache != null)
+            {
+                var relativePath = Path.GetRelativePath(_dataRootPath, catalogPath);
+                var cachedFile = _dataCache.GetFile(relativePath);
+                if (cachedFile != null)
+                {
+                    var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                    Log.Debug("⚡ LoadCatalog CACHE HIT: {Path} ({Time:F3}ms)", relativePath, elapsed);
+                    content = cachedFile.JsonData.ToString();
+                }
+            }
+
+            // Fallback to disk
+            if (content == null)
+            {
+                if (!File.Exists(catalogPath))
+                {
+                    Log.Warning("Catalog file not found: {Path}", catalogPath);
+                    return null;
+                }
+
+                Log.Debug("💾 LoadCatalog CACHE MISS: Loading from disk: {Path}", catalogPath);
+                content = File.ReadAllText(catalogPath);
+                var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                Log.Debug("💾 Disk load completed: {Path} ({Time:F3}ms)", catalogPath, elapsed);
+            }
+
             var catalog = JObject.Parse(content);
             _catalogCache[cacheKey] = catalog;
             return catalog;

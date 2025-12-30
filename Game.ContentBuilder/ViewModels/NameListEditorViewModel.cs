@@ -88,31 +88,46 @@ public partial class NameListEditorViewModel : ObservableObject
     /// </summary>
     private async void LoadData()
     {
+        var overallStartTime = DateTime.Now;
         try
         {
             var filePath = _fileName;
-            Log.Information("Loading names.json from {FilePath}", filePath);
+            Log.Information("📊 Loading names.json from {FilePath}", filePath);
             MainWindow.AddLog($"Loading {Path.GetFileName(filePath)}...");
 
-            // Read file asynchronously
-            var json = await Task.Run(() => System.IO.File.ReadAllText(_jsonEditorService.GetFilePath(filePath)));
+            // 1️⃣ CACHE LOAD
+            var cacheLoadStart = DateTime.Now;
+            var json = await Task.Run(() => _jsonEditorService.LoadJsonText(filePath));
+            var cacheLoadTime = (DateTime.Now - cacheLoadStart).TotalMilliseconds;
+            Log.Information("⏱️ Cache Load Time: {Time:F2}ms", cacheLoadTime);
+
+            if (json == null)
+            {
+                throw new FileNotFoundException($"File not found: {filePath}");
+            }
             Log.Debug("Read {Length} characters from file", json.Length);
 
-            // Parse JSON asynchronously
+            // 2️⃣ JSON PARSING
+            var parseStart = DateTime.Now;
             var root = await Task.Run(() => JObject.Parse(json));
-            Log.Debug("Parsed JSON successfully");
+            var parseTime = (DateTime.Now - parseStart).TotalMilliseconds;
+            Log.Information("⏱️ JSON Parse Time: {Time:F2}ms", parseTime);
             MainWindow.AddLog("JSON parsed successfully");
 
-            // Metadata
+            // 3️⃣ METADATA
+            var metadataStart = DateTime.Now;
             JObject? metadataObj = null;
             if (root["metadata"] is JObject mObj)
             {
                 metadataObj = mObj;
                 Metadata = mObj.ToObject<NameListMetadata>() ?? new NameListMetadata();
-                Log.Debug("Loaded metadata");
+                var metadataTime = (DateTime.Now - metadataStart).TotalMilliseconds;
+                Log.Debug("⏱️ Metadata Load Time: {Time:F2}ms", metadataTime);
             }
 
-            // Dynamic components - process asynchronously for better performance
+            // 4️⃣ COMPONENTS - process asynchronously for better performance
+            var componentsStart = DateTime.Now;
+            double componentsTime = 0;
             Components.Clear();
             ComponentNames.Clear();
             Log.Debug("Loading components...");
@@ -225,11 +240,14 @@ public partial class NameListEditorViewModel : ObservableObject
                     });
                 });
 
-                Log.Information("Loaded {Count} component groups with {Total} total components", Components.Count, Components.Sum(kvp => kvp.Value.Count));
+                componentsTime = (DateTime.Now - componentsStart).TotalMilliseconds;
+                Log.Information("⏱️ Components Load Time: {Time:F2}ms ({Count} groups, {Total} items)", componentsTime, Components.Count, Components.Sum(kvp => kvp.Value.Count));
                 MainWindow.AddLog($"Loaded {Components.Count} component groups with {Components.Sum(kvp => kvp.Value.Count)} total components");
             }
 
-            // Dynamic patterns (can be string array OR object array)
+            // 5️⃣ PATTERNS - can be string array OR object array
+            var patternsStart = DateTime.Now;
+            double patternsTime = 0;
             Patterns.Clear();
 
             // Always add default {base} pattern first (readonly)
@@ -326,9 +344,13 @@ public partial class NameListEditorViewModel : ObservableObject
                         // Continue to next item instead of failing completely
                     }
                 }
-                Log.Information("Loaded {Count} patterns", Patterns.Count);
+                patternsTime = (DateTime.Now - patternsStart).TotalMilliseconds;
+                Log.Information("⏱️ Patterns Load Time: {Time:F2}ms ({Count} patterns)", patternsTime, Patterns.Count);
                 MainWindow.AddLog($"Loaded {Patterns.Count} patterns");
             }
+
+            // 6️⃣ VIEW FINALIZATION
+            var finalizationStart = DateTime.Now;
 
             // Generate examples for patterns asynchronously
             _ = Task.Run(() => GeneratePatternExamples());
@@ -339,9 +361,15 @@ public partial class NameListEditorViewModel : ObservableObject
 
             ApplyPatternFilter();
 
-            StatusMessage = $"Loaded v4 names.json from {filePath}";
-            Log.Information("Successfully loaded v4 names.json from {FileName}", filePath);
-            MainWindow.AddLog("✓ File loaded successfully");
+            var finalizationTime = (DateTime.Now - finalizationStart).TotalMilliseconds;
+            var totalLoadTime = (DateTime.Now - overallStartTime).TotalMilliseconds;
+
+            Log.Information("⏱️ View Finalization Time: {Time:F2}ms", finalizationTime);
+            Log.Information("📊 TOTAL LOAD TIME: {Time:F2}ms (Cache: {Cache:F1}ms, Parse: {Parse:F1}ms, Components: {Comp:F1}ms, Patterns: {Pat:F1}ms, Finalize: {Final:F1}ms)", 
+                totalLoadTime, cacheLoadTime, parseTime, componentsTime, patternsTime, finalizationTime);
+
+            StatusMessage = $"Loaded v4 names.json from {filePath} ({totalLoadTime:F0}ms)";
+            MainWindow.AddLog($"✓ File loaded successfully in {totalLoadTime:F0}ms");
         }
         catch (Exception ex)
         {
@@ -596,8 +624,14 @@ public partial class NameListEditorViewModel : ObservableObject
 
             MainWindow.AddLog($"Reference file exists, loading...");
 
-            // Load and parse the catalog file
-            string json = File.ReadAllText(referencePath_full);
+            // Load and parse the catalog file - use cache for fast access
+            var relativePath = Path.GetRelativePath(_jsonEditorService.GetFilePath(""), referencePath_full);
+            var json = _jsonEditorService.LoadJsonText(relativePath);
+            if (json == null)
+            {
+                Log.Warning("Failed to load reference file: {Path}", relativePath);
+                return string.Empty;
+            }
 
             // Special handling for general word lists (simple JSON arrays)
             if (refCategory == "general")
@@ -1645,8 +1679,13 @@ public partial class NameListEditorViewModel : ObservableObject
                 return (false, $"Reference '{referenceToken}' - file not found: {Path.GetFileName(Path.GetDirectoryName(referencePath_full))}/catalog.json");
             }
 
-            // Check if component exists in catalog
-            string json = File.ReadAllText(referencePath_full);
+            // Check if component exists in catalog - use cache for fast access
+            var relativePath = Path.GetRelativePath(_jsonEditorService.GetFilePath(""), referencePath_full);
+            var json = _jsonEditorService.LoadJsonText(relativePath);
+            if (json == null)
+            {
+                return (false, $"Reference '{referenceToken}' - failed to load: {Path.GetFileName(Path.GetDirectoryName(referencePath_full))}/catalog.json");
+            }
             var root = JObject.Parse(json);
 
             // Check catalog structure: { "item_types": { "swords": { "items": [...] } } }

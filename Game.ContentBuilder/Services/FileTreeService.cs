@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using Game.ContentBuilder.Models;
+using Game.Data.Services;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Serilog;
 
 namespace Game.ContentBuilder.Services;
@@ -12,6 +14,7 @@ namespace Game.ContentBuilder.Services;
 public class FileTreeService
 {
     private readonly string _dataPath;
+    private readonly GameDataCache? _dataCache;
     private readonly Dictionary<string, FolderConfig> _configCache = new();
 
     // Fallback icon mappings (used if no .cbconfig.json found)
@@ -119,9 +122,15 @@ public class FileTreeService
         { "adjectives", "FormatListBulleted" }
     };
 
-    public FileTreeService(string dataPath)
+    public FileTreeService(string dataPath, GameDataCache? dataCache = null)
     {
         _dataPath = dataPath;
+        _dataCache = dataCache;
+        
+        if (_dataCache != null)
+        {
+            Log.Information("FileTreeService initialized with cache - fast config loading enabled");
+        }
     }
 
     /// <summary>
@@ -238,13 +247,40 @@ public class FileTreeService
 
         try
         {
-            var json = File.ReadAllText(configPath);
+            var startTime = DateTime.Now;
+            string? json = null;
+            
+            // Try cache first for fast access
+            if (_dataCache != null)
+            {
+                var relativePath = Path.GetRelativePath(_dataPath, configPath);
+                var cachedFile = _dataCache.GetFile(relativePath);
+                
+                if (cachedFile != null)
+                {
+                    var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                    Log.Debug("⚡ Config CACHE HIT: {Directory} ({Time:F3}ms)", Path.GetFileName(directoryPath), elapsed);
+                    json = cachedFile.JsonData.ToString();
+                }
+                else
+                {
+                    Log.Debug("💾 Config CACHE MISS: {Directory} - loading from disk", Path.GetFileName(directoryPath));
+                    json = File.ReadAllText(configPath);
+                }
+            }
+            else
+            {
+                // Fallback to file I/O
+                json = File.ReadAllText(configPath);
+            }
+            
             var config = JsonConvert.DeserializeObject<FolderConfig>(json);
 
             if (config != null)
             {
                 _configCache[directoryPath] = config;
-                Log.Debug("Loaded folder config for: {Directory}", Path.GetFileName(directoryPath));
+                var totalElapsed = (DateTime.Now - startTime).TotalMilliseconds;
+                Log.Debug("Loaded folder config for: {Directory} ({Time:F1}ms)", Path.GetFileName(directoryPath), totalElapsed);
             }
 
             return config;

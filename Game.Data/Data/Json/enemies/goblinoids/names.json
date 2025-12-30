@@ -20,11 +20,9 @@
     "totalPatterns": 8,
     "raritySystem": "weight-based",
     "notes": [
-      {
-        "base_token": "Resolves to item name from goblinoids/catalog.json",
-        "tribal_culture": "Goblinoids organize in tribes/clans with hierarchies",
-        "weight_ranges": "Young (3) → King (60), Cave (5) → Skullcrusher (35)"
-      },
+      "base_token: Resolves to item name from goblinoids/catalog.json",
+      "tribal_culture: Goblinoids organize in tribes/clans with hierarchies",
+      "weight_ranges: Young (3) → King (60), Cave (5) → Skullcrusher (35)",
       "Upgraded to v4.0 with supportsTraits metadata"
     ],
     "supportsTraits": true
