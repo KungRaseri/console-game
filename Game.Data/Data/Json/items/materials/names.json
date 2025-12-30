@@ -2,8 +2,8 @@
   "metadata": {
     "description": "Comprehensive material name components for pattern-based item generation across all material types",
     "version": "4.0",
-    "lastUpdated": "2025-12-18",
-    "type": "pattern_components",
+    "lastUpdated": "2025-12-29",
+    "type": "pattern_generation",
     "supportsTraits": false,
     "componentKeys": [
       "metals",

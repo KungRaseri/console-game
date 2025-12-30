@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Weapon type catalog with base stats and traits",
-    "version": "1.0",
-    "lastUpdated": "2025-12-16",
+    "version": "4.0",
+    "lastUpdated": "2025-12-29",
     "type": "item_catalog",
     "totalWeaponTypes": 6,
     "totalWeapons": 69,

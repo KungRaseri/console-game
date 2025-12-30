@@ -1,8 +1,10 @@
 {
-  "description": "Environmental systems including biomes, weather patterns, and terrain hazards",
-  "version": "4.0",
-  "lastUpdated": "2025-12-29",
-  "type": "hierarchical_catalog",
+  "metadata": {
+    "description": "Environmental systems including biomes, weather patterns, and terrain hazards",
+    "version": "4.0",
+    "lastUpdated": "2025-12-29",
+    "type": "world_environments_catalog"
+  },
   "componentKeys": ["biomes", "weather", "hazards"],
   "components": {
     "biomes": [

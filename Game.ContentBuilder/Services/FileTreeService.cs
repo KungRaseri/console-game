@@ -35,7 +35,6 @@ public class FileTreeService
         { "environments", "WeatherPartlyCloudy" },
         { "settlements", "TownHall" },
         { "points_of_interest", "MapMarker" },
-        { "locations", "MapMarker" },
         
         // Social subcategories
         { "dialogue", "CommentText" },
@@ -71,16 +70,9 @@ public class FileTreeService
         { "reptilians", "Snake" },
         { "trolls", "MonsterTroll" },
         
-        // NPC subcategories
-        { "names", "CardAccountDetails" },
-        { "personalities", "EmoticonHappy" },
-        { "dialogue", "CommentText" },
-        { "occupations", "Briefcase" },
-        
         // Quest subcategories
         { "objectives", "ChecklistCheck" },
-        { "rewards", "TreasureChest" },
-        { "templates", "FileDocument" }
+        { "rewards", "TreasureChest" }
     };
 
     private static readonly Dictionary<string, string> FileIcons = new()

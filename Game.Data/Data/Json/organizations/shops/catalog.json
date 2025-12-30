@@ -1,8 +1,10 @@
 {
-  "description": "Shop templates with dynamic inventory systems and pricing",
-  "version": "4.0",
-  "lastUpdated": "2025-12-29",
-  "type": "hierarchical_catalog",
+  "metadata": {
+    "description": "Shop templates with dynamic inventory systems and pricing",
+    "version": "4.0",
+    "lastUpdated": "2025-12-29",
+    "type": "organizations_shops_catalog"
+  },
   "componentKeys": ["weapons", "armor", "magic", "general", "specialty"],
   "components": {
     "weapons": [

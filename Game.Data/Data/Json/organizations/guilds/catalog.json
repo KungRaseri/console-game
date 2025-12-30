@@ -1,8 +1,10 @@
 {
-  "description": "Joinable guilds with progression systems, ranks, and exclusive benefits",
-  "version": "4.0",
-  "lastUpdated": "2025-12-29",
-  "type": "hierarchical_catalog",
+  "metadata": {
+    "description": "Joinable guilds with progression systems, ranks, and exclusive benefits",
+    "version": "4.0",
+    "lastUpdated": "2025-12-29",
+    "type": "organizations_guilds_catalog"
+  },
   "componentKeys": ["combat", "magic", "trade", "craft", "stealth"],
   "components": {
     "combat": [

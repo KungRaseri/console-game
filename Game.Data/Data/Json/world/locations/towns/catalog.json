@@ -1,8 +1,10 @@
 {
-  "description": "Town and settlement location definitions organized by size (outposts, villages, towns, cities, capitals)",
-  "version": "4.0",
-  "lastUpdated": "2025-12-29",
-  "type": "hierarchical_catalog",
+  "metadata": {
+    "description": "Town and settlement location definitions organized by size (outposts, villages, towns, cities, capitals)",
+    "version": "4.0",
+    "lastUpdated": "2025-12-29",
+    "type": "world_locations_towns_catalog"
+  },
   "componentKeys": ["outposts", "villages", "towns", "cities", "capitals", "special"],
   "components": {
     "outposts": [

@@ -1,8 +1,10 @@
 {
-  "description": "Service businesses including inns, taverns, and specialty establishments",
-  "version": "4.0",
-  "lastUpdated": "2025-12-29",
-  "type": "hierarchical_catalog",
+  "metadata": {
+    "description": "Service businesses including inns, taverns, and specialty establishments",
+    "version": "4.0",
+    "lastUpdated": "2025-12-29",
+    "type": "organizations_businesses_catalog"
+  },
   "componentKeys": ["lodging", "food_drink", "services", "entertainment"],
   "components": {
     "lodging": [
