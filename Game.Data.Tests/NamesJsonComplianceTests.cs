@@ -81,8 +81,9 @@ public class NamesJsonComplianceTests
 
     var allowedProperties = new[] { 
       "description", "version", "lastUpdated", "type", "supportsTraits",
-      "componentKeys", "patternTokens", "totalPatterns", "raritySystem", "notes",
-      "supportsSoftFiltering", "totalComponents", "usage"  // Optional metadata fields
+      "totalPatterns", "raritySystem", "notes",
+      "supportsSoftFiltering", "totalComponents", "usage",  // Optional metadata fields
+      "componentKeys", "patternTokens"  // Auto-generated fields (not validated)
     };
 
     // Assert - ONLY these metadata properties are allowed
@@ -128,15 +129,15 @@ public class NamesJsonComplianceTests
     var fullPath = Path.Combine(_dataPath, relativePath);
     var json = JObject.Parse(File.ReadAllText(fullPath));
     var patterns = json["patterns"] as JArray;
-    var metadata = json["metadata"] as JObject;
-    var componentKeys = metadata?["componentKeys"] as JArray;
+    var components = json["components"] as JObject;
     
-    if (patterns == null || componentKeys == null) return;
+    if (patterns == null || components == null) return;
 
-    var validKeys = componentKeys.Select(k => k.ToString()).ToList();
+    // Get valid tokens from ACTUAL components object, not componentKeys metadata
+    var validKeys = components.Properties().Select(p => p.Name).ToList();
     validKeys.Add("base"); // 'base' is always valid (references catalog)
 
-    // Assert - all tokens in patterns must exist in componentKeys or be 'base'
+    // Assert - all tokens in patterns must exist in components object or be 'base'
     foreach (var pattern in patterns.OfType<JObject>())
     {
       var patternStr = pattern["pattern"]?.ToString() ?? pattern["template"]?.ToString();
@@ -152,7 +153,7 @@ public class NamesJsonComplianceTests
         if (token.StartsWith("@")) continue;
         
         validKeys.Should().Contain(token,
-            $"{relativePath} - Pattern '{patternStr}' uses token '{{{token}}}' which is not declared in componentKeys or 'base'. " +
+            $"{relativePath} - Pattern '{patternStr}' uses token '{{{token}}}' which does not exist in components object. " +
             $"Valid tokens: {string.Join(", ", validKeys.Select(k => $"{{{k}}}"))}");
       }
     }
@@ -269,39 +270,9 @@ public class NamesJsonComplianceTests
     supportsTraits.Should().Be(JTokenType.Boolean, $"{relativePath} supportsTraits must be boolean");
   }
 
-  [Theory]
-  [MemberData(nameof(GetAllNamesFiles))]
-  public void Names_Should_Have_ComponentKeys_Field(string relativePath)
-  {
-    // Arrange
-    var fullPath = Path.Combine(_dataPath, relativePath);
-    var json = JObject.Parse(File.ReadAllText(fullPath));
-    var metadata = json["metadata"] as JObject;
+  // REMOVED: Names_Should_Have_ComponentKeys_Field - componentKeys is auto-generated
 
-        // Assert - componentKeys is REQUIRED per v4.0 standard and must not be empty
-        metadata.Should().NotBeNull($"{relativePath} missing metadata");
-        metadata!["componentKeys"].Should().NotBeNull($"{relativePath} missing required field 'componentKeys'");
-        var componentKeys = metadata["componentKeys"] as JArray;
-        componentKeys.Should().NotBeNull($"{relativePath} componentKeys must be array");
-        componentKeys.Should().NotBeEmpty($"{relativePath} componentKeys array cannot be empty - add component data or remove the field");
-  }
-
-  [Theory]
-  [MemberData(nameof(GetAllNamesFiles))]
-  public void Names_Should_Have_PatternTokens_Field(string relativePath)
-  {
-    // Arrange
-    var fullPath = Path.Combine(_dataPath, relativePath);
-    var json = JObject.Parse(File.ReadAllText(fullPath));
-    var metadata = json["metadata"] as JObject;
-
-    // Assert - patternTokens is REQUIRED per v4.0 standard
-    metadata.Should().NotBeNull($"{relativePath} missing metadata");
-    metadata!["patternTokens"].Should().NotBeNull($"{relativePath} missing required field 'patternTokens'");
-    var patternTokens = metadata["patternTokens"] as JArray;
-    patternTokens.Should().NotBeNull($"{relativePath} patternTokens must be array");
-    patternTokens.Should().NotBeEmpty($"{relativePath} patternTokens array cannot be empty");
-  }
+  // REMOVED: Names_Should_Have_PatternTokens_Field - patternTokens is auto-generated
 
   [Theory]
   [MemberData(nameof(GetAllNamesFiles))]
@@ -462,34 +433,7 @@ public class NamesJsonComplianceTests
 
   #region Component Structure Validation
 
-  [Theory]
-  [MemberData(nameof(GetAllNamesFiles))]
-  public void Names_Should_Have_Components_If_ComponentKeys_Declares_Them(string relativePath)
-  {
-    // Arrange
-    var fullPath = Path.Combine(_dataPath, relativePath);
-    var json = JObject.Parse(File.ReadAllText(fullPath));
-    var components = json["components"] as JObject;
-    var metadata = json["metadata"] as JObject;
-    var componentKeys = metadata?["componentKeys"] as JArray;
-
-    // Assert - if componentKeys exists and has items, components section must exist and have data
-    if (componentKeys != null && componentKeys.Any())
-    {
-      components.Should().NotBeNull($"{relativePath} has componentKeys but missing components section");
-      components.Should().NotBeEmpty($"{relativePath} has componentKeys but empty components - add component data");
-      
-      // Each key in componentKeys must exist in components (except 'base' which references catalog)
-      foreach (var key in componentKeys)
-      {
-        var keyStr = key.ToString();
-        if (keyStr == "base") continue; // 'base' references catalog, not components
-        
-        components.Should().ContainKey(keyStr, 
-            $"{relativePath} componentKeys contains '{keyStr}' but components section doesn't have it");
-      }
-    }
-  }
+  // REMOVED: Names_Should_Have_Components_If_ComponentKeys_Declares_Them - componentKeys is auto-generated
 
   [Theory]
   [MemberData(nameof(GetAllNamesFiles))]

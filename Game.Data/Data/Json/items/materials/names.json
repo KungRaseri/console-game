@@ -1,349 +1,29 @@
 {
   "metadata": {
-    "description": "Comprehensive material name components for pattern-based item generation across all material types",
+    "description": "Quality modifiers for materials from catalog.json",
     "version": "4.0",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2025-12-30",
     "type": "pattern_generation",
     "supportsTraits": false,
     "componentKeys": [
-      "metals",
-      "leathers",
-      "woods",
-      "gemstones",
-      "magical",
-      "qualities",
-      "fabrics"
+      "quality"
     ],
     "patternTokens": [
-      "base"
+      "base",
+      "quality"
     ],
-    "totalPatterns": 6,
+    "totalPatterns": 2,
     "raritySystem": "weight-based",
-    "totalComponents": 91,
-    "usage": "Material name components for pattern-based generation. Use 'material' token in patterns to pick from these components. rarityWeight determines selection probability and contributes to final item rarity calculation.",
+    "totalComponents": 10,
+    "usage": "Quality modifiers combine with base materials from catalog.json",
     "notes": [
-      "Material components combine with base items from catalog.json using patterns",
-      "rarityWeight affects both selection probability and final item rarity tier",
-      "7 component groups: metals, leathers, woods, gemstones, magical, qualities, fabrics",
-      "Patterns like 'material + base' or 'quality + material + base' generate diverse names"
+      "Base materials (Iron, Mithril, etc.) are defined in catalog.json",
+      "This file provides quality modifiers to enhance material names",
+      "Patterns generate names like 'Fine Iron' or just 'Iron'"
     ]
   },
   "components": {
-    "metals": [
-      {
-        "value": "Iron",
-        "rarityWeight": 5
-      },
-      {
-        "value": "Bronze",
-        "rarityWeight": 8
-      },
-      {
-        "value": "Copper",
-        "rarityWeight": 4
-      },
-      {
-        "value": "Tin",
-        "rarityWeight": 3
-      },
-      {
-        "value": "Steel",
-        "rarityWeight": 15
-      },
-      {
-        "value": "Silver",
-        "rarityWeight": 30
-      },
-      {
-        "value": "Gold",
-        "rarityWeight": 35
-      },
-      {
-        "value": "Electrum",
-        "rarityWeight": 45
-      },
-      {
-        "value": "Platinum",
-        "rarityWeight": 42
-      },
-      {
-        "value": "Cold Iron",
-        "rarityWeight": 35
-      },
-      {
-        "value": "Obsidian",
-        "rarityWeight": 35
-      },
-      {
-        "value": "Mithril",
-        "rarityWeight": 75
-      },
-      {
-        "value": "Darksteel",
-        "rarityWeight": 60
-      },
-      {
-        "value": "Adamantine",
-        "rarityWeight": 100
-      },
-      {
-        "value": "Dragon Steel",
-        "rarityWeight": 120
-      },
-      {
-        "value": "Godforged",
-        "rarityWeight": 150
-      },
-      {
-        "value": "Orichalcum",
-        "rarityWeight": 40
-      }
-    ],
-    "leathers": [
-      {
-        "value": "Hide",
-        "rarityWeight": 5
-      },
-      {
-        "value": "Leather",
-        "rarityWeight": 10
-      },
-      {
-        "value": "Wolf Leather",
-        "rarityWeight": 12
-      },
-      {
-        "value": "Bear Hide",
-        "rarityWeight": 15
-      },
-      {
-        "value": "Studded Leather",
-        "rarityWeight": 20
-      },
-      {
-        "value": "Serpent Leather",
-        "rarityWeight": 25
-      },
-      {
-        "value": "Hardened Leather",
-        "rarityWeight": 30
-      },
-      {
-        "value": "Basilisk Leather",
-        "rarityWeight": 55
-      },
-      {
-        "value": "Drake Leather",
-        "rarityWeight": 60
-      },
-      {
-        "value": "Wyvern Leather",
-        "rarityWeight": 70
-      },
-      {
-        "value": "Shadow Leather",
-        "rarityWeight": 85
-      },
-      {
-        "value": "Chimera Hide",
-        "rarityWeight": 95
-      },
-      {
-        "value": "Dragon Leather",
-        "rarityWeight": 120
-      }
-    ],
-    "woods": [
-      {
-        "value": "Pine",
-        "rarityWeight": 4
-      },
-      {
-        "value": "Oak",
-        "rarityWeight": 5
-      },
-      {
-        "value": "Birch",
-        "rarityWeight": 6
-      },
-      {
-        "value": "Cedar",
-        "rarityWeight": 8
-      },
-      {
-        "value": "Ash",
-        "rarityWeight": 10
-      },
-      {
-        "value": "Walnut",
-        "rarityWeight": 12
-      },
-      {
-        "value": "Maple",
-        "rarityWeight": 15
-      },
-      {
-        "value": "Yew",
-        "rarityWeight": 25
-      },
-      {
-        "value": "Teak",
-        "rarityWeight": 30
-      },
-      {
-        "value": "Mahogany",
-        "rarityWeight": 35
-      },
-      {
-        "value": "Ironwood",
-        "rarityWeight": 60
-      },
-      {
-        "value": "Ebony",
-        "rarityWeight": 70
-      },
-      {
-        "value": "Living Wood",
-        "rarityWeight": 85
-      },
-      {
-        "value": "Elder Wood",
-        "rarityWeight": 100
-      },
-      {
-        "value": "Heartwood",
-        "rarityWeight": 110
-      }
-    ],
-    "gemstones": [
-      {
-        "value": "Crystal",
-        "rarityWeight": 28
-      },
-      {
-        "value": "Topaz",
-        "rarityWeight": 25
-      },
-      {
-        "value": "Amethyst",
-        "rarityWeight": 30
-      },
-      {
-        "value": "Garnet",
-        "rarityWeight": 32
-      },
-      {
-        "value": "Turquoise",
-        "rarityWeight": 35
-      },
-      {
-        "value": "Pearl",
-        "rarityWeight": 38
-      },
-      {
-        "value": "Jade",
-        "rarityWeight": 42
-      },
-      {
-        "value": "Ruby",
-        "rarityWeight": 50
-      },
-      {
-        "value": "Sapphire",
-        "rarityWeight": 55
-      },
-      {
-        "value": "Emerald",
-        "rarityWeight": 60
-      },
-      {
-        "value": "Moonstone",
-        "rarityWeight": 65
-      },
-      {
-        "value": "Sunstone",
-        "rarityWeight": 68
-      },
-      {
-        "value": "Onyx",
-        "rarityWeight": 70
-      },
-      {
-        "value": "Opal",
-        "rarityWeight": 75
-      },
-      {
-        "value": "Obsidian",
-        "rarityWeight": 80
-      },
-      {
-        "value": "Diamond",
-        "rarityWeight": 100
-      },
-      {
-        "value": "Star Stone",
-        "rarityWeight": 130
-      }
-    ],
-    "magical": [
-      {
-        "value": "Shadow",
-        "rarityWeight": 65
-      },
-      {
-        "value": "Arcane",
-        "rarityWeight": 70
-      },
-      {
-        "value": "Radiant",
-        "rarityWeight": 75
-      },
-      {
-        "value": "Celestial",
-        "rarityWeight": 80
-      },
-      {
-        "value": "Infernal",
-        "rarityWeight": 85
-      },
-      {
-        "value": "Spectral",
-        "rarityWeight": 88
-      },
-      {
-        "value": "Void",
-        "rarityWeight": 90
-      },
-      {
-        "value": "Astral",
-        "rarityWeight": 95
-      },
-      {
-        "value": "Ethereal",
-        "rarityWeight": 100
-      },
-      {
-        "value": "Temporal",
-        "rarityWeight": 105
-      },
-      {
-        "value": "Eldritch",
-        "rarityWeight": 110
-      },
-      {
-        "value": "Primordial",
-        "rarityWeight": 120
-      },
-      {
-        "value": "Cosmic",
-        "rarityWeight": 125
-      },
-      {
-        "value": "Divine",
-        "rarityWeight": 150
-      }
-    ],
-    "qualities": [
+    "quality": [
       {
         "value": "Fine",
         "rarityWeight": 20
@@ -384,66 +64,16 @@
         "value": "Legendary",
         "rarityWeight": 100
       }
-    ],
-    "fabrics": [
-      {
-        "value": "Cotton",
-        "rarityWeight": 5
-      },
-      {
-        "value": "Hemp",
-        "rarityWeight": 5
-      },
-      {
-        "value": "Linen",
-        "rarityWeight": 6
-      },
-      {
-        "value": "Wool",
-        "rarityWeight": 8
-      },
-      {
-        "value": "Silk",
-        "rarityWeight": 18
-      },
-      {
-        "value": "Velvet",
-        "rarityWeight": 22
-      },
-      {
-        "value": "Brocade",
-        "rarityWeight": 28
-      },
-      {
-        "value": "Ethereal Cloth",
-        "rarityWeight": 85
-      }
     ]
   },
   "patterns": [
     {
       "rarityWeight": 50,
-      "pattern": "{material} {base}"
-    },
-    {
-      "rarityWeight": 40,
-      "pattern": "{material} {quality} {base}"
-    },
-    {
-      "rarityWeight": 35,
-      "pattern": "{quality} {material} {base}"
+      "pattern": "{base}"
     },
     {
       "rarityWeight": 30,
-      "pattern": "{material}-crafted {base}"
-    },
-    {
-      "rarityWeight": 25,
-      "pattern": "{material}-bound {base}"
-    },
-    {
-      "rarityWeight": 20,
-      "pattern": "{material}-forged {base}"
+      "pattern": "{quality} {base}"
     }
   ]
 }
