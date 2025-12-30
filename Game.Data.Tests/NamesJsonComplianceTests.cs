@@ -48,6 +48,181 @@ public class NamesJsonComplianceTests
 
   #endregion
 
+  #region Strict Schema Validation
+
+  [Theory]
+  [MemberData(nameof(GetAllNamesFiles))]
+  public void Names_Should_Only_Have_Expected_Root_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var allowedProperties = new[] { "metadata", "patterns", "components" };
+
+    // Assert - ONLY these root properties are allowed
+    var actualProperties = json.Properties().Select(p => p.Name).ToList();
+    var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+    
+    unexpectedProperties.Should().BeEmpty(
+        $"{relativePath} contains unexpected root properties: {string.Join(", ", unexpectedProperties)}. " +
+        $"Only allowed: {string.Join(", ", allowedProperties)}");
+  }
+
+  [Theory]
+  [MemberData(nameof(GetAllNamesFiles))]
+  public void Names_Metadata_Should_Only_Have_Expected_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var metadata = json["metadata"] as JObject;
+    
+    if (metadata == null) return; // Other tests will catch this
+
+    var allowedProperties = new[] { 
+      "description", "version", "lastUpdated", "type", "supportsTraits",
+      "componentKeys", "patternTokens", "totalPatterns", "raritySystem", "notes"
+    };
+
+    // Assert - ONLY these metadata properties are allowed
+    var actualProperties = metadata.Properties().Select(p => p.Name).ToList();
+    var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+    
+    unexpectedProperties.Should().BeEmpty(
+        $"{relativePath} metadata contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
+        $"Only allowed: {string.Join(", ", allowedProperties)}");
+  }
+
+  [Theory]
+  [MemberData(nameof(GetAllNamesFiles))]
+  public void Names_Pattern_Objects_Should_Only_Have_Expected_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var patterns = json["patterns"] as JArray;
+    
+    if (patterns == null) return; // Other tests will catch this
+
+    var allowedProperties = new[] { "pattern", "rarityWeight", "traits" };
+
+    // Assert - ONLY these pattern properties are allowed
+    foreach (var pattern in patterns.OfType<JObject>())
+    {
+      var actualProperties = pattern.Properties().Select(p => p.Name).ToList();
+      var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+      
+      unexpectedProperties.Should().BeEmpty(
+          $"{relativePath} pattern '{pattern["pattern"]}' contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
+          $"Only allowed: {string.Join(", ", allowedProperties)}");
+    }
+  }
+
+  #endregion
+
+  #region Strict Schema Validation
+
+  [Theory]
+  [MemberData(nameof(GetAllNamesFiles))]
+  public void Names_Should_Only_Have_Expected_Root_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var allowedProperties = new[] { "metadata", "patterns", "components" };
+
+    // Assert - ONLY these root properties are allowed
+    var actualProperties = json.Properties().Select(p => p.Name).ToList();
+    var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+    
+    unexpectedProperties.Should().BeEmpty(
+        $"{relativePath} contains unexpected root properties: {string.Join(", ", unexpectedProperties)}. " +
+        $"Only allowed: {string.Join(", ", allowedProperties)}");
+  }
+
+  [Theory]
+  [MemberData(nameof(GetAllNamesFiles))]
+  public void Names_Metadata_Should_Only_Have_Expected_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var metadata = json["metadata"] as JObject;
+    
+    if (metadata == null) return; // Other tests will catch this
+
+    var allowedProperties = new[] { 
+      "description", "version", "lastUpdated", "type", "supportsTraits",
+      "componentKeys", "patternTokens", "totalPatterns", "raritySystem", "notes"
+    };
+
+    // Assert - ONLY these metadata properties are allowed
+    var actualProperties = metadata.Properties().Select(p => p.Name).ToList();
+    var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+    
+    unexpectedProperties.Should().BeEmpty(
+        $"{relativePath} metadata contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
+        $"Only allowed: {string.Join(", ", allowedProperties)}");
+  }
+
+  [Theory]
+  [MemberData(nameof(GetAllNamesFiles))]
+  public void Names_Pattern_Objects_Should_Only_Have_Expected_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var patterns = json["patterns"] as JArray;
+    
+    if (patterns == null) return; // Other tests will catch this
+
+    var allowedProperties = new[] { "pattern", "template", "rarityWeight", "traits" };
+
+    // Assert - ONLY these pattern properties are allowed
+    foreach (var pattern in patterns.OfType<JObject>())
+    {
+      var actualProperties = pattern.Properties().Select(p => p.Name).ToList();
+      var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+      
+      unexpectedProperties.Should().BeEmpty(
+          $"{relativePath} pattern '{pattern["pattern"] ?? pattern["template"]}' contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
+          $"Only allowed: {string.Join(", ", allowedProperties)}");
+    }
+  }
+
+  [Theory]
+  [MemberData(nameof(GetAllNamesFiles))]
+  public void Names_Component_Objects_Should_Only_Have_Expected_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var components = json["components"] as JObject;
+    
+    if (components == null) return; // Other tests will catch this
+
+    var allowedProperties = new[] { "value", "rarityWeight", "traits" };
+
+    // Assert - ONLY these component item properties are allowed
+    foreach (var componentGroup in components.Properties())
+    {
+      if (componentGroup.Value is JArray items)
+      {
+        foreach (var item in items.OfType<JObject>())
+        {
+          var actualProperties = item.Properties().Select(p => p.Name).ToList();
+          var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+          
+          unexpectedProperties.Should().BeEmpty(
+              $"{relativePath} component '{componentGroup.Name}' item '{item["value"]}' contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
+              $"Only allowed: {string.Join(", ", allowedProperties)}");
+        }
+      }
+    }
+  }
+
+  #endregion
+
   #region Metadata Validation - Basic Required Fields
 
   [Theory]
@@ -230,9 +405,9 @@ public class NamesJsonComplianceTests
     var json = JObject.Parse(File.ReadAllText(fullPath));
     var patterns = json["patterns"] as JArray;
 
-    // Assert
+    // Assert - patterns is REQUIRED and MUST NOT be empty
     patterns.Should().NotBeNull($"{relativePath} missing patterns array");
-    patterns.Should().NotBeEmpty($"{relativePath} patterns array is empty");
+    patterns.Should().NotBeEmpty($"{relativePath} patterns array cannot be empty - add pattern data");
   }
 
   [Theory]
@@ -332,8 +507,24 @@ public class NamesJsonComplianceTests
     var json = JObject.Parse(File.ReadAllText(fullPath));
     var components = json["components"] as JObject;
 
-    // Assert
+    // Assert - components is REQUIRED
     components.Should().NotBeNull($"{relativePath} missing components section");
+    
+    // If componentKeys is not empty, components must have data
+    var metadata = json["metadata"] as JObject;
+    var componentKeys = metadata?["componentKeys"] as JArray;
+    if (componentKeys != null && componentKeys.Any())
+    {
+      components.Should().NotBeEmpty($"{relativePath} has componentKeys but empty components - add component data");
+      
+      // Each key in componentKeys must exist in components
+      foreach (var key in componentKeys)
+      {
+        var keyStr = key.ToString();
+        components.Should().ContainKey(keyStr, 
+            $"{relativePath} componentKeys contains '{keyStr}' but components section doesn't have it");
+      }
+    }
   }
 
   [Theory]

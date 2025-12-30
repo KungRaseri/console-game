@@ -48,6 +48,31 @@ public class ConfigJsonComplianceTests
 
   #endregion
 
+  #region Strict Schema Validation
+
+  [Theory]
+  [MemberData(nameof(GetAllConfigFiles))]
+  public void Config_Should_Only_Have_Expected_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    
+    var allowedProperties = new[] { 
+      "icon", "sortOrder", "displayName", "description", "color", "isHidden"
+    };
+
+    // Assert - ONLY these properties are allowed
+    var actualProperties = json.Properties().Select(p => p.Name).ToList();
+    var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+    
+    unexpectedProperties.Should().BeEmpty(
+        $"{relativePath} contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
+        $"Only allowed: {string.Join(", ", allowedProperties)}");
+  }
+
+  #endregion
+
   #region Required Fields Validation
 
   [Theory]

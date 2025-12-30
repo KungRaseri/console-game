@@ -48,6 +48,94 @@ public class CatalogJsonComplianceTests
 
   #endregion
 
+  #region Strict Schema Validation
+
+  [Theory]
+  [MemberData(nameof(GetAllCatalogFiles))]
+  public void Catalog_Should_Only_Have_Expected_Root_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    
+    // Catalogs can have: metadata, items, components, or {type}_types patterns
+    var allowedProperties = new[] { "metadata", "items", "components" };
+    
+    // Also allow domain-specific patterns like ability_types, enemy_types, etc.
+    var actualProperties = json.Properties().Select(p => p.Name).ToList();
+    var typeProperties = actualProperties.Where(p => p.EndsWith("_types")).ToList();
+    
+    var allAllowedProperties = allowedProperties.Concat(typeProperties).ToList();
+
+    // Assert - ONLY expected root properties are allowed
+    var unexpectedProperties = actualProperties.Except(allAllowedProperties).ToList();
+    
+    unexpectedProperties.Should().BeEmpty(
+        $"{relativePath} contains unexpected root properties: {string.Join(", ", unexpectedProperties)}. " +
+        $"Only allowed: metadata, items, components, or *_types");
+  }
+
+  [Theory]
+  [MemberData(nameof(GetAllCatalogFiles))]
+  public void Catalog_Metadata_Should_Only_Have_Expected_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var metadata = json["metadata"] as JObject;
+    
+    if (metadata == null) return; // Other tests will catch this
+
+    var allowedProperties = new[] { 
+      "description", "version", "lastUpdated", "type", "notes",
+      "componentKeys", "domain", "category", "supportsReferences"
+    };
+
+    // Assert - ONLY these metadata properties are allowed
+    var actualProperties = metadata.Properties().Select(p => p.Name).ToList();
+    var unexpectedProperties = actualProperties.Except(allowedProperties).ToList();
+    
+    unexpectedProperties.Should().BeEmpty(
+        $"{relativePath} metadata contains unexpected properties: {string.Join(", ", unexpectedProperties)}. " +
+        $"Only allowed: {string.Join(", ", allowedProperties)}");
+  }
+
+  [Theory]
+  [MemberData(nameof(GetAllCatalogFiles))]
+  public void Catalog_Items_Should_Only_Have_Expected_Standard_Properties(string relativePath)
+  {
+    // Arrange
+    var fullPath = Path.Combine(_dataPath, relativePath);
+    var json = JObject.Parse(File.ReadAllText(fullPath));
+    var allItems = GetAllItemsFromCatalog(json);
+
+    if (!allItems.Any()) return; // Skip if no items
+
+    // Standard properties that ALL items must have
+    var requiredProperties = new[] { "name", "rarityWeight" };
+    
+    // Common optional properties allowed on items (domain-specific properties allowed beyond this)
+    var commonOptionalProperties = new[] { 
+      "displayName", "description", "traits", "tags", "notes",
+      "weight", "value", "icon", "category", "type"
+    };
+
+    // Assert - items must have required properties at minimum
+    foreach (var item in allItems)
+    {
+      var itemObj = item as JObject;
+      if (itemObj == null) continue;
+
+      foreach (var required in requiredProperties)
+      {
+        itemObj.Should().ContainKey(required,
+            $"{relativePath} - Item '{item["name"]}' missing required property '{required}'");
+      }
+    }
+  }
+
+  #endregion
+
   #region Metadata Validation
 
   [Theory]

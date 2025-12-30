@@ -5,19 +5,35 @@
     "lastUpdated": "2025-12-30",
     "type": "pattern_generation",
     "supportsTraits": true,
-    "componentKeys": [],
-    "patternTokens": ["base"],
-    "totalPatterns": 1,
+    "componentKeys": ["prefix", "suffix"],
+    "patternTokens": ["base", "prefix", "suffix"],
+    "totalPatterns": 4,
     "raritySystem": "weight-based",
     "notes": [
       "Support abilities provide buffs, heals, and ally enhancement",
       "Pattern generation supports trait filtering",
       "Includes warrior buffs, heals, taunts, and auras",
-      "The {base} token references items from catalog.json"
+      "Base token resolves from catalog.json"
     ]
   },
   "patterns": [
-    {"pattern": "{base}", "rarityWeight": 100}
+    {"pattern": "{base}", "rarityWeight": 50},
+    {"pattern": "{prefix} {base}", "rarityWeight": 30},
+    {"pattern": "{base} {suffix}", "rarityWeight": 15},
+    {"pattern": "{prefix} {base} {suffix}", "rarityWeight": 5}
   ],
-  "components": {}
+  "components": {
+    "prefix": [
+      {"value": "Divine", "rarityWeight": 35},
+      {"value": "Holy", "rarityWeight": 30},
+      {"value": "Sacred", "rarityWeight": 25},
+      {"value": "Blessed", "rarityWeight": 10}
+    ],
+    "suffix": [
+      {"value": "of the Light", "rarityWeight": 30},
+      {"value": "of Protection", "rarityWeight": 28},
+      {"value": "of Renewal", "rarityWeight": 25},
+      {"value": "of the Ancients", "rarityWeight": 17}
+    ]
+  }
 }
