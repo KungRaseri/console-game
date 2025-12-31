@@ -1,241 +1,265 @@
 {
-    "metadata":  {
-                     "description":  "Dynamic response templates for NPC dialogue during conversations",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-29",
-                     "type":  "social_dialogue_responses_catalog"
-                 },
-    "affirmative_types":  [
-                              {
-                                  "name":  "agreement",
-                                  "displayName":  "Agreement",
-                                  "rarityWeight":  10,
-                                  "description":  "NPC agrees with player",
-                                  "templates":  [
-                                                    "Indeed, {player_name}. You speak wisely.",
-                                                    "Aye, that\u0027s the truth of it.",
-                                                    "I couldn\u0027t agree more.",
-                                                    "Precisely what I was thinking.",
-                                                    "You\u0027ve got the right idea."
-                                                ]
-                              },
-                              {
-                                  "name":  "acceptance",
-                                  "displayName":  "Acceptance",
-                                  "rarityWeight":  12,
-                                  "description":  "NPC accepts a request or offer",
-                                  "templates":  [
-                                                    "Very well. I\u0027ll do as you ask.",
-                                                    "Consider it done.",
-                                                    "I accept your offer.",
-                                                    "You have my agreement.",
-                                                    "I\u0027ll see to it personally."
-                                                ]
-                              }
-                          ],
-    "negative_types":  [
-                           {
-                               "name":  "refusal",
-                               "displayName":  "Refusal",
-                               "rarityWeight":  15,
-                               "description":  "NPC refuses a request",
-                               "templates":  [
-                                                 "I\u0027m afraid I must decline.",
-                                                 "That\u0027s not something I can do.",
-                                                 "I cannot agree to that.",
-                                                 "My answer is no.",
-                                                 "I\u0027m sorry, but I must refuse."
-                                             ]
-                           },
-                           {
-                               "name":  "disagreement",
-                               "displayName":  "Disagreement",
-                               "rarityWeight":  18,
-                               "description":  "NPC disagrees with player",
-                               "templates":  [
-                                                 "I don\u0027t see it that way.",
-                                                 "We\u0027ll have to agree to disagree.",
-                                                 "That\u0027s not how I understand it.",
-                                                 "I beg to differ.",
-                                                 "I can\u0027t support that view."
-                                             ]
-                           }
-                       ],
-    "questioning_types":  [
-                              {
-                                  "name":  "curiosity",
-                                  "displayName":  "Curiosity",
-                                  "rarityWeight":  20,
-                                  "description":  "NPC asks for more information",
-                                  "templates":  [
-                                                    "Tell me more about that.",
-                                                    "What do you mean by that?",
-                                                    "Could you elaborate?",
-                                                    "I\u0027m curious to hear more.",
-                                                    "Interesting. Go on."
-                                                ]
-                              },
-                              {
-                                  "name":  "clarification",
-                                  "displayName":  "Clarification",
-                                  "rarityWeight":  22,
-                                  "description":  "NPC seeks clarification",
-                                  "templates":  [
-                                                    "I\u0027m not sure I follow. Could you explain?",
-                                                    "What exactly are you proposing?",
-                                                    "Let me make sure I understand...",
-                                                    "Could you be more specific?",
-                                                    "I need more details."
-                                                ]
-                              }
-                          ],
-    "emotional_types":  [
-                            {
-                                "name":  "gratitude",
-                                "displayName":  "Gratitude",
-                                "rarityWeight":  12,
-                                "description":  "NPC expresses thanks",
-                                "templates":  [
-                                                  "Thank you, {player_name}. I\u0027m grateful.",
-                                                  "I appreciate your help.",
-                                                  "You have my thanks.",
-                                                  "I\u0027m indebted to you.",
-                                                  "I cannot thank you enough."
-                                              ]
-                            },
-                            {
-                                "name":  "concern",
-                                "displayName":  "Concern",
-                                "rarityWeight":  25,
-                                "description":  "NPC expresses worry",
-                                "templates":  [
-                                                  "I\u0027m worried about this situation.",
-                                                  "This troubles me greatly.",
-                                                  "I fear things may go poorly.",
-                                                  "Something doesn\u0027t feel right.",
-                                                  "I have a bad feeling about this."
-                                              ]
-                            },
-                            {
-                                "name":  "anger",
-                                "displayName":  "Anger",
-                                "rarityWeight":  30,
-                                "description":  "NPC expresses displeasure",
-                                "templates":  [
-                                                  "How dare you!",
-                                                  "This is unacceptable!",
-                                                  "I won\u0027t tolerate this!",
-                                                  "You\u0027ve gone too far!",
-                                                  "This is an outrage!"
-                                              ]
-                            },
-                            {
-                                "name":  "joy",
-                                "displayName":  "Joy",
-                                "rarityWeight":  15,
-                                "description":  "NPC expresses happiness",
-                                "templates":  [
-                                                  "Wonderful news!",
-                                                  "I\u0027m delighted to hear it!",
-                                                  "This brings me joy!",
-                                                  "How marvelous!",
-                                                  "That\u0027s fantastic!"
-                                              ]
-                            },
-                            {
-                                "name":  "sadness",
-                                "displayName":  "Sadness",
-                                "rarityWeight":  28,
-                                "description":  "NPC expresses sorrow",
-                                "templates":  [
-                                                  "This is a dark day.",
-                                                  "My heart is heavy.",
-                                                  "I\u0027m deeply saddened.",
-                                                  "Such terrible news.",
-                                                  "This pains me greatly."
-                                              ]
-                            }
-                        ],
-    "informative_types":  [
-                              {
-                                  "name":  "knowledge",
-                                  "displayName":  "Sharing Knowledge",
-                                  "rarityWeight":  18,
-                                  "description":  "NPC shares information",
-                                  "templates":  [
-                                                    "Let me tell you what I know.",
-                                                    "I\u0027ve heard some interesting things.",
-                                                    "Here\u0027s what you should know:",
-                                                    "Allow me to share what I\u0027ve learned.",
-                                                    "I have information that might help."
-                                                ]
-                              },
-                              {
-                                  "name":  "rumor",
-                                  "displayName":  "Spreading Rumors",
-                                  "rarityWeight":  20,
-                                  "description":  "NPC shares gossip",
-                                  "templates":  [
-                                                    "Word on the street is...",
-                                                    "I\u0027ve heard whispers that...",
-                                                    "They say...",
-                                                    "Rumor has it...",
-                                                    "Between you and me..."
-                                                ]
-                              },
-                              {
-                                  "name":  "warning",
-                                  "displayName":  "Warning",
-                                  "rarityWeight":  25,
-                                  "description":  "NPC warns player of danger",
-                                  "templates":  [
-                                                    "Be careful, {player_name}.",
-                                                    "Watch yourself out there.",
-                                                    "I must warn you...",
-                                                    "There\u0027s danger ahead.",
-                                                    "You\u0027d best be on your guard."
-                                                ]
-                              }
-                          ],
-    "trading_types":  [
-                          {
-                              "name":  "haggling",
-                              "displayName":  "Haggling",
-                              "rarityWeight":  22,
-                              "description":  "NPC negotiates price",
-                              "templates":  [
-                                                "I can\u0027t go that low. How about {price}?",
-                                                "That\u0027s not enough. Make it {price}.",
-                                                "I could do {price}, but that\u0027s my final offer.",
-                                                "You drive a hard bargain. {price} and we have a deal.",
-                                                "I\u0027ll meet you halfway at {price}."
-                                            ]
-                          },
-                          {
-                              "name":  "deal_made",
-                              "displayName":  "Deal Made",
-                              "rarityWeight":  15,
-                              "description":  "NPC confirms transaction",
-                              "templates":  [
-                                                "You have a deal!",
-                                                "Sold!",
-                                                "Pleasure doing business with you.",
-                                                "We have an agreement.",
-                                                "It\u0027s yours!"
-                                            ]
-                          },
-                          {
-                              "name":  "no_deal",
-                              "displayName":  "No Deal",
-                              "rarityWeight":  20,
-                              "description":  "NPC refuses transaction",
-                              "templates":  [
-                                                "I can\u0027t accept that offer.",
-                                                "Sorry, no deal.",
-                                                "That\u0027s not enough for me.",
-                                                "You\u0027ll have to do better than that.",
-                                                "I\u0027m afraid we can\u0027t do business."
-                                            ]
-                          }
-                      ]
+  "metadata": {
+    "description": "Dynamic response templates for NPC dialogue during conversations",
+    "version": "4.0",
+    "lastUpdated": "2025-12-29",
+    "type": "social_dialogue_responses_catalog"
+  },
+  "affirmative_types": {
+    "affirmative": {
+      "items": [
+        {
+          "name": "agreement",
+          "displayName": "Agreement",
+          "rarityWeight": 10,
+          "description": "NPC agrees with player",
+          "templates": [
+            "Indeed, {player_name}. You speak wisely.",
+            "Aye, that's the truth of it.",
+            "I couldn't agree more.",
+            "Precisely what I was thinking.",
+            "You've got the right idea."
+          ]
+        },
+        {
+          "name": "acceptance",
+          "displayName": "Acceptance",
+          "rarityWeight": 12,
+          "description": "NPC accepts a request or offer",
+          "templates": [
+            "Very well. I'll do as you ask.",
+            "Consider it done.",
+            "I accept your offer.",
+            "You have my agreement.",
+            "I'll see to it personally."
+          ]
+        }
+      ]
+    }
+  },
+  "negative_types": {
+    "negative": {
+      "items": [
+        {
+          "name": "refusal",
+          "displayName": "Refusal",
+          "rarityWeight": 15,
+          "description": "NPC refuses a request",
+          "templates": [
+            "I'm afraid I must decline.",
+            "That's not something I can do.",
+            "I cannot agree to that.",
+            "My answer is no.",
+            "I'm sorry, but I must refuse."
+          ]
+        },
+        {
+          "name": "disagreement",
+          "displayName": "Disagreement",
+          "rarityWeight": 18,
+          "description": "NPC disagrees with player",
+          "templates": [
+            "I don't see it that way.",
+            "We'll have to agree to disagree.",
+            "That's not how I understand it.",
+            "I beg to differ.",
+            "I can't support that view."
+          ]
+        }
+      ]
+    }
+  },
+  "questioning_types": {
+    "questioning": {
+      "items": [
+        {
+          "name": "curiosity",
+          "displayName": "Curiosity",
+          "rarityWeight": 20,
+          "description": "NPC asks for more information",
+          "templates": [
+            "Tell me more about that.",
+            "What do you mean by that?",
+            "Could you elaborate?",
+            "I'm curious to hear more.",
+            "Interesting. Go on."
+          ]
+        },
+        {
+          "name": "clarification",
+          "displayName": "Clarification",
+          "rarityWeight": 22,
+          "description": "NPC seeks clarification",
+          "templates": [
+            "I'm not sure I follow. Could you explain?",
+            "What exactly are you proposing?",
+            "Let me make sure I understand...",
+            "Could you be more specific?",
+            "I need more details."
+          ]
+        }
+      ]
+    }
+  },
+  "emotional_types": {
+    "emotional": {
+      "items": [
+        {
+          "name": "gratitude",
+          "displayName": "Gratitude",
+          "rarityWeight": 12,
+          "description": "NPC expresses thanks",
+          "templates": [
+            "Thank you, {player_name}. I'm grateful.",
+            "I appreciate your help.",
+            "You have my thanks.",
+            "I'm indebted to you.",
+            "I cannot thank you enough."
+          ]
+        },
+        {
+          "name": "concern",
+          "displayName": "Concern",
+          "rarityWeight": 25,
+          "description": "NPC expresses worry",
+          "templates": [
+            "I'm worried about this situation.",
+            "This troubles me greatly.",
+            "I fear things may go poorly.",
+            "Something doesn't feel right.",
+            "I have a bad feeling about this."
+          ]
+        },
+        {
+          "name": "anger",
+          "displayName": "Anger",
+          "rarityWeight": 30,
+          "description": "NPC expresses displeasure",
+          "templates": [
+            "How dare you!",
+            "This is unacceptable!",
+            "I won't tolerate this!",
+            "You've gone too far!",
+            "This is an outrage!"
+          ]
+        },
+        {
+          "name": "joy",
+          "displayName": "Joy",
+          "rarityWeight": 15,
+          "description": "NPC expresses happiness",
+          "templates": [
+            "Wonderful news!",
+            "I'm delighted to hear it!",
+            "This brings me joy!",
+            "How marvelous!",
+            "That's fantastic!"
+          ]
+        },
+        {
+          "name": "sadness",
+          "displayName": "Sadness",
+          "rarityWeight": 28,
+          "description": "NPC expresses sorrow",
+          "templates": [
+            "This is a dark day.",
+            "My heart is heavy.",
+            "I'm deeply saddened.",
+            "Such terrible news.",
+            "This pains me greatly."
+          ]
+        }
+      ]
+    }
+  },
+  "informative_types": {
+    "informative": {
+      "items": [
+        {
+          "name": "knowledge",
+          "displayName": "Sharing Knowledge",
+          "rarityWeight": 18,
+          "description": "NPC shares information",
+          "templates": [
+            "Let me tell you what I know.",
+            "I've heard some interesting things.",
+            "Here's what you should know:",
+            "Allow me to share what I've learned.",
+            "I have information that might help."
+          ]
+        },
+        {
+          "name": "rumor",
+          "displayName": "Spreading Rumors",
+          "rarityWeight": 20,
+          "description": "NPC shares gossip",
+          "templates": [
+            "Word on the street is...",
+            "I've heard whispers that...",
+            "They say...",
+            "Rumor has it...",
+            "Between you and me..."
+          ]
+        },
+        {
+          "name": "warning",
+          "displayName": "Warning",
+          "rarityWeight": 25,
+          "description": "NPC warns player of danger",
+          "templates": [
+            "Be careful, {player_name}.",
+            "Watch yourself out there.",
+            "I must warn you...",
+            "There's danger ahead.",
+            "You'd best be on your guard."
+          ]
+        }
+      ]
+    }
+  },
+  "trading_types": {
+    "trading": {
+      "items": [
+        {
+          "name": "haggling",
+          "displayName": "Haggling",
+          "rarityWeight": 22,
+          "description": "NPC negotiates price",
+          "templates": [
+            "I can't go that low. How about {price}?",
+            "That's not enough. Make it {price}.",
+            "I could do {price}, but that's my final offer.",
+            "You drive a hard bargain. {price} and we have a deal.",
+            "I'll meet you halfway at {price}."
+          ]
+        },
+        {
+          "name": "deal_made",
+          "displayName": "Deal Made",
+          "rarityWeight": 15,
+          "description": "NPC confirms transaction",
+          "templates": [
+            "You have a deal!",
+            "Sold!",
+            "Pleasure doing business with you.",
+            "We have an agreement.",
+            "It's yours!"
+          ]
+        },
+        {
+          "name": "no_deal",
+          "displayName": "No Deal",
+          "rarityWeight": 20,
+          "description": "NPC refuses transaction",
+          "templates": [
+            "I can't accept that offer.",
+            "Sorry, no deal.",
+            "That's not enough for me.",
+            "You'll have to do better than that.",
+            "I'm afraid we can't do business."
+          ]
+        }
+      ]
+    }
+  }
 }

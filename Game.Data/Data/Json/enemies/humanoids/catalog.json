@@ -40,7 +40,9 @@
             "@abilities/active/offensive:basic-attack"
           ],
           "abilityUnlocks": {
-            "5": ["@abilities/active/offensive:backstab"]
+            "5": [
+              "@abilities/active/offensive:backstab"
+            ]
           }
         },
         {
@@ -57,8 +59,12 @@
             "@abilities/active/offensive:power-strike"
           ],
           "abilityUnlocks": {
-            "6": ["@abilities/active/support:battle-cry"],
-            "8": ["@abilities/active/offensive:cleave"]
+            "6": [
+              "@abilities/active/support:battle-cry"
+            ],
+            "8": [
+              "@abilities/active/offensive:cleave"
+            ]
           }
         },
         {
@@ -75,8 +81,12 @@
             "@abilities/active/offensive:backstab"
           ],
           "abilityUnlocks": {
-            "7": ["@abilities/active/utility:steal"],
-            "10": ["@abilities/active/offensive:sneak-attack"]
+            "7": [
+              "@abilities/active/utility:steal"
+            ],
+            "10": [
+              "@abilities/active/offensive:sneak-attack"
+            ]
           }
         },
         {
@@ -94,8 +104,12 @@
             "@abilities/active/utility:steal"
           ],
           "abilityUnlocks": {
-            "8": ["@abilities/active/mobility:shadow-step"],
-            "12": ["@abilities/active/offensive:assassinate"]
+            "8": [
+              "@abilities/active/mobility:shadow-step"
+            ],
+            "12": [
+              "@abilities/active/offensive:assassinate"
+            ]
           }
         }
       ]
@@ -129,9 +143,15 @@
             "@abilities/active/defensive:defend"
           ],
           "abilityUnlocks": {
-            "8": ["@abilities/active/offensive:power-strike"],
-            "10": ["@abilities/active/support:battle-cry"],
-            "12": ["@abilities/active/offensive:cleave"]
+            "8": [
+              "@abilities/active/offensive:power-strike"
+            ],
+            "10": [
+              "@abilities/active/support:battle-cry"
+            ],
+            "12": [
+              "@abilities/active/offensive:cleave"
+            ]
           }
         },
         {
@@ -155,9 +175,15 @@
             "@abilities/active/defensive:defend"
           ],
           "abilityUnlocks": {
-            "9": ["@abilities/active/support:second-wind"],
-            "12": ["@abilities/active/offensive:whirlwind"],
-            "15": ["@abilities/active/defensive:indomitable"]
+            "9": [
+              "@abilities/active/support:second-wind"
+            ],
+            "12": [
+              "@abilities/active/offensive:whirlwind"
+            ],
+            "15": [
+              "@abilities/active/defensive:indomitable"
+            ]
           }
         },
         {
@@ -181,9 +207,15 @@
             "@abilities/active/support:battle-cry"
           ],
           "abilityUnlocks": {
-            "12": ["@abilities/active/offensive:devastating-blow"],
-            "15": ["@abilities/active/support:taunt"],
-            "18": ["@abilities/passive:weapon-mastery"]
+            "12": [
+              "@abilities/active/offensive:devastating-blow"
+            ],
+            "15": [
+              "@abilities/active/support:taunt"
+            ],
+            "18": [
+              "@abilities/passive:weapon-mastery"
+            ]
           }
         },
         {
@@ -208,10 +240,18 @@
             "@abilities/active/support:battle-cry"
           ],
           "abilityUnlocks": {
-            "15": ["@abilities/active/offensive:devastating-blow"],
-            "18": ["@abilities/active/defensive:indomitable"],
-            "20": ["@abilities/passive:combat-supremacy"],
-            "25": ["@abilities/ultimate:ragnarok"]
+            "15": [
+              "@abilities/active/offensive:devastating-blow"
+            ],
+            "18": [
+              "@abilities/active/defensive:indomitable"
+            ],
+            "20": [
+              "@abilities/passive:combat-supremacy"
+            ],
+            "25": [
+              "@abilities/ultimate:ragnarok"
+            ]
           }
         }
       ]
@@ -246,10 +286,18 @@
             "@abilities/active/mobility:shadow-step"
           ],
           "abilityUnlocks": {
-            "10": ["@abilities/active/offensive:assassinate"],
-            "12": ["@abilities/active/offensive:poison-blade"],
-            "15": ["@abilities/passive:shadow-master"],
-            "18": ["@abilities/ultimate:death-incarnate"]
+            "10": [
+              "@abilities/active/offensive:assassinate"
+            ],
+            "12": [
+              "@abilities/active/offensive:poison-blade"
+            ],
+            "15": [
+              "@abilities/passive:shadow-master"
+            ],
+            "18": [
+              "@abilities/ultimate:death-incarnate"
+            ]
           }
         },
         {
@@ -272,9 +320,15 @@
             "@abilities/active/utility:track"
           ],
           "abilityUnlocks": {
-            "10": ["@abilities/active/offensive:multi-shot"],
-            "12": ["@abilities/active/support:hunters-mark"],
-            "15": ["@abilities/active/offensive:volley"]
+            "10": [
+              "@abilities/active/offensive:multi-shot"
+            ],
+            "12": [
+              "@abilities/active/support:hunters-mark"
+            ],
+            "15": [
+              "@abilities/active/offensive:volley"
+            ]
           }
         },
         {
@@ -297,11 +351,21 @@
             "@abilities/active/offensive:fireball"
           ],
           "abilityUnlocks": {
-            "10": ["@abilities/active/offensive:ice-shard"],
-            "12": ["@abilities/active/defensive:arcane-shield"],
-            "15": ["@abilities/active/offensive:lightning-bolt"],
-            "18": ["@abilities/active/offensive:meteor"],
-            "20": ["@abilities/ultimate:archmages-supremacy"]
+            "10": [
+              "@abilities/active/offensive:ice-shard"
+            ],
+            "12": [
+              "@abilities/active/defensive:arcane-shield"
+            ],
+            "15": [
+              "@abilities/active/offensive:lightning-bolt"
+            ],
+            "18": [
+              "@abilities/active/offensive:meteor"
+            ],
+            "20": [
+              "@abilities/ultimate:archmages-supremacy"
+            ]
           }
         },
         {
@@ -325,10 +389,18 @@
             "@abilities/active/offensive:reckless-attack"
           ],
           "abilityUnlocks": {
-            "12": ["@abilities/active/support:bloodlust"],
-            "15": ["@abilities/active/offensive:frenzy"],
-            "18": ["@abilities/passive:unstoppable"],
-            "20": ["@abilities/ultimate:ragnarok"]
+            "12": [
+              "@abilities/active/support:bloodlust"
+            ],
+            "15": [
+              "@abilities/active/offensive:frenzy"
+            ],
+            "18": [
+              "@abilities/passive:unstoppable"
+            ],
+            "20": [
+              "@abilities/ultimate:ragnarok"
+            ]
           }
         }
       ]
@@ -362,8 +434,12 @@
             "@abilities/active/offensive:drain-life"
           ],
           "abilityUnlocks": {
-            "6": ["@abilities/active/offensive:death-bolt"],
-            "8": ["@abilities/active/summon:summon-skeleton"]
+            "6": [
+              "@abilities/active/offensive:death-bolt"
+            ],
+            "8": [
+              "@abilities/active/summon:summon-skeleton"
+            ]
           }
         },
         {
@@ -387,9 +463,15 @@
             "@abilities/active/support:bless"
           ],
           "abilityUnlocks": {
-            "8": ["@abilities/active/defensive:divine-shield"],
-            "10": ["@abilities/active/offensive:holy-nova"],
-            "12": ["@abilities/active/support:divine-intervention"]
+            "8": [
+              "@abilities/active/defensive:divine-shield"
+            ],
+            "10": [
+              "@abilities/active/offensive:holy-nova"
+            ],
+            "12": [
+              "@abilities/active/support:divine-intervention"
+            ]
           }
         }
       ]

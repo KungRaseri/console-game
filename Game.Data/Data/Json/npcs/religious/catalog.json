@@ -61,8 +61,12 @@
             "Prayer Beads"
           ],
           "dialogueStyle": "@dialogue/styles:wise",
-          "greetings": ["@dialogue/greetings:acolyte-blessed"],
-          "farewells": ["@dialogue/farewells:blessed"],
+          "greetings": [
+            "@dialogue/greetings:acolyte-blessed"
+          ],
+          "farewells": [
+            "@dialogue/farewells:blessed"
+          ],
           "faction": "clergy",
           "schedule": "@schedules:priest"
         }
@@ -106,8 +110,12 @@
             "funeral"
           ],
           "dialogueStyle": "@dialogue/styles:wise",
-          "greetings": ["@dialogue/greetings:priest-solemn"],
-          "farewells": ["@dialogue/farewells:blessed"],
+          "greetings": [
+            "@dialogue/greetings:priest-solemn"
+          ],
+          "farewells": [
+            "@dialogue/farewells:blessed"
+          ],
           "faction": "clergy",
           "schedule": "@schedules:priest"
         }

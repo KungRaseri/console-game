@@ -307,8 +307,12 @@
           "shopType": null,
           "shopChance": 0.0,
           "dialogueStyle": "@dialogue/styles:friendly",
-          "greetings": ["@dialogue/greetings:warm-rural"],
-          "farewells": ["@dialogue/farewells:simple"]
+          "greetings": [
+            "@dialogue/greetings:warm-rural"
+          ],
+          "farewells": [
+            "@dialogue/farewells:simple"
+          ]
         },
         {
           "name": "Peasant",
@@ -330,8 +334,12 @@
           "shopType": null,
           "shopChance": 0.0,
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:simple"],
-          "farewells": ["@dialogue/farewells:simple"]
+          "greetings": [
+            "@dialogue/greetings:simple"
+          ],
+          "farewells": [
+            "@dialogue/farewells:simple"
+          ]
         },
         {
           "name": "Beggar",
@@ -353,8 +361,12 @@
           "shopType": null,
           "shopChance": 0.0,
           "dialogueStyle": "@dialogue/styles:cautious",
-          "greetings": ["@dialogue/greetings:desperate"],
-          "farewells": ["@dialogue/farewells:grateful"]
+          "greetings": [
+            "@dialogue/greetings:desperate"
+          ],
+          "farewells": [
+            "@dialogue/farewells:grateful"
+          ]
         },
         {
           "name": "StreetUrchin",
@@ -377,8 +389,12 @@
           "shopType": null,
           "shopChance": 0.0,
           "dialogueStyle": "@dialogue/styles:cheerful",
-          "greetings": ["@dialogue/greetings:playful"],
-          "farewells": ["@dialogue/farewells:quick"]
+          "greetings": [
+            "@dialogue/greetings:playful"
+          ],
+          "farewells": [
+            "@dialogue/farewells:quick"
+          ]
         }
       ]
     }

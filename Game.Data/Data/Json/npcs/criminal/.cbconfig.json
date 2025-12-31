@@ -7,8 +7,20 @@
     "socialClass": "criminal",
     "npcCount": 5,
     "hasShop": false,
-    "primaryAttributes": ["dexterity", "intelligence", "charisma"],
-    "commonSkills": ["stealth", "deception", "lockpicking", "sleight_of_hand"],
-    "specialFeatures": ["underworld_connections", "stolen_goods"]
+    "primaryAttributes": [
+      "dexterity",
+      "intelligence",
+      "charisma"
+    ],
+    "commonSkills": [
+      "stealth",
+      "deception",
+      "lockpicking",
+      "sleight_of_hand"
+    ],
+    "specialFeatures": [
+      "underworld_connections",
+      "stolen_goods"
+    ]
   }
 }

@@ -11,32 +11,54 @@
       "Uses JSON Reference Standards v4.1 for cross-domain links"
     ]
   },
-  "ability_types": [
-    {
-      "name": "shadow-step",
-      "displayName": "Shadow Step",
-      "description": "Teleports through shadows to a nearby location",
-      "rarityWeight": 150,
-      "cooldown": 20,
-      "range": 15,
-      "traits": {
-        "castTime": {"value": 0, "type": "number"},
-        "invisibilityDuration": {"value": 2, "type": "number"},
-        "targetType": {"value": "location", "type": "string"}
-      }
-    },
-    {
-      "name": "teleport",
-      "displayName": "Teleport",
-      "description": "Instantly transports to a distant location",
-      "rarityWeight": 15,
-      "cooldown": 30,
-      "range": 30,
-      "traits": {
-        "castTime": {"value": 2, "type": "number"},
-        "manaCost": {"value": 50, "type": "number"},
-        "targetType": {"value": "location", "type": "string"}
-      }
+  "ability_types": {
+    "mobility": {
+      "items": [
+        {
+          "name": "shadow-step",
+          "displayName": "Shadow Step",
+          "description": "Teleports through shadows to a nearby location",
+          "rarityWeight": 150,
+          "cooldown": 20,
+          "range": 15,
+          "traits": {
+            "castTime": {
+              "value": 0,
+              "type": "number"
+            },
+            "invisibilityDuration": {
+              "value": 2,
+              "type": "number"
+            },
+            "targetType": {
+              "value": "location",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "teleport",
+          "displayName": "Teleport",
+          "description": "Instantly transports to a distant location",
+          "rarityWeight": 15,
+          "cooldown": 30,
+          "range": 30,
+          "traits": {
+            "castTime": {
+              "value": 2,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 50,
+              "type": "number"
+            },
+            "targetType": {
+              "value": "location",
+              "type": "string"
+            }
+          }
+        }
+      ]
     }
-  ]
+  }
 }

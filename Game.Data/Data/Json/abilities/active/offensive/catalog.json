@@ -13,1031 +13,1443 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "ability_types": [
-    {
-      "name": "Infernal Flames",
-      "displayName": "Infernal Flames",
-      "description": "Wreathed in hellfire, burns attackers",
-      "rarityWeight": 35,
-      "baseDamage": "2d6",
-      "cooldown": 10,
-      "range": 5,
-      "traits": {
-        "damageType": {
-          "value": "fire",
-          "type": "string"
+  "ability_types": {
+    "offensive": {
+      "items": [
+        {
+          "name": "Infernal Flames",
+          "displayName": "Infernal Flames",
+          "description": "Wreathed in hellfire, burns attackers",
+          "rarityWeight": 35,
+          "baseDamage": "2d6",
+          "cooldown": 10,
+          "range": 5,
+          "traits": {
+            "damageType": {
+              "value": "fire",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 3,
+              "type": "number"
+            },
+            "statusEffect": {
+              "value": "burning",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 3,
+              "type": "number"
+            }
+          }
         },
-        "damageBonus": {
-          "value": 3,
-          "type": "number"
+        {
+          "name": "Hellfire Breath",
+          "displayName": "Hellfire Breath",
+          "description": "Exhales devastating flames",
+          "rarityWeight": 150,
+          "baseDamage": "4d8",
+          "cooldown": 20,
+          "range": 10,
+          "traits": {
+            "damageType": {
+              "value": "fire",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 8,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 5,
+              "type": "number"
+            },
+            "statusEffect": {
+              "value": "burning",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 75,
+              "type": "number"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            },
+            "targetCount": {
+              "value": 5,
+              "type": "number"
+            }
+          }
         },
-        "statusEffect": {
-          "value": "burning",
-          "type": "string"
+        {
+          "name": "Cursed Weapons",
+          "displayName": "Cursed Weapons",
+          "description": "Attacks inflict lingering curses",
+          "rarityWeight": 75,
+          "baseDamage": "1d6",
+          "traits": {
+            "damageType": {
+              "value": "dark",
+              "type": "string"
+            },
+            "statusEffect": {
+              "value": "cursed",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 100,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            },
+            "damageMultiplier": {
+              "value": 1.5,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "passive",
+              "type": "string"
+            }
+          }
         },
-        "statusChance": {
-          "value": 50,
-          "type": "number"
+        {
+          "name": "Unholy Strength",
+          "displayName": "Unholy Strength",
+          "description": "Possesses supernatural physical power",
+          "rarityWeight": 35,
+          "traits": {
+            "damageBonus": {
+              "value": 5,
+              "type": "number"
+            },
+            "strengthBonus": {
+              "value": 4,
+              "type": "number"
+            },
+            "damageMultiplier": {
+              "value": 1.3,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "passive",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "self",
+              "type": "string"
+            }
+          }
         },
-        "duration": {
-          "value": 3,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "name": "Hellfire Breath",
-      "displayName": "Hellfire Breath",
-      "description": "Exhales devastating flames",
-      "rarityWeight": 150,
-      "baseDamage": "4d8",
-      "cooldown": 20,
-      "range": 10,
-      "traits": {
-        "damageType": {
-          "value": "fire",
-          "type": "string"
+        {
+          "name": "Blood Frenzy",
+          "displayName": "Blood Frenzy",
+          "description": "Becomes more dangerous as it bleeds",
+          "rarityWeight": 35,
+          "traits": {
+            "damageMultiplier": {
+              "value": 2.0,
+              "type": "number"
+            },
+            "attackSpeed": {
+              "value": 1.5,
+              "type": "number"
+            },
+            "criticalChance": {
+              "value": 25,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "passive",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "self",
+              "type": "string"
+            }
+          }
         },
-        "damageBonus": {
-          "value": 8,
-          "type": "number"
+        {
+          "rarityWeight": 75,
+          "description": "Devastating breath weapon attack",
+          "name": "Dragon Breath",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Dragon Breath"
         },
-        "areaOfEffect": {
-          "value": 5,
-          "type": "number"
+        {
+          "rarityWeight": 35,
+          "description": "Can attack multiple enemies with tail",
+          "name": "Tail Sweep",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Tail Sweep"
         },
-        "statusEffect": {
-          "value": "burning",
-          "type": "string"
+        {
+          "rarityWeight": 35,
+          "description": "Creates powerful wind gusts",
+          "name": "Wing Buffet",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Wing Buffet"
         },
-        "statusChance": {
-          "value": 75,
-          "type": "number"
+        {
+          "rarityWeight": 35,
+          "description": "Jaw strength can break armor",
+          "name": "Crushing Bite",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Crushing Bite"
         },
-        "duration": {
-          "value": 5,
-          "type": "number"
+        {
+          "rarityWeight": 35,
+          "description": "Can surround and trap enemies",
+          "name": "Engulf",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Engulf"
         },
-        "targetCount": {
-          "value": 5,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "name": "Cursed Weapons",
-      "displayName": "Cursed Weapons",
-      "description": "Attacks inflict lingering curses",
-      "rarityWeight": 75,
-      "baseDamage": "1d6",
-      "traits": {
-        "damageType": {
-          "value": "dark",
-          "type": "string"
+        {
+          "rarityWeight": 75,
+          "description": "Explosive discharge of elemental energy",
+          "name": "Elemental Burst",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Elemental Burst"
         },
-        "statusEffect": {
-          "value": "cursed",
-          "type": "string"
+        {
+          "rarityWeight": 35,
+          "description": "Damages nearby enemies with elemental energy",
+          "name": "Elemental Aura",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Elemental Aura"
         },
-        "statusChance": {
-          "value": 100,
-          "type": "number"
+        {
+          "rarityWeight": 150,
+          "description": "Unleashes devastating elemental storms",
+          "name": "Elemental Fury",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Elemental Fury"
         },
-        "duration": {
-          "value": 10,
-          "type": "number"
+        {
+          "rarityWeight": 35,
+          "description": "Explodes when defeated",
+          "name": "Unstable",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Unstable"
         },
-        "damageMultiplier": {
-          "value": 1.5,
-          "type": "number"
+        {
+          "rarityWeight": 10,
+          "description": "Trained in combat techniques",
+          "name": "Skilled Fighter",
+          "traits": {
+            "category": {
+              "value": "combat_styles",
+              "type": "string"
+            }
+          },
+          "displayName": "Skilled Fighter"
         },
-        "abilityClass": {
-          "value": "passive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Unholy Strength",
-      "displayName": "Unholy Strength",
-      "description": "Possesses supernatural physical power",
-      "rarityWeight": 35,
-      "traits": {
-        "damageBonus": {
-          "value": 5,
-          "type": "number"
+        {
+          "rarityWeight": 75,
+          "description": "Fights with two weapons simultaneously",
+          "name": "Dual Wielding",
+          "traits": {
+            "category": {
+              "value": "combat_styles",
+              "type": "string"
+            }
+          },
+          "displayName": "Dual Wielding"
         },
-        "strengthBonus": {
-          "value": 4,
-          "type": "number"
+        {
+          "rarityWeight": 35,
+          "description": "Expert at blocking and parrying",
+          "name": "Shield Mastery",
+          "traits": {
+            "category": {
+              "value": "combat_styles",
+              "type": "string"
+            }
+          },
+          "displayName": "Shield Mastery"
         },
-        "damageMultiplier": {
-          "value": 1.3,
-          "type": "number"
+        {
+          "rarityWeight": 35,
+          "description": "Deadly accurate with ranged weapons",
+          "name": "Marksman",
+          "traits": {
+            "category": {
+              "value": "combat_styles",
+              "type": "string"
+            }
+          },
+          "displayName": "Marksman"
         },
-        "abilityClass": {
-          "value": "passive",
-          "type": "string"
+        {
+          "rarityWeight": 75,
+          "description": "Proficient with all weapon types",
+          "name": "Weapon Master",
+          "traits": {
+            "category": {
+              "value": "combat_styles",
+              "type": "string"
+            }
+          },
+          "displayName": "Weapon Master"
         },
-        "targetType": {
-          "value": "self",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Blood Frenzy",
-      "displayName": "Blood Frenzy",
-      "description": "Becomes more dangerous as it bleeds",
-      "rarityWeight": 35,
-      "traits": {
-        "damageMultiplier": {
-          "value": 2.0,
-          "type": "number"
+        {
+          "rarityWeight": 10,
+          "description": "Deals increased melee damage",
+          "name": "BrutalStrength",
+          "traits": {
+            "category": {
+              "value": "basic_combat",
+              "type": "string"
+            }
+          },
+          "displayName": "Brutal Strength"
         },
-        "attackSpeed": {
-          "value": 1.5,
-          "type": "number"
+        {
+          "rarityWeight": 10,
+          "description": "Increased maximum health",
+          "name": "Tough",
+          "traits": {
+            "category": {
+              "value": "basic_combat",
+              "type": "string"
+            }
+          },
+          "displayName": "Tough"
         },
-        "criticalChance": {
-          "value": 25,
-          "type": "number"
+        {
+          "rarityWeight": 10,
+          "description": "Damage increases as health decreases",
+          "name": "BattleRage",
+          "traits": {
+            "category": {
+              "value": "basic_combat",
+              "type": "string"
+            }
+          },
+          "displayName": "Battle Rage"
         },
-        "abilityClass": {
-          "value": "passive",
-          "type": "string"
+        {
+          "rarityWeight": 35,
+          "description": "Immune to fear and intimidation effects",
+          "name": "Fearless",
+          "traits": {
+            "category": {
+              "value": "basic_combat",
+              "type": "string"
+            }
+          },
+          "displayName": "Fearless"
         },
-        "targetType": {
-          "value": "self",
-          "type": "string"
+        {
+          "rarityWeight": 35,
+          "description": "Steals life force from living creatures",
+          "name": "Life Drain",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Life Drain"
+        },
+        {
+          "rarityWeight": 150,
+          "description": "Can instantly kill weak enemies",
+          "name": "Death Touch",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Death Touch"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Attacks may paralyze victims",
+          "name": "Paralytic Touch",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Paralytic Touch"
+        },
+        {
+          "rarityWeight": 35,
+          "description": "Spreads disease with attacks",
+          "name": "Plague Bearer",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Plague Bearer"
+        },
+        {
+          "rarityWeight": 35,
+          "description": "Possesses incredible physical power",
+          "name": "Superhuman Strength",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Superhuman Strength"
+        },
+        {
+          "rarityWeight": 35,
+          "description": "Hypnotic gaze controls minds",
+          "name": "Charm",
+          "traits": {
+            "category": {
+              "value": "offensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Charm"
+        },
+        {
+          "name": "basic-attack",
+          "displayName": "Basic Attack",
+          "description": "Standard melee or ranged weapon attack",
+          "rarityWeight": 1,
+          "baseDamage": "1d6",
+          "cooldown": 0,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "weaponBased": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "sneak-attack",
+          "displayName": "Sneak Attack",
+          "description": "Strike from shadows for massive bonus damage",
+          "rarityWeight": 10,
+          "baseDamage": "2d6",
+          "cooldown": 6,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "backstabBonus": {
+              "value": 50,
+              "type": "number"
+            },
+            "requiresStealth": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "power-strike",
+          "displayName": "Power Strike",
+          "description": "Heavy blow that deals increased damage",
+          "rarityWeight": 5,
+          "baseDamage": "2d8",
+          "cooldown": 8,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 10,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "cleave",
+          "displayName": "Cleave",
+          "description": "Wide swing that hits multiple enemies",
+          "rarityWeight": 5,
+          "baseDamage": "2d6",
+          "cooldown": 10,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "targetCount": {
+              "value": 3,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 5,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "whirlwind",
+          "displayName": "Whirlwind",
+          "description": "Spin attack hitting all nearby enemies",
+          "rarityWeight": 5,
+          "baseDamage": "2d6",
+          "cooldown": 15,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 8,
+              "type": "number"
+            },
+            "targetCount": {
+              "value": 8,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "devastating-blow",
+          "displayName": "Devastating Blow",
+          "description": "Powerful strike with high critical chance",
+          "rarityWeight": 5,
+          "baseDamage": "4d8",
+          "cooldown": 30,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "critChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "critMultiplier": {
+              "value": 3.0,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "reckless-attack",
+          "displayName": "Reckless Attack",
+          "description": "All-out assault with no regard for defense",
+          "rarityWeight": 50,
+          "baseDamage": "3d8",
+          "cooldown": 6,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 30,
+              "type": "number"
+            },
+            "selfDamageIncrease": {
+              "value": 20,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "frenzy",
+          "displayName": "Frenzy",
+          "description": "Rapid series of attacks in berserker fury",
+          "rarityWeight": 50,
+          "baseDamage": "1d8",
+          "cooldown": 20,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "attackCount": {
+              "value": 5,
+              "type": "number"
+            },
+            "attackSpeedBonus": {
+              "value": 50,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "shield-bash",
+          "displayName": "Shield Bash",
+          "description": "Strike with shield to damage and stun",
+          "rarityWeight": 35,
+          "baseDamage": "1d8",
+          "cooldown": 8,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "stunDuration": {
+              "value": 2,
+              "type": "number"
+            },
+            "requiresShield": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "precision-strike",
+          "displayName": "Precision Strike",
+          "description": "Carefully aimed attack that ignores armor",
+          "rarityWeight": 75,
+          "baseDamage": "2d8",
+          "cooldown": 10,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "armorPenetration": {
+              "value": 100,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "flurry",
+          "displayName": "Flurry",
+          "description": "Lightning-fast series of strikes",
+          "rarityWeight": 75,
+          "baseDamage": "1d6",
+          "cooldown": 12,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "attackCount": {
+              "value": 4,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "dance-of-blades",
+          "displayName": "Dance of Blades",
+          "description": "Elegant flurry of strikes hitting multiple enemies",
+          "rarityWeight": 75,
+          "baseDamage": "2d8",
+          "cooldown": 30,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "attackCount": {
+              "value": 6,
+              "type": "number"
+            },
+            "targetCount": {
+              "value": 6,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "backstab",
+          "displayName": "Backstab",
+          "description": "Strike vital points from behind for massive damage",
+          "rarityWeight": 10,
+          "baseDamage": "3d8",
+          "cooldown": 10,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "backstabMultiplier": {
+              "value": 3.0,
+              "type": "number"
+            },
+            "requiresPositioning": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "assassinate",
+          "displayName": "Assassinate",
+          "description": "Instant kill attempt on low-health targets",
+          "rarityWeight": 150,
+          "baseDamage": "5d10",
+          "cooldown": 60,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "executeThreshold": {
+              "value": 20,
+              "type": "number"
+            },
+            "critMultiplier": {
+              "value": 5.0,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "poison-blade",
+          "displayName": "Poison Blade",
+          "description": "Coat weapon in deadly poison",
+          "rarityWeight": 150,
+          "baseDamage": "1d6",
+          "cooldown": 20,
+          "traits": {
+            "damageType": {
+              "value": "poison",
+              "type": "string"
+            },
+            "damageOverTime": {
+              "value": 20,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "silent-kill",
+          "displayName": "Silent Kill",
+          "description": "Execute target without alerting others",
+          "rarityWeight": 150,
+          "baseDamage": "4d10",
+          "cooldown": 30,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "silenced": {
+              "value": true,
+              "type": "boolean"
+            },
+            "requiresStealth": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "execute",
+          "displayName": "Execute",
+          "description": "Finishing blow that deals more damage to wounded targets",
+          "rarityWeight": 150,
+          "baseDamage": "3d10",
+          "cooldown": 15,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "damagePerMissingHP": {
+              "value": 2,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "magic-missile",
+          "displayName": "Magic Missile",
+          "description": "Unerring magical projectile",
+          "rarityWeight": 15,
+          "baseDamage": "2d4",
+          "cooldown": 3,
+          "traits": {
+            "damageType": {
+              "value": "magic",
+              "type": "string"
+            },
+            "autoHit": {
+              "value": true,
+              "type": "boolean"
+            },
+            "manaCost": {
+              "value": 10,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "fireball",
+          "displayName": "Fireball",
+          "description": "Explosive ball of flame",
+          "rarityWeight": 15,
+          "baseDamage": "3d6",
+          "cooldown": 8,
+          "range": 30,
+          "traits": {
+            "damageType": {
+              "value": "fire",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 10,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 30,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "ice-shard",
+          "displayName": "Ice Shard",
+          "description": "Piercing shard of ice that slows target",
+          "rarityWeight": 15,
+          "baseDamage": "2d8",
+          "cooldown": 6,
+          "traits": {
+            "damageType": {
+              "value": "ice",
+              "type": "string"
+            },
+            "slowPercent": {
+              "value": 30,
+              "type": "number"
+            },
+            "slowDuration": {
+              "value": 5,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 20,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "lightning-bolt",
+          "displayName": "Lightning Bolt",
+          "description": "Devastating bolt of electricity",
+          "rarityWeight": 15,
+          "baseDamage": "4d6",
+          "cooldown": 10,
+          "traits": {
+            "damageType": {
+              "value": "lightning",
+              "type": "string"
+            },
+            "chainTargets": {
+              "value": 3,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 40,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "meteor",
+          "displayName": "Meteor",
+          "description": "Summons massive flaming meteor from sky",
+          "rarityWeight": 15,
+          "baseDamage": "8d10",
+          "cooldown": 60,
+          "traits": {
+            "damageType": {
+              "value": "fire",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 15,
+              "type": "number"
+            },
+            "castTime": {
+              "value": 5,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 150,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "elemental-bolt",
+          "displayName": "Elemental Bolt",
+          "description": "Focused blast of chosen element",
+          "rarityWeight": 100,
+          "baseDamage": "3d8",
+          "cooldown": 5,
+          "traits": {
+            "damageType": {
+              "value": "elemental",
+              "type": "string"
+            },
+            "elementChoice": {
+              "value": true,
+              "type": "boolean"
+            },
+            "manaCost": {
+              "value": 35,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "elemental-storm",
+          "displayName": "Elemental Storm",
+          "description": "Massive area storm of chosen element",
+          "rarityWeight": 100,
+          "baseDamage": "5d8",
+          "cooldown": 45,
+          "traits": {
+            "damageType": {
+              "value": "elemental",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 20,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 100,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "elemental-fury",
+          "displayName": "Elemental Fury",
+          "description": "Rapid barrage of elemental attacks",
+          "rarityWeight": 100,
+          "baseDamage": "2d6",
+          "cooldown": 20,
+          "traits": {
+            "damageType": {
+              "value": "elemental",
+              "type": "string"
+            },
+            "attackCount": {
+              "value": 8,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 60,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "drain-life",
+          "displayName": "Drain Life",
+          "description": "Siphons life force from target",
+          "rarityWeight": 250,
+          "baseDamage": "2d8",
+          "cooldown": 8,
+          "traits": {
+            "damageType": {
+              "value": "dark",
+              "type": "string"
+            },
+            "lifestealPercent": {
+              "value": 100,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 30,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "death-bolt",
+          "displayName": "Death Bolt",
+          "description": "Bolt of pure death energy",
+          "rarityWeight": 250,
+          "baseDamage": "4d8",
+          "cooldown": 10,
+          "traits": {
+            "damageType": {
+              "value": "dark",
+              "type": "string"
+            },
+            "undeadImmune": {
+              "value": true,
+              "type": "boolean"
+            },
+            "manaCost": {
+              "value": 40,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "death-and-decay",
+          "displayName": "Death and Decay",
+          "description": "Ground erupts with necrotic energy",
+          "rarityWeight": 250,
+          "baseDamage": "3d6",
+          "cooldown": 30,
+          "traits": {
+            "damageType": {
+              "value": "dark",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 12,
+              "type": "number"
+            },
+            "damagePerSecond": {
+              "value": 10,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 80,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "smite",
+          "displayName": "Smite",
+          "description": "Holy strike that deals extra damage to undead",
+          "rarityWeight": 20,
+          "baseDamage": "3d8",
+          "cooldown": 10,
+          "traits": {
+            "damageType": {
+              "value": "holy",
+              "type": "string"
+            },
+            "undeadBonus": {
+              "value": 100,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 25,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "holy-nova",
+          "displayName": "Holy Nova",
+          "description": "Explosion of holy energy",
+          "rarityWeight": 20,
+          "baseDamage": "4d6",
+          "cooldown": 20,
+          "traits": {
+            "damageType": {
+              "value": "holy",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 10,
+              "type": "number"
+            },
+            "healAllies": {
+              "value": 30,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 60,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "divine-strike",
+          "displayName": "Divine Strike",
+          "description": "Weapon infused with holy power",
+          "rarityWeight": 75,
+          "baseDamage": "2d8",
+          "cooldown": 6,
+          "traits": {
+            "damageType": {
+              "value": "holy",
+              "type": "string"
+            },
+            "holyBonus": {
+              "value": 20,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 15,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "hammer-of-justice",
+          "displayName": "Hammer of Justice",
+          "description": "Summons divine hammer to strike down evil",
+          "rarityWeight": 75,
+          "baseDamage": "5d8",
+          "cooldown": 30,
+          "traits": {
+            "damageType": {
+              "value": "holy",
+              "type": "string"
+            },
+            "stunDuration": {
+              "value": 3,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 50,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "bow-shot",
+          "displayName": "Bow Shot",
+          "description": "Ranged arrow attack",
+          "rarityWeight": 15,
+          "baseDamage": "2d6",
+          "cooldown": 2,
+          "range": 50,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "rangedAttack": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "multi-shot",
+          "displayName": "Multi-Shot",
+          "description": "Fire multiple arrows at different targets",
+          "rarityWeight": 15,
+          "baseDamage": "1d8",
+          "cooldown": 10,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "targetCount": {
+              "value": 5,
+              "type": "number"
+            },
+            "rangedAttack": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "volley",
+          "displayName": "Volley",
+          "description": "Rain of arrows on area",
+          "rarityWeight": 15,
+          "baseDamage": "2d6",
+          "cooldown": 20,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 15,
+              "type": "number"
+            },
+            "rangedAttack": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "alpha-strike",
+          "displayName": "Alpha Strike",
+          "description": "Combined attack with all animal companions",
+          "rarityWeight": 100,
+          "baseDamage": "4d10",
+          "cooldown": 45,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "requiresPet": {
+              "value": true,
+              "type": "boolean"
+            },
+            "petDamageBonus": {
+              "value": 100,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "claw-attack",
+          "displayName": "Claw Attack",
+          "description": "Vicious claw swipe",
+          "rarityWeight": 5,
+          "baseDamage": "2d8",
+          "cooldown": 3,
+          "traits": {
+            "damageType": {
+              "value": "slashing",
+              "type": "string"
+            },
+            "bleedChance": {
+              "value": 20,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "bite",
+          "displayName": "Bite",
+          "description": "Powerful bite attack",
+          "rarityWeight": 5,
+          "baseDamage": "2d10",
+          "cooldown": 4,
+          "traits": {
+            "damageType": {
+              "value": "piercing",
+              "type": "string"
+            },
+            "grappleChance": {
+              "value": 30,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "dragon-breath",
+          "displayName": "Dragon Breath",
+          "description": "Devastating breath weapon",
+          "rarityWeight": 50,
+          "baseDamage": "4d12",
+          "cooldown": 20,
+          "traits": {
+            "damageType": {
+              "value": "elemental",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 15,
+              "type": "number"
+            },
+            "cone": {
+              "value": true,
+              "type": "boolean"
+            },
+            "elementVaries": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "tail-sweep",
+          "displayName": "Tail Sweep",
+          "description": "Sweep tail to knock back enemies",
+          "rarityWeight": 75,
+          "baseDamage": "3d8",
+          "cooldown": 12,
+          "traits": {
+            "damageType": {
+              "value": "bludgeoning",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 10,
+              "type": "number"
+            },
+            "knockbackDistance": {
+              "value": 15,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "wing-buffet",
+          "displayName": "Wing Buffet",
+          "description": "Powerful wing flap creates shockwave",
+          "rarityWeight": 75,
+          "baseDamage": "2d10",
+          "cooldown": 15,
+          "traits": {
+            "damageType": {
+              "value": "force",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 20,
+              "type": "number"
+            },
+            "knockbackDistance": {
+              "value": 20,
+              "type": "number"
+            },
+            "stunDuration": {
+              "value": 2,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "poison-cloud",
+          "displayName": "Poison Cloud",
+          "description": "Exhale toxic cloud",
+          "rarityWeight": 100,
+          "baseDamage": "2d6",
+          "cooldown": 30,
+          "traits": {
+            "damageType": {
+              "value": "poison",
+              "type": "string"
+            },
+            "damageOverTime": {
+              "value": "2d6",
+              "type": "string"
+            },
+            "duration": {
+              "value": 12,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 15,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "acid-pool",
+          "displayName": "Acid Pool",
+          "description": "Create pool of corrosive acid",
+          "rarityWeight": 100,
+          "baseDamage": "3d8",
+          "cooldown": 25,
+          "traits": {
+            "damageType": {
+              "value": "acid",
+              "type": "string"
+            },
+            "damageOverTime": {
+              "value": "3d8",
+              "type": "string"
+            },
+            "duration": {
+              "value": 20,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 10,
+              "type": "number"
+            },
+            "persistentZone": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "ice-storm",
+          "displayName": "Ice Storm",
+          "description": "Summon freezing ice storm",
+          "rarityWeight": 100,
+          "baseDamage": "4d10",
+          "cooldown": 35,
+          "traits": {
+            "damageType": {
+              "value": "cold",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 25,
+              "type": "number"
+            },
+            "slowPercent": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            }
+          }
         }
-      }
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Devastating breath weapon attack",
-      "name": "Dragon Breath",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Dragon Breath"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Can attack multiple enemies with tail",
-      "name": "Tail Sweep",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Tail Sweep"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Creates powerful wind gusts",
-      "name": "Wing Buffet",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Wing Buffet"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Jaw strength can break armor",
-      "name": "Crushing Bite",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Crushing Bite"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Can surround and trap enemies",
-      "name": "Engulf",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Engulf"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Explosive discharge of elemental energy",
-      "name": "Elemental Burst",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Elemental Burst"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Damages nearby enemies with elemental energy",
-      "name": "Elemental Aura",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Elemental Aura"
-    },
-    {
-      "rarityWeight": 150,
-      "description": "Unleashes devastating elemental storms",
-      "name": "Elemental Fury",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Elemental Fury"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Explodes when defeated",
-      "name": "Unstable",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Unstable"
-    },
-    {
-      "rarityWeight": 10,
-      "description": "Trained in combat techniques",
-      "name": "Skilled Fighter",
-      "traits": {
-        "category": {
-          "value": "combat_styles",
-          "type": "string"
-        }
-      },
-      "displayName": "Skilled Fighter"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Fights with two weapons simultaneously",
-      "name": "Dual Wielding",
-      "traits": {
-        "category": {
-          "value": "combat_styles",
-          "type": "string"
-        }
-      },
-      "displayName": "Dual Wielding"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Expert at blocking and parrying",
-      "name": "Shield Mastery",
-      "traits": {
-        "category": {
-          "value": "combat_styles",
-          "type": "string"
-        }
-      },
-      "displayName": "Shield Mastery"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Deadly accurate with ranged weapons",
-      "name": "Marksman",
-      "traits": {
-        "category": {
-          "value": "combat_styles",
-          "type": "string"
-        }
-      },
-      "displayName": "Marksman"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Proficient with all weapon types",
-      "name": "Weapon Master",
-      "traits": {
-        "category": {
-          "value": "combat_styles",
-          "type": "string"
-        }
-      },
-      "displayName": "Weapon Master"
-    },
-    {
-      "rarityWeight": 10,
-      "description": "Deals increased melee damage",
-      "name": "BrutalStrength",
-      "traits": {
-        "category": {
-          "value": "basic_combat",
-          "type": "string"
-        }
-      },
-      "displayName": "Brutal Strength"
-    },
-    {
-      "rarityWeight": 10,
-      "description": "Increased maximum health",
-      "name": "Tough",
-      "traits": {
-        "category": {
-          "value": "basic_combat",
-          "type": "string"
-        }
-      },
-      "displayName": "Tough"
-    },
-    {
-      "rarityWeight": 10,
-      "description": "Damage increases as health decreases",
-      "name": "BattleRage",
-      "traits": {
-        "category": {
-          "value": "basic_combat",
-          "type": "string"
-        }
-      },
-      "displayName": "Battle Rage"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Immune to fear and intimidation effects",
-      "name": "Fearless",
-      "traits": {
-        "category": {
-          "value": "basic_combat",
-          "type": "string"
-        }
-      },
-      "displayName": "Fearless"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Steals life force from living creatures",
-      "name": "Life Drain",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Life Drain"
-    },
-    {
-      "rarityWeight": 150,
-      "description": "Can instantly kill weak enemies",
-      "name": "Death Touch",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Death Touch"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Attacks may paralyze victims",
-      "name": "Paralytic Touch",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Paralytic Touch"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Spreads disease with attacks",
-      "name": "Plague Bearer",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Plague Bearer"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Possesses incredible physical power",
-      "name": "Superhuman Strength",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Superhuman Strength"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Hypnotic gaze controls minds",
-      "name": "Charm",
-      "traits": {
-        "category": {
-          "value": "offensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Charm"
-    },
-    {
-      "name": "basic-attack",
-      "displayName": "Basic Attack",
-      "description": "Standard melee or ranged weapon attack",
-      "rarityWeight": 1,
-      "baseDamage": "1d6",
-      "cooldown": 0,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "weaponBased": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "sneak-attack",
-      "displayName": "Sneak Attack",
-      "description": "Strike from shadows for massive bonus damage",
-      "rarityWeight": 10,
-      "baseDamage": "2d6",
-      "cooldown": 6,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "backstabBonus": {"value": 50, "type": "number"},
-        "requiresStealth": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "power-strike",
-      "displayName": "Power Strike",
-      "description": "Heavy blow that deals increased damage",
-      "rarityWeight": 5,
-      "baseDamage": "2d8",
-      "cooldown": 8,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "damageBonus": {"value": 10, "type": "number"}
-      }
-    },
-    {
-      "name": "cleave",
-      "displayName": "Cleave",
-      "description": "Wide swing that hits multiple enemies",
-      "rarityWeight": 5,
-      "baseDamage": "2d6",
-      "cooldown": 10,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "targetCount": {"value": 3, "type": "number"},
-        "areaOfEffect": {"value": 5, "type": "number"}
-      }
-    },
-    {
-      "name": "whirlwind",
-      "displayName": "Whirlwind",
-      "description": "Spin attack hitting all nearby enemies",
-      "rarityWeight": 5,
-      "baseDamage": "2d6",
-      "cooldown": 15,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "areaOfEffect": {"value": 8, "type": "number"},
-        "targetCount": {"value": 8, "type": "number"}
-      }
-    },
-    {
-      "name": "devastating-blow",
-      "displayName": "Devastating Blow",
-      "description": "Powerful strike with high critical chance",
-      "rarityWeight": 5,
-      "baseDamage": "4d8",
-      "cooldown": 30,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "critChance": {"value": 50, "type": "number"},
-        "critMultiplier": {"value": 3.0, "type": "number"}
-      }
-    },
-    {
-      "name": "reckless-attack",
-      "displayName": "Reckless Attack",
-      "description": "All-out assault with no regard for defense",
-      "rarityWeight": 50,
-      "baseDamage": "3d8",
-      "cooldown": 6,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "damageBonus": {"value": 30, "type": "number"},
-        "selfDamageIncrease": {"value": 20, "type": "number"}
-      }
-    },
-    {
-      "name": "frenzy",
-      "displayName": "Frenzy",
-      "description": "Rapid series of attacks in berserker fury",
-      "rarityWeight": 50,
-      "baseDamage": "1d8",
-      "cooldown": 20,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "attackCount": {"value": 5, "type": "number"},
-        "attackSpeedBonus": {"value": 50, "type": "number"}
-      }
-    },
-    {
-      "name": "shield-bash",
-      "displayName": "Shield Bash",
-      "description": "Strike with shield to damage and stun",
-      "rarityWeight": 35,
-      "baseDamage": "1d8",
-      "cooldown": 8,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "stunDuration": {"value": 2, "type": "number"},
-        "requiresShield": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "precision-strike",
-      "displayName": "Precision Strike",
-      "description": "Carefully aimed attack that ignores armor",
-      "rarityWeight": 75,
-      "baseDamage": "2d8",
-      "cooldown": 10,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "armorPenetration": {"value": 100, "type": "number"}
-      }
-    },
-    {
-      "name": "flurry",
-      "displayName": "Flurry",
-      "description": "Lightning-fast series of strikes",
-      "rarityWeight": 75,
-      "baseDamage": "1d6",
-      "cooldown": 12,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "attackCount": {"value": 4, "type": "number"}
-      }
-    },
-    {
-      "name": "dance-of-blades",
-      "displayName": "Dance of Blades",
-      "description": "Elegant flurry of strikes hitting multiple enemies",
-      "rarityWeight": 75,
-      "baseDamage": "2d8",
-      "cooldown": 30,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "attackCount": {"value": 6, "type": "number"},
-        "targetCount": {"value": 6, "type": "number"}
-      }
-    },
-    {
-      "name": "backstab",
-      "displayName": "Backstab",
-      "description": "Strike vital points from behind for massive damage",
-      "rarityWeight": 10,
-      "baseDamage": "3d8",
-      "cooldown": 10,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "backstabMultiplier": {"value": 3.0, "type": "number"},
-        "requiresPositioning": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "assassinate",
-      "displayName": "Assassinate",
-      "description": "Instant kill attempt on low-health targets",
-      "rarityWeight": 150,
-      "baseDamage": "5d10",
-      "cooldown": 60,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "executeThreshold": {"value": 20, "type": "number"},
-        "critMultiplier": {"value": 5.0, "type": "number"}
-      }
-    },
-    {
-      "name": "poison-blade",
-      "displayName": "Poison Blade",
-      "description": "Coat weapon in deadly poison",
-      "rarityWeight": 150,
-      "baseDamage": "1d6",
-      "cooldown": 20,
-      "traits": {
-        "damageType": {"value": "poison", "type": "string"},
-        "damageOverTime": {"value": 20, "type": "number"},
-        "duration": {"value": 10, "type": "number"}
-      }
-    },
-    {
-      "name": "silent-kill",
-      "displayName": "Silent Kill",
-      "description": "Execute target without alerting others",
-      "rarityWeight": 150,
-      "baseDamage": "4d10",
-      "cooldown": 30,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "silenced": {"value": true, "type": "boolean"},
-        "requiresStealth": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "execute",
-      "displayName": "Execute",
-      "description": "Finishing blow that deals more damage to wounded targets",
-      "rarityWeight": 150,
-      "baseDamage": "3d10",
-      "cooldown": 15,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "damagePerMissingHP": {"value": 2, "type": "number"}
-      }
-    },
-    {
-      "name": "magic-missile",
-      "displayName": "Magic Missile",
-      "description": "Unerring magical projectile",
-      "rarityWeight": 15,
-      "baseDamage": "2d4",
-      "cooldown": 3,
-      "traits": {
-        "damageType": {"value": "magic", "type": "string"},
-        "autoHit": {"value": true, "type": "boolean"},
-        "manaCost": {"value": 10, "type": "number"}
-      }
-    },
-    {
-      "name": "fireball",
-      "displayName": "Fireball",
-      "description": "Explosive ball of flame",
-      "rarityWeight": 15,
-      "baseDamage": "3d6",
-      "cooldown": 8,
-      "range": 30,
-      "traits": {
-        "damageType": {"value": "fire", "type": "string"},
-        "areaOfEffect": {"value": 10, "type": "number"},
-        "manaCost": {"value": 30, "type": "number"}
-      }
-    },
-    {
-      "name": "ice-shard",
-      "displayName": "Ice Shard",
-      "description": "Piercing shard of ice that slows target",
-      "rarityWeight": 15,
-      "baseDamage": "2d8",
-      "cooldown": 6,
-      "traits": {
-        "damageType": {"value": "ice", "type": "string"},
-        "slowPercent": {"value": 30, "type": "number"},
-        "slowDuration": {"value": 5, "type": "number"},
-        "manaCost": {"value": 20, "type": "number"}
-      }
-    },
-    {
-      "name": "lightning-bolt",
-      "displayName": "Lightning Bolt",
-      "description": "Devastating bolt of electricity",
-      "rarityWeight": 15,
-      "baseDamage": "4d6",
-      "cooldown": 10,
-      "traits": {
-        "damageType": {"value": "lightning", "type": "string"},
-        "chainTargets": {"value": 3, "type": "number"},
-        "manaCost": {"value": 40, "type": "number"}
-      }
-    },
-    {
-      "name": "meteor",
-      "displayName": "Meteor",
-      "description": "Summons massive flaming meteor from sky",
-      "rarityWeight": 15,
-      "baseDamage": "8d10",
-      "cooldown": 60,
-      "traits": {
-        "damageType": {"value": "fire", "type": "string"},
-        "areaOfEffect": {"value": 15, "type": "number"},
-        "castTime": {"value": 5, "type": "number"},
-        "manaCost": {"value": 150, "type": "number"}
-      }
-    },
-    {
-      "name": "elemental-bolt",
-      "displayName": "Elemental Bolt",
-      "description": "Focused blast of chosen element",
-      "rarityWeight": 100,
-      "baseDamage": "3d8",
-      "cooldown": 5,
-      "traits": {
-        "damageType": {"value": "elemental", "type": "string"},
-        "elementChoice": {"value": true, "type": "boolean"},
-        "manaCost": {"value": 35, "type": "number"}
-      }
-    },
-    {
-      "name": "elemental-storm",
-      "displayName": "Elemental Storm",
-      "description": "Massive area storm of chosen element",
-      "rarityWeight": 100,
-      "baseDamage": "5d8",
-      "cooldown": 45,
-      "traits": {
-        "damageType": {"value": "elemental", "type": "string"},
-        "areaOfEffect": {"value": 20, "type": "number"},
-        "duration": {"value": 10, "type": "number"},
-        "manaCost": {"value": 100, "type": "number"}
-      }
-    },
-    {
-      "name": "elemental-fury",
-      "displayName": "Elemental Fury",
-      "description": "Rapid barrage of elemental attacks",
-      "rarityWeight": 100,
-      "baseDamage": "2d6",
-      "cooldown": 20,
-      "traits": {
-        "damageType": {"value": "elemental", "type": "string"},
-        "attackCount": {"value": 8, "type": "number"},
-        "manaCost": {"value": 60, "type": "number"}
-      }
-    },
-    {
-      "name": "drain-life",
-      "displayName": "Drain Life",
-      "description": "Siphons life force from target",
-      "rarityWeight": 250,
-      "baseDamage": "2d8",
-      "cooldown": 8,
-      "traits": {
-        "damageType": {"value": "dark", "type": "string"},
-        "lifestealPercent": {"value": 100, "type": "number"},
-        "manaCost": {"value": 30, "type": "number"}
-      }
-    },
-    {
-      "name": "death-bolt",
-      "displayName": "Death Bolt",
-      "description": "Bolt of pure death energy",
-      "rarityWeight": 250,
-      "baseDamage": "4d8",
-      "cooldown": 10,
-      "traits": {
-        "damageType": {"value": "dark", "type": "string"},
-        "undeadImmune": {"value": true, "type": "boolean"},
-        "manaCost": {"value": 40, "type": "number"}
-      }
-    },
-    {
-      "name": "death-and-decay",
-      "displayName": "Death and Decay",
-      "description": "Ground erupts with necrotic energy",
-      "rarityWeight": 250,
-      "baseDamage": "3d6",
-      "cooldown": 30,
-      "traits": {
-        "damageType": {"value": "dark", "type": "string"},
-        "areaOfEffect": {"value": 12, "type": "number"},
-        "damagePerSecond": {"value": 10, "type": "number"},
-        "duration": {"value": 10, "type": "number"},
-        "manaCost": {"value": 80, "type": "number"}
-      }
-    },
-    {
-      "name": "smite",
-      "displayName": "Smite",
-      "description": "Holy strike that deals extra damage to undead",
-      "rarityWeight": 20,
-      "baseDamage": "3d8",
-      "cooldown": 10,
-      "traits": {
-        "damageType": {"value": "holy", "type": "string"},
-        "undeadBonus": {"value": 100, "type": "number"},
-        "manaCost": {"value": 25, "type": "number"}
-      }
-    },
-    {
-      "name": "holy-nova",
-      "displayName": "Holy Nova",
-      "description": "Explosion of holy energy",
-      "rarityWeight": 20,
-      "baseDamage": "4d6",
-      "cooldown": 20,
-      "traits": {
-        "damageType": {"value": "holy", "type": "string"},
-        "areaOfEffect": {"value": 10, "type": "number"},
-        "healAllies": {"value": 30, "type": "number"},
-        "manaCost": {"value": 60, "type": "number"}
-      }
-    },
-    {
-      "name": "divine-strike",
-      "displayName": "Divine Strike",
-      "description": "Weapon infused with holy power",
-      "rarityWeight": 75,
-      "baseDamage": "2d8",
-      "cooldown": 6,
-      "traits": {
-        "damageType": {"value": "holy", "type": "string"},
-        "holyBonus": {"value": 20, "type": "number"},
-        "manaCost": {"value": 15, "type": "number"}
-      }
-    },
-    {
-      "name": "hammer-of-justice",
-      "displayName": "Hammer of Justice",
-      "description": "Summons divine hammer to strike down evil",
-      "rarityWeight": 75,
-      "baseDamage": "5d8",
-      "cooldown": 30,
-      "traits": {
-        "damageType": {"value": "holy", "type": "string"},
-        "stunDuration": {"value": 3, "type": "number"},
-        "manaCost": {"value": 50, "type": "number"}
-      }
-    },
-    {
-      "name": "bow-shot",
-      "displayName": "Bow Shot",
-      "description": "Ranged arrow attack",
-      "rarityWeight": 15,
-      "baseDamage": "2d6",
-      "cooldown": 2,
-      "range": 50,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "rangedAttack": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "multi-shot",
-      "displayName": "Multi-Shot",
-      "description": "Fire multiple arrows at different targets",
-      "rarityWeight": 15,
-      "baseDamage": "1d8",
-      "cooldown": 10,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "targetCount": {"value": 5, "type": "number"},
-        "rangedAttack": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "volley",
-      "displayName": "Volley",
-      "description": "Rain of arrows on area",
-      "rarityWeight": 15,
-      "baseDamage": "2d6",
-      "cooldown": 20,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "areaOfEffect": {"value": 15, "type": "number"},
-        "rangedAttack": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "alpha-strike",
-      "displayName": "Alpha Strike",
-      "description": "Combined attack with all animal companions",
-      "rarityWeight": 100,
-      "baseDamage": "4d10",
-      "cooldown": 45,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "requiresPet": {"value": true, "type": "boolean"},
-        "petDamageBonus": {"value": 100, "type": "number"}
-      }
-    },
-    {
-      "name": "claw-attack",
-      "displayName": "Claw Attack",
-      "description": "Vicious claw swipe",
-      "rarityWeight": 5,
-      "baseDamage": "2d8",
-      "cooldown": 3,
-      "traits": {
-        "damageType": {"value": "slashing", "type": "string"},
-        "bleedChance": {"value": 20, "type": "number"}
-      }
-    },
-    {
-      "name": "bite",
-      "displayName": "Bite",
-      "description": "Powerful bite attack",
-      "rarityWeight": 5,
-      "baseDamage": "2d10",
-      "cooldown": 4,
-      "traits": {
-        "damageType": {"value": "piercing", "type": "string"},
-        "grappleChance": {"value": 30, "type": "number"}
-      }
-    },
-    {
-      "name": "dragon-breath",
-      "displayName": "Dragon Breath",
-      "description": "Devastating breath weapon",
-      "rarityWeight": 50,
-      "baseDamage": "4d12",
-      "cooldown": 20,
-      "traits": {
-        "damageType": {"value": "elemental", "type": "string"},
-        "areaOfEffect": {"value": 15, "type": "number"},
-        "cone": {"value": true, "type": "boolean"},
-        "elementVaries": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "tail-sweep",
-      "displayName": "Tail Sweep",
-      "description": "Sweep tail to knock back enemies",
-      "rarityWeight": 75,
-      "baseDamage": "3d8",
-      "cooldown": 12,
-      "traits": {
-        "damageType": {"value": "bludgeoning", "type": "string"},
-        "areaOfEffect": {"value": 10, "type": "number"},
-        "knockbackDistance": {"value": 15, "type": "number"}
-      }
-    },
-    {
-      "name": "wing-buffet",
-      "displayName": "Wing Buffet",
-      "description": "Powerful wing flap creates shockwave",
-      "rarityWeight": 75,
-      "baseDamage": "2d10",
-      "cooldown": 15,
-      "traits": {
-        "damageType": {"value": "force", "type": "string"},
-        "areaOfEffect": {"value": 20, "type": "number"},
-        "knockbackDistance": {"value": 20, "type": "number"},
-        "stunDuration": {"value": 2, "type": "number"}
-      }
-    },
-    {
-      "name": "poison-cloud",
-      "displayName": "Poison Cloud",
-      "description": "Exhale toxic cloud",
-      "rarityWeight": 100,
-      "baseDamage": "2d6",
-      "cooldown": 30,
-      "traits": {
-        "damageType": {"value": "poison", "type": "string"},
-        "damageOverTime": {"value": "2d6", "type": "string"},
-        "duration": {"value": 12, "type": "number"},
-        "areaOfEffect": {"value": 15, "type": "number"}
-      }
-    },
-    {
-      "name": "acid-pool",
-      "displayName": "Acid Pool",
-      "description": "Create pool of corrosive acid",
-      "rarityWeight": 100,
-      "baseDamage": "3d8",
-      "cooldown": 25,
-      "traits": {
-        "damageType": {"value": "acid", "type": "string"},
-        "damageOverTime": {"value": "3d8", "type": "string"},
-        "duration": {"value": 20, "type": "number"},
-        "areaOfEffect": {"value": 10, "type": "number"},
-        "persistentZone": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "ice-storm",
-      "displayName": "Ice Storm",
-      "description": "Summon freezing ice storm",
-      "rarityWeight": 100,
-      "baseDamage": "4d10",
-      "cooldown": 35,
-      "traits": {
-        "damageType": {"value": "cold", "type": "string"},
-        "areaOfEffect": {"value": 25, "type": "number"},
-        "slowPercent": {"value": 50, "type": "number"},
-        "duration": {"value": 10, "type": "number"}
-      }
+      ]
     }
-  ]
+  }
 }

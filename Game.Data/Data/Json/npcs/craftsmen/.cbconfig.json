@@ -7,7 +7,16 @@
     "socialClass": "craftsman",
     "npcCount": 8,
     "hasShop": true,
-    "primaryAttributes": ["strength", "dexterity", "intelligence"],
-    "commonSkills": ["crafting", "smithing", "perception", "appraisal"]
+    "primaryAttributes": [
+      "strength",
+      "dexterity",
+      "intelligence"
+    ],
+    "commonSkills": [
+      "crafting",
+      "smithing",
+      "perception",
+      "appraisal"
+    ]
   }
 }

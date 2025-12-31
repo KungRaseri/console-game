@@ -42,7 +42,9 @@
             "@abilities/active/offensive:bite"
           ],
           "abilityUnlocks": {
-            "4": ["@abilities/active/offensive:grab"]
+            "4": [
+              "@abilities/active/offensive:grab"
+            ]
           }
         },
         {
@@ -58,7 +60,9 @@
             "@abilities/active/offensive:basic-attack"
           ],
           "abilityUnlocks": {
-            "3": ["@abilities/active/offensive:bite"]
+            "3": [
+              "@abilities/active/offensive:bite"
+            ]
           }
         },
         {
@@ -75,8 +79,12 @@
             "@abilities/active/offensive:bite"
           ],
           "abilityUnlocks": {
-            "6": ["@abilities/active/offensive:paralysis-touch"],
-            "8": ["@abilities/active/offensive:disease-cloud"]
+            "6": [
+              "@abilities/active/offensive:paralysis-touch"
+            ],
+            "8": [
+              "@abilities/active/offensive:disease-cloud"
+            ]
           }
         }
       ]
@@ -110,8 +118,12 @@
             "@abilities/active/offensive:basic-attack"
           ],
           "abilityUnlocks": {
-            "5": ["@abilities/active/defensive:bone-shield"],
-            "7": ["@abilities/active/offensive:power-strike"]
+            "5": [
+              "@abilities/active/defensive:bone-shield"
+            ],
+            "7": [
+              "@abilities/active/offensive:power-strike"
+            ]
           }
         },
         {
@@ -134,8 +146,12 @@
             "@abilities/active/offensive:paralysis-touch"
           ],
           "abilityUnlocks": {
-            "7": ["@abilities/active/offensive:disease-cloud"],
-            "10": ["@abilities/active/offensive:necrotic-burst"]
+            "7": [
+              "@abilities/active/offensive:disease-cloud"
+            ],
+            "10": [
+              "@abilities/active/offensive:necrotic-burst"
+            ]
           }
         }
       ]
@@ -172,9 +188,15 @@
             "@abilities/active/utility:phase"
           ],
           "abilityUnlocks": {
-            "10": ["@abilities/active/offensive:life-steal"],
-            "12": ["@abilities/active/offensive:soul-rend"],
-            "15": ["@abilities/ultimate:death-incarnate"]
+            "10": [
+              "@abilities/active/offensive:life-steal"
+            ],
+            "12": [
+              "@abilities/active/offensive:soul-rend"
+            ],
+            "15": [
+              "@abilities/ultimate:death-incarnate"
+            ]
           }
         },
         {
@@ -197,8 +219,12 @@
             "@abilities/active/utility:phase"
           ],
           "abilityUnlocks": {
-            "8": ["@abilities/active/offensive:possession"],
-            "10": ["@abilities/active/offensive:terror-scream"]
+            "8": [
+              "@abilities/active/offensive:possession"
+            ],
+            "10": [
+              "@abilities/active/offensive:terror-scream"
+            ]
           }
         },
         {
@@ -221,8 +247,12 @@
             "@abilities/active/utility:phase"
           ],
           "abilityUnlocks": {
-            "7": ["@abilities/active/offensive:spectral-touch"],
-            "9": ["@abilities/active/utility:invisibility"]
+            "7": [
+              "@abilities/active/offensive:spectral-touch"
+            ],
+            "9": [
+              "@abilities/active/utility:invisibility"
+            ]
           }
         },
         {
@@ -244,8 +274,12 @@
             "@abilities/active/offensive:drain-life"
           ],
           "abilityUnlocks": {
-            "6": ["@abilities/active/utility:phase"],
-            "8": ["@abilities/active/mobility:shadow-step"]
+            "6": [
+              "@abilities/active/utility:phase"
+            ],
+            "8": [
+              "@abilities/active/mobility:shadow-step"
+            ]
           }
         },
         {
@@ -268,8 +302,12 @@
             "@abilities/active/utility:phase"
           ],
           "abilityUnlocks": {
-            "12": ["@abilities/active/offensive:death-song"],
-            "15": ["@abilities/ultimate:soul-reaver"]
+            "12": [
+              "@abilities/active/offensive:death-song"
+            ],
+            "15": [
+              "@abilities/ultimate:soul-reaver"
+            ]
           }
         }
       ]
@@ -306,9 +344,15 @@
             "@abilities/active/offensive:drain-life"
           ],
           "abilityUnlocks": {
-            "10": ["@abilities/active/offensive:life-steal"],
-            "13": ["@abilities/active/summon:summon-skeleton"],
-            "15": ["@abilities/active/offensive:death-bolt"]
+            "10": [
+              "@abilities/active/offensive:life-steal"
+            ],
+            "13": [
+              "@abilities/active/summon:summon-skeleton"
+            ],
+            "15": [
+              "@abilities/active/offensive:death-bolt"
+            ]
           }
         },
         {
@@ -332,9 +376,15 @@
             "@abilities/passive:unstoppable"
           ],
           "abilityUnlocks": {
-            "13": ["@abilities/active/offensive:execute"],
-            "16": ["@abilities/active/support:undying-rage"],
-            "20": ["@abilities/ultimate:eternal-vengeance"]
+            "13": [
+              "@abilities/active/offensive:execute"
+            ],
+            "16": [
+              "@abilities/active/support:undying-rage"
+            ],
+            "20": [
+              "@abilities/ultimate:eternal-vengeance"
+            ]
           }
         },
         {
@@ -357,9 +407,15 @@
             "@abilities/active/offensive:mummy-rot"
           ],
           "abilityUnlocks": {
-            "12": ["@abilities/active/offensive:curse-of-ages"],
-            "15": ["@abilities/active/summon:summon-scarabs"],
-            "18": ["@abilities/ultimate:plague-lord"]
+            "12": [
+              "@abilities/active/offensive:curse-of-ages"
+            ],
+            "15": [
+              "@abilities/active/summon:summon-scarabs"
+            ],
+            "18": [
+              "@abilities/ultimate:plague-lord"
+            ]
           }
         },
         {
@@ -384,9 +440,15 @@
             "@abilities/active/support:lich-form"
           ],
           "abilityUnlocks": {
-            "18": ["@abilities/active/offensive:death-and-decay"],
-            "20": ["@abilities/active/summon:army-of-the-dead"],
-            "25": ["@abilities/ultimate:death-lord"]
+            "18": [
+              "@abilities/active/offensive:death-and-decay"
+            ],
+            "20": [
+              "@abilities/active/summon:army-of-the-dead"
+            ],
+            "25": [
+              "@abilities/ultimate:death-lord"
+            ]
           }
         }
       ]

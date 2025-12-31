@@ -7,8 +7,20 @@
     "socialClass": "merchant",
     "npcCount": 1,
     "hasShop": true,
-    "primaryAttributes": ["charisma", "intelligence", "wisdom"],
-    "commonSkills": ["persuasion", "appraisal", "haggling"],
-    "specialFeatures": ["largest_inventory", "all_categories", "player_trading"]
+    "primaryAttributes": [
+      "charisma",
+      "intelligence",
+      "wisdom"
+    ],
+    "commonSkills": [
+      "persuasion",
+      "appraisal",
+      "haggling"
+    ],
+    "specialFeatures": [
+      "largest_inventory",
+      "all_categories",
+      "player_trading"
+    ]
   }
 }

@@ -12,90 +12,94 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "ability_types": [
-    {
-      "rarityWeight": 10,
-      "description": "Can fly and attack from above",
-      "name": "Flight",
-      "traits": {
-        "category": {
-          "value": "mobility",
-          "type": "string"
+  "ability_types": {
+    "mobility": {
+      "items": [
+        {
+          "rarityWeight": 10,
+          "description": "Can fly and attack from above",
+          "name": "Flight",
+          "traits": {
+            "category": {
+              "value": "mobility",
+              "type": "string"
+            }
+          },
+          "displayName": "Flight"
+        },
+        {
+          "rarityWeight": 35,
+          "description": "Can fly and avoid ground-based attacks",
+          "name": "Flying",
+          "traits": {
+            "category": {
+              "value": "mobility_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Flying"
+        },
+        {
+          "rarityWeight": 35,
+          "description": "Can burrow underground to ambush or escape",
+          "name": "Burrowing",
+          "traits": {
+            "category": {
+              "value": "mobility_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Burrowing"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Can move despite being a plant",
+          "name": "Ambulatory",
+          "traits": {
+            "category": {
+              "value": "mobility_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Ambulatory"
+        },
+        {
+          "rarityWeight": 35,
+          "description": "Moves quickly through water",
+          "name": "SwiftSwimmer",
+          "traits": {
+            "category": {
+              "value": "mobility_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Swift Swimmer"
+        },
+        {
+          "rarityWeight": 35,
+          "description": "Can become invisible in natural environments",
+          "name": "Camouflage",
+          "traits": {
+            "category": {
+              "value": "mobility_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Camouflage"
+        },
+        {
+          "rarityWeight": 150,
+          "description": "Can teleport through darkness",
+          "name": "Shadow Walk",
+          "traits": {
+            "category": {
+              "value": "mobility",
+              "type": "string"
+            }
+          },
+          "displayName": "Shadow Walk"
         }
-      },
-      "displayName": "Flight"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Can fly and avoid ground-based attacks",
-      "name": "Flying",
-      "traits": {
-        "category": {
-          "value": "mobility_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Flying"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Can burrow underground to ambush or escape",
-      "name": "Burrowing",
-      "traits": {
-        "category": {
-          "value": "mobility_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Burrowing"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Can move despite being a plant",
-      "name": "Ambulatory",
-      "traits": {
-        "category": {
-          "value": "mobility_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Ambulatory"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Moves quickly through water",
-      "name": "SwiftSwimmer",
-      "traits": {
-        "category": {
-          "value": "mobility_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Swift Swimmer"
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Can become invisible in natural environments",
-      "name": "Camouflage",
-      "traits": {
-        "category": {
-          "value": "mobility_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Camouflage"
-    },
-    {
-      "rarityWeight": 150,
-      "description": "Can teleport through darkness",
-      "name": "Shadow Walk",
-      "traits": {
-        "category": {
-          "value": "mobility",
-          "type": "string"
-        }
-      },
-      "displayName": "Shadow Walk"
+      ]
     }
-  ]
+  }
 }

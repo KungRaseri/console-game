@@ -7,8 +7,20 @@
     "socialClass": "religious",
     "npcCount": 2,
     "hasShop": false,
-    "primaryAttributes": ["wisdom", "charisma"],
-    "commonSkills": ["divine_lore", "healing", "wisdom"],
-    "specialFeatures": ["blessings", "marriages", "funerals", "spiritual_services"]
+    "primaryAttributes": [
+      "wisdom",
+      "charisma"
+    ],
+    "commonSkills": [
+      "divine_lore",
+      "healing",
+      "wisdom"
+    ],
+    "specialFeatures": [
+      "blessings",
+      "marriages",
+      "funerals",
+      "spiritual_services"
+    ]
   }
 }

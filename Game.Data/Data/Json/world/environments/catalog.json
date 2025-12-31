@@ -1,450 +1,462 @@
 {
-    "metadata":  {
-                     "description":  "Environmental systems including biomes, weather patterns, and terrain hazards",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-29",
-                     "type":  "world_environments_catalog"
-                 },
-    "biomes_types":  [
-                         {
-                             "name":  "temperate_forest",
-                             "displayName":  "Temperate Forest",
-                             "rarityWeight":  10,
-                             "description":  "Dense woodland with diverse flora and fauna",
-                             "temperature":  "Mild",
-                             "precipitation":  "Moderate",
-                             "terrain":  "Forest",
-                             "commonEncounters":  [
-                                                      "@enemies/beast:wolf",
-                                                      "@enemies/beast:bear"
-                                                  ],
-                             "resources":  [
-                                               "@items/materials:wood",
-                                               "@items/materials/herbs:common"
-                                           ],
-                             "travelDifficulty":  "Easy",
-                             "visibility":  "Medium"
-                         },
-                         {
-                             "name":  "grassland",
-                             "displayName":  "Grassland",
-                             "rarityWeight":  8,
-                             "description":  "Open plains with tall grass and scattered trees",
-                             "temperature":  "Mild",
-                             "precipitation":  "Low",
-                             "terrain":  "Plains",
-                             "commonEncounters":  [
-                                                      "@enemies/humanoid:bandit",
-                                                      "@enemies/beast:wolf"
-                                                  ],
-                             "resources":  [
-                                               "@items/materials/herbs:common",
-                                               "@items/consumables:wild-game"
-                                           ],
-                             "travelDifficulty":  "Easy",
-                             "visibility":  "High"
-                         },
-                         {
-                             "name":  "desert",
-                             "displayName":  "Desert",
-                             "rarityWeight":  15,
-                             "description":  "Arid wasteland with extreme heat and scarce water",
-                             "temperature":  "Hot",
-                             "precipitation":  "Very Low",
-                             "terrain":  "Desert",
-                             "commonEncounters":  [
-                                                      "@enemies/beast:scorpion",
-                                                      "@enemies/humanoid:bandit"
-                                                  ],
-                             "resources":  [
-                                               "@items/materials:rare-minerals",
-                                               "@items/materials:sand-glass"
-                                           ],
-                             "travelDifficulty":  "Hard",
-                             "visibility":  "High",
-                             "hazards":  [
-                                             "dehydration",
-                                             "heat_exhaustion"
-                                         ]
-                         },
-                         {
-                             "name":  "mountain",
-                             "displayName":  "Mountain",
-                             "rarityWeight":  18,
-                             "description":  "Rocky peaks with treacherous terrain",
-                             "temperature":  "Cold",
-                             "precipitation":  "High",
-                             "terrain":  "Mountain",
-                             "commonEncounters":  [
-                                                      "@enemies/humanoid:troll",
-                                                      "@enemies/beast:eagle"
-                                                  ],
-                             "resources":  [
-                                               "@items/materials/metals:rare",
-                                               "@items/materials:gems"
-                                           ],
-                             "travelDifficulty":  "Very Hard",
-                             "visibility":  "Medium",
-                             "hazards":  [
-                                             "falling_rocks",
-                                             "altitude_sickness"
-                                         ]
-                         },
-                         {
-                             "name":  "swamp",
-                             "displayName":  "Swamp",
-                             "rarityWeight":  20,
-                             "description":  "Murky wetlands with stagnant water and disease",
-                             "temperature":  "Warm",
-                             "precipitation":  "High",
-                             "terrain":  "Swamp",
-                             "commonEncounters":  [
-                                                      "@enemies/beast:giant-spider",
-                                                      "@enemies/undead"
-                                                  ],
-                             "resources":  [
-                                               "@items/materials:poison-gland",
-                                               "@items/materials/herbs:rare"
-                                           ],
-                             "travelDifficulty":  "Hard",
-                             "visibility":  "Low",
-                             "hazards":  [
-                                             "disease",
-                                             "quicksand",
-                                             "poison_gas"
-                                         ]
-                         },
-                         {
-                             "name":  "tundra",
-                             "displayName":  "Tundra",
-                             "rarityWeight":  22,
-                             "description":  "Frozen wasteland with permafrost and bitter cold",
-                             "temperature":  "Very Cold",
-                             "precipitation":  "Low",
-                             "terrain":  "Tundra",
-                             "commonEncounters":  [
-                                                      "@enemies/beast:wolf",
-                                                      "@enemies/humanoid:troll"
-                                                  ],
-                             "resources":  [
-                                               "@items/materials:ice-shard",
-                                               "@items/materials:frozen-herbs"
-                                           ],
-                             "travelDifficulty":  "Very Hard",
-                             "visibility":  "Medium",
-                             "hazards":  [
-                                             "frostbite",
-                                             "hypothermia",
-                                             "blizzards"
-                                         ]
-                         },
-                         {
-                             "name":  "jungle",
-                             "displayName":  "Jungle",
-                             "rarityWeight":  25,
-                             "description":  "Dense tropical rainforest teeming with life",
-                             "temperature":  "Hot",
-                             "precipitation":  "Very High",
-                             "terrain":  "Jungle",
-                             "commonEncounters":  [
-                                                      "@enemies/beast",
-                                                      "@enemies/beast:giant-spider"
-                                                  ],
-                             "resources":  [
-                                               "@items/materials/herbs:exotic",
-                                               "@items/materials:monster-parts"
-                                           ],
-                             "travelDifficulty":  "Hard",
-                             "visibility":  "Very Low",
-                             "hazards":  [
-                                             "disease",
-                                             "venomous_creatures",
-                                             "dense_undergrowth"
-                                         ]
-                         },
-                         {
-                             "name":  "volcanic",
-                             "displayName":  "Volcanic Wasteland",
-                             "rarityWeight":  35,
-                             "description":  "Scorched earth with active lava flows",
-                             "temperature":  "Extreme Heat",
-                             "precipitation":  "None",
-                             "terrain":  "Volcanic",
-                             "commonEncounters":  [
-                                                      "@enemies/elemental:fire",
-                                                      "@enemies/dragon"
-                                                  ],
-                             "resources":  [
-                                               "@items/materials:obsidian",
-                                               "@items/materials:fire-gems"
-                                           ],
-                             "travelDifficulty":  "Extreme",
-                             "visibility":  "Low",
-                             "hazards":  [
-                                             "lava_flows",
-                                             "toxic_fumes",
-                                             "extreme_heat"
-                                         ]
-                         }
-                     ],
-    "weather_types":  [
-                          {
-                              "name":  "clear",
-                              "displayName":  "Clear Skies",
-                              "rarityWeight":  10,
-                              "description":  "Perfect weather with clear visibility",
-                              "severity":  "None",
-                              "effects":  {
-                                              "visibility":  1.0,
-                                              "movement":  1.0,
-                                              "combat":  1.0
-                                          },
-                              "duration":  "Variable"
-                          },
-                          {
-                              "name":  "cloudy",
-                              "displayName":  "Overcast",
-                              "rarityWeight":  15,
-                              "description":  "Gray skies with cloud cover",
-                              "severity":  "Minor",
-                              "effects":  {
-                                              "visibility":  0.9,
-                                              "movement":  1.0,
-                                              "combat":  1.0
-                                          },
-                              "duration":  "1-6 hours"
-                          },
-                          {
-                              "name":  "light_rain",
-                              "displayName":  "Light Rain",
-                              "rarityWeight":  18,
-                              "description":  "Gentle rainfall",
-                              "severity":  "Minor",
-                              "effects":  {
-                                              "visibility":  0.8,
-                                              "movement":  0.95,
-                                              "combat":  0.95
-                                          },
-                              "duration":  "2-8 hours"
-                          },
-                          {
-                              "name":  "heavy_rain",
-                              "displayName":  "Heavy Rain",
-                              "rarityWeight":  25,
-                              "description":  "Torrential downpour",
-                              "severity":  "Moderate",
-                              "effects":  {
-                                              "visibility":  0.5,
-                                              "movement":  0.75,
-                                              "combat":  0.8,
-                                              "ranged_penalty":  -2
-                                          },
-                              "duration":  "1-4 hours"
-                          },
-                          {
-                              "name":  "thunderstorm",
-                              "displayName":  "Thunderstorm",
-                              "rarityWeight":  30,
-                              "description":  "Violent storm with lightning",
-                              "severity":  "Severe",
-                              "effects":  {
-                                              "visibility":  0.3,
-                                              "movement":  0.6,
-                                              "combat":  0.7,
-                                              "ranged_penalty":  -4,
-                                              "lightning_chance":  0.05
-                                          },
-                              "duration":  "30-90 minutes",
-                              "hazards":  [
-                                              "lightning_strikes"
-                                          ]
-                          },
-                          {
-                              "name":  "fog",
-                              "displayName":  "Dense Fog",
-                              "rarityWeight":  20,
-                              "description":  "Thick fog reducing visibility",
-                              "severity":  "Moderate",
-                              "effects":  {
-                                              "visibility":  0.2,
-                                              "movement":  0.8,
-                                              "combat":  0.6,
-                                              "ranged_penalty":  -5
-                                          },
-                              "duration":  "2-12 hours"
-                          },
-                          {
-                              "name":  "snow",
-                              "displayName":  "Snowfall",
-                              "rarityWeight":  22,
-                              "description":  "Falling snow covering the ground",
-                              "severity":  "Moderate",
-                              "effects":  {
-                                              "visibility":  0.6,
-                                              "movement":  0.7,
-                                              "combat":  0.85
-                                          },
-                              "duration":  "3-12 hours",
-                              "temperatureRequired":  "Cold"
-                          },
-                          {
-                              "name":  "blizzard",
-                              "displayName":  "Blizzard",
-                              "rarityWeight":  40,
-                              "description":  "Severe snowstorm with high winds",
-                              "severity":  "Extreme",
-                              "effects":  {
-                                              "visibility":  0.1,
-                                              "movement":  0.4,
-                                              "combat":  0.5,
-                                              "ranged_penalty":  -8,
-                                              "cold_damage":  "1d4 per hour"
-                                          },
-                              "duration":  "1-6 hours",
-                              "temperatureRequired":  "Very Cold",
-                              "hazards":  [
-                                              "frostbite",
-                                              "hypothermia",
-                                              "disorientation"
-                                          ]
-                          },
-                          {
-                              "name":  "sandstorm",
-                              "displayName":  "Sandstorm",
-                              "rarityWeight":  35,
-                              "description":  "Violent winds carrying stinging sand",
-                              "severity":  "Severe",
-                              "effects":  {
-                                              "visibility":  0.15,
-                                              "movement":  0.5,
-                                              "combat":  0.6,
-                                              "ranged_penalty":  -6
-                                          },
-                              "duration":  "1-4 hours",
-                              "terrainRequired":  "Desert",
-                              "hazards":  [
-                                              "disorientation",
-                                              "sand_damage"
-                                          ]
-                          }
-                      ],
-    "hazards_types":  [
-                          {
-                              "name":  "quicksand",
-                              "displayName":  "Quicksand",
-                              "rarityWeight":  25,
-                              "description":  "Treacherous sand that traps the unwary",
-                              "severity":  "Moderate",
-                              "terrain":  [
-                                              "swamp",
-                                              "desert"
-                                          ],
-                              "detection":  "Moderate DC",
-                              "effects":  {
-                                              "trapped":  true,
-                                              "escape_difficulty":  "Hard",
-                                              "damage":  "None (Drowning risk)"
-                                          }
-                          },
-                          {
-                              "name":  "lava_flows",
-                              "displayName":  "Lava Flows",
-                              "rarityWeight":  45,
-                              "description":  "Rivers of molten rock",
-                              "severity":  "Extreme",
-                              "terrain":  [
-                                              "volcanic"
-                                          ],
-                              "detection":  "Easy (Visible)",
-                              "effects":  {
-                                              "damage":  "10d10 fire",
-                                              "instant_death":  true
-                                          }
-                          },
-                          {
-                              "name":  "thin_ice",
-                              "displayName":  "Thin Ice",
-                              "rarityWeight":  30,
-                              "description":  "Dangerously thin ice over freezing water",
-                              "severity":  "Severe",
-                              "terrain":  [
-                                              "tundra",
-                                              "frozen_lakes"
-                                          ],
-                              "detection":  "Hard DC",
-                              "effects":  {
-                                              "fall_through":  true,
-                                              "cold_damage":  "2d6 per round",
-                                              "hypothermia_risk":  true
-                                          }
-                          },
-                          {
-                              "name":  "poison_gas",
-                              "displayName":  "Poison Gas",
-                              "rarityWeight":  35,
-                              "description":  "Toxic fumes that damage health",
-                              "severity":  "Severe",
-                              "terrain":  [
-                                              "swamp",
-                                              "volcanic"
-                                          ],
-                              "detection":  "Moderate DC",
-                              "effects":  {
-                                              "damage":  "1d6 poison per round",
-                                              "constitution_save":  "DC 15",
-                                              "disease_risk":  true
-                                          }
-                          },
-                          {
-                              "name":  "rockslide",
-                              "displayName":  "Rockslide",
-                              "rarityWeight":  28,
-                              "description":  "Falling rocks from unstable terrain",
-                              "severity":  "Severe",
-                              "terrain":  [
-                                              "mountain",
-                                              "canyon"
-                                          ],
-                              "detection":  "Easy (Audible)",
-                              "effects":  {
-                                              "damage":  "4d10 bludgeoning",
-                                              "dexterity_save":  "DC 15",
-                                              "area_effect":  true
-                                          }
-                          },
-                          {
-                              "name":  "dense_undergrowth",
-                              "displayName":  "Dense Undergrowth",
-                              "rarityWeight":  15,
-                              "description":  "Thick vegetation that impedes movement",
-                              "severity":  "Minor",
-                              "terrain":  [
-                                              "jungle",
-                                              "forest"
-                                          ],
-                              "detection":  "Automatic",
-                              "effects":  {
-                                              "movement":  0.5,
-                                              "stealth_bonus":  2,
-                                              "visibility":  0.6
-                                          }
-                          },
-                          {
-                              "name":  "cursed_ground",
-                              "displayName":  "Cursed Ground",
-                              "rarityWeight":  50,
-                              "description":  "Land tainted by dark magic",
-                              "severity":  "Extreme",
-                              "terrain":  [
-                                              "wasteland",
-                                              "ruins"
-                                          ],
-                              "detection":  "Hard DC",
-                              "effects":  {
-                                              "necrotic_damage":  "1d6 per hour",
-                                              "healing_reduction":  0.5,
-                                              "undead_attraction":  true
-                                          }
-                          }
-                      ]
+  "metadata": {
+    "description": "Environmental systems including biomes, weather patterns, and terrain hazards",
+    "version": "4.0",
+    "lastUpdated": "2025-12-29",
+    "type": "world_environments_catalog"
+  },
+  "biomes_types": {
+    "biomes": {
+      "items": [
+        {
+          "name": "temperate_forest",
+          "displayName": "Temperate Forest",
+          "rarityWeight": 10,
+          "description": "Dense woodland with diverse flora and fauna",
+          "temperature": "Mild",
+          "precipitation": "Moderate",
+          "terrain": "Forest",
+          "commonEncounters": [
+            "@enemies/beast:wolf",
+            "@enemies/beast:bear"
+          ],
+          "resources": [
+            "@items/materials:wood",
+            "@items/materials/herbs:common"
+          ],
+          "travelDifficulty": "Easy",
+          "visibility": "Medium"
+        },
+        {
+          "name": "grassland",
+          "displayName": "Grassland",
+          "rarityWeight": 8,
+          "description": "Open plains with tall grass and scattered trees",
+          "temperature": "Mild",
+          "precipitation": "Low",
+          "terrain": "Plains",
+          "commonEncounters": [
+            "@enemies/humanoid:bandit",
+            "@enemies/beast:wolf"
+          ],
+          "resources": [
+            "@items/materials/herbs:common",
+            "@items/consumables:wild-game"
+          ],
+          "travelDifficulty": "Easy",
+          "visibility": "High"
+        },
+        {
+          "name": "desert",
+          "displayName": "Desert",
+          "rarityWeight": 15,
+          "description": "Arid wasteland with extreme heat and scarce water",
+          "temperature": "Hot",
+          "precipitation": "Very Low",
+          "terrain": "Desert",
+          "commonEncounters": [
+            "@enemies/beast:scorpion",
+            "@enemies/humanoid:bandit"
+          ],
+          "resources": [
+            "@items/materials:rare-minerals",
+            "@items/materials:sand-glass"
+          ],
+          "travelDifficulty": "Hard",
+          "visibility": "High",
+          "hazards": [
+            "dehydration",
+            "heat_exhaustion"
+          ]
+        },
+        {
+          "name": "mountain",
+          "displayName": "Mountain",
+          "rarityWeight": 18,
+          "description": "Rocky peaks with treacherous terrain",
+          "temperature": "Cold",
+          "precipitation": "High",
+          "terrain": "Mountain",
+          "commonEncounters": [
+            "@enemies/humanoid:troll",
+            "@enemies/beast:eagle"
+          ],
+          "resources": [
+            "@items/materials/metals:rare",
+            "@items/materials:gems"
+          ],
+          "travelDifficulty": "Very Hard",
+          "visibility": "Medium",
+          "hazards": [
+            "falling_rocks",
+            "altitude_sickness"
+          ]
+        },
+        {
+          "name": "swamp",
+          "displayName": "Swamp",
+          "rarityWeight": 20,
+          "description": "Murky wetlands with stagnant water and disease",
+          "temperature": "Warm",
+          "precipitation": "High",
+          "terrain": "Swamp",
+          "commonEncounters": [
+            "@enemies/beast:giant-spider",
+            "@enemies/undead"
+          ],
+          "resources": [
+            "@items/materials:poison-gland",
+            "@items/materials/herbs:rare"
+          ],
+          "travelDifficulty": "Hard",
+          "visibility": "Low",
+          "hazards": [
+            "disease",
+            "quicksand",
+            "poison_gas"
+          ]
+        },
+        {
+          "name": "tundra",
+          "displayName": "Tundra",
+          "rarityWeight": 22,
+          "description": "Frozen wasteland with permafrost and bitter cold",
+          "temperature": "Very Cold",
+          "precipitation": "Low",
+          "terrain": "Tundra",
+          "commonEncounters": [
+            "@enemies/beast:wolf",
+            "@enemies/humanoid:troll"
+          ],
+          "resources": [
+            "@items/materials:ice-shard",
+            "@items/materials:frozen-herbs"
+          ],
+          "travelDifficulty": "Very Hard",
+          "visibility": "Medium",
+          "hazards": [
+            "frostbite",
+            "hypothermia",
+            "blizzards"
+          ]
+        },
+        {
+          "name": "jungle",
+          "displayName": "Jungle",
+          "rarityWeight": 25,
+          "description": "Dense tropical rainforest teeming with life",
+          "temperature": "Hot",
+          "precipitation": "Very High",
+          "terrain": "Jungle",
+          "commonEncounters": [
+            "@enemies/beast",
+            "@enemies/beast:giant-spider"
+          ],
+          "resources": [
+            "@items/materials/herbs:exotic",
+            "@items/materials:monster-parts"
+          ],
+          "travelDifficulty": "Hard",
+          "visibility": "Very Low",
+          "hazards": [
+            "disease",
+            "venomous_creatures",
+            "dense_undergrowth"
+          ]
+        },
+        {
+          "name": "volcanic",
+          "displayName": "Volcanic Wasteland",
+          "rarityWeight": 35,
+          "description": "Scorched earth with active lava flows",
+          "temperature": "Extreme Heat",
+          "precipitation": "None",
+          "terrain": "Volcanic",
+          "commonEncounters": [
+            "@enemies/elemental:fire",
+            "@enemies/dragon"
+          ],
+          "resources": [
+            "@items/materials:obsidian",
+            "@items/materials:fire-gems"
+          ],
+          "travelDifficulty": "Extreme",
+          "visibility": "Low",
+          "hazards": [
+            "lava_flows",
+            "toxic_fumes",
+            "extreme_heat"
+          ]
+        }
+      ]
+    }
+  },
+  "weather_types": {
+    "weather": {
+      "items": [
+        {
+          "name": "clear",
+          "displayName": "Clear Skies",
+          "rarityWeight": 10,
+          "description": "Perfect weather with clear visibility",
+          "severity": "None",
+          "effects": {
+            "visibility": 1.0,
+            "movement": 1.0,
+            "combat": 1.0
+          },
+          "duration": "Variable"
+        },
+        {
+          "name": "cloudy",
+          "displayName": "Overcast",
+          "rarityWeight": 15,
+          "description": "Gray skies with cloud cover",
+          "severity": "Minor",
+          "effects": {
+            "visibility": 0.9,
+            "movement": 1.0,
+            "combat": 1.0
+          },
+          "duration": "1-6 hours"
+        },
+        {
+          "name": "light_rain",
+          "displayName": "Light Rain",
+          "rarityWeight": 18,
+          "description": "Gentle rainfall",
+          "severity": "Minor",
+          "effects": {
+            "visibility": 0.8,
+            "movement": 0.95,
+            "combat": 0.95
+          },
+          "duration": "2-8 hours"
+        },
+        {
+          "name": "heavy_rain",
+          "displayName": "Heavy Rain",
+          "rarityWeight": 25,
+          "description": "Torrential downpour",
+          "severity": "Moderate",
+          "effects": {
+            "visibility": 0.5,
+            "movement": 0.75,
+            "combat": 0.8,
+            "ranged_penalty": -2
+          },
+          "duration": "1-4 hours"
+        },
+        {
+          "name": "thunderstorm",
+          "displayName": "Thunderstorm",
+          "rarityWeight": 30,
+          "description": "Violent storm with lightning",
+          "severity": "Severe",
+          "effects": {
+            "visibility": 0.3,
+            "movement": 0.6,
+            "combat": 0.7,
+            "ranged_penalty": -4,
+            "lightning_chance": 0.05
+          },
+          "duration": "30-90 minutes",
+          "hazards": [
+            "lightning_strikes"
+          ]
+        },
+        {
+          "name": "fog",
+          "displayName": "Dense Fog",
+          "rarityWeight": 20,
+          "description": "Thick fog reducing visibility",
+          "severity": "Moderate",
+          "effects": {
+            "visibility": 0.2,
+            "movement": 0.8,
+            "combat": 0.6,
+            "ranged_penalty": -5
+          },
+          "duration": "2-12 hours"
+        },
+        {
+          "name": "snow",
+          "displayName": "Snowfall",
+          "rarityWeight": 22,
+          "description": "Falling snow covering the ground",
+          "severity": "Moderate",
+          "effects": {
+            "visibility": 0.6,
+            "movement": 0.7,
+            "combat": 0.85
+          },
+          "duration": "3-12 hours",
+          "temperatureRequired": "Cold"
+        },
+        {
+          "name": "blizzard",
+          "displayName": "Blizzard",
+          "rarityWeight": 40,
+          "description": "Severe snowstorm with high winds",
+          "severity": "Extreme",
+          "effects": {
+            "visibility": 0.1,
+            "movement": 0.4,
+            "combat": 0.5,
+            "ranged_penalty": -8,
+            "cold_damage": "1d4 per hour"
+          },
+          "duration": "1-6 hours",
+          "temperatureRequired": "Very Cold",
+          "hazards": [
+            "frostbite",
+            "hypothermia",
+            "disorientation"
+          ]
+        },
+        {
+          "name": "sandstorm",
+          "displayName": "Sandstorm",
+          "rarityWeight": 35,
+          "description": "Violent winds carrying stinging sand",
+          "severity": "Severe",
+          "effects": {
+            "visibility": 0.15,
+            "movement": 0.5,
+            "combat": 0.6,
+            "ranged_penalty": -6
+          },
+          "duration": "1-4 hours",
+          "terrainRequired": "Desert",
+          "hazards": [
+            "disorientation",
+            "sand_damage"
+          ]
+        }
+      ]
+    }
+  },
+  "hazards_types": {
+    "hazards": {
+      "items": [
+        {
+          "name": "quicksand",
+          "displayName": "Quicksand",
+          "rarityWeight": 25,
+          "description": "Treacherous sand that traps the unwary",
+          "severity": "Moderate",
+          "terrain": [
+            "swamp",
+            "desert"
+          ],
+          "detection": "Moderate DC",
+          "effects": {
+            "trapped": true,
+            "escape_difficulty": "Hard",
+            "damage": "None (Drowning risk)"
+          }
+        },
+        {
+          "name": "lava_flows",
+          "displayName": "Lava Flows",
+          "rarityWeight": 45,
+          "description": "Rivers of molten rock",
+          "severity": "Extreme",
+          "terrain": [
+            "volcanic"
+          ],
+          "detection": "Easy (Visible)",
+          "effects": {
+            "damage": "10d10 fire",
+            "instant_death": true
+          }
+        },
+        {
+          "name": "thin_ice",
+          "displayName": "Thin Ice",
+          "rarityWeight": 30,
+          "description": "Dangerously thin ice over freezing water",
+          "severity": "Severe",
+          "terrain": [
+            "tundra",
+            "frozen_lakes"
+          ],
+          "detection": "Hard DC",
+          "effects": {
+            "fall_through": true,
+            "cold_damage": "2d6 per round",
+            "hypothermia_risk": true
+          }
+        },
+        {
+          "name": "poison_gas",
+          "displayName": "Poison Gas",
+          "rarityWeight": 35,
+          "description": "Toxic fumes that damage health",
+          "severity": "Severe",
+          "terrain": [
+            "swamp",
+            "volcanic"
+          ],
+          "detection": "Moderate DC",
+          "effects": {
+            "damage": "1d6 poison per round",
+            "constitution_save": "DC 15",
+            "disease_risk": true
+          }
+        },
+        {
+          "name": "rockslide",
+          "displayName": "Rockslide",
+          "rarityWeight": 28,
+          "description": "Falling rocks from unstable terrain",
+          "severity": "Severe",
+          "terrain": [
+            "mountain",
+            "canyon"
+          ],
+          "detection": "Easy (Audible)",
+          "effects": {
+            "damage": "4d10 bludgeoning",
+            "dexterity_save": "DC 15",
+            "area_effect": true
+          }
+        },
+        {
+          "name": "dense_undergrowth",
+          "displayName": "Dense Undergrowth",
+          "rarityWeight": 15,
+          "description": "Thick vegetation that impedes movement",
+          "severity": "Minor",
+          "terrain": [
+            "jungle",
+            "forest"
+          ],
+          "detection": "Automatic",
+          "effects": {
+            "movement": 0.5,
+            "stealth_bonus": 2,
+            "visibility": 0.6
+          }
+        },
+        {
+          "name": "cursed_ground",
+          "displayName": "Cursed Ground",
+          "rarityWeight": 50,
+          "description": "Land tainted by dark magic",
+          "severity": "Extreme",
+          "terrain": [
+            "wasteland",
+            "ruins"
+          ],
+          "detection": "Hard DC",
+          "effects": {
+            "necrotic_damage": "1d6 per hour",
+            "healing_reduction": 0.5,
+            "undead_attraction": true
+          }
+        }
+      ]
+    }
+  }
 }

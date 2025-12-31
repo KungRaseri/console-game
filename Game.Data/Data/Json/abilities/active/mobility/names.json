@@ -5,8 +5,15 @@
     "lastUpdated": "2025-12-30",
     "type": "pattern_generation",
     "supportsTraits": true,
-    "componentKeys": ["prefix", "suffix"],
-    "patternTokens": ["base", "prefix", "suffix"],
+    "componentKeys": [
+      "prefix",
+      "suffix"
+    ],
+    "patternTokens": [
+      "base",
+      "prefix",
+      "suffix"
+    ],
     "totalPatterns": 4,
     "raritySystem": "weight-based",
     "notes": [
@@ -17,23 +24,59 @@
     ]
   },
   "patterns": [
-    {"pattern": "{base}", "rarityWeight": 50},
-    {"pattern": "{prefix} {base}", "rarityWeight": 30},
-    {"pattern": "{base} {suffix}", "rarityWeight": 15},
-    {"pattern": "{prefix} {base} {suffix}", "rarityWeight": 5}
+    {
+      "pattern": "{base}",
+      "rarityWeight": 50
+    },
+    {
+      "pattern": "{prefix} {base}",
+      "rarityWeight": 30
+    },
+    {
+      "pattern": "{base} {suffix}",
+      "rarityWeight": 15
+    },
+    {
+      "pattern": "{prefix} {base} {suffix}",
+      "rarityWeight": 5
+    }
   ],
   "components": {
     "prefix": [
-      {"value": "Swift", "rarityWeight": 40},
-      {"value": "Phantom", "rarityWeight": 30},
-      {"value": "Ethereal", "rarityWeight": 20},
-      {"value": "Arcane", "rarityWeight": 10}
+      {
+        "value": "Swift",
+        "rarityWeight": 40
+      },
+      {
+        "value": "Phantom",
+        "rarityWeight": 30
+      },
+      {
+        "value": "Ethereal",
+        "rarityWeight": 20
+      },
+      {
+        "value": "Arcane",
+        "rarityWeight": 10
+      }
     ],
     "suffix": [
-      {"value": "of Shadows", "rarityWeight": 35},
-      {"value": "of Escape", "rarityWeight": 30},
-      {"value": "of the Void", "rarityWeight": 20},
-      {"value": "of Dimensions", "rarityWeight": 15}
+      {
+        "value": "of Shadows",
+        "rarityWeight": 35
+      },
+      {
+        "value": "of Escape",
+        "rarityWeight": 30
+      },
+      {
+        "value": "of the Void",
+        "rarityWeight": 20
+      },
+      {
+        "value": "of Dimensions",
+        "rarityWeight": 15
+      }
     ]
   }
 }

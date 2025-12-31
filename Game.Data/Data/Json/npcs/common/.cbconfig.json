@@ -7,7 +7,15 @@
     "socialClass": "common",
     "npcCount": 11,
     "hasShop": false,
-    "primaryAttributes": ["constitution", "wisdom"],
-    "commonSkills": ["survival", "endurance", "labor", "street_smarts"]
+    "primaryAttributes": [
+      "constitution",
+      "wisdom"
+    ],
+    "commonSkills": [
+      "survival",
+      "endurance",
+      "labor",
+      "street_smarts"
+    ]
   }
 }

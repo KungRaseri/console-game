@@ -1,344 +1,360 @@
 {
-    "metadata":  {
-                     "description":  "Wilderness and outdoor location definitions organized by danger level",
-                     "version":  "4.0",
-                     "lastUpdated":  "2025-12-29",
-                     "type":  "world_locations_wilderness_catalog"
-                 },
-    "low_danger_types":  [
-                             {
-                                 "name":  "GoldenPlains",
-                                 "displayName":  "Golden Plains",
-                                 "rarityWeight":  10,
-                                 "description":  "Peaceful grasslands perfect for travel",
-                                 "terrain":  "Plains",
-                                 "danger":  "Low",
-                                 "locationType":  "wilderness",
-                                 "recommendedLevel":  "1-5",
-                                 "encounters":  [
-                                                    "@enemies/beast:wolf",
-                                                    "@enemies/humanoid:bandit"
-                                                ],
-                                 "resources":  [
-                                                   "@items/materials/herbs:common"
-                                               ]
-                             },
-                             {
-                                 "name":  "MistyHills",
-                                 "displayName":  "Misty Hills",
-                                 "rarityWeight":  12,
-                                 "description":  "Rolling hills shrouded in fog",
-                                 "terrain":  "Hills",
-                                 "danger":  "Low",
-                                 "locationType":  "wilderness",
-                                 "recommendedLevel":  "1-5",
-                                 "encounters":  [
-                                                    "@enemies/beast:wolf",
-                                                    "@enemies/goblinoid"
-                                                ],
-                                 "resources":  [
-                                                   "@items/materials/herbs:common",
-                                                   "@items/materials/metals:common"
-                                               ]
-                             },
-                             {
-                                 "name":  "SilverLake",
-                                 "displayName":  "Silver Lake",
-                                 "rarityWeight":  15,
-                                 "description":  "Tranquil body of water reflecting moonlight",
-                                 "terrain":  "Lake",
-                                 "danger":  "Low",
-                                 "locationType":  "wilderness",
-                                 "recommendedLevel":  "1-6",
-                                 "encounters":  [
-                                                    "@enemies/beast"
-                                                ],
-                                 "resources":  [
-                                                   "@items/consumables:fish",
-                                                   "@items/materials:water-plants"
-                                               ]
-                             }
-                         ],
-    "medium_danger_types":  [
-                                {
-                                    "name":  "DarkwoodForest",
-                                    "displayName":  "Darkwood Forest",
-                                    "rarityWeight":  25,
-                                    "description":  "Dense woods with little sunlight",
-                                    "terrain":  "Forest",
-                                    "danger":  "Medium",
-                                    "locationType":  "wilderness",
-                                    "recommendedLevel":  "6-12",
-                                    "encounters":  [
-                                                       "@enemies/beast",
-                                                       "@enemies/goblinoid",
-                                                       "@enemies/undead"
-                                                   ],
-                                    "resources":  [
-                                                      "@items/materials/herbs:uncommon",
-                                                      "@items/materials/wood"
-                                                  ]
-                                },
-                                {
-                                    "name":  "EndlessDesert",
-                                    "displayName":  "Endless Desert",
-                                    "rarityWeight":  28,
-                                    "description":  "Vast wasteland of sand and heat",
-                                    "terrain":  "Desert",
-                                    "danger":  "Medium",
-                                    "locationType":  "wilderness",
-                                    "recommendedLevel":  "7-13",
-                                    "encounters":  [
-                                                       "@enemies/beast",
-                                                       "@enemies/humanoid:bandit"
-                                                   ],
-                                    "resources":  [
-                                                      "@items/materials:sand-glass",
-                                                      "@items/materials:rare-minerals"
-                                                  ]
-                                },
-                                {
-                                    "name":  "CrystalCaverns",
-                                    "displayName":  "Crystal Caverns",
-                                    "rarityWeight":  32,
-                                    "description":  "Underground cave network with glowing crystals",
-                                    "terrain":  "Underground",
-                                    "danger":  "Medium",
-                                    "locationType":  "wilderness",
-                                    "recommendedLevel":  "7-14",
-                                    "encounters":  [
-                                                       "@enemies/beast",
-                                                       "@enemies/elemental"
-                                                   ],
-                                    "resources":  [
-                                                      "@items/materials:crystals",
-                                                      "@items/materials:gems"
-                                                  ]
-                                },
-                                {
-                                    "name":  "StormyCoast",
-                                    "displayName":  "Stormy Coast",
-                                    "rarityWeight":  30,
-                                    "description":  "Rocky shoreline battered by waves",
-                                    "terrain":  "Coastal",
-                                    "danger":  "Medium",
-                                    "locationType":  "wilderness",
-                                    "recommendedLevel":  "6-12",
-                                    "encounters":  [
-                                                       "@enemies/beast",
-                                                       "@enemies/humanoid:pirate"
-                                                   ],
-                                    "resources":  [
-                                                      "@items/materials:shells",
-                                                      "@items/consumables:fish"
-                                                  ]
-                                },
-                                {
-                                    "name":  "WhisperingWoods",
-                                    "displayName":  "Whispering Woods",
-                                    "rarityWeight":  35,
-                                    "description":  "Enchanted forest with strange voices",
-                                    "terrain":  "Forest",
-                                    "danger":  "Medium",
-                                    "locationType":  "wilderness",
-                                    "recommendedLevel":  "8-14",
-                                    "encounters":  [
-                                                       "@enemies/beast",
-                                                       "@enemies/elemental",
-                                                       "@enemies/undead"
-                                                   ],
-                                    "resources":  [
-                                                      "@items/materials/herbs:rare",
-                                                      "@items/materials:enchanted-wood"
-                                                  ]
-                                }
-                            ],
-    "high_danger_types":  [
-                              {
-                                  "name":  "CrimsonPeaks",
-                                  "displayName":  "Crimson Peaks",
-                                  "rarityWeight":  50,
-                                  "description":  "Treacherous mountain range",
-                                  "terrain":  "Mountain",
-                                  "danger":  "High",
-                                  "locationType":  "wilderness",
-                                  "recommendedLevel":  "13-20",
-                                  "encounters":  [
-                                                     "@enemies/dragon",
-                                                     "@enemies/humanoid:troll",
-                                                     "@enemies/elemental"
-                                                 ],
-                                  "resources":  [
-                                                    "@items/materials/metals:rare",
-                                                    "@items/materials:gems"
-                                                ]
-                              },
-                              {
-                                  "name":  "FrozenTundra",
-                                  "displayName":  "Frozen Tundra",
-                                  "rarityWeight":  55,
-                                  "description":  "Icy plains of eternal winter",
-                                  "terrain":  "Tundra",
-                                  "danger":  "High",
-                                  "locationType":  "wilderness",
-                                  "recommendedLevel":  "14-21",
-                                  "encounters":  [
-                                                     "@enemies/beast",
-                                                     "@enemies/humanoid:troll",
-                                                     "@enemies/elemental"
-                                                 ],
-                                  "resources":  [
-                                                    "@items/materials:ice-shard",
-                                                    "@items/materials:frozen-herbs"
-                                                ]
-                              },
-                              {
-                                  "name":  "PoisonSwamp",
-                                  "displayName":  "Poison Swamp",
-                                  "rarityWeight":  58,
-                                  "description":  "Murky wetlands filled with toxic gases",
-                                  "terrain":  "Swamp",
-                                  "danger":  "High",
-                                  "locationType":  "wilderness",
-                                  "recommendedLevel":  "15-22",
-                                  "encounters":  [
-                                                     "@enemies/beast:giant-spider",
-                                                     "@enemies/undead",
-                                                     "@enemies/beast"
-                                                 ],
-                                  "resources":  [
-                                                    "@items/materials:poison-gland",
-                                                    "@items/materials/herbs:rare"
-                                                ]
-                              },
-                              {
-                                  "name":  "AncientBattlefield",
-                                  "displayName":  "Ancient Battlefield",
-                                  "rarityWeight":  60,
-                                  "description":  "Site of historic war, now haunted",
-                                  "terrain":  "Plains",
-                                  "danger":  "High",
-                                  "locationType":  "wilderness",
-                                  "recommendedLevel":  "15-22",
-                                  "encounters":  [
-                                                     "@enemies/undead"
-                                                 ],
-                                  "resources":  [
-                                                    "@items/weapons:ancient",
-                                                    "@items/armor:ancient"
-                                                ]
-                              },
-                              {
-                                  "name":  "ShatteredIsles",
-                                  "displayName":  "Shattered Isles",
-                                  "rarityWeight":  65,
-                                  "description":  "Archipelago of floating islands",
-                                  "terrain":  "Sky Islands",
-                                  "danger":  "High",
-                                  "locationType":  "wilderness",
-                                  "recommendedLevel":  "16-23",
-                                  "encounters":  [
-                                                     "@enemies/dragon",
-                                                     "@enemies/elemental"
-                                                 ],
-                                  "resources":  [
-                                                    "@items/materials:sky-crystals",
-                                                    "@items/materials:rare-metals"
-                                                ]
-                              },
-                              {
-                                  "name":  "JungleOfFangs",
-                                  "displayName":  "Jungle of Fangs",
-                                  "rarityWeight":  62,
-                                  "description":  "Tropical rainforest teeming with predators",
-                                  "terrain":  "Jungle",
-                                  "danger":  "High",
-                                  "locationType":  "wilderness",
-                                  "recommendedLevel":  "14-21",
-                                  "encounters":  [
-                                                     "@enemies/beast",
-                                                     "@enemies/humanoid"
-                                                 ],
-                                  "resources":  [
-                                                    "@items/materials/herbs:exotic",
-                                                    "@items/materials:monster-parts"
-                                                ]
-                              },
-                              {
-                                  "name":  "TheGreatRift",
-                                  "displayName":  "The Great Rift",
-                                  "rarityWeight":  68,
-                                  "description":  "Massive canyon splitting the continent",
-                                  "terrain":  "Canyon",
-                                  "danger":  "High",
-                                  "locationType":  "wilderness",
-                                  "recommendedLevel":  "17-24",
-                                  "encounters":  [
-                                                     "@enemies/dragon",
-                                                     "@enemies/elemental",
-                                                     "@enemies/demon"
-                                                 ],
-                                  "resources":  [
-                                                    "@items/materials:rift-shards",
-                                                    "@items/materials:rare-minerals"
-                                                ]
-                              }
-                          ],
-    "very_high_danger_types":  [
-                                   {
-                                       "name":  "VolcanicWastelands",
-                                       "displayName":  "Volcanic Wastelands",
-                                       "rarityWeight":  100,
-                                       "description":  "Scorched earth with active lava flows",
-                                       "terrain":  "Volcanic",
-                                       "danger":  "Very High",
-                                       "locationType":  "wilderness",
-                                       "recommendedLevel":  "25-35",
-                                       "encounters":  [
-                                                          "@enemies/elemental",
-                                                          "@enemies/dragon"
-                                                      ],
-                                       "resources":  [
-                                                         "@items/materials:obsidian",
-                                                         "@items/materials:fire-gems"
-                                                     ]
-                                   },
-                                   {
-                                       "name":  "DeadLands",
-                                       "displayName":  "Dead Lands",
-                                       "rarityWeight":  110,
-                                       "description":  "Cursed region where nothing grows",
-                                       "terrain":  "Wasteland",
-                                       "danger":  "Very High",
-                                       "locationType":  "wilderness",
-                                       "recommendedLevel":  "27-37",
-                                       "encounters":  [
-                                                          "@enemies/undead",
-                                                          "@enemies/demon"
-                                                      ],
-                                       "resources":  [
-                                                         "@items/materials:cursed-artifacts",
-                                                         "@items/materials:death-essence"
-                                                     ]
-                                   },
-                                   {
-                                       "name":  "BloodMoors",
-                                       "displayName":  "Blood Moors",
-                                       "rarityWeight":  115,
-                                       "description":  "Crimson marshlands with carnivorous plants",
-                                       "terrain":  "Swamp",
-                                       "danger":  "Very High",
-                                       "locationType":  "wilderness",
-                                       "recommendedLevel":  "28-38",
-                                       "encounters":  [
-                                                          "@enemies/beast",
-                                                          "@enemies/undead",
-                                                          "@enemies/demon"
-                                                      ],
-                                       "resources":  [
-                                                         "@items/materials:blood-lotus",
-                                                         "@items/materials:poison-gland"
-                                                     ]
-                                   }
-                               ]
+  "metadata": {
+    "description": "Wilderness and outdoor location definitions organized by danger level",
+    "version": "4.0",
+    "lastUpdated": "2025-12-29",
+    "type": "world_locations_wilderness_catalog"
+  },
+  "low_danger_types": {
+    "low_danger": {
+      "items": [
+        {
+          "name": "GoldenPlains",
+          "displayName": "Golden Plains",
+          "rarityWeight": 10,
+          "description": "Peaceful grasslands perfect for travel",
+          "terrain": "Plains",
+          "danger": "Low",
+          "locationType": "wilderness",
+          "recommendedLevel": "1-5",
+          "encounters": [
+            "@enemies/beast:wolf",
+            "@enemies/humanoid:bandit"
+          ],
+          "resources": [
+            "@items/materials/herbs:common"
+          ]
+        },
+        {
+          "name": "MistyHills",
+          "displayName": "Misty Hills",
+          "rarityWeight": 12,
+          "description": "Rolling hills shrouded in fog",
+          "terrain": "Hills",
+          "danger": "Low",
+          "locationType": "wilderness",
+          "recommendedLevel": "1-5",
+          "encounters": [
+            "@enemies/beast:wolf",
+            "@enemies/goblinoid"
+          ],
+          "resources": [
+            "@items/materials/herbs:common",
+            "@items/materials/metals:common"
+          ]
+        },
+        {
+          "name": "SilverLake",
+          "displayName": "Silver Lake",
+          "rarityWeight": 15,
+          "description": "Tranquil body of water reflecting moonlight",
+          "terrain": "Lake",
+          "danger": "Low",
+          "locationType": "wilderness",
+          "recommendedLevel": "1-6",
+          "encounters": [
+            "@enemies/beast"
+          ],
+          "resources": [
+            "@items/consumables:fish",
+            "@items/materials:water-plants"
+          ]
+        }
+      ]
+    }
+  },
+  "medium_danger_types": {
+    "medium_danger": {
+      "items": [
+        {
+          "name": "DarkwoodForest",
+          "displayName": "Darkwood Forest",
+          "rarityWeight": 25,
+          "description": "Dense woods with little sunlight",
+          "terrain": "Forest",
+          "danger": "Medium",
+          "locationType": "wilderness",
+          "recommendedLevel": "6-12",
+          "encounters": [
+            "@enemies/beast",
+            "@enemies/goblinoid",
+            "@enemies/undead"
+          ],
+          "resources": [
+            "@items/materials/herbs:uncommon",
+            "@items/materials/wood"
+          ]
+        },
+        {
+          "name": "EndlessDesert",
+          "displayName": "Endless Desert",
+          "rarityWeight": 28,
+          "description": "Vast wasteland of sand and heat",
+          "terrain": "Desert",
+          "danger": "Medium",
+          "locationType": "wilderness",
+          "recommendedLevel": "7-13",
+          "encounters": [
+            "@enemies/beast",
+            "@enemies/humanoid:bandit"
+          ],
+          "resources": [
+            "@items/materials:sand-glass",
+            "@items/materials:rare-minerals"
+          ]
+        },
+        {
+          "name": "CrystalCaverns",
+          "displayName": "Crystal Caverns",
+          "rarityWeight": 32,
+          "description": "Underground cave network with glowing crystals",
+          "terrain": "Underground",
+          "danger": "Medium",
+          "locationType": "wilderness",
+          "recommendedLevel": "7-14",
+          "encounters": [
+            "@enemies/beast",
+            "@enemies/elemental"
+          ],
+          "resources": [
+            "@items/materials:crystals",
+            "@items/materials:gems"
+          ]
+        },
+        {
+          "name": "StormyCoast",
+          "displayName": "Stormy Coast",
+          "rarityWeight": 30,
+          "description": "Rocky shoreline battered by waves",
+          "terrain": "Coastal",
+          "danger": "Medium",
+          "locationType": "wilderness",
+          "recommendedLevel": "6-12",
+          "encounters": [
+            "@enemies/beast",
+            "@enemies/humanoid:pirate"
+          ],
+          "resources": [
+            "@items/materials:shells",
+            "@items/consumables:fish"
+          ]
+        },
+        {
+          "name": "WhisperingWoods",
+          "displayName": "Whispering Woods",
+          "rarityWeight": 35,
+          "description": "Enchanted forest with strange voices",
+          "terrain": "Forest",
+          "danger": "Medium",
+          "locationType": "wilderness",
+          "recommendedLevel": "8-14",
+          "encounters": [
+            "@enemies/beast",
+            "@enemies/elemental",
+            "@enemies/undead"
+          ],
+          "resources": [
+            "@items/materials/herbs:rare",
+            "@items/materials:enchanted-wood"
+          ]
+        }
+      ]
+    }
+  },
+  "high_danger_types": {
+    "high_danger": {
+      "items": [
+        {
+          "name": "CrimsonPeaks",
+          "displayName": "Crimson Peaks",
+          "rarityWeight": 50,
+          "description": "Treacherous mountain range",
+          "terrain": "Mountain",
+          "danger": "High",
+          "locationType": "wilderness",
+          "recommendedLevel": "13-20",
+          "encounters": [
+            "@enemies/dragon",
+            "@enemies/humanoid:troll",
+            "@enemies/elemental"
+          ],
+          "resources": [
+            "@items/materials/metals:rare",
+            "@items/materials:gems"
+          ]
+        },
+        {
+          "name": "FrozenTundra",
+          "displayName": "Frozen Tundra",
+          "rarityWeight": 55,
+          "description": "Icy plains of eternal winter",
+          "terrain": "Tundra",
+          "danger": "High",
+          "locationType": "wilderness",
+          "recommendedLevel": "14-21",
+          "encounters": [
+            "@enemies/beast",
+            "@enemies/humanoid:troll",
+            "@enemies/elemental"
+          ],
+          "resources": [
+            "@items/materials:ice-shard",
+            "@items/materials:frozen-herbs"
+          ]
+        },
+        {
+          "name": "PoisonSwamp",
+          "displayName": "Poison Swamp",
+          "rarityWeight": 58,
+          "description": "Murky wetlands filled with toxic gases",
+          "terrain": "Swamp",
+          "danger": "High",
+          "locationType": "wilderness",
+          "recommendedLevel": "15-22",
+          "encounters": [
+            "@enemies/beast:giant-spider",
+            "@enemies/undead",
+            "@enemies/beast"
+          ],
+          "resources": [
+            "@items/materials:poison-gland",
+            "@items/materials/herbs:rare"
+          ]
+        },
+        {
+          "name": "AncientBattlefield",
+          "displayName": "Ancient Battlefield",
+          "rarityWeight": 60,
+          "description": "Site of historic war, now haunted",
+          "terrain": "Plains",
+          "danger": "High",
+          "locationType": "wilderness",
+          "recommendedLevel": "15-22",
+          "encounters": [
+            "@enemies/undead"
+          ],
+          "resources": [
+            "@items/weapons:ancient",
+            "@items/armor:ancient"
+          ]
+        },
+        {
+          "name": "ShatteredIsles",
+          "displayName": "Shattered Isles",
+          "rarityWeight": 65,
+          "description": "Archipelago of floating islands",
+          "terrain": "Sky Islands",
+          "danger": "High",
+          "locationType": "wilderness",
+          "recommendedLevel": "16-23",
+          "encounters": [
+            "@enemies/dragon",
+            "@enemies/elemental"
+          ],
+          "resources": [
+            "@items/materials:sky-crystals",
+            "@items/materials:rare-metals"
+          ]
+        },
+        {
+          "name": "JungleOfFangs",
+          "displayName": "Jungle of Fangs",
+          "rarityWeight": 62,
+          "description": "Tropical rainforest teeming with predators",
+          "terrain": "Jungle",
+          "danger": "High",
+          "locationType": "wilderness",
+          "recommendedLevel": "14-21",
+          "encounters": [
+            "@enemies/beast",
+            "@enemies/humanoid"
+          ],
+          "resources": [
+            "@items/materials/herbs:exotic",
+            "@items/materials:monster-parts"
+          ]
+        },
+        {
+          "name": "TheGreatRift",
+          "displayName": "The Great Rift",
+          "rarityWeight": 68,
+          "description": "Massive canyon splitting the continent",
+          "terrain": "Canyon",
+          "danger": "High",
+          "locationType": "wilderness",
+          "recommendedLevel": "17-24",
+          "encounters": [
+            "@enemies/dragon",
+            "@enemies/elemental",
+            "@enemies/demon"
+          ],
+          "resources": [
+            "@items/materials:rift-shards",
+            "@items/materials:rare-minerals"
+          ]
+        }
+      ]
+    }
+  },
+  "very_high_danger_types": {
+    "very_high_danger": {
+      "items": [
+        {
+          "name": "VolcanicWastelands",
+          "displayName": "Volcanic Wastelands",
+          "rarityWeight": 100,
+          "description": "Scorched earth with active lava flows",
+          "terrain": "Volcanic",
+          "danger": "Very High",
+          "locationType": "wilderness",
+          "recommendedLevel": "25-35",
+          "encounters": [
+            "@enemies/elemental",
+            "@enemies/dragon"
+          ],
+          "resources": [
+            "@items/materials:obsidian",
+            "@items/materials:fire-gems"
+          ]
+        },
+        {
+          "name": "DeadLands",
+          "displayName": "Dead Lands",
+          "rarityWeight": 110,
+          "description": "Cursed region where nothing grows",
+          "terrain": "Wasteland",
+          "danger": "Very High",
+          "locationType": "wilderness",
+          "recommendedLevel": "27-37",
+          "encounters": [
+            "@enemies/undead",
+            "@enemies/demon"
+          ],
+          "resources": [
+            "@items/materials:cursed-artifacts",
+            "@items/materials:death-essence"
+          ]
+        },
+        {
+          "name": "BloodMoors",
+          "displayName": "Blood Moors",
+          "rarityWeight": 115,
+          "description": "Crimson marshlands with carnivorous plants",
+          "terrain": "Swamp",
+          "danger": "Very High",
+          "locationType": "wilderness",
+          "recommendedLevel": "28-38",
+          "encounters": [
+            "@enemies/beast",
+            "@enemies/undead",
+            "@enemies/demon"
+          ],
+          "resources": [
+            "@items/materials:blood-lotus",
+            "@items/materials:poison-gland"
+          ]
+        }
+      ]
+    }
+  }
 }

@@ -13,447 +13,592 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "ability_types": [
-    {
-      "name": "Demonic Regeneration",
-      "displayName": "Demonic Regeneration",
-      "description": "Rapidly heals wounds",
-      "rarityWeight": 75,
-      "traits": {
-        "healthRegen": {
-          "value": 5,
-          "type": "number"
+  "ability_types": {
+    "defensive": {
+      "items": [
+        {
+          "name": "Demonic Regeneration",
+          "displayName": "Demonic Regeneration",
+          "description": "Rapidly heals wounds",
+          "rarityWeight": 75,
+          "traits": {
+            "healthRegen": {
+              "value": 5,
+              "type": "number"
+            },
+            "regenInterval": {
+              "value": 5,
+              "type": "number"
+            }
+          }
         },
-        "regenInterval": {
-          "value": 5,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "name": "Hellborn Armor",
-      "displayName": "Hellborn Armor",
-      "description": "Natural resistance to physical damage",
-      "rarityWeight": 10,
-      "traits": {
-        "armorBonus": {
-          "value": 5,
-          "type": "number"
+        {
+          "name": "Hellborn Armor",
+          "displayName": "Hellborn Armor",
+          "description": "Natural resistance to physical damage",
+          "rarityWeight": 10,
+          "traits": {
+            "armorBonus": {
+              "value": 5,
+              "type": "number"
+            },
+            "resistPhysical": {
+              "value": 25,
+              "type": "number"
+            },
+            "damageReduction": {
+              "value": 10,
+              "type": "number"
+            }
+          }
         },
-        "resistPhysical": {
-          "value": 25,
-          "type": "number"
+        {
+          "name": "Dimensional Shift",
+          "displayName": "Dimensional Shift",
+          "description": "Phases between realms to avoid damage",
+          "rarityWeight": 150,
+          "cooldown": 30,
+          "traits": {
+            "dodgeChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "toggle",
+              "type": "string"
+            }
+          }
         },
-        "damageReduction": {
-          "value": 10,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "name": "Dimensional Shift",
-      "displayName": "Dimensional Shift",
-      "description": "Phases between realms to avoid damage",
-      "rarityWeight": 150,
-      "cooldown": 30,
-      "traits": {
-        "dodgeChance": {
-          "value": 50,
-          "type": "number"
+        {
+          "name": "Magic Immunity",
+          "displayName": "Magic Immunity",
+          "description": "Cannot be harmed by spells",
+          "rarityWeight": 250,
+          "traits": {
+            "resistMagic": {
+              "value": 100,
+              "type": "number"
+            },
+            "resistFire": {
+              "value": 100,
+              "type": "number"
+            },
+            "resistIce": {
+              "value": 100,
+              "type": "number"
+            },
+            "resistLightning": {
+              "value": 100,
+              "type": "number"
+            }
+          }
         },
-        "duration": {
-          "value": 5,
-          "type": "number"
+        {
+          "rarityWeight": 35,
+          "description": "Nearly impenetrable natural armor",
+          "name": "Armored Scales",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Armored Scales"
         },
-        "abilityClass": {
-          "value": "toggle",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Magic Immunity",
-      "displayName": "Magic Immunity",
-      "description": "Cannot be harmed by spells",
-      "rarityWeight": 250,
-      "traits": {
-        "resistMagic": {
-          "value": 100,
-          "type": "number"
+        {
+          "rarityWeight": 75,
+          "description": "High resistance to magical attacks",
+          "name": "Magic Resistance",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Magic Resistance"
         },
-        "resistFire": {
-          "value": 100,
-          "type": "number"
+        {
+          "rarityWeight": 75,
+          "description": "Immune to its breath weapon's element",
+          "name": "Elemental Immunity",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Elemental Immunity"
         },
-        "resistIce": {
-          "value": 100,
-          "type": "number"
+        {
+          "rarityWeight": 250,
+          "description": "Can shrug off debilitating effects",
+          "name": "Legendary Resistance",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Legendary Resistance"
         },
-        "resistLightning": {
-          "value": 100,
-          "type": "number"
+        {
+          "rarityWeight": 75,
+          "description": "Physical attacks pass through",
+          "name": "Incorporeal",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Incorporeal"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Can merge with its element in environment",
+          "name": "Phase Shift",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Phase Shift"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Changes shape to avoid attacks",
+          "name": "Adaptive Form",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Adaptive Form"
+        },
+        {
+          "rarityWeight": 10,
+          "description": "Maximizes protection from armor",
+          "name": "Armor Expert",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Armor Expert"
+        },
+        {
+          "rarityWeight": 10,
+          "description": "Resistant to piercing, vulnerable to bludgeoning",
+          "name": "Skeletal Frame",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Skeletal Frame"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Slowly reforms from damage",
+          "name": "Regeneration",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Regeneration"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Cannot be permanently killed without holy magic",
+          "name": "Undying",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Undying"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Can transform into bat, wolf, or mist",
+          "name": "Shapeshifting",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Shapeshifting"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Becomes incorporeal fog",
+          "name": "Mist Form",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Mist Form"
+        },
+        {
+          "rarityWeight": 75,
+          "description": "Can teleport through darkness",
+          "name": "Shadow Walk",
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          },
+          "displayName": "Shadow Walk"
+        },
+        {
+          "name": "defend",
+          "displayName": "Defend",
+          "description": "Defensive stance that reduces incoming damage",
+          "rarityWeight": 5,
+          "cooldown": 0,
+          "traits": {
+            "damageReduction": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            },
+            "movementPenalty": {
+              "value": -50,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "indomitable",
+          "displayName": "Indomitable",
+          "description": "Becomes immune to crowd control effects",
+          "rarityWeight": 5,
+          "cooldown": 120,
+          "traits": {
+            "ccImmunity": {
+              "value": true,
+              "type": "boolean"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "guardian",
+          "displayName": "Guardian",
+          "description": "Protects nearby allies by redirecting damage",
+          "rarityWeight": 35,
+          "cooldown": 30,
+          "traits": {
+            "damageRedirect": {
+              "value": 50,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 5,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "shield-wall",
+          "displayName": "Shield Wall",
+          "description": "Raises shield to block all frontal attacks",
+          "rarityWeight": 35,
+          "cooldown": 45,
+          "traits": {
+            "blockChance": {
+              "value": 100,
+              "type": "number"
+            },
+            "frontalOnly": {
+              "value": true,
+              "type": "boolean"
+            },
+            "duration": {
+              "value": 8,
+              "type": "number"
+            },
+            "requiresShield": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "bulwark",
+          "displayName": "Bulwark",
+          "description": "Massive defense boost and damage reflection",
+          "rarityWeight": 35,
+          "cooldown": 60,
+          "traits": {
+            "armorBonus": {
+              "value": 50,
+              "type": "number"
+            },
+            "damageReflect": {
+              "value": 25,
+              "type": "number"
+            },
+            "duration": {
+              "value": 15,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "aegis",
+          "displayName": "Aegis",
+          "description": "Divine shield that absorbs damage",
+          "rarityWeight": 35,
+          "cooldown": 90,
+          "traits": {
+            "shieldAmount": {
+              "value": 200,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "last-stand",
+          "displayName": "Last Stand",
+          "description": "Cannot be reduced below 1 HP",
+          "rarityWeight": 35,
+          "cooldown": 180,
+          "traits": {
+            "immortalityDuration": {
+              "value": 8,
+              "type": "number"
+            },
+            "damageBonus": {
+              "value": 50,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "riposte",
+          "displayName": "Riposte",
+          "description": "Counter-attack after successful parry",
+          "rarityWeight": 75,
+          "baseDamage": "2d8",
+          "cooldown": 8,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "requiresParry": {
+              "value": true,
+              "type": "boolean"
+            },
+            "damageMultiplier": {
+              "value": 1.5,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "parry",
+          "displayName": "Parry",
+          "description": "Deflect incoming melee attack",
+          "rarityWeight": 75,
+          "cooldown": 6,
+          "traits": {
+            "blockChance": {
+              "value": 75,
+              "type": "number"
+            },
+            "enablesRiposte": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "perfect-parry",
+          "displayName": "Perfect Parry",
+          "description": "Flawlessly deflects all attacks briefly",
+          "rarityWeight": 75,
+          "cooldown": 45,
+          "traits": {
+            "blockChance": {
+              "value": 100,
+              "type": "number"
+            },
+            "reflectDamage": {
+              "value": true,
+              "type": "boolean"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "en-garde",
+          "displayName": "En Garde",
+          "description": "Defensive stance increasing parry chance",
+          "rarityWeight": 100,
+          "cooldown": 20,
+          "traits": {
+            "dodgeBonus": {
+              "value": 30,
+              "type": "number"
+            },
+            "parryBonus": {
+              "value": 40,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "evasion",
+          "displayName": "Evasion",
+          "description": "Greatly increases chance to dodge attacks",
+          "rarityWeight": 10,
+          "cooldown": 30,
+          "traits": {
+            "dodgeChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 8,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "arcane-shield",
+          "displayName": "Arcane Shield",
+          "description": "Magical barrier that absorbs spell damage",
+          "rarityWeight": 15,
+          "cooldown": 30,
+          "traits": {
+            "shieldAmount": {
+              "value": 100,
+              "type": "number"
+            },
+            "magicOnly": {
+              "value": true,
+              "type": "boolean"
+            },
+            "duration": {
+              "value": 20,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 40,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "elemental-shield",
+          "displayName": "Elemental Shield",
+          "description": "Absorbs damage from chosen element",
+          "rarityWeight": 100,
+          "cooldown": 45,
+          "traits": {
+            "elementalResist": {
+              "value": 100,
+              "type": "number"
+            },
+            "elementChoice": {
+              "value": true,
+              "type": "boolean"
+            },
+            "duration": {
+              "value": 30,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 50,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "divine-shield",
+          "displayName": "Divine Shield",
+          "description": "Invulnerability granted by divine power",
+          "rarityWeight": 20,
+          "cooldown": 180,
+          "traits": {
+            "invulnerability": {
+              "value": true,
+              "type": "boolean"
+            },
+            "duration": {
+              "value": 8,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 100,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "frightful-presence",
+          "displayName": "Frightful Presence",
+          "description": "Terrifying aura that strikes fear into enemies",
+          "rarityWeight": 75,
+          "cooldown": 60,
+          "traits": {
+            "areaOfEffect": {
+              "value": 30,
+              "type": "number"
+            },
+            "fearDuration": {
+              "value": 10,
+              "type": "number"
+            },
+            "damageReduction": {
+              "value": 25,
+              "type": "number"
+            },
+            "attackSpeedReduction": {
+              "value": 50,
+              "type": "number"
+            }
+          }
         }
-      }
-    },
-    {
-      "rarityWeight": 35,
-      "description": "Nearly impenetrable natural armor",
-      "name": "Armored Scales",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Armored Scales"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "High resistance to magical attacks",
-      "name": "Magic Resistance",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Magic Resistance"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Immune to its breath weapon's element",
-      "name": "Elemental Immunity",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Elemental Immunity"
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Can shrug off debilitating effects",
-      "name": "Legendary Resistance",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Legendary Resistance"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Physical attacks pass through",
-      "name": "Incorporeal",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Incorporeal"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Can merge with its element in environment",
-      "name": "Phase Shift",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Phase Shift"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Changes shape to avoid attacks",
-      "name": "Adaptive Form",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Adaptive Form"
-    },
-    {
-      "rarityWeight": 10,
-      "description": "Maximizes protection from armor",
-      "name": "Armor Expert",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Armor Expert"
-    },
-    {
-      "rarityWeight": 10,
-      "description": "Resistant to piercing, vulnerable to bludgeoning",
-      "name": "Skeletal Frame",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Skeletal Frame"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Slowly reforms from damage",
-      "name": "Regeneration",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Regeneration"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Cannot be permanently killed without holy magic",
-      "name": "Undying",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Undying"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Can transform into bat, wolf, or mist",
-      "name": "Shapeshifting",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Shapeshifting"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Becomes incorporeal fog",
-      "name": "Mist Form",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Mist Form"
-    },
-    {
-      "rarityWeight": 75,
-      "description": "Can teleport through darkness",
-      "name": "Shadow Walk",
-      "traits": {
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      },
-      "displayName": "Shadow Walk"
-    },
-    {
-      "name": "defend",
-      "displayName": "Defend",
-      "description": "Defensive stance that reduces incoming damage",
-      "rarityWeight": 5,
-      "cooldown": 0,
-      "traits": {
-        "damageReduction": {"value": 50, "type": "number"},
-        "duration": {"value": 5, "type": "number"},
-        "movementPenalty": {"value": -50, "type": "number"}
-      }
-    },
-    {
-      "name": "indomitable",
-      "displayName": "Indomitable",
-      "description": "Becomes immune to crowd control effects",
-      "rarityWeight": 5,
-      "cooldown": 120,
-      "traits": {
-        "ccImmunity": {"value": true, "type": "boolean"},
-        "duration": {"value": 10, "type": "number"}
-      }
-    },
-    {
-      "name": "guardian",
-      "displayName": "Guardian",
-      "description": "Protects nearby allies by redirecting damage",
-      "rarityWeight": 35,
-      "cooldown": 30,
-      "traits": {
-        "damageRedirect": {"value": 50, "type": "number"},
-        "areaOfEffect": {"value": 5, "type": "number"},
-        "duration": {"value": 10, "type": "number"}
-      }
-    },
-    {
-      "name": "shield-wall",
-      "displayName": "Shield Wall",
-      "description": "Raises shield to block all frontal attacks",
-      "rarityWeight": 35,
-      "cooldown": 45,
-      "traits": {
-        "blockChance": {"value": 100, "type": "number"},
-        "frontalOnly": {"value": true, "type": "boolean"},
-        "duration": {"value": 8, "type": "number"},
-        "requiresShield": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "bulwark",
-      "displayName": "Bulwark",
-      "description": "Massive defense boost and damage reflection",
-      "rarityWeight": 35,
-      "cooldown": 60,
-      "traits": {
-        "armorBonus": {"value": 50, "type": "number"},
-        "damageReflect": {"value": 25, "type": "number"},
-        "duration": {"value": 15, "type": "number"}
-      }
-    },
-    {
-      "name": "aegis",
-      "displayName": "Aegis",
-      "description": "Divine shield that absorbs damage",
-      "rarityWeight": 35,
-      "cooldown": 90,
-      "traits": {
-        "shieldAmount": {"value": 200, "type": "number"},
-        "duration": {"value": 10, "type": "number"}
-      }
-    },
-    {
-      "name": "last-stand",
-      "displayName": "Last Stand",
-      "description": "Cannot be reduced below 1 HP",
-      "rarityWeight": 35,
-      "cooldown": 180,
-      "traits": {
-        "immortalityDuration": {"value": 8, "type": "number"},
-        "damageBonus": {"value": 50, "type": "number"}
-      }
-    },
-    {
-      "name": "riposte",
-      "displayName": "Riposte",
-      "description": "Counter-attack after successful parry",
-      "rarityWeight": 75,
-      "baseDamage": "2d8",
-      "cooldown": 8,
-      "traits": {
-        "damageType": {"value": "physical", "type": "string"},
-        "requiresParry": {"value": true, "type": "boolean"},
-        "damageMultiplier": {"value": 1.5, "type": "number"}
-      }
-    },
-    {
-      "name": "parry",
-      "displayName": "Parry",
-      "description": "Deflect incoming melee attack",
-      "rarityWeight": 75,
-      "cooldown": 6,
-      "traits": {
-        "blockChance": {"value": 75, "type": "number"},
-        "enablesRiposte": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "perfect-parry",
-      "displayName": "Perfect Parry",
-      "description": "Flawlessly deflects all attacks briefly",
-      "rarityWeight": 75,
-      "cooldown": 45,
-      "traits": {
-        "blockChance": {"value": 100, "type": "number"},
-        "reflectDamage": {"value": true, "type": "boolean"},
-        "duration": {"value": 5, "type": "number"}
-      }
-    },
-    {
-      "name": "en-garde",
-      "displayName": "En Garde",
-      "description": "Defensive stance increasing parry chance",
-      "rarityWeight": 100,
-      "cooldown": 20,
-      "traits": {
-        "dodgeBonus": {"value": 30, "type": "number"},
-        "parryBonus": {"value": 40, "type": "number"},
-        "duration": {"value": 10, "type": "number"}
-      }
-    },
-    {
-      "name": "evasion",
-      "displayName": "Evasion",
-      "description": "Greatly increases chance to dodge attacks",
-      "rarityWeight": 10,
-      "cooldown": 30,
-      "traits": {
-        "dodgeChance": {"value": 50, "type": "number"},
-        "duration": {"value": 8, "type": "number"}
-      }
-    },
-    {
-      "name": "arcane-shield",
-      "displayName": "Arcane Shield",
-      "description": "Magical barrier that absorbs spell damage",
-      "rarityWeight": 15,
-      "cooldown": 30,
-      "traits": {
-        "shieldAmount": {"value": 100, "type": "number"},
-        "magicOnly": {"value": true, "type": "boolean"},
-        "duration": {"value": 20, "type": "number"},
-        "manaCost": {"value": 40, "type": "number"}
-      }
-    },
-    {
-      "name": "elemental-shield",
-      "displayName": "Elemental Shield",
-      "description": "Absorbs damage from chosen element",
-      "rarityWeight": 100,
-      "cooldown": 45,
-      "traits": {
-        "elementalResist": {"value": 100, "type": "number"},
-        "elementChoice": {"value": true, "type": "boolean"},
-        "duration": {"value": 30, "type": "number"},
-        "manaCost": {"value": 50, "type": "number"}
-      }
-    },
-    {
-      "name": "divine-shield",
-      "displayName": "Divine Shield",
-      "description": "Invulnerability granted by divine power",
-      "rarityWeight": 20,
-      "cooldown": 180,
-      "traits": {
-        "invulnerability": {"value": true, "type": "boolean"},
-        "duration": {"value": 8, "type": "number"},
-        "manaCost": {"value": 100, "type": "number"}
-      }
-    },
-    {
-      "name": "frightful-presence",
-      "displayName": "Frightful Presence",
-      "description": "Terrifying aura that strikes fear into enemies",
-      "rarityWeight": 75,
-      "cooldown": 60,
-      "traits": {
-        "areaOfEffect": {"value": 30, "type": "number"},
-        "fearDuration": {"value": 10, "type": "number"},
-        "damageReduction": {"value": 25, "type": "number"},
-        "attackSpeedReduction": {"value": 50, "type": "number"}
-      }
+      ]
     }
-  ]
+  }
 }

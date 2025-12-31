@@ -88,8 +88,12 @@
             }
           },
           "dialogueStyle": "@dialogue/styles:greedy",
-          "greetings": ["@dialogue/greetings:merchant-eager"],
-          "farewells": ["@dialogue/farewells:merchant"],
+          "greetings": [
+            "@dialogue/greetings:merchant-eager"
+          ],
+          "farewells": [
+            "@dialogue/farewells:merchant"
+          ],
           "faction": "merchants_guild",
           "schedule": "@schedules:merchant"
         }

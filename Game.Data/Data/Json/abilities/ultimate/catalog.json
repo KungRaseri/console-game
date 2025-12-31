@@ -13,572 +13,867 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "ability_types": [
-    {
-      "name": "Demon Lord",
-      "displayName": "Demon Lord",
-      "description": "Commands legions of lesser demons",
-      "rarityWeight": 250,
-      "cooldown": 120,
-      "traits": {
-        "damageMultiplier": {
-          "value": 2.0,
-          "type": "number"
+  "ability_types": {
+    "ultimate": {
+      "items": [
+        {
+          "name": "Demon Lord",
+          "displayName": "Demon Lord",
+          "description": "Commands legions of lesser demons",
+          "rarityWeight": 250,
+          "cooldown": 120,
+          "traits": {
+            "damageMultiplier": {
+              "value": 2.0,
+              "type": "number"
+            },
+            "healthMultiplier": {
+              "value": 3.0,
+              "type": "number"
+            },
+            "armorBonus": {
+              "value": 10,
+              "type": "number"
+            },
+            "summonType": {
+              "value": "demon",
+              "type": "string"
+            },
+            "summonCount": {
+              "value": 10,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 50,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "passive",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "self",
+              "type": "string"
+            }
+          }
         },
-        "healthMultiplier": {
-          "value": 3.0,
-          "type": "number"
+        {
+          "name": "Reality Warp",
+          "displayName": "Reality Warp",
+          "description": "Bends the laws of nature",
+          "rarityWeight": 500,
+          "baseDamage": "10d10",
+          "cooldown": 180,
+          "range": 20,
+          "traits": {
+            "damageType": {
+              "value": "magic",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 50,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 15,
+              "type": "number"
+            },
+            "targetCount": {
+              "value": 10,
+              "type": "number"
+            },
+            "castTime": {
+              "value": 5,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "channeled",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "area",
+              "type": "string"
+            }
+          }
         },
-        "armorBonus": {
-          "value": 10,
-          "type": "number"
+        {
+          "rarityWeight": 250,
+          "description": "Power grows with age",
+          "name": "Ancient Power",
+          "traits": {
+            "category": {
+              "value": "legendary",
+              "type": "string"
+            }
+          },
+          "displayName": "Ancient Power"
         },
-        "summonType": {
-          "value": "demon",
-          "type": "string"
+        {
+          "rarityWeight": 500,
+          "description": "Power rivaling the gods themselves",
+          "name": "Godlike Might",
+          "traits": {
+            "category": {
+              "value": "legendary",
+              "type": "string"
+            }
+          },
+          "displayName": "Godlike Might"
         },
-        "summonCount": {
-          "value": 10,
-          "type": "number"
+        {
+          "rarityWeight": 250,
+          "description": "Raw elemental force from creation",
+          "name": "Primordial Power",
+          "traits": {
+            "category": {
+              "value": "legendary",
+              "type": "string"
+            }
+          },
+          "displayName": "Primordial Power"
         },
-        "areaOfEffect": {
-          "value": 50,
-          "type": "number"
+        {
+          "rarityWeight": 250,
+          "description": "Supreme master of its element",
+          "name": "Elemental Lord",
+          "traits": {
+            "category": {
+              "value": "legendary",
+              "type": "string"
+            }
+          },
+          "displayName": "Elemental Lord"
         },
-        "abilityClass": {
-          "value": "passive",
-          "type": "string"
+        {
+          "rarityWeight": 500,
+          "description": "Can traverse elemental planes",
+          "name": "Plane Walker",
+          "traits": {
+            "category": {
+              "value": "legendary",
+              "type": "string"
+            }
+          },
+          "displayName": "Plane Walker"
         },
-        "targetType": {
-          "value": "self",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Reality Warp",
-      "displayName": "Reality Warp",
-      "description": "Bends the laws of nature",
-      "rarityWeight": 500,
-      "baseDamage": "10d10",
-      "cooldown": 180,
-      "range": 20,
-      "traits": {
-        "damageType": {
-          "value": "magic",
-          "type": "string"
+        {
+          "rarityWeight": 150,
+          "description": "Commands and coordinates allies",
+          "name": "Leadership",
+          "traits": {
+            "category": {
+              "value": "elite",
+              "type": "string"
+            }
+          },
+          "displayName": "Leadership"
         },
-        "damageBonus": {
-          "value": 50,
-          "type": "number"
+        {
+          "rarityWeight": 250,
+          "description": "Elite warrior of legendary skill",
+          "name": "Champion",
+          "traits": {
+            "category": {
+              "value": "elite",
+              "type": "string"
+            }
+          },
+          "displayName": "Champion"
         },
-        "areaOfEffect": {
-          "value": 15,
-          "type": "number"
+        {
+          "rarityWeight": 150,
+          "description": "Expert warrior with multiple weapon techniques",
+          "name": "BattleMaster",
+          "traits": {
+            "category": {
+              "value": "legendary_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Battle Master"
         },
-        "targetCount": {
-          "value": 10,
-          "type": "number"
+        {
+          "rarityWeight": 250,
+          "description": "Infused with demonic power, regenerates rapidly",
+          "name": "DemonBlood",
+          "traits": {
+            "category": {
+              "value": "legendary_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Demon Blood"
         },
-        "castTime": {
-          "value": 5,
-          "type": "number"
+        {
+          "rarityWeight": 250,
+          "description": "Cannot be permanently killed, resurrects after death",
+          "name": "Immortal",
+          "traits": {
+            "category": {
+              "value": "legendary_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Immortal"
         },
-        "abilityClass": {
-          "value": "channeled",
-          "type": "string"
+        {
+          "rarityWeight": 500,
+          "description": "Has defeated divine beings, empowered beyond mortals",
+          "name": "GodSlayer",
+          "traits": {
+            "category": {
+              "value": "legendary_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "God Slayer"
         },
-        "targetType": {
-          "value": "area",
-          "type": "string"
+        {
+          "rarityWeight": 500,
+          "description": "Embodies pure destructive power",
+          "name": "PrimalForce",
+          "traits": {
+            "category": {
+              "value": "legendary_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Primal Force"
+        },
+        {
+          "rarityWeight": 250,
+          "description": "Enormous size with devastating power",
+          "name": "Titanic",
+          "traits": {
+            "category": {
+              "value": "legendary_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Titanic"
+        },
+        {
+          "rarityWeight": 250,
+          "description": "Descended from dragons, can breathe fire",
+          "name": "DragonAncestor",
+          "traits": {
+            "category": {
+              "value": "legendary_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Dragon Ancestor"
+        },
+        {
+          "rarityWeight": 500,
+          "description": "Apex predator from prehistoric times",
+          "name": "DinosaurKing",
+          "traits": {
+            "category": {
+              "value": "legendary_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Dinosaur King"
+        },
+        {
+          "rarityWeight": 500,
+          "description": "Legendary serpent with petrifying gaze",
+          "name": "Basilisk",
+          "traits": {
+            "category": {
+              "value": "legendary_traits",
+              "type": "string"
+            }
+          },
+          "displayName": "Basilisk"
+        },
+        {
+          "rarityWeight": 250,
+          "description": "Powered by centuries of dark magic",
+          "name": "Ancient Evil",
+          "traits": {
+            "category": {
+              "value": "legendary",
+              "type": "string"
+            }
+          },
+          "displayName": "Ancient Evil"
+        },
+        {
+          "rarityWeight": 500,
+          "description": "Grows stronger with each kill",
+          "name": "Soul Harvest",
+          "traits": {
+            "category": {
+              "value": "legendary",
+              "type": "string"
+            }
+          },
+          "displayName": "Soul Harvest"
+        },
+        {
+          "name": "ragnarok",
+          "displayName": "Ragnarok",
+          "description": "Call down the apocalypse itself",
+          "rarityWeight": 5,
+          "cooldown": 300,
+          "manaCost": 500,
+          "traits": {
+            "damage": {
+              "value": "10d100",
+              "type": "string"
+            },
+            "damageType": {
+              "value": "fire",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 100,
+              "type": "number"
+            },
+            "stunDuration": {
+              "value": 5,
+              "type": "number"
+            },
+            "channelTime": {
+              "value": 3,
+              "type": "number"
+            },
+            "description": {
+              "value": "Deals massive area damage and stuns all enemies",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "fortress",
+          "displayName": "Fortress",
+          "description": "Become an impenetrable wall",
+          "rarityWeight": 75,
+          "cooldown": 120,
+          "traits": {
+            "damageReduction": {
+              "value": 90,
+              "type": "number"
+            },
+            "healthRegen": {
+              "value": 100,
+              "type": "number"
+            },
+            "duration": {
+              "value": 30,
+              "type": "number"
+            },
+            "ccImmunity": {
+              "value": true,
+              "type": "boolean"
+            },
+            "reflectDamage": {
+              "value": 50,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "grandmaster-duelist",
+          "displayName": "Grandmaster Duelist",
+          "description": "Perfection in single combat",
+          "rarityWeight": 50,
+          "cooldown": 180,
+          "traits": {
+            "critChance": {
+              "value": 100,
+              "type": "number"
+            },
+            "critMultiplier": {
+              "value": 3.0,
+              "type": "number"
+            },
+            "parryChance": {
+              "value": 75,
+              "type": "number"
+            },
+            "riposteDamage": {
+              "value": 200,
+              "type": "number"
+            },
+            "duration": {
+              "value": 20,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "holy-champion",
+          "displayName": "Holy Champion",
+          "description": "Become a vessel of divine power",
+          "rarityWeight": 100,
+          "cooldown": 200,
+          "traits": {
+            "holyDamageBonus": {
+              "value": 200,
+              "type": "number"
+            },
+            "healPerSecond": {
+              "value": 50,
+              "type": "number"
+            },
+            "allyHealAura": {
+              "value": 25,
+              "type": "number"
+            },
+            "undeadBonus": {
+              "value": 300,
+              "type": "number"
+            },
+            "duration": {
+              "value": 30,
+              "type": "number"
+            },
+            "auraRadius": {
+              "value": 20,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "apex-predator",
+          "displayName": "Apex Predator",
+          "description": "Ultimate hunter commanding nature itself",
+          "rarityWeight": 75,
+          "cooldown": 150,
+          "traits": {
+            "petCount": {
+              "value": 10,
+              "type": "number"
+            },
+            "petDamageBonus": {
+              "value": 300,
+              "type": "number"
+            },
+            "petHealthBonus": {
+              "value": 500,
+              "type": "number"
+            },
+            "rangedDamageBonus": {
+              "value": 150,
+              "type": "number"
+            },
+            "duration": {
+              "value": 45,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "archmages-supremacy",
+          "displayName": "Archmage's Supremacy",
+          "description": "Transcend mortal magical limits",
+          "rarityWeight": 100,
+          "cooldown": 240,
+          "traits": {
+            "spellPowerBonus": {
+              "value": 300,
+              "type": "number"
+            },
+            "cooldownReduction": {
+              "value": 75,
+              "type": "number"
+            },
+            "manaCostReduction": {
+              "value": 90,
+              "type": "number"
+            },
+            "castTimeReduction": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 30,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "avatar-of-light",
+          "displayName": "Avatar of Light",
+          "description": "Pure divine radiance incarnate",
+          "rarityWeight": 50,
+          "cooldown": 300,
+          "traits": {
+            "holyNova": {
+              "value": "5d50",
+              "type": "string"
+            },
+            "massResurrection": {
+              "value": true,
+              "type": "boolean"
+            },
+            "invulnerability": {
+              "value": 10,
+              "type": "number"
+            },
+            "auraRadius": {
+              "value": 50,
+              "type": "number"
+            },
+            "undeadInstakill": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "death-incarnate",
+          "displayName": "Death Incarnate",
+          "description": "Embody death itself",
+          "rarityWeight": 35,
+          "cooldown": 180,
+          "traits": {
+            "lifeDrain": {
+              "value": 100,
+              "type": "number"
+            },
+            "instantKillChance": {
+              "value": 25,
+              "type": "number"
+            },
+            "undeadDamageBonus": {
+              "value": 500,
+              "type": "number"
+            },
+            "auraRadius": {
+              "value": 30,
+              "type": "number"
+            },
+            "duration": {
+              "value": 20,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "death-lord",
+          "displayName": "Death Lord",
+          "description": "Supreme necromantic mastery",
+          "rarityWeight": 50,
+          "cooldown": 200,
+          "traits": {
+            "undeadSummons": {
+              "value": 20,
+              "type": "number"
+            },
+            "lichTransform": {
+              "value": true,
+              "type": "boolean"
+            },
+            "necroDamageBonus": {
+              "value": 300,
+              "type": "number"
+            },
+            "soulCollectionBonus": {
+              "value": 500,
+              "type": "number"
+            },
+            "duration": {
+              "value": 60,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "dread-pirate",
+          "displayName": "Dread Pirate",
+          "description": "Legendary status of infamy",
+          "rarityWeight": 100,
+          "cooldown": 120,
+          "traits": {
+            "goldMultiplier": {
+              "value": 5.0,
+              "type": "number"
+            },
+            "critChance": {
+              "value": 75,
+              "type": "number"
+            },
+            "dodgeChance": {
+              "value": 60,
+              "type": "number"
+            },
+            "allyMoraleBonus": {
+              "value": 100,
+              "type": "number"
+            },
+            "enemyFearAura": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 45,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "elemental-apocalypse",
+          "displayName": "Elemental Apocalypse",
+          "description": "Unleash all elements at once",
+          "rarityWeight": 25,
+          "cooldown": 300,
+          "manaCost": 750,
+          "traits": {
+            "fireDamage": {
+              "value": "3d100",
+              "type": "string"
+            },
+            "iceDamage": {
+              "value": "3d100",
+              "type": "string"
+            },
+            "lightningDamage": {
+              "value": "3d100",
+              "type": "string"
+            },
+            "areaOfEffect": {
+              "value": 75,
+              "type": "number"
+            },
+            "elementalFusion": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "master-of-elements",
+          "displayName": "Master of Elements",
+          "description": "Perfect elemental control",
+          "rarityWeight": 75,
+          "cooldown": 180,
+          "traits": {
+            "elementalDamageBonus": {
+              "value": 250,
+              "type": "number"
+            },
+            "elementalResist": {
+              "value": 90,
+              "type": "number"
+            },
+            "instantCast": {
+              "value": true,
+              "type": "boolean"
+            },
+            "noManaCost": {
+              "value": true,
+              "type": "boolean"
+            },
+            "duration": {
+              "value": 30,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "perfect-crime",
+          "displayName": "Perfect Crime",
+          "description": "The ultimate heist",
+          "rarityWeight": 100,
+          "cooldown": 600,
+          "traits": {
+            "goldSteal": {
+              "value": 10000,
+              "type": "number"
+            },
+            "stealthBonus": {
+              "value": 1000,
+              "type": "number"
+            },
+            "lockpickSuccess": {
+              "value": 100,
+              "type": "number"
+            },
+            "detectionImmune": {
+              "value": true,
+              "type": "boolean"
+            },
+            "escapeGuaranteed": {
+              "value": true,
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "name": "natures-wrath",
+          "displayName": "Nature's Wrath",
+          "description": "Call upon primal nature's fury",
+          "rarityWeight": 50,
+          "cooldown": 180,
+          "traits": {
+            "natureDamage": {
+              "value": "5d50",
+              "type": "string"
+            },
+            "animalSummons": {
+              "value": 15,
+              "type": "number"
+            },
+            "plantEntangle": {
+              "value": true,
+              "type": "boolean"
+            },
+            "areaOfEffect": {
+              "value": 60,
+              "type": "number"
+            },
+            "duration": {
+              "value": 40,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "ancient-power",
+          "displayName": "Ancient Power",
+          "description": "Tap into primordial draconic might",
+          "rarityWeight": 150,
+          "cooldown": 240,
+          "traits": {
+            "damageBonus": {
+              "value": 200,
+              "type": "number"
+            },
+            "armorBonus": {
+              "value": 100,
+              "type": "number"
+            },
+            "healthRegen": {
+              "value": 50,
+              "type": "number"
+            },
+            "spellAmplification": {
+              "value": 150,
+              "type": "number"
+            },
+            "duration": {
+              "value": 45,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "storm-fury",
+          "displayName": "Storm Fury",
+          "description": "Become the embodiment of the storm",
+          "rarityWeight": 150,
+          "cooldown": 200,
+          "traits": {
+            "lightningDamage": {
+              "value": "8d50",
+              "type": "string"
+            },
+            "chainLightning": {
+              "value": 10,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 40,
+              "type": "number"
+            },
+            "stunDuration": {
+              "value": 5,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "plague-bearer",
+          "displayName": "Plague Bearer",
+          "description": "Spread disease and corruption",
+          "rarityWeight": 150,
+          "cooldown": 180,
+          "traits": {
+            "poisonDamage": {
+              "value": "5d50",
+              "type": "string"
+            },
+            "diseaseSpread": {
+              "value": true,
+              "type": "boolean"
+            },
+            "areaOfEffect": {
+              "value": 50,
+              "type": "number"
+            },
+            "damageOverTime": {
+              "value": "3d20",
+              "type": "string"
+            },
+            "duration": {
+              "value": 60,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "corruption-wave",
+          "displayName": "Corruption Wave",
+          "description": "Unleash wave of pure corruption",
+          "rarityWeight": 150,
+          "cooldown": 200,
+          "traits": {
+            "acidDamage": {
+              "value": "7d50",
+              "type": "string"
+            },
+            "armorReduction": {
+              "value": 50,
+              "type": "number"
+            },
+            "healingReduction": {
+              "value": 75,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 35,
+              "type": "number"
+            },
+            "duration": {
+              "value": 30,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "blizzard",
+          "displayName": "Blizzard",
+          "description": "Summon devastating ice storm",
+          "rarityWeight": 150,
+          "cooldown": 180,
+          "traits": {
+            "coldDamage": {
+              "value": "6d50",
+              "type": "string"
+            },
+            "freezeChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "slowPercent": {
+              "value": 75,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 45,
+              "type": "number"
+            },
+            "duration": {
+              "value": 20,
+              "type": "number"
+            }
+          }
         }
-      }
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Power grows with age",
-      "name": "Ancient Power",
-      "traits": {
-        "category": {
-          "value": "legendary",
-          "type": "string"
-        }
-      },
-      "displayName": "Ancient Power"
-    },
-    {
-      "rarityWeight": 500,
-      "description": "Power rivaling the gods themselves",
-      "name": "Godlike Might",
-      "traits": {
-        "category": {
-          "value": "legendary",
-          "type": "string"
-        }
-      },
-      "displayName": "Godlike Might"
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Raw elemental force from creation",
-      "name": "Primordial Power",
-      "traits": {
-        "category": {
-          "value": "legendary",
-          "type": "string"
-        }
-      },
-      "displayName": "Primordial Power"
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Supreme master of its element",
-      "name": "Elemental Lord",
-      "traits": {
-        "category": {
-          "value": "legendary",
-          "type": "string"
-        }
-      },
-      "displayName": "Elemental Lord"
-    },
-    {
-      "rarityWeight": 500,
-      "description": "Can traverse elemental planes",
-      "name": "Plane Walker",
-      "traits": {
-        "category": {
-          "value": "legendary",
-          "type": "string"
-        }
-      },
-      "displayName": "Plane Walker"
-    },
-    {
-      "rarityWeight": 150,
-      "description": "Commands and coordinates allies",
-      "name": "Leadership",
-      "traits": {
-        "category": {
-          "value": "elite",
-          "type": "string"
-        }
-      },
-      "displayName": "Leadership"
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Elite warrior of legendary skill",
-      "name": "Champion",
-      "traits": {
-        "category": {
-          "value": "elite",
-          "type": "string"
-        }
-      },
-      "displayName": "Champion"
-    },
-    {
-      "rarityWeight": 150,
-      "description": "Expert warrior with multiple weapon techniques",
-      "name": "BattleMaster",
-      "traits": {
-        "category": {
-          "value": "legendary_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Battle Master"
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Infused with demonic power, regenerates rapidly",
-      "name": "DemonBlood",
-      "traits": {
-        "category": {
-          "value": "legendary_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Demon Blood"
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Cannot be permanently killed, resurrects after death",
-      "name": "Immortal",
-      "traits": {
-        "category": {
-          "value": "legendary_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Immortal"
-    },
-    {
-      "rarityWeight": 500,
-      "description": "Has defeated divine beings, empowered beyond mortals",
-      "name": "GodSlayer",
-      "traits": {
-        "category": {
-          "value": "legendary_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "God Slayer"
-    },
-    {
-      "rarityWeight": 500,
-      "description": "Embodies pure destructive power",
-      "name": "PrimalForce",
-      "traits": {
-        "category": {
-          "value": "legendary_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Primal Force"
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Enormous size with devastating power",
-      "name": "Titanic",
-      "traits": {
-        "category": {
-          "value": "legendary_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Titanic"
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Descended from dragons, can breathe fire",
-      "name": "DragonAncestor",
-      "traits": {
-        "category": {
-          "value": "legendary_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Dragon Ancestor"
-    },
-    {
-      "rarityWeight": 500,
-      "description": "Apex predator from prehistoric times",
-      "name": "DinosaurKing",
-      "traits": {
-        "category": {
-          "value": "legendary_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Dinosaur King"
-    },
-    {
-      "rarityWeight": 500,
-      "description": "Legendary serpent with petrifying gaze",
-      "name": "Basilisk",
-      "traits": {
-        "category": {
-          "value": "legendary_traits",
-          "type": "string"
-        }
-      },
-      "displayName": "Basilisk"
-    },
-    {
-      "rarityWeight": 250,
-      "description": "Powered by centuries of dark magic",
-      "name": "Ancient Evil",
-      "traits": {
-        "category": {
-          "value": "legendary",
-          "type": "string"
-        }
-      },
-      "displayName": "Ancient Evil"
-    },
-    {
-      "rarityWeight": 500,
-      "description": "Grows stronger with each kill",
-      "name": "Soul Harvest",
-      "traits": {
-        "category": {
-          "value": "legendary",
-          "type": "string"
-        }
-      },
-      "displayName": "Soul Harvest"
-    },
-    {
-      "name": "ragnarok",
-      "displayName": "Ragnarok",
-      "description": "Call down the apocalypse itself",
-      "rarityWeight": 5,
-      "cooldown": 300,
-      "manaCost": 500,
-      "traits": {
-        "damage": {"value": "10d100", "type": "string"},
-        "damageType": {"value": "fire", "type": "string"},
-        "areaOfEffect": {"value": 100, "type": "number"},
-        "stunDuration": {"value": 5, "type": "number"},
-        "channelTime": {"value": 3, "type": "number"},
-        "description": {"value": "Deals massive area damage and stuns all enemies", "type": "string"}
-      }
-    },
-    {
-      "name": "fortress",
-      "displayName": "Fortress",
-      "description": "Become an impenetrable wall",
-      "rarityWeight": 75,
-      "cooldown": 120,
-      "traits": {
-        "damageReduction": {"value": 90, "type": "number"},
-        "healthRegen": {"value": 100, "type": "number"},
-        "duration": {"value": 30, "type": "number"},
-        "ccImmunity": {"value": true, "type": "boolean"},
-        "reflectDamage": {"value": 50, "type": "number"}
-      }
-    },
-    {
-      "name": "grandmaster-duelist",
-      "displayName": "Grandmaster Duelist",
-      "description": "Perfection in single combat",
-      "rarityWeight": 50,
-      "cooldown": 180,
-      "traits": {
-        "critChance": {"value": 100, "type": "number"},
-        "critMultiplier": {"value": 3.0, "type": "number"},
-        "parryChance": {"value": 75, "type": "number"},
-        "riposteDamage": {"value": 200, "type": "number"},
-        "duration": {"value": 20, "type": "number"}
-      }
-    },
-    {
-      "name": "holy-champion",
-      "displayName": "Holy Champion",
-      "description": "Become a vessel of divine power",
-      "rarityWeight": 100,
-      "cooldown": 200,
-      "traits": {
-        "holyDamageBonus": {"value": 200, "type": "number"},
-        "healPerSecond": {"value": 50, "type": "number"},
-        "allyHealAura": {"value": 25, "type": "number"},
-        "undeadBonus": {"value": 300, "type": "number"},
-        "duration": {"value": 30, "type": "number"},
-        "auraRadius": {"value": 20, "type": "number"}
-      }
-    },
-    {
-      "name": "apex-predator",
-      "displayName": "Apex Predator",
-      "description": "Ultimate hunter commanding nature itself",
-      "rarityWeight": 75,
-      "cooldown": 150,
-      "traits": {
-        "petCount": {"value": 10, "type": "number"},
-        "petDamageBonus": {"value": 300, "type": "number"},
-        "petHealthBonus": {"value": 500, "type": "number"},
-        "rangedDamageBonus": {"value": 150, "type": "number"},
-        "duration": {"value": 45, "type": "number"}
-      }
-    },
-    {
-      "name": "archmages-supremacy",
-      "displayName": "Archmage's Supremacy",
-      "description": "Transcend mortal magical limits",
-      "rarityWeight": 100,
-      "cooldown": 240,
-      "traits": {
-        "spellPowerBonus": {"value": 300, "type": "number"},
-        "cooldownReduction": {"value": 75, "type": "number"},
-        "manaCostReduction": {"value": 90, "type": "number"},
-        "castTimeReduction": {"value": 50, "type": "number"},
-        "duration": {"value": 30, "type": "number"}
-      }
-    },
-    {
-      "name": "avatar-of-light",
-      "displayName": "Avatar of Light",
-      "description": "Pure divine radiance incarnate",
-      "rarityWeight": 50,
-      "cooldown": 300,
-      "traits": {
-        "holyNova": {"value": "5d50", "type": "string"},
-        "massResurrection": {"value": true, "type": "boolean"},
-        "invulnerability": {"value": 10, "type": "number"},
-        "auraRadius": {"value": 50, "type": "number"},
-        "undeadInstakill": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "death-incarnate",
-      "displayName": "Death Incarnate",
-      "description": "Embody death itself",
-      "rarityWeight": 35,
-      "cooldown": 180,
-      "traits": {
-        "lifeDrain": {"value": 100, "type": "number"},
-        "instantKillChance": {"value": 25, "type": "number"},
-        "undeadDamageBonus": {"value": 500, "type": "number"},
-        "auraRadius": {"value": 30, "type": "number"},
-        "duration": {"value": 20, "type": "number"}
-      }
-    },
-    {
-      "name": "death-lord",
-      "displayName": "Death Lord",
-      "description": "Supreme necromantic mastery",
-      "rarityWeight": 50,
-      "cooldown": 200,
-      "traits": {
-        "undeadSummons": {"value": 20, "type": "number"},
-        "lichTransform": {"value": true, "type": "boolean"},
-        "necroDamageBonus": {"value": 300, "type": "number"},
-        "soulCollectionBonus": {"value": 500, "type": "number"},
-        "duration": {"value": 60, "type": "number"}
-      }
-    },
-    {
-      "name": "dread-pirate",
-      "displayName": "Dread Pirate",
-      "description": "Legendary status of infamy",
-      "rarityWeight": 100,
-      "cooldown": 120,
-      "traits": {
-        "goldMultiplier": {"value": 5.0, "type": "number"},
-        "critChance": {"value": 75, "type": "number"},
-        "dodgeChance": {"value": 60, "type": "number"},
-        "allyMoraleBonus": {"value": 100, "type": "number"},
-        "enemyFearAura": {"value": 50, "type": "number"},
-        "duration": {"value": 45, "type": "number"}
-      }
-    },
-    {
-      "name": "elemental-apocalypse",
-      "displayName": "Elemental Apocalypse",
-      "description": "Unleash all elements at once",
-      "rarityWeight": 25,
-      "cooldown": 300,
-      "manaCost": 750,
-      "traits": {
-        "fireDamage": {"value": "3d100", "type": "string"},
-        "iceDamage": {"value": "3d100", "type": "string"},
-        "lightningDamage": {"value": "3d100", "type": "string"},
-        "areaOfEffect": {"value": 75, "type": "number"},
-        "elementalFusion": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "master-of-elements",
-      "displayName": "Master of Elements",
-      "description": "Perfect elemental control",
-      "rarityWeight": 75,
-      "cooldown": 180,
-      "traits": {
-        "elementalDamageBonus": {"value": 250, "type": "number"},
-        "elementalResist": {"value": 90, "type": "number"},
-        "instantCast": {"value": true, "type": "boolean"},
-        "noManaCost": {"value": true, "type": "boolean"},
-        "duration": {"value": 30, "type": "number"}
-      }
-    },
-    {
-      "name": "perfect-crime",
-      "displayName": "Perfect Crime",
-      "description": "The ultimate heist",
-      "rarityWeight": 100,
-      "cooldown": 600,
-      "traits": {
-        "goldSteal": {"value": 10000, "type": "number"},
-        "stealthBonus": {"value": 1000, "type": "number"},
-        "lockpickSuccess": {"value": 100, "type": "number"},
-        "detectionImmune": {"value": true, "type": "boolean"},
-        "escapeGuaranteed": {"value": true, "type": "boolean"}
-      }
-    },
-    {
-      "name": "natures-wrath",
-      "displayName": "Nature's Wrath",
-      "description": "Call upon primal nature's fury",
-      "rarityWeight": 50,
-      "cooldown": 180,
-      "traits": {
-        "natureDamage": {"value": "5d50", "type": "string"},
-        "animalSummons": {"value": 15, "type": "number"},
-        "plantEntangle": {"value": true, "type": "boolean"},
-        "areaOfEffect": {"value": 60, "type": "number"},
-        "duration": {"value": 40, "type": "number"}
-      }
-    },
-    {
-      "name": "ancient-power",
-      "displayName": "Ancient Power",
-      "description": "Tap into primordial draconic might",
-      "rarityWeight": 150,
-      "cooldown": 240,
-      "traits": {
-        "damageBonus": {"value": 200, "type": "number"},
-        "armorBonus": {"value": 100, "type": "number"},
-        "healthRegen": {"value": 50, "type": "number"},
-        "spellAmplification": {"value": 150, "type": "number"},
-        "duration": {"value": 45, "type": "number"}
-      }
-    },
-    {
-      "name": "storm-fury",
-      "displayName": "Storm Fury",
-      "description": "Become the embodiment of the storm",
-      "rarityWeight": 150,
-      "cooldown": 200,
-      "traits": {
-        "lightningDamage": {"value": "8d50", "type": "string"},
-        "chainLightning": {"value": 10, "type": "number"},
-        "areaOfEffect": {"value": 40, "type": "number"},
-        "stunDuration": {"value": 5, "type": "number"}
-      }
-    },
-    {
-      "name": "plague-bearer",
-      "displayName": "Plague Bearer",
-      "description": "Spread disease and corruption",
-      "rarityWeight": 150,
-      "cooldown": 180,
-      "traits": {
-        "poisonDamage": {"value": "5d50", "type": "string"},
-        "diseaseSpread": {"value": true, "type": "boolean"},
-        "areaOfEffect": {"value": 50, "type": "number"},
-        "damageOverTime": {"value": "3d20", "type": "string"},
-        "duration": {"value": 60, "type": "number"}
-      }
-    },
-    {
-      "name": "corruption-wave",
-      "displayName": "Corruption Wave",
-      "description": "Unleash wave of pure corruption",
-      "rarityWeight": 150,
-      "cooldown": 200,
-      "traits": {
-        "acidDamage": {"value": "7d50", "type": "string"},
-        "armorReduction": {"value": 50, "type": "number"},
-        "healingReduction": {"value": 75, "type": "number"},
-        "areaOfEffect": {"value": 35, "type": "number"},
-        "duration": {"value": 30, "type": "number"}
-      }
-    },
-    {
-      "name": "blizzard",
-      "displayName": "Blizzard",
-      "description": "Summon devastating ice storm",
-      "rarityWeight": 150,
-      "cooldown": 180,
-      "traits": {
-        "coldDamage": {"value": "6d50", "type": "string"},
-        "freezeChance": {"value": 50, "type": "number"},
-        "slowPercent": {"value": 75, "type": "number"},
-        "areaOfEffect": {"value": 45, "type": "number"},
-        "duration": {"value": 20, "type": "number"}
-      }
+      ]
     }
-  ]
+  }
 }

@@ -60,8 +60,12 @@
             "Arcane Focus"
           ],
           "dialogueStyle": "@dialogue/styles:scholarly",
-          "greetings": ["@dialogue/greetings:mage-distracted"],
-          "farewells": ["@dialogue/farewells:scholarly"],
+          "greetings": [
+            "@dialogue/greetings:mage-distracted"
+          ],
+          "farewells": [
+            "@dialogue/farewells:scholarly"
+          ],
           "faction": "mages_circle",
           "schedule": "@schedules:mage"
         },
@@ -99,8 +103,12 @@
             "Handwritten Grimoire"
           ],
           "dialogueStyle": "@dialogue/styles:mysterious",
-          "greetings": ["@dialogue/greetings:hedge-wizard-cryptic"],
-          "farewells": ["@dialogue/farewells:mysterious"],
+          "greetings": [
+            "@dialogue/greetings:hedge-wizard-cryptic"
+          ],
+          "farewells": [
+            "@dialogue/farewells:mysterious"
+          ],
           "faction": "independent",
           "schedule": "@schedules:mage"
         }

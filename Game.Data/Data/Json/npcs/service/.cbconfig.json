@@ -7,8 +7,21 @@
     "socialClass": "service",
     "npcCount": 4,
     "hasShop": true,
-    "primaryAttributes": ["constitution", "charisma"],
-    "commonSkills": ["hospitality", "cooking", "rumors", "animal_handling"],
-    "specialFeatures": ["lodging", "food_and_drink", "rumors", "24_7_availability"]
+    "primaryAttributes": [
+      "constitution",
+      "charisma"
+    ],
+    "commonSkills": [
+      "hospitality",
+      "cooking",
+      "rumors",
+      "animal_handling"
+    ],
+    "specialFeatures": [
+      "lodging",
+      "food_and_drink",
+      "rumors",
+      "24_7_availability"
+    ]
   }
 }

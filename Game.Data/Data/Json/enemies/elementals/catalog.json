@@ -40,10 +40,17 @@
           "level": 10,
           "xp": 300,
           "rarityWeight": 20,
-          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:fire-blast"],
+          "abilities": [
+            "@abilities/active/offensive:fireball",
+            "@abilities/active/offensive:fire-blast"
+          ],
           "abilityUnlocks": {
-            "13": ["@abilities/active/defensive:fire-aura"],
-            "16": ["@abilities/ultimate:inferno"]
+            "13": [
+              "@abilities/active/defensive:fire-aura"
+            ],
+            "16": [
+              "@abilities/ultimate:inferno"
+            ]
           }
         },
         {
@@ -61,9 +68,14 @@
           "level": 8,
           "xp": 200,
           "rarityWeight": 15,
-          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:flame-whip"],
+          "abilities": [
+            "@abilities/active/offensive:fireball",
+            "@abilities/active/offensive:flame-whip"
+          ],
           "abilityUnlocks": {
-            "10": ["@abilities/active/offensive:hellfire"]
+            "10": [
+              "@abilities/active/offensive:hellfire"
+            ]
           }
         },
         {
@@ -81,10 +93,19 @@
           "level": 14,
           "xp": 700,
           "rarityWeight": 45,
-          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:fire-blast", "@abilities/active/offensive:hellfire", "@abilities/active/defensive:fire-aura"],
+          "abilities": [
+            "@abilities/active/offensive:fireball",
+            "@abilities/active/offensive:fire-blast",
+            "@abilities/active/offensive:hellfire",
+            "@abilities/active/defensive:fire-aura"
+          ],
           "abilityUnlocks": {
-            "17": ["@abilities/ultimate:inferno"],
-            "20": ["@abilities/ultimate:wish"]
+            "17": [
+              "@abilities/ultimate:inferno"
+            ],
+            "20": [
+              "@abilities/ultimate:wish"
+            ]
           }
         }
       ]
@@ -117,10 +138,17 @@
           "level": 10,
           "xp": 300,
           "rarityWeight": 20,
-          "abilities": ["@abilities/active/offensive:frost-bolt", "@abilities/active/support:tidal-wave"],
+          "abilities": [
+            "@abilities/active/offensive:frost-bolt",
+            "@abilities/active/support:tidal-wave"
+          ],
           "abilityUnlocks": {
-            "13": ["@abilities/active/support:water-shield"],
-            "16": ["@abilities/ultimate:tsunami"]
+            "13": [
+              "@abilities/active/support:water-shield"
+            ],
+            "16": [
+              "@abilities/ultimate:tsunami"
+            ]
           }
         },
         {
@@ -138,9 +166,14 @@
           "level": 8,
           "xp": 200,
           "rarityWeight": 15,
-          "abilities": ["@abilities/active/offensive:frost-bolt", "@abilities/active/offensive:ice-shard"],
+          "abilities": [
+            "@abilities/active/offensive:frost-bolt",
+            "@abilities/active/offensive:ice-shard"
+          ],
           "abilityUnlocks": {
-            "10": ["@abilities/active/support:healing-waters"]
+            "10": [
+              "@abilities/active/support:healing-waters"
+            ]
           }
         }
       ]
@@ -172,10 +205,17 @@
           "level": 11,
           "xp": 400,
           "rarityWeight": 22,
-          "abilities": ["@abilities/active/offensive:rock-throw", "@abilities/active/offensive:earthquake-stomp"],
+          "abilities": [
+            "@abilities/active/offensive:rock-throw",
+            "@abilities/active/offensive:earthquake-stomp"
+          ],
           "abilityUnlocks": {
-            "14": ["@abilities/passive:stone-skin"],
-            "17": ["@abilities/ultimate:earthquake"]
+            "14": [
+              "@abilities/passive:stone-skin"
+            ],
+            "17": [
+              "@abilities/ultimate:earthquake"
+            ]
           }
         },
         {
@@ -193,10 +233,17 @@
           "level": 12,
           "xp": 500,
           "rarityWeight": 28,
-          "abilities": ["@abilities/active/offensive:slam", "@abilities/passive:stone-skin"],
+          "abilities": [
+            "@abilities/active/offensive:slam",
+            "@abilities/passive:stone-skin"
+          ],
           "abilityUnlocks": {
-            "15": ["@abilities/active/offensive:earthquake-stomp"],
-            "18": ["@abilities/passive:adamantine-body"]
+            "15": [
+              "@abilities/active/offensive:earthquake-stomp"
+            ],
+            "18": [
+              "@abilities/passive:adamantine-body"
+            ]
           }
         },
         {
@@ -214,9 +261,14 @@
           "level": 7,
           "xp": 150,
           "rarityWeight": 12,
-          "abilities": ["@abilities/active/offensive:rock-throw", "@abilities/active/support:burrow"],
+          "abilities": [
+            "@abilities/active/offensive:rock-throw",
+            "@abilities/active/support:burrow"
+          ],
           "abilityUnlocks": {
-            "9": ["@abilities/passive:earth-glide"]
+            "9": [
+              "@abilities/passive:earth-glide"
+            ]
           }
         }
       ]
@@ -225,7 +277,9 @@
       "traits": {
         "category": "elemental",
         "element": "air",
-        "size": "large",        "intelligence": 10,        "behavior": "evasive",
+        "size": "large",
+        "intelligence": 10,
+        "behavior": "evasive",
         "immunity": [
           "lightning"
         ],
@@ -247,10 +301,17 @@
           "level": 10,
           "xp": 300,
           "rarityWeight": 20,
-          "abilities": ["@abilities/active/offensive:gust", "@abilities/active/offensive:lightning-bolt"],
+          "abilities": [
+            "@abilities/active/offensive:gust",
+            "@abilities/active/offensive:lightning-bolt"
+          ],
           "abilityUnlocks": {
-            "13": ["@abilities/active/support:whirlwind"],
-            "16": ["@abilities/ultimate:storm-fury"]
+            "13": [
+              "@abilities/active/support:whirlwind"
+            ],
+            "16": [
+              "@abilities/ultimate:storm-fury"
+            ]
           }
         },
         {
@@ -268,9 +329,14 @@
           "level": 8,
           "xp": 200,
           "rarityWeight": 15,
-          "abilities": ["@abilities/active/offensive:gust", "@abilities/passive:flight"],
+          "abilities": [
+            "@abilities/active/offensive:gust",
+            "@abilities/passive:flight"
+          ],
           "abilityUnlocks": {
-            "10": ["@abilities/active/support:haste"]
+            "10": [
+              "@abilities/active/support:haste"
+            ]
           }
         },
         {
@@ -288,10 +354,18 @@
           "level": 13,
           "xp": 650,
           "rarityWeight": 42,
-          "abilities": ["@abilities/active/offensive:lightning-bolt", "@abilities/active/support:chain-lightning", "@abilities/active/support:whirlwind"],
+          "abilities": [
+            "@abilities/active/offensive:lightning-bolt",
+            "@abilities/active/support:chain-lightning",
+            "@abilities/active/support:whirlwind"
+          ],
           "abilityUnlocks": {
-            "16": ["@abilities/ultimate:storm-fury"],
-            "19": ["@abilities/ultimate:wish"]
+            "16": [
+              "@abilities/ultimate:storm-fury"
+            ],
+            "19": [
+              "@abilities/ultimate:wish"
+            ]
           }
         },
         {
@@ -309,10 +383,19 @@
           "level": 16,
           "xp": 1000,
           "rarityWeight": 70,
-          "abilities": ["@abilities/active/offensive:fireball", "@abilities/active/offensive:flame-strike", "@abilities/passive:flight", "@abilities/passive:rebirth"],
+          "abilities": [
+            "@abilities/active/offensive:fireball",
+            "@abilities/active/offensive:flame-strike",
+            "@abilities/passive:flight",
+            "@abilities/passive:rebirth"
+          ],
           "abilityUnlocks": {
-            "19": ["@abilities/ultimate:inferno"],
-            "22": ["@abilities/ultimate:supernova"]
+            "19": [
+              "@abilities/ultimate:inferno"
+            ],
+            "22": [
+              "@abilities/ultimate:supernova"
+            ]
           }
         }
       ]

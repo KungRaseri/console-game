@@ -417,15 +417,21 @@
           "choice_pools": [
             {
               "option": "Weapon",
-              "item_pool": ["@items/weapons"]
+              "item_pool": [
+                "@items/weapons"
+              ]
             },
             {
               "option": "Armor",
-              "item_pool": ["@items/armor"]
+              "item_pool": [
+                "@items/armor"
+              ]
             },
             {
               "option": "Consumables",
-              "item_pool": ["@items/consumables"]
+              "item_pool": [
+                "@items/consumables"
+              ]
             }
           ],
           "playerChooses": true,

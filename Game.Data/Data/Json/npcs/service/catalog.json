@@ -88,8 +88,12 @@
             "rumors"
           ],
           "dialogueStyle": "@dialogue/styles:cheerful",
-          "greetings": ["@dialogue/greetings:innkeeper-welcoming"],
-          "farewells": ["@dialogue/farewells:innkeeper"],
+          "greetings": [
+            "@dialogue/greetings:innkeeper-welcoming"
+          ],
+          "farewells": [
+            "@dialogue/farewells:innkeeper"
+          ],
           "faction": "independent",
           "schedule": "@schedules:innkeeper"
         },
@@ -147,8 +151,12 @@
             "gambling"
           ],
           "dialogueStyle": "@dialogue/styles:cheerful",
-          "greetings": ["@dialogue/greetings:tavern-rowdy"],
-          "farewells": ["@dialogue/farewells:innkeeper"],
+          "greetings": [
+            "@dialogue/greetings:tavern-rowdy"
+          ],
+          "farewells": [
+            "@dialogue/farewells:innkeeper"
+          ],
           "faction": "independent",
           "schedule": "@schedules:innkeeper"
         }
@@ -216,8 +224,12 @@
             "baked_goods"
           ],
           "dialogueStyle": "@dialogue/styles:cheerful",
-          "greetings": ["@dialogue/greetings:cook-busy"],
-          "farewells": ["@dialogue/farewells:simple"],
+          "greetings": [
+            "@dialogue/greetings:cook-busy"
+          ],
+          "farewells": [
+            "@dialogue/farewells:simple"
+          ],
           "faction": "independent",
           "schedule": "@schedules:cook"
         }
@@ -288,8 +300,12 @@
             "horseshoeing"
           ],
           "dialogueStyle": "@dialogue/styles:friendly",
-          "greetings": ["@dialogue/greetings:stable-earthy"],
-          "farewells": ["@dialogue/farewells:simple"],
+          "greetings": [
+            "@dialogue/greetings:stable-earthy"
+          ],
+          "farewells": [
+            "@dialogue/farewells:simple"
+          ],
           "faction": "independent",
           "schedule": "@schedules:stablemaster"
         }

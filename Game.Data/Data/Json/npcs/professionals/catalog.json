@@ -60,8 +60,12 @@
             "Bound Journal"
           ],
           "dialogueStyle": "@dialogue/styles:scholarly",
-          "greetings": ["@dialogue/greetings:scholarly-formal"],
-          "farewells": ["@dialogue/farewells:scholarly"],
+          "greetings": [
+            "@dialogue/greetings:scholarly-formal"
+          ],
+          "farewells": [
+            "@dialogue/farewells:scholarly"
+          ],
           "faction": "scholars_guild",
           "schedule": "@schedules:scholar"
         },
@@ -98,8 +102,12 @@
             "Rune-marked Bookmark"
           ],
           "dialogueStyle": "@dialogue/styles:wise",
-          "greetings": ["@dialogue/greetings:scholarly-formal"],
-          "farewells": ["@dialogue/farewells:scholarly"],
+          "greetings": [
+            "@dialogue/greetings:scholarly-formal"
+          ],
+          "farewells": [
+            "@dialogue/farewells:scholarly"
+          ],
           "faction": "scholars_guild",
           "schedule": "@schedules:scholar"
         }
@@ -147,8 +155,12 @@
             "Herbalist's Satchel"
           ],
           "dialogueStyle": "@dialogue/styles:friendly",
-          "greetings": ["@dialogue/greetings:warm-professional"],
-          "farewells": ["@dialogue/farewells:caring"],
+          "greetings": [
+            "@dialogue/greetings:warm-professional"
+          ],
+          "farewells": [
+            "@dialogue/farewells:caring"
+          ],
           "faction": "independent",
           "schedule": "@schedules:healer"
         },
@@ -185,8 +197,12 @@
             "Alembic Set"
           ],
           "dialogueStyle": "@dialogue/styles:scholarly",
-          "greetings": ["@dialogue/greetings:distracted-scholar"],
-          "farewells": ["@dialogue/farewells:scholarly"],
+          "greetings": [
+            "@dialogue/greetings:distracted-scholar"
+          ],
+          "farewells": [
+            "@dialogue/farewells:scholarly"
+          ],
           "faction": "mages_circle",
           "schedule": "@schedules:mage"
         }
@@ -262,8 +278,12 @@
             }
           },
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:apothecary-clinical"],
-          "farewells": ["@dialogue/farewells:professional"],
+          "greetings": [
+            "@dialogue/greetings:apothecary-clinical"
+          ],
+          "farewells": [
+            "@dialogue/farewells:professional"
+          ],
           "faction": "independent",
           "schedule": "@schedules:healer"
         },
@@ -321,8 +341,12 @@
             "cure_disease"
           ],
           "dialogueStyle": "@dialogue/styles:friendly",
-          "greetings": ["@dialogue/greetings:warm-professional"],
-          "farewells": ["@dialogue/farewells:caring"],
+          "greetings": [
+            "@dialogue/greetings:warm-professional"
+          ],
+          "farewells": [
+            "@dialogue/farewells:caring"
+          ],
           "faction": "clergy",
           "schedule": "@schedules:healer"
         },
@@ -380,8 +404,12 @@
             "remedies"
           ],
           "dialogueStyle": "@dialogue/styles:friendly",
-          "greetings": ["@dialogue/greetings:warm-rural"],
-          "farewells": ["@dialogue/farewells:simple"],
+          "greetings": [
+            "@dialogue/greetings:warm-rural"
+          ],
+          "farewells": [
+            "@dialogue/farewells:simple"
+          ],
           "faction": "independent",
           "schedule": "@schedules:healer"
         }
@@ -455,8 +483,12 @@
             "teaching"
           ],
           "dialogueStyle": "@dialogue/styles:scholarly",
-          "greetings": ["@dialogue/greetings:scholarly-formal"],
-          "farewells": ["@dialogue/farewells:scholarly"],
+          "greetings": [
+            "@dialogue/greetings:scholarly-formal"
+          ],
+          "farewells": [
+            "@dialogue/farewells:scholarly"
+          ],
           "faction": "scholars_guild",
           "schedule": "@schedules:scholar"
         },
@@ -517,8 +549,12 @@
             "enchant"
           ],
           "dialogueStyle": "@dialogue/styles:wise",
-          "greetings": ["@dialogue/greetings:scholarly-formal"],
-          "farewells": ["@dialogue/farewells:scholarly"],
+          "greetings": [
+            "@dialogue/greetings:scholarly-formal"
+          ],
+          "farewells": [
+            "@dialogue/farewells:scholarly"
+          ],
           "faction": "scholars_guild",
           "schedule": "@schedules:scholar"
         },
@@ -575,8 +611,12 @@
             "directions"
           ],
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:professional-busy"],
-          "farewells": ["@dialogue/farewells:professional"],
+          "greetings": [
+            "@dialogue/greetings:professional-busy"
+          ],
+          "farewells": [
+            "@dialogue/farewells:professional"
+          ],
           "faction": "scholars_guild",
           "schedule": "@schedules:scholar"
         }

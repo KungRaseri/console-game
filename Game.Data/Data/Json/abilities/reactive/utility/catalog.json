@@ -12,276 +12,280 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "ability_types": [
-    {
-      "name": "Desperate Escape",
-      "displayName": "Desperate Escape",
-      "description": "Teleports away when health drops critically low",
-      "rarityWeight": 75,
-      "triggerCondition": "onCriticalHealth",
-      "traits": {
-        "threshold": {
-          "value": 15,
-          "type": "number"
+  "ability_types": {
+    "utility": {
+      "items": [
+        {
+          "name": "Desperate Escape",
+          "displayName": "Desperate Escape",
+          "description": "Teleports away when health drops critically low",
+          "rarityWeight": 75,
+          "triggerCondition": "onCriticalHealth",
+          "traits": {
+            "threshold": {
+              "value": 15,
+              "type": "number"
+            },
+            "teleportRange": {
+              "value": 20,
+              "type": "number"
+            },
+            "cooldown": {
+              "value": 60,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
         },
-        "teleportRange": {
-          "value": 20,
-          "type": "number"
+        {
+          "name": "Crowd Control Immunity",
+          "displayName": "Crowd Control Immunity",
+          "description": "Breaks free from stuns and roots after being controlled",
+          "rarityWeight": 150,
+          "triggerCondition": "onControlEffect",
+          "traits": {
+            "breakChance": {
+              "value": 75,
+              "type": "number"
+            },
+            "immunityDuration": {
+              "value": 5,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
         },
-        "cooldown": {
-          "value": 60,
-          "type": "number"
+        {
+          "name": "Summon Aid",
+          "displayName": "Summon Aid",
+          "description": "Calls for help when health is low",
+          "rarityWeight": 150,
+          "triggerCondition": "onLowHealth",
+          "traits": {
+            "summonCount": {
+              "value": 2,
+              "type": "number"
+            },
+            "summonLevel": {
+              "value": 0.5,
+              "type": "number"
+            },
+            "threshold": {
+              "value": 30,
+              "type": "number"
+            },
+            "cooldown": {
+              "value": 120,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
         },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
+        {
+          "name": "Cleanse",
+          "displayName": "Cleanse",
+          "description": "Removes debuffs when hit by status effect",
+          "rarityWeight": 75,
+          "triggerCondition": "onDebuff",
+          "traits": {
+            "cleanseChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
         },
-        "category": {
-          "value": "utility",
-          "type": "string"
+        {
+          "name": "Adrenaline Rush",
+          "displayName": "Adrenaline Rush",
+          "description": "Gains movement and attack speed when taking damage",
+          "rarityWeight": 35,
+          "triggerCondition": "onDamageTaken",
+          "traits": {
+            "movementSpeedBonus": {
+              "value": 30,
+              "type": "number"
+            },
+            "attackSpeedBonus": {
+              "value": 20,
+              "type": "number"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Smoke Bomb",
+          "displayName": "Smoke Bomb",
+          "description": "Creates smoke cloud when attacked, increasing dodge",
+          "rarityWeight": 75,
+          "triggerCondition": "onAttacked",
+          "traits": {
+            "dodgeBonus": {
+              "value": 40,
+              "type": "number"
+            },
+            "duration": {
+              "value": 3,
+              "type": "number"
+            },
+            "cooldown": {
+              "value": 20,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Phoenix Rebirth",
+          "displayName": "Phoenix Rebirth",
+          "description": "Resurrects with partial health after death",
+          "rarityWeight": 500,
+          "triggerCondition": "onDeath",
+          "traits": {
+            "reviveHealthPercent": {
+              "value": 50,
+              "type": "number"
+            },
+            "usesPerBattle": {
+              "value": 1,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Blink",
+          "displayName": "Blink",
+          "description": "Short teleport when dodging an attack",
+          "rarityWeight": 75,
+          "triggerCondition": "onSuccessfulDodge",
+          "traits": {
+            "teleportRange": {
+              "value": 10,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Battle Cry",
+          "displayName": "Battle Cry",
+          "description": "Rallies allies when entering combat",
+          "rarityWeight": 35,
+          "triggerCondition": "onCombatStart",
+          "traits": {
+            "damageBonus": {
+              "value": 10,
+              "type": "number"
+            },
+            "defenseBonus": {
+              "value": 5,
+              "type": "number"
+            },
+            "allyRange": {
+              "value": 30,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Last Laugh",
+          "displayName": "Last Laugh",
+          "description": "Drops valuable loot or buff when killed",
+          "rarityWeight": 150,
+          "triggerCondition": "onDeath",
+          "traits": {
+            "lootMultiplier": {
+              "value": 2.0,
+              "type": "number"
+            },
+            "buffDuration": {
+              "value": 30,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
         }
-      }
-    },
-    {
-      "name": "Crowd Control Immunity",
-      "displayName": "Crowd Control Immunity",
-      "description": "Breaks free from stuns and roots after being controlled",
-      "rarityWeight": 150,
-      "triggerCondition": "onControlEffect",
-      "traits": {
-        "breakChance": {
-          "value": 75,
-          "type": "number"
-        },
-        "immunityDuration": {
-          "value": 5,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "utility",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Summon Aid",
-      "displayName": "Summon Aid",
-      "description": "Calls for help when health is low",
-      "rarityWeight": 150,
-      "triggerCondition": "onLowHealth",
-      "traits": {
-        "summonCount": {
-          "value": 2,
-          "type": "number"
-        },
-        "summonLevel": {
-          "value": 0.5,
-          "type": "number"
-        },
-        "threshold": {
-          "value": 30,
-          "type": "number"
-        },
-        "cooldown": {
-          "value": 120,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "utility",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Cleanse",
-      "displayName": "Cleanse",
-      "description": "Removes debuffs when hit by status effect",
-      "rarityWeight": 75,
-      "triggerCondition": "onDebuff",
-      "traits": {
-        "cleanseChance": {
-          "value": 50,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "utility",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Adrenaline Rush",
-      "displayName": "Adrenaline Rush",
-      "description": "Gains movement and attack speed when taking damage",
-      "rarityWeight": 35,
-      "triggerCondition": "onDamageTaken",
-      "traits": {
-        "movementSpeedBonus": {
-          "value": 30,
-          "type": "number"
-        },
-        "attackSpeedBonus": {
-          "value": 20,
-          "type": "number"
-        },
-        "duration": {
-          "value": 5,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "utility",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Smoke Bomb",
-      "displayName": "Smoke Bomb",
-      "description": "Creates smoke cloud when attacked, increasing dodge",
-      "rarityWeight": 75,
-      "triggerCondition": "onAttacked",
-      "traits": {
-        "dodgeBonus": {
-          "value": 40,
-          "type": "number"
-        },
-        "duration": {
-          "value": 3,
-          "type": "number"
-        },
-        "cooldown": {
-          "value": 20,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "utility",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Phoenix Rebirth",
-      "displayName": "Phoenix Rebirth",
-      "description": "Resurrects with partial health after death",
-      "rarityWeight": 500,
-      "triggerCondition": "onDeath",
-      "traits": {
-        "reviveHealthPercent": {
-          "value": 50,
-          "type": "number"
-        },
-        "usesPerBattle": {
-          "value": 1,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "utility",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Blink",
-      "displayName": "Blink",
-      "description": "Short teleport when dodging an attack",
-      "rarityWeight": 75,
-      "triggerCondition": "onSuccessfulDodge",
-      "traits": {
-        "teleportRange": {
-          "value": 10,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "utility",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Battle Cry",
-      "displayName": "Battle Cry",
-      "description": "Rallies allies when entering combat",
-      "rarityWeight": 35,
-      "triggerCondition": "onCombatStart",
-      "traits": {
-        "damageBonus": {
-          "value": 10,
-          "type": "number"
-        },
-        "defenseBonus": {
-          "value": 5,
-          "type": "number"
-        },
-        "allyRange": {
-          "value": 30,
-          "type": "number"
-        },
-        "duration": {
-          "value": 10,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "utility",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Last Laugh",
-      "displayName": "Last Laugh",
-      "description": "Drops valuable loot or buff when killed",
-      "rarityWeight": 150,
-      "triggerCondition": "onDeath",
-      "traits": {
-        "lootMultiplier": {
-          "value": 2.0,
-          "type": "number"
-        },
-        "buffDuration": {
-          "value": 30,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "utility",
-          "type": "string"
-        }
-      }
+      ]
     }
-  ]
+  }
 }

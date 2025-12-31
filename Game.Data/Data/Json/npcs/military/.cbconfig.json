@@ -7,8 +7,20 @@
     "socialClass": "military",
     "npcCount": 4,
     "hasShop": false,
-    "primaryAttributes": ["strength", "constitution", "dexterity"],
-    "commonSkills": ["melee_combat", "tactics", "perception", "intimidation"],
-    "specialFeatures": ["law_enforcement", "combat_expertise"]
+    "primaryAttributes": [
+      "strength",
+      "constitution",
+      "dexterity"
+    ],
+    "commonSkills": [
+      "melee_combat",
+      "tactics",
+      "perception",
+      "intimidation"
+    ],
+    "specialFeatures": [
+      "law_enforcement",
+      "combat_expertise"
+    ]
   }
 }

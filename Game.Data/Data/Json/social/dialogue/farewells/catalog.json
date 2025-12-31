@@ -4,101 +4,77 @@
     "type": "hierarchical_catalog",
     "description": "Farewell dialogue templates organized by NPC type and context",
     "lastUpdated": "2025-12-29",
-    "componentKeys": [
-      "noble",
-      "scholarly",
-      "religious",
-      "merchant",
-      "service",
-      "common",
-      "simple"
-    ],
     "notes": [
       "Templates support variable substitution: {player_name}, {faction}",
       "Used when conversation ends or player leaves",
       "Referenced via @dialogue/farewells:{name}"
     ]
   },
-  "components": {
+  "noble_types": {
     "noble": {
-      "name": "noble",
-      "displayName": "Noble Farewell",
-      "rarityWeight": 15,
-      "templates": [
-        "Farewell, {player_name}. May fortune favor your endeavors.",
-        "Until we meet again. Safe travels.",
-        "Our doors remain open to you, always."
+      "items": [
+        {
+          "name": "noble",
+          "displayName": "Noble Farewell",
+          "rarityWeight": 15,
+          "templates": [
+            "Farewell, {player_name}. May fortune favor your endeavors.",
+            "Until we meet again. Safe travels.",
+            "Our doors remain open to you, always."
+          ]
+        }
       ]
-    },
+    }
+  },
+  "scholarly_types": {
     "scholarly": {
-      "name": "scholarly",
-      "displayName": "Scholar Farewell",
-      "rarityWeight": 18,
-      "templates": [
-        "May knowledge light your path, {player_name}.",
-        "Farewell, and may your studies prove fruitful.",
-        "Until next time. Keep questioning, always."
+      "items": [
+        {
+          "name": "scholarly",
+          "displayName": "Scholar Farewell",
+          "rarityWeight": 18,
+          "templates": [
+            "May knowledge light your path, {player_name}.",
+            "Farewell, and may your studies prove fruitful.",
+            "Until next time. Keep questioning, always."
+          ]
+        }
       ]
-    },
-    "blessed": {
-      "name": "blessed",
-      "displayName": "Religious Blessing Farewell",
-      "rarityWeight": 20,
-      "templates": [
-        "Go with the gods' blessing.",
-        "May the light protect you on your journey.",
-        "Peace be upon you, always."
-      ]
-    },
+    }
+  },
+  "religious_types": null,
+  "merchant_types": {
     "merchant": {
-      "name": "merchant",
-      "displayName": "Merchant Farewell",
-      "rarityWeight": 10,
-      "templates": [
-        "Come back anytime!",
-        "Thank you for your patronage!",
-        "Good doing business with you!"
+      "items": [
+        {
+          "name": "merchant",
+          "displayName": "Merchant Farewell",
+          "rarityWeight": 10,
+          "templates": [
+            "Come back anytime!",
+            "Thank you for your patronage!",
+            "Good doing business with you!"
+          ]
+        }
       ]
-    },
-    "innkeeper": {
-      "name": "innkeeper",
-      "displayName": "Innkeeper Farewell",
-      "rarityWeight": 8,
-      "templates": [
-        "Safe travels! Don't be a stranger!",
-        "Come back when you need rest!",
-        "The door's always open!"
-      ]
-    },
+    }
+  },
+  "service_types": null,
+  "common_types": null,
+  "simple_types": {
     "simple": {
-      "name": "simple",
-      "displayName": "Simple Farewell",
-      "rarityWeight": 6,
-      "templates": [
-        "Take care!",
-        "Goodbye!",
-        "See you around!",
-        "Safe travels!"
-      ]
-    },
-    "guard": {
-      "name": "guard",
-      "displayName": "Guard Farewell",
-      "rarityWeight": 20,
-      "templates": [
-        "Move along.",
-        "Stay out of trouble.",
-        "Keep the peace."
-      ]
-    },
-    "gruff": {
-      "name": "gruff",
-      "displayName": "Gruff Farewell",
-      "rarityWeight": 12,
-      "templates": [
-        "Right. Off with you then.",
-        "Hmph.",
-        "We're done here."
+      "items": [
+        {
+          "name": "simple",
+          "displayName": "Simple Farewell",
+          "rarityWeight": 6,
+          "templates": [
+            "Take care!",
+            "Goodbye!",
+            "See you around!",
+            "Safe travels!"
+          ]
+        }
       ]
     }
   }

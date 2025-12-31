@@ -12,18 +12,22 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "ability_types": [
-    {
-      "rarityWeight": 10,
-      "description": "Cannot be surprised, detects hidden enemies",
-      "name": "Keen Senses",
-      "traits": {
-        "category": {
-          "value": "sensory",
-          "type": "string"
+  "ability_types": {
+    "sensory": {
+      "items": [
+        {
+          "rarityWeight": 10,
+          "description": "Cannot be surprised, detects hidden enemies",
+          "name": "Keen Senses",
+          "traits": {
+            "category": {
+              "value": "sensory",
+              "type": "string"
+            }
+          },
+          "displayName": "Keen Senses"
         }
-      },
-      "displayName": "Keen Senses"
+      ]
     }
-  ]
+  }
 }

@@ -7,8 +7,20 @@
     "socialClass": "noble",
     "npcCount": 4,
     "hasShop": false,
-    "primaryAttributes": ["charisma", "intelligence"],
-    "commonSkills": ["persuasion", "etiquette", "leadership", "literacy"],
-    "specialFeatures": ["quest_givers", "political_influence", "high_starting_gold"]
+    "primaryAttributes": [
+      "charisma",
+      "intelligence"
+    ],
+    "commonSkills": [
+      "persuasion",
+      "etiquette",
+      "leadership",
+      "literacy"
+    ],
+    "specialFeatures": [
+      "quest_givers",
+      "political_influence",
+      "high_starting_gold"
+    ]
   }
 }

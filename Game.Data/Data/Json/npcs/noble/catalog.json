@@ -65,8 +65,12 @@
             "Perfumed Handkerchief"
           ],
           "dialogueStyle": "@dialogue/styles:scholarly",
-          "greetings": ["@dialogue/greetings:noble-formal"],
-          "farewells": ["@dialogue/farewells:noble"],
+          "greetings": [
+            "@dialogue/greetings:noble-formal"
+          ],
+          "farewells": [
+            "@dialogue/farewells:noble"
+          ],
           "faction": "nobility",
           "schedule": "@schedules:noble"
         },
@@ -105,8 +109,12 @@
             "Heraldic Banner"
           ],
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:knight-honorable"],
-          "farewells": ["@dialogue/farewells:noble"],
+          "greetings": [
+            "@dialogue/greetings:knight-honorable"
+          ],
+          "farewells": [
+            "@dialogue/farewells:noble"
+          ],
           "faction": "nobility",
           "schedule": "@schedules:noble"
         },
@@ -144,8 +152,12 @@
             "Sealed Letter of Introduction"
           ],
           "dialogueStyle": "@dialogue/styles:scholarly",
-          "greetings": ["@dialogue/greetings:courtier-refined"],
-          "farewells": ["@dialogue/farewells:noble"],
+          "greetings": [
+            "@dialogue/greetings:courtier-refined"
+          ],
+          "farewells": [
+            "@dialogue/farewells:noble"
+          ],
           "faction": "nobility",
           "schedule": "@schedules:noble"
         }
@@ -184,8 +196,12 @@
           "shopType": null,
           "shopChance": 0.0,
           "dialogueStyle": "@dialogue/styles:scholarly",
-          "greetings": ["@dialogue/greetings:noble-formal"],
-          "farewells": ["@dialogue/farewells:noble"],
+          "greetings": [
+            "@dialogue/greetings:noble-formal"
+          ],
+          "farewells": [
+            "@dialogue/farewells:noble"
+          ],
           "faction": "nobility",
           "schedule": "@schedules:noble"
         }

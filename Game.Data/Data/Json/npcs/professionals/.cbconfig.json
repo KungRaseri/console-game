@@ -7,8 +7,21 @@
     "socialClass": "professional",
     "npcCount": 10,
     "hasShop": true,
-    "primaryAttributes": ["intelligence", "wisdom"],
-    "commonSkills": ["knowledge", "healing", "alchemy", "languages"],
-    "specialFeatures": ["services", "identification", "research", "healing"]
+    "primaryAttributes": [
+      "intelligence",
+      "wisdom"
+    ],
+    "commonSkills": [
+      "knowledge",
+      "healing",
+      "alchemy",
+      "languages"
+    ],
+    "specialFeatures": [
+      "services",
+      "identification",
+      "research",
+      "healing"
+    ]
   }
 }

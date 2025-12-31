@@ -174,8 +174,12 @@
           ],
           "craftingQualityBonus": 30,
           "dialogueStyle": "@dialogue/styles:grumpy",
-          "greetings": ["@dialogue/greetings:gruff-smith"],
-          "farewells": ["@dialogue/farewells:brief"]
+          "greetings": [
+            "@dialogue/greetings:gruff-smith"
+          ],
+          "farewells": [
+            "@dialogue/farewells:brief"
+          ]
         },
         {
           "name": "Weaponsmith",
@@ -235,8 +239,12 @@
           ],
           "craftingQualityBonus": 40,
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:merchant"],
-          "farewells": ["@dialogue/farewells:polite"]
+          "greetings": [
+            "@dialogue/greetings:merchant"
+          ],
+          "farewells": [
+            "@dialogue/farewells:polite"
+          ]
         },
         {
           "name": "Armorer",
@@ -297,8 +305,12 @@
           ],
           "craftingQualityBonus": 40,
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:merchant"],
-          "farewells": ["@dialogue/farewells:polite"]
+          "greetings": [
+            "@dialogue/greetings:merchant"
+          ],
+          "farewells": [
+            "@dialogue/farewells:polite"
+          ]
         },
         {
           "name": "Fletcher",
@@ -360,8 +372,12 @@
           ],
           "craftingQualityBonus": 35,
           "dialogueStyle": "@dialogue/styles:friendly",
-          "greetings": ["@dialogue/greetings:cheerful"],
-          "farewells": ["@dialogue/farewells:warm"]
+          "greetings": [
+            "@dialogue/greetings:cheerful"
+          ],
+          "farewells": [
+            "@dialogue/farewells:warm"
+          ]
         },
         {
           "name": "Leatherworker",
@@ -418,8 +434,12 @@
           ],
           "craftingQualityBonus": 30,
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:merchant"],
-          "farewells": ["@dialogue/farewells:polite"]
+          "greetings": [
+            "@dialogue/greetings:merchant"
+          ],
+          "farewells": [
+            "@dialogue/farewells:polite"
+          ]
         },
         {
           "name": "Jeweler",
@@ -478,8 +498,12 @@
           "canEnchant": true,
           "enchantmentPower": 15,
           "dialogueStyle": "@dialogue/styles:greedy",
-          "greetings": ["@dialogue/greetings:merchant-eager"],
-          "farewells": ["@dialogue/farewells:merchant"]
+          "greetings": [
+            "@dialogue/greetings:merchant-eager"
+          ],
+          "farewells": [
+            "@dialogue/farewells:merchant"
+          ]
         }
       ]
     }

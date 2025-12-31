@@ -5,6 +5,7 @@ $files = @(
     "Game.Data\Data\Json\organizations\factions\catalog.json",
     "Game.Data\Data\Json\organizations\guilds\catalog.json",
     "Game.Data\Data\Json\organizations\shops\catalog.json",
+    "Game.Data\Data\Json\quests\catalog.json",
     "Game.Data\Data\Json\social\dialogue\farewells\catalog.json",
     "Game.Data\Data\Json\social\dialogue\greetings\catalog.json",
     "Game.Data\Data\Json\social\dialogue\responses\catalog.json",
@@ -54,6 +55,9 @@ foreach ($file in $files) {
     if ($newJson.metadata.PSObject.Properties['componentKeys']) {
         $newJson.metadata.PSObject.Properties.Remove('componentKeys')
     }
+    
+    # Remove componentKeys from root if present (shouldn't be there after restructure)
+    # This is already handled by not copying it to $newJson
     
     # Move each component to root level with _types suffix
     foreach ($key in $componentKeys) {

@@ -5,8 +5,15 @@
     "lastUpdated": "2025-12-30",
     "type": "pattern_generation",
     "supportsTraits": true,
-    "componentKeys": ["prefix", "suffix"],
-    "patternTokens": ["base", "prefix", "suffix"],
+    "componentKeys": [
+      "prefix",
+      "suffix"
+    ],
+    "patternTokens": [
+      "base",
+      "prefix",
+      "suffix"
+    ],
     "totalPatterns": 4,
     "raritySystem": "weight-based",
     "notes": [
@@ -17,23 +24,59 @@
     ]
   },
   "patterns": [
-    {"pattern": "{base}", "rarityWeight": 50},
-    {"pattern": "{prefix} {base}", "rarityWeight": 30},
-    {"pattern": "{base} {suffix}", "rarityWeight": 15},
-    {"pattern": "{prefix} {base} {suffix}", "rarityWeight": 5}
+    {
+      "pattern": "{base}",
+      "rarityWeight": 50
+    },
+    {
+      "pattern": "{prefix} {base}",
+      "rarityWeight": 30
+    },
+    {
+      "pattern": "{base} {suffix}",
+      "rarityWeight": 15
+    },
+    {
+      "pattern": "{prefix} {base} {suffix}",
+      "rarityWeight": 5
+    }
   ],
   "components": {
     "prefix": [
-      {"value": "Enhanced", "rarityWeight": 40},
-      {"value": "Superior", "rarityWeight": 30},
-      {"value": "Greater", "rarityWeight": 20},
-      {"value": "Legendary", "rarityWeight": 10}
+      {
+        "value": "Enhanced",
+        "rarityWeight": 40
+      },
+      {
+        "value": "Superior",
+        "rarityWeight": 30
+      },
+      {
+        "value": "Greater",
+        "rarityWeight": 20
+      },
+      {
+        "value": "Legendary",
+        "rarityWeight": 10
+      }
     ],
     "suffix": [
-      {"value": "Mastery", "rarityWeight": 35},
-      {"value": "Excellence", "rarityWeight": 30},
-      {"value": "Perfection", "rarityWeight": 20},
-      {"value": "Supremacy", "rarityWeight": 15}
+      {
+        "value": "Mastery",
+        "rarityWeight": 35
+      },
+      {
+        "value": "Excellence",
+        "rarityWeight": 30
+      },
+      {
+        "value": "Perfection",
+        "rarityWeight": 20
+      },
+      {
+        "value": "Supremacy",
+        "rarityWeight": 15
+      }
     ]
   }
 }

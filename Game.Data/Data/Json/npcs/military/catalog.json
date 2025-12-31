@@ -64,8 +64,12 @@
             "Military Medal"
           ],
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:military-formal"],
-          "farewells": ["@dialogue/farewells:military"],
+          "greetings": [
+            "@dialogue/greetings:military-formal"
+          ],
+          "farewells": [
+            "@dialogue/farewells:military"
+          ],
           "faction": "city_guard",
           "schedule": "@schedules:guard"
         },
@@ -101,8 +105,12 @@
             "City Guard Tabard"
           ],
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:guard-watchful"],
-          "farewells": ["@dialogue/farewells:military"],
+          "greetings": [
+            "@dialogue/greetings:guard-watchful"
+          ],
+          "farewells": [
+            "@dialogue/farewells:military"
+          ],
           "faction": "city_guard",
           "schedule": "@schedules:guard"
         },
@@ -140,8 +148,12 @@
             "Battle Scar"
           ],
           "dialogueStyle": "@dialogue/styles:hostile",
-          "greetings": ["@dialogue/greetings:mercenary-blunt"],
-          "farewells": ["@dialogue/farewells:curt"],
+          "greetings": [
+            "@dialogue/greetings:mercenary-blunt"
+          ],
+          "farewells": [
+            "@dialogue/farewells:curt"
+          ],
           "faction": "independent",
           "schedule": "@schedules:flexible"
         }
@@ -180,8 +192,12 @@
           "shopType": null,
           "shopChance": 0.0,
           "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": ["@dialogue/greetings:guard-watchful"],
-          "farewells": ["@dialogue/farewells:military"],
+          "greetings": [
+            "@dialogue/greetings:guard-watchful"
+          ],
+          "farewells": [
+            "@dialogue/farewells:military"
+          ],
           "faction": "city_guard",
           "schedule": "@schedules:guard"
         }

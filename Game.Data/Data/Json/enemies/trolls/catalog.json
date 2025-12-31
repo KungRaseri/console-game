@@ -42,9 +42,14 @@
           "level": 8,
           "xp": 140,
           "rarityWeight": 12,
-          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/passive:regeneration"],
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/passive:regeneration"
+          ],
           "abilityUnlocks": {
-            "10": ["@abilities/active/offensive:rend"]
+            "10": [
+              "@abilities/active/offensive:rend"
+            ]
           }
         },
         {
@@ -56,9 +61,15 @@
           "level": 9,
           "xp": 160,
           "rarityWeight": 18,
-          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:slam", "@abilities/passive:regeneration"],
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:slam",
+            "@abilities/passive:regeneration"
+          ],
           "abilityUnlocks": {
-            "12": ["@abilities/active/offensive:earthquake-stomp"]
+            "12": [
+              "@abilities/active/offensive:earthquake-stomp"
+            ]
           }
         },
         {
@@ -70,10 +81,18 @@
           "level": 10,
           "xp": 190,
           "rarityWeight": 25,
-          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:slam", "@abilities/passive:regeneration"],
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:slam",
+            "@abilities/passive:regeneration"
+          ],
           "abilityUnlocks": {
-            "13": ["@abilities/active/offensive:boulder-toss"],
-            "15": ["@abilities/passive:thick-hide"]
+            "13": [
+              "@abilities/active/offensive:boulder-toss"
+            ],
+            "15": [
+              "@abilities/passive:thick-hide"
+            ]
           }
         },
         {
@@ -85,10 +104,18 @@
           "level": 11,
           "xp": 220,
           "rarityWeight": 32,
-          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/passive:regeneration"],
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:cleave",
+            "@abilities/passive:regeneration"
+          ],
           "abilityUnlocks": {
-            "14": ["@abilities/active/offensive:devastating-blow"],
-            "16": ["@abilities/passive:battle-hardened"]
+            "14": [
+              "@abilities/active/offensive:devastating-blow"
+            ],
+            "16": [
+              "@abilities/passive:battle-hardened"
+            ]
           }
         }
       ]
@@ -121,10 +148,17 @@
           "rarityWeight": 28,
           "damageType": "cold",
           "vulnerability": "fire",
-          "abilities": ["@abilities/active/offensive:frost-bolt", "@abilities/passive:regeneration"],
+          "abilities": [
+            "@abilities/active/offensive:frost-bolt",
+            "@abilities/passive:regeneration"
+          ],
           "abilityUnlocks": {
-            "13": ["@abilities/active/offensive:ice-breath"],
-            "15": ["@abilities/ultimate:blizzard"]
+            "13": [
+              "@abilities/active/offensive:ice-breath"
+            ],
+            "15": [
+              "@abilities/ultimate:blizzard"
+            ]
           }
         },
         {
@@ -145,10 +179,17 @@
           "damageType": "fire",
           "vulnerability": "cold",
           "immunity": "fire",
-          "abilities": ["@abilities/active/offensive:fireball", "@abilities/passive:regeneration"],
+          "abilities": [
+            "@abilities/active/offensive:fireball",
+            "@abilities/passive:regeneration"
+          ],
           "abilityUnlocks": {
-            "13": ["@abilities/active/offensive:flame-strike"],
-            "15": ["@abilities/ultimate:inferno"]
+            "13": [
+              "@abilities/active/offensive:flame-strike"
+            ],
+            "15": [
+              "@abilities/ultimate:inferno"
+            ]
           }
         },
         {
@@ -168,10 +209,17 @@
           "rarityWeight": 35,
           "damageType": "poison",
           "vulnerability": "acid",
-          "abilities": ["@abilities/active/offensive:poison-bite", "@abilities/passive:regeneration"],
+          "abilities": [
+            "@abilities/active/offensive:poison-bite",
+            "@abilities/passive:regeneration"
+          ],
           "abilityUnlocks": {
-            "13": ["@abilities/active/offensive:poison-cloud"],
-            "15": ["@abilities/ultimate:plague-bearer"]
+            "13": [
+              "@abilities/active/offensive:poison-cloud"
+            ],
+            "15": [
+              "@abilities/ultimate:plague-bearer"
+            ]
           }
         }
       ]
@@ -204,9 +252,17 @@
           "damageType": "physical",
           "regeneration": true,
           "vulnerability": "fire",
-          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:rend", "@abilities/active/offensive:devastating-blow", "@abilities/passive:regeneration", "@abilities/passive:thick-hide"],
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:rend",
+            "@abilities/active/offensive:devastating-blow",
+            "@abilities/passive:regeneration",
+            "@abilities/passive:thick-hide"
+          ],
           "abilityUnlocks": {
-            "16": ["@abilities/ultimate:primal-fury"]
+            "16": [
+              "@abilities/ultimate:primal-fury"
+            ]
           }
         },
         {
@@ -214,7 +270,7 @@
           "strength": 21,
           "dexterity": 9,
           "constitution": 21,
-          "intelligence": 10,
+          "intelligence": "high",
           "wisdom": 11,
           "charisma": 14,
           "health": 200,
@@ -226,10 +282,16 @@
           "rarityWeight": 45,
           "damageType": "physical",
           "regeneration": true,
-          "intelligence": "high",
-          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:cleave", "@abilities/passive:regeneration", "@abilities/active/support:rally"],
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:cleave",
+            "@abilities/passive:regeneration",
+            "@abilities/active/support:rally"
+          ],
           "abilityUnlocks": {
-            "15": ["@abilities/ultimate:avatar-of-war"]
+            "15": [
+              "@abilities/ultimate:avatar-of-war"
+            ]
           }
         },
         {
@@ -250,10 +312,20 @@
           "damageType": "physical",
           "regeneration": true,
           "magical": true,
-          "abilities": ["@abilities/active/offensive:basic-attack", "@abilities/active/offensive:rend", "@abilities/active/offensive:devastating-blow", "@abilities/passive:regeneration", "@abilities/passive:unstoppable"],
+          "abilities": [
+            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:rend",
+            "@abilities/active/offensive:devastating-blow",
+            "@abilities/passive:regeneration",
+            "@abilities/passive:unstoppable"
+          ],
           "abilityUnlocks": {
-            "18": ["@abilities/ultimate:primal-fury"],
-            "21": ["@abilities/ultimate:avatar-of-war"]
+            "18": [
+              "@abilities/ultimate:primal-fury"
+            ],
+            "21": [
+              "@abilities/ultimate:avatar-of-war"
+            ]
           }
         }
       ]

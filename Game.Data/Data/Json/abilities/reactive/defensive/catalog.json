@@ -12,318 +12,322 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "ability_types": [
-    {
-      "name": "Thorns",
-      "displayName": "Thorns",
-      "description": "Reflects damage back to attackers",
-      "rarityWeight": 10,
-      "triggerCondition": "onHit",
-      "traits": {
-        "reflectDamage": {
-          "value": 25,
-          "type": "number"
+  "ability_types": {
+    "defensive": {
+      "items": [
+        {
+          "name": "Thorns",
+          "displayName": "Thorns",
+          "description": "Reflects damage back to attackers",
+          "rarityWeight": 10,
+          "triggerCondition": "onHit",
+          "traits": {
+            "reflectDamage": {
+              "value": 25,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
         },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
+        {
+          "name": "Counter Shield",
+          "displayName": "Counter Shield",
+          "description": "Raises shield when attacked, blocking damage",
+          "rarityWeight": 35,
+          "triggerCondition": "onAttacked",
+          "traits": {
+            "blockChance": {
+              "value": 40,
+              "type": "number"
+            },
+            "damageReduction": {
+              "value": 50,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
         },
-        "category": {
-          "value": "defensive",
-          "type": "string"
+        {
+          "name": "Adaptive Armor",
+          "displayName": "Adaptive Armor",
+          "description": "Gains resistance to damage type that hit it",
+          "rarityWeight": 75,
+          "triggerCondition": "onDamageTaken",
+          "traits": {
+            "resistanceGain": {
+              "value": 20,
+              "type": "number"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Second Wind",
+          "displayName": "Second Wind",
+          "description": "Heals when HP drops below 30%",
+          "rarityWeight": 75,
+          "triggerCondition": "onLowHealth",
+          "traits": {
+            "healAmount": {
+              "value": 30,
+              "type": "number"
+            },
+            "threshold": {
+              "value": 30,
+              "type": "number"
+            },
+            "cooldown": {
+              "value": 60,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Last Stand",
+          "displayName": "Last Stand",
+          "description": "Greatly increases defense when near death",
+          "rarityWeight": 150,
+          "triggerCondition": "onCriticalHealth",
+          "traits": {
+            "defenseBonus": {
+              "value": 100,
+              "type": "number"
+            },
+            "threshold": {
+              "value": 10,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Evasive Maneuver",
+          "displayName": "Evasive Maneuver",
+          "description": "Automatically dodges next attack after being hit",
+          "rarityWeight": 75,
+          "triggerCondition": "onHit",
+          "traits": {
+            "dodgeChance": {
+              "value": 100,
+              "type": "number"
+            },
+            "duration": {
+              "value": 1,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Iron Will",
+          "displayName": "Iron Will",
+          "description": "Prevents death once per battle, leaving you at 1 HP",
+          "rarityWeight": 250,
+          "triggerCondition": "onFatalDamage",
+          "traits": {
+            "surviveAmount": {
+              "value": 1,
+              "type": "number"
+            },
+            "usesPerBattle": {
+              "value": 1,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Reactive Barrier",
+          "displayName": "Reactive Barrier",
+          "description": "Creates temporary shield when health drops below 50%",
+          "rarityWeight": 75,
+          "triggerCondition": "onHealthThreshold",
+          "traits": {
+            "shieldAmount": {
+              "value": 50,
+              "type": "number"
+            },
+            "threshold": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 3,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Defensive Stance",
+          "displayName": "Defensive Stance",
+          "description": "Automatically blocks after taking consecutive hits",
+          "rarityWeight": 35,
+          "triggerCondition": "onConsecutiveHits",
+          "traits": {
+            "blockChance": {
+              "value": 75,
+              "type": "number"
+            },
+            "hitCount": {
+              "value": 3,
+              "type": "number"
+            },
+            "duration": {
+              "value": 2,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Parry",
+          "displayName": "Parry",
+          "description": "Chance to deflect melee attacks completely",
+          "rarityWeight": 35,
+          "triggerCondition": "onMeleeAttack",
+          "traits": {
+            "parryChance": {
+              "value": 30,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Spell Reflection",
+          "displayName": "Spell Reflection",
+          "description": "Reflects magical attacks back to caster",
+          "rarityWeight": 150,
+          "triggerCondition": "onMagicAttack",
+          "traits": {
+            "reflectChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "reflectMultiplier": {
+              "value": 0.75,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "Revenge",
+          "displayName": "Revenge",
+          "description": "Gains damage buff after taking damage",
+          "rarityWeight": 75,
+          "triggerCondition": "onDamageTaken",
+          "traits": {
+            "damageBonus": {
+              "value": 25,
+              "type": "number"
+            },
+            "duration": {
+              "value": 3,
+              "type": "number"
+            },
+            "stackable": {
+              "value": true,
+              "type": "boolean"
+            },
+            "abilityClass": {
+              "value": "reactive",
+              "type": "string"
+            },
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
         }
-      }
-    },
-    {
-      "name": "Counter Shield",
-      "displayName": "Counter Shield",
-      "description": "Raises shield when attacked, blocking damage",
-      "rarityWeight": 35,
-      "triggerCondition": "onAttacked",
-      "traits": {
-        "blockChance": {
-          "value": 40,
-          "type": "number"
-        },
-        "damageReduction": {
-          "value": 50,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Adaptive Armor",
-      "displayName": "Adaptive Armor",
-      "description": "Gains resistance to damage type that hit it",
-      "rarityWeight": 75,
-      "triggerCondition": "onDamageTaken",
-      "traits": {
-        "resistanceGain": {
-          "value": 20,
-          "type": "number"
-        },
-        "duration": {
-          "value": 5,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Second Wind",
-      "displayName": "Second Wind",
-      "description": "Heals when HP drops below 30%",
-      "rarityWeight": 75,
-      "triggerCondition": "onLowHealth",
-      "traits": {
-        "healAmount": {
-          "value": 30,
-          "type": "number"
-        },
-        "threshold": {
-          "value": 30,
-          "type": "number"
-        },
-        "cooldown": {
-          "value": 60,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Last Stand",
-      "displayName": "Last Stand",
-      "description": "Greatly increases defense when near death",
-      "rarityWeight": 150,
-      "triggerCondition": "onCriticalHealth",
-      "traits": {
-        "defenseBonus": {
-          "value": 100,
-          "type": "number"
-        },
-        "threshold": {
-          "value": 10,
-          "type": "number"
-        },
-        "duration": {
-          "value": 10,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Evasive Maneuver",
-      "displayName": "Evasive Maneuver",
-      "description": "Automatically dodges next attack after being hit",
-      "rarityWeight": 75,
-      "triggerCondition": "onHit",
-      "traits": {
-        "dodgeChance": {
-          "value": 100,
-          "type": "number"
-        },
-        "duration": {
-          "value": 1,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Iron Will",
-      "displayName": "Iron Will",
-      "description": "Prevents death once per battle, leaving you at 1 HP",
-      "rarityWeight": 250,
-      "triggerCondition": "onFatalDamage",
-      "traits": {
-        "surviveAmount": {
-          "value": 1,
-          "type": "number"
-        },
-        "usesPerBattle": {
-          "value": 1,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Reactive Barrier",
-      "displayName": "Reactive Barrier",
-      "description": "Creates temporary shield when health drops below 50%",
-      "rarityWeight": 75,
-      "triggerCondition": "onHealthThreshold",
-      "traits": {
-        "shieldAmount": {
-          "value": 50,
-          "type": "number"
-        },
-        "threshold": {
-          "value": 50,
-          "type": "number"
-        },
-        "duration": {
-          "value": 3,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Defensive Stance",
-      "displayName": "Defensive Stance",
-      "description": "Automatically blocks after taking consecutive hits",
-      "rarityWeight": 35,
-      "triggerCondition": "onConsecutiveHits",
-      "traits": {
-        "blockChance": {
-          "value": 75,
-          "type": "number"
-        },
-        "hitCount": {
-          "value": 3,
-          "type": "number"
-        },
-        "duration": {
-          "value": 2,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Parry",
-      "displayName": "Parry",
-      "description": "Chance to deflect melee attacks completely",
-      "rarityWeight": 35,
-      "triggerCondition": "onMeleeAttack",
-      "traits": {
-        "parryChance": {
-          "value": 30,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Spell Reflection",
-      "displayName": "Spell Reflection",
-      "description": "Reflects magical attacks back to caster",
-      "rarityWeight": 150,
-      "triggerCondition": "onMagicAttack",
-      "traits": {
-        "reflectChance": {
-          "value": 50,
-          "type": "number"
-        },
-        "reflectMultiplier": {
-          "value": 0.75,
-          "type": "number"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
-    },
-    {
-      "name": "Revenge",
-      "displayName": "Revenge",
-      "description": "Gains damage buff after taking damage",
-      "rarityWeight": 75,
-      "triggerCondition": "onDamageTaken",
-      "traits": {
-        "damageBonus": {
-          "value": 25,
-          "type": "number"
-        },
-        "duration": {
-          "value": 3,
-          "type": "number"
-        },
-        "stackable": {
-          "value": true,
-          "type": "boolean"
-        },
-        "abilityClass": {
-          "value": "reactive",
-          "type": "string"
-        },
-        "category": {
-          "value": "defensive",
-          "type": "string"
-        }
-      }
+      ]
     }
-  ]
+  }
 }

@@ -12,67 +12,146 @@
       "Pet stats scale with caster level and stats"
     ]
   },
-  "ability_types": [
-    {
-      "name": "animal-companion",
-      "displayName": "Animal Companion",
-      "description": "Summons a loyal animal to fight alongside you",
-      "rarityWeight": 15,
-      "cooldown": 0,
-      "traits": {
-        "petType": {"value": "beast", "type": "string"},
-        "petLevel": {"value": "scales", "type": "string"},
-        "petHealthMultiplier": {"value": 0.8, "type": "number"},
-        "petDamageMultiplier": {"value": 0.5, "type": "number"},
-        "duration": {"value": "permanent", "type": "string"},
-        "maxPets": {"value": 1, "type": "number"}
-      }
-    },
-    {
-      "name": "summon-skeleton",
-      "displayName": "Summon Skeleton",
-      "description": "Raises a skeleton warrior from the dead",
-      "rarityWeight": 250,
-      "cooldown": 30,
-      "traits": {
-        "petType": {"value": "undead", "type": "string"},
-        "petHealthMultiplier": {"value": 0.6, "type": "number"},
-        "petDamageMultiplier": {"value": 0.4, "type": "number"},
-        "duration": {"value": 300, "type": "number"},
-        "maxPets": {"value": 3, "type": "number"},
-        "manaCost": {"value": 40, "type": "number"}
-      }
-    },
-    {
-      "name": "raise-dead",
-      "displayName": "Raise Dead",
-      "description": "Reanimates a corpse to serve as a temporary minion",
-      "rarityWeight": 250,
-      "cooldown": 45,
-      "traits": {
-        "petType": {"value": "undead", "type": "string"},
-        "requiresCorpse": {"value": true, "type": "boolean"},
-        "petHealthMultiplier": {"value": 1.0, "type": "number"},
-        "petDamageMultiplier": {"value": 0.8, "type": "number"},
-        "duration": {"value": 180, "type": "number"},
-        "maxPets": {"value": 1, "type": "number"},
-        "manaCost": {"value": 60, "type": "number"}
-      }
-    },
-    {
-      "name": "army-of-the-dead",
-      "displayName": "Army of the Dead",
-      "description": "Raises multiple powerful undead minions simultaneously",
-      "rarityWeight": 250,
-      "cooldown": 180,
-      "traits": {
-        "petType": {"value": "undead", "type": "string"},
-        "petHealthMultiplier": {"value": 0.7, "type": "number"},
-        "petDamageMultiplier": {"value": 0.6, "type": "number"},
-        "duration": {"value": 120, "type": "number"},
-        "maxPets": {"value": 10, "type": "number"},
-        "manaCost": {"value": 200, "type": "number"}
-      }
+  "ability_types": {
+    "summon": {
+      "items": [
+        {
+          "name": "animal-companion",
+          "displayName": "Animal Companion",
+          "description": "Summons a loyal animal to fight alongside you",
+          "rarityWeight": 15,
+          "cooldown": 0,
+          "traits": {
+            "petType": {
+              "value": "beast",
+              "type": "string"
+            },
+            "petLevel": {
+              "value": "scales",
+              "type": "string"
+            },
+            "petHealthMultiplier": {
+              "value": 0.8,
+              "type": "number"
+            },
+            "petDamageMultiplier": {
+              "value": 0.5,
+              "type": "number"
+            },
+            "duration": {
+              "value": "permanent",
+              "type": "string"
+            },
+            "maxPets": {
+              "value": 1,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "summon-skeleton",
+          "displayName": "Summon Skeleton",
+          "description": "Raises a skeleton warrior from the dead",
+          "rarityWeight": 250,
+          "cooldown": 30,
+          "traits": {
+            "petType": {
+              "value": "undead",
+              "type": "string"
+            },
+            "petHealthMultiplier": {
+              "value": 0.6,
+              "type": "number"
+            },
+            "petDamageMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "duration": {
+              "value": 300,
+              "type": "number"
+            },
+            "maxPets": {
+              "value": 3,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 40,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "raise-dead",
+          "displayName": "Raise Dead",
+          "description": "Reanimates a corpse to serve as a temporary minion",
+          "rarityWeight": 250,
+          "cooldown": 45,
+          "traits": {
+            "petType": {
+              "value": "undead",
+              "type": "string"
+            },
+            "requiresCorpse": {
+              "value": true,
+              "type": "boolean"
+            },
+            "petHealthMultiplier": {
+              "value": 1.0,
+              "type": "number"
+            },
+            "petDamageMultiplier": {
+              "value": 0.8,
+              "type": "number"
+            },
+            "duration": {
+              "value": 180,
+              "type": "number"
+            },
+            "maxPets": {
+              "value": 1,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 60,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "name": "army-of-the-dead",
+          "displayName": "Army of the Dead",
+          "description": "Raises multiple powerful undead minions simultaneously",
+          "rarityWeight": 250,
+          "cooldown": 180,
+          "traits": {
+            "petType": {
+              "value": "undead",
+              "type": "string"
+            },
+            "petHealthMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "petDamageMultiplier": {
+              "value": 0.6,
+              "type": "number"
+            },
+            "duration": {
+              "value": 120,
+              "type": "number"
+            },
+            "maxPets": {
+              "value": 10,
+              "type": "number"
+            },
+            "manaCost": {
+              "value": 200,
+              "type": "number"
+            }
+          }
+        }
+      ]
     }
-  ]
+  }
 }

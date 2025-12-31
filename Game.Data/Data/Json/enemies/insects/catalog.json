@@ -45,9 +45,14 @@
           "xp": 45,
           "rarityWeight": 8,
           "size": "medium",
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/support:web"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/active/support:web"
+          ],
           "abilityUnlocks": {
-            "4": ["@abilities/active/offensive:poison-bite"]
+            "4": [
+              "@abilities/active/offensive:poison-bite"
+            ]
           }
         },
         {
@@ -67,9 +72,15 @@
           "rarityWeight": 25,
           "size": "large",
           "magical": true,
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:poison-bite", "@abilities/active/defensive:phase"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:poison-bite",
+            "@abilities/active/defensive:phase"
+          ],
           "abilityUnlocks": {
-            "8": ["@abilities/active/mobility:blink"]
+            "8": [
+              "@abilities/active/mobility:blink"
+            ]
           }
         },
         {
@@ -88,9 +99,15 @@
           "xp": 75,
           "rarityWeight": 18,
           "size": "medium",
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:poison-bite", "@abilities/active/support:web"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:poison-bite",
+            "@abilities/active/support:web"
+          ],
           "abilityUnlocks": {
-            "7": ["@abilities/active/offensive:venom-strike"]
+            "7": [
+              "@abilities/active/offensive:venom-strike"
+            ]
           }
         },
         {
@@ -109,10 +126,18 @@
           "xp": 160,
           "rarityWeight": 40,
           "size": "huge",
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:poison-bite", "@abilities/active/support:web"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:poison-bite",
+            "@abilities/active/support:web"
+          ],
           "abilityUnlocks": {
-            "12": ["@abilities/active/support:web-trap"],
-            "15": ["@abilities/ultimate:spider-queen"]
+            "12": [
+              "@abilities/active/support:web-trap"
+            ],
+            "15": [
+              "@abilities/ultimate:spider-queen"
+            ]
           }
         }
       ]
@@ -143,9 +168,14 @@
           "level": 3,
           "xp": 40,
           "rarityWeight": 6,
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/passive:carapace"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/passive:carapace"
+          ],
           "abilityUnlocks": {
-            "4": ["@abilities/active/offensive:charge"]
+            "4": [
+              "@abilities/active/offensive:charge"
+            ]
           }
         },
         {
@@ -164,9 +194,14 @@
           "xp": 45,
           "rarityWeight": 10,
           "damageType": "fire",
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:fire-breath"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:fire-breath"
+          ],
           "abilityUnlocks": {
-            "4": ["@abilities/active/defensive:fire-aura"]
+            "4": [
+              "@abilities/active/defensive:fire-aura"
+            ]
           }
         },
         {
@@ -185,9 +220,14 @@
           "xp": 70,
           "rarityWeight": 18,
           "damageType": "acid",
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/offensive:acid-spray"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/active/offensive:acid-spray"
+          ],
           "abilityUnlocks": {
-            "7": ["@abilities/active/offensive:acid-pool"]
+            "7": [
+              "@abilities/active/offensive:acid-pool"
+            ]
           }
         }
       ]
@@ -219,9 +259,14 @@
           "xp": 50,
           "rarityWeight": 10,
           "venomous": true,
-          "abilities": ["@abilities/active/offensive:sting", "@abilities/passive:flight"],
+          "abilities": [
+            "@abilities/active/offensive:sting",
+            "@abilities/passive:flight"
+          ],
           "abilityUnlocks": {
-            "5": ["@abilities/active/offensive:poison-sting"]
+            "5": [
+              "@abilities/active/offensive:poison-sting"
+            ]
           }
         },
         {
@@ -240,9 +285,15 @@
           "xp": 70,
           "rarityWeight": 15,
           "venomous": true,
-          "abilities": ["@abilities/active/offensive:sting", "@abilities/active/offensive:poison-sting", "@abilities/passive:flight"],
+          "abilities": [
+            "@abilities/active/offensive:sting",
+            "@abilities/active/offensive:poison-sting",
+            "@abilities/passive:flight"
+          ],
           "abilityUnlocks": {
-            "7": ["@abilities/active/offensive:dive-attack"]
+            "7": [
+              "@abilities/active/offensive:dive-attack"
+            ]
           }
         },
         {
@@ -260,9 +311,14 @@
           "level": 5,
           "xp": 65,
           "rarityWeight": 12,
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/passive:flight"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/passive:flight"
+          ],
           "abilityUnlocks": {
-            "7": ["@abilities/active/mobility:aerial-dodge"]
+            "7": [
+              "@abilities/active/mobility:aerial-dodge"
+            ]
           }
         },
         {
@@ -280,9 +336,14 @@
           "level": 7,
           "xp": 110,
           "rarityWeight": 22,
-          "abilities": ["@abilities/active/offensive:claw-attack", "@abilities/active/offensive:ambush"],
+          "abilities": [
+            "@abilities/active/offensive:claw-attack",
+            "@abilities/active/offensive:ambush"
+          ],
           "abilityUnlocks": {
-            "9": ["@abilities/active/offensive:decapitate"]
+            "9": [
+              "@abilities/active/offensive:decapitate"
+            ]
           }
         }
       ]
@@ -313,9 +374,13 @@
           "xp": 25,
           "rarityWeight": 5,
           "size": "small",
-          "abilities": ["@abilities/active/offensive:bite"],
+          "abilities": [
+            "@abilities/active/offensive:bite"
+          ],
           "abilityUnlocks": {
-            "3": ["@abilities/active/support:swarm-tactics"]
+            "3": [
+              "@abilities/active/support:swarm-tactics"
+            ]
           }
         },
         {
@@ -334,9 +399,14 @@
           "xp": 50,
           "rarityWeight": 10,
           "size": "medium",
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/support:swarm-tactics"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/active/support:swarm-tactics"
+          ],
           "abilityUnlocks": {
-            "6": ["@abilities/active/offensive:mandible-crush"]
+            "6": [
+              "@abilities/active/offensive:mandible-crush"
+            ]
           }
         },
         {
@@ -355,9 +425,15 @@
           "xp": 170,
           "rarityWeight": 45,
           "size": "huge",
-          "abilities": ["@abilities/active/offensive:bite", "@abilities/active/support:swarm-tactics", "@abilities/active/support:summon-ants"],
+          "abilities": [
+            "@abilities/active/offensive:bite",
+            "@abilities/active/support:swarm-tactics",
+            "@abilities/active/support:summon-ants"
+          ],
           "abilityUnlocks": {
-            "12": ["@abilities/ultimate:hive-mind"]
+            "12": [
+              "@abilities/ultimate:hive-mind"
+            ]
           }
         }
       ]

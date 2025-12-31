@@ -5,8 +5,16 @@
     "supportsTraits": true,
     "lastUpdated": "2025-12-30",
     "description": "Pattern generation for reactive utility ability names",
-    "componentKeys": ["prefix", "base", "suffix"],
-    "patternTokens": ["prefix", "base", "suffix"],
+    "componentKeys": [
+      "prefix",
+      "base",
+      "suffix"
+    ],
+    "patternTokens": [
+      "prefix",
+      "base",
+      "suffix"
+    ],
     "totalPatterns": 7,
     "raritySystem": "weight-based",
     "notes": [

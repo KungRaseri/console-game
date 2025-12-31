@@ -5,8 +5,18 @@
     "supportsTraits": true,
     "lastUpdated": "2025-12-30",
     "description": "Class-specific name generation for NPCs and player character titles",
-    "componentKeys": ["prefix", "suffix", "title"],
-    "patternTokens": ["prefix", "class", "suffix", "title", "base"],
+    "componentKeys": [
+      "prefix",
+      "suffix",
+      "title"
+    ],
+    "patternTokens": [
+      "prefix",
+      "class",
+      "suffix",
+      "title",
+      "base"
+    ],
     "totalPatterns": 7,
     "raritySystem": "weight-based",
     "notes": [
@@ -21,48 +31,84 @@
         "value": "Master",
         "rarityWeight": 10,
         "traits": {
-          "levelRequirement": {"value": 50, "type": "number"},
-          "reputationBonus": {"value": 10, "type": "number"}
+          "levelRequirement": {
+            "value": 50,
+            "type": "number"
+          },
+          "reputationBonus": {
+            "value": 10,
+            "type": "number"
+          }
         }
       },
       {
         "value": "Grand",
         "rarityWeight": 5,
         "traits": {
-          "levelRequirement": {"value": 70, "type": "number"},
-          "reputationBonus": {"value": 20, "type": "number"}
+          "levelRequirement": {
+            "value": 70,
+            "type": "number"
+          },
+          "reputationBonus": {
+            "value": 20,
+            "type": "number"
+          }
         }
       },
       {
         "value": "Legendary",
         "rarityWeight": 1,
         "traits": {
-          "levelRequirement": {"value": 90, "type": "number"},
-          "reputationBonus": {"value": 50, "type": "number"}
+          "levelRequirement": {
+            "value": 90,
+            "type": "number"
+          },
+          "reputationBonus": {
+            "value": 50,
+            "type": "number"
+          }
         }
       },
       {
         "value": "Elite",
         "rarityWeight": 15,
         "traits": {
-          "levelRequirement": {"value": 40, "type": "number"},
-          "reputationBonus": {"value": 5, "type": "number"}
+          "levelRequirement": {
+            "value": 40,
+            "type": "number"
+          },
+          "reputationBonus": {
+            "value": 5,
+            "type": "number"
+          }
         }
       },
       {
         "value": "Veteran",
         "rarityWeight": 20,
         "traits": {
-          "levelRequirement": {"value": 30, "type": "number"},
-          "reputationBonus": {"value": 3, "type": "number"}
+          "levelRequirement": {
+            "value": 30,
+            "type": "number"
+          },
+          "reputationBonus": {
+            "value": 3,
+            "type": "number"
+          }
         }
       },
       {
         "value": "Apprentice",
         "rarityWeight": 50,
         "traits": {
-          "levelRequirement": {"value": 1, "type": "number"},
-          "reputationBonus": {"value": 0, "type": "number"}
+          "levelRequirement": {
+            "value": 1,
+            "type": "number"
+          },
+          "reputationBonus": {
+            "value": 0,
+            "type": "number"
+          }
         }
       }
     ],
@@ -71,42 +117,60 @@
         "value": "the Brave",
         "rarityWeight": 30,
         "traits": {
-          "strengthBonus": {"value": 2, "type": "number"}
+          "strengthBonus": {
+            "value": 2,
+            "type": "number"
+          }
         }
       },
       {
         "value": "the Wise",
         "rarityWeight": 30,
         "traits": {
-          "wisdomBonus": {"value": 2, "type": "number"}
+          "wisdomBonus": {
+            "value": 2,
+            "type": "number"
+          }
         }
       },
       {
         "value": "the Swift",
         "rarityWeight": 30,
         "traits": {
-          "dexterityBonus": {"value": 2, "type": "number"}
+          "dexterityBonus": {
+            "value": 2,
+            "type": "number"
+          }
         }
       },
       {
         "value": "the Cunning",
         "rarityWeight": 30,
         "traits": {
-          "intelligenceBonus": {"value": 2, "type": "number"}
+          "intelligenceBonus": {
+            "value": 2,
+            "type": "number"
+          }
         }
       },
       {
         "value": "the Mighty",
         "rarityWeight": 15,
         "traits": {
-          "strengthBonus": {"value": 3, "type": "number"}
+          "strengthBonus": {
+            "value": 3,
+            "type": "number"
+          }
         }
       },
       {
         "value": "the Immortal",
         "rarityWeight": 10,
         "traits": {
-          "constitutionBonus": {"value": 3, "type": "number"}
+          "constitutionBonus": {
+            "value": 3,
+            "type": "number"
+          }
         }
       }
     ],
@@ -115,28 +179,40 @@
         "value": "Slayer of Dragons",
         "rarityWeight": 5,
         "traits": {
-          "questsCompleted": {"value": 100, "type": "number"}
+          "questsCompleted": {
+            "value": 100,
+            "type": "number"
+          }
         }
       },
       {
         "value": "Champion of the Realm",
         "rarityWeight": 15,
         "traits": {
-          "questsCompleted": {"value": 50, "type": "number"}
+          "questsCompleted": {
+            "value": 50,
+            "type": "number"
+          }
         }
       },
       {
         "value": "Defender of the Weak",
         "rarityWeight": 30,
         "traits": {
-          "questsCompleted": {"value": 25, "type": "number"}
+          "questsCompleted": {
+            "value": 25,
+            "type": "number"
+          }
         }
       },
       {
         "value": "Wanderer",
         "rarityWeight": 50,
         "traits": {
-          "questsCompleted": {"value": 0, "type": "number"}
+          "questsCompleted": {
+            "value": 0,
+            "type": "number"
+          }
         }
       }
     ]
