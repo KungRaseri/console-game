@@ -1,6 +1,6 @@
 {
-    "displayName":  "Nobility",
-    "icon":  "Crown",
-    "sortOrder":  8,
-    "description":  "Wealthy aristocrats with high social standing - noble-born, knights errant, court attendants with influence and resources"
+  "displayName": "Nobility",
+  "icon": "Crown",
+  "sortOrder": 8,
+  "description": "Wealthy aristocrats with high social standing - noble-born, knights errant, court attendants with influence and resources"
 }

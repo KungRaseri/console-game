@@ -1,5 +1,5 @@
 {
-    "description":  "Always-active abilities that provide continuous effects",
-    "icon":  "ShieldOutline",
-    "sortOrder":  10
+  "description": "Always-active abilities that provide continuous effects",
+  "icon": "ShieldOutline",
+  "sortOrder": 10
 }

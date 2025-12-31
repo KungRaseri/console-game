@@ -1,6 +1,6 @@
 {
-    "icon":  "TreasureChest",
-    "displayName":  "Rewards",
-    "description":  "Quest rewards consolidated into root rewards.json",
-    "sortOrder":  3
+  "icon": "TreasureChest",
+  "displayName": "Rewards",
+  "description": "Quest rewards consolidated into root rewards.json",
+  "sortOrder": 3
 }

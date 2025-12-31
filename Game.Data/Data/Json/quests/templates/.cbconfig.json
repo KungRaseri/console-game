@@ -1,6 +1,6 @@
 {
-    "icon":  "FileDocument",
-    "displayName":  "Templates",
-    "description":  "Quest templates consolidated into root catalog.json",
-    "sortOrder":  4
+  "icon": "FileDocument",
+  "displayName": "Templates",
+  "description": "Quest templates consolidated into root catalog.json",
+  "sortOrder": 4
 }

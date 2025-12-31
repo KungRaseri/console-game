@@ -1,6 +1,6 @@
 {
-    "icon":  "Sword",
-    "displayName":  "Items",
-    "description":  "Game item definitions including weapons, armor, consumables, and materials",
-    "sortOrder":  10
+  "icon": "Sword",
+  "displayName": "Items",
+  "description": "Game item definitions including weapons, armor, consumables, and materials",
+  "sortOrder": 10
 }
