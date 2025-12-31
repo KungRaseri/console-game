@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "description": "Unified armor naming system with prefix/suffix support and trait assignment (v4.0)",
-    "version": "4.0",
-    "lastUpdated": "2025-12-27",
+    "description": "Unified armor naming system with prefix/suffix support and trait assignment (v4.2 - Hybrid Enhancement System)",
+    "version": "4.2",
+    "lastUpdated": "2025-12-31",
     "type": "pattern_generation",
     "supportsTraits": true,
     "componentKeys": [
@@ -26,7 +26,10 @@
       "Prefixes and suffixes merged from separate files (deprecated in v4.0)",
       "Traits are applied when components are selected in patterns",
       "Trait merging: numbers take highest, strings take last, booleans use OR",
-      "Emergent rarity calculated from combined component weights"
+      "Emergent rarity calculated from combined component weights",
+      "v4.2: materialRef field specifies armor-appropriate materials",
+      "v4.2: enchantmentSlots array defines defensive enchantments",
+      "v4.2: gemSocketCount typically lower than weapons"
     ]
   },
   "components": {
@@ -1311,68 +1314,139 @@
   },
   "patterns": [
     {
-      "pattern": "base",
-      "rarityWeight": 100
+      "pattern": "{base}",
+      "rarityWeight": 100,
+      "materialRef": null,
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "@items/materials/metals:* {base}",
-      "rarityWeight": 50
+      "rarityWeight": 50,
+      "materialRef": "@items/materials/metals:*[itemTypeTraits.armor=true]",
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 1 }
     },
     {
       "pattern": "{quality} {base}",
-      "rarityWeight": 40
+      "rarityWeight": 40,
+      "materialRef": null,
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "{prefix} {base}",
-      "rarityWeight": 30
+      "rarityWeight": 30,
+      "materialRef": null,
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "{descriptive} {base}",
-      "rarityWeight": 35
+      "rarityWeight": 35,
+      "materialRef": null,
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "{base} {suffix}",
-      "rarityWeight": 30
+      "rarityWeight": 30,
+      "materialRef": null,
+      "enchantmentSlots": [
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=50]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "@items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 20
+      "rarityWeight": 20,
+      "materialRef": "@items/materials/metals:*[itemTypeTraits.armor=true]",
+      "enchantmentSlots": [
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=70]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 1 }
     },
     {
       "pattern": "{quality} @items/materials/metals:* {base}",
-      "rarityWeight": 15
+      "rarityWeight": 15,
+      "materialRef": "@items/materials/metals:*[itemTypeTraits.armor=true]",
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 1 }
     },
     {
       "pattern": "{prefix} @items/materials/metals:* {base}",
-      "rarityWeight": 10
+      "rarityWeight": 10,
+      "materialRef": "@items/materials/metals:*[itemTypeTraits.armor=true]",
+      "enchantmentSlots": [
+        { "position": "prefix", "reference": "@items/enchantments:*[rarityWeight<=90]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 1 }
     },
     {
       "pattern": "{descriptive} {base} {suffix}",
-      "rarityWeight": 12
+      "rarityWeight": 12,
+      "materialRef": null,
+      "enchantmentSlots": [
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=60]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 1 }
     },
     {
       "pattern": "{quality} {base} {suffix}",
-      "rarityWeight": 15
+      "rarityWeight": 15,
+      "materialRef": null,
+      "enchantmentSlots": [
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=65]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 1 }
     },
     {
       "pattern": "{prefix} {base} {suffix}",
-      "rarityWeight": 8
+      "rarityWeight": 8,
+      "materialRef": null,
+      "enchantmentSlots": [
+        { "position": "prefix", "reference": "@items/enchantments:*[rarityWeight<=75]" },
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=75]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 1 }
     },
     {
       "pattern": "{quality} @items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 5
+      "rarityWeight": 5,
+      "materialRef": "@items/materials/metals:*[itemTypeTraits.armor=true]",
+      "enchantmentSlots": [
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=110]" }
+      ],
+      "gemSocketCount": { "min": 1, "max": 2 }
     },
     {
       "pattern": "{prefix} @items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 3
+      "rarityWeight": 3,
+      "materialRef": "@items/materials/metals:*[itemTypeTraits.armor=true]",
+      "enchantmentSlots": [
+        { "position": "prefix", "reference": "@items/enchantments:*[rarityWeight<=140]" },
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=140]" }
+      ],
+      "gemSocketCount": { "min": 1, "max": 2 }
     },
     {
       "pattern": "{descriptive} @items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 4
+      "rarityWeight": 4,
+      "materialRef": "@items/materials/metals:*[itemTypeTraits.armor=true]",
+      "enchantmentSlots": [
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=95]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 2 }
     },
     {
       "pattern": "{prefix} {quality} @items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 1
+      "rarityWeight": 1,
+      "materialRef": "@items/materials/metals:*[itemTypeTraits.armor=true&rarityWeight>=100]",
+      "enchantmentSlots": [
+        { "position": "prefix", "reference": "@items/enchantments:*[rarityWeight<=180]" },
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=180]" }
+      ],
+      "gemSocketCount": { "min": 2, "max": 3 }
     }
   ]
 }

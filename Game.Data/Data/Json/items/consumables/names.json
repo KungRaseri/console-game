@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "description": "Unified consumable naming system with enhanced effects and trait support (v4.0)",
-    "version": "4.0",
-    "lastUpdated": "2025-12-30",
+    "description": "Unified consumable naming system with enhanced effects and trait support (v4.2 - Hybrid Enhancement System)",
+    "version": "4.2",
+    "lastUpdated": "2025-12-31",
     "type": "pattern_generation",
     "supportsTraits": true,
     "componentKeys": [
@@ -24,7 +24,10 @@
       "Base token resolves from items/consumables/catalog.json",
       "All components have rarityWeight for emergent rarity calculation",
       "Traits define actual gameplay effects (healing power, duration, buffs, etc.)",
-      "Trait merging: numbers take highest, strings take last, booleans use OR"
+      "Trait merging: numbers take highest, strings take last, booleans use OR",
+      "v4.2: Consumables don't use materialRef (always null)",
+      "v4.2: enchantmentSlots can add magical effects to potions/scrolls",
+      "v4.2: gemSocketCount always 0 for consumables"
     ],
     "usage": "Pattern-based name generation for consumables. Pick components by rarityWeight and apply patterns to generate procedural names with trait stacking."
   },
@@ -1212,32 +1215,59 @@
   },
   "patterns": [
     {
-      "pattern": "base",
-      "rarityWeight": 100
+      "pattern": "{base}",
+      "rarityWeight": 100,
+      "materialRef": null,
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "{quality} {base}",
-      "rarityWeight": 50
+      "rarityWeight": 50,
+      "materialRef": null,
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "{effect} {base}",
-      "rarityWeight": 40
+      "rarityWeight": 40,
+      "materialRef": null,
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "{base} {suffix}",
-      "rarityWeight": 35
+      "rarityWeight": 35,
+      "materialRef": null,
+      "enchantmentSlots": [
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=60]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "{quality} {effect} {base}",
-      "rarityWeight": 20
+      "rarityWeight": 20,
+      "materialRef": null,
+      "enchantmentSlots": [],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "{descriptive} {base} {suffix}",
-      "rarityWeight": 15
+      "rarityWeight": 15,
+      "materialRef": null,
+      "enchantmentSlots": [
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=80]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 0 }
     },
     {
       "pattern": "{quality} {effect} {base} {suffix}",
-      "rarityWeight": 8
+      "rarityWeight": 8,
+      "materialRef": null,
+      "enchantmentSlots": [
+        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=120]" }
+      ],
+      "gemSocketCount": { "min": 0, "max": 0 }
     }
   ]
 }
