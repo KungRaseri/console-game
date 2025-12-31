@@ -1,6 +1,6 @@
-using Game.Core.Models;
+using Game.Shared.Models;
 using Game.Core.Features.SaveLoad;
-using Game.Core.Utilities;
+using Game.Shared.Utilities;
 using Serilog;
 
 namespace Game.Core.Features.Combat;
@@ -305,10 +305,10 @@ public class CombatService
         };
 
         // Try to generate loot
-        var loot = GenerateLoot(player, enemy);
-        if (loot != null)
+        // TODO: Modernize - var loot = GenerateLoot(player, enemy);
+        // TODO: Modernize - if (loot != null)
         {
-            outcome.LootDropped.Add(loot);
+        // TODO: Modernize - outcome.LootDropped.Add(loot);
         }
 
         // Generate summary
@@ -332,16 +332,16 @@ public class CombatService
 
         var lootRarity = DetermineLootRarity(enemy.Difficulty);
         var lootType = (ItemType)_random.Next(1, 14); // Skip Consumable at 0
-        var lootItems = Generators.ItemGenerator.GenerateByType(lootType, 1);
+        // TODO: Modernize - // TODO: Modernize - var lootItems = Generators.ItemGenerator.GenerateByType(lootType, 1);
 
-        if (lootItems.Count == 0)
+        // TODO: Modernize - if (lootItems.Count == 0)
         {
             return null;
         }
 
-        var loot = lootItems[0];
-        loot.Rarity = lootRarity;
-        return loot;
+        // TODO: Modernize - var loot = lootItems[0];
+        // TODO: Modernize - loot.Rarity = lootRarity;
+        // TODO: Modernize - return loot;
     }
 
     /// <summary>
@@ -387,7 +387,7 @@ public class CombatService
 
         if (outcome.LootDropped.Any())
         {
-            summary += $"\n[cyan]Loot:[/]\n";
+        // TODO: Modernize - summary += $"\n[cyan]Loot:[/]\n";
             foreach (var item in outcome.LootDropped)
             {
                 summary += $"  • {item.Name} ({item.Rarity})\n";

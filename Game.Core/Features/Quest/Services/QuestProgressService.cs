@@ -1,7 +1,8 @@
 using Game.Core.Features.SaveLoad;
 using Serilog;
 
-namespace Game.Core.Features.Quest.Services;
+using Game.Shared.Models;
+namespace Game.Core.Features.Quests.Services;
 
 public class QuestProgressService
 {

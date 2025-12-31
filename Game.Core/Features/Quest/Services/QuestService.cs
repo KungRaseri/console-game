@@ -1,8 +1,8 @@
-using Game.Core.Models;
 using Game.Core.Features.SaveLoad;
 using Serilog;
 
-namespace Game.Core.Features.Quest.Services;
+using Game.Shared.Models;
+namespace Game.Core.Features.Quests.Services;
 
 public class QuestService
 {
@@ -15,7 +15,7 @@ public class QuestService
         _mainQuestService = mainQuestService;
     }
 
-    public async Task<(bool Success, Models.Quest? Quest, string ErrorMessage)> StartQuestAsync(string questId)
+    public async Task<(bool Success, Quest? Quest, string ErrorMessage)> StartQuestAsync(string questId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
@@ -52,7 +52,7 @@ public class QuestService
         return await Task.FromResult((true, quest, string.Empty));
     }
 
-    public async Task<(bool Success, Models.Quest? Quest, string ErrorMessage)> CompleteQuestAsync(string questId)
+    public async Task<(bool Success, Quest? Quest, string ErrorMessage)> CompleteQuestAsync(string questId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
@@ -84,19 +84,19 @@ public class QuestService
         return await Task.FromResult((true, quest, string.Empty));
     }
 
-    public async Task<List<Models.Quest>> GetActiveQuestsAsync()
+    public async Task<List<Quest>> GetActiveQuestsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
-        return await Task.FromResult(saveGame?.ActiveQuests ?? new List<Models.Quest>());
+        return await Task.FromResult(saveGame?.ActiveQuests ?? new List<Quest>());
     }
 
-    private async Task<Models.Quest?> GetQuestDefinitionAsync(string questId)
+    private async Task<Quest?> GetQuestDefinitionAsync(string questId)
     {
         // Get from main quest service or quest database
         return await _mainQuestService.GetQuestByIdAsync(questId);
     }
 
-    private bool CheckPrerequisites(Models.Quest quest, SaveGame saveGame)
+    private bool CheckPrerequisites(Quest quest, SaveGame saveGame)
     {
         return quest.Prerequisites.All(prereqId =>
             saveGame.CompletedQuests.Any(q => q.Id == prereqId));

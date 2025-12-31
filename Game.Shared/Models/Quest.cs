@@ -1,6 +1,6 @@
 using Game.Shared.Models;
 
-namespace Game.Core.Models;
+namespace Game.Shared.Models;
 
 /// <summary>
 /// Represents a quest that can be given to the player.

@@ -1,6 +1,6 @@
 using Game.Shared.Models;
 
-namespace Game.Core.Utilities;
+namespace Game.Shared.Utilities;
 
 /// <summary>
 /// Utility class for applying and querying traits on entities.

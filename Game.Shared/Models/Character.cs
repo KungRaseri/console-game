@@ -1,6 +1,6 @@
-using Game.Core.Utilities;
+using Game.Shared.Utilities;
 
-namespace Game.Core.Models;
+namespace Game.Shared.Models;
 
 /// <summary>
 /// Represents a player character in the game.

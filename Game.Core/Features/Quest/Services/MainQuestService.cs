@@ -1,18 +1,19 @@
-namespace Game.Core.Features.Quest.Services;
+namespace Game.Core.Features.Quests.Services;
+using Game.Shared.Models;
 
 /// <summary>
 /// Manages the main quest chain and quest definitions.
 /// </summary>
 public class MainQuestService
 {
-    private readonly List<Models.Quest> _allQuests;
+    private readonly List<Quest> _allQuests;
 
     public MainQuestService()
     {
         _allQuests = InitializeQuestDatabase();
     }
 
-    public async Task<List<Models.Quest>> GetMainQuestChainAsync()
+    public async Task<List<Quest>> GetMainQuestChainAsync()
     {
         return await Task.FromResult(
             _allQuests.Where(q => q.Type == "main")
@@ -21,17 +22,17 @@ public class MainQuestService
         );
     }
 
-    public virtual async Task<Models.Quest?> GetQuestByIdAsync(string questId)
+    public virtual async Task<Quest?> GetQuestByIdAsync(string questId)
     {
         return await Task.FromResult(_allQuests.FirstOrDefault(q => q.Id == questId));
     }
 
-    private List<Models.Quest> InitializeQuestDatabase()
+    private List<Quest> InitializeQuestDatabase()
     {
-        return new List<Models.Quest>
+        return new List<Quest>
         {
             // Main Quest 1: The Awakening
-            new Models.Quest
+            new Quest
             {
                 Id = "main_01_awakening",
                 Title = "The Awakening",
@@ -47,7 +48,7 @@ public class MainQuestService
             },
             
             // Main Quest 2: The First Trial
-            new Models.Quest
+            new Quest
             {
                 Id = "main_02_first_trial",
                 Title = "The First Trial",
@@ -63,7 +64,7 @@ public class MainQuestService
             },
             
             // Main Quest 3: Gathering Power
-            new Models.Quest
+            new Quest
             {
                 Id = "main_03_gathering_power",
                 Title = "Gathering Power",
@@ -79,7 +80,7 @@ public class MainQuestService
             },
             
             // Main Quest 4: The Dark Prophecy
-            new Models.Quest
+            new Quest
             {
                 Id = "main_04_dark_prophecy",
                 Title = "The Dark Prophecy",
@@ -95,7 +96,7 @@ public class MainQuestService
             },
             
             // Main Quest 5: Into the Abyss
-            new Models.Quest
+            new Quest
             {
                 Id = "main_05_into_abyss",
                 Title = "Into the Abyss",
@@ -119,7 +120,7 @@ public class MainQuestService
             },
             
             // Main Quest 6: The Final Confrontation
-            new Models.Quest
+            new Quest
             {
                 Id = "main_06_final_boss",
                 Title = "The Final Confrontation",

@@ -1,6 +1,6 @@
 using LiteDB;
-using Game.Core.Models;
-using Game.Core.Abstractions;
+using Game.Shared.Models;
+using Game.Shared.Abstractions;
 
 namespace Game.Data.Repositories;
 

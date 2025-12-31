@@ -1,4 +1,4 @@
-namespace Game.Core.Models;
+namespace Game.Shared.Models;
 
 /// <summary>
 /// Defines difficulty settings and modifiers for different game modes.

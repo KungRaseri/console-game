@@ -1,4 +1,4 @@
-namespace Game.Core.Models;
+namespace Game.Shared.Models;
 
 /// <summary>
 /// Represents the current state of the game.

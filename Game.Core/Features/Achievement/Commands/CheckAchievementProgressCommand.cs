@@ -1,10 +1,11 @@
 using MediatR;
 
-namespace Game.Core.Features.Achievement.Commands;
+using Game.Shared.Models;
+namespace Game.Core.Features.Achievements.Commands;
 
-public record CheckAchievementProgressCommand : IRequest<List<Models.Achievement>>;
+public record CheckAchievementProgressCommand : IRequest<List<Achievement>>;
 
-public class CheckAchievementProgressHandler : IRequestHandler<CheckAchievementProgressCommand, List<Models.Achievement>>
+public class CheckAchievementProgressHandler : IRequestHandler<CheckAchievementProgressCommand, List<Achievement>>
 {
     private readonly Services.AchievementService _achievementService;
 
@@ -13,7 +14,7 @@ public class CheckAchievementProgressHandler : IRequestHandler<CheckAchievementP
         _achievementService = achievementService;
     }
 
-    public async Task<List<Models.Achievement>> Handle(CheckAchievementProgressCommand request, CancellationToken cancellationToken)
+    public async Task<List<Achievement>> Handle(CheckAchievementProgressCommand request, CancellationToken cancellationToken)
     {
         return await _achievementService.CheckAllAchievementsAsync();
     }

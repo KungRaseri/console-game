@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Core.Models;
+namespace Game.Shared.Models;
 
 /// <summary>
 /// Event raised when a character is created.

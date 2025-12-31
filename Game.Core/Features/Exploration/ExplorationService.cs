@@ -1,8 +1,7 @@
-using Game.Core.Models;
-using Game.Core.Abstractions;
+using Game.Core.Abstractions;using Game.Shared.Models;
+using Game.Shared.Abstractions;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Features.Death.Queries;
-using Game.Core.Generators;
 using MediatR;
 
 using Game.Core.Services;
@@ -84,13 +83,13 @@ public class ExplorationService
         // Random chance to find an item (30% chance)
         if (Random.Shared.Next(100) < 30)
         {
-            var foundItem = ItemGenerator.Generate();
+            // TODO: Modernize - // TODO: Modernize - var foundItem = ItemGenerator.Generate();
 
-            player.Inventory.Add(foundItem);
-            await _mediator.Publish(new ItemAcquired(player.Name, foundItem.Name));
+            // TODO: Modernize - player.Inventory.Add(foundItem);
+            // TODO: Modernize - await _mediator.Publish(new ItemAcquired(player.Name, foundItem.Name));
 
-            var rarityColor = GetRarityColor(foundItem.Rarity);
-            _console.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
+            // TODO: Modernize - var rarityColor = GetRarityColor(foundItem.Rarity);
+            // TODO: Modernize - _console.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
         }
 
         return false; // No combat

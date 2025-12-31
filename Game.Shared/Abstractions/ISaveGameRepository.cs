@@ -1,6 +1,6 @@
-using Game.Core.Models;
+using Game.Shared.Models;
 
-namespace Game.Core.Abstractions;
+namespace Game.Shared.Abstractions;
 
 /// <summary>
 /// Repository interface for managing save game data.

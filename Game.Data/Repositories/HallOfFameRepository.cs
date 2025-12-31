@@ -1,5 +1,5 @@
-using Game.Core.Models;
-using Game.Core.Abstractions;
+using Game.Shared.Models;
+using Game.Shared.Abstractions;
 using LiteDB;
 using Serilog;
 

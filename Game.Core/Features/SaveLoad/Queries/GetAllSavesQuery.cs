@@ -1,4 +1,4 @@
-using Game.Core.Models;
+using Game.Shared.Models;
 using MediatR;
 
 namespace Game.Core.Features.SaveLoad.Queries;

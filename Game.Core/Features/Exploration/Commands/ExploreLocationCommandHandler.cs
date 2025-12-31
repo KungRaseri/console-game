@@ -1,6 +1,5 @@
-using Game.Core.Models;
-using Game.Core.Abstractions;
-using Game.Core.Generators;
+using Game.Core.Abstractions;using Game.Shared.Models;
+using Game.Shared.Abstractions;
 using MediatR;
 using Serilog;
 
@@ -69,14 +68,14 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
             // Random chance to find an item (30% chance)
             if (Random.Shared.Next(100) < 30)
             {
-                var foundItem = ItemGenerator.Generate();
+                // TODO: Modernize - // TODO: Modernize - var foundItem = ItemGenerator.Generate();
 
-                player.Inventory.Add(foundItem);
-                await _mediator.Publish(new ItemAcquired(player.Name, foundItem.Name), cancellationToken);
+                // TODO: Modernize - player.Inventory.Add(foundItem);
+                // TODO: Modernize - await _mediator.Publish(new ItemAcquired(player.Name, foundItem.Name), cancellationToken);
 
-                var rarityColor = GetRarityColor(foundItem.Rarity);
-                _console.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
-                itemFound = foundItem.Name;
+                // TODO: Modernize - var rarityColor = GetRarityColor(foundItem.Rarity);
+                // TODO: Modernize - _console.ShowSuccess($"Found: {rarityColor}{foundItem.Name} ({foundItem.Rarity})[/]!");
+        // TODO: Modernize - itemFound = foundItem.Name;
             }
 
             return new ExploreLocationResult(

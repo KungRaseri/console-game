@@ -1,4 +1,4 @@
-namespace Game.Core.Models;
+namespace Game.Shared.Models;
 
 /// <summary>
 /// Represents a combat action taken by a combatant.

@@ -1,4 +1,4 @@
-namespace Game.Core.Models;
+namespace Game.Shared.Models;
 
 /// <summary>
 /// Information about a pending level-up that needs player choices.

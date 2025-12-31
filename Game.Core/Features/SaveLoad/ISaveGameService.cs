@@ -1,5 +1,5 @@
-using Game.Core.Models;
-using QuestModel = Game.Core.Models.Quest;
+using QuestModel = Game.Shared.Models.Quest;
+using Game.Shared.Models;
 
 namespace Game.Core.Features.SaveLoad;
 
@@ -85,22 +85,22 @@ public interface ISaveGameService
     void RecordDeath();
 
     /// <summary>
-    /// Add a quest to available quests (offered but not accepted).
+    /// Add a QuestModel to available quests (offered but not accepted).
     /// </summary>
-    void AddAvailableQuest(QuestModel quest);
+    void AddAvailableQuest(QuestModel QuestModel);
 
     /// <summary>
-    /// Accept a quest and move it to active quests.
+    /// Accept a QuestModel and move it to active quests.
     /// </summary>
     void AcceptQuest(string questId);
 
     /// <summary>
-    /// Complete a quest and move it to completed quests.
+    /// Complete a QuestModel and move it to completed quests.
     /// </summary>
     void CompleteQuest(string questId);
 
     /// <summary>
-    /// Fail a quest and move it to failed quests.
+    /// Fail a QuestModel and move it to failed quests.
     /// </summary>
     void FailQuest(string questId, string reason = "Unknown");
 

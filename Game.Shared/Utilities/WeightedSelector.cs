@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Game.Core.Utilities;
+namespace Game.Shared.Utilities;
 
 /// <summary>
 /// Utility for selecting items based on rarity weights.

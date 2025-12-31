@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Core.Features.Quest.Commands;
+namespace Game.Core.Features.Quests.Commands;
 
 public record UpdateQuestProgressCommand(string QuestId, string ObjectiveId, int Amount) : IRequest<UpdateQuestProgressResult>;
 

@@ -1,10 +1,11 @@
 using MediatR;
 
-namespace Game.Core.Features.Quest.Commands;
+using Game.Shared.Models;
+namespace Game.Core.Features.Quests.Commands;
 
 public record StartQuestCommand(string QuestId) : IRequest<StartQuestResult>;
 
-public record StartQuestResult(bool Success, string Message, Models.Quest? Quest = null);
+public record StartQuestResult(bool Success, string Message, Quest? Quest = null);
 
 public class StartQuestHandler : IRequestHandler<StartQuestCommand, StartQuestResult>
 {

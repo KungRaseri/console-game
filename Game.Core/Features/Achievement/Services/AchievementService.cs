@@ -1,14 +1,13 @@
-using Game.Core.Models;
 using Game.Core.Features.SaveLoad;
-using Game.Core.Abstractions;
-using Serilog;
+using Game.Core.Abstractions;using Serilog;
 
-namespace Game.Core.Features.Achievement.Services;
+using Game.Shared.Models;
+namespace Game.Core.Features.Achievements.Services;
 
 public class AchievementService
 {
     private readonly SaveGameService _saveGameService;
-    private readonly List<Models.Achievement> _allAchievements;
+    private readonly List<Achievement> _allAchievements;
     private readonly IGameUI _console;
 
     public AchievementService(SaveGameService saveGameService, IGameUI console)
@@ -18,7 +17,7 @@ public class AchievementService
         _allAchievements = InitializeAchievements();
     }
 
-    public async Task<Models.Achievement?> UnlockAchievementAsync(string achievementId)
+    public async Task<Achievement?> UnlockAchievementAsync(string achievementId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
@@ -47,13 +46,13 @@ public class AchievementService
         return await Task.FromResult(achievement);
     }
 
-    public async Task<List<Models.Achievement>> CheckAllAchievementsAsync()
+    public async Task<List<Achievement>> CheckAllAchievementsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
-            return new List<Models.Achievement>();
+            return new List<Achievement>();
 
-        var newlyUnlocked = new List<Models.Achievement>();
+        var newlyUnlocked = new List<Achievement>();
 
         foreach (var achievement in _allAchievements)
         {
@@ -73,11 +72,11 @@ public class AchievementService
         return newlyUnlocked;
     }
 
-    public async Task<List<Models.Achievement>> GetUnlockedAchievementsAsync()
+    public async Task<List<Achievement>> GetUnlockedAchievementsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
-            return new List<Models.Achievement>();
+            return new List<Achievement>();
 
         var unlockedIds = saveGame.UnlockedAchievements;
         var unlocked = _allAchievements.Where(a => unlockedIds.Contains(a.Id)).ToList();
@@ -90,7 +89,7 @@ public class AchievementService
         return await Task.FromResult(unlocked);
     }
 
-    private bool CheckCriteria(Models.Achievement achievement, SaveGame saveGame)
+    private bool CheckCriteria(Achievement achievement, SaveGame saveGame)
     {
         return achievement.Criteria.Type switch
         {
@@ -107,7 +106,7 @@ public class AchievementService
         };
     }
 
-    private void ShowAchievementUnlock(Models.Achievement achievement)
+    private void ShowAchievementUnlock(Achievement achievement)
     {
         _console.Clear();
         _console.ShowSuccess("═══════════════════════════════════════");
@@ -120,11 +119,11 @@ public class AchievementService
         Thread.Sleep(3000);
     }
 
-    private List<Models.Achievement> InitializeAchievements()
+    private List<Achievement> InitializeAchievements()
     {
-        return new List<Models.Achievement>
+        return new List<Achievement>
         {
-            new Models.Achievement
+            new Achievement
             {
                 Id = "first_steps",
                 Title = "First Steps",
@@ -134,7 +133,7 @@ public class AchievementService
                 Points = 10,
                 Criteria = new AchievementCriteria { Type = AchievementType.CompleteQuest, RequiredValue = 1 }
             },
-            new Models.Achievement
+            new Achievement
             {
                 Id = "slayer",
                 Title = "Slayer",
@@ -144,7 +143,7 @@ public class AchievementService
                 Points = 25,
                 Criteria = new AchievementCriteria { Type = AchievementType.DefeatEnemies, RequiredValue = 100 }
             },
-            new Models.Achievement
+            new Achievement
             {
                 Id = "master",
                 Title = "Master",
@@ -154,7 +153,7 @@ public class AchievementService
                 Points = 50,
                 Criteria = new AchievementCriteria { Type = AchievementType.ReachLevel, RequiredValue = 20 }
             },
-            new Models.Achievement
+            new Achievement
             {
                 Id = "savior",
                 Title = "Savior of the World",
@@ -164,7 +163,7 @@ public class AchievementService
                 Points = 100,
                 Criteria = new AchievementCriteria { Type = AchievementType.CompleteGame, RequiredValue = 1 }
             },
-            new Models.Achievement
+            new Achievement
             {
                 Id = "apocalypse_survivor",
                 Title = "Apocalypse Survivor",
@@ -175,7 +174,7 @@ public class AchievementService
                 IsSecret = true,
                 Criteria = new AchievementCriteria { Type = AchievementType.CompleteDifficulty, RequiredId = "Apocalypse" }
             },
-            new Models.Achievement
+            new Achievement
             {
                 Id = "deathless",
                 Title = "Deathless",

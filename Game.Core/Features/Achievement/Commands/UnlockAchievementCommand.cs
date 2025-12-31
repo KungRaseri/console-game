@@ -1,10 +1,11 @@
 using MediatR;
 
-namespace Game.Core.Features.Achievement.Commands;
+using Game.Shared.Models;
+namespace Game.Core.Features.Achievements.Commands;
 
 public record UnlockAchievementCommand(string AchievementId) : IRequest<UnlockAchievementResult>;
 
-public record UnlockAchievementResult(bool Success, Models.Achievement? Achievement = null);
+public record UnlockAchievementResult(bool Success, Achievement? Achievement = null);
 
 public class UnlockAchievementHandler : IRequestHandler<UnlockAchievementCommand, UnlockAchievementResult>
 {

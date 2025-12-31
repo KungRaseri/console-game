@@ -1,4 +1,4 @@
-using Game.Core.Models;
+using Game.Shared.Models;
 using Game.Core.Features.SaveLoad;
 using Microsoft.Extensions.Logging;
 

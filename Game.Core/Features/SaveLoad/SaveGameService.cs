@@ -1,7 +1,7 @@
-using Game.Core.Models;
+using QuestModel = Game.Shared.Models.Quest;
+using Game.Shared.Models;
 using Serilog;
-using QuestModel = Game.Core.Models.Quest;
-using Game.Core.Abstractions;
+using Game.Shared.Abstractions;
 using Game.Core.Services;
 
 namespace Game.Core.Features.SaveLoad;
@@ -287,22 +287,22 @@ public class SaveGameService : ISaveGameService, IDisposable
         }
     }
 
-    // === Quest Management ===
+    // === QuestModel Management ===
 
     /// <summary>
-    /// Add a quest to available quests (offered but not accepted).
+    /// Add a QuestModel to available quests (offered but not accepted).
     /// </summary>
     public void AddAvailableQuest(QuestModel quest)
     {
         if (_currentSave != null && !_currentSave.AvailableQuests.Any(q => q.Id == quest.Id))
         {
             _currentSave.AvailableQuests.Add(quest);
-            Log.Information("Quest '{QuestTitle}' added to available quests", quest.Title);
+            Log.Information("QuestModel '{QuestTitle}' added to available quests", quest.Title);
         }
     }
 
     /// <summary>
-    /// Accept a quest (move from available to active).
+    /// Accept a QuestModel (move from available to active).
     /// </summary>
     public void AcceptQuest(string questId)
     {
@@ -315,12 +315,12 @@ public class SaveGameService : ISaveGameService, IDisposable
             quest.IsActive = true;
             quest.StartTime = DateTime.Now;
             _currentSave.ActiveQuests.Add(quest);
-            Log.Information("Quest '{QuestTitle}' accepted and started", quest.Title);
+            Log.Information("QuestModel '{QuestTitle}' accepted and started", quest.Title);
         }
     }
 
     /// <summary>
-    /// Complete a quest (move from active to completed).
+    /// Complete a QuestModel (move from active to completed).
     /// </summary>
     public void CompleteQuest(string questId)
     {
@@ -334,7 +334,7 @@ public class SaveGameService : ISaveGameService, IDisposable
             quest.IsActive = false;
             _currentSave.CompletedQuests.Add(quest);
             _currentSave.QuestsCompleted++;
-            Log.Information("Quest '{QuestTitle}' completed!", quest.Title);
+            Log.Information("QuestModel '{QuestTitle}' completed!", quest.Title);
 
             // Award bonus time in Apocalypse mode
             if (_currentSave.ApocalypseMode)
@@ -357,7 +357,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     }
 
     /// <summary>
-    /// Fail a quest (move from active to failed).
+    /// Fail a QuestModel (move from active to failed).
     /// </summary>
     public void FailQuest(string questId, string reason = "Unknown")
     {
@@ -370,12 +370,12 @@ public class SaveGameService : ISaveGameService, IDisposable
             quest.IsActive = false;
             _currentSave.FailedQuests.Add(quest);
             _currentSave.QuestsFailed++;
-            Log.Warning("Quest '{QuestTitle}' failed: {Reason}", quest.Title, reason);
+            Log.Warning("QuestModel '{QuestTitle}' failed: {Reason}", quest.Title, reason);
         }
     }
 
     /// <summary>
-    /// Update quest progress.
+    /// Update QuestModel progress.
     /// </summary>
     public void UpdateQuestProgress(string questId, int progress)
     {

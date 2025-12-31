@@ -1,4 +1,4 @@
-namespace Game.Core.Abstractions;
+using Game.Core.Abstractions;namespace Game.Core.Abstractions;
 
 /// <summary>
 /// Abstraction for game UI operations. Implementations can be console, web, mobile, etc.

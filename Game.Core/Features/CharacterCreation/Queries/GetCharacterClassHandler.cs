@@ -1,4 +1,4 @@
-using Game.Core.Abstractions;
+using Game.Shared.Abstractions;
 using MediatR;
 
 namespace Game.Core.Features.CharacterCreation.Queries;

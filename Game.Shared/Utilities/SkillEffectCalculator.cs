@@ -1,6 +1,6 @@
-using Game.Core.Models;
+using Game.Shared.Models;
 
-namespace Game.Core.Utilities;
+namespace Game.Shared.Utilities;
 
 /// <summary>
 /// Utility class for calculating skill effects and bonuses.
