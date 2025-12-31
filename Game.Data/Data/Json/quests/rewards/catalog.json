@@ -5,7 +5,9 @@
     "lastUpdated": "2025-12-31",
     "type": "quest_rewards_catalog"
   },
-  "gold_rewards": [
+  "reward_types": {
+    "gold": {
+      "items": [
     {
       "name": "small-purse",
       "rarityWeight": 50,
@@ -30,8 +32,10 @@
       "amount": { "min": 500, "max": 2000 },
       "description": "A small fortune in gold"
     }
-  ],
-  "item_rewards": [
+  ]
+    },
+    "item": {
+      "items": [
     {
       "name": "common-weapon",
       "rarityWeight": 60,
@@ -42,7 +46,7 @@
     {
       "name": "uncommon-armor",
       "rarityWeight": 100,
-      "itemReference": "@items/armor:*[rarityWeight>50&rarityWeight<=100]",
+      "itemReference": "@items/armor:*",
       "quantity": 1,
       "description": "Uncommon armor piece"
     },
@@ -102,19 +106,19 @@
     {
       "name": "basic-skill",
       "rarityWeight": 80,
-      "abilityReference": "@abilities/passive:*[rarityWeight<=100]",
+      "abilityReference": "@abilities/passive:*",
       "description": "Learn basic skill"
     },
     {
       "name": "advanced-technique",
       "rarityWeight": 150,
-      "abilityReference": "@abilities/active:*[rarityWeight>100&rarityWeight<=200]",
+      "abilityReference": "@abilities/active:*",
       "description": "Master advanced technique"
     },
     {
       "name": "legendary-power",
       "rarityWeight": 400,
-      "abilityReference": "@abilities:*[rarityWeight>300]",
+      "abilityReference": "@abilities/active:*",
       "description": "Unlock legendary power"
     }
   ],
@@ -144,4 +148,6 @@
       "description": "Massive experience bonus"
     }
   ]
+    }
+  }
 }

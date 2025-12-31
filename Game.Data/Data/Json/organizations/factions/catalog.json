@@ -56,7 +56,7 @@
           "reputation": "neutral",
           "description": "Association of skilled artisans and tradespeople",
           "memberTypes": [
-            "@npcs/craftsmen"
+            "@npcs/craftsmen:*"
           ],
           "allies": [
             "merchants_guild",
@@ -96,7 +96,7 @@
           "reputation": "criminal",
           "description": "Underground network of criminals and outlaws",
           "memberTypes": [
-            "@npcs/criminal"
+            "@npcs/criminal:*"
           ],
           "allies": [],
           "enemies": [
@@ -134,7 +134,7 @@
           "reputation": "lawful",
           "description": "Law enforcement and military protection",
           "memberTypes": [
-            "@npcs/military"
+            "@npcs/military:*"
           ],
           "allies": [
             "nobility",
@@ -175,7 +175,7 @@
           "reputation": "neutral",
           "description": "Organization of arcane practitioners",
           "memberTypes": [
-            "@npcs/magical"
+            "@npcs/magical:*"
           ],
           "allies": [
             "scholars_guild"
@@ -254,7 +254,7 @@
           "reputation": "lawful_good",
           "description": "Religious organization serving divine powers",
           "memberTypes": [
-            "@npcs/religious"
+            "@npcs/religious:*"
           ],
           "allies": [
             "city_guard",
@@ -291,8 +291,8 @@
           "reputation": "neutral",
           "description": "Everyday citizens and laborers",
           "memberTypes": [
-            "@npcs/common",
-            "@npcs/service"
+            "@npcs/common:*",
+            "@npcs/service:*"
           ],
           "allies": [
             "craftsmen_guild"
@@ -328,7 +328,7 @@
           "reputation": "lawful_neutral",
           "description": "Aristocratic ruling class",
           "memberTypes": [
-            "@npcs/noble"
+            "@npcs/noble:*"
           ],
           "allies": [
             "city_guard",

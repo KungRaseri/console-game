@@ -5,7 +5,9 @@
     "lastUpdated": "2025-12-31",
     "type": "quest_objectives_catalog"
   },
-  "kill_objectives": [
+  "objective_types": {
+    "kill": {
+      "items": [
     {
       "name": "goblin-extermination",
       "rarityWeight": 30,
@@ -80,8 +82,10 @@
       "description": "Find and return lost belongings",
       "locationHint": "various"
     }
-  ],
-  "escort_objectives": [
+  ]
+    },
+    "fetch": {
+      "items": [
     {
       "name": "merchant-escort",
       "rarityWeight": 50,
@@ -165,4 +169,6 @@
       "description": "Deliver urgent war dispatch"
     }
   ]
+    }
+  }
 }

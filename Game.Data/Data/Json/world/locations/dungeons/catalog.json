@@ -22,7 +22,7 @@
           ],
           "rewards": [
             "@items/weapons:*",
-            "@items/consumables/common"
+            "@items/consumables:*"
           ]
         },
         {
@@ -39,7 +39,7 @@
           ],
           "rewards": [
             "@items/weapons:*",
-            "@items/consumables/common"
+            "@items/consumables:*"
           ]
         },
         {
@@ -56,7 +56,7 @@
           ],
           "rewards": [
             "@items/materials:*",
-            "@items/consumables/common"
+            "@items/consumables:*"
           ]
         }
       ]
@@ -80,7 +80,7 @@
           "rewards": [
             "@items/weapons:*",
             "@items/armor:*",
-            "@items/consumables/uncommon"
+            "@items/consumables:*"
           ]
         },
         {
@@ -99,7 +99,7 @@
           "rewards": [
             "@items/weapons:*",
             "@items/armor:*",
-            "@items/accessories/uncommon"
+            "@items/accessories:*"
           ]
         },
         {
@@ -117,7 +117,7 @@
           ],
           "rewards": [
             "@items/materials:*",
-            "@items/consumables/uncommon"
+            "@items/consumables:*"
           ]
         },
         {
@@ -135,7 +135,7 @@
           ],
           "rewards": [
             "@items/materials:*",
-            "@items/consumables/uncommon"
+            "@items/consumables:*"
           ]
         },
         {
@@ -171,7 +171,7 @@
           ],
           "rewards": [
             "@items/materials:*",
-            "@items/consumables/uncommon"
+            "@items/consumables:*"
           ]
         }
       ]
@@ -196,7 +196,7 @@
           "rewards": [
             "@items/weapons:*",
             "@items/accessories:*",
-            "@items/consumables/rare"
+            "@items/consumables:*"
           ]
         },
         {
@@ -213,7 +213,7 @@
           ],
           "rewards": [
             "@items/weapons:*",
-            "@items/armor/rare"
+            "@items/armor:*"
           ]
         },
         {
@@ -230,7 +230,7 @@
           ],
           "rewards": [
             "@items/weapons:*",
-            "@items/armor/rare"
+            "@items/armor:*"
           ]
         }
       ]
@@ -272,7 +272,7 @@
           ],
           "rewards": [
             "@items/weapons:*",
-            "@items/accessories/epic"
+            "@items/accessories:*"
           ]
         },
         {
@@ -290,7 +290,7 @@
           "rewards": [
             "@items/weapons:*",
             "@items/armor:*",
-            "@items/accessories/epic"
+            "@items/accessories:*"
           ]
         }
       ]
@@ -313,7 +313,7 @@
           ],
           "rewards": [
             "@items/weapons:*",
-            "@items/armor/legendary"
+            "@items/armor:*"
           ]
         },
         {
@@ -330,7 +330,7 @@
           ],
           "rewards": [
             "@items/weapons:*",
-            "@items/accessories/legendary"
+            "@items/accessories:*"
           ]
         }
       ]
@@ -355,8 +355,8 @@
           ],
           "rewards": [
             "@items/weapons:*",
-            "@items/armor/legendary",
-            "@items/accessories/legendary"
+            "@items/armor:*",
+            "@items/accessories:*"
           ]
         }
       ]

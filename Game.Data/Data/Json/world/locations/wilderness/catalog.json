@@ -22,7 +22,7 @@
             "@enemies/humanoid:bandit"
           ],
           "resources": [
-            "@items/materials:*:common"
+            "@items/materials:*"
           ]
         },
         {
@@ -39,8 +39,8 @@
             "@enemies/goblinoids:*"
           ],
           "resources": [
-            "@items/materials:*:common",
-            "@items/materials:*:common"
+            "@items/materials:*",
+            "@items/materials:*"
           ]
         },
         {
@@ -81,7 +81,7 @@
             "@enemies/undead:*"
           ],
           "resources": [
-            "@items/materials:*:uncommon",
+            "@items/materials:*",
             "@items/materials:*"
           ]
         },
@@ -154,7 +154,7 @@
             "@enemies/undead:*"
           ],
           "resources": [
-            "@items/materials:*:rare",
+            "@items/materials:*",
             "@items/materials:enchanted-wood"
           ]
         }
@@ -179,7 +179,7 @@
             "@enemies/elementals:*"
           ],
           "resources": [
-            "@items/materials:*:rare",
+            "@items/materials:*",
             "@items/materials:gems"
           ]
         },
@@ -218,7 +218,7 @@
           ],
           "resources": [
             "@items/materials:poison-gland",
-            "@items/materials:*:rare"
+            "@items/materials:*"
           ]
         },
         {
@@ -270,7 +270,7 @@
             "@enemies/humanoids:*"
           ],
           "resources": [
-            "@items/materials:*:exotic",
+            "@items/materials:*",
             "@items/materials:monster-parts"
           ]
         },

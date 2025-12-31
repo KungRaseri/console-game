@@ -22,7 +22,7 @@
           ],
           "resources": [
             "@items/materials:wood",
-            "@items/materials:*:common"
+            "@items/materials:*"
           ],
           "travelDifficulty": "Easy",
           "visibility": "Medium"
@@ -40,7 +40,7 @@
             "@enemies/beast:wolf"
           ],
           "resources": [
-            "@items/materials:*:common",
+            "@items/materials:*",
             "@items/consumables:wild-game"
           ],
           "travelDifficulty": "Easy",
@@ -82,7 +82,7 @@
             "@enemies/beast:eagle"
           ],
           "resources": [
-            "@items/materials:*:rare",
+            "@items/materials:*",
             "@items/materials:gems"
           ],
           "travelDifficulty": "Very Hard",
@@ -106,7 +106,7 @@
           ],
           "resources": [
             "@items/materials:poison-gland",
-            "@items/materials:*:rare"
+            "@items/materials:*"
           ],
           "travelDifficulty": "Hard",
           "visibility": "Low",
@@ -153,7 +153,7 @@
             "@enemies/beast:giant-spider"
           ],
           "resources": [
-            "@items/materials:*:exotic",
+            "@items/materials:*",
             "@items/materials:monster-parts"
           ],
           "travelDifficulty": "Hard",

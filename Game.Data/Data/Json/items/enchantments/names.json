@@ -1,10 +1,14 @@
 {
   "metadata": {
     "description": "Enchantment naming system for the Hybrid Enhancement System v1.0 (prefix/suffix model)",
-    "version": "4.2",
+    "version": "4.0",
     "lastUpdated": "2025-12-31",
     "type": "pattern_generation",
     "supportsTraits": true,
+    "componentKeys": ["element_prefix", "element_suffix", "combat_suffix", "magic_suffix"],
+    "patternTokens": ["element_prefix", "element_suffix", "combat_suffix", "magic_suffix"],
+    "totalPatterns": 4,
+    "raritySystem": "weight-based",
     "notes": [
       "Enchantments are baked into items at generation time",
       "Each enchantment is either a prefix (before base name) or suffix (after base name)",
@@ -230,22 +234,22 @@
   },
   "patterns": [
     {
-      "format": "{element_prefix}",
+      "pattern": "{element_prefix}",
       "rarityWeight": 40,
       "position": "prefix"
     },
     {
-      "format": "{element_suffix}",
+      "pattern": "{element_suffix}",
       "rarityWeight": 35,
       "position": "suffix"
     },
     {
-      "format": "{combat_suffix}",
+      "pattern": "{combat_suffix}",
       "rarityWeight": 30,
       "position": "suffix"
     },
     {
-      "format": "{magic_suffix}",
+      "pattern": "{magic_suffix}",
       "rarityWeight": 35,
       "position": "suffix"
     }

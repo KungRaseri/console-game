@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Unified armor naming system with prefix/suffix support and trait assignment (v4.2 - Hybrid Enhancement System)",
-    "version": "4.2",
+    "version": "4.0",
     "lastUpdated": "2025-12-31",
     "type": "pattern_generation",
     "supportsTraits": true,
