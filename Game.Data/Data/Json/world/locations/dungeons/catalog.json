@@ -21,7 +21,7 @@
             "@enemies/humanoid:bandit"
           ],
           "rewards": [
-            "@items/weapons/common",
+            "@items/weapons:*",
             "@items/consumables/common"
           ]
         },
@@ -35,10 +35,10 @@
           "locationType": "dungeon",
           "recommendedLevel": "1-5",
           "enemyTypes": [
-            "@enemies/goblinoid"
+            "@enemies/goblinoids:*"
           ],
           "rewards": [
-            "@items/weapons/common",
+            "@items/weapons:*",
             "@items/consumables/common"
           ]
         },
@@ -55,7 +55,7 @@
             "@enemies/beast:giant-spider"
           ],
           "rewards": [
-            "@items/materials/monster-parts",
+            "@items/materials:*",
             "@items/consumables/common"
           ]
         }
@@ -75,11 +75,11 @@
           "locationType": "dungeon",
           "recommendedLevel": "6-12",
           "enemyTypes": [
-            "@enemies/undead"
+            "@enemies/undead:*"
           ],
           "rewards": [
-            "@items/weapons/uncommon",
-            "@items/armor/uncommon",
+            "@items/weapons:*",
+            "@items/armor:*",
             "@items/consumables/uncommon"
           ]
         },
@@ -93,12 +93,12 @@
           "locationType": "dungeon",
           "recommendedLevel": "7-13",
           "enemyTypes": [
-            "@enemies/undead",
-            "@enemies/demon"
+            "@enemies/undead:*",
+            "@enemies/demons:*"
           ],
           "rewards": [
-            "@items/weapons/uncommon",
-            "@items/armor/uncommon",
+            "@items/weapons:*",
+            "@items/armor:*",
             "@items/accessories/uncommon"
           ]
         },
@@ -112,11 +112,11 @@
           "locationType": "dungeon",
           "recommendedLevel": "6-12",
           "enemyTypes": [
-            "@enemies/beast",
+            "@enemies/beasts:*",
             "@enemies/humanoid:troll"
           ],
           "rewards": [
-            "@items/materials/ice-shard",
+            "@items/materials:*",
             "@items/consumables/uncommon"
           ]
         },
@@ -130,11 +130,11 @@
           "locationType": "dungeon",
           "recommendedLevel": "6-11",
           "enemyTypes": [
-            "@enemies/beast",
+            "@enemies/beasts:*",
             "@enemies/beast:giant-spider"
           ],
           "rewards": [
-            "@items/materials/poison-gland",
+            "@items/materials:*",
             "@items/consumables/uncommon"
           ]
         },
@@ -148,12 +148,12 @@
           "locationType": "dungeon",
           "recommendedLevel": "5-10",
           "enemyTypes": [
-            "@enemies/goblinoid",
+            "@enemies/goblinoids:*",
             "@enemies/humanoid:troll"
           ],
           "rewards": [
-            "@items/materials/metals",
-            "@items/weapons/uncommon"
+            "@items/materials:*",
+            "@items/weapons:*"
           ]
         },
         {
@@ -166,11 +166,11 @@
           "locationType": "dungeon",
           "recommendedLevel": "7-12",
           "enemyTypes": [
-            "@enemies/beast",
-            "@enemies/elemental"
+            "@enemies/beasts:*",
+            "@enemies/elementals:*"
           ],
           "rewards": [
-            "@items/materials/herbs",
+            "@items/materials:*",
             "@items/consumables/uncommon"
           ]
         }
@@ -190,12 +190,12 @@
           "locationType": "dungeon",
           "recommendedLevel": "13-18",
           "enemyTypes": [
-            "@enemies/elemental",
-            "@enemies/demon"
+            "@enemies/elementals:*",
+            "@enemies/demons:*"
           ],
           "rewards": [
-            "@items/weapons/rare",
-            "@items/accessories/rare",
+            "@items/weapons:*",
+            "@items/accessories:*",
             "@items/consumables/rare"
           ]
         },
@@ -209,10 +209,10 @@
           "locationType": "dungeon",
           "recommendedLevel": "13-17",
           "enemyTypes": [
-            "@enemies/undead"
+            "@enemies/undead:*"
           ],
           "rewards": [
-            "@items/weapons/rare",
+            "@items/weapons:*",
             "@items/armor/rare"
           ]
         },
@@ -229,7 +229,7 @@
             "@enemies/humanoid:orc"
           ],
           "rewards": [
-            "@items/weapons/rare",
+            "@items/weapons:*",
             "@items/armor/rare"
           ]
         }
@@ -249,13 +249,13 @@
           "locationType": "dungeon",
           "recommendedLevel": "19-25",
           "enemyTypes": [
-            "@enemies/dragon",
-            "@enemies/elemental"
+            "@enemies/dragons:*",
+            "@enemies/elementals:*"
           ],
           "rewards": [
-            "@items/weapons/epic",
-            "@items/armor/epic",
-            "@items/materials/dragon-scale"
+            "@items/weapons:*",
+            "@items/armor:*",
+            "@items/materials:*"
           ]
         },
         {
@@ -268,10 +268,10 @@
           "locationType": "dungeon",
           "recommendedLevel": "18-24",
           "enemyTypes": [
-            "@enemies/undead"
+            "@enemies/undead:*"
           ],
           "rewards": [
-            "@items/weapons/epic",
+            "@items/weapons:*",
             "@items/accessories/epic"
           ]
         },
@@ -288,8 +288,8 @@
             "@enemies/undead:vampire"
           ],
           "rewards": [
-            "@items/weapons/epic",
-            "@items/armor/epic",
+            "@items/weapons:*",
+            "@items/armor:*",
             "@items/accessories/epic"
           ]
         }
@@ -309,10 +309,10 @@
           "locationType": "dungeon",
           "recommendedLevel": "27-35",
           "enemyTypes": [
-            "@enemies/demon"
+            "@enemies/demons:*"
           ],
           "rewards": [
-            "@items/weapons/legendary",
+            "@items/weapons:*",
             "@items/armor/legendary"
           ]
         },
@@ -326,10 +326,10 @@
           "locationType": "dungeon",
           "recommendedLevel": "28-36",
           "enemyTypes": [
-            "@enemies/elemental"
+            "@enemies/elementals:*"
           ],
           "rewards": [
-            "@items/weapons/legendary",
+            "@items/weapons:*",
             "@items/accessories/legendary"
           ]
         }
@@ -349,12 +349,12 @@
           "locationType": "dungeon",
           "recommendedLevel": "37-50",
           "enemyTypes": [
-            "@enemies/undead",
-            "@enemies/demon",
-            "@enemies/dragon"
+            "@enemies/undead:*",
+            "@enemies/demons:*",
+            "@enemies/dragons:*"
           ],
           "rewards": [
-            "@items/weapons/legendary",
+            "@items/weapons:*",
             "@items/armor/legendary",
             "@items/accessories/legendary"
           ]

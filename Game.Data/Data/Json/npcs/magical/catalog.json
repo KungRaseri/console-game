@@ -64,7 +64,7 @@
             "@dialogue/farewells:scholarly"
           ],
           "faction": "mages_circle",
-          "schedule": "@schedules:mage"
+          "schedule": "@social/schedules:mage"
         },
         {
           "name": "HedgeWizard",
@@ -107,7 +107,7 @@
             "@dialogue/farewells:mysterious"
           ],
           "faction": "independent",
-          "schedule": "@schedules:mage"
+          "schedule": "@social/schedules:mage"
         }
       ]
     }

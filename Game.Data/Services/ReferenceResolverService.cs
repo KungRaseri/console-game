@@ -10,7 +10,8 @@ namespace Game.Data.Services;
 public class ReferenceResolverService
 {
     private readonly GameDataCache _dataCache;
-    private static readonly Regex ReferencePattern = new(@"^@(?<domain>[\w-]+)/(?<path>[\w-]+(/[\w-]+)*):(?<item>[\w-*\s]+)(?<optional>\?)?(?<property>\.[\w.]+)?$", RegexOptions.Compiled);
+    private static readonly Regex ReferencePattern = new(@"^@(?<domain>[\w-]+)/(?<path>[\w-]+(/[\w-]+)*):(?<item>[\w-*\s]+)(?<filters>\[[^\]]+\])?(?<optional>\?)?(?<property>\.[\w.]+)?$", RegexOptions.Compiled);
+    private readonly Random _random = new();
 
     public ReferenceResolverService(GameDataCache dataCache)
     {
@@ -56,7 +57,21 @@ public class ReferenceResolverService
 
             var catalog = catalogFile.JsonData;
 
-            // Find the item
+            // Handle wildcard - return array of items
+            if (components.ItemName == "*")
+            {
+                var items = GetAllItemsInCategory(catalog, components.Category);
+                
+                // Apply filters if specified
+                if (!string.IsNullOrEmpty(components.Filters))
+                {
+                    items = ApplyFilters(items, components.Filters);
+                }
+                
+                return items;
+            }
+            
+            // Find specific item
             var item = FindItemInCatalog(catalog, components.Category, components.ItemName);
             
             if (item == null)
@@ -123,6 +138,7 @@ public class ReferenceResolverService
             Path = path,
             Category = category,
             ItemName = match.Groups["item"].Value,
+            Filters = match.Groups["filters"].Success ? match.Groups["filters"].Value.Trim('[', ']') : null,
             IsOptional = match.Groups["optional"].Success,
             Property = match.Groups["property"].Success ? match.Groups["property"].Value.TrimStart('.') : null
         };
@@ -189,6 +205,147 @@ public class ReferenceResolverService
 
         return current;
     }
+
+    /// <summary>
+    /// Gets all items in a category
+    /// </summary>
+    private JArray GetAllItemsInCategory(JToken catalog, string? category)
+    {
+        var result = new JArray();
+        
+        if (string.IsNullOrEmpty(category))
+        {
+            var rootItems = catalog["items"] as JArray;
+            if (rootItems != null)
+            {
+                foreach (var item in rootItems)
+                    result.Add(item);
+            }
+            return result;
+        }
+
+        // Try *_types structure (ability_types.offensive.items, etc.)
+        foreach (var property in catalog.Children<JProperty>())
+        {
+            if (property.Name != "metadata" && property.Name.EndsWith("_types") && property.Value is JObject typesObj)
+            {
+                var categoryData = typesObj[category];
+                if (categoryData != null)
+                {
+                    var items = categoryData["items"] as JArray;
+                    if (items != null)
+                    {
+                        foreach (var item in items)
+                            result.Add(item);
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Applies filters to items array
+    /// Format: property=value or property.nested=value or property EXISTS
+    /// Special: property=true checks if property exists and is truthy (object/array/true)
+    /// </summary>
+    private JArray ApplyFilters(JArray items, string filters)
+    {
+        var result = new JArray();
+        
+        // Split multiple filters by & or comma
+        var filterParts = filters.Split(new[] { '&', ',' }, StringSplitOptions.RemoveEmptyEntries);
+        
+        foreach (var item in items)
+        {
+            bool matchesAll = true;
+            
+            foreach (var filter in filterParts)
+            {
+                var trimmedFilter = filter.Trim();
+                
+                // Check for EXISTS operator (no = sign)
+                var equalIndex = trimmedFilter.IndexOf('=');
+                
+                if (equalIndex < 0)
+                {
+                    // No = sign means check if property exists and is not null/empty
+                    var actualValue = GetNestedProperty(item, trimmedFilter);
+                    if (actualValue == null || actualValue.Type == JTokenType.Null)
+                    {
+                        matchesAll = false;
+                        break;
+                    }
+                    continue;
+                }
+                
+                var propertyPath = trimmedFilter.Substring(0, equalIndex).Trim();
+                var expectedValue = trimmedFilter.Substring(equalIndex + 1).Trim();
+                
+                var actualValue2 = GetNestedProperty(item, propertyPath);
+                
+                // Handle "property=true" as an existence check
+                // If expecting true and property is an object/array, treat as exists check
+                if (expectedValue.ToLower() == "true")
+                {
+                    if (actualValue2 == null || actualValue2.Type == JTokenType.Null)
+                    {
+                        matchesAll = false;
+                        break;
+                    }
+                    // If it's a boolean, check the actual value
+                    if (actualValue2.Type == JTokenType.Boolean)
+                    {
+                        if (!actualValue2.Value<bool>())
+                        {
+                            matchesAll = false;
+                            break;
+                        }
+                    }
+                    // Otherwise, any non-null value (object, array, etc.) is considered "true"
+                    continue;
+                }
+                
+                // Compare values
+                if (actualValue2 == null)
+                {
+                    matchesAll = false;
+                    break;
+                }
+                
+                var actualString = actualValue2.ToString();
+                
+                // Handle boolean comparisons for =false
+                if (expectedValue.ToLower() == "false")
+                {
+                    if (actualValue2.Type == JTokenType.Boolean)
+                    {
+                        if (actualValue2.Value<bool>())
+                        {
+                            matchesAll = false;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        matchesAll = false;
+                        break;
+                    }
+                }
+                else if (actualString != expectedValue)
+                {
+                    matchesAll = false;
+                    break;
+                }
+            }
+            
+            if (matchesAll)
+                result.Add(item);
+        }
+        
+        return result;
+    }
 }
 
 /// <summary>
@@ -200,6 +357,7 @@ internal class ReferenceComponents
     public string Path { get; set; } = string.Empty;
     public string Category { get; set; } = string.Empty;
     public string ItemName { get; set; } = string.Empty;
+    public string? Filters { get; set; }
     public bool IsOptional { get; set; }
     public string? Property { get; set; }
 }

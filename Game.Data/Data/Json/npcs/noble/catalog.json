@@ -68,7 +68,7 @@
             "@dialogue/farewells:noble"
           ],
           "faction": "nobility",
-          "schedule": "@schedules:noble"
+          "schedule": "@social/schedules:noble"
         },
         {
           "name": "KnightErrant",
@@ -112,7 +112,7 @@
             "@dialogue/farewells:noble"
           ],
           "faction": "nobility",
-          "schedule": "@schedules:noble"
+          "schedule": "@social/schedules:noble"
         },
         {
           "name": "CourtAttendant",
@@ -155,7 +155,7 @@
             "@dialogue/farewells:noble"
           ],
           "faction": "nobility",
-          "schedule": "@schedules:noble"
+          "schedule": "@social/schedules:noble"
         }
       ]
     }
@@ -199,7 +199,7 @@
             "@dialogue/farewells:noble"
           ],
           "faction": "nobility",
-          "schedule": "@schedules:noble"
+          "schedule": "@social/schedules:noble"
         }
       ]
     }

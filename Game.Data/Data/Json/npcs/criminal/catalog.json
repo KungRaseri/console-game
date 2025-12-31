@@ -64,7 +64,7 @@
             "@dialogue/farewells:quick"
           ],
           "faction": "thieves_guild",
-          "schedule": "@schedules:criminal"
+          "schedule": "@social/schedules:criminal"
         },
         {
           "name": "FormerSpy",
@@ -107,7 +107,7 @@
             "@dialogue/farewells:mysterious"
           ],
           "faction": "independent",
-          "schedule": "@schedules:criminal"
+          "schedule": "@social/schedules:criminal"
         },
         {
           "name": "FormerSmuggler",
@@ -149,7 +149,7 @@
             "@dialogue/farewells:quick"
           ],
           "faction": "thieves_guild",
-          "schedule": "@schedules:criminal"
+          "schedule": "@social/schedules:criminal"
         },
         {
           "name": "ReformedThief",
@@ -190,7 +190,7 @@
             "@dialogue/farewells:quick"
           ],
           "faction": "thieves_guild",
-          "schedule": "@schedules:criminal"
+          "schedule": "@social/schedules:criminal"
         },
         {
           "name": "FormerPirate",
@@ -233,7 +233,7 @@
             "@dialogue/farewells:curt"
           ],
           "faction": "independent",
-          "schedule": "@schedules:flexible"
+          "schedule": "@social/schedules:flexible"
         }
       ]
     }

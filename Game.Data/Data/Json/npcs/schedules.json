@@ -571,7 +571,7 @@
     }
   },
   "usage": {
-    "assignToNPC": "Add \"schedule\": \"@schedules:merchant\" field to NPC catalog entry",
+    "assignToNPC": "Add \"schedule\": \"@social/schedules:merchant\" field to NPC catalog entry",
     "checkAvailability": "Query NPC schedule before displaying interaction options",
     "dynamicDialogue": "Adjust dialogue based on current activity (busy vs relaxed)",
     "locationTracking": "Use location field to determine where NPC can be found",

@@ -15,7 +15,7 @@
           "reputation": "neutral",
           "description": "Trade association of shopkeepers and merchants",
           "memberTypes": [
-            "@npcs/merchant"
+            "@npcs/merchants:*"
           ],
           "allies": [
             "craftsmen_guild",

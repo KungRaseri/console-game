@@ -67,7 +67,7 @@
             "@dialogue/farewells:military"
           ],
           "faction": "city_guard",
-          "schedule": "@schedules:guard"
+          "schedule": "@social/schedules:guard"
         },
         {
           "name": "GuardDuty",
@@ -108,7 +108,7 @@
             "@dialogue/farewells:military"
           ],
           "faction": "city_guard",
-          "schedule": "@schedules:guard"
+          "schedule": "@social/schedules:guard"
         },
         {
           "name": "FormerMercenary",
@@ -151,7 +151,7 @@
             "@dialogue/farewells:curt"
           ],
           "faction": "independent",
-          "schedule": "@schedules:flexible"
+          "schedule": "@social/schedules:flexible"
         }
       ]
     }
@@ -195,7 +195,7 @@
             "@dialogue/farewells:military"
           ],
           "faction": "city_guard",
-          "schedule": "@schedules:guard"
+          "schedule": "@social/schedules:guard"
         }
       ]
     }

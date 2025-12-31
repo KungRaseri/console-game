@@ -92,7 +92,7 @@
             "@dialogue/farewells:innkeeper"
           ],
           "faction": "independent",
-          "schedule": "@schedules:innkeeper"
+          "schedule": "@social/schedules:innkeeper"
         },
         {
           "name": "TavernKeeper",
@@ -155,7 +155,7 @@
             "@dialogue/farewells:innkeeper"
           ],
           "faction": "independent",
-          "schedule": "@schedules:innkeeper"
+          "schedule": "@social/schedules:innkeeper"
         }
       ]
     },
@@ -228,7 +228,7 @@
             "@dialogue/farewells:simple"
           ],
           "faction": "independent",
-          "schedule": "@schedules:cook"
+          "schedule": "@social/schedules:cook"
         }
       ]
     },
@@ -304,7 +304,7 @@
             "@dialogue/farewells:simple"
           ],
           "faction": "independent",
-          "schedule": "@schedules:stablemaster"
+          "schedule": "@social/schedules:stablemaster"
         }
       ]
     }

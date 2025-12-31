@@ -246,24 +246,16 @@ public class ItemGenerator
     {
         try
         {
-            // Parse material reference to get catalog path
-            // Format: @items/materials/metals:*[itemTypeTraits.weapon=true]
-            var parts = materialReference.Split(':');
-            if (parts.Length < 2) return;
+            // Use reference resolver to get materials
+            var materialsObj = await _referenceResolver.ResolveAsync(materialReference);
+            if (materialsObj == null) return;
 
-            var pathPart = parts[0].TrimStart('@');
-            var catalogPath = $"{pathPart}/catalog.json";
-            
-            var catalogFile = _dataCache.GetFile(catalogPath);
-            if (catalogFile?.JsonData == null) return;
+            // Cast to JArray
+            var materials = materialsObj as JArray;
+            if (materials == null || !materials.Any()) return;
 
-            // Get items from catalog
-            var items = GetItemsFromCatalog(catalogFile.JsonData);
-            if (items == null || !items.Any()) return;
-
-            // Filter by itemTypeTraits if specified in reference
-            // For now, just select a random material by weight
-            var material = GetRandomWeightedItem(items);
+            // Select random material by weight
+            var material = GetRandomWeightedItem(materials);
             if (material == null) return;
 
             item.Material = GetStringProperty(material, "name");
@@ -274,24 +266,37 @@ public class ItemGenerator
 
             // Apply material traits
             var traits = material["traits"];
-            if (traits != null)
+            if (traits != null && traits.Type == JTokenType.Object)
             {
                 foreach (var traitProp in traits.Children<JProperty>())
                 {
                     var traitName = traitProp.Name;
-                    var traitData = traitProp.Value;
+                    var traitValue = traitProp.Value;
                     
-                    var traitValue = new TraitValue
+                    // Handle both simple values and structured trait objects
+                    object? value;
+                    TraitType type;
+                    
+                    if (traitValue.Type == JTokenType.Object && traitValue["value"] != null)
                     {
-                        Value = traitData["value"]?.ToObject<object>(),
-                        Type = ParseTraitType(traitData["type"]?.ToString() ?? "number")
-                    };
+                        // Structured trait: { "value": 100, "type": "number" }
+                        value = traitValue["value"]?.ToObject<object>();
+                        type = ParseTraitType(traitValue["type"]?.ToString() ?? "number");
+                    }
+                    else
+                    {
+                        // Simple trait: just a value (100, 1.5, "metal", etc.)
+                        value = traitValue.ToObject<object>();
+                        type = ParseTraitType(traitValue.Type.ToString());
+                    }
                     
-                    item.MaterialTraits[traitName] = traitValue;
+                    item.MaterialTraits[traitName] = new TraitValue
+                    {
+                        Value = value,
+                        Type = type
+                    };
                 }
             }
-            
-            await Task.CompletedTask; // Satisfy async signature
         }
         catch (Exception ex)
         {
@@ -468,10 +473,10 @@ public class ItemGenerator
     {
         return typeString?.ToLower() switch
         {
-            "number" => TraitType.Number,
+            "number" or "integer" or "float" => TraitType.Number,
             "string" => TraitType.String,
             "boolean" => TraitType.Boolean,
-            "stringarray" => TraitType.StringArray,
+            "stringarray" or "array" => TraitType.StringArray,
             "numberarray" => TraitType.NumberArray,
             _ => TraitType.Number
         };

@@ -35,7 +35,7 @@
     {
       "name": "common-weapon",
       "rarityWeight": 60,
-      "itemReference": "@items/weapons:*[rarityWeight<=50]",
+      "itemReference": "@items/weapons:*",
       "quantity": 1,
       "description": "Common weapon reward"
     },

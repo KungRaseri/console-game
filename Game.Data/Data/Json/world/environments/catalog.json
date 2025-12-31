@@ -22,7 +22,7 @@
           ],
           "resources": [
             "@items/materials:wood",
-            "@items/materials/herbs:common"
+            "@items/materials:*:common"
           ],
           "travelDifficulty": "Easy",
           "visibility": "Medium"
@@ -40,7 +40,7 @@
             "@enemies/beast:wolf"
           ],
           "resources": [
-            "@items/materials/herbs:common",
+            "@items/materials:*:common",
             "@items/consumables:wild-game"
           ],
           "travelDifficulty": "Easy",
@@ -82,7 +82,7 @@
             "@enemies/beast:eagle"
           ],
           "resources": [
-            "@items/materials/metals:rare",
+            "@items/materials:*:rare",
             "@items/materials:gems"
           ],
           "travelDifficulty": "Very Hard",
@@ -102,11 +102,11 @@
           "terrain": "Swamp",
           "commonEncounters": [
             "@enemies/beast:giant-spider",
-            "@enemies/undead"
+            "@enemies/undead:*"
           ],
           "resources": [
             "@items/materials:poison-gland",
-            "@items/materials/herbs:rare"
+            "@items/materials:*:rare"
           ],
           "travelDifficulty": "Hard",
           "visibility": "Low",
@@ -149,11 +149,11 @@
           "precipitation": "Very High",
           "terrain": "Jungle",
           "commonEncounters": [
-            "@enemies/beast",
+            "@enemies/beasts:*",
             "@enemies/beast:giant-spider"
           ],
           "resources": [
-            "@items/materials/herbs:exotic",
+            "@items/materials:*:exotic",
             "@items/materials:monster-parts"
           ],
           "travelDifficulty": "Hard",
@@ -174,7 +174,7 @@
           "terrain": "Volcanic",
           "commonEncounters": [
             "@enemies/elemental:fire",
-            "@enemies/dragon"
+            "@enemies/dragons:*"
           ],
           "resources": [
             "@items/materials:obsidian",

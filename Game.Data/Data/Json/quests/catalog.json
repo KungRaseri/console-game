@@ -139,7 +139,7 @@
           "rarityWeight": 10,
           "questType": "fetch",
           "difficulty": "easy",
-          "itemType": "@items/consumables/herbs",
+          "itemType": "@items/consumables:*",
           "minQuantity": 5,
           "maxQuantity": 10,
           "baseGoldReward": 30,
