@@ -39,33 +39,38 @@ public class ReferenceResolverServiceTests : IDisposable
         var weaponsDir = Path.Combine(_testDataPath, "items", "weapons");
         Directory.CreateDirectory(weaponsDir);
         File.WriteAllText(Path.Combine(weaponsDir, "catalog.json"), @"{
-  ""version"": ""4.0"",
-  ""type"": ""weapons_catalog"",
-  ""description"": ""Test weapons"",
-  ""componentKeys"": [""swords"", ""axes""],
-  ""components"": {
-    ""swords"": [
-      {
-        ""name"": ""iron-longsword"",
-        ""rarityWeight"": 100,
-        ""damage"": 10,
-        ""durability"": 50
-      },
-      {
-        ""name"": ""steel-shortsword"",
-        ""rarityWeight"": 50,
-        ""damage"": 8,
-        ""durability"": 60
-      }
-    ],
-    ""axes"": [
-      {
-        ""name"": ""wooden-hatchet"",
-        ""rarityWeight"": 80,
-        ""damage"": 6,
-        ""durability"": 30
-      }
-    ]
+  ""metadata"": {
+    ""version"": ""4.0"",
+    ""type"": ""weapons_catalog"",
+    ""description"": ""Test weapons""
+  },
+  ""weapon_types"": {
+    ""swords"": {
+      ""items"": [
+        {
+          ""name"": ""iron-longsword"",
+          ""rarityWeight"": 100,
+          ""damage"": 10,
+          ""durability"": 50
+        },
+        {
+          ""name"": ""steel-shortsword"",
+          ""rarityWeight"": 50,
+          ""damage"": 8,
+          ""durability"": 60
+        }
+      ]
+    },
+    ""axes"": {
+      ""items"": [
+        {
+          ""name"": ""wooden-hatchet"",
+          ""rarityWeight"": 80,
+          ""damage"": 6,
+          ""durability"": 30
+        }
+      ]
+    }
   }
 }");
 
@@ -73,27 +78,32 @@ public class ReferenceResolverServiceTests : IDisposable
         var abilitiesDir = Path.Combine(_testDataPath, "abilities", "active");
         Directory.CreateDirectory(abilitiesDir);
         File.WriteAllText(Path.Combine(abilitiesDir, "catalog.json"), @"{
-  ""version"": ""4.0"",
-  ""type"": ""active_abilities_catalog"",
-  ""description"": ""Test abilities"",
-  ""componentKeys"": [""offensive"", ""defensive""],
-  ""components"": {
-    ""offensive"": [
-      {
-        ""name"": ""basic-attack"",
-        ""rarityWeight"": 100,
-        ""manaCost"": 0,
-        ""cooldown"": 1
-      }
-    ],
-    ""defensive"": [
-      {
-        ""name"": ""block"",
-        ""rarityWeight"": 100,
-        ""manaCost"": 5,
-        ""cooldown"": 3
-      }
-    ]
+  ""metadata"": {
+    ""version"": ""4.0"",
+    ""type"": ""active_abilities_catalog"",
+    ""description"": ""Test abilities""
+  },
+  ""ability_types"": {
+    ""offensive"": {
+      ""items"": [
+        {
+          ""name"": ""basic-attack"",
+          ""rarityWeight"": 100,
+          ""manaCost"": 0,
+          ""cooldown"": 1
+        }
+      ]
+    },
+    ""defensive"": {
+      ""items"": [
+        {
+          ""name"": ""block"",
+          ""rarityWeight"": 100,
+          ""manaCost"": 5,
+          ""cooldown"": 3
+        }
+      ]
+    }
   }
 }");
 
@@ -101,20 +111,23 @@ public class ReferenceResolverServiceTests : IDisposable
         var enemiesDir = Path.Combine(_testDataPath, "enemies", "humanoid");
         Directory.CreateDirectory(enemiesDir);
         File.WriteAllText(Path.Combine(enemiesDir, "catalog.json"), @"{
-  ""version"": ""4.0"",
-  ""type"": ""humanoid_enemies_catalog"",
-  ""description"": ""Test humanoid enemies"",
-  ""componentKeys"": [""goblins""],
-  ""components"": {
-    ""goblins"": [
-      {
-        ""name"": ""goblin-warrior"",
-        ""rarityWeight"": 100,
-        ""level"": 5,
-        ""health"": 50,
-        ""abilities"": [""@abilities/active/offensive:basic-attack""]
-      }
-    ]
+  ""metadata"": {
+    ""version"": ""4.0"",
+    ""type"": ""humanoid_enemies_catalog"",
+    ""description"": ""Test humanoid enemies""
+  },
+  ""enemy_types"": {
+    ""goblins"": {
+      ""items"": [
+        {
+          ""name"": ""goblin-warrior"",
+          ""rarityWeight"": 100,
+          ""level"": 5,
+          ""health"": 50,
+          ""abilities"": [""@abilities/active/offensive:basic-attack""]
+        }
+      ]
+    }
   }
 }");
     }
@@ -463,17 +476,20 @@ public class ReferenceResolverServiceTests : IDisposable
         var specialDir = Path.Combine(_testDataPath, "special", "items");
         Directory.CreateDirectory(specialDir);
         File.WriteAllText(Path.Combine(specialDir, "catalog.json"), @"{
-  ""version"": ""4.0"",
-  ""type"": ""special_catalog"",
-  ""description"": ""Test"",
-  ""componentKeys"": [""items""],
-  ""components"": {
-    ""items"": [
-      {
-        ""name"": ""dragon-s-breath"",
-        ""rarityWeight"": 100
-      }
-    ]
+  ""metadata"": {
+    ""version"": ""4.0"",
+    ""type"": ""special_catalog"",
+    ""description"": ""Test""
+  },
+  ""item_types"": {
+    ""items"": {
+      ""items"": [
+        {
+          ""name"": ""dragon-s-breath"",
+          ""rarityWeight"": 100
+        }
+      ]
+    }
   }
 }");
 

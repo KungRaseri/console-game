@@ -86,6 +86,9 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    
+    // Wait for async load to complete
+    System.Threading.Thread.Sleep(200);
 
     // Assert
     viewModel.Should().NotBeNull();
@@ -100,6 +103,9 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    
+    // Wait for async load to complete
+    System.Threading.Thread.Sleep(200);
 
     // Assert
     viewModel.Metadata.Version.Should().Be("4.0");
@@ -112,6 +118,9 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    
+    // Wait for async load to complete
+    System.Threading.Thread.Sleep(200);
 
     // Assert
     viewModel.ComponentNames.Should().Contain("prefix");
@@ -128,6 +137,9 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    
+    // Wait for async load to complete
+    System.Threading.Thread.Sleep(200);
 
     // Assert
     // Patterns include loaded patterns plus default {base} pattern
@@ -147,6 +159,7 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    System.Threading.Thread.Sleep(200);
     var initialFilteredCount = viewModel.FilteredPatterns.Count;
 
     // Act
@@ -164,6 +177,7 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    System.Threading.Thread.Sleep(200);
 
     // Assert
     viewModel.StatusMessage.Should().NotBeNullOrEmpty();
@@ -186,6 +200,7 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    System.Threading.Thread.Sleep(200);
 
     // Assert
     viewModel.TotalComponentCount.Should().BeGreaterThan(0);
@@ -199,6 +214,7 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    System.Threading.Thread.Sleep(200);
 
     // Assert
     viewModel.TotalPatternCount.Should().BeGreaterThan(0);
@@ -210,6 +226,7 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    System.Threading.Thread.Sleep(200);
 
     // Assert
     viewModel.ComponentCounts.Should().NotBeEmpty();
@@ -222,6 +239,7 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    System.Threading.Thread.Sleep(200);
     var pattern = viewModel.Patterns.First();
 
     // Act
@@ -316,6 +334,7 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    System.Threading.Thread.Sleep(200);
     var componentGroup = viewModel.Components.First().Value;
     var initialCount = componentGroup.Count;
     var componentToRemove = componentGroup.First();
@@ -333,6 +352,7 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    System.Threading.Thread.Sleep(200);
     var initialCount = viewModel.Patterns.Count;
     var patternToDuplicate = viewModel.Patterns.First();
 
@@ -364,6 +384,7 @@ public class NameListEditorViewModelTests : IDisposable
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
+    System.Threading.Thread.Sleep(200);
     var pattern = viewModel.Patterns.First();
     var originalExamples = pattern.GeneratedExamples;
 
