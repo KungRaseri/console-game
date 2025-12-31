@@ -26,10 +26,15 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.1" />
+    
+    <!-- JSON -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Game.Shared\Game.Shared.csproj" />
+    <ProjectReference Include="..\Game.Data\Game.Data.csproj" />
   </ItemGroup>
 
 </Project>
