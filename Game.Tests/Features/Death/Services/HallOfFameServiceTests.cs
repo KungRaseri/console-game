@@ -1,5 +1,5 @@
 using FluentAssertions;
-using Game.Core.Models;
+using Game.Shared.Models;
 using Game.Core.Abstractions;
 using Game.Data.Repositories;
 using Moq;

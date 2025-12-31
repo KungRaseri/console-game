@@ -1,6 +1,6 @@
 using FluentAssertions;
 using Game.Core.Features.Combat.Queries.GetCombatState;
-using Game.Core.Models;
+using Game.Shared.Models;
 
 namespace Game.Tests.Features.Combat.Queries;
 

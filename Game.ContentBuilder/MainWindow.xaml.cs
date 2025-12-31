@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Collections.ObjectModel;
 using Game.ContentBuilder.ViewModels;
 using Game.ContentBuilder.Models;
 

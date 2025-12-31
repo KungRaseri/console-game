@@ -1,6 +1,6 @@
 using FluentAssertions;
 using Game.Core.Features.Death;
-using Game.Core.Models;
+using Game.Shared.Models;
 
 namespace Game.Tests.Features.Death;
 

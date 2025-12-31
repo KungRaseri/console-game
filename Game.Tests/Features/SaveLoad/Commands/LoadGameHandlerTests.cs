@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Features.SaveLoad.Commands;
-using Game.Core.Models;
+using Game.Shared.Models;
 using Game.Core.Services;
 using Game.Core.Abstractions;
 using Game.Data.Repositories;

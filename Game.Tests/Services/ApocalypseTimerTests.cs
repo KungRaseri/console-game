@@ -1,6 +1,5 @@
 using FluentAssertions;
 using Game.Core.Services;
-using Game.Console.UI;
 using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;

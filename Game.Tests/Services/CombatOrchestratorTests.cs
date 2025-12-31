@@ -1,17 +1,14 @@
 using FluentAssertions;
 using Game.Core.Services;
-using Game.Console.UI;
 using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Game.Core.Features.Combat;
 using Game.Core.Features.SaveLoad;
-using Game.Console.Services;
-using Game.Core.Models;
+using Game.Shared.Models;
 using MediatR;
 using Moq;
 using System.Reflection;
-using Game.Console.Orchestrators;
 using Game.Data.Repositories;
 
 namespace Game.Tests.Services;

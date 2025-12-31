@@ -1,4 +1,5 @@
-using Game.Core.Abstractions;using Game.Shared.Abstractions;
+using Game.Core.Abstractions;
+
 using MediatR;
 using Serilog;
 

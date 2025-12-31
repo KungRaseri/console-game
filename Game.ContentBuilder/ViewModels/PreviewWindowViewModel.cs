@@ -3,7 +3,6 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Game.ContentBuilder.Services;
-using Game.Core.Models;
 using Serilog;
 
 namespace Game.ContentBuilder.ViewModels;

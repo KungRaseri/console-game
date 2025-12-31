@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Game.Core.Features.SaveLoad;
 using Game.Core.Features.Victory.Services;
-using Game.Core.Models;
+using Game.Shared.Models;
 using Moq;
 
 namespace Game.Tests.Features.Victory.Services;

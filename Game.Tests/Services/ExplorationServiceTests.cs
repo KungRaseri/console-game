@@ -1,8 +1,7 @@
-using Game.Core.Models;
+using Game.Shared.Models;
 using Game.Core.Services;
 using Game.Core.Features.Exploration;
 using Game.Core.Features.SaveLoad;
-using Game.Console.UI;
 using Game.Core.Abstractions;
 using Game.Data.Repositories;
 using Game.Tests.Helpers;

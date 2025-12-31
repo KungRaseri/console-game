@@ -1,6 +1,5 @@
 using FluentAssertions;
 using Game.Shared.Services;
-using Xunit;
 
 namespace Game.Tests.Services;
 

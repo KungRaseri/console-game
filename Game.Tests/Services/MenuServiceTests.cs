@@ -1,8 +1,6 @@
-using Game.Core.Models;
+using Game.Shared.Models;
 using Game.Core.Services;
 using Game.Core.Features.SaveLoad;
-using Game.Console.Services;
-using Game.Console.UI;
 using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using FluentAssertions;

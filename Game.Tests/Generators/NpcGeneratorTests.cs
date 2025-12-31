@@ -1,5 +1,4 @@
 using FluentAssertions;
-using Game.Core.Generators;
 
 namespace Game.Tests.Generators;
 

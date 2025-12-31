@@ -1,12 +1,11 @@
 using FluentAssertions;
 using Game.Core.Features.Combat;
-using Game.Console.UI;
 using Game.Core.Abstractions;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Game.Core.Features.Combat.Commands.AttackEnemy;
 using Game.Core.Features.SaveLoad;
-using Game.Core.Models;
+using Game.Shared.Models;
 using Game.Core.Services;
 using MediatR;
 using Moq;

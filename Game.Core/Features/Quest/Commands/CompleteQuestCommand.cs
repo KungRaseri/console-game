@@ -1,6 +1,4 @@
 using MediatR;
-
-using Game.Shared.Models;
 namespace Game.Core.Features.Quests.Commands;
 
 public record CompleteQuestCommand(string QuestId) : IRequest<CompleteQuestResult>;

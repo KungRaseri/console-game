@@ -1,4 +1,3 @@
-using Game.Console.UI;
 using Game.Core.Abstractions;
 using Spectre.Console.Testing;
 

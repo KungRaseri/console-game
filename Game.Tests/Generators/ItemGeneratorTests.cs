@@ -1,7 +1,6 @@
 using System.Text.RegularExpressions;
 using FluentAssertions;
-using Game.Core.Generators;
-using Game.Core.Models;
+using Game.Shared.Models;
 
 namespace Game.Tests.Generators;
 

@@ -1,13 +1,12 @@
 using FluentAssertions;
 using Game.Core.Services;
-using Game.Console.UI;
 using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;
 using Game.Core.Features.Combat;
 using Game.Core.Features.Exploration;
 using Game.Core.Features.SaveLoad;
-using Game.Core.Models;
+using Game.Shared.Models;
 
 namespace Game.Tests.Integration;
 

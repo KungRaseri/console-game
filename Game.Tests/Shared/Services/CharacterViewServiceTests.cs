@@ -1,7 +1,5 @@
 using FluentAssertions;
-using Game.Core.Models;
-using Game.Console.Services;
-using Game.Console.UI;
+using Game.Shared.Models;
 using Game.Data.Repositories;
 using Game.Tests.Helpers;
 using Spectre.Console.Testing;

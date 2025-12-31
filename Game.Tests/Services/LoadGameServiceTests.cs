@@ -1,10 +1,9 @@
 using Game.Core.Services;
 using Game.Core.Features.SaveLoad;
-using Game.Console.UI;
 using Game.Core.Abstractions;
 using Game.Data.Repositories;
 using Game.Tests.Helpers;
-using Game.Core.Models;
+using Game.Shared.Models;
 using FluentAssertions;
 using Spectre.Console.Testing;
 

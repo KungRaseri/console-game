@@ -3,7 +3,6 @@ using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
 using FlaUI.UIA3;
 using FluentAssertions;
-using System.IO;
 using Xunit;
 using Xunit.Abstractions;
 

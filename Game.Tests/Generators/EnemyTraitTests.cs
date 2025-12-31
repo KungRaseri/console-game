@@ -1,7 +1,5 @@
 using FluentAssertions;
-using Game.Core.Generators;
-using Game.Core.Models;
-using Game.Core.Services;
+using Game.Shared.Models;
 
 namespace Game.Tests.Generators;
 

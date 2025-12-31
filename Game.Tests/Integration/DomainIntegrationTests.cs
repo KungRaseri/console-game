@@ -1,7 +1,4 @@
-using Xunit;
 using FluentAssertions;
-using Game.Core.Generators;
-using System.Linq;
 
 namespace Game.Tests.Integration;
 

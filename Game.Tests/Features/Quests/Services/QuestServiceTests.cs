@@ -1,7 +1,6 @@
 using FluentAssertions;
-using Game.Core.Features.Quest.Services;
 using Game.Core.Features.SaveLoad;
-using Game.Core.Models;
+using Game.Shared.Models;
 using Moq;
 
 namespace Game.Tests.Features.Quests.Services;

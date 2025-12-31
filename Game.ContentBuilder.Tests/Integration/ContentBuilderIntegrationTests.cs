@@ -1,7 +1,4 @@
-using System;
 using System.IO;
-using System.Linq;
-using System.Threading;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;
 using FluentAssertions;

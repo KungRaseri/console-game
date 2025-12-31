@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Threading;
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Definitions;

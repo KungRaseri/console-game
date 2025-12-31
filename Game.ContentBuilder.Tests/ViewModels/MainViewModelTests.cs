@@ -1,7 +1,5 @@
 using Xunit;
 using FluentAssertions;
-using Game.ContentBuilder.ViewModels;
-using Game.ContentBuilder.Services;
 using System.IO;
 
 namespace Game.ContentBuilder.Tests.ViewModels;

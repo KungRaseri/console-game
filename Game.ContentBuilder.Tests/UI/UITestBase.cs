@@ -1,13 +1,9 @@
-using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using FlaUI.UIA3;
 using Serilog;
-using Xunit;
 
 namespace Game.ContentBuilder.Tests.UI;
 

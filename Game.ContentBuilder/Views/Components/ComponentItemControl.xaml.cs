@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Game.ContentBuilder.Converters;
 
 namespace Game.ContentBuilder.Views.Components
 {

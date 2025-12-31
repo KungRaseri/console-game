@@ -1,6 +1,6 @@
 using FluentValidation.TestHelper;
 using Game.Core.Features.Combat.Commands.AttackEnemy;
-using Game.Core.Models;
+using Game.Shared.Models;
 
 namespace Game.Tests.Features.Combat.Validators;
 
