@@ -1,3 +1,4 @@
+using Game.Shared.Models;
 using Serilog;
 
 namespace Game.ContentBuilder.Services;
