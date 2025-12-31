@@ -12,7 +12,7 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "items": [
+  "ability_types": [
     {
       "name": "Thorns",
       "displayName": "Thorns",

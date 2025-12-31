@@ -15,8 +15,8 @@
       "High availability and social interaction"
     ]
   },
-  "backgrounds": {},
-  "occupations": {
+  "background_types": {},
+  "occupation_types": {
     "hospitality": {
       "metadata": {
         "description": "Innkeepers and tavern operators",

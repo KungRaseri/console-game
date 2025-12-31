@@ -12,7 +12,7 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "items": [
+  "ability_types": [
     {
       "rarityWeight": 150,
       "description": "Commands nearby beasts, increasing their power",

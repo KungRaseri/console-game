@@ -13,7 +13,7 @@
       "Organized by class and combat role"
     ]
   },
-  "items": [
+  "ability_types": [
     {
       "name": "weapon-mastery",
       "displayName": "Weapon Mastery",

@@ -12,7 +12,7 @@
       "Uses JSON Reference Standards v4.1 for cross-domain links"
     ]
   },
-  "items": [
+  "ability_types": [
     {
       "name": "second-wind",
       "displayName": "Second Wind",

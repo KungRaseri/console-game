@@ -15,7 +15,7 @@
       "Often mysterious or scholarly demeanor"
     ]
   },
-  "backgrounds": {
+  "background_types": {
     "arcane_trained": {
       "metadata": {
         "description": "Apprentices and students of arcane magic",
@@ -107,5 +107,5 @@
       ]
     }
   },
-  "occupations": {}
+  "occupation_types": {}
 }

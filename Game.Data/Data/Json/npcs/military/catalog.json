@@ -6,8 +6,8 @@
     "lastUpdated": "2025-12-29",
     "socialClass": "military",
     "componentKeys": [
-      "backgrounds",
-      "occupations"
+      "background_types",
+      "occupation_types"
     ],
     "notes": [
       "High strength and constitution",
@@ -16,7 +16,7 @@
       "Disciplined and tactical mindset"
     ]
   },
-  "backgrounds": {
+  "background_types": {
     "former_military": {
       "metadata": {
         "description": "Retired or former military personnel",
@@ -148,7 +148,7 @@
       ]
     }
   },
-  "occupations": {
+  "occupation_types": {
     "guards": {
       "metadata": {
         "description": "Active city guards and law enforcement",

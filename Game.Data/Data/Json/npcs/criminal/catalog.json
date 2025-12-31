@@ -15,7 +15,7 @@
       "Specialize in deception and covert activities"
     ]
   },
-  "backgrounds": {
+  "background_types": {
     "reformed_criminals": {
       "metadata": {
         "description": "Former lawbreakers seeking redemption or new opportunities",
@@ -221,5 +221,5 @@
       ]
     }
   },
-  "occupations": {}
+  "occupation_types": {}
 }

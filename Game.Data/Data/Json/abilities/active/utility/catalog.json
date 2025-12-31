@@ -13,7 +13,7 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "items": [
+  "ability_types": [
     {
       "name": "Teleportation",
       "displayName": "Teleportation",

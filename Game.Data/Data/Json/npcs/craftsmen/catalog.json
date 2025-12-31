@@ -6,8 +6,8 @@
     "lastUpdated": "2025-12-29",
     "socialClass": "craftsman",
     "componentKeys": [
-      "backgrounds",
-      "occupations"
+      "background_types",
+      "occupation_types"
     ],
     "notes": [
       "Specialized trade skills with moderate social standing",
@@ -16,7 +16,7 @@
       "Can craft and repair items"
     ]
   },
-  "backgrounds": {
+  "background_types": {
     "skilled_tradespeople": {
       "metadata": {
         "description": "Trained craftspeople and artisans",
@@ -96,7 +96,7 @@
       ]
     }
   },
-  "occupations": {
+  "occupation_types": {
     "craftsmen_traders": {
       "metadata": {
         "description": "Skilled artisans who create goods",

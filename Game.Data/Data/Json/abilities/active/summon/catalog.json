@@ -12,7 +12,7 @@
       "Pet stats scale with caster level and stats"
     ]
   },
-  "items": [
+  "ability_types": [
     {
       "name": "animal-companion",
       "displayName": "Animal Companion",

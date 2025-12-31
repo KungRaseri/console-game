@@ -12,7 +12,7 @@
       "rarityWeight determines selection probability"
     ]
   },
-  "items": [
+  "ability_types": [
     {
       "name": "Desperate Escape",
       "displayName": "Desperate Escape",

@@ -4,7 +4,7 @@
     "version": "4.0",
     "lastUpdated": "2025-12-28",
     "type": "hierarchical_catalog",
-    "componentKeys": ["warriors", "rogues", "mages", "clerics", "rangers"],
+    "componentKeys": ["warrior_types", "rogue_types", "mage_types", "cleric_types", "ranger_types"],
     "notes": [
       "Classes define starting stats, abilities, and progression paths",
       "Archetypes are main class categories",
@@ -15,13 +15,13 @@
       "parentClass uses references to @classes domain"
     ]
   },
-  "warriors": {
+  "warrior_types": {
     "metadata": {
       "description": "Melee combatants focused on strength and durability",
       "primaryStats": ["strength", "constitution"],
       "armorProficiency": ["heavy", "medium", "light", "shields"]
     },
-    "items": [
+    "warrior_types": [
       {
         "name": "Fighter",
         "displayName": "Fighter",
@@ -224,13 +224,13 @@
       }
     ]
   },
-  "rogues": {
+  "rogue_types": {
     "metadata": {
       "description": "Stealthy specialists in deception, agility, and precision strikes",
       "primaryStats": ["dexterity", "intelligence"],
       "armorProficiency": ["light"]
     },
-    "items": [
+    "rogue_types": [
       {
         "name": "Thief",
         "displayName": "Thief",
@@ -381,13 +381,13 @@
       }
     ]
   },
-  "mages": {
+  "mage_types": {
     "metadata": {
-      "description": "Arcane spellcasters wielding elemental and mystical magic",
+      "description": "Arcane spellcasters who manipulate reality through study and intellect",
       "primaryStats": ["intelligence", "wisdom"],
       "armorProficiency": ["light"]
     },
-    "items": [
+    "mage_types": [
       {
         "name": "Wizard",
         "displayName": "Wizard",
@@ -537,13 +537,13 @@
       }
     ]
   },
-  "clerics": {
+  "cleric_types": {
     "metadata": {
       "description": "Divine spellcasters channeling holy power for healing and protection",
       "primaryStats": ["wisdom", "constitution"],
       "armorProficiency": ["medium", "light", "shields"]
     },
-    "items": [
+    "cleric_types": [
       {
         "name": "Priest",
         "displayName": "Priest",
@@ -599,7 +599,7 @@
         "description": "Holy warrior combining divine magic with martial prowess",
         "rarityWeight": 75,
         "isSubclass": true,
-        "parentClass": "@classes/clerics:priest",
+        "parentClass": "@classes/cleric_types:priest",
         "startingStats": {
           "health": 130,
           "mana": 80,
@@ -645,13 +645,13 @@
       }
     ]
   },
-  "rangers": {
+  "ranger_types": {
     "metadata": {
-      "description": "Wilderness survivalists skilled in archery, tracking, and beast mastery",
+      "description": "Wilderness survivalists skilled in archery, tracking, and nature magic",
       "primaryStats": ["dexterity", "wisdom"],
       "armorProficiency": ["medium", "light"]
     },
-    "items": [
+    "ranger_types": [
       {
         "name": "Hunter",
         "displayName": "Hunter",

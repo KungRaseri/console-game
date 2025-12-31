@@ -6,8 +6,8 @@
     "lastUpdated": "2025-12-29",
     "socialClass": "noble",
     "componentKeys": [
-      "backgrounds",
-      "occupations"
+      "background_types",
+      "occupation_types"
     ],
     "notes": [
       "High charisma and intelligence",
@@ -16,7 +16,7 @@
       "Expected to maintain appearances"
     ]
   },
-  "backgrounds": {
+  "background_types": {
     "aristocracy": {
       "metadata": {
         "description": "Born into wealth and privilege",
@@ -152,7 +152,7 @@
       ]
     }
   },
-  "occupations": {
+  "occupation_types": {
     "nobility": {
       "metadata": {
         "description": "Active nobles and aristocrats",

@@ -15,8 +15,8 @@
       "Accept all item categories for trade"
     ]
   },
-  "backgrounds": {},
-  "occupations": {
+  "background_types": {},
+  "occupation_types": {
     "general_traders": {
       "metadata": {
         "description": "Traders and sellers of goods",

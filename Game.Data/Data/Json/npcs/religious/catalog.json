@@ -6,8 +6,8 @@
     "lastUpdated": "2025-12-29",
     "socialClass": "religious",
     "componentKeys": [
-      "backgrounds",
-      "occupations"
+      "background_types",
+      "occupation_types"
     ],
     "notes": [
       "Very high wisdom attribute",
@@ -16,7 +16,7 @@
       "Often connected to temples or churches"
     ]
   },
-  "backgrounds": {
+  "background_types": {
     "clergy_initiate": {
       "metadata": {
         "description": "Young members of religious orders",
@@ -69,7 +69,7 @@
       ]
     }
   },
-  "occupations": {
+  "occupation_types": {
     "clergy": {
       "metadata": {
         "description": "Active priests and religious leaders",

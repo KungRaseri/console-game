@@ -6,8 +6,8 @@
     "lastUpdated": "2025-12-29",
     "socialClass": "common",
     "componentKeys": [
-      "backgrounds",
-      "occupations"
+      "background_types",
+      "occupation_types"
     ],
     "notes": [
       "Most populous social class representing everyday citizens",
@@ -17,7 +17,7 @@
       "NPCs can have both background AND occupation"
     ]
   },
-  "backgrounds": {
+  "background_types": {
     "everyday_folk": {
       "metadata": {
         "description": "Everyday people from humble origins",
@@ -274,7 +274,7 @@
       ]
     }
   },
-  "occupations": {
+  "occupation_types": {
     "non_merchants": {
       "metadata": {
         "description": "Common folk without shops - laborers and simple workers",
