@@ -1,207 +1,203 @@
 {
-  "metadata": {
-    "type": "hierarchical_catalog",
-    "version": "4.0",
-    "description": "Military NPCs - soldiers, guards, and combat-trained individuals with martial discipline",
-    "lastUpdated": "2025-12-29",
-    "socialClass": "military",
-    "componentKeys": [
-      "background_types",
-      "occupation_types"
-    ],
-    "notes": [
-      "High strength and constitution",
-      "Combat and tactics skills",
-      "May have military connections or past service",
-      "Disciplined and tactical mindset"
-    ]
-  },
-  "background_types": {
-    "former_military": {
-      "metadata": {
-        "description": "Retired or former military personnel",
-        "socialClass": "military",
-        "notes": [
-          "Combat-focused training and experience",
-          "Disciplined mindset",
-          "Often have connections to military organizations"
-        ]
-      },
-      "items": [
-        {
-          "name": "FormerSoldier",
-          "displayName": "Former Soldier",
-          "description": "Served in the military and retired or deserted",
-          "strength": 15,
-          "dexterity": 12,
-          "constitution": 14,
-          "intelligence": 10,
-          "wisdom": 11,
-          "charisma": 10,
-          "rarityWeight": 30,
-          "socialClass": "military",
-          "startingGold": "2d10",
-          "skillBonuses": [
-            "melee_combat",
-            "tactics",
-            "discipline",
-            "endurance"
-          ],
-          "shopModifiers": {
-            "qualityBonus": 15,
-            "priceMultiplier": 1.0,
-            "shopAppearance": "utilitarian",
-            "combatItemBonus": 20
-          },
-          "specializationHints": [
-            "weapons.melee",
-            "armor.medium",
-            "armor.heavy"
-          ],
-          "uniqueItems": [
-            "Officer's Sword",
-            "Battle-worn Shield",
-            "Military Medal"
-          ],
-          "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": [
-            "@dialogue/greetings:military-formal"
-          ],
-          "farewells": [
-            "@dialogue/farewells:military"
-          ],
-          "faction": "city_guard",
-          "schedule": "@schedules:guard"
-        },
-        {
-          "name": "GuardDuty",
-          "displayName": "Former Guard",
-          "description": "Protected city or noble house",
-          "strength": 14,
-          "dexterity": 12,
-          "constitution": 15,
-          "intelligence": 10,
-          "wisdom": 13,
-          "charisma": 10,
-          "rarityWeight": 28,
-          "socialClass": "military",
-          "startingGold": "2d8",
-          "skillBonuses": [
-            "perception",
-            "melee_combat",
-            "investigation"
-          ],
-          "shopModifiers": {
-            "qualityBonus": 8,
-            "priceMultiplier": 1.0,
-            "shopAppearance": "orderly"
-          },
-          "specializationHints": [
-            "weapons.melee",
-            "armor.medium"
-          ],
-          "uniqueItems": [
-            "Watch Badge",
-            "City Guard Tabard"
-          ],
-          "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": [
-            "@dialogue/greetings:guard-watchful"
-          ],
-          "farewells": [
-            "@dialogue/farewells:military"
-          ],
-          "faction": "city_guard",
-          "schedule": "@schedules:guard"
-        },
-        {
-          "name": "FormerMercenary",
-          "displayName": "Former Mercenary",
-          "description": "Sold sword skills to highest bidder",
-          "strength": 15,
-          "dexterity": 13,
-          "constitution": 14,
-          "intelligence": 10,
-          "wisdom": 11,
-          "charisma": 11,
-          "rarityWeight": 42,
-          "socialClass": "military",
-          "startingGold": "2d12",
-          "skillBonuses": [
-            "melee_combat",
-            "tactics",
-            "intimidation"
-          ],
-          "shopModifiers": {
-            "qualityBonus": 12,
-            "priceMultiplier": 1.05,
-            "shopAppearance": "battle-scarred",
-            "combatItemBonus": 18
-          },
-          "specializationHints": [
-            "weapons.melee",
-            "armor.medium",
-            "mercenary_gear"
-          ],
-          "uniqueItems": [
-            "Mercenary Contract",
-            "Battle Scar"
-          ],
-          "dialogueStyle": "@dialogue/styles:hostile",
-          "greetings": [
-            "@dialogue/greetings:mercenary-blunt"
-          ],
-          "farewells": [
-            "@dialogue/farewells:curt"
-          ],
-          "faction": "independent",
-          "schedule": "@schedules:flexible"
-        }
-      ]
-    }
-  },
-  "occupation_types": {
-    "guards": {
-      "metadata": {
-        "description": "Active city guards and law enforcement",
-        "hasShop": false,
-        "notes": [
-          "No shop or inventory",
-          "Enforce law and order",
-          "Provide quest hooks and information"
-        ]
-      },
-      "items": [
-        {
-          "name": "Guard",
-          "displayName": "Guard",
-          "strength": 15,
-          "dexterity": 12,
-          "constitution": 15,
-          "intelligence": 10,
-          "wisdom": 13,
-          "charisma": 10,
-          "rarityWeight": 28,
-          "socialClass": "military",
-          "skillBonuses": [
-            "melee_combat",
-            "perception",
-            "law_enforcement"
-          ],
-          "baseGold": "2d10",
-          "shopType": null,
-          "shopChance": 0.0,
-          "dialogueStyle": "@dialogue/styles:professional",
-          "greetings": [
-            "@dialogue/greetings:guard-watchful"
-          ],
-          "farewells": [
-            "@dialogue/farewells:military"
-          ],
-          "faction": "city_guard",
-          "schedule": "@schedules:guard"
-        }
-      ]
-    }
-  }
+    "metadata":  {
+                     "type":  "hierarchical_catalog",
+                     "version":  "4.0",
+                     "description":  "Military NPCs - soldiers, guards, and combat-trained individuals with martial discipline",
+                     "lastUpdated":  "2025-12-29",
+                     "socialClass":  "military",
+                     "notes":  [
+                                   "High strength and constitution",
+                                   "Combat and tactics skills",
+                                   "May have military connections or past service",
+                                   "Disciplined and tactical mindset"
+                               ]
+                 },
+    "background_types":  {
+                             "former_military":  {
+                                                     "metadata":  {
+                                                                      "description":  "Retired or former military personnel",
+                                                                      "socialClass":  "military",
+                                                                      "notes":  [
+                                                                                    "Combat-focused training and experience",
+                                                                                    "Disciplined mindset",
+                                                                                    "Often have connections to military organizations"
+                                                                                ]
+                                                                  },
+                                                     "items":  [
+                                                                   {
+                                                                       "name":  "FormerSoldier",
+                                                                       "displayName":  "Former Soldier",
+                                                                       "description":  "Served in the military and retired or deserted",
+                                                                       "strength":  15,
+                                                                       "dexterity":  12,
+                                                                       "constitution":  14,
+                                                                       "intelligence":  10,
+                                                                       "wisdom":  11,
+                                                                       "charisma":  10,
+                                                                       "rarityWeight":  30,
+                                                                       "socialClass":  "military",
+                                                                       "startingGold":  "2d10",
+                                                                       "skillBonuses":  [
+                                                                                            "melee_combat",
+                                                                                            "tactics",
+                                                                                            "discipline",
+                                                                                            "endurance"
+                                                                                        ],
+                                                                       "shopModifiers":  {
+                                                                                             "qualityBonus":  15,
+                                                                                             "priceMultiplier":  1.0,
+                                                                                             "shopAppearance":  "utilitarian",
+                                                                                             "combatItemBonus":  20
+                                                                                         },
+                                                                       "specializationHints":  [
+                                                                                                   "weapons.melee",
+                                                                                                   "armor.medium",
+                                                                                                   "armor.heavy"
+                                                                                               ],
+                                                                       "uniqueItems":  [
+                                                                                           "Officer\u0027s Sword",
+                                                                                           "Battle-worn Shield",
+                                                                                           "Military Medal"
+                                                                                       ],
+                                                                       "dialogueStyle":  "@dialogue/styles:professional",
+                                                                       "greetings":  [
+                                                                                         "@dialogue/greetings:military-formal"
+                                                                                     ],
+                                                                       "farewells":  [
+                                                                                         "@dialogue/farewells:military"
+                                                                                     ],
+                                                                       "faction":  "city_guard",
+                                                                       "schedule":  "@schedules:guard"
+                                                                   },
+                                                                   {
+                                                                       "name":  "GuardDuty",
+                                                                       "displayName":  "Former Guard",
+                                                                       "description":  "Protected city or noble house",
+                                                                       "strength":  14,
+                                                                       "dexterity":  12,
+                                                                       "constitution":  15,
+                                                                       "intelligence":  10,
+                                                                       "wisdom":  13,
+                                                                       "charisma":  10,
+                                                                       "rarityWeight":  28,
+                                                                       "socialClass":  "military",
+                                                                       "startingGold":  "2d8",
+                                                                       "skillBonuses":  [
+                                                                                            "perception",
+                                                                                            "melee_combat",
+                                                                                            "investigation"
+                                                                                        ],
+                                                                       "shopModifiers":  {
+                                                                                             "qualityBonus":  8,
+                                                                                             "priceMultiplier":  1.0,
+                                                                                             "shopAppearance":  "orderly"
+                                                                                         },
+                                                                       "specializationHints":  [
+                                                                                                   "weapons.melee",
+                                                                                                   "armor.medium"
+                                                                                               ],
+                                                                       "uniqueItems":  [
+                                                                                           "Watch Badge",
+                                                                                           "City Guard Tabard"
+                                                                                       ],
+                                                                       "dialogueStyle":  "@dialogue/styles:professional",
+                                                                       "greetings":  [
+                                                                                         "@dialogue/greetings:guard-watchful"
+                                                                                     ],
+                                                                       "farewells":  [
+                                                                                         "@dialogue/farewells:military"
+                                                                                     ],
+                                                                       "faction":  "city_guard",
+                                                                       "schedule":  "@schedules:guard"
+                                                                   },
+                                                                   {
+                                                                       "name":  "FormerMercenary",
+                                                                       "displayName":  "Former Mercenary",
+                                                                       "description":  "Sold sword skills to highest bidder",
+                                                                       "strength":  15,
+                                                                       "dexterity":  13,
+                                                                       "constitution":  14,
+                                                                       "intelligence":  10,
+                                                                       "wisdom":  11,
+                                                                       "charisma":  11,
+                                                                       "rarityWeight":  42,
+                                                                       "socialClass":  "military",
+                                                                       "startingGold":  "2d12",
+                                                                       "skillBonuses":  [
+                                                                                            "melee_combat",
+                                                                                            "tactics",
+                                                                                            "intimidation"
+                                                                                        ],
+                                                                       "shopModifiers":  {
+                                                                                             "qualityBonus":  12,
+                                                                                             "priceMultiplier":  1.05,
+                                                                                             "shopAppearance":  "battle-scarred",
+                                                                                             "combatItemBonus":  18
+                                                                                         },
+                                                                       "specializationHints":  [
+                                                                                                   "weapons.melee",
+                                                                                                   "armor.medium",
+                                                                                                   "mercenary_gear"
+                                                                                               ],
+                                                                       "uniqueItems":  [
+                                                                                           "Mercenary Contract",
+                                                                                           "Battle Scar"
+                                                                                       ],
+                                                                       "dialogueStyle":  "@dialogue/styles:hostile",
+                                                                       "greetings":  [
+                                                                                         "@dialogue/greetings:mercenary-blunt"
+                                                                                     ],
+                                                                       "farewells":  [
+                                                                                         "@dialogue/farewells:curt"
+                                                                                     ],
+                                                                       "faction":  "independent",
+                                                                       "schedule":  "@schedules:flexible"
+                                                                   }
+                                                               ]
+                                                 }
+                         },
+    "occupation_types":  {
+                             "guards":  {
+                                            "metadata":  {
+                                                             "description":  "Active city guards and law enforcement",
+                                                             "hasShop":  false,
+                                                             "notes":  [
+                                                                           "No shop or inventory",
+                                                                           "Enforce law and order",
+                                                                           "Provide quest hooks and information"
+                                                                       ]
+                                                         },
+                                            "items":  [
+                                                          {
+                                                              "name":  "Guard",
+                                                              "displayName":  "Guard",
+                                                              "strength":  15,
+                                                              "dexterity":  12,
+                                                              "constitution":  15,
+                                                              "intelligence":  10,
+                                                              "wisdom":  13,
+                                                              "charisma":  10,
+                                                              "rarityWeight":  28,
+                                                              "socialClass":  "military",
+                                                              "skillBonuses":  [
+                                                                                   "melee_combat",
+                                                                                   "perception",
+                                                                                   "law_enforcement"
+                                                                               ],
+                                                              "baseGold":  "2d10",
+                                                              "shopType":  null,
+                                                              "shopChance":  0.0,
+                                                              "dialogueStyle":  "@dialogue/styles:professional",
+                                                              "greetings":  [
+                                                                                "@dialogue/greetings:guard-watchful"
+                                                                            ],
+                                                              "farewells":  [
+                                                                                "@dialogue/farewells:military"
+                                                                            ],
+                                                              "faction":  "city_guard",
+                                                              "schedule":  "@schedules:guard"
+                                                          }
+                                                      ]
+                                        }
+                         }
 }

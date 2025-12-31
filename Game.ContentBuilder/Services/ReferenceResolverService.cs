@@ -98,6 +98,7 @@ public class ReferenceResolverService
         {
             // Try to load catalog with progressive path resolution
             var (catalog, actualCategory) = LoadCatalogWithCategory(components.Domain, components.Path, components.Category);
+            
             if (catalog == null)
             {
                 if (components.IsOptional)
@@ -115,6 +116,7 @@ public class ReferenceResolverService
 
             // Find specific item
             var item = FindItemInCatalog(catalog, actualCategory, components.ItemName);
+            
             if (item == null)
             {
                 if (components.IsOptional)
@@ -150,6 +152,10 @@ public class ReferenceResolverService
         
         try
         {
+            // Normalize path: treat "." as empty string
+            if (path == ".")
+                path = "";
+            
             var catalog = LoadCatalog(domain, path);
             if (catalog == null)
                 return references;
@@ -205,34 +211,19 @@ public class ReferenceResolverService
     {
         try
         {
+            // Normalize path: treat "." as empty string
+            if (path == ".")
+                path = "";
+            
             var catalog = LoadCatalog(domain, path);
             if (catalog == null)
                 return new List<string>();
 
-            // Try v4.0 componentKeys first - these point to top-level structure names
-            var componentKeys = catalog["metadata"]?["componentKeys"] as JArray;
-            if (componentKeys != null && componentKeys.Count > 0)
-            {
-                // Get the first componentKey (e.g., "class_types", "ability_types")
-                var typeKey = componentKeys[0].ToString();
-                
-                // Look for that structure in the catalog
-                var typesObj = catalog[typeKey] as JObject;
-                if (typesObj != null)
-                {
-                    // Return the sub-categories within (e.g., "warrior", "rogue", "mage")
-                    return typesObj.Properties().Select(p => p.Name).ToList();
-                }
-                
-                // If not found as object, return the key itself
-                return new List<string> { typeKey };
-            }
-
-            // Try legacy structures - look for {type}_types properties
+            // Look for *_types structures (ability_types, class_types, enemy_types, etc.)
             var categories = new List<string>();
             foreach (var prop in catalog.Properties())
             {
-                if (prop.Name.EndsWith("_types") && prop.Value is JObject types)
+                if (prop.Name != "metadata" && prop.Name.EndsWith("_types") && prop.Value is JObject types)
                 {
                     categories.AddRange(types.Properties().Select(p => p.Name));
                 }
@@ -366,22 +357,29 @@ public class ReferenceResolverService
                 
                 if (remainingSegments.Count == 0)
                 {
-                    // Catalog found at full path - check for typed structure
-                    var componentKeys = catalog["metadata"]?["componentKeys"] as JArray;
-                    if (componentKeys != null && componentKeys.Count > 0)
+                    // Catalog found at full path - look for *_types structure
+                    // e.g., abilities/active/offensive -> check for ability_types.offensive
+                    if (pathParts.Count > 0)
                     {
-                        var typeKey = componentKeys[0].ToString();
-                        var typesObj = catalog[typeKey] as JObject;
-                        if (typesObj != null && typesObj.Count > 0)
+                        var inferredCategory = pathParts[^1];
+                        var typeKeys = catalog.Properties()
+                            .Where(p => p.Name != "metadata" && p.Name.EndsWith("_types"))
+                            .Select(p => p.Name)
+                            .ToList();
+                        
+                        if (typeKeys.Count > 0)
                         {
-                            // Use the last path segment as the category within the types structure
-                            // e.g., abilities/active/offensive -> category = "offensive"
-                            var inferredCategory = pathParts.Count > 0 ? pathParts[^1] : null;
-                            return (catalog, inferredCategory);
+                            var typeKey = typeKeys[0];
+                            var typesObj = catalog[typeKey] as JObject;
+                            if (typesObj != null && typesObj[inferredCategory] != null)
+                            {
+                                // Found the category in the types structure
+                                return (catalog, inferredCategory);
+                            }
                         }
                     }
                     
-                    // No componentKeys or types structure - items are at root level
+                    // No types structure - items are at root level
                     return (catalog, null);
                 }
                 else
@@ -455,6 +453,7 @@ public class ReferenceResolverService
 
     private JToken? FindItemInCatalog(JObject catalog, string? category, string itemName)
     {
+        
         // If no category specified, search root items array directly
         if (string.IsNullOrEmpty(category))
         {
@@ -470,13 +469,10 @@ public class ReferenceResolverService
             return null;
         }
 
-        // Try v4.0 structure: componentKeys → types structure → category → items
-        var componentKeys = catalog["metadata"]?["componentKeys"] as JArray;
-        if (componentKeys != null && componentKeys.Count > 0)
+        // Try *_types structure: ability_types.offensive.items, class_types.warrior.items, etc.
+        foreach (var prop in catalog.Properties())
         {
-            var typeKey = componentKeys[0].ToString();
-            var typesObj = catalog[typeKey] as JObject;
-            if (typesObj != null)
+            if (prop.Name != "metadata" && prop.Name.EndsWith("_types") && prop.Value is JObject typesObj)
             {
                 var categoryData = typesObj[category];
                 if (categoryData != null)
@@ -494,7 +490,7 @@ public class ReferenceResolverService
             }
         }
 
-        // Try legacy catalog structures (weapon_types, goblinoid_types, etc.)
+        // Try using FindCategoryItems as fallback
         var legacyItems = FindCategoryItems(catalog, category);
         if (legacyItems != null)
         {
@@ -560,30 +556,10 @@ public class ReferenceResolverService
 
     private JArray? FindCategoryItems(JObject catalog, string category)
     {
-        // Pattern 1: New v4.0 structure with componentKeys
-        // componentKeys points to top-level type structures like "class_types", "ability_types"
-        var componentKeys = catalog["metadata"]?["componentKeys"] as JArray;
-        if (componentKeys != null && componentKeys.Count > 0)
-        {
-            var typeKey = componentKeys[0].ToString();
-            var typesObj = catalog[typeKey] as JObject;
-            if (typesObj != null)
-            {
-                // Look for the category within the types structure
-                var categoryData = typesObj[category];
-                if (categoryData != null)
-                {
-                    var items = categoryData["items"] as JArray;
-                    if (items != null)
-                        return items;
-                }
-            }
-        }
-        
-        // Pattern 2: Legacy {type}_types[category].items structure
+        // Pattern 1: *_types[category].items structure (ability_types, class_types, etc.)
         foreach (var prop in catalog.Properties())
         {
-            if (prop.Name.EndsWith("_types") && prop.Value is JObject types)
+            if (prop.Name != "metadata" && prop.Name.EndsWith("_types") && prop.Value is JObject types)
             {
                 var categoryData = types[category];
                 if (categoryData != null)
@@ -595,7 +571,7 @@ public class ReferenceResolverService
             }
         }
 
-        // Pattern 3: Root-level items array (for simple catalogs)
+        // Pattern 2: Root-level items array (for simple catalogs)
         var rootItems = catalog["items"] as JArray;
         if (rootItems != null && rootItems.Count > 0)
         {

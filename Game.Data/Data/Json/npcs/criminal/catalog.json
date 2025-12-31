@@ -1,245 +1,244 @@
 {
-  "metadata": {
-    "type": "hierarchical_catalog",
-    "version": "4.0",
-    "description": "Criminal NPCs - those who lived outside the law with underworld connections",
-    "lastUpdated": "2025-12-29",
-    "socialClass": "criminal",
-    "componentKeys": [
-      "backgrounds"
-    ],
-    "notes": [
-      "High dexterity and stealth skills",
-      "Underworld connections and street smarts",
-      "May have bounties or enemies",
-      "Specialize in deception and covert activities"
-    ]
-  },
-  "background_types": {
-    "reformed_criminals": {
-      "metadata": {
-        "description": "Former lawbreakers seeking redemption or new opportunities",
-        "socialClass": "criminal",
-        "notes": [
-          "Skilled in stealth and deception",
-          "May have unique items from past life",
-          "Often carry emotional baggage"
-        ]
-      },
-      "items": [
-        {
-          "name": "FormerCriminal",
-          "displayName": "Former Criminal",
-          "description": "Has a history of illegal activities",
-          "strength": 11,
-          "dexterity": 15,
-          "constitution": 11,
-          "intelligence": 12,
-          "wisdom": 10,
-          "charisma": 12,
-          "rarityWeight": 32,
-          "socialClass": "criminal",
-          "startingGold": "2d8",
-          "skillBonuses": [
-            "stealth",
-            "deception",
-            "lockpicking"
-          ],
-          "shopModifiers": {
-            "qualityBonus": 0,
-            "priceMultiplier": 1.1,
-            "shopAppearance": "shady"
-          },
-          "specializationHints": [
-            "stolen_goods",
-            "lockpicks",
-            "poisons"
-          ],
-          "uniqueItems": [
-            "Lockpick Set",
-            "Concealed Dagger"
-          ],
-          "dialogueStyle": "@dialogue/styles:cautious",
-          "greetings": [
-            "@dialogue/greetings:criminal-wary"
-          ],
-          "farewells": [
-            "@dialogue/farewells:quick"
-          ],
-          "faction": "thieves_guild",
-          "schedule": "@schedules:criminal"
-        },
-        {
-          "name": "FormerSpy",
-          "displayName": "Former Spy",
-          "description": "Gathered intelligence for crown or guild",
-          "strength": 10,
-          "dexterity": 15,
-          "constitution": 11,
-          "intelligence": 14,
-          "wisdom": 13,
-          "charisma": 12,
-          "rarityWeight": 50,
-          "socialClass": "criminal",
-          "startingGold": "3d8",
-          "skillBonuses": [
-            "stealth",
-            "disguise",
-            "investigation",
-            "deception"
-          ],
-          "shopModifiers": {
-            "qualityBonus": 8,
-            "priceMultiplier": 1.15,
-            "shopAppearance": "inconspicuous"
-          },
-          "specializationHints": [
-            "disguises",
-            "tools.espionage",
-            "poisons"
-          ],
-          "uniqueItems": [
-            "Coded Letter",
-            "Disguise Kit"
-          ],
-          "dialogueStyle": "@dialogue/styles:mysterious",
-          "greetings": [
-            "@dialogue/greetings:spy-enigmatic"
-          ],
-          "farewells": [
-            "@dialogue/farewells:mysterious"
-          ],
-          "faction": "independent",
-          "schedule": "@schedules:criminal"
-        },
-        {
-          "name": "FormerSmuggler",
-          "displayName": "Former Smuggler",
-          "description": "Dealt in contraband goods",
-          "strength": 11,
-          "dexterity": 14,
-          "constitution": 12,
-          "intelligence": 12,
-          "wisdom": 11,
-          "charisma": 13,
-          "rarityWeight": 38,
-          "socialClass": "criminal",
-          "startingGold": "2d10",
-          "skillBonuses": [
-            "deception",
-            "appraisal",
-            "navigation"
-          ],
-          "shopModifiers": {
-            "qualityBonus": 5,
-            "priceMultiplier": 0.95,
-            "shopAppearance": "secretive"
-          },
-          "specializationHints": [
-            "rare_goods",
-            "contraband",
-            "foreign_items"
-          ],
-          "uniqueItems": [
-            "Hidden Compartment Map",
-            "Smuggler's Flask"
-          ],
-          "dialogueStyle": "@dialogue/styles:greedy",
-          "greetings": [
-            "@dialogue/greetings:smuggler-shifty"
-          ],
-          "farewells": [
-            "@dialogue/farewells:quick"
-          ],
-          "faction": "thieves_guild",
-          "schedule": "@schedules:criminal"
-        },
-        {
-          "name": "ReformedThief",
-          "displayName": "Reformed Thief",
-          "description": "Lived by stealth and cunning, now seeking honest work",
-          "strength": 10,
-          "dexterity": 16,
-          "constitution": 11,
-          "intelligence": 12,
-          "wisdom": 10,
-          "charisma": 11,
-          "rarityWeight": 30,
-          "socialClass": "criminal",
-          "startingGold": "1d12",
-          "skillBonuses": [
-            "stealth",
-            "lockpicking",
-            "sleight_of_hand"
-          ],
-          "shopModifiers": {
-            "qualityBonus": 0,
-            "priceMultiplier": 0.95,
-            "shopAppearance": "modest"
-          },
-          "specializationHints": [
-            "lockpicks",
-            "tools.thievery"
-          ],
-          "uniqueItems": [
-            "Master Lockpick",
-            "Thieves' Cant Codebook"
-          ],
-          "dialogueStyle": "@dialogue/styles:cautious",
-          "greetings": [
-            "@dialogue/greetings:thief-nervous"
-          ],
-          "farewells": [
-            "@dialogue/farewells:quick"
-          ],
-          "faction": "thieves_guild",
-          "schedule": "@schedules:criminal"
-        },
-        {
-          "name": "FormerPirate",
-          "displayName": "Former Pirate",
-          "description": "Sailed under black flag, now seeking redemption",
-          "strength": 14,
-          "dexterity": 14,
-          "constitution": 13,
-          "intelligence": 10,
-          "wisdom": 10,
-          "charisma": 13,
-          "rarityWeight": 48,
-          "socialClass": "criminal",
-          "startingGold": "2d12",
-          "skillBonuses": [
-            "sailing",
-            "intimidation",
-            "boarding_combat"
-          ],
-          "shopModifiers": {
-            "qualityBonus": 8,
-            "priceMultiplier": 1.05,
-            "shopAppearance": "nautical"
-          },
-          "specializationHints": [
-            "weapons.melee",
-            "exotic_goods",
-            "nautical_gear"
-          ],
-          "uniqueItems": [
-            "Pirate's Cutlass",
-            "Treasure Map Fragment",
-            "Skull-and-Crossbones Earring"
-          ],
-          "dialogueStyle": "@dialogue/styles:hostile",
-          "greetings": [
-            "@dialogue/greetings:pirate-rough"
-          ],
-          "farewells": [
-            "@dialogue/farewells:curt"
-          ],
-          "faction": "independent",
-          "schedule": "@schedules:flexible"
-        }
-      ]
-    }
-  },
-  "occupation_types": {}
+    "metadata":  {
+                     "type":  "hierarchical_catalog",
+                     "version":  "4.0",
+                     "description":  "Criminal NPCs - those who lived outside the law with underworld connections",
+                     "lastUpdated":  "2025-12-29",
+                     "socialClass":  "criminal",
+                     "notes":  [
+                                   "High dexterity and stealth skills",
+                                   "Underworld connections and street smarts",
+                                   "May have bounties or enemies",
+                                   "Specialize in deception and covert activities"
+                               ]
+                 },
+    "background_types":  {
+                             "reformed_criminals":  {
+                                                        "metadata":  {
+                                                                         "description":  "Former lawbreakers seeking redemption or new opportunities",
+                                                                         "socialClass":  "criminal",
+                                                                         "notes":  [
+                                                                                       "Skilled in stealth and deception",
+                                                                                       "May have unique items from past life",
+                                                                                       "Often carry emotional baggage"
+                                                                                   ]
+                                                                     },
+                                                        "items":  [
+                                                                      {
+                                                                          "name":  "FormerCriminal",
+                                                                          "displayName":  "Former Criminal",
+                                                                          "description":  "Has a history of illegal activities",
+                                                                          "strength":  11,
+                                                                          "dexterity":  15,
+                                                                          "constitution":  11,
+                                                                          "intelligence":  12,
+                                                                          "wisdom":  10,
+                                                                          "charisma":  12,
+                                                                          "rarityWeight":  32,
+                                                                          "socialClass":  "criminal",
+                                                                          "startingGold":  "2d8",
+                                                                          "skillBonuses":  [
+                                                                                               "stealth",
+                                                                                               "deception",
+                                                                                               "lockpicking"
+                                                                                           ],
+                                                                          "shopModifiers":  {
+                                                                                                "qualityBonus":  0,
+                                                                                                "priceMultiplier":  1.1,
+                                                                                                "shopAppearance":  "shady"
+                                                                                            },
+                                                                          "specializationHints":  [
+                                                                                                      "stolen_goods",
+                                                                                                      "lockpicks",
+                                                                                                      "poisons"
+                                                                                                  ],
+                                                                          "uniqueItems":  [
+                                                                                              "Lockpick Set",
+                                                                                              "Concealed Dagger"
+                                                                                          ],
+                                                                          "dialogueStyle":  "@dialogue/styles:cautious",
+                                                                          "greetings":  [
+                                                                                            "@dialogue/greetings:criminal-wary"
+                                                                                        ],
+                                                                          "farewells":  [
+                                                                                            "@dialogue/farewells:quick"
+                                                                                        ],
+                                                                          "faction":  "thieves_guild",
+                                                                          "schedule":  "@schedules:criminal"
+                                                                      },
+                                                                      {
+                                                                          "name":  "FormerSpy",
+                                                                          "displayName":  "Former Spy",
+                                                                          "description":  "Gathered intelligence for crown or guild",
+                                                                          "strength":  10,
+                                                                          "dexterity":  15,
+                                                                          "constitution":  11,
+                                                                          "intelligence":  14,
+                                                                          "wisdom":  13,
+                                                                          "charisma":  12,
+                                                                          "rarityWeight":  50,
+                                                                          "socialClass":  "criminal",
+                                                                          "startingGold":  "3d8",
+                                                                          "skillBonuses":  [
+                                                                                               "stealth",
+                                                                                               "disguise",
+                                                                                               "investigation",
+                                                                                               "deception"
+                                                                                           ],
+                                                                          "shopModifiers":  {
+                                                                                                "qualityBonus":  8,
+                                                                                                "priceMultiplier":  1.15,
+                                                                                                "shopAppearance":  "inconspicuous"
+                                                                                            },
+                                                                          "specializationHints":  [
+                                                                                                      "disguises",
+                                                                                                      "tools.espionage",
+                                                                                                      "poisons"
+                                                                                                  ],
+                                                                          "uniqueItems":  [
+                                                                                              "Coded Letter",
+                                                                                              "Disguise Kit"
+                                                                                          ],
+                                                                          "dialogueStyle":  "@dialogue/styles:mysterious",
+                                                                          "greetings":  [
+                                                                                            "@dialogue/greetings:spy-enigmatic"
+                                                                                        ],
+                                                                          "farewells":  [
+                                                                                            "@dialogue/farewells:mysterious"
+                                                                                        ],
+                                                                          "faction":  "independent",
+                                                                          "schedule":  "@schedules:criminal"
+                                                                      },
+                                                                      {
+                                                                          "name":  "FormerSmuggler",
+                                                                          "displayName":  "Former Smuggler",
+                                                                          "description":  "Dealt in contraband goods",
+                                                                          "strength":  11,
+                                                                          "dexterity":  14,
+                                                                          "constitution":  12,
+                                                                          "intelligence":  12,
+                                                                          "wisdom":  11,
+                                                                          "charisma":  13,
+                                                                          "rarityWeight":  38,
+                                                                          "socialClass":  "criminal",
+                                                                          "startingGold":  "2d10",
+                                                                          "skillBonuses":  [
+                                                                                               "deception",
+                                                                                               "appraisal",
+                                                                                               "navigation"
+                                                                                           ],
+                                                                          "shopModifiers":  {
+                                                                                                "qualityBonus":  5,
+                                                                                                "priceMultiplier":  0.95,
+                                                                                                "shopAppearance":  "secretive"
+                                                                                            },
+                                                                          "specializationHints":  [
+                                                                                                      "rare_goods",
+                                                                                                      "contraband",
+                                                                                                      "foreign_items"
+                                                                                                  ],
+                                                                          "uniqueItems":  [
+                                                                                              "Hidden Compartment Map",
+                                                                                              "Smuggler\u0027s Flask"
+                                                                                          ],
+                                                                          "dialogueStyle":  "@dialogue/styles:greedy",
+                                                                          "greetings":  [
+                                                                                            "@dialogue/greetings:smuggler-shifty"
+                                                                                        ],
+                                                                          "farewells":  [
+                                                                                            "@dialogue/farewells:quick"
+                                                                                        ],
+                                                                          "faction":  "thieves_guild",
+                                                                          "schedule":  "@schedules:criminal"
+                                                                      },
+                                                                      {
+                                                                          "name":  "ReformedThief",
+                                                                          "displayName":  "Reformed Thief",
+                                                                          "description":  "Lived by stealth and cunning, now seeking honest work",
+                                                                          "strength":  10,
+                                                                          "dexterity":  16,
+                                                                          "constitution":  11,
+                                                                          "intelligence":  12,
+                                                                          "wisdom":  10,
+                                                                          "charisma":  11,
+                                                                          "rarityWeight":  30,
+                                                                          "socialClass":  "criminal",
+                                                                          "startingGold":  "1d12",
+                                                                          "skillBonuses":  [
+                                                                                               "stealth",
+                                                                                               "lockpicking",
+                                                                                               "sleight_of_hand"
+                                                                                           ],
+                                                                          "shopModifiers":  {
+                                                                                                "qualityBonus":  0,
+                                                                                                "priceMultiplier":  0.95,
+                                                                                                "shopAppearance":  "modest"
+                                                                                            },
+                                                                          "specializationHints":  [
+                                                                                                      "lockpicks",
+                                                                                                      "tools.thievery"
+                                                                                                  ],
+                                                                          "uniqueItems":  [
+                                                                                              "Master Lockpick",
+                                                                                              "Thieves\u0027 Cant Codebook"
+                                                                                          ],
+                                                                          "dialogueStyle":  "@dialogue/styles:cautious",
+                                                                          "greetings":  [
+                                                                                            "@dialogue/greetings:thief-nervous"
+                                                                                        ],
+                                                                          "farewells":  [
+                                                                                            "@dialogue/farewells:quick"
+                                                                                        ],
+                                                                          "faction":  "thieves_guild",
+                                                                          "schedule":  "@schedules:criminal"
+                                                                      },
+                                                                      {
+                                                                          "name":  "FormerPirate",
+                                                                          "displayName":  "Former Pirate",
+                                                                          "description":  "Sailed under black flag, now seeking redemption",
+                                                                          "strength":  14,
+                                                                          "dexterity":  14,
+                                                                          "constitution":  13,
+                                                                          "intelligence":  10,
+                                                                          "wisdom":  10,
+                                                                          "charisma":  13,
+                                                                          "rarityWeight":  48,
+                                                                          "socialClass":  "criminal",
+                                                                          "startingGold":  "2d12",
+                                                                          "skillBonuses":  [
+                                                                                               "sailing",
+                                                                                               "intimidation",
+                                                                                               "boarding_combat"
+                                                                                           ],
+                                                                          "shopModifiers":  {
+                                                                                                "qualityBonus":  8,
+                                                                                                "priceMultiplier":  1.05,
+                                                                                                "shopAppearance":  "nautical"
+                                                                                            },
+                                                                          "specializationHints":  [
+                                                                                                      "weapons.melee",
+                                                                                                      "exotic_goods",
+                                                                                                      "nautical_gear"
+                                                                                                  ],
+                                                                          "uniqueItems":  [
+                                                                                              "Pirate\u0027s Cutlass",
+                                                                                              "Treasure Map Fragment",
+                                                                                              "Skull-and-Crossbones Earring"
+                                                                                          ],
+                                                                          "dialogueStyle":  "@dialogue/styles:hostile",
+                                                                          "greetings":  [
+                                                                                            "@dialogue/greetings:pirate-rough"
+                                                                                        ],
+                                                                          "farewells":  [
+                                                                                            "@dialogue/farewells:curt"
+                                                                                        ],
+                                                                          "faction":  "independent",
+                                                                          "schedule":  "@schedules:flexible"
+                                                                      }
+                                                                  ]
+                                                    }
+                         },
+    "occupation_types":  {
+
+                         }
 }
