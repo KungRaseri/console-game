@@ -52,7 +52,7 @@ public class ContentBuilderIntegrationTests : UITestBase
         Thread.Sleep(1000);
 
         // Assert - HybridArray editor loaded
-        var tabs = _mainWindow.FindAllDescendants(cf =>
+        var tabs = _mainWindow?.FindAllDescendants(cf =>
             cf.ByControlType(ControlType.TabItem));
         tabs.Should().NotBeEmpty("Editor should load with tabs");
 
@@ -61,7 +61,7 @@ public class ContentBuilderIntegrationTests : UITestBase
         Thread.Sleep(1000);
 
         // Assert - NameList editor loaded
-        var lists = _mainWindow.FindAllDescendants(cf =>
+        var lists = _mainWindow?.FindAllDescendants(cf =>
             cf.ByControlType(ControlType.List));
         lists.Should().NotBeEmpty("NameList editor should have lists");
 
@@ -70,7 +70,7 @@ public class ContentBuilderIntegrationTests : UITestBase
         Thread.Sleep(1000);
 
         // Assert - Can navigate back successfully
-        tabs = _mainWindow.FindAllDescendants(cf =>
+        tabs = _mainWindow?.FindAllDescendants(cf =>
             cf.ByControlType(ControlType.TabItem));
         tabs.Should().NotBeEmpty("Should reload HybridArray editor");
     }
@@ -95,7 +95,7 @@ public class ContentBuilderIntegrationTests : UITestBase
             Thread.Sleep(500);
 
             // Verify editor loaded (should have some UI elements)
-            var buttons = _mainWindow.FindAllDescendants(cf =>
+            var buttons = _mainWindow?.FindAllDescendants(cf =>
                 cf.ByControlType(ControlType.Button));
             buttons.Should().NotBeEmpty($"Editor for {file} should have buttons");
         }
@@ -281,10 +281,10 @@ public class ContentBuilderIntegrationTests : UITestBase
         Thread.Sleep(1000);
 
         // Act - Look for Preview button
-        var buttons = _mainWindow.FindAllDescendants(cf =>
+        var buttons = _mainWindow?.FindAllDescendants(cf =>
             cf.ByControlType(ControlType.Button));
 
-        var previewButton = buttons.FirstOrDefault(b =>
+        var previewButton = buttons?.FirstOrDefault(b =>
             b.Name.Contains("Preview", StringComparison.OrdinalIgnoreCase));
 
         if (previewButton != null)
@@ -293,8 +293,8 @@ public class ContentBuilderIntegrationTests : UITestBase
             Thread.Sleep(1000);
 
             // Assert - Preview window should open
-            var windows = _automation.GetDesktop().FindAllChildren();
-            var previewWindow = windows.FirstOrDefault(w =>
+            var windows = _automation?.GetDesktop().FindAllChildren();
+            var previewWindow = windows?.FirstOrDefault(w =>
                 w.Name.Contains("Preview", StringComparison.OrdinalIgnoreCase));
 
             if (previewWindow != null)
@@ -311,7 +311,7 @@ public class ContentBuilderIntegrationTests : UITestBase
 
     private Tree FindTreeView()
     {
-        var tree = _mainWindow.FindFirstDescendant(cf =>
+        var tree = _mainWindow?.FindFirstDescendant(cf =>
             cf.ByControlType(ControlType.Tree))?.AsTree();
 
         tree.Should().NotBeNull("Tree view should exist");
