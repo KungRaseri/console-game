@@ -68,7 +68,7 @@ public class ClassItemData
     public ClassStartingStats? StartingStats { get; set; }
 
     [JsonPropertyName("startingAbilities")]
-    public string? StartingAbilities { get; set; }
+    public List<string>? StartingAbilities { get; set; }
 
     [JsonPropertyName("traits")]
     public Dictionary<string, object>? Traits { get; set; }

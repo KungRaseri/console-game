@@ -2,7 +2,7 @@ using Game.Data.Services;
 using Game.Shared.Data.Models;
 using Game.Shared.Models;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Game.Core.Generators.Modern;
 
@@ -38,7 +38,7 @@ public class CharacterClassGenerator
 
         try
         {
-            var catalogData = JsonConvert.DeserializeObject<ClassCatalogData>(cachedFile.JsonData.ToString());
+            var catalogData = JsonSerializer.Deserialize<ClassCatalogData>(cachedFile.JsonData.ToString());
             if (catalogData == null)
             {
                 _logger.LogError("Failed to deserialize classes/catalog.json");

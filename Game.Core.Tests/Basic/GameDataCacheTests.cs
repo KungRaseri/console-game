@@ -16,9 +16,15 @@ public class GameDataCacheTests
     [Fact]
     public void Should_Load_Game_Data_Cache()
     {
-        // Act & Assert
+        // Act
+        _dataCache.LoadAllData();
+        var stats = _dataCache.GetStats();
+        var totalFiles = _dataCache.TotalFilesLoaded;
+
+        // Assert
         _dataCache.Should().NotBeNull();
-        _dataCache.BasePath.Should().NotBeNullOrEmpty();
+        totalFiles.Should().BeGreaterThan(0, "should have loaded JSON files");
+        stats.Should().NotBeNull();
     }
 
     [Fact]
