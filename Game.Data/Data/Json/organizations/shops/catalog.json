@@ -18,22 +18,22 @@
               {
                 "category": "@items/weapons/swords",
                 "count": "5-10",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               },
               {
                 "category": "@items/weapons/axes",
                 "count": "3-8",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               },
               {
                 "category": "@items/weapons/hammers",
                 "count": "2-5",
-                "quality": "common-uncommon"
+                "rarityRange": { "min": 1, "max": 2 }
               },
               {
                 "category": "@items/armor/heavy",
                 "count": "4-8",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               }
             ],
             "specialty": "Custom weapon forging",
@@ -76,17 +76,17 @@
               {
                 "category": "@items/weapons/swords",
                 "count": "3-5",
-                "quality": "rare-legendary"
+                "rarityRange": { "min": 3, "max": 5 }
               },
               {
                 "category": "@items/weapons/exotic",
                 "count": "2-4",
-                "quality": "uncommon-epic"
+                "rarityRange": { "min": 2, "max": 4 }
               },
               {
                 "category": "@items/enchanted",
                 "count": "1-3",
-                "quality": "rare-legendary"
+                "rarityRange": { "min": 3, "max": 5 }
               }
             ],
             "specialty": "Masterwork and enchanted weapons",
@@ -133,22 +133,22 @@
               {
                 "category": "@items/armor/light",
                 "count": "5-10",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               },
               {
                 "category": "@items/armor/medium",
                 "count": "4-8",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               },
               {
                 "category": "@items/armor/heavy",
                 "count": "3-6",
-                "quality": "uncommon-rare"
+                "rarityRange": { "min": 2, "max": 3 }
               },
               {
                 "category": "@items/shields",
                 "count": "3-5",
-                "quality": "common-uncommon"
+                "rarityRange": { "min": 1, "max": 2 }
               }
             ],
             "specialty": "Custom armor fitting",
@@ -197,22 +197,22 @@
               {
                 "category": "@items/potions/healing",
                 "count": "10-20",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               },
               {
                 "category": "@items/potions/mana",
                 "count": "8-15",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               },
               {
                 "category": "@items/potions/buffs",
                 "count": "5-10",
-                "quality": "uncommon-rare"
+                "rarityRange": { "min": 2, "max": 3 }
               },
               {
                 "category": "@items/materials/herbs",
                 "count": "15-30",
-                "quality": "common-uncommon"
+                "rarityRange": { "min": 1, "max": 2 }
               }
             ],
             "specialty": "Custom potion brewing",
@@ -255,22 +255,22 @@
               {
                 "category": "@items/scrolls",
                 "count": "8-15",
-                "quality": "common-epic"
+                "rarityRange": { "min": 1, "max": 4 }
               },
               {
                 "category": "@items/wands",
                 "count": "3-6",
-                "quality": "uncommon-rare"
+                "rarityRange": { "min": 2, "max": 3 }
               },
               {
                 "category": "@items/reagents/magical",
                 "count": "10-20",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               },
               {
                 "category": "@items/enchanted",
                 "count": "2-5",
-                "quality": "rare-legendary"
+                "rarityRange": { "min": 3, "max": 5 }
               }
             ],
             "specialty": "Spell research and enchanting",
@@ -319,22 +319,22 @@
               {
                 "category": "@items/supplies/food",
                 "count": "20-40",
-                "quality": "common"
+                "rarityRange": { "min": 1, "max": 1 }
               },
               {
                 "category": "@items/supplies/tools",
                 "count": "10-20",
-                "quality": "common-uncommon"
+                "rarityRange": { "min": 1, "max": 2 }
               },
               {
                 "category": "@items/supplies/camping",
                 "count": "8-15",
-                "quality": "common"
+                "rarityRange": { "min": 1, "max": 1 }
               },
               {
                 "category": "@items/misc",
                 "count": "15-30",
-                "quality": "common"
+                "rarityRange": { "min": 1, "max": 1 }
               }
             ],
             "specialty": "Everyday necessities",
@@ -376,22 +376,22 @@
               {
                 "category": "@items/supplies/survival",
                 "count": "10-20",
-                "quality": "common-uncommon"
+                "rarityRange": { "min": 1, "max": 2 }
               },
               {
                 "category": "@items/weapons/simple",
                 "count": "5-10",
-                "quality": "common"
+                "rarityRange": { "min": 1, "max": 1 }
               },
               {
                 "category": "@items/supplies/food",
                 "count": "15-25",
-                "quality": "common"
+                "rarityRange": { "min": 1, "max": 1 }
               },
               {
                 "category": "@items/maps",
                 "count": "3-8",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               }
             ],
             "specialty": "Wilderness survival gear",
@@ -440,22 +440,22 @@
               {
                 "category": "@items/jewelry/rings",
                 "count": "5-10",
-                "quality": "uncommon-epic"
+                "rarityRange": { "min": 2, "max": 4 }
               },
               {
                 "category": "@items/jewelry/amulets",
                 "count": "4-8",
-                "quality": "uncommon-rare"
+                "rarityRange": { "min": 2, "max": 3 }
               },
               {
                 "category": "@items/materials/gems",
                 "count": "10-20",
-                "quality": "common-legendary"
+                "rarityRange": { "min": 1, "max": 5 }
               },
               {
                 "category": "@items/enchanted/jewelry",
                 "count": "2-4",
-                "quality": "rare-legendary"
+                "rarityRange": { "min": 3, "max": 5 }
               }
             ],
             "specialty": "Custom jewelry crafting",
@@ -497,22 +497,22 @@
               {
                 "category": "@items/weapons/bows",
                 "count": "5-10",
-                "quality": "common-rare"
+                "rarityRange": { "min": 1, "max": 3 }
               },
               {
                 "category": "@items/weapons/crossbows",
                 "count": "3-6",
-                "quality": "uncommon-rare"
+                "rarityRange": { "min": 2, "max": 3 }
               },
               {
                 "category": "@items/ammunition/arrows",
                 "count": "50-100",
-                "quality": "common-uncommon"
+                "rarityRange": { "min": 1, "max": 2 }
               },
               {
                 "category": "@items/ammunition/bolts",
                 "count": "30-60",
-                "quality": "common-uncommon"
+                "rarityRange": { "min": 1, "max": 2 }
               }
             ],
             "specialty": "Custom bow crafting",
@@ -555,22 +555,22 @@
               {
                 "category": "@items/weapons/exotic",
                 "count": "2-5",
-                "quality": "rare-legendary"
+                "rarityRange": { "min": 3, "max": 5 }
               },
               {
                 "category": "@items/stolen",
                 "count": "5-10",
-                "quality": "uncommon-epic"
+                "rarityRange": { "min": 2, "max": 4 }
               },
               {
                 "category": "@items/forbidden",
                 "count": "1-3",
-                "quality": "rare-legendary"
+                "rarityRange": { "min": 3, "max": 5 }
               },
               {
                 "category": "@items/poisons",
                 "count": "3-8",
-                "quality": "uncommon-rare"
+                "rarityRange": { "min": 2, "max": 3 }
               }
             ],
             "specialty": "Rare and illegal items",
