@@ -21,8 +21,22 @@ public class Item : ITraitable
     // Weapon properties
     public bool IsTwoHanded { get; set; } = false;
 
-    // Enchantments applied to this item
+    // Enhancement System v1.0 (Hybrid Model)
+    // ========================================
+    
+    // Material System (Baked into item at generation)
+    public string? Material { get; set; } // e.g., "iron", "steel", "mithril"
+    public Dictionary<string, TraitValue> MaterialTraits { get; set; } = new(); // Traits from material
+    
+    // Enchantment System (Baked into item at generation)
     public List<Enchantment> Enchantments { get; set; } = new();
+    
+    // Gem Socket System (Player customizable after generation)
+    public List<GemSocket> GemSockets { get; set; } = new();
+    
+    // Rarity Weight System
+    public int TotalRarityWeight { get; set; } = 0; // Sum of base + material + pattern + enchantments + sockets
+    public string BaseName { get; set; } = string.Empty; // Base item name before enhancements (e.g., "Longsword")
 
     // Upgrade level (+1, +2, +3, etc.)
     public int UpgradeLevel { get; set; } = 0;
@@ -99,6 +113,102 @@ public class Item : ITraitable
         total += Enchantments.Sum(e => e.BonusCharisma);
         total += UpgradeLevel * 2;
         return total;
+    }
+
+    /// <summary>
+    /// Get all traits merged from base item, material, enchantments, and gems.
+    /// Follows trait merging rules from ITEM_ENHANCEMENT_SYSTEM.md.
+    /// </summary>
+    public Dictionary<string, TraitValue> GetTotalTraits()
+    {
+        var mergedTraits = new Dictionary<string, TraitValue>();
+
+        // 1. Start with base item traits
+        foreach (var trait in Traits)
+        {
+            mergedTraits[trait.Key] = trait.Value;
+        }
+
+        // 2. Add material traits (additive for numeric, override for text)
+        foreach (var trait in MaterialTraits)
+        {
+            if (mergedTraits.ContainsKey(trait.Key))
+            {
+                // Merge existing trait
+                var existing = mergedTraits[trait.Key];
+                if (existing.Type == TraitType.Number && trait.Value.Type == TraitType.Number)
+                {
+                    // Numeric: add values
+                    var sum = existing.AsDouble() + trait.Value.AsDouble();
+                    mergedTraits[trait.Key] = new TraitValue(sum, TraitType.Number);
+                }
+                else
+                {
+                    // Text/Boolean: material overrides
+                    mergedTraits[trait.Key] = trait.Value;
+                }
+            }
+            else
+            {
+                // New trait from material
+                mergedTraits[trait.Key] = trait.Value;
+            }
+        }
+
+        // 3. Add enchantment traits (additive for numeric, last one wins for text)
+        foreach (var enchantment in Enchantments)
+        {
+            foreach (var trait in enchantment.Traits)
+            {
+                if (mergedTraits.ContainsKey(trait.Key))
+                {
+                    var existing = mergedTraits[trait.Key];
+                    if (existing.Type == TraitType.Number && trait.Value.Type == TraitType.Number)
+                    {
+                        var sum = existing.AsDouble() + trait.Value.AsDouble();
+                        mergedTraits[trait.Key] = new TraitValue(sum, TraitType.Number);
+                    }
+                    else
+                    {
+                        mergedTraits[trait.Key] = trait.Value;
+                    }
+                }
+                else
+                {
+                    mergedTraits[trait.Key] = trait.Value;
+                }
+            }
+        }
+
+        // 4. Add gem socket traits (additive for numeric, last one wins for text)
+        foreach (var socket in GemSockets)
+        {
+            if (socket.Gem != null)
+            {
+                foreach (var trait in socket.Gem.Traits)
+                {
+                    if (mergedTraits.ContainsKey(trait.Key))
+                    {
+                        var existing = mergedTraits[trait.Key];
+                        if (existing.Type == TraitType.Number && trait.Value.Type == TraitType.Number)
+                        {
+                            var sum = existing.AsDouble() + trait.Value.AsDouble();
+                            mergedTraits[trait.Key] = new TraitValue(sum, TraitType.Number);
+                        }
+                        else
+                        {
+                            mergedTraits[trait.Key] = trait.Value;
+                        }
+                    }
+                    else
+                    {
+                        mergedTraits[trait.Key] = trait.Value;
+                    }
+                }
+            }
+        }
+
+        return mergedTraits;
     }
 
     /// <summary>

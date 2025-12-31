@@ -1,0 +1,147 @@
+{
+  "metadata": {
+    "description": "Quest rewards catalog organized by reward type",
+    "version": "4.0",
+    "lastUpdated": "2025-12-31",
+    "type": "quest_rewards_catalog"
+  },
+  "gold_rewards": [
+    {
+      "name": "small-purse",
+      "rarityWeight": 50,
+      "amount": { "min": 10, "max": 50 },
+      "description": "Small monetary reward"
+    },
+    {
+      "name": "modest-payment",
+      "rarityWeight": 70,
+      "amount": { "min": 50, "max": 150 },
+      "description": "Modest gold payment"
+    },
+    {
+      "name": "generous-reward",
+      "rarityWeight": 100,
+      "amount": { "min": 150, "max": 500 },
+      "description": "Generous gold reward"
+    },
+    {
+      "name": "fortune",
+      "rarityWeight": 200,
+      "amount": { "min": 500, "max": 2000 },
+      "description": "A small fortune in gold"
+    }
+  ],
+  "item_rewards": [
+    {
+      "name": "common-weapon",
+      "rarityWeight": 60,
+      "itemReference": "@items/weapons:*[rarityWeight<=50]",
+      "quantity": 1,
+      "description": "Common weapon reward"
+    },
+    {
+      "name": "uncommon-armor",
+      "rarityWeight": 100,
+      "itemReference": "@items/armor:*[rarityWeight>50&rarityWeight<=100]",
+      "quantity": 1,
+      "description": "Uncommon armor piece"
+    },
+    {
+      "name": "rare-item",
+      "rarityWeight": 180,
+      "itemReference": "@items:*[rarityWeight>100&rarityWeight<=200]",
+      "quantity": 1,
+      "description": "Rare item reward"
+    },
+    {
+      "name": "epic-equipment",
+      "rarityWeight": 300,
+      "itemReference": "@items:*[rarityWeight>200&rarityWeight<=350]",
+      "quantity": 1,
+      "description": "Epic equipment"
+    },
+    {
+      "name": "legendary-artifact",
+      "rarityWeight": 500,
+      "itemReference": "@items:*[rarityWeight>350]",
+      "quantity": 1,
+      "description": "Legendary artifact"
+    },
+    {
+      "name": "potion-bundle",
+      "rarityWeight": 40,
+      "itemReference": "@items/consumables/potions:*",
+      "quantity": { "min": 3, "max": 10 },
+      "description": "Bundle of potions"
+    }
+  ],
+  "reputation_rewards": [
+    {
+      "name": "minor-favor",
+      "rarityWeight": 50,
+      "factionReference": "@organizations/factions:*",
+      "reputationGain": { "min": 10, "max": 50 },
+      "description": "Gain minor favor with faction"
+    },
+    {
+      "name": "significant-standing",
+      "rarityWeight": 100,
+      "factionReference": "@organizations/factions:*",
+      "reputationGain": { "min": 50, "max": 200 },
+      "description": "Significant reputation increase"
+    },
+    {
+      "name": "honored-ally",
+      "rarityWeight": 200,
+      "factionReference": "@organizations/factions:*",
+      "reputationGain": { "min": 200, "max": 500 },
+      "description": "Become honored ally of faction"
+    }
+  ],
+  "ability_rewards": [
+    {
+      "name": "basic-skill",
+      "rarityWeight": 80,
+      "abilityReference": "@abilities/passive:*[rarityWeight<=100]",
+      "description": "Learn basic skill"
+    },
+    {
+      "name": "advanced-technique",
+      "rarityWeight": 150,
+      "abilityReference": "@abilities/active:*[rarityWeight>100&rarityWeight<=200]",
+      "description": "Master advanced technique"
+    },
+    {
+      "name": "legendary-power",
+      "rarityWeight": 400,
+      "abilityReference": "@abilities:*[rarityWeight>300]",
+      "description": "Unlock legendary power"
+    }
+  ],
+  "experience_rewards": [
+    {
+      "name": "small-xp-boost",
+      "rarityWeight": 40,
+      "experienceAmount": { "min": 50, "max": 200 },
+      "description": "Small experience gain"
+    },
+    {
+      "name": "moderate-xp",
+      "rarityWeight": 70,
+      "experienceAmount": { "min": 200, "max": 500 },
+      "description": "Moderate experience reward"
+    },
+    {
+      "name": "large-xp-gain",
+      "rarityWeight": 120,
+      "experienceAmount": { "min": 500, "max": 1500 },
+      "description": "Large experience gain"
+    },
+    {
+      "name": "massive-xp-bonus",
+      "rarityWeight": 200,
+      "experienceAmount": { "min": 1500, "max": 5000 },
+      "description": "Massive experience bonus"
+    }
+  ]
+}

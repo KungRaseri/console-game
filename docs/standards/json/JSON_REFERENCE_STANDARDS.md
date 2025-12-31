@@ -509,16 +509,287 @@ public interface IReferenceValidator
 
 ---
 
+## Enhancement System References (v4.2+)
+
+### Material References
+
+**Purpose:** Select materials for item generation with contextual filtering
+
+**Location:** Used in `materialRef` field of item patterns
+
+**Common Filters:**
+```json
+// Metals with weapon traits
+"@items/materials/metals:*[itemTypeTraits.weapon EXISTS]"
+
+// Leathers with armor traits
+"@items/materials/leathers:*[itemTypeTraits.armor EXISTS]"
+
+// Rare materials (high rarityWeight)
+"@items/materials/*:*[rarityWeight>=50]"
+
+// Lightweight materials
+"@items/materials/*:*[traits.weight<1.0]"
+
+// Highly enchantable materials
+"@items/materials/*:*[traits.enchantability>=50]"
+
+// Specific material
+"@items/materials/metals:steel"
+```
+
+**Material Context Filters:**
+
+| Filter | Description | Example |
+|--------|-------------|---------|
+| `itemTypeTraits.weapon EXISTS` | Material has weapon traits | Applied to swords, axes, etc. |
+| `itemTypeTraits.armor EXISTS` | Material has armor traits | Applied to plate, mail, etc. |
+| `itemTypeTraits.jewelry EXISTS` | Material has jewelry traits | Applied to rings, amulets |
+| `traits.weight < N` | Material weight limit | Lightweight weapons/armor |
+| `traits.durability >= N` | Minimum durability | Durable equipment |
+| `traits.enchantability >= N` | Enchantment receptiveness | Magical items |
+
+**Usage in Item Generation:**
+1. Pattern with `materialRef` selected
+2. Reference resolved with filters
+3. Material selected by `rarityWeight` from filtered pool
+4. Material `traits` + `itemTypeTraits[itemType]` applied to item
+5. Material `name` used in `{material}` token
+
+**Example Flow:**
+```json
+// Pattern in weapons/names.json
+{
+  "pattern": "{material} {base}",
+  "rarityWeight": 50,
+  "materialRef": "@items/materials/metals:*[itemTypeTraits.weapon EXISTS]"
+}
+
+// Resolves materials/catalog.json → filters to: Iron, Steel, Mithril, etc.
+// Selects "Steel" (rarityWeight: 15)
+// Applies: traits { durability: 120 } + itemTypeTraits.weapon { damage: 4, critChance: 2 }
+// Result: "Steel Longsword" with enhanced stats
+```
+
+---
+
+### Enchantment References
+
+**Purpose:** Select enchantments for item generation with position filtering
+
+**Location:** Used in `enchantmentSlots[].ref` field of item patterns
+
+**Common Filters:**
+```json
+// Prefix enchantments
+"@items/enchantments:*[position=prefix]"
+
+// Suffix enchantments
+"@items/enchantments:*[position=suffix]"
+
+// Limited rarity enchantments
+"@items/enchantments:*[position=suffix][rarityWeight<=100]"
+
+// Element-only enchantments
+"@items/enchantments:*[element_suffix EXISTS]"
+
+// Combat enchantments
+"@items/enchantments:*[combat_suffix EXISTS]"
+
+// Quality-enhanced enchantments
+"@items/enchantments:*[quality_prefix EXISTS]"
+```
+
+**Enchantment Position Filters:**
+
+| Filter | Description | Example |
+|--------|-------------|---------|
+| `position=prefix` | Adjective form enchantments | "Flaming", "Frozen", "Ancient" |
+| `position=suffix` | Noun phrase enchantments | "of Fire", "of Strength", "of the Bear" |
+| `element_prefix EXISTS` | Has elemental prefix component | Fire, Ice, Lightning |
+| `element_suffix EXISTS` | Has elemental suffix component | Fire, Ice, Lightning |
+| `combat_suffix EXISTS` | Has combat suffix component | Strength, Defense, Might |
+| `magic_suffix EXISTS` | Has magic suffix component | Intelligence, Wisdom, Power |
+| `quality_prefix EXISTS` | Has quality prefix component | Minor, Greater, Superior |
+
+**Usage in Item Generation:**
+1. Pattern with `enchantmentSlots[]` selected
+2. For each slot, resolve `ref` with filters
+3. EnchantmentGenerator creates enchantment from enchantments/names.json
+4. Enchantment pattern selected by `rarityWeight`
+5. Components selected and traits applied to item
+6. Enchantment name used in `{enchantment_prefix}` or `{enchantment_suffix}` token
+
+**Example Flow:**
+```json
+// Pattern in weapons/names.json
+{
+  "pattern": "{material} {base} {enchantment_suffix}",
+  "rarityWeight": 25,
+  "materialRef": "@items/materials/metals:*",
+  "enchantmentSlots": [
+    {
+      "type": "suffix",
+      "ref": "@items/enchantments:*[position=suffix][rarityWeight<=150]",
+      "rarityWeightMax": 150
+    }
+  ]
+}
+
+// Resolves to suffix enchantments ≤ 150 rarityWeight
+// Generates: "of Fire Strength" (Fire: 25 + Strength: 30 = 55)
+// Applies traits: { fireDamage: 10, bonusStrength: 2 }
+// Result: "Steel Longsword of Fire Strength"
+```
+
+---
+
+### Gem References (Future)
+
+**Purpose:** Reference gem catalog for socketing system
+
+**Location:** Used in gem socket resolution
+
+**Common Filters:**
+```json
+// Combat gems (red sockets)
+"@items/gems/combat:*[color=red]"
+
+// Magic gems (blue sockets)
+"@items/gems/magic:*[color=blue]"
+
+// Agility gems (green sockets)
+"@items/gems/agility:*[color=green]"
+
+// Level-restricted gems
+"@items/gems/*:*[level<=3]"
+
+// Universal gems
+"@items/gems/*:*[color=white]"
+```
+
+**Note:** Gem system is planned for future implementation. References documented here for completeness.
+
+---
+
+### Quest Objective References
+
+**Purpose:** Select quest objectives dynamically based on quest type
+
+**Location:** Used by QuestGenerator when creating quests
+
+**Common Filters:**
+```json
+// Kill objectives
+"@quests/objectives/kill_objectives/*:*"
+
+// Boss fights
+"@quests/objectives/kill_objectives/boss_fight:*"
+
+// High reward objectives
+"@quests/objectives/*:*[rewardMultiplier>=2.0]"
+
+// Enemy-related objectives with level filter
+"@quests/objectives/*:*[enemyReference EXISTS][rewardMultiplier>=1.5]"
+
+// Fetch quests with rare items
+"@quests/objectives/fetch_objectives/*:*[itemReference MATCHES @items.*rarityWeight>=100]"
+```
+
+**Objective Filter Context:**
+
+| Filter | Description | Example |
+|--------|-------------|---------|
+| `rewardMultiplier >= N` | Minimum reward scaling | High-value quests |
+| `enemyReference EXISTS` | Has enemy target | Combat objectives |
+| `itemReference EXISTS` | Has item requirement | Collection objectives |
+| `npcReference EXISTS` | Has NPC interaction | Escort/dialogue objectives |
+| `timeLimit EXISTS` | Has time constraint | Urgent missions |
+
+**Usage in QuestGenerator:**
+1. Select quest type (kill, fetch, escort, etc.)
+2. Load objectives: `@quests/objectives/{type}_objectives/*:*`
+3. Apply filters based on quest context
+4. Select objective by `rarityWeight`
+5. Resolve embedded references (`enemyReference`, `itemReference`)
+6. Generate complete objective description
+
+---
+
+### Quest Reward References
+
+**Purpose:** Select quest rewards dynamically based on quest difficulty
+
+**Location:** Used by QuestGenerator after objective selection
+
+**Common Filters:**
+```json
+// Gold rewards
+"@quests/rewards/gold_rewards/*:*"
+
+// Item rewards
+"@quests/rewards/item_rewards/weapons:*"
+
+// High-value rewards
+"@quests/rewards/*:*[rarityWeight>=50]"
+
+// Rare item rewards
+"@quests/rewards/item_rewards/*:*[itemReference MATCHES .*rarityWeight>=100]"
+
+// Reputation rewards for specific faction
+"@quests/rewards/reputation_rewards/*:*[factionReference=@organizations/factions:merchants_guild]"
+```
+
+**Reward Filter Context:**
+
+| Filter | Description | Example |
+|--------|-------------|---------|
+| `goldMin >= N` | Minimum gold amount | High-paying quests |
+| `itemReference EXISTS` | Rewards include items | Equipment/loot rewards |
+| `factionReference EXISTS` | Grants reputation | Faction quests |
+| `abilityReference EXISTS` | Teaches abilities | Training quests |
+| `xpMin >= N` | Minimum XP reward | Leveling quests |
+
+**Usage in QuestGenerator:**
+1. Get `rewardMultiplier` from objective
+2. Select reward type(s) based on quest tier
+3. Load rewards: `@quests/rewards/{type}_rewards/*:*`
+4. Apply multiplier to gold/xp amounts
+5. Resolve item/ability/faction references
+6. Return complete reward package
+
+**Example Flow:**
+```json
+// Objective: Boss fight (rewardMultiplier: 3.0)
+// Reward selection:
+{
+  "goldReward": "@quests/rewards/gold_rewards/*:*[rarityWeight>=40]",
+  "itemReward": "@quests/rewards/item_rewards/weapons:*[rarityWeight>=100]"
+}
+// Resolves to:
+// - Gold: 300-1500 (100-500 × 3.0 multiplier)
+// - Item: "Rare Legendary Sword" from filtered pool
+```
+
+---
+
 ## Reference Quick Lookup
 
 | Domain | Path Example | Use Case |
 |--------|-------------|----------|
 | `@items` | `@items/weapons/swords:longsword` | Equipment, loot, crafting |
+| `@items/materials` | `@items/materials/metals:steel` | Material selection for item generation |
+| `@items/enchantments` | `@items/enchantments:*[position=suffix]` | Enchantment selection for items |
+| `@items/gems` | `@items/gems/combat:*[color=red]` | Gem socketing (future) |
 | `@abilities` | `@abilities/active/offensive:fireball` | Class abilities, enemy skills |
 | `@classes` | `@classes/warriors:fighter` | Character classes, NPCs |
 | `@enemies` | `@enemies/beasts/wolves:dire-wolf` | Combat encounters |
 | `@npcs` | `@npcs/backgrounds:noble` | NPC generation |
 | `@quests` | `@quests/templates/fetch:easy-fetch` | Quest system |
+| `@quests/objectives` | `@quests/objectives/kill_objectives/*:*` | Dynamic quest objectives |
+| `@quests/rewards` | `@quests/rewards/item_rewards/*:*` | Dynamic quest rewards |
+| `@organizations/factions` | `@organizations/factions:merchants_guild` | Faction reputation |
+| `@world/locations` | `@world/locations/towns:stormhaven` | Quest locations |
 
 ---
 
@@ -532,6 +803,14 @@ public interface IReferenceValidator
 ---
 
 ## Version History
+
+### v4.2 (2025-12-31)
+- Added material references with `itemTypeTraits` context filtering
+- Added enchantment references with `position` filtering
+- Added gem references (placeholder for future implementation)
+- Added quest objective references with reward multipliers
+- Added quest reward references with embedded reference filtering
+- Enhanced filter examples for generation context
 
 ### v4.1 (2025-12-28)
 - Initial reference system specification

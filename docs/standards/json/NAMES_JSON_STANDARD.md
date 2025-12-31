@@ -551,6 +551,279 @@ For complete reference system documentation, see:
 
 ---
 
+## Enhancement System Fields (v4.2+)
+
+### materialRef Field
+
+**Purpose:** Link patterns to material catalog for procedural material selection during generation
+
+**Type:** v4.1 reference string
+
+**Location:** Pattern object (alongside `pattern` and `rarityWeight`)
+
+**Syntax:**
+```json
+{
+  "pattern": "{material} {base}",
+  "rarityWeight": 50,
+  "materialRef": "@items/materials/metals:*[itemTypeTraits.weapon EXISTS]"
+}
+```
+
+**Examples:**
+```json
+// Random metal with weapon traits
+"materialRef": "@items/materials/metals:*[itemTypeTraits.weapon EXISTS]"
+
+// Random leather with armor traits
+"materialRef": "@items/materials/leathers:*[itemTypeTraits.armor EXISTS]"
+
+// Specific material
+"materialRef": "@items/materials/metals:steel"
+
+// Any material (no filter)
+"materialRef": "@items/materials:*"
+
+// Optional material (can be null)
+"materialRef": "@items/materials/metals:*[rarityWeight<=50]?"
+```
+
+**Usage:**
+1. Generator selects pattern
+2. If pattern has `materialRef`, resolve reference
+3. Material selected by rarityWeight from filtered pool
+4. Material traits applied to item
+5. Material name used in `{material}` token
+
+**Notes:**
+- Only applies to item names.json files (weapons, armor, etc.)
+- Materials from `items/materials/catalog.json`
+- Supports all v4.1 reference filters
+- `{material}` token in pattern is replaced with material name
+
+---
+
+### enchantmentSlots Field
+
+**Purpose:** Define enchantment positions and references for items during generation
+
+**Type:** Array of enchantment slot objects
+
+**Location:** Pattern object
+
+**Syntax:**
+```json
+{
+  "pattern": "{enchantment_prefix} {material} {base} {enchantment_suffix}",
+  "rarityWeight": 10,
+  "materialRef": "@items/materials/metals:*",
+  "enchantmentSlots": [
+    {
+      "type": "prefix",
+      "ref": "@items/enchantments:*[position=prefix]",
+      "rarityWeightMax": 80
+    },
+    {
+      "type": "suffix",
+      "ref": "@items/enchantments:*[position=suffix]",
+      "rarityWeightMax": 100
+    }
+  ]
+}
+```
+
+**Enchantment Slot Object:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `type` | string | ✅ Yes | "prefix" or "suffix" |
+| `ref` | string | ✅ Yes | v4.1 reference to enchantments |
+| `rarityWeightMax` | number | ⭐ Optional | Max rarityWeight for enchantment selection |
+
+**Slot Types:**
+- **prefix** - Adjective form, placed before material+base: "{enchantment_prefix} {material} {base}"
+- **suffix** - Noun phrase form, placed after base: "{material} {base} {enchantment_suffix}"
+
+**Examples:**
+
+**Single Prefix:**
+```json
+{
+  "pattern": "{enchantment_prefix} {material} {base}",
+  "rarityWeight": 30,
+  "enchantmentSlots": [
+    {
+      "type": "prefix",
+      "ref": "@items/enchantments:*[position=prefix]",
+      "rarityWeightMax": 100
+    }
+  ]
+}
+```
+Generates: "Flaming Steel Sword", "Frozen Iron Axe"
+
+**Single Suffix:**
+```json
+{
+  "pattern": "{material} {base} {enchantment_suffix}",
+  "rarityWeight": 25,
+  "enchantmentSlots": [
+    {
+      "type": "suffix",
+      "ref": "@items/enchantments:*[position=suffix]",
+      "rarityWeightMax": 150
+    }
+  ]
+}
+```
+Generates: "Steel Sword of Fire", "Iron Axe of Strength"
+
+**Both Prefix and Suffix:**
+```json
+{
+  "pattern": "{enchantment_prefix} {material} {base} {enchantment_suffix}",
+  "rarityWeight": 10,
+  "enchantmentSlots": [
+    {
+      "type": "prefix",
+      "ref": "@items/enchantments:*[position=prefix][rarityWeight<=80]"
+    },
+    {
+      "type": "suffix",
+      "ref": "@items/enchantments:*[position=suffix][rarityWeight<=100]"
+    }
+  ]
+}
+```
+Generates: "Flaming Steel Sword of Strength", "Frozen Mithril Axe of the Bear"
+
+**Usage:**
+1. Generator selects pattern with enchantmentSlots
+2. For each slot, resolve enchantment reference
+3. Generate enchantment name from enchantments/names.json
+4. Apply enchantment traits to item
+5. Replace {enchantment_prefix} or {enchantment_suffix} tokens
+
+**Notes:**
+- Enchantments from `items/enchantments/names.json`
+- Each slot can filter by position and rarityWeight
+- Multiple slots increase item rarity significantly
+- Empty array = no enchantments
+
+---
+
+### gemSocketCount Field
+
+**Purpose:** Define gem socket range for generated items
+
+**Type:** Object with min/max properties
+
+**Location:** Pattern object (optional)
+
+**Syntax:**
+```json
+{
+  "pattern": "{material} {base}",
+  "rarityWeight": 50,
+  "gemSocketCount": {
+    "min": 1,
+    "max": 3
+  }
+}
+```
+
+**GemSocketCount Object:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `min` | number | ✅ Yes | Minimum socket count (0+) |
+| `max` | number | ✅ Yes | Maximum socket count |
+
+**Examples:**
+
+**No Sockets:**
+```json
+{
+  "pattern": "{base}",
+  "rarityWeight": 100,
+  "gemSocketCount": {
+    "min": 0,
+    "max": 0
+  }
+}
+```
+
+**Fixed Socket Count:**
+```json
+{
+  "pattern": "{material} {base}",
+  "rarityWeight": 50,
+  "gemSocketCount": {
+    "min": 2,
+    "max": 2
+  }
+}
+```
+
+**Variable Sockets:**
+```json
+{
+  "pattern": "{enchantment_prefix} {material} {base}",
+  "rarityWeight": 30,
+  "gemSocketCount": {
+    "min": 1,
+    "max": 4
+  }
+}
+```
+
+**Notes:**
+- If omitted, socket count calculated from total rarityWeight
+- Explicit `gemSocketCount` overrides automatic calculation
+- More sockets contribute to rarityWeight: `socketCount² × 5`
+- Socket colors determined by item type (weapons=red/blue, armor=green/yellow)
+
+---
+
+### Pattern Example with All Enhancement Fields
+
+```json
+{
+  "pattern": "{enchantment_prefix} {material} {base} {enchantment_suffix}",
+  "rarityWeight": 10,
+  "materialRef": "@items/materials/metals:*[rarityWeight>=20][itemTypeTraits.weapon EXISTS]",
+  "enchantmentSlots": [
+    {
+      "type": "prefix",
+      "ref": "@items/enchantments:*[position=prefix][rarityWeight<=100]",
+      "rarityWeightMax": 100
+    },
+    {
+      "type": "suffix",
+      "ref": "@items/enchantments:*[position=suffix][element_suffix EXISTS]",
+      "rarityWeightMax": 150
+    }
+  ],
+  "gemSocketCount": {
+    "min": 2,
+    "max": 4
+  }
+}
+```
+
+**Generation Flow:**
+1. Pattern selected (rarityWeight: 10)
+2. Material: "Steel" from metals with weapon traits (rarityWeight: 15)
+3. Base: "Longsword" from catalog (rarityWeight: 25)
+4. Prefix enchantment: "Flaming" (rarityWeight: 25)
+5. Suffix enchantment: "of Fire Strength" (rarityWeight: 55)
+6. Socket count: 3 (random between 2-4)
+7. Total rarityWeight: 10 + 15 + 25 + 25 + 55 + 45 = 175 → RARE
+8. Final name: "Flaming Steel Longsword of Fire Strength"
+9. Sockets: 3 empty sockets (2 red, 1 blue based on weapon type)
+
+---
+
 ## Weight-Based Rarity System
 
 ### Selection Probability Formula
@@ -761,6 +1034,7 @@ These work across ALL domains (items, enemies):
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 4.2 | 2025-12-31 | Added materialRef, enchantmentSlots, gemSocketCount for hybrid enhancement system |
 | 4.0 | 2025-12-27 | Added trait system, removed hardcoded rarity |
 | 3.0 | 2025-12-16 | Consolidated naming system |
 | 2.0 | 2025-12-15 | Added weight-based rarity |

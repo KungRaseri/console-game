@@ -2,7 +2,8 @@
 
 **Purpose:** Comprehensive standards for all JSON data files in the game  
 **Location:** `Game.Data/Data/Json/`  
-**Last Updated:** December 27, 2025
+**Last Updated:** December 31, 2025  
+**Version:** 4.2
 
 ---
 
@@ -12,14 +13,15 @@
 | Standard | Document | Purpose |
 |----------|----------|---------|
 | **Structure Types** | [JSON_STRUCTURE_TYPES.md](JSON_STRUCTURE_TYPES.md) | All 5 structure types (CATALOG, PATTERN_GENERATION, etc.) |
-| **References** | [JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md) | Unified reference system for linking JSON files |
+| **References** | [JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md) | Unified reference system for linking JSON files (v4.2) |
 | **Traits** | [TRAIT_STANDARDS.md](TRAIT_STANDARDS.md) | Standardized trait formats and value enums |
+| **Enhancement System** | [ITEM_ENHANCEMENT_SYSTEM.md](ITEM_ENHANCEMENT_SYSTEM.md) | **NEW** Hybrid item generation with materials/enchantments/gems |
 
 ### Structure Types
 | Structure Type | Standard Document | Purpose |
 |----------------|-------------------|---------|
-| CATALOG | [CATALOG_JSON_STANDARD.md](CATALOG_JSON_STANDARD.md) | Selectable entities (abilities, items, enemies) |
-| PATTERN_GENERATION | [NAMES_JSON_STANDARD.md](NAMES_JSON_STANDARD.md) | Procedural name generation |
+| CATALOG | [CATALOG_JSON_STANDARD.md](CATALOG_JSON_STANDARD.md) | Selectable entities (abilities, items, enemies, quest objectives/rewards) |
+| PATTERN_GENERATION | [NAMES_JSON_STANDARD.md](NAMES_JSON_STANDARD.md) | Procedural name generation (v4.2: materialRef, enchantmentSlots) |
 | COMPONENT_LIBRARY | [JSON_STRUCTURE_TYPES.md#3-component_library-structure](JSON_STRUCTURE_TYPES.md#3-component_library-structure) | Reusable data arrays (adjectives, colors) |
 | CONFIG | [JSON_STRUCTURE_TYPES.md#4-config-structure](JSON_STRUCTURE_TYPES.md#4-config-structure) | Game rules and settings |
 | HIERARCHICAL_CATALOG | [JSON_STRUCTURE_TYPES.md#5-hierarchical_catalog-structure](JSON_STRUCTURE_TYPES.md#5-hierarchical_catalog-structure) | Multi-category catalogs (NPCs, quests) |
@@ -28,7 +30,8 @@
 | Standard | Document | Purpose |
 |----------|----------|---------|
 | TRAITS | [TRAIT_STANDARDS.md](TRAIT_STANDARDS.md) | Trait formats and value enums for all entities |
-| REFERENCES | [JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md) | Linking game data across domains |
+| REFERENCES | [JSON_REFERENCE_STANDARDS.md](JSON_REFERENCE_STANDARDS.md) | Linking game data across domains (v4.2: materials, enchantments, quests) |
+| ENHANCEMENT SYSTEM | [ITEM_ENHANCEMENT_SYSTEM.md](ITEM_ENHANCEMENT_SYSTEM.md) | **NEW** Hybrid 3-layer enhancement architecture |
 
 ### Special Files
 | File Type | Standard Document | Purpose |
@@ -364,5 +367,26 @@ For questions about JSON standards:
 ## Document Index
 
 - [.cbconfig.json Standard](CBCONFIG_STANDARD.md) - UI configuration
-- [names.json Standard](NAMES_JSON_STANDARD.md) - Pattern generation
-- [catalog.json Standard](CATALOG_JSON_STANDARD.md) - Item/enemy catalog
+- [names.json Standard](NAMES_JSON_STANDARD.md) - Pattern generation (v4.2)
+- [catalog.json Standard](CATALOG_JSON_STANDARD.md) - Item/enemy catalog (v4.2)
+- [JSON Reference Standards](JSON_REFERENCE_STANDARDS.md) - Reference system (v4.2)
+- [Item Enhancement System](ITEM_ENHANCEMENT_SYSTEM.md) - **NEW** Hybrid enhancement architecture
+- [Trait Standards](TRAIT_STANDARDS.md) - Trait formats
+- [JSON Structure Types](JSON_STRUCTURE_TYPES.md) - All structure types
+
+---
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 4.2 | 2025-12-31 | Added hybrid enhancement system (materials, enchantments, gems, sockets) |
+| | | Added quest objectives/rewards catalog types |
+| | | Enhanced reference system with context filters |
+| | | Added ITEM_ENHANCEMENT_SYSTEM.md documentation |
+| 4.0 | 2025-12-27 | Added trait system to all standards |
+| | | Standardized rarityWeight across all files |
+| | | Created comprehensive standards documentation |
+| 3.0 | 2025-12-16 | Consolidated naming standards |
+| 2.0 | 2025-12-15 | Added weight-based rarity system |
+| 1.0 | 2025-12-10 | Initial JSON standards

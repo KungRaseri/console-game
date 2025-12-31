@@ -760,6 +760,218 @@ For complete reference system documentation, see:
 
 ---
 
+## Quest System Catalogs (v4.2+)
+
+### Quest Objectives Catalog
+
+**Purpose:** Define reusable objective templates organized by quest type
+
+**File Location:** `quests/objectives/catalog.json`
+
+**Type Value:** `quest_objectives_catalog`
+
+**Structure:**
+```json
+{
+  "metadata": {
+    "description": "Quest objective templates organized by quest type",
+    "version": "4.0",
+    "lastUpdated": "2025-12-31",
+    "type": "quest_objectives_catalog"
+  },
+  "[questType]_objectives": {
+    "[subType]": {
+      "items": [
+        {
+          "name": "objective_name",
+          "displayName": "Defeat {quantity} {enemyType}",
+          "rarityWeight": 15,
+          "description": "Description of objective",
+          "enemyReference": "@enemies:*",
+          "minQuantity": 5,
+          "maxQuantity": 15,
+          "rewardMultiplier": 1.0
+        }
+      ]
+    }
+  }
+}
+```
+
+**Quest Type Categories:**
+- `kill_objectives` - Boss fights, group combat, bounty hunts
+- `fetch_objectives` - Item collection, resource gathering, artifact retrieval
+- `escort_objectives` - NPC protection, caravan escort
+- `investigate_objectives` - Mystery solving, exploration, clue finding
+- `delivery_objectives` - Package delivery, courier missions
+
+**Key Fields:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Unique objective identifier |
+| `displayName` | string | Template with placeholders ({quantity}, {enemyType}) |
+| `rarityWeight` | number | Selection probability |
+| `description` | string | Objective description |
+| `*Reference` | string | v4.1 references to entities (@enemies:*, @items:*, @npcs:*) |
+| `minQuantity` / `maxQuantity` | number | Quantity ranges |
+| `rewardMultiplier` | number | Multiplier for quest rewards (0.5-5.0) |
+
+**Example:**
+```json
+{
+  "kill_objectives": {
+    "boss_fight": {
+      "items": [
+        {
+          "name": "defeat_boss",
+          "displayName": "Defeat {bossName}",
+          "rarityWeight": 40,
+          "description": "Slay a powerful boss creature",
+          "enemyReference": "@enemies:*[level>=10]",
+          "quantity": 1,
+          "rewardMultiplier": 3.0
+        }
+      ]
+    },
+    "group_combat": {
+      "items": [
+        {
+          "name": "extermination",
+          "displayName": "Eliminate {quantity} {enemyType}",
+          "rarityWeight": 15,
+          "description": "Clear out a group of enemies",
+          "enemyReference": "@enemies:*",
+          "minQuantity": 5,
+          "maxQuantity": 15,
+          "rewardMultiplier": 1.0
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+### Quest Rewards Catalog
+
+**Purpose:** Define reusable reward templates organized by reward type
+
+**File Location:** `quests/rewards/catalog.json`
+
+**Type Value:** `quest_rewards_catalog`
+
+**Structure:**
+```json
+{
+  "metadata": {
+    "description": "Quest reward templates organized by reward type",
+    "version": "4.0",
+    "lastUpdated": "2025-12-31",
+    "type": "quest_rewards_catalog"
+  },
+  "[rewardType]_rewards": {
+    "[subType]": {
+      "items": [
+        {
+          "name": "reward_name",
+          "rarityWeight": 20,
+          "goldMin": 10,
+          "goldMax": 50,
+          "description": "Description of reward"
+        }
+      ]
+    }
+  }
+}
+```
+
+**Reward Type Categories:**
+- `gold_rewards` - Currency rewards (copper, silver, gold, fortune)
+- `item_rewards` - Equipment rewards (weapons, armor, consumables)
+- `reputation_rewards` - Faction standing increases
+- `ability_rewards` - New skills and techniques
+- `experience_rewards` - XP amounts
+
+**Key Fields:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Unique reward identifier |
+| `rarityWeight` | number | Selection probability |
+| `description` | string | Reward description |
+| `goldMin` / `goldMax` | number | Gold amount range (for gold_rewards) |
+| `itemReference` | string | v4.1 reference to items (for item_rewards) |
+| `quantity` | string/number | Item quantity or range ("3-5", 1) |
+| `factionReference` | string | v4.1 reference to factions (for reputation_rewards) |
+| `reputationGain` | string | Reputation amount or range ("10-25") |
+| `abilityReference` | string | v4.1 reference to abilities (for ability_rewards) |
+| `xpMin` / `xpMax` | number | Experience point range |
+
+**Example:**
+```json
+{
+  "gold_rewards": {
+    "small_purse": {
+      "items": [
+        {
+          "name": "copper_reward",
+          "rarityWeight": 10,
+          "goldMin": 5,
+          "goldMax": 25,
+          "description": "A small amount of coins"
+        },
+        {
+          "name": "gold_reward",
+          "rarityWeight": 40,
+          "goldMin": 100,
+          "goldMax": 500,
+          "description": "A hefty bag of gold"
+        }
+      ]
+    }
+  },
+  "item_rewards": {
+    "weapons": {
+      "items": [
+        {
+          "name": "rare_weapon",
+          "rarityWeight": 50,
+          "itemReference": "@items/weapons:*[rarityWeight>=100]",
+          "quantity": 1,
+          "description": "A fine weapon"
+        }
+      ]
+    }
+  },
+  "reputation_rewards": {
+    "faction_standing": {
+      "items": [
+        {
+          "name": "major_favor",
+          "rarityWeight": 40,
+          "factionReference": "@organizations/factions:*",
+          "reputationGain": "50-100",
+          "description": "Significant recognition from the faction"
+        }
+      ]
+    }
+  }
+}
+```
+
+**Usage in QuestGenerator:**
+1. Load objectives catalog based on quest type
+2. Select objective by rarityWeight
+3. Resolve entity references (@enemies:*, @items:*, etc.)
+4. Load rewards catalog
+5. Select reward(s) by rarityWeight
+6. Apply rewardMultiplier from objective
+7. Generate complete quest
+
+---
+
 ## Related Standards
 
 - **names.json Standard** - Pattern generation that references this catalog
@@ -772,4 +984,5 @@ For complete reference system documentation, see:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 4.2 | 2025-12-31 | Added quest objectives and rewards catalog structures |
 | 1.0 | 2025-12-27 | Initial catalog standard documentation |
