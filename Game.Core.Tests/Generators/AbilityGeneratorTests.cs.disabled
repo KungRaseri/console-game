@@ -1,0 +1,168 @@
+using FluentAssertions;
+using Game.Core.Generators.Modern;
+using Game.Data.Services;
+using Game.Shared.Models;
+
+namespace Game.Core.Tests.Generators;
+
+public class AbilityGeneratorTests
+{
+    private readonly GameDataCache _dataCache;
+    private readonly ReferenceResolverService _referenceResolver;
+    private readonly AbilityGenerator _generator;
+
+    public AbilityGeneratorTests()
+    {
+        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "Game.Data", "Data", "Json");
+        _dataCache = new GameDataCache(basePath);
+        _referenceResolver = new ReferenceResolverService(_dataCache);
+        _generator = new AbilityGenerator(_dataCache, _referenceResolver);
+    }
+
+    [Theory]
+    [InlineData("active")]
+    [InlineData("passive")]
+    public async Task Should_Load_Abilities_From_Category(string category)
+    {
+        // Act
+        var abilities = await _generator.GetAbilitiesByCategoryAsync(category);
+
+        // Assert
+        abilities.Should().NotBeNull();
+        abilities.Should().NotBeEmpty($"Category '{category}' should contain abilities");
+        
+        foreach (var ability in abilities)
+        {
+            ability.Name.Should().NotBeNullOrEmpty();
+            ability.Description.Should().NotBeNullOrEmpty();
+            ability.Id.Should().StartWith(category);
+        }
+    }
+
+    [Fact]
+    public async Task Should_Get_Ability_By_ID()
+    {
+        // Arrange - first get an ability to test with
+        var activeAbilities = await _generator.GetAbilitiesByCategoryAsync("active");
+        activeAbilities.Should().NotBeEmpty();
+        var testAbility = activeAbilities.First();
+
+        // Act
+        var result = await _generator.GetAbilityByIdAsync(testAbility.Id);
+
+        // Assert
+        result.Should().NotBeNull();
+        result!.Id.Should().Be(testAbility.Id);
+        result.Name.Should().Be(testAbility.Name);
+    }
+
+    [Fact]
+    public async Task Should_Return_Null_For_Non_Existent_Ability()
+    {
+        // Act
+        var result = await _generator.GetAbilityByIdAsync("non-existent/ability:fake");
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task Should_Generate_Abilities_With_Valid_Properties()
+    {
+        // Act
+        var abilities = await _generator.GetAbilitiesByCategoryAsync("active");
+
+        // Assert
+        abilities.Should().NotBeEmpty();
+        
+        foreach (var ability in abilities)
+        {
+            ability.Name.Should().NotBeNullOrEmpty();
+            ability.Description.Should().NotBeNullOrEmpty();
+            ability.Id.Should().NotBeNullOrEmpty();
+            ability.ManaCost.Should().BeGreaterOrEqualTo(0);
+            ability.Cooldown.Should().BeGreaterOrEqualTo(0);
+            ability.Damage.Should().BeGreaterOrEqualTo(0);
+            ability.Healing.Should().BeGreaterOrEqualTo(0);
+        }
+    }
+
+    [Fact]
+    public async Task Should_Handle_Different_Ability_Subcategories()
+    {
+        // Act
+        var offensiveAbilities = await _generator.GetAbilitiesBySubcategoryAsync("active", "offensive");
+        var supportAbilities = await _generator.GetAbilitiesBySubcategoryAsync("active", "support");
+        var defensiveAbilities = await _generator.GetAbilitiesBySubcategoryAsync("active", "defensive");
+
+        // Assert - at least one category should have abilities
+        var totalAbilities = offensiveAbilities.Count + supportAbilities.Count + defensiveAbilities.Count;
+        totalAbilities.Should().BeGreaterThan(0, "At least one ability subcategory should contain abilities");
+
+        // Check that abilities in offensive category have appropriate properties
+        if (offensiveAbilities.Any())
+        {
+            foreach (var ability in offensiveAbilities)
+            {
+                ability.Id.Should().Contain("offensive");
+                ability.Damage.Should().BeGreaterThan(0, "Offensive abilities should have damage");
+            }
+        }
+
+        // Check that abilities in support category have appropriate properties
+        if (supportAbilities.Any())
+        {
+            foreach (var ability in supportAbilities)
+            {
+                ability.Id.Should().Contain("support");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_Abilities_With_Unique_IDs()
+    {
+        // Act
+        var activeAbilities = await _generator.GetAbilitiesByCategoryAsync("active");
+        var passiveAbilities = await _generator.GetAbilitiesByCategoryAsync("passive");
+        
+        var allAbilities = activeAbilities.Concat(passiveAbilities).ToList();
+
+        // Assert
+        allAbilities.Should().NotBeEmpty();
+        
+        var ids = allAbilities.Select(a => a.Id).ToList();
+        ids.Should().OnlyHaveUniqueItems("Each ability should have a unique ID");
+    }
+
+    [Fact]
+    public async Task Should_Handle_Empty_Category_Gracefully()
+    {
+        // Act
+        var result = await _generator.GetAbilitiesByCategoryAsync("non-existent-category");
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task Should_Parse_Space_Separated_Ability_References()
+    {
+        // This test verifies that the generator can handle space-separated ability references
+        // like "@abilities/active/support:heal @abilities/active/offensive:smite"
+        
+        // Act
+        var abilities = await _generator.GetAbilitiesByCategoryAsync("active");
+
+        // Assert
+        abilities.Should().NotBeEmpty();
+        
+        // Verify that abilities exist that could be referenced
+        var healAbility = abilities.FirstOrDefault(a => a.Name.Contains("Heal", StringComparison.OrdinalIgnoreCase));
+        var attackAbility = abilities.FirstOrDefault(a => a.Name.Contains("Attack", StringComparison.OrdinalIgnoreCase));
+        
+        // At least one of these common ability types should exist
+        (healAbility != null || attackAbility != null).Should().BeTrue("Should have at least one common ability type");
+    }
+}

@@ -1,0 +1,253 @@
+using Game.Data.Services;
+using Game.Shared.Models;
+using Newtonsoft.Json.Linq;
+
+namespace Game.Core.Generators.Modern;
+
+public class NpcGenerator
+{
+    private readonly GameDataCache _dataCache;
+    private readonly ReferenceResolverService _referenceResolver;
+    private readonly Random _random;
+
+    public NpcGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    {
+        _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
+        _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _random = new Random();
+    }
+
+    public async Task<List<NPC>> GenerateNpcsAsync(string category, int count = 5)
+    {
+        try
+        {
+            var catalog = await _dataCache.GetFileAsync<CatalogDTO>($"npcs/{category}/catalog.json");
+            if (catalog?.Items == null || !catalog.Items.Any())
+            {
+                return new List<NPC>();
+            }
+
+            var npcs = new List<NPC>();
+            var catalogItems = catalog.Items.ToList();
+
+            for (int i = 0; i < count; i++)
+            {
+                var randomNpc = GetRandomWeightedItem(catalogItems);
+                if (randomNpc != null)
+                {
+                    var npc = await ConvertToNpcAsync(randomNpc, category);
+                    if (npc != null)
+                    {
+                        npcs.Add(npc);
+                    }
+                }
+            }
+
+            return npcs;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error generating NPCs for category {category}: {ex.Message}");
+            return new List<NPC>();
+        }
+    }
+
+    public async Task<NPC?> GenerateNpcByNameAsync(string category, string npcName)
+    {
+        try
+        {
+            var catalog = await _dataCache.GetFileAsync<CatalogDTO>($"npcs/{category}/catalog.json");
+            var catalogNpc = catalog?.Items?.FirstOrDefault(n => 
+                string.Equals(n.Name, npcName, StringComparison.OrdinalIgnoreCase));
+
+            if (catalogNpc != null)
+            {
+                return await ConvertToNpcAsync(catalogNpc, category);
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error generating NPC {npcName} from category {category}: {ex.Message}");
+            return null;
+        }
+    }
+
+    private async Task<NPC?> ConvertToNpcAsync(dynamic catalogNpc, string category)
+    {
+        try
+        {
+            var npc = new NPC
+            {
+                Id = $"{category}:{catalogNpc.Name}",
+                Name = catalogNpc.Name?.ToString() ?? "Unknown NPC",
+                Description = catalogNpc.Description?.ToString() ?? "A mysterious figure",
+                Location = GetStringProperty(catalogNpc, "Location", "Unknown Location"),
+                Role = GetStringProperty(catalogNpc, "Role", "Citizen"),
+                Level = GetIntProperty(catalogNpc, "Level", 1),
+                Health = GetIntProperty(catalogNpc, "Health", 100),
+                IsHostile = GetBoolProperty(catalogNpc, "IsHostile", false),
+                IsMerchant = GetBoolProperty(catalogNpc, "IsMerchant", false),
+                IsQuestGiver = GetBoolProperty(catalogNpc, "IsQuestGiver", false)
+            };
+
+            // Resolve any dialogue references
+            var dialogue = GetStringArrayProperty(catalogNpc, "Dialogue");
+            if (dialogue?.Any() == true)
+            {
+                var resolvedDialogue = new List<string>();
+                foreach (var line in dialogue)
+                {
+                    if (line.StartsWith("@"))
+                    {
+                        var resolved = await _referenceResolver.ResolveAsync(line);
+                        if (resolved is string resolvedDialogue)
+                        {
+                            resolvedDialogue.Add(resolvedDialogue);
+                        }
+                    }
+                    else
+                    {
+                        resolvedDialogue.Add(line);
+                    }
+                }
+                npc.Dialogue = resolvedDialogue;
+            }
+
+            // Resolve inventory references
+            var inventory = GetStringArrayProperty(catalogNpc, "Inventory");
+            if (inventory?.Any() == true)
+            {
+                var resolvedInventory = new List<string>();
+                foreach (var item in inventory)
+                {
+                    if (item.StartsWith("@"))
+                    {
+                        var resolved = await _referenceResolver.ResolveAsync(item);
+                        if (resolved is string resolvedItem)
+                        {
+                            resolvedInventory.Add(resolvedItem);
+                        }
+                    }
+                    else
+                    {
+                        resolvedInventory.Add(item);
+                    }
+                }
+                npc.Inventory = resolvedInventory;
+            }
+
+            return npc;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error converting catalog NPC to NPC: {ex.Message}");
+            return null;
+        }
+    }
+
+    private dynamic? GetRandomWeightedItem(List<dynamic> items)
+    {
+        if (!items.Any()) return null;
+
+        var totalWeight = items.Sum(item => GetIntProperty(item, "RarityWeight", 1));
+        var randomValue = _random.Next(1, totalWeight + 1);
+
+        int currentWeight = 0;
+        foreach (var item in items)
+        {
+            currentWeight += GetIntProperty(item, "RarityWeight", 1);
+            if (randomValue <= currentWeight)
+            {
+                return item;
+            }
+        }
+
+        return items.First();
+    }
+
+    private static int GetIntProperty(dynamic obj, string propertyName, int defaultValue)
+    {
+        try
+        {
+            var value = GetProperty(obj, propertyName);
+            return value != null ? Convert.ToInt32(value) : defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
+        }
+    }
+
+    private static string GetStringProperty(dynamic obj, string propertyName, string defaultValue)
+    {
+        try
+        {
+            var value = GetProperty(obj, propertyName);
+            return value?.ToString() ?? defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
+        }
+    }
+
+    private static bool GetBoolProperty(dynamic obj, string propertyName, bool defaultValue)
+    {
+        try
+        {
+            var value = GetProperty(obj, propertyName);
+            return value != null ? Convert.ToBoolean(value) : defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
+        }
+    }
+
+    private static string[]? GetStringArrayProperty(dynamic obj, string propertyName)
+    {
+        try
+        {
+            var value = GetProperty(obj, propertyName);
+            if (value == null) return null;
+
+            if (value is IEnumerable<object> enumerable)
+            {
+                return enumerable.Select(x => x?.ToString()).Where(x => x != null).ToArray()!;
+            }
+
+            if (value is string stringValue)
+            {
+                // Handle space-separated string format
+                return stringValue.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            }
+
+            return null;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static object? GetProperty(dynamic obj, string propertyName)
+    {
+        try
+        {
+            if (obj is IDictionary<string, object> dict)
+            {
+                return dict.TryGetValue(propertyName, out var value) ? value : null;
+            }
+
+            var type = obj.GetType();
+            var property = type.GetProperty(propertyName);
+            return property?.GetValue(obj);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+}

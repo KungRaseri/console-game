@@ -1,0 +1,241 @@
+using FluentAssertions;
+using Game.Core.Generators.Modern;
+using Game.Data.Services;
+using Game.Shared.Models;
+
+namespace Game.Core.Tests.Generators;
+
+public class NpcGeneratorTests
+{
+    private readonly GameDataCache _dataCache;
+    private readonly ReferenceResolverService _referenceResolver;
+    private readonly NpcGenerator _generator;
+
+    public NpcGeneratorTests()
+    {
+        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "Game.Data", "Data", "Json");
+        _dataCache = new GameDataCache(basePath);
+        _referenceResolver = new ReferenceResolverService(_dataCache);
+        _generator = new NpcGenerator(_dataCache, _referenceResolver);
+    }
+
+    [Theory]
+    [InlineData("merchants")]
+    [InlineData("guards")]
+    [InlineData("nobles")]
+    [InlineData("commoners")]
+    [InlineData("clergy")]
+    public async Task Should_Generate_NPCs_From_Category(string category)
+    {
+        // Act
+        var npcs = await _generator.GenerateNpcsAsync(category, 3);
+
+        // Assert
+        npcs.Should().NotBeNull();
+        // Some categories might be empty, so we allow empty lists
+        
+        foreach (var npc in npcs)
+        {
+            npc.Name.Should().NotBeNullOrEmpty();
+            npc.Description.Should().NotBeNullOrEmpty();
+            npc.Id.Should().StartWith(category);
+            npc.Location.Should().NotBeNullOrEmpty();
+            npc.Role.Should().NotBeNullOrEmpty();
+            npc.Health.Should().BeGreaterThan(0);
+            npc.Level.Should().BeGreaterThan(0);
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_NPC_By_Name()
+    {
+        // First, get a list of available NPCs to test with
+        var npcs = await _generator.GenerateNpcsAsync("merchants", 5);
+        
+        if (npcs.Any())
+        {
+            var testNpc = npcs.First();
+            var npcName = testNpc.Name;
+
+            // Act
+            var result = await _generator.GenerateNpcByNameAsync("merchants", npcName);
+
+            // Assert
+            result.Should().NotBeNull();
+            result!.Name.Should().Be(npcName);
+            result.Id.Should().StartWith("merchants");
+        }
+    }
+
+    [Fact]
+    public async Task Should_Return_Null_For_Non_Existent_NPC()
+    {
+        // Act
+        var result = await _generator.GenerateNpcByNameAsync("merchants", "NonExistentNPC");
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task Should_Generate_NPCs_With_Valid_Properties()
+    {
+        // Act
+        var npcs = await _generator.GenerateNpcsAsync("merchants", 5);
+
+        // Assert
+        foreach (var npc in npcs)
+        {
+            npc.Name.Should().NotBeNullOrEmpty("NPC should have a name");
+            npc.Description.Should().NotBeNullOrEmpty("NPC should have a description");
+            npc.Location.Should().NotBeNullOrEmpty("NPC should have a location");
+            npc.Role.Should().NotBeNullOrEmpty("NPC should have a role");
+            npc.Level.Should().BeInRange(1, 100, "NPC level should be reasonable");
+            npc.Health.Should().BeGreaterThan(0, "NPC should have positive health");
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_Merchants_With_Merchant_Flag()
+    {
+        // Act
+        var merchants = await _generator.GenerateNpcsAsync("merchants", 5);
+
+        // Assert
+        foreach (var merchant in merchants)
+        {
+            if (merchants.Any()) // Only check if we have merchants
+            {
+                // Merchants should typically have the IsMerchant flag set
+                // But this depends on the data, so we just verify the property exists
+                merchant.IsMerchant.Should().BeDefined("IsMerchant flag should be defined");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Resolve_Dialogue_References()
+    {
+        // Act
+        var npcs = await _generator.GenerateNpcsAsync("merchants", 10);
+
+        // Assert
+        var npcsWithDialogue = npcs.Where(n => n.Dialogue?.Any() == true).ToList();
+        
+        foreach (var npc in npcsWithDialogue)
+        {
+            npc.Dialogue.Should().NotBeNull();
+            npc.Dialogue!.Should().NotBeEmpty();
+            
+            // Dialogue should be resolved from @references to actual content
+            foreach (var dialogueLine in npc.Dialogue)
+            {
+                dialogueLine.Should().NotBeNullOrEmpty();
+                dialogueLine.Should().NotStartWith("@", "Dialogue references should be resolved");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Resolve_Inventory_References()
+    {
+        // Act
+        var npcs = await _generator.GenerateNpcsAsync("merchants", 10);
+
+        // Assert
+        var npcsWithInventory = npcs.Where(n => n.Inventory?.Any() == true).ToList();
+        
+        foreach (var npc in npcsWithInventory)
+        {
+            npc.Inventory.Should().NotBeNull();
+            npc.Inventory!.Should().NotBeEmpty();
+            
+            // Inventory items should be resolved from @references to actual IDs
+            foreach (var item in npc.Inventory)
+            {
+                item.Should().NotBeNullOrEmpty();
+                item.Should().NotStartWith("@", "Inventory references should be resolved");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Handle_Empty_Category_Gracefully()
+    {
+        // Act
+        var result = await _generator.GenerateNpcsAsync("non-existent-category", 5);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task Should_Generate_NPCs_With_Different_Roles()
+    {
+        // Act
+        var merchants = await _generator.GenerateNpcsAsync("merchants", 5);
+        var guards = await _generator.GenerateNpcsAsync("guards", 5);
+        var commoners = await _generator.GenerateNpcsAsync("commoners", 5);
+
+        // Assert
+        var allNpcs = merchants.Concat(guards).Concat(commoners).ToList();
+        
+        if (allNpcs.Any())
+        {
+            var roles = allNpcs.Select(n => n.Role).Distinct().ToList();
+            roles.Should().NotBeEmpty("NPCs should have various roles");
+            
+            foreach (var npc in allNpcs)
+            {
+                npc.Role.Should().NotBeNullOrEmpty("Each NPC should have a defined role");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_NPCs_With_Appropriate_Hostility_Settings()
+    {
+        // Act
+        var guards = await _generator.GenerateNpcsAsync("guards", 5);
+        var commoners = await _generator.GenerateNpcsAsync("commoners", 5);
+
+        // Assert
+        foreach (var guard in guards)
+        {
+            // Guards might be hostile or not, but the property should be defined
+            guard.IsHostile.Should().BeDefined("IsHostile should be defined for guards");
+        }
+
+        foreach (var commoner in commoners)
+        {
+            // Commoners are typically not hostile
+            commoner.IsHostile.Should().BeDefined("IsHostile should be defined for commoners");
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_Quest_Giver_NPCs()
+    {
+        // Act
+        var npcs = await _generator.GenerateNpcsAsync("nobles", 10);
+
+        // Assert
+        if (npcs.Any())
+        {
+            foreach (var npc in npcs)
+            {
+                npc.IsQuestGiver.Should().BeDefined("IsQuestGiver should be defined");
+            }
+            
+            // Check if any NPCs are quest givers
+            var questGivers = npcs.Where(n => n.IsQuestGiver).ToList();
+            // We don't enforce quest givers exist, but if they do, they should be valid
+            foreach (var questGiver in questGivers)
+            {
+                questGiver.Name.Should().NotBeNullOrEmpty("Quest givers should have names");
+                questGiver.Level.Should().BeGreaterThan(0, "Quest givers should have levels");
+            }
+        }
+    }
+}

@@ -1,0 +1,260 @@
+using FluentAssertions;
+using Game.Core.Generators.Modern;
+using Game.Data.Services;
+using Game.Shared.Models;
+
+namespace Game.Core.Tests.Generators;
+
+public class QuestGeneratorTests
+{
+    private readonly GameDataCache _dataCache;
+    private readonly ReferenceResolverService _referenceResolver;
+    private readonly QuestGenerator _generator;
+
+    public QuestGeneratorTests()
+    {
+        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "Game.Data", "Data", "Json");
+        _dataCache = new GameDataCache(basePath);
+        _referenceResolver = new ReferenceResolverService(_dataCache);
+        _generator = new QuestGenerator(_dataCache, _referenceResolver);
+    }
+
+    [Theory]
+    [InlineData("main-story")]
+    [InlineData("side-quests")]
+    [InlineData("guild-quests")]
+    [InlineData("daily-quests")]
+    public async Task Should_Generate_Quests_From_Category(string category)
+    {
+        // Act
+        var quests = await _generator.GenerateQuestsAsync(category, 3);
+
+        // Assert
+        quests.Should().NotBeNull();
+        // Some categories might be empty, so we allow empty lists
+        
+        foreach (var quest in quests)
+        {
+            quest.Title.Should().NotBeNullOrEmpty();
+            quest.Description.Should().NotBeNullOrEmpty();
+            quest.Id.Should().StartWith(category);
+            quest.ExperienceReward.Should().BeGreaterOrEqualTo(0);
+            quest.GoldReward.Should().BeGreaterOrEqualTo(0);
+            quest.Level.Should().BeGreaterThan(0);
+            quest.IsCompleted.Should().BeFalse("New quests should not be completed");
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_Quest_By_Name()
+    {
+        // First, get a list of available quests to test with
+        var quests = await _generator.GenerateQuestsAsync("side-quests", 5);
+        
+        if (quests.Any())
+        {
+            var testQuest = quests.First();
+            var questName = testQuest.Title;
+
+            // Act
+            var result = await _generator.GenerateQuestByNameAsync("side-quests", questName);
+
+            // Assert
+            result.Should().NotBeNull();
+            result!.Title.Should().Be(questName);
+            result.Id.Should().StartWith("side-quests");
+        }
+    }
+
+    [Fact]
+    public async Task Should_Return_Null_For_Non_Existent_Quest()
+    {
+        // Act
+        var result = await _generator.GenerateQuestByNameAsync("side-quests", "NonExistentQuest");
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task Should_Generate_Quests_With_Valid_Rewards()
+    {
+        // Act
+        var quests = await _generator.GenerateQuestsAsync("side-quests", 5);
+
+        // Assert
+        foreach (var quest in quests)
+        {
+            quest.ExperienceReward.Should().BeGreaterOrEqualTo(0, "Experience reward should not be negative");
+            quest.GoldReward.Should().BeGreaterOrEqualTo(0, "Gold reward should not be negative");
+            
+            // Higher level quests should generally give more rewards
+            if (quest.Level > 1)
+            {
+                quest.ExperienceReward.Should().BeGreaterThan(0, "Higher level quests should give experience");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_Main_Story_Quests_With_Correct_Flag()
+    {
+        // Act
+        var mainQuests = await _generator.GenerateQuestsAsync("main-story", 5);
+
+        // Assert
+        foreach (var quest in mainQuests)
+        {
+            if (mainQuests.Any()) // Only check if we have main story quests
+            {
+                // Main story quests should typically have the IsMainQuest flag set
+                quest.IsMainQuest.Should().BeDefined("IsMainQuest flag should be defined");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_Quests_With_Objectives()
+    {
+        // Act
+        var quests = await _generator.GenerateQuestsAsync("side-quests", 10);
+
+        // Assert
+        var questsWithObjectives = quests.Where(q => q.Objectives?.Any() == true).ToList();
+        
+        foreach (var quest in questsWithObjectives)
+        {
+            quest.Objectives.Should().NotBeNull();
+            quest.Objectives!.Should().NotBeEmpty();
+            
+            foreach (var objective in quest.Objectives)
+            {
+                objective.Should().NotBeNullOrEmpty("Objectives should not be empty");
+                objective.Length.Should().BeGreaterThan(5, "Objectives should be meaningful");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Resolve_Prerequisite_References()
+    {
+        // Act
+        var quests = await _generator.GenerateQuestsAsync("main-story", 10);
+
+        // Assert
+        var questsWithPrerequisites = quests.Where(q => q.Prerequisites?.Any() == true).ToList();
+        
+        foreach (var quest in questsWithPrerequisites)
+        {
+            quest.Prerequisites.Should().NotBeNull();
+            quest.Prerequisites!.Should().NotBeEmpty();
+            
+            // Prerequisites should be resolved from @references to actual IDs
+            foreach (var prerequisite in quest.Prerequisites)
+            {
+                prerequisite.Should().NotBeNullOrEmpty();
+                prerequisite.Should().NotStartWith("@", "Prerequisites should be resolved from references");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Resolve_Item_Reward_References()
+    {
+        // Act
+        var quests = await _generator.GenerateQuestsAsync("side-quests", 10);
+
+        // Assert
+        var questsWithItemRewards = quests.Where(q => q.ItemRewards?.Any() == true).ToList();
+        
+        foreach (var quest in questsWithItemRewards)
+        {
+            quest.ItemRewards.Should().NotBeNull();
+            quest.ItemRewards!.Should().NotBeEmpty();
+            
+            // Item rewards should be resolved from @references to actual item IDs
+            foreach (var itemReward in quest.ItemRewards)
+            {
+                itemReward.Should().NotBeNullOrEmpty();
+                itemReward.Should().NotStartWith("@", "Item rewards should be resolved from references");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Handle_Empty_Category_Gracefully()
+    {
+        // Act
+        var result = await _generator.GenerateQuestsAsync("non-existent-category", 5);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task Should_Generate_Quests_With_Appropriate_Levels()
+    {
+        // Act
+        var quests = await _generator.GenerateQuestsAsync("side-quests", 10);
+
+        // Assert
+        foreach (var quest in quests)
+        {
+            quest.Level.Should().BeInRange(1, 100, "Quest levels should be reasonable");
+            
+            // Quest rewards should scale with level (generally)
+            if (quest.Level > 5 && quest.ExperienceReward > 0)
+            {
+                quest.ExperienceReward.Should().BeGreaterThan(50, "Higher level quests should give decent experience");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_Quests_With_Different_Categories()
+    {
+        // Act
+        var mainQuests = await _generator.GenerateQuestsAsync("main-story", 3);
+        var sideQuests = await _generator.GenerateQuestsAsync("side-quests", 3);
+        var guildQuests = await _generator.GenerateQuestsAsync("guild-quests", 3);
+
+        // Assert
+        var allQuests = mainQuests.Concat(sideQuests).Concat(guildQuests).ToList();
+        
+        if (allQuests.Any())
+        {
+            // Check IDs are properly categorized
+            foreach (var mainQuest in mainQuests)
+            {
+                mainQuest.Id.Should().StartWith("main-story:");
+            }
+
+            foreach (var sideQuest in sideQuests)
+            {
+                sideQuest.Id.Should().StartWith("side-quests:");
+            }
+
+            foreach (var guildQuest in guildQuests)
+            {
+                guildQuest.Id.Should().StartWith("guild-quests:");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_Quests_With_Meaningful_Descriptions()
+    {
+        // Act
+        var quests = await _generator.GenerateQuestsAsync("side-quests", 5);
+
+        // Assert
+        foreach (var quest in quests)
+        {
+            quest.Description.Should().NotBeNullOrEmpty("Each quest should have a description");
+            quest.Description.Length.Should().BeGreaterThan(20, "Quest descriptions should be detailed");
+            quest.Title.Should().NotBeNullOrEmpty("Each quest should have a title");
+            quest.Title.Length.Should().BeGreaterThan(3, "Quest titles should be meaningful");
+        }
+    }
+}

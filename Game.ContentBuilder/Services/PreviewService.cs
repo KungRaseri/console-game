@@ -16,12 +16,13 @@ public class PreviewService
     {
         try
         {
-            var items = ItemGenerator.Generate(count);
+            // TODO: Use modern ItemGenerator when implemented
+            var items = new List<Item>();
             return items.Select(item => new PreviewItem
             {
                 Category = "Item",
                 Name = item.Name,
-                Details = $"Type: {item.Type}, Rarity: {item.Rarity}, Price: {item.Price}g",
+                Details = $"Type: {item.Type}, Rarity: {item.Rarity}",
                 FullDescription = item.Description ?? "No description"
             }).ToList();
         }
@@ -48,13 +49,14 @@ public class PreviewService
     {
         try
         {
-            var weapons = ItemGenerator.GenerateByType(ItemType.Weapon, count);
+            // TODO: Use modern ItemGenerator when implemented
+            var weapons = new List<Item>();
             return weapons.Select(weapon => new PreviewItem
             {
                 Category = "Weapon",
                 Name = weapon.Name,
-                Details = $"Rarity: {weapon.Rarity}, Price: {weapon.Price}g, Two-Handed: {weapon.IsTwoHanded}",
-                FullDescription = $"{weapon.Description}\n\nStr: +{weapon.BonusStrength}, Dex: +{weapon.BonusDexterity}, Con: +{weapon.BonusConstitution}"
+                Details = $"Rarity: {weapon.Rarity}",
+                FullDescription = $"{weapon.Description}\n\nStats: +{weapon.BonusStrength} Str, +{weapon.BonusDexterity} Dex, +{weapon.BonusConstitution} Con"
             }).ToList();
         }
         catch (Exception ex)
@@ -71,12 +73,13 @@ public class PreviewService
     {
         try
         {
-            var consumables = ItemGenerator.GenerateByType(ItemType.Consumable, count);
+            // TODO: Use modern ItemGenerator when implemented
+            var consumables = new List<Item>();
             return consumables.Select(item => new PreviewItem
             {
                 Category = "Consumable",
                 Name = item.Name,
-                Details = $"Rarity: {item.Rarity}, Price: {item.Price}g",
+                Details = $"Rarity: {item.Rarity}",
                 FullDescription = item.Description ?? "No description"
             }).ToList();
         }
@@ -95,10 +98,11 @@ public class PreviewService
         try
         {
             var enemies = new List<Enemy>();
-            for (int i = 0; i < count; i++)
+            // TODO: Use modern EnemyGenerator when implemented
+            /*for (int i = 0; i < count; i++)
             {
                 enemies.Add(EnemyGenerator.Generate(playerLevel));
-            }
+            }*/
 
             return enemies.Select(enemy => new PreviewItem
             {
@@ -118,15 +122,16 @@ public class PreviewService
     /// <summary>
     /// Generate sample enemies by type using current JSON data
     /// </summary>
-    public List<PreviewItem> GenerateEnemyPreviewsByType(EnemyType type, int playerLevel = 5, int count = 10)
+    public List<PreviewItem> GenerateEnemyPreviewsByType(string type, int playerLevel = 5, int count = 10)
     {
         try
         {
             var enemies = new List<Enemy>();
-            for (int i = 0; i < count; i++)
+            // TODO: Use modern EnemyGenerator when implemented
+            /*for (int i = 0; i < count; i++)
             {
                 enemies.Add(EnemyGenerator.GenerateByType(type, playerLevel));
-            }
+            }*/
 
             return enemies.Select(enemy => new PreviewItem
             {
@@ -150,7 +155,8 @@ public class PreviewService
     {
         try
         {
-            var npcs = NpcGenerator.Generate(count);
+            // TODO: Use modern NpcGenerator when implemented
+            var npcs = new List<NPC>();
             return npcs.Select(npc => new PreviewItem
             {
                 Category = "NPC",
@@ -174,10 +180,11 @@ public class PreviewService
         try
         {
             var quests = new List<Quest>();
-            for (int i = 0; i < count; i++)
+            // TODO: Use modern QuestGenerator when implemented
+            /*for (int i = 0; i < count; i++)
             {
                 quests.Add(QuestGenerator.Generate());
-            }
+            }*/
 
             return quests.Select(quest => new PreviewItem
             {
@@ -202,10 +209,11 @@ public class PreviewService
         try
         {
             var quests = new List<Quest>();
-            for (int i = 0; i < count; i++)
+            // TODO: Use modern QuestGenerator when implemented
+            /*for (int i = 0; i < count; i++)
             {
                 quests.Add(QuestGenerator.GenerateByType(questType));
-            }
+            }*/
 
             return quests.Select(quest => new PreviewItem
             {

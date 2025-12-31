@@ -1,0 +1,234 @@
+using Game.Data.Services;
+using Game.Shared.Models;
+using Newtonsoft.Json.Linq;
+
+namespace Game.Core.Generators.Modern;
+
+public class ItemGenerator
+{
+    private readonly GameDataCache _dataCache;
+    private readonly ReferenceResolverService _referenceResolver;
+    private readonly Random _random;
+
+    public ItemGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    {
+        _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
+        _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _random = new Random();
+    }
+
+    public async Task<List<Item>> GenerateItemsAsync(string category, int count = 10)
+    {
+        try
+        {
+            var catalogFile = _dataCache.GetFile($"items/{category}/catalog.json");
+            if (catalogFile?.JsonData == null)
+            {
+                return new List<Item>();
+            }
+
+            var catalog = catalogFile.JsonData;
+            var items = GetItemsFromCatalog(catalog);
+            
+            if (items == null || !items.Any())
+            {
+                return new List<Item>();
+            }
+
+            var result = new List<Item>();
+
+            for (int i = 0; i < count; i++)
+            {
+                var randomItem = GetRandomWeightedItem(items);
+                if (randomItem != null)
+                {
+                    var item = await ConvertToItemAsync(randomItem, category);
+                    if (item != null)
+                    {
+                        result.Add(item);
+                    }
+                }
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error generating items for category {category}: {ex.Message}");
+            return new List<Item>();
+        }
+    }
+
+    public async Task<Item?> GenerateItemByNameAsync(string category, string itemName)
+    {
+        try
+        {
+            var catalogFile = _dataCache.GetFile($"items/{category}/catalog.json");
+            if (catalogFile?.JsonData == null)
+            {
+                return null;
+            }
+
+            var catalog = catalogFile.JsonData;
+            var items = GetItemsFromCatalog(catalog);
+            
+            var catalogItem = items?.FirstOrDefault(i => 
+                string.Equals(GetStringProperty(i, "name"), itemName, StringComparison.OrdinalIgnoreCase));
+
+            if (catalogItem != null)
+            {
+                return await ConvertToItemAsync(catalogItem, category);
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error generating item {itemName} from category {category}: {ex.Message}");
+            return null;
+        }
+    }
+
+    private static IEnumerable<JToken>? GetItemsFromCatalog(JToken catalog)
+    {
+        // Try different possible structures
+        if (catalog["items"] != null)
+        {
+            return catalog["items"]?.Children();
+        }
+        
+        // For hierarchical catalogs, look for nested items
+        foreach (var property in catalog.Children<JProperty>())
+        {
+            if (property.Value["items"] != null)
+            {
+                return property.Value["items"]?.Children();
+            }
+        }
+
+        return null;
+    }
+
+    private async Task<Item?> ConvertToItemAsync(JToken catalogItem, string category)
+    {
+        try
+        {
+            var item = new Item
+            {
+                Id = $"{category}:{GetStringProperty(catalogItem, "name")}",
+                Name = GetStringProperty(catalogItem, "name") ?? "Unknown Item",
+                Description = GetStringProperty(catalogItem, "description") ?? "No description available",
+                Value = GetIntProperty(catalogItem, "value", 1),
+                Weight = GetDoubleProperty(catalogItem, "weight", 0.0),
+                IsStackable = GetBoolProperty(catalogItem, "isStackable", false),
+                MaxStackSize = GetIntProperty(catalogItem, "maxStackSize", 1)
+            };
+
+            // Resolve item type from category
+            item.Type = category switch
+            {
+                "weapons" => ItemType.Weapon,
+                "armor" => ItemType.Armor,
+                "consumables" => ItemType.Consumable,
+                "materials" => ItemType.Material,
+                _ => ItemType.Miscellaneous
+            };
+
+            // Set rarity from rarityWeight
+            var rarityWeight = GetIntProperty(catalogItem, "rarityWeight", 1);
+            item.Rarity = ConvertWeightToRarity(rarityWeight);
+
+            return item;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error converting catalog item to Item: {ex.Message}");
+            return null;
+        }
+    }
+
+    private JToken? GetRandomWeightedItem(IEnumerable<JToken> items)
+    {
+        var itemList = items.ToList();
+        if (!itemList.Any()) return null;
+
+        var totalWeight = itemList.Sum(item => GetIntProperty(item, "rarityWeight", 1));
+        var randomValue = _random.Next(1, totalWeight + 1);
+
+        int currentWeight = 0;
+        foreach (var item in itemList)
+        {
+            currentWeight += GetIntProperty(item, "rarityWeight", 1);
+            if (randomValue <= currentWeight)
+            {
+                return item;
+            }
+        }
+
+        return itemList.First();
+    }
+
+    private static int GetIntProperty(JToken obj, string propertyName, int defaultValue)
+    {
+        try
+        {
+            var value = obj[propertyName];
+            return value != null ? value.Value<int>() : defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
+        }
+    }
+
+    private static double GetDoubleProperty(JToken obj, string propertyName, double defaultValue)
+    {
+        try
+        {
+            var value = obj[propertyName];
+            return value != null ? value.Value<double>() : defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
+        }
+    }
+
+    private static bool GetBoolProperty(JToken obj, string propertyName, bool defaultValue)
+    {
+        try
+        {
+            var value = obj[propertyName];
+            return value != null ? value.Value<bool>() : defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
+        }
+    }
+
+    private static string? GetStringProperty(JToken obj, string propertyName)
+    {
+        try
+        {
+            var value = obj[propertyName];
+            return value?.Value<string>();
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static ItemRarity ConvertWeightToRarity(int weight)
+    {
+        return weight switch
+        {
+            >= 100 => ItemRarity.Common,
+            >= 50 => ItemRarity.Uncommon,
+            >= 25 => ItemRarity.Rare,
+            >= 10 => ItemRarity.Epic,
+            _ => ItemRarity.Legendary
+        };
+    }
+}
