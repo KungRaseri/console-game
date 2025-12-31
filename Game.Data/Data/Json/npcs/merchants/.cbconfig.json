@@ -1,26 +1,6 @@
 {
-  "displayName": "Merchants",
-  "icon": "StoreFront",
-  "sortOrder": 3,
-  "description": "Traders and sellers with large inventories and variety - general merchants who buy and sell all categories of goods",
-  "metadata": {
-    "socialClass": "merchant",
-    "npcCount": 1,
-    "hasShop": true,
-    "primaryAttributes": [
-      "charisma",
-      "intelligence",
-      "wisdom"
-    ],
-    "commonSkills": [
-      "persuasion",
-      "appraisal",
-      "haggling"
-    ],
-    "specialFeatures": [
-      "largest_inventory",
-      "all_categories",
-      "player_trading"
-    ]
-  }
+    "displayName":  "Merchants",
+    "icon":  "StoreFront",
+    "sortOrder":  3,
+    "description":  "Traders and sellers with large inventories and variety - general merchants who buy and sell all categories of goods"
 }

@@ -1,27 +1,6 @@
 {
-  "displayName": "Professionals",
-  "icon": "BookOpenPageVariant",
-  "sortOrder": 4,
-  "description": "Specialized service providers with expertise - healers, scholars, apothecaries, sages, cartographers, and knowledge keepers",
-  "metadata": {
-    "socialClass": "professional",
-    "npcCount": 10,
-    "hasShop": true,
-    "primaryAttributes": [
-      "intelligence",
-      "wisdom"
-    ],
-    "commonSkills": [
-      "knowledge",
-      "healing",
-      "alchemy",
-      "languages"
-    ],
-    "specialFeatures": [
-      "services",
-      "identification",
-      "research",
-      "healing"
-    ]
-  }
+    "displayName":  "Professionals",
+    "icon":  "BookOpenPageVariant",
+    "sortOrder":  4,
+    "description":  "Specialized service providers with expertise - healers, scholars, apothecaries, sages, cartographers, and knowledge keepers"
 }

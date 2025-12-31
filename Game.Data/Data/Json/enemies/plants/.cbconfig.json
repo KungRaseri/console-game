@@ -1,9 +1,4 @@
 {
-  "icon": "Flower",
-  "sortOrder": 9,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "abilities": "FlashOutline",
-    "catalog": "ShapeOutline"
-  }
+    "icon":  "Flower",
+    "sortOrder":  9
 }

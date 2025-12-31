@@ -1,19 +1,6 @@
 {
-  "icon": "Cog",
-  "displayName": "General",
-  "description": "General game configuration - adjectives, colors, rarity, environmental descriptors, and time settings",
-  "sortOrder": 50,
-  "fileIcons": {
-    "adjectives": "FormatText",
-    "colors": "Palette",
-    "rarity_config": "StarCircle",
-    "smells": "Flower",
-    "sounds": "VolumeHigh",
-    "textures": "Texture",
-    "time_of_day": "Clock",
-    "verbs": "Run",
-    "weather": "WeatherPartlyCloudy"
-  },
-  "defaultFileIcon": "FileSettings",
-  "showFileCount": true
+    "icon":  "Cog",
+    "displayName":  "General",
+    "description":  "General game configuration - adjectives, colors, rarity, environmental descriptors, and time settings",
+    "sortOrder":  50
 }

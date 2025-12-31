@@ -1,26 +1,6 @@
 {
-  "displayName": "Religious",
-  "icon": "ChurchOutline",
-  "sortOrder": 10,
-  "description": "Clergy devoted to divine service - acolytes and priests providing blessings, healing, and spiritual guidance",
-  "metadata": {
-    "socialClass": "religious",
-    "npcCount": 2,
-    "hasShop": false,
-    "primaryAttributes": [
-      "wisdom",
-      "charisma"
-    ],
-    "commonSkills": [
-      "divine_lore",
-      "healing",
-      "wisdom"
-    ],
-    "specialFeatures": [
-      "blessings",
-      "marriages",
-      "funerals",
-      "spiritual_services"
-    ]
-  }
+    "displayName":  "Religious",
+    "icon":  "ChurchOutline",
+    "sortOrder":  10,
+    "description":  "Clergy devoted to divine service - acolytes and priests providing blessings, healing, and spiritual guidance"
 }

@@ -11,27 +11,13 @@
       "woods",
       "gemstones"
     ],
-    "itemTypes": [
-      "weapon",
-      "armor",
-      "socket",
-      "enchantment",
-      "jewelry"
-    ],
     "usage": "Comprehensive material catalog with item-type-specific traits. Shared traits apply to all item types. itemTypeTraits define specific stat modifiers per item category (weapon, armor, socket, enchantment, jewelry). rarityWeight determines rarity tier automatically.",
     "notes": [
       "Materials apply different bonuses based on item type (weapon vs armor vs jewelry)",
       "Shared traits always apply; itemTypeTraits apply only to matching item types",
       "Runtime: Pick material by rarityWeight → Apply shared + itemTypeTraits[itemType] → Calculate final stats",
       "Categories: metals (combat gear), leathers (light armor), woods (ranged/magic), gemstones (sockets/jewelry)"
-    ],
-    "application": "Runtime: Pick material by rarityWeight-based rarity roll → Apply shared traits + itemTypeTraits[itemType] → Calculate final stats → Apply material effects (e.g., 'Mithril Longsword', 'Ruby-Socketed Ring', 'Dragon Leather Armor').",
-    "categoriesExplained": {
-      "metals": "For weapons and armor - physical combat gear",
-      "leathers": "For light/medium armor - flexibility and stealth",
-      "woods": "For bows, staves, and hafted weapons - ranged and magic focus",
-      "gemstones": "For socketing items, creating enchantments, and jewelry crafting"
-    }
+    ]
   },
   "material_types": {
     "metals": {

@@ -1,26 +1,6 @@
 {
-  "displayName": "Magical",
-  "icon": "AutoFix",
-  "sortOrder": 9,
-  "description": "Arcane practitioners with mystical knowledge - wizard apprentices, hedge wizards trained in magic and spellcraft",
-  "metadata": {
-    "socialClass": "magical",
-    "npcCount": 2,
-    "hasShop": false,
-    "primaryAttributes": [
-      "intelligence",
-      "wisdom"
-    ],
-    "commonSkills": [
-      "arcane_lore",
-      "spellcraft",
-      "folk_magic",
-      "divination"
-    ],
-    "specialFeatures": [
-      "magic_items",
-      "scrolls",
-      "arcane_knowledge"
-    ]
-  }
+    "displayName":  "Magical",
+    "icon":  "AutoFix",
+    "sortOrder":  9,
+    "description":  "Arcane practitioners with mystical knowledge - wizard apprentices, hedge wizards trained in magic and spellcraft"
 }

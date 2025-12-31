@@ -1,9 +1,4 @@
 {
-  "icon": "AxeBattle",
-  "sortOrder": 8,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "abilities": "FlashOutline",
-    "catalog": "ShapeOutline"
-  }
+    "icon":  "AxeBattle",
+    "sortOrder":  8
 }

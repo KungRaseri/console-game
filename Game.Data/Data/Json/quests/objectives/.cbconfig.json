@@ -1,14 +1,6 @@
 {
-  "icon": "Target",
-  "displayName": "Objectives",
-  "description": "Quest objectives consolidated into root objectives.json",
-  "sortOrder": 2,
-  "notes": [
-    "primary.json, secondary.json, hidden.json DELETED",
-    "All objectives now in ../objectives.json"
-  ],
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "catalog": "ShapeOutline"
-  }
+    "icon":  "Target",
+    "displayName":  "Objectives",
+    "description":  "Quest objectives consolidated into root objectives.json",
+    "sortOrder":  2
 }

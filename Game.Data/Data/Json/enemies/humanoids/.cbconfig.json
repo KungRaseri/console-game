@@ -1,9 +1,4 @@
 {
-  "icon": "AccountMultiple",
-  "sortOrder": 6,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "abilities": "FlashOutline",
-    "catalog": "ShapeOutline"
-  }
+    "icon":  "AccountMultiple",
+    "sortOrder":  6
 }

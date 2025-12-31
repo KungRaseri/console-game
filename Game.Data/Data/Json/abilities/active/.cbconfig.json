@@ -1,13 +1,5 @@
 {
-  "folderName": "Active Abilities",
-  "description": "Abilities that require conscious activation with cooldowns",
-  "icon": "SwordCross",
-  "sortOrder": 20,
-  "subcategories": {
-    "offensive": "Direct damage abilities",
-    "defensive": "Shields, blocks, mitigation",
-    "control": "Stuns, slows, fears, roots",
-    "utility": "Teleports, summons, buffs",
-    "healing": "Self-heal, life drain"
-  }
+    "description":  "Abilities that require conscious activation with cooldowns",
+    "icon":  "SwordCross",
+    "sortOrder":  20
 }

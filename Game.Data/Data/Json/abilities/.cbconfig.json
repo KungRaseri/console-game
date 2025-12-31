@@ -1,13 +1,5 @@
 {
-  "folderName": "Abilities",
-  "description": "Character abilities shared across enemies, players, and NPCs",
-  "icon": "Sparkles",
-  "sortOrder": 40,
-  "notes": [
-    "Abilities are organized by activation type and effect category",
-    "Passive abilities are always active",
-    "Active abilities require conscious activation",
-    "Reactive abilities trigger based on conditions",
-    "Ultimate abilities are powerful legendary effects"
-  ]
+    "description":  "Character abilities shared across enemies, players, and NPCs",
+    "icon":  "Sparkles",
+    "sortOrder":  40
 }

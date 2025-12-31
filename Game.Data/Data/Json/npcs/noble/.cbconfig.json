@@ -1,26 +1,6 @@
 {
-  "displayName": "Nobility",
-  "icon": "Crown",
-  "sortOrder": 8,
-  "description": "Wealthy aristocrats with high social standing - noble-born, knights errant, court attendants with influence and resources",
-  "metadata": {
-    "socialClass": "noble",
-    "npcCount": 4,
-    "hasShop": false,
-    "primaryAttributes": [
-      "charisma",
-      "intelligence"
-    ],
-    "commonSkills": [
-      "persuasion",
-      "etiquette",
-      "leadership",
-      "literacy"
-    ],
-    "specialFeatures": [
-      "quest_givers",
-      "political_influence",
-      "high_starting_gold"
-    ]
-  }
+    "displayName":  "Nobility",
+    "icon":  "Crown",
+    "sortOrder":  8,
+    "description":  "Wealthy aristocrats with high social standing - noble-born, knights errant, court attendants with influence and resources"
 }

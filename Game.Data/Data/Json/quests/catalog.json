@@ -4,7 +4,7 @@
     "lastUpdated": "2025-12-29",
     "description": "Quest templates for procedural quest generation (locations migrated to world/locations domain)",
     "type": "hierarchical_catalog",
-    "notes": "Quest templates define quest types with base rewards. Locations have been migrated to @world/locations domain catalogs (towns, dungeons, wilderness). Use location_references section for cross-domain lookups. Supports weighted random selection using rarityWeight formula: probability = 100 / rarityWeight.",
+    "notes": "Quest templates define quest types with base rewards. Locations have been migrated to @world/locations domain catalogs (towns, dungeons, wilderness). Use location_references for cross-domain lookups. Supports weighted random selection using rarityWeight formula: probability = 100 / rarityWeight.",
     "total_templates": 27,
     "usage": "Load via GameDataService.QuestCatalog. Use SelectByRarityWeight() for weighted selection of templates. Load locations from @world/locations domain. Match location danger/difficulty to quest tier (easy quests = low danger towns/dungeons, hard quests = high danger wilderness/dungeons).",
     "categories": {
@@ -29,25 +29,6 @@
     "componentKeys": [
       "quest_types"
     ]
-  },
-  "location_references": {
-    "wilderness": "@world/locations/wilderness",
-    "towns": "@world/locations/towns",
-    "dungeons": "@world/locations/dungeons",
-    "usage": {
-      "description": "Location data has been migrated to dedicated domain catalogs",
-      "example_references": [
-        "@world/locations/towns:Silverport",
-        "@world/locations/dungeons:DragonLair",
-        "@world/locations/wilderness:GoldenPlains"
-      ],
-      "selection_by_difficulty": {
-        "easy_quests": "@world/locations/wilderness/low_danger:* OR @world/locations/towns/villages:* OR @world/locations/dungeons/easy:*",
-        "medium_quests": "@world/locations/wilderness/medium_danger:* OR @world/locations/towns/towns:* OR @world/locations/dungeons/medium:*",
-        "hard_quests": "@world/locations/wilderness/high_danger:* OR @world/locations/towns/cities:* OR @world/locations/dungeons/hard:*",
-        "epic_quests": "@world/locations/wilderness/very_high_danger:* OR @world/locations/dungeons/epic:* OR @world/locations/dungeons/legendary:*"
-      }
-    }
   },
   "quest_types": {
     "investigate": {

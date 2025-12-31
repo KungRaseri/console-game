@@ -1,14 +1,5 @@
 {
-  "folderName": "Passive Abilities",
-  "description": "Always-active abilities that provide continuous effects",
-  "icon": "ShieldOutline",
-  "sortOrder": 10,
-  "subcategories": {
-    "defensive": "Armor, resistances, regeneration",
-    "offensive": "Damage auras, thorns effects",
-    "mobility": "Speed, flying, phasing",
-    "sensory": "Vision, detection, awareness",
-    "leadership": "Command auras, morale effects",
-    "environmental": "Aquatic, terrain, immunities"
-  }
+    "description":  "Always-active abilities that provide continuous effects",
+    "icon":  "ShieldOutline",
+    "sortOrder":  10
 }

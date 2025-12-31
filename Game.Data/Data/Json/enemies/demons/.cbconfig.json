@@ -1,9 +1,4 @@
 {
-  "icon": "Fire",
-  "sortOrder": 2,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "abilities": "FlashOutline",
-    "catalog": "ShapeOutline"
-  }
+    "icon":  "Fire",
+    "sortOrder":  2
 }

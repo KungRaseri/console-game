@@ -1,15 +1,6 @@
 {
-  "icon": "MapMarker",
-  "displayName": "Locations",
-  "description": "Quest locations consolidated into root catalog.json (reserved for future locations domain)",
-  "sortOrder": 1,
-  "notes": [
-    "wilderness.json, towns.json, dungeons.json DELETED",
-    "All 51 locations now in ../catalog.json",
-    "Future: Separate locations domain with @locations/ references"
-  ],
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "catalog": "ShapeOutline"
-  }
+    "icon":  "MapMarker",
+    "displayName":  "Locations",
+    "description":  "Quest locations consolidated into root catalog.json (reserved for future locations domain)",
+    "sortOrder":  1
 }

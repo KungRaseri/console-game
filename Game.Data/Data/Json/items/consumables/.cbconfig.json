@@ -1,12 +1,6 @@
 {
-  "icon": "BottleTonicPlus",
-  "displayName": "Consumables",
-  "description": "Consumable item definitions with names.json (v4.0 pattern generation) and catalog.json (potions, salves, etc.)",
-  "defaultFileIcon": "FileDocument",
-  "showFileCount": true,
-  "sortOrder": 3,
-  "fileIcons": {
-    "names": "FormatListBulleted",
-    "catalog": "ShapeOutline"
-  }
+    "icon":  "BottleTonicPlus",
+    "displayName":  "Consumables",
+    "description":  "Consumable item definitions with names.json (v4.0 pattern generation) and catalog.json (potions, salves, etc.)",
+    "sortOrder":  3
 }
