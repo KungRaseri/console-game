@@ -184,4 +184,155 @@ public class ItemGeneratorTests
             }
         }
     }
+
+    // ========================================
+    // Enhancement System v1.0 Tests (v4.2)
+    // ========================================
+
+    [Fact]
+    public async Task Should_Apply_Materials_To_Items()
+    {
+        // Arrange
+        _dataCache.LoadAllData();
+        
+        // Act - Generate multiple items to increase chance of getting materials
+        var items = await _generator.GenerateItemsAsync("weapons", 20);
+
+        // Assert
+        var itemsWithMaterials = items.Where(i => !string.IsNullOrEmpty(i.Material)).ToList();
+        
+        // Some items should have materials (not all patterns have materialRef)
+        itemsWithMaterials.Should().NotBeEmpty("At least some items should have materials");
+        
+        foreach (var item in itemsWithMaterials)
+        {
+            item.Material.Should().NotBeNullOrEmpty();
+            item.MaterialTraits.Should().NotBeEmpty("Items with materials should have material traits");
+            item.TotalRarityWeight.Should().BeGreaterThan(0, "Material should contribute to rarity weight");
+        }
+    }
+
+    [Fact]
+    public async Task Should_Apply_Enchantments_To_Items()
+    {
+        // Arrange
+        _dataCache.LoadAllData();
+        
+        // Act - Generate multiple items to increase chance of getting enchantments
+        var items = await _generator.GenerateItemsAsync("weapons", 20);
+
+        // Assert
+        var itemsWithEnchantments = items.Where(i => i.Enchantments.Any()).ToList();
+        
+        // Some items should have enchantments (not all patterns have enchantmentSlots)
+        itemsWithEnchantments.Should().NotBeEmpty("At least some items should have enchantments");
+        
+        foreach (var item in itemsWithEnchantments)
+        {
+            foreach (var enchantment in item.Enchantments)
+            {
+                enchantment.Name.Should().NotBeNullOrEmpty();
+                enchantment.Position.Should().BeDefined("Enchantment should have a valid position");
+                enchantment.Traits.Should().NotBeEmpty("Enchantments should have traits");
+                enchantment.RarityWeight.Should().BeGreaterThan(0);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Generate_Gem_Sockets_On_Items()
+    {
+        // Arrange
+        _dataCache.LoadAllData();
+        
+        // Act - Generate many items to find ones with sockets
+        var items = await _generator.GenerateItemsAsync("weapons", 30);
+
+        // Assert
+        var itemsWithSockets = items.Where(i => i.GemSockets.Any()).ToList();
+        
+        // Some items should have sockets (patterns with gemSocketCount > 0)
+        itemsWithSockets.Should().NotBeEmpty("At least some items should have gem sockets");
+        
+        foreach (var item in itemsWithSockets)
+        {
+            item.GemSockets.Should().NotBeEmpty();
+            
+            foreach (var socket in item.GemSockets)
+            {
+                socket.Color.Should().BeDefined("Socket should have a valid color");
+                socket.IsLocked.Should().BeFalse("New sockets should not be locked");
+                socket.Gem.Should().BeNull("New sockets should be empty");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Should_Calculate_TotalRarityWeight_From_All_Components()
+    {
+        // Arrange
+        _dataCache.LoadAllData();
+        
+        // Act
+        var items = await _generator.GenerateItemsAsync("weapons", 20);
+
+        // Assert
+        foreach (var item in items)
+        {
+            // Every item should have at least base rarity weight
+            item.TotalRarityWeight.Should().BeGreaterThan(0, "Item should have positive rarity weight");
+        }
+    }
+
+    [Fact]
+    public async Task Should_Map_RarityWeight_To_ItemRarity_Correctly()
+    {
+        // Arrange
+        _dataCache.LoadAllData();
+        
+        // Act
+        var items = await _generator.GenerateItemsAsync("weapons", 50);
+
+        // Assert
+        // v4.2 Rarity Weight System: Common: < 50, Uncommon: 50-99, Rare: 100-199, Epic: 200-349, Legendary: 350+
+        foreach (var item in items)
+        {
+            if (item.TotalRarityWeight < 50)
+                item.Rarity.Should().Be(ItemRarity.Common);
+            else if (item.TotalRarityWeight < 100)
+                item.Rarity.Should().Be(ItemRarity.Uncommon);
+            else if (item.TotalRarityWeight < 200)
+                item.Rarity.Should().Be(ItemRarity.Rare);
+            else if (item.TotalRarityWeight < 350)
+                item.Rarity.Should().Be(ItemRarity.Epic);
+            else
+                item.Rarity.Should().Be(ItemRarity.Legendary);
+        }
+    }
+
+    [Fact]
+    public async Task Should_Build_Enhanced_Name_With_All_Components()
+    {
+        // Arrange
+        _dataCache.LoadAllData();
+        
+        // Act
+        var items = await _generator.GenerateItemsAsync("weapons", 30);
+
+        // Assert
+        var enhancedItems = items.Where(i => 
+            !string.IsNullOrEmpty(i.Material) || 
+            i.Enchantments.Any() || 
+            i.GemSockets.Any()).ToList();
+        
+        enhancedItems.Should().NotBeEmpty("Should generate some enhanced items");
+        
+        foreach (var item in enhancedItems)
+        {
+            item.Name.Should().Contain(item.BaseName, "Enhanced name should include base name");
+            
+            if (!string.IsNullOrEmpty(item.Material))
+                item.Name.Should().Contain(item.Material, "Name should include material");
+        }
+    }
 }
