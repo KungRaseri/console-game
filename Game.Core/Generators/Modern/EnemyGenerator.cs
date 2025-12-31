@@ -91,22 +91,32 @@ public class EnemyGenerator
 
     private static IEnumerable<JToken>? GetItemsFromCatalog(JToken catalog)
     {
-        // Try different possible structures
-        if (catalog["items"] != null)
-        {
-            return catalog["items"]?.Children();
-        }
+        var allItems = new List<JToken>();
         
-        // For hierarchical catalogs, look for nested items
+        // Handle hierarchical structure: beast_types -> wolves/bears/etc -> items
         foreach (var property in catalog.Children<JProperty>())
         {
-            if (property.Value["items"] != null)
+            if (property.Name == "metadata") continue;
+            
+            // This is a type category (beast_types, undead_types, etc)
+            var typeCategory = property.Value;
+            if (typeCategory is JObject typeCategoryObj)
             {
-                return property.Value["items"]?.Children();
+                foreach (var subType in typeCategoryObj.Children<JProperty>())
+                {
+                    if (subType.Name == "metadata") continue;
+                    
+                    // This is a specific type (wolves, bears, etc)
+                    var items = subType.Value["items"];
+                    if (items != null && items.HasValues)
+                    {
+                        allItems.AddRange(items.Children());
+                    }
+                }
             }
         }
-
-        return null;
+        
+        return allItems.Any() ? allItems : null;
     }
 
     private async Task<Enemy?> ConvertToEnemyAsync(JToken catalogEnemy, string category)
@@ -120,12 +130,23 @@ public class EnemyGenerator
                 Description = GetStringProperty(catalogEnemy, "description") ?? "A mysterious creature",
                 Health = GetIntProperty(catalogEnemy, "health", 50),
                 MaxHealth = GetIntProperty(catalogEnemy, "health", 50),
-                Attack = GetIntProperty(catalogEnemy, "attack", 10),
-                Defense = GetIntProperty(catalogEnemy, "defense", 5),
-                Speed = GetIntProperty(catalogEnemy, "speed", 10),
                 Level = GetIntProperty(catalogEnemy, "level", 1),
-                ExperienceReward = GetIntProperty(catalogEnemy, "experienceReward", 10),
-                GoldReward = GetIntProperty(catalogEnemy, "goldReward", 5)
+                
+                // Map stats from catalog
+                Strength = GetIntProperty(catalogEnemy, "strength", 10),
+                Dexterity = GetIntProperty(catalogEnemy, "dexterity", 10),
+                Constitution = GetIntProperty(catalogEnemy, "constitution", 10),
+                Intelligence = GetIntProperty(catalogEnemy, "intelligence", 10),
+                Wisdom = GetIntProperty(catalogEnemy, "wisdom", 10),
+                Charisma = GetIntProperty(catalogEnemy, "charisma", 10),
+                
+                // Map damage properties
+                BasePhysicalDamage = GetIntProperty(catalogEnemy, "attack", 5),
+                BaseMagicDamage = GetIntProperty(catalogEnemy, "magicAttack", 0),
+                
+                // Map rewards
+                XPReward = GetIntProperty(catalogEnemy, "xp", 25),
+                GoldReward = GetIntProperty(catalogEnemy, "gold", 10)
             };
 
             // Resolve any ability references
@@ -148,7 +169,8 @@ public class EnemyGenerator
                         resolvedAbilities.Add(ability);
                     }
                 }
-                enemy.Abilities = resolvedAbilities;
+                // Note: Enemy model doesn't have Abilities property, would need to be added if needed
+                // enemy.Abilities = resolvedAbilities;
             }
 
             return enemy;

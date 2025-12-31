@@ -1,0 +1,234 @@
+using Game.Data.Services;
+using Game.Shared.Models;
+using Newtonsoft.Json.Linq;
+
+namespace Game.Core.Generators.Modern;
+
+public class QuestGenerator
+{
+    private readonly GameDataCache _dataCache;
+    private readonly ReferenceResolverService _referenceResolver;
+    private readonly Random _random;
+
+    public QuestGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    {
+        _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
+        _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _random = new Random();
+    }
+
+    public async Task<List<Quest>> GenerateQuestsAsync(string questType, int count = 3)
+    {
+        try
+        {
+            var catalogFile = _dataCache.GetFile($"quests/catalog.json");
+            if (catalogFile?.JsonData == null)
+            {
+                return new List<Quest>();
+            }
+
+            var catalog = catalogFile.JsonData;
+            var items = GetItemsFromCatalog(catalog, questType);
+            
+            if (items == null || !items.Any())
+            {
+                return new List<Quest>();
+            }
+
+            var result = new List<Quest>();
+
+            for (int i = 0; i < count; i++)
+            {
+                var randomQuest = GetRandomWeightedItem(items);
+                if (randomQuest != null)
+                {
+                    var quest = await ConvertToQuestAsync(randomQuest, questType);
+                    if (quest != null)
+                    {
+                        result.Add(quest);
+                    }
+                }
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error generating quests for type {questType}: {ex.Message}");
+            return new List<Quest>();
+        }
+    }
+
+    public async Task<Quest?> GenerateQuestByNameAsync(string questType, string questName)
+    {
+        try
+        {
+            var catalogFile = _dataCache.GetFile($"quests/catalog.json");
+            if (catalogFile?.JsonData == null)
+            {
+                return null;
+            }
+
+            var catalog = catalogFile.JsonData;
+            var items = GetItemsFromCatalog(catalog, questType);
+            
+            var catalogQuest = items?.FirstOrDefault(q => 
+                string.Equals(GetStringProperty(q, "name"), questName, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(GetStringProperty(q, "displayName"), questName, StringComparison.OrdinalIgnoreCase));
+
+            if (catalogQuest != null)
+            {
+                return await ConvertToQuestAsync(catalogQuest, questType);
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error generating quest {questName} from type {questType}: {ex.Message}");
+            return null;
+        }
+    }
+
+    private static IEnumerable<JToken>? GetItemsFromCatalog(JToken catalog, string questType)
+    {
+        // Navigate to quest_types -> specific type -> items
+        var questTypes = catalog["quest_types"];
+        if (questTypes == null) return null;
+
+        var typeData = questTypes[questType];
+        if (typeData == null) return null;
+
+        var items = typeData["items"];
+        return items?.Children();
+    }
+
+    private Task<Quest?> ConvertToQuestAsync(JToken catalogQuest, string questType)
+    {
+        try
+        {
+            var quest = new Quest
+            {
+                Id = $"{questType}:{GetStringProperty(catalogQuest, "name")}",
+                Title = GetStringProperty(catalogQuest, "displayName") ?? GetStringProperty(catalogQuest, "name") ?? "Unknown Quest",
+                Description = GetStringProperty(catalogQuest, "description") ?? "A mysterious task awaits",
+                QuestType = GetStringProperty(catalogQuest, "questType") ?? questType,
+                Difficulty = GetStringProperty(catalogQuest, "difficulty") ?? "medium",
+                Type = GetBoolProperty(catalogQuest, "legendary", false) ? "legendary" : "side",
+                
+                // Set rewards
+                GoldReward = GetIntProperty(catalogQuest, "baseGoldReward", 50),
+                XpReward = GetIntProperty(catalogQuest, "baseXpReward", 100),
+                
+                // Set target info for kill/fetch quests
+                TargetName = GetStringProperty(catalogQuest, "targetType") ?? "",
+                Quantity = GetIntProperty(catalogQuest, "minQuantity", 1),
+                Location = GetStringProperty(catalogQuest, "location") ?? "Unknown",
+                
+                // Initialize as not active/completed
+                IsActive = false,
+                IsCompleted = false
+            };
+
+            // Handle objectives - create simple objectives from quest data
+            var objectives = new Dictionary<string, int>();
+            
+            if (quest.QuestType == "kill" && !string.IsNullOrEmpty(quest.TargetName))
+            {
+                objectives[$"Defeat {quest.Quantity} {quest.TargetName}"] = quest.Quantity;
+            }
+            else if (quest.QuestType == "fetch")
+            {
+                var itemType = GetStringProperty(catalogQuest, "itemType");
+                if (!string.IsNullOrEmpty(itemType))
+                {
+                    objectives[$"Collect {quest.Quantity} {itemType}"] = quest.Quantity;
+                }
+            }
+            else if (quest.QuestType == "escort")
+            {
+                var npcType = GetStringProperty(catalogQuest, "npcType");
+                objectives[$"Escort {npcType ?? "NPC"} safely"] = 1;
+            }
+            else if (quest.QuestType == "investigate")
+            {
+                var minClues = GetIntProperty(catalogQuest, "minClues", 3);
+                objectives[$"Find {minClues} clues"] = minClues;
+            }
+            else if (quest.QuestType == "delivery")
+            {
+                objectives[$"Deliver package to {quest.Location}"] = 1;
+            }
+            
+            quest.Objectives = objectives;
+            quest.ObjectiveProgress = objectives.Keys.ToDictionary(k => k, v => 0);
+
+            return Task.FromResult<Quest?>(quest);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error converting catalog quest to Quest: {ex.Message}");
+            return Task.FromResult<Quest?>(null);
+        }
+    }
+
+    private JToken? GetRandomWeightedItem(IEnumerable<JToken> items)
+    {
+        var itemList = items.ToList();
+        if (!itemList.Any()) return null;
+
+        var totalWeight = itemList.Sum(item => GetIntProperty(item, "rarityWeight", 1));
+        var randomValue = _random.Next(1, totalWeight + 1);
+
+        int currentWeight = 0;
+        foreach (var item in itemList)
+        {
+            currentWeight += GetIntProperty(item, "rarityWeight", 1);
+            if (randomValue <= currentWeight)
+            {
+                return item;
+            }
+        }
+
+        return itemList.First();
+    }
+
+    private static int GetIntProperty(JToken obj, string propertyName, int defaultValue)
+    {
+        try
+        {
+            var value = obj[propertyName];
+            return value != null ? value.Value<int>() : defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
+        }
+    }
+
+    private static string? GetStringProperty(JToken obj, string propertyName)
+    {
+        try
+        {
+            var value = obj[propertyName];
+            return value?.Value<string>();
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static bool GetBoolProperty(JToken obj, string propertyName, bool defaultValue)
+    {
+        try
+        {
+            var value = obj[propertyName];
+            return value != null ? value.Value<bool>() : defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
+        }
+    }
+}
