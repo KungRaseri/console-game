@@ -181,18 +181,17 @@ public class CharacterClassGenerator
     }
 
     /// <summary>
-    /// Parses space-separated ability references like "@abilities/active/support:heal @abilities/active/offensive:smite".
-    /// Returns list of ability IDs like "active/support:heal", "active/offensive:smite".
+    /// Parses ability reference array like ["@abilities/active/support:heal", "@abilities/active/support:bless"].
+    /// Returns list of ability IDs like "active/support:heal", "active/support:bless".
     /// </summary>
-    private List<string> ParseAbilityReferences(string? referencesString)
+    private List<string> ParseAbilityReferences(List<string>? referencesList)
     {
-        if (string.IsNullOrWhiteSpace(referencesString))
+        if (referencesList == null || !referencesList.Any())
             return new List<string>();
 
-        var references = referencesString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         var abilityIds = new List<string>();
 
-        foreach (var reference in references)
+        foreach (var reference in referencesList)
         {
             if (reference.StartsWith("@abilities/"))
             {
