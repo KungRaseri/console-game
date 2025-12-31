@@ -44,7 +44,7 @@ public class CharacterClassRepository : ICharacterClassRepository
             PrimaryAttributes = new List<string> { "Strength", "Constitution" },
             BonusStrength = 2,
             BonusConstitution = 1,
-            StartingHealthBonus = 10,
+            StartingHealth = 10,
             StartingEquipment = new List<string>
             {
                 "Iron Sword",
@@ -68,8 +68,8 @@ public class CharacterClassRepository : ICharacterClassRepository
             PrimaryAttributes = new List<string> { "Dexterity", "Charisma" },
             BonusDexterity = 2,
             BonusCharisma = 1,
-            StartingHealthBonus = 0,
-            StartingManaBonus = 5,
+            StartingHealth = 0,
+            StartingMana = 5,
             StartingEquipment = new List<string>
             {
                 "Steel Dagger",
@@ -94,8 +94,8 @@ public class CharacterClassRepository : ICharacterClassRepository
             PrimaryAttributes = new List<string> { "Intelligence", "Wisdom" },
             BonusIntelligence = 2,
             BonusWisdom = 1,
-            StartingHealthBonus = -5,
-            StartingManaBonus = 20,
+            StartingHealth = -5,
+            StartingMana = 20,
             StartingEquipment = new List<string>
             {
                 "Wooden Staff",
@@ -119,8 +119,8 @@ public class CharacterClassRepository : ICharacterClassRepository
             PrimaryAttributes = new List<string> { "Wisdom", "Constitution" },
             BonusWisdom = 2,
             BonusConstitution = 1,
-            StartingHealthBonus = 5,
-            StartingManaBonus = 15,
+            StartingHealth = 5,
+            StartingMana = 15,
             StartingEquipment = new List<string>
             {
                 "Iron Mace",
@@ -147,8 +147,8 @@ public class CharacterClassRepository : ICharacterClassRepository
             PrimaryAttributes = new List<string> { "Dexterity", "Wisdom" },
             BonusDexterity = 2,
             BonusWisdom = 1,
-            StartingHealthBonus = 3,
-            StartingManaBonus = 10,
+            StartingHealth = 3,
+            StartingMana = 10,
             StartingEquipment = new List<string>
             {
                 "Longbow",
@@ -174,8 +174,8 @@ public class CharacterClassRepository : ICharacterClassRepository
             PrimaryAttributes = new List<string> { "Strength", "Charisma" },
             BonusStrength = 1,
             BonusCharisma = 2,
-            StartingHealthBonus = 8,
-            StartingManaBonus = 12,
+            StartingHealth = 8,
+            StartingMana = 12,
             StartingEquipment = new List<string>
             {
                 "Steel Longsword",

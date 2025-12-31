@@ -2,12 +2,34 @@ namespace Game.Shared.Models;
 
 /// <summary>
 /// Represents a character class/archetype with starting bonuses and proficiencies.
+/// Maps to v4.1 JSON classes/catalog.json structure.
 /// </summary>
 public class CharacterClass
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string Name { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Display name shown to players (may differ from internal name).
+    /// </summary>
+    public string DisplayName { get; set; } = string.Empty;
+    
     public string Description { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Rarity weight for procedural generation (lower = more common).
+    /// </summary>
+    public int RarityWeight { get; set; } = 1;
+
+    /// <summary>
+    /// Whether this is a subclass/specialization of another class.
+    /// </summary>
+    public bool IsSubclass { get; set; } = false;
+
+    /// <summary>
+    /// Parent class ID if this is a subclass (resolved from @classes reference).
+    /// </summary>
+    public string? ParentClassId { get; set; }
 
     /// <summary>
     /// Primary attributes for this class (used for recommendations).
@@ -16,23 +38,22 @@ public class CharacterClass
 
     /// <summary>
     /// Starting attribute bonuses applied at character creation.
+    /// Maps to startingStats in JSON.
     /// </summary>
-    public int BonusStrength { get; set; } = 0;
-    public int BonusDexterity { get; set; } = 0;
-    public int BonusConstitution { get; set; } = 0;
-    public int BonusIntelligence { get; set; } = 0;
-    public int BonusWisdom { get; set; } = 0;
-    public int BonusCharisma { get; set; } = 0;
+    public int StartingHealth { get; set; } = 100;
+    public int StartingMana { get; set; } = 50;
+    public int BonusStrength { get; set; } = 10;
+    public int BonusDexterity { get; set; } = 10;
+    public int BonusConstitution { get; set; } = 10;
+    public int BonusIntelligence { get; set; } = 10;
+    public int BonusWisdom { get; set; } = 10;
+    public int BonusCharisma { get; set; } = 10;
 
     /// <summary>
-    /// Starting health bonus (added to base health calculation).
+    /// Starting ability IDs for this class (resolved from @abilities references).
+    /// Maps to startingAbilities in JSON (space-separated reference string).
     /// </summary>
-    public int StartingHealthBonus { get; set; } = 0;
-
-    /// <summary>
-    /// Starting mana bonus (added to base mana calculation).
-    /// </summary>
-    public int StartingManaBonus { get; set; } = 0;
+    public List<string> StartingAbilities { get; set; } = new();
 
     /// <summary>
     /// Starting equipment item names for this class.
@@ -40,9 +61,36 @@ public class CharacterClass
     public List<string> StartingEquipment { get; set; } = new();
 
     /// <summary>
+    /// Traits/properties specific to this class (bonus damage types, resistances, etc.).
+    /// Values may be strings, numbers, or resolved references.
+    /// </summary>
+    public Dictionary<string, object> Traits { get; set; } = new();
+
+    /// <summary>
+    /// Progression data (stat growth, ability unlocks, etc.).
+    /// </summary>
+    public ClassProgression? Progression { get; set; }
+
+    /// <summary>
     /// Flavor text for class selection.
     /// </summary>
     public string FlavorText { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// Class progression data (stat growth, ability unlocks).
+/// </summary>
+public class ClassProgression
+{
+    /// <summary>
+    /// Stat growth per level.
+    /// </summary>
+    public Dictionary<string, double> StatGrowth { get; set; } = new();
+
+    /// <summary>
+    /// Ability unlock schedule (level -> ability IDs).
+    /// </summary>
+    public Dictionary<int, List<string>> AbilityUnlocks { get; set; } = new();
 }
 
 /// <summary>
