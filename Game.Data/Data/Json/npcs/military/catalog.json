@@ -59,12 +59,12 @@
             "Battle-worn Shield",
             "Military Medal"
           ],
-          "dialogueStyle": "@dialogue/styles:professional",
+          "dialogueStyle": \"@social/dialogue/styles:professional",
           "greetings": [
-            "@dialogue/greetings:military-formal"
+            \"@social/dialogue/greetings:military-formal"
           ],
           "farewells": [
-            "@dialogue/farewells:military"
+            \"@social/dialogue/farewells:military"
           ],
           "faction": "city_guard",
           "schedule": "@social/schedules:guard"
@@ -100,12 +100,12 @@
             "Watch Badge",
             "City Guard Tabard"
           ],
-          "dialogueStyle": "@dialogue/styles:professional",
+          "dialogueStyle": \"@social/dialogue/styles:professional",
           "greetings": [
-            "@dialogue/greetings:guard-watchful"
+            \"@social/dialogue/greetings:guard-watchful"
           ],
           "farewells": [
-            "@dialogue/farewells:military"
+            \"@social/dialogue/farewells:military"
           ],
           "faction": "city_guard",
           "schedule": "@social/schedules:guard"
@@ -143,12 +143,12 @@
             "Mercenary Contract",
             "Battle Scar"
           ],
-          "dialogueStyle": "@dialogue/styles:hostile",
+          "dialogueStyle": \"@social/dialogue/styles:hostile",
           "greetings": [
-            "@dialogue/greetings:mercenary-blunt"
+            \"@social/dialogue/greetings:mercenary-blunt"
           ],
           "farewells": [
-            "@dialogue/farewells:curt"
+            \"@social/dialogue/farewells:curt"
           ],
           "faction": "independent",
           "schedule": "@social/schedules:flexible"
@@ -187,12 +187,12 @@
           "baseGold": "2d10",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": "@dialogue/styles:professional",
+          "dialogueStyle": \"@social/dialogue/styles:professional",
           "greetings": [
-            "@dialogue/greetings:guard-watchful"
+            \"@social/dialogue/greetings:guard-watchful"
           ],
           "farewells": [
-            "@dialogue/farewells:military"
+            \"@social/dialogue/farewells:military"
           ],
           "faction": "city_guard",
           "schedule": "@social/schedules:guard"

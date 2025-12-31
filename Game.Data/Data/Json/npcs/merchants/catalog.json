@@ -84,12 +84,12 @@
               "bankGoldRestockDaily": true
             }
           },
-          "dialogueStyle": "@dialogue/styles:greedy",
+          "dialogueStyle": \"@social/dialogue/styles:greedy",
           "greetings": [
-            "@dialogue/greetings:merchant-eager"
+            \"@social/dialogue/greetings:merchant-eager"
           ],
           "farewells": [
-            "@dialogue/farewells:merchant"
+            \"@social/dialogue/farewells:merchant"
           ],
           "faction": "merchants_guild",
           "schedule": "@social/schedules:merchant"

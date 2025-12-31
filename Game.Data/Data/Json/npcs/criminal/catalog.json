@@ -56,12 +56,12 @@
             "Lockpick Set",
             "Concealed Dagger"
           ],
-          "dialogueStyle": "@dialogue/styles:cautious",
+          "dialogueStyle": \"@social/dialogue/styles:cautious",
           "greetings": [
-            "@dialogue/greetings:criminal-wary"
+            \"@social/dialogue/greetings:criminal-wary"
           ],
           "farewells": [
-            "@dialogue/farewells:quick"
+            \"@social/dialogue/farewells:quick"
           ],
           "faction": "thieves_guild",
           "schedule": "@social/schedules:criminal"
@@ -99,12 +99,12 @@
             "Coded Letter",
             "Disguise Kit"
           ],
-          "dialogueStyle": "@dialogue/styles:mysterious",
+          "dialogueStyle": \"@social/dialogue/styles:mysterious",
           "greetings": [
-            "@dialogue/greetings:spy-enigmatic"
+            \"@social/dialogue/greetings:spy-enigmatic"
           ],
           "farewells": [
-            "@dialogue/farewells:mysterious"
+            \"@social/dialogue/farewells:mysterious"
           ],
           "faction": "independent",
           "schedule": "@social/schedules:criminal"
@@ -141,12 +141,12 @@
             "Hidden Compartment Map",
             "Smuggler's Flask"
           ],
-          "dialogueStyle": "@dialogue/styles:greedy",
+          "dialogueStyle": \"@social/dialogue/styles:greedy",
           "greetings": [
-            "@dialogue/greetings:smuggler-shifty"
+            \"@social/dialogue/greetings:smuggler-shifty"
           ],
           "farewells": [
-            "@dialogue/farewells:quick"
+            \"@social/dialogue/farewells:quick"
           ],
           "faction": "thieves_guild",
           "schedule": "@social/schedules:criminal"
@@ -182,12 +182,12 @@
             "Master Lockpick",
             "Thieves' Cant Codebook"
           ],
-          "dialogueStyle": "@dialogue/styles:cautious",
+          "dialogueStyle": \"@social/dialogue/styles:cautious",
           "greetings": [
-            "@dialogue/greetings:thief-nervous"
+            \"@social/dialogue/greetings:thief-nervous"
           ],
           "farewells": [
-            "@dialogue/farewells:quick"
+            \"@social/dialogue/farewells:quick"
           ],
           "faction": "thieves_guild",
           "schedule": "@social/schedules:criminal"
@@ -225,12 +225,12 @@
             "Treasure Map Fragment",
             "Skull-and-Crossbones Earring"
           ],
-          "dialogueStyle": "@dialogue/styles:hostile",
+          "dialogueStyle": \"@social/dialogue/styles:hostile",
           "greetings": [
-            "@dialogue/greetings:pirate-rough"
+            \"@social/dialogue/greetings:pirate-rough"
           ],
           "farewells": [
-            "@dialogue/farewells:curt"
+            \"@social/dialogue/farewells:curt"
           ],
           "faction": "independent",
           "schedule": "@social/schedules:flexible"

@@ -49,21 +49,21 @@
     {
       "name": "rare-item",
       "rarityWeight": 180,
-      "itemReference": "@items:*[rarityWeight>100&rarityWeight<=200]",
+      "itemReference": "@items/weapons:*",
       "quantity": 1,
       "description": "Rare item reward"
     },
     {
       "name": "epic-equipment",
       "rarityWeight": 300,
-      "itemReference": "@items:*[rarityWeight>200&rarityWeight<=350]",
+      "itemReference": "@items/armor:*",
       "quantity": 1,
       "description": "Epic equipment"
     },
     {
       "name": "legendary-artifact",
       "rarityWeight": 500,
-      "itemReference": "@items:*[rarityWeight>350]",
+      "itemReference": "@items/weapons:*",
       "quantity": 1,
       "description": "Legendary artifact"
     },
