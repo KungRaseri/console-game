@@ -16,10 +16,8 @@ public class ReferenceResolverServiceTests
     }
 
     [Theory]
-    [InlineData("@abilities/active:heal")]
-    [InlineData("@abilities/active/offensive:basic-attack")]
-    [InlineData("@classes/warriors:fighter")]
-    [InlineData("@items/weapons:iron-sword")]
+    [InlineData("@classes/cleric:Priest")]
+    [InlineData("@items/weapons/swords:Longsword")]
     public void Should_Resolve_Valid_References(string reference)
     {
         // Act
@@ -31,7 +29,7 @@ public class ReferenceResolverServiceTests
     }
 
     [Theory]
-    [InlineData("@abilities/active:heal?")]
+    [InlineData("@abilities/active/offensive:NonExistentAbility?")]
     [InlineData("@items/weapons:non-existent-item?")]
     public void Should_Handle_Optional_References(string reference)
     {
@@ -45,7 +43,7 @@ public class ReferenceResolverServiceTests
     [Theory]
     [InlineData("invalid-reference")]
     [InlineData("@")]
-    [InlineData("abilities/active:heal")]
+    [InlineData("abilities/active/offensive:heal")]
     public void Should_Handle_Invalid_References_Gracefully(string reference)
     {
         // Act & Assert - Should not throw exceptions

@@ -91,25 +91,44 @@ public class ItemGenerator
 
     private static IEnumerable<JToken>? GetItemsFromCatalog(JToken catalog)
     {
+        var allItems = new List<JToken>();
+        
         // Try different possible structures
         if (catalog["items"] != null)
         {
             return catalog["items"]?.Children();
         }
         
-        // For hierarchical catalogs, look for nested items
+        // For hierarchical catalogs like weapon_types, armor_types, etc.
+        // Look for type containers (weapon_types, armor_types, etc.)
         foreach (var property in catalog.Children<JProperty>())
         {
-            if (property.Value["items"] != null)
+            // Skip metadata
+            if (property.Name == "metadata") continue;
+            
+            // Check if this property has nested items arrays
+            var typeContainer = property.Value;
+            if (typeContainer is JObject typeObj)
             {
-                return property.Value["items"]?.Children();
+                // Look through each weapon/armor type (swords, axes, etc.)
+                foreach (var typeProperty in typeObj.Children<JProperty>())
+                {
+                    var items = typeProperty.Value["items"];
+                    if (items != null)
+                    {
+                        foreach (var item in items.Children())
+                        {
+                            allItems.Add(item);
+                        }
+                    }
+                }
             }
         }
 
-        return null;
+        return allItems.Any() ? allItems : null;
     }
 
-    private async Task<Item?> ConvertToItemAsync(JToken catalogItem, string category)
+    private Task<Item?> ConvertToItemAsync(JToken catalogItem, string category)
     {
         try
         {
@@ -118,32 +137,43 @@ public class ItemGenerator
                 Id = $"{category}:{GetStringProperty(catalogItem, "name")}",
                 Name = GetStringProperty(catalogItem, "name") ?? "Unknown Item",
                 Description = GetStringProperty(catalogItem, "description") ?? "No description available",
-                Value = GetIntProperty(catalogItem, "value", 1),
-                Weight = GetDoubleProperty(catalogItem, "weight", 0.0),
-                IsStackable = GetBoolProperty(catalogItem, "isStackable", false),
-                MaxStackSize = GetIntProperty(catalogItem, "maxStackSize", 1)
+                Price = GetIntProperty(catalogItem, "value", 1) // JSON uses "value", model uses "Price"
             };
 
             // Resolve item type from category
             item.Type = category switch
             {
                 "weapons" => ItemType.Weapon,
-                "armor" => ItemType.Armor,
+                "armor" => ItemType.Chest, // Default armor type
                 "consumables" => ItemType.Consumable,
-                "materials" => ItemType.Material,
-                _ => ItemType.Miscellaneous
+                "shields" => ItemType.Shield,
+                _ => ItemType.Consumable // Default to Consumable
             };
 
-            // Set rarity from rarityWeight
-            var rarityWeight = GetIntProperty(catalogItem, "rarityWeight", 1);
-            item.Rarity = ConvertWeightToRarity(rarityWeight);
+            // Set rarity from rarityWeight or rarity field
+            var rarityWeight = GetIntProperty(catalogItem, "rarityWeight", 0);
+            if (rarityWeight > 0)
+            {
+                item.Rarity = ConvertWeightToRarity(rarityWeight);
+            }
+            else
+            {
+                // Try to get rarity string directly
+                var rarityString = GetStringProperty(catalogItem, "rarity");
+                if (!string.IsNullOrEmpty(rarityString))
+                {
+                    item.Rarity = Enum.TryParse<ItemRarity>(rarityString, true, out var rarity) 
+                        ? rarity 
+                        : ItemRarity.Common;
+                }
+            }
 
-            return item;
+            return Task.FromResult<Item?>(item);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error converting catalog item to Item: {ex.Message}");
-            return null;
+            return Task.FromResult<Item?>(null);
         }
     }
 
