@@ -24,28 +24,28 @@ public class EnchantmentGenerator
     /// <summary>
     /// Generate a single enchantment from a reference.
     /// </summary>
-    public async Task<Enchantment?> GenerateEnchantmentAsync(string reference)
+    public Task<Enchantment?> GenerateEnchantmentAsync(string reference)
     {
         try
         {
             var namesFile = _dataCache.GetFile("items/enchantments/names.json");
             if (namesFile?.JsonData == null)
             {
-                return null;
+                return Task.FromResult<Enchantment?>(null);
             }
 
             // Get patterns that match the reference filter
             var patterns = namesFile.JsonData["patterns"];
             if (patterns == null || !patterns.Any())
             {
-                return null;
+                return Task.FromResult<Enchantment?>(null);
             }
 
             // Select random pattern
             var pattern = GetRandomWeightedPattern(patterns);
             if (pattern == null)
             {
-                return null;
+                return Task.FromResult<Enchantment?>(null);
             }
 
             // Get position from pattern
@@ -54,7 +54,7 @@ public class EnchantmentGenerator
             
             if (string.IsNullOrEmpty(format))
             {
-                return null;
+                return Task.FromResult<Enchantment?>(null);
             }
 
             // Resolve components from format (e.g., "{element_prefix}" -> element_prefix component)
@@ -63,23 +63,23 @@ public class EnchantmentGenerator
             
             if (components == null || !components.Any())
             {
-                return null;
+                return Task.FromResult<Enchantment?>(null);
             }
 
             // Select random component by weight
             var component = GetRandomWeightedItem(components);
             if (component == null)
             {
-                return null;
+                return Task.FromResult<Enchantment?>(null);
             }
 
             // Build enchantment from component
-            return BuildEnchantment(component, position);
+            return Task.FromResult<Enchantment?>(BuildEnchantment(component, position));
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error generating enchantment: {ex.Message}");
-            return null;
+            return Task.FromResult<Enchantment?>(null);
         }
     }
 

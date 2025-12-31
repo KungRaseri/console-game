@@ -246,11 +246,24 @@ public class ItemGenerator
     {
         try
         {
-            var resolvedMaterials = await _referenceResolver.ResolveReferenceAsync(materialReference);
-            if (resolvedMaterials == null || !resolvedMaterials.Any()) return;
+            // Parse material reference to get catalog path
+            // Format: @items/materials/metals:*[itemTypeTraits.weapon=true]
+            var parts = materialReference.Split(':');
+            if (parts.Length < 2) return;
 
-            // Select random material by weight
-            var material = GetRandomWeightedItem(resolvedMaterials);
+            var pathPart = parts[0].TrimStart('@');
+            var catalogPath = $"{pathPart}/catalog.json";
+            
+            var catalogFile = _dataCache.GetFile(catalogPath);
+            if (catalogFile?.JsonData == null) return;
+
+            // Get items from catalog
+            var items = GetItemsFromCatalog(catalogFile.JsonData);
+            if (items == null || !items.Any()) return;
+
+            // Filter by itemTypeTraits if specified in reference
+            // For now, just select a random material by weight
+            var material = GetRandomWeightedItem(items);
             if (material == null) return;
 
             item.Material = GetStringProperty(material, "name");
@@ -277,6 +290,8 @@ public class ItemGenerator
                     item.MaterialTraits[traitName] = traitValue;
                 }
             }
+            
+            await Task.CompletedTask; // Satisfy async signature
         }
         catch (Exception ex)
         {
