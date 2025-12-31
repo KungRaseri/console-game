@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Game.Console\Game.Console.csproj" />
     <ProjectReference Include="..\Game.Core\Game.Core.csproj" />
     <ProjectReference Include="..\Game.Data\Game.Data.csproj" />
     <ProjectReference Include="..\Game.Shared\Game.Shared.csproj" />
