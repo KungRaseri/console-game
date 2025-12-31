@@ -53,7 +53,7 @@
             "tools.farming"
           ],
           "uniqueItems": [],
-          "dialogueStyle": \"@social/dialogue/styles:friendly"
+          "dialogueStyle": "@social/dialogue/styles:friendly"
         },
         {
           "name": "Laborer",
@@ -82,7 +82,7 @@
             "consumables.food"
           ],
           "uniqueItems": [],
-          "dialogueStyle": \"@social/dialogue/styles:grumpy"
+          "dialogueStyle": "@social/dialogue/styles:grumpy"
         }
       ]
     },
@@ -131,7 +131,7 @@
             "Lucky Coin",
             "Worn Doll"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:cautious"
+          "dialogueStyle": "@social/dialogue/styles:cautious"
         },
         {
           "name": "Refugee",
@@ -164,7 +164,7 @@
             "Tattered Map",
             "Foreign Keepsake"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:cautious"
+          "dialogueStyle": "@social/dialogue/styles:cautious"
         },
         {
           "name": "Exile",
@@ -197,7 +197,7 @@
             "Exile's Brand",
             "Homeland Memento"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:mysterious"
+          "dialogueStyle": "@social/dialogue/styles:mysterious"
         },
         {
           "name": "FormerSlave",
@@ -230,7 +230,7 @@
             "Broken Shackles",
             "Freedom Papers"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:cautious"
+          "dialogueStyle": "@social/dialogue/styles:cautious"
         },
         {
           "name": "FormerGladiator",
@@ -265,7 +265,7 @@
             "Arena Champion's Crown",
             "Freedom Token"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:hostile"
+          "dialogueStyle": "@social/dialogue/styles:hostile"
         }
       ]
     }
@@ -302,12 +302,12 @@
           "baseGold": "1d10",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": \"@social/dialogue/styles:friendly",
+          "dialogueStyle": "@social/dialogue/styles:friendly",
           "greetings": [
-            \"@social/dialogue/greetings:warm-rural"
+            "@social/dialogue/greetings:warm-rural"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:simple"
+            "@social/dialogue/farewells:simple"
           ]
         },
         {
@@ -329,12 +329,12 @@
           "baseGold": "1d6",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": \"@social/dialogue/styles:professional",
+          "dialogueStyle": "@social/dialogue/styles:professional",
           "greetings": [
-            \"@social/dialogue/greetings:simple"
+            "@social/dialogue/greetings:simple"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:simple"
+            "@social/dialogue/farewells:simple"
           ]
         },
         {
@@ -356,12 +356,12 @@
           "baseGold": "1d4",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": \"@social/dialogue/styles:cautious",
+          "dialogueStyle": "@social/dialogue/styles:cautious",
           "greetings": [
-            \"@social/dialogue/greetings:desperate"
+            "@social/dialogue/greetings:desperate"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:grateful"
+            "@social/dialogue/farewells:grateful"
           ]
         },
         {
@@ -384,12 +384,12 @@
           "baseGold": "1d4",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": \"@social/dialogue/styles:cheerful",
+          "dialogueStyle": "@social/dialogue/styles:cheerful",
           "greetings": [
-            \"@social/dialogue/greetings:playful"
+            "@social/dialogue/greetings:playful"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:quick"
+            "@social/dialogue/farewells:quick"
           ]
         }
       ]

@@ -84,12 +84,12 @@
             "drink",
             "rumors"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:cheerful",
+          "dialogueStyle": "@social/dialogue/styles:cheerful",
           "greetings": [
-            \"@social/dialogue/greetings:innkeeper-welcoming"
+            "@social/dialogue/greetings:innkeeper-welcoming"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:innkeeper"
+            "@social/dialogue/farewells:innkeeper"
           ],
           "faction": "independent",
           "schedule": "@social/schedules:innkeeper"
@@ -147,12 +147,12 @@
             "rumors",
             "gambling"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:cheerful",
+          "dialogueStyle": "@social/dialogue/styles:cheerful",
           "greetings": [
-            \"@social/dialogue/greetings:tavern-rowdy"
+            "@social/dialogue/greetings:tavern-rowdy"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:innkeeper"
+            "@social/dialogue/farewells:innkeeper"
           ],
           "faction": "independent",
           "schedule": "@social/schedules:innkeeper"
@@ -220,12 +220,12 @@
             "meals",
             "baked_goods"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:cheerful",
+          "dialogueStyle": "@social/dialogue/styles:cheerful",
           "greetings": [
-            \"@social/dialogue/greetings:cook-busy"
+            "@social/dialogue/greetings:cook-busy"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:simple"
+            "@social/dialogue/farewells:simple"
           ],
           "faction": "independent",
           "schedule": "@social/schedules:cook"
@@ -296,12 +296,12 @@
             "grooming",
             "horseshoeing"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:friendly",
+          "dialogueStyle": "@social/dialogue/styles:friendly",
           "greetings": [
-            \"@social/dialogue/greetings:stable-earthy"
+            "@social/dialogue/greetings:stable-earthy"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:simple"
+            "@social/dialogue/farewells:simple"
           ],
           "faction": "independent",
           "schedule": "@social/schedules:stablemaster"

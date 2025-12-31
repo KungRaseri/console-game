@@ -267,7 +267,7 @@
           "recommendedLevel": "14-21",
           "encounters": [
             "@enemies/beasts:*",
-            "@enemies/humanoid"
+            "@enemies/humanoids:*"
           ],
           "resources": [
             "@items/materials:*:exotic",

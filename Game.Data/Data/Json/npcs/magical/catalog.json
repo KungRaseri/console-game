@@ -56,12 +56,12 @@
             "Apprentice's Spellbook",
             "Arcane Focus"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:scholarly",
+          "dialogueStyle": "@social/dialogue/styles:scholarly",
           "greetings": [
-            \"@social/dialogue/greetings:mage-distracted"
+            "@social/dialogue/greetings:mage-distracted"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:scholarly"
+            "@social/dialogue/farewells:scholarly"
           ],
           "faction": "mages_circle",
           "schedule": "@social/schedules:mage"
@@ -99,12 +99,12 @@
             "Collection of Charms",
             "Handwritten Grimoire"
           ],
-          "dialogueStyle": \"@social/dialogue/styles:mysterious",
+          "dialogueStyle": "@social/dialogue/styles:mysterious",
           "greetings": [
-            \"@social/dialogue/greetings:hedge-wizard-cryptic"
+            "@social/dialogue/greetings:hedge-wizard-cryptic"
           ],
           "farewells": [
-            \"@social/dialogue/farewells:mysterious"
+            "@social/dialogue/farewells:mysterious"
           ],
           "faction": "independent",
           "schedule": "@social/schedules:mage"
