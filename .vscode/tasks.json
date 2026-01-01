@@ -18,19 +18,6 @@
 			}
 		},
 		{
-			"label": "build-console",
-			"type": "shell",
-			"command": "dotnet",
-			"args": [
-				"build",
-				"${workspaceFolder}/Game.Console/Game.Console.csproj",
-				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary"
-			],
-			"problemMatcher": "$msCompile",
-			"group": "build"
-		},
-		{
 			"label": "build-contentbuilder",
 			"type": "shell",
 			"command": "dotnet",
@@ -42,29 +29,6 @@
 			],
 			"problemMatcher": "$msCompile",
 			"group": "build"
-		},
-		{
-			"label": "run-console",
-			"type": "shell",
-			"command": "dotnet",
-			"args": [
-				"run",
-				"--project",
-				"${workspaceFolder}/Game.Console/Game.Console.csproj"
-			],
-			"problemMatcher": "$msCompile",
-			"dependsOn": "build-console",
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": true,
-				"panel": "dedicated",
-				"clear": true
-			},
-			"group": {
-				"kind": "test",
-				"isDefault": false
-			}
 		},
 		{
 			"label": "run-contentbuilder",
@@ -83,25 +47,6 @@
 				"focus": true,
 				"panel": "dedicated",
 				"clear": true
-			}
-		},
-		{
-			"label": "watch-console",
-			"type": "shell",
-			"command": "dotnet",
-			"args": [
-				"watch",
-				"run",
-				"--project",
-				"${workspaceFolder}/Game.Console/Game.Console.csproj"
-			],
-			"problemMatcher": "$msCompile",
-			"isBackground": true,
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": true,
-				"panel": "dedicated"
 			}
 		},
 		{
@@ -136,9 +81,9 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.Shared.Tests/Game.Shared.Tests.csproj",
-				"${workspaceFolder}/Game.Core.Tests/Game.Core.Tests.csproj",
-				"${workspaceFolder}/Game.Data.Tests/Game.Data.Tests.csproj",
+				"${workspaceFolder}/Game.sln",
+				"--filter",
+				"Category!=UI",
 				"--verbosity",
 				"normal"
 			],
@@ -292,9 +237,9 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.Shared.Tests/Game.Shared.Tests.csproj",
-				"${workspaceFolder}/Game.Core.Tests/Game.Core.Tests.csproj",
-				"${workspaceFolder}/Game.Data.Tests/Game.Data.Tests.csproj",
+				"${workspaceFolder}/Game.sln",
+				"--filter",
+				"Category!=UI",
 				"--collect:XPlat Code Coverage",
 				"--settings",
 				"coverage.runsettings"

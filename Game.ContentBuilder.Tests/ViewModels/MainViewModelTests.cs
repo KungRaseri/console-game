@@ -4,6 +4,7 @@ using System.IO;
 
 namespace Game.ContentBuilder.Tests.ViewModels;
 
+[Trait("Category", "ViewModel")]
 /// <summary>
 /// Tests for MainViewModel
 /// </summary>

@@ -5,18 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Console Game (Debug)",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-console",
-            "program": "${workspaceFolder}/Game.Console/bin/Debug/net9.0/Game.Console.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Game.Console",
-            "console": "integratedTerminal",
-            "stopAtEntry": false,
-            "internalConsoleOptions": "neverOpen"
-        },
-        {
             "name": "Content Builder (Debug)",
             "type": "coreclr",
             "request": "launch",
@@ -25,6 +13,68 @@
             "args": [],
             "cwd": "${workspaceFolder}/Game.ContentBuilder",
             "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Test: Game.Shared.Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "test-shared",
+            "program": "dotnet",
+            "args": [
+                "test",
+                "${workspaceFolder}/Game.Shared.Tests/Game.Shared.Tests.csproj",
+                "--no-build"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Test: Game.Core.Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "test-core",
+            "program": "dotnet",
+            "args": [
+                "test",
+                "${workspaceFolder}/Game.Core.Tests/Game.Core.Tests.csproj",
+                "--no-build"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Test: Game.Data.Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "test-data",
+            "program": "dotnet",
+            "args": [
+                "test",
+                "${workspaceFolder}/Game.Data.Tests/Game.Data.Tests.csproj",
+                "--no-build"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Test: All Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "dotnet",
+            "args": [
+                "test",
+                "${workspaceFolder}/Game.sln",
+                "--filter",
+                "Category!=UI",
+                "--no-build"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
             "stopAtEntry": false
         },
         {

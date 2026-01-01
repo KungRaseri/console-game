@@ -8,6 +8,7 @@ using Xunit.Abstractions;
 
 namespace Game.ContentBuilder.Tests.UI;
 
+[Trait("Category", "UI")]
 [Collection("UI Tests")]
 public class WorkflowTests
 {
@@ -24,9 +25,7 @@ public class WorkflowTests
         Thread.Sleep(500); // Let UI stabilize
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Priority", "Critical")]
+    [Fact][Trait("Priority", "Critical")]
     public void Workflow_ApplicationLoads_AndShowsTreeView()
     {
         // The main window should be loaded and have a tree view
@@ -42,9 +41,7 @@ public class WorkflowTests
         treeItems.Should().NotBeEmpty("Should have at least one category in the tree");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Priority", "Critical")]
+    [Fact][Trait("Priority", "Critical")]
     public void Workflow_CanNavigateToNamesList()
     {
         // Find tree using AutomationId
@@ -90,9 +87,7 @@ public class WorkflowTests
         contentArea.Should().NotBeNull("Name list editor should load");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Priority", "Diagnostic")]
+    [Fact][Trait("Priority", "Diagnostic")]
     public void Debug_WhatElementsAreInContentControl()
     {
         // Navigate to catalog to load the editor
@@ -130,9 +125,7 @@ public class WorkflowTests
         _output.WriteLine($"ItemAddButton found: {addButton != null}");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Priority", "High")]
+    [Fact][Trait("Priority", "High")]
     public void Workflow_CanNavigateToCatalog()
     {
         // Find the main tree view using AutomationId
@@ -182,9 +175,7 @@ public class WorkflowTests
         _output.WriteLine($"SUCCESS! Found CatalogTreeView - elements inside ContentControl are accessible!");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Priority", "High")]
+    [Fact][Trait("Priority", "High")]
     public void Workflow_CatalogEditor_CanAddItem()
     {
         // Navigate to catalog

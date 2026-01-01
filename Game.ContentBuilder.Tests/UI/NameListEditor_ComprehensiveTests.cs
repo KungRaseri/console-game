@@ -13,6 +13,7 @@ namespace Game.ContentBuilder.Tests.UI;
 /// Tests focus on UI element presence and basic interactions.
 /// Complex functionality (add/remove/edit) is tested in NameListEditorViewModelTests.
 /// </summary>
+[Trait("Category", "UI")]
 [Collection("UI Tests")]
 public class NameListEditor_ComprehensiveTests
 {
@@ -82,9 +83,7 @@ public class NameListEditor_ComprehensiveTests
 
     #region UI Element Presence Tests
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "NameList")]
+    [Fact][Trait("Editor", "NameList")]
     [Trait("Feature", "Patterns")]
     public void Should_Display_Pattern_List()
     {
@@ -104,9 +103,7 @@ public class NameListEditor_ComprehensiveTests
         patternCards.Should().NotBeEmpty("Should display at least one pattern");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "NameList")]
+    [Fact][Trait("Editor", "NameList")]
     [Trait("Feature", "Patterns")]
     public void Should_Add_New_Pattern_When_Add_Button_Clicked()
     {
@@ -129,9 +126,7 @@ public class NameListEditor_ComprehensiveTests
         buttonAfterClick.Should().NotBeNull("Application should remain stable after adding pattern");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "NameList")]
+    [Fact][Trait("Editor", "NameList")]
     [Trait("Feature", "Patterns")]
     public void Should_Delete_Pattern_When_Delete_Button_Clicked()
     {
@@ -154,9 +149,7 @@ public class NameListEditor_ComprehensiveTests
         buttonAfterClick.Should().NotBeNull("Application should remain stable after deleting pattern");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "NameList")]
+    [Fact][Trait("Editor", "NameList")]
     [Trait("Feature", "Components")]
     public void Should_Display_Available_Component_Tokens()
     {
@@ -169,9 +162,7 @@ public class NameListEditor_ComprehensiveTests
         componentButtons.Should().NotBeEmpty("Should display component insertion buttons");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "NameList")]
+    [Fact][Trait("Editor", "NameList")]
     [Trait("Feature", "References")]
     public void Should_Display_Reference_Insertion_Buttons()
     {
@@ -188,9 +179,7 @@ public class NameListEditor_ComprehensiveTests
             .Should().BeTrue("Should display at least one reference insertion button");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "NameList")]
+    [Fact][Trait("Editor", "NameList")]
     [Trait("Feature", "Description")]
     public void Should_Display_Description_Field()
     {

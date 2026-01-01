@@ -13,6 +13,7 @@ namespace Game.ContentBuilder.Tests.Integration;
 /// Integration tests for complete ContentBuilder workflows
 /// Tests end-to-end scenarios: Launch → Navigate → Edit → Save → Verify
 /// </summary>
+[Trait("Category", "Integration")]
 [Collection("Integration Tests")]
 public class ContentBuilderIntegrationTests : UITestBase
 {

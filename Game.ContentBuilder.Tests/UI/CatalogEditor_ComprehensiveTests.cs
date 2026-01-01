@@ -14,6 +14,7 @@ namespace Game.ContentBuilder.Tests.UI;
 /// Comprehensive UI tests for the Catalog Editor (catalog.json format)
 /// Covers: Category management, item CRUD, field editing, metadata, rarity/weight
 /// </summary>
+[Trait("Category", "UI")]
 [Collection("UI Tests")]
 public class CatalogEditor_ComprehensiveTests
 {
@@ -33,9 +34,7 @@ public class CatalogEditor_ComprehensiveTests
 
     #region Category Management Tests
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Categories")]
     public void Should_Display_Multiple_Categories()
     {
@@ -51,9 +50,7 @@ public class CatalogEditor_ComprehensiveTests
         categories?.Length.Should().BeGreaterThan(0, "Should display at least one category");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Categories")]
     public void Should_Select_Category_When_Clicked()
     {
@@ -70,9 +67,7 @@ public class CatalogEditor_ComprehensiveTests
         firstTreeItem.Should().NotBeNull("Should be able to select tree item");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Categories")]
     public void Should_Add_New_Category_When_Add_Button_Clicked()
     {
@@ -95,9 +90,7 @@ public class CatalogEditor_ComprehensiveTests
         treeView.Should().NotBeNull("TreeView should remain stable after adding category");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Categories")]
     public void Should_Rename_Category_When_Name_Changed()
     {
@@ -123,9 +116,7 @@ public class CatalogEditor_ComprehensiveTests
 
     #region Item List Management Tests
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Items")]
     public void Should_Add_New_Item_When_Add_Button_Clicked()
     {
@@ -160,9 +151,7 @@ public class CatalogEditor_ComprehensiveTests
 
     #region Item Field Editing Tests
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Fields")]
     public void Should_Display_Name_Field_For_Selected_Item()
     {
@@ -178,9 +167,7 @@ public class CatalogEditor_ComprehensiveTests
         nameTextBox?.IsEnabled.Should().BeTrue("Name field should be editable");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Fields")]
     public void Should_Update_Item_Name_When_Text_Changed()
     {
@@ -197,9 +184,7 @@ public class CatalogEditor_ComprehensiveTests
         nameTextBox?.Text.Should().Contain("Test Item Name", "Item name should update");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Fields")]
     public void Should_Display_RarityWeight_Field_For_Selected_Item()
     {
@@ -214,9 +199,7 @@ public class CatalogEditor_ComprehensiveTests
         weightTextBox.Should().NotBeNull("Should display rarity weight field");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Fields")]
     public void Should_Update_RarityWeight_When_Text_Changed()
     {
@@ -237,9 +220,7 @@ public class CatalogEditor_ComprehensiveTests
 
     #region Traits/Tags Management Tests
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Traits")]
     public void Should_Display_Traits_Section_For_Selected_Item()
     {
@@ -254,9 +235,7 @@ public class CatalogEditor_ComprehensiveTests
         traitsPanel.Should().NotBeNull("Should display traits section");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Traits")]
     public void Should_Remove_Trait_When_Delete_Button_Clicked()
     {
@@ -289,9 +268,7 @@ public class CatalogEditor_ComprehensiveTests
 
     #region Custom Fields Tests
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "CustomFields")]
     public void Should_Display_Custom_Fields_Section()
     {
@@ -306,9 +283,7 @@ public class CatalogEditor_ComprehensiveTests
         customFieldsPanel.Should().NotBeNull("Should display custom fields section (ItemPropertiesPanel)");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "CustomFields")]
     public void Should_Add_Custom_Field_When_Add_Button_Clicked()
     {
@@ -334,9 +309,7 @@ public class CatalogEditor_ComprehensiveTests
         customFieldsPanel.Should().NotBeNull("Custom fields panel should remain stable after adding field");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "CustomFields")]
     public void Should_Update_Custom_Field_Key_When_Text_Changed()
     {
@@ -357,9 +330,7 @@ public class CatalogEditor_ComprehensiveTests
         keyTextBox?.Text.Should().Contain("testKey", "Custom field key should update");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "CustomFields")]
     public void Should_Update_Custom_Field_Value_When_Text_Changed()
     {
@@ -384,9 +355,7 @@ public class CatalogEditor_ComprehensiveTests
 
     #region Metadata Tests
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Metadata")]
     public void Should_Display_Catalog_Version_Field()
     {
@@ -409,9 +378,7 @@ public class CatalogEditor_ComprehensiveTests
         versionTextBox.Should().NotBeNull("Should display catalog version field");
     }
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Metadata")]
     public void Should_Display_Description_Field_In_Metadata()
     {
@@ -438,9 +405,7 @@ public class CatalogEditor_ComprehensiveTests
 
     #region Save/Load Tests
 
-    [Fact]
-    [Trait("Category", "UI")]
-    [Trait("Editor", "Catalog")]
+    [Fact][Trait("Editor", "Catalog")]
     [Trait("Feature", "Persistence")]
     public void Should_Save_Changes_When_Ctrl_S_Pressed()
     {
