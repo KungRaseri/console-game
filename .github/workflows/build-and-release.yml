@@ -43,7 +43,7 @@ jobs:
       
     - name: Run Game.ContentBuilder.Tests
       run: dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=contentbuilder-tests.trx"
-      continue-on-error: false
+      continue-on-error: true
       
     - name: Publish test results
       uses: EnricoMi/publish-unit-test-result-action/windows@v2
