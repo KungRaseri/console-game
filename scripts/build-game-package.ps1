@@ -15,6 +15,15 @@ Write-Output ""
 $SolutionRoot = Split-Path $PSScriptRoot -Parent
 $PackageRoot = Join-Path $SolutionRoot $OutputPath
 
+# Generate version
+Write-Output "Generating version..."
+$VersionScript = Join-Path $PSScriptRoot "generate-version.ps1"
+$Version = & $VersionScript -OutputFormat "string"
+$VersionArgs = @(& $VersionScript -OutputFormat "msbuild")
+
+Write-Output "Building version: $Version"
+Write-Output ""
+
 # Clean output directory
 Write-Output "Cleaning output directory..."
 if (Test-Path $PackageRoot) {
@@ -39,7 +48,7 @@ Write-Output ""
 # Build Game.Core
 Write-Output "Building Game.Core..."
 $CoreOutput = Join-Path $PackageRoot "Libraries\Game.Core"
-dotnet publish (Join-Path $SolutionRoot "Game.Core\Game.Core.csproj") --configuration $Configuration --output $CoreOutput --no-self-contained --verbosity quiet
+dotnet publish (Join-Path $SolutionRoot "Game.Core\Game.Core.csproj") --configuration $Configuration --output $CoreOutput --no-self-contained --verbosity quiet $VersionArgs
 if ($LASTEXITCODE -ne 0) { Write-Error "Game.Core build failed!"; exit 1 }
 # Copy XML documentation to Libraries root for Godot IntelliSense
 Copy-Item -Path (Join-Path $CoreOutput "Game.Core.xml") -Destination (Join-Path $PackageRoot "Libraries\Game.Core.xml") -ErrorAction SilentlyContinue
@@ -49,7 +58,7 @@ Write-Output ""
 # Build Game.Shared
 Write-Output "Building Game.Shared..."
 $SharedOutput = Join-Path $PackageRoot "Libraries\Game.Shared"
-dotnet publish (Join-Path $SolutionRoot "Game.Shared\Game.Shared.csproj") --configuration $Configuration --output $SharedOutput --no-self-contained --verbosity quiet
+dotnet publish (Join-Path $SolutionRoot "Game.Shared\Game.Shared.csproj") --configuration $Configuration --output $SharedOutput --no-self-contained --verbosity quiet $VersionArgs
 if ($LASTEXITCODE -ne 0) { Write-Error "Game.Shared build failed!"; exit 1 }
 # Copy XML documentation to Libraries root for Godot IntelliSense
 Copy-Item -Path (Join-Path $SharedOutput "Game.Shared.xml") -Destination (Join-Path $PackageRoot "Libraries\Game.Shared.xml") -ErrorAction SilentlyContinue
@@ -59,7 +68,7 @@ Write-Output ""
 # Build Game.Data
 Write-Output "Building Game.Data..."
 $DataOutput = Join-Path $PackageRoot "Libraries\Game.Data"
-dotnet publish (Join-Path $SolutionRoot "Game.Data\Game.Data.csproj") --configuration $Configuration --output $DataOutput --no-self-contained --verbosity quiet
+dotnet publish (Join-Path $SolutionRoot "Game.Data\Game.Data.csproj") --configuration $Configuration --output $DataOutput --no-self-contained --verbosity quiet $VersionArgs
 if ($LASTEXITCODE -ne 0) { Write-Error "Game.Data build failed!"; exit 1 }
 # Copy XML documentation to Libraries root for Godot IntelliSense
 Copy-Item -Path (Join-Path $DataOutput "Game.Data.xml") -Destination (Join-Path $PackageRoot "Libraries\Game.Data.xml") -ErrorAction SilentlyContinue
@@ -69,7 +78,7 @@ Write-Output ""
 # Build ContentBuilder
 Write-Output "Building ContentBuilder..."
 $ContentBuilderOutput = Join-Path $PackageRoot "ContentBuilder"
-dotnet publish (Join-Path $SolutionRoot "Game.ContentBuilder\Game.ContentBuilder.csproj") --configuration $Configuration --output $ContentBuilderOutput --no-self-contained --runtime win-x64 --verbosity quiet
+dotnet publish (Join-Path $SolutionRoot "Game.ContentBuilder\Game.ContentBuilder.csproj") --configuration $Configuration --output $ContentBuilderOutput --no-self-contained --runtime win-x64 --verbosity quiet $VersionArgs
 if ($LASTEXITCODE -ne 0) { Write-Error "ContentBuilder build failed!"; exit 1 }
 
 # Remove duplicate Data folder from ContentBuilder (it will reference package root Data)
@@ -101,6 +110,7 @@ Write-Output ""
 # Generate Package Manifest
 Write-Output "Generating package manifest..."
 $Manifest = @{
+    Version = $Version
     PackageDate = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     Configuration = $Configuration
     Components = @{

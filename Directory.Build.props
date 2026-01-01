@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <!-- Central Version Configuration -->
+    <!-- Set Major.Minor here, Patch will be auto-generated from git commit count -->
+    <VersionMajor>0</VersionMajor>
+    <VersionMinor>1</VersionMinor>
+    
+    <!-- Version will be set by build script to: $(VersionMajor).$(VersionMinor).$(VersionPatch)-$(GitHash) -->
+    <!-- Example: 0.1.42-a3f2c1d -->
+  </PropertyGroup>
+</Project>
