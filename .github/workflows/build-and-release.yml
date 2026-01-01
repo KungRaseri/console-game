@@ -18,6 +18,10 @@ jobs:
     name: Run Tests
     runs-on: windows-latest
     
+    permissions:
+      checks: write
+      contents: read
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
