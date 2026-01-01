@@ -41,7 +41,9 @@ Write-Output "Building Game.Core..."
 $CoreOutput = Join-Path $PackageRoot "Libraries\Game.Core"
 dotnet publish (Join-Path $SolutionRoot "Game.Core\Game.Core.csproj") --configuration $Configuration --output $CoreOutput --no-self-contained --verbosity quiet
 if ($LASTEXITCODE -ne 0) { Write-Error "Game.Core build failed!"; exit 1 }
-Write-Output "[OK] Game.Core published"
+# Copy XML documentation to Libraries root for Godot IntelliSense
+Copy-Item -Path (Join-Path $CoreOutput "Game.Core.xml") -Destination (Join-Path $PackageRoot "Libraries\Game.Core.xml") -ErrorAction SilentlyContinue
+Write-Output "[OK] Game.Core published (with XML docs)"
 Write-Output ""
 
 # Build Game.Shared
@@ -49,7 +51,9 @@ Write-Output "Building Game.Shared..."
 $SharedOutput = Join-Path $PackageRoot "Libraries\Game.Shared"
 dotnet publish (Join-Path $SolutionRoot "Game.Shared\Game.Shared.csproj") --configuration $Configuration --output $SharedOutput --no-self-contained --verbosity quiet
 if ($LASTEXITCODE -ne 0) { Write-Error "Game.Shared build failed!"; exit 1 }
-Write-Output "[OK] Game.Shared published"
+# Copy XML documentation to Libraries root for Godot IntelliSense
+Copy-Item -Path (Join-Path $SharedOutput "Game.Shared.xml") -Destination (Join-Path $PackageRoot "Libraries\Game.Shared.xml") -ErrorAction SilentlyContinue
+Write-Output "[OK] Game.Shared published (with XML docs)"
 Write-Output ""
 
 # Build Game.Data
@@ -57,7 +61,9 @@ Write-Output "Building Game.Data..."
 $DataOutput = Join-Path $PackageRoot "Libraries\Game.Data"
 dotnet publish (Join-Path $SolutionRoot "Game.Data\Game.Data.csproj") --configuration $Configuration --output $DataOutput --no-self-contained --verbosity quiet
 if ($LASTEXITCODE -ne 0) { Write-Error "Game.Data build failed!"; exit 1 }
-Write-Output "[OK] Game.Data published"
+# Copy XML documentation to Libraries root for Godot IntelliSense
+Copy-Item -Path (Join-Path $DataOutput "Game.Data.xml") -Destination (Join-Path $PackageRoot "Libraries\Game.Data.xml") -ErrorAction SilentlyContinue
+Write-Output "[OK] Game.Data published (with XML docs)"
 Write-Output ""
 
 # Build ContentBuilder

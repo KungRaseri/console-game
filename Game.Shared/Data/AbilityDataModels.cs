@@ -3,12 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace Game.Shared.Data.Models;
 
-/// <summary>
-/// Data models for ability v4.0 JSON structure.
-/// Abilities use a dual-file system:
-/// - abilities_names.json: Pattern-based generation with components
-/// - abilities_catalog.json: Base ability definitions with traits
-/// </summary>
+// Data models for ability v4.0 JSON structure.
+// Abilities use a dual-file system:
+// - abilities_names.json: Pattern-based generation with components
+// - abilities_catalog.json: Base ability definitions with traits
 
 #region Abilities Names Data (Pattern Generation)
 

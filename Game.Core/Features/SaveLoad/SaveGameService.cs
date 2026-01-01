@@ -85,7 +85,7 @@ public class SaveGameService : ISaveGameService, IDisposable
             saveGame.Character.Inventory = saveGame.Character.Inventory.ToList();
             saveGame.Character.PendingLevelUps = saveGame.Character.PendingLevelUps.ToList();
             saveGame.Character.LearnedSkills = saveGame.Character.LearnedSkills.ToList();
-            
+
             saveGame.ActiveQuests = saveGame.ActiveQuests.ToList();
             saveGame.CompletedQuests = saveGame.CompletedQuests.ToList();
             saveGame.FailedQuests = saveGame.FailedQuests.ToList();
@@ -95,7 +95,7 @@ public class SaveGameService : ISaveGameService, IDisposable
             saveGame.DiscoveredLocations = saveGame.DiscoveredLocations.ToList();
             saveGame.LegendaryEnemiesDefeated = saveGame.LegendaryEnemiesDefeated.ToList();
             saveGame.UnlockedAchievements = saveGame.UnlockedAchievements.ToList();
-            
+
             saveGame.NPCRelationships = new Dictionary<string, int>(saveGame.NPCRelationships);
             saveGame.EnemiesDefeatedByType = new Dictionary<string, int>(saveGame.EnemiesDefeatedByType);
             saveGame.GameFlags = new Dictionary<string, bool>(saveGame.GameFlags);
@@ -119,6 +119,7 @@ public class SaveGameService : ISaveGameService, IDisposable
 
     /// <summary>
     /// Save the current game state (legacy compatibility - simplified version).
+    /// </summary>
     public void SaveGame(Character player, List<Item> inventory, string? saveId = null)
     {
         // For legacy compatibility, always create a new SaveGame unless saveId is provided

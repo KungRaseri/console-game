@@ -1,13 +1,9 @@
 namespace Game.Shared.Data.Models;
 
+// Item-related data models
+
 /// <summary>
 /// Data models for deserializing JSON game data files.
-/// </summary>
-
-// Item-related data models
-/// <summary>
-/// Weapon names data using v4 pattern-based structure.
-/// Includes components and patterns for procedural name generation with reference support.
 /// </summary>
 public class WeaponNameData
 {

@@ -1,4 +1,4 @@
-# Deploy to Godot Project Script
+﻿# Deploy to Godot Project Script
 # Copies packaged game files to Godot project directory
 
 param(
@@ -64,8 +64,16 @@ if (Test-Path $LibrariesDest) {
 
 Copy-Item -Path $LibrariesSource -Destination $LibrariesDest -Recurse -Force
 
+# Copy XML documentation files to root for IntelliSense
+Copy-Item -Path "$LibrariesSource\*.xml" -Destination $LibrariesDest -Force -ErrorAction SilentlyContinue
+
 $DllCount = (Get-ChildItem -Path $LibrariesDest -Recurse -Filter "*.dll").Count
-Write-Host "✓ Deployed $DllCount DLL files to Libraries\" -ForegroundColor Green
+$XmlCount = (Get-ChildItem -Path $LibrariesDest -Filter "*.xml").Count
+Write-Host "Deployed $DllCount DLL files to Libraries" -ForegroundColor Green
+if ($XmlCount -gt 0) {
+    Write-Host "Deployed $XmlCount XML documentation files (IntelliSense support)" -ForegroundColor Green
+}
+Write-Host ""
 Write-Host ""
 
 # ============================================
@@ -83,7 +91,7 @@ if (Test-Path $JsonDest) {
 Copy-Item -Path $JsonSource -Destination $JsonDest -Recurse -Force
 
 $JsonFileCount = (Get-ChildItem -Path $JsonDest -Recurse -Filter "*.json").Count
-Write-Host "✓ Deployed $JsonFileCount JSON files to Data\Json\" -ForegroundColor Green
+Write-Host "Deployed $JsonFileCount JSON files to Data/Json" -ForegroundColor Green
 Write-Host ""
 
 # ============================================
@@ -103,8 +111,8 @@ if ($DeployContentBuilder -eq "y" -or $DeployContentBuilder -eq "Y") {
     
     New-Item -ItemType Directory -Path $ContentBuilderDest -Force | Out-Null
     Copy-Item -Path "$ContentBuilderSource\*" -Destination $ContentBuilderDest -Recurse -Force
-    
-    Write-Host "✓ ContentBuilder deployed to Tools\ContentBuilder\" -ForegroundColor Green
+
+    Write-Host "ContentBuilder deployed to Tools/ContentBuilder" -ForegroundColor Green
     Write-Host ""
 }
 
@@ -125,7 +133,7 @@ $DeploymentJson = $DeploymentInfo | ConvertTo-Json -Depth 10
 $DeploymentPath = Join-Path $GodotProjectPath ".deployment-info.json"
 Set-Content -Path $DeploymentPath -Value $DeploymentJson
 
-Write-Host "✓ Deployment info saved" -ForegroundColor Green
+Write-Host "Deployment info saved" -ForegroundColor Green
 Write-Host ""
 
 # ============================================
@@ -139,14 +147,14 @@ Write-Host "Deployed to: " -NoNewline -ForegroundColor Yellow
 Write-Host $GodotProjectPath -ForegroundColor White
 Write-Host ""
 Write-Host "Components:" -ForegroundColor Yellow
-Write-Host "  ✓ $DllCount DLL files in Libraries\" -ForegroundColor Green
-Write-Host "  ✓ $JsonFileCount JSON files in Data\Json\" -ForegroundColor Green
+Write-Host "  - $DllCount DLL files in Libraries" -ForegroundColor Green
+Write-Host "  - $JsonFileCount JSON files in Data/Json" -ForegroundColor Green
 if ($DeployContentBuilder -eq "y" -or $DeployContentBuilder -eq "Y") {
-    Write-Host "  ✓ ContentBuilder in Tools\ContentBuilder\" -ForegroundColor Green
+    Write-Host "  - ContentBuilder in Tools/ContentBuilder" -ForegroundColor Green
 }
 Write-Host ""
 Write-Host "Next Steps:" -ForegroundColor Cyan
 Write-Host "  1. Open Godot project" -ForegroundColor Gray
-Write-Host "  2. Build C# solution in Godot (Ctrl+B)" -ForegroundColor Gray
-Write-Host "  3. Reference game DLLs in your GDScript/C# code" -ForegroundColor Gray
+Write-Host "  2. Build CSharp solution in Godot (Ctrl+B)" -ForegroundColor Gray
+Write-Host "  3. Reference game DLLs in your GDScript or CSharp code" -ForegroundColor Gray
 Write-Host ""
