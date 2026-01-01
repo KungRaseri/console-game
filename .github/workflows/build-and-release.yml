@@ -157,10 +157,78 @@ jobs:
         name: package-manifest
         path: package/package-manifest.json
         retention-days: 30
+        
+    - name: Create ContentBuilder standalone archive
+      run: |
+        $version = "${{ steps.package.outputs.version }}"
+        $contentBuilderArchive = "ContentBuilder-$version.zip"
+        
+        Write-Output "Creating ContentBuilder archive: $contentBuilderArchive"
+        Compress-Archive -Path "package/ContentBuilder/*" -DestinationPath $contentBuilderArchive -Force
+        
+        $archiveSize = (Get-Item $contentBuilderArchive).Length / 1MB
+        Write-Output "ContentBuilder archive size: $([math]::Round($archiveSize, 2)) MB"
+        
+        Write-Output "contentbuilder-archive=$contentBuilderArchive" >> $env:GITHUB_OUTPUT
+        Write-Output "CONTENTBUILDER_ARCHIVE=$contentBuilderArchive" >> $env:GITHUB_ENV
+      shell: pwsh
+      id: contentbuilder
+      
+    - name: Upload ContentBuilder artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: contentbuilder
+        path: ${{ env.CONTENTBUILDER_ARCHIVE }}
+        retention-days: 30
+
+  publish-nuget:
+    name: Publish NuGet Packages
+    needs: test
+    runs-on: windows-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    permissions:
+      packages: write
+      contents: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Extract version from tag
+      id: version
+      run: |
+        $version = "${{ github.ref_name }}" -replace '^v', ''
+        Write-Output "VERSION=$version" >> $env:GITHUB_ENV
+        Write-Output "version=$version" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+      
+    - name: Pack Game.Core
+      run: dotnet pack Game.Core/Game.Core.csproj --configuration ${{ env.CONFIGURATION }} --no-restore -p:PackageVersion=${{ env.VERSION }} -p:RepositoryUrl=${{ github.server_url }}/${{ github.repository }} -p:RepositoryCommit=${{ github.sha }}
+      
+    - name: Pack Game.Shared
+      run: dotnet pack Game.Shared/Game.Shared.csproj --configuration ${{ env.CONFIGURATION }} --no-restore -p:PackageVersion=${{ env.VERSION }} -p:RepositoryUrl=${{ github.server_url }}/${{ github.repository }} -p:RepositoryCommit=${{ github.sha }}
+      
+    - name: Pack Game.Data
+      run: dotnet pack Game.Data/Game.Data.csproj --configuration ${{ env.CONFIGURATION }} --no-restore -p:PackageVersion=${{ env.VERSION }} -p:RepositoryUrl=${{ github.server_url }}/${{ github.repository }} -p:RepositoryCommit=${{ github.sha }}
+      
+    - name: Publish to GitHub Packages
+      run: |
+        dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+        dotnet nuget push "**/*.nupkg" --source github --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+      shell: pwsh
 
   release:
     name: Create GitHub Release
-    needs: build-package
+    needs: [build-package, publish-nuget]
     runs-on: windows-latest
     if: startsWith(github.ref, 'refs/tags/v')
     
@@ -170,6 +238,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
       
     - name: Download package artifact
       uses: actions/download-artifact@v4
@@ -181,6 +251,11 @@ jobs:
       with:
         name: package-manifest
         
+    - name: Download ContentBuilder artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: contentbuilder
+        
     - name: Extract version info
       id: version
       run: |
@@ -191,34 +266,99 @@ jobs:
         # Read manifest for build info
         if (Test-Path "package-manifest.json") {
           $manifest = Get-Content "package-manifest.json" | ConvertFrom-Json
-          Write-Output "Build Date: $($manifest.buildDate)"
-          Write-Output "Git Commit: $($manifest.gitCommit)"
+          Write-Output "Build Date: $($manifest.PackageDate)"
+          Write-Output "Configuration: $($manifest.Configuration)"
         }
+      shell: pwsh
+      
+    - name: Get previous tag
+      id: prev_tag
+      run: |
+        $currentTag = "${{ github.ref_name }}"
+        $tags = git tag --sort=-version:refname
+        $prevTag = $tags | Where-Object { $_ -ne $currentTag } | Select-Object -First 1
+        
+        if ($prevTag) {
+          Write-Output "PREV_TAG=$prevTag" >> $env:GITHUB_ENV
+          Write-Output "previous-tag=$prevTag" >> $env:GITHUB_OUTPUT
+          Write-Output "Previous tag: $prevTag"
+        } else {
+          Write-Output "No previous tag found"
+          Write-Output "PREV_TAG=" >> $env:GITHUB_ENV
+          Write-Output "previous-tag=" >> $env:GITHUB_OUTPUT
+        }
+      shell: pwsh
+      
+    - name: Generate commit changelog
+      id: changelog
+      run: |
+        $currentTag = "${{ github.ref_name }}"
+        $prevTag = "${{ steps.prev_tag.outputs.previous-tag }}"
+        
+        if ($prevTag) {
+          Write-Output "Generating changelog from $prevTag to $currentTag"
+          $commits = git log "$prevTag..$currentTag" --pretty=format:"- %s (%h)" --no-merges
+        } else {
+          Write-Output "Generating changelog for all commits"
+          $commits = git log --pretty=format:"- %s (%h)" --no-merges --max-count=20
+        }
+        
+        $changelog = $commits -join "`n"
+        
+        Write-Output "changelog<<EOF" >> $env:GITHUB_OUTPUT
+        Write-Output $changelog >> $env:GITHUB_OUTPUT
+        Write-Output "EOF" >> $env:GITHUB_OUTPUT
       shell: pwsh
       
     - name: Generate release notes
       id: release_notes
       run: |
+        $manifest = Get-Content "package-manifest.json" | ConvertFrom-Json
+        $jsonCount = $manifest.Components.JsonData.FileCount
+        
         $notes = @"
         ## Console Game ${{ env.VERSION }}
         
+        **Build Date**: $($manifest.PackageDate)
+        **Commit**: [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+        
         ### What's Included
         
-        - **Game Libraries** - Core game engine DLLs for Godot integration
+        - **Game Libraries** - Core game engine DLLs for Godot integration (with XML IntelliSense)
         - **ContentBuilder** - WPF desktop editor for JSON game data
-        - **Game Data** - 186 JSON files (abilities, items, enemies, NPCs, quests, etc.)
-        - **Documentation** - Game Design Document and guides
+        - **Game Data** - $jsonCount JSON files (abilities, items, enemies, NPCs, quests, etc.)
+        - **NuGet Packages** - Available on GitHub Packages for easy integration
+        
+        ### Downloads
+        
+        - **console-game-${{ env.VERSION }}.zip** - Full game package (libraries + data + ContentBuilder)
+        - **ContentBuilder-${{ env.VERSION }}.zip** - Standalone JSON editor
+        - **package-manifest.json** - Build metadata and file inventory
         
         ### Installation
         
-        1. Extract the zip file
-        2. **For Godot Integration**:
-           - Copy \`Libraries/\` folder to your Godot project
-           - Copy \`Data/Json/\` folder to your Godot project
-           - Reference Game.Core.dll in your C# scripts
-        3. **For Content Editing**:
-           - Run \`ContentBuilder/Game.ContentBuilder.exe\`
-           - Edit JSON game data with visual editor
+        #### For Godot Integration
+        
+        1. Extract \`console-game-${{ env.VERSION }}.zip\`
+        2. Copy \`Libraries/\` folder to your Godot project
+        3. Copy \`Data/Json/\` folder to your Godot project
+        4. Reference Game.Core.dll in your C# scripts
+        5. IntelliSense documentation is automatically available via XML files
+        
+        #### For Content Editing
+        
+        1. Extract \`ContentBuilder-${{ env.VERSION }}.zip\`
+        2. Run \`Game.ContentBuilder.exe\`
+        3. Edit JSON game data with visual editor
+        4. Changes are validated against v4.0 standards
+        
+        #### Via NuGet (GitHub Packages)
+        
+        \`\`\`bash
+        dotnet add package Game.Core --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        dotnet add package Game.Shared --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        dotnet add package Game.Data --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        \`\`\`
         
         ### Requirements
         
@@ -227,21 +367,27 @@ jobs:
         
         ### Package Contents
         
-        - Game.Core.dll - Core game mechanics
-        - Game.Shared.dll - Shared models/services
-        - Game.Data.dll - Data loading/validation
-        - ContentBuilder.exe - JSON editor application
-        - 186 JSON data files (v4.0 compliant)
+        - **Game.Core.dll** - Core game mechanics (generators, validators, features)
+        - **Game.Core.xml** - IntelliSense documentation
+        - **Game.Shared.dll** - Shared models and services
+        - **Game.Shared.xml** - IntelliSense documentation
+        - **Game.Data.dll** - Data loading and validation
+        - **Game.Data.xml** - IntelliSense documentation
+        - **ContentBuilder.exe** - Visual JSON editor
+        - **$jsonCount JSON files** - v4.0 compliant game data
         
-        ### Changelog
+        ### Changes in This Release
         
-        See [GDD-Main.md](https://github.com/${{ github.repository }}/blob/main/docs/GDD-Main.md) for full documentation.
+        ${{ steps.changelog.outputs.changelog }}
+        
+        ### Documentation
+        
+        - [Game Design Document](https://github.com/${{ github.repository }}/blob/main/docs/GDD-Main.md)
+        - [JSON v4.0 Standards](https://github.com/${{ github.repository }}/blob/main/docs/standards/json/README.md)
+        - [Architecture Guide](https://github.com/${{ github.repository }}/blob/main/docs/ARCHITECTURE_DECISIONS.md)
         "@
         
         $notes | Out-File -FilePath release-notes.md -Encoding utf8
-        Write-Output "notes<<EOF" >> $env:GITHUB_OUTPUT
-        Get-Content release-notes.md | ForEach-Object { Write-Output $_ >> $env:GITHUB_OUTPUT }
-        Write-Output "EOF" >> $env:GITHUB_OUTPUT
       shell: pwsh
       
     - name: Create GitHub Release
@@ -249,17 +395,20 @@ jobs:
       with:
         files: |
           console-game-${{ env.VERSION }}.zip
+          ContentBuilder-${{ env.VERSION }}.zip
           package-manifest.json
         body_path: release-notes.md
         draft: false
         prerelease: false
-        generate_release_notes: true
+        generate_release_notes: false
+        tag_name: ${{ github.ref_name }}
+        name: Console Game ${{ env.VERSION }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   notify:
     name: Build Notification
-    needs: [test, build-package]
+    needs: [test, build-package, publish-nuget, release]
     runs-on: ubuntu-latest
     if: always()
     
@@ -270,6 +419,20 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **Tests**: ${{ needs.test.result }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Package**: ${{ needs.build-package.result }}" >> $GITHUB_STEP_SUMMARY
+        
+        if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+          echo "- **NuGet Publish**: ${{ needs.publish-nuget.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Release**: ${{ needs.release.result }}" >> $GITHUB_STEP_SUMMARY
+        fi
+        
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "Ref: \`${{ github.ref }}\`" >> $GITHUB_STEP_SUMMARY
-        echo "Commit: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "**Ref**: \`${{ github.ref }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "**Commit**: [\`${{ github.sha }}\`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})" >> $GITHUB_STEP_SUMMARY
+        
+        if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Release Assets" >> $GITHUB_STEP_SUMMARY
+          echo "- Full package: console-game-${{ github.ref_name }}.zip" >> $GITHUB_STEP_SUMMARY
+          echo "- ContentBuilder: ContentBuilder-${{ github.ref_name }}.zip" >> $GITHUB_STEP_SUMMARY
+          echo "- NuGet packages published to GitHub Packages" >> $GITHUB_STEP_SUMMARY
+        fi
