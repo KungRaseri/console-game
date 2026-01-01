@@ -50,14 +50,14 @@ public class EnchantmentGenerator
 
             // Get position from pattern
             var position = GetStringProperty(pattern, "position");
-            var format = GetStringProperty(pattern, "format");
+            var format = GetStringProperty(pattern, "pattern");
             
             if (string.IsNullOrEmpty(format))
             {
                 return Task.FromResult<Enchantment?>(null);
             }
 
-            // Resolve components from format (e.g., "{element_prefix}" -> element_prefix component)
+            // Resolve components from pattern (e.g., "{element_prefix}" -> element_prefix component)
             var componentName = format.Trim('{', '}');
             var components = namesFile.JsonData["components"]?[componentName];
             
