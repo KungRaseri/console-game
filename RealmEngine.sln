@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Shared", "Game.Shared\Game.Shared.csproj", "{91B789F8-558A-4B30-98CE-200FAE2FE7C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.ContentBuilder", "Game.ContentBuilder\Game.ContentBuilder.csproj", "{62F75953-663E-46FC-AA1B-DC1FB19E2DC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmForge", "RealmForge\RealmForge.csproj", "{62F75953-663E-46FC-AA1B-DC1FB19E2DC9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Core", "Game.Core\Game.Core.csproj", "{3A4BA83E-DB3C-4D54-AAED-CC9FE286FF2C}"
 EndProject
@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Data", "Game.Data\Game
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Data.Tests", "Game.Data.Tests\Game.Data.Tests.csproj", "{C6750A56-3AB1-4A75-9A88-82342D95CC48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.ContentBuilder.Tests", "Game.ContentBuilder.Tests\Game.ContentBuilder.Tests.csproj", "{A5B70D64-3E2C-4B5B-9E51-2D5E8F3A9C37}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmForge.Tests", "RealmForge.Tests\RealmForge.Tests.csproj", "{A5B70D64-3E2C-4B5B-9E51-2D5E8F3A9C37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Core.Tests", "Game.Core.Tests\Game.Core.Tests.csproj", "{501BB45F-01EA-443E-B3AB-705E7D7EE8F6}"
 EndProject

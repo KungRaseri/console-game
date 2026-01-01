@@ -7,7 +7,7 @@
 			"command": "dotnet",
 			"args": [
 				"build",
-				"${workspaceFolder}/Game.sln",
+				"${workspaceFolder}/RealmEngine.sln",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary"
 			],
@@ -18,12 +18,12 @@
 			}
 		},
 		{
-			"label": "build-contentbuilder",
+			"label": "build-realmforge",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [
 				"build",
-				"${workspaceFolder}/Game.ContentBuilder/Game.ContentBuilder.csproj",
+				"${workspaceFolder}/RealmForge/RealmForge.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary"
 			],
@@ -31,16 +31,16 @@
 			"group": "build"
 		},
 		{
-			"label": "run-contentbuilder",
+			"label": "run-realmforge",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [
 				"run",
 				"--project",
-				"${workspaceFolder}/Game.ContentBuilder/Game.ContentBuilder.csproj"
+				"${workspaceFolder}/RealmForge/RealmForge.csproj"
 			],
 			"problemMatcher": "$msCompile",
-			"dependsOn": "build-contentbuilder",
+			"dependsOn": "build-realmforge",
 			"presentation": {
 				"echo": true,
 				"reveal": "always",
@@ -50,14 +50,14 @@
 			}
 		},
 		{
-			"label": "watch-contentbuilder",
+			"label": "watch-realmforge",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [
 				"watch",
 				"run",
 				"--project",
-				"${workspaceFolder}/Game.ContentBuilder/Game.ContentBuilder.csproj",
+				"${workspaceFolder}/RealmForge/RealmForge.csproj",
 				"--non-interactive"
 			],
 			"problemMatcher": "$msCompile",
@@ -81,7 +81,7 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.sln",
+				"${workspaceFolder}/RealmEngine.sln",
 				"--filter",
 				"Category!=UI",
 				"--verbosity",
@@ -154,7 +154,7 @@
 			}
 		},
 		{
-			"label": "test-contentbuilder-unit",
+			"label": "test-realmforge-unit",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [
@@ -174,7 +174,7 @@
 			}
 		},
 		{
-			"label": "test-contentbuilder-ui",
+			"label": "test-realmforge-ui",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [
@@ -194,7 +194,7 @@
 			}
 		},
 		{
-			"label": "test-contentbuilder-integration",
+			"label": "test-realmforge-integration",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [
@@ -214,7 +214,7 @@
 			}
 		},
 		{
-			"label": "test-contentbuilder-all",
+			"label": "test-realmforge-all",
 			"type": "shell",
 			"command": "dotnet",
 			"args": [
@@ -282,7 +282,7 @@
 			"command": "dotnet",
 			"args": [
 				"clean",
-				"${workspaceFolder}/Game.sln"
+				"${workspaceFolder}/RealmEngine.sln"
 			],
 			"problemMatcher": "$msCompile"
 		},

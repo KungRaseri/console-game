@@ -75,7 +75,7 @@ if (Test-Path $LibrariesDest) {
                 Write-Host ""
                 Write-Host "Please close the following applications and try again:" -ForegroundColor Yellow
                 Write-Host "  • Godot Editor" -ForegroundColor Yellow
-                Write-Host "  • Any ContentBuilder instances" -ForegroundColor Yellow
+                Write-Host "  • Any RealmForge instances" -ForegroundColor Yellow
                 Write-Host "  • Any applications referencing the game DLLs" -ForegroundColor Yellow
                 Write-Host ""
                 
@@ -149,20 +149,20 @@ $CbconfigCount = (Get-ChildItem -Path $JsonDest -Recurse -Filter "*.cbconfig.jso
 
 Write-Host "✓ Deployed $JsonFileCount JSON data files" -ForegroundColor Green
 if ($CbconfigCount -gt 0) {
-    Write-Host "  → Including $CbconfigCount ContentBuilder config files" -ForegroundColor Gray
+    Write-Host "  → Including $CbconfigCount RealmForge config files" -ForegroundColor Gray
 }
 Write-Host ""
 
 # ============================================
-# 3. Deploy ContentBuilder (Optional)
+# 3. Deploy RealmForge (Optional)
 # ============================================
-$DeployContentBuilder = Read-Host "Deploy ContentBuilder to Godot project? (y/N)"
+$DeployRealmForge = Read-Host "Deploy RealmForge to Godot project? (y/N)"
 
-if ($DeployContentBuilder -eq "y" -or $DeployContentBuilder -eq "Y") {
-    Write-Host "Deploying ContentBuilder..." -ForegroundColor Yellow
+if ($DeployRealmForge -eq "y" -or $DeployRealmForge -eq "Y") {
+    Write-Host "Deploying RealmForge..." -ForegroundColor Yellow
     
-    $ContentBuilderSource = Join-Path $PackageRoot "ContentBuilder"
-    $ContentBuilderDest = Join-Path $GodotProjectPath "Tools\ContentBuilder"
+    $RealmForgeSource = Join-Path $PackageRoot "RealmForge"
+    $RealmForgeDest = Join-Path $GodotProjectPath "Tools\RealmForge"
     
     if (Test-Path $ContentBuilderDest) {
         Remove-Item $ContentBuilderDest -Recurse -Force
@@ -174,7 +174,7 @@ if ($DeployContentBuilder -eq "y" -or $DeployContentBuilder -eq "Y") {
     $ExeCount = (Get-ChildItem -Path $ContentBuilderDest -Filter "*.exe" -Recurse).Count
     $DllCount = (Get-ChildItem -Path $ContentBuilderDest -Filter "*.dll" -Recurse).Count
     
-    Write-Host "✓ ContentBuilder deployed to Tools/ContentBuilder" -ForegroundColor Green
+    Write-Host "✓ RealmForge deployed to Tools/RealmForge" -ForegroundColor Green
     Write-Host "  → $ExeCount executable, $DllCount DLLs" -ForegroundColor Gray
     Write-Host ""
 }

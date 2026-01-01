@@ -1,6 +1,6 @@
-# Console Game
+# RealmEngine
 
-A feature-rich console RPG framework built with .NET 9, showcasing modern C# architecture patterns and comprehensive game systems.
+A powerful console RPG engine built with .NET 9, showcasing modern C# architecture patterns and comprehensive game systems for creating text-based fantasy adventures.
 
 ## 🏗️ Architecture
 
@@ -37,7 +37,7 @@ This project uses **Vertical Slice Architecture** with **CQRS** (Command Query R
 ## Quick Start
 
 ```powershell
-# Run the game
+# Run the sample game
 dotnet run --project Game
 
 # Run tests
@@ -102,10 +102,10 @@ See the [docs/](./docs/) folder for detailed feature documentation.
 ## Building the Project
 
 ```powershell
-# Build the solution
+# Build the RealmEngine solution
 dotnet build
 
-# Run the game
+# Run the sample game
 dotnet run --project Game
 
 # Run all tests
