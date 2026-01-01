@@ -127,7 +127,7 @@ public class UITestCollectionFixture : IDisposable
         catch { /* ignore */ }
 
         // Force kill any remaining processes
-        var remainingProcesses = Process.GetProcessesByName("Game.ContentBuilder");
+        var remainingProcesses = Process.GetProcessesByName("RealmForge");
         foreach (var proc in remainingProcesses)
         {
             try

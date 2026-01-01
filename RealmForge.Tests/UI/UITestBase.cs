@@ -58,8 +58,8 @@ public abstract class UITestBase : IDisposable
             var exePath = Path.Combine(
                 testAssemblyPath,
                 "..", "..", "..", "..",
-                "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-                "Game.ContentBuilder.exe"
+                "RealmForge", "bin", "Debug", "net9.0-windows",
+                "RealmForge.exe"
             );
 
             var fullExePath = Path.GetFullPath(exePath);
