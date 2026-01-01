@@ -1,6 +1,6 @@
 using Game.Shared.Models;
 
-namespace Game.Shared.Utilities;
+namespace RealmEngine.Shared.Utilities;
 
 /// <summary>
 /// Utility class for applying and querying traits on entities.

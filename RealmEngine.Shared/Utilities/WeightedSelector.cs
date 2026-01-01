@@ -1,4 +1,4 @@
-namespace Game.Shared.Utilities;
+namespace RealmEngine.Shared.Utilities;
 
 /// <summary>
 /// Utility for selecting items based on rarity weights.

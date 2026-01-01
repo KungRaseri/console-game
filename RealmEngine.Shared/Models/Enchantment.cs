@@ -1,4 +1,4 @@
-namespace Game.Shared.Models;
+namespace RealmEngine.Shared.Models;
 
 /// <summary>
 /// Represents an enchantment that can be applied to an item.

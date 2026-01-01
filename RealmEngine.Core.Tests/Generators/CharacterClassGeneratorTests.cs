@@ -4,7 +4,7 @@ using Game.Data.Services;
 using Game.Shared.Models;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Game.Core.Tests.Generators;
+namespace RealmEngine.Core.Tests.Generators;
 
 [Trait("Category", "Generator")]
 public class CharacterClassGeneratorTests

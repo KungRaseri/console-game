@@ -1,4 +1,4 @@
-namespace Game.Shared.Models;
+namespace RealmEngine.Shared.Models;
 
 /// <summary>
 /// Represents a set of equipment that provides bonuses when multiple pieces are worn.

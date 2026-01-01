@@ -1,4 +1,4 @@
-namespace Game.Shared.Models;
+namespace RealmEngine.Shared.Models;
 
 /// <summary>
 /// Represents a gem that can be socketed into items (player-customizable enhancement).

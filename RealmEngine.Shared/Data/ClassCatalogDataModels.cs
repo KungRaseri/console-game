@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Game.Shared.Data.Models;
+namespace RealmEngine.Shared.Data.Models;
 
 /// <summary>
 /// Root catalog data for classes/catalog.json (v4.1 format).

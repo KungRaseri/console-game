@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Shared.Models;
+namespace RealmEngine.Shared.Models;
 
 /// <summary>
 /// Event raised when a character is created.

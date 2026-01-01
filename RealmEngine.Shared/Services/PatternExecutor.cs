@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using Serilog;
 using System.Text.RegularExpressions;
 
-namespace Game.Shared.Services;
+namespace RealmEngine.Shared.Services;
 
 /// <summary>
 /// Executes name generation patterns with support for reference tokens and component substitution.

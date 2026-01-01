@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Game.Data.Services;
 
-namespace Game.Core.Tests.Basic;
+namespace RealmEngine.Core.Tests.Basic;
 
 [Trait("Category", "Integration")]
 public class ReferenceResolverServiceTests

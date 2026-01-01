@@ -7,7 +7,7 @@ using Game.Core.Abstractions;
 using Game.Data.Repositories;
 using Moq;
 
-namespace Game.Core.Tests.Features.SaveLoad.Queries;
+namespace RealmEngine.Core.Tests.Features.SaveLoad.Queries;
 
 [Trait("Category", "Feature")]
 /// <summary>

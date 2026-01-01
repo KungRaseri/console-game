@@ -2,7 +2,7 @@ using FluentAssertions;
 using Game.Core.Features.Combat.Commands.DefendAction;
 using Game.Shared.Models;
 
-namespace Game.Core.Tests.Features.Combat.Commands;
+namespace RealmEngine.Core.Tests.Features.Combat.Commands;
 
 [Trait("Category", "Feature")]
 /// <summary>

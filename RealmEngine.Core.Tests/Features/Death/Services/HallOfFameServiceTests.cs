@@ -4,7 +4,7 @@ using Game.Core.Abstractions;
 using Game.Data.Repositories;
 using Moq;
 
-namespace Game.Core.Tests.Features.Death.Services;
+namespace RealmEngine.Core.Tests.Features.Death.Services;
 
 [Trait("Category", "Feature")]
 /// <summary>

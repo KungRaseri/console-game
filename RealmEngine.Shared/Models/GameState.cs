@@ -1,4 +1,4 @@
-namespace Game.Shared.Models;
+namespace RealmEngine.Shared.Models;
 
 /// <summary>
 /// Represents the current state of the game.

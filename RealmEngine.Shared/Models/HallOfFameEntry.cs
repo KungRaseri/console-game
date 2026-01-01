@@ -1,4 +1,4 @@
-namespace Game.Shared.Models;
+namespace RealmEngine.Shared.Models;
 
 /// <summary>
 /// Records a character's final moments for the Hall of Fame.

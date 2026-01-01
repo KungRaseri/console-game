@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Game.Shared.Data.Models;
+namespace RealmEngine.Shared.Data.Models;
 
 /// <summary>
 /// Data models for NPC catalog system (backgrounds, occupations, traits, names).

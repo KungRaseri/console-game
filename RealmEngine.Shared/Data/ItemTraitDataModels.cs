@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using System.Text.Json.Serialization;
 
-namespace Game.Shared.Data.Models;
+namespace RealmEngine.Shared.Data.Models;
 
 /// <summary>
 /// Data models for item traits from JSON.

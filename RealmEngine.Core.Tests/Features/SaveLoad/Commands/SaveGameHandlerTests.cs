@@ -7,7 +7,7 @@ using Game.Core.Services;
 using Game.Core.Abstractions;
 using Game.Data.Repositories;
 
-namespace Game.Core.Tests.Features.SaveLoad.Commands;
+namespace RealmEngine.Core.Tests.Features.SaveLoad.Commands;
 
 [Trait("Category", "Feature")]
 /// <summary>

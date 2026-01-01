@@ -3,7 +3,7 @@ using Game.Core.Generators.Modern;
 using Game.Data.Services;
 using Game.Shared.Models;
 
-namespace Game.Core.Tests.Generators;
+namespace RealmEngine.Core.Tests.Generators;
 
 [Trait("Category", "Generator")]
 public class ItemGeneratorTests

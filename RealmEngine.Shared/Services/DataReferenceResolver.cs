@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
-namespace Game.Shared.Services;
+namespace RealmEngine.Shared.Services;
 
 /// <summary>
 /// Resolves cross-file references in JSON data (e.g., materialRef, itemRef, enemyRef)

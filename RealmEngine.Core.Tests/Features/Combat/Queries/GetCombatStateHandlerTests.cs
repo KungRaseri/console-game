@@ -2,7 +2,7 @@ using FluentAssertions;
 using Game.Core.Features.Combat.Queries.GetCombatState;
 using Game.Shared.Models;
 
-namespace Game.Core.Tests.Features.Combat.Queries;
+namespace RealmEngine.Core.Tests.Features.Combat.Queries;
 
 [Trait("Category", "Feature")]
 /// <summary>

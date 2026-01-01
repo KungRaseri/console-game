@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Game.Shared.Models;
+namespace RealmEngine.Shared.Models;
 
 /// <summary>
 /// Represents a character ability (offensive, defensive, support, passive, etc.).

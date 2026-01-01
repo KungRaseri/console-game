@@ -4,7 +4,7 @@ using Game.Data.Services;
 using Game.Shared.Models;
 using Xunit;
 
-namespace Game.Core.Tests.Generators;
+namespace RealmEngine.Core.Tests.Generators;
 
 [Trait("Category", "Generator")]
 public class AbilityGeneratorTests

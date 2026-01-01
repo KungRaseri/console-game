@@ -1,7 +1,7 @@
 using Game.Shared.Utilities;
 using LiteDB;
 
-namespace Game.Shared.Models;
+namespace RealmEngine.Shared.Models;
 
 /// <summary>
 /// Represents a player character in the game.

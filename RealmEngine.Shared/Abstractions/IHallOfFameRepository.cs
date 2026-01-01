@@ -1,6 +1,6 @@
 using Game.Shared.Models;
 
-namespace Game.Shared.Abstractions;
+namespace RealmEngine.Shared.Abstractions;
 
 /// <summary>
 /// Repository interface for managing Hall of Fame entries.

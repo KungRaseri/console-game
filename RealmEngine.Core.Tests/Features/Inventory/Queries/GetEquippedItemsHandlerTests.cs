@@ -2,7 +2,7 @@ using FluentAssertions;
 using Game.Core.Features.Inventory.Queries;
 using Game.Shared.Models;
 
-namespace Game.Core.Tests.Features.Inventory.Queries;
+namespace RealmEngine.Core.Tests.Features.Inventory.Queries;
 
 [Trait("Category", "Feature")]
 /// <summary>

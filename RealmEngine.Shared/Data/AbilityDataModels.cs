@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using System.Text.Json.Serialization;
 
-namespace Game.Shared.Data.Models;
+namespace RealmEngine.Shared.Data.Models;
 
 // Data models for ability v4.0 JSON structure.
 // Abilities use a dual-file system:

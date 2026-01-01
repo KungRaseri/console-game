@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Game.Shared.Data;
+namespace RealmEngine.Shared.Data;
 
 /// <summary>
 /// Root data model for quest rewards (items, gold, experience).

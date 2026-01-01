@@ -4,7 +4,7 @@ using Game.Core.Features.Victory.Services;
 using Game.Shared.Models;
 using Moq;
 
-namespace Game.Core.Tests.Features.Victory.Services;
+namespace RealmEngine.Core.Tests.Features.Victory.Services;
 
 [Trait("Category", "Feature")]
 public class VictoryServiceTests

@@ -2,7 +2,7 @@ using FluentValidation.TestHelper;
 using Game.Core.Features.Combat.Commands.FleeFromCombat;
 using Game.Shared.Models;
 
-namespace Game.Core.Tests.Features.Combat.Validators;
+namespace RealmEngine.Core.Tests.Features.Combat.Validators;
 
 [Trait("Category", "Feature")]
 /// <summary>

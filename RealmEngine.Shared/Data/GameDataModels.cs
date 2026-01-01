@@ -1,4 +1,4 @@
-namespace Game.Shared.Data.Models;
+namespace RealmEngine.Shared.Data.Models;
 
 // Item-related data models
 
