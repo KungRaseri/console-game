@@ -206,7 +206,12 @@ public class GameDataCache : IDisposable
             // Update indexes for fast querying
             AddToTypeIndex(fileType.ToString(), normalizedPath);
             AddToDomainIndex(domain, normalizedPath);
-            AddToHierarchyIndex(domain, subdomain, normalizedPath);
+            
+            // Skip .cbconfig.json files from hierarchy (they're metadata, not game data)
+            if (fileType != JsonFileType.ConfigFile)
+            {
+                AddToHierarchyIndex(domain, subdomain, normalizedPath);
+            }
         }
         catch (Exception ex)
         {
@@ -314,10 +319,16 @@ public class GameDataCache : IDisposable
     /// <summary>
     /// Gets all available domains (top-level categories like 'abilities', 'npcs', etc.)
     /// </summary>
+    public IReadOnlyList<string> AllDomains => _pathsByDomain.Keys.ToList().AsReadOnly();
+
+    /// <summary>
+    /// Gets all available domains (top-level categories like 'abilities', 'npcs', etc.)
+    /// </summary>
     /// <returns>List of domain names</returns>
+    [Obsolete("Use AllDomains property instead")]
     public IReadOnlyList<string> GetAllDomains()
     {
-        return _pathsByDomain.Keys.ToList().AsReadOnly();
+        return AllDomains;
     }
 
     /// <summary>
@@ -359,22 +370,80 @@ public class GameDataCache : IDisposable
     /// <summary>
     /// Gets the complete domain hierarchy as a nested dictionary
     /// </summary>
+    public IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyList<string>>> DomainHierarchy
+    {
+        get
+        {
+            var result = new Dictionary<string, IReadOnlyDictionary<string, IReadOnlyList<string>>>();
+            
+            foreach (var (domain, subdomains) in _domainHierarchy)
+            {
+                var subdomainDict = new Dictionary<string, IReadOnlyList<string>>();
+                foreach (var (subdomain, files) in subdomains)
+                {
+                    subdomainDict[subdomain] = files.AsReadOnly();
+                }
+                result[domain] = subdomainDict;
+            }
+            
+            return result;
+        }
+    }
+
+    /// <summary>
+    /// Gets the complete domain hierarchy as a nested dictionary
+    /// </summary>
     /// <returns>Dictionary of domain -> subdomain -> file paths</returns>
+    [Obsolete("Use DomainHierarchy property instead")]
     public IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyList<string>>> GetDomainHierarchy()
     {
-        var result = new Dictionary<string, IReadOnlyDictionary<string, IReadOnlyList<string>>>();
-        
-        foreach (var (domain, subdomains) in _domainHierarchy)
-        {
-            var subdomainDict = new Dictionary<string, IReadOnlyList<string>>();
-            foreach (var (subdomain, files) in subdomains)
-            {
-                subdomainDict[subdomain] = files.AsReadOnly();
-            }
-            result[domain] = subdomainDict;
-        }
-        
-        return result;
+        return DomainHierarchy;
+    }
+
+    /// <summary>
+    /// Gets all catalog files in a specific domain
+    /// </summary>
+    /// <param name="domain">Domain name (e.g., 'abilities', 'npcs')</param>
+    /// <returns>All catalog.json files in the domain</returns>
+    public IEnumerable<CachedJsonFile> GetCatalogsByDomain(string domain)
+    {
+        return GetFilesByDomain(domain)
+            .Where(f => f.FileType == JsonFileType.GenericCatalog);
+    }
+
+    /// <summary>
+    /// Gets all catalog files in a specific domain/subdomain combination
+    /// </summary>
+    /// <param name="domain">Domain name (e.g., 'abilities')</param>
+    /// <param name="subdomain">Subdomain name (e.g., 'active')</param>
+    /// <returns>All catalog.json files in the domain/subdomain</returns>
+    public IEnumerable<CachedJsonFile> GetCatalogsBySubdomain(string domain, string subdomain)
+    {
+        return GetFilesBySubdomain(domain, subdomain)
+            .Where(f => f.FileType == JsonFileType.GenericCatalog);
+    }
+
+    /// <summary>
+    /// Gets all names files in a specific domain
+    /// </summary>
+    /// <param name="domain">Domain name (e.g., 'abilities', 'npcs')</param>
+    /// <returns>All names.json files in the domain</returns>
+    public IEnumerable<CachedJsonFile> GetNamesByDomain(string domain)
+    {
+        return GetFilesByDomain(domain)
+            .Where(f => f.FileType == JsonFileType.NamesFile);
+    }
+
+    /// <summary>
+    /// Gets all names files in a specific domain/subdomain combination
+    /// </summary>
+    /// <param name="domain">Domain name (e.g., 'abilities')</param>
+    /// <param name="subdomain">Subdomain name (e.g., 'active')</param>
+    /// <returns>All names.json files in the domain/subdomain</returns>
+    public IEnumerable<CachedJsonFile> GetNamesBySubdomain(string domain, string subdomain)
+    {
+        return GetFilesBySubdomain(domain, subdomain)
+            .Where(f => f.FileType == JsonFileType.NamesFile);
     }
 
     /// <summary>

@@ -36,13 +36,24 @@ public class GameDataCacheDomainHierarchyTests : IDisposable
     public void GetAllDomains_Should_Return_Expected_Domains()
     {
         // Act
-        var domains = _cache.GetAllDomains();
+        var domains = _cache.AllDomains;
 
         // Assert
         domains.Should().NotBeEmpty();
         domains.Should().Contain("abilities");
         domains.Should().Contain("npcs");
         domains.Should().Contain("items");
+    }
+
+    [Fact]
+    public void AllDomains_Property_Should_Work()
+    {
+        // Act
+        var domains = _cache.AllDomains;
+
+        // Assert
+        domains.Should().NotBeEmpty();
+        domains.Should().Contain("abilities");
     }
 
     [Fact]
@@ -105,7 +116,7 @@ public class GameDataCacheDomainHierarchyTests : IDisposable
     public void GetDomainHierarchy_Should_Return_Complete_Structure()
     {
         // Act
-        var hierarchy = _cache.GetDomainHierarchy();
+        var hierarchy = _cache.DomainHierarchy;
 
         // Assert
         hierarchy.Should().NotBeEmpty();
@@ -119,6 +130,17 @@ public class GameDataCacheDomainHierarchyTests : IDisposable
     }
 
     [Fact]
+    public void DomainHierarchy_Property_Should_Work()
+    {
+        // Act
+        var hierarchy = _cache.DomainHierarchy;
+
+        // Assert
+        hierarchy.Should().NotBeEmpty();
+        hierarchy.Should().ContainKey("abilities");
+    }
+
+    [Fact]
     public void CachedJsonFile_Should_Have_Subdomain_Property()
     {
         // Act
@@ -128,6 +150,92 @@ public class GameDataCacheDomainHierarchyTests : IDisposable
         file.Should().NotBeNull();
         file!.Domain.Should().Be("abilities");
         file.Subdomain.Should().Be("active");
+    }
+
+    [Fact]
+    public void GetFilesBySubdomain_Should_Not_Include_CbconfigFiles()
+    {
+        // Act - Get all files from all domains/subdomains
+        var allDomains = _cache.AllDomains;
+        var hasAnyFiles = false;
+        var hasCbconfigFiles = false;
+
+        foreach (var domain in allDomains)
+        {
+            var subdomains = _cache.GetSubdomainsForDomain(domain);
+            foreach (var subdomain in subdomains)
+            {
+                var files = _cache.GetFilesBySubdomain(domain, subdomain);
+                if (files.Any())
+                {
+                    hasAnyFiles = true;
+                    
+                    // Check if any file is a .cbconfig.json file
+                    var cbconfigFiles = files.Where(f => f.RelativePath.EndsWith(".cbconfig.json")).ToList();
+                    if (cbconfigFiles.Any())
+                    {
+                        hasCbconfigFiles = true;
+                        break;
+                    }
+                }
+            }
+            if (hasCbconfigFiles)
+                break;
+        }
+
+        // Assert
+        hasAnyFiles.Should().BeTrue("we should find game data files");
+        hasCbconfigFiles.Should().BeFalse(".cbconfig.json files should be excluded from hierarchy");
+    }
+
+    [Fact]
+    public void GetCatalogsByDomain_Should_Return_Only_Catalogs()
+    {
+        // Act
+        var catalogs = _cache.GetCatalogsByDomain("abilities");
+
+        // Assert
+        catalogs.Should().NotBeEmpty();
+        catalogs.All(f => f.FileType == JsonFileType.GenericCatalog).Should().BeTrue();
+        catalogs.All(f => f.Domain == "abilities").Should().BeTrue();
+    }
+
+    [Fact]
+    public void GetCatalogsBySubdomain_Should_Return_Only_Catalogs_In_Subdomain()
+    {
+        // Act
+        var catalogs = _cache.GetCatalogsBySubdomain("abilities", "active");
+
+        // Assert
+        catalogs.Should().NotBeEmpty();
+        catalogs.All(f => f.FileType == JsonFileType.GenericCatalog).Should().BeTrue();
+        catalogs.All(f => f.Domain == "abilities").Should().BeTrue();
+        catalogs.All(f => f.Subdomain == "active").Should().BeTrue();
+    }
+
+    [Fact]
+    public void GetNamesByDomain_Should_Return_Only_Names()
+    {
+        // Act
+        var names = _cache.GetNamesByDomain("abilities");
+
+        // Assert
+        names.Should().NotBeEmpty();
+        names.All(f => f.FileType == JsonFileType.NamesFile).Should().BeTrue();
+        names.All(f => f.Domain == "abilities").Should().BeTrue();
+    }
+
+    [Fact]
+    public void GetNamesBySubdomain_Should_Return_Only_Names_In_Subdomain()
+    {
+        // Act
+        var names = _cache.GetNamesBySubdomain("abilities", "active");
+
+        // Assert
+        // Note: might be empty if no names.json at this level
+        names.All(f => f.FileType == JsonFileType.NamesFile).Should().BeTrue();
+        names.All(f => f.Domain == "abilities").Should().BeTrue();
+        names.All(f => f.Subdomain == "active").Should().BeTrue();
     }
 
     public void Dispose()
