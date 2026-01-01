@@ -5,7 +5,7 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$GodotProjectPath,
     
-    [string]$PackagePath = "..\package"
+    [string]$PackagePath = "package"
 )
 
 $ErrorActionPreference = "Stop"
@@ -98,16 +98,34 @@ if (Test-Path $LibrariesDest) {
 Copy-Item -Path $LibrariesSource -Destination $LibrariesDest -Recurse -Force
 
 # Copy XML documentation files to Libraries root for IntelliSense (need explicit copy after folder creation)
-Get-ChildItem -Path $LibrariesSource -Filter "*.xml" | ForEach-Object {
-    Copy-Item -Path $_.FullName -Destination $LibrariesDest -Force
-    Write-Verbose "Copied $($_.Name) to $LibrariesDest"
+Write-Host "Copying XML documentation files..." -ForegroundColor Gray
+$XmlFiles = Get-ChildItem -Path $LibrariesSource -Filter "*.xml"
+if ($XmlFiles.Count -eq 0) {
+    Write-Host "  ⚠ No XML files found in package!" -ForegroundColor Yellow
+} else {
+    foreach ($xmlFile in $XmlFiles) {
+        try {
+            Copy-Item -Path $xmlFile.FullName -Destination $LibrariesDest -Force -ErrorAction Stop
+            Write-Host "  → Copied $($xmlFile.Name)" -ForegroundColor Gray
+        }
+        catch {
+            Write-Host "  ✗ Failed to copy $($xmlFile.Name): $_" -ForegroundColor Red
+        }
+    }
 }
 
 $DllCount = (Get-ChildItem -Path $LibrariesDest -Recurse -Filter "*.dll").Count
 $XmlCount = (Get-ChildItem -Path $LibrariesDest -Filter "*.xml").Count
-Write-Host "Deployed $DllCount DLL files to Libraries" -ForegroundColor Green
+$PdbCount = (Get-ChildItem -Path $LibrariesDest -Recurse -Filter "*.pdb").Count
+
+Write-Host "✓ Deployed $DllCount DLL files" -ForegroundColor Green
 if ($XmlCount -gt 0) {
-    Write-Host "Deployed $XmlCount XML documentation files (IntelliSense support)" -ForegroundColor Green
+    Write-Host "✓ Deployed $XmlCount XML documentation files (IntelliSense support)" -ForegroundColor Green
+} else {
+    Write-Host "⚠ No XML documentation files deployed" -ForegroundColor Yellow
+}
+if ($PdbCount -gt 0) {
+    Write-Host "✓ Deployed $PdbCount PDB symbol files (debugging support)" -ForegroundColor Green
 }
 Write-Host ""
 Write-Host ""
@@ -127,7 +145,12 @@ if (Test-Path $JsonDest) {
 Copy-Item -Path $JsonSource -Destination $JsonDest -Recurse -Force
 
 $JsonFileCount = (Get-ChildItem -Path $JsonDest -Recurse -Filter "*.json").Count
-Write-Host "Deployed $JsonFileCount JSON files to Data/Json" -ForegroundColor Green
+$CbconfigCount = (Get-ChildItem -Path $JsonDest -Recurse -Filter "*.cbconfig.json").Count
+
+Write-Host "✓ Deployed $JsonFileCount JSON data files" -ForegroundColor Green
+if ($CbconfigCount -gt 0) {
+    Write-Host "  → Including $CbconfigCount ContentBuilder config files" -ForegroundColor Gray
+}
 Write-Host ""
 
 # ============================================
@@ -148,7 +171,11 @@ if ($DeployContentBuilder -eq "y" -or $DeployContentBuilder -eq "Y") {
     New-Item -ItemType Directory -Path $ContentBuilderDest -Force | Out-Null
     Copy-Item -Path "$ContentBuilderSource\*" -Destination $ContentBuilderDest -Recurse -Force
 
-    Write-Host "ContentBuilder deployed to Tools/ContentBuilder" -ForegroundColor Green
+    $ExeCount = (Get-ChildItem -Path $ContentBuilderDest -Filter "*.exe" -Recurse).Count
+    $DllCount = (Get-ChildItem -Path $ContentBuilderDest -Filter "*.dll" -Recurse).Count
+    
+    Write-Host "✓ ContentBuilder deployed to Tools/ContentBuilder" -ForegroundColor Green
+    Write-Host "  → $ExeCount executable, $DllCount DLLs" -ForegroundColor Gray
     Write-Host ""
 }
 
