@@ -59,13 +59,49 @@ $LibrariesSource = Join-Path $PackageRoot "Libraries"
 $LibrariesDest = Join-Path $GodotProjectPath "Libraries"
 
 if (Test-Path $LibrariesDest) {
-    Remove-Item $LibrariesDest -Recurse -Force
+    Write-Host "Removing existing Libraries folder..." -ForegroundColor Gray
+    $retryCount = 0
+    $maxRetries = 3
+    while ($retryCount -lt $maxRetries) {
+        try {
+            Remove-Item $LibrariesDest -Recurse -Force -ErrorAction Stop
+            break
+        }
+        catch {
+            $retryCount++
+            if ($retryCount -ge $maxRetries) {
+                Write-Host ""
+                Write-Host "ERROR: Cannot remove Libraries folder - files are in use!" -ForegroundColor Red
+                Write-Host ""
+                Write-Host "Please close the following applications and try again:" -ForegroundColor Yellow
+                Write-Host "  • Godot Editor" -ForegroundColor Yellow
+                Write-Host "  • Any ContentBuilder instances" -ForegroundColor Yellow
+                Write-Host "  • Any applications referencing the game DLLs" -ForegroundColor Yellow
+                Write-Host ""
+                
+                # Try to identify locked processes
+                $godotProcesses = Get-Process | Where-Object { $_.ProcessName -match 'Godot' }
+                if ($godotProcesses) {
+                    Write-Host "Detected Godot processes:" -ForegroundColor Cyan
+                    $godotProcesses | ForEach-Object { Write-Host "  • PID $($_.Id): $($_.ProcessName)" -ForegroundColor Gray }
+                    Write-Host ""
+                }
+                
+                exit 1
+            }
+            Write-Host "Retrying removal... ($retryCount/$maxRetries)" -ForegroundColor Yellow
+            Start-Sleep -Seconds 1
+        }
+    }
 }
 
 Copy-Item -Path $LibrariesSource -Destination $LibrariesDest -Recurse -Force
 
-# Copy XML documentation files to root for IntelliSense
-Copy-Item -Path "$LibrariesSource\*.xml" -Destination $LibrariesDest -Force -ErrorAction SilentlyContinue
+# Copy XML documentation files to Libraries root for IntelliSense (need explicit copy after folder creation)
+Get-ChildItem -Path $LibrariesSource -Filter "*.xml" | ForEach-Object {
+    Copy-Item -Path $_.FullName -Destination $LibrariesDest -Force
+    Write-Verbose "Copied $($_.Name) to $LibrariesDest"
+}
 
 $DllCount = (Get-ChildItem -Path $LibrariesDest -Recurse -Filter "*.dll").Count
 $XmlCount = (Get-ChildItem -Path $LibrariesDest -Filter "*.xml").Count

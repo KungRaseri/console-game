@@ -46,11 +46,9 @@
     <ProjectReference Include="..\Game.Shared\Game.Shared.csproj" />
   </ItemGroup>
 
-  <!-- Copy Data/Json folder to output directory -->
+  <!-- Include Data/Json files in NuGet package only (not in build output) -->
   <ItemGroup>
     <None Include="Data\**\*.*" Exclude="Data\**\*.ps1">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>Data\%(RecursiveDir)%(FileName)%(Extension)</Link>
       <Pack>true</Pack>
       <PackagePath>contentFiles\any\net9.0\Data;content\Data</PackagePath>
     </None>
