@@ -4,12 +4,21 @@ using Newtonsoft.Json.Linq;
 
 namespace Game.Core.Generators.Modern;
 
+/// <summary>
+/// Generates Ability instances from abilities catalog JSON files.
+/// Supports different ability types (passive, active, offensive, defensive, support) and rarity-based selection.
+/// </summary>
 public class AbilityGenerator
 {
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the AbilityGenerator class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache for accessing ability catalog files.</param>
+    /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
     public AbilityGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
@@ -17,6 +26,13 @@ public class AbilityGenerator
         _random = new Random();
     }
 
+    /// <summary>
+    /// Generates a list of random abilities from a specific category and subcategory.
+    /// </summary>
+    /// <param name="category">The ability category (e.g., "active", "passive").</param>
+    /// <param name="subcategory">The ability subcategory (e.g., "offensive", "defensive", "support").</param>
+    /// <param name="count">The number of abilities to generate (default: 5).</param>
+    /// <returns>A list of generated Ability instances.</returns>
     public Task<List<Ability>> GenerateAbilitiesAsync(string category, string subcategory, int count = 5)
     {
         try
@@ -59,6 +75,13 @@ public class AbilityGenerator
         }
     }
 
+    /// <summary>
+    /// Generates a specific ability by name from a category and subcategory.
+    /// </summary>
+    /// <param name="category">The ability category to search in.</param>
+    /// <param name="subcategory">The ability subcategory to search in.</param>
+    /// <param name="abilityName">The name of the ability to generate.</param>
+    /// <returns>The generated Ability instance, or null if not found.</returns>
     public Task<Ability?> GenerateAbilityByNameAsync(string category, string subcategory, string abilityName)
     {
         try

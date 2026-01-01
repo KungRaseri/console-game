@@ -4,12 +4,21 @@ using Newtonsoft.Json.Linq;
 
 namespace Game.Core.Generators.Modern;
 
+/// <summary>
+/// Generates Quest instances from quests catalog JSON files.
+/// Supports various quest types (kill, collect, escort, explore) with objectives, rewards, and prerequisites.
+/// </summary>
 public class QuestGenerator
 {
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the QuestGenerator class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache for accessing quest catalog files.</param>
+    /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
     public QuestGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

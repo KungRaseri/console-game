@@ -4,12 +4,21 @@ using Newtonsoft.Json.Linq;
 
 namespace Game.Core.Generators.Modern;
 
+/// <summary>
+/// Generates NPC (Non-Player Character) instances from npcs catalog JSON files.
+/// Supports different NPC roles (merchants, quest givers, companions) and procedural name generation.
+/// </summary>
 public class NpcGenerator
 {
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the NpcGenerator class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache for accessing NPC catalog files.</param>
+    /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
     public NpcGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

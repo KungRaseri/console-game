@@ -4,12 +4,21 @@ using Newtonsoft.Json.Linq;
 
 namespace Game.Core.Generators.Modern;
 
+/// <summary>
+/// Generates Enemy instances from enemies catalog JSON files.
+/// Supports hierarchical categorization (e.g., beasts/wolves, undead/skeletons) and weighted random selection.
+/// </summary>
 public class EnemyGenerator
 {
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the EnemyGenerator class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache for accessing enemy catalog files.</param>
+    /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
     public EnemyGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
@@ -17,6 +26,12 @@ public class EnemyGenerator
         _random = new Random();
     }
 
+    /// <summary>
+    /// Generates a list of random enemies from a specific category.
+    /// </summary>
+    /// <param name="category">The enemy category (e.g., "beasts", "undead", "dragons").</param>
+    /// <param name="count">The number of enemies to generate (default: 5).</param>
+    /// <returns>A list of generated Enemy instances.</returns>
     public async Task<List<Enemy>> GenerateEnemiesAsync(string category, int count = 5)
     {
         try
@@ -59,6 +74,12 @@ public class EnemyGenerator
         }
     }
 
+    /// <summary>
+    /// Generates a specific enemy by name from a category.
+    /// </summary>
+    /// <param name="category">The enemy category to search in.</param>
+    /// <param name="enemyName">The name of the enemy to generate.</param>
+    /// <returns>The generated Enemy instance, or null if not found.</returns>
     public async Task<Enemy?> GenerateEnemyByNameAsync(string category, string enemyName)
     {
         try
