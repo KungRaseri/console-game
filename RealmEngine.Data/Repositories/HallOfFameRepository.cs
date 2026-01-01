@@ -3,7 +3,7 @@ using Game.Shared.Abstractions;
 using LiteDB;
 using Serilog;
 
-namespace Game.Data.Repositories;
+namespace RealmEngine.Data.Repositories;
 
 /// <summary>
 /// Repository for managing Hall of Fame entries for permadeath characters.

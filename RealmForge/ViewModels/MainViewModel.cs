@@ -73,9 +73,9 @@ public partial class MainViewModel : ObservableObject
         }
         else
         {
-            // Development mode - navigate from ContentBuilder bin folder to Game.Data/Data/Json
+            // Development mode - navigate from ContentBuilder bin folder to RealmEngine.Data/Data/Json
             var solutionRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..")); // console-game/
-            dataPath = Path.Combine(solutionRoot, "Game.Data", "Data", "Json");
+            dataPath = Path.Combine(solutionRoot, "RealmEngine.Data", "Data", "Json");
             Log.Information("MainViewModel development mode - using solution data path: {DataPath}", dataPath);
         }
 

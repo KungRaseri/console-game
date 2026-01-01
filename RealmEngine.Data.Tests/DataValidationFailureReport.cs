@@ -2,7 +2,7 @@ using FluentAssertions;
 using Newtonsoft.Json.Linq;
 using Xunit.Abstractions;
 
-namespace Game.Data.Tests;
+namespace RealmEngine.Data.Tests;
 
 /// <summary>
 /// Generates a detailed report of all data validation failures
@@ -23,7 +23,7 @@ public class DataValidationFailureReport
     if (solutionRoot == null)
       throw new DirectoryNotFoundException($"Could not find solution root from: {baseDir}");
 
-    _dataPath = Path.Combine(solutionRoot, "Game.Data", "Data", "Json");
+    _dataPath = Path.Combine(solutionRoot, "RealmEngine.Data", "Data", "Json");
   }
 
   [Fact]

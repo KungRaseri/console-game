@@ -44,7 +44,7 @@ public class RarityConfigService
     {
       // Find rarity_config.json in the data directory
       var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-      var configPath = Path.Combine(baseDir, "..", "..", "..", "..", "Game.Data", "Data", "Json", "general", "rarity_config.json");
+      var configPath = Path.Combine(baseDir, "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json", "general", "rarity_config.json");
       configPath = Path.GetFullPath(configPath);
 
       if (!File.Exists(configPath))

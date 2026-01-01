@@ -1,4 +1,4 @@
-namespace Game.Data.Tests;
+namespace RealmEngine.Data.Tests;
 
 /// <summary>
 /// Summary test to display test coverage statistics across all JSON data validation suites
@@ -16,7 +16,7 @@ public class DataValidationTestSummary
     if (solutionRoot == null)
       throw new DirectoryNotFoundException($"Could not find solution root from: {baseDir}");
 
-    _dataPath = Path.Combine(solutionRoot, "Game.Data", "Data", "Json");
+    _dataPath = Path.Combine(solutionRoot, "RealmEngine.Data", "Data", "Json");
   }
 
   [Fact]

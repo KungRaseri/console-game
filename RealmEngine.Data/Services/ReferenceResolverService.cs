@@ -1,7 +1,7 @@
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
-namespace Game.Data.Services;
+namespace RealmEngine.Data.Services;
 
 /// <summary>
 /// Simplified service for resolving JSON v4.1 references in Game.Core generators

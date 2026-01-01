@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using Game.Shared.Abstractions;
 
-namespace Game.Data.Repositories;
+namespace RealmEngine.Data.Repositories;
 
 /// <summary>
 /// Repository of predefined character classes.

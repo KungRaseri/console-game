@@ -36,7 +36,7 @@ public class UITestCollectionFixture : IDisposable
         try
         {
             // Kill any existing instances
-            var existingProcesses = Process.GetProcessesByName("Game.ContentBuilder");
+            var existingProcesses = Process.GetProcessesByName("RealmForge");
             foreach (var proc in existingProcesses)
             {
                 try
@@ -53,8 +53,8 @@ public class UITestCollectionFixture : IDisposable
             var currentDir = Directory.GetCurrentDirectory();
             var solutionRoot = currentDir;
 
-            // Walk up until we find Game.sln
-            while (!File.Exists(Path.Combine(solutionRoot, "Game.sln")) && Directory.GetParent(solutionRoot) != null)
+            // Walk up until we find RealmEngine.sln
+            while (!File.Exists(Path.Combine(solutionRoot, "RealmEngine.sln")) && Directory.GetParent(solutionRoot) != null)
             {
                 solutionRoot = Directory.GetParent(solutionRoot)!.FullName;
             }

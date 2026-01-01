@@ -2,7 +2,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Game.Data.Tests;
+namespace RealmEngine.Data.Tests;
 
 [Trait("Category", "Compliance")]
 /// <summary>
@@ -23,7 +23,7 @@ public class ComponentJsonComplianceTests
     if (solutionRoot == null)
       throw new DirectoryNotFoundException($"Could not find solution root from: {baseDir}");
 
-    _dataPath = Path.Combine(solutionRoot, "Game.Data", "Data", "Json");
+    _dataPath = Path.Combine(solutionRoot, "RealmEngine.Data", "Data", "Json");
 
     if (!Directory.Exists(_dataPath))
       throw new DirectoryNotFoundException($"Data directory not found: {_dataPath}");

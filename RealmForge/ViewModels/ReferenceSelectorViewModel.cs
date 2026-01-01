@@ -62,21 +62,21 @@ public partial class ReferenceSelectorViewModel : ObservableObject
         var baseDir = AppDomain.CurrentDomain.BaseDirectory;
         var dataPath = Path.Combine(baseDir, "Data", "Json");
 
-        // Navigate from bin/Debug/net9.0-windows to Game.Data/Data/Json
+        // Navigate from bin/Debug/net9.0-windows to RealmEngine.Data/Data/Json
         if (!Directory.Exists(Path.Combine(dataPath, "items")))
         {
-            MainWindow.AddLog($"Navigating from bin folder to find Game.Data");
+            MainWindow.AddLog($"Navigating from bin folder to find RealmEngine.Data");
             var projectFolder = Directory.GetParent(baseDir)?.Parent?.Parent?.FullName;
             if (projectFolder != null)
             {
                 var solutionFolder = Directory.GetParent(projectFolder)?.FullName;
                 if (solutionFolder != null)
                 {
-                    var gameDataPath = Path.Combine(solutionFolder, "Game.Data", "Data", "Json");
+                    var gameDataPath = Path.Combine(solutionFolder, "RealmEngine.Data", "Data", "Json");
                     if (Directory.Exists(gameDataPath))
                     {
                         dataPath = gameDataPath;
-                        MainWindow.AddLog($"Found Game.Data path: {dataPath}");
+                        MainWindow.AddLog($"Found RealmEngine.Data path: {dataPath}");
                     }
                 }
             }

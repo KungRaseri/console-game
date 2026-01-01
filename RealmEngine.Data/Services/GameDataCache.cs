@@ -2,7 +2,7 @@ using Newtonsoft.Json.Linq;
 using Serilog;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Game.Data.Services;
+namespace RealmEngine.Data.Services;
 
 /// <summary>
 /// Centralized cache for all game JSON data loaded at startup.
