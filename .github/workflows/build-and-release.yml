@@ -57,6 +57,10 @@ jobs:
     needs: test
     runs-on: windows-latest
     
+    outputs:
+      archive-name: ${{ steps.package.outputs.archive-name }}
+      version: ${{ steps.package.outputs.version }}
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -69,15 +73,29 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
       
-    - name: Run build script
+    - name: Build and package with script
+      id: package
       run: |
+        Write-Output "Running build-game-package.ps1..."
         cd scripts
         .\build-game-package.ps1 -Configuration ${{ env.CONFIGURATION }}
+        cd ..
+        
+        # Extract version
+        $version = "${{ github.ref_name }}"
+        if ($version -notmatch "^v\d+\.\d+\.\d+$") {
+          $version = "dev-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
+        }
+        
+        Write-Output "version=$version" >> $env:GITHUB_OUTPUT
+        Write-Output "VERSION=$version" >> $env:GITHUB_ENV
       shell: pwsh
       
     - name: Verify package contents
       run: |
         Write-Output "Verifying package structure..."
+        
+        # Check core files
         if (-not (Test-Path "package/Libraries/Game.Core/Game.Core.dll")) {
           Write-Error "Game.Core.dll not found!"
           exit 1
@@ -90,20 +108,36 @@ jobs:
           Write-Error "JSON data not found!"
           exit 1
         }
+        if (-not (Test-Path "package/package-manifest.json")) {
+          Write-Error "Package manifest not found!"
+          exit 1
+        }
+        
+        # Count files
         $jsonCount = (Get-ChildItem -Path "package/Data/Json" -Recurse -File).Count
-        Write-Output "Package verified: $jsonCount JSON files found"
+        $dllCount = (Get-ChildItem -Path "package/Libraries" -Filter "*.dll" -Recurse).Count
+        
+        Write-Output "✓ Package verified successfully!"
+        Write-Output "  - JSON files: $jsonCount"
+        Write-Output "  - DLL files: $dllCount"
+        Write-Output "  - ContentBuilder: Present"
+        Write-Output "  - Manifest: Present"
       shell: pwsh
       
     - name: Create package archive
+      id: archive
       run: |
-        $version = "${{ github.ref_name }}"
-        if ($version -notmatch "^v\d+\.\d+\.\d+$") {
-          $version = "dev-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
-        }
+        $version = "${{ steps.package.outputs.version }}"
         $archiveName = "console-game-$version.zip"
-        Compress-Archive -Path "package/*" -DestinationPath $archiveName
+        
+        Write-Output "Creating archive: $archiveName"
+        Compress-Archive -Path "package/*" -DestinationPath $archiveName -Force
+        
+        $archiveSize = (Get-Item $archiveName).Length / 1MB
+        Write-Output "Archive size: $([math]::Round($archiveSize, 2)) MB"
+        
+        Write-Output "archive-name=$archiveName" >> $env:GITHUB_OUTPUT
         Write-Output "ARCHIVE_NAME=$archiveName" >> $env:GITHUB_ENV
-        Write-Output "Created archive: $archiveName"
       shell: pwsh
       
     - name: Upload package artifact
@@ -111,6 +145,13 @@ jobs:
       with:
         name: game-package
         path: ${{ env.ARCHIVE_NAME }}
+        retention-days: 30
+        
+    - name: Upload package manifest
+      uses: actions/upload-artifact@v4
+      with:
+        name: package-manifest
+        path: package/package-manifest.json
         retention-days: 30
 
   release:
@@ -131,12 +172,24 @@ jobs:
       with:
         name: game-package
         
+    - name: Download package manifest
+      uses: actions/download-artifact@v4
+      with:
+        name: package-manifest
+        
     - name: Extract version info
       id: version
       run: |
         $version = "${{ github.ref_name }}"
         Write-Output "VERSION=$version" >> $env:GITHUB_ENV
         Write-Output "version=$version" >> $env:GITHUB_OUTPUT
+        
+        # Read manifest for build info
+        if (Test-Path "package-manifest.json") {
+          $manifest = Get-Content "package-manifest.json" | ConvertFrom-Json
+          Write-Output "Build Date: $($manifest.buildDate)"
+          Write-Output "Git Commit: $($manifest.gitCommit)"
+        }
       shell: pwsh
       
     - name: Generate release notes
@@ -190,7 +243,9 @@ jobs:
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-        files: console-game-${{ env.VERSION }}.zip
+        files: |
+          console-game-${{ env.VERSION }}.zip
+          package-manifest.json
         body_path: release-notes.md
         draft: false
         prerelease: false
