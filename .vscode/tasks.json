@@ -350,6 +350,51 @@
 				"panel": "shared",
 				"clear": true
 			}
+		},
+		{
+			"label": "deploy-to-godot",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-File",
+				"${workspaceFolder}/scripts/deploy-to-godot.ps1",
+				"-GodotProjectPath",
+				"${input:godotProjectPath}",
+				"-PackagePath",
+				"package"
+			],
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated",
+				"clear": true
+			}
+		},
+		{
+			"label": "package-and-deploy",
+			"dependsOn": [
+				"build-package",
+				"deploy-to-godot"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated",
+				"clear": true
+			}
+		}
+	],
+	"inputs": [
+		{
+			"id": "godotProjectPath",
+			"type": "promptString",
+			"description": "Enter the path to your Godot project directory",
+			"default": "C:\\path\\to\\your\\godot\\project"
 		}
 	]
 }

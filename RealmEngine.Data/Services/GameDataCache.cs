@@ -15,6 +15,8 @@ public class GameDataCache : IDisposable
     private readonly IMemoryCache _cache;
     private readonly Dictionary<string, List<string>> _pathsByType;
     private readonly Dictionary<string, List<string>> _pathsByDomain;
+    private readonly Dictionary<string, Dictionary<string, List<string>>> _domainHierarchy; // domain -> subdomain -> files
+    private readonly Dictionary<string, List<string>> _subdomainsByDomain; // domain -> list of subdomains
     private FileSystemWatcher? _fileWatcher;
     private bool _hotReloadEnabled;
     private bool _disposed;
@@ -31,6 +33,8 @@ public class GameDataCache : IDisposable
         _cache = memoryCache ?? new MemoryCache(new MemoryCacheOptions());
         _pathsByType = new Dictionary<string, List<string>>();
         _pathsByDomain = new Dictionary<string, List<string>>();
+        _domainHierarchy = new Dictionary<string, Dictionary<string, List<string>>>();
+        _subdomainsByDomain = new Dictionary<string, List<string>>();
         
         Log.Information("GameDataCache initialized with path: {Path}", _dataRootPath);
     }
@@ -128,6 +132,8 @@ public class GameDataCache : IDisposable
         // Clear existing indexes (cache entries remain until accessed)
         _pathsByType.Clear();
         _pathsByDomain.Clear();
+        _domainHierarchy.Clear();
+        _subdomainsByDomain.Clear();
 
         var allJsonFiles = Directory.GetFiles(_dataRootPath, "*.json", SearchOption.AllDirectories);
         Log.Information("Found {Count} JSON files to load", allJsonFiles.Length);
@@ -178,6 +184,7 @@ public class GameDataCache : IDisposable
             var jsonData = JObject.Parse(jsonText);
             var fileType = DetectFileType(normalizedPath);
             var domain = ExtractDomain(normalizedPath);
+            var subdomain = ExtractSubdomain(normalizedPath);
 
             var cachedFile = new CachedJsonFile
             {
@@ -185,6 +192,7 @@ public class GameDataCache : IDisposable
                 RelativePath = normalizedPath,
                 FileType = fileType,
                 Domain = domain,
+                Subdomain = subdomain,
                 JsonData = jsonData,
                 LastModified = File.GetLastWriteTime(absolutePath)
             };
@@ -198,6 +206,7 @@ public class GameDataCache : IDisposable
             // Update indexes for fast querying
             AddToTypeIndex(fileType.ToString(), normalizedPath);
             AddToDomainIndex(domain, normalizedPath);
+            AddToHierarchyIndex(domain, subdomain, normalizedPath);
         }
         catch (Exception ex)
         {
@@ -301,6 +310,72 @@ public class GameDataCache : IDisposable
     /// Gets all component data files
     /// </summary>
     public IEnumerable<CachedJsonFile> GetAllComponentData() => GetFilesByType(JsonFileType.ComponentData);
+
+    /// <summary>
+    /// Gets all available domains (top-level categories like 'abilities', 'npcs', etc.)
+    /// </summary>
+    /// <returns>List of domain names</returns>
+    public IReadOnlyList<string> GetAllDomains()
+    {
+        return _pathsByDomain.Keys.ToList().AsReadOnly();
+    }
+
+    /// <summary>
+    /// Gets all subdomains for a specific domain (e.g., 'active', 'passive' for 'abilities')
+    /// </summary>
+    /// <param name="domain">Domain name</param>
+    /// <returns>List of subdomain names for the domain</returns>
+    public IReadOnlyList<string> GetSubdomainsForDomain(string domain)
+    {
+        return _subdomainsByDomain.TryGetValue(domain, out var subdomains) 
+            ? subdomains.AsReadOnly() 
+            : new List<string>().AsReadOnly();
+    }
+
+    /// <summary>
+    /// Gets all files in a specific domain/subdomain combination
+    /// </summary>
+    /// <param name="domain">Domain name (e.g., 'abilities')</param>
+    /// <param name="subdomain">Subdomain name (e.g., 'active')</param>
+    /// <returns>Files in the specified domain/subdomain</returns>
+    public IEnumerable<CachedJsonFile> GetFilesBySubdomain(string domain, string subdomain)
+    {
+        if (!_domainHierarchy.TryGetValue(domain, out var subdomains) ||
+            !subdomains.TryGetValue(subdomain, out var paths))
+        {
+            return Enumerable.Empty<CachedJsonFile>();
+        }
+
+        var files = new List<CachedJsonFile>();
+        foreach (var path in paths)
+        {
+            var file = GetFile(path);
+            if (file != null)
+                files.Add(file);
+        }
+        return files;
+    }
+
+    /// <summary>
+    /// Gets the complete domain hierarchy as a nested dictionary
+    /// </summary>
+    /// <returns>Dictionary of domain -> subdomain -> file paths</returns>
+    public IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyList<string>>> GetDomainHierarchy()
+    {
+        var result = new Dictionary<string, IReadOnlyDictionary<string, IReadOnlyList<string>>>();
+        
+        foreach (var (domain, subdomains) in _domainHierarchy)
+        {
+            var subdomainDict = new Dictionary<string, IReadOnlyList<string>>();
+            foreach (var (subdomain, files) in subdomains)
+            {
+                subdomainDict[subdomain] = files.AsReadOnly();
+            }
+            result[domain] = subdomainDict;
+        }
+        
+        return result;
+    }
 
     /// <summary>
     /// Reloads a specific file from disk
@@ -437,6 +512,39 @@ public class GameDataCache : IDisposable
         return parts.Length > 0 ? parts[0] : string.Empty;
     }
 
+    private string ExtractSubdomain(string relativePath)
+    {
+        var parts = relativePath.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        // Return the second path component if it exists, or empty string for root-level files
+        return parts.Length > 1 ? parts[1] : string.Empty;
+    }
+
+    private void AddToHierarchyIndex(string domain, string subdomain, string relativePath)
+    {
+        // Initialize domain if it doesn't exist
+        if (!_domainHierarchy.ContainsKey(domain))
+            _domainHierarchy[domain] = new Dictionary<string, List<string>>();
+
+        // Initialize subdomain list for this domain
+        if (!_subdomainsByDomain.ContainsKey(domain))
+            _subdomainsByDomain[domain] = new List<string>();
+
+        // Add subdomain to domain's subdomain list if not empty and not already present
+        if (!string.IsNullOrEmpty(subdomain) && !_subdomainsByDomain[domain].Contains(subdomain))
+            _subdomainsByDomain[domain].Add(subdomain);
+
+        // Use "root" as subdomain for files directly in the domain folder
+        var effectiveSubdomain = string.IsNullOrEmpty(subdomain) ? "root" : subdomain;
+        
+        // Initialize subdomain file list if it doesn't exist
+        if (!_domainHierarchy[domain].ContainsKey(effectiveSubdomain))
+            _domainHierarchy[domain][effectiveSubdomain] = new List<string>();
+
+        // Add file to subdomain if not already present
+        if (!_domainHierarchy[domain][effectiveSubdomain].Contains(relativePath))
+            _domainHierarchy[domain][effectiveSubdomain].Add(relativePath);
+    }
+
     private void LogStats()
     {
         var stats = GetStats();
@@ -503,6 +611,7 @@ public class CachedJsonFile
     public required string RelativePath { get; init; }
     public required JsonFileType FileType { get; init; }
     public required string Domain { get; init; }
+    public required string Subdomain { get; init; }
     public required JObject JsonData { get; init; }
     public required DateTime LastModified { get; init; }
 }
