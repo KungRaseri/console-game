@@ -37,6 +37,10 @@ jobs:
     - name: Build solution
       run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
       
+    - name: Run Game.Shared.Tests
+      run: dotnet test Game.Shared.Tests/Game.Shared.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=shared-tests.trx"
+      continue-on-error: false
+      
     - name: Run Game.Core.Tests
       run: dotnet test Game.Core.Tests/Game.Core.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=core-tests.trx"
       continue-on-error: false
