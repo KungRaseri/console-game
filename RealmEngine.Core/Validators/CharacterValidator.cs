@@ -1,7 +1,7 @@
 using FluentValidation;
 using Game.Shared.Models;
 
-namespace Game.Core.Validators;
+namespace RealmEngine.Core.Validators;
 
 /// <summary>
 /// Validator for Character model.

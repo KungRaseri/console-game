@@ -1,7 +1,7 @@
 using Game.Shared.Abstractions;
 using MediatR;
 
-namespace Game.Core.Features.CharacterCreation.Queries;
+namespace RealmEngine.Core.Features.CharacterCreation.Queries;
 
 /// <summary>
 /// Handles the GetCharacterClass query.

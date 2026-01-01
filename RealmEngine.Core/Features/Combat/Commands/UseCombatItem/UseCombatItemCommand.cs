@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Combat.Commands.UseCombatItem;
+namespace RealmEngine.Core.Features.Combat.Commands.UseCombatItem;
 
 /// <summary>
 /// Command to use a consumable item during combat.

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Game.Core.Features.Combat.Commands.DefendAction;
+namespace RealmEngine.Core.Features.Combat.Commands.DefendAction;
 
 /// <summary>
 /// Validates the DefendAction command.

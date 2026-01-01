@@ -2,7 +2,7 @@ using Game.Shared.Models;
 using MediatR;
 using Serilog;
 
-namespace Game.Core.Features.Combat.Commands.UseCombatItem;
+namespace RealmEngine.Core.Features.Combat.Commands.UseCombatItem;
 
 /// <summary>
 /// Handles the UseCombatItem command.

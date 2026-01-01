@@ -1,7 +1,7 @@
 using Game.Core.Features.SaveLoad;
 using MediatR;
 
-namespace Game.Core.Features.Death.Queries;
+namespace RealmEngine.Core.Features.Death.Queries;
 
 /// <summary>
 /// Handles retrieval of dropped items at a location.

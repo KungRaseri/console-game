@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Death.Queries;
+namespace RealmEngine.Core.Features.Death.Queries;
 
 /// <summary>
 /// Query to get dropped items at a specific location.

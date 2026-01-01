@@ -6,7 +6,7 @@ using FlaUI.UIA3;
 using Serilog;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.UI;
+namespace RealmForge.Tests.UI;
 
 /// <summary>
 /// Shared fixture for all UI tests in the collection.

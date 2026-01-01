@@ -1,7 +1,7 @@
 using MediatR;
 
 using Game.Shared.Models;
-namespace Game.Core.Features.Quests.Commands;
+namespace RealmEngine.Core.Features.Quests.Commands;
 
 public record StartQuestCommand(string QuestId) : IRequest<StartQuestResult>;
 

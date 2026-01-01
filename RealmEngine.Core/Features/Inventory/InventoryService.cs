@@ -2,7 +2,7 @@ using Game.Shared.Models;
 using MediatR;
 using Serilog;
 
-namespace Game.Core.Features.Inventory;
+namespace RealmEngine.Core.Features.Inventory;
 
 /// <summary>
 /// Service for managing character inventory operations.

@@ -1,7 +1,7 @@
 using FluentValidation;
 using Game.Shared.Models;
 
-namespace Game.Core.Features.Combat.Commands.UseCombatItem;
+namespace RealmEngine.Core.Features.Combat.Commands.UseCombatItem;
 
 /// <summary>
 /// Validates the UseCombatItem command.

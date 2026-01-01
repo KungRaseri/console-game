@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Game.Core.Settings;
+namespace RealmEngine.Core.Settings;
 
 /// <summary>
 /// Validates GameSettings configuration

@@ -2,7 +2,7 @@ using RealmEngine.Data.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Game.Core.Generators.Modern;
+namespace RealmEngine.Core.Generators.Modern;
 
 /// <summary>
 /// Central registry for all game content generators.

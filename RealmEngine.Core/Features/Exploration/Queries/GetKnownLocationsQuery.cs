@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Core.Features.Exploration.Queries;
+namespace RealmEngine.Core.Features.Exploration.Queries;
 
 /// <summary>
 /// Query to get all known locations.

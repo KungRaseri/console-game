@@ -1,4 +1,4 @@
-namespace Game.Core.Abstractions;
+namespace RealmEngine.Core.Abstractions;
 
 /// <summary>
 /// Abstraction for game UI operations. Implementations can be console, web, mobile, etc.

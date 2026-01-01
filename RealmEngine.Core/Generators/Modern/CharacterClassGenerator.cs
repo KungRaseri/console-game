@@ -4,7 +4,7 @@ using Game.Shared.Models;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace Game.Core.Generators.Modern;
+namespace RealmEngine.Core.Generators.Modern;
 
 /// <summary>
 /// Generates CharacterClass instances from classes/catalog.json using GameDataCache.

@@ -1,7 +1,7 @@
 using MediatR;
 using Serilog;
 
-namespace Game.Core.Features.Combat.Commands.DefendAction;
+namespace RealmEngine.Core.Features.Combat.Commands.DefendAction;
 
 /// <summary>
 /// Handles the DefendAction command.

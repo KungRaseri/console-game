@@ -1,7 +1,7 @@
 using MediatR;
 
 using Game.Shared.Models;
-namespace Game.Core.Features.Achievements.Queries;
+namespace RealmEngine.Core.Features.Achievements.Queries;
 
 public record GetUnlockedAchievementsQuery : IRequest<List<Achievement>>;
 

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Game.Core.Features.Combat.Commands.FleeFromCombat;
+namespace RealmEngine.Core.Features.Combat.Commands.FleeFromCombat;
 
 /// <summary>
 /// Validates the FleeFromCombat command.

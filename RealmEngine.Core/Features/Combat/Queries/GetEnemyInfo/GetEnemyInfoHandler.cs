@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Core.Features.Combat.Queries.GetEnemyInfo;
+namespace RealmEngine.Core.Features.Combat.Queries.GetEnemyInfo;
 
 /// <summary>
 /// Handles the GetEnemyInfo query.

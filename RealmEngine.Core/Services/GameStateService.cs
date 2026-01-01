@@ -2,7 +2,7 @@ using Game.Shared.Models;
 using Game.Core.Features.SaveLoad;
 using Microsoft.Extensions.Logging;
 
-namespace Game.Core.Services;
+namespace RealmEngine.Core.Services;
 
 /// <summary>
 /// Centralized service for accessing game state and context.

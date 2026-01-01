@@ -1,8 +1,8 @@
 using FluentAssertions;
-using Game.ContentBuilder.ViewModels;
+using RealmForge.ViewModels;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.ViewModels;
+namespace RealmForge.Tests.ViewModels;
 
 /// <summary>
 /// Smoke tests for PreviewWindowViewModel - validates basic functionality

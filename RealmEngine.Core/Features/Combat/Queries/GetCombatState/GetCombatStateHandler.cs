@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Combat.Queries.GetCombatState;
+namespace RealmEngine.Core.Features.Combat.Queries.GetCombatState;
 
 /// <summary>
 /// Handles the GetCombatState query.

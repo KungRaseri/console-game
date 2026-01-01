@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Core.Features.SaveLoad.Queries;
+namespace RealmEngine.Core.Features.SaveLoad.Queries;
 
 /// <summary>
 /// Handles the GetAllSaves query.

@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Combat.Queries.GetEnemyInfo;
+namespace RealmEngine.Core.Features.Combat.Queries.GetEnemyInfo;
 
 /// <summary>
 /// Query to get detailed information about an enemy.

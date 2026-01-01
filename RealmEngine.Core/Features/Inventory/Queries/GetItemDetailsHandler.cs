@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Core.Features.Inventory.Queries;
+namespace RealmEngine.Core.Features.Inventory.Queries;
 
 /// <summary>
 /// Handles the GetItemDetails query.

@@ -1,4 +1,4 @@
-namespace Game.Core.Features.Quests.Services;
+namespace RealmEngine.Core.Features.Quests.Services;
 using Game.Shared.Models;
 
 /// <summary>

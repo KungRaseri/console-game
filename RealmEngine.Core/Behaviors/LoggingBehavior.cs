@@ -2,7 +2,7 @@ using MediatR;
 using Serilog;
 using System.Diagnostics;
 
-namespace Game.Core.Behaviors;
+namespace RealmEngine.Core.Behaviors;
 
 /// <summary>
 /// Logs all commands and queries with timing information.

@@ -1,7 +1,7 @@
 using MediatR;
 
 using Game.Shared.Models;
-namespace Game.Core.Features.Achievements.Commands;
+namespace RealmEngine.Core.Features.Achievements.Commands;
 
 public record CheckAchievementProgressCommand : IRequest<List<Achievement>>;
 

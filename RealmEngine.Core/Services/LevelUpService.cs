@@ -1,7 +1,7 @@
 using Game.Core.Abstractions;
 using Game.Shared.Models;
 
-namespace Game.Core.Services;
+namespace RealmEngine.Core.Services;
 
 /// <summary>
 /// Service for managing level-up attribute allocation and skill selection.

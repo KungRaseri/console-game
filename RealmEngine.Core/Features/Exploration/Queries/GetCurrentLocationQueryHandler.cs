@@ -2,7 +2,7 @@ using MediatR;
 using Serilog;
 
 using Game.Core.Services;
-namespace Game.Core.Features.Exploration.Queries;
+namespace RealmEngine.Core.Features.Exploration.Queries;
 
 /// <summary>
 /// Handler for GetCurrentLocationQuery.

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Core.Features.SaveLoad.Commands;
+namespace RealmEngine.Core.Features.SaveLoad.Commands;
 
 /// <summary>
 /// Command to delete a saved game.

@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Combat.Commands.DefendAction;
+namespace RealmEngine.Core.Features.Combat.Commands.DefendAction;
 
 /// <summary>
 /// Command to have the player defend (reduce incoming damage).

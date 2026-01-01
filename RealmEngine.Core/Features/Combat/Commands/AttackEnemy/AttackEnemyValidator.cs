@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Game.Core.Features.Combat.Commands.AttackEnemy;
+namespace RealmEngine.Core.Features.Combat.Commands.AttackEnemy;
 
 /// <summary>
 /// Validates the AttackEnemy command.

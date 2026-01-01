@@ -1,7 +1,7 @@
 using QuestModel = Game.Shared.Models.Quest;
 using Game.Shared.Models;
 
-namespace Game.Core.Features.SaveLoad;
+namespace RealmEngine.Core.Features.SaveLoad;
 
 /// <summary>
 /// Interface for managing game saves and loads with comprehensive world state tracking.

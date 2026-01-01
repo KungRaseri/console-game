@@ -3,7 +3,7 @@ using Game.Core.Features.SaveLoad;
 using Game.Shared.Utilities;
 using Serilog;
 
-namespace Game.Core.Features.Combat;
+namespace RealmEngine.Core.Features.Combat;
 
 /// <summary>
 /// Service for handling combat mechanics and calculations.

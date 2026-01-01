@@ -1,4 +1,4 @@
-namespace Game.Core.Settings;
+namespace RealmEngine.Core.Settings;
 
 /// <summary>
 /// Core game configuration settings

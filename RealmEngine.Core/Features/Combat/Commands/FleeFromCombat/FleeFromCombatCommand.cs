@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Combat.Commands.FleeFromCombat;
+namespace RealmEngine.Core.Features.Combat.Commands.FleeFromCombat;
 
 /// <summary>
 /// Command to attempt to flee from combat.

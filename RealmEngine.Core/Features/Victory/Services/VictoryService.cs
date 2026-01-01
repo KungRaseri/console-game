@@ -2,7 +2,7 @@ using Game.Core.Features.SaveLoad;
 using Game.Core.Features.Victory.Commands;
 using Serilog;
 
-namespace Game.Core.Features.Victory.Services;
+namespace RealmEngine.Core.Features.Victory.Services;
 
 public class VictoryService
 {

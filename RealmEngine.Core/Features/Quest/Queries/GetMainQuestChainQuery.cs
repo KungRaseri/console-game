@@ -1,7 +1,7 @@
 using MediatR;
 
 using Game.Shared.Models;
-namespace Game.Core.Features.Quests.Queries;
+namespace RealmEngine.Core.Features.Quests.Queries;
 
 public record GetMainQuestChainQuery : IRequest<List<Quest>>;
 

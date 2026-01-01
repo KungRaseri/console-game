@@ -2,7 +2,7 @@ using Game.Core.Features.SaveLoad;
 using Game.Shared.Models;
 using Serilog;
 
-namespace Game.Core.Features.Victory.Services;
+namespace RealmEngine.Core.Features.Victory.Services;
 
 public class NewGamePlusService
 {

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Core.Features.Exploration.Commands;
+namespace RealmEngine.Core.Features.Exploration.Commands;
 
 /// <summary>
 /// Command to travel to a new location.

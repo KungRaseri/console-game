@@ -1,7 +1,7 @@
 using MediatR;
 using Serilog;
 
-namespace Game.Core.Features.SaveLoad.Commands;
+namespace RealmEngine.Core.Features.SaveLoad.Commands;
 
 /// <summary>
 /// Handles the LoadGame command.

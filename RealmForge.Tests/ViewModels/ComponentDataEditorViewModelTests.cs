@@ -1,11 +1,11 @@
 using System.IO;
 using FluentAssertions;
-using Game.ContentBuilder.Services;
-using Game.ContentBuilder.ViewModels;
+using RealmForge.Services;
+using RealmForge.ViewModels;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.ViewModels;
+namespace RealmForge.Tests.ViewModels;
 
 /// <summary>
 /// Unit tests for ComponentDataEditorViewModel

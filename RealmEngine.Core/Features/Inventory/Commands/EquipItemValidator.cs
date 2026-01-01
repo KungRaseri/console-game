@@ -1,7 +1,7 @@
 using FluentValidation;
 using Game.Shared.Models;
 
-namespace Game.Core.Features.Inventory.Commands;
+namespace RealmEngine.Core.Features.Inventory.Commands;
 
 /// <summary>
 /// Validates the EquipItem command.

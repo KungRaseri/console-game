@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Inventory.Commands;
+namespace RealmEngine.Core.Features.Inventory.Commands;
 
 /// <summary>
 /// Command to equip an item on the character.

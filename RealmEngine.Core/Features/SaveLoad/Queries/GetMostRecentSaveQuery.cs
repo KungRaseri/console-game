@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.SaveLoad.Queries;
+namespace RealmEngine.Core.Features.SaveLoad.Queries;
 
 /// <summary>
 /// Query to get the most recent saved game.

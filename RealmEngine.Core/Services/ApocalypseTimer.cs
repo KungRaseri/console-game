@@ -2,7 +2,7 @@ using Game.Core.Abstractions;
 
 using Serilog;
 
-namespace Game.Core.Services;
+namespace RealmEngine.Core.Services;
 
 /// <summary>
 /// Manages the countdown timer for Apocalypse mode.

@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Combat.Commands.AttackEnemy;
+namespace RealmEngine.Core.Features.Combat.Commands.AttackEnemy;
 
 /// <summary>
 /// Command to execute a player attack against an enemy.

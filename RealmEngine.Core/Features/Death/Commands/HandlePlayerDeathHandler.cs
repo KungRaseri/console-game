@@ -4,7 +4,7 @@ using Game.Shared.Abstractions;
 using MediatR;
 using Serilog;
 
-namespace Game.Core.Features.Death.Commands;
+namespace RealmEngine.Core.Features.Death.Commands;
 
 /// <summary>
 /// Handles player death with difficulty-appropriate penalties.

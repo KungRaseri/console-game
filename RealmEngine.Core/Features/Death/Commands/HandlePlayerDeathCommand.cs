@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Death.Commands;
+namespace RealmEngine.Core.Features.Death.Commands;
 
 /// <summary>
 /// Command to handle player death with appropriate penalties.

@@ -1,7 +1,7 @@
 using MediatR;
 using Serilog;
 
-namespace Game.Core.Features.Inventory.Commands;
+namespace RealmEngine.Core.Features.Inventory.Commands;
 
 /// <summary>
 /// Handles the SortInventory command.

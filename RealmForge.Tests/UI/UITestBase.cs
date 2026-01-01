@@ -5,7 +5,7 @@ using FlaUI.Core.AutomationElements;
 using FlaUI.UIA3;
 using Serilog;
 
-namespace Game.ContentBuilder.Tests.UI;
+namespace RealmForge.Tests.UI;
 
 /// <summary>
 /// Base class for UI tests with proper timeout handling and cleanup

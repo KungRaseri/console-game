@@ -3,7 +3,7 @@ using Game.Shared.Models;
 using Game.Core.Features.SaveLoad;
 using Serilog;
 
-namespace Game.Core.Features.Exploration;
+namespace RealmEngine.Core.Features.Exploration;
 
 /// <summary>
 /// Handles in-game operations like saving and resting.

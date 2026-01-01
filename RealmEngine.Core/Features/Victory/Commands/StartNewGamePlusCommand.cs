@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Game.Core.Features.Victory.Commands;
+namespace RealmEngine.Core.Features.Victory.Commands;
 
 public record StartNewGamePlusCommand : IRequest<StartNewGamePlusResult>;
 

@@ -6,7 +6,7 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Game.ContentBuilder.Tests.UI;
+namespace RealmForge.Tests.UI;
 
 [Trait("Category", "UI")]
 [Collection("UI Tests")]

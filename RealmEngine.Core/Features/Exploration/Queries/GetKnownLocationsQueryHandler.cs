@@ -1,7 +1,7 @@
 using MediatR;
 using Serilog;
 
-namespace Game.Core.Features.Exploration.Queries;
+namespace RealmEngine.Core.Features.Exploration.Queries;
 
 /// <summary>
 /// Handler for GetKnownLocationsQuery.

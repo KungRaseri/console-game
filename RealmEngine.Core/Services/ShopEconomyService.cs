@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using Serilog;
 
-namespace Game.Core.Services;
+namespace RealmEngine.Core.Services;
 
 /// <summary>
 /// Service for managing NPC shop economy, including hybrid inventory,

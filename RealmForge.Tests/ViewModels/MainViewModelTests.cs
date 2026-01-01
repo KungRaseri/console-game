@@ -2,7 +2,7 @@ using Xunit;
 using FluentAssertions;
 using System.IO;
 
-namespace Game.ContentBuilder.Tests.ViewModels;
+namespace RealmForge.Tests.ViewModels;
 
 [Trait("Category", "ViewModel")]
 /// <summary>

@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.CharacterCreation.Queries;
+namespace RealmEngine.Core.Features.CharacterCreation.Queries;
 
 /// <summary>
 /// Query to get all available character classes.

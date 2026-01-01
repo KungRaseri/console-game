@@ -1,5 +1,5 @@
 using MediatR;
-namespace Game.Core.Features.Quests.Commands;
+namespace RealmEngine.Core.Features.Quests.Commands;
 
 public record CompleteQuestCommand(string QuestId) : IRequest<CompleteQuestResult>;
 

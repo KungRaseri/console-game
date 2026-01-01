@@ -2,7 +2,7 @@ using RealmEngine.Data.Services;
 using Game.Shared.Models;
 using Newtonsoft.Json.Linq;
 
-namespace Game.Core.Generators.Modern;
+namespace RealmEngine.Core.Generators.Modern;
 
 /// <summary>
 /// Generates items using the Hybrid Enhancement System v1.0.

@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.SaveLoad.Commands;
+namespace RealmEngine.Core.Features.SaveLoad.Commands;
 
 /// <summary>
 /// Command to save the current game state.

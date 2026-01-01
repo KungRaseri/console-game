@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using MediatR;
 
-namespace Game.Core.Features.Inventory.Queries;
+namespace RealmEngine.Core.Features.Inventory.Queries;
 
 /// <summary>
 /// Query to get all equipped items on player.

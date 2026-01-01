@@ -5,7 +5,7 @@ using Game.Core.Features.Death.Queries;
 using MediatR;
 
 using Game.Core.Services;
-namespace Game.Core.Features.Exploration;
+namespace RealmEngine.Core.Features.Exploration;
 
 /// <summary>
 /// Service for handling exploration, travel, and location-based events.

@@ -4,7 +4,7 @@ using MediatR;
 using Serilog;
 
 using Game.Core.Services;
-namespace Game.Core.Features.Exploration.Commands;
+namespace RealmEngine.Core.Features.Exploration.Commands;
 
 /// <summary>
 /// Handler for RestCommand.

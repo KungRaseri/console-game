@@ -1,7 +1,7 @@
 using FluentValidation;
 using MediatR;
 
-namespace Game.Core.Behaviors;
+namespace RealmEngine.Core.Behaviors;
 
 /// <summary>
 /// Automatically validates commands using FluentValidation.

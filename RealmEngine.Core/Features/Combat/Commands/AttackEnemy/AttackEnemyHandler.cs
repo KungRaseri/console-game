@@ -3,7 +3,7 @@ using Game.Core.Features.SaveLoad;
 using MediatR;
 using Serilog;
 
-namespace Game.Core.Features.Combat.Commands.AttackEnemy;
+namespace RealmEngine.Core.Features.Combat.Commands.AttackEnemy;
 
 /// <summary>
 /// Handles the AttackEnemy command.

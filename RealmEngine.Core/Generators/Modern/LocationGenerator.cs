@@ -2,7 +2,7 @@ using RealmEngine.Data.Services;
 using Game.Shared.Models;
 using Newtonsoft.Json.Linq;
 
-namespace Game.Core.Generators.Modern;
+namespace RealmEngine.Core.Generators.Modern;
 
 /// <summary>
 /// Generates world locations (towns, dungeons, wilderness, environments, regions).

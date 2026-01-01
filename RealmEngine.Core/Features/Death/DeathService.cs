@@ -1,7 +1,7 @@
 using Game.Shared.Models;
 using Serilog;
 
-namespace Game.Core.Features.Death;
+namespace RealmEngine.Core.Features.Death;
 
 /// <summary>
 /// Service for death-related operations (penalties, item dropping, etc.).
