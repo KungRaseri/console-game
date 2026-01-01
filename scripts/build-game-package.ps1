@@ -45,40 +45,40 @@ foreach ($dir in $Directories) {
 Write-Output "Package output: $PackageRoot"
 Write-Output ""
 
-# Build Game.Core
-Write-Output "Building Game.Core..."
-$CoreOutput = Join-Path $PackageRoot "Libraries\Game.Core"
-dotnet publish (Join-Path $SolutionRoot "Game.Core\Game.Core.csproj") --configuration $Configuration --output $CoreOutput --no-self-contained --verbosity quiet $VersionArgs
-if ($LASTEXITCODE -ne 0) { Write-Error "Game.Core build failed!"; exit 1 }
+# Build RealmEngine.Core
+Write-Output "Building RealmEngine.Core..."
+$CoreOutput = Join-Path $PackageRoot "Libraries\RealmEngine.Core"
+dotnet publish (Join-Path $SolutionRoot "RealmEngine.Core\RealmEngine.Core.csproj") --configuration $Configuration --output $CoreOutput --no-self-contained --verbosity quiet $VersionArgs
+if ($LASTEXITCODE -ne 0) { Write-Error "RealmEngine.Core build failed!"; exit 1 }
 # Copy XML documentation to Libraries root for Godot IntelliSense
-Copy-Item -Path (Join-Path $CoreOutput "Game.Core.xml") -Destination (Join-Path $PackageRoot "Libraries\Game.Core.xml") -ErrorAction SilentlyContinue
-Write-Output "[OK] Game.Core published (with XML docs)"
+Copy-Item -Path (Join-Path $CoreOutput "RealmEngine.Core.xml") -Destination (Join-Path $PackageRoot "Libraries\RealmEngine.Core.xml") -ErrorAction SilentlyContinue
+Write-Output "[OK] RealmEngine.Core published (with XML docs)"
 Write-Output ""
 
-# Build Game.Shared
-Write-Output "Building Game.Shared..."
-$SharedOutput = Join-Path $PackageRoot "Libraries\Game.Shared"
-dotnet publish (Join-Path $SolutionRoot "Game.Shared\Game.Shared.csproj") --configuration $Configuration --output $SharedOutput --no-self-contained --verbosity quiet $VersionArgs
-if ($LASTEXITCODE -ne 0) { Write-Error "Game.Shared build failed!"; exit 1 }
+# Build RealmEngine.Shared
+Write-Output "Building RealmEngine.Shared..."
+$SharedOutput = Join-Path $PackageRoot "Libraries\RealmEngine.Shared"
+dotnet publish (Join-Path $SolutionRoot "RealmEngine.Shared\RealmEngine.Shared.csproj") --configuration $Configuration --output $SharedOutput --no-self-contained --verbosity quiet $VersionArgs
+if ($LASTEXITCODE -ne 0) { Write-Error "RealmEngine.Shared build failed!"; exit 1 }
 # Copy XML documentation to Libraries root for Godot IntelliSense
-Copy-Item -Path (Join-Path $SharedOutput "Game.Shared.xml") -Destination (Join-Path $PackageRoot "Libraries\Game.Shared.xml") -ErrorAction SilentlyContinue
-Write-Output "[OK] Game.Shared published (with XML docs)"
+Copy-Item -Path (Join-Path $SharedOutput "RealmEngine.Shared.xml") -Destination (Join-Path $PackageRoot "Libraries\RealmEngine.Shared.xml") -ErrorAction SilentlyContinue
+Write-Output "[OK] RealmEngine.Shared published (with XML docs)"
 Write-Output ""
 
-# Build Game.Data
-Write-Output "Building Game.Data..."
-$DataOutput = Join-Path $PackageRoot "Libraries\Game.Data"
-dotnet publish (Join-Path $SolutionRoot "Game.Data\Game.Data.csproj") --configuration $Configuration --output $DataOutput --no-self-contained --verbosity quiet $VersionArgs
-if ($LASTEXITCODE -ne 0) { Write-Error "Game.Data build failed!"; exit 1 }
+# Build RealmEngine.Data
+Write-Output "Building RealmEngine.Data..."
+$DataOutput = Join-Path $PackageRoot "Libraries\RealmEngine.Data"
+dotnet publish (Join-Path $SolutionRoot "RealmEngine.Data\RealmEngine.Data.csproj") --configuration $Configuration --output $DataOutput --no-self-contained --verbosity quiet $VersionArgs
+if ($LASTEXITCODE -ne 0) { Write-Error "RealmEngine.Data build failed!"; exit 1 }
 # Copy XML documentation to Libraries root for Godot IntelliSense
-Copy-Item -Path (Join-Path $DataOutput "Game.Data.xml") -Destination (Join-Path $PackageRoot "Libraries\Game.Data.xml") -ErrorAction SilentlyContinue
-Write-Output "[OK] Game.Data published (with XML docs)"
+Copy-Item -Path (Join-Path $DataOutput "RealmEngine.Data.xml") -Destination (Join-Path $PackageRoot "Libraries\RealmEngine.Data.xml") -ErrorAction SilentlyContinue
+Write-Output "[OK] RealmEngine.Data published (with XML docs)"
 Write-Output ""
 
 # Build ContentBuilder
 Write-Output "Building ContentBuilder..."
 $ContentBuilderOutput = Join-Path $PackageRoot "ContentBuilder"
-dotnet publish (Join-Path $SolutionRoot "Game.ContentBuilder\Game.ContentBuilder.csproj") --configuration $Configuration --output $ContentBuilderOutput --no-self-contained --runtime win-x64 --verbosity quiet $VersionArgs
+dotnet publish (Join-Path $SolutionRoot "RealmForge\RealmForge.csproj") --configuration $Configuration --output $ContentBuilderOutput --no-self-contained --runtime win-x64 --verbosity quiet $VersionArgs
 if ($LASTEXITCODE -ne 0) { Write-Error "ContentBuilder build failed!"; exit 1 }
 
 # Remove duplicate Data folder from ContentBuilder (it will reference package root Data)
@@ -100,7 +100,7 @@ Write-Output ""
 
 # Copy JSON Data Files
 Write-Output "Copying JSON data files..."
-$JsonSource = Join-Path $SolutionRoot "Game.Data\Data\Json"
+$JsonSource = Join-Path $SolutionRoot "RealmEngine.Data\Data\Json"
 $JsonDest = Join-Path $PackageRoot "Data\Json"
 Copy-Item -Path "$JsonSource\*" -Destination $JsonDest -Recurse -Force
 $JsonFileCount = (Get-ChildItem -Path $JsonDest -Recurse -File).Count
@@ -115,20 +115,20 @@ $Manifest = @{
     Configuration = $Configuration
     Components = @{
         GameCore = @{
-            Path = "Libraries\Game.Core"
-            Assembly = "Game.Core.dll"
+            Path = "Libraries\RealmEngine.Core"
+            Assembly = "RealmEngine.Core.dll"
         }
         GameShared = @{
-            Path = "Libraries\Game.Shared"
-            Assembly = "Game.Shared.dll"
+            Path = "Libraries\RealmEngine.Shared"
+            Assembly = "RealmEngine.Shared.dll"
         }
         GameData = @{
-            Path = "Libraries\Game.Data"
-            Assembly = "Game.Data.dll"
+            Path = "Libraries\RealmEngine.Data"
+            Assembly = "RealmEngine.Data.dll"
         }
         ContentBuilder = @{
             Path = "ContentBuilder"
-            Executable = "Game.ContentBuilder.exe"
+            Executable = "RealmForge.exe"
         }
         JsonData = @{
             Path = "Data\Json"
@@ -151,9 +151,9 @@ Write-Output ""
 Write-Output "Package Location: $PackageRoot"
 Write-Output ""
 Write-Output "Package Contents:"
-Write-Output "  - Libraries\Game.Core\      (Core game mechanics)"
-Write-Output "  - Libraries\Game.Shared\    (Shared models/services)"
-Write-Output "  - Libraries\Game.Data\      (Data loading)"
+Write-Output "  - Libraries\RealmEngine.Core\      (Core game mechanics)"
+Write-Output "  - Libraries\RealmEngine.Shared\    (Shared models/services)"
+Write-Output "  - Libraries\RealmEngine.Data\      (Data loading)"
 Write-Output "  - ContentBuilder\           (JSON editor application)"
 Write-Output "  - Data\Json\                (Game data: $JsonFileCount files)"
 Write-Output ""

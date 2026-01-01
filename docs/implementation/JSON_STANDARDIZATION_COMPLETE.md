@@ -225,20 +225,20 @@ Successfully standardized **18 JSON files** (9 types.json + 9 names.json) implem
 ### Phase 1: Core Models (Priority 1)
 ```csharp
 // 1. Create base models
-Game.Shared/Models/RarityConfig.cs
-Game.Shared/Models/ComponentValue.cs
-Game.Shared/Models/ItemType.cs
-Game.Shared/Models/EnemyType.cs
+RealmEngine.Shared/Models/RarityConfig.cs
+RealmEngine.Shared/Models/ComponentValue.cs
+RealmEngine.Shared/Models/ItemType.cs
+RealmEngine.Shared/Models/EnemyType.cs
 
 // 2. Update existing models
-Game.Shared/Models/Item.cs          // Add rarityWeight property
-Game.Shared/Models/Enemy.cs         // Add rarityWeight property
+RealmEngine.Shared/Models/Item.cs          // Add rarityWeight property
+RealmEngine.Shared/Models/Enemy.cs         // Add rarityWeight property
 ```
 
 ### Phase 2: Rarity Calculator Service (Priority 2)
 ```csharp
 // Create rarity calculation engine
-Game.Core/Services/RarityCalculator.cs
+RealmEngine.Core/Services/RarityCalculator.cs
 
 Methods:
 - CalculateRarity(List<ComponentValue> components) : RarityTier
@@ -249,7 +249,7 @@ Methods:
 ### Phase 3: Pattern Executor Updates (Priority 3)
 ```csharp
 // Update pattern executor to handle rarityWeight
-Game.Core/Services/PatternExecutor.cs
+RealmEngine.Core/Services/PatternExecutor.cs
 
 Methods:
 - LoadTypesFile(string category, string subcategory) : TypesData
@@ -260,18 +260,18 @@ Methods:
 ### Phase 4: Data Loading (Priority 4)
 ```csharp
 // Create loaders for new file types
-Game.Shared/Services/TypesDataLoader.cs
-Game.Shared/Services/RarityConfigLoader.cs
+RealmEngine.Shared/Services/TypesDataLoader.cs
+RealmEngine.Shared/Services/RarityConfigLoader.cs
 
 // Update existing loaders
-Game.Shared/Services/NamesDataLoader.cs  // Handle new component format
+RealmEngine.Shared/Services/NamesDataLoader.cs  // Handle new component format
 ```
 
 ### Phase 5: ContentBuilder UI (Priority 5)
 ```csharp
 // Update ContentBuilder to show rarity
-Game.ContentBuilder/ViewModels/ComponentEditorViewModel.cs
-Game.ContentBuilder/Views/RarityPreviewControl.xaml
+RealmForge/ViewModels/ComponentEditorViewModel.cs
+RealmForge/Views/RarityPreviewControl.xaml
 
 Features:
 - Live rarity calculation preview

@@ -17,7 +17,7 @@ Successfully completed standardization of all **Items** category JSON files, imp
 ### Enchantments (3 files) ✅
 
 #### 1. **prefixes.json**
-- **Location:** `Game.Shared/Data/Json/items/enchantments/`
+- **Location:** `RealmEngine.Shared/Data/Json/items/enchantments/`
 - **Components:** 20 prefixes across 4 categories
 - **Categories:**
   - `quality`: Minor (5), Lesser (10), Greater (25), Superior (45), Grand (70), Perfect (100), Ultimate (150), Transcendent (220)
@@ -31,7 +31,7 @@ Successfully completed standardization of all **Items** category JSON files, imp
   - Added metadata section with version 2.0
 
 #### 2. **suffixes.json**
-- **Location:** `Game.Shared/Data/Json/items/enchantments/`
+- **Location:** `RealmEngine.Shared/Data/Json/items/enchantments/`
 - **Components:** 59 suffixes across 10 categories
 - **Categories:**
   - `power`: 6 suffixes (10-60 weight)
@@ -67,7 +67,7 @@ Successfully completed standardization of all **Items** category JSON files, imp
 ```
 
 #### 3. **effects.json**
-- **Location:** `Game.Shared/Data/Json/items/enchantments/`
+- **Location:** `RealmEngine.Shared/Data/Json/items/enchantments/`
 - **Components:** 32 effects across 8 categories
 - **Categories:**
   - `attribute_boosts`: 4 effects (10 weight each)
@@ -88,7 +88,7 @@ Successfully completed standardization of all **Items** category JSON files, imp
 ### Materials (4 files) ✅
 
 #### 4. **metals.json**
-- **Location:** `Game.Shared/Data/Json/items/materials/`
+- **Location:** `RealmEngine.Shared/Data/Json/items/materials/`
 - **Components:** 10 metals across 5 categories
 - **Categories:**
   - `common_metals`: Iron (5), Bronze (8)
@@ -104,7 +104,7 @@ Successfully completed standardization of all **Items** category JSON files, imp
   - Added metadata section
 
 #### 5. **woods.json**
-- **Location:** `Game.Shared/Data/Json/items/materials/`
+- **Location:** `RealmEngine.Shared/Data/Json/items/materials/`
 - **Components:** 9 woods across 4 categories
 - **Categories:**
   - `common_woods`: Oak (5), Ash (10), Maple (15)
@@ -119,7 +119,7 @@ Successfully completed standardization of all **Items** category JSON files, imp
   - Organized into component categories
 
 #### 6. **leathers.json**
-- **Location:** `Game.Shared/Data/Json/items/materials/`
+- **Location:** `RealmEngine.Shared/Data/Json/items/materials/`
 - **Components:** 8 leathers across 5 categories
 - **Categories:**
   - `basic_leathers`: Hide (5), Leather (10)
@@ -135,7 +135,7 @@ Successfully completed standardization of all **Items** category JSON files, imp
   - Organized into component categories
 
 #### 7. **gemstones.json**
-- **Location:** `Game.Shared/Data/Json/items/materials/`
+- **Location:** `RealmEngine.Shared/Data/Json/items/materials/`
 - **Components:** 10 gemstones across 4 categories
 - **Categories:**
   - `common_gemstones`: Topaz (25), Amethyst (30)

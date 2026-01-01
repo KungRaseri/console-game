@@ -46,7 +46,7 @@
 
 **Target Structure:**
 ```
-Game.Data/Data/Json/npcs/
+RealmEngine.Data/Data/Json/npcs/
 ├── .cbconfig.json
 ├── catalog.json           ← NEW: backgrounds{} + occupations{}
 ├── traits.json            ← NEW: personality_traits{} + quirks{}
@@ -61,7 +61,7 @@ Game.Data/Data/Json/npcs/
 
 **Files to Delete (After Migration):**
 ```
-Game.Data/Data/Json/npcs/
+RealmEngine.Data/Data/Json/npcs/
 ├── names/
 │   ├── first_names.json   ← DELETE (data moved to names.json)
 │   └── last_names.json    ← DELETE
@@ -899,7 +899,7 @@ This makes sense! Store in metadata:
 
 ### 6.1: Update NpcGenerator.cs
 
-**Location:** `Game.Core/Generators/NpcGenerator.cs`
+**Location:** `RealmEngine.Core/Generators/NpcGenerator.cs`
 
 **Key Changes:**
 1. Load from new catalog.json structure
@@ -1067,7 +1067,7 @@ private Shop GenerateShop(Background background, Occupation occupation, List<Tra
 
 ### 6.2: Create ShopEconomy System
 
-**Location:** `Game.Core/Services/ShopEconomyService.cs`
+**Location:** `RealmEngine.Core/Services/ShopEconomyService.cs`
 
 **Key Methods:**
 ```csharp

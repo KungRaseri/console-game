@@ -8,9 +8,9 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
     
     <!-- NuGet Package Metadata -->
-    <PackageId>Game.Shared</PackageId>
+    <PackageId>RealmEngine.Shared</PackageId>
     <Title>Game Shared Library</Title>
-    <Description>Shared models, data structures, and services for the Console Game engine. Contains character models, item definitions, ability data models, event system, and common utilities. Used by both Game.Core and Game.Data libraries.</Description>
+    <Description>Shared models, data structures, and services for the Console Game engine. Contains character models, item definitions, ability data models, event system, and common utilities. Used by both RealmEngine.Core and RealmEngine.Data libraries.</Description>
     <Authors>Console Game Team</Authors>
     <Company>Console Game</Company>
     <Product>Console Game Engine</Product>

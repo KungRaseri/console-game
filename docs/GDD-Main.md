@@ -689,17 +689,16 @@ The following tests are intentionally skipped because they test UI orchestration
 ### Project Structure
 
 ```
-console-game/
-├── Game.Console/                  ← Main game project (renamed)
-├── Game.Core/                     ← Core game logic (extracted)
-├── Game.Shared/                   ← Shared services (cross-project)
+RealmEngine/
+├── RealmEngine.Core/                     ← Core game logic (extracted)
+├── RealmEngine.Shared/                   ← Shared services (cross-project)
 │   ├── Services/
 │   │   ├── PatternExecutor.cs     ← Pattern-based name generation
 │   │   └── DataReferenceResolver.cs ← Cross-file reference resolution
 │   ├── Models/
 │   │   └── GameDataModels.cs      ← JSON data structures (v4)
 │   └── Events/
-├── Game.Data/                     ← Data repositories and JSON files
+├── RealmEngine.Data/                     ← Data repositories and JSON files
 │   └── Data/Json/                 ← Game data (items, enemies, materials)
 │       ├── items/
 │       │   ├── weapons/
@@ -711,7 +710,7 @@ console-game/
 │       ├── enemies/
 │       ├── npcs/
 │       └── quests/
-├── Game.ContentBuilder/           ← WPF data editor tool
+├── RealmForge/           ← WPF data editor tool
 │   ├── Views/
 │   │   ├── NameListEditorView.xaml   ← Pattern/component editor
 │   │   ├── ReferenceSelectorDialog.xaml ← Reference browser
@@ -721,7 +720,7 @@ console-game/
 │   ├── Services/
 │   ├── Validators/
 │   └── Converters/
-├── Game.ContentBuilder.Tests/     ← ContentBuilder unit tests
+├── RealmForge.Tests/     ← ContentBuilder unit tests
 ├── Game/                          ← Legacy folder (being migrated)
 │   ├── Features/                  ← Vertical slices (9 features)
 │   │   ├── Achievement/
@@ -1518,8 +1517,8 @@ The game uses the `ConsoleUI` wrapper class for all UI operations:
 - `MaterialDefinition` - Material data model
 
 *Services:*
-- `PatternExecutor` - Parses and executes patterns (in Game.Shared)
-- `DataReferenceResolver` - Resolves cross-file references (in Game.Shared)
+- `PatternExecutor` - Parses and executes patterns (in RealmEngine.Shared)
+- `DataReferenceResolver` - Resolves cross-file references (in RealmEngine.Shared)
 
 ### Usage Workflow
 
@@ -1861,5 +1860,5 @@ The game uses the `ConsoleUI` wrapper class for all UI operations:
 - Added v4 pattern-based name generation system (PatternExecutor, DataReferenceResolver)
 - Added ContentBuilder WPF desktop editor with visual pattern composer
 - Added 18 new unit tests for pattern system (397 total tests, 99.0% pass rate)
-- Updated architecture with Game.Shared project for cross-project services
+- Updated architecture with RealmEngine.Shared project for cross-project services
 - Added comprehensive ContentBuilder documentation section

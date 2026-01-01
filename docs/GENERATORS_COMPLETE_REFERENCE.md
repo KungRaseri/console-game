@@ -30,7 +30,7 @@ The game includes comprehensive content generators for **all 11 domains**, cover
 ### 1. AbilityGenerator ✅
 
 **Domain**: `abilities/`  
-**File**: `Game.Core/Generators/Modern/AbilityGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/AbilityGenerator.cs`
 
 **Capabilities**:
 - Generate abilities from categories: `active`, `passive`, `ultimate`
@@ -74,7 +74,7 @@ var heal = await registry.Abilities.GenerateAbilityByNameAsync("active", "suppor
 ### 2. CharacterClassGenerator ✅
 
 **Domain**: `classes/`  
-**File**: `Game.Core/Generators/Modern/CharacterClassGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/CharacterClassGenerator.cs`
 
 **Capabilities**:
 - Get all available classes
@@ -109,7 +109,7 @@ var fighter = registry.Classes.GetClassByName("Fighter");
 ### 3. EnemyGenerator ✅
 
 **Domain**: `enemies/`  
-**File**: `Game.Core/Generators/Modern/EnemyGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/EnemyGenerator.cs`
 
 **Capabilities**:
 - Generate enemies from categories
@@ -149,7 +149,7 @@ var wolf = await registry.Enemies.GenerateEnemyByNameAsync("beasts", "Wolf");
 ### 4. ItemGenerator ✅
 
 **Domain**: `items/`  
-**File**: `Game.Core/Generators/Modern/ItemGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/ItemGenerator.cs`
 
 **Capabilities**:
 - Generate items from categories
@@ -185,7 +185,7 @@ var sword = await registry.Items.GenerateItemByNameAsync("weapons", "Longsword")
 ### 5. NpcGenerator ✅
 
 **Domain**: `npcs/`  
-**File**: `Game.Core/Generators/Modern/NpcGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/NpcGenerator.cs`
 
 **Capabilities**:
 - Generate NPCs from categories
@@ -222,7 +222,7 @@ var blacksmith = await registry.Npcs.GenerateNpcByNameAsync("craftsmen", "Blacks
 ### 6. QuestGenerator ✅
 
 **Domain**: `quests/`  
-**File**: `Game.Core/Generators/Modern/QuestGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/QuestGenerator.cs`
 
 **Capabilities**:
 - Generate quests from types
@@ -256,7 +256,7 @@ var mainQuest = await registry.Quests.GenerateQuestByNameAsync("main-story", "Ch
 ### 7. LocationGenerator ✅ NEW
 
 **Domain**: `world/`  
-**File**: `Game.Core/Generators/Modern/LocationGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/LocationGenerator.cs`
 
 **Capabilities**:
 - Generate locations from types (towns, dungeons, wilderness, environments, regions)
@@ -299,7 +299,7 @@ var forest = await registry.Locations.GenerateLocationsAsync("wilderness", 1);
 ### 8. OrganizationGenerator ✅ NEW
 
 **Domain**: `organizations/`  
-**File**: `Game.Core/Generators/Modern/OrganizationGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/OrganizationGenerator.cs`
 
 **Capabilities**:
 - Generate organizations from types (guilds, factions, shops, businesses)
@@ -352,7 +352,7 @@ var faction = await registry.Organizations.GenerateOrganizationByNameAsync("fact
 ### 9. DialogueGenerator ✅ NEW
 
 **Domain**: `social/`  
-**File**: `Game.Core/Generators/Modern/DialogueGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/DialogueGenerator.cs`
 
 **Capabilities**:
 - Generate dialogue lines from types (greetings, farewells, responses)
@@ -405,7 +405,7 @@ var conversation = await registry.Dialogue.GenerateConversationAsync("casual");
 ### 10. EnchantmentGenerator ✅
 
 **Domain**: `items/` (enchantments)  
-**File**: `Game.Core/Generators/Modern/EnchantmentGenerator.cs`
+**File**: `RealmEngine.Core/Generators/Modern/EnchantmentGenerator.cs`
 
 **Capabilities**:
 - Generate random enchantments
@@ -435,7 +435,7 @@ var fireEnchantment = registry.Enchantments.GenerateEnchantmentByTrait(TraitType
 
 ### 11. GeneratorRegistry ✅
 
-**File**: `Game.Core/Generators/Modern/GeneratorRegistry.cs`
+**File**: `RealmEngine.Core/Generators/Modern/GeneratorRegistry.cs`
 
 **Purpose**: Central access point for all generators with lazy initialization.
 

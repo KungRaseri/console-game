@@ -23,7 +23,7 @@ Implemented automatic file type detection and configuration-driven icon system f
 
 ### 1. FileTypeDetector Service (NEW)
 
-**File**: `Game.ContentBuilder/Services/FileTypeDetector.cs` (180 lines)
+**File**: `RealmForge/Services/FileTypeDetector.cs` (180 lines)
 
 **Purpose**: Intelligent JSON file type detection using metadata-first approach
 
@@ -63,7 +63,7 @@ General         → EditorType.None
 
 ### 2. FolderConfig Model (NEW)
 
-**File**: `Game.ContentBuilder/Models/FolderConfig.cs` (44 lines)
+**File**: `RealmForge/Models/FolderConfig.cs` (44 lines)
 
 **Purpose**: Model for `.cbconfig.json` configuration files
 
@@ -80,7 +80,7 @@ public int SortOrder { get; set; }                   // Tree ordering
 
 ### 3. CategoryNode EditorType Enum (UPDATED)
 
-**File**: `Game.ContentBuilder/Models/CategoryNode.cs`
+**File**: `RealmForge/Models/CategoryNode.cs`
 
 **Added EditorTypes**:
 - `NameListEditor` - For names.json files (pattern generation)
@@ -174,7 +174,7 @@ public int SortOrder { get; set; }                   // Tree ordering
 
 ### 5. FileTreeService Refactoring (COMPLETE)
 
-**File**: `Game.ContentBuilder/Services/FileTreeService.cs` (283 lines)
+**File**: `RealmForge/Services/FileTreeService.cs` (283 lines)
 
 **Changes Made**:
 
@@ -380,8 +380,8 @@ var jsonFiles = Directory.GetFiles(directoryPath, "*.json")
 - Save button with validation
 
 **Files to Create**:
-- `Game.ContentBuilder/ViewModels/TypesEditorViewModel.cs`
-- `Game.ContentBuilder/Views/TypesEditorView.xaml`
+- `RealmForge/ViewModels/TypesEditorViewModel.cs`
+- `RealmForge/Views/TypesEditorView.xaml`
 
 ### 3. Update MainViewModel (High Priority)
 **Purpose**: Wire up new editor types  
@@ -412,18 +412,18 @@ var jsonFiles = Directory.GetFiles(directoryPath, "*.json")
 ## Files Modified/Created
 
 ### New Files (7)
-1. `Game.ContentBuilder/Services/FileTypeDetector.cs` (180 lines)
-2. `Game.ContentBuilder/Models/FolderConfig.cs` (44 lines)
-3. `Game.Shared/Data/Json/items/.cbconfig.json`
-4. `Game.Shared/Data/Json/items/weapons/.cbconfig.json`
-5. `Game.Shared/Data/Json/items/armor/.cbconfig.json`
-6. `Game.Shared/Data/Json/items/consumables/.cbconfig.json`
-7. `Game.Shared/Data/Json/items/enchantments/.cbconfig.json`
-8. `Game.Shared/Data/Json/items/materials/.cbconfig.json`
+1. `RealmForge/Services/FileTypeDetector.cs` (180 lines)
+2. `RealmForge/Models/FolderConfig.cs` (44 lines)
+3. `RealmEngine.Shared/Data/Json/items/.cbconfig.json`
+4. `RealmEngine.Shared/Data/Json/items/weapons/.cbconfig.json`
+5. `RealmEngine.Shared/Data/Json/items/armor/.cbconfig.json`
+6. `RealmEngine.Shared/Data/Json/items/consumables/.cbconfig.json`
+7. `RealmEngine.Shared/Data/Json/items/enchantments/.cbconfig.json`
+8. `RealmEngine.Shared/Data/Json/items/materials/.cbconfig.json`
 
 ### Modified Files (2)
-1. `Game.ContentBuilder/Models/CategoryNode.cs` (updated EditorType enum)
-2. `Game.ContentBuilder/Services/FileTreeService.cs` (refactored to use configs)
+1. `RealmForge/Models/CategoryNode.cs` (updated EditorType enum)
+2. `RealmForge/Services/FileTreeService.cs` (refactored to use configs)
 
 ### Total Changes
 - **Lines Added**: ~400

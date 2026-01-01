@@ -12,7 +12,7 @@
 Our data now follows a standardized hierarchical structure:
 
 ```
-Game.Shared/Data/Json/
+RealmEngine.Shared/Data/Json/
 ├── general/
 │   ├── adjectives.json (NameList - components structure)
 │   ├── colors.json (HybridArray - components + patterns)

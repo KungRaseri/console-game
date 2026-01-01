@@ -70,7 +70,7 @@ dotnet add Game.Tests package Spectre.Console.Testing
 **File**: `Game/Shared/UI/IConsoleUI.cs` (NEW)
 
 ```csharp
-namespace Game.Shared.UI;
+namespace RealmEngine.Shared.UI;
 
 /// <summary>
 /// Interface for console UI operations, enabling dependency injection and testing

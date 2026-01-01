@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using RealmEngine.Data.Services;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Service for resolving JSON v4.1 references

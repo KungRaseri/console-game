@@ -1,7 +1,7 @@
 using Newtonsoft.Json.Linq;
-using Game.ContentBuilder.Models;
+using RealmForge.Models;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Generates metadata for JSON data files automatically

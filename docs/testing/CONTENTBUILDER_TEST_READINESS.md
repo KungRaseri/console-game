@@ -31,7 +31,7 @@ We have **comprehensive test coverage** across all layers to validate fixes:
 
 ### Run Command:
 ```powershell
-dotnet test Game.ContentBuilder.Tests --filter "Category=ViewModel"
+dotnet test RealmForge.Tests --filter "Category=ViewModel"
 ```
 
 ---
@@ -62,7 +62,7 @@ dotnet test Game.ContentBuilder.Tests --filter "Category=ViewModel"
 
 ### Run Command:
 ```powershell
-dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
+dotnet test RealmForge.Tests --filter "Category=UI"
 ```
 
 ⚠️ **Note**: Close ContentBuilder app before running UI tests (tests launch app automatically)
@@ -88,7 +88,7 @@ dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
 
 ### Run Command:
 ```powershell
-dotnet test Game.ContentBuilder.Tests --filter "Category=Integration"
+dotnet test RealmForge.Tests --filter "Category=Integration"
 ```
 
 ---
@@ -132,7 +132,7 @@ dotnet test Game.ContentBuilder.Tests --filter "Category=Integration"
 
 1. **Build ContentBuilder** ✅
    ```powershell
-   dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
+   dotnet build RealmForge/RealmForge.csproj
    ```
    - Ensures latest code is compiled
    - UI tests require the .exe
@@ -281,7 +281,7 @@ dotnet test Game.ContentBuilder.Tests --filter "Category=Integration"
 dotnet build
 
 # Run all ContentBuilder tests
-dotnet test Game.ContentBuilder.Tests
+dotnet test RealmForge.Tests
 
 # Run only unit tests (fast)
 dotnet test --filter "Category=ViewModel"

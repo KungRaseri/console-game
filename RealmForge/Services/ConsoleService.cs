@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Global console service for logging across the application

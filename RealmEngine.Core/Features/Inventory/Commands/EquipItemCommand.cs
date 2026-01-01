@@ -1,4 +1,4 @@
-using Game.Shared.Models;
+using RealmEngine.Shared.Models;
 using MediatR;
 
 namespace RealmEngine.Core.Features.Inventory.Commands;

@@ -153,7 +153,7 @@ public record HandlePlayerDeathResult
 using Game.Features.Death;
 using Game.Features.SaveLoad;
 using Game.Models;
-using Game.Shared.UI;
+using RealmEngine.Shared.UI;
 using MediatR;
 using Serilog;
 
@@ -529,7 +529,7 @@ public class DeathService
 
 ```csharp
 using Game.Models;
-using Game.Shared.UI;
+using RealmEngine.Shared.UI;
 using LiteDB;
 using Serilog;
 

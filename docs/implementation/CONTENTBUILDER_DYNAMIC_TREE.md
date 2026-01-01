@@ -5,18 +5,18 @@
 
 ## Overview
 
-Replaced the hardcoded file tree in ContentBuilder with a dynamic file system scanner that automatically discovers all JSON files in the `Game.Shared/Data/Json` directory.
+Replaced the hardcoded file tree in ContentBuilder with a dynamic file system scanner that automatically discovers all JSON files in the `RealmEngine.Shared/Data/Json` directory.
 
 ## Changes Made
 
 ### 1. Created FileTreeService.cs
 
-**Location:** `Game.ContentBuilder/Services/FileTreeService.cs`
+**Location:** `RealmForge/Services/FileTreeService.cs`
 
 **Purpose:** Dynamically scan the file system and build the category tree based on actual files
 
 **Key Features:**
-- Recursively scans all directories under `Game.Shared/Data/Json`
+- Recursively scans all directories under `RealmEngine.Shared/Data/Json`
 - Automatically determines editor type based on file content and naming patterns
 - Maps directory and file names to appropriate Material Design icons
 - Formats display names (snake_case → Title Case)
@@ -71,7 +71,7 @@ All existing features remain intact:
 
 1. **Launch ContentBuilder**
    ```powershell
-   dotnet run --project Game.ContentBuilder
+   dotnet run --project RealmForge
    ```
 
 2. **Verify Tree Structure**

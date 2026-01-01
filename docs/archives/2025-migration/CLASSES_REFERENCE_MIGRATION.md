@@ -87,7 +87,7 @@ Successfully applied the JSON Reference Standards v4.1 to the classes folder, el
 
 ## Files Modified
 
-### c:\code\console-game\Game.Data\Data\Json\classes\catalog.json
+### c:\code\console-game\RealmEngine.Data\Data\Json\classes\catalog.json
 - **Status**: ✅ Recreated with merged data and references
 - **Validation**: ✅ Valid JSON
 - **Size**: 644 lines (previously 378 lines)
@@ -97,7 +97,7 @@ Successfully applied the JSON Reference Standards v4.1 to the classes folder, el
   - Converted all parentClass values to references (10 conversions)
   - Updated metadata
 
-### c:\code\console-game\Game.Data\Data\Json\classes\.cbconfig.json
+### c:\code\console-game\RealmEngine.Data\Data\Json\classes\.cbconfig.json
 - **Status**: ✅ Updated
 - **Changes**:
   - Removed progression file icon reference
@@ -105,7 +105,7 @@ Successfully applied the JSON Reference Standards v4.1 to the classes folder, el
 
 ## Files Deleted
 
-### c:\code\console-game\Game.Data\Data\Json\classes\progression.json
+### c:\code\console-game\RealmEngine.Data\Data\Json\classes\progression.json
 - **Status**: ✅ Deleted
 - **Reason**: Data merged into catalog.json
 

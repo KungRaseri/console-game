@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using Game.ContentBuilder.ViewModels;
-using Game.ContentBuilder.Models;
+using RealmForge.ViewModels;
+using RealmForge.Models;
 
-namespace Game.ContentBuilder;
+namespace RealmForge;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

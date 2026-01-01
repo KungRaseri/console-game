@@ -51,7 +51,7 @@ Changed from `Kind="Pattern"` to `Kind="ShapeOutline"`
 **Error:**
 ```
 System.IO.DirectoryNotFoundException: Could not find a part of the path 
-'C:\code\console-game\Game.Shared\Data\Json\items\items\weapons\names.json'
+'C:\code\console-game\RealmEngine.Shared\Data\Json\items\items\weapons\names.json'
                                                     ^^^^^^ DUPLICATED!
 ```
 
@@ -112,31 +112,31 @@ Every NameList file had wrong path:
 2025-12-15 12:20:36.241 [DBG] Loading NameListEditor for general/adjectives.json
 2025-12-15 12:20:36.242 [ERR] Failed to load general/adjectives.json
 System.IO.DirectoryNotFoundException: Could not find a part of the path 
-'C:\code\console-game\Game.Shared\Data\Json\items\general\adjectives.json'.
+'C:\code\console-game\RealmEngine.Shared\Data\Json\items\general\adjectives.json'.
                                                     ^^^^^ WRONG!
 
 2025-12-15 12:20:41.606 [DBG] Loading NameListEditor for items/weapons/names.json
 2025-12-15 12:20:41.606 [ERR] Failed to load items/weapons/names.json
 System.IO.DirectoryNotFoundException: Could not find a part of the path 
-'C:\code\console-game\Game.Shared\Data\Json\items\items\weapons\names.json'.
+'C:\code\console-game\RealmEngine.Shared\Data\Json\items\items\weapons\names.json'.
                                                     ^^^^^ ^^^^^ DUPLICATED!
 ```
 
 **Pattern:**
-- File should be: `Game.Shared\Data\Json\general\adjectives.json` ✅
-- Actually looking for: `Game.Shared\Data\Json\items\general\adjectives.json` ❌
+- File should be: `RealmEngine.Shared\Data\Json\general\adjectives.json` ✅
+- Actually looking for: `RealmEngine.Shared\Data\Json\items\general\adjectives.json` ❌
 
 ---
 
 ## Files Modified
 
 ### 1. HybridArrayEditorView.xaml
-**Location:** `Game.ContentBuilder/Views/HybridArrayEditorView.xaml`  
+**Location:** `RealmForge/Views/HybridArrayEditorView.xaml`  
 **Line:** 49  
 **Change:** Icon name `Pattern` → `ShapeOutline`
 
 ### 2. NameListEditorViewModel.cs
-**Location:** `Game.ContentBuilder/ViewModels/NameListEditorViewModel.cs`  
+**Location:** `RealmForge/ViewModels/NameListEditorViewModel.cs`  
 **Line:** 50  
 **Change:** Removed incorrect path prefix
 
@@ -229,7 +229,7 @@ System.IO.DirectoryNotFoundException: Could not find a part of the path
 
 1. **Run ContentBuilder**
    ```powershell
-   dotnet run --project Game.ContentBuilder/Game.ContentBuilder.csproj
+   dotnet run --project RealmForge/RealmForge.csproj
    ```
 
 2. **Test HybridArray Editor**

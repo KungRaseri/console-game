@@ -13,15 +13,15 @@ Create the WPF Content Builder project with Material Design theme and MVVM infra
 ## Tasks Completed
 
 ### 1. WPF Project Creation ✅
-- ✅ Created `Game.ContentBuilder` WPF project (.NET 9.0-windows)
+- ✅ Created `RealmForge` WPF project (.NET 9.0-windows)
 - ✅ Added to solution (`Game.sln`)
-- ✅ Added project reference: `Game.ContentBuilder` → `Game.Shared`
+- ✅ Added project reference: `RealmForge` → `RealmEngine.Shared`
 
 **Commands:**
 ```bash
-dotnet new wpf -n Game.ContentBuilder -f net9.0
-dotnet sln add Game.ContentBuilder/Game.ContentBuilder.csproj
-dotnet add Game.ContentBuilder reference Game.Shared
+dotnet new wpf -n RealmForge -f net9.0
+dotnet sln add RealmForge/RealmForge.csproj
+dotnet add RealmForge reference RealmEngine.Shared
 ```
 
 ### 2. NuGet Packages Added ✅
@@ -42,7 +42,7 @@ dotnet add package Extended.Wpf.Toolkit --version 4.6.1
 ### 3. Folder Structure Created ✅
 Created MVVM folder structure:
 ```
-Game.ContentBuilder/
+RealmForge/
 ├── ViewModels/          ← View models (business logic)
 ├── Views/               ← User controls (editors)
 ├── Models/              ← UI-specific models
@@ -112,8 +112,8 @@ Updated `MainWindow.xaml` with Material Design:
 
 ### Build Status ✅
 ```
-Game.Shared: ✅ succeeded (1.6s)
-Game.ContentBuilder: ✅ succeeded (1.2s)
+RealmEngine.Shared: ✅ succeeded (1.6s)
+RealmForge: ✅ succeeded (1.2s)
 Total: 3.5 seconds
 ```
 
@@ -146,13 +146,13 @@ Total: 3.5 seconds
 
 ```
 console-game/
-├── Game.Shared/              ← Shared library (Day 1)
+├── RealmEngine.Shared/              ← Shared library (Day 1)
 │   ├── Data/Json/           ← 28 JSON files
 │   ├── Data/Models/         ← Data structures
 │   ├── Models/              ← TraitSystem
 │   └── Services/            ← GameDataService
 │
-├── Game.ContentBuilder/      ← NEW WPF application (Day 2)
+├── RealmForge/      ← NEW WPF application (Day 2)
 │   ├── ViewModels/
 │   │   ├── BaseViewModel.cs        ← MVVM base class
 │   │   └── MainViewModel.cs        ← Main window VM
@@ -163,7 +163,7 @@ console-game/
 │   ├── Resources/           ← (Empty - future)
 │   ├── App.xaml             ← Material Design theme
 │   ├── MainWindow.xaml      ← Main UI
-│   └── Game.ContentBuilder.csproj
+│   └── RealmForge.csproj
 │
 ├── Game/                    ← Console game
 ├── Game.Tests/              ← Tests
@@ -191,8 +191,8 @@ console-game/
 
 ### Project Dependencies
 ```
-Game.ContentBuilder
-├── Game.Shared (project reference)
+RealmForge
+├── RealmEngine.Shared (project reference)
 │   └── Serilog (v4.3.0)
 ├── MaterialDesignThemes (v5.1.0)
 │   ├── MaterialDesignColors (v3.1.0)

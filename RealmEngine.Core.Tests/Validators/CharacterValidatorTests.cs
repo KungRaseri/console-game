@@ -1,6 +1,6 @@
 using FluentValidation.TestHelper;
-using Game.Shared.Models;
-using Game.Core.Validators;
+using RealmEngine.Shared.Models;
+using RealmEngine.Core.Validators;
 
 namespace RealmEngine.Core.Tests.Validators;
 

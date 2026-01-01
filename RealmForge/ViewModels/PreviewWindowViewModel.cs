@@ -2,11 +2,11 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Game.ContentBuilder.Services;
-using Game.Shared.Models;
+using RealmForge.Services;
+using RealmEngine.Shared.Models;
 using Serilog;
 
-namespace Game.ContentBuilder.ViewModels;
+namespace RealmForge.ViewModels;
 
 /// <summary>
 /// ViewModel for the Preview Window

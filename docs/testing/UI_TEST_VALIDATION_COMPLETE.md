@@ -151,7 +151,7 @@ error TESTERROR: System.AggregateException :
 #### 1. Successful Process Lifecycle
 
 ```log
-[22:05:17] INF] Launching ContentBuilder from: ...\Game.ContentBuilder.exe
+[22:05:17] INF] Launching ContentBuilder from: ...\RealmForge.exe
 [22:05:17] INF] Application launched successfully. PID: 9076
 [22:05:20] INF] Test completed in 4035ms
 [22:05:20] INF] Starting force cleanup...
@@ -170,7 +170,7 @@ error TESTERROR: System.AggregateException :
   One or more errors occurred. 
   (This operation returned because the timeout period expired. (0x800705B4))
 Stack Trace:
-  at Game.ContentBuilder.Tests.UI.UITestBase.LaunchApplication(Nullable`1 launchTimeout)
+  at RealmForge.Tests.UI.UITestBase.LaunchApplication(Nullable`1 launchTimeout)
     in UITestBase.cs:line 90
 ```
 

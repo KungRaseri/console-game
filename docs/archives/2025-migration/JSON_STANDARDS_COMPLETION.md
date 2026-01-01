@@ -8,7 +8,7 @@
 
 ## Overview
 
-All 113 JSON data files in `Game.Shared/Data/Json/` now meet the requirements defined in [PATTERN_COMPONENT_STANDARDS.md](standards/PATTERN_COMPONENT_STANDARDS.md).
+All 113 JSON data files in `RealmEngine.Shared/Data/Json/` now meet the requirements defined in [PATTERN_COMPONENT_STANDARDS.md](standards/PATTERN_COMPONENT_STANDARDS.md).
 
 ---
 
@@ -340,4 +340,4 @@ The game data is now:
 - **Audit Report:** [docs/JSON_AUDIT_REPORT.md](JSON_AUDIT_REPORT.md)
 - **Standards Doc:** [docs/standards/PATTERN_COMPONENT_STANDARDS.md](standards/PATTERN_COMPONENT_STANDARDS.md)
 - **Automation Script:** [scripts/add-missing-metadata-notes.ps1](../scripts/add-missing-metadata-notes.ps1)
-- **Materials Reference:** [Game.Shared/Data/Json/items/materials/](../Game.Shared/Data/Json/items/materials/)
+- **Materials Reference:** [RealmEngine.Shared/Data/Json/items/materials/](../RealmEngine.Shared/Data/Json/items/materials/)

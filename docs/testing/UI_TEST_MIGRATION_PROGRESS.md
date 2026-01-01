@@ -48,8 +48,8 @@ public class MyUITests : IDisposable
         var exePath = Path.Combine(
             testAssemblyPath,
             "..", "..", "..", "..",
-            "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-            "Game.ContentBuilder.exe"
+            "RealmForge", "bin", "Debug", "net9.0-windows",
+            "RealmForge.exe"
         );
         
         var fullExePath = Path.GetFullPath(exePath);
@@ -194,17 +194,17 @@ Cleanup: Successful
 ## Files Modified
 
 ### Created
-- `Game.ContentBuilder.Tests/UI/UITestBase.cs` (251 lines)
+- `RealmForge.Tests/UI/UITestBase.cs` (251 lines)
 - `docs/testing/UI_TEST_TIMEOUT_FIX.md` (comprehensive guide)
 - `docs/testing/UI_TEST_TIMEOUT_FIX_SUMMARY.md` (executive summary)
 - `docs/testing/UI_TEST_MIGRATION_PROGRESS.md` (this file)
 - `scripts/migrate-ui-tests.ps1` (automation script - not used)
 
 ### Modified
-- `Game.ContentBuilder.Tests/UI/TreeNavigationUITests.cs` (-40 lines)
-- `Game.ContentBuilder.Tests/UI/ContentBuilderUITests.cs` (-35 lines)
-- `Game.ContentBuilder.Tests/UI/AllEditorsUITests.cs` (-40 lines)
-- `Game.ContentBuilder.Tests/UI/HybridArrayEditorUITests.cs` (-42 lines)
+- `RealmForge.Tests/UI/TreeNavigationUITests.cs` (-40 lines)
+- `RealmForge.Tests/UI/ContentBuilderUITests.cs` (-35 lines)
+- `RealmForge.Tests/UI/AllEditorsUITests.cs` (-40 lines)
+- `RealmForge.Tests/UI/HybridArrayEditorUITests.cs` (-42 lines)
 
 **Total lines removed**: ~157 lines  
 **Total lines added**: ~251 lines (UITestBase class)  

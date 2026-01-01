@@ -98,14 +98,14 @@ private async Task SaveFile()
 - ✅ Updated `SaveFile()` to use service
 
 ### NamesEditorViewModel
-- ✅ Added `using Game.ContentBuilder.Services`
+- ✅ Added `using RealmForge.Services`
 - ✅ Added `JsonEditorService` dependency
 - ✅ Renamed `_filePath` → `_storedFileName`
 - ✅ Changed from `LoadFile(string filePath)` to constructor + `LoadData()`
 - ✅ Updated `SaveAsync()` to use service
 
 ### CatalogEditorViewModel
-- ✅ Added `using Game.ContentBuilder.Services`
+- ✅ Added `using RealmForge.Services`
 - ✅ Added `JsonEditorService` dependency
 - ✅ Renamed `_filePath` → `_storedFileName`
 - ✅ Changed from `LoadFile(string filePath)` to constructor + `LoadData()`
@@ -206,7 +206,7 @@ This prevents the `CS0102: already contains a definition for '_fileName'` error.
 ## Build & Test Status
 
 ### Build
-✅ **Game.ContentBuilder** builds successfully in 1.7-5.8s
+✅ **RealmForge** builds successfully in 1.7-5.8s
 ✅ **Game.sln** builds successfully in 3.2-8.7s
 
 ### Tests

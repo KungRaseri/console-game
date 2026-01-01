@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Core.Features.Death;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.Death;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Tests.Features.Death;
 

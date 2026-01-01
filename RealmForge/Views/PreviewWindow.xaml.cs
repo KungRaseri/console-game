@@ -1,7 +1,7 @@
 using System.Windows;
-using Game.ContentBuilder.ViewModels;
+using RealmForge.ViewModels;
 
-namespace Game.ContentBuilder.Views;
+namespace RealmForge.Views;
 
 /// <summary>
 /// Interaction logic for PreviewWindow.xaml

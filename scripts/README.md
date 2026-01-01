@@ -14,7 +14,7 @@ This directory contains essential scripts for building and deploying the game.
 ```
 
 **Output**: Creates `package/` folder in repo root with:
-- `Libraries/` - Game.Core, Game.Shared, Game.Data DLLs
+- `Libraries/` - RealmEngine.Core, RealmEngine.Shared, RealmEngine.Data DLLs
 - `ContentBuilder/` - WPF JSON editor application
 - `Data/Json/` - 186 game data files
 - `package-manifest.json` - Build metadata
@@ -90,9 +90,9 @@ After running `build-game-package.ps1`, the package structure is:
 ```
 package/
 ├── Libraries/
-│   ├── Game.Core/      [74 DLLs]
-│   ├── Game.Shared/    [7 DLLs]
-│   └── Game.Data/      [15 DLLs]
+│   ├── RealmEngine.Core/      [74 DLLs]
+│   ├── RealmEngine.Shared/    [7 DLLs]
+│   └── RealmEngine.Data/      [15 DLLs]
 ├── ContentBuilder/     [232 files - WPF app]
 ├── Data/
 │   └── Json/           [186 JSON files]

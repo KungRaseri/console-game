@@ -91,12 +91,12 @@
 ### Build Status
 ```
 Build succeeded in 11.7s
-✅ Game.Shared → bin\Debug\net9.0\Game.Shared.dll
-✅ Game.Core → bin\Debug\net9.0\Game.Core.dll
-✅ Game.Data → bin\Debug\net9.0\Game.Data.dll
+✅ RealmEngine.Shared → bin\Debug\net9.0\RealmEngine.Shared.dll
+✅ RealmEngine.Core → bin\Debug\net9.0\RealmEngine.Core.dll
+✅ RealmEngine.Data → bin\Debug\net9.0\RealmEngine.Data.dll
 ✅ Game.Console → bin\Debug\net9.0\Game.Console.dll
 ✅ Game.Tests → bin\Debug\net9.0\Game.Tests.dll
-✅ Game.ContentBuilder → bin\Debug\net9.0-windows\Game.ContentBuilder.dll
+✅ RealmForge → bin\Debug\net9.0-windows\RealmForge.dll
 ```
 
 ### Code Metrics

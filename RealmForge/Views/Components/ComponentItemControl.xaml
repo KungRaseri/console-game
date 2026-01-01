@@ -1,8 +1,8 @@
-<UserControl x:Class="Game.ContentBuilder.Views.Components.ComponentItemControl"
+<UserControl x:Class="RealmForge.Views.Components.ComponentItemControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:converters="clr-namespace:Game.ContentBuilder.Converters">
+             xmlns:converters="clr-namespace:RealmForge.Converters">
   <UserControl.Resources>
     <converters:RarityWeightToColorConverter x:Key="RarityWeightToColorConverter"/>
     <converters:RarityWeightToNameConverter x:Key="RarityWeightToNameConverter"/>

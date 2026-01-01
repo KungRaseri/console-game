@@ -12,7 +12,7 @@ This document summarizes the work completed to update the ContentBuilder applica
 
 ### 1. ReferenceResolverService (✅ Complete)
 
-**File**: `Game.ContentBuilder/Services/ReferenceResolverService.cs`  
+**File**: `RealmForge/Services/ReferenceResolverService.cs`  
 **Lines**: ~398 lines  
 **Purpose**: Core service for parsing and resolving JSON v4.1 references
 
@@ -52,7 +52,7 @@ void ClearCache()
 
 ### 2. ReferenceResolverService Unit Tests (✅ Complete)
 
-**File**: `Game.ContentBuilder.Tests/Services/ReferenceResolverServiceTests.cs`  
+**File**: `RealmForge.Tests/Services/ReferenceResolverServiceTests.cs`  
 **Lines**: ~511 lines  
 **Test Count**: 33 tests (all passing ✅)
 
@@ -100,7 +100,7 @@ void ClearCache()
 
 **Test Execution**:
 ```powershell
-dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --filter "Category=Unit&FullyQualifiedName~ReferenceResolverServiceTests"
+dotnet test RealmForge.Tests/RealmForge.Tests.csproj --filter "Category=Unit&FullyQualifiedName~ReferenceResolverServiceTests"
 # Result: 33 passed, 0 failed (Build time: 2.8s, Test time: 1.2s)
 ```
 
@@ -108,7 +108,7 @@ dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --filter 
 
 ### 3. FileTreeService Icon Mappings (✅ Complete)
 
-**File**: `Game.ContentBuilder/Services/FileTreeService.cs`  
+**File**: `RealmForge/Services/FileTreeService.cs`  
 **Changes**: Updated `CategoryIcons` dictionary
 
 **New Domain Icons Added**:
@@ -145,7 +145,7 @@ dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --filter 
 
 ### 4. ReferenceSelectorViewModel Refactoring (✅ Complete - Backend Only)
 
-**File**: `Game.ContentBuilder/ViewModels/ReferenceSelectorViewModel.cs`  
+**File**: `RealmForge/ViewModels/ReferenceSelectorViewModel.cs`  
 **Lines**: ~347 lines (reduced from 573 - 40% smaller)  
 **Status**: ViewModel logic complete, XAML needs updating
 
@@ -227,7 +227,7 @@ UpdatePreview() => _referenceResolver.ResolveReference(reference)
 
 ### 5. ReferenceSelectorDialog XAML (⚠️ Needs Update)
 
-**File**: `Game.ContentBuilder/Views/ReferenceSelectorDialog.xaml`  
+**File**: `RealmForge/Views/ReferenceSelectorDialog.xaml`  
 **Status**: Not updated yet - still references old ReferenceCategory class  
 **Build Error**: `error MC3050: Cannot find the type 'vm:ReferenceCategory'`
 
@@ -260,7 +260,7 @@ UpdatePreview() => _referenceResolver.ResolveReference(reference)
 
 ### 7. Integration Tests
 **Status**: Not started  
-**Scope**: End-to-end tests with real Game.Data catalogs  
+**Scope**: End-to-end tests with real RealmEngine.Data catalogs  
 **Coverage Needed**:
 - Reference resolution across all domains
 - Cross-domain references (e.g., enemies referencing abilities)
@@ -353,16 +353,16 @@ UpdatePreview() => _referenceResolver.ResolveReference(reference)
 ## Files Modified
 
 ### Created:
-- `Game.ContentBuilder/Services/ReferenceResolverService.cs` (398 lines)
-- `Game.ContentBuilder.Tests/Services/ReferenceResolverServiceTests.cs` (511 lines)
+- `RealmForge/Services/ReferenceResolverService.cs` (398 lines)
+- `RealmForge.Tests/Services/ReferenceResolverServiceTests.cs` (511 lines)
 
 ### Modified:
-- `Game.ContentBuilder/Services/FileTreeService.cs` (+24 icon mappings)
-- `Game.ContentBuilder/ViewModels/ReferenceSelectorViewModel.cs` (complete refactor: 573 → 347 lines)
-- `Game.ContentBuilder/Views/ReferenceSelectorDialog.xaml.cs` (updated for new ViewModel)
+- `RealmForge/Services/FileTreeService.cs` (+24 icon mappings)
+- `RealmForge/ViewModels/ReferenceSelectorViewModel.cs` (complete refactor: 573 → 347 lines)
+- `RealmForge/Views/ReferenceSelectorDialog.xaml.cs` (updated for new ViewModel)
 
 ### Needs Update:
-- `Game.ContentBuilder/Views/ReferenceSelectorDialog.xaml` (XAML not updated yet)
+- `RealmForge/Views/ReferenceSelectorDialog.xaml` (XAML not updated yet)
 
 ---
 

@@ -11,7 +11,7 @@ Successfully implemented the Metadata & Notes Panel for ContentBuilder's HybridA
 ## Implementation Summary
 
 ### 1. Created ComponentGroup Model
-**File:** `Game.ContentBuilder/Models/ComponentGroup.cs`
+**File:** `RealmForge/Models/ComponentGroup.cs`
 
 - Moved from embedded ViewModel class to proper Models folder
 - Uses CommunityToolkit.Mvvm `[ObservableProperty]` pattern
@@ -19,7 +19,7 @@ Successfully implemented the Metadata & Notes Panel for ContentBuilder's HybridA
 - Maintains consistency with existing ViewModel usage
 
 ### 2. Created MetadataGenerator Service
-**File:** `Game.ContentBuilder/Services/MetadataGenerator.cs`
+**File:** `RealmForge/Services/MetadataGenerator.cs`
 
 **Purpose:** Auto-generates metadata fields when saving JSON files
 
@@ -50,7 +50,7 @@ InferFileType()
 ```
 
 ### 3. Updated HybridArrayEditorViewModel
-**File:** `Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs`
+**File:** `RealmForge/ViewModels/HybridArrayEditorViewModel.cs`
 
 **Added Metadata Properties:**
 
@@ -81,7 +81,7 @@ InferFileType()
 - Ensures metadata always reflects current file state
 
 ### 4. Updated HybridArrayEditorView XAML
-**File:** `Game.ContentBuilder/Views/HybridArrayEditorView.xaml`
+**File:** `RealmForge/Views/HybridArrayEditorView.xaml`
 
 **Layout Changes:**
 - Converted main grid to **70/30 split layout**
@@ -184,8 +184,8 @@ private static string InferFileType(
 ## Compilation Status
 
 ✅ **All files compile successfully**
-- No errors in Game.ContentBuilder
-- No errors in dependent projects (Game.Core, Game.Shared, Game.Data)
+- No errors in RealmForge
+- No errors in dependent projects (RealmEngine.Core, RealmEngine.Shared, RealmEngine.Data)
 - Build succeeded in 13.4s
 
 ## Testing Checklist
@@ -256,12 +256,12 @@ Implement visual validation indicators showing:
 ## Files Changed
 
 ### Created
-1. `Game.ContentBuilder/Models/ComponentGroup.cs`
-2. `Game.ContentBuilder/Services/MetadataGenerator.cs`
+1. `RealmForge/Models/ComponentGroup.cs`
+2. `RealmForge/Services/MetadataGenerator.cs`
 
 ### Modified
-3. `Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs`
-4. `Game.ContentBuilder/Views/HybridArrayEditorView.xaml`
+3. `RealmForge/ViewModels/HybridArrayEditorViewModel.cs`
+4. `RealmForge/Views/HybridArrayEditorView.xaml`
 
 ### Removed
 - Embedded `ComponentGroup` class from HybridArrayEditorViewModel (moved to Models)

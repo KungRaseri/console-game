@@ -413,11 +413,11 @@ else if (giverType == "military")
 ### Build Validation ✅
 ```
 Build succeeded in 1.6s
-- Game.Shared succeeded (0.1s)
-- Game.Core succeeded (0.1s)
-- Game.Data succeeded (0.1s)
+- RealmEngine.Shared succeeded (0.1s)
+- RealmEngine.Core succeeded (0.1s)
+- RealmEngine.Data succeeded (0.1s)
 - Game.Console succeeded (0.2s)
-- Game.ContentBuilder succeeded (0.2s)
+- RealmForge succeeded (0.2s)
 - Game.Tests succeeded (0.4s)
 ```
 

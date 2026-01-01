@@ -1,6 +1,6 @@
 # Content Builder MVP Implementation Plan
 
-**Project**: Game.ContentBuilder (WPF Desktop Application)  
+**Project**: RealmForge (WPF Desktop Application)  
 **Start Date**: December 14, 2025  
 **Completion Date**: December 14, 2025 ✅  
 **Target Completion**: Phase 1 MVP (Week 1)  
@@ -55,11 +55,11 @@ Create a **WPF desktop application** that allows editing of existing JSON game d
 
 ### New Projects
 
-#### 1. **Game.Shared** (Class Library)
+#### 1. **RealmEngine.Shared** (Class Library)
 **Purpose**: Shared code between Game and ContentBuilder
 
 ```
-Game.Shared/
+RealmEngine.Shared/
 ├── Data/
 │   ├── Models/                    # JSON data models (moved from Game)
 │   │   ├── WeaponPrefixData.cs
@@ -74,18 +74,18 @@ Game.Shared/
 │       └── general/
 ├── Services/
 │   └── GameDataService.cs         # Moved from Game
-└── Game.Shared.csproj
+└── RealmEngine.Shared.csproj
 ```
 
 **Dependencies**:
 - System.Text.Json
 - Serilog (for logging)
 
-#### 2. **Game.ContentBuilder** (WPF Application)
+#### 2. **RealmForge** (WPF Application)
 **Purpose**: Desktop UI for editing game data
 
 ```
-Game.ContentBuilder/
+RealmForge/
 ├── App.xaml                       # Application entry point
 ├── App.xaml.cs
 ├── MainWindow.xaml                # Main application window
@@ -115,11 +115,11 @@ Game.ContentBuilder/
 │   └── BoolToVisibilityConverter.cs
 ├── Resources/                     # Styles and templates
 │   └── Styles.xaml
-└── Game.ContentBuilder.csproj
+└── RealmForge.csproj
 ```
 
 **Dependencies**:
-- Game.Shared (project reference)
+- RealmEngine.Shared (project reference)
 - MaterialDesignThemes.Wpf (v5.1.0) - Modern UI
 - CommunityToolkit.Mvvm (v8.3.2) - MVVM helpers
 - Newtonsoft.Json (v13.0.4) - JSON manipulation
@@ -129,16 +129,16 @@ Game.ContentBuilder/
 
 #### 3. **Game** (Console Application)
 **Changes**:
-- Add reference to `Game.Shared`
-- Remove `Shared/Services/GameDataService.cs` (moved to Game.Shared)
-- Remove `Shared/Data/Models/*.cs` (moved to Game.Shared)
-- Keep `Shared/Data/Json/` as build output (copied from Game.Shared)
-- Update all references to use `Game.Shared` namespace
+- Add reference to `RealmEngine.Shared`
+- Remove `Shared/Services/GameDataService.cs` (moved to RealmEngine.Shared)
+- Remove `Shared/Data/Models/*.cs` (moved to RealmEngine.Shared)
+- Keep `Shared/Data/Json/` as build output (copied from RealmEngine.Shared)
+- Update all references to use `RealmEngine.Shared` namespace
 
 #### 4. **Game.Tests** (Test Project)
 **Changes**:
-- Add reference to `Game.Shared`
-- Update test references to use `Game.Shared` namespace
+- Add reference to `RealmEngine.Shared`
+- Update test references to use `RealmEngine.Shared` namespace
 
 ---
 
@@ -154,27 +154,27 @@ Game.ContentBuilder/
 **Goal**: Create projects and move shared code
 
 **Tasks**:
-1. ✅ Create `Game.Shared` class library project
+1. ✅ Create `RealmEngine.Shared` class library project
    ```bash
-   dotnet new classlib -n Game.Shared -f net9.0
-   dotnet sln add Game.Shared/Game.Shared.csproj
+   dotnet new classlib -n RealmEngine.Shared -f net9.0
+   dotnet sln add RealmEngine.Shared/RealmEngine.Shared.csproj
    ```
 
-2. ✅ Move shared code to `Game.Shared`
-   - ✅ Move `Game/Shared/Services/GameDataService.cs` → `Game.Shared/Services/`
-   - ✅ Move `Game/Shared/Data/Models/*.cs` → `Game.Shared/Data/Models/`
-   - ✅ Copy `Game/Shared/Data/Json/**/*` → `Game.Shared/Data/Json/` (28 files)
-   - ✅ Move `TraitSystem.cs` → `Game.Shared/Models/`
-   - ✅ Update namespaces from `Game.Models` → `Game.Shared.Models`
+2. ✅ Move shared code to `RealmEngine.Shared`
+   - ✅ Move `Game/Shared/Services/GameDataService.cs` → `RealmEngine.Shared/Services/`
+   - ✅ Move `Game/Shared/Data/Models/*.cs` → `RealmEngine.Shared/Data/Models/`
+   - ✅ Copy `Game/Shared/Data/Json/**/*` → `RealmEngine.Shared/Data/Json/` (28 files)
+   - ✅ Move `TraitSystem.cs` → `RealmEngine.Shared/Models/`
+   - ✅ Update namespaces from `Game.Models` → `RealmEngine.Shared.Models`
 
 3. ✅ Update project references
    ```bash
-   dotnet add Game/Game.csproj reference Game.Shared/Game.Shared.csproj
-   dotnet add Game.Tests/Game.Tests.csproj reference Game.Shared/Game.Shared.csproj
+   dotnet add Game/Game.csproj reference RealmEngine.Shared/RealmEngine.Shared.csproj
+   dotnet add Game.Tests/Game.Tests.csproj reference RealmEngine.Shared/RealmEngine.Shared.csproj
    ```
 
 4. ✅ Fix using statements in `Game` and `Game.Tests`
-   - ✅ Added `using Game.Shared.Models;` to 11+ files
+   - ✅ Added `using RealmEngine.Shared.Models;` to 11+ files
    - ✅ Updated all namespace references
 
 5. ✅ Configure JSON file copying
@@ -204,14 +204,14 @@ Game.ContentBuilder/
 **Tasks**:
 1. ✅ Create WPF application project
    ```bash
-   dotnet new wpf -n Game.ContentBuilder -f net9.0
-   dotnet sln add Game.ContentBuilder/Game.ContentBuilder.csproj
-   dotnet add Game.ContentBuilder reference Game.Shared
+   dotnet new wpf -n RealmForge -f net9.0
+   dotnet sln add RealmForge/RealmForge.csproj
+   dotnet add RealmForge reference RealmEngine.Shared
    ```
 
 2. ✅ Add NuGet packages
    ```bash
-   cd Game.ContentBuilder
+   cd RealmForge
    dotnet add package MaterialDesignThemes --version 5.1.0
    dotnet add package CommunityToolkit.Mvvm --version 8.3.2
    dotnet add package Newtonsoft.Json --version 13.0.4
@@ -500,7 +500,7 @@ Game.ContentBuilder/
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Game.ContentBuilder.ViewModels;
+namespace RealmForge.ViewModels;
 
 public abstract class BaseViewModel : INotifyPropertyChanged
 {
@@ -529,7 +529,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Game.ContentBuilder.ViewModels;
+namespace RealmForge.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
@@ -622,10 +622,10 @@ public partial class MainViewModel : ObservableObject
 ```csharp
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Game.Shared.Data.Models;
-using Game.ContentBuilder.Services;
+using RealmEngine.Shared.Data.Models;
+using RealmForge.Services;
 
-namespace Game.ContentBuilder.ViewModels;
+namespace RealmForge.ViewModels;
 
 public partial class ItemEditorViewModel : ObservableObject
 {
@@ -744,7 +744,7 @@ public partial class ItemEditorViewModel : ObservableObject
 
 ### Build Configuration
 ```xml
-<!-- Game.ContentBuilder.csproj -->
+<!-- RealmForge.csproj -->
 <PropertyGroup>
   <OutputType>WinExe</OutputType>
   <TargetFramework>net9.0-windows</TargetFramework>
@@ -758,7 +758,7 @@ public partial class ItemEditorViewModel : ObservableObject
 
 ### Publish Command
 ```bash
-dotnet publish Game.ContentBuilder -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+dotnet publish RealmForge -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 ```
 
 **Output**: Single `.exe` file in `bin/Release/net9.0-windows/win-x64/publish/`
@@ -770,7 +770,7 @@ dotnet publish Game.ContentBuilder -c Release -r win-x64 --self-contained true -
 ### Files to Create
 1. `docs/guides/CONTENT_BUILDER_GUIDE.md` - User guide for ContentBuilder
 2. `docs/guides/MODDING_GUIDE.md` - Guide for creating custom content
-3. `Game.ContentBuilder/README.md` - Technical documentation
+3. `RealmForge/README.md` - Technical documentation
 
 ### Updates to Existing Docs
 1. `README.md` - Add ContentBuilder section

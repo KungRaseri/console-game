@@ -27,7 +27,7 @@ Phase C focused on completing the hybrid enhancement system v1.0 by fixing the t
 - ✅ Wildcard with filters: `@items/materials/metals:*[itemTypeTraits.weapon=true]`
 
 **Files Modified**:
-- `Game.Data/Services/ReferenceResolverService.cs` (extended to 363 lines)
+- `RealmEngine.Data/Services/ReferenceResolverService.cs` (extended to 363 lines)
 
 ### 2. ✅ Simple Trait Structure Support
 
@@ -57,7 +57,7 @@ Phase C focused on completing the hybrid enhancement system v1.0 by fixing the t
 ```
 
 **Files Modified**:
-- `Game.Core/Generators/Modern/ItemGenerator.cs` (619 lines)
+- `RealmEngine.Core/Generators/Modern/ItemGenerator.cs` (619 lines)
 
 ### 3. ✅ Item Generation By Name
 
@@ -69,7 +69,7 @@ Phase C focused on completing the hybrid enhancement system v1.0 by fixing the t
 - Test validates that generated item has correct base type
 
 **Files Modified**:
-- `Game.Core.Tests/Generators/ItemGeneratorTests.cs`
+- `RealmEngine.Core.Tests/Generators/ItemGeneratorTests.cs`
 
 ## Test Results
 
@@ -113,11 +113,11 @@ Apply material traits to item (durability, weight, enchantability)
 ## Files Changed Summary
 
 ### Core Implementation (2 files)
-- `Game.Data/Services/ReferenceResolverService.cs` - Filter syntax and wildcard support
-- `Game.Core/Generators/Modern/ItemGenerator.cs` - Trait structure flexibility
+- `RealmEngine.Data/Services/ReferenceResolverService.cs` - Filter syntax and wildcard support
+- `RealmEngine.Core/Generators/Modern/ItemGenerator.cs` - Trait structure flexibility
 
 ### Tests (1 file)
-- `Game.Core.Tests/Generators/ItemGeneratorTests.cs` - Fixed item-by-name test
+- `RealmEngine.Core.Tests/Generators/ItemGeneratorTests.cs` - Fixed item-by-name test
 
 ## Validation
 

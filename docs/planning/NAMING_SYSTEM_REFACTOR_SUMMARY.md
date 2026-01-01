@@ -50,7 +50,7 @@
 
 ### 2. ✅ Proof-of-Concept File Created
 
-**File**: `Game.Shared/Data/Json/items/weapons/names_v4.json`
+**File**: `RealmEngine.Shared/Data/Json/items/weapons/names_v4.json`
 
 **Contains**:
 - **68 total components** across 5 component groups:
@@ -171,7 +171,7 @@
 ### ContentBuilder UI
 
 **What to Test**:
-1. Open `Game.Shared/Data/Json/items/weapons/names_v4.json`
+1. Open `RealmEngine.Shared/Data/Json/items/weapons/names_v4.json`
 2. Verify Components tab shows first (not Items tab)
 3. Check all 5 component groups appear (prefix, material, quality, descriptive, suffix)
 4. Verify components display as "Value (weight: N)"
@@ -230,7 +230,7 @@ docs/planning/
   ├── NAMING_SYSTEM_REFACTOR_COMPLETE.md       (NEW - 350+ lines)
   └── NAMING_SYSTEM_REFACTOR_SUMMARY.md        (NEW - THIS FILE)
 
-Game.Shared/Data/Json/items/weapons/
+RealmEngine.Shared/Data/Json/items/weapons/
   └── names_v4.json                             (NEW - 1,100+ lines)
 ```
 
@@ -240,17 +240,17 @@ Game.Shared/Data/Json/items/weapons/
 docs/standards/
   └── PATTERN_COMPONENT_STANDARDS.md           (UPDATED - Added v4.0 spec)
 
-Game.ContentBuilder/ViewModels/
+RealmForge/ViewModels/
   └── HybridArrayEditorViewModel.cs            (UPDATED - Added SelectedTabIndex)
 
-Game.ContentBuilder/Views/
+RealmForge/Views/
   └── HybridArrayEditorView.xaml               (UPDATED - Bound SelectedIndex)
 ```
 
 ### Legacy Files (To Deprecate Later)
 
 ```
-Game.Shared/Data/Json/items/weapons/
+RealmEngine.Shared/Data/Json/items/weapons/
   ├── prefixes.json                            (LEGACY - Merge into names.json)
   └── suffixes.json                            (LEGACY - Merge into names.json)
 ```
@@ -284,10 +284,10 @@ Game.Shared/Data/Json/items/weapons/
 4. **Replace Original File** (if approved):
    ```powershell
    # Backup original
-   mv Game.Shared/Data/Json/items/weapons/names.json names_v3_backup.json
+   mv RealmEngine.Shared/Data/Json/items/weapons/names.json names_v3_backup.json
    
    # Replace with v4.0
-   mv Game.Shared/Data/Json/items/weapons/names_v4.json names.json
+   mv RealmEngine.Shared/Data/Json/items/weapons/names_v4.json names.json
    
    # Deprecate old files
    mv prefixes.json prefixes.deprecated.json

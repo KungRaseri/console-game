@@ -222,17 +222,17 @@ To handle the different JSON structures in our item files, we created **three sp
 
 ### Build Verification
 ```powershell
-PS> dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
+PS> dotnet build RealmForge/RealmForge.csproj
 # Result: ✅ Build succeeded in 2.1s
-# - Game.Shared: 0.3s
-# - Game.ContentBuilder: 1.1s
+# - RealmEngine.Shared: 0.3s
+# - RealmForge: 1.1s
 # - Warnings: 0
 # - Errors: 0
 ```
 
 ### Application Verification
 ```powershell
-PS> dotnet run --project Game.ContentBuilder
+PS> dotnet run --project RealmForge
 # Result: ✅ Application running
 # - All 8 item files appear in TreeView
 # - NameListEditor loads weapon_names.json

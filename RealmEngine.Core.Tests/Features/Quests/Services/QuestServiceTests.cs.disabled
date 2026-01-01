@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Core.Features.SaveLoad;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.SaveLoad;
+using RealmEngine.Shared.Models;
 using Moq;
 
 namespace Game.Tests.Features.Quests.Services;

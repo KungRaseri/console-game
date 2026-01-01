@@ -1,7 +1,7 @@
 using FluentAssertions;
-using Game.Core.Features.SaveLoad;
-using Game.Core.Features.Victory.Services;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.SaveLoad;
+using RealmEngine.Core.Features.Victory.Services;
+using RealmEngine.Shared.Models;
 using Moq;
 
 namespace RealmEngine.Core.Tests.Features.Victory.Services;

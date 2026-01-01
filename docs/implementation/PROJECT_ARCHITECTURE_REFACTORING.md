@@ -8,11 +8,11 @@
 ## 🎯 Objective
 
 Restructure the solution to support multiple UI frontends (Console, WPF ContentBuilder, future web/mobile) by separating:
-- **Business Logic** (Game.Core)
-- **Data Access** (Game.Data)
-- **Shared Resources** (Game.Shared)
+- **Business Logic** (RealmEngine.Core)
+- **Data Access** (RealmEngine.Data)
+- **Shared Resources** (RealmEngine.Shared)
 - **Console UI** (Game.Console - renamed from Game)
-- **WPF Editor** (Game.ContentBuilder - existing)
+- **WPF Editor** (RealmForge - existing)
 
 ---
 
@@ -20,7 +20,7 @@ Restructure the solution to support multiple UI frontends (Console, WPF ContentB
 
 ```
 console-game/
-├── Game.Core/              ✨ NEW: Core game logic (UI-agnostic)
+├── RealmEngine.Core/              ✨ NEW: Core game logic (UI-agnostic)
 │   ├── Features/           ← CQRS handlers, commands, queries
 │   ├── Models/             ← Domain models (Character, Item, etc.)
 │   ├── Services/           ← Business services (LevelUpService, etc.)
@@ -29,12 +29,12 @@ console-game/
 │   ├── Events/             ← Domain events
 │   └── Settings/           ← Configuration classes
 │
-├── Game.Data/              ✨ NEW: Data access layer
+├── RealmEngine.Data/              ✨ NEW: Data access layer
 │   ├── Repositories/       ← LiteDB repositories
 │   ├── Services/           ← Data services (SaveGameService, etc.)
 │   └── Models/             ← Database-specific models (if needed)
 │
-├── Game.Shared/            ✅ EXISTING: Shared utilities & data
+├── RealmEngine.Shared/            ✅ EXISTING: Shared utilities & data
 │   ├── Data/Json/          ← JSON game content files
 │   ├── Models/             ← Shared DTOs
 │   └── Services/           ← JsonDataService
@@ -46,7 +46,7 @@ console-game/
 │   ├── GameEngine.cs       ← Console game loop
 │   └── Audio/              ← NAudio (console-specific)
 │
-├── Game.ContentBuilder/    ✅ EXISTING: WPF editor
+├── RealmForge/    ✅ EXISTING: WPF editor
 │   └── (WPF application)
 │
 └── Game.Tests/             ✅ EXISTING: All tests
@@ -58,14 +58,14 @@ console-game/
 ## 📦 Project Dependencies
 
 ```
-Game.Console  ─┬─→  Game.Core  ─┬─→  Game.Data  ──→  Game.Shared
+Game.Console  ─┬─→  RealmEngine.Core  ─┬─→  RealmEngine.Data  ──→  RealmEngine.Shared
                │                 │
-               └─→  Game.Data ───┘
+               └─→  RealmEngine.Data ───┘
                
-Game.ContentBuilder  ──→  Game.Data  ──→  Game.Shared
+RealmForge  ──→  RealmEngine.Data  ──→  RealmEngine.Shared
 
-Game.Tests  ──→  Game.Core
-            ──→  Game.Data
+Game.Tests  ──→  RealmEngine.Core
+            ──→  RealmEngine.Data
             ──→  Game.Console
 ```
 
@@ -74,13 +74,13 @@ Game.Tests  ──→  Game.Core
 ## 📋 Migration Checklist
 
 ### Phase 1: Create New Projects ✅
-- [x] Create Game.Core class library
-- [x] Create Game.Data class library
+- [x] Create RealmEngine.Core class library
+- [x] Create RealmEngine.Data class library
 - [x] Add to solution
 - [x] Configure project files with packages
 
-### Phase 2: Move Code to Game.Core
-**From Game/ → Game.Core/**
+### Phase 2: Move Code to RealmEngine.Core
+**From Game/ → RealmEngine.Core/**
 
 - [ ] Features/ (all CQRS code)
   - [ ] Achievement/
@@ -129,8 +129,8 @@ Game.Tests  ──→  Game.Core
   - [ ] DiceRoller.cs
   - [ ] (shared utilities)
 
-### Phase 3: Move Code to Game.Data
-**From Game/Shared/Data/ → Game.Data/**
+### Phase 3: Move Code to RealmEngine.Data
+**From Game/Shared/Data/ → RealmEngine.Data/**
 
 - [ ] Repositories/
   - [ ] SaveGameRepository.cs
@@ -141,7 +141,7 @@ Game.Tests  ──→  Game.Core
   - [ ] JsonDataService.cs (if it loads JSON)
   - [ ] SaveGameService.cs (if exists)
 
-### Phase 4: Keep in Game.Shared
+### Phase 4: Keep in RealmEngine.Shared
 **No changes needed**
 
 - [x] Data/Json/ (all JSON files)
@@ -165,40 +165,40 @@ Game.Tests  ──→  Game.Core
 ### Phase 6: Update References
 
 - [ ] Game.Console.csproj
-  - [ ] Add reference to Game.Core
-  - [ ] Add reference to Game.Data
+  - [ ] Add reference to RealmEngine.Core
+  - [ ] Add reference to RealmEngine.Data
   - [ ] Keep Spectre.Console, NAudio
 
-- [ ] Game.ContentBuilder.csproj
-  - [ ] Already references Game.Shared ✅
-  - [ ] Add reference to Game.Data (if needed)
+- [ ] RealmForge.csproj
+  - [ ] Already references RealmEngine.Shared ✅
+  - [ ] Add reference to RealmEngine.Data (if needed)
 
 - [ ] Game.Tests.csproj
-  - [ ] Add reference to Game.Core
-  - [ ] Add reference to Game.Data
+  - [ ] Add reference to RealmEngine.Core
+  - [ ] Add reference to RealmEngine.Data
   - [ ] Update reference from Game → Game.Console
 
 ### Phase 7: Update Namespaces
 
-- [ ] Change `namespace Game;` → `namespace Game.Core;` (in Core files)
-- [ ] Change `namespace Game;` → `namespace Game.Data;` (in Data files)
+- [ ] Change `namespace Game;` → `namespace RealmEngine.Core;` (in Core files)
+- [ ] Change `namespace Game;` → `namespace RealmEngine.Data;` (in Data files)
 - [ ] Change `namespace Game;` → `namespace Game.Console;` (in Console files)
 - [ ] Update all `using Game;` statements
 
 ### Phase 8: Fix Compilation & Test
 
-- [ ] Build Game.Shared
-- [ ] Build Game.Data
-- [ ] Build Game.Core
+- [ ] Build RealmEngine.Shared
+- [ ] Build RealmEngine.Data
+- [ ] Build RealmEngine.Core
 - [ ] Build Game.Console
-- [ ] Build Game.ContentBuilder
+- [ ] Build RealmForge
 - [ ] Run all tests (379 tests should still pass)
 
 ---
 
 ## 🎯 Expected Benefits
 
-1. **UI Agnostic**: Game.Core has zero UI dependencies
+1. **UI Agnostic**: RealmEngine.Core has zero UI dependencies
 2. **Reusability**: Multiple UIs can share same business logic
 3. **Testability**: Test core logic without UI
 4. **Maintainability**: Clear separation of concerns
@@ -209,18 +209,18 @@ Game.Tests  ──→  Game.Core
 ## 🚧 Potential Issues & Solutions
 
 ### Issue 1: Circular Dependencies
-**Problem**: Game.Core needs IConsoleUI for events, but IConsoleUI is in Game.Console
+**Problem**: RealmEngine.Core needs IConsoleUI for events, but IConsoleUI is in Game.Console
 
 **Solution**: 
-- Create `Game.Core/Abstractions/IGameUI.cs` (generic interface)
+- Create `RealmEngine.Core/Abstractions/IGameUI.cs` (generic interface)
 - Move IConsoleUI → Game.Console
-- Game.Core uses IGameUI, Game.Console implements it
+- RealmEngine.Core uses IGameUI, Game.Console implements it
 
 ### Issue 2: Shared Event Handlers
 **Problem**: Some event handlers use ConsoleUI
 
 **Solution**:
-- Keep event handler base in Game.Core
+- Keep event handler base in RealmEngine.Core
 - Console-specific handlers in Game.Console
 - Use dependency injection for UI
 
@@ -243,9 +243,9 @@ Game.Tests  ──→  Game.Core
 ## 📝 Next Steps
 
 1. ✅ Create new projects (DONE)
-2. 🔄 Move Features/ to Game.Core (IN PROGRESS)
-3. Move Models/ to Game.Core
-4. Move Services/ to Game.Core/Data based on responsibility
+2. 🔄 Move Features/ to RealmEngine.Core (IN PROGRESS)
+3. Move Models/ to RealmEngine.Core
+4. Move Services/ to RealmEngine.Core/Data based on responsibility
 5. Rename Game → Game.Console
 6. Update all references and namespaces
 7. Build and test
@@ -257,7 +257,7 @@ Game.Tests  ──→  Game.Core
 - [ ] All 5 projects build successfully
 - [ ] All 379 tests pass
 - [ ] Game.Console runs without errors
-- [ ] Game.ContentBuilder runs without errors
+- [ ] RealmForge runs without errors
 - [ ] No circular dependencies
 - [ ] Clean project references (Data → Shared, Core → Data, Console → Core)
 

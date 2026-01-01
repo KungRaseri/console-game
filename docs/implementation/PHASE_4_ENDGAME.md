@@ -880,7 +880,7 @@ public class GetUnlockedAchievementsHandler : IRequestHandler<GetUnlockedAchieve
 ```csharp
 using Game.Models;
 using Game.Features.SaveLoad;
-using Game.Shared.UI;
+using RealmEngine.Shared.UI;
 using Serilog;
 
 namespace Game.Features.Achievement.Services;
@@ -1287,7 +1287,7 @@ public class NewGamePlusService
 
 ```csharp
 using MediatR;
-using Game.Shared.UI;
+using RealmEngine.Shared.UI;
 using Game.Features.Victory.Commands;
 using Serilog;
 

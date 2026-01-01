@@ -224,7 +224,7 @@ quests/locations/wilderness.json
 
 ### File Structure
 ```
-Game.ContentBuilder/
+RealmForge/
 ├── ViewModels/
 │   ├── AbilitiesEditorViewModel.cs          ✅
 │   ├── GenericCatalogEditorViewModel.cs     ✅

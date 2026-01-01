@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Core.Features.CharacterCreation.Queries;
-using Game.Data.Repositories;
+using RealmEngine.Core.Features.CharacterCreation.Queries;
+using RealmEngine.Data.Repositories;
 
 namespace RealmEngine.Core.Tests.Features.CharacterCreation.Queries;
 

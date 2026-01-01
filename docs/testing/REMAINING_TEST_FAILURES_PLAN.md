@@ -14,7 +14,7 @@
 ```
 System.AggregateException : One or more errors occurred. 
 (This operation returned because the timeout period expired. (0x800705B4))
-  at Game.ContentBuilder.Tests.UI.UITestBase.LaunchApplication(Nullable`1 launchTimeout)
+  at RealmForge.Tests.UI.UITestBase.LaunchApplication(Nullable`1 launchTimeout)
 ```
 
 **Affected Tests**:
@@ -40,7 +40,7 @@ System.AggregateException : One or more errors occurred.
 **Original Error Pattern**:
 ```
 System.NullReferenceException : Object reference not set to an instance of an object.
-  at Game.ContentBuilder.Tests.UI.NameCatalogEditorUITests.NavigateToFirstNamesEditor()
+  at RealmForge.Tests.UI.NameCatalogEditorUITests.NavigateToFirstNamesEditor()
     in NameCatalogEditorUITests.cs:line 223
 ```
 
@@ -63,7 +63,7 @@ System.AggregateException : One or more errors occurred.
 - ✅ Used ExecuteWithTimeout for robustness
 
 **Real Issue Discovered**:
-The tests create test data in a temp directory (`_testDataPath`) and set environment variable `CONTENTBUILDER_DATA_PATH`, but ContentBuilder doesn't load from it. The app loads from default path `C:\code\console-game\Game.Shared\Data\Json`, which doesn't have a "Names" node.
+The tests create test data in a temp directory (`_testDataPath`) and set environment variable `CONTENTBUILDER_DATA_PATH`, but ContentBuilder doesn't load from it. The app loads from default path `C:\code\console-game\RealmEngine.Shared\Data\Json`, which doesn't have a "Names" node.
 
 **Fix Needed**: 
 - Option 1: Make ContentBuilder respect `CONTENTBUILDER_DATA_PATH` environment variable

@@ -50,15 +50,15 @@ Successfully completed **Option D - Full migration** of the naming system from s
 |------|---------|-------|--------|
 | `docs/planning/NAMING_SYSTEM_REFACTOR_PROPOSAL.md` | Original proposal and benefits analysis | 400+ | ✅ Complete |
 | `docs/planning/NAMING_SYSTEM_MIGRATION_GUIDE.md` | Step-by-step migration instructions | 450+ | ✅ Complete |
-| `Game.Shared/Data/Json/items/weapons/names_v4.json` | Proof-of-concept unified file | 1100+ | ✅ Complete |
+| `RealmEngine.Shared/Data/Json/items/weapons/names_v4.json` | Proof-of-concept unified file | 1100+ | ✅ Complete |
 
 ### Modified Files
 
 | File | Changes Made | Status |
 |------|--------------|--------|
 | `docs/standards/PATTERN_COMPONENT_STANDARDS.md` | Added v4.0 unified naming section, deprecated legacy structure | ✅ Complete |
-| `Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs` | Added `SelectedTabIndex` for default tab control | ✅ Complete |
-| `Game.ContentBuilder/Views/HybridArrayEditorView.xaml` | Bound TabControl to `SelectedTabIndex` property | ✅ Complete |
+| `RealmForge/ViewModels/HybridArrayEditorViewModel.cs` | Added `SelectedTabIndex` for default tab control | ✅ Complete |
+| `RealmForge/Views/HybridArrayEditorView.xaml` | Bound TabControl to `SelectedTabIndex` property | ✅ Complete |
 
 ---
 
@@ -314,7 +314,7 @@ Emergent Rarity: Blessed (15) × Mithril (50) × of Fire (30) = **Epic/Legendary
 
 ### Data (1 file, 1100+ lines)
 
-4. `Game.Shared/Data/Json/items/weapons/names_v4.json` - Proof-of-concept
+4. `RealmEngine.Shared/Data/Json/items/weapons/names_v4.json` - Proof-of-concept
 
 ### Standards (1 file updated)
 

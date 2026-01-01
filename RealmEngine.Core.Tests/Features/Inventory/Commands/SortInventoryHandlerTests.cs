@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Core.Features.Inventory.Commands;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.Inventory.Commands;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Tests.Features.Inventory.Commands;
 

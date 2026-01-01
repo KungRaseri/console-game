@@ -9,7 +9,7 @@ The ContentBuilder UI tests were experiencing critical issues:
 ## Solution Implemented
 
 ### 1. Created `UITestBase` Abstract Class
-**Location**: `Game.ContentBuilder.Tests/UI/UITestBase.cs`
+**Location**: `RealmForge.Tests/UI/UITestBase.cs`
 
 **Key Features**:
 - ✅ **Guaranteed cleanup** with finalizer (`~UITestBase()`)
@@ -142,12 +142,12 @@ private void ForceCleanup()
 ## Files Created/Modified
 
 ### Created
-- `Game.ContentBuilder.Tests/UI/UITestBase.cs` (251 lines)
+- `RealmForge.Tests/UI/UITestBase.cs` (251 lines)
 - `docs/testing/UI_TEST_TIMEOUT_FIX.md` (comprehensive guide)
 - `docs/testing/UI_TEST_TIMEOUT_FIX_SUMMARY.md` (this file)
 
 ### Modified
-- `Game.ContentBuilder.Tests/UI/TreeNavigationUITests.cs`
+- `RealmForge.Tests/UI/TreeNavigationUITests.cs`
   - Changed base class from `IDisposable` to `UITestBase`
   - Removed constructor boilerplate (40 lines → 10 lines)
   - Removed Dispose() method

@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Core.Features.Combat.Queries.GetCombatState;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.Combat.Queries.GetCombatState;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Tests.Features.Combat.Queries;
 

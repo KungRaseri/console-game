@@ -1,11 +1,11 @@
 using System.IO;
 using FluentAssertions;
-using Game.ContentBuilder.Models;
-using Game.ContentBuilder.Services;
+using RealmForge.Models;
+using RealmForge.Services;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.Integration;
+namespace RealmForge.Tests.Integration;
 
 /// <summary>
 /// Integration tests for new CRUD functionality

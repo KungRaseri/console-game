@@ -53,7 +53,7 @@ Executed aggressive cleanup of ContentBuilder, removing **~50 files** and **~200
 - **ViewModel:** AbilitiesEditorViewModel.cs
 - **File Type:** JsonFileType.AbilityCatalog → EditorType.AbilitiesEditor
 - **Status:** ✅ Working | ⚠️ Missing AutomationIDs (TBD)
-- **Usage:** 13 enemy ability catalogs in `Game.Data/Data/Json/enemies/*/ability_catalog.json`
+- **Usage:** 13 enemy ability catalogs in `RealmEngine.Data/Data/Json/enemies/*/ability_catalog.json`
 
 ### 4. **MainWindow.xaml** ✅ ACTIVE
 - **Purpose:** Main application window with TreeView navigation
@@ -254,10 +254,10 @@ public class PropertyTypeConverter : IValueConverter  // ❌ PropertyType class 
 ### Build Status: ✅ PASSING
 ```
 Build succeeded in 14.3s
-  Game.Shared succeeded (2.6s)
-  Game.Core succeeded (1.9s)
-  Game.Data succeeded (0.9s)
-  Game.ContentBuilder succeeded (7.5s)
+  RealmEngine.Shared succeeded (2.6s)
+  RealmEngine.Core succeeded (1.9s)
+  RealmEngine.Data succeeded (0.9s)
+  RealmForge succeeded (7.5s)
 ```
 
 ### Code Metrics
@@ -335,7 +335,7 @@ Build succeeded in 14.3s
 
 **Existing Test Files to Review:**
 ```
-Game.ContentBuilder.Tests/UI/
+RealmForge.Tests/UI/
 ├── NameListEditorTests.cs       ✅ KEEP (active editor)
 ├── CatalogEditorTests.cs        ✅ KEEP (active editor)
 ├── AbilitiesEditorTests.cs      ✅ KEEP (active editor)
@@ -350,7 +350,7 @@ Game.ContentBuilder.Tests/UI/
 
 **Existing Integration Tests:**
 ```
-Game.ContentBuilder.Tests/Integration/
+RealmForge.Tests/Integration/
 ├── FileLoadTests.cs             ⚠️ Review for obsolete file types
 ├── SaveWorkflowTests.cs         ⚠️ Review for deleted editors
 └── DataMigrationTests.cs        ⚠️ May reference old structures
@@ -365,10 +365,10 @@ Game.ContentBuilder.Tests/Integration/
 #### 1.1 Delete Obsolete UI Tests ⏳
 ```powershell
 # Delete UI test files for removed editors
-Remove-Item "c:\code\console-game\Game.ContentBuilder.Tests\UI\ItemEditorTests.cs" -ErrorAction SilentlyContinue
-Remove-Item "c:\code\console-game\Game.ContentBuilder.Tests\UI\HybridArrayEditorTests.cs" -ErrorAction SilentlyContinue
-Remove-Item "c:\code\console-game\Game.ContentBuilder.Tests\UI\GenericCatalogEditorTests.cs" -ErrorAction SilentlyContinue
-Remove-Item "c:\code\console-game\Game.ContentBuilder.Tests\UI\QuestCatalogEditorTests.cs" -ErrorAction SilentlyContinue
+Remove-Item "c:\code\console-game\RealmForge.Tests\UI\ItemEditorTests.cs" -ErrorAction SilentlyContinue
+Remove-Item "c:\code\console-game\RealmForge.Tests\UI\HybridArrayEditorTests.cs" -ErrorAction SilentlyContinue
+Remove-Item "c:\code\console-game\RealmForge.Tests\UI\GenericCatalogEditorTests.cs" -ErrorAction SilentlyContinue
+Remove-Item "c:\code\console-game\RealmForge.Tests\UI\QuestCatalogEditorTests.cs" -ErrorAction SilentlyContinue
 # ... etc
 ```
 
@@ -379,7 +379,7 @@ Remove-Item "c:\code\console-game\Game.ContentBuilder.Tests\UI\QuestCatalogEdito
 
 #### 1.3 Verify Test Build ⏳
 ```powershell
-dotnet test c:\code\console-game\Game.ContentBuilder.Tests\Game.ContentBuilder.Tests.csproj
+dotnet test c:\code\console-game\RealmForge.Tests\RealmForge.Tests.csproj
 ```
 
 ### PHASE 2: Add AutomationIDs (High Priority)
@@ -403,7 +403,7 @@ dotnet test c:\code\console-game\Game.ContentBuilder.Tests\Game.ContentBuilder.T
 
 #### 2.5 Run UI Tests and Verify ⏳
 ```powershell
-dotnet test c:\code\console-game\Game.ContentBuilder.Tests\Game.ContentBuilder.Tests.csproj --filter "Category=UI"
+dotnet test c:\code\console-game\RealmForge.Tests\RealmForge.Tests.csproj --filter "Category=UI"
 ```
 
 **Expected Result:** 40/45 tests passing (89% pass rate)
@@ -412,7 +412,7 @@ dotnet test c:\code\console-game\Game.ContentBuilder.Tests\Game.ContentBuilder.T
 
 #### 3.1 Create NameListEditorViewModel Tests ⏳
 ```csharp
-// Game.ContentBuilder.Tests/ViewModels/NameListEditorViewModelTests.cs
+// RealmForge.Tests/ViewModels/NameListEditorViewModelTests.cs
 [Trait("Category", "ViewModel")]
 public class NameListEditorViewModelTests
 {
@@ -441,7 +441,7 @@ public class NameListEditorViewModelTests
 
 #### 3.2 Create CatalogEditorViewModel Tests ⏳
 ```csharp
-// Game.ContentBuilder.Tests/ViewModels/CatalogEditorViewModelTests.cs
+// RealmForge.Tests/ViewModels/CatalogEditorViewModelTests.cs
 [Trait("Category", "ViewModel")]
 public class CatalogEditorViewModelTests
 {
@@ -476,7 +476,7 @@ public class CatalogEditorViewModelTests
 
 #### 3.3 Create AbilitiesEditorViewModel Tests ⏳
 ```csharp
-// Game.ContentBuilder.Tests/ViewModels/AbilitiesEditorViewModelTests.cs
+// RealmForge.Tests/ViewModels/AbilitiesEditorViewModelTests.cs
 [Trait("Category", "ViewModel")]
 public class AbilitiesEditorViewModelTests
 {
@@ -578,23 +578,23 @@ public class AbilitiesEditorViewModelTests
 ## 🔗 References
 
 ### Active Editor Files
-- [NameListEditorView.xaml](Game.ContentBuilder/Views/NameListEditorView.xaml)
-- [NameListEditorViewModel.cs](Game.ContentBuilder/ViewModels/NameListEditorViewModel.cs)
-- [CatalogEditorView.xaml](Game.ContentBuilder/Views/CatalogEditorView.xaml)
-- [CatalogEditorViewModel.cs](Game.ContentBuilder/ViewModels/CatalogEditorViewModel.cs)
-- [AbilitiesEditorView.xaml](Game.ContentBuilder/Views/AbilitiesEditorView.xaml)
-- [AbilitiesEditorViewModel.cs](Game.ContentBuilder/ViewModels/AbilitiesEditorViewModel.cs)
+- [NameListEditorView.xaml](RealmForge/Views/NameListEditorView.xaml)
+- [NameListEditorViewModel.cs](RealmForge/ViewModels/NameListEditorViewModel.cs)
+- [CatalogEditorView.xaml](RealmForge/Views/CatalogEditorView.xaml)
+- [CatalogEditorViewModel.cs](RealmForge/ViewModels/CatalogEditorViewModel.cs)
+- [AbilitiesEditorView.xaml](RealmForge/Views/AbilitiesEditorView.xaml)
+- [AbilitiesEditorViewModel.cs](RealmForge/ViewModels/AbilitiesEditorViewModel.cs)
 
 ### Infrastructure Files
-- [MainViewModel.cs](Game.ContentBuilder/ViewModels/MainViewModel.cs)
-- [CategoryNode.cs](Game.ContentBuilder/Models/CategoryNode.cs)
-- [FileTypeDetector.cs](Game.ContentBuilder/Services/FileTypeDetector.cs)
-- [CatalogConverters.cs](Game.ContentBuilder/Converters/CatalogConverters.cs)
+- [MainViewModel.cs](RealmForge/ViewModels/MainViewModel.cs)
+- [CategoryNode.cs](RealmForge/Models/CategoryNode.cs)
+- [FileTypeDetector.cs](RealmForge/Services/FileTypeDetector.cs)
+- [CatalogConverters.cs](RealmForge/Converters/CatalogConverters.cs)
 
 ### Test Files
-- [Game.ContentBuilder.Tests/UI/](Game.ContentBuilder.Tests/UI/)
-- [Game.ContentBuilder.Tests/Integration/](Game.ContentBuilder.Tests/Integration/)
-- [Game.ContentBuilder.Tests/ViewModels/](Game.ContentBuilder.Tests/ViewModels/) (to be created)
+- [RealmForge.Tests/UI/](RealmForge.Tests/UI/)
+- [RealmForge.Tests/Integration/](RealmForge.Tests/Integration/)
+- [RealmForge.Tests/ViewModels/](RealmForge.Tests/ViewModels/) (to be created)
 
 ---
 

@@ -15,7 +15,7 @@ Created a new editor type (`FlatItemEditor`) to support JSON files with flat str
 ## Files Created
 
 ### 1. **FlatItemEditorViewModel.cs** (280 lines)
-**Location**: `Game.ContentBuilder/ViewModels/FlatItemEditorViewModel.cs`
+**Location**: `RealmForge/ViewModels/FlatItemEditorViewModel.cs`
 
 **Key Differences from ItemEditorViewModel**:
 - Loads flat JSON structure: `{ "ItemName": { "displayName": "...", "traits": {...} } }`
@@ -32,7 +32,7 @@ Created a new editor type (`FlatItemEditor`) to support JSON files with flat str
 ---
 
 ### 2. **FlatItemEditorView.xaml** (190 lines)
-**Location**: `Game.ContentBuilder/Views/FlatItemEditorView.xaml`
+**Location**: `RealmForge/Views/FlatItemEditorView.xaml`
 
 **Key Differences from ItemEditorView**:
 - **Removed**: Rarity ComboBox (line ~135 in ItemEditorView)
@@ -43,7 +43,7 @@ Created a new editor type (`FlatItemEditor`) to support JSON files with flat str
 ---
 
 ### 3. **FlatItemEditorView.xaml.cs** (13 lines)
-**Location**: `Game.ContentBuilder/Views/FlatItemEditorView.xaml.cs`
+**Location**: `RealmForge/Views/FlatItemEditorView.xaml.cs`
 
 **Standard code-behind** - just constructor with InitializeComponent()
 
@@ -151,8 +151,8 @@ Quests (placeholder)
 
 ```
 Restore complete (0.3s)
-  Game.Shared succeeded (0.4s)
-  Game.ContentBuilder succeeded (1.3s)
+  RealmEngine.Shared succeeded (0.4s)
+  RealmForge succeeded (1.3s)
 
 Build succeeded in 2.3s
 ```

@@ -176,7 +176,7 @@ Create the missing item JSON files with proper structure:
 ## 📚 Files Modified
 
 ### Modified (1 file)
-- `Game.ContentBuilder/ViewModels/MainViewModel.cs` - Added TreeView nodes for armor materials and enchantment suffixes
+- `RealmForge/ViewModels/MainViewModel.cs` - Added TreeView nodes for armor materials and enchantment suffixes
 
 ### Created (1 file)
 - `docs/implementation/DAY_4_5_ITEM_EDITORS.md` - Comprehensive documentation
@@ -192,10 +192,10 @@ Create the missing item JSON files with proper structure:
 ### To Test Current Changes
 ```powershell
 # Build
-dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
+dotnet build RealmForge/RealmForge.csproj
 
 # Run
-dotnet run --project Game.ContentBuilder
+dotnet run --project RealmForge
 
 # Navigate to:
 # - Items → Armor → Materials (armor_materials.json)

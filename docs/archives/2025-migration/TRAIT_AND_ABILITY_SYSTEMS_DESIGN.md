@@ -521,7 +521,7 @@ int totalStrength = baseStrength + itemStrength + buffStrength + abilityStrength
 1. Update all enemy catalog.json files to use typed traits
 2. Update all item catalog.json files to use typed traits
 3. Update JSON v4.0 standards to mandate typed traits
-4. Create TraitCalculationService in Game.Core
+4. Create TraitCalculationService in RealmEngine.Core
 
 **Validation:**
 - All catalogs compile

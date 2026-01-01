@@ -36,7 +36,7 @@ dotnet run --project Game.Console/Game.Console.csproj
 
 **Method 3: Command Line**
 ```powershell
-dotnet run --project Game.ContentBuilder/Game.ContentBuilder.csproj
+dotnet run --project RealmForge/RealmForge.csproj
 ```
 
 ---
@@ -73,10 +73,10 @@ After running `test-coverage`, open `TestResults/coverage-report/index.html` in 
 ```
 console-game/
 ├── Game.Console/          # Main console game application
-├── Game.ContentBuilder/   # WPF tool for creating game content
-├── Game.Core/             # Core game logic (shared)
-├── Game.Data/             # Data access (repositories)
-├── Game.Shared/           # Shared models and services
+├── RealmForge/   # WPF tool for creating game content
+├── RealmEngine.Core/             # Core game logic (shared)
+├── RealmEngine.Data/             # Data access (repositories)
+├── RealmEngine.Shared/           # Shared models and services
 ├── Game.Tests/            # Unit and integration tests
 └── .vscode/
     ├── tasks.json         # Task definitions
@@ -94,7 +94,7 @@ console-game/
 ### Edit Game Content
 1. **Ctrl+Shift+P** → Tasks: Run Task → `run-contentbuilder`
 2. Edit items, character classes, enemies, etc.
-3. Save changes (content is stored in `Game.Shared/Data/`)
+3. Save changes (content is stored in `RealmEngine.Shared/Data/`)
 
 ### Development with Auto-Reload
 1. **Ctrl+Shift+P** → Tasks: Run Task → `watch-console`

@@ -1,5 +1,5 @@
 namespace RealmEngine.Core.Features.Quests.Services;
-using Game.Shared.Models;
+using RealmEngine.Shared.Models;
 
 /// <summary>
 /// Manages the main quest chain and quest definitions.

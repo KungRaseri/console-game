@@ -103,8 +103,8 @@ Building version: 0.1.323-9318b2b
     $version = .\scripts\generate-version.ps1 -OutputFormat "string"
     Write-Output "VERSION=$version" >> $env:GITHUB_ENV
     
-- name: Pack Game.Core
-  run: dotnet pack Game.Core/Game.Core.csproj -p:PackageVersion=${{ env.VERSION }}
+- name: Pack RealmEngine.Core
+  run: dotnet pack RealmEngine.Core/RealmEngine.Core.csproj -p:PackageVersion=${{ env.VERSION }}
 ```
 
 ## Version Metadata
@@ -114,7 +114,7 @@ Versions are embedded in multiple locations:
 ### 1. DLL Assembly Metadata
 
 ```powershell
-(Get-Item .\package\Libraries\Game.Core\Game.Core.dll).VersionInfo
+(Get-Item .\package\Libraries\RealmEngine.Core\RealmEngine.Core.dll).VersionInfo
 
 FileVersion      : 0.1.323.0
 ProductVersion   : 0.1.323-9318b2b+[full-git-hash]
@@ -141,7 +141,7 @@ Properties set:
 ### 3. NuGet Package
 
 NuGet packages include version in:
-- Package filename: `Game.Core.0.1.323-9318b2b.nupkg`
+- Package filename: `RealmEngine.Core.0.1.323-9318b2b.nupkg`
 - Package metadata: `<version>0.1.323-9318b2b</version>`
 
 ## Version Bumping Strategy
@@ -198,7 +198,7 @@ $manifest.Version
 
 ### From DLL
 ```powershell
-(Get-Item package/Libraries/Game.Core/Game.Core.dll).VersionInfo.ProductVersion
+(Get-Item package/Libraries/RealmEngine.Core/RealmEngine.Core.dll).VersionInfo.ProductVersion
 ```
 
 ### From Build Script

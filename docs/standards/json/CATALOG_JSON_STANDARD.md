@@ -24,7 +24,7 @@ The `catalog.json` file is an **item/enemy catalog** containing base definitions
 **Naming Convention:** Always `catalog.json`
 
 ```
-Game.Data/Data/Json/
+RealmEngine.Data/Data/Json/
 ├── items/
 │   ├── weapons/
 │   │   └── catalog.json        ← Weapon type catalog

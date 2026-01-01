@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Windows.Data;
-using Game.ContentBuilder.Services;
+using RealmForge.Services;
 
-namespace Game.ContentBuilder.Converters;
+namespace RealmForge.Converters;
 
 /// <summary>
 /// Converts a numeric rarity weight to a text rarity name based on thresholds from rarity_config.json

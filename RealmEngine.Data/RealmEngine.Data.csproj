@@ -4,13 +4,13 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Game.Data</RootNamespace>
+    <RootNamespace>RealmEngine.Data</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
     
     <!-- NuGet Package Metadata -->
-    <PackageId>Game.Data</PackageId>
+    <PackageId>RealmEngine.Data</PackageId>
     <Title>Game Data Library</Title>
     <Description>Data loading, validation, and management library for the Console Game engine. Provides JSON data services for loading abilities, items, enemies, NPCs, quests, and other game data. Includes caching, validation, and reference resolution for v4.0+ JSON standards.</Description>
     <Authors>Console Game Team</Authors>

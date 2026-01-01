@@ -1,6 +1,6 @@
 # JSON Data Reorganization Plan
 
-**Project**: Game.Shared Data Structure Refactoring  
+**Project**: RealmEngine.Shared Data Structure Refactoring  
 **Date**: December 14, 2025  
 **Status**: ✅ **COMPLETE**  
 **Goal**: Organize 26 JSON files into logical folder hierarchy
@@ -19,7 +19,7 @@
 - **Git Commit**: c4a6e7b (reorganization), 3889a31 (test fix)
 
 ### Issues Resolved
-1. ✅ Test data path updated (Game.Shared vs Game/Shared)
+1. ✅ Test data path updated (RealmEngine.Shared vs Game/Shared)
 2. ✅ Enemy trait tests fixed (32 failures → 0 failures)
 3. ✅ Quest templates split into 5 type-specific files
 4. ✅ NPC occupations split into 4 category files
@@ -48,7 +48,7 @@
 ## 🎯 Executive Summary
 
 ### Problem
-Currently, all 26 JSON data files exist in a flat structure at `Game.Shared/Data/Json/`, making it difficult to:
+Currently, all 26 JSON data files exist in a flat structure at `RealmEngine.Shared/Data/Json/`, making it difficult to:
 - Find related files quickly
 - Understand data relationships
 - Expand with new content types
@@ -77,7 +77,7 @@ Reorganize files into a hierarchical folder structure that groups related data a
 ### Current Structure (Flat - 26 Files)
 
 ```
-Game.Shared/Data/Json/
+RealmEngine.Shared/Data/Json/
 ├── armor_materials.json              # Armor material definitions (Leather, Steel, etc.)
 ├── armor_names.json                  # Armor piece names ("Cuirass", "Helm")
 ├── beast_names.json                  # Beast enemy names
@@ -113,7 +113,7 @@ Game.Shared/Data/Json/
 **NOTE**: We're implementing the FULL deep structure in one migration - no incremental phases!
 
 ```
-Game.Shared/Data/Json/
+RealmEngine.Shared/Data/Json/
 ├── enemies/
 │   ├── beasts/
 │   │   ├── names.json                # beast_names.json → moved
@@ -544,7 +544,7 @@ We'll create the complete folder structure from "Phase 2" immediately, including
 
 **New Folders to Create** (full deep hierarchy):
 ```
-Game.Shared/Data/Json/
+RealmEngine.Shared/Data/Json/
 ├── enemies/
 │   ├── beasts/
 │   ├── demons/
@@ -580,7 +580,7 @@ Game.Shared/Data/Json/
 
 **PowerShell Commands**:
 ```powershell
-$jsonRoot = "Game.Shared/Data/Json"
+$jsonRoot = "RealmEngine.Shared/Data/Json"
 
 # Create top-level folders
 New-Item -ItemType Directory -Path "$jsonRoot/enemies" -Force
@@ -654,7 +654,7 @@ New-Item -ItemType Directory -Path "$jsonRoot/quests/locations" -Force
 
 **PowerShell Commands**:
 ```powershell
-$jsonRoot = "Game.Shared/Data/Json"
+$jsonRoot = "RealmEngine.Shared/Data/Json"
 
 # Move enemy files
 $enemyMoves = @{
@@ -713,13 +713,13 @@ Move-Item "$jsonRoot/npc_occupations.json" "$jsonRoot/npcs/occupations/common.js
 
 **What**: Split quest templates by quest type into separate files
 
-**Source File**: `Game.Shared/Data/Json/quest_templates.json`
+**Source File**: `RealmEngine.Shared/Data/Json/quest_templates.json`
 
 **Target Files**:
-- `Game.Shared/Data/Json/quests/templates/fetch.json` - Fetch/retrieve quests
-- `Game.Shared/Data/Json/quests/templates/kill.json` - Combat/elimination quests  
-- `Game.Shared/Data/Json/quests/templates/escort.json` - Escort/protection quests
-- `Game.Shared/Data/Json/quests/templates/explore.json` - Exploration/discovery quests
+- `RealmEngine.Shared/Data/Json/quests/templates/fetch.json` - Fetch/retrieve quests
+- `RealmEngine.Shared/Data/Json/quests/templates/kill.json` - Combat/elimination quests  
+- `RealmEngine.Shared/Data/Json/quests/templates/escort.json` - Escort/protection quests
+- `RealmEngine.Shared/Data/Json/quests/templates/explore.json` - Exploration/discovery quests
 
 **How to Split**:
 
@@ -732,7 +732,7 @@ Move-Item "$jsonRoot/npc_occupations.json" "$jsonRoot/npcs/occupations/common.js
 ```csharp
 // Read original file
 var allTemplates = JsonSerializer.Deserialize<List<QuestTemplate>>(
-    File.ReadAllText("Game.Shared/Data/Json/quest_templates.json"));
+    File.ReadAllText("RealmEngine.Shared/Data/Json/quest_templates.json"));
 
 // Group by type
 var fetchQuests = allTemplates.Where(q => q.Type == "fetch").ToList();
@@ -741,17 +741,17 @@ var escortQuests = allTemplates.Where(q => q.Type == "escort").ToList();
 var exploreQuests = allTemplates.Where(q => q.Type == "explore").ToList();
 
 // Write to new files
-File.WriteAllText("Game.Shared/Data/Json/quests/templates/fetch.json", 
+File.WriteAllText("RealmEngine.Shared/Data/Json/quests/templates/fetch.json", 
     JsonSerializer.Serialize(fetchQuests, new JsonSerializerOptions { WriteIndented = true }));
-File.WriteAllText("Game.Shared/Data/Json/quests/templates/kill.json", 
+File.WriteAllText("RealmEngine.Shared/Data/Json/quests/templates/kill.json", 
     JsonSerializer.Serialize(killQuests, new JsonSerializerOptions { WriteIndented = true }));
-File.WriteAllText("Game.Shared/Data/Json/quests/templates/escort.json", 
+File.WriteAllText("RealmEngine.Shared/Data/Json/quests/templates/escort.json", 
     JsonSerializer.Serialize(escortQuests, new JsonSerializerOptions { WriteIndented = true }));
-File.WriteAllText("Game.Shared/Data/Json/quests/templates/explore.json", 
+File.WriteAllText("RealmEngine.Shared/Data/Json/quests/templates/explore.json", 
     JsonSerializer.Serialize(exploreQuests, new JsonSerializerOptions { WriteIndented = true }));
 
 // Verify files were created correctly, then delete original
-File.Delete("Game.Shared/Data/Json/quest_templates.json");
+File.Delete("RealmEngine.Shared/Data/Json/quest_templates.json");
 ```
 
 **Manual Alternative**:
@@ -769,9 +769,9 @@ File.Delete("Game.Shared/Data/Json/quest_templates.json");
 **Source File**: Already moved to `npcs/occupations/common.json` in Step 2
 
 **Additional Files to Create**:
-- `Game.Shared/Data/Json/npcs/occupations/noble.json` (placeholder)
-- `Game.Shared/Data/Json/npcs/occupations/criminal.json` (placeholder)
-- `Game.Shared/Data/Json/npcs/occupations/magical.json` (placeholder)
+- `RealmEngine.Shared/Data/Json/npcs/occupations/noble.json` (placeholder)
+- `RealmEngine.Shared/Data/Json/npcs/occupations/criminal.json` (placeholder)
+- `RealmEngine.Shared/Data/Json/npcs/occupations/magical.json` (placeholder)
 
 **Placeholder Content** (each file):
 ```json
@@ -787,7 +787,7 @@ File.Delete("Game.Shared/Data/Json/quest_templates.json");
 
 **PowerShell to Create Placeholders**:
 ```powershell
-$occupationsPath = "Game.Shared/Data/Json/npcs/occupations"
+$occupationsPath = "RealmEngine.Shared/Data/Json/npcs/occupations"
 
 $placeholderContent = @'
 [
@@ -839,7 +839,7 @@ $enemyPlaceholder = @'
 '@
 
 foreach ($type in $enemyTypes) {
-    $basePath = "Game.Shared/Data/Json/enemies/$type"
+    $basePath = "RealmEngine.Shared/Data/Json/enemies/$type"
     Set-Content -Path "$basePath/prefixes.json" -Value $enemyPlaceholder
     Set-Content -Path "$basePath/suffixes.json" -Value $enemyPlaceholder
     Set-Content -Path "$basePath/traits.json" -Value $enemyPlaceholder
@@ -859,24 +859,24 @@ $weaponPlaceholder = @'
 ]
 '@
 
-Set-Content -Path "Game.Shared/Data/Json/items/weapons/suffixes.json" -Value $weaponPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/items/weapons/suffixes.json" -Value $weaponPlaceholder
 ```
 
 **3. Armor Prefixes** (1 file):
 ```powershell
-Set-Content -Path "Game.Shared/Data/Json/items/armor/prefixes.json" -Value $weaponPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/items/armor/prefixes.json" -Value $weaponPlaceholder
 ```
 
 **4. Consumable Effects/Rarities** (2 files):
 ```powershell
-Set-Content -Path "Game.Shared/Data/Json/items/consumables/effects.json" -Value $weaponPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/items/consumables/rarities.json" -Value $weaponPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/items/consumables/effects.json" -Value $weaponPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/items/consumables/rarities.json" -Value $weaponPlaceholder
 ```
 
 **5. Enchantment Prefixes/Effects** (2 files):
 ```powershell
-Set-Content -Path "Game.Shared/Data/Json/items/enchantments/prefixes.json" -Value $weaponPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/items/enchantments/effects.json" -Value $weaponPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/items/enchantments/prefixes.json" -Value $weaponPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/items/enchantments/effects.json" -Value $weaponPlaceholder
 ```
 
 **6. NPC Personality/Dialogue Files** (6 files):
@@ -891,12 +891,12 @@ $npcPlaceholder = @'
 ]
 '@
 
-Set-Content -Path "Game.Shared/Data/Json/npcs/personalities/traits.json" -Value $npcPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/npcs/personalities/quirks.json" -Value $npcPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/npcs/personalities/backgrounds.json" -Value $npcPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/npcs/dialogue/greetings.json" -Value $npcPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/npcs/dialogue/farewells.json" -Value $npcPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/npcs/dialogue/rumors.json" -Value $npcPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/npcs/personalities/traits.json" -Value $npcPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/npcs/personalities/quirks.json" -Value $npcPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/npcs/personalities/backgrounds.json" -Value $npcPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/npcs/dialogue/greetings.json" -Value $npcPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/npcs/dialogue/farewells.json" -Value $npcPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/npcs/dialogue/rumors.json" -Value $npcPlaceholder
 ```
 
 **7. Quest Objectives/Rewards/Locations** (9 files):
@@ -911,15 +911,15 @@ $questPlaceholder = @'
 ]
 '@
 
-Set-Content -Path "Game.Shared/Data/Json/quests/objectives/primary.json" -Value $questPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/quests/objectives/secondary.json" -Value $questPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/quests/objectives/hidden.json" -Value $questPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/quests/rewards/gold.json" -Value $questPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/quests/rewards/items.json" -Value $questPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/quests/rewards/experience.json" -Value $questPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/quests/locations/dungeons.json" -Value $questPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/quests/locations/towns.json" -Value $questPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/quests/locations/wilderness.json" -Value $questPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/quests/objectives/primary.json" -Value $questPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/quests/objectives/secondary.json" -Value $questPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/quests/objectives/hidden.json" -Value $questPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/quests/rewards/gold.json" -Value $questPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/quests/rewards/items.json" -Value $questPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/quests/rewards/experience.json" -Value $questPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/quests/locations/dungeons.json" -Value $questPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/quests/locations/towns.json" -Value $questPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/quests/locations/wilderness.json" -Value $questPlaceholder
 ```
 
 **8. General Descriptive Lists** (8 files):
@@ -932,21 +932,21 @@ $generalPlaceholder = @'
 ]
 '@
 
-Set-Content -Path "Game.Shared/Data/Json/general/colors.json" -Value $generalPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/general/adjectives.json" -Value $generalPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/general/verbs.json" -Value $generalPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/general/weather.json" -Value $generalPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/general/time_of_day.json" -Value $generalPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/general/sounds.json" -Value $generalPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/general/smells.json" -Value $generalPlaceholder
-Set-Content -Path "Game.Shared/Data/Json/general/textures.json" -Value $generalPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/general/colors.json" -Value $generalPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/general/adjectives.json" -Value $generalPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/general/verbs.json" -Value $generalPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/general/weather.json" -Value $generalPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/general/time_of_day.json" -Value $generalPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/general/sounds.json" -Value $generalPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/general/smells.json" -Value $generalPlaceholder
+Set-Content -Path "RealmEngine.Shared/Data/Json/general/textures.json" -Value $generalPlaceholder
 ```
 
 **Total Placeholder Files**: ~70 files
 
-### Step 6: Update Game.Shared Project File
+### Step 6: Update RealmEngine.Shared Project File
 
-**Update `Game.Shared.csproj`** to include new file paths:
+**Update `RealmEngine.Shared.csproj`** to include new file paths:
 
 ```xml
 <ItemGroup>
@@ -986,7 +986,7 @@ Set-Content -Path "Game.Shared/Data/Json/general/textures.json" -Value $generalP
 
 ### Step 4: Update GameDataService Paths
 
-**File**: `Game.Shared/Services/GameDataService.cs`
+**File**: `RealmEngine.Shared/Services/GameDataService.cs`
 
 **Current Code**:
 ```csharp
@@ -1057,7 +1057,7 @@ private static string GetJsonFilePath(string fileName)
 
 ### Step 5: Update ContentBuilder TreeView
 
-**File**: `Game.ContentBuilder/ViewModels/MainViewModel.cs`
+**File**: `RealmForge/ViewModels/MainViewModel.cs`
 
 **Current TreeView Structure**:
 ```csharp
@@ -1138,7 +1138,7 @@ private void InitializeCategories()
 
 ### Step 6: Update ContentBuilder JsonDataService
 
-**File**: `Game.ContentBuilder/Services/JsonDataService.cs`
+**File**: `RealmForge/Services/JsonDataService.cs`
 
 **Update path resolution** to use new structure:
 
@@ -1167,7 +1167,7 @@ dotnet test
 dotnet run --project Game
 
 # Run ContentBuilder
-dotnet run --project Game.ContentBuilder
+dotnet run --project RealmForge
 ```
 
 **Test Checklist**:
@@ -1268,11 +1268,11 @@ general/                  # NEW (all future)
 ### Step 4: Update All Code References
 
 **Files to Update**:
-1. `Game.Shared/Services/GameDataService.cs` - Update all path mappings
-2. `Game.ContentBuilder/ViewModels/MainViewModel.cs` - Update TreeView structure
-3. `Game.ContentBuilder/Services/JsonDataService.cs` - Update path resolution
+1. `RealmEngine.Shared/Services/GameDataService.cs` - Update all path mappings
+2. `RealmForge/ViewModels/MainViewModel.cs` - Update TreeView structure
+3. `RealmForge/Services/JsonDataService.cs` - Update path resolution
 4. `Game/Generators/*.cs` - Update all generator path references
-5. `Game.Shared.csproj` - Update all `<None Update>` entries
+5. `RealmEngine.Shared.csproj` - Update all `<None Update>` entries
 
 ### Step 5: Build, Test, Document
 
@@ -1394,7 +1394,7 @@ git reset --hard HEAD~1
 **Option 2: Manual Rollback**
 ```powershell
 # Move files back to flat structure
-# Restore old Game.Shared.csproj
+# Restore old RealmEngine.Shared.csproj
 # Restore old GameDataService.cs
 # Restore old MainViewModel.cs (ContentBuilder)
 ```
@@ -1411,7 +1411,7 @@ git reset --hard HEAD~1
 
 ### Pre-Migration
 - [ ] Commit all current changes to git
-- [ ] Create backup of `Game.Shared/Data/Json/` folder
+- [ ] Create backup of `RealmEngine.Shared/Data/Json/` folder
 - [ ] Document current file count (26 files)
 - [ ] Run full test suite (all tests passing)
 - [ ] Build all projects (zero warnings)
@@ -1420,7 +1420,7 @@ git reset --hard HEAD~1
 - [ ] Create new folder structure (18 folders)
 - [ ] Move all 26 files to new locations
 - [ ] Rename 4 files (remove npc_/quest_ prefixes)
-- [ ] Update `Game.Shared.csproj` with new paths
+- [ ] Update `RealmEngine.Shared.csproj` with new paths
 - [ ] Update `GameDataService.cs` with path mapping
 - [ ] Update ContentBuilder `MainViewModel.cs` TreeView
 - [ ] Update ContentBuilder `JsonDataService.cs` paths

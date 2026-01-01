@@ -30,7 +30,7 @@ private void InitializeCategories()
 
 ## How It Works
 
-1. **FileTreeService** scans `Game.Shared/Data/Json` recursively
+1. **FileTreeService** scans `RealmEngine.Shared/Data/Json` recursively
 2. For each directory, creates a CategoryNode with appropriate icon
 3. For each JSON file, creates a child node with:
    - Formatted display name (snake_case → Title Case)
@@ -118,7 +118,7 @@ Check that icons match the content:
 ## Troubleshooting
 
 ### Tree is Empty
-- Check that `Game.Shared/Data/Json` exists
+- Check that `RealmEngine.Shared/Data/Json` exists
 - Check the log output in console for errors
 - Verify directory path in MainViewModel.GetDataDirectory()
 
@@ -140,7 +140,7 @@ Check that icons match the content:
 
 When ContentBuilder starts, you should see log messages like:
 ```
-[INF] Building category tree from: C:\code\console-game\Game.Shared\Data\Json
+[INF] Building category tree from: C:\code\console-game\RealmEngine.Shared\Data\Json
 [INF] Category tree built - 5 top-level categories, 93 total files
 ```
 
@@ -157,7 +157,7 @@ If file count doesn't match expected (~93-100 files), investigate.
 
 ## Related Files
 
-- `Game.ContentBuilder/Services/FileTreeService.cs` - Core scanning logic
-- `Game.ContentBuilder/ViewModels/MainViewModel.cs` - Updated to use service
+- `RealmForge/Services/FileTreeService.cs` - Core scanning logic
+- `RealmForge/ViewModels/MainViewModel.cs` - Updated to use service
 - `docs/implementation/CONTENTBUILDER_DYNAMIC_TREE.md` - Full documentation
 - `docs/implementation/PREFIX_SUFFIX_RESTRUCTURE_COMPLETE.md` - JSON changes

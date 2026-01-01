@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Game.ContentBuilder.Converters;
+namespace RealmForge.Converters;
 
 /// <summary>
 /// Converts a count to a boolean (true if greater than 0)

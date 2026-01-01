@@ -1,6 +1,6 @@
 using FluentValidation.TestHelper;
-using Game.Core.Features.Combat.Commands.UseCombatItem;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.Combat.Commands.UseCombatItem;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Tests.Features.Combat.Validators;
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Updated the Game.ContentBuilder WPF application to provide full access to all 93 JSON files in the Game.Shared/Data/Json directory.
+Updated the RealmForge WPF application to provide full access to all 93 JSON files in the RealmEngine.Shared/Data/Json directory.
 
 ## Changes Made
 
@@ -107,7 +107,7 @@ Added appropriate icons for all categories:
 
 ### Opening the ContentBuilder
 ```powershell
-dotnet run --project Game.ContentBuilder
+dotnet run --project RealmForge
 ```
 
 ### Navigation
@@ -180,9 +180,9 @@ switch (value.EditorType)
 ```
 
 ### Path Resolution
-- Base directory: `Game.ContentBuilder/bin/Debug/net9.0-windows/`
-- Data path: `Game.Shared/Data/Json/`
-- Relative navigation: `../../../../Game.Shared/Data/Json/`
+- Base directory: `RealmForge/bin/Debug/net9.0-windows/`
+- Data path: `RealmEngine.Shared/Data/Json/`
+- Relative navigation: `../../../../RealmEngine.Shared/Data/Json/`
 
 ## Conclusion
 

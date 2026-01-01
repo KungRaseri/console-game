@@ -464,11 +464,11 @@ namespace Game.Features.Combat.Queries.GetCombatState;
 
 **Shared**:
 ```csharp
-namespace Game.Shared.Services;
-namespace Game.Shared.UI;
-namespace Game.Shared.Data;
-namespace Game.Shared.Events;
-namespace Game.Shared.Behaviors;
+namespace RealmEngine.Shared.Services;
+namespace RealmEngine.Shared.UI;
+namespace RealmEngine.Shared.Data;
+namespace RealmEngine.Shared.Events;
+namespace RealmEngine.Shared.Behaviors;
 ```
 
 ---

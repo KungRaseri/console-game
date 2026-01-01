@@ -319,9 +319,9 @@ This is cleaner and covers all 93 files without repeating structure 93 times.
 
 **Question 3: Where in the codebase should resolution happen?**
 
-**Option A: Runtime (Game.Shared)**
+**Option A: Runtime (RealmEngine.Shared)**
 
-- Pro: Works for both Game.Console and Game.ContentBuilder
+- Pro: Works for both Game.Console and RealmForge
 - Pro: Single source of truth
 - Con: Adds complexity to pattern execution
 

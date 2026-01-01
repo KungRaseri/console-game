@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Game.ContentBuilder.Models;
+namespace RealmForge.Models;
 
 /// <summary>
 /// Represents a trait on an item (e.g., damageBonus, durability)

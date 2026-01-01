@@ -1,10 +1,10 @@
 using System;
 using FluentAssertions;
-using Game.ContentBuilder.Services;
-using Game.ContentBuilder.ViewModels;
+using RealmForge.Services;
+using RealmForge.ViewModels;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.ViewModels;
+namespace RealmForge.Tests.ViewModels;
 
 /// <summary>
 /// Smoke tests for NameListEditorViewModel - validates basic functionality
@@ -12,7 +12,7 @@ namespace Game.ContentBuilder.Tests.ViewModels;
 /// </summary>
 public class NameListEditorViewModelTests_Smoke
 {
-    private const string TestDataPath = "Game.Shared/Data";
+    private const string TestDataPath = "RealmEngine.Shared/Data";
 
     [Fact]
     [Trait("Category", "ViewModel")]

@@ -1,10 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using Game.ContentBuilder.Services;
+using RealmForge.Services;
 using Serilog;
 using System.Collections.ObjectModel;
 using System.IO;
 
-namespace Game.ContentBuilder.ViewModels;
+namespace RealmForge.ViewModels;
 
 /// <summary>
 /// ViewModel for selecting JSON v4.1 references across all domains

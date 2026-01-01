@@ -171,16 +171,16 @@
 **Verify**:
 - [x] Status bar: "Saved changes to weapon_prefixes.json"
 - [x] No errors displayed
-- [x] Backup file created in: `Game.Shared/Data/Json/items/backups/`
+- [x] Backup file created in: `RealmEngine.Shared/Data/Json/items/backups/`
 - [x] Backup filename format: `weapon_prefixes_YYYYMMDD_HHMMSS.json`
 
 **Check Files**:
 ```powershell
 # Check backup was created
-Get-ChildItem "Game.Shared\Data\Json\items\backups" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+Get-ChildItem "RealmEngine.Shared\Data\Json\items\backups" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 
 # Verify original file was updated
-Get-Content "Game.Shared\Data\Json\items\weapon_prefixes.json" | Select-String "Hardened Steel"
+Get-Content "RealmEngine.Shared\Data\Json\items\weapon_prefixes.json" | Select-String "Hardened Steel"
 ```
 
 **Expected**:
@@ -296,7 +296,7 @@ dotnet run --project Game
 
 **Check Logs**:
 ```powershell
-Get-Content "Game.ContentBuilder\bin\Debug\net9.0-windows\logs\contentbuilder-20251214.log" -Tail 50
+Get-Content "RealmForge\bin\Debug\net9.0-windows\logs\contentbuilder-20251214.log" -Tail 50
 ```
 
 **Expected Log Entries**:

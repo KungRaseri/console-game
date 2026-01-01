@@ -1,9 +1,9 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using Game.ContentBuilder.Services;
+using RealmForge.Services;
 
-namespace Game.ContentBuilder.Converters;
+namespace RealmForge.Converters;
 
 /// <summary>
 /// Converts a numeric rarity weight to a color brush based on thresholds from rarity_config.json

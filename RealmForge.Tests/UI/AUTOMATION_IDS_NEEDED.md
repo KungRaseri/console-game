@@ -56,7 +56,7 @@
 
 ## NameListEditor - Required AutomationIds
 
-**File:** `Game.ContentBuilder\Views\NameListEditorView.xaml`
+**File:** `RealmForge\Views\NameListEditorView.xaml`
 
 ### Pattern Management
 - `PatternCard` - Each pattern item in the list (ItemsControl item container)

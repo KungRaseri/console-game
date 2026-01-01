@@ -4,7 +4,7 @@
 // Example 1: Inject GameSettings into GameEngine
 // -----------------------------------------------
 using Microsoft.Extensions.Options;
-using Game.Settings;
+using RealmEngine.Core.Settings;
 
 public class GameEngine
 {

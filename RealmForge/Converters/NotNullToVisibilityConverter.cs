@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Game.ContentBuilder.Converters;
+namespace RealmForge.Converters;
 
 /// <summary>
 /// Converts null/non-null values to Visibility

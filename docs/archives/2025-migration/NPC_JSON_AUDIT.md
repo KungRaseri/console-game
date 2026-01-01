@@ -1,7 +1,7 @@
 # NPC JSON Files Audit - Structure Issues
 
 **Date**: 2025-12-18
-**Scope**: `Game.Data/Data/Json/npcs/` directory
+**Scope**: `RealmEngine.Data/Data/Json/npcs/` directory
 
 ## Summary
 

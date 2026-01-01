@@ -1,7 +1,7 @@
 # JSON Data Standards
 
 **Purpose:** Comprehensive standards for all JSON data files in the game  
-**Location:** `Game.Data/Data/Json/`  
+**Location:** `RealmEngine.Data/Data/Json/`  
 **Last Updated:** December 31, 2025  
 **Version:** 4.2
 
@@ -338,7 +338,7 @@ Properties applied when components are selected:
 
 ### Adding New Category
 
-1. Create folder in `Game.Data/Data/Json/`
+1. Create folder in `RealmEngine.Data/Data/Json/`
 2. Create `.cbconfig.json` with icon and sortOrder
 3. Create `catalog.json` with base definitions
 4. Create `names.json` with pattern generation

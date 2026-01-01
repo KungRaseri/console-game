@@ -30,9 +30,9 @@ The ContentBuilder WPF application now includes comprehensive structured logging
 ==========================================================
 ContentBuilder Application Starting
 Start Time: 2024-12-15 14:30:52
-Log File: C:\code\console-game\Game.ContentBuilder\bin\Debug\net9.0-windows\logs\contentbuilder.latest.log
+Log File: C:\code\console-game\RealmForge\bin\Debug\net9.0-windows\logs\contentbuilder.latest.log
 ==========================================================
-MainViewModel initialized - Data directory: C:\code\console-game\Game.Shared\Data\Json
+MainViewModel initialized - Data directory: C:\code\console-game\RealmEngine.Shared\Data\Json
 Categories initialized - Total categories: 5
 Application startup complete
 ```
@@ -122,13 +122,13 @@ protected override void OnExit(ExitEventArgs e)
 **Example Output:**
 ```
 2024-12-15 14:30:52.123 [INF] ContentBuilder Application Starting
-2024-12-15 14:30:52.456 [INF] MainViewModel initialized - Data directory: C:\code\console-game\Game.Shared\Data\Json
+2024-12-15 14:30:52.456 [INF] MainViewModel initialized - Data directory: C:\code\console-game\RealmEngine.Shared\Data\Json
 2024-12-15 14:31:15.789 [INF] Category selected: Weapons - Type: NameList - File: items/weapons/names.json
 2024-12-15 14:31:15.890 [DBG] Loading NameListEditor for items/weapons/names.json
 2024-12-15 14:31:16.012 [INF] NameListEditor loaded successfully for items/weapons/names.json
 2024-12-15 14:32:45.234 [ERR] Failed to load FlatItemEditor for items/broken.json
 System.IO.FileNotFoundException: Could not find file 'items/broken.json'
-   at Game.ContentBuilder.Services.JsonEditorService.LoadJson(String fileName)
+   at RealmForge.Services.JsonEditorService.LoadJson(String fileName)
 ```
 
 ---
@@ -183,7 +183,7 @@ System.IO.FileNotFoundException: Could not find file 'items/broken.json'
 
 ### Development
 ```
-Game.ContentBuilder/bin/Debug/net9.0-windows/logs/
+RealmForge/bin/Debug/net9.0-windows/logs/
 ├── contentbuilder.latest.log          ← Active session (while app running)
 ├── contentbuilder-20241215-143052.log ← Session 1 (14:30-14:45)
 ├── contentbuilder-20241215-150234.log ← Session 2 (15:02-15:18)
@@ -281,7 +281,7 @@ Limit number of archived logs:
 ### Check Current Session Log
 ```powershell
 # View last 50 lines
-Get-Content Game.ContentBuilder\bin\Debug\net9.0-windows\logs\contentbuilder.latest.log -Tail 50
+Get-Content RealmForge\bin\Debug\net9.0-windows\logs\contentbuilder.latest.log -Tail 50
 ```
 
 ### Find Error Sessions
@@ -327,13 +327,13 @@ Benefits:
 ## Related Files
 
 **Modified:**
-- `Game.ContentBuilder/App.xaml.cs` - Main logging setup
-- `Game.ContentBuilder/ViewModels/MainViewModel.cs` - Enhanced action logging
+- `RealmForge/App.xaml.cs` - Main logging setup
+- `RealmForge/ViewModels/MainViewModel.cs` - Enhanced action logging
 
 **Already Using Logging:**
-- `Game.ContentBuilder/Services/JsonEditorService.cs` - File operations
-- `Game.ContentBuilder/Services/PreviewService.cs` - Preview generation
-- `Game.ContentBuilder/ViewModels/ItemEditorViewModel.cs` - Editor operations
+- `RealmForge/Services/JsonEditorService.cs` - File operations
+- `RealmForge/Services/PreviewService.cs` - Preview generation
+- `RealmForge/ViewModels/ItemEditorViewModel.cs` - Editor operations
 
 ---
 

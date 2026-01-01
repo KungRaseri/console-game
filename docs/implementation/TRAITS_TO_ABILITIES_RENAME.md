@@ -190,13 +190,13 @@ enemies/<category>/
 
 ### Files Created
 ```powershell
-PS> Get-ChildItem -Path "Game.Shared\Data\Json\enemies\*\abilities.json" -Recurse | Measure
+PS> Get-ChildItem -Path "RealmEngine.Shared\Data\Json\enemies\*\abilities.json" -Recurse | Measure
 Count: 13  # ✅ All created
 ```
 
 ### Files Deleted
 ```powershell
-PS> Get-ChildItem -Path "Game.Shared\Json\enemies\*\traits.json" -Recurse | Measure
+PS> Get-ChildItem -Path "RealmEngine.Shared\Json\enemies\*\traits.json" -Recurse | Measure
 Count: 0  # ✅ All deleted
 ```
 

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using Serilog;
 using RealmEngine.Data.Services;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Service for loading and saving JSON data files with automatic backup.

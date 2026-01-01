@@ -193,12 +193,12 @@ dotnet test --filter "Category=ViewModel"
 
 ## Files Created
 
-1. `Game.ContentBuilder.Tests/ViewModels/AbilitiesEditorViewModelTests_Smoke.cs` (165 lines)
-2. `Game.ContentBuilder.Tests/ViewModels/AbilitiesEditorViewModelTests_Fixed.cs` (298 lines)
-3. `Game.ContentBuilder.Tests/ViewModels/GenericCatalogEditorViewModelTests_Smoke.cs` (297 lines)
-4. `Game.ContentBuilder.Tests/ViewModels/GenericCatalogEditorViewModelTests_Fixed.cs` (375 lines)
-5. `Game.ContentBuilder.Tests/UI/AbilitiesEditorUITests.cs` (244 lines)
-6. `Game.ContentBuilder.Tests/UI/GenericCatalogEditorUITests.cs` (313 lines)
+1. `RealmForge.Tests/ViewModels/AbilitiesEditorViewModelTests_Smoke.cs` (165 lines)
+2. `RealmForge.Tests/ViewModels/AbilitiesEditorViewModelTests_Fixed.cs` (298 lines)
+3. `RealmForge.Tests/ViewModels/GenericCatalogEditorViewModelTests_Smoke.cs` (297 lines)
+4. `RealmForge.Tests/ViewModels/GenericCatalogEditorViewModelTests_Fixed.cs` (375 lines)
+5. `RealmForge.Tests/UI/AbilitiesEditorUITests.cs` (244 lines)
+6. `RealmForge.Tests/UI/GenericCatalogEditorUITests.cs` (313 lines)
 
 **Total**: 6 files, 1,692 lines of test code
 

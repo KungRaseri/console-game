@@ -12,7 +12,7 @@
 **Solution:** Created `FileTreeService` to dynamically scan file system
 
 **Changes:**
-- Created `Game.ContentBuilder/Services/FileTreeService.cs` (286 lines)
+- Created `RealmForge/Services/FileTreeService.cs` (286 lines)
 - Updated `MainViewModel.cs` - replaced 350 lines with 4-line service call
 - Code reduction: **95%**
 
@@ -95,12 +95,12 @@ System.ArgumentException: An item with the same key has already been added. Key:
 ## Files Modified
 
 ### Created
-- `Game.ContentBuilder/Services/FileTreeService.cs` - Dynamic file scanner
+- `RealmForge/Services/FileTreeService.cs` - Dynamic file scanner
 
 ### Modified
-- `Game.ContentBuilder/Models/CategoryNode.cs` - Added file count properties
-- `Game.ContentBuilder/ViewModels/MainViewModel.cs` - Replaced hardcoded tree, added Refresh command
-- `Game.ContentBuilder/MainWindow.xaml` - Added file counts to display, added Refresh button
+- `RealmForge/Models/CategoryNode.cs` - Added file count properties
+- `RealmForge/ViewModels/MainViewModel.cs` - Replaced hardcoded tree, added Refresh command
+- `RealmForge/MainWindow.xaml` - Added file counts to display, added Refresh button
 
 ### Documentation
 - `docs/implementation/CONTENTBUILDER_DYNAMIC_TREE.md` - Technical documentation
@@ -113,7 +113,7 @@ System.ArgumentException: An item with the same key has already been added. Key:
 
 **To rebuild:** First close the app, then run:
 ```powershell
-dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
+dotnet build RealmForge/RealmForge.csproj
 ```
 
 **To test:**
@@ -139,8 +139,8 @@ dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
 
 ## Known Issues
 
-1. ⚠️ **Game.Shared/Events/EventHandlers.cs** - Temporarily moved to `.bak` due to circular dependency
-   - File references Game.Console and Game.Core from Game.Shared
+1. ⚠️ **RealmEngine.Shared/Events/EventHandlers.cs** - Temporarily moved to `.bak` due to circular dependency
+   - File references Game.Console and RealmEngine.Core from RealmEngine.Shared
    - Needs architectural review
 
 2. 📝 **Build while running** - Cannot rebuild while ContentBuilder is running (file locked)

@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Linq;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Generates examples for patterns based on available components and items

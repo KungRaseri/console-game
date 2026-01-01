@@ -30,7 +30,7 @@ This guide helps migrate from the **legacy separate file structure** (v3.0) to t
 
 ```powershell
 # Navigate to category folder (e.g., items/weapons)
-cd Game.Shared/Data/Json/items/weapons
+cd RealmEngine.Shared/Data/Json/items/weapons
 
 # Create backup folder
 mkdir backup_v3
@@ -341,7 +341,7 @@ Write-Host "✅ Migration complete! Review names_v4.json before replacing names.
 
 Usage:
 ```powershell
-.\scripts\migrate-names-to-v4.ps1 -CategoryPath "Game.Shared/Data/Json/items/weapons"
+.\scripts\migrate-names-to-v4.ps1 -CategoryPath "RealmEngine.Shared/Data/Json/items/weapons"
 ```
 
 ---

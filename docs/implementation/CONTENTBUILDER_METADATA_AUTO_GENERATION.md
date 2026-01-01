@@ -45,7 +45,7 @@ System generates:
 
 ### Phase 1: Create MetadataGenerator Service
 
-**File:** `Game.ContentBuilder/Services/MetadataGenerator.cs` (NEW)
+**File:** `RealmForge/Services/MetadataGenerator.cs` (NEW)
 
 ```csharp
 using System;
@@ -53,7 +53,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 public static class MetadataGenerator
 {
@@ -182,7 +182,7 @@ public static class MetadataGenerator
 
 ### Phase 2: Update HybridArrayEditorViewModel
 
-**File:** `Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs`
+**File:** `RealmForge/ViewModels/HybridArrayEditorViewModel.cs`
 
 **Add Properties:**
 
@@ -296,7 +296,7 @@ private void SaveFile()
 
 ### Phase 3: Update UI
 
-**File:** `Game.ContentBuilder/Views/HybridArrayEditorView.xaml`
+**File:** `RealmForge/Views/HybridArrayEditorView.xaml`
 
 **Add Metadata Section:**
 
@@ -426,7 +426,7 @@ private void ValidatePatterns()
 
 ### Unit Tests
 
-**File:** `Game.ContentBuilder.Tests/Services/MetadataGeneratorTests.cs`
+**File:** `RealmForge.Tests/Services/MetadataGeneratorTests.cs`
 
 ```csharp
 public class MetadataGeneratorTests

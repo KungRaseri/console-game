@@ -1,5 +1,5 @@
 using FluentAssertions;
-using Game.Shared.Services;
+using RealmEngine.Shared.Services;
 
 namespace RealmEngine.Data.Tests.Services;
 

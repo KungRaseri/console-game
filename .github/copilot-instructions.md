@@ -54,7 +54,7 @@ console-game/
 - ✅ Created Game.Tests project with comprehensive test coverage
 - ✅ All 38 tests passing (Character, Validation, Generators)
 - ✅ Established JSON v4.0 standards for all game data files
-- ✅ Created Game.ContentBuilder WPF application for JSON editing
+- ✅ Created RealmForge WPF application for JSON editing
 - ✅ Integrated JSON v4.1 reference system into ContentBuilder
 - ✅ All 35 integration tests passing (ReferenceResolverService)
 - ✅ All 33 unit tests passing (ReferenceResolverService)

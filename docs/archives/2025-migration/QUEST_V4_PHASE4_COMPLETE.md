@@ -21,7 +21,7 @@ Phase 4 implemented the complete rewards calculation system for Quest v4.0, incl
 ## Achievements
 
 ### 1. CalculateRewards() Method (52 lines)
-**Location**: `Game.Core/Generators/QuestGenerator.cs` lines 590-641
+**Location**: `RealmEngine.Core/Generators/QuestGenerator.cs` lines 590-641
 
 **Purpose**: Calculate scaled gold and XP rewards with bonus multipliers
 
@@ -100,7 +100,7 @@ private void CalculateRewards(Quest quest, int playerLevel = 1)
 - **Combined**: Can reach up to +150% bonus (secondary max + hidden max)
 
 ### 2. SelectItemRewards() Method (106 lines)
-**Location**: `Game.Core/Generators/QuestGenerator.cs` lines 643-741
+**Location**: `RealmEngine.Core/Generators/QuestGenerator.cs` lines 643-741
 
 **Purpose**: Select 1-2 item rewards using a tier-based system
 
@@ -208,7 +208,7 @@ private void SelectItemRewards(Quest quest)
 - Tier stored in `quest.Traits["rewardTier"]` for reference
 
 ### 3. Integration into Quest Generation
-**Location**: `Game.Core/Generators/QuestGenerator.cs` line 268
+**Location**: `RealmEngine.Core/Generators/QuestGenerator.cs` line 268
 
 **Code**:
 ```csharp
@@ -316,12 +316,12 @@ From `rewards.json` and `QuestRewardsDataModels.cs`:
 
 ### Latest Build (11.7s) ✅
 All 6 projects compiled successfully:
-- ✅ Game.Shared: 0.1s → bin\Debug\net9.0\Game.Shared.dll
-- ✅ Game.Core: 1.7s → bin\Debug\net9.0\Game.Core.dll
-- ✅ Game.Data: 0.8s → bin\Debug\net9.0\Game.Data.dll
+- ✅ RealmEngine.Shared: 0.1s → bin\Debug\net9.0\RealmEngine.Shared.dll
+- ✅ RealmEngine.Core: 1.7s → bin\Debug\net9.0\RealmEngine.Core.dll
+- ✅ RealmEngine.Data: 0.8s → bin\Debug\net9.0\RealmEngine.Data.dll
 - ✅ Game.Console: 2.2s → bin\Debug\net9.0\Game.Console.dll
 - ✅ Game.Tests: 4.2s → bin\Debug\net9.0\Game.Tests.dll
-- ✅ Game.ContentBuilder: 7.8s → bin\Debug\net9.0-windows\Game.ContentBuilder.dll
+- ✅ RealmForge: 7.8s → bin\Debug\net9.0-windows\RealmForge.dll
 
 **Warnings**: 1 non-critical warning (MSB3101: AssemblyReference.cache file exists)
 
@@ -454,7 +454,7 @@ public Quest GenerateByTypeAndDifficulty(string questType, string difficulty, in
 ## Integration with ContentBuilder
 
 ### PreviewService Integration
-**File**: `Game.ContentBuilder/Services/PreviewService.cs`
+**File**: `RealmForge/Services/PreviewService.cs`
 
 **Usage**:
 ```csharp

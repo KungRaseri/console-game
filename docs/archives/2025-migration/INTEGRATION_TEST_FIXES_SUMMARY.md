@@ -9,7 +9,7 @@
 ## Overview
 
 Fixed all 9 integration test failures in `ReferenceResolutionIntegrationTests` by:
-1. Updating `ReferenceResolverService` to support actual catalog structures in Game.Data
+1. Updating `ReferenceResolverService` to support actual catalog structures in RealmEngine.Data
 2. Implementing progressive catalog path resolution  
 3. Fixing test data to match actual item names in catalogs
 
@@ -43,7 +43,7 @@ Fixed all 9 integration test failures in `ReferenceResolutionIntegrationTests` b
 
 ### 1. Enhanced Reference Syntax Support
 
-**File**: `Game.ContentBuilder/Services/ReferenceResolverService.cs`
+**File**: `RealmForge/Services/ReferenceResolverService.cs`
 
 **Changed Regex Pattern**:
 ```csharp
@@ -280,7 +280,7 @@ private JArray? FindCategoryItems(JObject catalog, string? category)
 
 ### 4. Fixed Test Data
 
-**File**: `Game.ContentBuilder.Tests/Integration/ReferenceResolutionIntegrationTests.cs`
+**File**: `RealmForge.Tests/Integration/ReferenceResolutionIntegrationTests.cs`
 
 **Changes**:
 ```csharp
@@ -388,7 +388,7 @@ The key insight is **trying multiple catalog locations** until one is found:
 ## Files Modified
 
 ### Service Layer
-1. **Game.ContentBuilder/Services/ReferenceResolverService.cs**
+1. **RealmForge/Services/ReferenceResolverService.cs**
    - Changed regex pattern to support flexible paths
    - Added `ResolveCatalogPath` method
    - Updated `ParseReference` to split paths dynamically
@@ -397,7 +397,7 @@ The key insight is **trying multiple catalog locations** until one is found:
    - Updated `GetAvailableCategories` to discover from structure
 
 ### Test Layer
-2. **Game.ContentBuilder.Tests/Integration/ReferenceResolutionIntegrationTests.cs**
+2. **RealmForge.Tests/Integration/ReferenceResolutionIntegrationTests.cs**
    - Fixed item names to match actual catalogs
    - Fixed path references (humanoid → goblinoids)
    - All test assertions now pass

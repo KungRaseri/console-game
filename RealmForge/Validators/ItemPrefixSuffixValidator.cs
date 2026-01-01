@@ -1,7 +1,7 @@
 using FluentValidation;
-using Game.ContentBuilder.Models;
+using RealmForge.Models;
 
-namespace Game.ContentBuilder.Validators;
+namespace RealmForge.Validators;
 
 /// <summary>
 /// Validator for ItemPrefixSuffix model

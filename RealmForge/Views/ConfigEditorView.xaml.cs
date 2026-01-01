@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 
-namespace Game.ContentBuilder.Views;
+namespace RealmForge.Views;
 
 public partial class ConfigEditorView : UserControl
 {

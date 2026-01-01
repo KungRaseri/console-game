@@ -2,11 +2,11 @@
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Game.ContentBuilder.Services;
+using RealmForge.Services;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
-namespace Game.ContentBuilder.ViewModels;
+namespace RealmForge.ViewModels;
 
 /// <summary>
 /// ViewModel for editing catalog.json files (item catalogs)

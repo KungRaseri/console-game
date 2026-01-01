@@ -184,7 +184,7 @@ NPCs v4.0:                    Quests v4.0:
 ## Next Steps (Future Work)
 
 ### Phase 1: Data Models (High Priority)
-- [ ] Create `QuestCatalogDataModels.cs` in Game.Shared/Data
+- [ ] Create `QuestCatalogDataModels.cs` in RealmEngine.Shared/Data
   - [ ] QuestCatalogData (templates + locations)
   - [ ] QuestTemplate, QuestLocation
   - [ ] Components and category classes
@@ -229,12 +229,12 @@ NPCs v4.0:                    Quests v4.0:
 ## Files Modified
 
 ### Created:
-- ✅ `Game.Data/Data/Json/quests/catalog.json` (27 templates, 51 locations)
-- ✅ `Game.Data/Data/Json/quests/objectives.json` (51 objectives)
-- ✅ `Game.Data/Data/Json/quests/rewards.json` (38 reward types)
+- ✅ `RealmEngine.Data/Data/Json/quests/catalog.json` (27 templates, 51 locations)
+- ✅ `RealmEngine.Data/Data/Json/quests/objectives.json` (51 objectives)
+- ✅ `RealmEngine.Data/Data/Json/quests/rewards.json` (38 reward types)
 
 ### Updated:
-- ✅ `Game.Data/Data/Json/quests/.cbconfig.json` (new 3-file structure)
+- ✅ `RealmEngine.Data/Data/Json/quests/.cbconfig.json` (new 3-file structure)
 - ✅ `QUEST_REORGANIZATION_PROPOSAL.md` (marked complete)
 
 ### To Be Deleted (Future):

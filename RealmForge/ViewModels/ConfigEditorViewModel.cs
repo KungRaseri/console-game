@@ -1,11 +1,11 @@
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Game.ContentBuilder.Services;
+using RealmForge.Services;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
-namespace Game.ContentBuilder.ViewModels;
+namespace RealmForge.ViewModels;
 
 /// <summary>
 /// ViewModel for editing .cbconfig.json files (folder configuration)

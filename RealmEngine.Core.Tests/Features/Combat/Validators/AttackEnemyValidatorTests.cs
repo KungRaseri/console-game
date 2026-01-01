@@ -1,6 +1,6 @@
 using FluentValidation.TestHelper;
-using Game.Core.Features.Combat.Commands.AttackEnemy;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.Combat.Commands.AttackEnemy;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Tests.Features.Combat.Validators;
 

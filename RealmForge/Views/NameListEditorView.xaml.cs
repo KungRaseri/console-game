@@ -1,10 +1,10 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Game.ContentBuilder.Models;
-using Game.ContentBuilder.ViewModels;
+using RealmForge.Models;
+using RealmForge.ViewModels;
 
-namespace Game.ContentBuilder.Views;
+namespace RealmForge.Views;
 
 /// <summary>
 /// Interaction logic for NameListEditorView.xaml

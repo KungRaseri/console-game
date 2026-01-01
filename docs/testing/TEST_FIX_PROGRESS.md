@@ -22,7 +22,7 @@
 
 ### Root Cause Discovered
 
-The tests were creating custom test data in a temp directory and setting `CONTENTBUILDER_DATA_PATH` environment variable, but **ContentBuilder doesn't support this variable**. The app loads from the default path (`C:\code\console-game\Game.Shared\Data\Json`) which doesn't have the test's expected "Names" node.
+The tests were creating custom test data in a temp directory and setting `CONTENTBUILDER_DATA_PATH` environment variable, but **ContentBuilder doesn't support this variable**. The app loads from the default path (`C:\code\console-game\RealmEngine.Shared\Data\Json`) which doesn't have the test's expected "Names" node.
 
 ### Error Messages Improved
 

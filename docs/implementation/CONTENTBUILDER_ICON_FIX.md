@@ -31,13 +31,13 @@ Changed the icon from `Pattern` to `ShapeOutline` (a valid MaterialDesign icon):
 <materialDesign:PackIcon Kind="ShapeOutline" Margin="0,0,8,0" VerticalAlignment="Center"/>
 ```
 
-**File Changed:** `Game.ContentBuilder\Views\HybridArrayEditorView.xaml` (Line 264)
+**File Changed:** `RealmForge\Views\HybridArrayEditorView.xaml` (Line 264)
 
 ## Also Fixed
 
 While investigating, also fixed a potential infinite property notification loop in `ComponentGroup` class by converting from source-generated properties to manual `SetProperty` calls.
 
-**File Changed:** `Game.ContentBuilder\ViewModels\HybridArrayEditorViewModel.cs`
+**File Changed:** `RealmForge\ViewModels\HybridArrayEditorViewModel.cs`
 
 Changed from:
 ```csharp

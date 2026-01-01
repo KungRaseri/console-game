@@ -1,7 +1,7 @@
 using FluentAssertions;
-using Game.Core.Generators.Modern;
-using Game.Data.Services;
-using Game.Shared.Models;
+using RealmEngine.Core.Generators.Modern;
+using RealmEngine.Data.Services;
+using RealmEngine.Shared.Models;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace RealmEngine.Core.Tests.Generators;
@@ -14,7 +14,7 @@ public class CharacterClassGeneratorTests
 
     public CharacterClassGeneratorTests()
     {
-        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "Game.Data", "Data", "Json");
+        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
         _dataCache = new GameDataCache(basePath);
         _generator = new CharacterClassGenerator(_dataCache, NullLogger<CharacterClassGenerator>.Instance);
         _dataCache.LoadAllData();

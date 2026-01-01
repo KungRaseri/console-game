@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Game.ContentBuilder.Converters;
+namespace RealmForge.Converters;
 
 /// <summary>
 /// Converts true to false and false to true

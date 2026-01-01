@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Core.Features.Combat.Commands.DefendAction;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.Combat.Commands.DefendAction;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Tests.Features.Combat.Commands;
 

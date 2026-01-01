@@ -1,7 +1,7 @@
-using Game.ContentBuilder.ViewModels;
+using RealmForge.ViewModels;
 using System.Windows;
 
-namespace Game.ContentBuilder.Views;
+namespace RealmForge.Views;
 
 public partial class ReferenceSelectorDialog : Window
 {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Game.ContentBuilder.Converters;
+namespace RealmForge.Converters;
 
 /// <summary>
 /// Converter that returns true if the item is the first item in a collection

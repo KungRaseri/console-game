@@ -30,7 +30,7 @@
 
 ### 📋 Phase 2: Create Configuration File
 
-- [ ] Create `Game.Shared/Data/Json/general/rarity_config.json`
+- [ ] Create `RealmEngine.Shared/Data/Json/general/rarity_config.json`
 - [ ] Add rarity thresholds (common 0-20, uncommon 21-50, etc.)
 - [ ] Add weight multipliers (material 1.0, quality 1.2, etc.)
 - [ ] Add display properties (colors, glow effects, drop rates)
@@ -38,7 +38,7 @@
 
 **File to Create:**
 ```
-Game.Shared/Data/Json/general/rarity_config.json
+RealmEngine.Shared/Data/Json/general/rarity_config.json
 ```
 
 **Template:** See WEIGHT_BASED_raritySystem.md section "New Configuration File"
@@ -83,19 +83,19 @@ Game.Shared/Data/Json/general/rarity_config.json
 
 ### 📋 Phase 4: Update Code (Runtime Support)
 
-#### 4.1: Game.Shared - Data Models
+#### 4.1: RealmEngine.Shared - Data Models
 
 **Create new classes:**
 
 ```csharp
-// Game.Shared/Models/WeightedComponent.cs
+// RealmEngine.Shared/Models/WeightedComponent.cs
 public class WeightedComponent
 {
     public string Name { get; set; }
     public int Weight { get; set; }
 }
 
-// Game.Shared/Models/WeightedItem.cs
+// RealmEngine.Shared/Models/WeightedItem.cs
 public class WeightedItem
 {
     public string Name { get; set; }
@@ -103,7 +103,7 @@ public class WeightedItem
     // Additional properties from types.json if needed
 }
 
-// Game.Shared/Models/RarityConfig.cs
+// RealmEngine.Shared/Models/RarityConfig.cs
 public class RarityConfig
 {
     public Dictionary<string, RarityTier> Thresholds { get; set; }
@@ -127,12 +127,12 @@ public class RarityTier
 - [ ] Create RarityConfig classes
 - [ ] Add JSON deserialization support
 
-#### 4.2: Game.Shared - Rarity Calculator
+#### 4.2: RealmEngine.Shared - Rarity Calculator
 
 **Create new service:**
 
 ```csharp
-// Game.Shared/Services/RarityCalculator.cs
+// RealmEngine.Shared/Services/RarityCalculator.cs
 public class RarityCalculator
 {
     private RarityConfig _config;
@@ -163,7 +163,7 @@ public class RarityCalculator
 - [ ] Implement rarity tier mapping
 - [ ] Add unit tests for calculation logic
 
-#### 4.3: Game.Shared - Pattern Executor Update
+#### 4.3: RealmEngine.Shared - Pattern Executor Update
 
 **Update existing PatternExecutor:**
 
@@ -182,7 +182,7 @@ public class RarityCalculator
 - [ ] Return rarity information with result
 - [ ] Update unit tests
 
-#### 4.4: Game.Shared - Load Configuration
+#### 4.4: RealmEngine.Shared - Load Configuration
 
 **Update data loading:**
 
@@ -395,7 +395,7 @@ public class LootGenerator
 
 **To begin implementation:**
 
-1. Create `Game.Shared/Data/Json/general/rarity_config.json`
+1. Create `RealmEngine.Shared/Data/Json/general/rarity_config.json`
 2. Update `items/weapons/names.json` with weights
 3. Update `items/weapons/prefixes.json` (flatten + add weights)
 4. Test pattern execution manually

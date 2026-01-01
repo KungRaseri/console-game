@@ -10,7 +10,7 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Game.ContentBuilder.Tests.UI;
+namespace RealmForge.Tests.UI;
 
 /// <summary>
 /// Comprehensive UI tests for the Catalog Editor (catalog.json format)

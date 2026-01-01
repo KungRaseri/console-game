@@ -1,9 +1,9 @@
-using Game.Core.Abstractions;
+using RealmEngine.Core.Abstractions;
 
 using MediatR;
 using Serilog;
 
-using Game.Core.Services;
+using RealmEngine.Core.Services;
 namespace RealmEngine.Core.Features.Exploration.Commands;
 
 /// <summary>

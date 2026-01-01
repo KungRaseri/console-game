@@ -1,10 +1,10 @@
 using FluentAssertions;
-using Game.ContentBuilder.Services;
+using RealmForge.Services;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.Services;
+namespace RealmForge.Tests.Services;
 
 [Trait("Category", "Unit")]
 public class ReferenceResolverServiceTests : IDisposable

@@ -308,7 +308,7 @@ property: baseDamage
 
 ### Step 2: Load Catalog
 ```
-File: Game.Data/Data/Json/items/weapons/catalog.json
+File: RealmEngine.Data/Data/Json/items/weapons/catalog.json
 Category: swords
 ```
 

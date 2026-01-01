@@ -24,7 +24,7 @@ Successfully modernized ContentBuilder to support JSON v4.1 references (`@domain
 ### 1. Core Service Implementation
 
 #### ReferenceResolverService.cs (NEW - 398 lines)
-**Location**: `Game.ContentBuilder/Services/ReferenceResolverService.cs`
+**Location**: `RealmForge/Services/ReferenceResolverService.cs`
 
 **Purpose**: Parse and resolve JSON v4.1 references with full feature support
 
@@ -63,7 +63,7 @@ void ClearCache()
 ### 2. ViewModel Refactoring
 
 #### ReferenceSelectorViewModel.cs (REFACTORED - 573→347 lines, -40%)
-**Location**: `Game.ContentBuilder/ViewModels/ReferenceSelectorViewModel.cs`
+**Location**: `RealmForge/ViewModels/ReferenceSelectorViewModel.cs`
 
 **Changes**:
 
@@ -108,7 +108,7 @@ Domain (from filesystem) → Path (discovered) → Category (from catalog) → I
 **Benefits**:
 - No hardcoded domain logic - supports all 10 domains automatically
 - 40% less code to maintain
-- Instant support for new domains (just add to Game.Data)
+- Instant support for new domains (just add to RealmEngine.Data)
 - Full JSON v4.1 syntax support (wildcard, optional, property access)
 - Live preview of resolved JSON data
 
@@ -117,7 +117,7 @@ Domain (from filesystem) → Path (discovered) → Category (from catalog) → I
 ### 3. UI Redesign
 
 #### ReferenceSelectorDialog.xaml (COMPLETE REWRITE)
-**Location**: `Game.ContentBuilder/Views/ReferenceSelectorDialog.xaml`
+**Location**: `RealmForge/Views/ReferenceSelectorDialog.xaml`
 
 **Old UI** (Removed):
 - Reference type chips (ListBox with choice chips for material/weapon/armor/etc.)
@@ -168,7 +168,7 @@ Row 4: Action Buttons
 - Search filters Items collection in real-time
 
 #### ReferenceSelectorDialog.xaml.cs (SIMPLIFIED)
-**Location**: `Game.ContentBuilder/Views/ReferenceSelectorDialog.xaml.cs`
+**Location**: `RealmForge/Views/ReferenceSelectorDialog.xaml.cs`
 
 **Changes**:
 - ❌ **Removed**: `TreeView_SelectedItemChanged()` - no longer needed (direct binding)
@@ -180,7 +180,7 @@ Row 4: Action Buttons
 ### 4. Icon Support
 
 #### FileTreeService.cs (UPDATED)
-**Location**: `Game.ContentBuilder/Services/FileTreeService.cs`
+**Location**: `RealmForge/Services/FileTreeService.cs`
 
 **New Icon Mappings** (24 added):
 
@@ -217,7 +217,7 @@ Row 4: Action Buttons
 
 ### Unit Tests: 33/33 Passing ✅ (100%)
 
-**File**: `Game.ContentBuilder.Tests/Services/ReferenceResolverServiceTests.cs` (511 lines)
+**File**: `RealmForge.Tests/Services/ReferenceResolverServiceTests.cs` (511 lines)
 
 **Execution Time**: 1.2 seconds
 
@@ -243,13 +243,13 @@ Row 4: Action Buttons
 - `Should_Get_Available_Domains` - Discovery from file system
 - `Should_Clear_Cache_And_Reload_Catalogs` - Cache invalidation
 
-**Test Data**: Creates temporary catalogs for items/weapons, abilities/active, enemies/humanoid to avoid dependency on Game.Data
+**Test Data**: Creates temporary catalogs for items/weapons, abilities/active, enemies/humanoid to avoid dependency on RealmEngine.Data
 
 ---
 
 ### Integration Tests: 26/35 Passing ⚠️ (74%)
 
-**File**: `Game.ContentBuilder.Tests/Integration/ReferenceResolutionIntegrationTests.cs` (530+ lines)
+**File**: `RealmForge.Tests/Integration/ReferenceResolutionIntegrationTests.cs` (530+ lines)
 
 **Execution Time**: 161ms
 
@@ -336,13 +336,13 @@ Row 4: Action Buttons
    - Cause: Classes catalog contains invalid references
 
 **Root Cause Analysis**:
-- **Catalog Structure**: Tests expect specific structures that may differ from actual Game.Data files
+- **Catalog Structure**: Tests expect specific structures that may differ from actual RealmEngine.Data files
 - **Item Naming**: Hardcoded names like "iron-longsword" may not match actual catalog entries
 - **Path/Category Mismatch**: Tests expect "swords" category but catalogs may use different componentKeys
 - **Old Catalog Format**: Some catalogs may still use pre-v4.0 structure instead of components
 
 **Recommended Fixes**:
-1. Examine actual catalog structures in Game.Data/Data/Json
+1. Examine actual catalog structures in RealmEngine.Data/Data/Json
 2. Update test references to match real item names
 3. Fix path/category expectations based on actual file structure
 4. Update classes/catalog.json to fix invalid references
@@ -359,7 +359,7 @@ Row 4: Action Buttons
 
 **Build Command**:
 ```powershell
-dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
+dotnet build RealmForge/RealmForge.csproj
 ```
 
 **Output**:
@@ -581,7 +581,7 @@ graph TD
 ### Immediate (High Priority)
 
 1. **Fix Integration Test Failures** 🔧
-   - Examine actual Game.Data catalog structures
+   - Examine actual RealmEngine.Data catalog structures
    - Update hardcoded test references to match real data
    - Fix path/category mismatches
    - Target: 35/35 passing (100%)
@@ -676,7 +676,7 @@ graph TD
 - Property access: null results
 - Cross-domain validation: classes catalog errors
 
-**Root Cause**: Test expectations don't match actual Game.Data catalog structures
+**Root Cause**: Test expectations don't match actual RealmEngine.Data catalog structures
 
 **Workaround**: Update tests to match real data OR update catalogs to match JSON v4.0 standards
 
@@ -704,8 +704,8 @@ graph TD
 - FluentAssertions v8.8.0 - Test assertions
 
 ### Project References
-- Game.Shared - Shared models and services
-- Game.Core - Core game logic
+- RealmEngine.Shared - Shared models and services
+- RealmEngine.Core - Core game logic
 
 ---
 
@@ -721,7 +721,7 @@ graph TD
 
 ### What Could Be Improved 🔧
 
-1. **Test Data Alignment**: Should have examined Game.Data structure before writing integration tests
+1. **Test Data Alignment**: Should have examined RealmEngine.Data structure before writing integration tests
 2. **Catalog Standards**: Need to enforce JSON v4.0 standards more strictly to ensure predictable structure
 3. **UI Testing**: Should have created UI tests in parallel with implementation
 4. **Documentation**: Should have documented reference syntax earlier in process

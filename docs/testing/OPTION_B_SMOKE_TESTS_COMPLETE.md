@@ -50,7 +50,7 @@ Compilation: 100% success ✅
 
 ```powershell
 # Run all ViewModel smoke tests
-dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --filter "Category=ViewModel"
+dotnet test RealmForge.Tests/RealmForge.Tests.csproj --filter "Category=ViewModel"
 
 # Or use VS Code task
 # Task: "test-contentbuilder-unit"
@@ -142,7 +142,7 @@ Now that smoke tests are working, we can proceed with **Option A** to fix the or
 
 ```powershell
 # Run all passing tests
-dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --filter "Category=ViewModel"
+dotnet test RealmForge.Tests/RealmForge.Tests.csproj --filter "Category=ViewModel"
 
 # Expected output:
 # Total tests: 28

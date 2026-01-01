@@ -249,7 +249,7 @@ All JSON data files now pass v4.0 standards validation. The following fixes were
 
 ```bash
 # Run JSON compliance tests
-dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj \
+dotnet test RealmForge.Tests/RealmForge.Tests.csproj \
   --filter "FullyQualifiedName~JsonDataComplianceTests" \
   --logger "console;verbosity=normal"
 ```

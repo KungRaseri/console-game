@@ -9,21 +9,21 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-contentbuilder",
-            "program": "${workspaceFolder}/Game.ContentBuilder/bin/Debug/net9.0-windows/Game.ContentBuilder.dll",
+            "program": "${workspaceFolder}/RealmForge/bin/Debug/net9.0-windows/RealmForge.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Game.ContentBuilder",
+            "cwd": "${workspaceFolder}/RealmForge",
             "console": "internalConsole",
             "stopAtEntry": false
         },
         {
-            "name": "Test: Game.Shared.Tests",
+            "name": "Test: RealmEngine.Shared.Tests",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "test-shared",
             "program": "dotnet",
             "args": [
                 "test",
-                "${workspaceFolder}/Game.Shared.Tests/Game.Shared.Tests.csproj",
+                "${workspaceFolder}/RealmEngine.Shared.Tests/RealmEngine.Shared.Tests.csproj",
                 "--no-build"
             ],
             "cwd": "${workspaceFolder}",
@@ -31,14 +31,14 @@
             "stopAtEntry": false
         },
         {
-            "name": "Test: Game.Core.Tests",
+            "name": "Test: RealmEngine.Core.Tests",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "test-core",
             "program": "dotnet",
             "args": [
                 "test",
-                "${workspaceFolder}/Game.Core.Tests/Game.Core.Tests.csproj",
+                "${workspaceFolder}/RealmEngine.Core.Tests/RealmEngine.Core.Tests.csproj",
                 "--no-build"
             ],
             "cwd": "${workspaceFolder}",
@@ -46,14 +46,14 @@
             "stopAtEntry": false
         },
         {
-            "name": "Test: Game.Data.Tests",
+            "name": "Test: RealmEngine.Data.Tests",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "test-data",
             "program": "dotnet",
             "args": [
                 "test",
-                "${workspaceFolder}/Game.Data.Tests/Game.Data.Tests.csproj",
+                "${workspaceFolder}/RealmEngine.Data.Tests/RealmEngine.Data.Tests.csproj",
                 "--no-build"
             ],
             "cwd": "${workspaceFolder}",

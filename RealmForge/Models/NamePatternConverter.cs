@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 
-namespace Game.ContentBuilder.Models;
+namespace RealmForge.Models;
 
 /// <summary>
 /// Custom JSON converter for NamePatternBase to handle field name variations and type discrimination

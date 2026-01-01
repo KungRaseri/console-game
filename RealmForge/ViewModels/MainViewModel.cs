@@ -2,12 +2,12 @@
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Game.ContentBuilder.Models;
-using Game.ContentBuilder.Services;
-using Game.ContentBuilder.Views;
+using RealmForge.Models;
+using RealmForge.Services;
+using RealmForge.Views;
 using Serilog;
 
-namespace Game.ContentBuilder.ViewModels;
+namespace RealmForge.ViewModels;
 
 /// <summary>
 /// Main ViewModel for the Content Builder application
@@ -35,7 +35,7 @@ public partial class MainViewModel : ObservableObject
 
     public MainViewModel()
     {
-        // Initialize services with path to Game.Shared Data directory
+        // Initialize services with path to RealmEngine.Shared Data directory
         var dataPath = GetDataDirectory();
         _jsonEditorService = new JsonEditorService(dataPath, App.DataCache);
         _catalogTokenService = new CatalogTokenService(_jsonEditorService);

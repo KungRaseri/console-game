@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Game.ContentBuilder.Models;
+namespace RealmForge.Models;
 
 /// <summary>
 /// Base class for all name components with common properties

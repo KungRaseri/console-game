@@ -277,7 +277,7 @@ The tests in `CatalogEditor_ComprehensiveTests.cs` expect controls that **don't 
 The comprehensive UI tests need to be updated to match the v4.0 UI structure:
 
 #### 1. Update CatalogEditor Tests
-**File:** `Game.ContentBuilder.Tests/UI/CatalogEditor_ComprehensiveTests.cs`
+**File:** `RealmForge.Tests/UI/CatalogEditor_ComprehensiveTests.cs`
 
 **Changes Needed:**
 ```csharp
@@ -304,12 +304,12 @@ var categoryNode = treeView.FindFirstDescendant(cf =>
 - [... 28 more tests ...]
 
 #### 2. Verify NameListEditor Tests
-**File:** `Game.ContentBuilder.Tests/UI/NameListEditor_ComprehensiveTests.cs`
+**File:** `RealmForge.Tests/UI/NameListEditor_ComprehensiveTests.cs`
 
 **Status:** Tests should work but may need visual tree navigation adjustments
 
 #### 3. Create AbilitiesEditor Tests
-**File:** `Game.ContentBuilder.Tests/UI/AbilitiesEditor_ComprehensiveTests.cs` (NEW)
+**File:** `RealmForge.Tests/UI/AbilitiesEditor_ComprehensiveTests.cs` (NEW)
 
 **Tests Needed:**
 - Should display abilities list
@@ -322,7 +322,7 @@ var categoryNode = treeView.FindFirstDescendant(cf =>
 ### MEDIUM PRIORITY: Create ViewModel Unit Tests
 
 #### 1. NameListEditorViewModel Tests
-**File:** `Game.ContentBuilder.Tests/ViewModels/NameListEditorViewModelTests.cs` (NEW)
+**File:** `RealmForge.Tests/ViewModels/NameListEditorViewModelTests.cs` (NEW)
 
 **Tests Needed:**
 - AddPattern_Should_Add_New_Pattern_To_Collection
@@ -336,7 +336,7 @@ var categoryNode = treeView.FindFirstDescendant(cf =>
 **Goal:** 80%+ code coverage for business logic
 
 #### 2. CatalogEditorViewModel Tests
-**File:** `Game.ContentBuilder.Tests/ViewModels/CatalogEditorViewModelTests.cs` (NEW)
+**File:** `RealmForge.Tests/ViewModels/CatalogEditorViewModelTests.cs` (NEW)
 
 **Tests Needed:**
 - AddCategory_Should_Create_New_Category
@@ -350,7 +350,7 @@ var categoryNode = treeView.FindFirstDescendant(cf =>
 - Load_Should_Populate_Categories_And_Items
 
 #### 3. AbilitiesEditorViewModel Tests
-**File:** `Game.ContentBuilder.Tests/ViewModels/AbilitiesEditorViewModelTests.cs` (NEW)
+**File:** `RealmForge.Tests/ViewModels/AbilitiesEditorViewModelTests.cs` (NEW)
 
 **Tests Needed:**
 - Load_Should_Populate_Abilities_From_JSON

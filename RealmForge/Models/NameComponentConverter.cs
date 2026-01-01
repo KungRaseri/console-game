@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Game.ContentBuilder.Models;
+namespace RealmForge.Models;
 
 /// <summary>
 /// Custom JSON converter that determines the correct NameComponent type based on properties

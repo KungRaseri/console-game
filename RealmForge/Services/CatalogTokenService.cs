@@ -2,7 +2,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Universal service for replacing {base} and other catalog-based tokens across all editors

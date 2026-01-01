@@ -3,7 +3,7 @@ using System.Windows.Media;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Service that loads and provides access to rarity configuration from rarity_config.json

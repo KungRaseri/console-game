@@ -246,7 +246,7 @@ Before finalizing migration:
 - [ ] Check that base token resolves correctly
 - [ ] Validate all trait types (number/string/boolean)
 - [ ] Ensure no null values in critical fields
-- [ ] Test with Game.Core generators
+- [ ] Test with RealmEngine.Core generators
 - [ ] Verify ContentBuilder default tab selection
 
 ---
@@ -254,9 +254,9 @@ Before finalizing migration:
 ## Files Created
 
 ### Migration v4.0 Files
-1. `Game.Shared/Data/Json/items/weapons/names_v4.json` (1,100 lines)
-2. `Game.Shared/Data/Json/items/armor/names_v4.json` (1,350 lines)
-3. `Game.Shared/Data/Json/items/enchantments/names_v4.json` (1,200 lines)
+1. `RealmEngine.Shared/Data/Json/items/weapons/names_v4.json` (1,100 lines)
+2. `RealmEngine.Shared/Data/Json/items/armor/names_v4.json` (1,350 lines)
+3. `RealmEngine.Shared/Data/Json/items/enchantments/names_v4.json` (1,200 lines)
 
 ### Documentation Files
 1. `docs/planning/NAMING_SYSTEM_REFACTOR_PROPOSAL.md` (450 lines)

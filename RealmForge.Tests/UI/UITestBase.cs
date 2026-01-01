@@ -68,7 +68,7 @@ public abstract class UITestBase : IDisposable
             {
                 throw new FileNotFoundException(
                     $"ContentBuilder executable not found at: {fullExePath}. " +
-                    "Please build the Game.ContentBuilder project first.");
+                    "Please build the RealmForge project first.");
             }
 
             Log.Information("Launching ContentBuilder from: {ExePath}", fullExePath);

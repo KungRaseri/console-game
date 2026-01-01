@@ -162,14 +162,14 @@ private ComponentGroup? _selectedComponentGroup;
 
 ### Files Modified
 
-1. **Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs**
+1. **RealmForge/ViewModels/HybridArrayEditorViewModel.cs**
    - Changed `DeleteItem()` to accept `string? item` parameter
    - Changed `DeletePattern()` to accept `PatternComponent? pattern` parameter
    - Added `DeleteComponent(string? component)` method
    - Added `NotifyCanExecuteChangedFor` attributes to `_selectedComponentGroup`
    - Removed `CanDelete*` predicates (no longer needed without CanExecute)
 
-2. **Game.ContentBuilder/Views/HybridArrayEditorView.xaml**
+2. **RealmForge/Views/HybridArrayEditorView.xaml**
    - Added `CommandParameter="{Binding}"` to Items delete button
    - Added `CommandParameter="{Binding}"` to Patterns delete button
    - Added complete ItemTemplate with delete buttons to Components list

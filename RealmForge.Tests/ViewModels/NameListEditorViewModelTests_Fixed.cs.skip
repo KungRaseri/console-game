@@ -2,11 +2,11 @@ using System;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
-using Game.ContentBuilder.Services;
-using Game.ContentBuilder.ViewModels;
+using RealmForge.Services;
+using RealmForge.ViewModels;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.ViewModels;
+namespace RealmForge.Tests.ViewModels;
 
 /// <summary>
 /// Tests for NameListEditorViewModel (FIXED to match actual API)

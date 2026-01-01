@@ -1,12 +1,12 @@
 using System.IO;
 using FluentAssertions;
-using Game.ContentBuilder.Services;
-using Game.ContentBuilder.ViewModels;
-using Game.ContentBuilder.Views;
+using RealmForge.Services;
+using RealmForge.ViewModels;
+using RealmForge.Views;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.UI;
+namespace RealmForge.Tests.UI;
 
 /// <summary>
 /// UI smoke tests for new CRUD editors

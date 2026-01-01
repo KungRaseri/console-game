@@ -184,12 +184,12 @@ All names.json files include:
 
 ```
 Build succeeded in 33.8s
-✓ Game.Shared
-✓ Game.Core
-✓ Game.Data
+✓ RealmEngine.Shared
+✓ RealmEngine.Core
+✓ RealmEngine.Data
 ✓ Game.Console
 ✓ Game.Tests
-✓ Game.ContentBuilder
+✓ RealmForge
 ```
 
 ## Warning Handled

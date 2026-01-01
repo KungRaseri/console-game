@@ -12,7 +12,7 @@ Successfully created a new Quest Catalog Editor for the Quest v4.0 data structur
 ### 1. New Editor Infrastructure
 
 #### A. EditorType Enum Updated
-**File**: `Game.ContentBuilder/Models/CategoryNode.cs`
+**File**: `RealmForge/Models/CategoryNode.cs`
 
 ```csharp
 QuestTemplateEditor,   // quest_template_catalog: quest templates (OLD - v3.x)
@@ -20,7 +20,7 @@ QuestCatalogEditor,    // quest catalog.json: templates + locations (NEW - v4.0)
 ```
 
 #### B. FileTypeDetector Enhanced
-**File**: `Game.ContentBuilder/Services/FileTypeDetector.cs`
+**File**: `RealmForge/Services/FileTypeDetector.cs`
 
 - Added `JsonFileType.QuestCatalog` enum value
 - Special case detection for `quests/catalog.json`
@@ -35,7 +35,7 @@ if (fileName == "catalog.json" && directoryName == "quests")
 ```
 
 ### 2. Quest Catalog Editor ViewModel
-**File**: `Game.ContentBuilder/ViewModels/QuestCatalogEditorViewModel.cs` (655 lines)
+**File**: `RealmForge/ViewModels/QuestCatalogEditorViewModel.cs` (655 lines)
 
 #### Features:
 ✅ **Templates Tab**:
@@ -77,7 +77,7 @@ public class LocationDangerNode { ... }
 ```
 
 ### 3. Quest Catalog Editor View
-**File**: `Game.ContentBuilder/Views/QuestCatalogEditorView.xaml` (425 lines)
+**File**: `RealmForge/Views/QuestCatalogEditorView.xaml` (425 lines)
 
 #### UI Components:
 - **Header Bar**:
@@ -102,7 +102,7 @@ public class LocationDangerNode { ... }
 - ScrollViewer for long forms
 
 ### 4. MainViewModel Integration
-**File**: `Game.ContentBuilder/ViewModels/MainViewModel.cs`
+**File**: `RealmForge/ViewModels/MainViewModel.cs`
 
 ```csharp
 case EditorType.QuestCatalogEditor:
@@ -122,7 +122,7 @@ private void LoadQuestCatalogEditor(string fileName)
 
 ### File Detection Flow
 1. User opens ContentBuilder
-2. `FileTreeService` scans `Game.Data/Data/Json/` directory
+2. `FileTreeService` scans `RealmEngine.Data/Data/Json/` directory
 3. Discovers `quests/catalog.json`
 4. Calls `FileTypeDetector.GetEditorType("quests/catalog.json")`
 5. Returns `EditorType.QuestCatalogEditor`
@@ -240,18 +240,18 @@ private void LoadQuestCatalogEditor(string fileName)
 ## Files Modified
 
 ### New Files Created (3):
-1. `Game.ContentBuilder/ViewModels/QuestCatalogEditorViewModel.cs` (655 lines)
-2. `Game.ContentBuilder/Views/QuestCatalogEditorView.xaml` (425 lines)
-3. `Game.ContentBuilder/Views/QuestCatalogEditorView.xaml.cs` (25 lines)
+1. `RealmForge/ViewModels/QuestCatalogEditorViewModel.cs` (655 lines)
+2. `RealmForge/Views/QuestCatalogEditorView.xaml` (425 lines)
+3. `RealmForge/Views/QuestCatalogEditorView.xaml.cs` (25 lines)
 
 ### Existing Files Modified (3):
-1. `Game.ContentBuilder/Models/CategoryNode.cs`
+1. `RealmForge/Models/CategoryNode.cs`
    - Added `QuestCatalogEditor` enum value
-2. `Game.ContentBuilder/Services/FileTypeDetector.cs`
+2. `RealmForge/Services/FileTypeDetector.cs`
    - Added `QuestCatalog` enum value
    - Added special detection for `quests/catalog.json`
    - Mapped to `EditorType.QuestCatalogEditor`
-3. `Game.ContentBuilder/ViewModels/MainViewModel.cs`
+3. `RealmForge/ViewModels/MainViewModel.cs`
    - Added `QuestCatalogEditor` case in switch
    - Added `LoadQuestCatalogEditor()` method
 
@@ -264,12 +264,12 @@ private void LoadQuestCatalogEditor(string fileName)
 ```
 Build succeeded in 8.9s
 
-  Game.Shared succeeded → Game.Shared\bin\Debug\net9.0\Game.Shared.dll
-  Game.Core succeeded → Game.Core\bin\Debug\net9.0\Game.Core.dll
-  Game.Data succeeded → Game.Data\bin\Debug\net9.0\Game.Data.dll
+  RealmEngine.Shared succeeded → RealmEngine.Shared\bin\Debug\net9.0\RealmEngine.Shared.dll
+  RealmEngine.Core succeeded → RealmEngine.Core\bin\Debug\net9.0\RealmEngine.Core.dll
+  RealmEngine.Data succeeded → RealmEngine.Data\bin\Debug\net9.0\RealmEngine.Data.dll
   Game.Console succeeded → Game.Console\bin\Debug\net9.0\Game.Console.dll
   Game.Tests succeeded → Game.Tests\bin\Debug\net9.0\Game.Tests.dll
-  Game.ContentBuilder succeeded → Game.ContentBuilder\bin\Debug\net9.0-windows\Game.ContentBuilder.dll
+  RealmForge succeeded → RealmForge\bin\Debug\net9.0-windows\RealmForge.dll
 ```
 
 ## Next Steps

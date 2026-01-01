@@ -48,7 +48,7 @@ You now have a **fully functional, production-ready** game content editor with:
 
 ### 1. Launch the Application
 ```powershell
-dotnet run --project Game.ContentBuilder
+dotnet run --project RealmForge
 ```
 
 ### 2. Navigate to an Editor
@@ -104,7 +104,7 @@ dotnet run --project Game
 
 ### New Files (9)
 ```
-Game.ContentBuilder/
+RealmForge/
 ├── Models/
 │   ├── CategoryNode.cs ✅
 │   └── ItemPrefixSuffix.cs ✅
@@ -127,7 +127,7 @@ docs/
 
 ### Modified Files (5)
 ```
-Game.ContentBuilder/
+RealmForge/
 ├── ViewModels/
 │   └── MainViewModel.cs ✅
 ├── MainWindow.xaml ✅
@@ -264,7 +264,7 @@ Want to show someone? Here's a 2-minute demo:
 
 1. **Launch** (5 seconds)
    ```
-   dotnet run --project Game.ContentBuilder
+   dotnet run --project RealmForge
    ```
 
 2. **Navigate** (10 seconds)
@@ -365,22 +365,22 @@ Ready for Day 4? You've got the pattern down - now it's just rinse and repeat fo
 
 ### Run the App
 ```powershell
-dotnet run --project Game.ContentBuilder
+dotnet run --project RealmForge
 ```
 
 ### Build
 ```powershell
-dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
+dotnet build RealmForge/RealmForge.csproj
 ```
 
 ### Check Logs
 ```powershell
-Get-Content Game.ContentBuilder\bin\Debug\net9.0-windows\logs\contentbuilder-*.log -Tail 50
+Get-Content RealmForge\bin\Debug\net9.0-windows\logs\contentbuilder-*.log -Tail 50
 ```
 
 ### View Backups
 ```powershell
-Get-ChildItem Game.Shared\Data\Json\items\backups\ | Sort-Object LastWriteTime -Descending
+Get-ChildItem RealmEngine.Shared\Data\Json\items\backups\ | Sort-Object LastWriteTime -Descending
 ```
 
 ---

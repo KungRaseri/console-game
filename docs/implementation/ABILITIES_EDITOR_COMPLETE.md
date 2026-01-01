@@ -14,7 +14,7 @@ Successfully implemented the **AbilitiesEditor** for ContentBuilder, providing a
 ## What Was Built
 
 ### 1. AbilitiesEditorViewModel.cs
-**Location:** `Game.ContentBuilder/ViewModels/AbilitiesEditorViewModel.cs`  
+**Location:** `RealmForge/ViewModels/AbilitiesEditorViewModel.cs`  
 **Lines of Code:** 350+ lines
 
 **Features Implemented:**
@@ -47,7 +47,7 @@ ReloadFile()                      // Reload from disk
 ---
 
 ### 2. AbilitiesEditorView.xaml
-**Location:** `Game.ContentBuilder/Views/AbilitiesEditorView.xaml`  
+**Location:** `RealmForge/Views/AbilitiesEditorView.xaml`  
 **Lines of Code:** 376 lines
 
 **UI Features:**
@@ -75,7 +75,7 @@ ReloadFile()                      // Reload from disk
 ---
 
 ### 3. FileTypeDetector Updates
-**Location:** `Game.ContentBuilder/Services/FileTypeDetector.cs`
+**Location:** `RealmForge/Services/FileTypeDetector.cs`
 
 **Added Support For:**
 ```csharp
@@ -104,7 +104,7 @@ public enum JsonFileType
 ---
 
 ### 4. EditorType Enum Updates
-**Location:** `Game.ContentBuilder/Models/CategoryNode.cs`
+**Location:** `RealmForge/Models/CategoryNode.cs`
 
 **Added Editor Types:**
 ```csharp
@@ -124,7 +124,7 @@ public enum EditorType
 ---
 
 ### 5. MainViewModel Updates
-**Location:** `Game.ContentBuilder/ViewModels/MainViewModel.cs`
+**Location:** `RealmForge/ViewModels/MainViewModel.cs`
 
 **Added Method:**
 ```csharp

@@ -30,7 +30,7 @@ We have successfully finalized the Pattern System Component Standards with a **w
 - ContentBuilder and game both resolve references on load
 - Easier to maintain
 
-**Implementation:** ComponentResolver service in Game.Shared
+**Implementation:** ComponentResolver service in RealmEngine.Shared
 
 ### 3. ✅ Reference Syntax - Simple @ Prefix
 
@@ -308,7 +308,7 @@ Total:    135 → Epic (101-200)
 ```
 
 **Features:**
-- Runtime resolution (Game.Shared ComponentResolver)
+- Runtime resolution (RealmEngine.Shared ComponentResolver)
 - Works in both ContentBuilder and Game.Console
 - Full array references only (no sub-selection for now)
 - Circular reference detection

@@ -2,13 +2,13 @@ using System.Collections.ObjectModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Game.ContentBuilder.Models;
-using Game.ContentBuilder.Services;
+using RealmForge.Models;
+using RealmForge.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
-namespace Game.ContentBuilder.ViewModels;
+namespace RealmForge.ViewModels;
 
 /// <summary>
 /// ViewModel for editing name list files (weapon_names.json)

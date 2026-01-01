@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Game.ContentBuilder.Models;
+namespace RealmForge.Models;
 
 /// <summary>
 /// Model for a component group (e.g., "material", "quality", "descriptive")

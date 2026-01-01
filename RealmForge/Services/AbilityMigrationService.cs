@@ -1,9 +1,9 @@
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Serilog;
-using Game.Shared.Data.Models;
+using RealmEngine.Shared.Data.Models;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Service for migrating v3 abilities.json files to v4 format (abilities_catalog.json + abilities_names.json)

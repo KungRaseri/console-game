@@ -27,7 +27,7 @@
 ## Work Completed So Far
 
 ### 1. Created WeightedSelector Utility ✅
-**File**: `Game.Core/Utilities/WeightedSelector.cs`  
+**File**: `RealmEngine.Core/Utilities/WeightedSelector.cs`  
 **Purpose**: Weighted random selection based on rarityWeight
 
 **Key Features**:
@@ -41,10 +41,10 @@ var template = WeightedSelector.SelectByRarityWeight(templates);
 ```
 
 ### 2. Updated QuestGenerator Structure ✅
-**File**: `Game.Core/Generators/QuestGenerator.cs`  
+**File**: `RealmEngine.Core/Generators/QuestGenerator.cs`  
 
 **Changes Made**:
-- ✅ Updated using statements to include `Game.Shared.Data`
+- ✅ Updated using statements to include `RealmEngine.Shared.Data`
 - ✅ Replaced `Generate()` method with v4.0 implementation
 - ✅ Replaced `GenerateByType()` method with v4.0 implementation  
 - ✅ Replaced `GenerateByTypeAndDifficulty()` with comprehensive v4.0 implementation

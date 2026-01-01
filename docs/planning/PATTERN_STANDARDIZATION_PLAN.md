@@ -200,7 +200,7 @@ token   ::= "base" | component_key
 
 ### 3.1 Metadata & Notes Tab (Right Panel) ⭐ PRIORITY 1
 
-**File:** `Game.ContentBuilder/Views/HybridArrayEditorView.xaml`
+**File:** `RealmForge/Views/HybridArrayEditorView.xaml`
 
 **UI Layout:**
 ```
@@ -367,7 +367,7 @@ public int TotalItemsCount => Items.Count;
 </Grid>
 ```
 
-**Service:** `Game.ContentBuilder/Services/MetadataGenerator.cs` (NEW)
+**Service:** `RealmForge/Services/MetadataGenerator.cs` (NEW)
 
 ```csharp
 public static class MetadataGenerator
@@ -443,7 +443,7 @@ private void SaveFile()
 
 ### 3.2 Pattern Validation (All Indicators) ⭐ PRIORITY 2
 
-**Service:** `Game.ContentBuilder/Services/PatternValidator.cs` (NEW)
+**Service:** `RealmForge/Services/PatternValidator.cs` (NEW)
 
 ```csharp
 public enum ValidationLevel
@@ -667,7 +667,7 @@ private bool CanAddPattern() =>
 
 ### 3.3 Live Example Preview (Below Input + Side Panel) ⭐ PRIORITY 3
 
-**Service Update:** `Game.ContentBuilder/Services/PatternExampleGenerator.cs`
+**Service Update:** `RealmForge/Services/PatternExampleGenerator.cs`
 
 ```csharp
 public static List<string> GenerateMultipleExamples(
@@ -821,7 +821,7 @@ private void RefreshExamples()
 
 ### Create PatternExecutor Service
 
-**File:** `Game.Shared/Services/PatternExecutor.cs`
+**File:** `RealmEngine.Shared/Services/PatternExecutor.cs`
 
 ```csharp
 public class PatternExecutor
@@ -882,7 +882,7 @@ public class PatternExecutor
 
 ### Update Data Models
 
-**File:** `Game.Shared/Data/Models/GameDataModels.cs`
+**File:** `RealmEngine.Shared/Data/Models/GameDataModels.cs`
 
 Add `Patterns` property to data classes:
 
@@ -898,7 +898,7 @@ public class WeaponNameData
 
 ### Update Generators
 
-**File:** `Game.Core/Generators/ItemGenerator.cs`
+**File:** `RealmEngine.Core/Generators/ItemGenerator.cs`
 
 Replace manual name construction with pattern execution:
 
@@ -988,7 +988,7 @@ public void GenerateWeaponName_UsesPatterns_FromJsonData()
 
 ### ContentBuilder Tests
 
-**File:** `Game.ContentBuilder.Tests/Services/PatternExampleGeneratorTests.cs`
+**File:** `RealmForge.Tests/Services/PatternExampleGeneratorTests.cs`
 
 ```csharp
 [Fact]
@@ -1111,7 +1111,7 @@ The pattern system generates dynamic names by combining components using pattern
 ### Phase 4: Runtime Implementation 📋 PLANNED
 
 **Day 1: PatternExecutor Service**
-- [ ] Create PatternExecutor service in Game.Shared
+- [ ] Create PatternExecutor service in RealmEngine.Shared
 - [ ] Implement Execute() method for pattern resolution
 - [ ] Add unit tests for pattern execution
 - [ ] Test with various pattern combinations

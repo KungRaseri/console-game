@@ -345,11 +345,11 @@ Combined:
 ### Files Referenced/Used
 
 **Source Files** (read for migration):
-- `Game.Data/Data/Json/npcs/personalities/backgrounds.json`
-- `Game.Data/Data/Json/npcs/occupations/occupations.json`
+- `RealmEngine.Data/Data/Json/npcs/personalities/backgrounds.json`
+- `RealmEngine.Data/Data/Json/npcs/occupations/occupations.json`
 
 **Created Files**:
-- `Game.Data/Data/Json/npcs/catalog.json` (NEW)
+- `RealmEngine.Data/Data/Json/npcs/catalog.json` (NEW)
 - `docs/NPC_CATALOG_CREATION_SUMMARY.md` (this file)
 
 **Documentation**:
@@ -467,4 +467,4 @@ Created a comprehensive `catalog.json` file that:
 
 **Ready for:** Next data file creation (traits.json)
 
-**File created:** `c:\code\console-game\Game.Data\Data\Json\npcs\catalog.json` (40KB)
+**File created:** `c:\code\console-game\RealmEngine.Data\Data\Json\npcs\catalog.json` (40KB)

@@ -1,9 +1,9 @@
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Serilog;
-using Game.ContentBuilder.Models;
+using RealmForge.Models;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Service for detecting JSON file types based on structure and metadata

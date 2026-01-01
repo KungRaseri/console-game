@@ -5,9 +5,9 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
-using Game.ContentBuilder.Tests.UI;
+using RealmForge.Tests.UI;
 
-namespace Game.ContentBuilder.Tests.Integration;
+namespace RealmForge.Tests.Integration;
 
 /// <summary>
 /// Integration tests for complete ContentBuilder workflows
@@ -26,8 +26,8 @@ public class ContentBuilderIntegrationTests : UITestBase
         // Get test data path (ContentBuilder's Resources/data directory)
         var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
             "..", "..", "..", "..",
-            "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-            "Game.ContentBuilder.exe");
+            "RealmForge", "bin", "Debug", "net9.0-windows",
+            "RealmForge.exe");
 
         var fullExePath = Path.GetFullPath(exePath);
         _testDataPath = Path.Combine(

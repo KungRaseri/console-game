@@ -10,7 +10,7 @@
 The **patterns in the JSON files are NOT being used by the runtime code**! 
 
 **Evidence:**
-1. `Game.Core/Generators/ItemGenerator.cs` manually constructs weapon names
+1. `RealmEngine.Core/Generators/ItemGenerator.cs` manually constructs weapon names
 2. No code references or parses the "patterns" array from JSON
 3. Pattern system only exists in ContentBuilder for UI examples
 4. Components like `weapon_types`, `prefixes_material`, etc. are defined but patterns don't reference them correctly
@@ -264,14 +264,14 @@ private static string GenerateWeaponName(Faker f, Item item)
 **Goal:** Make runtime code use patterns from JSON
 
 **Files to Create:**
-1. `Game.Shared/Services/PatternExecutor.cs` - Core pattern parsing/execution
-2. `Game.Shared/Data/Models/PatternData.cs` - Data models with patterns property
+1. `RealmEngine.Shared/Services/PatternExecutor.cs` - Core pattern parsing/execution
+2. `RealmEngine.Shared/Data/Models/PatternData.cs` - Data models with patterns property
 
 **Files to Update:**
-1. `Game.Shared/Data/Models/GameDataModels.cs` - Add Patterns property
-2. `Game.Core/Generators/ItemGenerator.cs` - Use PatternExecutor instead of manual logic
-3. `Game.Core/Generators/EnemyGenerator.cs` - Use PatternExecutor for enemy names
-4. `Game.Core/Generators/NpcGenerator.cs` - Use PatternExecutor for NPC names
+1. `RealmEngine.Shared/Data/Models/GameDataModels.cs` - Add Patterns property
+2. `RealmEngine.Core/Generators/ItemGenerator.cs` - Use PatternExecutor instead of manual logic
+3. `RealmEngine.Core/Generators/EnemyGenerator.cs` - Use PatternExecutor for enemy names
+4. `RealmEngine.Core/Generators/NpcGenerator.cs` - Use PatternExecutor for NPC names
 
 ### Phase 3: ContentBuilder Pattern Validation
 

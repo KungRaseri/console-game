@@ -37,20 +37,20 @@ jobs:
     - name: Build solution
       run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
       
-    - name: Run Game.Shared.Tests
-      run: dotnet test Game.Shared.Tests/Game.Shared.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=shared-tests.trx"
+    - name: Run RealmEngine.Shared.Tests
+      run: dotnet test RealmEngine.Shared.Tests/RealmEngine.Shared.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=shared-tests.trx"
       continue-on-error: false
       
-    - name: Run Game.Core.Tests
-      run: dotnet test Game.Core.Tests/Game.Core.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=core-tests.trx"
+    - name: Run RealmEngine.Core.Tests
+      run: dotnet test RealmEngine.Core.Tests/RealmEngine.Core.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=core-tests.trx"
       continue-on-error: false
       
-    - name: Run Game.Data.Tests
-      run: dotnet test Game.Data.Tests/Game.Data.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=data-tests.trx"
+    - name: Run RealmEngine.Data.Tests
+      run: dotnet test RealmEngine.Data.Tests/RealmEngine.Data.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=data-tests.trx"
       continue-on-error: false
       
-    - name: Run Game.ContentBuilder.Tests
-      run: dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=contentbuilder-tests.trx"
+    - name: Run RealmForge.Tests
+      run: dotnet test RealmForge.Tests/RealmForge.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=contentbuilder-tests.trx"
       continue-on-error: true
       
     - name: Publish test results
@@ -103,11 +103,11 @@ jobs:
         Write-Output "Verifying package structure..."
         
         # Check core files
-        if (-not (Test-Path "package/Libraries/Game.Core/Game.Core.dll")) {
-          Write-Error "Game.Core.dll not found!"
+        if (-not (Test-Path "package/Libraries/RealmEngine.Core/RealmEngine.Core.dll")) {
+          Write-Error "RealmEngine.Core.dll not found!"
           exit 1
         }
-        if (-not (Test-Path "package/ContentBuilder/Game.ContentBuilder.exe")) {
+        if (-not (Test-Path "package/ContentBuilder/RealmForge.exe")) {
           Write-Error "ContentBuilder.exe not found!"
           exit 1
         }
@@ -217,14 +217,14 @@ jobs:
         Write-Output "Generated version: $version"
       shell: pwsh
       
-    - name: Pack Game.Core
-      run: dotnet pack Game.Core/Game.Core.csproj --configuration ${{ env.CONFIGURATION }} --no-restore -p:PackageVersion=${{ env.VERSION }} -p:RepositoryUrl=${{ github.server_url }}/${{ github.repository }} -p:RepositoryCommit=${{ github.sha }}
+    - name: Pack RealmEngine.Core
+      run: dotnet pack RealmEngine.Core/RealmEngine.Core.csproj --configuration ${{ env.CONFIGURATION }} --no-restore -p:PackageVersion=${{ env.VERSION }} -p:RepositoryUrl=${{ github.server_url }}/${{ github.repository }} -p:RepositoryCommit=${{ github.sha }}
       
-    - name: Pack Game.Shared
-      run: dotnet pack Game.Shared/Game.Shared.csproj --configuration ${{ env.CONFIGURATION }} --no-restore -p:PackageVersion=${{ env.VERSION }} -p:RepositoryUrl=${{ github.server_url }}/${{ github.repository }} -p:RepositoryCommit=${{ github.sha }}
+    - name: Pack RealmEngine.Shared
+      run: dotnet pack RealmEngine.Shared/RealmEngine.Shared.csproj --configuration ${{ env.CONFIGURATION }} --no-restore -p:PackageVersion=${{ env.VERSION }} -p:RepositoryUrl=${{ github.server_url }}/${{ github.repository }} -p:RepositoryCommit=${{ github.sha }}
       
-    - name: Pack Game.Data
-      run: dotnet pack Game.Data/Game.Data.csproj --configuration ${{ env.CONFIGURATION }} --no-restore -p:PackageVersion=${{ env.VERSION }} -p:RepositoryUrl=${{ github.server_url }}/${{ github.repository }} -p:RepositoryCommit=${{ github.sha }}
+    - name: Pack RealmEngine.Data
+      run: dotnet pack RealmEngine.Data/RealmEngine.Data.csproj --configuration ${{ env.CONFIGURATION }} --no-restore -p:PackageVersion=${{ env.VERSION }} -p:RepositoryUrl=${{ github.server_url }}/${{ github.repository }} -p:RepositoryCommit=${{ github.sha }}
       
     - name: Publish to GitHub Packages
       run: |
@@ -348,22 +348,22 @@ jobs:
         1. Extract \`console-game-${{ env.VERSION }}.zip\`
         2. Copy \`Libraries/\` folder to your Godot project
         3. Copy \`Data/Json/\` folder to your Godot project
-        4. Reference Game.Core.dll in your C# scripts
+        4. Reference RealmEngine.Core.dll in your C# scripts
         5. IntelliSense documentation is automatically available via XML files
         
         #### For Content Editing
         
         1. Extract \`ContentBuilder-${{ env.VERSION }}.zip\`
-        2. Run \`Game.ContentBuilder.exe\`
+        2. Run \`RealmForge.exe\`
         3. Edit JSON game data with visual editor
         4. Changes are validated against v4.0 standards
         
         #### Via NuGet (GitHub Packages)
         
         \`\`\`bash
-        dotnet add package Game.Core --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-        dotnet add package Game.Shared --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-        dotnet add package Game.Data --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        dotnet add package RealmEngine.Core --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        dotnet add package RealmEngine.Shared --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        dotnet add package RealmEngine.Data --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
         \`\`\`
         
         ### Requirements
@@ -373,12 +373,12 @@ jobs:
         
         ### Package Contents
         
-        - **Game.Core.dll** - Core game mechanics (generators, validators, features)
-        - **Game.Core.xml** - IntelliSense documentation
-        - **Game.Shared.dll** - Shared models and services
-        - **Game.Shared.xml** - IntelliSense documentation
-        - **Game.Data.dll** - Data loading and validation
-        - **Game.Data.xml** - IntelliSense documentation
+        - **RealmEngine.Core.dll** - Core game mechanics (generators, validators, features)
+        - **RealmEngine.Core.xml** - IntelliSense documentation
+        - **RealmEngine.Shared.dll** - Shared models and services
+        - **RealmEngine.Shared.xml** - IntelliSense documentation
+        - **RealmEngine.Data.dll** - Data loading and validation
+        - **RealmEngine.Data.xml** - IntelliSense documentation
         - **ContentBuilder.exe** - Visual JSON editor
         - **$jsonCount JSON files** - v4.0 compliant game data
         

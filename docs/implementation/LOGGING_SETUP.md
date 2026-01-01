@@ -24,13 +24,13 @@ Implemented proper dependency injection-based logging across the solution using 
 <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.0" />
 ```
 
-#### Game.Core (Business Logic Layer)
+#### RealmEngine.Core (Business Logic Layer)
 ```xml
 <PackageReference Include="Serilog" Version="4.3.0" />
 <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
 ```
 
-**Note**: Game.Core only references `Abstractions` to avoid coupling to a specific logging implementation.
+**Note**: RealmEngine.Core only references `Abstractions` to avoid coupling to a specific logging implementation.
 
 ## Configuration in Program.cs
 
@@ -48,7 +48,7 @@ services.AddLogging(loggingBuilder =>
 
 ## Usage Patterns
 
-### In Game.Core Services (Recommended)
+### In RealmEngine.Core Services (Recommended)
 ```csharp
 using Microsoft.Extensions.Logging;
 
@@ -121,12 +121,12 @@ var service = new GameStateService(saveGameService, logger);
 2. **Structured Logging**: Parameters like `{Location}` are structured data, not string interpolation
 3. **Performance**: Lazy evaluation - log messages only formatted if the level is enabled
 4. **Flexibility**: Easy to swap Serilog for another provider (NLog, etc.)
-5. **Separation of Concerns**: Game.Core doesn't depend on Serilog directly
+5. **Separation of Concerns**: RealmEngine.Core doesn't depend on Serilog directly
 
 ## Best Practices
 
 ### DO:
-- ✅ Use `ILogger<T>` in Game.Core services (DI-friendly)
+- ✅ Use `ILogger<T>` in RealmEngine.Core services (DI-friendly)
 - ✅ Use structured logging with parameters: `_logger.LogInformation("Player {Name} leveled up to {Level}", name, level)`
 - ✅ Use static `Log` in startup/shutdown code where DI isn't available
 - ✅ Log meaningful events (player actions, state changes, errors)
@@ -135,7 +135,7 @@ var service = new GameStateService(saveGameService, logger);
 - ❌ Don't use string interpolation: `_logger.LogInformation($"Player {name} leveled up")`
 - ❌ Don't log sensitive data (passwords, tokens)
 - ❌ Don't log in tight loops (performance impact)
-- ❌ Don't reference Serilog directly in Game.Core (use abstractions)
+- ❌ Don't reference Serilog directly in RealmEngine.Core (use abstractions)
 
 ## Future Enhancements
 
@@ -150,8 +150,8 @@ var service = new GameStateService(saveGameService, logger);
 ### Added/Modified
 - `Game.Console/Program.cs` - Added `services.AddLogging()` with Serilog
 - `Game.Console/Game.Console.csproj` - Added logging packages
-- `Game.Core/Game.Core.csproj` - Added `Microsoft.Extensions.Logging.Abstractions`
-- `Game.Core/Services/GameStateService.cs` - Converted to use `ILogger<T>`
+- `RealmEngine.Core/RealmEngine.Core.csproj` - Added `Microsoft.Extensions.Logging.Abstractions`
+- `RealmEngine.Core/Services/GameStateService.cs` - Converted to use `ILogger<T>`
 - `Game.Tests/Helpers/LoggerHelper.cs` - Created helper for test loggers
 - `Game.Tests/Services/MenuServiceTests.cs` - Updated to pass logger
 - `Game.Tests/Services/CombatOrchestratorTests.cs` - Updated to pass logger
@@ -159,7 +159,7 @@ var service = new GameStateService(saveGameService, logger);
 
 ### Already Existed
 - `Game.Console/Shared/Services/LoggingService.cs` - Serilog configuration
-- `Game.Shared/Behaviors/LoggingBehavior.cs` - MediatR logging pipeline
+- `RealmEngine.Shared/Behaviors/LoggingBehavior.cs` - MediatR logging pipeline
 
 ## Testing
 

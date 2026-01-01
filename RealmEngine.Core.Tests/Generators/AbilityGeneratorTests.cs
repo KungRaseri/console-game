@@ -1,7 +1,7 @@
 using FluentAssertions;
-using Game.Core.Generators.Modern;
-using Game.Data.Services;
-using Game.Shared.Models;
+using RealmEngine.Core.Generators.Modern;
+using RealmEngine.Data.Services;
+using RealmEngine.Shared.Models;
 using Xunit;
 
 namespace RealmEngine.Core.Tests.Generators;
@@ -15,7 +15,7 @@ public class AbilityGeneratorTests
 
     public AbilityGeneratorTests()
     {
-        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "Game.Data", "Data", "Json");
+        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
         _dataCache = new GameDataCache(basePath);
         _referenceResolver = new ReferenceResolverService(_dataCache);
         _generator = new AbilityGenerator(_dataCache, _referenceResolver);

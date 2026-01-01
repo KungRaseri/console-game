@@ -43,10 +43,10 @@ Implement the Apocalypse mode with a 4-hour real-time countdown timer, bonus tim
 **Note**: Timer goes in `Shared/Services/` because it's infrastructure, not a business feature.
 
 ```csharp
-using Game.Shared.UI;
+using RealmEngine.Shared.UI;
 using Serilog;
 
-namespace Game.Shared.Services;
+namespace RealmEngine.Shared.Services;
 
 /// <summary>
 /// Manages the countdown timer for Apocalypse mode.

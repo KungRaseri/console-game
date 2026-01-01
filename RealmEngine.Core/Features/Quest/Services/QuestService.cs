@@ -1,7 +1,7 @@
-using Game.Core.Features.SaveLoad;
+using RealmEngine.Core.Features.SaveLoad;
 using Serilog;
 
-using Game.Shared.Models;
+using RealmEngine.Shared.Models;
 namespace RealmEngine.Core.Features.Quests.Services;
 
 public class QuestService

@@ -1,7 +1,7 @@
-using Game.Shared.Models;
+using RealmEngine.Shared.Models;
 using Serilog;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Service for generating preview content using the game's generators.

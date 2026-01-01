@@ -224,8 +224,8 @@ This guide covers UI testing strategies for the WPF-based Game ContentBuilder ap
 **Setup**:
 ```powershell
 # Install FlaUI packages
-dotnet add Game.ContentBuilder.Tests package FlaUI.Core
-dotnet add Game.ContentBuilder.Tests package FlaUI.UIA3
+dotnet add RealmForge.Tests package FlaUI.Core
+dotnet add RealmForge.Tests package FlaUI.UIA3
 ```
 
 **Example Test**:
@@ -245,7 +245,7 @@ public class ContentBuilderUITests : IDisposable
     {
         // Launch the app
         var appPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, 
-            "Game.ContentBuilder.exe");
+            "RealmForge.exe");
         _app = Application.Launch(appPath);
         _automation = new UIA3Automation();
         _mainWindow = _app.GetMainWindow(_automation);
@@ -360,7 +360,7 @@ public class WhiteUITests
     [Fact]
     public void CanLaunchApplication()
     {
-        var app = Application.Launch("Game.ContentBuilder.exe");
+        var app = Application.Launch("RealmForge.exe");
         var window = app.GetWindow("Game Content Builder");
         
         Assert.NotNull(window);
@@ -713,13 +713,13 @@ public void Opening_100_Files_Should_Not_Leak_Memory()
 
 ```powershell
 # Add FlaUI packages to existing test project
-dotnet add Game.ContentBuilder.Tests package FlaUI.Core --version 4.0.0
-dotnet add Game.ContentBuilder.Tests package FlaUI.UIA3 --version 4.0.0
+dotnet add RealmForge.Tests package FlaUI.Core --version 4.0.0
+dotnet add RealmForge.Tests package FlaUI.UIA3 --version 4.0.0
 ```
 
 ### Step 3: Write First UI Test
 
-Create `Game.ContentBuilder.Tests/UI/BasicUITests.cs`:
+Create `RealmForge.Tests/UI/BasicUITests.cs`:
 
 ```csharp
 using FlaUI.Core;
@@ -727,7 +727,7 @@ using FlaUI.Core.AutomationElements;
 using FlaUI.UIA3;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.UI;
+namespace RealmForge.Tests.UI;
 
 public class BasicUITests : IDisposable
 {
@@ -741,8 +741,8 @@ public class BasicUITests : IDisposable
         var exePath = Path.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
             "..", "..", "..", "..",
-            "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-            "Game.ContentBuilder.exe"
+            "RealmForge", "bin", "Debug", "net9.0-windows",
+            "RealmForge.exe"
         );
 
         _app = Application.Launch(Path.GetFullPath(exePath));
@@ -778,13 +778,13 @@ public class BasicUITests : IDisposable
 
 ```powershell
 # Make sure ContentBuilder is built first
-dotnet build Game.ContentBuilder
+dotnet build RealmForge
 
 # Run all tests (unit + UI)
-dotnet test Game.ContentBuilder.Tests
+dotnet test RealmForge.Tests
 
 # Run only UI tests
-dotnet test Game.ContentBuilder.Tests --filter "FullyQualifiedName~UI"
+dotnet test RealmForge.Tests --filter "FullyQualifiedName~UI"
 ```
 
 ---
@@ -793,19 +793,19 @@ dotnet test Game.ContentBuilder.Tests --filter "FullyQualifiedName~UI"
 
 ```powershell
 # Build ContentBuilder
-dotnet build Game.ContentBuilder
+dotnet build RealmForge
 
 # Manual testing - launch app
-dotnet run --project Game.ContentBuilder
+dotnet run --project RealmForge
 
 # Run all tests (unit tests only for now)
-dotnet test Game.ContentBuilder.Tests
+dotnet test RealmForge.Tests
 
 # After adding FlaUI, run UI tests
-dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
+dotnet test RealmForge.Tests --filter "Category=UI"
 
 # Run with verbose output to see FlaUI interactions
-dotnet test Game.ContentBuilder.Tests --logger "console;verbosity=detailed"
+dotnet test RealmForge.Tests --logger "console;verbosity=detailed"
 ```
 
 ---

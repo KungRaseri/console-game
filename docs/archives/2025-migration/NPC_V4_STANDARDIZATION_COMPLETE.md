@@ -206,7 +206,7 @@ Successfully audited and standardized all NPC data files to comply with **JSON v
 
 - **JSON v4.0 Standards**: `docs/standards/json/CATALOG_JSON_STANDARD.md`
 - **JSON Reference System v4.1**: `docs/standards/json/JSON_REFERENCE_STANDARDS.md`
-- **NPC Catalog Structure**: `Game.Data/Data/Json/npcs/catalog.json`
+- **NPC Catalog Structure**: `RealmEngine.Data/Data/Json/npcs/catalog.json`
 
 ---
 

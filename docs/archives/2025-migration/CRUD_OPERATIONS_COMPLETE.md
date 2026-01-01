@@ -394,10 +394,10 @@ All `.cbconfig.json` files across all domains can now be edited:
 
 ### Build Status
 ✅ **All Projects Build Successfully**
-- Game.Shared: 0 errors, 0 warnings
-- Game.Core: 0 errors, 0 warnings
-- Game.Data: 0 errors, 0 warnings
-- Game.ContentBuilder: 0 errors, 2 warnings (unused events in PatternItemControl)
+- RealmEngine.Shared: 0 errors, 0 warnings
+- RealmEngine.Core: 0 errors, 0 warnings
+- RealmEngine.Data: 0 errors, 0 warnings
+- RealmForge: 0 errors, 2 warnings (unused events in PatternItemControl)
 
 ### JSON Compliance Tests
 ✅ **939/939 tests passing (100%)**

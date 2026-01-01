@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Core.Features.Inventory.Queries;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.Inventory.Queries;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Tests.Features.Inventory.Queries;
 

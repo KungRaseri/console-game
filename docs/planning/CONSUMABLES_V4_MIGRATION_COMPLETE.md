@@ -23,7 +23,7 @@ This document records the completion of the consumables v4.0 migration and the e
 ## Files Affected
 
 ### Created
-- ✅ **Game.Shared/Data/Json/items/consumables/names.json** (v4.0 - 830 lines)
+- ✅ **RealmEngine.Shared/Data/Json/items/consumables/names.json** (v4.0 - 830 lines)
   - **30 effects** (15 existing + 15 new)
   - **10 quality levels** with powerMultiplier, durationMultiplier, valueMultiplier traits
   - **15 descriptive components** with alignment, visual, and buff traits
@@ -32,20 +32,20 @@ This document records the completion of the consumables v4.0 migration and the e
   - **7 name patterns** (from "Potion" to "Legendary Restoration Potion of the Dragon")
 
 ### Deleted
-- ❌ **Game.Shared/Data/Json/items/consumables/effects.json** (256 lines)
+- ❌ **RealmEngine.Shared/Data/Json/items/consumables/effects.json** (256 lines)
   - Reason: 50% overlap with names.json, inconsistent rarity strings
   - Unique data: 15 effects merged into v4.0 names.json
 
-- ❌ **Game.Shared/Data/Json/items/consumables/rarities.json** (150 lines)
+- ❌ **RealmEngine.Shared/Data/Json/items/consumables/rarities.json** (150 lines)
   - Reason: 100% redundant, global config data inappropriate for category file
   - Conflicts with v4.0 emergent rarity system
 
-- ❌ **Game.Shared/Data/Json/items/enchantments/effects.json** (256 lines)
+- ❌ **RealmEngine.Shared/Data/Json/items/enchantments/effects.json** (256 lines)
   - Reason: 100% redundant with enchantments/names.json v4.0 suffixes
   - All 32 effects covered by suffix components with traits
 
 ### Backed Up
-- **Game.Shared/Data/Json/items/consumables/names_v3_backup.json** (272 lines)
+- **RealmEngine.Shared/Data/Json/items/consumables/names_v3_backup.json** (272 lines)
   - Original v3.0 file preserved for rollback if needed
 
 ---

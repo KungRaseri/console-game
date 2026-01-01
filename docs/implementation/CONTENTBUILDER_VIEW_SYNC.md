@@ -102,4 +102,4 @@ Similar data files should use the same editor type for consistency. Currently th
 
 ## Files to Update
 
-- `Game.ContentBuilder/ViewModels/MainViewModel.cs` - Category assignments
+- `RealmForge/ViewModels/MainViewModel.cs` - Category assignments

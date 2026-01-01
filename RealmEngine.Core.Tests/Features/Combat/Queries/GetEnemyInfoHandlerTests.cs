@@ -1,6 +1,6 @@
 using FluentAssertions;
-using Game.Core.Features.Combat.Queries.GetEnemyInfo;
-using Game.Shared.Models;
+using RealmEngine.Core.Features.Combat.Queries.GetEnemyInfo;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Tests.Features.Combat.Queries;
 

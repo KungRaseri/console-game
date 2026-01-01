@@ -51,8 +51,8 @@ public class MyUITests : IDisposable
         var exePath = Path.Combine(
             testAssemblyPath,
             "..", "..", "..", "..",
-            "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-            "Game.ContentBuilder.exe"
+            "RealmForge", "bin", "Debug", "net9.0-windows",
+            "RealmForge.exe"
         );
 
         var fullExePath = Path.GetFullPath(exePath);
@@ -159,8 +159,8 @@ public ContentBuilderIntegrationTests() : base()
     // Get test data path (ContentBuilder's Resources/data directory)
     var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
         "..", "..", "..", "..",
-        "Game.ContentBuilder", "bin", "Debug", "net9.0-windows",
-        "Game.ContentBuilder.exe");
+        "RealmForge", "bin", "Debug", "net9.0-windows",
+        "RealmForge.exe");
     
     var fullExePath = Path.GetFullPath(exePath);
     _testDataPath = Path.Combine(
@@ -222,7 +222,7 @@ With timeout protection and guaranteed cleanup:
 
 ### 1. Run Full UI Test Suite
 ```powershell
-dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
+dotnet test RealmForge.Tests --filter "Category=UI"
 ```
 
 **Expected outcome:**
@@ -238,7 +238,7 @@ Get-Process | Where-Object { $_.ProcessName -like "*ContentBuilder*" }
 # Should return: nothing
 
 # Run tests
-dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
+dotnet test RealmForge.Tests --filter "Category=UI"
 
 # After test run
 Get-Process | Where-Object { $_.ProcessName -like "*ContentBuilder*" }
@@ -273,7 +273,7 @@ The 3 warnings are nullable reference warnings, not related to migration. Can be
 ## Technical Architecture
 
 ### UITestBase.cs
-- **Location:** `Game.ContentBuilder.Tests/UI/UITestBase.cs`
+- **Location:** `RealmForge.Tests/UI/UITestBase.cs`
 - **Lines:** 251 lines
 - **Purpose:** Abstract base class for all UI tests
 - **Key Features:**

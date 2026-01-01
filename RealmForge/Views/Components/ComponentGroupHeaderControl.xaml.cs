@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Game.ContentBuilder.Views.Components
+namespace RealmForge.Views.Components
 {
     /// <summary>
     /// Interaction logic for ComponentGroupHeaderControl.xaml

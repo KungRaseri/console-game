@@ -1,5 +1,5 @@
-using QuestModel = Game.Shared.Models.Quest;
-using Game.Shared.Models;
+using QuestModel = RealmEngine.Shared.Models.Quest;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Features.SaveLoad;
 

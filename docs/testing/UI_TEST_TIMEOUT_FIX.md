@@ -278,7 +278,7 @@ ExecuteWithTimeout(() =>
 Get-Process | Where-Object { $_.ProcessName -like "*ContentBuilder*" }
 
 # Run tests
-dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
+dotnet test RealmForge.Tests --filter "Category=UI"
 
 # After tests - should be empty
 Get-Process | Where-Object { $_.ProcessName -like "*ContentBuilder*" }

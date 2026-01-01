@@ -6,7 +6,7 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Game.ContentBuilder.Tests.UI;
+namespace RealmForge.Tests.UI;
 
 /// <summary>
 /// UI tests for the Name List Editor (names.json v4 format)

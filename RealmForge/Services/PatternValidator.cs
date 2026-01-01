@@ -1,6 +1,6 @@
-using Game.ContentBuilder.Models;
+using RealmForge.Models;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Validation levels for pattern validation

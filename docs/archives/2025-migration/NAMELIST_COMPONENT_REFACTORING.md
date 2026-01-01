@@ -6,7 +6,7 @@ The `NameListEditorView.xaml` file (958 lines, 84KB) was too large for efficient
 
 ## Created Components
 
-All new components are located in `Game.ContentBuilder/Views/Components/`
+All new components are located in `RealmForge/Views/Components/`
 
 ### 1. ComponentItemControl
 
@@ -254,7 +254,7 @@ All interactions use ICommand for testability and MVVM compliance:
 ## File Structure
 
 ```
-Game.ContentBuilder/
+RealmForge/
 └── Views/
     ├── Components/                          # NEW FOLDER
     │   ├── ComponentItemControl.xaml       # 210 lines
@@ -285,7 +285,7 @@ Game.ContentBuilder/
 Here's how the main NameListEditorView.xaml will look after integration:
 
 ```xaml
-<UserControl xmlns:components="clr-namespace:Game.ContentBuilder.Views.Components">
+<UserControl xmlns:components="clr-namespace:RealmForge.Views.Components">
     <UserControl.Resources>
         <!-- Component Item Template - SIMPLIFIED -->
         <DataTemplate x:Key="ComponentItemTemplate">

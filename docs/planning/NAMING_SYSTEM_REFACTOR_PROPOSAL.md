@@ -330,5 +330,5 @@ Generated Name: **"Blessed Mithril Longsword of Fire"**
 - `docs/standards/PATTERN_COMPONENT_STANDARDS.md` - Pattern syntax rules
 - `docs/standards/JSON_FILE_STANDARDS.md` - JSON structure standards
 - `docs/implementation/CONTENT_BUILDER_MVP.md` - ContentBuilder feature set
-- `Game.Core/Services/PatternGenerator.cs` - Pattern resolution logic
+- `RealmEngine.Core/Services/PatternGenerator.cs` - Pattern resolution logic
 

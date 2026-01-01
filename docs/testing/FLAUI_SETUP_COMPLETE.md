@@ -11,8 +11,8 @@ Successfully set up **FlaUI** for automated UI testing of the ContentBuilder WPF
    - `FlaUI.UIA3 4.0.0` - UI Automation 3 backend
 
 2. **Created UI Test Infrastructure**
-   - `Game.ContentBuilder.Tests/UI/ContentBuilderUITests.cs` - 8 comprehensive tests
-   - `Game.ContentBuilder.Tests/UI/DiagnosticUITests.cs` - Diagnostic helper
+   - `RealmForge.Tests/UI/ContentBuilderUITests.cs` - 8 comprehensive tests
+   - `RealmForge.Tests/UI/DiagnosticUITests.cs` - Diagnostic helper
 
 3. **Added Automation Support to XAML**
    - `AutomationProperties.Name` on TreeViewItem containers
@@ -51,18 +51,18 @@ Successfully set up **FlaUI** for automated UI testing of the ContentBuilder WPF
 
 ### New Files
 ```
-Game.ContentBuilder.Tests/UI/
+RealmForge.Tests/UI/
 ├── ContentBuilderUITests.cs      (243 lines - 8 tests)
 └── DiagnosticUITests.cs          (94 lines - helper)
 ```
 
 ### Modified Files
 ```
-Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj
+RealmForge.Tests/RealmForge.Tests.csproj
 ├── Added: FlaUI.Core 4.0.0
 └── Added: FlaUI.UIA3 4.0.0
 
-Game.ContentBuilder/MainWindow.xaml
+RealmForge/MainWindow.xaml
 ├── Added: AutomationProperties.AutomationId="CategoryTreeView"
 ├── Added: AutomationProperties.Name="{Binding Name}" on TreeViewItem
 └── Added: AutomationProperties.AutomationId="{Binding Name, StringFormat='TreeItem_{0}'}"
@@ -74,22 +74,22 @@ Game.ContentBuilder/MainWindow.xaml
 
 ### Run All UI Tests
 ```powershell
-dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
+dotnet test RealmForge.Tests --filter "Category=UI"
 ```
 
 ### Run Specific Test
 ```powershell
-dotnet test Game.ContentBuilder.Tests --filter "FullyQualifiedName~TreeView_Should_Contain_General_Category"
+dotnet test RealmForge.Tests --filter "FullyQualifiedName~TreeView_Should_Contain_General_Category"
 ```
 
 ### Run Diagnostic Test (Explore UI Structure)
 ```powershell
-dotnet test Game.ContentBuilder.Tests --filter "Category=Diagnostic" --logger "console;verbosity=detailed"
+dotnet test RealmForge.Tests --filter "Category=Diagnostic" --logger "console;verbosity=detailed"
 ```
 
 ### Build ContentBuilder First (Required)
 ```powershell
-dotnet build Game.ContentBuilder
+dotnet build RealmForge
 ```
 
 ---
@@ -121,7 +121,7 @@ public void TreeView_Should_Contain_General_Category()
 
 1. **Application Launch**
    ```csharp
-   _app = Application.Launch("Game.ContentBuilder.exe");
+   _app = Application.Launch("RealmForge.exe");
    _mainWindow = _app.GetMainWindow(_automation, TimeSpan.FromSeconds(10));
    ```
 
@@ -209,7 +209,7 @@ public void TreeView_Should_Contain_General_Category()
 ### Test Fails with "Executable not found"
 ```
 Solution: Build ContentBuilder first
-$ dotnet build Game.ContentBuilder
+$ dotnet build RealmForge
 ```
 
 ### Elements Not Found by Name

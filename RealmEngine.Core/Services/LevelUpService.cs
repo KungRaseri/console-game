@@ -1,5 +1,5 @@
-using Game.Core.Abstractions;
-using Game.Shared.Models;
+using RealmEngine.Core.Abstractions;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Services;
 

@@ -3,10 +3,10 @@ using System.Windows;
 using System.Windows.Threading;
 using Serilog;
 using Serilog.Events;
-using Game.ContentBuilder.Services;
+using RealmForge.Services;
 using RealmEngine.Data.Services;
 
-namespace Game.ContentBuilder;
+namespace RealmForge;
 
 /// <summary>
 /// Interaction logic for App.xaml

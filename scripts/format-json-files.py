@@ -19,7 +19,7 @@ def format_json_file(filepath):
         return False
 
 def main():
-    json_dir = Path("Game.Data/Data/Json")
+    json_dir = Path("RealmEngine.Data/Data/Json")
     
     if not json_dir.exists():
         print(f"ERROR: Directory not found: {json_dir}")

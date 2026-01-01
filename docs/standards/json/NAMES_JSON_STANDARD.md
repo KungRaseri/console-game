@@ -24,7 +24,7 @@ The `names.json` file is a **pattern generation file** that procedurally creates
 **Naming Convention:** Always `names.json`
 
 ```
-Game.Data/Data/Json/
+RealmEngine.Data/Data/Json/
 ├── items/
 │   ├── weapons/
 │   │   └── names.json          ← Weapon pattern generation

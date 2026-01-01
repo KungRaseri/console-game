@@ -196,12 +196,12 @@ Example from objectives.json:
 
 ```
 Restore complete (1.3s)
-  Game.Shared succeeded → Game.Shared\bin\Debug\net9.0\Game.Shared.dll
-  Game.Core succeeded → Game.Core\bin\Debug\net9.0\Game.Core.dll
-  Game.Data succeeded → Game.Data\bin\Debug\net9.0\Game.Data.dll
+  RealmEngine.Shared succeeded → RealmEngine.Shared\bin\Debug\net9.0\RealmEngine.Shared.dll
+  RealmEngine.Core succeeded → RealmEngine.Core\bin\Debug\net9.0\RealmEngine.Core.dll
+  RealmEngine.Data succeeded → RealmEngine.Data\bin\Debug\net9.0\RealmEngine.Data.dll
   Game.Console succeeded → Game.Console\bin\Debug\net9.0\Game.Console.dll
   Game.Tests succeeded → Game.Tests\bin\Debug\net9.0\Game.Tests.dll
-  Game.ContentBuilder succeeded → Game.ContentBuilder\bin\Debug\net9.0-windows\Game.ContentBuilder.dll
+  RealmForge succeeded → RealmForge\bin\Debug\net9.0-windows\RealmForge.dll
 
 Build succeeded with 1 warning(s) in 11.7s
 ```

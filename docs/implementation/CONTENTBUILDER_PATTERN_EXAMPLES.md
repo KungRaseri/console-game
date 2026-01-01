@@ -12,11 +12,11 @@ Added automatic example generation for patterns in the ContentBuilder's HybridAr
 
 ### New Files
 
-1. **Game.ContentBuilder/Models/PatternComponent.cs**
+1. **RealmForge/Models/PatternComponent.cs**
    - Model class representing a pattern with its auto-generated example
    - Properties: `Pattern` (string), `Example` (string)
 
-2. **Game.ContentBuilder/Services/PatternExampleGenerator.cs**
+2. **RealmForge/Services/PatternExampleGenerator.cs**
    - Service class that generates examples for patterns
    - Parses pattern strings (e.g., `"material + base"`)
    - Resolves tokens by searching components and items
@@ -24,14 +24,14 @@ Added automatic example generation for patterns in the ContentBuilder's HybridAr
 
 ### Modified Files
 
-1. **Game.ContentBuilder/ViewModels/HybridArrayEditorViewModel.cs**
+1. **RealmForge/ViewModels/HybridArrayEditorViewModel.cs**
    - Changed `Patterns` from `ObservableCollection<string>` to `ObservableCollection<PatternComponent>`
    - Added `_itemsData` and `_componentsData` fields to store raw JSON
    - Updated `LoadData()` to generate examples when loading patterns
    - Updated `AddPattern()` to generate example for new patterns
    - Updated `Save()` to extract only pattern strings (not examples)
 
-2. **Game.ContentBuilder/Views/HybridArrayEditorView.xaml**
+2. **RealmForge/Views/HybridArrayEditorView.xaml**
    - Updated Patterns tab ListBox to display both pattern and example
    - Pattern shown in bold
    - Example shown below in smaller, italic, gray text

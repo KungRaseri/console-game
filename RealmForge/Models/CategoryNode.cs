@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace Game.ContentBuilder.Models;
+namespace RealmForge.Models;
 
 /// <summary>
 /// Represents a node in the TreeView for navigating game data categories

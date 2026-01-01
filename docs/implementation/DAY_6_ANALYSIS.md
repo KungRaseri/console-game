@@ -9,7 +9,7 @@
 ## File Inventory
 
 ### Enemy Files (13 files)
-**Location**: `Game.Shared/Data/Json/enemies/`
+**Location**: `RealmEngine.Shared/Data/Json/enemies/`
 
 | File | Type | Structure Analysis |
 |------|------|-------------------|
@@ -28,7 +28,7 @@
 | undead_prefixes.json | Prefixes | ? (need to check) |
 
 ### NPC Files (4 files)
-**Location**: `Game.Shared/Data/Json/npcs/`
+**Location**: `RealmEngine.Shared/Data/Json/npcs/`
 
 | File | Type | Structure Analysis |
 |------|------|-------------------|
@@ -38,7 +38,7 @@
 | dialogue_traits.json | Traits | ? (need to check) |
 
 ### Quest Files (1 file)
-**Location**: `Game.Shared/Data/Json/quests/`
+**Location**: `RealmEngine.Shared/Data/Json/quests/`
 
 | File | Type | Structure Analysis |
 |------|------|-------------------|

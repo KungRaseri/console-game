@@ -8,7 +8,7 @@
 
 ## Problem
 
-After refactoring the architecture to use `Game.Shared`, `Game.Core`, etc., two issues emerged:
+After refactoring the architecture to use `RealmEngine.Shared`, `RealmEngine.Core`, etc., two issues emerged:
 
 ### Issue 1: WeaponNameData Structure Mismatch
 
@@ -53,7 +53,7 @@ new CategoryNode {
 
 ### Fix 1: Updated C# Model to Match JSON
 
-**File**: `Game.Shared/Data/Models/GameDataModels.cs`
+**File**: `RealmEngine.Shared/Data/Models/GameDataModels.cs`
 
 ```csharp
 // OLD (didn't match JSON)
@@ -82,7 +82,7 @@ public class WeaponNameItems
 }
 ```
 
-**File**: `Game.Core/Generators/ItemGenerator.cs`
+**File**: `RealmEngine.Core/Generators/ItemGenerator.cs`
 
 ```csharp
 // Updated all references from:
@@ -94,7 +94,7 @@ data.WeaponNames.Items.Swords
 
 ### Fix 2: Updated ContentBuilder Editor Type
 
-**File**: `Game.ContentBuilder/ViewModels/MainViewModel.cs`
+**File**: `RealmForge/ViewModels/MainViewModel.cs`
 
 ```csharp
 // Changed from HybridArray to NameList
@@ -108,7 +108,7 @@ new CategoryNode {
 
 ### Fix 3: Updated NameListEditor to Support Nested Structure
 
-**File**: `Game.ContentBuilder/ViewModels/NameListEditorViewModel.cs`
+**File**: `RealmForge/ViewModels/NameListEditorViewModel.cs`
 
 **LoadData Method:**
 ```csharp
@@ -169,10 +169,10 @@ _jsonEditorService.Save(filePath, data);
 ## Impact
 
 **Files Modified:**
-1. `Game.Shared/Data/Models/GameDataModels.cs` - Added nested `WeaponNameItems` class
-2. `Game.Core/Generators/ItemGenerator.cs` - Updated 7 property accesses
-3. `Game.ContentBuilder/ViewModels/MainViewModel.cs` - Changed editor type
-4. `Game.ContentBuilder/ViewModels/NameListEditorViewModel.cs` - Support nested structure
+1. `RealmEngine.Shared/Data/Models/GameDataModels.cs` - Added nested `WeaponNameItems` class
+2. `RealmEngine.Core/Generators/ItemGenerator.cs` - Updated 7 property accesses
+3. `RealmForge/ViewModels/MainViewModel.cs` - Changed editor type
+4. `RealmForge/ViewModels/NameListEditorViewModel.cs` - Support nested structure
 
 **Tests Fixed:**
 - 14 ItemGeneratorTests (weapon generation)

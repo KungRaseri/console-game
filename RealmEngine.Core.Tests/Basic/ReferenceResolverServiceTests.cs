@@ -1,5 +1,5 @@
 using FluentAssertions;
-using Game.Data.Services;
+using RealmEngine.Data.Services;
 
 namespace RealmEngine.Core.Tests.Basic;
 
@@ -11,7 +11,7 @@ public class ReferenceResolverServiceTests
 
     public ReferenceResolverServiceTests()
     {
-        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "Game.Data", "Data", "Json");
+        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
         _dataCache = new GameDataCache(basePath);
         _referenceResolver = new ReferenceResolverService(_dataCache);
     }

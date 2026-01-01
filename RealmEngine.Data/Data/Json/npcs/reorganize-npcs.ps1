@@ -1,6 +1,6 @@
 # NPC Reorganization Script
 # Creates all remaining catalog.json files for the NPC social class split
-# Run this from Game.Data\Data\Json\npcs directory
+# Run this from RealmEngine.Data\Data\Json\npcs directory
 
 $ErrorActionPreference = "Stop"
 

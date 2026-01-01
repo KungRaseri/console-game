@@ -1,4 +1,4 @@
-namespace Game.ContentBuilder.Models;
+namespace RealmForge.Models;
 
 /// <summary>
 /// Configuration for folder/file icons and metadata

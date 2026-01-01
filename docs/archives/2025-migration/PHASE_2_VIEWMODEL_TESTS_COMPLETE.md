@@ -26,7 +26,7 @@ Successfully created **70 comprehensive unit tests** for three critical ViewMode
 ## ✅ Test Files Created
 
 ### 1. NameListEditorViewModelTests.cs ✅
-**Location:** `Game.ContentBuilder.Tests/ViewModels/NameListEditorViewModelTests.cs`  
+**Location:** `RealmForge.Tests/ViewModels/NameListEditorViewModelTests.cs`  
 **Lines:** 296  
 **Tests:** 15  
 **Status:** ✅ All Passing
@@ -92,7 +92,7 @@ Successfully created **70 comprehensive unit tests** for three critical ViewMode
 ---
 
 ### 2. CatalogEditorViewModelTests.cs ✅
-**Location:** `Game.ContentBuilder.Tests/ViewModels/CatalogEditorViewModelTests.cs`  
+**Location:** `RealmForge.Tests/ViewModels/CatalogEditorViewModelTests.cs`  
 **Lines:** 503  
 **Tests:** 25  
 **Status:** ✅ All Passing
@@ -173,7 +173,7 @@ Successfully created **70 comprehensive unit tests** for three critical ViewMode
 ---
 
 ### 3. AbilitiesEditorViewModelTests.cs ✅
-**Location:** `Game.ContentBuilder.Tests/ViewModels/AbilitiesEditorViewModelTests.cs`  
+**Location:** `RealmForge.Tests/ViewModels/AbilitiesEditorViewModelTests.cs`  
 **Lines:** 554  
 **Tests:** 30  
 **Status:** ✅ All Passing
@@ -361,11 +361,11 @@ This approach provides **higher confidence** that ViewModels work correctly with
 dotnet test --filter "Category=ViewModel"
 
 Restore complete (1.0s)
-  Game.Shared succeeded (0.1s)
-  Game.Core succeeded (0.7s)
-  Game.Data succeeded (0.4s)
-  Game.ContentBuilder succeeded (2.3s)
-  Game.ContentBuilder.Tests succeeded (0.5s)
+  RealmEngine.Shared succeeded (0.1s)
+  RealmEngine.Core succeeded (0.7s)
+  RealmEngine.Data succeeded (0.4s)
+  RealmForge succeeded (2.3s)
+  RealmForge.Tests succeeded (0.5s)
 
 Test summary: total: 84, failed: 0, succeeded: 84, skipped: 0, duration: 1.7s
 Build succeeded in 7.2s
@@ -427,7 +427,7 @@ Build succeeded in 7.2s
 ### HIGH PRIORITY: Update UI Tests (Phase 3)
 The UI tests need to be updated to match the v4.0 TreeView structure:
 
-**File:** `Game.ContentBuilder.Tests/UI/CatalogEditor_ComprehensiveTests.cs`
+**File:** `RealmForge.Tests/UI/CatalogEditor_ComprehensiveTests.cs`
 
 **Issues:**
 - Tests expect `CategoryListBox` but view uses `CatalogTreeView`

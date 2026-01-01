@@ -109,7 +109,7 @@ game-20251204.txt  4,422  12/4/2025 10:12:21 AM
 
 ## Integration with DI
 
-Services in `Game.Core` can now use dependency injection for logging:
+Services in `RealmEngine.Core` can now use dependency injection for logging:
 
 ```csharp
 public class GameStateService

@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
 using System.IO;
-using Game.ContentBuilder.Models;
+using RealmForge.Models;
 using RealmEngine.Data.Services;
 using Newtonsoft.Json;
 using Serilog;
 
-namespace Game.ContentBuilder.Services;
+namespace RealmForge.Services;
 
 /// <summary>
 /// Service for dynamically building the file tree from the actual JSON files on disk

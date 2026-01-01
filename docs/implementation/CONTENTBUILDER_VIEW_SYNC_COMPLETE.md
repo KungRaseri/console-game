@@ -129,7 +129,7 @@ Standardized all editor type assignments based on actual data structure patterns
 
 ## Files Modified
 
-- `Game.ContentBuilder/ViewModels/MainViewModel.cs` - Updated 8 category assignments
+- `RealmForge/ViewModels/MainViewModel.cs` - Updated 8 category assignments
 
 ## Future Guidance
 

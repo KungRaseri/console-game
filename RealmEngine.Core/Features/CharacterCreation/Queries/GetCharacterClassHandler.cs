@@ -1,4 +1,4 @@
-using Game.Shared.Abstractions;
+using RealmEngine.Shared.Abstractions;
 using MediatR;
 
 namespace RealmEngine.Core.Features.CharacterCreation.Queries;

@@ -14,7 +14,7 @@ Comprehensive test coverage for the ContentBuilder WPF application, including:
 ## Test Organization
 
 ### Unit Tests (ViewModel Layer)
-**Location**: `Game.ContentBuilder.Tests/ViewModels/`
+**Location**: `RealmForge.Tests/ViewModels/`
 
 #### 1. FlatItemEditorViewModelTests.cs
 - **Tests**: 7 comprehensive tests
@@ -75,7 +75,7 @@ Comprehensive test coverage for the ContentBuilder WPF application, including:
 ---
 
 ### UI Automation Tests (UI Layer)
-**Location**: `Game.ContentBuilder.Tests/UI/`
+**Location**: `RealmForge.Tests/UI/`
 **Framework**: FlaUI (UIA3) for WPF automation
 
 #### 1. HybridArrayEditorUITests.cs
@@ -172,7 +172,7 @@ Comprehensive test coverage for the ContentBuilder WPF application, including:
 ---
 
 ### Integration Tests (End-to-End)
-**Location**: `Game.ContentBuilder.Tests/Integration/`
+**Location**: `RealmForge.Tests/Integration/`
 
 #### ContentBuilderIntegrationTests.cs
 - **Tests**: 15+ workflow tests
@@ -201,25 +201,25 @@ Comprehensive test coverage for the ContentBuilder WPF application, including:
 
 #### 1. **test-contentbuilder-unit**
 ```bash
-dotnet test Game.ContentBuilder.Tests --filter "Category=ViewModel"
+dotnet test RealmForge.Tests --filter "Category=ViewModel"
 ```
 Runs all ViewModel unit tests (~37 tests)
 
 #### 2. **test-contentbuilder-ui**
 ```bash
-dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
+dotnet test RealmForge.Tests --filter "Category=UI"
 ```
 Runs all FlaUI UI automation tests (~60+ tests)
 
 #### 3. **test-contentbuilder-integration**
 ```bash
-dotnet test Game.ContentBuilder.Tests --filter "Category=Integration"
+dotnet test RealmForge.Tests --filter "Category=Integration"
 ```
 Runs all integration workflow tests (~15 tests)
 
 #### 4. **test-contentbuilder-all**
 ```bash
-dotnet test Game.ContentBuilder.Tests
+dotnet test RealmForge.Tests
 ```
 Runs ALL ContentBuilder tests (~100+ tests)
 
@@ -227,13 +227,13 @@ Runs ALL ContentBuilder tests (~100+ tests)
 
 ```powershell
 # Run unit tests only
-dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --filter "Category=ViewModel"
+dotnet test RealmForge.Tests/RealmForge.Tests.csproj --filter "Category=ViewModel"
 
 # Run UI tests only
-dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --filter "Category=UI"
+dotnet test RealmForge.Tests/RealmForge.Tests.csproj --filter "Category=UI"
 
 # Run integration tests only
-dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --filter "Category=Integration"
+dotnet test RealmForge.Tests/RealmForge.Tests.csproj --filter "Category=Integration"
 
 # Run specific editor tests
 dotnet test --filter "Editor=HybridArray"
@@ -241,7 +241,7 @@ dotnet test --filter "Editor=NameList"
 dotnet test --filter "Editor=FlatItem"
 
 # Run all ContentBuilder tests
-dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj
+dotnet test RealmForge.Tests/RealmForge.Tests.csproj
 
 # Run with verbose output
 dotnet test --logger "console;verbosity=detailed"

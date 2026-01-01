@@ -1,4 +1,4 @@
-using Game.Shared.Models;
+using RealmEngine.Shared.Models;
 using System.Text.Json.Serialization;
 
 namespace RealmEngine.Shared.Data.Models;

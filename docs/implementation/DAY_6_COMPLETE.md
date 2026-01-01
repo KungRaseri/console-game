@@ -179,7 +179,7 @@ Added subdirectory paths in Tag property:
 - NPCs: `npcs/` prefix
 - Quests: `quests/` prefix
 
-`JsonEditorService` automatically resolves these relative to `Game.Shared/Data/Json/`
+`JsonEditorService` automatically resolves these relative to `RealmEngine.Shared/Data/Json/`
 
 ---
 
@@ -205,10 +205,10 @@ Added subdirectory paths in Tag property:
 ## Build Metrics
 
 ```powershell
-PS> dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
+PS> dotnet build RealmForge/RealmForge.csproj
 # Result: ✅ Build succeeded in 1.9s
-# - Game.Shared: 0.1s
-# - Game.ContentBuilder: 1.1s
+# - RealmEngine.Shared: 0.1s
+# - RealmForge: 1.1s
 # - Warnings: 0
 # - Errors: 0
 ```
@@ -220,7 +220,7 @@ PS> dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
 ### MVP Completion Status
 
 **Phase 1**: ✅ 100% Complete (Foundation, Day 1-3)
-- Game.Shared project created
+- RealmEngine.Shared project created
 - WPF project with Material Design
 - First working editor (weapon_prefixes.json)
 - FluentValidation, Serilog, backup system

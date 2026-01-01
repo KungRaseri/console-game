@@ -75,16 +75,16 @@ All 6 critical bugs now have regression tests:
 ### Command Line
 ```powershell
 # Run all ViewModel unit tests
-dotnet test Game.ContentBuilder.Tests --filter "Category=ViewModel"
+dotnet test RealmForge.Tests --filter "Category=ViewModel"
 
 # Run all UI automation tests
-dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
+dotnet test RealmForge.Tests --filter "Category=UI"
 
 # Run all integration tests
-dotnet test Game.ContentBuilder.Tests --filter "Category=Integration"
+dotnet test RealmForge.Tests --filter "Category=Integration"
 
 # Run ALL ContentBuilder tests
-dotnet test Game.ContentBuilder.Tests
+dotnet test RealmForge.Tests
 ```
 
 ### VS Code
@@ -100,7 +100,7 @@ Use the Command Palette (Ctrl+Shift+P) and run:
 1. **Close ContentBuilder** - UI tests launch the app, so close any running instances
 2. **Build the solution** - Tests require the latest ContentBuilder.exe
    ```powershell
-   dotnet build Game.ContentBuilder/Game.ContentBuilder.csproj
+   dotnet build RealmForge/RealmForge.csproj
    ```
 
 ### UI Test Requirements

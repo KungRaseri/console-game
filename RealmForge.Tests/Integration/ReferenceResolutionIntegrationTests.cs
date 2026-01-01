@@ -1,10 +1,10 @@
 using FluentAssertions;
-using Game.ContentBuilder.Services;
+using RealmForge.Services;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using Xunit;
 
-namespace Game.ContentBuilder.Tests.Integration;
+namespace RealmForge.Tests.Integration;
 
 [Trait("Category", "Integration")]
 public class ReferenceResolutionIntegrationTests
@@ -14,10 +14,10 @@ public class ReferenceResolutionIntegrationTests
 
     public ReferenceResolutionIntegrationTests()
     {
-        // Navigate to Game.Data/Data/Json from test project
+        // Navigate to RealmEngine.Data/Data/Json from test project
         var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-        // baseDir is typically: Game.ContentBuilder.Tests/bin/Debug/net9.0-windows/
-        // Navigate up to solution root (4 levels: net9.0-windows -> Debug -> bin -> Game.ContentBuilder.Tests -> solution)
+        // baseDir is typically: RealmForge.Tests/bin/Debug/net9.0-windows/
+        // Navigate up to solution root (4 levels: net9.0-windows -> Debug -> bin -> RealmForge.Tests -> solution)
         var solutionRoot = Directory.GetParent(baseDir)?.Parent?.Parent?.Parent?.Parent?.FullName;
         if (solutionRoot == null)
             throw new DirectoryNotFoundException($"Could not find solution root from: {baseDir}");

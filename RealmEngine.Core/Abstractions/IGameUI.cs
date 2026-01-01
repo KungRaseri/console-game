@@ -2,7 +2,7 @@ namespace RealmEngine.Core.Abstractions;
 
 /// <summary>
 /// Abstraction for game UI operations. Implementations can be console, web, mobile, etc.
-/// This allows Game.Core to remain UI-agnostic.
+/// This allows RealmEngine.Core to remain UI-agnostic.
 /// </summary>
 public interface IGameUI
 {

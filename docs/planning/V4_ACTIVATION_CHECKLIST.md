@@ -14,7 +14,7 @@
 
 ```powershell
 # Navigate to workspace
-cd C:\code\console-game\Game.Shared\Data\Json\items
+cd C:\code\console-game\RealmEngine.Shared\Data\Json\items
 
 # WEAPONS - Replace with v4
 Rename-Item "weapons\names.json" "weapons\names_v3_backup.json"
@@ -81,7 +81,7 @@ Rename-Item "enchantments\names_v4.json" "enchantments\names.json"
 git checkout -b naming-system-v4-migration
 
 # Stage v4 files
-git add Game.Shared/Data/Json/items/*/names_v4.json
+git add RealmEngine.Shared/Data/Json/items/*/names_v4.json
 
 # Commit v4 addition
 git commit -m "Add v4.0 unified naming files for weapons, armor, enchantments"
@@ -90,7 +90,7 @@ git commit -m "Add v4.0 unified naming files for weapons, armor, enchantments"
 # ... rename v4 → names.json, backup old files ...
 
 # Stage changes
-git add Game.Shared/Data/Json/items/
+git add RealmEngine.Shared/Data/Json/items/
 
 # Commit migration
 git commit -m "Activate v4.0 naming system, backup legacy files"
@@ -115,7 +115,7 @@ git reset --hard HEAD~1
    - Display traits in component lists (if UI supports it)
    - Continue working normally for all other features
 
-2. **Game.Core Generators Will:**
+2. **RealmEngine.Core Generators Will:**
    - Read components from new structure
    - Apply traits from components when generating items
    - Calculate emergent rarity from component weights
@@ -162,11 +162,11 @@ After activation, run these to verify:
 dotnet build Game.sln
 
 # Run ContentBuilder
-dotnet run --project Game.ContentBuilder
+dotnet run --project RealmForge
 
 # Run tests
 dotnet test Game.Tests
-dotnet test Game.ContentBuilder.Tests
+dotnet test RealmForge.Tests
 
 # Run console game (test item generation)
 dotnet run --project Game.Console

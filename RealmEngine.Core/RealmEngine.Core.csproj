@@ -4,13 +4,13 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Game.Core</RootNamespace>
+    <RootNamespace>RealmEngine.Core</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
     
     <!-- NuGet Package Metadata -->
-    <PackageId>Game.Core</PackageId>
+    <PackageId>RealmEngine.Core</PackageId>
     <Title>Game Core Library</Title>
     <Description>Core game mechanics library with generators, validators, and game features. Includes character generation, item generation, ability system, quest management, and save/load functionality. Designed for integration with Godot Engine.</Description>
     <Authors>Console Game Team</Authors>

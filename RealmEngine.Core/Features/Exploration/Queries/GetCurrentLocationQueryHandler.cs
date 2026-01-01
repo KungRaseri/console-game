@@ -1,7 +1,7 @@
 using MediatR;
 using Serilog;
 
-using Game.Core.Services;
+using RealmEngine.Core.Services;
 namespace RealmEngine.Core.Features.Exploration.Queries;
 
 /// <summary>

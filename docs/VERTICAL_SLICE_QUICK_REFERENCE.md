@@ -345,10 +345,10 @@ using Game.Features.Combat.Commands;
 using Game.Features.Combat.Queries;
 
 // Shared components
-using Game.Shared.Services;
-using Game.Shared.UI;
-using Game.Shared.Events;
-using Game.Shared.Behaviors;
+using RealmEngine.Shared.Services;
+using RealmEngine.Shared.UI;
+using RealmEngine.Shared.Events;
+using RealmEngine.Shared.Behaviors;
 
 // Models
 using Game.Models;

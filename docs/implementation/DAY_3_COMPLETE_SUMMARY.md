@@ -41,7 +41,7 @@ Day 3 was a **massive success**! We built a fully functional, production-ready i
 - Automatic timestamped backups before every save
 - Comprehensive error handling with try-catch blocks
 - Serilog structured logging for all operations
-- Smart data directory detection (`Game.Shared/Data/Json/`)
+- Smart data directory detection (`RealmEngine.Shared/Data/Json/`)
 - JSON formatted with indentation for readability
 
 ### Task 4: ItemEditorView ✅
@@ -259,7 +259,7 @@ Day 3 was a **massive success**! We built a fully functional, production-ready i
 
 ### Backup System
 - **When**: Before every save operation
-- **Where**: `Game.Shared/Data/Json/items/backups/`
+- **Where**: `RealmEngine.Shared/Data/Json/items/backups/`
 - **Format**: `weapon_prefixes_YYYYMMDD_HHMMSS.json`
 - **Retention**: All backups kept (no automatic cleanup)
 

@@ -132,15 +132,15 @@ private void CancelDelete()
 ## Files Modified
 
 **ViewModels (2):**
-- `Game.ContentBuilder/ViewModels/NameCatalogEditorViewModel.cs`
-- `Game.ContentBuilder/ViewModels/GenericCatalogEditorViewModel.cs`
+- `RealmForge/ViewModels/NameCatalogEditorViewModel.cs`
+- `RealmForge/ViewModels/GenericCatalogEditorViewModel.cs`
 
 **Views (2):**
-- `Game.ContentBuilder/Views/NameCatalogEditorView.xaml` (+87 lines)
-- `Game.ContentBuilder/Views/GenericCatalogEditorView.xaml` (+57 lines)
+- `RealmForge/Views/NameCatalogEditorView.xaml` (+87 lines)
+- `RealmForge/Views/GenericCatalogEditorView.xaml` (+57 lines)
 
 **Tests (1):**
-- `Game.ContentBuilder.Tests/ViewModels/NameCatalogEditorViewModelTests.cs`
+- `RealmForge.Tests/ViewModels/NameCatalogEditorViewModelTests.cs`
 
 **Documentation (2):**
 - `docs/implementation/MESSAGEBOX_REMOVAL_COMPLETE.md` (new)

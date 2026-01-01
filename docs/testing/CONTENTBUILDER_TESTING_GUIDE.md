@@ -16,7 +16,7 @@ This guide provides comprehensive testing options for the Game ContentBuilder WP
 #### Step 1: Launch the Application
 ```powershell
 # From the solution root
-dotnet run --project Game.ContentBuilder
+dotnet run --project RealmForge
 ```
 
 **Expected Result**: Window opens with tree view on left, empty editor area on right, status bar at bottom showing "Ready"
@@ -97,8 +97,8 @@ Select `items/materials/metals.json` (should use FlatItem editor)
 
 I've created a test project structure for you:
 ```
-Game.ContentBuilder.Tests/
-├── Game.ContentBuilder.Tests.csproj
+RealmForge.Tests/
+├── RealmForge.Tests.csproj
 └── ViewModels/
     └── HybridArrayEditorViewModelTests.cs (9 tests)
 ```
@@ -107,16 +107,16 @@ Game.ContentBuilder.Tests/
 
 ```powershell
 # Run all tests
-dotnet test Game.ContentBuilder.Tests
+dotnet test RealmForge.Tests
 
 # Run with verbose output
-dotnet test Game.ContentBuilder.Tests --logger "console;verbosity=detailed"
+dotnet test RealmForge.Tests --logger "console;verbosity=detailed"
 
 # Run specific test
 dotnet test --filter "FullyQualifiedName~Should_Load_HybridArray_Structure_Correctly"
 
 # Run with coverage
-dotnet test Game.ContentBuilder.Tests --collect:"XPlat Code Coverage"
+dotnet test RealmForge.Tests --collect:"XPlat Code Coverage"
 ```
 
 ### Current Test Coverage
@@ -176,10 +176,10 @@ public void Should_Reload_File_After_External_Changes()
 
 ```powershell
 # Create a backup first!
-cp -Recurse Game.Shared/Data/Json Game.Shared/Data/Json.backup
+cp -Recurse RealmEngine.Shared/Data/Json RealmEngine.Shared/Data/Json.backup
 
 # Run ContentBuilder and test with real files
-dotnet run --project Game.ContentBuilder
+dotnet run --project RealmForge
 ```
 
 **Test Scenarios**:
@@ -199,9 +199,9 @@ Create a separate test data directory:
 
 ```powershell
 # Create test data
-mkdir Game.ContentBuilder.Tests/TestData
+mkdir RealmForge.Tests/TestData
 # Copy sample files for testing
-cp Game.Shared/Data/Json/general/colors.json Game.ContentBuilder.Tests/TestData/
+cp RealmEngine.Shared/Data/Json/general/colors.json RealmForge.Tests/TestData/
 ```
 
 ---
@@ -232,7 +232,7 @@ public void Should_Handle_Many_Component_Groups()
 **Monitor Memory Usage**:
 ```powershell
 # Run with diagnostic logging
-dotnet run --project Game.ContentBuilder --configuration Release
+dotnet run --project RealmForge --configuration Release
 
 # Open Task Manager → Monitor memory usage
 # Expected: < 200 MB for typical usage
@@ -269,10 +269,10 @@ dotnet run --project Game.ContentBuilder --configuration Release
 **Test Suite to Run**:
 ```powershell
 # 1. Unit tests
-dotnet test Game.ContentBuilder.Tests
+dotnet test RealmForge.Tests
 
 # 2. Build verification
-dotnet build Game.ContentBuilder
+dotnet build RealmForge
 
 # 3. Manual smoke test (3 minutes)
 #    - Launch app
@@ -404,13 +404,13 @@ dotnet run --project Game
 
 ```powershell
 # Quick smoke test (build + run)
-dotnet build Game.ContentBuilder && dotnet run --project Game.ContentBuilder
+dotnet build RealmForge && dotnet run --project RealmForge
 
 # Full test suite
-dotnet test Game.ContentBuilder.Tests && dotnet build Game.ContentBuilder
+dotnet test RealmForge.Tests && dotnet build RealmForge
 
 # Test with coverage report
-dotnet test Game.ContentBuilder.Tests --collect:"XPlat Code Coverage" && reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage-report
+dotnet test RealmForge.Tests --collect:"XPlat Code Coverage" && reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage-report
 
 # Verify no breaking changes to Game
 dotnet test Game.Tests --filter "FullyQualifiedName~Json"
@@ -448,7 +448,7 @@ dotnet test Game.Tests --filter "FullyQualifiedName~Json"
 ### First Time Testing
 1. **Run unit tests** (5 min)
    ```powershell
-   dotnet test Game.ContentBuilder.Tests
+   dotnet test RealmForge.Tests
    ```
 
 2. **Launch and explore** (10 min)

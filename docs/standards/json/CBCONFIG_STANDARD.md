@@ -23,7 +23,7 @@ The `.cbconfig.json` file configures how a folder appears in the ContentBuilder 
 **Placement:** Root of each data category folder
 
 ```
-Game.Data/Data/Json/
+RealmEngine.Data/Data/Json/
 ├── items/
 │   ├── weapons/
 │   │   └── .cbconfig.json     ← Configures weapons folder

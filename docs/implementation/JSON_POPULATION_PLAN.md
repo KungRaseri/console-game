@@ -575,10 +575,10 @@ dotnet build
 dotnet test
 
 # Commit when phase complete
-git add Game.Shared/Data/Json/general/*.json
-git add Game.Shared/Data/Json/npcs/names/last_names.json
-git add Game.Shared/Data/Json/items/consumables/names.json
-git add Game.Shared/Data/Json/items/armor/names.json
+git add RealmEngine.Shared/Data/Json/general/*.json
+git add RealmEngine.Shared/Data/Json/npcs/names/last_names.json
+git add RealmEngine.Shared/Data/Json/items/consumables/names.json
+git add RealmEngine.Shared/Data/Json/items/armor/names.json
 git commit -m "Phase 1: Populate foundation data (15 files)"
 ```
 

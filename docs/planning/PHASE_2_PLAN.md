@@ -330,7 +330,7 @@ public class QuestRewards
 ## File Structure
 
 ```
-Game.ContentBuilder/
+RealmForge/
 ├── ViewModels/
 │   ├── NameCatalogEditorViewModel.cs (NEW)
 │   └── QuestTemplateEditorViewModel.cs (NEW)
@@ -344,7 +344,7 @@ Game.ContentBuilder/
     ├── QuestTemplate.cs (NEW)
     └── QuestRewards.cs (NEW)
 
-Game.ContentBuilder.Tests/
+RealmForge.Tests/
 ├── ViewModels/
 │   ├── NameCatalogEditorViewModelTests.cs (NEW)
 │   └── QuestTemplateEditorViewModelTests.cs (NEW)

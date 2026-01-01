@@ -1,5 +1,5 @@
 using FluentValidation;
-using Game.Shared.Models;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Features.Inventory.Commands;
 

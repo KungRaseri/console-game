@@ -468,7 +468,7 @@ function buildItemForWeight(targetWeight):
 
 ### Phase 2: Update Code
 
-**Game.Shared:**
+**RealmEngine.Shared:**
 1. Create `WeightedComponent` class with `name` and `weight` properties
 2. Update pattern executor to calculate total weight
 3. Add `GetRarityFromWeight()` method

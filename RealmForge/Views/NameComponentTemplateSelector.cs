@@ -1,8 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
-using Game.ContentBuilder.Models;
+using RealmForge.Models;
 
-namespace Game.ContentBuilder.Views;
+namespace RealmForge.Views;
 
 /// <summary>
 /// Selects the appropriate DataTemplate for NameComponentBase based on its actual type

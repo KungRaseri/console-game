@@ -14,7 +14,7 @@
 
 ### 2. Compilation Issues Fixed
 Fixed 3 compilation errors:
-1. ✅ Added `using Game.ContentBuilder.Tests.UI;` to IntegrationTests
+1. ✅ Added `using RealmForge.Tests.UI;` to IntegrationTests
 2. ✅ Re-applied migration to NameListEditorUITests (was reverted)
 3. ✅ Added `using System.IO;` to NameCatalogEditorUITests
 4. ✅ Made `Dispose(bool)` virtual in UITestBase for override support
@@ -28,7 +28,7 @@ Fixed 3 compilation errors:
 
 ### Running Full UI Test Suite
 ```powershell
-dotnet test Game.ContentBuilder.Tests --filter "Category=UI"
+dotnet test RealmForge.Tests --filter "Category=UI"
 ```
 
 **Expected behavior with UITestBase:**
@@ -99,7 +99,7 @@ Currently 62 nullable reference warnings (cosmetic, not critical)
 ## Current Test Run
 
 **Started:** In progress  
-**Command:** `dotnet test Game.ContentBuilder.Tests --filter "Category=UI"`  
+**Command:** `dotnet test RealmForge.Tests --filter "Category=UI"`  
 **Terminal ID:** Running in background
 
 ### What's Happening Now

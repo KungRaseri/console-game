@@ -1,7 +1,7 @@
 using FluentAssertions;
-using Game.Shared.Models;
-using Game.Core.Abstractions;
-using Game.Data.Repositories;
+using RealmEngine.Shared.Models;
+using RealmEngine.Core.Abstractions;
+using RealmEngine.Data.Repositories;
 using Moq;
 
 namespace RealmEngine.Core.Tests.Features.Death.Services;

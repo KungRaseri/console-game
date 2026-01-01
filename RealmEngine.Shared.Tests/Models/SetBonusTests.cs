@@ -1,5 +1,5 @@
 using FluentAssertions;
-using Game.Shared.Models;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Shared.Tests.Models;
 

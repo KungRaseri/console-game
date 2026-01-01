@@ -8,7 +8,7 @@ Run ContentBuilder with hot reload enabled:
 Ctrl+Shift+P → "Tasks: Run Task" → "watch-contentbuilder"
 
 # Option 2: Command line
-dotnet watch run --project Game.ContentBuilder/Game.ContentBuilder.csproj --non-interactive
+dotnet watch run --project RealmForge/RealmForge.csproj --non-interactive
 ```
 
 ## What Gets Hot Reloaded?
@@ -38,7 +38,7 @@ When a restart is required, the watch task will automatically restart the app (e
   "label": "watch-contentbuilder",
   "command": "dotnet watch run",
   "args": [
-    "--project", "Game.ContentBuilder/Game.ContentBuilder.csproj",
+    "--project", "RealmForge/RealmForge.csproj",
     "--non-interactive"  // Prevents prompts, auto-restarts
   ],
   "isBackground": true,  // Keeps running in background
@@ -101,7 +101,7 @@ When a restart is required, the watch task will automatically restart the app (e
 ### Hot Reload Not Working
 ```powershell
 # Check if hot reload is enabled
-dotnet watch run --project Game.ContentBuilder/Game.ContentBuilder.csproj --verbose
+dotnet watch run --project RealmForge/RealmForge.csproj --verbose
 
 # Look for: "Hot reload capabilities: Baseline, AddMethodToExistingType, ..."
 ```
@@ -114,15 +114,15 @@ dotnet watch run --project Game.ContentBuilder/Game.ContentBuilder.csproj --verb
 ### Watch Not Detecting Changes
 ```powershell
 # Clear watch cache
-dotnet watch run --project Game.ContentBuilder/Game.ContentBuilder.csproj --no-hot-reload
+dotnet watch run --project RealmForge/RealmForge.csproj --no-hot-reload
 
 # Force full rebuild
-dotnet clean && dotnet watch run --project Game.ContentBuilder/Game.ContentBuilder.csproj
+dotnet clean && dotnet watch run --project RealmForge/RealmForge.csproj
 ```
 
 ### File Locked Errors
 - Close ContentBuilder if running manually
-- Kill any stuck processes: `Get-Process Game.ContentBuilder | Stop-Process`
+- Kill any stuck processes: `Get-Process RealmForge | Stop-Process`
 - Restart watch task
 
 ## Commands Reference
@@ -130,13 +130,13 @@ dotnet clean && dotnet watch run --project Game.ContentBuilder/Game.ContentBuild
 ### Start Watch Mode
 ```powershell
 # With hot reload (default)
-dotnet watch --project Game.ContentBuilder/Game.ContentBuilder.csproj
+dotnet watch --project RealmForge/RealmForge.csproj
 
 # Without hot reload (always restart)
-dotnet watch --project Game.ContentBuilder/Game.ContentBuilder.csproj --no-hot-reload
+dotnet watch --project RealmForge/RealmForge.csproj --no-hot-reload
 
 # Verbose output (debugging)
-dotnet watch --project Game.ContentBuilder/Game.ContentBuilder.csproj --verbose
+dotnet watch --project RealmForge/RealmForge.csproj --verbose
 ```
 
 ### Interactive Commands (while watch is running)

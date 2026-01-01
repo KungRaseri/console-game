@@ -230,7 +230,7 @@ For each file we review, we'll follow this process:
 - **NPCs:** ~10 files
 - **Quests:** ~3 files
 
-**Total:** ~93 files in Game.Shared/Data/Json/
+**Total:** ~93 files in RealmEngine.Shared/Data/Json/
 
 ---
 
