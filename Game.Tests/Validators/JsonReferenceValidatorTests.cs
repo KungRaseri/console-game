@@ -9,9 +9,9 @@ namespace Game.Tests.Validators;
 /// </summary>
 public class JsonReferenceValidatorTests
 {
-    private static readonly Regex BasicReferencePattern = new(@"^@[\w-]+/([\w-]+/)+[\w-]+:[\w-*]+$", RegexOptions.Compiled);
-    private static readonly Regex PropertyAccessPattern = new(@"^@[\w-]+/([\w-]+/)+[\w-]+:[\w-]+(\.\w+)+$", RegexOptions.Compiled);
-    private static readonly Regex OptionalReferencePattern = new(@"^@[\w-]+/([\w-]+/)+[\w-]+:[\w-]+\?(\.\w+)*$", RegexOptions.Compiled);
+    private static readonly Regex BasicReferencePattern = new(@"^@[\w-]+/([\w-]+/)*[\w-]+:[\w-*]+$", RegexOptions.Compiled);
+    private static readonly Regex PropertyAccessPattern = new(@"^@[\w-]+/([\w-]+/)*[\w-]+:[\w-]+(\.\w+)+$", RegexOptions.Compiled);
+    private static readonly Regex OptionalReferencePattern = new(@"^@[\w-]+/([\w-]+/)*[\w-]+:[\w-]+\?(\.\w+)*$", RegexOptions.Compiled);
 
     #region Syntax Validation Tests
 

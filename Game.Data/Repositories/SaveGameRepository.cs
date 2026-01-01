@@ -15,14 +15,20 @@ public class SaveGameRepository : ISaveGameRepository
     public SaveGameRepository(string databasePath = "savegames.db")
     {
         _database = new LiteDatabase(databasePath);
+        
+        // Configure BsonMapper to handle collections safely
+        var mapper = BsonMapper.Global;
+        mapper.SerializeNullValues = false;
+        mapper.TrimWhitespace = false;
+        
         _collection = _database.GetCollection<SaveGame>("saves");
 
         // Create indexes for better performance
         // Use string-based indexing to avoid BsonMapper issues with complex types
         try
         {
-            _collection.EnsureIndex("PlayerName");
-            _collection.EnsureIndex("SaveDate");
+            _collection.EnsureIndex(x => x.PlayerName);
+            _collection.EnsureIndex(x => x.SaveDate);
         }
         catch (NotSupportedException)
         {

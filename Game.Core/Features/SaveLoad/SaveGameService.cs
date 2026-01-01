@@ -81,6 +81,28 @@ public class SaveGameService : ISaveGameService, IDisposable
                 // ApocalypseStartTime is already set during game creation
             }
 
+            // Clone all collections to avoid modification during LiteDB serialization
+            saveGame.Character.Inventory = saveGame.Character.Inventory.ToList();
+            saveGame.Character.PendingLevelUps = saveGame.Character.PendingLevelUps.ToList();
+            saveGame.Character.LearnedSkills = saveGame.Character.LearnedSkills.ToList();
+            
+            saveGame.ActiveQuests = saveGame.ActiveQuests.ToList();
+            saveGame.CompletedQuests = saveGame.CompletedQuests.ToList();
+            saveGame.FailedQuests = saveGame.FailedQuests.ToList();
+            saveGame.AvailableQuests = saveGame.AvailableQuests.ToList();
+            saveGame.KnownNPCs = saveGame.KnownNPCs.ToList();
+            saveGame.VisitedLocations = saveGame.VisitedLocations.ToList();
+            saveGame.DiscoveredLocations = saveGame.DiscoveredLocations.ToList();
+            saveGame.LegendaryEnemiesDefeated = saveGame.LegendaryEnemiesDefeated.ToList();
+            saveGame.UnlockedAchievements = saveGame.UnlockedAchievements.ToList();
+            
+            saveGame.NPCRelationships = new Dictionary<string, int>(saveGame.NPCRelationships);
+            saveGame.EnemiesDefeatedByType = new Dictionary<string, int>(saveGame.EnemiesDefeatedByType);
+            saveGame.GameFlags = new Dictionary<string, bool>(saveGame.GameFlags);
+            saveGame.DroppedItemsAtLocations = new Dictionary<string, List<Item>>(
+                saveGame.DroppedItemsAtLocations.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.ToList())
+            );
+
             saveGame.SaveDate = DateTime.Now;
             _repository.Save(saveGame);
             _currentSave = saveGame;
@@ -97,7 +119,6 @@ public class SaveGameService : ISaveGameService, IDisposable
 
     /// <summary>
     /// Save the current game state (legacy compatibility - simplified version).
-    /// </summary>
     public void SaveGame(Character player, List<Item> inventory, string? saveId = null)
     {
         // For legacy compatibility, always create a new SaveGame unless saveId is provided
@@ -110,13 +131,14 @@ public class SaveGameService : ISaveGameService, IDisposable
                 CreationDate = DateTime.Now
             };
 
-        saveGame.Character = player;
-        saveGame.PlayerName = player.Name; // Update in case it changed
         // Transfer legacy inventory parameter to Character.Inventory for backwards compatibility
         if (inventory != null && inventory.Any())
         {
-            saveGame.Character.Inventory = inventory;
+            player.Inventory = inventory.ToList();
         }
+
+        saveGame.Character = player;
+        saveGame.PlayerName = player.Name; // Update in case it changed
 
         SaveGame(saveGame);
     }

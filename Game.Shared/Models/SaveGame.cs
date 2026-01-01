@@ -1,3 +1,5 @@
+using LiteDB;
+
 namespace Game.Shared.Models;
 
 /// <summary>
@@ -6,6 +8,7 @@ namespace Game.Shared.Models;
 public class SaveGame
 {
     // === Save Metadata ===
+    [BsonId]
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string PlayerName { get; set; } = string.Empty;
     public DateTime SaveDate { get; set; } = DateTime.Now;
