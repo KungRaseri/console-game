@@ -9,6 +9,7 @@ using Moq;
 
 namespace Game.Tests.Features.SaveLoad.Commands;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Tests for LoadGameHandler.
 /// </summary>

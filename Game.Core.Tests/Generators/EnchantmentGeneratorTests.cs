@@ -5,6 +5,7 @@ using Game.Shared.Models;
 
 namespace Game.Core.Tests.Generators;
 
+[Trait("Category", "Generator")]
 public class EnchantmentGeneratorTests
 {
     private readonly GameDataCache _dataCache;
@@ -46,7 +47,7 @@ public class EnchantmentGeneratorTests
 
         // Assert
         enchantments.Should().NotBeNull();
-        enchantments.Should().HaveCountGreaterOrEqualTo(1);
+        enchantments.Should().HaveCountGreaterThanOrEqualTo(1);
         
         foreach (var enchantment in enchantments)
         {
@@ -227,7 +228,7 @@ public class EnchantmentGeneratorTests
         var uniqueNames = enchantments.Select(e => e.Name).Distinct().ToList();
         
         // Should have variety in enchantment names
-        uniqueNames.Should().HaveCountGreaterOrEqualTo(3, "Should generate multiple different enchantment types");
+        uniqueNames.Should().HaveCountGreaterThanOrEqualTo(3, "Should generate multiple different enchantment types");
     }
 
     [Fact]

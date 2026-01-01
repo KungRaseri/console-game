@@ -4,6 +4,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Features.Death;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Tests for DeathService (currently 0% coverage → target 90%+).
 /// </summary>

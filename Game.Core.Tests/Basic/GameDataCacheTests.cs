@@ -3,6 +3,7 @@ using Game.Data.Services;
 
 namespace Game.Core.Tests.Basic;
 
+[Trait("Category", "Integration")]
 public class GameDataCacheTests
 {
     private readonly GameDataCache _dataCache;

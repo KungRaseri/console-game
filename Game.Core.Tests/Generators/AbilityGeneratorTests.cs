@@ -6,6 +6,7 @@ using Xunit;
 
 namespace Game.Core.Tests.Generators;
 
+[Trait("Category", "Generator")]
 public class AbilityGeneratorTests
 {
     private readonly GameDataCache _dataCache;
@@ -227,7 +228,7 @@ public class AbilityGeneratorTests
         // Assert
         abilities.Should().AllSatisfy(ability =>
         {
-            ability.Cooldown.Should().BeGreaterOrEqualTo(0);
+            ability.Cooldown.Should().BeGreaterThanOrEqualTo(0);
         });
     }
 

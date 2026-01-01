@@ -3,6 +3,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Models;
 
+[Trait("Category", "Unit")]
 public class EnemyTests
 {
     [Fact]

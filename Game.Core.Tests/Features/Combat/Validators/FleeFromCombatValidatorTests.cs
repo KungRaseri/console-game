@@ -4,6 +4,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Features.Combat.Validators;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Tests for FleeFromCombatValidator.
 /// </summary>

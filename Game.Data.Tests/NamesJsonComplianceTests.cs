@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Game.Data.Tests;
 
+[Trait("Category", "Compliance")]
 /// <summary>
 /// Validation tests for names.json files (v4.0 pattern generation standard)
 /// Ensures all names files follow NAMES_JSON_STANDARD.md specifications

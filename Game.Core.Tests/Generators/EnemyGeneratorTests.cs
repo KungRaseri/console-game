@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Game.Core.Tests.Generators;
 
+[Trait("Category", "Generator")]
 public class EnemyGeneratorTests
 {
     private readonly GameDataCache _dataCache;
@@ -114,7 +115,7 @@ public class EnemyGeneratorTests
             
             // Rewards
             enemy.XPReward.Should().BeGreaterThan(0);
-            enemy.GoldReward.Should().BeGreaterOrEqualTo(0);
+            enemy.GoldReward.Should().BeGreaterThanOrEqualTo(0);
         });
     }
 
@@ -131,7 +132,7 @@ public class EnemyGeneratorTests
         enemies.Should().AllSatisfy(enemy =>
         {
             enemy.BasePhysicalDamage.Should().BeGreaterThan(0);
-            enemy.BaseMagicDamage.Should().BeGreaterOrEqualTo(0);
+            enemy.BaseMagicDamage.Should().BeGreaterThanOrEqualTo(0);
         });
     }
 

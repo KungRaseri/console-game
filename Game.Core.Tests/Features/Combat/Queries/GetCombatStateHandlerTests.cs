@@ -4,6 +4,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Features.Combat.Queries;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Tests for GetCombatStateHandler.
 /// </summary>

@@ -9,6 +9,7 @@ using Moq;
 
 namespace Game.Tests.Features.SaveLoad.Queries;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Tests for GetMostRecentSaveHandler.
 /// </summary>

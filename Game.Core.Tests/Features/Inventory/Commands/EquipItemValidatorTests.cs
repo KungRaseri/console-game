@@ -4,6 +4,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Features.Inventory.Commands;
 
+[Trait("Category", "Feature")]
 public class EquipItemValidatorTests
 {
     private readonly EquipItemValidator _validator;

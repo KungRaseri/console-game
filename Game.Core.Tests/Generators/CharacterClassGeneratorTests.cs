@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Game.Core.Tests.Generators;
 
+[Trait("Category", "Generator")]
 public class CharacterClassGeneratorTests
 {
     private readonly GameDataCache _dataCache;

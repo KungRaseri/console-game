@@ -3,6 +3,7 @@ using Game.Shared.Services;
 
 namespace Game.Tests.Services;
 
+[Trait("Category", "Integration")]
 public class DataReferenceResolverTests
 {
     private readonly DataReferenceResolver _resolver;

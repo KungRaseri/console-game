@@ -3,6 +3,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Models;
 
+[Trait("Category", "Unit")]
 /// <summary>
 /// Comprehensive tests for DifficultySettings model.
 /// Target: 52.7% -> 95%+ coverage.

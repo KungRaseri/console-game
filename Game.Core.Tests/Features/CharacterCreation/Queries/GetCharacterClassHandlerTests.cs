@@ -4,6 +4,7 @@ using Game.Data.Repositories;
 
 namespace Game.Tests.Features.CharacterCreation.Queries;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Tests for GetCharacterClassHandler.
 /// </summary>

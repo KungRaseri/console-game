@@ -4,6 +4,7 @@ using Bogus;
 
 namespace Game.Tests.Services;
 
+[Trait("Category", "Integration")]
 public class PatternExecutorTests
 {
     private readonly PatternExecutor _executor;

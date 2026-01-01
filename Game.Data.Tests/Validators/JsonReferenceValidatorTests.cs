@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Game.Tests.Validators;
 
+[Trait("Category", "Unit")]
 /// <summary>
 /// Tests for JSON Reference System v4.1 syntax validation
 /// Reference format: @domain/path/category:item-name[filters]?.property.nested

@@ -6,6 +6,7 @@ using Moq;
 
 namespace Game.Tests.Features.Death.Services;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Comprehensive tests for HallOfFameRepository.
 /// Targets 0% baseline coverage to achieve 80%+ line coverage.

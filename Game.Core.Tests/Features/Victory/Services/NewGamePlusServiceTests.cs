@@ -6,6 +6,7 @@ using Moq;
 
 namespace Game.Tests.Features.Victory.Services;
 
+[Trait("Category", "Feature")]
 public class NewGamePlusServiceTests
 {
     private readonly Mock<ISaveGameService> _mockSaveGameService;

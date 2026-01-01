@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Game.Data.Tests;
 
+[Trait("Category", "Compliance")]
 /// <summary>
 /// Tests for JSON v4.0 catalog standards compliance
 /// Validates structure, metadata, componentKeys, rarityWeight, and cross-domain references

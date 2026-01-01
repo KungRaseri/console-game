@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Game.Data.Tests;
 
+[Trait("Category", "Compliance")]
 /// <summary>
 /// Validation tests for .cbconfig.json files (ContentBuilder UI configuration)
 /// Ensures all config files follow CBCONFIG_STANDARD.md specifications

@@ -9,6 +9,7 @@ using Game.Data.Repositories;
 
 namespace Game.Tests.Features.SaveLoad.Commands;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Tests for SaveGameHandler.
 /// </summary>

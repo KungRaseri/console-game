@@ -5,6 +5,7 @@ using Game.Shared.Models;
 
 namespace Game.Core.Tests.Generators;
 
+[Trait("Category", "Generator")]
 public class ItemGeneratorTests
 {
     private readonly GameDataCache _dataCache;
@@ -40,7 +41,7 @@ public class ItemGeneratorTests
             item.Name.Should().NotBeNullOrEmpty();
             item.Description.Should().NotBeNullOrEmpty();
             item.Id.Should().StartWith(category);
-            item.Price.Should().BeGreaterOrEqualTo(0); // Changed from Value to Price
+            item.Price.Should().BeGreaterThanOrEqualTo(0); // Changed from Value to Price
         }
     }
 
@@ -175,7 +176,7 @@ public class ItemGeneratorTests
         // Assert
         foreach (var item in items)
         {
-            item.Price.Should().BeGreaterOrEqualTo(0, "Item price should not be negative");
+            item.Price.Should().BeGreaterThanOrEqualTo(0, "Item price should not be negative");
             
             if (item.Type == ItemType.Weapon)
             {

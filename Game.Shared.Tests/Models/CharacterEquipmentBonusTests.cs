@@ -3,6 +3,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Models;
 
+[Trait("Category", "Unit")]
 /// <summary>
 /// Additional comprehensive tests for Character model focusing on equipment bonuses and derived stats.
 /// </summary>

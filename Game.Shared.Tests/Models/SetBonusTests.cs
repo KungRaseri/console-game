@@ -3,6 +3,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Models;
 
+[Trait("Category", "Unit")]
 /// <summary>
 /// Comprehensive tests for SetBonus model.
 /// Target: 0% -> 100% coverage.

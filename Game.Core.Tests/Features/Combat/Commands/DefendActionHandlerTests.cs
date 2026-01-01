@@ -4,6 +4,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Features.Combat.Commands;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Tests for DefendActionHandler.
 /// </summary>

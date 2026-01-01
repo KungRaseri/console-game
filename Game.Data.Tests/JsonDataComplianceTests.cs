@@ -4,11 +4,11 @@ using Newtonsoft.Json.Linq;
 
 namespace Game.Data.Tests;
 
+[Trait("Category", "Compliance")]
 /// <summary>
 /// Comprehensive JSON data validation tests for ALL Game.Data files
 /// Tests catalog.json, names.json, .cbconfig.json, and component data files for v4.0/v4.1 compliance
 /// </summary>
-[Trait("Category", "DataValidation")]
 public class JsonDataComplianceTests
 {
     private readonly string _dataPath;

@@ -3,6 +3,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Models;
 
+[Trait("Category", "Unit")]
 /// <summary>
 /// Comprehensive tests for TraitValue class.
 /// Target: 81% -> 100% coverage.

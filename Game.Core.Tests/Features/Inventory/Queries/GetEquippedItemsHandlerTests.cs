@@ -4,6 +4,7 @@ using Game.Shared.Models;
 
 namespace Game.Tests.Features.Inventory.Queries;
 
+[Trait("Category", "Feature")]
 /// <summary>
 /// Tests for GetEquippedItemsHandler.
 /// </summary>

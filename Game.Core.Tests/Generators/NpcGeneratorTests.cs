@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Game.Core.Tests.Generators;
 
+[Trait("Category", "Generator")]
 public class NpcGeneratorTests
 {
     private readonly GameDataCache _dataCache;
@@ -102,7 +103,7 @@ public class NpcGeneratorTests
             npc.Name.Should().NotBeNullOrEmpty();
             npc.Age.Should().BeInRange(1, 150);
             npc.Occupation.Should().NotBeNullOrEmpty();
-            npc.Gold.Should().BeGreaterOrEqualTo(0);
+            npc.Gold.Should().BeGreaterThanOrEqualTo(0);
             npc.Dialogue.Should().NotBeNullOrEmpty();
         });
     }
@@ -181,7 +182,7 @@ public class NpcGeneratorTests
         // Assert
         npcs.Should().AllSatisfy(npc =>
         {
-            npc.Gold.Should().BeGreaterOrEqualTo(0);
+            npc.Gold.Should().BeGreaterThanOrEqualTo(0);
         });
     }
 

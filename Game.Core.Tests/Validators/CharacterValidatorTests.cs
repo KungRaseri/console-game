@@ -4,6 +4,7 @@ using Game.Core.Validators;
 
 namespace Game.Tests.Validators;
 
+[Trait("Category", "Unit")]
 public class CharacterValidatorTests
 {
     private readonly CharacterValidator _validator = new();

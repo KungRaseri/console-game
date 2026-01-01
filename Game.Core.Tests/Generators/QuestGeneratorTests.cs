@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Game.Core.Tests.Generators;
 
+[Trait("Category", "Generator")]
 public class QuestGeneratorTests
 {
     private readonly GameDataCache _dataCache;

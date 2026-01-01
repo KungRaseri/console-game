@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Game.Data.Tests;
 
+[Trait("Category", "Compliance")]
 /// <summary>
 /// Validation tests for component/data JSON files (non-catalog, non-names, non-config files)
 /// Ensures all component files are valid JSON and contain meaningful data
