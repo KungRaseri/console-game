@@ -6,7 +6,28 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    
+    <!-- NuGet Package Metadata -->
+    <PackageId>Game.Shared</PackageId>
+    <Title>Game Shared Library</Title>
+    <Description>Shared models, data structures, and services for the Console Game engine. Contains character models, item definitions, ability data models, event system, and common utilities. Used by both Game.Core and Game.Data libraries.</Description>
+    <Authors>Console Game Team</Authors>
+    <Company>Console Game</Company>
+    <Product>Console Game Engine</Product>
+    <PackageTags>game;rpg;models;shared;godot;csharp;dotnet</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="35.6.5" />

@@ -11,6 +11,8 @@ obj/
 
 # Package Output
 package/
+*.nupkg
+*.snupkg
 
 # Environment Variables
 .env
