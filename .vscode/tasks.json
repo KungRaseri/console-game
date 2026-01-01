@@ -136,7 +136,11 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.Tests/Game.Tests.csproj"
+				"${workspaceFolder}/Game.Shared.Tests/Game.Shared.Tests.csproj",
+				"${workspaceFolder}/Game.Core.Tests/Game.Core.Tests.csproj",
+				"${workspaceFolder}/Game.Data.Tests/Game.Data.Tests.csproj",
+				"--verbosity",
+				"normal"
 			],
 			"problemMatcher": "$msCompile",
 			"group": {
@@ -148,6 +152,60 @@
 				"reveal": "always",
 				"focus": false,
 				"panel": "shared"
+			}
+		},
+		{
+			"label": "test-shared",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"${workspaceFolder}/Game.Shared.Tests/Game.Shared.Tests.csproj"
+			],
+			"problemMatcher": "$msCompile",
+			"group": "test",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"clear": true
+			}
+		},
+		{
+			"label": "test-core",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"${workspaceFolder}/Game.Core.Tests/Game.Core.Tests.csproj"
+			],
+			"problemMatcher": "$msCompile",
+			"group": "test",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"clear": true
+			}
+		},
+		{
+			"label": "test-data",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"test",
+				"${workspaceFolder}/Game.Data.Tests/Game.Data.Tests.csproj"
+			],
+			"problemMatcher": "$msCompile",
+			"group": "test",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"clear": true
 			}
 		},
 		{
@@ -234,7 +292,9 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.Tests/Game.Tests.csproj",
+				"${workspaceFolder}/Game.Shared.Tests/Game.Shared.Tests.csproj",
+				"${workspaceFolder}/Game.Core.Tests/Game.Core.Tests.csproj",
+				"${workspaceFolder}/Game.Data.Tests/Game.Data.Tests.csproj",
 				"--collect:XPlat Code Coverage",
 				"--settings",
 				"coverage.runsettings"
@@ -289,6 +349,62 @@
 			],
 			"dependsOrder": "sequence",
 			"problemMatcher": []
+		},
+		{
+			"label": "build-package",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-File",
+				"${workspaceFolder}/scripts/build-game-package.ps1",
+				"-Configuration",
+				"Debug"
+			],
+			"problemMatcher": "$msCompile",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated",
+				"clear": true
+			}
+		},
+		{
+			"label": "build-package-release",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-File",
+				"${workspaceFolder}/scripts/build-game-package.ps1",
+				"-Configuration",
+				"Release"
+			],
+			"problemMatcher": "$msCompile",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "dedicated",
+				"clear": true
+			}
+		},
+		{
+			"label": "generate-version",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-File",
+				"${workspaceFolder}/scripts/generate-version.ps1",
+				"-OutputFormat",
+				"string"
+			],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"clear": true
+			}
 		}
 	]
 }
