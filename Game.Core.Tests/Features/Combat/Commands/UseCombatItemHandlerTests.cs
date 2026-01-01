@@ -4,7 +4,7 @@ using Game.Shared.Models;
 using MediatR;
 using Moq;
 
-namespace Game.Tests.Features.Combat.Commands;
+namespace Game.Core.Tests.Features.Combat.Commands;
 
 [Trait("Category", "Feature")]
 /// <summary>

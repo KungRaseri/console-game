@@ -2,7 +2,7 @@ using FluentAssertions;
 using Game.Core.Features.Combat.Commands.DefendAction;
 using Game.Shared.Models;
 
-namespace Game.Tests.Features.Combat.Commands;
+namespace Game.Core.Tests.Features.Combat.Commands;
 
 [Trait("Category", "Feature")]
 /// <summary>

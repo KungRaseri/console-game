@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Game.Shared.Services;
 
-namespace Game.Tests.Services;
+namespace Game.Data.Tests.Services;
 
 [Trait("Category", "Integration")]
 public class DataReferenceResolverTests

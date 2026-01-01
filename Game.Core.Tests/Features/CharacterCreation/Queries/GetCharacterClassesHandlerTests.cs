@@ -2,7 +2,7 @@ using FluentAssertions;
 using Game.Core.Features.CharacterCreation.Queries;
 using Game.Data.Repositories;
 
-namespace Game.Tests.Features.CharacterCreation.Queries;
+namespace Game.Core.Tests.Features.CharacterCreation.Queries;
 
 [Trait("Category", "Feature")]
 /// <summary>

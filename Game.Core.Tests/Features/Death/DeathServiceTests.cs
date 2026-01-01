@@ -2,7 +2,7 @@ using FluentAssertions;
 using Game.Core.Features.Death;
 using Game.Shared.Models;
 
-namespace Game.Tests.Features.Death;
+namespace Game.Core.Tests.Features.Death;
 
 [Trait("Category", "Feature")]
 /// <summary>

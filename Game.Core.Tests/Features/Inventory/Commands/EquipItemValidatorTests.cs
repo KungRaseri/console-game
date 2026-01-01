@@ -2,7 +2,7 @@ using FluentAssertions;
 using Game.Core.Features.Inventory.Commands;
 using Game.Shared.Models;
 
-namespace Game.Tests.Features.Inventory.Commands;
+namespace Game.Core.Tests.Features.Inventory.Commands;
 
 [Trait("Category", "Feature")]
 public class EquipItemValidatorTests

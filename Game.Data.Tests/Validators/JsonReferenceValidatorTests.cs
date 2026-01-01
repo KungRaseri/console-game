@@ -1,7 +1,7 @@
 using FluentAssertions;
 using System.Text.RegularExpressions;
 
-namespace Game.Tests.Validators;
+namespace Game.Data.Tests.Validators;
 
 [Trait("Category", "Unit")]
 /// <summary>

@@ -2,7 +2,7 @@ using FluentAssertions;
 using Game.Shared.Services;
 using Bogus;
 
-namespace Game.Tests.Services;
+namespace Game.Data.Tests.Services;
 
 [Trait("Category", "Integration")]
 public class PatternExecutorTests

@@ -2,7 +2,7 @@ using FluentValidation.TestHelper;
 using Game.Shared.Models;
 using Game.Core.Validators;
 
-namespace Game.Tests.Validators;
+namespace Game.Core.Tests.Validators;
 
 [Trait("Category", "Unit")]
 public class CharacterValidatorTests

@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Game.Shared.Models;
 
-namespace Game.Tests.Models;
+namespace Game.Shared.Tests.Models;
 
 [Trait("Category", "Unit")]
 public class LevelUpTests

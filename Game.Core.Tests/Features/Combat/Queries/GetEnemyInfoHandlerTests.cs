@@ -2,7 +2,7 @@ using FluentAssertions;
 using Game.Core.Features.Combat.Queries.GetEnemyInfo;
 using Game.Shared.Models;
 
-namespace Game.Tests.Features.Combat.Queries;
+namespace Game.Core.Tests.Features.Combat.Queries;
 
 [Trait("Category", "Feature")]
 /// <summary>

@@ -7,7 +7,7 @@ using Game.Data.Repositories;
 using Moq;
 using Game.Core.Services;
 
-namespace Game.Tests.Features.SaveLoad.Queries;
+namespace Game.Core.Tests.Features.SaveLoad.Queries;
 
 [Trait("Category", "Feature")]
 /// <summary>
