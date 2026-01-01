@@ -1,10 +1,16 @@
 # RealmEngine
 
-A powerful console RPG engine built with .NET 9, showcasing modern C# architecture patterns and comprehensive game systems for creating text-based fantasy adventures.
+A powerful RPG framework built with .NET 9, showcasing modern C# architecture patterns and comprehensive game systems. RealmEngine provides the foundation for creating fantasy adventures, with **RealmForge** as the companion data editor tool.
 
 ## 🏗️ Architecture
 
 **Vertical Slice Architecture + CQRS Pattern**
+
+**RealmEngine** consists of multiple libraries working together:
+- **Game.Core** - Core game mechanics, combat, inventory, character systems
+- **Game.Data** - JSON data management and persistence layer  
+- **Game.Shared** - Common utilities, models, and services
+- **RealmForge** - WPF desktop application for editing game data (JSON files)
 
 This project uses **Vertical Slice Architecture** with **CQRS** (Command Query Responsibility Segregation) using **MediatR** for a clean, maintainable codebase organized by business features.
 
@@ -37,11 +43,14 @@ This project uses **Vertical Slice Architecture** with **CQRS** (Command Query R
 ## Quick Start
 
 ```powershell
-# Run the sample game
-dotnet run --project Game
+# Build the RealmEngine framework
+dotnet build
 
-# Run tests
+# Run the test suite
 dotnet test
+
+# Launch RealmForge data editor
+dotnet run --project RealmForge
 
 # Debug in VS Code
 Press F5
@@ -79,6 +88,28 @@ Press F5
 
 See the [docs/](./docs/) folder for detailed feature documentation.
 
+## 🔧 RealmForge - Data Editor
+
+**RealmForge** is the companion WPF desktop application for editing RealmEngine's game data:
+
+- **JSON Editor** - Visual editor for all game data files (164+ files)
+- **Schema Validation** - Real-time validation against JSON v4.0 standards  
+- **Reference System** - Support for v4.1 cross-references between data files
+- **Live Preview** - See changes instantly without restarting
+- **Data Compliance** - Ensures all JSON follows established patterns
+
+**Launch RealmForge:**
+```powershell
+dotnet run --project RealmForge
+```
+
+**Key Features:**
+- Edit abilities, classes, enemies, items, NPCs, and quests
+- Material Design UI with dark/light themes
+- Drag-and-drop pattern building for names generation
+- Automatic backup and version control integration
+- Hot reload support for rapid iteration
+
 ## Architecture Highlights
 
 🏗️ **Modern Design Patterns**
@@ -102,17 +133,20 @@ See the [docs/](./docs/) folder for detailed feature documentation.
 ## Building the Project
 
 ```powershell
-# Build the RealmEngine solution
+# Build the entire RealmEngine solution
 dotnet build
 
-# Run the sample game
-dotnet run --project Game
+# Build specific components
+dotnet build Game.Core        # Core engine
+dotnet build Game.Data        # Data layer
+dotnet build Game.Shared      # Shared utilities
+dotnet build RealmForge       # Data editor tool
 
 # Run all tests
 dotnet test
 
-# Debug in VS Code
-Press F5
+# Launch RealmForge
+dotnet run --project RealmForge
 ```
 
 ## Development
