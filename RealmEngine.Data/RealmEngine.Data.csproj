@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Game.Shared\Game.Shared.csproj" />
+    <ProjectReference Include="..\RealmEngine.Shared\RealmEngine.Shared.csproj" />
   </ItemGroup>
 
   <!-- Include Data/Json files in NuGet package only (not in build output) -->

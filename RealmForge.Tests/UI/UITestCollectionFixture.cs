@@ -59,11 +59,11 @@ public class UITestCollectionFixture : IDisposable
                 solutionRoot = Directory.GetParent(solutionRoot)!.FullName;
             }
 
-            var exePath = Path.Combine(solutionRoot, "Game.ContentBuilder", "bin", "Debug", "net9.0-windows", "Game.ContentBuilder.exe");
+            var exePath = Path.Combine(solutionRoot, "RealmForge", "bin", "Debug", "net9.0-windows", "RealmForge.exe");
 
             if (!File.Exists(exePath))
             {
-                throw new FileNotFoundException($"Could not find Game.ContentBuilder.exe at: {exePath}. Current directory: {currentDir}, Solution root: {solutionRoot}");
+                throw new FileNotFoundException($"Could not find RealmForge.exe at: {exePath}. Current directory: {currentDir}, Solution root: {solutionRoot}");
             }
 
             Log.Information($"Launching from: {exePath}");

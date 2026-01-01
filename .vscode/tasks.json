@@ -105,7 +105,7 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.Shared.Tests/Game.Shared.Tests.csproj"
+				"${workspaceFolder}/RealmEngine.Shared.Tests/RealmEngine.Shared.Tests.csproj"
 			],
 			"problemMatcher": "$msCompile",
 			"group": "test",
@@ -123,7 +123,7 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.Core.Tests/Game.Core.Tests.csproj"
+				"${workspaceFolder}/RealmEngine.Core.Tests/RealmEngine.Core.Tests.csproj"
 			],
 			"problemMatcher": "$msCompile",
 			"group": "test",
@@ -141,7 +141,7 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.Data.Tests/Game.Data.Tests.csproj"
+				"${workspaceFolder}/RealmEngine.Data.Tests/RealmEngine.Data.Tests.csproj"
 			],
 			"problemMatcher": "$msCompile",
 			"group": "test",
@@ -159,7 +159,7 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj",
+				"${workspaceFolder}/RealmForge.Tests/RealmForge.Tests.csproj",
 				"--filter",
 				"Category=ViewModel"
 			],
@@ -179,7 +179,7 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj",
+				"${workspaceFolder}/RealmForge.Tests/RealmForge.Tests.csproj",
 				"--filter",
 				"Category=UI"
 			],
@@ -199,7 +199,7 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj",
+				"${workspaceFolder}/RealmForge.Tests/RealmForge.Tests.csproj",
 				"--filter",
 				"Category=Integration"
 			],
@@ -219,7 +219,7 @@
 			"command": "dotnet",
 			"args": [
 				"test",
-				"${workspaceFolder}/Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj"
+				"${workspaceFolder}/RealmForge.Tests/RealmForge.Tests.csproj"
 			],
 			"problemMatcher": "$msCompile",
 			"group": "test",

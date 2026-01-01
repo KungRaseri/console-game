@@ -28,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Game.Data\Game.Data.csproj" />
-    <ProjectReference Include="..\Game.Shared\Game.Shared.csproj" />
+    <ProjectReference Include="..\RealmEngine.Data\RealmEngine.Data.csproj" />
+    <ProjectReference Include="..\RealmEngine.Shared\RealmEngine.Shared.csproj" />
   </ItemGroup>
 
 </Project>

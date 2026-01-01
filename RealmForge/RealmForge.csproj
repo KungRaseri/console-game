@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Game.Shared\Game.Shared.csproj" />
-    <ProjectReference Include="..\Game.Data\Game.Data.csproj" />
+    <ProjectReference Include="..\RealmEngine.Shared\RealmEngine.Shared.csproj" />
+    <ProjectReference Include="..\RealmEngine.Data\RealmEngine.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

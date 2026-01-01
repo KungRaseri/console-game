@@ -7,9 +7,9 @@ A powerful RPG framework built with .NET 9, showcasing modern C# architecture pa
 **Vertical Slice Architecture + CQRS Pattern**
 
 **RealmEngine** consists of multiple libraries working together:
-- **Game.Core** - Core game mechanics, combat, inventory, character systems
-- **Game.Data** - JSON data management and persistence layer  
-- **Game.Shared** - Common utilities, models, and services
+- **RealmEngine.Core** - Core game mechanics, combat, inventory, character systems
+- **RealmEngine.Data** - JSON data management and persistence layer  
+- **RealmEngine.Shared** - Common utilities, models, and services
 - **RealmForge** - WPF desktop application for editing game data (JSON files)
 
 This project uses **Vertical Slice Architecture** with **CQRS** (Command Query Responsibility Segregation) using **MediatR** for a clean, maintainable codebase organized by business features.
@@ -137,10 +137,10 @@ dotnet run --project RealmForge
 dotnet build
 
 # Build specific components
-dotnet build Game.Core        # Core engine
-dotnet build Game.Data        # Data layer
-dotnet build Game.Shared      # Shared utilities
-dotnet build RealmForge       # Data editor tool
+dotnet build RealmEngine.Core        # Core engine
+dotnet build RealmEngine.Data        # Data layer
+dotnet build RealmEngine.Shared      # Shared utilities
+dotnet build RealmForge              # Data editor tool
 
 # Run all tests
 dotnet test
