@@ -149,10 +149,33 @@ public partial class App : Application
         {
             Log.Information("Initializing GameDataCache...");
 
-            // Navigate from ContentBuilder bin folder to Game.Data/Data/Json
-            var baseDir = AppDomain.CurrentDomain.BaseDirectory; // bin/Debug/net9.0-windows/
-            var solutionRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..")); // console-game/
-            var dataPath = Path.Combine(solutionRoot, "Game.Data", "Data", "Json");
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string dataPath;
+
+            // Check for packaged build config (release deployment)
+            var configPath = Path.Combine(baseDir, "contentbuilder.config.json");
+            if (File.Exists(configPath))
+            {
+                // Running from package - use relative path from config
+                var configJson = File.ReadAllText(configPath);
+                var config = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(configJson);
+                if (config != null && config.TryGetValue("DataPath", out var relativeDataPath))
+                {
+                    dataPath = Path.GetFullPath(Path.Combine(baseDir, relativeDataPath.ToString()!));
+                    Log.Information("Using packaged data path from config: {DataPath}", dataPath);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Invalid contentbuilder.config.json");
+                }
+            }
+            else
+            {
+                // Development mode - navigate from ContentBuilder bin folder to Game.Data/Data/Json
+                var solutionRoot = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..")); // console-game/
+                dataPath = Path.Combine(solutionRoot, "Game.Data", "Data", "Json");
+                Log.Information("Development mode - using solution data path: {DataPath}", dataPath);
+            }
 
             if (!Directory.Exists(dataPath))
             {
