@@ -32,6 +32,24 @@ public class NameListEditorViewModelTests : IDisposable
     CreateTestNamesFile();
   }
 
+  /// <summary>
+  /// Wait for ViewModel async loading to complete by monitoring StatusMessage
+  /// </summary>
+  private async Task WaitForLoadComplete(NameListEditorViewModel viewModel, int timeoutMs = 2000)
+  {
+    var startTime = DateTime.Now;
+    while (viewModel.StatusMessage == "Ready" || viewModel.StatusMessage == string.Empty)
+    {
+      if ((DateTime.Now - startTime).TotalMilliseconds > timeoutMs)
+      {
+        throw new TimeoutException($"ViewModel did not complete loading within {timeoutMs}ms. Status: {viewModel.StatusMessage}");
+      }
+      await Task.Delay(50);
+    }
+    // Give a bit more time for final property updates
+    await Task.Delay(100);
+  }
+
   private void CreateTestNamesFile()
   {
     var testData = new JObject
@@ -79,30 +97,37 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void Constructor_Should_Initialize_ViewModel_With_Valid_Data()
+  public async Task Constructor_Should_Initialize_ViewModel_With_Valid_Data()
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     
     // Wait for async load to complete
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
 
     // Assert
     viewModel.Should().NotBeNull();
     viewModel.Metadata.Should().NotBeNull();
+    
+    // Debug: Output status and data state
+    if (viewModel.Patterns.Count == 0)
+    {
+      throw new Exception($"Patterns empty! Status: '{viewModel.StatusMessage}', Components: {viewModel.Components.Count}, ComponentNames: {viewModel.ComponentNames.Count}");
+    }
+    
     viewModel.Patterns.Should().NotBeEmpty();
     viewModel.Components.Should().NotBeEmpty();
     viewModel.ComponentNames.Should().NotBeEmpty();
   }
 
   [Fact]
-  public void Constructor_Should_Load_Metadata_From_File()
+  public async Task Constructor_Should_Load_Metadata_From_File()
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     
     // Wait for async load to complete
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
 
     // Assert
     viewModel.Metadata.Version.Should().Be("4.0");
@@ -111,13 +136,13 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void Constructor_Should_Load_Components_From_File()
+  public async Task Constructor_Should_Load_Components_From_File()
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     
     // Wait for async load to complete
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
 
     // Assert
     viewModel.ComponentNames.Should().Contain("prefix");
@@ -130,13 +155,13 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void Constructor_Should_Load_Patterns_From_File()
+  public async Task Constructor_Should_Load_Patterns_From_File()
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
     
     // Wait for async load to complete
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
 
     // Assert
     // Patterns include loaded patterns plus default {base} pattern
@@ -152,11 +177,11 @@ public class NameListEditorViewModelTests : IDisposable
 
 
   [Fact]
-  public void PatternSearchText_Change_Should_Trigger_Filter()
+  public async Task PatternSearchText_Change_Should_Trigger_Filter()
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
     var initialFilteredCount = viewModel.FilteredPatterns.Count;
 
     // Act
@@ -170,15 +195,15 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void StatusMessage_Should_Be_Set_After_Load()
+  public async Task StatusMessage_Should_Be_Set_After_Load()
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
 
     // Assert
     viewModel.StatusMessage.Should().NotBeNullOrEmpty();
-    viewModel.StatusMessage.Should().Contain("names.json");
+    viewModel.StatusMessage.Should().Contain("test-names.json");
   }
 
   [Fact]
@@ -193,11 +218,11 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void TotalComponentCount_Should_Be_Calculated()
+  public async Task TotalComponentCount_Should_Be_Calculated()
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
 
     // Assert
     viewModel.TotalComponentCount.Should().BeGreaterThan(0);
@@ -207,11 +232,11 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void TotalPatternCount_Should_Be_Calculated()
+  public async Task TotalPatternCount_Should_Be_Calculated()
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
 
     // Assert
     viewModel.TotalPatternCount.Should().BeGreaterThan(0);
@@ -219,11 +244,11 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void ComponentCounts_Should_Track_Components_Per_Group()
+  public async Task ComponentCounts_Should_Track_Components_Per_Group()
   {
     // Act
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
 
     // Assert
     viewModel.ComponentCounts.Should().NotBeEmpty();
@@ -232,11 +257,11 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void SelectedPattern_Should_Be_Settable()
+  public async Task SelectedPattern_Should_Be_Settable()
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
     var pattern = viewModel.Patterns.First();
 
     // Act
@@ -327,11 +352,11 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void RemoveComponentCommand_Should_Remove_Component()
+  public async Task RemoveComponentCommand_Should_Remove_Component()
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
     var componentGroup = viewModel.Components.First().Value;
     var initialCount = componentGroup.Count;
     var componentToRemove = componentGroup.First();
@@ -345,11 +370,11 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void DuplicatePatternCommand_Should_Create_Copy()
+  public async Task DuplicatePatternCommand_Should_Create_Copy()
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
     var initialCount = viewModel.Patterns.Count;
     var patternToDuplicate = viewModel.Patterns.First();
 
@@ -377,11 +402,11 @@ public class NameListEditorViewModelTests : IDisposable
   }
 
   [Fact]
-  public void RegenerateExamplesCommand_Should_Update_Examples()
+  public async Task RegenerateExamplesCommand_Should_Update_Examples()
   {
     // Arrange
     var viewModel = new NameListEditorViewModel(_jsonService, _catalogTokenService, _testFileName);
-    System.Threading.Thread.Sleep(200);
+    await WaitForLoadComplete(viewModel);
     var pattern = viewModel.Patterns.First();
     var originalExamples = pattern.GeneratedExamples;
 
@@ -410,4 +435,5 @@ public class NameListEditorViewModelTests : IDisposable
     }
   }
 }
+
 

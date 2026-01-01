@@ -226,9 +226,24 @@ public partial class NameListEditorViewModel : ObservableObject
                         componentsList.Add(new KeyValuePair<string, ObservableCollection<NameComponentBase>>(name, list));
                     }
 
-                    // Update UI collections on UI thread
-                    System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                    // Update UI collections on UI thread (or directly if no dispatcher available in tests)
+                    if (System.Windows.Application.Current != null)
                     {
+                        System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            foreach (var name in componentNames)
+                            {
+                                ComponentNames.Add(name);
+                            }
+                            foreach (var kvp in componentsList)
+                            {
+                                Components.Add(kvp);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        // Running in unit tests - update directly
                         foreach (var name in componentNames)
                         {
                             ComponentNames.Add(name);
@@ -237,7 +252,7 @@ public partial class NameListEditorViewModel : ObservableObject
                         {
                             Components.Add(kvp);
                         }
-                    });
+                    }
                 });
 
                 componentsTime = (DateTime.Now - componentsStart).TotalMilliseconds;
