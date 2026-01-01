@@ -1,6 +1,6 @@
 # Console Game
 
-A .NET Core Console application written in C# for building feature-rich console-based games.
+A feature-rich console RPG framework built with .NET 9, showcasing modern C# architecture patterns and comprehensive game systems.
 
 ## 🏗️ Architecture
 
@@ -15,7 +15,7 @@ This project uses **Vertical Slice Architecture** with **CQRS** (Command Query R
 - ✅ Code organized by **business capability** (Features/Combat, Features/Inventory, etc.)
 - ✅ Clear separation: **Commands** (write) vs **Queries** (read)
 - ✅ Automatic **validation** and **logging** via MediatR pipeline behaviors
-- ✅ **27 handlers** across 5 features (Combat, Inventory, CharacterCreation, SaveLoad, Exploration)
+- ✅ **CQRS handlers** across multiple game features (Combat, Inventory, CharacterCreation, SaveLoad, Exploration)
 
 ## 📚 Documentation
 
@@ -32,7 +32,7 @@ This project uses **Vertical Slice Architecture** with **CQRS** (Command Query R
 - [Settings Guide](./docs/guides/SETTINGS_GUIDE.md) - Configuration management
 - [ConsoleUI Guide](./docs/guides/CONSOLEUI_GUIDE.md) - Using Spectre.Console UI components
 - [Save/Load Guide](./docs/guides/SAVE_LOAD_GUIDE.md) - Game persistence system
-- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - 375 tests (98.9% pass rate)
+- [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - Comprehensive test suite with high pass rate
 
 ## Quick Start
 
@@ -40,7 +40,7 @@ This project uses **Vertical Slice Architecture** with **CQRS** (Command Query R
 # Run the game
 dotnet run --project Game
 
-# Run tests (375 tests ✅)
+# Run tests
 dotnet test
 
 # Debug in VS Code
@@ -75,69 +75,45 @@ Press F5
 - **Validation**: Robust input checking (FluentValidation)
 - **Procedural Generation**: Random NPCs and items (Bogus)
 - **Natural Language**: Number formatting and pluralization (Humanizer)
-- **100% Test Coverage**: 286 tests with xUnit and FluentAssertions
+- **Test Coverage**: Comprehensive test suite with xUnit and FluentAssertions
 
 See the [docs/](./docs/) folder for detailed feature documentation.
 
-## What's New - Save/Load & Skills! 💾⚔️
+## Architecture Highlights
 
-**Version 1.3 adds persistence and functional skill system:**
+🏗️ **Modern Design Patterns**
+- **Vertical Slice Architecture** - Features organized by business capability
+- **CQRS with MediatR** - Clean separation of commands and queries
+- **Event-Driven Architecture** - Loosely coupled components
+- **Domain-Driven Design** - Rich domain models and services
 
-💾 **Save/Load System** - Persistent game state with LiteDB  
-🔄 **Auto-Save** - Never lose progress after combat victories  
-📂 **Multiple Saves** - Create and manage multiple characters  
-⚔️ **Functional Skills** - 8 skills that enhance your character  
-📊 **Skill Bonuses** - Damage, defense, dodge, crit, and utility boosts  
-🎯 **Level-Up Rewards** - Learn skills and allocate attribute points  
-🎮 **Enhanced Character View** - See all stats, skills, and bonuses  
+🧪 **Quality & Testing**
+- **Comprehensive Test Suite** - Unit, integration, and JSON compliance tests
+- **High Test Coverage** - Extensive validation of game mechanics
+- **Automated CI/CD** - Quality gates and continuous integration
+- **JSON Schema Validation** - Data integrity across 164+ game data files
 
-See the [Save/Load Guide](./docs/guides/SAVE_LOAD_GUIDE.md) for complete details!
-
-## Recent Updates
-
-### Version 1.3 - Save/Load & Skills (December 6, 2025)
-- ✅ Complete save/load system with auto-save
-- ✅ 8 functional skills affecting combat and stats
-- ✅ Enhanced character view with skill display
-- ✅ 13 new save/load tests (286 total tests)
-
-### Version 1.2 - Combat & Leveling (December 5, 2025)
-- ✅ Turn-based combat system with enemies
-- ✅ Level-up with interactive attribute allocation
-- ✅ Skill learning system with 8 skills
-- ✅ Enemy generation with difficulty scaling
-
-### Version 1.1 - Inventory System (December 5, 2025)
-- ✅ Complete inventory management
-- ✅ Equipment slots and item stats
-- ✅ Item generation and loot drops
+🎯 **Enterprise Patterns**
+- **Dependency Injection** - Microsoft.Extensions.DI
+- **Configuration Management** - Strongly-typed settings
+- **Structured Logging** - Serilog with multiple sinks
+- **Resilience Patterns** - Polly for retry logic
 
 ## Building the Project
 
-To build the project, run:
-
 ```powershell
+# Build the solution
 dotnet build
-```
 
-Or use the VS Code build task (Press `Ctrl+Shift+B`).
-
-## Running the Project
-
-To run the application, use:
-
-```powershell
+# Run the game
 dotnet run --project Game
+
+# Run all tests
+dotnet test
+
+# Debug in VS Code
+Press F5
 ```
-
-## Debugging
-
-To debug the application:
-1. Press `F5` or go to Run and Debug view
-2. Select ".NET Core Launch (console)" configuration
-3. Press the green play button
-
-The application will start in debug mode with full color support in the integrated terminal.
 
 ## Development
 
@@ -272,7 +248,7 @@ Current test coverage includes:
 - **Item Generator**: Item creation, type filtering, unique items (6 tests)
 - **NPC Generator**: NPC creation, data variety, realistic data (5 tests)
 
-**Total: 286 passing tests** ✅
+**All tests passing** ✅
 
 ### Writing Tests
 
@@ -309,31 +285,44 @@ public void Should_Have_Error_When_Name_Is_Empty()
 }
 ```
 
-## Next Steps
+## Development Roadmap
 
-1. ✅ ~~Inventory system with item management~~ **COMPLETED!**
-2. ✅ ~~Combat system with turn-based battles~~ **COMPLETED!**
-3. ✅ ~~Level-up and skill system~~ **COMPLETED!**
-4. ✅ ~~Save/Load functionality~~ **COMPLETED!**
-5. Create quest system with objectives and rewards
-6. Add magic spell system (use Arcane Knowledge bonus)
-7. Implement shop/economy system
-8. Add dungeon zones with procedural generation
-9. Create status effects (poison, stun, burning)
-10. Add achievements and statistics tracking
+The project follows a feature-driven development approach using vertical slices:
 
-## Resources
+**Core Engine Features**
+- Quest system with objectives and rewards
+- Magic spell system with mana management
+- Shop/economy system with dynamic pricing
+- Status effects system (poison, stun, burning, etc.)
 
-- **📚 [Full Documentation](./docs/)** - Complete guides and references
-- **🎒 [Inventory Guide](./docs/guides/INVENTORY_GUIDE.md)** - Full inventory system documentation
+**Content & World Building**
+- Dungeon zones with procedural generation
+- Achievement and statistics tracking
+- Equipment enchantment system
+- NPC dialogue trees
+
+**Quality of Life**
+- Hot reload for JSON data files
+- Console game controller support
+- Audio system enhancements
+- Performance optimizations
+
+## Architecture Resources
+
+**Documentation**
+- **[Game Design Document](./docs/GDD-Main.md)** - Complete game specification
+- **[Vertical Slice Quick Reference](./docs/VERTICAL_SLICE_QUICK_REFERENCE.md)** - Adding new features
+- **[Architecture Documentation](./docs/)** - All implementation guides
+
+**External Resources**
 - [Spectre.Console Documentation](https://spectreconsole.net/)
+- [MediatR Documentation](https://github.com/jbogard/MediatR)
 - [.NET 9 Documentation](https://docs.microsoft.com/en-us/dotnet/)
-- [xUnit Documentation](https://xunit.net/)
 
 ---
 
-**Last Updated**: December 6, 2025  
-**Current Version**: v1.3 - Save/Load & Skills System  
-**Test Coverage**: 286 tests passing ✅ (100% coverage)  
-**Framework**: .NET 9.0  
-**New Features**: Save/Load System 💾 + Functional Skills ⚔️
+**Framework**: .NET 9.0 with C# 13  
+**Architecture**: Vertical Slice + CQRS Pattern  
+**UI Framework**: Spectre.Console  
+**Database**: LiteDB for persistence  
+**Testing**: xUnit with FluentAssertions
