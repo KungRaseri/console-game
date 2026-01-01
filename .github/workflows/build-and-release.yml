@@ -108,7 +108,7 @@ jobs:
           exit 1
         }
         if (-not (Test-Path "package/ContentBuilder/RealmForge.exe")) {
-          Write-Error "ContentBuilder.exe not found!"
+          Write-Error "RealmForge.exe not found!"
           exit 1
         }
         if (-not (Test-Path "package/Data/Json")) {
@@ -127,7 +127,7 @@ jobs:
         Write-Output "✓ Package verified successfully!"
         Write-Output "  - JSON files: $jsonCount"
         Write-Output "  - DLL files: $dllCount"
-        Write-Output "  - ContentBuilder: Present"
+        Write-Output "  - RealmForge: Present"
         Write-Output "  - Manifest: Present"
       shell: pwsh
       
@@ -135,7 +135,7 @@ jobs:
       id: archive
       run: |
         $version = "${{ steps.package.outputs.version }}"
-        $archiveName = "console-game-$version.zip"
+        $archiveName = "RealmEngine-$version.zip"
         
         Write-Output "Creating archive: $archiveName"
         Compress-Archive -Path "package/*" -DestinationPath $archiveName -Force
@@ -161,27 +161,27 @@ jobs:
         path: package/package-manifest.json
         retention-days: 30
         
-    - name: Create ContentBuilder standalone archive
+    - name: Create RealmForge standalone archive
       run: |
         $version = "${{ steps.package.outputs.version }}"
-        $contentBuilderArchive = "ContentBuilder-$version.zip"
+        $realmForgeArchive = "RealmForge-$version.zip"
         
-        Write-Output "Creating ContentBuilder archive: $contentBuilderArchive"
-        Compress-Archive -Path "package/ContentBuilder/*" -DestinationPath $contentBuilderArchive -Force
+        Write-Output "Creating RealmForge archive: $realmForgeArchive"
+        Compress-Archive -Path "package/ContentBuilder/*" -DestinationPath $realmForgeArchive -Force
         
-        $archiveSize = (Get-Item $contentBuilderArchive).Length / 1MB
-        Write-Output "ContentBuilder archive size: $([math]::Round($archiveSize, 2)) MB"
+        $archiveSize = (Get-Item $realmForgeArchive).Length / 1MB
+        Write-Output "RealmForge archive size: $([math]::Round($archiveSize, 2)) MB"
         
-        Write-Output "contentbuilder-archive=$contentBuilderArchive" >> $env:GITHUB_OUTPUT
-        Write-Output "CONTENTBUILDER_ARCHIVE=$contentBuilderArchive" >> $env:GITHUB_ENV
+        Write-Output "realmforge-archive=$realmForgeArchive" >> $env:GITHUB_OUTPUT
+        Write-Output "REALMFORGE_ARCHIVE=$realmForgeArchive" >> $env:GITHUB_ENV
       shell: pwsh
-      id: contentbuilder
+      id: realmforge
       
-    - name: Upload ContentBuilder artifact
+    - name: Upload RealmForge artifact
       uses: actions/upload-artifact@v4
       with:
-        name: contentbuilder
-        path: ${{ env.CONTENTBUILDER_ARCHIVE }}
+        name: realmforge
+        path: ${{ env.REALMFORGE_ARCHIVE }}
         retention-days: 30
 
   publish-nuget:
@@ -257,10 +257,10 @@ jobs:
       with:
         name: package-manifest
         
-    - name: Download ContentBuilder artifact
+    - name: Download RealmForge artifact
       uses: actions/download-artifact@v4
       with:
-        name: contentbuilder
+        name: realmforge
         
     - name: Extract version info
       id: version
@@ -323,7 +323,7 @@ jobs:
         $jsonCount = $manifest.Components.JsonData.FileCount
         
         $notes = @"
-        ## Console Game ${{ env.VERSION }}
+        ## RealmEngine ${{ env.VERSION }}
         
         **Build Date**: $($manifest.PackageDate)
         **Commit**: [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
@@ -331,21 +331,21 @@ jobs:
         ### What's Included
         
         - **Game Libraries** - Core game engine DLLs for Godot integration (with XML IntelliSense)
-        - **ContentBuilder** - WPF desktop editor for JSON game data
+        - **RealmForge** - WPF desktop editor for JSON game data
         - **Game Data** - $jsonCount JSON files (abilities, items, enemies, NPCs, quests, etc.)
         - **NuGet Packages** - Available on GitHub Packages for easy integration
         
         ### Downloads
         
-        - **console-game-${{ env.VERSION }}.zip** - Full game package (libraries + data + ContentBuilder)
-        - **ContentBuilder-${{ env.VERSION }}.zip** - Standalone JSON editor
+        - **RealmEngine-${{ env.VERSION }}.zip** - Full game package (libraries + data + RealmForge)
+        - **RealmForge-${{ env.VERSION }}.zip** - Standalone JSON editor
         - **package-manifest.json** - Build metadata and file inventory
         
         ### Installation
         
         #### For Godot Integration
         
-        1. Extract \`console-game-${{ env.VERSION }}.zip\`
+        1. Extract \`RealmEngine-${{ env.VERSION }}.zip\`
         2. Copy \`Libraries/\` folder to your Godot project
         3. Copy \`Data/Json/\` folder to your Godot project
         4. Reference RealmEngine.Core.dll in your C# scripts
@@ -353,7 +353,7 @@ jobs:
         
         #### For Content Editing
         
-        1. Extract \`ContentBuilder-${{ env.VERSION }}.zip\`
+        1. Extract \`RealmForge-${{ env.VERSION }}.zip\`
         2. Run \`RealmForge.exe\`
         3. Edit JSON game data with visual editor
         4. Changes are validated against v4.0 standards
@@ -379,7 +379,7 @@ jobs:
         - **RealmEngine.Shared.xml** - IntelliSense documentation
         - **RealmEngine.Data.dll** - Data loading and validation
         - **RealmEngine.Data.xml** - IntelliSense documentation
-        - **ContentBuilder.exe** - Visual JSON editor
+        - **RealmForge.exe** - Visual JSON editor
         - **$jsonCount JSON files** - v4.0 compliant game data
         
         ### Changes in This Release
@@ -400,15 +400,15 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          console-game-${{ env.VERSION }}.zip
-          ContentBuilder-${{ env.VERSION }}.zip
+          RealmEngine-${{ env.VERSION }}.zip
+          RealmForge-${{ env.VERSION }}.zip
           package-manifest.json
         body_path: release-notes.md
         draft: false
         prerelease: false
         generate_release_notes: false
         tag_name: ${{ github.ref_name }}
-        name: Console Game ${{ env.VERSION }}
+        name: RealmEngine ${{ env.VERSION }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -438,7 +438,7 @@ jobs:
         if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Release Assets" >> $GITHUB_STEP_SUMMARY
-          echo "- Full package: console-game-${{ github.ref_name }}.zip" >> $GITHUB_STEP_SUMMARY
-          echo "- ContentBuilder: ContentBuilder-${{ github.ref_name }}.zip" >> $GITHUB_STEP_SUMMARY
+          echo "- Full package: RealmEngine-${{ github.ref_name }}.zip" >> $GITHUB_STEP_SUMMARY
+          echo "- RealmForge: RealmForge-${{ github.ref_name }}.zip" >> $GITHUB_STEP_SUMMARY
           echo "- NuGet packages published to GitHub Packages" >> $GITHUB_STEP_SUMMARY
         fi

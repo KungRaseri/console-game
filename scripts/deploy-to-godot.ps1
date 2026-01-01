@@ -164,15 +164,15 @@ if ($DeployRealmForge -eq "y" -or $DeployRealmForge -eq "Y") {
     $RealmForgeSource = Join-Path $PackageRoot "RealmForge"
     $RealmForgeDest = Join-Path $GodotProjectPath "Tools\RealmForge"
     
-    if (Test-Path $ContentBuilderDest) {
-        Remove-Item $ContentBuilderDest -Recurse -Force
+    if (Test-Path $RealmForgeDest) {
+        Remove-Item $RealmForgeDest -Recurse -Force
     }
     
-    New-Item -ItemType Directory -Path $ContentBuilderDest -Force | Out-Null
-    Copy-Item -Path "$ContentBuilderSource\*" -Destination $ContentBuilderDest -Recurse -Force
+    New-Item -ItemType Directory -Path $RealmForgeDest -Force | Out-Null
+    Copy-Item -Path "$RealmForgeSource\*" -Destination $RealmForgeDest -Recurse -Force
 
-    $ExeCount = (Get-ChildItem -Path $ContentBuilderDest -Filter "*.exe" -Recurse).Count
-    $DllCount = (Get-ChildItem -Path $ContentBuilderDest -Filter "*.dll" -Recurse).Count
+    $ExeCount = (Get-ChildItem -Path $RealmForgeDest -Filter "*.exe" -Recurse).Count
+    $DllCount = (Get-ChildItem -Path $RealmForgeDest -Filter "*.dll" -Recurse).Count
     
     Write-Host "✓ RealmForge deployed to Tools/RealmForge" -ForegroundColor Green
     Write-Host "  → $ExeCount executable, $DllCount DLLs" -ForegroundColor Gray
@@ -213,7 +213,7 @@ Write-Host "Components:" -ForegroundColor Yellow
 Write-Host "  - $DllCount DLL files in Libraries" -ForegroundColor Green
 Write-Host "  - $JsonFileCount JSON files in Data/Json" -ForegroundColor Green
 if ($DeployContentBuilder -eq "y" -or $DeployContentBuilder -eq "Y") {
-    Write-Host "  - ContentBuilder in Tools/ContentBuilder" -ForegroundColor Green
+    Write-Host "  - RealmForge in Tools/RealmForge" -ForegroundColor Green
 }
 Write-Host ""
 Write-Host "Next Steps:" -ForegroundColor Cyan

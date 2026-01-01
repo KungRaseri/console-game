@@ -34,7 +34,7 @@ New-Item -ItemType Directory -Path $PackageRoot | Out-Null
 # Create package structure
 $Directories = @(
     "Libraries",
-    "ContentBuilder",
+    "RealmForge",
     "Data\Json"
 )
 
@@ -75,27 +75,27 @@ Copy-Item -Path (Join-Path $DataOutput "RealmEngine.Data.xml") -Destination (Joi
 Write-Output "[OK] RealmEngine.Data published (with XML docs)"
 Write-Output ""
 
-# Build ContentBuilder
-Write-Output "Building ContentBuilder..."
-$ContentBuilderOutput = Join-Path $PackageRoot "ContentBuilder"
+# Build RealmForge
+Write-Output "Building RealmForge..."
+$ContentBuilderOutput = Join-Path $PackageRoot "RealmForge"
 dotnet publish (Join-Path $SolutionRoot "RealmForge\RealmForge.csproj") --configuration $Configuration --output $ContentBuilderOutput --no-self-contained --runtime win-x64 --verbosity quiet $VersionArgs
-if ($LASTEXITCODE -ne 0) { Write-Error "ContentBuilder build failed!"; exit 1 }
+if ($LASTEXITCODE -ne 0) { Write-Error "RealmForge build failed!"; exit 1 }
 
-# Remove duplicate Data folder from ContentBuilder (it will reference package root Data)
+# Remove duplicate Data folder from RealmForge (it will reference package root Data)
 $ContentBuilderDataPath = Join-Path $ContentBuilderOutput "Data"
 if (Test-Path $ContentBuilderDataPath) {
     Remove-Item $ContentBuilderDataPath -Recurse -Force
-    Write-Output "[CLEANUP] Removed duplicate Data folder from ContentBuilder"
+    Write-Output "[CLEANUP] Removed duplicate Data folder from RealmForge"
 }
 
-# Create ContentBuilder config pointing to package Data location
+# Create RealmForge config pointing to package Data location
 $ContentBuilderConfig = @{
     DataPath = "..\Data\Json"
-    Description = "ContentBuilder will use Data\Json at package root"
+    Description = "RealmForge will use Data\Json at package root"
 } | ConvertTo-Json
-Set-Content -Path (Join-Path $ContentBuilderOutput "contentbuilder.config.json") -Value $ContentBuilderConfig
+Set-Content -Path (Join-Path $ContentBuilderOutput "RealmForge.config.json") -Value $ContentBuilderConfig
 
-Write-Output "[OK] ContentBuilder published"
+Write-Output "[OK] RealmForge published"
 Write-Output ""
 
 # Copy JSON Data Files
@@ -126,8 +126,8 @@ $Manifest = @{
             Path = "Libraries\RealmEngine.Data"
             Assembly = "RealmEngine.Data.dll"
         }
-        ContentBuilder = @{
-            Path = "ContentBuilder"
+        RealmForge = @{
+            Path = "RealmForge"
             Executable = "RealmForge.exe"
         }
         JsonData = @{
@@ -154,7 +154,7 @@ Write-Output "Package Contents:"
 Write-Output "  - Libraries\RealmEngine.Core\      (Core game mechanics)"
 Write-Output "  - Libraries\RealmEngine.Shared\    (Shared models/services)"
 Write-Output "  - Libraries\RealmEngine.Data\      (Data loading)"
-Write-Output "  - ContentBuilder\           (JSON editor application)"
+Write-Output "  - RealmForge\           (JSON editor application)"
 Write-Output "  - Data\Json\                (Game data: $JsonFileCount files)"
 Write-Output ""
 Write-Output "Next: Run deploy-to-godot.ps1 to copy to Godot project"
