@@ -1,0 +1,216 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ main, develop ]
+    tags:
+      - 'v*.*.*'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  CONFIGURATION: 'Release'
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build solution
+      run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
+      
+    - name: Run Game.Core.Tests
+      run: dotnet test Game.Core.Tests/Game.Core.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=core-tests.trx"
+      continue-on-error: false
+      
+    - name: Run Game.Data.Tests
+      run: dotnet test Game.Data.Tests/Game.Data.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=data-tests.trx"
+      continue-on-error: false
+      
+    - name: Run Game.ContentBuilder.Tests
+      run: dotnet test Game.ContentBuilder.Tests/Game.ContentBuilder.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=contentbuilder-tests.trx"
+      continue-on-error: false
+      
+    - name: Publish test results
+      uses: EnricoMi/publish-unit-test-result-action/windows@v2
+      if: always()
+      with:
+        files: |
+          **/TestResults/**/*.trx
+
+  build-package:
+    name: Build Game Package
+    needs: test
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Run build script
+      run: |
+        cd scripts
+        .\build-game-package.ps1 -Configuration ${{ env.CONFIGURATION }}
+      shell: pwsh
+      
+    - name: Verify package contents
+      run: |
+        Write-Output "Verifying package structure..."
+        if (-not (Test-Path "package/Libraries/Game.Core/Game.Core.dll")) {
+          Write-Error "Game.Core.dll not found!"
+          exit 1
+        }
+        if (-not (Test-Path "package/ContentBuilder/Game.ContentBuilder.exe")) {
+          Write-Error "ContentBuilder.exe not found!"
+          exit 1
+        }
+        if (-not (Test-Path "package/Data/Json")) {
+          Write-Error "JSON data not found!"
+          exit 1
+        }
+        $jsonCount = (Get-ChildItem -Path "package/Data/Json" -Recurse -File).Count
+        Write-Output "Package verified: $jsonCount JSON files found"
+      shell: pwsh
+      
+    - name: Create package archive
+      run: |
+        $version = "${{ github.ref_name }}"
+        if ($version -notmatch "^v\d+\.\d+\.\d+$") {
+          $version = "dev-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
+        }
+        $archiveName = "console-game-$version.zip"
+        Compress-Archive -Path "package/*" -DestinationPath $archiveName
+        Write-Output "ARCHIVE_NAME=$archiveName" >> $env:GITHUB_ENV
+        Write-Output "Created archive: $archiveName"
+      shell: pwsh
+      
+    - name: Upload package artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: game-package
+        path: ${{ env.ARCHIVE_NAME }}
+        retention-days: 30
+
+  release:
+    name: Create GitHub Release
+    needs: build-package
+    runs-on: windows-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    permissions:
+      contents: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Download package artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: game-package
+        
+    - name: Extract version info
+      id: version
+      run: |
+        $version = "${{ github.ref_name }}"
+        Write-Output "VERSION=$version" >> $env:GITHUB_ENV
+        Write-Output "version=$version" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+      
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        $notes = @"
+        ## Console Game ${{ env.VERSION }}
+        
+        ### What's Included
+        
+        - **Game Libraries** - Core game engine DLLs for Godot integration
+        - **ContentBuilder** - WPF desktop editor for JSON game data
+        - **Game Data** - 186 JSON files (abilities, items, enemies, NPCs, quests, etc.)
+        - **Documentation** - Game Design Document and guides
+        
+        ### Installation
+        
+        1. Extract the zip file
+        2. **For Godot Integration**:
+           - Copy \`Libraries/\` folder to your Godot project
+           - Copy \`Data/Json/\` folder to your Godot project
+           - Reference Game.Core.dll in your C# scripts
+        3. **For Content Editing**:
+           - Run \`ContentBuilder/Game.ContentBuilder.exe\`
+           - Edit JSON game data with visual editor
+        
+        ### Requirements
+        
+        - .NET 9.0 Runtime (for ContentBuilder)
+        - Godot 4.x with C# support (for game integration)
+        
+        ### Package Contents
+        
+        - Game.Core.dll - Core game mechanics
+        - Game.Shared.dll - Shared models/services
+        - Game.Data.dll - Data loading/validation
+        - ContentBuilder.exe - JSON editor application
+        - 186 JSON data files (v4.0 compliant)
+        
+        ### Changelog
+        
+        See [GDD-Main.md](https://github.com/${{ github.repository }}/blob/main/docs/GDD-Main.md) for full documentation.
+        "@
+        
+        $notes | Out-File -FilePath release-notes.md -Encoding utf8
+        Write-Output "notes<<EOF" >> $env:GITHUB_OUTPUT
+        Get-Content release-notes.md | ForEach-Object { Write-Output $_ >> $env:GITHUB_OUTPUT }
+        Write-Output "EOF" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+      
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: console-game-${{ env.VERSION }}.zip
+        body_path: release-notes.md
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  notify:
+    name: Build Notification
+    needs: [test, build-package]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - name: Summary
+      run: |
+        echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Tests**: ${{ needs.test.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Package**: ${{ needs.build-package.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Ref: \`${{ github.ref }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "Commit: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY

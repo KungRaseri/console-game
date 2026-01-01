@@ -9,6 +9,9 @@ obj/
 *.cache
 *.log
 
+# Package Output
+package/
+
 # Environment Variables
 .env
 

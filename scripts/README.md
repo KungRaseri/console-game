@@ -1,83 +1,109 @@
-# Coverage Report Scripts
+# Build & Deployment Scripts
 
-## generate-coverage-report.ps1
+This directory contains essential scripts for building and deploying the game.
 
-Generates a timestamped HTML coverage report from the most recent test run.
+## Available Scripts
 
-### Usage
+### `build-game-package.ps1`
 
-**From Command Line:**
+**Purpose**: Builds and packages all game components for distribution or Godot integration.
+
+**Usage**:
 ```powershell
-.\scripts\generate-coverage-report.ps1
+.\build-game-package.ps1 [-Configuration Release|Debug]
 ```
 
-**From VS Code Task:**
-- Press `Ctrl+Shift+P`
-- Run task: `generate-coverage-report`
+**Output**: Creates `package/` folder in repo root with:
+- `Libraries/` - Game.Core, Game.Shared, Game.Data DLLs
+- `ContentBuilder/` - WPF JSON editor application
+- `Data/Json/` - 186 game data files
+- `package-manifest.json` - Build metadata
 
-Or run the combined task:
-- Press `Ctrl+Shift+P`
-- Run task: `test-coverage` (runs tests + generates report)
+**Parameters**:
+- `Configuration` - Build configuration (default: Release)
 
-### Features
+---
 
-- ✅ **Timestamped Reports**: Each report is saved in `Game.Tests/TestResults/CoverageReport/{timestamp}/`
-- ✅ **Latest Symlink**: Always creates/updates `latest/` folder pointing to most recent report
-- ✅ **Multiple Formats**: Generates HTML report + SVG badges + text summary
-- ✅ **Interactive**: Prompts to open report in browser
-- ✅ **Summary Display**: Shows coverage percentages in terminal
+### `deploy-to-godot.ps1`
 
-### Output Structure
+**Purpose**: Deploys packaged game files to a Godot project directory.
 
-```
-Game.Tests/TestResults/
-├── CoverageReport/
-│   ├── 20251213_211433/          # Timestamped report
-│   │   ├── index.html            # Main report
-│   │   ├── Summary.txt           # Text summary
-│   │   ├── badge_*.svg           # Coverage badges
-│   │   └── Game_*.html           # Per-class reports
-│   ├── 20251213_153022/          # Previous report
-│   └── latest/                   # Copy of most recent
-└── {guid}/
-    └── coverage.cobertura.xml    # Raw coverage data
-```
-
-### Coverage Badges
-
-The script generates SVG badges for:
-- **Line Coverage**
-- **Branch Coverage**
-- **Method Coverage**
-- **Full Method Coverage**
-
-Badges use shields.io style with color coding:
-- 🟢 Green: 90-100%
-- 🟡 Yellow: 70-89%
-- 🟠 Orange: 50-69%
-- 🔴 Red: 0-49%
-
-### Prerequisites
-
-- .NET SDK installed
-- `dotnet test --collect:"XPlat Code Coverage"` must be run first
-- `reportgenerator` global tool installed
-
-Install reportgenerator:
+**Usage**:
 ```powershell
-dotnet tool install -g dotnet-reportgenerator-globaltool
+.\deploy-to-godot.ps1 -GodotProjectPath "C:\path\to\godot-project"
 ```
 
-### Troubleshooting
+**What it does**:
+1. Validates package exists
+2. Validates Godot project (checks for project.godot)
+3. Copies Libraries/ to Godot project
+4. Copies Data/Json/ to Godot project
+5. Optionally copies ContentBuilder
+6. Creates deployment info file
 
-**No coverage file found:**
-```
-Error: No coverage file found. Run 'dotnet test --collect:XPlat Code Coverage' first.
-```
-Solution: Run `dotnet test --collect:"XPlat Code Coverage"` or use the `test-with-coverage` task.
+**Parameters**:
+- `GodotProjectPath` (required) - Path to Godot project root
+- `PackagePath` (optional) - Path to package folder (default: ..\package)
 
-**reportgenerator not found:**
+---
+
+### `generate-coverage-report.ps1`
+
+**Purpose**: Generates code coverage reports for test projects.
+
+**Usage**:
+```powershell
+.\generate-coverage-report.ps1
 ```
-reportgenerator : The term 'reportgenerator' is not recognized...
+
+**Requirements**:
+- ReportGenerator tool (`dotnet tool install -g dotnet-reportgenerator-globaltool`)
+
+**Output**: Creates `coverage-report/` with HTML coverage reports.
+
+---
+
+## Workflow
+
+### Standard Development Build
+```powershell
+# 1. Build the package
+.\build-game-package.ps1
+
+# 2. Deploy to Godot project
+.\deploy-to-godot.ps1 -GodotProjectPath "C:\path\to\godot-project"
 ```
-Solution: Install the tool with `dotnet tool install -g dotnet-reportgenerator-globaltool`
+
+### CI/CD Build
+
+The GitHub Actions workflow (`.github/workflows/build-and-release.yml`) automatically:
+1. Runs all tests
+2. Builds package
+3. Creates release artifacts on tagged commits
+
+---
+
+## Package Structure
+
+After running `build-game-package.ps1`, the package structure is:
+
+```
+package/
+├── Libraries/
+│   ├── Game.Core/      [74 DLLs]
+│   ├── Game.Shared/    [7 DLLs]
+│   └── Game.Data/      [15 DLLs]
+├── ContentBuilder/     [232 files - WPF app]
+├── Data/
+│   └── Json/           [186 JSON files]
+└── package-manifest.json
+```
+
+---
+
+## Notes
+
+- Package output is gitignored (configured in `.gitignore`)
+- ContentBuilder automatically uses package Data/ folder when deployed
+- JSON data is deduplicated (not copied to ContentBuilder folder)
+- All scripts require PowerShell 7+

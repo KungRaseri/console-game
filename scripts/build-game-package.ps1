@@ -1,7 +1,7 @@
 # Build and Package Script for Godot Integration
 param(
     [string]$Configuration = "Release",
-    [string]$OutputPath = "..\package"
+    [string]$OutputPath = "package"
 )
 
 $ErrorActionPreference = "Stop"
