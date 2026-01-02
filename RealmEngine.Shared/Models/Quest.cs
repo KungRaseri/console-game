@@ -301,7 +301,7 @@ public class Quest : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Item>? ItemRewards { get; set; }
+    public List<Item> ItemRewards { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Ability objects for quest rewards.
@@ -317,7 +317,7 @@ public class Quest : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Ability>? AbilityRewards { get; set; }
+    public List<Ability> AbilityRewards { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Location objects for quest objectives.
@@ -333,7 +333,7 @@ public class Quest : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Location>? ObjectiveLocations { get; set; }
+    public List<Location> ObjectiveLocations { get; set; } = new();
 
     /// <summary>
     /// Fully resolved NPC objects for quest objectives.
@@ -349,7 +349,7 @@ public class Quest : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<NPC>? ObjectiveNpcs { get; set; }
+    public List<NPC> ObjectiveNpcs { get; set; } = new();
 
     /// <summary>
     /// Gets or sets whether this quest is currently active in the player's quest log.

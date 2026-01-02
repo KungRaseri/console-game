@@ -24,7 +24,7 @@ public class Location
     /// Not serialized to JSON (template IDs stored in Npcs instead).
     /// </summary>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<NPC>? NpcObjects { get; set; }
+    public List<NPC> NpcObjects { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Enemy objects that can spawn at this location.
@@ -32,7 +32,7 @@ public class Location
     /// Not serialized to JSON (template IDs stored in Enemies instead).
     /// </summary>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Enemy>? EnemyObjects { get; set; }
+    public List<Enemy> EnemyObjects { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Item objects available as loot at this location.
@@ -40,7 +40,7 @@ public class Location
     /// Not serialized to JSON (template IDs stored in Loot instead).
     /// </summary>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Item>? LootObjects { get; set; }
+    public List<Item> LootObjects { get; set; } = new();
 }
 
 /// <summary>
@@ -67,7 +67,7 @@ public class Organization
     /// Not serialized to JSON (template IDs stored in Members instead).
     /// </summary>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<NPC>? MemberObjects { get; set; }
+    public List<NPC> MemberObjects { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Item objects available in this organization's inventory.
@@ -75,7 +75,7 @@ public class Organization
     /// Not serialized to JSON (template IDs stored in Inventory instead).
     /// </summary>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Item>? InventoryObjects { get; set; }
+    public List<Item> InventoryObjects { get; set; } = new();
 }
 
 /// <summary>

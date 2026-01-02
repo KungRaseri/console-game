@@ -208,7 +208,7 @@ public class Enemy : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Ability>? Abilities { get; set; }
+    public List<Ability> Abilities { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Item objects for this enemy's loot table.
@@ -224,7 +224,7 @@ public class Enemy : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Item>? LootTable { get; set; }
+    public List<Item> LootTable { get; set; } = new();
 
     /// <summary>
     /// Calculate physical damage bonus from Strength.

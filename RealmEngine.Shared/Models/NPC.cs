@@ -180,7 +180,7 @@ public class NPC : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<DialogueLine>? Dialogues { get; set; }
+    public List<DialogueLine> Dialogues { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Ability objects for this NPC's combat actions (if hostile).
@@ -196,7 +196,7 @@ public class NPC : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Ability>? Abilities { get; set; }
+    public List<Ability> Abilities { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Item objects for this NPC's inventory (merchant stock, tradeable items).
@@ -212,7 +212,7 @@ public class NPC : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Item>? Inventory { get; set; }
+    public List<Item> Inventory { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the trait system dictionary for dynamic properties.

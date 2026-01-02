@@ -251,7 +251,7 @@ public class Item : ITraitable
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Item>? RequiredItems { get; set; }
+    public List<Item> RequiredItems { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the Strength attribute bonus provided by this item.

@@ -152,7 +152,7 @@ public class CharacterClass
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Ability>? StartingAbilities { get; set; }
+    public List<Ability> StartingAbilities { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Item objects for this class's starting equipment.
@@ -168,7 +168,7 @@ public class CharacterClass
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Item>? StartingEquipment { get; set; }
+    public List<Item> StartingEquipment { get; set; } = new();
 
     /// <summary>
     /// Traits/properties specific to this class (bonus damage types, resistances, etc.).

@@ -206,7 +206,7 @@ public class Ability
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Item>? RequiredItems { get; set; }
+    public List<Item> RequiredItems { get; set; } = new();
 
     /// <summary>
     /// Fully resolved Ability objects required before learning this ability (prerequisites).
@@ -222,7 +222,7 @@ public class Ability
     /// </list>
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Ability>? RequiredAbilities { get; set; }
+    public List<Ability> RequiredAbilities { get; set; } = new();
 }
 
 /// <summary>
