@@ -159,7 +159,7 @@
           "displayName": "Merchants Guild",
           "rarityWeight": 8,
           "description": "Powerful trade organization controlling commerce",
-          "headquarters": "@world/locations/towns:Silverport",
+          "headquarters": "@world/locations/towns/towns:Silverport",
           "joinRequirements": {
             "level": 1,
             "charisma": 12,
@@ -234,7 +234,7 @@
           "displayName": "Craftsmen Guild",
           "rarityWeight": 12,
           "description": "Association of master artisans and skilled workers",
-          "headquarters": "@world/locations/towns:Ironforge",
+          "headquarters": "@world/locations/towns/towns:Ironforge",
           "joinRequirements": {
             "level": 2,
             "skills": [
@@ -306,7 +306,7 @@
           "displayName": "Thieves Guild",
           "rarityWeight": 20,
           "description": "Underground network of thieves, spies, and assassins",
-          "headquarters": "@world/locations/towns:CrimsonHarbor",
+          "headquarters": "@world/locations/towns/towns:CrimsonHarbor",
           "joinRequirements": {
             "level": 3,
             "dexterity": 13,
@@ -375,7 +375,7 @@
           "displayName": "Assassins Guild",
           "rarityWeight": 35,
           "description": "Elite order of professional killers",
-          "headquarters": "@world/locations/dungeons:ShadowRealm",
+          "headquarters": "@world/locations/dungeons/extreme:ShadowRealm",
           "joinRequirements": {
             "level": 8,
             "dexterity": 15,
