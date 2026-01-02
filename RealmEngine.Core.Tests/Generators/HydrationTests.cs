@@ -290,7 +290,8 @@ public class HydrationTests
     public async Task Hydrated_Generation_Should_Be_Slower_Than_Template_Only()
     {
         // Arrange
-        var generator = new EnemyGenerator(_dataCache, _referenceResolver);
+        var mockEnemyLogger = new Mock<ILogger<EnemyGenerator>>();
+        var generator = new EnemyGenerator(_dataCache, _referenceResolver, mockEnemyLogger.Object);
         var sw = System.Diagnostics.Stopwatch.StartNew();
 
         // Act - Generate with hydration
@@ -441,7 +442,8 @@ public class HydrationTests
     public async Task Hydration_Should_Handle_Missing_Catalogs_Gracefully()
     {
         // Arrange
-        var generator = new EnemyGenerator(_dataCache, _referenceResolver);
+        var mockEnemyLogger = new Mock<ILogger<EnemyGenerator>>();
+        var generator = new EnemyGenerator(_dataCache, _referenceResolver, mockEnemyLogger.Object);
 
         // Act - This should not throw even if ability catalogs are missing
         var action = async () => await generator.GenerateEnemiesAsync("beasts", 5, hydrate: true);
@@ -454,7 +456,8 @@ public class HydrationTests
     public async Task Hydration_Should_Continue_On_Individual_Reference_Failure()
     {
         // Arrange
-        var generator = new EnemyGenerator(_dataCache, _referenceResolver);
+        var mockEnemyLogger = new Mock<ILogger<EnemyGenerator>>();
+        var generator = new EnemyGenerator(_dataCache, _referenceResolver, mockEnemyLogger.Object);
 
         // Act
         var enemies = await generator.GenerateEnemiesAsync("beasts", 10, hydrate: true);
