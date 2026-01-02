@@ -38,7 +38,7 @@ public class NpcGenerator
 
             var catalog = catalogFile.JsonData;
             var items = GetItemsFromCatalog(catalog);
-            
+
             if (items == null || !items.Any())
             {
                 return new List<NPC>();
@@ -80,8 +80,8 @@ public class NpcGenerator
 
             var catalog = catalogFile.JsonData;
             var items = GetItemsFromCatalog(catalog);
-            
-            var catalogNpc = items?.FirstOrDefault(n => 
+
+            var catalogNpc = items?.FirstOrDefault(n =>
                 string.Equals(GetStringProperty(n, "name"), npcName, StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(GetStringProperty(n, "displayName"), npcName, StringComparison.OrdinalIgnoreCase));
 
@@ -102,21 +102,21 @@ public class NpcGenerator
     private static IEnumerable<JToken>? GetItemsFromCatalog(JToken catalog)
     {
         var allItems = new List<JToken>();
-        
-        // Handle hierarchical structure: occupation_types -> general_traders/etc -> items
+
+        // Handle hierarchical structure: occupation_types/background_types -> general_traders/etc -> items
         foreach (var property in catalog.Children<JProperty>())
         {
-            if (property.Name == "metadata" || property.Name == "background_types") continue;
-            
-            // This is a type category (occupation_types, etc)
+            if (property.Name == "metadata") continue;
+
+            // This is a type category (occupation_types, background_types, etc)
             var typeCategory = property.Value;
             if (typeCategory is JObject typeCategoryObj)
             {
                 foreach (var subType in typeCategoryObj.Children<JProperty>())
                 {
                     if (subType.Name == "metadata") continue;
-                    
-                    // This is a specific type (general_traders, etc)
+
+                    // This is a specific type (general_traders, reformed_criminals, etc)
                     var items = subType.Value["items"];
                     if (items != null && items.HasValues)
                     {
@@ -125,7 +125,7 @@ public class NpcGenerator
                 }
             }
         }
-        
+
         return allItems.Any() ? allItems : null;
     }
 
