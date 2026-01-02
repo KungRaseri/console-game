@@ -129,7 +129,7 @@ public class NpcGenerator
         return allItems.Any() ? allItems : null;
     }
 
-    private Task<NPC?> ConvertToNpcAsync(JToken catalogNpc, string category)
+    private async Task<NPC?> ConvertToNpcAsync(JToken catalogNpc, string category)
     {
         try
         {
@@ -144,13 +144,53 @@ public class NpcGenerator
                 IsFriendly = GetBoolProperty(catalogNpc, "isFriendly", !GetBoolProperty(catalogNpc, "isHostile", false))
             };
 
-            return Task.FromResult<NPC?>(npc);
+            // Resolve dialogue references
+            if (catalogNpc["dialogues"] is JArray dialogues)
+            {
+                npc.DialogueIds = await ResolveReferencesAsync(dialogues);
+            }
+
+            // Resolve ability references
+            if (catalogNpc["abilities"] is JArray abilities)
+            {
+                npc.AbilityIds = await ResolveReferencesAsync(abilities);
+            }
+
+            // Resolve inventory references
+            if (catalogNpc["inventory"] is JArray inventory)
+            {
+                npc.InventoryIds = await ResolveReferencesAsync(inventory);
+            }
+
+            return npc;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error converting catalog NPC to NPC: {ex.Message}");
-            return Task.FromResult<NPC?>(null);
+            return null;
         }
+    }
+
+    private async Task<List<string>> ResolveReferencesAsync(JArray? referenceArray)
+    {
+        var resolvedIds = new List<string>();
+        if (referenceArray == null) return resolvedIds;
+
+        foreach (var item in referenceArray)
+        {
+            var reference = item.ToString();
+            
+            if (reference.StartsWith("@"))
+            {
+                var resolvedId = await _referenceResolver.ResolveAsync(reference);
+                if (resolvedId != null)
+                {
+                    resolvedIds.Add(resolvedId.ToString() ?? string.Empty);
+                }
+            }
+        }
+
+        return resolvedIds;
     }
 
     private JToken? GetRandomWeightedItem(IEnumerable<JToken> items)

@@ -35,6 +35,12 @@ public class Enemy : ITraitable
     public EnemyType Type { get; set; } = EnemyType.Common;
     public EnemyDifficulty Difficulty { get; set; } = EnemyDifficulty.Easy;
 
+    // Abilities (resolved from @abilities references)
+    public List<string> AbilityIds { get; set; } = new();
+    
+    // Loot drops (resolved from @items references)
+    public List<string> LootTableIds { get; set; } = new();
+
     /// <summary>
     /// Calculate physical damage bonus from Strength.
     /// </summary>

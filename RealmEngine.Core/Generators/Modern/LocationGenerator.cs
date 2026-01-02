@@ -23,7 +23,7 @@ public class LocationGenerator
     /// <summary>
     /// Generates locations from a specific type (towns, dungeons, wilderness, environments, regions).
     /// </summary>
-    public Task<List<Location>> GenerateLocationsAsync(string locationType, int count = 5)
+    public async Task<List<Location>> GenerateLocationsAsync(string locationType, int count = 5)
     {
         try
         {
@@ -40,7 +40,7 @@ public class LocationGenerator
             var catalogFile = _dataCache.GetFile(catalogPath);
             if (catalogFile?.JsonData == null)
             {
-                return Task.FromResult(new List<Location>());
+                return new List<Location>();
             }
 
             var catalog = catalogFile.JsonData;
@@ -48,7 +48,7 @@ public class LocationGenerator
             
             if (items == null || !items.Any())
             {
-                return Task.FromResult(new List<Location>());
+                return new List<Location>();
             }
 
             var result = new List<Location>();
@@ -59,7 +59,7 @@ public class LocationGenerator
                 var randomLocation = GetRandomWeightedItem(items);
                 if (randomLocation != null)
                 {
-                    var location = ConvertToLocation(randomLocation, locationType, namesFile);
+                    var location = await ConvertToLocationAsync(randomLocation, locationType, namesFile);
                     if (location != null)
                     {
                         result.Add(location);
@@ -67,19 +67,19 @@ public class LocationGenerator
                 }
             }
 
-            return Task.FromResult(result);
+            return result;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error generating locations: {ex.Message}");
-            return Task.FromResult(new List<Location>());
+            return new List<Location>();
         }
     }
 
     /// <summary>
     /// Generates a specific location by name.
     /// </summary>
-    public Task<Location?> GenerateLocationByNameAsync(string locationType, string locationName)
+    public async Task<Location?> GenerateLocationByNameAsync(string locationType, string locationName)
     {
         try
         {
@@ -96,7 +96,7 @@ public class LocationGenerator
             var catalogFile = _dataCache.GetFile(catalogPath);
             if (catalogFile?.JsonData == null)
             {
-                return Task.FromResult<Location?>(null);
+                return null;
             }
 
             var catalog = catalogFile.JsonData;
@@ -105,20 +105,20 @@ public class LocationGenerator
 
             if (item == null)
             {
-                return Task.FromResult<Location?>(null);
+                return null;
             }
 
             var namesFile = _dataCache.GetFile(catalogPath.Replace("catalog.json", "names.json"));
-            return Task.FromResult(ConvertToLocation(item, locationType, namesFile));
+            return await ConvertToLocationAsync(item, locationType, namesFile);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error generating location by name: {ex.Message}");
-            return Task.FromResult<Location?>(null);
+            return null;
         }
     }
 
-    private Location? ConvertToLocation(JToken locationData, string locationType, CachedJsonFile? namesFile)
+    private async Task<Location?> ConvertToLocationAsync(JToken locationData, string locationType, CachedJsonFile? namesFile)
     {
         try
         {
@@ -142,22 +142,26 @@ public class LocationGenerator
                 location.Features = features.Select(f => f.ToString()).ToList();
             }
 
-            // Parse NPCs (if any)
+            // Parse and resolve NPC references
             if (locationData["npcs"] is JArray npcs)
             {
-                location.Npcs = npcs.Select(n => n.ToString()).ToList();
+                location.Npcs = await ResolveReferencesAsync(npcs);
             }
 
-            // Parse enemies (if any)
+            // Parse and resolve enemy references
             if (locationData["enemies"] is JArray enemies)
             {
-                location.Enemies = enemies.Select(e => e.ToString()).ToList();
+                location.Enemies = await ResolveReferencesAsync(enemies);
             }
 
-            // Parse loot (if any)
+            // Parse and resolve loot/resource references
             if (locationData["loot"] is JArray loot)
             {
-                location.Loot = loot.Select(l => l.ToString()).ToList();
+                location.Loot = await ResolveReferencesAsync(loot);
+            }
+            else if (locationData["resources"] is JArray resources)
+            {
+                location.Loot = await ResolveReferencesAsync(resources);
             }
 
             // Parse parent region
@@ -170,6 +174,31 @@ public class LocationGenerator
             Console.WriteLine($"Error converting location: {ex.Message}");
             return null;
         }
+    }
+
+    /// <summary>
+    /// Resolves an array of references (handles both direct strings and @references)
+    /// </summary>
+    private async Task<List<string>> ResolveReferencesAsync(JArray references)
+    {
+        var resolved = new List<string>();
+        foreach (var reference in references)
+        {
+            var refString = reference.ToString();
+            if (refString.StartsWith("@"))
+            {
+                var result = await _referenceResolver.ResolveAsync(refString);
+                if (result is string resolvedId)
+                {
+                    resolved.Add(resolvedId);
+                }
+            }
+            else
+            {
+                resolved.Add(refString);
+            }
+        }
+        return resolved;
     }
 
     private string GenerateName(CachedJsonFile namesFile, JToken locationData)

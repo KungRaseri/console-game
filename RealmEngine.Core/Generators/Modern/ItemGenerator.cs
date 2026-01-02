@@ -174,6 +174,24 @@ public class ItemGenerator
             var baseRarityWeight = GetIntProperty(catalogItem, "rarityWeight", 50);
             item.TotalRarityWeight = baseRarityWeight;
 
+            // Resolve enchantment references
+            if (catalogItem["enchantments"] is JArray enchantments)
+            {
+                item.EnchantmentIds = await ResolveReferencesAsync(enchantments);
+            }
+
+            // Resolve material references
+            if (catalogItem["materials"] is JArray materials)
+            {
+                item.MaterialIds = await ResolveReferencesAsync(materials);
+            }
+
+            // Resolve required item references
+            if (catalogItem["requiredItems"] is JArray requiredItems)
+            {
+                item.RequiredItemIds = await ResolveReferencesAsync(requiredItems);
+            }
+
             // Apply traits from catalog
             await ApplyTraitsFromCatalogAsync(item, catalogItem);
 
@@ -237,6 +255,28 @@ public class ItemGenerator
         {
             Console.WriteLine($"Error applying enhancements: {ex.Message}");
         }
+    }
+
+    private async Task<List<string>> ResolveReferencesAsync(JArray? referenceArray)
+    {
+        var resolvedIds = new List<string>();
+        if (referenceArray == null) return resolvedIds;
+
+        foreach (var item in referenceArray)
+        {
+            var reference = item.ToString();
+            
+            if (reference.StartsWith("@"))
+            {
+                var resolvedId = await _referenceResolver.ResolveAsync(reference);
+                if (resolvedId != null)
+                {
+                    resolvedIds.Add(resolvedId.ToString() ?? string.Empty);
+                }
+            }
+        }
+
+        return resolvedIds;
     }
 
     /// <summary>

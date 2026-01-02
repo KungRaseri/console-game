@@ -33,14 +33,14 @@ public class AbilityGenerator
     /// <param name="subcategory">The ability subcategory (e.g., "offensive", "defensive", "support").</param>
     /// <param name="count">The number of abilities to generate (default: 5).</param>
     /// <returns>A list of generated Ability instances.</returns>
-    public Task<List<Ability>> GenerateAbilitiesAsync(string category, string subcategory, int count = 5)
+    public async Task<List<Ability>> GenerateAbilitiesAsync(string category, string subcategory, int count = 5)
     {
         try
         {
             var catalogFile = _dataCache.GetFile($"abilities/{category}/{subcategory}/catalog.json");
             if (catalogFile?.JsonData == null)
             {
-                return Task.FromResult(new List<Ability>());
+                return new List<Ability>();
             }
 
             var catalog = catalogFile.JsonData;
@@ -48,7 +48,7 @@ public class AbilityGenerator
             
             if (items == null || !items.Any())
             {
-                return Task.FromResult(new List<Ability>());
+                return new List<Ability>();
             }
 
             var result = new List<Ability>();
@@ -58,7 +58,7 @@ public class AbilityGenerator
                 var randomAbility = GetRandomWeightedItem(items);
                 if (randomAbility != null)
                 {
-                    var ability = ConvertToAbility(randomAbility, category, subcategory);
+                    var ability = await ConvertToAbilityAsync(randomAbility, category, subcategory);
                     if (ability != null)
                     {
                         result.Add(ability);
@@ -66,12 +66,12 @@ public class AbilityGenerator
                 }
             }
 
-            return Task.FromResult(result);
+            return result;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error generating abilities for category {category}/{subcategory}: {ex.Message}");
-            return Task.FromResult(new List<Ability>());
+            return new List<Ability>();
         }
     }
 
@@ -82,14 +82,14 @@ public class AbilityGenerator
     /// <param name="subcategory">The ability subcategory to search in.</param>
     /// <param name="abilityName">The name of the ability to generate.</param>
     /// <returns>The generated Ability instance, or null if not found.</returns>
-    public Task<Ability?> GenerateAbilityByNameAsync(string category, string subcategory, string abilityName)
+    public async Task<Ability?> GenerateAbilityByNameAsync(string category, string subcategory, string abilityName)
     {
         try
         {
             var catalogFile = _dataCache.GetFile($"abilities/{category}/{subcategory}/catalog.json");
             if (catalogFile?.JsonData == null)
             {
-                return Task.FromResult<Ability?>(null);
+                return null;
             }
 
             var catalog = catalogFile.JsonData;
@@ -101,15 +101,15 @@ public class AbilityGenerator
 
             if (catalogAbility != null)
             {
-                return Task.FromResult(ConvertToAbility(catalogAbility, category, subcategory));
+                return await ConvertToAbilityAsync(catalogAbility, category, subcategory);
             }
 
-            return Task.FromResult<Ability?>(null);
+            return null;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error generating ability {abilityName} from category {category}/{subcategory}: {ex.Message}");
-            return Task.FromResult<Ability?>(null);
+            return null;
         }
     }
 
@@ -143,7 +143,7 @@ public class AbilityGenerator
         return allItems.Any() ? allItems : null;
     }
 
-    private Ability? ConvertToAbility(JToken catalogAbility, string category, string subcategory)
+    private async Task<Ability?> ConvertToAbilityAsync(JToken catalogAbility, string category, string subcategory)
     {
         try
         {
@@ -164,6 +164,18 @@ public class AbilityGenerator
                 RequiredLevel = GetIntProperty(catalogAbility, "requiredLevel", 1),
                 Type = MapAbilityType(category, subcategory)
             };
+
+            // Resolve required item references
+            if (catalogAbility["requiredItems"] is JArray requiredItems)
+            {
+                ability.RequiredItemIds = await ResolveReferencesAsync(requiredItems);
+            }
+
+            // Resolve required ability references (prerequisites)
+            if (catalogAbility["requiredAbilities"] is JArray requiredAbilities)
+            {
+                ability.RequiredAbilityIds = await ResolveReferencesAsync(requiredAbilities);
+            }
 
             // Parse traits dictionary
             var traits = catalogAbility["traits"];
@@ -190,6 +202,28 @@ public class AbilityGenerator
             Console.WriteLine($"Error converting catalog ability to Ability: {ex.Message}");
             return null;
         }
+    }
+
+    private async Task<List<string>> ResolveReferencesAsync(JArray? referenceArray)
+    {
+        var resolvedIds = new List<string>();
+        if (referenceArray == null) return resolvedIds;
+
+        foreach (var item in referenceArray)
+        {
+            var reference = item.ToString();
+            
+            if (reference.StartsWith("@"))
+            {
+                var resolvedId = await _referenceResolver.ResolveAsync(reference);
+                if (resolvedId != null)
+                {
+                    resolvedIds.Add(resolvedId.ToString() ?? string.Empty);
+                }
+            }
+        }
+
+        return resolvedIds;
     }
 
     private static object ExtractTraitValue(JToken valueToken)

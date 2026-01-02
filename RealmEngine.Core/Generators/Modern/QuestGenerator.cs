@@ -112,7 +112,7 @@ public class QuestGenerator
         return items?.Children();
     }
 
-    private Task<Quest?> ConvertToQuestAsync(JToken catalogQuest, string questType)
+    private async Task<Quest?> ConvertToQuestAsync(JToken catalogQuest, string questType)
     {
         try
         {
@@ -138,6 +138,36 @@ public class QuestGenerator
                 IsActive = false,
                 IsCompleted = false
             };
+
+            // Resolve item reward references
+            if (catalogQuest["itemRewards"] is JArray itemRewards)
+            {
+                quest.ItemRewardIds = await ResolveReferencesAsync(itemRewards);
+            }
+
+            // Resolve ability reward references
+            if (catalogQuest["abilityRewards"] is JArray abilityRewards)
+            {
+                quest.AbilityRewardIds = await ResolveReferencesAsync(abilityRewards);
+            }
+
+            // Resolve objective location references
+            if (catalogQuest["locations"] is JArray locations)
+            {
+                quest.ObjectiveLocationIds = await ResolveReferencesAsync(locations);
+            }
+
+            // Resolve objective NPC references
+            if (catalogQuest["npcs"] is JArray npcs)
+            {
+                quest.ObjectiveNpcIds = await ResolveReferencesAsync(npcs);
+            }
+
+            // Resolve objective enemy references
+            if (catalogQuest["enemies"] is JArray enemies)
+            {
+                quest.ObjectiveEnemyIds = await ResolveReferencesAsync(enemies);
+            }
 
             // Handle objectives - create simple objectives from quest data
             var objectives = new Dictionary<string, int>();
@@ -172,13 +202,35 @@ public class QuestGenerator
             quest.Objectives = objectives;
             quest.ObjectiveProgress = objectives.Keys.ToDictionary(k => k, v => 0);
 
-            return Task.FromResult<Quest?>(quest);
+            return quest;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error converting catalog quest to Quest: {ex.Message}");
-            return Task.FromResult<Quest?>(null);
+            return null;
         }
+    }
+
+    private async Task<List<string>> ResolveReferencesAsync(JArray? referenceArray)
+    {
+        var resolvedIds = new List<string>();
+        if (referenceArray == null) return resolvedIds;
+
+        foreach (var item in referenceArray)
+        {
+            var reference = item.ToString();
+            
+            if (reference.StartsWith("@"))
+            {
+                var resolvedId = await _referenceResolver.ResolveAsync(reference);
+                if (resolvedId != null)
+                {
+                    resolvedIds.Add(resolvedId.ToString() ?? string.Empty);
+                }
+            }
+        }
+
+        return resolvedIds;
     }
 
     private JToken? GetRandomWeightedItem(IEnumerable<JToken> items)

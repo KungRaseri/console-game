@@ -27,6 +27,124 @@ public class ReferenceResolverService
     }
 
     /// <summary>
+    /// Resolves a reference and returns the full JSON object instead of just the ID
+    /// </summary>
+    public async Task<JToken?> ResolveToObjectAsync(string reference)
+    {
+        return await Task.FromResult(ResolveToObject(reference));
+    }
+
+    /// <summary>
+    /// Resolves a reference synchronously and returns the full JSON object
+    /// </summary>
+    public JToken? ResolveToObject(string reference)
+    {
+        var components = ParseReference(reference);
+        if (components == null)
+        {
+            Console.WriteLine($"Invalid reference syntax: {reference}");
+            return null;
+        }
+
+        try
+        {
+            // Build the file path for the catalog
+            var catalogPath = string.IsNullOrEmpty(components.Path)
+                ? $"{components.Domain}/catalog.json"
+                : $"{components.Domain}/{components.Path}/catalog.json";
+
+            var catalogFile = _dataCache.GetFile(catalogPath);
+            if (catalogFile?.JsonData == null)
+            {
+                if (components.IsOptional)
+                    return null;
+                
+                Console.WriteLine($"Catalog not found for reference: {reference}");
+                return null;
+            }
+
+            var catalog = catalogFile.JsonData;
+
+            // Handle wildcard - return random item from category
+            if (components.ItemName == "*")
+            {
+                var items = GetAllItemsInCategory(catalog, components.Category);
+                
+                // Apply filters if specified
+                if (!string.IsNullOrEmpty(components.Filters))
+                {
+                    items = ApplyFilters(items, components.Filters);
+                }
+                
+                // Return random item weighted by rarityWeight
+                if (items.Count > 0)
+                {
+                    return SelectRandomWeighted(items);
+                }
+                return null;
+            }
+            
+            // Find specific item and return the full object
+            var item = FindItemInCatalog(catalog, components.Category, components.ItemName);
+            
+            if (item == null)
+            {
+                if (components.IsOptional)
+                    return null;
+                
+                Console.WriteLine($"Item not found: {components.ItemName} in {components.Category}");
+                return null;
+            }
+
+            // Apply property access if specified
+            if (!string.IsNullOrEmpty(components.Property))
+            {
+                return GetNestedProperty(item, components.Property);
+            }
+
+            return item;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error resolving reference {reference}: {ex.Message}");
+            if (components.IsOptional)
+                return null;
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Selects a random item from array using rarityWeight
+    /// </summary>
+    private JToken? SelectRandomWeighted(JArray items)
+    {
+        if (items.Count == 0) return null;
+        if (items.Count == 1) return items[0];
+
+        var totalWeight = 0;
+        foreach (var item in items)
+        {
+            var weight = item["rarityWeight"]?.Value<int>() ?? 1;
+            totalWeight += weight;
+        }
+
+        var randomValue = _random.Next(totalWeight);
+        var currentWeight = 0;
+
+        foreach (var item in items)
+        {
+            var weight = item["rarityWeight"]?.Value<int>() ?? 1;
+            currentWeight += weight;
+            if (randomValue < currentWeight)
+            {
+                return item;
+            }
+        }
+
+        return items[^1];
+    }
+
+    /// <summary>
     /// Resolves a reference synchronously
     /// </summary>
     public object? Resolve(string reference)

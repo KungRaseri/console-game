@@ -23,7 +23,7 @@ public class OrganizationGenerator
     /// <summary>
     /// Generates organizations from a specific type (guilds, factions, shops, businesses).
     /// </summary>
-    public Task<List<Organization>> GenerateOrganizationsAsync(string organizationType, int count = 5)
+    public async Task<List<Organization>> GenerateOrganizationsAsync(string organizationType, int count = 5)
     {
         try
         {
@@ -32,7 +32,7 @@ public class OrganizationGenerator
             
             if (catalogFile?.JsonData == null)
             {
-                return Task.FromResult(new List<Organization>());
+                return new List<Organization>();
             }
 
             var catalog = catalogFile.JsonData;
@@ -40,7 +40,7 @@ public class OrganizationGenerator
             
             if (items == null || !items.Any())
             {
-                return Task.FromResult(new List<Organization>());
+                return new List<Organization>();
             }
 
             var result = new List<Organization>();
@@ -51,7 +51,7 @@ public class OrganizationGenerator
                 var randomOrg = GetRandomWeightedItem(items);
                 if (randomOrg != null)
                 {
-                    var organization = ConvertToOrganization(randomOrg, organizationType, namesFile);
+                    var organization = await ConvertToOrganizationAsync(randomOrg, organizationType, namesFile);
                     if (organization != null)
                     {
                         result.Add(organization);
@@ -59,19 +59,19 @@ public class OrganizationGenerator
                 }
             }
 
-            return Task.FromResult(result);
+            return result;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error generating organizations: {ex.Message}");
-            return Task.FromResult(new List<Organization>());
+            return new List<Organization>();
         }
     }
 
     /// <summary>
     /// Generates a specific organization by name.
     /// </summary>
-    public Task<Organization?> GenerateOrganizationByNameAsync(string organizationType, string organizationName)
+    public async Task<Organization?> GenerateOrganizationByNameAsync(string organizationType, string organizationName)
     {
         try
         {
@@ -80,7 +80,7 @@ public class OrganizationGenerator
             
             if (catalogFile?.JsonData == null)
             {
-                return Task.FromResult<Organization?>(null);
+                return null;
             }
 
             var catalog = catalogFile.JsonData;
@@ -89,16 +89,16 @@ public class OrganizationGenerator
 
             if (item == null)
             {
-                return Task.FromResult<Organization?>(null);
+                return null;
             }
 
             var namesFile = _dataCache.GetFile(catalogPath.Replace("catalog.json", "names.json"));
-            return Task.FromResult(ConvertToOrganization(item, organizationType, namesFile));
+            return await ConvertToOrganizationAsync(item, organizationType, namesFile);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error generating organization by name: {ex.Message}");
-            return Task.FromResult<Organization?>(null);
+            return null;
         }
     }
 
@@ -166,7 +166,7 @@ public class OrganizationGenerator
         return prices;
     }
 
-    private Organization? ConvertToOrganization(JToken orgData, string organizationType, CachedJsonFile? namesFile)
+    private async Task<Organization?> ConvertToOrganizationAsync(JToken orgData, string organizationType, CachedJsonFile? namesFile)
     {
         try
         {
@@ -187,22 +187,22 @@ public class OrganizationGenerator
             // Parse leader
             organization.Leader = orgData["leader"]?.ToString();
 
-            // Parse members
+            // Resolve member references
             if (orgData["members"] is JArray members)
             {
-                organization.Members = members.Select(m => m.ToString()).ToList();
+                organization.Members = await ResolveReferencesAsync(members);
             }
 
-            // Parse services
+            // Resolve service references
             if (orgData["services"] is JArray services)
             {
-                organization.Services = services.Select(s => s.ToString()).ToList();
+                organization.Services = await ResolveReferencesAsync(services);
             }
 
-            // Parse inventory (for shops)
+            // Resolve inventory references (for shops)
             if (orgData["inventory"] is JArray inventory)
             {
-                organization.Inventory = inventory.Select(i => i.ToString()).ToList();
+                organization.Inventory = await ResolveReferencesAsync(inventory);
             }
 
             return organization;
@@ -212,6 +212,28 @@ public class OrganizationGenerator
             Console.WriteLine($"Error converting organization: {ex.Message}");
             return null;
         }
+    }
+
+    private async Task<List<string>> ResolveReferencesAsync(JArray? referenceArray)
+    {
+        var resolvedIds = new List<string>();
+        if (referenceArray == null) return resolvedIds;
+
+        foreach (var item in referenceArray)
+        {
+            var reference = item.ToString();
+            
+            if (reference.StartsWith("@"))
+            {
+                var resolvedId = await _referenceResolver.ResolveAsync(reference);
+                if (resolvedId != null)
+                {
+                    resolvedIds.Add(resolvedId.ToString() ?? string.Empty);
+                }
+            }
+        }
+
+        return resolvedIds;
     }
 
     private static int TryGetIntValue(JToken obj, string propertyName, int defaultValue)

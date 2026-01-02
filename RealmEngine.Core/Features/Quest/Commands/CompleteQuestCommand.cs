@@ -26,7 +26,7 @@ public class CompleteQuestHandler : IRequestHandler<CompleteQuestCommand, Comple
                 result.Quest!.XpReward,
                 result.Quest.GoldReward,
                 result.Quest.ApocalypseBonusMinutes,
-                result.Quest.ItemRewards
+                result.Quest.ItemRewardIds
             );
 
             return new CompleteQuestResult(true, $"Quest completed: {result.Quest.Title}", rewards);

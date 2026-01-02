@@ -170,7 +170,7 @@ public class EnemyGenerator
                 GoldReward = GetIntProperty(catalogEnemy, "gold", 10)
             };
 
-            // Resolve any ability references
+            // Resolve ability references
             var abilities = GetStringArrayProperty(catalogEnemy, "abilities");
             if (abilities?.Any() == true)
             {
@@ -190,8 +190,30 @@ public class EnemyGenerator
                         resolvedAbilities.Add(ability);
                     }
                 }
-                // Note: Enemy model doesn't have Abilities property, would need to be added if needed
-                // enemy.Abilities = resolvedAbilities;
+                enemy.AbilityIds = resolvedAbilities;
+            }
+
+            // Resolve loot table references
+            var loot = GetStringArrayProperty(catalogEnemy, "loot");
+            if (loot?.Any() == true)
+            {
+                var resolvedLoot = new List<string>();
+                foreach (var lootRef in loot)
+                {
+                    if (lootRef.StartsWith("@"))
+                    {
+                        var resolved = await _referenceResolver.ResolveAsync(lootRef);
+                        if (resolved is string resolvedId)
+                        {
+                            resolvedLoot.Add(resolvedId);
+                        }
+                    }
+                    else
+                    {
+                        resolvedLoot.Add(lootRef);
+                    }
+                }
+                enemy.LootTableIds = resolvedLoot;
             }
 
             return enemy;

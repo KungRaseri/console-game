@@ -41,6 +41,11 @@ public class Item : ITraitable
     // Upgrade level (+1, +2, +3, etc.)
     public int UpgradeLevel { get; set; } = 0;
 
+    // Reference collections for resolved @references
+    public List<string> EnchantmentIds { get; set; } = new();
+    public List<string> MaterialIds { get; set; } = new();
+    public List<string> RequiredItemIds { get; set; } = new();
+
     // D20 Attribute Bonuses - bonuses provided by this item
     public int BonusStrength { get; set; } = 0;
     public int BonusDexterity { get; set; } = 0;

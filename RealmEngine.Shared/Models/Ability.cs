@@ -83,6 +83,12 @@ public class Ability
     /// Class restrictions (empty = available to all classes).
     /// </summary>
     public List<string> AllowedClasses { get; set; } = new();
+
+    /// <summary>
+    /// Reference collections for resolved @references.
+    /// </summary>
+    public List<string> RequiredItemIds { get; set; } = new();
+    public List<string> RequiredAbilityIds { get; set; } = new();
 }
 
 /// <summary>

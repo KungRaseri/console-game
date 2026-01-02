@@ -13,6 +13,11 @@ public class NPC : ITraitable
     public string Dialogue { get; set; } = string.Empty;
     public bool IsFriendly { get; set; } = true;
 
+    // Reference collections for resolved @references
+    public List<string> DialogueIds { get; set; } = new();
+    public List<string> AbilityIds { get; set; } = new();
+    public List<string> InventoryIds { get; set; } = new();
+
     // Trait system
     public Dictionary<string, TraitValue> Traits { get; } = new();
 }

@@ -31,8 +31,14 @@ public class Quest : ITraitable
     // Rewards
     public int GoldReward { get; set; }
     public int XpReward { get; set; }
-    public List<string> ItemRewards { get; set; } = new();
     public int ApocalypseBonusMinutes { get; set; } = 0; // Bonus time for Apocalypse mode (Phase 4)
+    
+    // Resolved reference collections
+    public List<string> ItemRewardIds { get; set; } = new();
+    public List<string> AbilityRewardIds { get; set; } = new();
+    public List<string> ObjectiveLocationIds { get; set; } = new();
+    public List<string> ObjectiveNpcIds { get; set; } = new();
+    public List<string> ObjectiveEnemyIds { get; set; } = new();
 
     // Status
     public bool IsActive { get; set; } = false;

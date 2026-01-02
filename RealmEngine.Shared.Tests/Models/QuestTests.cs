@@ -236,12 +236,12 @@ public class QuestTests
         var quest = new Quest();
 
         // Act
-        quest.ItemRewards.Add("Legendary Sword");
-        quest.ItemRewards.Add("Health Potion");
+        quest.ItemRewardIds.Add("legendary-sword");
+        quest.ItemRewardIds.Add("health-potion");
 
         // Assert
-        quest.ItemRewards.Should().HaveCount(2);
-        quest.ItemRewards.Should().Contain("Legendary Sword");
+        quest.ItemRewardIds.Should().HaveCount(2);
+        quest.ItemRewardIds.Should().Contain("legendary-sword");
     }
 
     [Fact]
@@ -261,7 +261,7 @@ public class QuestTests
         var quest = new Quest();
 
         // Assert
-        quest.ItemRewards.Should().BeEmpty();
+        quest.ItemRewardIds.Should().BeEmpty();
     }
 
     #endregion
