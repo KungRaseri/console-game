@@ -288,6 +288,70 @@ public class Quest : ITraitable
     public List<string> ObjectiveEnemyIds { get; set; } = new();
 
     /// <summary>
+    /// Fully resolved Item objects for quest rewards.
+    /// Populated by QuestGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in ItemRewardIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property when quest completes to award items</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if quest loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Item>? ItemRewards { get; set; }
+
+    /// <summary>
+    /// Fully resolved Ability objects for quest rewards.
+    /// Populated by QuestGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in AbilityRewardIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property when quest completes to teach new abilities</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if quest loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Ability>? AbilityRewards { get; set; }
+
+    /// <summary>
+    /// Fully resolved Location objects for quest objectives.
+    /// Populated by QuestGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in ObjectiveLocationIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property to display quest markers on map</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if quest loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Location>? ObjectiveLocations { get; set; }
+
+    /// <summary>
+    /// Fully resolved NPC objects for quest objectives.
+    /// Populated by QuestGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in ObjectiveNpcIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property to mark quest NPCs with indicators</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if quest loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<NPC>? ObjectiveNpcs { get; set; }
+
+    /// <summary>
     /// Gets or sets whether this quest is currently active in the player's quest log.
     /// </summary>
     public bool IsActive { get; set; } = false;

@@ -191,6 +191,38 @@ public class Ability
     /// </code>
     /// </example>
     public List<string> RequiredAbilityIds { get; set; } = new();
+
+    /// <summary>
+    /// Fully resolved Item objects required to use this ability.
+    /// Populated by AbilityGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in RequiredItemIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property to validate ability can be used</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if ability loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Item>? RequiredItems { get; set; }
+
+    /// <summary>
+    /// Fully resolved Ability objects required before learning this ability (prerequisites).
+    /// Populated by AbilityGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in RequiredAbilityIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property to check if player meets prerequisites</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if ability loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Ability>? RequiredAbilities { get; set; }
 }
 
 /// <summary>

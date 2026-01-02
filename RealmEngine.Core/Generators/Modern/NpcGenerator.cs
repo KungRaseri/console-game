@@ -1,6 +1,7 @@
 using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -31,8 +32,9 @@ public class NpcGenerator
     /// </summary>
     /// <param name="category">The NPC category (e.g., "merchants", "guards", "quest-givers").</param>
     /// <param name="count">The number of NPCs to generate (default: 5).</param>
+    /// <param name="hydrate">If true, populates resolved Dialogues, Abilities, and Inventory properties (default: true).</param>
     /// <returns>A list of generated NPC instances.</returns>
-    public async Task<List<NPC>> GenerateNpcsAsync(string category, int count = 5)
+    public async Task<List<NPC>> GenerateNpcsAsync(string category, int count = 5, bool hydrate = true)
     {
         try
         {
@@ -60,6 +62,10 @@ public class NpcGenerator
                     var npc = await ConvertToNpcAsync(randomNpc, category);
                     if (npc != null)
                     {
+                        if (hydrate)
+                        {
+                            await HydrateNpcAsync(npc);
+                        }
                         result.Add(npc);
                     }
                 }
@@ -79,8 +85,9 @@ public class NpcGenerator
     /// </summary>
     /// <param name="category">The NPC category to search in.</param>
     /// <param name="npcName">The name or display name of the NPC to generate.</param>
+    /// <param name="hydrate">If true, populates resolved Dialogues, Abilities, and Inventory properties (default: true).</param>
     /// <returns>The generated NPC instance, or null if not found.</returns>
-    public async Task<NPC?> GenerateNpcByNameAsync(string category, string npcName)
+    public async Task<NPC?> GenerateNpcByNameAsync(string category, string npcName, bool hydrate = true)
     {
         try
         {
@@ -99,7 +106,12 @@ public class NpcGenerator
 
             if (catalogNpc != null)
             {
-                return await ConvertToNpcAsync(catalogNpc, category);
+                var npc = await ConvertToNpcAsync(catalogNpc, category);
+                if (npc != null && hydrate)
+                {
+                    await HydrateNpcAsync(npc);
+                }
+                return npc;
             }
 
             return null;
@@ -282,6 +294,92 @@ public class NpcGenerator
         catch
         {
             return defaultValue;
+        }
+    }
+
+    /// <summary>
+    /// Hydrates an NPC by resolving reference IDs to full objects.
+    /// Populates Dialogues, Abilities, and Inventory properties.
+    /// </summary>
+    /// <param name="npc">The NPC to hydrate.</param>
+    private async Task HydrateNpcAsync(NPC npc)
+    {
+        // Resolve dialogues
+        if (npc.DialogueIds != null && npc.DialogueIds.Any())
+        {
+            var dialogues = new List<DialogueLine>();
+            foreach (var refId in npc.DialogueIds)
+            {
+                try
+                {
+                    var dialogueJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (dialogueJson != null)
+                    {
+                        var dialogue = dialogueJson.ToObject<DialogueLine>();
+                        if (dialogue != null)
+                        {
+                            dialogues.Add(dialogue);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve dialogue '{refId}': {ex.Message}");
+                }
+            }
+            npc.Dialogues = dialogues;
+        }
+
+        // Resolve abilities
+        if (npc.AbilityIds != null && npc.AbilityIds.Any())
+        {
+            var abilities = new List<Ability>();
+            foreach (var refId in npc.AbilityIds)
+            {
+                try
+                {
+                    var abilityJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (abilityJson != null)
+                    {
+                        var ability = abilityJson.ToObject<Ability>();
+                        if (ability != null)
+                        {
+                            abilities.Add(ability);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve ability '{refId}': {ex.Message}");
+                }
+            }
+            npc.Abilities = abilities;
+        }
+
+        // Resolve inventory
+        if (npc.InventoryIds != null && npc.InventoryIds.Any())
+        {
+            var inventory = new List<Item>();
+            foreach (var refId in npc.InventoryIds)
+            {
+                try
+                {
+                    var itemJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (itemJson != null)
+                    {
+                        var item = itemJson.ToObject<Item>();
+                        if (item != null)
+                        {
+                            inventory.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve inventory item '{refId}': {ex.Message}");
+                }
+            }
+            npc.Inventory = inventory;
         }
     }
 }

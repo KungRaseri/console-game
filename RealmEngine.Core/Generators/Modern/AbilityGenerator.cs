@@ -32,8 +32,9 @@ public class AbilityGenerator
     /// <param name="category">The ability category (e.g., "active", "passive").</param>
     /// <param name="subcategory">The ability subcategory (e.g., "offensive", "defensive", "support").</param>
     /// <param name="count">The number of abilities to generate (default: 5).</param>
+    /// <param name="hydrate">If true, populates resolved RequiredItems and RequiredAbilities properties (default: true).</param>
     /// <returns>A list of generated Ability instances.</returns>
-    public async Task<List<Ability>> GenerateAbilitiesAsync(string category, string subcategory, int count = 5)
+    public async Task<List<Ability>> GenerateAbilitiesAsync(string category, string subcategory, int count = 5, bool hydrate = true)
     {
         try
         {
@@ -61,6 +62,10 @@ public class AbilityGenerator
                     var ability = await ConvertToAbilityAsync(randomAbility, category, subcategory);
                     if (ability != null)
                     {
+                        if (hydrate)
+                        {
+                            await HydrateAbilityAsync(ability);
+                        }
                         result.Add(ability);
                     }
                 }
@@ -81,8 +86,9 @@ public class AbilityGenerator
     /// <param name="category">The ability category to search in.</param>
     /// <param name="subcategory">The ability subcategory to search in.</param>
     /// <param name="abilityName">The name of the ability to generate.</param>
+    /// <param name="hydrate">If true, populates resolved RequiredItems and RequiredAbilities properties (default: true).</param>
     /// <returns>The generated Ability instance, or null if not found.</returns>
-    public async Task<Ability?> GenerateAbilityByNameAsync(string category, string subcategory, string abilityName)
+    public async Task<Ability?> GenerateAbilityByNameAsync(string category, string subcategory, string abilityName, bool hydrate = true)
     {
         try
         {
@@ -101,7 +107,12 @@ public class AbilityGenerator
 
             if (catalogAbility != null)
             {
-                return await ConvertToAbilityAsync(catalogAbility, category, subcategory);
+                var ability = await ConvertToAbilityAsync(catalogAbility, category, subcategory);
+                if (ability != null && hydrate)
+                {
+                    await HydrateAbilityAsync(ability);
+                }
+                return ability;
             }
 
             return null;
@@ -329,6 +340,66 @@ public class AbilityGenerator
         catch
         {
             return null;
+        }
+    }
+
+    /// <summary>
+    /// Hydrates an ability by resolving reference IDs to full objects.
+    /// Populates RequiredItems and RequiredAbilities properties.
+    /// </summary>
+    /// <param name="ability">The ability to hydrate.</param>
+    private async Task HydrateAbilityAsync(Ability ability)
+    {
+        // Resolve required items
+        if (ability.RequiredItemIds != null && ability.RequiredItemIds.Any())
+        {
+            var requiredItems = new List<Item>();
+            foreach (var refId in ability.RequiredItemIds)
+            {
+                try
+                {
+                    var itemJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (itemJson != null)
+                    {
+                        var item = itemJson.ToObject<Item>();
+                        if (item != null)
+                        {
+                            requiredItems.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve required item '{refId}': {ex.Message}");
+                }
+            }
+            ability.RequiredItems = requiredItems;
+        }
+
+        // Resolve required abilities (prerequisites)
+        if (ability.RequiredAbilityIds != null && ability.RequiredAbilityIds.Any())
+        {
+            var requiredAbilities = new List<Ability>();
+            foreach (var refId in ability.RequiredAbilityIds)
+            {
+                try
+                {
+                    var abilityJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (abilityJson != null)
+                    {
+                        var requiredAbility = abilityJson.ToObject<Ability>();
+                        if (requiredAbility != null)
+                        {
+                            requiredAbilities.Add(requiredAbility);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve required ability '{refId}': {ex.Message}");
+                }
+            }
+            ability.RequiredAbilities = requiredAbilities;
         }
     }
 }

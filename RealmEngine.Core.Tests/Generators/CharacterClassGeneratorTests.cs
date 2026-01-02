@@ -10,21 +10,23 @@ namespace RealmEngine.Core.Tests.Generators;
 public class CharacterClassGeneratorTests
 {
     private readonly GameDataCache _dataCache;
+    private readonly ReferenceResolverService _referenceResolver;
     private readonly CharacterClassGenerator _generator;
 
     public CharacterClassGeneratorTests()
     {
         var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
         _dataCache = new GameDataCache(basePath);
-        _generator = new CharacterClassGenerator(_dataCache, NullLogger<CharacterClassGenerator>.Instance);
+        _referenceResolver = new ReferenceResolverService(_dataCache);
+        _generator = new CharacterClassGenerator(_dataCache, _referenceResolver, NullLogger<CharacterClassGenerator>.Instance);
         _dataCache.LoadAllData();
     }
 
     [Fact]
-    public void Should_Load_All_Character_Classes_From_Catalog()
+    public async Task Should_Load_All_Character_Classes_From_Catalog()
     {
         // Act
-        var classes = _generator.GetAllClasses();
+        var classes = await _generator.GetAllClassesAsync(hydrate: false);
 
         // Assert
         classes.Should().NotBeNull();
@@ -33,15 +35,15 @@ public class CharacterClassGeneratorTests
     }
 
     [Fact]
-    public void Should_Get_Class_By_Name()
+    public async Task Should_Get_Class_By_Name()
     {
         // Arrange
-        var allClasses = _generator.GetAllClasses();
+        var allClasses = await _generator.GetAllClassesAsync(hydrate: false);
         allClasses.Should().NotBeEmpty("need classes to test with");
         var firstClassName = allClasses.First().Name;
 
         // Act
-        var foundClass = _generator.GetClassByName(firstClassName);
+        var foundClass = await _generator.GetClassByNameAsync(firstClassName, hydrate: false);
 
         // Assert
         foundClass.Should().NotBeNull($"should find class with name '{firstClassName}'");
@@ -49,20 +51,20 @@ public class CharacterClassGeneratorTests
     }
 
     [Fact]
-    public void Should_Return_Null_For_Nonexistent_Class()
+    public async Task Should_Return_Null_For_Nonexistent_Class()
     {
         // Act
-        var nonexistentClass = _generator.GetClassByName("NonexistentClass123");
+        var nonexistentClass = await _generator.GetClassByNameAsync("NonexistentClass123", hydrate: false);
 
         // Assert
         nonexistentClass.Should().BeNull("nonexistent class should return null");
     }
 
     [Fact]
-    public void All_Classes_Should_Have_Required_Properties()
+    public async Task All_Classes_Should_Have_Required_Properties()
     {
         // Act
-        var classes = _generator.GetAllClasses();
+        var classes = await _generator.GetAllClassesAsync(hydrate: false);
 
         // Assert
         classes.Should().NotBeEmpty();
@@ -75,11 +77,11 @@ public class CharacterClassGeneratorTests
     }
 
     [Fact]
-    public void Should_Generate_Consistent_Results()
+    public async Task Should_Generate_Consistent_Results()
     {
         // Act - call multiple times
-        var classes1 = _generator.GetAllClasses();
-        var classes2 = _generator.GetAllClasses();
+        var classes1 = await _generator.GetAllClassesAsync(hydrate: false);
+        var classes2 = await _generator.GetAllClassesAsync(hydrate: false);
 
         // Assert
         classes1.Should().HaveCount(classes2.Count);
@@ -87,16 +89,16 @@ public class CharacterClassGeneratorTests
     }
 
     [Fact]
-    public void Should_Handle_Subclass_Filtering()
+    public async Task Should_Handle_Subclass_Filtering()
     {
         // Arrange
-        var allClasses = _generator.GetAllClasses();
+        var allClasses = await _generator.GetAllClassesAsync(hydrate: false);
         
         if (allClasses.Any())
         {
             // Act - check if we can get classes by category (if method exists)
             // For now, just verify we can call GetClassesByCategory with a test value
-            var categoryClasses = _generator.GetClassesByCategory("warrior");
+            var categoryClasses = await _generator.GetClassesByCategoryAsync("warrior", hydrate: false);
 
             // Assert
             categoryClasses.Should().NotBeNull();

@@ -195,6 +195,38 @@ public class Enemy : ITraitable
     public List<string> LootTableIds { get; set; } = new();
 
     /// <summary>
+    /// Fully resolved Ability objects for this enemy's combat actions.
+    /// Populated by EnemyGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in AbilityIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property in combat AI and ability execution</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if enemy loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Ability>? Abilities { get; set; }
+
+    /// <summary>
+    /// Fully resolved Item objects for this enemy's loot table.
+    /// Populated by EnemyGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in LootTableIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property when enemy dies to drop loot</description></item>
+    /// <item><description>Already resolved with wildcard selection applied</description></item>
+    /// <item><description>Null if enemy loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Item>? LootTable { get; set; }
+
+    /// <summary>
     /// Calculate physical damage bonus from Strength.
     /// </summary>
     public int GetPhysicalDamageBonus()

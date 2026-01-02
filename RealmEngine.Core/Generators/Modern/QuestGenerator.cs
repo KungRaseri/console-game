@@ -31,8 +31,9 @@ public class QuestGenerator
     /// </summary>
     /// <param name="questType">The quest type (e.g., "kill", "collect", "escort", "explore").</param>
     /// <param name="count">The number of quests to generate (default: 3).</param>
+    /// <param name="hydrate">If true, populates resolved ItemRewards, AbilityRewards, ObjectiveLocations, and ObjectiveNpcs properties (default: true).</param>
     /// <returns>A list of generated Quest instances.</returns>
-    public async Task<List<Quest>> GenerateQuestsAsync(string questType, int count = 3)
+    public async Task<List<Quest>> GenerateQuestsAsync(string questType, int count = 3, bool hydrate = true)
     {
         try
         {
@@ -60,6 +61,10 @@ public class QuestGenerator
                     var quest = await ConvertToQuestAsync(randomQuest, questType);
                     if (quest != null)
                     {
+                        if (hydrate)
+                        {
+                            await HydrateQuestAsync(quest);
+                        }
                         result.Add(quest);
                     }
                 }
@@ -79,8 +84,9 @@ public class QuestGenerator
     /// </summary>
     /// <param name="questType">The quest type category to search in.</param>
     /// <param name="questName">The name or display name of the quest to generate.</param>
+    /// <param name="hydrate">If true, populates resolved ItemRewards, AbilityRewards, ObjectiveLocations, and ObjectiveNpcs properties (default: true).</param>
     /// <returns>The generated Quest instance, or null if not found.</returns>
-    public async Task<Quest?> GenerateQuestByNameAsync(string questType, string questName)
+    public async Task<Quest?> GenerateQuestByNameAsync(string questType, string questName, bool hydrate = true)
     {
         try
         {
@@ -99,7 +105,12 @@ public class QuestGenerator
 
             if (catalogQuest != null)
             {
-                return await ConvertToQuestAsync(catalogQuest, questType);
+                var quest = await ConvertToQuestAsync(catalogQuest, questType);
+                if (quest != null && hydrate)
+                {
+                    await HydrateQuestAsync(quest);
+                }
+                return quest;
             }
 
             return null;
@@ -302,6 +313,118 @@ public class QuestGenerator
         catch
         {
             return defaultValue;
+        }
+    }
+
+    /// <summary>
+    /// Hydrates a quest by resolving reference IDs to full objects.
+    /// Populates ItemRewards, AbilityRewards, ObjectiveLocations, and ObjectiveNpcs properties.
+    /// </summary>
+    /// <param name="quest">The quest to hydrate.</param>
+    private async Task HydrateQuestAsync(Quest quest)
+    {
+        // Resolve item rewards
+        if (quest.ItemRewardIds != null && quest.ItemRewardIds.Any())
+        {
+            var itemRewards = new List<Item>();
+            foreach (var refId in quest.ItemRewardIds)
+            {
+                try
+                {
+                    var itemJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (itemJson != null)
+                    {
+                        var item = itemJson.ToObject<Item>();
+                        if (item != null)
+                        {
+                            itemRewards.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve item reward '{refId}': {ex.Message}");
+                }
+            }
+            quest.ItemRewards = itemRewards;
+        }
+
+        // Resolve ability rewards
+        if (quest.AbilityRewardIds != null && quest.AbilityRewardIds.Any())
+        {
+            var abilityRewards = new List<Ability>();
+            foreach (var refId in quest.AbilityRewardIds)
+            {
+                try
+                {
+                    var abilityJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (abilityJson != null)
+                    {
+                        var ability = abilityJson.ToObject<Ability>();
+                        if (ability != null)
+                        {
+                            abilityRewards.Add(ability);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve ability reward '{refId}': {ex.Message}");
+                }
+            }
+            quest.AbilityRewards = abilityRewards;
+        }
+
+        // Resolve objective locations
+        if (quest.ObjectiveLocationIds != null && quest.ObjectiveLocationIds.Any())
+        {
+            var locations = new List<Location>();
+            foreach (var refId in quest.ObjectiveLocationIds)
+            {
+                try
+                {
+                    var locationJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (locationJson != null)
+                    {
+                        var location = locationJson.ToObject<Location>();
+                        if (location != null)
+                        {
+                            locations.Add(location);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve objective location '{refId}': {ex.Message}");
+                }
+            }
+            quest.ObjectiveLocations = locations;
+        }
+
+        // Resolve objective NPCs
+        if (quest.ObjectiveNpcIds != null && quest.ObjectiveNpcIds.Any())
+        {
+            var npcs = new List<NPC>();
+            foreach (var refId in quest.ObjectiveNpcIds)
+            {
+                try
+                {
+                    var npcJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (npcJson != null)
+                    {
+                        var npc = npcJson.ToObject<NPC>();
+                        if (npc != null)
+                        {
+                            npcs.Add(npc);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve objective NPC '{refId}': {ex.Message}");
+                }
+            }
+            quest.ObjectiveNpcs = npcs;
         }
     }
 }

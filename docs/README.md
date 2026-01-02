@@ -25,6 +25,8 @@ Welcome to the Console RPG documentation! This guide will help you navigate all 
 - **[Vertical Slice Quick Reference](./VERTICAL_SLICE_QUICK_REFERENCE.md)** - How to add new features using CQRS pattern
 - **[Architecture Decisions](./ARCHITECTURE_DECISIONS.md)** - Key architectural choices and rationale
 - **[Organization & Layers Guide](./ORGANIZATION_AND_LAYERS_GUIDE.md)** - Project structure and layering
+- **[Godot Reference Resolution Guide](./GODOT_REFERENCE_RESOLUTION_GUIDE.md)** - 🆕 Working with fully hydrated game objects in Godot C#
+- **[Hydrated Objects Changelog](./HYDRATED_OBJECTS_CHANGELOG.md)** - 🆕 v1.0 feature: Generators return resolved objects
 
 ### For Users/Players
 

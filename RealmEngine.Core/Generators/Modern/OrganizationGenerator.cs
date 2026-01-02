@@ -28,7 +28,10 @@ public class OrganizationGenerator
     /// <summary>
     /// Generates organizations from a specific type (guilds, factions, shops, businesses).
     /// </summary>
-    public async Task<List<Organization>> GenerateOrganizationsAsync(string organizationType, int count = 5)
+    /// <param name="organizationType">The organization type to generate.</param>
+    /// <param name="count">The number of organizations to generate (default: 5).</param>
+    /// <param name="hydrate">If true, populates resolved MemberObjects and InventoryObjects properties (default: true).</param>
+    public async Task<List<Organization>> GenerateOrganizationsAsync(string organizationType, int count = 5, bool hydrate = true)
     {
         try
         {
@@ -59,6 +62,10 @@ public class OrganizationGenerator
                     var organization = await ConvertToOrganizationAsync(randomOrg, organizationType, namesFile);
                     if (organization != null)
                     {
+                        if (hydrate)
+                        {
+                            await HydrateOrganizationAsync(organization);
+                        }
                         result.Add(organization);
                     }
                 }
@@ -76,7 +83,10 @@ public class OrganizationGenerator
     /// <summary>
     /// Generates a specific organization by name.
     /// </summary>
-    public async Task<Organization?> GenerateOrganizationByNameAsync(string organizationType, string organizationName)
+    /// <param name="organizationType">The organization type to search in.</param>
+    /// <param name="organizationName">The name of the organization to generate.</param>
+    /// <param name="hydrate">If true, populates resolved MemberObjects and InventoryObjects properties (default: true).</param>
+    public async Task<Organization?> GenerateOrganizationByNameAsync(string organizationType, string organizationName, bool hydrate = true)
     {
         try
         {
@@ -98,7 +108,12 @@ public class OrganizationGenerator
             }
 
             var namesFile = _dataCache.GetFile(catalogPath.Replace("catalog.json", "names.json"));
-            return await ConvertToOrganizationAsync(item, organizationType, namesFile);
+            var organization = await ConvertToOrganizationAsync(item, organizationType, namesFile);
+            if (organization != null && hydrate)
+            {
+                await HydrateOrganizationAsync(organization);
+            }
+            return organization;
         }
         catch (Exception ex)
         {
@@ -110,9 +125,12 @@ public class OrganizationGenerator
     /// <summary>
     /// Generates a shop with inventory.
     /// </summary>
-    public async Task<Organization> GenerateShopAsync(string shopType, int inventorySize = 20)
+    /// <param name="shopType">The shop type to generate.</param>
+    /// <param name="inventorySize">The size of the shop's inventory (default: 20).</param>
+    /// <param name="hydrate">If true, populates resolved MemberObjects and InventoryObjects properties (default: true).</param>
+    public async Task<Organization> GenerateShopAsync(string shopType, int inventorySize = 20, bool hydrate = true)
     {
-        var shop = await GenerateOrganizationByNameAsync("shops", shopType);
+        var shop = await GenerateOrganizationByNameAsync("shops", shopType, hydrate);
         
         if (shop == null)
         {
@@ -393,5 +411,65 @@ public class OrganizationGenerator
         }
 
         return patterns.Last();
+    }
+
+    /// <summary>
+    /// Hydrates an organization by resolving reference IDs to full objects.
+    /// Populates MemberObjects and InventoryObjects properties.
+    /// </summary>
+    /// <param name="organization">The organization to hydrate.</param>
+    private async Task HydrateOrganizationAsync(Organization organization)
+    {
+        // Resolve members
+        if (organization.Members != null && organization.Members.Any())
+        {
+            var memberObjects = new List<NPC>();
+            foreach (var refId in organization.Members)
+            {
+                try
+                {
+                    var npcJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (npcJson != null)
+                    {
+                        var npc = npcJson.ToObject<NPC>();
+                        if (npc != null)
+                        {
+                            memberObjects.Add(npc);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve member NPC '{refId}': {ex.Message}");
+                }
+            }
+            organization.MemberObjects = memberObjects;
+        }
+
+        // Resolve inventory
+        if (organization.Inventory != null && organization.Inventory.Any())
+        {
+            var inventoryObjects = new List<Item>();
+            foreach (var refId in organization.Inventory)
+            {
+                try
+                {
+                    var itemJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (itemJson != null)
+                    {
+                        var item = itemJson.ToObject<Item>();
+                        if (item != null)
+                        {
+                            inventoryObjects.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve inventory item '{refId}': {ex.Message}");
+                }
+            }
+            organization.InventoryObjects = inventoryObjects;
+        }
     }
 }

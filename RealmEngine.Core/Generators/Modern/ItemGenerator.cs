@@ -45,8 +45,9 @@ public class ItemGenerator
     /// </summary>
     /// <param name="category">The item category (e.g., "weapons", "armor", "consumables").</param>
     /// <param name="count">The number of items to generate (default: 10).</param>
+    /// <param name="hydrate">If true, populates resolved RequiredItems properties (default: true).</param>
     /// <returns>A list of generated Item instances.</returns>
-    public async Task<List<Item>> GenerateItemsAsync(string category, int count = 10)
+    public async Task<List<Item>> GenerateItemsAsync(string category, int count = 10, bool hydrate = true)
     {
         try
         {
@@ -74,6 +75,10 @@ public class ItemGenerator
                     var item = await ConvertToItemAsync(randomItem, category);
                     if (item != null)
                     {
+                        if (hydrate)
+                        {
+                            await HydrateItemAsync(item);
+                        }
                         result.Add(item);
                     }
                 }
@@ -94,8 +99,9 @@ public class ItemGenerator
     /// </summary>
     /// <param name="category">The item category to search in.</param>
     /// <param name="itemName">The name of the item to generate.</param>
+    /// <param name="hydrate">If true, populates resolved RequiredItems properties (default: true).</param>
     /// <returns>The generated Item instance, or null if not found.</returns>
-    public async Task<Item?> GenerateItemByNameAsync(string category, string itemName)
+    public async Task<Item?> GenerateItemByNameAsync(string category, string itemName, bool hydrate = true)
     {
         try
         {
@@ -113,7 +119,12 @@ public class ItemGenerator
 
             if (catalogItem != null)
             {
-                return await ConvertToItemAsync(catalogItem, category);
+                var item = await ConvertToItemAsync(catalogItem, category);
+                if (item != null && hydrate)
+                {
+                    await HydrateItemAsync(item);
+                }
+                return item;
             }
 
             return null;
@@ -635,6 +646,40 @@ public class ItemGenerator
         catch
         {
             return null;
+        }
+    }
+
+    /// <summary>
+    /// Hydrates an item by resolving reference IDs to full objects.
+    /// Populates RequiredItems property.
+    /// </summary>
+    /// <param name="item">The item to hydrate.</param>
+    private async Task HydrateItemAsync(Item item)
+    {
+        // Resolve required items
+        if (item.RequiredItemIds != null && item.RequiredItemIds.Any())
+        {
+            var requiredItems = new List<Item>();
+            foreach (var refId in item.RequiredItemIds)
+            {
+                try
+                {
+                    var itemJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (itemJson != null)
+                    {
+                        var requiredItem = itemJson.ToObject<Item>();
+                        if (requiredItem != null)
+                        {
+                            requiredItems.Add(requiredItem);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve required item '{refId}': {ex.Message}");
+                }
+            }
+            item.RequiredItems = requiredItems;
         }
     }
 

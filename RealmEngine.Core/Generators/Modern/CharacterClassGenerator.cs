@@ -12,12 +12,14 @@ namespace RealmEngine.Core.Generators.Modern;
 public class CharacterClassGenerator
 {
     private readonly GameDataCache _dataCache;
+    private readonly ReferenceResolverService _referenceResolver;
     private readonly ILogger<CharacterClassGenerator> _logger;
     private ClassCatalogData? _classCatalog;
 
-    public CharacterClassGenerator(GameDataCache dataCache, ILogger<CharacterClassGenerator> logger)
+    public CharacterClassGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<CharacterClassGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
+        _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -59,7 +61,8 @@ public class CharacterClassGenerator
     /// <summary>
     /// Gets all classes from all categories.
     /// </summary>
-    public List<CharacterClass> GetAllClasses()
+    /// <param name="hydrate">If true, populates resolved StartingAbilities and StartingEquipment properties (default: true).</param>
+    public async Task<List<CharacterClass>> GetAllClassesAsync(bool hydrate = true)
     {
         var catalog = LoadCatalog();
         var classes = new List<CharacterClass>();
@@ -69,6 +72,10 @@ public class CharacterClassGenerator
             foreach (var classData in category.Items)
             {
                 var characterClass = MapToCharacterClass(classData, categoryKey, category.Metadata);
+                if (hydrate)
+                {
+                    await HydrateCharacterClassAsync(characterClass);
+                }
                 classes.Add(characterClass);
             }
         }
@@ -80,7 +87,9 @@ public class CharacterClassGenerator
     /// <summary>
     /// Gets a specific class by name (searches all categories).
     /// </summary>
-    public CharacterClass? GetClassByName(string name)
+    /// <param name="name">The name or display name of the class to find.</param>
+    /// <param name="hydrate">If true, populates resolved StartingAbilities and StartingEquipment properties (default: true).</param>
+    public async Task<CharacterClass?> GetClassByNameAsync(string name, bool hydrate = true)
     {
         var catalog = LoadCatalog();
 
@@ -92,7 +101,12 @@ public class CharacterClassGenerator
 
             if (classData != null)
             {
-                return MapToCharacterClass(classData, categoryKey, category.Metadata);
+                var characterClass = MapToCharacterClass(classData, categoryKey, category.Metadata);
+                if (hydrate)
+                {
+                    await HydrateCharacterClassAsync(characterClass);
+                }
+                return characterClass;
             }
         }
 
@@ -103,7 +117,9 @@ public class CharacterClassGenerator
     /// <summary>
     /// Gets all classes in a specific category (e.g., "warrior", "mage").
     /// </summary>
-    public List<CharacterClass> GetClassesByCategory(string categoryName)
+    /// <param name="categoryName">The category name to search.</param>
+    /// <param name="hydrate">If true, populates resolved StartingAbilities and StartingEquipment properties (default: true).</param>
+    public async Task<List<CharacterClass>> GetClassesByCategoryAsync(string categoryName, bool hydrate = true)
     {
         var catalog = LoadCatalog();
 
@@ -113,9 +129,16 @@ public class CharacterClassGenerator
             return new List<CharacterClass>();
         }
 
-        var classes = category.Items
-            .Select(c => MapToCharacterClass(c, categoryName, category.Metadata))
-            .ToList();
+        var classes = new List<CharacterClass>();
+        foreach (var classData in category.Items)
+        {
+            var characterClass = MapToCharacterClass(classData, categoryName, category.Metadata);
+            if (hydrate)
+            {
+                await HydrateCharacterClassAsync(characterClass);
+            }
+            classes.Add(characterClass);
+        }
 
         _logger.LogInformation("Found {Count} classes in category {Category}", classes.Count, categoryName);
         return classes;
@@ -207,5 +230,65 @@ public class CharacterClassGenerator
         }
 
         return abilityIds;
+    }
+
+    /// <summary>
+    /// Hydrates a character class by resolving reference IDs to full objects.
+    /// Populates StartingAbilities and StartingEquipment properties.
+    /// </summary>
+    /// <param name="characterClass">The character class to hydrate.</param>
+    private async Task HydrateCharacterClassAsync(CharacterClass characterClass)
+    {
+        // Resolve starting abilities
+        if (characterClass.StartingAbilityIds != null && characterClass.StartingAbilityIds.Any())
+        {
+            var abilities = new List<Ability>();
+            foreach (var refId in characterClass.StartingAbilityIds)
+            {
+                try
+                {
+                    var abilityJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (abilityJson != null)
+                    {
+                        var ability = abilityJson.ToObject<Ability>();
+                        if (ability != null)
+                        {
+                            abilities.Add(ability);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to resolve starting ability '{AbilityId}'", refId);
+                }
+            }
+            characterClass.StartingAbilities = abilities;
+        }
+
+        // Resolve starting equipment
+        if (characterClass.StartingEquipmentIds != null && characterClass.StartingEquipmentIds.Any())
+        {
+            var equipment = new List<Item>();
+            foreach (var refId in characterClass.StartingEquipmentIds)
+            {
+                try
+                {
+                    var itemJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (itemJson != null)
+                    {
+                        var item = itemJson.ToObject<Item>();
+                        if (item != null)
+                        {
+                            equipment.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to resolve starting equipment '{ItemId}'", refId);
+                }
+            }
+            characterClass.StartingEquipment = equipment;
+        }
     }
 }

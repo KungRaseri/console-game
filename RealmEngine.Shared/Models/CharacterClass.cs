@@ -139,6 +139,38 @@ public class CharacterClass
     public List<string> StartingEquipmentIds { get; set; } = new();
 
     /// <summary>
+    /// Fully resolved Ability objects for this class's starting abilities.
+    /// Populated by CharacterClassGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in StartingAbilityIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property during character creation to grant abilities</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if class loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Ability>? StartingAbilities { get; set; }
+
+    /// <summary>
+    /// Fully resolved Item objects for this class's starting equipment.
+    /// Populated by CharacterClassGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in StartingEquipmentIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property during character creation to grant equipment</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if class loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Item>? StartingEquipment { get; set; }
+
+    /// <summary>
     /// Traits/properties specific to this class (bonus damage types, resistances, etc.).
     /// Values may be strings, numbers, or resolved references.
     /// </summary>

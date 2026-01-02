@@ -167,6 +167,54 @@ public class NPC : ITraitable
     public List<string> InventoryIds { get; set; } = new();
 
     /// <summary>
+    /// Fully resolved DialogueLine objects for this NPC's conversations.
+    /// Populated by NpcGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in DialogueIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property when player interacts with NPC</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if NPC loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<DialogueLine>? Dialogues { get; set; }
+
+    /// <summary>
+    /// Fully resolved Ability objects for this NPC's combat actions (if hostile).
+    /// Populated by NpcGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in AbilityIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property if NPC enters combat</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if NPC loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Ability>? Abilities { get; set; }
+
+    /// <summary>
+    /// Fully resolved Item objects for this NPC's inventory (merchant stock, tradeable items).
+    /// Populated by NpcGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in InventoryIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property for shop UI and trading</description></item>
+    /// <item><description>Already resolved with wildcard selection applied</description></item>
+    /// <item><description>Null if NPC loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Item>? Inventory { get; set; }
+
+    /// <summary>
     /// Gets or sets the trait system dictionary for dynamic properties.
     /// Implements ITraitable interface.
     /// </summary>

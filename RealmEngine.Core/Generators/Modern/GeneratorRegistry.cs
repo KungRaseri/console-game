@@ -53,7 +53,7 @@ public class GeneratorRegistry
             if (_classGenerator == null)
             {
                 var logger = NullLoggerFactory.Instance.CreateLogger<CharacterClassGenerator>();
-                _classGenerator = new CharacterClassGenerator(_dataCache, logger);
+                _classGenerator = new CharacterClassGenerator(_dataCache, _referenceResolver, logger);
             }
             return _classGenerator;
         }

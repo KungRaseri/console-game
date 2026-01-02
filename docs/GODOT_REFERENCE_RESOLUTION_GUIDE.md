@@ -1,8 +1,316 @@
 # Godot Reference Resolution Guide
 
-**For Godot C# Developers**: How to resolve v4.1 JSON reference IDs to actual game objects
+**For Godot C# Developers**: How to work with fully hydrated game objects
 
-## ⚠️ CRITICAL: Use the Right Service!
+## ✅ NEW: Fully Hydrated Objects (Recommended)
+
+**As of v1.0**, all generators now return **fully hydrated objects by default**. You no longer need to manually resolve references!
+
+### The Easy Way (Recommended)
+
+```csharp
+// Generators return FULLY HYDRATED objects - everything is already resolved!
+var enemies = await enemyGenerator.GenerateEnemiesAsync("goblinoids", count: 3);
+
+foreach (var enemy in enemies)
+{
+    // ✅ Use resolved properties directly - no ResolveToObjectAsync needed!
+    GD.Print($"Enemy: {enemy.Name}");
+    
+    // Abilities are already resolved
+    foreach (var ability in enemy.Abilities)
+    {
+        GD.Print($"  - Ability: {ability.DisplayName} (Cost: {ability.ManaCost})");
+    }
+    
+    // Loot table is already resolved
+    foreach (var item in enemy.LootTable)
+    {
+        GD.Print($"  - Loot: {item.Name} ({item.Price} gold)");
+    }
+}
+```
+
+### Why This Is Better
+
+| Old Way (Manual Resolution) | New Way (Fully Hydrated) |
+|------------------------------|---------------------------|
+| ❌ 10+ lines of boilerplate code | ✅ 1 line - generator call |
+| ❌ Easy to forget to resolve | ✅ Automatic - can't forget |
+| ❌ Need to understand ReferenceResolverService | ✅ Just use the properties |
+| ❌ Risk of null reference errors | ✅ Properties are populated |
+| ❌ Have to loop through IDs manually | ✅ Already looped for you |
+
+---
+
+## ⚡ Performance Mode: Template-Only Generation
+
+If you need **maximum performance** or are **saving to disk**, you can disable hydration:
+
+```csharp
+// Generate template only (IDs not resolved to objects)
+var enemies = await enemyGenerator.GenerateEnemiesAsync("goblinoids", count: 3, hydrate: false);
+
+// enemy.Abilities will be null
+// enemy.AbilityIds will contain reference IDs like "@abilities/active/offensive:bite"
+
+// Good for:
+// - Serializing to JSON (save files)
+// - Lazy loading (resolve later when needed)
+// - Network transmission (smaller payload)
+```
+
+Then manually resolve when needed:
+```csharp
+var resolver = new ReferenceResolverService(dataCache);
+var abilities = new List<Ability>();
+
+foreach (var refId in enemy.AbilityIds)
+{
+    var json = await resolver.ResolveToObjectAsync(refId);
+    if (json != null)
+    {
+        abilities.Add(json.ToObject<Ability>());
+    }
+}
+```
+
+---
+
+## 📖 Complete Usage Examples
+
+### 1. Character Creation
+
+```csharp
+// Get character class with starting abilities and equipment already resolved
+var characterClass = await classGenerator.GetClassByNameAsync("fighter");
+
+// Everything is ready to use!
+var newCharacter = new Character
+{
+    Name = "Conan",
+    Class = characterClass.Name,
+    Level = 1
+};
+
+// Grant starting abilities (already resolved objects)
+foreach (var ability in characterClass.StartingAbilities)
+{
+    newCharacter.LearnedSkills.Add(ability);
+    GD.Print($"Learned: {ability.DisplayName}");
+}
+
+// Grant starting equipment (already resolved objects)
+foreach (var item in characterClass.StartingEquipment)
+{
+    newCharacter.Inventory.Add(item);
+    GD.Print($"Equipped: {item.Name}");
+}
+```
+
+### 2. Combat Encounter
+
+```csharp
+// Spawn enemies with abilities already resolved
+var enemies = await enemyGenerator.GenerateEnemiesAsync("undead", count: 5);
+
+foreach (var enemy in enemies)
+{
+    // Spawn enemy in world
+    SpawnEnemy(enemy);
+    
+    // AI can use abilities immediately - no resolution needed
+    enemy.AI = new CombatAI(enemy.Abilities);
+}
+
+// When enemy dies
+void OnEnemyDeath(Enemy enemy)
+{
+    // Loot table already resolved
+    foreach (var item in enemy.LootTable)
+    {
+        if (RollForLoot())
+        {
+            player.Inventory.Add(item);
+            ShowLootNotification(item.Name);
+        }
+    }
+}
+```
+
+### 3. NPC Dialogue
+
+```csharp
+// Generate NPC with dialogue, abilities, and inventory already resolved
+var merchant = await npcGenerator.GenerateNpcAsync("merchants");
+
+// Show dialogue options immediately
+void OnPlayerTalkToMerchant()
+{
+    foreach (var dialogue in merchant.Dialogues)
+    {
+        if (dialogue.Type == "greeting")
+        {
+            ShowDialogue(dialogue.Text);
+            break;
+        }
+    }
+}
+
+// Open shop with inventory already resolved
+void OnPlayerOpenShop()
+{
+    foreach (var item in merchant.Inventory)
+    {
+        AddToShopUI(item.Name, item.Price, item.Description);
+    }
+}
+```
+
+### 4. Quest System
+
+```csharp
+// Generate quest with all objectives and rewards resolved
+var quest = await questGenerator.GenerateQuestAsync("fetch");
+
+// Display quest info
+GD.Print($"Quest: {quest.Name}");
+GD.Print($"Description: {quest.Description}");
+
+// Mark objective locations on map
+foreach (var location in quest.ObjectiveLocations)
+{
+    AddQuestMarkerToMap(location.Name, location.Coordinates);
+}
+
+// Mark objective NPCs
+foreach (var npc in quest.ObjectiveNpcs)
+{
+    npc.ShowQuestMarker = true;
+}
+
+// When quest completes
+void OnQuestComplete(Quest quest)
+{
+    // Award items (already resolved)
+    foreach (var item in quest.ItemRewards)
+    {
+        player.Inventory.Add(item);
+    }
+    
+    // Grant abilities (already resolved)
+    foreach (var ability in quest.AbilityRewards)
+    {
+        player.LearnedSkills.Add(ability);
+        ShowAbilityUnlockedNotification(ability.DisplayName);
+    }
+}
+```
+
+### 5. Crafting System
+
+```csharp
+// Generate craftable item with requirements already resolved
+var item = await itemGenerator.GenerateItemAsync("weapons", "legendary-sword");
+
+// Check if player can craft
+bool CanCraftItem(Item item)
+{
+    foreach (var requiredItem in item.RequiredItems)
+    {
+        if (!player.Inventory.Contains(requiredItem.Name))
+        {
+            ShowMissingMaterialNotification(requiredItem.Name);
+            return false;
+        }
+    }
+    return true;
+}
+
+// Craft item
+void CraftItem(Item item)
+{
+    foreach (var requiredItem in item.RequiredItems)
+    {
+        player.Inventory.Remove(requiredItem.Name);
+    }
+    player.Inventory.Add(item);
+}
+```
+
+### 6. Ability Prerequisites
+
+```csharp
+// Generate ability with prerequisites already resolved
+var ability = await abilityGenerator.GenerateAbilityAsync("offensive", "power-strike");
+
+// Check if player can learn
+bool CanLearnAbility(Ability ability)
+{
+    // Check required items
+    foreach (var requiredItem in ability.RequiredItems)
+    {
+        if (!player.Inventory.Contains(requiredItem.Name))
+        {
+            return false;
+        }
+    }
+    
+    // Check prerequisite abilities
+    foreach (var prereq in ability.RequiredAbilities)
+    {
+        if (!player.LearnedSkills.Any(s => s.Name == prereq.Name))
+        {
+            ShowPrerequisiteNotification(prereq.DisplayName);
+            return false;
+        }
+    }
+    
+    return true;
+}
+```
+
+---
+
+## 🎯 When to Use Each Approach
+
+### ✅ Use Fully Hydrated (hydrate: true - default)
+
+- **Game runtime** - Playing the game
+- **UI display** - Showing item details, quest info, enemy stats
+- **Combat system** - Executing abilities, rolling loot
+- **NPC interactions** - Dialogue, trading, shops
+- **Quest system** - Tracking objectives, awarding rewards
+- **Any time you need the actual object data**
+
+### ⚡ Use Template-Only (hydrate: false)
+
+- **Saving games** - Serializing to JSON (smaller file size)
+- **Network transmission** - Sending data over network
+- **Database storage** - Storing in save files
+- **Lazy loading** - Will resolve later when actually needed
+- **Performance critical** - Generating 1000s of items at once
+
+---
+
+## 🔧 All Supported Generators
+
+| Generator | Method | Resolved Properties |
+|-----------|--------|---------------------|
+| **EnemyGenerator** | `GenerateEnemiesAsync(category, count, hydrate)` | `Abilities`, `LootTable` |
+| **CharacterClassGenerator** | `GetClassByNameAsync(name, hydrate)` | `StartingAbilities`, `StartingEquipment` |
+| **NpcGenerator** | `GenerateNpcAsync(category, hydrate)` | `Dialogues`, `Abilities`, `Inventory` |
+| **QuestGenerator** | `GenerateQuestAsync(type, hydrate)` | `ItemRewards`, `AbilityRewards`, `ObjectiveLocations`, `ObjectiveNpcs` |
+| **ItemGenerator** | `GenerateItemAsync(category, name, hydrate)` | `RequiredItems` |
+| **AbilityGenerator** | `GenerateAbilityAsync(type, name, hydrate)` | `RequiredItems`, `RequiredAbilities` |
+| **LocationGenerator** | `GenerateLocationAsync(type, hydrate)` | `NpcObjects`, `EnemyObjects`, `LootObjects` |
+| **OrganizationGenerator** | `GenerateOrganizationAsync(type, hydrate)` | `MemberObjects`, `InventoryObjects` |
+
+---
+
+## ⚠️ OLD APPROACH (Still Works, But Not Recommended)
+
+The manual resolution approach using `ReferenceResolverService` still works if you need it:
 
 **DON'T use fictional services** like:
 - ❌ `abilityRepository.GetByIdsAsync()` - **DOES NOT EXIST**

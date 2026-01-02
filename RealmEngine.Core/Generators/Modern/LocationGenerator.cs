@@ -28,7 +28,10 @@ public class LocationGenerator
     /// <summary>
     /// Generates locations from a specific type (towns, dungeons, wilderness, environments, regions).
     /// </summary>
-    public async Task<List<Location>> GenerateLocationsAsync(string locationType, int count = 5)
+    /// <param name="locationType">The location type to generate.</param>
+    /// <param name="count">The number of locations to generate (default: 5).</param>
+    /// <param name="hydrate">If true, populates resolved NpcObjects, EnemyObjects, and LootObjects properties (default: true).</param>
+    public async Task<List<Location>> GenerateLocationsAsync(string locationType, int count = 5, bool hydrate = true)
     {
         try
         {
@@ -67,6 +70,10 @@ public class LocationGenerator
                     var location = await ConvertToLocationAsync(randomLocation, locationType, namesFile);
                     if (location != null)
                     {
+                        if (hydrate)
+                        {
+                            await HydrateLocationAsync(location);
+                        }
                         result.Add(location);
                     }
                 }
@@ -84,7 +91,10 @@ public class LocationGenerator
     /// <summary>
     /// Generates a specific location by name.
     /// </summary>
-    public async Task<Location?> GenerateLocationByNameAsync(string locationType, string locationName)
+    /// <param name="locationType">The location type to search in.</param>
+    /// <param name="locationName">The name of the location to generate.</param>
+    /// <param name="hydrate">If true, populates resolved NpcObjects, EnemyObjects, and LootObjects properties (default: true).</param>
+    public async Task<Location?> GenerateLocationByNameAsync(string locationType, string locationName, bool hydrate = true)
     {
         try
         {
@@ -114,7 +124,12 @@ public class LocationGenerator
             }
 
             var namesFile = _dataCache.GetFile(catalogPath.Replace("catalog.json", "names.json"));
-            return await ConvertToLocationAsync(item, locationType, namesFile);
+            var location = await ConvertToLocationAsync(item, locationType, namesFile);
+            if (location != null && hydrate)
+            {
+                await HydrateLocationAsync(location);
+            }
+            return location;
         }
         catch (Exception ex)
         {
@@ -329,5 +344,91 @@ public class LocationGenerator
         }
 
         return patterns.Last();
+    }
+
+    /// <summary>
+    /// Hydrates a location by resolving reference IDs to full objects.
+    /// Populates NpcObjects, EnemyObjects, and LootObjects properties.
+    /// </summary>
+    /// <param name="location">The location to hydrate.</param>
+    private async Task HydrateLocationAsync(Location location)
+    {
+        // Resolve NPCs
+        if (location.Npcs != null && location.Npcs.Any())
+        {
+            var npcObjects = new List<NPC>();
+            foreach (var refId in location.Npcs)
+            {
+                try
+                {
+                    var npcJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (npcJson != null)
+                    {
+                        var npc = npcJson.ToObject<NPC>();
+                        if (npc != null)
+                        {
+                            npcObjects.Add(npc);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve NPC '{refId}': {ex.Message}");
+                }
+            }
+            location.NpcObjects = npcObjects;
+        }
+
+        // Resolve enemies
+        if (location.Enemies != null && location.Enemies.Any())
+        {
+            var enemyObjects = new List<Enemy>();
+            foreach (var refId in location.Enemies)
+            {
+                try
+                {
+                    var enemyJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (enemyJson != null)
+                    {
+                        var enemy = enemyJson.ToObject<Enemy>();
+                        if (enemy != null)
+                        {
+                            enemyObjects.Add(enemy);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve enemy '{refId}': {ex.Message}");
+                }
+            }
+            location.EnemyObjects = enemyObjects;
+        }
+
+        // Resolve loot/resources
+        if (location.Loot != null && location.Loot.Any())
+        {
+            var lootObjects = new List<Item>();
+            foreach (var refId in location.Loot)
+            {
+                try
+                {
+                    var itemJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (itemJson != null)
+                    {
+                        var item = itemJson.ToObject<Item>();
+                        if (item != null)
+                        {
+                            lootObjects.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve loot item '{refId}': {ex.Message}");
+                }
+            }
+            location.LootObjects = lootObjects;
+        }
     }
 }

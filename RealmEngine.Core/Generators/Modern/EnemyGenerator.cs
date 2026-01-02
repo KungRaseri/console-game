@@ -31,8 +31,9 @@ public class EnemyGenerator
     /// </summary>
     /// <param name="category">The enemy category (e.g., "beasts", "undead", "dragons").</param>
     /// <param name="count">The number of enemies to generate (default: 5).</param>
+    /// <param name="hydrate">If true, populates resolved Abilities and LootTable properties (default: true).</param>
     /// <returns>A list of generated Enemy instances.</returns>
-    public async Task<List<Enemy>> GenerateEnemiesAsync(string category, int count = 5)
+    public async Task<List<Enemy>> GenerateEnemiesAsync(string category, int count = 5, bool hydrate = true)
     {
         try
         {
@@ -60,6 +61,10 @@ public class EnemyGenerator
                     var enemy = await ConvertToEnemyAsync(randomEnemy, category);
                     if (enemy != null)
                     {
+                        if (hydrate)
+                        {
+                            await HydrateEnemyAsync(enemy);
+                        }
                         result.Add(enemy);
                     }
                 }
@@ -79,8 +84,9 @@ public class EnemyGenerator
     /// </summary>
     /// <param name="category">The enemy category to search in.</param>
     /// <param name="enemyName">The name of the enemy to generate.</param>
+    /// <param name="hydrate">If true, populates resolved Abilities and LootTable properties (default: true).</param>
     /// <returns>The generated Enemy instance, or null if not found.</returns>
-    public async Task<Enemy?> GenerateEnemyByNameAsync(string category, string enemyName)
+    public async Task<Enemy?> GenerateEnemyByNameAsync(string category, string enemyName, bool hydrate = true)
     {
         try
         {
@@ -98,7 +104,12 @@ public class EnemyGenerator
 
             if (catalogEnemy != null)
             {
-                return await ConvertToEnemyAsync(catalogEnemy, category);
+                var enemy = await ConvertToEnemyAsync(catalogEnemy, category);
+                if (enemy != null && hydrate)
+                {
+                    await HydrateEnemyAsync(enemy);
+                }
+                return enemy;
             }
 
             return null;
@@ -296,6 +307,66 @@ public class EnemyGenerator
         catch
         {
             return null;
+        }
+    }
+
+    /// <summary>
+    /// Hydrates an enemy by resolving reference IDs to full objects.
+    /// Populates Abilities and LootTable properties.
+    /// </summary>
+    /// <param name="enemy">The enemy to hydrate.</param>
+    private async Task HydrateEnemyAsync(Enemy enemy)
+    {
+        // Resolve abilities
+        if (enemy.AbilityIds != null && enemy.AbilityIds.Any())
+        {
+            var abilities = new List<Ability>();
+            foreach (var refId in enemy.AbilityIds)
+            {
+                try
+                {
+                    var abilityJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (abilityJson != null)
+                    {
+                        var ability = abilityJson.ToObject<Ability>();
+                        if (ability != null)
+                        {
+                            abilities.Add(ability);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve ability '{refId}': {ex.Message}");
+                }
+            }
+            enemy.Abilities = abilities;
+        }
+
+        // Resolve loot table
+        if (enemy.LootTableIds != null && enemy.LootTableIds.Any())
+        {
+            var lootTable = new List<Item>();
+            foreach (var refId in enemy.LootTableIds)
+            {
+                try
+                {
+                    var itemJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (itemJson != null)
+                    {
+                        var item = itemJson.ToObject<Item>();
+                        if (item != null)
+                        {
+                            lootTable.Add(item);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to resolve loot item '{refId}': {ex.Message}");
+                }
+            }
+            enemy.LootTable = lootTable;
         }
     }
 }

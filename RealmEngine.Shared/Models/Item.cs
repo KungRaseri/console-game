@@ -238,6 +238,22 @@ public class Item : ITraitable
     public List<string> RequiredItemIds { get; set; } = new();
 
     /// <summary>
+    /// Fully resolved Item objects required for crafting this item.
+    /// Populated by ItemGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in RequiredItemIds instead).
+    /// </summary>
+    /// <remarks>
+    /// <para><strong>For Runtime Use:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Use this property to check if player has crafting materials</description></item>
+    /// <item><description>Already resolved - no need to call ReferenceResolverService</description></item>
+    /// <item><description>Null if item loaded from template without hydration</description></item>
+    /// </list>
+    /// </remarks>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Item>? RequiredItems { get; set; }
+
+    /// <summary>
     /// Gets or sets the Strength attribute bonus provided by this item.
     /// </summary>
     public int BonusStrength { get; set; } = 0;

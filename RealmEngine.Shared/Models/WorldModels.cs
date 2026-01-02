@@ -17,6 +17,30 @@ public class Location
     public List<string> Enemies { get; set; } = new();
     public List<string> Loot { get; set; } = new();
     public Dictionary<string, object> Metadata { get; set; } = new();
+
+    /// <summary>
+    /// Fully resolved NPC objects present at this location.
+    /// Populated by LocationGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in Npcs instead).
+    /// </summary>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<NPC>? NpcObjects { get; set; }
+
+    /// <summary>
+    /// Fully resolved Enemy objects that can spawn at this location.
+    /// Populated by LocationGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in Enemies instead).
+    /// </summary>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Enemy>? EnemyObjects { get; set; }
+
+    /// <summary>
+    /// Fully resolved Item objects available as loot at this location.
+    /// Populated by LocationGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in Loot instead).
+    /// </summary>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Item>? LootObjects { get; set; }
 }
 
 /// <summary>
@@ -36,6 +60,22 @@ public class Organization
     public List<string> Inventory { get; set; } = new();
     public Dictionary<string, int> Prices { get; set; } = new();
     public Dictionary<string, object> Metadata { get; set; } = new();
+
+    /// <summary>
+    /// Fully resolved NPC objects who are members of this organization.
+    /// Populated by OrganizationGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in Members instead).
+    /// </summary>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<NPC>? MemberObjects { get; set; }
+
+    /// <summary>
+    /// Fully resolved Item objects available in this organization's inventory.
+    /// Populated by OrganizationGenerator.GenerateAsync() when hydrating templates.
+    /// Not serialized to JSON (template IDs stored in Inventory instead).
+    /// </summary>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public List<Item>? InventoryObjects { get; set; }
 }
 
 /// <summary>
