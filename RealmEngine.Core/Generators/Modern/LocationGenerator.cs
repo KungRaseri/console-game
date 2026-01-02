@@ -216,18 +216,44 @@ public class LocationGenerator
 
     private IEnumerable<JToken> GetItemsFromCatalog(JToken catalog)
     {
-        if (catalog["items"] is JArray itemsArray)
+        var allItems = new List<JToken>();
+        
+        // Handle hierarchical structure: outposts_types -> outposts -> items
+        foreach (var property in catalog.Children<JProperty>())
+        {
+            if (property.Name == "metadata") continue;
+            
+            // This is a type category (outposts_types, villages_types, etc)
+            var typeCategory = property.Value;
+            if (typeCategory is JObject typeCategoryObj)
+            {
+                foreach (var subType in typeCategoryObj.Children<JProperty>())
+                {
+                    if (subType.Name == "metadata") continue;
+                    
+                    // This is a specific type (outposts, villages, etc)
+                    var items = subType.Value["items"];
+                    if (items != null && items.HasValues)
+                    {
+                        allItems.AddRange(items.Children());
+                    }
+                }
+            }
+        }
+        
+        // Fallback: Try direct items array
+        if (!allItems.Any() && catalog["items"] is JArray itemsArray)
         {
             return itemsArray;
         }
 
-        // Try root level if not wrapped
-        if (catalog is JArray rootArray)
+        // Fallback: Try root level if not wrapped
+        if (!allItems.Any() && catalog is JArray rootArray)
         {
             return rootArray;
         }
 
-        return Enumerable.Empty<JToken>();
+        return allItems;
     }
 
     private JToken? GetRandomWeightedItem(IEnumerable<JToken> items)

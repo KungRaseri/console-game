@@ -27,7 +27,7 @@ public class DialogueGenerator
     {
         try
         {
-            var catalogPath = $"social/{dialogueType}/catalog.json";
+            var catalogPath = $"social/dialogue/{dialogueType}/catalog.json";
             var catalogFile = _dataCache.GetFile(catalogPath);
             
             if (catalogFile?.JsonData == null)
@@ -123,7 +123,21 @@ public class DialogueGenerator
     {
         try
         {
-            var text = dialogueData["text"]?.ToString();
+            // Check for templates array (hierarchical structure)
+            string? text = null;
+            
+            if (dialogueData["templates"] is JArray templates && templates.Any())
+            {
+                // Pick a random template
+                var randomIndex = _random.Next(templates.Count);
+                text = templates[randomIndex].ToString();
+            }
+            else
+            {
+                // Fallback to direct text field
+                text = dialogueData["text"]?.ToString();
+            }
+            
             if (string.IsNullOrEmpty(text))
             {
                 return null;
@@ -157,11 +171,41 @@ public class DialogueGenerator
 
     private IEnumerable<JToken> GetItemsFromCatalog(JToken catalog)
     {
+        // Handle hierarchical structure: greeting_types -> npcType -> items
+        var allItems = new List<JToken>();
+        
+        // Look for top-level categories (greeting_types, farewell_types, response_types)
+        foreach (var property in catalog.Children<JProperty>())
+        {
+            if (property.Name == "metadata") continue;
+            
+            var categoryData = property.Value;
+            if (categoryData is JObject categoryObj)
+            {
+                // Iterate through subtypes (religious, noble, merchant, etc.)
+                foreach (var subProperty in categoryObj.Children<JProperty>())
+                {
+                    var subTypeData = subProperty.Value;
+                    if (subTypeData is JObject subTypeObj && subTypeObj["items"] is JArray items)
+                    {
+                        allItems.AddRange(items);
+                    }
+                }
+            }
+        }
+        
+        if (allItems.Any())
+        {
+            return allItems;
+        }
+        
+        // Fallback: Check for direct "items" array
         if (catalog["items"] is JArray itemsArray)
         {
             return itemsArray;
         }
 
+        // Fallback: Catalog is root array
         if (catalog is JArray rootArray)
         {
             return rootArray;

@@ -180,8 +180,8 @@ public class OrganizationGenerator
                 Name = name,
                 Description = orgData["description"]?.ToString() ?? "A mysterious organization.",
                 Type = organizationType,
-                Reputation = orgData["reputation"]?.Value<int>() ?? _random.Next(0, 100),
-                Wealth = orgData["wealth"]?.Value<int>() ?? _random.Next(1000, 100000)
+                Reputation = TryGetIntValue(orgData, "reputation", _random.Next(0, 100)),
+                Wealth = TryGetIntValue(orgData, "wealth", _random.Next(1000, 100000))
             };
 
             // Parse leader
@@ -211,6 +211,35 @@ public class OrganizationGenerator
         {
             Console.WriteLine($"Error converting organization: {ex.Message}");
             return null;
+        }
+    }
+
+    private static int TryGetIntValue(JToken obj, string propertyName, int defaultValue)
+    {
+        try
+        {
+            var value = obj[propertyName];
+            if (value == null) return defaultValue;
+            
+            // Try parsing as int first
+            if (value.Type == JTokenType.Integer)
+            {
+                return value.Value<int>();
+            }
+            
+            // If it's a string, try parsing
+            var stringValue = value.ToString();
+            if (int.TryParse(stringValue, out var intValue))
+            {
+                return intValue;
+            }
+            
+            // For string reputation values like "neutral", "lawful", return default
+            return defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
         }
     }
 
@@ -258,17 +287,44 @@ public class OrganizationGenerator
 
     private IEnumerable<JToken> GetItemsFromCatalog(JToken catalog)
     {
-        if (catalog["items"] is JArray itemsArray)
+        var allItems = new List<JToken>();
+        
+        // Handle hierarchical structure: guild_types -> warrior_guilds/mage_guilds -> items
+        foreach (var property in catalog.Children<JProperty>())
+        {
+            if (property.Name == "metadata") continue;
+            
+            // This is a type category (guild_types, faction_types, etc)
+            var typeCategory = property.Value;
+            if (typeCategory is JObject typeCategoryObj)
+            {
+                foreach (var subType in typeCategoryObj.Children<JProperty>())
+                {
+                    if (subType.Name == "metadata") continue;
+                    
+                    // This is a specific type (warrior_guilds, mage_guilds, etc)
+                    var items = subType.Value["items"];
+                    if (items != null && items.HasValues)
+                    {
+                        allItems.AddRange(items.Children());
+                    }
+                }
+            }
+        }
+        
+        // Fallback: Try direct items array
+        if (!allItems.Any() && catalog["items"] is JArray itemsArray)
         {
             return itemsArray;
         }
 
-        if (catalog is JArray rootArray)
+        // Fallback: Try root level if not wrapped
+        if (!allItems.Any() && catalog is JArray rootArray)
         {
             return rootArray;
         }
 
-        return Enumerable.Empty<JToken>();
+        return allItems;
     }
 
     private JToken? GetRandomWeightedItem(IEnumerable<JToken> items)
