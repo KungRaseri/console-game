@@ -20,7 +20,8 @@ public class QuestGeneratorTests
         _dataCache = new GameDataCache(basePath);
         var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
         _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
-        _generator = new QuestGenerator(_dataCache, _referenceResolver);
+        var questLogger = new Mock<ILogger<QuestGenerator>>();
+        _generator = new QuestGenerator(_dataCache, _referenceResolver, questLogger.Object);
     }
 
     [Fact]

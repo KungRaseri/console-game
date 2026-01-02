@@ -20,7 +20,8 @@ public class LocationGeneratorTests
         _dataCache = new GameDataCache(basePath);
         var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
         _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
-        _generator = new LocationGenerator(_dataCache, _referenceResolver);
+        var locationLogger = new Mock<ILogger<LocationGenerator>>();
+        _generator = new LocationGenerator(_dataCache, _referenceResolver, locationLogger.Object);
     }
 
     [Fact]

@@ -21,7 +21,8 @@ public class AbilityGeneratorTests
         _dataCache = new GameDataCache(basePath);
         var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
         _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
-        _generator = new AbilityGenerator(_dataCache, _referenceResolver);
+        var abilityLogger = new Mock<ILogger<AbilityGenerator>>();
+        _generator = new AbilityGenerator(_dataCache, _referenceResolver, abilityLogger.Object);
     }
 
     [Fact]

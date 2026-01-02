@@ -20,7 +20,9 @@ public class ItemGeneratorTests
         _dataCache = new GameDataCache(basePath);
         var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
         _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
-        _generator = new ItemGenerator(_dataCache, _referenceResolver);
+        var itemLogger = new Mock<ILogger<ItemGenerator>>();
+        var mockLoggerFactory = new Mock<ILoggerFactory>();
+        _generator = new ItemGenerator(_dataCache, _referenceResolver, itemLogger.Object, mockLoggerFactory.Object);
     }
 
     [Theory]

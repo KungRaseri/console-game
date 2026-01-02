@@ -20,7 +20,8 @@ public class DialogueGeneratorTests
         _dataCache = new GameDataCache(basePath);
         var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
         _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
-        _generator = new DialogueGenerator(_dataCache, _referenceResolver);
+        var dialogueLogger = new Mock<ILogger<DialogueGenerator>>();
+        _generator = new DialogueGenerator(_dataCache, _referenceResolver, dialogueLogger.Object);
     }
 
     [Fact]

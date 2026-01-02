@@ -20,7 +20,8 @@ public class OrganizationGeneratorTests
         _dataCache = new GameDataCache(basePath);
         var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
         _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
-        _generator = new OrganizationGenerator(_dataCache, _referenceResolver);
+        var organizationLogger = new Mock<ILogger<OrganizationGenerator>>();
+        _generator = new OrganizationGenerator(_dataCache, _referenceResolver, organizationLogger.Object);
     }
 
     [Fact]

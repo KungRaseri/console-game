@@ -33,7 +33,8 @@ public class HydrationTests
     public async Task Enemy_Should_Have_Abilities_Hydrated_By_Default()
     {
         // Arrange
-        var generator = new EnemyGenerator(_dataCache, _referenceResolver);
+        var mockEnemyLogger = new Mock<ILogger<EnemyGenerator>>();
+        var generator = new EnemyGenerator(_dataCache, _referenceResolver, mockEnemyLogger.Object);
 
         // Act
         var enemy = await generator.GenerateEnemyByNameAsync("beasts", "Wolf");
@@ -60,7 +61,8 @@ public class HydrationTests
     public async Task Enemy_Should_Have_LootTable_Hydrated_By_Default()
     {
         // Arrange
-        var generator = new EnemyGenerator(_dataCache, _referenceResolver);
+        var mockEnemyLogger = new Mock<ILogger<EnemyGenerator>>();
+        var generator = new EnemyGenerator(_dataCache, _referenceResolver, mockEnemyLogger.Object);
 
         // Act
         var enemy = await generator.GenerateEnemyByNameAsync("beasts", "Wolf");
@@ -346,7 +348,8 @@ public class HydrationTests
     public async Task Location_Should_Have_All_Objects_Hydrated()
     {
         // Arrange
-        var generator = new LocationGenerator(_dataCache, _referenceResolver);
+        var mockLocationLogger = new Mock<ILogger<LocationGenerator>>();
+        var generator = new LocationGenerator(_dataCache, _referenceResolver, mockLocationLogger.Object);
 
         // Act
         var locations = await generator.GenerateLocationsAsync("towns", 3);
@@ -383,7 +386,8 @@ public class HydrationTests
     public async Task Organization_Should_Have_Members_And_Inventory_Hydrated()
     {
         // Arrange
-        var generator = new OrganizationGenerator(_dataCache, _referenceResolver);
+        var mockOrganizationLogger = new Mock<ILogger<OrganizationGenerator>>();
+        var generator = new OrganizationGenerator(_dataCache, _referenceResolver, mockOrganizationLogger.Object);
 
         // Act
         var organizations = await generator.GenerateOrganizationsAsync("guilds", 2);

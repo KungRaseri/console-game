@@ -20,7 +20,8 @@ public class EnemyGeneratorTests
         _dataCache = new GameDataCache(basePath);
         var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
         _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
-        _generator = new EnemyGenerator(_dataCache, _referenceResolver);
+        var enemyLogger = new Mock<ILogger<EnemyGenerator>>();
+        _generator = new EnemyGenerator(_dataCache, _referenceResolver, enemyLogger.Object);
     }
 
     [Fact]

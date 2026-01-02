@@ -20,7 +20,8 @@ public class NpcGeneratorTests
         _dataCache = new GameDataCache(basePath);
         var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
         _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
-        _generator = new NpcGenerator(_dataCache, _referenceResolver);
+        var npcLogger = new Mock<ILogger<NpcGenerator>>();
+        _generator = new NpcGenerator(_dataCache, _referenceResolver, npcLogger.Object);
     }
 
     [Fact]
