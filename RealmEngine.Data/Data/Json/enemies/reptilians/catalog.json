@@ -237,7 +237,7 @@
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/ultimate:devastating-blow"
+              "@abilities/ultimate/ultimate:devastating-blow"
             ]
           }
         }
@@ -330,7 +330,7 @@
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate:serpent-lord"
+              "@abilities/ultimate/ultimate:serpent-lord"
             ]
           }
         }

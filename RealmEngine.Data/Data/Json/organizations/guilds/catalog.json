@@ -362,7 +362,7 @@
             "training": "Stealth and infiltration",
             "equipment": "Thieves' tools and poisons",
             "quests": "Heists and assassination contracts",
-            "faction_bonus": "@organizations/factions:thieves_guild"
+            "faction_bonus": "@organizations/factions/criminal:thieves_guild"
           },
           "rivals": [
             "fighters_guild",
@@ -431,7 +431,7 @@
             "training": "Lethal techniques and poisons",
             "equipment": "Exotic weapons and tools",
             "quests": "High-profile assassination contracts",
-            "faction_bonus": "@organizations/factions:thieves_guild"
+            "faction_bonus": "@organizations/factions/criminal:thieves_guild"
           },
           "rivals": [
             "fighters_guild",

@@ -83,21 +83,21 @@
     {
       "name": "minor-favor",
       "rarityWeight": 50,
-      "factionReference": "@organizations/factions:*",
+      "factionReference": "@organizations/factions/*:*",
       "reputationGain": { "min": 10, "max": 50 },
       "description": "Gain minor favor with faction"
     },
     {
       "name": "significant-standing",
       "rarityWeight": 100,
-      "factionReference": "@organizations/factions:*",
+      "factionReference": "@organizations/factions/*:*",
       "reputationGain": { "min": 50, "max": 200 },
       "description": "Significant reputation increase"
     },
     {
       "name": "honored-ally",
       "rarityWeight": 200,
-      "factionReference": "@organizations/factions:*",
+      "factionReference": "@organizations/factions/*:*",
       "reputationGain": { "min": 200, "max": 500 },
       "description": "Become honored ally of faction"
     }
@@ -106,19 +106,19 @@
     {
       "name": "basic-skill",
       "rarityWeight": 80,
-      "abilityReference": "@abilities/passive:*",
+      "abilityReference": "@abilities/passive/*:*",
       "description": "Learn basic skill"
     },
     {
       "name": "advanced-technique",
       "rarityWeight": 150,
-      "abilityReference": "@abilities/active:*",
+      "abilityReference": "@abilities/active/*:*",
       "description": "Master advanced technique"
     },
     {
       "name": "legendary-power",
       "rarityWeight": 400,
-      "abilityReference": "@abilities/active:*",
+      "abilityReference": "@abilities/active/*:*",
       "description": "Unlock legendary power"
     }
   ],

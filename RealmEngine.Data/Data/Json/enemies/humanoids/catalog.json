@@ -214,7 +214,7 @@
               "@abilities/active/support:taunt"
             ],
             "18": [
-              "@abilities/passive:weapon-mastery"
+              "@abilities/passive/passive:weapon-mastery"
             ]
           }
         },
@@ -247,10 +247,10 @@
               "@abilities/active/defensive:indomitable"
             ],
             "20": [
-              "@abilities/passive:combat-supremacy"
+              "@abilities/passive/passive:combat-supremacy"
             ],
             "25": [
-              "@abilities/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:ragnarok"
             ]
           }
         }
@@ -293,10 +293,10 @@
               "@abilities/active/offensive:poison-blade"
             ],
             "15": [
-              "@abilities/passive:shadow-master"
+              "@abilities/passive/passive:shadow-master"
             ],
             "18": [
-              "@abilities/ultimate:death-incarnate"
+              "@abilities/ultimate/ultimate:death-incarnate"
             ]
           }
         },
@@ -364,7 +364,7 @@
               "@abilities/active/offensive:meteor"
             ],
             "20": [
-              "@abilities/ultimate:archmages-supremacy"
+              "@abilities/ultimate/ultimate:archmages-supremacy"
             ]
           }
         },
@@ -396,10 +396,10 @@
               "@abilities/active/offensive:frenzy"
             ],
             "18": [
-              "@abilities/passive:unstoppable"
+              "@abilities/passive/passive:unstoppable"
             ],
             "20": [
-              "@abilities/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:ragnarok"
             ]
           }
         }

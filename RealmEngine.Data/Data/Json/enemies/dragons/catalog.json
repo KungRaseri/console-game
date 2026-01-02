@@ -52,7 +52,7 @@
               "@abilities/active/offensive:tail-sweep"
             ],
             "30": [
-              "@abilities/ultimate:ancient-power"
+              "@abilities/ultimate/ultimate:ancient-power"
             ]
           }
         },
@@ -79,7 +79,7 @@
               "@abilities/active/offensive:wing-buffet"
             ],
             "28": [
-              "@abilities/ultimate:storm-fury"
+              "@abilities/ultimate/ultimate:storm-fury"
             ]
           }
         },
@@ -106,7 +106,7 @@
               "@abilities/active/offensive:poison-cloud"
             ],
             "28": [
-              "@abilities/ultimate:plague-bearer"
+              "@abilities/ultimate/ultimate:plague-bearer"
             ]
           }
         },
@@ -133,7 +133,7 @@
               "@abilities/active/offensive:acid-pool"
             ],
             "26": [
-              "@abilities/ultimate:corruption-wave"
+              "@abilities/ultimate/ultimate:corruption-wave"
             ]
           }
         },
@@ -160,7 +160,7 @@
               "@abilities/active/offensive:ice-storm"
             ],
             "25": [
-              "@abilities/ultimate:blizzard"
+              "@abilities/ultimate/ultimate:blizzard"
             ]
           }
         }
@@ -205,7 +205,7 @@
               "@abilities/active/support:divine-intervention"
             ],
             "30": [
-              "@abilities/ultimate:avatar-of-light"
+              "@abilities/ultimate/ultimate:avatar-of-light"
             ]
           }
         },
@@ -238,7 +238,7 @@
               "@abilities/active/offensive:ice-storm"
             ],
             "29": [
-              "@abilities/ultimate:blizzard"
+              "@abilities/ultimate/ultimate:blizzard"
             ]
           }
         },
@@ -271,7 +271,7 @@
               "@abilities/active/offensive:lightning-bolt"
             ],
             "28": [
-              "@abilities/ultimate:storm-fury"
+              "@abilities/ultimate/ultimate:storm-fury"
             ]
           }
         },
@@ -304,7 +304,7 @@
               "@abilities/active/offensive:acid-pool"
             ],
             "27": [
-              "@abilities/ultimate:ancient-power"
+              "@abilities/ultimate/ultimate:ancient-power"
             ]
           }
         },
@@ -337,7 +337,7 @@
               "@abilities/active/offensive:fireball"
             ],
             "26": [
-              "@abilities/ultimate:ancient-power"
+              "@abilities/ultimate/ultimate:ancient-power"
             ]
           }
         }

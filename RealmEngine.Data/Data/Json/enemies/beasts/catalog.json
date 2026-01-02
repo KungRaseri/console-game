@@ -91,7 +91,7 @@
               "@abilities/active/offensive:ice-breath"
             ],
             "12": [
-              "@abilities/ultimate:winter-storm"
+              "@abilities/ultimate/ultimate:winter-storm"
             ]
           }
         }
@@ -217,10 +217,10 @@
               "@abilities/active/offensive:earthquake-stomp"
             ],
             "15": [
-              "@abilities/passive:unstoppable"
+              "@abilities/passive/passive:unstoppable"
             ],
             "18": [
-              "@abilities/ultimate:primal-fury"
+              "@abilities/ultimate/ultimate:primal-fury"
             ]
           }
         }
@@ -259,7 +259,7 @@
               "@abilities/active/offensive:rake"
             ],
             "12": [
-              "@abilities/passive:master-tracker"
+              "@abilities/passive/passive:master-tracker"
             ]
           }
         },
@@ -316,7 +316,7 @@
               "@abilities/active/offensive:pounce"
             ],
             "13": [
-              "@abilities/passive:king-of-beasts"
+              "@abilities/passive/passive:king-of-beasts"
             ]
           }
         }

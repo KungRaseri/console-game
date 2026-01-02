@@ -49,7 +49,7 @@
               "@abilities/active/defensive:fire-aura"
             ],
             "16": [
-              "@abilities/ultimate:inferno"
+              "@abilities/ultimate/ultimate:inferno"
             ]
           }
         },
@@ -101,10 +101,10 @@
           ],
           "abilityUnlocks": {
             "17": [
-              "@abilities/ultimate:inferno"
+              "@abilities/ultimate/ultimate:inferno"
             ],
             "20": [
-              "@abilities/ultimate:wish"
+              "@abilities/ultimate/ultimate:wish"
             ]
           }
         }
@@ -147,7 +147,7 @@
               "@abilities/active/support:water-shield"
             ],
             "16": [
-              "@abilities/ultimate:tsunami"
+              "@abilities/ultimate/ultimate:tsunami"
             ]
           }
         },
@@ -214,7 +214,7 @@
               "@abilities/passive/defensive:ThickSkin"
             ],
             "17": [
-              "@abilities/ultimate:earthquake"
+              "@abilities/ultimate/ultimate:earthquake"
             ]
           }
         },
@@ -310,7 +310,7 @@
               "@abilities/active/support:whirlwind"
             ],
             "16": [
-              "@abilities/ultimate:storm-fury"
+              "@abilities/ultimate/ultimate:storm-fury"
             ]
           }
         },
@@ -361,10 +361,10 @@
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate:storm-fury"
+              "@abilities/ultimate/ultimate:storm-fury"
             ],
             "19": [
-              "@abilities/ultimate:wish"
+              "@abilities/ultimate/ultimate:wish"
             ]
           }
         },
@@ -391,10 +391,10 @@
           ],
           "abilityUnlocks": {
             "19": [
-              "@abilities/ultimate:inferno"
+              "@abilities/ultimate/ultimate:inferno"
             ],
             "22": [
-              "@abilities/ultimate:supernova"
+              "@abilities/ultimate/ultimate:supernova"
             ]
           }
         }

@@ -120,8 +120,8 @@
           "difficulty": "Medium",
           "objectiveType": "primary",
           "item_pool": [
-            "@items/artifacts",
-            "@items/quest-items"
+            "@items/materials:*",
+            "@items/materials:*"
           ],
           "rarityFilter": "rare",
           "selectRandom": true
@@ -135,7 +135,7 @@
           "difficulty": "Hard",
           "objectiveType": "primary",
           "item_pool": [
-            "@items/artifacts"
+            "@items/materials:*"
           ],
           "rarityFilter": "legendary",
           "selectRandom": true
@@ -151,9 +151,9 @@
           "difficulty": "Medium",
           "objectiveType": "primary",
           "npc_pool": [
-            "@npcs/noble",
-            "@npcs/merchant",
-            "@npcs/common"
+            "@npcs/noble:*",
+            "@npcs/merchant:*",
+            "@npcs/common:*"
           ],
           "selectRandom": true
         }
@@ -265,9 +265,9 @@
           "difficulty": "Medium",
           "objectiveType": "primary",
           "npc_pool": [
-            "@npcs/noble",
-            "@npcs/military",
-            "@npcs/merchant"
+            "@npcs/noble:*",
+            "@npcs/military:*",
+            "@npcs/merchant:*"
           ],
           "selectRandom": true
         },
@@ -383,7 +383,7 @@
           "item_pool": [
             "@items/consumables",
             "@items/materials",
-            "@items/valuables"
+            "@items/materials:*"
           ],
           "rarityFilter": "uncommon",
           "minCount": 3,
@@ -409,9 +409,9 @@
           "bonus": "Reputation increase",
           "objectiveType": "secondary",
           "npc_pool": [
-            "@npcs/military",
-            "@npcs/criminal",
-            "@npcs/noble"
+            "@npcs/military:*",
+            "@npcs/criminal:*",
+            "@npcs/noble:*"
           ],
           "selectRandom": true
         },
@@ -524,9 +524,9 @@
           "reveal": "Hinted at in optional dialogue",
           "objectiveType": "hidden",
           "npc_pool": [
-            "@npcs/noble",
-            "@npcs/criminal",
-            "@npcs/merchant"
+            "@npcs/noble:*",
+            "@npcs/criminal:*",
+            "@npcs/merchant:*"
           ],
           "selectRandom": true
         }

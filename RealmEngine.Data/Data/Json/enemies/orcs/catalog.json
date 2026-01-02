@@ -126,7 +126,7 @@
               "@abilities/active/offensive:whirlwind"
             ],
             "10": [
-              "@abilities/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:ragnarok"
             ]
           }
         }
@@ -218,7 +218,7 @@
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:ragnarok"
             ]
           }
         },
@@ -246,10 +246,10 @@
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:ragnarok"
             ],
             "16": [
-              "@abilities/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:avatar-of-war"
             ]
           }
         }
@@ -291,10 +291,10 @@
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:ragnarok"
             ],
             "18": [
-              "@abilities/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:avatar-of-war"
             ]
           }
         },
@@ -351,7 +351,7 @@
               "@abilities/active/offensive:devastating-blow"
             ],
             "16": [
-              "@abilities/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:avatar-of-war"
             ]
           }
         }

@@ -169,7 +169,7 @@
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/ultimate:vampiric-aura"
+              "@abilities/ultimate/ultimate:vampiric-aura"
             ]
           }
         },
@@ -196,7 +196,7 @@
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate:vampiric-ascension"
+              "@abilities/ultimate/ultimate:vampiric-ascension"
             ]
           }
         },
@@ -224,7 +224,7 @@
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate:blood-lord"
+              "@abilities/ultimate/ultimate:blood-lord"
             ]
           }
         }
@@ -270,7 +270,7 @@
           ],
           "abilityUnlocks": {
             "17": [
-              "@abilities/ultimate:ancient-bloodline"
+              "@abilities/ultimate/ultimate:ancient-bloodline"
             ]
           }
         },
@@ -300,7 +300,7 @@
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate:crimson-throne"
+              "@abilities/ultimate/ultimate:crimson-throne"
             ]
           }
         },
@@ -330,8 +330,8 @@
           ],
           "abilityUnlocks": {
             "21": [
-              "@abilities/ultimate:progenitors-blessing",
-              "@abilities/ultimate:blood-god"
+              "@abilities/ultimate/ultimate:progenitors-blessing",
+              "@abilities/ultimate/ultimate:blood-god"
             ]
           }
         },
@@ -359,7 +359,7 @@
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate:shadow-lord"
+              "@abilities/ultimate/ultimate:shadow-lord"
             ]
           }
         }

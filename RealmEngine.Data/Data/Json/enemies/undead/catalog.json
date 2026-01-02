@@ -195,7 +195,7 @@
               "@abilities/active/offensive:soul-rend"
             ],
             "15": [
-              "@abilities/ultimate:death-incarnate"
+              "@abilities/ultimate/ultimate:death-incarnate"
             ]
           }
         },
@@ -306,7 +306,7 @@
               "@abilities/active/offensive:death-song"
             ],
             "15": [
-              "@abilities/ultimate:soul-reaver"
+              "@abilities/ultimate/ultimate:soul-reaver"
             ]
           }
         }
@@ -373,7 +373,7 @@
           "abilities": [
             "@abilities/active/offensive:basic-attack",
             "@abilities/active/offensive:vengeful-strike",
-            "@abilities/passive:unstoppable"
+            "@abilities/passive/passive:unstoppable"
           ],
           "abilityUnlocks": {
             "13": [
@@ -383,7 +383,7 @@
               "@abilities/active/support:undying-rage"
             ],
             "20": [
-              "@abilities/ultimate:eternal-vengeance"
+              "@abilities/ultimate/ultimate:eternal-vengeance"
             ]
           }
         },
@@ -414,7 +414,7 @@
               "@abilities/active/summon:summon-scarabs"
             ],
             "18": [
-              "@abilities/ultimate:plague-lord"
+              "@abilities/ultimate/ultimate:plague-lord"
             ]
           }
         },
@@ -447,7 +447,7 @@
               "@abilities/active/summon:army-of-the-dead"
             ],
             "25": [
-              "@abilities/ultimate:death-lord"
+              "@abilities/ultimate/ultimate:death-lord"
             ]
           }
         }

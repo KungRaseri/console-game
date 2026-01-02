@@ -136,7 +136,7 @@
               "@abilities/active/support:web-trap"
             ],
             "15": [
-              "@abilities/ultimate:spider-queen"
+              "@abilities/ultimate/ultimate:spider-queen"
             ]
           }
         }
@@ -432,7 +432,7 @@
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/ultimate:hive-mind"
+              "@abilities/ultimate/ultimate:hive-mind"
             ]
           }
         }

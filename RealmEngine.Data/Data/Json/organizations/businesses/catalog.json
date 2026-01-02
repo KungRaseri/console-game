@@ -55,7 +55,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:commoners",
+            "social_class": "@npcs/commoners:*",
             "personality": [
               "welcoming",
               "hardworking"
@@ -129,7 +129,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:merchants",
+            "social_class": "@npcs/merchants:*",
             "personality": [
               "professional",
               "attentive"
@@ -205,7 +205,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:nobility",
+            "social_class": "@npcs/nobility:*",
             "personality": [
               "refined",
               "exclusive"
@@ -277,7 +277,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:commoners",
+            "social_class": "@npcs/commoners:*",
             "personality": [
               "gruff",
               "no_nonsense"
@@ -345,7 +345,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:merchants",
+            "social_class": "@npcs/merchants:*",
             "personality": [
               "friendly",
               "chatty"
@@ -412,7 +412,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:artisans",
+            "social_class": "@npcs/artisans:*",
             "personality": [
               "refined",
               "perfectionist"
@@ -496,7 +496,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:commoners",
+            "social_class": "@npcs/commoners:*",
             "personality": [
               "reliable",
               "animal_lover"
@@ -570,7 +570,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:clergy",
+            "social_class": "@npcs/clergy:*",
             "personality": [
               "pious",
               "compassionate"
@@ -641,7 +641,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:merchants",
+            "social_class": "@npcs/merchants:*",
             "personality": [
               "shrewd",
               "professional"
@@ -699,7 +699,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:artisans",
+            "social_class": "@npcs/artisans:*",
             "personality": [
               "dramatic",
               "cultured"
@@ -758,7 +758,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:nobility",
+            "social_class": "@npcs/nobility:*",
             "personality": [
               "competitive",
               "ruthless"
@@ -812,7 +812,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/social_classes:criminals",
+            "social_class": "@npcs/criminals:*",
             "personality": [
               "charming",
               "dangerous"

@@ -114,7 +114,7 @@
               "@abilities/active/offensive:devastating-blow"
             ],
             "16": [
-              "@abilities/passive:unstoppable"
+              "@abilities/passive/passive:unstoppable"
             ]
           }
         }
@@ -157,7 +157,7 @@
               "@abilities/active/offensive:ice-breath"
             ],
             "15": [
-              "@abilities/ultimate:blizzard"
+              "@abilities/ultimate/ultimate:blizzard"
             ]
           }
         },
@@ -188,7 +188,7 @@
               "@abilities/active/offensive:flame-strike"
             ],
             "15": [
-              "@abilities/ultimate:inferno"
+              "@abilities/ultimate/ultimate:inferno"
             ]
           }
         },
@@ -218,7 +218,7 @@
               "@abilities/active/offensive:poison-cloud"
             ],
             "15": [
-              "@abilities/ultimate:plague-bearer"
+              "@abilities/ultimate/ultimate:plague-bearer"
             ]
           }
         }
@@ -261,7 +261,7 @@
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate:primal-fury"
+              "@abilities/ultimate/ultimate:primal-fury"
             ]
           }
         },
@@ -290,7 +290,7 @@
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:avatar-of-war"
             ]
           }
         },
@@ -317,14 +317,14 @@
             "@abilities/active/offensive:rend",
             "@abilities/active/offensive:devastating-blow",
             "@abilities/passive/defensive:Regeneration",
-            "@abilities/passive:unstoppable"
+            "@abilities/passive/passive:unstoppable"
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate:primal-fury"
+              "@abilities/ultimate/ultimate:primal-fury"
             ],
             "21": [
-              "@abilities/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:avatar-of-war"
             ]
           }
         }

@@ -113,7 +113,7 @@
               "@abilities/active/offensive:hellfire"
             ],
             "13": [
-              "@abilities/ultimate:inferno"
+              "@abilities/ultimate/ultimate:inferno"
             ]
           }
         },
@@ -327,10 +327,10 @@
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate:inferno"
+              "@abilities/ultimate/ultimate:inferno"
             ],
             "18": [
-              "@abilities/ultimate:demon-lord"
+              "@abilities/ultimate/ultimate:demon-lord"
             ]
           }
         },
@@ -357,10 +357,10 @@
           ],
           "abilityUnlocks": {
             "19": [
-              "@abilities/ultimate:inferno"
+              "@abilities/ultimate/ultimate:inferno"
             ],
             "22": [
-              "@abilities/ultimate:demon-lord"
+              "@abilities/ultimate/ultimate:demon-lord"
             ]
           }
         },
@@ -387,11 +387,11 @@
           ],
           "abilityUnlocks": {
             "20": [
-              "@abilities/ultimate:inferno",
-              "@abilities/ultimate:wish"
+              "@abilities/ultimate/ultimate:inferno",
+              "@abilities/ultimate/ultimate:wish"
             ],
             "23": [
-              "@abilities/ultimate:demon-lord"
+              "@abilities/ultimate/ultimate:demon-lord"
             ]
           }
         },
@@ -417,7 +417,7 @@
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate:blade-storm"
+              "@abilities/ultimate/ultimate:blade-storm"
             ]
           }
         },
@@ -437,7 +437,7 @@
           ],
           "abilityUnlocks": {
             "17": [
-              "@abilities/ultimate:death-ray"
+              "@abilities/ultimate/ultimate:death-ray"
             ]
           }
         }

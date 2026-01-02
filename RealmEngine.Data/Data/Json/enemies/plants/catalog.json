@@ -284,7 +284,7 @@
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate:forest-guardian"
+              "@abilities/ultimate/ultimate:forest-guardian"
             ]
           }
         },
@@ -380,10 +380,10 @@
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate:forest-guardian"
+              "@abilities/ultimate/ultimate:forest-guardian"
             ],
             "19": [
-              "@abilities/ultimate:natures-wrath"
+              "@abilities/ultimate/ultimate:natures-wrath"
             ]
           }
         },
@@ -413,10 +413,10 @@
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate:forest-guardian"
+              "@abilities/ultimate/ultimate:forest-guardian"
             ],
             "21": [
-              "@abilities/ultimate:natures-wrath"
+              "@abilities/ultimate/ultimate:natures-wrath"
             ]
           }
         }
