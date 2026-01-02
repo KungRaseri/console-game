@@ -161,7 +161,7 @@
           "rarityWeight": 6,
           "abilities": [
             "@abilities/active/offensive:thorn-spray",
-            "@abilities/passive:thorns"
+            "@abilities/passive/defensive:Thorny"
           ],
           "abilityUnlocks": {
             "4": [
@@ -186,7 +186,7 @@
           "rarityWeight": 10,
           "abilities": [
             "@abilities/active/offensive:thorn-spray",
-            "@abilities/passive:thorns"
+            "@abilities/passive/defensive:Thorny"
           ],
           "abilityUnlocks": {
             "6": [
@@ -211,7 +211,7 @@
           "rarityWeight": 20,
           "abilities": [
             "@abilities/active/offensive:thorn-spray",
-            "@abilities/passive:thorns",
+            "@abilities/passive/defensive:Thorny",
             "@abilities/active/support:entangle"
           ],
           "abilityUnlocks": {
@@ -253,7 +253,7 @@
           "abilities": [
             "@abilities/active/offensive:slam",
             "@abilities/active/support:entangle",
-            "@abilities/passive:regeneration"
+            "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "10": [
@@ -376,7 +376,7 @@
             "@abilities/active/offensive:slam",
             "@abilities/active/offensive:rock-throw",
             "@abilities/active/support:animate-trees",
-            "@abilities/passive:regeneration"
+            "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "16": [
@@ -408,8 +408,8 @@
             "@abilities/active/offensive:slam",
             "@abilities/active/offensive:rock-throw",
             "@abilities/active/support:animate-trees",
-            "@abilities/passive:regeneration",
-            "@abilities/passive:ancient-bark"
+            "@abilities/passive/defensive:Regeneration",
+            "@abilities/passive/defensive:NaturalArmor"
           ],
           "abilityUnlocks": {
             "18": [

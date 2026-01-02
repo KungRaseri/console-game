@@ -188,7 +188,7 @@
               "@abilities/active/offensive:rend"
             ],
             "13": [
-              "@abilities/passive:thick-hide"
+              "@abilities/passive/defensive:Thick Hide"
             ]
           }
         },
@@ -259,7 +259,7 @@
               "@abilities/active/offensive:rake"
             ],
             "12": [
-              "@abilities/passive:predator-instinct"
+              "@abilities/passive:master-tracker"
             ]
           }
         },

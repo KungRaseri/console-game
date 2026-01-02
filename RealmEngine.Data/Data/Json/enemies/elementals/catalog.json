@@ -211,7 +211,7 @@
           ],
           "abilityUnlocks": {
             "14": [
-              "@abilities/passive:stone-skin"
+              "@abilities/passive/defensive:ThickSkin"
             ],
             "17": [
               "@abilities/ultimate:earthquake"
@@ -235,14 +235,14 @@
           "rarityWeight": 28,
           "abilities": [
             "@abilities/active/offensive:slam",
-            "@abilities/passive:stone-skin"
+            "@abilities/passive/defensive:ThickSkin"
           ],
           "abilityUnlocks": {
             "15": [
               "@abilities/active/offensive:earthquake-stomp"
             ],
             "18": [
-              "@abilities/passive:adamantine-body"
+              "@abilities/passive/defensive:Ironhide"
             ]
           }
         },
@@ -267,7 +267,7 @@
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/passive:earth-glide"
+              "@abilities/passive/mobility:Burrowing"
             ]
           }
         }
@@ -331,7 +331,7 @@
           "rarityWeight": 15,
           "abilities": [
             "@abilities/active/offensive:gust",
-            "@abilities/passive:flight"
+            "@abilities/passive/mobility:Flight"
           ],
           "abilityUnlocks": {
             "10": [
@@ -386,8 +386,8 @@
           "abilities": [
             "@abilities/active/offensive:fireball",
             "@abilities/active/offensive:flame-strike",
-            "@abilities/passive:flight",
-            "@abilities/passive:rebirth"
+            "@abilities/passive/mobility:Flight",
+            "@abilities/passive/defensive:Immortal"
           ],
           "abilityUnlocks": {
             "19": [

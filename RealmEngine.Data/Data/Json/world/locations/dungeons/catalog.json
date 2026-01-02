@@ -18,7 +18,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "1-5",
           "enemyTypes": [
-            "@enemies/humanoid:bandit"
+            "@enemies/humanoids/bandits:Bandit"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -35,7 +35,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "1-5",
           "enemyTypes": [
-            "@enemies/goblinoids:*"
+            "@enemies/goblinoids/goblins:*"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -52,7 +52,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "2-6",
           "enemyTypes": [
-            "@enemies/beast:giant-spider"
+            "@enemies/beasts/reptiles:Spider"
           ],
           "rewards": [
             "@items/materials:*",
@@ -75,7 +75,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "6-12",
           "enemyTypes": [
-            "@enemies/undead:*"
+            "@enemies/undead/zombies:*"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -93,8 +93,8 @@
           "locationType": "dungeon",
           "recommendedLevel": "7-13",
           "enemyTypes": [
-            "@enemies/undead:*",
-            "@enemies/demons:*"
+            "@enemies/undead/zombies:*",
+            "@enemies/demons/lesser_demons:*"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -112,8 +112,8 @@
           "locationType": "dungeon",
           "recommendedLevel": "6-12",
           "enemyTypes": [
-            "@enemies/beasts:*",
-            "@enemies/humanoid:troll"
+            "@enemies/beasts/wolves:*",
+            "@enemies/trolls/common_trolls:Troll"
           ],
           "rewards": [
             "@items/materials:*",
@@ -130,8 +130,8 @@
           "locationType": "dungeon",
           "recommendedLevel": "6-11",
           "enemyTypes": [
-            "@enemies/beasts:*",
-            "@enemies/beast:giant-spider"
+            "@enemies/beasts/wolves:*",
+            "@enemies/beasts/reptiles:Spider"
           ],
           "rewards": [
             "@items/materials:*",
@@ -148,8 +148,8 @@
           "locationType": "dungeon",
           "recommendedLevel": "5-10",
           "enemyTypes": [
-            "@enemies/goblinoids:*",
-            "@enemies/humanoid:troll"
+            "@enemies/goblinoids/goblins:*",
+            "@enemies/trolls/common_trolls:Troll"
           ],
           "rewards": [
             "@items/materials:*",
@@ -166,8 +166,8 @@
           "locationType": "dungeon",
           "recommendedLevel": "7-12",
           "enemyTypes": [
-            "@enemies/beasts:*",
-            "@enemies/elementals:*"
+            "@enemies/beasts/wolves:*",
+            "@enemies/elementals/fire_elementals:*"
           ],
           "rewards": [
             "@items/materials:*",
@@ -190,8 +190,8 @@
           "locationType": "dungeon",
           "recommendedLevel": "13-18",
           "enemyTypes": [
-            "@enemies/elementals:*",
-            "@enemies/demons:*"
+            "@enemies/elementals/fire_elementals:*",
+            "@enemies/demons/lesser_demons:*"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -209,7 +209,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "13-17",
           "enemyTypes": [
-            "@enemies/undead:*"
+            "@enemies/undead/zombies:*"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -226,7 +226,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "14-18",
           "enemyTypes": [
-            "@enemies/humanoid:orc"
+            "@enemies/orcs/common_orcs:Orc"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -249,8 +249,8 @@
           "locationType": "dungeon",
           "recommendedLevel": "19-25",
           "enemyTypes": [
-            "@enemies/dragons:*",
-            "@enemies/elementals:*"
+            "@enemies/dragons/chromatic:*",
+            "@enemies/elementals/fire_elementals:*"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -268,7 +268,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "18-24",
           "enemyTypes": [
-            "@enemies/undead:*"
+            "@enemies/undead/zombies:*"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -285,7 +285,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "20-26",
           "enemyTypes": [
-            "@enemies/undead:vampire"
+            "@enemies/vampires/true_vampires:Vampire"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -309,7 +309,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "27-35",
           "enemyTypes": [
-            "@enemies/demons:*"
+            "@enemies/demons/lesser_demons:*"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -326,7 +326,7 @@
           "locationType": "dungeon",
           "recommendedLevel": "28-36",
           "enemyTypes": [
-            "@enemies/elementals:*"
+            "@enemies/elementals/fire_elementals:*"
           ],
           "rewards": [
             "@items/weapons:*",
@@ -349,9 +349,9 @@
           "locationType": "dungeon",
           "recommendedLevel": "37-50",
           "enemyTypes": [
-            "@enemies/undead:*",
-            "@enemies/demons:*",
-            "@enemies/dragons:*"
+            "@enemies/undead/zombies:*",
+            "@enemies/demons/lesser_demons:*",
+            "@enemies/dragons/chromatic:*"
           ],
           "rewards": [
             "@items/weapons:*",

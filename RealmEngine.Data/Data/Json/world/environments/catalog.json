@@ -17,8 +17,8 @@
           "precipitation": "Moderate",
           "terrain": "Forest",
           "commonEncounters": [
-            "@enemies/beast:wolf",
-            "@enemies/beast:bear"
+            "@enemies/beasts/wolves:Wolf",
+            "@enemies/beasts/bears:Bear"
           ],
           "resources": [
             "@items/materials:wood",
@@ -36,8 +36,8 @@
           "precipitation": "Low",
           "terrain": "Plains",
           "commonEncounters": [
-            "@enemies/humanoid:bandit",
-            "@enemies/beast:wolf"
+            "@enemies/humanoids/bandits:Bandit",
+            "@enemies/beasts/wolves:Wolf"
           ],
           "resources": [
             "@items/materials:*",
@@ -55,8 +55,8 @@
           "precipitation": "Very Low",
           "terrain": "Desert",
           "commonEncounters": [
-            "@enemies/beast:scorpion",
-            "@enemies/humanoid:bandit"
+            "@enemies/beasts/reptiles:Scorpion",
+            "@enemies/humanoids/bandits:Bandit"
           ],
           "resources": [
             "@items/materials:rare-minerals",
@@ -78,8 +78,8 @@
           "precipitation": "High",
           "terrain": "Mountain",
           "commonEncounters": [
-            "@enemies/humanoid:troll",
-            "@enemies/beast:eagle"
+            "@enemies/trolls/common_trolls:Troll",
+            "@enemies/beasts/wolves:Wolf"
           ],
           "resources": [
             "@items/materials:*",
@@ -101,8 +101,8 @@
           "precipitation": "High",
           "terrain": "Swamp",
           "commonEncounters": [
-            "@enemies/beast:giant-spider",
-            "@enemies/undead:*"
+            "@enemies/beasts/reptiles:Spider",
+            "@enemies/undead/zombies:*"
           ],
           "resources": [
             "@items/materials:poison-gland",
@@ -125,8 +125,8 @@
           "precipitation": "Low",
           "terrain": "Tundra",
           "commonEncounters": [
-            "@enemies/beast:wolf",
-            "@enemies/humanoid:troll"
+            "@enemies/beasts/wolves:Wolf",
+            "@enemies/trolls/common_trolls:Troll"
           ],
           "resources": [
             "@items/materials:ice-shard",
@@ -149,8 +149,8 @@
           "precipitation": "Very High",
           "terrain": "Jungle",
           "commonEncounters": [
-            "@enemies/beasts:*",
-            "@enemies/beast:giant-spider"
+            "@enemies/beasts/wolves:*",
+            "@enemies/beasts/reptiles:Spider"
           ],
           "resources": [
             "@items/materials:*",
@@ -173,8 +173,8 @@
           "precipitation": "None",
           "terrain": "Volcanic",
           "commonEncounters": [
-            "@enemies/elemental:fire",
-            "@enemies/dragons:*"
+            "@enemies/elementals/fire_elementals:Fire Elemental",
+            "@enemies/dragons/chromatic:*"
           ],
           "resources": [
             "@items/materials:obsidian",

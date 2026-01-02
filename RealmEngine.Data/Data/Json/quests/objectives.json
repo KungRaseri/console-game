@@ -64,10 +64,10 @@
           "difficulty": "Hard",
           "objectiveType": "primary",
           "enemy_pool": [
-            "@enemies/humanoid",
-            "@enemies/beast",
-            "@enemies/demon",
-            "@enemies/undead"
+            "@enemies/humanoids/bandits:*",
+            "@enemies/beasts/wolves:*",
+            "@enemies/demons/lesser_demons:*",
+            "@enemies/undead/zombies:*"
           ],
           "rarityFilter": "rare",
           "selectRandom": true
@@ -81,7 +81,7 @@
           "difficulty": "Very Hard",
           "objectiveType": "primary",
           "enemy_pool": [
-            "@enemies/dragon"
+            "@enemies/dragons/chromatic:*"
           ],
           "rarityFilter": "epic",
           "selectRandom": true
@@ -95,7 +95,7 @@
           "difficulty": "Very Hard",
           "objectiveType": "primary",
           "enemy_pool": [
-            "@enemies/undead"
+            "@enemies/undead/zombies:*"
           ],
           "rarityFilter": "epic",
           "selectRandom": true
@@ -186,9 +186,9 @@
           "difficulty": "Hard",
           "objectiveType": "primary",
           "enemy_pool": [
-            "@enemies/demon",
-            "@enemies/elemental",
-            "@enemies/undead"
+            "@enemies/demons/lesser_demons:*",
+            "@enemies/elementals/fire_elementals:*",
+            "@enemies/undead/zombies:*"
           ],
           "rarityFilter": "rare",
           "selectRandom": true
@@ -222,10 +222,10 @@
           "difficulty": "Hard",
           "objectiveType": "primary",
           "enemy_pool": [
-            "@enemies/humanoid",
-            "@enemies/beast",
-            "@enemies/undead",
-            "@enemies/demon"
+            "@enemies/humanoids/bandits:*",
+            "@enemies/beasts/wolves:*",
+            "@enemies/undead/zombies:*",
+            "@enemies/demons/lesser_demons:*"
           ],
           "selectRandom": true
         },
@@ -238,10 +238,10 @@
           "difficulty": "Epic",
           "objectiveType": "primary",
           "enemy_pool": [
-            "@enemies/humanoid",
-            "@enemies/demon",
-            "@enemies/undead",
-            "@enemies/dragon"
+            "@enemies/humanoids/bandits:*",
+            "@enemies/demons/lesser_demons:*",
+            "@enemies/undead/zombies:*",
+            "@enemies/dragons/chromatic:*"
           ],
           "selectRandom": true
         },
@@ -435,11 +435,11 @@
           "bonus": "Legendary item",
           "objectiveType": "secondary",
           "enemy_pool": [
-            "@enemies/humanoid",
-            "@enemies/beast",
-            "@enemies/demon",
-            "@enemies/dragon",
-            "@enemies/undead"
+            "@enemies/humanoids/bandits:*",
+            "@enemies/beasts/wolves:*",
+            "@enemies/demons/lesser_demons:*",
+            "@enemies/dragons/chromatic:*",
+            "@enemies/undead/zombies:*"
           ],
           "rarityFilter": "epic",
           "selectRandom": true
@@ -561,10 +561,10 @@
           "reveal": "Triggered by finding secret evidence",
           "objectiveType": "hidden",
           "enemy_pool": [
-            "@enemies/humanoid",
-            "@enemies/demon",
-            "@enemies/dragon",
-            "@enemies/undead"
+            "@enemies/humanoids/bandits:*",
+            "@enemies/demons/lesser_demons:*",
+            "@enemies/dragons/chromatic:*",
+            "@enemies/undead/zombies:*"
           ],
           "rarityFilter": "legendary",
           "selectRandom": true

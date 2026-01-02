@@ -170,7 +170,7 @@
           "rarityWeight": 6,
           "abilities": [
             "@abilities/active/offensive:bite",
-            "@abilities/passive:carapace"
+            "@abilities/passive/defensive:Chitinous"
           ],
           "abilityUnlocks": {
             "4": [
@@ -261,7 +261,7 @@
           "venomous": true,
           "abilities": [
             "@abilities/active/offensive:sting",
-            "@abilities/passive:flight"
+            "@abilities/passive/mobility:Flight"
           ],
           "abilityUnlocks": {
             "5": [
@@ -288,7 +288,7 @@
           "abilities": [
             "@abilities/active/offensive:sting",
             "@abilities/active/offensive:poison-sting",
-            "@abilities/passive:flight"
+            "@abilities/passive/mobility:Flight"
           ],
           "abilityUnlocks": {
             "7": [
@@ -313,7 +313,7 @@
           "rarityWeight": 12,
           "abilities": [
             "@abilities/active/offensive:bite",
-            "@abilities/passive:flight"
+            "@abilities/passive/mobility:Flight"
           ],
           "abilityUnlocks": {
             "7": [

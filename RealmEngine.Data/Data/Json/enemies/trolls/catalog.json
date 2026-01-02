@@ -44,7 +44,7 @@
           "rarityWeight": 12,
           "abilities": [
             "@abilities/active/offensive:basic-attack",
-            "@abilities/passive:regeneration"
+            "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "10": [
@@ -64,7 +64,7 @@
           "abilities": [
             "@abilities/active/offensive:basic-attack",
             "@abilities/active/offensive:slam",
-            "@abilities/passive:regeneration"
+            "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "12": [
@@ -84,14 +84,14 @@
           "abilities": [
             "@abilities/active/offensive:basic-attack",
             "@abilities/active/offensive:slam",
-            "@abilities/passive:regeneration"
+            "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "13": [
               "@abilities/active/offensive:boulder-toss"
             ],
             "15": [
-              "@abilities/passive:thick-hide"
+              "@abilities/passive/defensive:Thick Hide"
             ]
           }
         },
@@ -107,14 +107,14 @@
           "abilities": [
             "@abilities/active/offensive:basic-attack",
             "@abilities/active/offensive:cleave",
-            "@abilities/passive:regeneration"
+            "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "14": [
               "@abilities/active/offensive:devastating-blow"
             ],
             "16": [
-              "@abilities/passive:battle-hardened"
+              "@abilities/passive:unstoppable"
             ]
           }
         }
@@ -150,7 +150,7 @@
           "vulnerability": "fire",
           "abilities": [
             "@abilities/active/offensive:frost-bolt",
-            "@abilities/passive:regeneration"
+            "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "13": [
@@ -181,7 +181,7 @@
           "immunity": "fire",
           "abilities": [
             "@abilities/active/offensive:fireball",
-            "@abilities/passive:regeneration"
+            "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "13": [
@@ -211,7 +211,7 @@
           "vulnerability": "acid",
           "abilities": [
             "@abilities/active/offensive:poison-bite",
-            "@abilities/passive:regeneration"
+            "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "13": [
@@ -256,8 +256,8 @@
             "@abilities/active/offensive:basic-attack",
             "@abilities/active/offensive:rend",
             "@abilities/active/offensive:devastating-blow",
-            "@abilities/passive:regeneration",
-            "@abilities/passive:thick-hide"
+            "@abilities/passive/defensive:Regeneration",
+            "@abilities/passive/defensive:Thick Hide"
           ],
           "abilityUnlocks": {
             "16": [
@@ -285,7 +285,7 @@
           "abilities": [
             "@abilities/active/offensive:basic-attack",
             "@abilities/active/offensive:cleave",
-            "@abilities/passive:regeneration",
+            "@abilities/passive/defensive:Regeneration",
             "@abilities/active/support:rally"
           ],
           "abilityUnlocks": {
@@ -316,7 +316,7 @@
             "@abilities/active/offensive:basic-attack",
             "@abilities/active/offensive:rend",
             "@abilities/active/offensive:devastating-blow",
-            "@abilities/passive:regeneration",
+            "@abilities/passive/defensive:Regeneration",
             "@abilities/passive:unstoppable"
           ],
           "abilityUnlocks": {

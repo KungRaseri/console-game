@@ -107,7 +107,7 @@
           "description": "Holy warrior combining divine magic with martial prowess",
           "rarityWeight": 75,
           "isSubclass": true,
-          "parentClass": "@classes/cleric_types:priest",
+          "parentClass": "@classes/cleric:Priest",
           "startingStats": {
             "health": 130,
             "mana": 80,
@@ -265,7 +265,7 @@
           "description": "Deadly killer specializing in instant-kill techniques",
           "rarityWeight": 150,
           "isSubclass": true,
-          "parentClass": "@classes/rogues:thief",
+          "parentClass": "@classes/rogue:Thief",
           "startingStats": {
             "health": 70,
             "mana": 60,
@@ -338,7 +338,7 @@
           "description": "Charismatic rogue combining agility with showmanship",
           "rarityWeight": 100,
           "isSubclass": true,
-          "parentClass": "@classes/rogues:thief",
+          "parentClass": "@classes/rogue:Thief",
           "startingStats": {
             "health": 85,
             "mana": 55,
@@ -499,7 +499,7 @@
           "description": "Ranger who commands powerful animal companions in battle",
           "rarityWeight": 100,
           "isSubclass": true,
-          "parentClass": "@classes/rangers:hunter",
+          "parentClass": "@classes/ranger:Hunter",
           "startingStats": {
             "health": 95,
             "mana": 70,
@@ -669,7 +669,7 @@
           "description": "Rage-fueled warrior who sacrifices defense for devastating offense",
           "rarityWeight": 50,
           "isSubclass": true,
-          "parentClass": "@classes/warriors:fighter",
+          "parentClass": "@classes/warrior:Fighter",
           "startingStats": {
             "health": 140,
             "mana": 20,
@@ -741,7 +741,7 @@
           "description": "Heavily armored defender who protects allies",
           "rarityWeight": 35,
           "isSubclass": true,
-          "parentClass": "@classes/warriors:fighter",
+          "parentClass": "@classes/warrior:Fighter",
           "startingStats": {
             "health": 150,
             "mana": 25,
@@ -815,7 +815,7 @@
           "description": "Agile warrior specializing in single-weapon finesse combat",
           "rarityWeight": 75,
           "isSubclass": true,
-          "parentClass": "@classes/warriors:fighter",
+          "parentClass": "@classes/warrior:Fighter",
           "startingStats": {
             "health": 110,
             "mana": 35,
@@ -975,7 +975,7 @@
           "description": "Specialized mage focusing on a single element for devastating power",
           "rarityWeight": 100,
           "isSubclass": true,
-          "parentClass": "@classes/mages:wizard",
+          "parentClass": "@classes/mage:Wizard",
           "startingStats": {
             "health": 55,
             "mana": 170,
@@ -1044,7 +1044,7 @@
           "description": "Dark mage commanding death magic and undead minions",
           "rarityWeight": 250,
           "isSubclass": true,
-          "parentClass": "@classes/mages:wizard",
+          "parentClass": "@classes/mage:Wizard",
           "startingStats": {
             "health": 65,
             "mana": 140,
