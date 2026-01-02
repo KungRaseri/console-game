@@ -14,13 +14,13 @@
           "rarityWeight": 15,
           "description": "Prosperous central kingdom known for trade and agriculture",
           "government": "Constitutional Monarchy",
-          "capital": "@world/locations/towns:GoldenSpire",
+          "capital": "@world/locations/towns/cities:GoldenSpire",
           "population": "Large",
           "economy": "Trade & Agriculture",
           "military": "Professional Army",
           "majorCities": [
-            "@world/locations/towns:Silverport",
-            "@world/locations/towns:Ironforge"
+            "@world/locations/towns/towns:Silverport",
+            "@world/locations/towns/towns:Ironforge"
           ],
           "terrain": [
             "plains",
@@ -57,12 +57,12 @@
           "rarityWeight": 20,
           "description": "Northern mountain kingdom of hardy warriors and miners",
           "government": "Clan Council",
-          "capital": "@world/locations/towns:FrostPeak",
+          "capital": "@world/locations/towns/towns:FrostPeak",
           "population": "Medium",
           "economy": "Mining & Smithing",
           "military": "Clan Warriors",
           "majorCities": [
-            "@world/locations/towns:Ironforge"
+            "@world/locations/towns/towns:Ironforge"
           ],
           "terrain": [
             "mountains",
@@ -96,13 +96,13 @@
           "rarityWeight": 40,
           "description": "Dark empire ruled by necromancers and vampires",
           "government": "Necrocracy",
-          "capital": "@world/locations/dungeons:VampireCastle",
+          "capital": "@world/locations/dungeons/very_hard:VampireCastle",
           "population": "Medium (Undead Majority)",
           "economy": "Plunder & Dark Magic",
           "military": "Undead Legions",
           "majorCities": [
-            "@world/locations/towns:Ravenhollow",
-            "@world/locations/towns:DeadwoodGrove"
+            "@world/locations/towns/towns:Ravenhollow",
+            "@world/locations/towns/cities:DeadwoodGrove"
           ],
           "terrain": [
             "wasteland",
@@ -137,12 +137,12 @@
           "rarityWeight": 25,
           "description": "Ancient forest territories of the elven people",
           "government": "Elder Council",
-          "capital": "@world/locations/towns:Oakshire",
+          "capital": "@world/locations/towns/villages:Oakshire",
           "population": "Small (Elven)",
           "economy": "Herbalism & Crafts",
           "military": "Archer Rangers",
           "majorCities": [
-            "@world/locations/towns:Oakshire"
+            "@world/locations/towns/villages:Oakshire"
           ],
           "terrain": [
             "ancient_forests",
@@ -176,12 +176,12 @@
           "rarityWeight": 22,
           "description": "Federation of desert city-states ruled by merchant princes",
           "government": "Merchant Federation",
-          "capital": "@world/locations/towns:Sandstone",
+          "capital": "@world/locations/towns/towns:Sandstone",
           "population": "Medium",
           "economy": "Trade & Exotic Goods",
           "military": "Mercenary Companies",
           "majorCities": [
-            "@world/locations/towns:Sandstone"
+            "@world/locations/towns/towns:Sandstone"
           ],
           "terrain": [
             "desert",
@@ -212,12 +212,12 @@
           "rarityWeight": 28,
           "description": "Holy lands governed by religious leaders",
           "government": "Theocracy",
-          "capital": "@world/locations/towns:Sanctuary",
+          "capital": "@world/locations/towns/cities:Sanctuary",
           "population": "Medium",
           "economy": "Pilgrimages & Donations",
           "military": "Holy Knights",
           "majorCities": [
-            "@world/locations/towns:Sanctuary"
+            "@world/locations/towns/cities:Sanctuary"
           ],
           "terrain": [
             "hills",
@@ -247,12 +247,12 @@
           "rarityWeight": 35,
           "description": "Floating archipelago ruled by archmages",
           "government": "Magocracy",
-          "capital": "@world/locations/towns:TheNexus",
+          "capital": "@world/locations/towns/towns:TheNexus",
           "population": "Small (Mage Majority)",
           "economy": "Magical Research & Artifacts",
           "military": "Battle Mages",
           "majorCities": [
-            "@world/locations/towns:TheNexus"
+            "@world/locations/towns/towns:TheNexus"
           ],
           "terrain": [
             "floating_islands",
@@ -289,12 +289,12 @@
           "rarityWeight": 30,
           "description": "Lawless coastal region controlled by pirate lords",
           "government": "Pirate Council",
-          "capital": "@world/locations/towns:CrimsonHarbor",
+          "capital": "@world/locations/towns/towns:CrimsonHarbor",
           "population": "Small",
           "economy": "Piracy & Black Market",
           "military": "Pirate Fleets",
           "majorCities": [
-            "@world/locations/towns:CrimsonHarbor"
+            "@world/locations/towns/towns:CrimsonHarbor"
           ],
           "terrain": [
             "coast",
@@ -324,13 +324,13 @@
           "rarityWeight": 18,
           "description": "Scattered settlements on the edge of civilization",
           "government": "Autonomous",
-          "capital": "@world/locations/towns:Crossroads",
+          "capital": "@world/locations/towns/outposts:Crossroads",
           "population": "Tiny",
           "economy": "Subsistence & Trade",
           "military": "Militia",
           "majorCities": [
-            "@world/locations/towns:Crossroads",
-            "@world/locations/towns:Riverside"
+            "@world/locations/towns/outposts:Crossroads",
+            "@world/locations/towns/villages:Riverside"
           ],
           "terrain": [
             "wilderness",
@@ -359,13 +359,13 @@
           "rarityWeight": 32,
           "description": "War-torn region claimed by multiple powers",
           "government": "None (Warzone)",
-          "capital": "@world/locations/towns:Stormhaven",
+          "capital": "@world/locations/towns/towns:Stormhaven",
           "population": "Small (Refugees)",
           "economy": "War Economy",
           "military": "Warlords & Mercenaries",
           "majorCities": [
-            "@world/locations/towns:Stormhaven",
-            "@world/locations/towns:Ashborough"
+            "@world/locations/towns/towns:Stormhaven",
+            "@world/locations/towns/towns:Ashborough"
           ],
           "terrain": [
             "plains",

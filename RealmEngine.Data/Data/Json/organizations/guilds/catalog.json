@@ -13,7 +13,7 @@
           "displayName": "Fighters Guild",
           "rarityWeight": 10,
           "description": "Brotherhood of warriors dedicated to martial excellence",
-          "headquarters": "@world/locations/towns:Stormhaven",
+          "headquarters": "@world/locations/towns/towns:Stormhaven",
           "joinRequirements": {
             "level": 3,
             "strength": 12,
@@ -87,7 +87,7 @@
           "displayName": "Mages Guild",
           "rarityWeight": 15,
           "description": "Prestigious academy of arcane scholars and spellcasters",
-          "headquarters": "@world/locations/towns:TheNexus",
+          "headquarters": "@world/locations/towns/towns:TheNexus",
           "joinRequirements": {
             "level": 5,
             "intelligence": 14,
