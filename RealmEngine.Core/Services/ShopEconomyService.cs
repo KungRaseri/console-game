@@ -341,8 +341,19 @@ public class ShopEconomyService
 /// </summary>
 public class ShopInventory
 {
+    /// <summary>
+    /// Gets or sets the unique identifier of the merchant who owns this shop.
+    /// </summary>
     public string MerchantId { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the display name of the merchant.
+    /// </summary>
     public string MerchantName { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the timestamp of the last inventory refresh.
+    /// </summary>
     public DateTime LastRefresh { get; set; }
 
     /// <summary>
@@ -363,11 +374,27 @@ public class ShopInventory
 
 /// <summary>
 /// Represents an item purchased from the player.
+/// Items decay over 7 days and are then removed from shop inventory.
 /// </summary>
 public class PlayerSoldItem
 {
+    /// <summary>
+    /// Gets or sets the item that was sold by the player.
+    /// </summary>
     public Item Item { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the date when the merchant purchased this item from the player.
+    /// </summary>
     public DateTime PurchaseDate { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the number of days remaining before this item is removed from inventory.
+    /// </summary>
     public int DaysRemaining { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the resale price the merchant is asking for this item.
+    /// </summary>
     public int ResellPrice { get; set; }
 }
