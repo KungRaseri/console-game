@@ -89,7 +89,8 @@ public class HydrationTests
     public async Task Enemy_Should_Not_Hydrate_When_Disabled()
     {
         // Arrange
-        var generator = new EnemyGenerator(_dataCache, _referenceResolver);
+        var mockEnemyLogger = new Mock<ILogger<EnemyGenerator>>();
+        var generator = new EnemyGenerator(_dataCache, _referenceResolver, mockEnemyLogger.Object);
 
         // Act
         var enemy = await generator.GenerateEnemyByNameAsync("beasts", "Wolf", hydrate: false);
@@ -109,7 +110,8 @@ public class HydrationTests
     public async Task Enemy_Hydration_Should_Match_Reference_Ids()
     {
         // Arrange
-        var generator = new EnemyGenerator(_dataCache, _referenceResolver);
+        var mockEnemyLogger = new Mock<ILogger<EnemyGenerator>>();
+        var generator = new EnemyGenerator(_dataCache, _referenceResolver, mockEnemyLogger.Object);
 
         // Act
         var enemy = await generator.GenerateEnemyByNameAsync("beasts", "Wolf", hydrate: true);
@@ -135,7 +137,8 @@ public class HydrationTests
     public async Task Npc_Should_Have_Inventory_Hydrated_By_Default()
     {
         // Arrange
-        var generator = new NpcGenerator(_dataCache, _referenceResolver);
+        var mockNpcLogger = new Mock<ILogger<NpcGenerator>>();
+        var generator = new NpcGenerator(_dataCache, _referenceResolver, mockNpcLogger.Object);
 
         // Act
         var npc = await generator.GenerateNpcByNameAsync("merchants", "General Merchant");
@@ -160,7 +163,8 @@ public class HydrationTests
     public async Task Npc_Should_Not_Hydrate_When_Disabled()
     {
         // Arrange
-        var generator = new NpcGenerator(_dataCache, _referenceResolver);
+        var mockNpcLogger = new Mock<ILogger<NpcGenerator>>();
+        var generator = new NpcGenerator(_dataCache, _referenceResolver, mockNpcLogger.Object);
 
         // Act
         var npc = await generator.GenerateNpcByNameAsync("merchants", "General Merchant", hydrate: false);
@@ -182,7 +186,8 @@ public class HydrationTests
     public async Task Quest_Should_Have_Rewards_Hydrated_By_Default()
     {
         // Arrange
-        var generator = new QuestGenerator(_dataCache, _referenceResolver);
+        var mockQuestLogger = new Mock<ILogger<QuestGenerator>>();
+        var generator = new QuestGenerator(_dataCache, _referenceResolver, mockQuestLogger.Object);
 
         // Act
         var quest = await generator.GenerateQuestByNameAsync("kill", "SlayBeasts");
@@ -207,7 +212,8 @@ public class HydrationTests
     public async Task Quest_Should_Not_Hydrate_When_Disabled()
     {
         // Arrange
-        var generator = new QuestGenerator(_dataCache, _referenceResolver);
+        var mockQuestLogger = new Mock<ILogger<QuestGenerator>>();
+        var generator = new QuestGenerator(_dataCache, _referenceResolver, mockQuestLogger.Object);
 
         // Act
         var quest = await generator.GenerateQuestByNameAsync("kill", "SlayBeasts", hydrate: false);
@@ -230,7 +236,9 @@ public class HydrationTests
     public async Task Item_Should_Have_RequiredItems_Hydrated_By_Default()
     {
         // Arrange
-        var generator = new ItemGenerator(_dataCache, _referenceResolver);
+        var mockItemLogger = new Mock<ILogger<ItemGenerator>>();
+        var mockLoggerFactory = new Mock<ILoggerFactory>();
+        var generator = new ItemGenerator(_dataCache, _referenceResolver, mockItemLogger.Object, mockLoggerFactory.Object);
 
         // Act
         var items = await generator.GenerateItemsAsync("weapons", 5);
@@ -257,7 +265,9 @@ public class HydrationTests
     public async Task Item_Should_Not_Hydrate_When_Disabled()
     {
         // Arrange
-        var generator = new ItemGenerator(_dataCache, _referenceResolver);
+        var mockItemLogger = new Mock<ILogger<ItemGenerator>>();
+        var mockLoggerFactory = new Mock<ILoggerFactory>();
+        var generator = new ItemGenerator(_dataCache, _referenceResolver, mockItemLogger.Object, mockLoggerFactory.Object);
 
         // Act
         var items = await generator.GenerateItemsAsync("weapons", 5, hydrate: false);
