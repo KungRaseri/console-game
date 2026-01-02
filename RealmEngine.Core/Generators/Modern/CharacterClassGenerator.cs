@@ -218,9 +218,8 @@ public class CharacterClassGenerator
         {
             if (reference.StartsWith("@abilities/"))
             {
-                // Extract: active/support:heal from @abilities/active/support:heal
-                var abilityId = reference.Substring("@abilities/".Length);
-                abilityIds.Add(abilityId);
+                // Keep full reference for ReferenceResolverService
+                abilityIds.Add(reference);
             }
             else
             {
