@@ -288,12 +288,19 @@ public class GameDataCache : IDisposable
     /// <summary>
     /// Gets all files in a specific domain
     /// </summary>
-    public IEnumerable<CachedJsonFile> GetFilesByDomain(string domain)
+    /// <param name="domain">Domain name</param>
+    /// <param name="excludeConfigFiles">If true, excludes .cbconfig.json files (default: true)</param>
+    public IEnumerable<CachedJsonFile> GetFilesByDomain(string domain, bool excludeConfigFiles = true)
     {
         if (!_pathsByDomain.TryGetValue(domain, out var paths))
             return Enumerable.Empty<CachedJsonFile>();
 
-        return paths.Select(GetFile).Where(f => f != null)!;
+        IEnumerable<CachedJsonFile> files = paths.Select(GetFile).Where(f => f != null)!;
+        
+        if (excludeConfigFiles)
+            files = files.Where(f => f.FileType != JsonFileType.ConfigFile);
+            
+        return files;
     }
 
     /// <summary>
@@ -348,8 +355,9 @@ public class GameDataCache : IDisposable
     /// </summary>
     /// <param name="domain">Domain name (e.g., 'abilities')</param>
     /// <param name="subdomain">Subdomain name (e.g., 'active')</param>
+    /// <param name="excludeConfigFiles">If true, excludes .cbconfig.json files (default: true)</param>
     /// <returns>Files in the specified domain/subdomain</returns>
-    public IEnumerable<CachedJsonFile> GetFilesBySubdomain(string domain, string subdomain)
+    public IEnumerable<CachedJsonFile> GetFilesBySubdomain(string domain, string subdomain, bool excludeConfigFiles = true)
     {
         if (!_domainHierarchy.TryGetValue(domain, out var subdomains) ||
             !subdomains.TryGetValue(subdomain, out var paths))
@@ -362,7 +370,13 @@ public class GameDataCache : IDisposable
         {
             var file = GetFile(path);
             if (file != null)
+            {
+                // Skip config files if requested (default behavior)
+                if (excludeConfigFiles && file.FileType == JsonFileType.ConfigFile)
+                    continue;
+                    
                 files.Add(file);
+            }
         }
         return files;
     }
@@ -401,48 +415,48 @@ public class GameDataCache : IDisposable
     }
 
     /// <summary>
-    /// Gets all catalog files in a specific domain
+    /// Gets all catalog files in a specific domain (excludes .cbconfig.json automatically)
     /// </summary>
     /// <param name="domain">Domain name (e.g., 'abilities', 'npcs')</param>
     /// <returns>All catalog.json files in the domain</returns>
     public IEnumerable<CachedJsonFile> GetCatalogsByDomain(string domain)
     {
-        return GetFilesByDomain(domain)
+        return GetFilesByDomain(domain, excludeConfigFiles: true)
             .Where(f => f.FileType == JsonFileType.GenericCatalog);
     }
 
     /// <summary>
-    /// Gets all catalog files in a specific domain/subdomain combination
+    /// Gets all catalog files in a specific domain/subdomain combination (excludes .cbconfig.json automatically)
     /// </summary>
     /// <param name="domain">Domain name (e.g., 'abilities')</param>
     /// <param name="subdomain">Subdomain name (e.g., 'active')</param>
     /// <returns>All catalog.json files in the domain/subdomain</returns>
     public IEnumerable<CachedJsonFile> GetCatalogsBySubdomain(string domain, string subdomain)
     {
-        return GetFilesBySubdomain(domain, subdomain)
+        return GetFilesBySubdomain(domain, subdomain, excludeConfigFiles: true)
             .Where(f => f.FileType == JsonFileType.GenericCatalog);
     }
 
     /// <summary>
-    /// Gets all names files in a specific domain
+    /// Gets all names files in a specific domain (excludes .cbconfig.json automatically)
     /// </summary>
     /// <param name="domain">Domain name (e.g., 'abilities', 'npcs')</param>
     /// <returns>All names.json files in the domain</returns>
     public IEnumerable<CachedJsonFile> GetNamesByDomain(string domain)
     {
-        return GetFilesByDomain(domain)
+        return GetFilesByDomain(domain, excludeConfigFiles: true)
             .Where(f => f.FileType == JsonFileType.NamesFile);
     }
 
     /// <summary>
-    /// Gets all names files in a specific domain/subdomain combination
+    /// Gets all names files in a specific domain/subdomain combination (excludes .cbconfig.json automatically)
     /// </summary>
     /// <param name="domain">Domain name (e.g., 'abilities')</param>
     /// <param name="subdomain">Subdomain name (e.g., 'active')</param>
     /// <returns>All names.json files in the domain/subdomain</returns>
     public IEnumerable<CachedJsonFile> GetNamesBySubdomain(string domain, string subdomain)
     {
-        return GetFilesBySubdomain(domain, subdomain)
+        return GetFilesBySubdomain(domain, subdomain, excludeConfigFiles: true)
             .Where(f => f.FileType == JsonFileType.NamesFile);
     }
 

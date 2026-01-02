@@ -185,7 +185,43 @@ public class GameDataCacheDomainHierarchyTests : IDisposable
 
         // Assert
         hasAnyFiles.Should().BeTrue("we should find game data files");
-        hasCbconfigFiles.Should().BeFalse(".cbconfig.json files should be excluded from hierarchy");
+        hasCbconfigFiles.Should().BeFalse(".cbconfig.json files should be excluded from hierarchy by default");
+    }
+
+    [Fact]
+    public void GetFilesByDomain_Should_Exclude_ConfigFiles_By_Default()
+    {
+        // Act
+        var files = _cache.GetFilesByDomain("abilities");
+
+        // Assert
+        files.Should().NotBeEmpty();
+        files.Where(f => f.FileType == JsonFileType.ConfigFile).Should().BeEmpty(".cbconfig.json should be excluded by default");
+    }
+
+    [Fact]
+    public void GetFilesByDomain_Should_Include_ConfigFiles_When_Requested()
+    {
+        // Act
+        var filesWithoutConfig = _cache.GetFilesByDomain("abilities", excludeConfigFiles: true);
+        var filesWithConfig = _cache.GetFilesByDomain("abilities", excludeConfigFiles: false);
+
+        // Assert
+        filesWithConfig.Count().Should().BeGreaterThanOrEqualTo(filesWithoutConfig.Count());
+        
+        // There should be at least one .cbconfig.json in the abilities domain
+        filesWithConfig.Where(f => f.FileType == JsonFileType.ConfigFile).Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public void GetFilesBySubdomain_Should_Exclude_ConfigFiles_By_Default()
+    {
+        // Act
+        var files = _cache.GetFilesBySubdomain("abilities", "active");
+
+        // Assert
+        files.Should().NotBeEmpty();
+        files.Where(f => f.FileType == JsonFileType.ConfigFile).Should().BeEmpty(".cbconfig.json should be excluded by default");
     }
 
     [Fact]

@@ -50,7 +50,7 @@ jobs:
       continue-on-error: false
       
     - name: Run RealmForge.Tests
-      run: dotnet test RealmForge.Tests/RealmForge.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=contentbuilder-tests.trx"
+      run: dotnet test RealmForge.Tests/RealmForge.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=realmforge-tests.trx"
       continue-on-error: true
       
     - name: Publish test results
@@ -107,7 +107,7 @@ jobs:
           Write-Error "RealmEngine.Core.dll not found!"
           exit 1
         }
-        if (-not (Test-Path "package/ContentBuilder/RealmForge.exe")) {
+        if (-not (Test-Path "package/RealmForge/RealmForge.exe")) {
           Write-Error "RealmForge.exe not found!"
           exit 1
         }
@@ -167,7 +167,7 @@ jobs:
         $realmForgeArchive = "RealmForge-$version.zip"
         
         Write-Output "Creating RealmForge archive: $realmForgeArchive"
-        Compress-Archive -Path "package/ContentBuilder/*" -DestinationPath $realmForgeArchive -Force
+        Compress-Archive -Path "package/RealmForge/*" -DestinationPath $realmForgeArchive -Force
         
         $archiveSize = (Get-Item $realmForgeArchive).Length / 1MB
         Write-Output "RealmForge archive size: $([math]::Round($archiveSize, 2)) MB"
@@ -368,7 +368,7 @@ jobs:
         
         ### Requirements
         
-        - .NET 9.0 Runtime (for ContentBuilder)
+        - .NET 9.0 Runtime (for RealmForge)
         - Godot 4.x with C# support (for game integration)
         
         ### Package Contents
