@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
@@ -10,12 +11,14 @@ namespace RealmEngine.Data.Services;
 public class ReferenceResolverService
 {
     private readonly GameDataCache _dataCache;
+    private readonly ILogger<ReferenceResolverService> _logger;
     private static readonly Regex ReferencePattern = new(@"^@(?<domain>[\w-]+)/(?<path>[\w-]+(/[\w-]+)*):(?<item>[\w-*\s]+)(?<filters>\[[^\]]+\])?(?<optional>\?)?(?<property>\.[\w.]+)?$", RegexOptions.Compiled);
     private readonly Random _random = new();
 
-    public ReferenceResolverService(GameDataCache dataCache)
+    public ReferenceResolverService(GameDataCache dataCache, ILogger<ReferenceResolverService> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <summary>
@@ -42,7 +45,7 @@ public class ReferenceResolverService
         var components = ParseReference(reference);
         if (components == null)
         {
-            Console.WriteLine($"Invalid reference syntax: {reference}");
+            _logger.LogWarning("Invalid reference syntax: {Reference}", reference);
             return null;
         }
 
@@ -59,7 +62,7 @@ public class ReferenceResolverService
                 if (components.IsOptional)
                     return null;
                 
-                Console.WriteLine($"Catalog not found for reference: {reference}");
+                _logger.LogWarning("Catalog not found for reference: {Reference} (expected path: {CatalogPath})", reference, catalogPath);
                 return null;
             }
 
@@ -92,7 +95,7 @@ public class ReferenceResolverService
                 if (components.IsOptional)
                     return null;
                 
-                Console.WriteLine($"Item not found: {components.ItemName} in {components.Category}");
+                _logger.LogWarning("Item not found: {ItemName} in {Category} (reference: {Reference})", components.ItemName, components.Category, reference);
                 return null;
             }
 
@@ -106,7 +109,7 @@ public class ReferenceResolverService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error resolving reference {reference}: {ex.Message}");
+            _logger.LogError(ex, "Error resolving reference: {Reference}", reference);
             if (components.IsOptional)
                 return null;
             throw;
@@ -152,7 +155,7 @@ public class ReferenceResolverService
         var components = ParseReference(reference);
         if (components == null)
         {
-            Console.WriteLine($"Invalid reference syntax: {reference}");
+            _logger.LogWarning("Invalid reference syntax: {Reference}", reference);
             return null;
         }
 
@@ -169,7 +172,10 @@ public class ReferenceResolverService
                 if (components.IsOptional)
                     return null;
                 
-                Console.WriteLine($"Catalog not found for reference: {reference}");
+                var expectedPath = string.IsNullOrEmpty(components.Path)
+                    ? $"{components.Domain}/catalog.json"
+                    : $"{components.Domain}/{components.Path}/catalog.json";
+                _logger.LogWarning("Catalog not found for reference: {Reference} (expected path: {CatalogPath})", reference, expectedPath);
                 return null;
             }
 
@@ -197,7 +203,7 @@ public class ReferenceResolverService
                 if (components.IsOptional)
                     return null;
                 
-                Console.WriteLine($"Item not found: {components.ItemName} in {components.Category}");
+                _logger.LogWarning("Item not found: {ItemName} in {Category} (reference: {Reference})", components.ItemName, components.Category, reference);
                 return null;
             }
 
@@ -217,7 +223,7 @@ public class ReferenceResolverService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error resolving reference {reference}: {ex.Message}");
+            _logger.LogError(ex, "Error resolving reference: {Reference}", reference);
             if (components.IsOptional)
                 return null;
             throw;

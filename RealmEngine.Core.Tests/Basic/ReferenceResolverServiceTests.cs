@@ -1,4 +1,6 @@
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using Moq;
 using RealmEngine.Data.Services;
 
 namespace RealmEngine.Core.Tests.Basic;
@@ -13,7 +15,8 @@ public class ReferenceResolverServiceTests
     {
         var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
         _dataCache = new GameDataCache(basePath);
-        _referenceResolver = new ReferenceResolverService(_dataCache);
+        var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
+        _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
     }
 
     [Theory]

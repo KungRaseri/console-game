@@ -254,11 +254,19 @@ public class CharacterClassGenerator
                         {
                             abilities.Add(ability);
                         }
+                        else
+                        {
+                            _logger.LogWarning("Failed to deserialize ability from reference '{AbilityId}' for class '{ClassName}'", refId, characterClass.Name);
+                        }
+                    }
+                    else
+                    {
+                        _logger.LogWarning("Could not resolve ability reference '{AbilityId}' for class '{ClassName}' - item may not exist in catalog", refId, characterClass.Name);
                     }
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogWarning(ex, "Failed to resolve starting ability '{AbilityId}'", refId);
+                    _logger.LogError(ex, "Exception resolving starting ability '{AbilityId}' for class '{ClassName}'", refId, characterClass.Name);
                 }
             }
             characterClass.StartingAbilities = abilities;
@@ -280,11 +288,19 @@ public class CharacterClassGenerator
                         {
                             equipment.Add(item);
                         }
+                        else
+                        {
+                            _logger.LogWarning("Failed to deserialize item from reference '{ItemId}' for class '{ClassName}'", refId, characterClass.Name);
+                        }
+                    }
+                    else
+                    {
+                        _logger.LogWarning("Could not resolve equipment reference '{ItemId}' for class '{ClassName}' - item may not exist in catalog", refId, characterClass.Name);
                     }
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogWarning(ex, "Failed to resolve starting equipment '{ItemId}'", refId);
+                    _logger.LogError(ex, "Exception resolving starting equipment '{ItemId}' for class '{ClassName}'", refId, characterClass.Name);
                 }
             }
             characterClass.StartingEquipment = equipment;

@@ -22,7 +22,8 @@ public class HydrationTests
     {
         var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
         _dataCache = new GameDataCache(basePath);
-        _referenceResolver = new ReferenceResolverService(_dataCache);
+        var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
+        _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
         _dataCache.LoadAllData();
     }
 

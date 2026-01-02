@@ -1,4 +1,6 @@
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using Moq;
 using RealmEngine.Core.Generators.Modern;
 using RealmEngine.Data.Services;
 using Xunit;
@@ -16,7 +18,8 @@ public class OrganizationGeneratorTests
     {
         var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
         _dataCache = new GameDataCache(basePath);
-        _referenceResolver = new ReferenceResolverService(_dataCache);
+        var mockLogger = new Mock<ILogger<ReferenceResolverService>>();
+        _referenceResolver = new ReferenceResolverService(_dataCache, mockLogger.Object);
         _generator = new OrganizationGenerator(_dataCache, _referenceResolver);
     }
 
