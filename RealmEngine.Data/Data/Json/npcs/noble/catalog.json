@@ -60,15 +60,15 @@
             "Family Crest Ring",
             "Perfumed Handkerchief"
           ],
-          "dialogueStyle": "@social/dialogue/styles:scholarly",
+          "dialogueStyle": "@social/dialogue/styles/formal:scholarly",
           "greetings": [
-            "@social/dialogue/greetings:noble-formal"
+            "@social/dialogue/greetings/noble:noble-formal"
           ],
           "farewells": [
-            "@social/dialogue/farewells:noble"
+            "@social/dialogue/farewells/noble:noble"
           ],
           "faction": "nobility",
-          "schedule": "@social/schedules:noble"
+          "schedule": "@social/schedules/*:noble"
         },
         {
           "name": "KnightErrant",
@@ -104,15 +104,15 @@
             "Knight's Oath Scroll",
             "Heraldic Banner"
           ],
-          "dialogueStyle": "@social/dialogue/styles:professional",
+          "dialogueStyle": "@social/dialogue/styles/casual:professional",
           "greetings": [
-            "@social/dialogue/greetings:knight-honorable"
+            "@social/dialogue/greetings/noble:knight-honorable"
           ],
           "farewells": [
-            "@social/dialogue/farewells:noble"
+            "@social/dialogue/farewells/noble:noble"
           ],
           "faction": "nobility",
-          "schedule": "@social/schedules:noble"
+          "schedule": "@social/schedules/*:noble"
         },
         {
           "name": "CourtAttendant",
@@ -147,15 +147,15 @@
             "Courtier's Favor",
             "Sealed Letter of Introduction"
           ],
-          "dialogueStyle": "@social/dialogue/styles:scholarly",
+          "dialogueStyle": "@social/dialogue/styles/formal:scholarly",
           "greetings": [
-            "@social/dialogue/greetings:courtier-refined"
+            "@social/dialogue/greetings/noble:courtier-refined"
           ],
           "farewells": [
-            "@social/dialogue/farewells:noble"
+            "@social/dialogue/farewells/noble:noble"
           ],
           "faction": "nobility",
-          "schedule": "@social/schedules:noble"
+          "schedule": "@social/schedules/*:noble"
         }
       ]
     }
@@ -191,15 +191,15 @@
           "baseGold": "10d10",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": "@social/dialogue/styles:scholarly",
+          "dialogueStyle": "@social/dialogue/styles/formal:scholarly",
           "greetings": [
-            "@social/dialogue/greetings:noble-formal"
+            "@social/dialogue/greetings/noble:noble-formal"
           ],
           "farewells": [
-            "@social/dialogue/farewells:noble"
+            "@social/dialogue/farewells/noble:noble"
           ],
           "faction": "nobility",
-          "schedule": "@social/schedules:noble"
+          "schedule": "@social/schedules/*:noble"
         }
       ]
     }

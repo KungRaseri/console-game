@@ -55,15 +55,15 @@
             "Ink-stained Quill",
             "Bound Journal"
           ],
-          "dialogueStyle": "@social/dialogue/styles:scholarly",
+          "dialogueStyle": "@social/dialogue/styles/formal:scholarly",
           "greetings": [
-            "@social/dialogue/greetings:scholarly-formal"
+            "@social/dialogue/greetings/scholarly:scholarly-formal"
           ],
           "farewells": [
-            "@social/dialogue/farewells:scholarly"
+            "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules:scholar"
+          "schedule": "@social/schedules/*:scholar"
         },
         {
           "name": "LoreKeeper",
@@ -97,15 +97,15 @@
             "Ancient Codex",
             "Rune-marked Bookmark"
           ],
-          "dialogueStyle": "@social/dialogue/styles:wise",
+          "dialogueStyle": "@social/dialogue/styles/formal:wise",
           "greetings": [
-            "@social/dialogue/greetings:scholarly-formal"
+            "@social/dialogue/greetings/scholarly:scholarly-formal"
           ],
           "farewells": [
-            "@social/dialogue/farewells:scholarly"
+            "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules:scholar"
+          "schedule": "@social/schedules/*:scholar"
         }
       ]
     },
@@ -150,15 +150,15 @@
           "uniqueItems": [
             "Herbalist's Satchel"
           ],
-          "dialogueStyle": "@social/dialogue/styles:friendly",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:warm-professional"
+            "@social/dialogue/greetings/professional:warm-professional"
           ],
           "farewells": [
-            "@social/dialogue/farewells:caring"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:healer"
+          "schedule": "@social/schedules/*:healer"
         },
         {
           "name": "Alchemist",
@@ -192,15 +192,15 @@
             "Philosopher's Stone Fragment",
             "Alembic Set"
           ],
-          "dialogueStyle": "@social/dialogue/styles:scholarly",
+          "dialogueStyle": "@social/dialogue/styles/formal:scholarly",
           "greetings": [
-            "@social/dialogue/greetings:distracted-scholar"
+            "@social/dialogue/greetings/scholarly:distracted-scholar"
           ],
           "farewells": [
-            "@social/dialogue/farewells:scholarly"
+            "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "mages_circle",
-          "schedule": "@social/schedules:mage"
+          "schedule": "@social/schedules/*:mage"
         }
       ]
     }
@@ -273,15 +273,15 @@
               "bankGoldRestockDaily": true
             }
           },
-          "dialogueStyle": "@social/dialogue/styles:professional",
+          "dialogueStyle": "@social/dialogue/styles/casual:professional",
           "greetings": [
-            "@social/dialogue/greetings:apothecary-clinical"
+            "@social/dialogue/greetings/professional:apothecary-clinical"
           ],
           "farewells": [
-            "@social/dialogue/farewells:professional"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:healer"
+          "schedule": "@social/schedules/*:healer"
         },
         {
           "name": "Healer",
@@ -336,15 +336,15 @@
             "cure_poison",
             "cure_disease"
           ],
-          "dialogueStyle": "@social/dialogue/styles:friendly",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:warm-professional"
+            "@social/dialogue/greetings/professional:warm-professional"
           ],
           "farewells": [
-            "@social/dialogue/farewells:caring"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "clergy",
-          "schedule": "@social/schedules:healer"
+          "schedule": "@social/schedules/*:healer"
         },
         {
           "name": "Herbalist",
@@ -399,15 +399,15 @@
             "potions",
             "remedies"
           ],
-          "dialogueStyle": "@social/dialogue/styles:friendly",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:warm-rural"
+            "@social/dialogue/greetings/professional:warm-rural"
           ],
           "farewells": [
-            "@social/dialogue/farewells:simple"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:healer"
+          "schedule": "@social/schedules/*:healer"
         }
       ]
     },
@@ -478,15 +478,15 @@
             "research",
             "teaching"
           ],
-          "dialogueStyle": "@social/dialogue/styles:scholarly",
+          "dialogueStyle": "@social/dialogue/styles/formal:scholarly",
           "greetings": [
-            "@social/dialogue/greetings:scholarly-formal"
+            "@social/dialogue/greetings/scholarly:scholarly-formal"
           ],
           "farewells": [
-            "@social/dialogue/farewells:scholarly"
+            "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules:scholar"
+          "schedule": "@social/schedules/*:scholar"
         },
         {
           "name": "Sage",
@@ -544,15 +544,15 @@
             "identify",
             "enchant"
           ],
-          "dialogueStyle": "@social/dialogue/styles:wise",
+          "dialogueStyle": "@social/dialogue/styles/formal:wise",
           "greetings": [
-            "@social/dialogue/greetings:scholarly-formal"
+            "@social/dialogue/greetings/scholarly:scholarly-formal"
           ],
           "farewells": [
-            "@social/dialogue/farewells:scholarly"
+            "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules:scholar"
+          "schedule": "@social/schedules/*:scholar"
         },
         {
           "name": "Cartographer",
@@ -606,15 +606,15 @@
             "map_making",
             "directions"
           ],
-          "dialogueStyle": "@social/dialogue/styles:professional",
+          "dialogueStyle": "@social/dialogue/styles/casual:professional",
           "greetings": [
-            "@social/dialogue/greetings:professional-busy"
+            "@social/dialogue/greetings/professional:professional-busy"
           ],
           "farewells": [
-            "@social/dialogue/farewells:professional"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules:scholar"
+          "schedule": "@social/schedules/*:scholar"
         }
       ]
     }

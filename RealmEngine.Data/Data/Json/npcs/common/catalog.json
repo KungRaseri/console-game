@@ -53,7 +53,7 @@
             "tools.farming"
           ],
           "uniqueItems": [],
-          "dialogueStyle": "@social/dialogue/styles:friendly"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         },
         {
           "name": "Laborer",
@@ -82,7 +82,7 @@
             "consumables.food"
           ],
           "uniqueItems": [],
-          "dialogueStyle": "@social/dialogue/styles:grumpy"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         }
       ]
     },
@@ -131,7 +131,7 @@
             "Lucky Coin",
             "Worn Doll"
           ],
-          "dialogueStyle": "@social/dialogue/styles:cautious"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         },
         {
           "name": "Refugee",
@@ -164,7 +164,7 @@
             "Tattered Map",
             "Foreign Keepsake"
           ],
-          "dialogueStyle": "@social/dialogue/styles:cautious"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         },
         {
           "name": "Exile",
@@ -197,7 +197,7 @@
             "Exile's Brand",
             "Homeland Memento"
           ],
-          "dialogueStyle": "@social/dialogue/styles:mysterious"
+          "dialogueStyle": "@social/dialogue/styles/gruff:mysterious"
         },
         {
           "name": "FormerSlave",
@@ -230,7 +230,7 @@
             "Broken Shackles",
             "Freedom Papers"
           ],
-          "dialogueStyle": "@social/dialogue/styles:cautious"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         },
         {
           "name": "FormerGladiator",
@@ -265,7 +265,7 @@
             "Arena Champion's Crown",
             "Freedom Token"
           ],
-          "dialogueStyle": "@social/dialogue/styles:hostile"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         }
       ]
     }
@@ -302,12 +302,12 @@
           "baseGold": "1d10",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": "@social/dialogue/styles:friendly",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:warm-rural"
+            "@social/dialogue/greetings/professional:warm-rural"
           ],
           "farewells": [
-            "@social/dialogue/farewells:simple"
+            "@social/dialogue/farewells/simple:simple"
           ]
         },
         {
@@ -329,12 +329,12 @@
           "baseGold": "1d6",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": "@social/dialogue/styles:professional",
+          "dialogueStyle": "@social/dialogue/styles/casual:professional",
           "greetings": [
-            "@social/dialogue/greetings:simple"
+            "@social/dialogue/greetings/common:peasant-humble"
           ],
           "farewells": [
-            "@social/dialogue/farewells:simple"
+            "@social/dialogue/farewells/simple:simple"
           ]
         },
         {
@@ -356,12 +356,12 @@
           "baseGold": "1d4",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": "@social/dialogue/styles:cautious",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:desperate"
+            "@social/dialogue/greetings/common:peasant-humble"
           ],
           "farewells": [
-            "@social/dialogue/farewells:grateful"
+            "@social/dialogue/farewells/simple:simple"
           ]
         },
         {
@@ -384,12 +384,12 @@
           "baseGold": "1d4",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": "@social/dialogue/styles:cheerful",
+          "dialogueStyle": "@social/dialogue/styles/casual:cheerful",
           "greetings": [
-            "@social/dialogue/greetings:playful"
+            "@social/dialogue/greetings/common:peasant-humble"
           ],
           "farewells": [
-            "@social/dialogue/farewells:quick"
+            "@social/dialogue/farewells/simple:simple"
           ]
         }
       ]

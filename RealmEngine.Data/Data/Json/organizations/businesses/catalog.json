@@ -586,7 +586,7 @@
             "cities"
           ],
           "required_population": 1000,
-          "faction": "@organizations/factions:clergy"
+          "faction": "@organizations/factions/religious:clergy"
         },
         {
           "name": "bank",
@@ -656,7 +656,7 @@
             "cities"
           ],
           "required_population": 5000,
-          "faction": "@organizations/factions:merchants_guild"
+          "faction": "@organizations/factions/trade:merchants_guild"
         }
       ]
     }
@@ -772,7 +772,7 @@
             "cities"
           ],
           "required_population": 10000,
-          "faction": "@organizations/factions:fighters_guild"
+          "faction": "@organizations/factions/military:fighters_guild"
         },
         {
           "name": "gambling_hall",
@@ -828,7 +828,7 @@
             "ports"
           ],
           "required_population": 5000,
-          "faction": "@organizations/factions:thieves_guild",
+          "faction": "@organizations/factions/criminal:thieves_guild",
           "reputation_required": -10
         }
       ]

@@ -59,15 +59,15 @@
             "Battle-worn Shield",
             "Military Medal"
           ],
-          "dialogueStyle": "@social/dialogue/styles:professional",
+          "dialogueStyle": "@social/dialogue/styles/casual:professional",
           "greetings": [
-            "@social/dialogue/greetings:military-formal"
+            "@social/dialogue/greetings/military:military-formal"
           ],
           "farewells": [
-            "@social/dialogue/farewells:military"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "city_guard",
-          "schedule": "@social/schedules:guard"
+          "schedule": "@social/schedules/*:guard"
         },
         {
           "name": "GuardDuty",
@@ -100,15 +100,15 @@
             "Watch Badge",
             "City Guard Tabard"
           ],
-          "dialogueStyle": "@social/dialogue/styles:professional",
+          "dialogueStyle": "@social/dialogue/styles/casual:professional",
           "greetings": [
-            "@social/dialogue/greetings:guard-watchful"
+            "@social/dialogue/greetings/military:guard-watchful"
           ],
           "farewells": [
-            "@social/dialogue/farewells:military"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "city_guard",
-          "schedule": "@social/schedules:guard"
+          "schedule": "@social/schedules/*:guard"
         },
         {
           "name": "FormerMercenary",
@@ -143,15 +143,15 @@
             "Mercenary Contract",
             "Battle Scar"
           ],
-          "dialogueStyle": "@social/dialogue/styles:hostile",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:mercenary-blunt"
+            "@social/dialogue/greetings/military:mercenary-blunt"
           ],
           "farewells": [
-            "@social/dialogue/farewells:curt"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:flexible"
+          "schedule": "@social/schedules/*:flexible"
         }
       ]
     }
@@ -187,15 +187,15 @@
           "baseGold": "2d10",
           "shopType": null,
           "shopChance": 0.0,
-          "dialogueStyle": "@social/dialogue/styles:professional",
+          "dialogueStyle": "@social/dialogue/styles/casual:professional",
           "greetings": [
-            "@social/dialogue/greetings:guard-watchful"
+            "@social/dialogue/greetings/military:guard-watchful"
           ],
           "farewells": [
-            "@social/dialogue/farewells:military"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "city_guard",
-          "schedule": "@social/schedules:guard"
+          "schedule": "@social/schedules/*:guard"
         }
       ]
     }

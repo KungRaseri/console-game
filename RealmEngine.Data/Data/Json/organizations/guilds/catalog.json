@@ -13,7 +13,7 @@
           "displayName": "Fighters Guild",
           "rarityWeight": 10,
           "description": "Brotherhood of warriors dedicated to martial excellence",
-          "headquarters": "@world/locations/towns/towns:Stormhaven",
+          "headquarters": "@world/locations/towns/cities:Stormhaven",
           "joinRequirements": {
             "level": 3,
             "strength": 12,
@@ -87,7 +87,7 @@
           "displayName": "Mages Guild",
           "rarityWeight": 15,
           "description": "Prestigious academy of arcane scholars and spellcasters",
-          "headquarters": "@world/locations/towns/towns:TheNexus",
+          "headquarters": "@world/locations/towns/cities:TheNexus",
           "joinRequirements": {
             "level": 5,
             "intelligence": 14,
@@ -159,7 +159,7 @@
           "displayName": "Merchants Guild",
           "rarityWeight": 8,
           "description": "Powerful trade organization controlling commerce",
-          "headquarters": "@world/locations/towns/towns:Silverport",
+          "headquarters": "@world/locations/towns/cities:Silverport",
           "joinRequirements": {
             "level": 1,
             "charisma": 12,
@@ -375,7 +375,7 @@
           "displayName": "Assassins Guild",
           "rarityWeight": 35,
           "description": "Elite order of professional killers",
-          "headquarters": "@world/locations/dungeons/extreme:ShadowRealm",
+          "headquarters": "@world/locations/dungeons/legendary:ShadowRealm",
           "joinRequirements": {
             "level": 8,
             "dexterity": 15,

@@ -84,15 +84,15 @@
             "drink",
             "rumors"
           ],
-          "dialogueStyle": "@social/dialogue/styles:cheerful",
+          "dialogueStyle": "@social/dialogue/styles/casual:cheerful",
           "greetings": [
-            "@social/dialogue/greetings:innkeeper-welcoming"
+            "@social/dialogue/greetings/service:innkeeper-welcoming"
           ],
           "farewells": [
-            "@social/dialogue/farewells:innkeeper"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:innkeeper"
+          "schedule": "@social/schedules/*:innkeeper"
         },
         {
           "name": "TavernKeeper",
@@ -147,15 +147,15 @@
             "rumors",
             "gambling"
           ],
-          "dialogueStyle": "@social/dialogue/styles:cheerful",
+          "dialogueStyle": "@social/dialogue/styles/casual:cheerful",
           "greetings": [
-            "@social/dialogue/greetings:tavern-rowdy"
+            "@social/dialogue/greetings/service:tavern-rowdy"
           ],
           "farewells": [
-            "@social/dialogue/farewells:innkeeper"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:innkeeper"
+          "schedule": "@social/schedules/*:innkeeper"
         }
       ]
     },
@@ -220,15 +220,15 @@
             "meals",
             "baked_goods"
           ],
-          "dialogueStyle": "@social/dialogue/styles:cheerful",
+          "dialogueStyle": "@social/dialogue/styles/casual:cheerful",
           "greetings": [
-            "@social/dialogue/greetings:cook-busy"
+            "@social/dialogue/greetings/service:cook-busy"
           ],
           "farewells": [
-            "@social/dialogue/farewells:simple"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:cook"
+          "schedule": "@social/schedules/*:cook"
         }
       ]
     },
@@ -296,15 +296,15 @@
             "grooming",
             "horseshoeing"
           ],
-          "dialogueStyle": "@social/dialogue/styles:friendly",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:stable-earthy"
+            "@social/dialogue/greetings/service:stable-earthy"
           ],
           "farewells": [
-            "@social/dialogue/farewells:simple"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:stablemaster"
+          "schedule": "@social/schedules/*:stablemaster"
         }
       ]
     }

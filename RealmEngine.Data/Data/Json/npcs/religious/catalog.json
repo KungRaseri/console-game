@@ -56,15 +56,15 @@
             "Holy Symbol",
             "Prayer Beads"
           ],
-          "dialogueStyle": "@social/dialogue/styles:wise",
+          "dialogueStyle": "@social/dialogue/styles/formal:wise",
           "greetings": [
-            "@social/dialogue/greetings:acolyte-blessed"
+            "@social/dialogue/greetings/religious:acolyte-blessed"
           ],
           "farewells": [
-            "@social/dialogue/farewells:blessed"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "clergy",
-          "schedule": "@social/schedules:priest"
+          "schedule": "@social/schedules/*:priest"
         }
       ]
     }
@@ -105,15 +105,15 @@
             "marriage",
             "funeral"
           ],
-          "dialogueStyle": "@social/dialogue/styles:wise",
+          "dialogueStyle": "@social/dialogue/styles/formal:wise",
           "greetings": [
-            "@social/dialogue/greetings:priest-solemn"
+            "@social/dialogue/greetings/religious:priest-solemn"
           ],
           "farewells": [
-            "@social/dialogue/farewells:blessed"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "clergy",
-          "schedule": "@social/schedules:priest"
+          "schedule": "@social/schedules/*:priest"
         }
       ]
     }

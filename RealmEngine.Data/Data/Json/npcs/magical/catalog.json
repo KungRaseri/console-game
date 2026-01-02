@@ -56,15 +56,15 @@
             "Apprentice's Spellbook",
             "Arcane Focus"
           ],
-          "dialogueStyle": "@social/dialogue/styles:scholarly",
+          "dialogueStyle": "@social/dialogue/styles/formal:scholarly",
           "greetings": [
-            "@social/dialogue/greetings:mage-distracted"
+            "@social/dialogue/greetings/magical:mage-distracted"
           ],
           "farewells": [
-            "@social/dialogue/farewells:scholarly"
+            "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "mages_circle",
-          "schedule": "@social/schedules:mage"
+          "schedule": "@social/schedules/*:mage"
         },
         {
           "name": "HedgeWizard",
@@ -99,15 +99,15 @@
             "Collection of Charms",
             "Handwritten Grimoire"
           ],
-          "dialogueStyle": "@social/dialogue/styles:mysterious",
+          "dialogueStyle": "@social/dialogue/styles/gruff:mysterious",
           "greetings": [
-            "@social/dialogue/greetings:hedge-wizard-cryptic"
+            "@social/dialogue/greetings/magical:hedge-wizard-cryptic"
           ],
           "farewells": [
-            "@social/dialogue/farewells:mysterious"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:mage"
+          "schedule": "@social/schedules/*:mage"
         }
       ]
     }

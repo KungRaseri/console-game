@@ -14,12 +14,12 @@
           "rarityWeight": 15,
           "description": "Prosperous central kingdom known for trade and agriculture",
           "government": "Constitutional Monarchy",
-          "capital": "@world/locations/towns/cities:GoldenSpire",
+          "capital": "@world/locations/towns/capitals:GoldenSpire",
           "population": "Large",
           "economy": "Trade & Agriculture",
           "military": "Professional Army",
           "majorCities": [
-            "@world/locations/towns/towns:Silverport",
+            "@world/locations/towns/cities:Silverport",
             "@world/locations/towns/towns:Ironforge"
           ],
           "terrain": [
@@ -57,7 +57,7 @@
           "rarityWeight": 20,
           "description": "Northern mountain kingdom of hardy warriors and miners",
           "government": "Clan Council",
-          "capital": "@world/locations/towns/towns:FrostPeak",
+          "capital": "@world/locations/towns/villages:FrostPeak",
           "population": "Medium",
           "economy": "Mining & Smithing",
           "military": "Clan Warriors",
@@ -102,7 +102,7 @@
           "military": "Undead Legions",
           "majorCities": [
             "@world/locations/towns/towns:Ravenhollow",
-            "@world/locations/towns/cities:DeadwoodGrove"
+            "@world/locations/towns/special:DeadwoodGrove"
           ],
           "terrain": [
             "wasteland",
@@ -155,7 +155,7 @@
             "mithril"
           ],
           "factions": [
-            "@organizations/factions:mages_circle"
+            "@organizations/factions/magical:mages_circle"
           ],
           "relations": {
             "allies": [
@@ -194,7 +194,7 @@
             "exotic_goods"
           ],
           "factions": [
-            "@organizations/factions:merchants_guild"
+            "@organizations/factions/trade:merchants_guild"
           ],
           "relations": {
             "allies": [],
@@ -247,12 +247,12 @@
           "rarityWeight": 35,
           "description": "Floating archipelago ruled by archmages",
           "government": "Magocracy",
-          "capital": "@world/locations/towns/towns:TheNexus",
+          "capital": "@world/locations/towns/cities:TheNexus",
           "population": "Small (Mage Majority)",
           "economy": "Magical Research & Artifacts",
           "military": "Battle Mages",
           "majorCities": [
-            "@world/locations/towns/towns:TheNexus"
+            "@world/locations/towns/cities:TheNexus"
           ],
           "terrain": [
             "floating_islands",
@@ -342,7 +342,7 @@
             "timber"
           ],
           "factions": [
-            "@organizations/factions:commoners"
+            "@organizations/factions/social:commoners"
           ],
           "relations": {
             "allies": [],
@@ -359,12 +359,12 @@
           "rarityWeight": 32,
           "description": "War-torn region claimed by multiple powers",
           "government": "None (Warzone)",
-          "capital": "@world/locations/towns/towns:Stormhaven",
+          "capital": "@world/locations/towns/cities:Stormhaven",
           "population": "Small (Refugees)",
           "economy": "War Economy",
           "military": "Warlords & Mercenaries",
           "majorCities": [
-            "@world/locations/towns/towns:Stormhaven",
+            "@world/locations/towns/cities:Stormhaven",
             "@world/locations/towns/towns:Ashborough"
           ],
           "terrain": [

@@ -56,15 +56,15 @@
             "Lockpick Set",
             "Concealed Dagger"
           ],
-          "dialogueStyle": "@social/dialogue/styles:cautious",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:criminal-wary"
+            "@social/dialogue/greetings/criminal:criminal-wary"
           ],
           "farewells": [
-            "@social/dialogue/farewells:quick"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "thieves_guild",
-          "schedule": "@social/schedules:criminal"
+          "schedule": "@social/schedules/*:criminal"
         },
         {
           "name": "FormerSpy",
@@ -99,15 +99,15 @@
             "Coded Letter",
             "Disguise Kit"
           ],
-          "dialogueStyle": "@social/dialogue/styles:mysterious",
+          "dialogueStyle": "@social/dialogue/styles/gruff:mysterious",
           "greetings": [
-            "@social/dialogue/greetings:spy-enigmatic"
+            "@social/dialogue/greetings/criminal:spy-enigmatic"
           ],
           "farewells": [
-            "@social/dialogue/farewells:mysterious"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:criminal"
+          "schedule": "@social/schedules/*:criminal"
         },
         {
           "name": "FormerSmuggler",
@@ -141,15 +141,15 @@
             "Hidden Compartment Map",
             "Smuggler's Flask"
           ],
-          "dialogueStyle": "@social/dialogue/styles:greedy",
+          "dialogueStyle": "@social/dialogue/styles/casual:greedy",
           "greetings": [
-            "@social/dialogue/greetings:smuggler-shifty"
+            "@social/dialogue/greetings/criminal:smuggler-shifty"
           ],
           "farewells": [
-            "@social/dialogue/farewells:quick"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "thieves_guild",
-          "schedule": "@social/schedules:criminal"
+          "schedule": "@social/schedules/*:criminal"
         },
         {
           "name": "ReformedThief",
@@ -182,15 +182,15 @@
             "Master Lockpick",
             "Thieves' Cant Codebook"
           ],
-          "dialogueStyle": "@social/dialogue/styles:cautious",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:thief-nervous"
+            "@social/dialogue/greetings/criminal:thief-nervous"
           ],
           "farewells": [
-            "@social/dialogue/farewells:quick"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "thieves_guild",
-          "schedule": "@social/schedules:criminal"
+          "schedule": "@social/schedules/*:criminal"
         },
         {
           "name": "FormerPirate",
@@ -225,15 +225,15 @@
             "Treasure Map Fragment",
             "Skull-and-Crossbones Earring"
           ],
-          "dialogueStyle": "@social/dialogue/styles:hostile",
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
           "greetings": [
-            "@social/dialogue/greetings:pirate-rough"
+            "@social/dialogue/greetings/common:peasant-humble"
           ],
           "farewells": [
-            "@social/dialogue/farewells:curt"
+            "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules:flexible"
+          "schedule": "@social/schedules/*:flexible"
         }
       ]
     }
