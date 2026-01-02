@@ -321,9 +321,11 @@ public class CatalogJsonComplianceTests
         var allReferences = FindAllReferences(json);
 
         // Assert
+        // Pattern allows: @domain/path/category:item where item can have spaces, wildcards in paths, filters, optional ?, and property access
+        // Examples: @abilities/passive/defensive:Thick Hide, @social/schedules/*:merchant, @items/materials:*[filter]
         foreach (var reference in allReferences)
         {
-            reference.Should().MatchRegex(@"^@[\w-]+/([\w-]+/)*[\w-]+:[\w-*]+(\?)?(\.\w+)*$",
+            reference.Should().MatchRegex(@"^@[\w-]+(?:/[\w-*]+)*:(?:[\w-]+(?:\s+[\w-]+)*|\*)(?:\[.*?\])?(?:\?)?(?:\.[\w.]+)?$",
                 $"{catalogPath} - Invalid reference syntax: {reference}");
         }
     }
@@ -400,8 +402,8 @@ public class CatalogJsonComplianceTests
             var capital = region["capital"]?.ToString();
             if (!string.IsNullOrEmpty(capital))
             {
-                // Relaxed - allow any location type (towns, cities, dungeons, wilderness)
-                capital.Should().MatchRegex(@"^@world/locations/[\w-]+:[\w-]+",
+                // Relaxed - allow any location type (towns, cities, dungeons, wilderness) with subcategories
+                capital.Should().MatchRegex(@"^@world/locations/(?:[\w-]+/)*[\w-]+:[\w-]+",
                     $"Region '{region["name"]}' has invalid capital reference: {capital}");
             }
 
@@ -412,7 +414,8 @@ public class CatalogJsonComplianceTests
                 foreach (var faction in factions)
                 {
                     var factionRef = faction.ToString();
-                    factionRef.Should().StartWith("@organizations/factions:",
+                    // Allow subcategories like @organizations/factions/political:nobility
+                    factionRef.Should().MatchRegex(@"^@organizations/factions(?:/[\w-]+)*:[\w-]+",
                         $"Region '{region["name"]}' has invalid faction reference: {factionRef}");
                 }
             }
