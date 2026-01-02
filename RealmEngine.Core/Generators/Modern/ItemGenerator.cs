@@ -377,7 +377,7 @@ public class ItemGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error selecting material: {ex.Message}");
+            _logger.LogError(ex, "Error selecting material");
         }
     }
 
@@ -412,7 +412,7 @@ public class ItemGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating enchantments: {ex.Message}");
+            _logger.LogError(ex, "Error generating enchantments");
         }
     }
 
@@ -447,7 +447,7 @@ public class ItemGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating gem sockets: {ex.Message}");
+            _logger.LogError(ex, "Error generating gem sockets");
         }
     }
 

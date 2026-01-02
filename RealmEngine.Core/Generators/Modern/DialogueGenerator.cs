@@ -71,7 +71,7 @@ public class DialogueGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating dialogue: {ex.Message}");
+            _logger.LogError(ex, "Error generating dialogue");
             return Task.FromResult(new List<DialogueLine>());
         }
     }
