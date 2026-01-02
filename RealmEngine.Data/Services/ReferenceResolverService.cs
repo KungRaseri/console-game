@@ -398,12 +398,32 @@ public class ReferenceResolverService
         
         if (string.IsNullOrEmpty(category))
         {
+            // First try root items array
             var rootItems = catalog["items"] as JArray;
             if (rootItems != null)
             {
                 foreach (var item in rootItems)
                     result.Add(item);
             }
+            
+            // Also check *_types structures for ALL items (when no category specified)
+            foreach (var property in catalog.Children<JProperty>())
+            {
+                if (property.Name != "metadata" && property.Name.EndsWith("_types") && property.Value is JObject typesObj)
+                {
+                    // Get items from ALL subcategories
+                    foreach (var subcategory in typesObj.Children<JProperty>())
+                    {
+                        var items = subcategory.Value["items"] as JArray;
+                        if (items != null)
+                        {
+                            foreach (var item in items)
+                                result.Add(item);
+                        }
+                    }
+                }
+            }
+            
             return result;
         }
 
@@ -425,12 +445,43 @@ public class ReferenceResolverService
             }
         }
 
+        // If no items found for the specific category, return ALL items from ALL subcategories
+        // This handles cases like @items/consumables:* where "consumables" is the path, not a category
+        if (result.Count == 0)
+        {
+            // First try root items array
+            var rootItems = catalog["items"] as JArray;
+            if (rootItems != null)
+            {
+                foreach (var item in rootItems)
+                    result.Add(item);
+            }
+            
+            // Get items from ALL subcategories in *_types structures
+            foreach (var property in catalog.Children<JProperty>())
+            {
+                if (property.Name != "metadata" && property.Name.EndsWith("_types") && property.Value is JObject typesObj)
+                {
+                    foreach (var subcategory in typesObj.Children<JProperty>())
+                    {
+                        var items = subcategory.Value["items"] as JArray;
+                        if (items != null)
+                        {
+                            foreach (var item in items)
+                                result.Add(item);
+                        }
+                    }
+                }
+            }
+        }
+
         return result;
     }
 
     /// <summary>
     /// Applies filters to items array
     /// Format: property=value or property.nested=value or property EXISTS
+    /// Operators: =, !=, &lt;, &lt;=, &gt;, &gt;=
     /// Special: property=true checks if property exists and is truthy (object/array/true)
     /// </summary>
     private JArray ApplyFilters(JArray items, string filters)
@@ -448,12 +499,44 @@ public class ReferenceResolverService
             {
                 var trimmedFilter = filter.Trim();
                 
-                // Check for EXISTS operator (no = sign)
-                var equalIndex = trimmedFilter.IndexOf('=');
+                // Detect operator (>=, <=, !=, =, <, >)
+                string op = "=";
+                int opIndex = -1;
                 
-                if (equalIndex < 0)
+                if (trimmedFilter.Contains(">="))
                 {
-                    // No = sign means check if property exists and is not null/empty
+                    op = ">=";
+                    opIndex = trimmedFilter.IndexOf(">=");
+                }
+                else if (trimmedFilter.Contains("<="))
+                {
+                    op = "<=";
+                    opIndex = trimmedFilter.IndexOf("<=");
+                }
+                else if (trimmedFilter.Contains("!="))
+                {
+                    op = "!=";
+                    opIndex = trimmedFilter.IndexOf("!=");
+                }
+                else if (trimmedFilter.Contains("="))
+                {
+                    op = "=";
+                    opIndex = trimmedFilter.IndexOf("=");
+                }
+                else if (trimmedFilter.Contains(">"))
+                {
+                    op = ">";
+                    opIndex = trimmedFilter.IndexOf(">");
+                }
+                else if (trimmedFilter.Contains("<"))
+                {
+                    op = "<";
+                    opIndex = trimmedFilter.IndexOf("<");
+                }
+                
+                // No operator means existence check
+                if (opIndex < 0)
+                {
                     var actualValue = GetNestedProperty(item, trimmedFilter);
                     if (actualValue == null || actualValue.Type == JTokenType.Null)
                     {
@@ -463,21 +546,19 @@ public class ReferenceResolverService
                     continue;
                 }
                 
-                var propertyPath = trimmedFilter.Substring(0, equalIndex).Trim();
-                var expectedValue = trimmedFilter.Substring(equalIndex + 1).Trim();
+                var propertyPath = trimmedFilter.Substring(0, opIndex).Trim();
+                var expectedValue = trimmedFilter.Substring(opIndex + op.Length).Trim();
                 
                 var actualValue2 = GetNestedProperty(item, propertyPath);
                 
                 // Handle "property=true" as an existence check
-                // If expecting true and property is an object/array, treat as exists check
-                if (expectedValue.ToLower() == "true")
+                if (op == "=" && expectedValue.ToLower() == "true")
                 {
                     if (actualValue2 == null || actualValue2.Type == JTokenType.Null)
                     {
                         matchesAll = false;
                         break;
                     }
-                    // If it's a boolean, check the actual value
                     if (actualValue2.Type == JTokenType.Boolean)
                     {
                         if (!actualValue2.Value<bool>())
@@ -486,21 +567,50 @@ public class ReferenceResolverService
                             break;
                         }
                     }
-                    // Otherwise, any non-null value (object, array, etc.) is considered "true"
                     continue;
                 }
                 
-                // Compare values
+                // Property must exist
                 if (actualValue2 == null)
                 {
                     matchesAll = false;
                     break;
                 }
                 
+                // Handle numeric comparisons
+                if (actualValue2.Type == JTokenType.Integer || actualValue2.Type == JTokenType.Float)
+                {
+                    if (!double.TryParse(expectedValue, out var expectedNum))
+                    {
+                        matchesAll = false;
+                        break;
+                    }
+                    
+                    var actualNum = actualValue2.Value<double>();
+                    
+                    bool matches = op switch
+                    {
+                        "=" => actualNum == expectedNum,
+                        "!=" => actualNum != expectedNum,
+                        ">" => actualNum > expectedNum,
+                        ">=" => actualNum >= expectedNum,
+                        "<" => actualNum < expectedNum,
+                        "<=" => actualNum <= expectedNum,
+                        _ => false
+                    };
+                    
+                    if (!matches)
+                    {
+                        matchesAll = false;
+                        break;
+                    }
+                    continue;
+                }
+                
+                // String/boolean comparisons
                 var actualString = actualValue2.ToString();
                 
-                // Handle boolean comparisons for =false
-                if (expectedValue.ToLower() == "false")
+                if (op == "=" && expectedValue.ToLower() == "false")
                 {
                     if (actualValue2.Type == JTokenType.Boolean)
                     {
@@ -516,7 +626,12 @@ public class ReferenceResolverService
                         break;
                     }
                 }
-                else if (actualString != expectedValue)
+                else if (op == "=" && actualString != expectedValue)
+                {
+                    matchesAll = false;
+                    break;
+                }
+                else if (op == "!=" && actualString == expectedValue)
                 {
                     matchesAll = false;
                     break;

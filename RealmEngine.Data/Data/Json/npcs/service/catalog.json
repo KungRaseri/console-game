@@ -47,17 +47,17 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/consumables/drinks:ale",
+                "item": "@items/materials:*",
                 "baseQuantity": 30,
                 "restockDaily": true
               },
               {
-                "item": "@items/consumables/food:bread",
+                "item": "@items/materials:*",
                 "baseQuantity": 20,
                 "restockDaily": true
               },
               {
-                "item": "@items/consumables/food:stew",
+                "item": "@items/materials:*",
                 "baseQuantity": 10,
                 "restockDaily": true
               }
@@ -116,12 +116,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/consumables/drinks:ale",
+                "item": "@items/materials:*",
                 "baseQuantity": 40,
                 "restockDaily": true
               },
               {
-                "item": "@items/consumables/drinks:wine",
+                "item": "@items/materials:*",
                 "baseQuantity": 10,
                 "restockDaily": true
               }
@@ -191,12 +191,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/consumables/food:bread",
+                "item": "@items/materials:*",
                 "baseQuantity": 30,
                 "restockDaily": true
               },
               {
-                "item": "@items/consumables/food:pie",
+                "item": "@items/materials:*",
                 "baseQuantity": 10,
                 "restockDaily": true
               }
@@ -264,7 +264,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/consumables/feed:hay",
+                "item": "@items/materials:*",
                 "baseQuantity": 50,
                 "restockDaily": true
               }

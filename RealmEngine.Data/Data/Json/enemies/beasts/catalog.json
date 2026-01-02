@@ -9,7 +9,7 @@
     "usage": "Provides base enemy types for pattern generation",
     "notes": [
       "Base catalog of beasts with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
-      "Abilities use JSON Reference System v4.1 (@abilities/category:name)",
+      "Abilities use JSON Reference System v4.1 (@abilities/active/offensive:*)",
       "Level-based ability unlocks provide enemy progression"
     ]
   },
@@ -39,14 +39,14 @@
           "xp": 50,
           "rarityWeight": 5,
           "abilities": [
-            "@abilities/active/offensive:bite"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/support:pack-tactics"
+              "@abilities/active/support:*"
             ],
             "7": [
-              "@abilities/active/support:howl"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -60,15 +60,15 @@
           "xp": 75,
           "rarityWeight": 8,
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/support:pack-tactics"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/offensive:pounce"
+              "@abilities/active/offensive:*"
             ],
             "9": [
-              "@abilities/active/support:coordinated-attack"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -82,16 +82,16 @@
           "xp": 100,
           "rarityWeight": 15,
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:frost-bite",
-            "@abilities/active/support:pack-tactics"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/active/offensive:ice-breath"
+              "@abilities/active/offensive:*"
             ],
             "12": [
-              "@abilities/ultimate/ultimate:winter-storm"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -123,15 +123,15 @@
           "xp": 120,
           "rarityWeight": 10,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:maul"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/support:roar"
+              "@abilities/active/support:*"
             ],
             "10": [
-              "@abilities/active/offensive:bear-hug"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -151,15 +151,15 @@
           "xp": 100,
           "rarityWeight": 8,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/offensive:maul"
+              "@abilities/active/offensive:*"
             ],
             "9": [
-              "@abilities/active/support:roar"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -179,13 +179,13 @@
           "xp": 180,
           "rarityWeight": 15,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:maul",
-            "@abilities/active/support:roar"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/offensive:rend"
+              "@abilities/active/offensive:*"
             ],
             "13": [
               "@abilities/passive/defensive:Thick Hide"
@@ -208,19 +208,19 @@
           "xp": 250,
           "rarityWeight": 20,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:maul",
-            "@abilities/active/support:roar"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/active/offensive:earthquake-stomp"
+              "@abilities/active/offensive:*"
             ],
             "15": [
               "@abilities/passive/passive:unstoppable"
             ],
             "18": [
-              "@abilities/ultimate/ultimate:primal-fury"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -251,12 +251,12 @@
           "xp": 140,
           "rarityWeight": 12,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:pounce"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/active/offensive:rake"
+              "@abilities/active/offensive:*"
             ],
             "12": [
               "@abilities/passive/passive:master-tracker"
@@ -279,15 +279,15 @@
           "xp": 110,
           "rarityWeight": 10,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:pounce"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/mobility:stealth"
+              "@abilities/active/mobility:*"
             ],
             "10": [
-              "@abilities/active/offensive:ambush"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -307,13 +307,13 @@
           "xp": 160,
           "rarityWeight": 14,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/support:roar"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/offensive:pounce"
+              "@abilities/active/offensive:*"
             ],
             "13": [
               "@abilities/passive/passive:king-of-beasts"
@@ -347,12 +347,12 @@
           "xp": 60,
           "rarityWeight": 7,
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:poison-bite"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/offensive:constrict"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -372,12 +372,12 @@
           "xp": 200,
           "rarityWeight": 18,
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:grab"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/active/offensive:death-roll"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -397,12 +397,12 @@
           "xp": 80,
           "rarityWeight": 9,
           "abilities": [
-            "@abilities/active/offensive:sting",
-            "@abilities/active/offensive:poison-sting"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/offensive:tail-sweep"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -422,12 +422,12 @@
           "xp": 45,
           "rarityWeight": 5,
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/support:web"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "4": [
-              "@abilities/active/offensive:poison-bite"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -447,12 +447,12 @@
           "xp": 90,
           "rarityWeight": 8,
           "abilities": [
-            "@abilities/active/offensive:gore",
-            "@abilities/active/offensive:charge"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/offensive:trample"
+              "@abilities/active/offensive:*"
             ]
           }
         }

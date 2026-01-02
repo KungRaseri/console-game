@@ -9,7 +9,7 @@
     "usage": "Provides base enemy types for pattern generation",
     "notes": [
       "Base catalog of undead with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
-      "Abilities use JSON Reference System v4.1 (@abilities/category:name)",
+      "Abilities use JSON Reference System v4.1 (@abilities/active/offensive:*)",
       "Level-based ability unlocks provide enemy progression"
     ]
   },
@@ -39,11 +39,11 @@
           "xp": 30,
           "rarityWeight": 5,
           "abilities": [
-            "@abilities/active/offensive:bite"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "4": [
-              "@abilities/active/offensive:grab"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -57,11 +57,11 @@
           "xp": 20,
           "rarityWeight": 3,
           "abilities": [
-            "@abilities/active/offensive:basic-attack"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "3": [
-              "@abilities/active/offensive:bite"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -75,15 +75,15 @@
           "xp": 60,
           "rarityWeight": 10,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "6": [
-              "@abilities/active/offensive:paralysis-touch"
+              "@abilities/active/offensive:*"
             ],
             "8": [
-              "@abilities/active/offensive:disease-cloud"
+              "@abilities/active/offensive:*"
             ]
           }
         }
@@ -115,14 +115,14 @@
           "xp": 45,
           "rarityWeight": 6,
           "abilities": [
-            "@abilities/active/offensive:basic-attack"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/defensive:bone-shield"
+              "@abilities/active/defensive:*"
             ],
             "7": [
-              "@abilities/active/offensive:power-strike"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -142,15 +142,15 @@
           "xp": 75,
           "rarityWeight": 12,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:paralysis-touch"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/offensive:disease-cloud"
+              "@abilities/active/offensive:*"
             ],
             "10": [
-              "@abilities/active/offensive:necrotic-burst"
+              "@abilities/active/offensive:*"
             ]
           }
         }
@@ -184,18 +184,18 @@
           "xp": 140,
           "rarityWeight": 20,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/utility:phase"
+            "@abilities/active/offensive:*",
+            "@abilities/active/utility:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/offensive:life-steal"
+              "@abilities/active/offensive:*"
             ],
             "12": [
-              "@abilities/active/offensive:soul-rend"
+              "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:death-incarnate"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -215,15 +215,15 @@
           "xp": 110,
           "rarityWeight": 18,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/utility:phase"
+            "@abilities/active/offensive:*",
+            "@abilities/active/utility:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/offensive:possession"
+              "@abilities/active/offensive:*"
             ],
             "10": [
-              "@abilities/active/offensive:terror-scream"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -243,15 +243,15 @@
           "xp": 90,
           "rarityWeight": 15,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/utility:phase"
+            "@abilities/active/offensive:*",
+            "@abilities/active/utility:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/offensive:spectral-touch"
+              "@abilities/active/offensive:*"
             ],
             "9": [
-              "@abilities/active/utility:invisibility"
+              "@abilities/active/utility:*"
             ]
           }
         },
@@ -271,14 +271,14 @@
           "xp": 70,
           "rarityWeight": 12,
           "abilities": [
-            "@abilities/active/offensive:drain-life"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "6": [
-              "@abilities/active/utility:phase"
+              "@abilities/active/utility:*"
             ],
             "8": [
-              "@abilities/active/mobility:shadow-step"
+              "@abilities/active/mobility:*"
             ]
           }
         },
@@ -298,15 +298,15 @@
           "xp": 200,
           "rarityWeight": 30,
           "abilities": [
-            "@abilities/active/offensive:banshee-wail",
-            "@abilities/active/utility:phase"
+            "@abilities/active/offensive:*",
+            "@abilities/active/utility:*"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/active/offensive:death-song"
+              "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:soul-reaver"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -340,18 +340,18 @@
           "xp": 180,
           "rarityWeight": 25,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:drain-life"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/offensive:life-steal"
+              "@abilities/active/offensive:*"
             ],
             "13": [
-              "@abilities/active/summon:summon-skeleton"
+              "@abilities/active/summon:*"
             ],
             "15": [
-              "@abilities/active/offensive:death-bolt"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -371,19 +371,19 @@
           "xp": 250,
           "rarityWeight": 35,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:vengeful-strike",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
             "@abilities/passive/passive:unstoppable"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/active/offensive:execute"
+              "@abilities/active/offensive:*"
             ],
             "16": [
-              "@abilities/active/support:undying-rage"
+              "@abilities/active/support:*"
             ],
             "20": [
-              "@abilities/ultimate/ultimate:eternal-vengeance"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -403,18 +403,18 @@
           "xp": 220,
           "rarityWeight": 28,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:mummy-rot"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/active/offensive:curse-of-ages"
+              "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/active/summon:summon-scarabs"
+              "@abilities/active/summon:*"
             ],
             "18": [
-              "@abilities/ultimate/ultimate:plague-lord"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -434,20 +434,20 @@
           "xp": 500,
           "rarityWeight": 80,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/offensive:death-bolt",
-            "@abilities/active/summon:summon-skeleton",
-            "@abilities/active/support:lich-form"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/summon:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/active/offensive:death-and-decay"
+              "@abilities/active/offensive:*"
             ],
             "20": [
-              "@abilities/active/summon:army-of-the-dead"
+              "@abilities/active/summon:*"
             ],
             "25": [
-              "@abilities/ultimate/ultimate:death-lord"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }

@@ -21,7 +21,7 @@
             "@enemies/beasts/bears:Bear"
           ],
           "resources": [
-            "@items/materials:wood",
+            "@items/materials:*",
             "@items/materials:*"
           ],
           "travelDifficulty": "Easy",
@@ -41,7 +41,7 @@
           ],
           "resources": [
             "@items/materials:*",
-            "@items/consumables:wild-game"
+            "@items/consumables:*"
           ],
           "travelDifficulty": "Easy",
           "visibility": "High"
@@ -59,8 +59,8 @@
             "@enemies/humanoids/bandits:Bandit"
           ],
           "resources": [
-            "@items/materials:rare-minerals",
-            "@items/materials:sand-glass"
+            "@items/materials:*",
+            "@items/materials:*"
           ],
           "travelDifficulty": "Hard",
           "visibility": "High",
@@ -83,7 +83,7 @@
           ],
           "resources": [
             "@items/materials:*",
-            "@items/materials:gems"
+            "@items/materials:*"
           ],
           "travelDifficulty": "Very Hard",
           "visibility": "Medium",
@@ -105,7 +105,7 @@
             "@enemies/undead/zombies:*"
           ],
           "resources": [
-            "@items/materials:poison-gland",
+            "@items/materials:*",
             "@items/materials:*"
           ],
           "travelDifficulty": "Hard",
@@ -129,8 +129,8 @@
             "@enemies/trolls/common_trolls:Troll"
           ],
           "resources": [
-            "@items/materials:ice-shard",
-            "@items/materials:frozen-herbs"
+            "@items/materials:*",
+            "@items/materials:*"
           ],
           "travelDifficulty": "Very Hard",
           "visibility": "Medium",
@@ -154,7 +154,7 @@
           ],
           "resources": [
             "@items/materials:*",
-            "@items/materials:monster-parts"
+            "@items/materials:*"
           ],
           "travelDifficulty": "Hard",
           "visibility": "Very Low",
@@ -177,8 +177,8 @@
             "@enemies/dragons/chromatic:*"
           ],
           "resources": [
-            "@items/materials:obsidian",
-            "@items/materials:fire-gems"
+            "@items/materials:*",
+            "@items/materials:*"
           ],
           "travelDifficulty": "Extreme",
           "visibility": "Low",

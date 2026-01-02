@@ -239,12 +239,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/consumables/potions:health-potion",
+                "item": "@items/materials:*",
                 "baseQuantity": 5,
                 "restockDaily": true
               },
               {
-                "item": "@items/consumables/potions:mana-potion",
+                "item": "@items/materials:*",
                 "baseQuantity": 3,
                 "restockDaily": true
               }
@@ -305,12 +305,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/consumables/potions:health-potion",
+                "item": "@items/materials:*",
                 "baseQuantity": 10,
                 "restockDaily": true
               },
               {
-                "item": "@items/consumables/medical:bandages",
+                "item": "@items/materials:*",
                 "baseQuantity": 20,
                 "restockDaily": true
               }
@@ -368,7 +368,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/consumables/herbs:healing-herb",
+                "item": "@items/materials:*",
                 "baseQuantity": 15,
                 "restockDaily": true
               }
@@ -444,7 +444,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/books/common:basic-book",
+                "item": "@items/materials:*",
                 "baseQuantity": 5,
                 "restockDaily": false
               }
@@ -510,7 +510,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/books/rare:ancient-tome",
+                "item": "@items/materials:*",
                 "baseQuantity": 1,
                 "restockDaily": false
               }
@@ -576,7 +576,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/maps/common:local-map",
+                "item": "@items/materials:*",
                 "baseQuantity": 5,
                 "restockDaily": true
               }

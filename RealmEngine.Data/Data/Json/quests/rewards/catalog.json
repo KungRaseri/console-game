@@ -74,7 +74,7 @@
     {
       "name": "potion-bundle",
       "rarityWeight": 40,
-      "itemReference": "@items/consumables/potions:*",
+      "itemReference": "@items/materials:*",
       "quantity": { "min": 3, "max": 10 },
       "description": "Bundle of potions"
     }

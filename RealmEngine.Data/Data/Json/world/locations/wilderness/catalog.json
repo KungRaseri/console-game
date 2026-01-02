@@ -56,8 +56,8 @@
             "@enemies/beasts/wolves:*"
           ],
           "resources": [
-            "@items/consumables:fish",
-            "@items/materials:water-plants"
+            "@items/consumables:*",
+            "@items/materials:*"
           ]
         }
       ]
@@ -99,8 +99,8 @@
             "@enemies/humanoids/bandits:Bandit"
           ],
           "resources": [
-            "@items/materials:sand-glass",
-            "@items/materials:rare-minerals"
+            "@items/materials:*",
+            "@items/materials:*"
           ]
         },
         {
@@ -117,8 +117,8 @@
             "@enemies/elementals/fire_elementals:*"
           ],
           "resources": [
-            "@items/materials:crystals",
-            "@items/materials:gems"
+            "@items/materials:*",
+            "@items/materials:*"
           ]
         },
         {
@@ -135,8 +135,8 @@
             "@enemies/humanoids/bandits:Bandit"
           ],
           "resources": [
-            "@items/materials:shells",
-            "@items/consumables:fish"
+            "@items/materials:*",
+            "@items/consumables:*"
           ]
         },
         {
@@ -155,7 +155,7 @@
           ],
           "resources": [
             "@items/materials:*",
-            "@items/materials:enchanted-wood"
+            "@items/materials:*"
           ]
         }
       ]
@@ -180,7 +180,7 @@
           ],
           "resources": [
             "@items/materials:*",
-            "@items/materials:gems"
+            "@items/materials:*"
           ]
         },
         {
@@ -198,8 +198,8 @@
             "@enemies/elementals/fire_elementals:*"
           ],
           "resources": [
-            "@items/materials:ice-shard",
-            "@items/materials:frozen-herbs"
+            "@items/materials:*",
+            "@items/materials:*"
           ]
         },
         {
@@ -217,7 +217,7 @@
             "@enemies/beasts/wolves:*"
           ],
           "resources": [
-            "@items/materials:poison-gland",
+            "@items/materials:*",
             "@items/materials:*"
           ]
         },
@@ -234,8 +234,8 @@
             "@enemies/undead/zombies:*"
           ],
           "resources": [
-            "@items/weapons:ancient",
-            "@items/armor:ancient"
+            "@items/weapons:*",
+            "@items/armor:*"
           ]
         },
         {
@@ -252,8 +252,8 @@
             "@enemies/elementals/fire_elementals:*"
           ],
           "resources": [
-            "@items/materials:sky-crystals",
-            "@items/materials:rare-metals"
+            "@items/materials:*",
+            "@items/materials:*"
           ]
         },
         {
@@ -271,7 +271,7 @@
           ],
           "resources": [
             "@items/materials:*",
-            "@items/materials:monster-parts"
+            "@items/materials:*"
           ]
         },
         {
@@ -289,8 +289,8 @@
             "@enemies/demons/lesser_demons:*"
           ],
           "resources": [
-            "@items/materials:rift-shards",
-            "@items/materials:rare-minerals"
+            "@items/materials:*",
+            "@items/materials:*"
           ]
         }
       ]
@@ -313,8 +313,8 @@
             "@enemies/dragons/chromatic:*"
           ],
           "resources": [
-            "@items/materials:obsidian",
-            "@items/materials:fire-gems"
+            "@items/materials:*",
+            "@items/materials:*"
           ]
         },
         {
@@ -331,8 +331,8 @@
             "@enemies/demons/lesser_demons:*"
           ],
           "resources": [
-            "@items/materials:cursed-artifacts",
-            "@items/materials:death-essence"
+            "@items/materials:*",
+            "@items/materials:*"
           ]
         },
         {
@@ -350,8 +350,8 @@
             "@enemies/demons/lesser_demons:*"
           ],
           "resources": [
-            "@items/materials:blood-lotus",
-            "@items/materials:poison-gland"
+            "@items/materials:*",
+            "@items/materials:*"
           ]
         }
       ]

@@ -44,11 +44,11 @@
           "xp": 8,
           "rarityWeight": 3,
           "abilities": [
-            "@abilities/active/offensive:backstab"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "2": [
-              "@abilities/active/support:pack-tactics"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -68,12 +68,12 @@
           "xp": 12,
           "rarityWeight": 5,
           "abilities": [
-            "@abilities/active/offensive:backstab",
-            "@abilities/active/mobility:stealth"
+            "@abilities/active/offensive:*",
+            "@abilities/active/mobility:*"
           ],
           "abilityUnlocks": {
             "2": [
-              "@abilities/active/support:pack-tactics"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -93,12 +93,12 @@
           "xp": 18,
           "rarityWeight": 10,
           "abilities": [
-            "@abilities/active/offensive:backstab",
-            "@abilities/active/support:trap"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "3": [
-              "@abilities/active/support:snare"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -118,12 +118,12 @@
           "xp": 30,
           "rarityWeight": 15,
           "abilities": [
-            "@abilities/active/offensive:fireball",
-            "@abilities/active/offensive:magic-missile"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "4": [
-              "@abilities/active/offensive:lightning-bolt"
+              "@abilities/active/offensive:*"
             ]
           }
         }
@@ -156,12 +156,12 @@
           "xp": 60,
           "rarityWeight": 8,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:bite"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/offensive:javelin-throw"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -181,12 +181,12 @@
           "xp": 80,
           "rarityWeight": 12,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:power-strike"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/offensive:cleave"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -206,12 +206,12 @@
           "xp": 95,
           "rarityWeight": 18,
           "abilities": [
-            "@abilities/active/offensive:lightning-bolt",
-            "@abilities/active/support:heal"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/support:bless"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -231,13 +231,13 @@
           "xp": 140,
           "rarityWeight": 35,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
-            "@abilities/active/support:rally"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/ultimate/ultimate:devastating-blow"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -271,13 +271,13 @@
           "xp": 100,
           "rarityWeight": 20,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:poison-bite",
-            "@abilities/active/support:charm"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/offensive:suggestion"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -297,13 +297,13 @@
           "xp": 150,
           "rarityWeight": 32,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:poison-bite",
-            "@abilities/active/support:charm"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/offensive:constrict"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -323,14 +323,14 @@
           "xp": 200,
           "rarityWeight": 50,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:poison-bite",
-            "@abilities/active/offensive:constrict",
-            "@abilities/active/support:charm"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate/ultimate:serpent-lord"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -362,13 +362,13 @@
           "size": "large",
           "damageType": "magical",
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:poison-bite",
-            "@abilities/active/offensive:lightning-bolt"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/active/support:chain-lightning"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -390,12 +390,12 @@
           "size": "medium",
           "damageType": "physical",
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:petrifying-gaze"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/active/offensive:stone-touch"
+              "@abilities/active/offensive:*"
             ]
           }
         }

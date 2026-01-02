@@ -55,7 +55,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/commoners:*",
+            "social_class": "@npcs/common:*",
             "personality": [
               "welcoming",
               "hardworking"
@@ -205,7 +205,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/nobility:*",
+            "social_class": "@npcs/noble:*",
             "personality": [
               "refined",
               "exclusive"
@@ -277,7 +277,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/commoners:*",
+            "social_class": "@npcs/common:*",
             "personality": [
               "gruff",
               "no_nonsense"
@@ -412,7 +412,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/artisans:*",
+            "social_class": "@npcs/craftsmen:*",
             "personality": [
               "refined",
               "perfectionist"
@@ -463,17 +463,17 @@
               {
                 "type": "horse_common",
                 "price": 75,
-                "mount": "@items/mounts:horse"
+                "mount": "@items/materials:*"
               },
               {
                 "type": "horse_war",
                 "price": 400,
-                "mount": "@items/mounts:warhorse"
+                "mount": "@items/materials:*"
               },
               {
                 "type": "pony",
                 "price": 30,
-                "mount": "@items/mounts:pony"
+                "mount": "@items/materials:*"
               }
             ],
             "rentals": [
@@ -496,7 +496,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/commoners:*",
+            "social_class": "@npcs/common:*",
             "personality": [
               "reliable",
               "animal_lover"
@@ -570,7 +570,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/clergy:*",
+            "social_class": "@npcs/religious:*",
             "personality": [
               "pious",
               "compassionate"
@@ -699,7 +699,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/artisans:*",
+            "social_class": "@npcs/craftsmen:*",
             "personality": [
               "dramatic",
               "cultured"
@@ -758,7 +758,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/nobility:*",
+            "social_class": "@npcs/noble:*",
             "personality": [
               "competitive",
               "ruthless"
@@ -812,7 +812,7 @@
           },
           "owner": {
             "type": "random",
-            "social_class": "@npcs/criminals:*",
+            "social_class": "@npcs/criminal:*",
             "personality": [
               "charming",
               "dangerous"

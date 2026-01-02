@@ -42,11 +42,11 @@
           "xp": 40,
           "rarityWeight": 5,
           "abilities": [
-            "@abilities/active/offensive:basic-attack"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "4": [
-              "@abilities/active/offensive:reckless-attack"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -66,12 +66,12 @@
           "xp": 50,
           "rarityWeight": 8,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/support:battle-rage"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/offensive:cleave"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -91,13 +91,13 @@
           "xp": 70,
           "rarityWeight": 12,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
-            "@abilities/active/support:battle-rage"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/offensive:devastating-blow"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -117,16 +117,16 @@
           "xp": 90,
           "rarityWeight": 18,
           "abilities": [
-            "@abilities/active/offensive:reckless-attack",
-            "@abilities/active/support:battle-rage",
-            "@abilities/active/support:bloodlust"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/offensive:whirlwind"
+              "@abilities/active/offensive:*"
             ],
             "10": [
-              "@abilities/ultimate/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -159,13 +159,13 @@
           "xp": 110,
           "rarityWeight": 22,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
-            "@abilities/active/offensive:devastating-blow"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/active/offensive:execute"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -185,13 +185,13 @@
           "xp": 115,
           "rarityWeight": 25,
           "abilities": [
-            "@abilities/active/offensive:fireball",
-            "@abilities/active/offensive:lightning-bolt",
-            "@abilities/active/support:chain-lightning"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/active/offensive:meteor-strike"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -211,14 +211,14 @@
           "xp": 150,
           "rarityWeight": 35,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
-            "@abilities/active/offensive:devastating-blow",
-            "@abilities/active/support:rally"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/ultimate/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -238,18 +238,18 @@
           "xp": 180,
           "rarityWeight": 42,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
-            "@abilities/active/offensive:devastating-blow",
-            "@abilities/active/support:rally",
-            "@abilities/active/support:battle-cry"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:*"
             ],
             "16": [
-              "@abilities/ultimate/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -282,19 +282,19 @@
           "rarityWeight": 65,
           "damageType": "physical",
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
-            "@abilities/active/offensive:devastating-blow",
-            "@abilities/active/offensive:execute",
-            "@abilities/active/support:rally",
-            "@abilities/active/support:battle-cry"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:*"
             ],
             "18": [
-              "@abilities/ultimate/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -315,12 +315,12 @@
           "rarityWeight": 15,
           "damageType": "physical",
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:power-strike"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/offensive:cleave"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -342,16 +342,16 @@
           "damageType": "physical",
           "size": "huge",
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:power-strike",
-            "@abilities/active/support:battle-rage"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/active/offensive:devastating-blow"
+              "@abilities/active/offensive:*"
             ],
             "16": [
-              "@abilities/ultimate/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }

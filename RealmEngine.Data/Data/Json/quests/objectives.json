@@ -152,7 +152,7 @@
           "objectiveType": "primary",
           "npc_pool": [
             "@npcs/noble:*",
-            "@npcs/merchant:*",
+            "@npcs/merchants:*",
             "@npcs/common:*"
           ],
           "selectRandom": true
@@ -267,7 +267,7 @@
           "npc_pool": [
             "@npcs/noble:*",
             "@npcs/military:*",
-            "@npcs/merchant:*"
+            "@npcs/merchants:*"
           ],
           "selectRandom": true
         },
@@ -526,7 +526,7 @@
           "npc_pool": [
             "@npcs/noble:*",
             "@npcs/criminal:*",
-            "@npcs/merchant:*"
+            "@npcs/merchants:*"
           ],
           "selectRandom": true
         }

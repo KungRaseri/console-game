@@ -45,11 +45,11 @@
           "xp": 30,
           "rarityWeight": 5,
           "abilities": [
-            "@abilities/active/offensive:vine-whip"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "3": [
-              "@abilities/active/support:entangle"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -69,12 +69,12 @@
           "xp": 55,
           "rarityWeight": 10,
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/support:entangle"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/offensive:acid-spray"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -94,12 +94,12 @@
           "xp": 75,
           "rarityWeight": 15,
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:grab"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/offensive:crush"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -119,13 +119,13 @@
           "xp": 120,
           "rarityWeight": 25,
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:grab",
-            "@abilities/active/support:entangle"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/active/offensive:devour"
+              "@abilities/active/offensive:*"
             ]
           }
         }
@@ -160,12 +160,12 @@
           "xp": 40,
           "rarityWeight": 6,
           "abilities": [
-            "@abilities/active/offensive:thorn-spray",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Thorny"
           ],
           "abilityUnlocks": {
             "4": [
-              "@abilities/active/support:entangle"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -185,12 +185,12 @@
           "xp": 50,
           "rarityWeight": 10,
           "abilities": [
-            "@abilities/active/offensive:thorn-spray",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Thorny"
           ],
           "abilityUnlocks": {
             "6": [
-              "@abilities/active/support:thorn-barrier"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -210,13 +210,13 @@
           "xp": 110,
           "rarityWeight": 20,
           "abilities": [
-            "@abilities/active/offensive:thorn-spray",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Thorny",
-            "@abilities/active/support:entangle"
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/active/offensive:thorn-volley"
+              "@abilities/active/offensive:*"
             ]
           }
         }
@@ -251,13 +251,13 @@
           "rarityWeight": 28,
           "size": "large",
           "abilities": [
-            "@abilities/active/offensive:slam",
-            "@abilities/active/support:entangle",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
             "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/offensive:engulf"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -278,13 +278,13 @@
           "rarityWeight": 40,
           "size": "huge",
           "abilities": [
-            "@abilities/active/offensive:slam",
-            "@abilities/active/offensive:rock-throw",
-            "@abilities/active/support:animate-trees"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate/ultimate:forest-guardian"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -306,12 +306,12 @@
           "size": "medium",
           "spore_based": true,
           "abilities": [
-            "@abilities/active/offensive:spore-cloud",
-            "@abilities/active/support:hallucination-spores"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/offensive:death-spores"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -332,12 +332,12 @@
           "rarityWeight": 32,
           "size": "huge",
           "abilities": [
-            "@abilities/active/offensive:slam",
-            "@abilities/active/offensive:branch-strike"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/active/support:root-grasp"
+              "@abilities/active/support:*"
             ]
           }
         }
@@ -373,17 +373,17 @@
           "damageType": "physical",
           "rooted": false,
           "abilities": [
-            "@abilities/active/offensive:slam",
-            "@abilities/active/offensive:rock-throw",
-            "@abilities/active/support:animate-trees",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
             "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate/ultimate:forest-guardian"
+              "@abilities/ultimate/ultimate:*"
             ],
             "19": [
-              "@abilities/ultimate/ultimate:natures-wrath"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -405,18 +405,18 @@
           "damageType": "magical",
           "rooted": false,
           "abilities": [
-            "@abilities/active/offensive:slam",
-            "@abilities/active/offensive:rock-throw",
-            "@abilities/active/support:animate-trees",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
             "@abilities/passive/defensive:Regeneration",
             "@abilities/passive/defensive:NaturalArmor"
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate/ultimate:forest-guardian"
+              "@abilities/ultimate/ultimate:*"
             ],
             "21": [
-              "@abilities/ultimate/ultimate:natures-wrath"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }

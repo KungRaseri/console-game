@@ -43,12 +43,12 @@
           "xp": 100,
           "rarityWeight": 15,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/support:charm"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/offensive:blood-magic"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -68,11 +68,11 @@
           "xp": 75,
           "rarityWeight": 10,
           "abilities": [
-            "@abilities/active/offensive:drain-life"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "7": [
-              "@abilities/active/support:charm"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -92,13 +92,13 @@
           "xp": 120,
           "rarityWeight": 20,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/support:charm",
-            "@abilities/active/offensive:blood-magic"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/active/offensive:suggestion"
+              "@abilities/active/offensive:*"
             ]
           }
         }
@@ -135,14 +135,14 @@
           "xp": 180,
           "rarityWeight": 30,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/offensive:blood-magic",
-            "@abilities/active/support:charm",
-            "@abilities/active/mobility:mist-form"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/mobility:*"
           ],
           "abilityUnlocks": {
             "11": [
-              "@abilities/active/offensive:shapeshifting"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -162,14 +162,14 @@
           "xp": 210,
           "rarityWeight": 38,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/offensive:power-strike",
-            "@abilities/active/offensive:blood-magic"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/ultimate/ultimate:vampiric-aura"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -189,14 +189,14 @@
           "xp": 220,
           "rarityWeight": 42,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/offensive:blood-magic",
-            "@abilities/active/offensive:fireball",
-            "@abilities/active/support:charm"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate/ultimate:vampiric-ascension"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -216,15 +216,15 @@
           "xp": 280,
           "rarityWeight": 55,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/offensive:blood-magic",
-            "@abilities/active/support:charm",
-            "@abilities/active/mobility:mist-form",
-            "@abilities/active/offensive:shapeshifting"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/mobility:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate/ultimate:blood-lord"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -262,15 +262,15 @@
           "rarityWeight": 70,
           "damageType": "magical",
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/offensive:blood-magic",
-            "@abilities/active/support:charm",
-            "@abilities/active/mobility:mist-form",
-            "@abilities/active/offensive:shapeshifting"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/mobility:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "17": [
-              "@abilities/ultimate/ultimate:ancient-bloodline"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -291,16 +291,16 @@
           "rarityWeight": 80,
           "damageType": "magical",
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/offensive:blood-magic",
-            "@abilities/active/support:charm",
-            "@abilities/active/mobility:mist-form",
-            "@abilities/active/offensive:shapeshifting",
-            "@abilities/active/support:dominate"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/mobility:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate/ultimate:crimson-throne"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -321,17 +321,17 @@
           "rarityWeight": 100,
           "damageType": "magical",
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/offensive:blood-magic",
-            "@abilities/active/support:charm",
-            "@abilities/active/mobility:mist-form",
-            "@abilities/active/offensive:shapeshifting",
-            "@abilities/active/support:dominate"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/mobility:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "21": [
-              "@abilities/ultimate/ultimate:progenitors-blessing",
-              "@abilities/ultimate/ultimate:blood-god"
+              "@abilities/ultimate/ultimate:*",
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -352,14 +352,14 @@
           "rarityWeight": 65,
           "damageType": "physical",
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/offensive:blood-magic",
-            "@abilities/active/mobility:mist-form",
-            "@abilities/active/offensive:plague-touch"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/mobility:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate/ultimate:shadow-lord"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }

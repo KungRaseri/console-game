@@ -277,7 +277,7 @@
           "reputation": "neutral",
           "description": "Academic institution of learning and research",
           "memberTypes": [
-            "@npcs/professionals:scholar"
+            "@npcs/professionals:*"
           ],
           "allies": [
             "mages_circle",

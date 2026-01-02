@@ -48,17 +48,17 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/consumables/utilities:torch",
+                "item": "@items/materials:*",
                 "baseQuantity": 10,
                 "restockDaily": true
               },
               {
-                "item": "@items/consumables/utilities:rope",
+                "item": "@items/materials:*",
                 "baseQuantity": 5,
                 "restockDaily": true
               },
               {
-                "item": "@items/consumables/food:rations",
+                "item": "@items/materials:*",
                 "baseQuantity": 20,
                 "restockDaily": true
               }

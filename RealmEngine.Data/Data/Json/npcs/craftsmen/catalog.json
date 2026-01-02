@@ -127,16 +127,16 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/weapons/swords:longsword",
+                "item": "@items/weapons:*",
                 "baseQuantity": "infinite"
               },
               {
-                "item": "@items/armor/medium:chainmail",
+                "item": "@items/armor:*",
                 "baseQuantity": 2,
                 "restockDaily": true
               },
               {
-                "item": "@items/weapons/daggers:iron-dagger",
+                "item": "@items/weapons:*",
                 "baseQuantity": 3,
                 "restockDaily": true
               }
@@ -200,11 +200,11 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/weapons/swords:longsword",
+                "item": "@items/weapons:*",
                 "baseQuantity": "infinite"
               },
               {
-                "item": "@items/weapons/swords:greatsword",
+                "item": "@items/weapons:*",
                 "baseQuantity": 1,
                 "restockDaily": true
               }
@@ -265,11 +265,11 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/armor/medium:chainmail",
+                "item": "@items/armor:*",
                 "baseQuantity": "infinite"
               },
               {
-                "item": "@items/armor/heavy:plate-armor",
+                "item": "@items/armor:*",
                 "baseQuantity": 1,
                 "restockDaily": true
               }
@@ -330,12 +330,12 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/ammunition/arrows:basic-arrows",
+                "item": "@items/materials:*",
                 "baseQuantity": 50,
                 "restockDaily": true
               },
               {
-                "item": "@items/weapons/bows:shortbow",
+                "item": "@items/weapons:*",
                 "baseQuantity": 2,
                 "restockDaily": true
               }
@@ -397,7 +397,7 @@
           "shopInventory": {
             "coreItems": [
               {
-                "item": "@items/armor/light:leather-armor",
+                "item": "@items/armor:*",
                 "baseQuantity": 3,
                 "restockDaily": true
               }

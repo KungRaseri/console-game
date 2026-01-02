@@ -9,7 +9,7 @@
     "usage": "Provides base enemy types for pattern generation",
     "notes": [
       "Base catalog of dragons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
-      "Abilities use JSON Reference System v4.1 (@abilities/category:name)",
+      "Abilities use JSON Reference System v4.1 (@abilities/active/offensive:*)",
       "Level-based ability unlocks provide enemy progression",
       "Dragons have breath weapon abilities based on breathType trait"
     ]
@@ -40,19 +40,19 @@
           "breathType": "fire",
           "rarityWeight": 80,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "22": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "25": [
-              "@abilities/active/offensive:tail-sweep"
+              "@abilities/active/offensive:*"
             ],
             "30": [
-              "@abilities/ultimate/ultimate:ancient-power"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -67,19 +67,19 @@
           "breathType": "lightning",
           "rarityWeight": 75,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "22": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "25": [
-              "@abilities/active/offensive:wing-buffet"
+              "@abilities/active/offensive:*"
             ],
             "28": [
-              "@abilities/ultimate/ultimate:storm-fury"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -94,19 +94,19 @@
           "breathType": "poison",
           "rarityWeight": 70,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "20": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "24": [
-              "@abilities/active/offensive:poison-cloud"
+              "@abilities/active/offensive:*"
             ],
             "28": [
-              "@abilities/ultimate/ultimate:plague-bearer"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -121,19 +121,19 @@
           "breathType": "acid",
           "rarityWeight": 68,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "20": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "23": [
-              "@abilities/active/offensive:acid-pool"
+              "@abilities/active/offensive:*"
             ],
             "26": [
-              "@abilities/ultimate/ultimate:corruption-wave"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -148,19 +148,19 @@
           "breathType": "cold",
           "rarityWeight": 65,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "22": [
-              "@abilities/active/offensive:ice-storm"
+              "@abilities/active/offensive:*"
             ],
             "25": [
-              "@abilities/ultimate/ultimate:blizzard"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -192,20 +192,20 @@
           "breathType": "fire",
           "rarityWeight": 100,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath",
-            "@abilities/active/support:bless"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "24": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "26": [
-              "@abilities/active/support:divine-intervention"
+              "@abilities/active/support:*"
             ],
             "30": [
-              "@abilities/ultimate/ultimate:avatar-of-light"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -226,19 +226,19 @@
           "breathType": "cold",
           "rarityWeight": 90,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "23": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "26": [
-              "@abilities/active/offensive:ice-storm"
+              "@abilities/active/offensive:*"
             ],
             "29": [
-              "@abilities/ultimate/ultimate:blizzard"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -259,19 +259,19 @@
           "breathType": "lightning",
           "rarityWeight": 78,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "22": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "25": [
-              "@abilities/active/offensive:lightning-bolt"
+              "@abilities/active/offensive:*"
             ],
             "28": [
-              "@abilities/ultimate/ultimate:storm-fury"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -292,19 +292,19 @@
           "breathType": "acid",
           "rarityWeight": 72,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "20": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "24": [
-              "@abilities/active/offensive:acid-pool"
+              "@abilities/active/offensive:*"
             ],
             "27": [
-              "@abilities/ultimate/ultimate:ancient-power"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -325,19 +325,19 @@
           "breathType": "fire",
           "rarityWeight": 68,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:dragon-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "20": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ],
             "23": [
-              "@abilities/active/offensive:fireball"
+              "@abilities/active/offensive:*"
             ],
             "26": [
-              "@abilities/ultimate/ultimate:ancient-power"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -367,15 +367,15 @@
           "xp": 600,
           "rarityWeight": 30,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/active/offensive:tail-sweep"
+              "@abilities/active/offensive:*"
             ],
             "18": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ]
           }
         },
@@ -395,16 +395,16 @@
           "xp": 800,
           "rarityWeight": 40,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:tail-sweep"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/active/offensive:dragon-breath"
+              "@abilities/active/offensive:*"
             ],
             "19": [
-              "@abilities/active/defensive:frightful-presence"
+              "@abilities/active/defensive:*"
             ]
           }
         },
@@ -424,15 +424,15 @@
           "xp": 550,
           "rarityWeight": 28,
           "abilities": [
-            "@abilities/active/offensive:claw-attack",
-            "@abilities/active/offensive:bite"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/active/offensive:tail-sweep"
+              "@abilities/active/offensive:*"
             ],
             "16": [
-              "@abilities/active/offensive:wing-buffet"
+              "@abilities/active/offensive:*"
             ]
           }
         }

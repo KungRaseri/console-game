@@ -69,8 +69,9 @@ public class ReferenceValidationTests : IDisposable
         if (!Directory.Exists(testDataPath))
             return theoryData;
 
-        // Regex to match @domain/path:item references (item names can contain spaces)
-        var referencePattern = new Regex(@"@[\w-]+(?:/[\w-]+)*:[\w-\s*]+(?:\[.*?\])?(?:\?)?(?:\.[\w.]+)?", RegexOptions.Compiled);
+        // Regex to match @domain/path:item references (item names can contain spaces, but not before delimiters)
+        // Pattern stops at quotes, curly braces, commas, or line breaks to avoid capturing trailing text
+        var referencePattern = new Regex(@"@[\w-]+(?:/[\w-]+)*:(?:[\w-]+(?:\s+[\w-]+)*|\*)(?:\[.*?\])?(?:\?)?(?:\.[\w.]+)?(?=[\s,\""{}]|$)", RegexOptions.Compiled);
 
         // Scan all JSON files
         var jsonFiles = Directory.GetFiles(testDataPath, "*.json", SearchOption.AllDirectories);

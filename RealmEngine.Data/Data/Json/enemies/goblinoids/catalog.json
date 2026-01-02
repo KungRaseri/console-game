@@ -43,11 +43,11 @@
           "xp": 10,
           "rarityWeight": 3,
           "abilities": [
-            "@abilities/active/offensive:backstab"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "2": [
-              "@abilities/active/offensive:sneak-attack"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -67,12 +67,12 @@
           "xp": 15,
           "rarityWeight": 5,
           "abilities": [
-            "@abilities/active/offensive:backstab",
-            "@abilities/active/offensive:sneak-attack"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "3": [
-              "@abilities/active/defensive:evasion"
+              "@abilities/active/defensive:*"
             ]
           }
         },
@@ -92,12 +92,12 @@
           "xp": 25,
           "rarityWeight": 12,
           "abilities": [
-            "@abilities/active/offensive:fireball",
-            "@abilities/active/offensive:lightning-bolt"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "4": [
-              "@abilities/active/support:mana-shield"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -117,12 +117,12 @@
           "xp": 40,
           "rarityWeight": 18,
           "abilities": [
-            "@abilities/active/offensive:backstab",
-            "@abilities/active/support:battle-cry"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/offensive:shadow-step"
+              "@abilities/active/offensive:*"
             ]
           }
         }
@@ -155,11 +155,11 @@
           "xp": 35,
           "rarityWeight": 8,
           "abilities": [
-            "@abilities/active/offensive:basic-attack"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "4": [
-              "@abilities/active/defensive:shield-wall"
+              "@abilities/active/defensive:*"
             ]
           }
         },
@@ -179,12 +179,12 @@
           "xp": 50,
           "rarityWeight": 12,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/defensive:shield-wall"
+            "@abilities/active/offensive:*",
+            "@abilities/active/defensive:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/offensive:cleave"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -204,13 +204,13 @@
           "xp": 80,
           "rarityWeight": 22,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
-            "@abilities/active/support:rally"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/offensive:devastating-blow"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -230,14 +230,14 @@
           "xp": 120,
           "rarityWeight": 35,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
-            "@abilities/active/offensive:devastating-blow",
-            "@abilities/active/support:rally"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/ultimate/ultimate:ragnarok"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -270,12 +270,12 @@
           "xp": 55,
           "rarityWeight": 10,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:backstab"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/offensive:sneak-attack"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -295,13 +295,13 @@
           "xp": 85,
           "rarityWeight": 18,
           "abilities": [
-            "@abilities/active/offensive:backstab",
-            "@abilities/active/offensive:sneak-attack"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "8": [
-              "@abilities/active/offensive:shadow-step",
-              "@abilities/active/offensive:poisoned-blade"
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -321,13 +321,13 @@
           "xp": 130,
           "rarityWeight": 28,
           "abilities": [
-            "@abilities/active/offensive:backstab",
-            "@abilities/active/offensive:sneak-attack",
-            "@abilities/active/offensive:shadow-step"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/ultimate/ultimate:assassinate"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -360,18 +360,18 @@
           "size": "medium",
           "damageType": "physical",
           "abilities": [
-            "@abilities/active/offensive:backstab",
-            "@abilities/active/offensive:sneak-attack",
-            "@abilities/active/offensive:shadow-step",
-            "@abilities/active/support:rally",
-            "@abilities/active/support:battle-cry"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate/ultimate:assassinate"
+              "@abilities/ultimate/ultimate:*"
             ],
             "16": [
-              "@abilities/ultimate/ultimate:death-incarnate"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }

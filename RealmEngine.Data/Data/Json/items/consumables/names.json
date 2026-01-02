@@ -1240,7 +1240,7 @@
       "rarityWeight": 35,
       "materialRef": null,
       "enchantmentSlots": [
-        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=60]" }
+        { "position": "suffix", "reference": "@items/materials:*" }
       ],
       "gemSocketCount": { "min": 0, "max": 0 }
     },
@@ -1256,7 +1256,7 @@
       "rarityWeight": 15,
       "materialRef": null,
       "enchantmentSlots": [
-        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=80]" }
+        { "position": "suffix", "reference": "@items/materials:*" }
       ],
       "gemSocketCount": { "min": 0, "max": 0 }
     },
@@ -1265,7 +1265,7 @@
       "rarityWeight": 8,
       "materialRef": null,
       "enchantmentSlots": [
-        { "position": "suffix", "reference": "@items/enchantments:*[rarityWeight<=120]" }
+        { "position": "suffix", "reference": "@items/materials:*" }
       ],
       "gemSocketCount": { "min": 0, "max": 0 }
     }

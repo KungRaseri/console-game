@@ -41,11 +41,11 @@
           "xp": 40,
           "rarityWeight": 5,
           "abilities": [
-            "@abilities/active/offensive:fireball"
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "3": [
-              "@abilities/active/offensive:fire-blast"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -65,12 +65,12 @@
           "xp": 70,
           "rarityWeight": 12,
           "abilities": [
-            "@abilities/active/offensive:shadow-bolt",
-            "@abilities/active/defensive:shadow-meld"
+            "@abilities/active/offensive:*",
+            "@abilities/active/defensive:*"
           ],
           "abilityUnlocks": {
             "5": [
-              "@abilities/active/offensive:shadow-step"
+              "@abilities/active/offensive:*"
             ]
           }
         }
@@ -105,15 +105,15 @@
           "xp": 200,
           "rarityWeight": 20,
           "abilities": [
-            "@abilities/active/offensive:fireball",
-            "@abilities/active/offensive:fire-blast"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/offensive:hellfire"
+              "@abilities/active/offensive:*"
             ],
             "13": [
-              "@abilities/ultimate/ultimate:inferno"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -133,12 +133,12 @@
           "xp": 300,
           "rarityWeight": 28,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/support:stunning-screech"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/active/offensive:spore-cloud"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -158,12 +158,12 @@
           "xp": 180,
           "rarityWeight": 18,
           "abilities": [
-            "@abilities/active/offensive:bite",
-            "@abilities/active/offensive:fire-breath"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "9": [
-              "@abilities/active/offensive:infernal-charge"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -183,12 +183,12 @@
           "xp": 250,
           "rarityWeight": 25,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:shadow-bolt"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/active/offensive:nightmare-aura"
+              "@abilities/active/offensive:*"
             ]
           }
         }
@@ -226,13 +226,13 @@
           "xp": 230,
           "rarityWeight": 22,
           "abilities": [
-            "@abilities/active/offensive:fireball",
-            "@abilities/active/offensive:fire-blast",
-            "@abilities/active/support:devils-contract"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/active/offensive:hellfire"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -252,12 +252,12 @@
           "xp": 200,
           "rarityWeight": 20,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/support:charm"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/support:ethereal-jaunt"
+              "@abilities/active/support:*"
             ]
           }
         },
@@ -277,12 +277,12 @@
           "xp": 200,
           "rarityWeight": 20,
           "abilities": [
-            "@abilities/active/offensive:drain-life",
-            "@abilities/active/support:charm"
+            "@abilities/active/offensive:*",
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/support:ethereal-jaunt"
+              "@abilities/active/support:*"
             ]
           }
         }
@@ -321,16 +321,16 @@
           "xp": 500,
           "rarityWeight": 40,
           "abilities": [
-            "@abilities/active/offensive:fireball",
-            "@abilities/active/offensive:fire-blast",
-            "@abilities/active/offensive:hellfire"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate/ultimate:inferno"
+              "@abilities/ultimate/ultimate:*"
             ],
             "18": [
-              "@abilities/ultimate/ultimate:demon-lord"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -350,17 +350,17 @@
           "xp": 1200,
           "rarityWeight": 70,
           "abilities": [
-            "@abilities/active/offensive:fireball",
-            "@abilities/active/offensive:hellfire",
-            "@abilities/active/offensive:flame-whip",
-            "@abilities/active/defensive:fire-aura"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/defensive:*"
           ],
           "abilityUnlocks": {
             "19": [
-              "@abilities/ultimate/ultimate:inferno"
+              "@abilities/ultimate/ultimate:*"
             ],
             "22": [
-              "@abilities/ultimate/ultimate:demon-lord"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -380,18 +380,18 @@
           "xp": 1400,
           "rarityWeight": 75,
           "abilities": [
-            "@abilities/active/offensive:fireball",
-            "@abilities/active/offensive:hellfire",
-            "@abilities/active/offensive:meteor-strike",
-            "@abilities/active/defensive:fire-aura"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/defensive:*"
           ],
           "abilityUnlocks": {
             "20": [
-              "@abilities/ultimate/ultimate:inferno",
-              "@abilities/ultimate/ultimate:wish"
+              "@abilities/ultimate/ultimate:*",
+              "@abilities/ultimate/ultimate:*"
             ],
             "23": [
-              "@abilities/ultimate/ultimate:demon-lord"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -411,13 +411,13 @@
           "xp": 1000,
           "rarityWeight": 65,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:multi-attack",
-            "@abilities/active/offensive:parry"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*"
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate/ultimate:blade-storm"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -431,13 +431,13 @@
           "xp": 900,
           "rarityWeight": 60,
           "abilities": [
-            "@abilities/active/offensive:eye-ray",
-            "@abilities/active/offensive:disintegration-ray",
-            "@abilities/active/defensive:antimagic-cone"
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/defensive:*"
           ],
           "abilityUnlocks": {
             "17": [
-              "@abilities/ultimate/ultimate:death-ray"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }

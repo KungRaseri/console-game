@@ -43,12 +43,12 @@
           "xp": 140,
           "rarityWeight": 12,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/active/offensive:rend"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -62,13 +62,13 @@
           "xp": 160,
           "rarityWeight": 18,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:slam",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/active/offensive:earthquake-stomp"
+              "@abilities/active/offensive:*"
             ]
           }
         },
@@ -82,13 +82,13 @@
           "xp": 190,
           "rarityWeight": 25,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:slam",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/active/offensive:boulder-toss"
+              "@abilities/active/offensive:*"
             ],
             "15": [
               "@abilities/passive/defensive:Thick Hide"
@@ -105,13 +105,13 @@
           "xp": 220,
           "rarityWeight": 32,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "14": [
-              "@abilities/active/offensive:devastating-blow"
+              "@abilities/active/offensive:*"
             ],
             "16": [
               "@abilities/passive/passive:unstoppable"
@@ -149,15 +149,15 @@
           "damageType": "cold",
           "vulnerability": "fire",
           "abilities": [
-            "@abilities/active/offensive:frost-bolt",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/active/offensive:ice-breath"
+              "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:blizzard"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -180,15 +180,15 @@
           "vulnerability": "cold",
           "immunity": "fire",
           "abilities": [
-            "@abilities/active/offensive:fireball",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/active/offensive:flame-strike"
+              "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:inferno"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -210,15 +210,15 @@
           "damageType": "poison",
           "vulnerability": "acid",
           "abilities": [
-            "@abilities/active/offensive:poison-bite",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration"
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/active/offensive:poison-cloud"
+              "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:plague-bearer"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
@@ -253,15 +253,15 @@
           "regeneration": true,
           "vulnerability": "fire",
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:rend",
-            "@abilities/active/offensive:devastating-blow",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration",
             "@abilities/passive/defensive:Thick Hide"
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate/ultimate:primal-fury"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -283,14 +283,14 @@
           "damageType": "physical",
           "regeneration": true,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:cleave",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration",
-            "@abilities/active/support:rally"
+            "@abilities/active/support:*"
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         },
@@ -313,18 +313,18 @@
           "regeneration": true,
           "magical": true,
           "abilities": [
-            "@abilities/active/offensive:basic-attack",
-            "@abilities/active/offensive:rend",
-            "@abilities/active/offensive:devastating-blow",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
+            "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration",
             "@abilities/passive/passive:unstoppable"
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate/ultimate:primal-fury"
+              "@abilities/ultimate/ultimate:*"
             ],
             "21": [
-              "@abilities/ultimate/ultimate:avatar-of-war"
+              "@abilities/ultimate/ultimate:*"
             ]
           }
         }
