@@ -10,7 +10,7 @@ public class Enemy : ITraitable
     public string Description { get; set; } = string.Empty;
 
     // Trait system
-    public Dictionary<string, TraitValue> Traits { get; } = new();
+    public Dictionary<string, TraitValue> Traits { get; set; } = new();
 
     // Combat stats
     public int Level { get; set; } = 1;

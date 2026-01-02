@@ -19,5 +19,5 @@ public class NPC : ITraitable
     public List<string> InventoryIds { get; set; } = new();
 
     // Trait system
-    public Dictionary<string, TraitValue> Traits { get; } = new();
+    public Dictionary<string, TraitValue> Traits { get; set; } = new();
 }
