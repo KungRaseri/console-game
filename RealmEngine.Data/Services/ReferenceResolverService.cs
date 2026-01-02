@@ -51,12 +51,43 @@ public class ReferenceResolverService
 
         try
         {
-            // Build the file path for the catalog
-            var catalogPath = string.IsNullOrEmpty(components.Path)
-                ? $"{components.Domain}/catalog.json"
-                : $"{components.Domain}/{components.Path}/catalog.json";
+            // Build catalog paths to try
+            // We need to handle two cases:
+            // 1. Category is a subdirectory: @abilities/active/offensive:item → abilities/active/offensive/catalog.json
+            // 2. Category is in the catalog: @items/weapons/swords:item → items/weapons/catalog.json (swords is category IN the file)
+            
+            CachedJsonFile? catalogFile = null;
+            string catalogPath = "";
+            
+            // Case 1: Try with category as part of path first (for nested structures like abilities)
+            if (!string.IsNullOrEmpty(components.Category))
+            {
+                catalogPath = string.IsNullOrEmpty(components.Path)
+                    ? $"{components.Domain}/{components.Category}/catalog.json"
+                    : $"{components.Domain}/{components.Path}/{components.Category}/catalog.json";
+                
+                catalogFile = _dataCache.GetFile(catalogPath);
+                
+                // Case 2: If not found, try without category in path (category is in the catalog file)
+                if (catalogFile?.JsonData == null)
+                {
+                    catalogPath = string.IsNullOrEmpty(components.Path)
+                        ? $"{components.Domain}/catalog.json"
+                        : $"{components.Domain}/{components.Path}/catalog.json";
+                    
+                    catalogFile = _dataCache.GetFile(catalogPath);
+                }
+            }
+            else
+            {
+                // No category, use path directly
+                catalogPath = string.IsNullOrEmpty(components.Path)
+                    ? $"{components.Domain}/catalog.json"
+                    : $"{components.Domain}/{components.Path}/catalog.json";
+                
+                catalogFile = _dataCache.GetFile(catalogPath);
+            }
 
-            var catalogFile = _dataCache.GetFile(catalogPath);
             if (catalogFile?.JsonData == null)
             {
                 if (components.IsOptional)
@@ -161,21 +192,49 @@ public class ReferenceResolverService
 
         try
         {
-            // Build the file path for the catalog
-            var catalogPath = string.IsNullOrEmpty(components.Path)
-                ? $"{components.Domain}/catalog.json"
-                : $"{components.Domain}/{components.Path}/catalog.json";
+            // Build catalog paths to try
+            // We need to handle two cases:
+            // 1. Category is a subdirectory: @abilities/active/offensive:item → abilities/active/offensive/catalog.json
+            // 2. Category is in the catalog: @items/weapons/swords:item → items/weapons/catalog.json (swords is category IN the file)
+            
+            CachedJsonFile? catalogFile = null;
+            string catalogPath = "";
+            
+            // Case 1: Try with category as part of path first (for nested structures like abilities)
+            if (!string.IsNullOrEmpty(components.Category))
+            {
+                catalogPath = string.IsNullOrEmpty(components.Path)
+                    ? $"{components.Domain}/{components.Category}/catalog.json"
+                    : $"{components.Domain}/{components.Path}/{components.Category}/catalog.json";
+                
+                catalogFile = _dataCache.GetFile(catalogPath);
+                
+                // Case 2: If not found, try without category in path (category is in the catalog file)
+                if (catalogFile?.JsonData == null)
+                {
+                    catalogPath = string.IsNullOrEmpty(components.Path)
+                        ? $"{components.Domain}/catalog.json"
+                        : $"{components.Domain}/{components.Path}/catalog.json";
+                    
+                    catalogFile = _dataCache.GetFile(catalogPath);
+                }
+            }
+            else
+            {
+                // No category, use path directly
+                catalogPath = string.IsNullOrEmpty(components.Path)
+                    ? $"{components.Domain}/catalog.json"
+                    : $"{components.Domain}/{components.Path}/catalog.json";
+                
+                catalogFile = _dataCache.GetFile(catalogPath);
+            }
 
-            var catalogFile = _dataCache.GetFile(catalogPath);
             if (catalogFile?.JsonData == null)
             {
                 if (components.IsOptional)
                     return null;
                 
-                var expectedPath = string.IsNullOrEmpty(components.Path)
-                    ? $"{components.Domain}/catalog.json"
-                    : $"{components.Domain}/{components.Path}/catalog.json";
-                _logger.LogWarning("Catalog not found for reference: {Reference} (expected path: {CatalogPath})", reference, expectedPath);
+                _logger.LogWarning("Catalog not found for reference: {Reference} (expected path: {CatalogPath})", reference, catalogPath);
                 return null;
             }
 

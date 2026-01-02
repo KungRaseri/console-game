@@ -192,18 +192,8 @@ public class EnemyGenerator
                 var resolvedAbilities = new List<string>();
                 foreach (var ability in abilities)
                 {
-                    if (ability.StartsWith("@"))
-                    {
-                        var resolved = await _referenceResolver.ResolveAsync(ability);
-                        if (resolved is string resolvedId)
-                        {
-                            resolvedAbilities.Add(resolvedId);
-                        }
-                    }
-                    else
-                    {
-                        resolvedAbilities.Add(ability);
-                    }
+                    // Keep the reference ID (don't resolve yet - hydration will handle that)
+                    resolvedAbilities.Add(ability);
                 }
                 enemy.AbilityIds = resolvedAbilities;
             }

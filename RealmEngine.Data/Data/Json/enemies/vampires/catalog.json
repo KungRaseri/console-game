@@ -138,7 +138,7 @@
             "@abilities/active/offensive:drain-life",
             "@abilities/active/offensive:blood-magic",
             "@abilities/active/support:charm",
-            "@abilities/active/movement:mist-form"
+            "@abilities/active/mobility:mist-form"
           ],
           "abilityUnlocks": {
             "11": [
@@ -219,7 +219,7 @@
             "@abilities/active/offensive:drain-life",
             "@abilities/active/offensive:blood-magic",
             "@abilities/active/support:charm",
-            "@abilities/active/movement:mist-form",
+            "@abilities/active/mobility:mist-form",
             "@abilities/active/offensive:shapeshifting"
           ],
           "abilityUnlocks": {
@@ -265,7 +265,7 @@
             "@abilities/active/offensive:drain-life",
             "@abilities/active/offensive:blood-magic",
             "@abilities/active/support:charm",
-            "@abilities/active/movement:mist-form",
+            "@abilities/active/mobility:mist-form",
             "@abilities/active/offensive:shapeshifting"
           ],
           "abilityUnlocks": {
@@ -294,7 +294,7 @@
             "@abilities/active/offensive:drain-life",
             "@abilities/active/offensive:blood-magic",
             "@abilities/active/support:charm",
-            "@abilities/active/movement:mist-form",
+            "@abilities/active/mobility:mist-form",
             "@abilities/active/offensive:shapeshifting",
             "@abilities/active/support:dominate"
           ],
@@ -324,7 +324,7 @@
             "@abilities/active/offensive:drain-life",
             "@abilities/active/offensive:blood-magic",
             "@abilities/active/support:charm",
-            "@abilities/active/movement:mist-form",
+            "@abilities/active/mobility:mist-form",
             "@abilities/active/offensive:shapeshifting",
             "@abilities/active/support:dominate"
           ],
@@ -354,7 +354,7 @@
           "abilities": [
             "@abilities/active/offensive:drain-life",
             "@abilities/active/offensive:blood-magic",
-            "@abilities/active/movement:mist-form",
+            "@abilities/active/mobility:mist-form",
             "@abilities/active/offensive:plague-touch"
           ],
           "abilityUnlocks": {

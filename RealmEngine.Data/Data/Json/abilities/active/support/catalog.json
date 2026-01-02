@@ -644,6 +644,35 @@
           }
         },
         {
+          "name": "howl",
+          "displayName": "Howl",
+          "description": "Rallying howl that buffs nearby allies with increased attack and movement speed",
+          "rarityWeight": 15,
+          "cooldown": 30,
+          "traits": {
+            "attackBonus": {
+              "value": 15,
+              "type": "number"
+            },
+            "speedBonus": {
+              "value": 20,
+              "type": "number"
+            },
+            "duration": {
+              "value": 15,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 20,
+              "type": "number"
+            },
+            "targetType": {
+              "value": "allies",
+              "type": "string"
+            }
+          }
+        },
+        {
           "name": "wild-growth",
           "displayName": "Wild Growth",
           "description": "Empowers animal companions with natural magic, increasing their size and power",

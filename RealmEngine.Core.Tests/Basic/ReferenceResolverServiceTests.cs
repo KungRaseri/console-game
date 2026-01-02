@@ -22,6 +22,9 @@ public class ReferenceResolverServiceTests
     [Theory]
     [InlineData("@classes/cleric:Priest")]
     [InlineData("@items/weapons/swords:Longsword")]
+    [InlineData("@abilities/active/offensive:bite")]
+    [InlineData("@abilities/active/support:pack-tactics")]
+    [InlineData("@abilities/active/support:howl")]
     public void Should_Resolve_Valid_References(string reference)
     {
         // Act
