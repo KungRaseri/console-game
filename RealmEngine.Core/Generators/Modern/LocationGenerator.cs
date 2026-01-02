@@ -1,6 +1,7 @@
 using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -12,16 +13,19 @@ public class LocationGenerator
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
+    private readonly ILogger<LocationGenerator> _logger;
 
     /// <summary>
     /// Initializes a new instance of the LocationGenerator class.
     /// </summary>
     /// <param name="dataCache">The game data cache for accessing location catalog files.</param>
     /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
-    public LocationGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    /// <param name="logger">Logger for this generator.</param>
+    public LocationGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<LocationGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
     }
 
@@ -83,7 +87,7 @@ public class LocationGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating locations: {ex.Message}");
+            _logger.LogError(ex, "Error generating locations");
             return new List<Location>();
         }
     }
@@ -133,7 +137,7 @@ public class LocationGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating location by name: {ex.Message}");
+            _logger.LogError(ex, "Error generating location by name");
             return null;
         }
     }
@@ -191,7 +195,7 @@ public class LocationGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error converting location: {ex.Message}");
+            _logger.LogError(ex, "Error converting location");
             return null;
         }
     }
@@ -373,7 +377,7 @@ public class LocationGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve NPC '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve NPC '{RefId}'", refId);
                 }
             }
             location.NpcObjects = npcObjects;
@@ -399,7 +403,7 @@ public class LocationGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve enemy '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve enemy '{RefId}'", refId);
                 }
             }
             location.EnemyObjects = enemyObjects;
@@ -425,7 +429,7 @@ public class LocationGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve loot item '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve loot item '{RefId}'", refId);
                 }
             }
             location.LootObjects = lootObjects;

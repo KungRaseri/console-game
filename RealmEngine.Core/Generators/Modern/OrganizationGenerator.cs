@@ -1,6 +1,7 @@
 using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -12,16 +13,19 @@ public class OrganizationGenerator
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
+    private readonly ILogger<OrganizationGenerator> _logger;
 
     /// <summary>
     /// Initializes a new instance of the OrganizationGenerator class.
     /// </summary>
     /// <param name="dataCache">The game data cache for accessing organization catalog files.</param>
     /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
-    public OrganizationGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    /// <param name="logger">Logger for this generator.</param>
+    public OrganizationGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<OrganizationGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
     }
 
@@ -75,7 +79,7 @@ public class OrganizationGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating organizations: {ex.Message}");
+            _logger.LogError(ex, "Error generating organizations");
             return new List<Organization>();
         }
     }
@@ -117,7 +121,7 @@ public class OrganizationGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating organization by name: {ex.Message}");
+            _logger.LogError(ex, "Error generating organization by name");
             return null;
         }
     }
@@ -232,7 +236,7 @@ public class OrganizationGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error converting organization: {ex.Message}");
+            _logger.LogError(ex, "Error converting organization");
             return null;
         }
     }
@@ -440,7 +444,7 @@ public class OrganizationGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve member NPC '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve member NPC '{RefId}'", refId);
                 }
             }
             organization.MemberObjects = memberObjects;
@@ -466,7 +470,7 @@ public class OrganizationGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve inventory item '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve inventory item '{RefId}'", refId);
                 }
             }
             organization.InventoryObjects = inventoryObjects;

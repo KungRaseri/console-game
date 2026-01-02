@@ -1,6 +1,7 @@
 using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -13,6 +14,8 @@ public class ItemGenerator
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
+    private readonly ILogger<ItemGenerator> _logger;
+    private readonly ILoggerFactory _loggerFactory;
     private EnchantmentGenerator? _enchantmentGenerator;
 
     /// <summary>
@@ -20,10 +23,14 @@ public class ItemGenerator
     /// </summary>
     /// <param name="dataCache">The game data cache for accessing item catalog files.</param>
     /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
-    public ItemGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    /// <param name="logger">Logger for this generator.</param>
+    /// <param name="loggerFactory">Factory for creating loggers for sub-generators.</param>
+    public ItemGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<ItemGenerator> logger, ILoggerFactory loggerFactory)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
         _random = new Random();
     }
 
@@ -34,7 +41,7 @@ public class ItemGenerator
     {
         get
         {
-            _enchantmentGenerator ??= new EnchantmentGenerator(_dataCache, _referenceResolver);
+            _enchantmentGenerator ??= new EnchantmentGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<EnchantmentGenerator>());
             return _enchantmentGenerator;
         }
     }
@@ -88,7 +95,7 @@ public class ItemGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating items for category {category}: {ex.Message}");
+            _logger.LogError(ex, "Error generating items for category {Category}", category);
             return new List<Item>();
         }
     }
@@ -131,7 +138,7 @@ public class ItemGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating item {itemName} from category {category}: {ex.Message}");
+            _logger.LogError(ex, "Error generating item {ItemName} from category {Category}", itemName, category);
             return null;
         }
     }
@@ -238,7 +245,7 @@ public class ItemGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error converting catalog item to Item: {ex.Message}");
+            _logger.LogError(ex, "Error converting catalog item to Item");
             return null;
         }
     }
@@ -283,7 +290,7 @@ public class ItemGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error applying enhancements: {ex.Message}");
+            _logger.LogError(ex, "Error applying enhancements");
         }
     }
 
@@ -521,7 +528,7 @@ public class ItemGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error applying traits: {ex.Message}");
+            _logger.LogError(ex, "Error applying traits");
         }
         
         return Task.CompletedTask;
@@ -676,7 +683,7 @@ public class ItemGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve required item '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve required item '{RefId}'", refId);
                 }
             }
             item.RequiredItems = requiredItems;

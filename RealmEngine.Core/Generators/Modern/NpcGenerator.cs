@@ -2,6 +2,7 @@ using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -14,16 +15,19 @@ public class NpcGenerator
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
+    private readonly ILogger<NpcGenerator> _logger;
 
     /// <summary>
     /// Initializes a new instance of the NpcGenerator class.
     /// </summary>
     /// <param name="dataCache">The game data cache for accessing NPC catalog files.</param>
     /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
-    public NpcGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    /// <param name="logger">Logger for this generator.</param>
+    public NpcGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<NpcGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
     }
 
@@ -75,7 +79,7 @@ public class NpcGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating NPCs for category {category}: {ex.Message}");
+            _logger.LogError(ex, "Error generating NPCs for category {Category}", category);
             return new List<NPC>();
         }
     }
@@ -118,7 +122,7 @@ public class NpcGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating NPC {npcName} from category {category}: {ex.Message}");
+            _logger.LogError(ex, "Error generating NPC {NpcName} from category {Category}", npcName, category);
             return null;
         }
     }
@@ -190,7 +194,7 @@ public class NpcGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error converting catalog NPC to NPC: {ex.Message}");
+            _logger.LogError(ex, "Error converting catalog NPC to NPC");
             return null;
         }
     }
@@ -324,7 +328,7 @@ public class NpcGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve dialogue '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve dialogue '{RefId}'", refId);
                 }
             }
             npc.Dialogues = dialogues;
@@ -350,7 +354,7 @@ public class NpcGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve ability '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve ability '{RefId}'", refId);
                 }
             }
             npc.Abilities = abilities;
@@ -376,7 +380,7 @@ public class NpcGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve inventory item '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve inventory item '{RefId}'", refId);
                 }
             }
             npc.Inventory = inventory;

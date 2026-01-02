@@ -1,6 +1,7 @@
 using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -12,11 +13,13 @@ public class DialogueGenerator
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
+    private readonly ILogger<DialogueGenerator> _logger;
 
-    public DialogueGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    public DialogueGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<DialogueGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
     }
 
@@ -164,7 +167,7 @@ public class DialogueGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error converting dialogue: {ex.Message}");
+            _logger.LogError(ex, "Error generating dialogue");
             return null;
         }
     }

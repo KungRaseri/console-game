@@ -1,6 +1,7 @@
 using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -13,16 +14,19 @@ public class EnemyGenerator
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
+    private readonly ILogger<EnemyGenerator> _logger;
 
     /// <summary>
     /// Initializes a new instance of the EnemyGenerator class.
     /// </summary>
     /// <param name="dataCache">The game data cache for accessing enemy catalog files.</param>
     /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
-    public EnemyGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    /// <param name="logger">Logger for this generator.</param>
+    public EnemyGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<EnemyGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
     }
 
@@ -74,7 +78,7 @@ public class EnemyGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating enemies for category {category}: {ex.Message}");
+            _logger.LogError(ex, "Error generating enemies for category {Category}", category);
             return new List<Enemy>();
         }
     }
@@ -116,7 +120,7 @@ public class EnemyGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating enemy {enemyName} from category {category}: {ex.Message}");
+            _logger.LogError(ex, "Error generating enemy {EnemyName} from category {Category}", enemyName, category);
             return null;
         }
     }
@@ -231,7 +235,7 @@ public class EnemyGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error converting catalog enemy to Enemy: {ex.Message}");
+            _logger.LogError(ex, "Error converting catalog enemy to Enemy");
             return null;
         }
     }
@@ -337,7 +341,7 @@ public class EnemyGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve ability '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve ability '{RefId}'", refId);
                 }
             }
             enemy.Abilities = abilities;
@@ -363,7 +367,7 @@ public class EnemyGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve loot item '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve loot item '{RefId}'", refId);
                 }
             }
             enemy.LootTable = lootTable;

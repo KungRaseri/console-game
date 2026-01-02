@@ -1,6 +1,7 @@
 using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -13,16 +14,19 @@ public class AbilityGenerator
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
+    private readonly ILogger<AbilityGenerator> _logger;
 
     /// <summary>
     /// Initializes a new instance of the AbilityGenerator class.
     /// </summary>
     /// <param name="dataCache">The game data cache for accessing ability catalog files.</param>
     /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
-    public AbilityGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    /// <param name="logger">Logger for this generator.</param>
+    public AbilityGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<AbilityGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
     }
 
@@ -75,7 +79,7 @@ public class AbilityGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating abilities for category {category}/{subcategory}: {ex.Message}");
+            _logger.LogError(ex, "Error generating abilities for category {Category}/{Subcategory}", category, subcategory);
             return new List<Ability>();
         }
     }
@@ -119,7 +123,7 @@ public class AbilityGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating ability {abilityName} from category {category}/{subcategory}: {ex.Message}");
+            _logger.LogError(ex, "Error generating ability {AbilityName} from category {Category}/{Subcategory}", abilityName, category, subcategory);
             return null;
         }
     }
@@ -210,7 +214,7 @@ public class AbilityGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error converting catalog ability to Ability: {ex.Message}");
+            _logger.LogError(ex, "Error converting catalog ability to Ability");
             return null;
         }
     }
@@ -370,7 +374,7 @@ public class AbilityGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve required item '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve required item '{RefId}'", refId);
                 }
             }
             ability.RequiredItems = requiredItems;
@@ -396,7 +400,7 @@ public class AbilityGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve required ability '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve required ability '{RefId}'", refId);
                 }
             }
             ability.RequiredAbilities = requiredAbilities;

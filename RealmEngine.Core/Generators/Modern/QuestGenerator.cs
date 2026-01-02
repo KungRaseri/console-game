@@ -1,6 +1,7 @@
 using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -13,16 +14,19 @@ public class QuestGenerator
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
+    private readonly ILogger<QuestGenerator> _logger;
 
     /// <summary>
     /// Initializes a new instance of the QuestGenerator class.
     /// </summary>
     /// <param name="dataCache">The game data cache for accessing quest catalog files.</param>
     /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
-    public QuestGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    /// <param name="logger">Logger for this generator.</param>
+    public QuestGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<QuestGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
     }
 
@@ -74,7 +78,7 @@ public class QuestGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating quests for type {questType}: {ex.Message}");
+            _logger.LogError(ex, "Error generating quests for type {QuestType}", questType);
             return new List<Quest>();
         }
     }
@@ -117,7 +121,7 @@ public class QuestGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error generating quest {questName} from type {questType}: {ex.Message}");
+            _logger.LogError(ex, "Error generating quest {QuestName} from type {QuestType}", questName, questType);
             return null;
         }
     }
@@ -229,7 +233,7 @@ public class QuestGenerator
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error converting catalog quest to Quest: {ex.Message}");
+            _logger.LogError(ex, "Error converting catalog quest to Quest");
             return null;
         }
     }
@@ -343,7 +347,7 @@ public class QuestGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve item reward '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve item reward '{RefId}'", refId);
                 }
             }
             quest.ItemRewards = itemRewards;
@@ -369,7 +373,7 @@ public class QuestGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve ability reward '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve ability reward '{RefId}'", refId);
                 }
             }
             quest.AbilityRewards = abilityRewards;
@@ -395,7 +399,7 @@ public class QuestGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve objective location '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve objective location '{RefId}'", refId);
                 }
             }
             quest.ObjectiveLocations = locations;
@@ -421,7 +425,7 @@ public class QuestGenerator
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to resolve objective NPC '{refId}': {ex.Message}");
+                    _logger.LogWarning(ex, "Failed to resolve objective NPC '{RefId}'", refId);
                 }
             }
             quest.ObjectiveNpcs = npcs;

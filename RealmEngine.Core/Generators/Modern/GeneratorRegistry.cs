@@ -1,6 +1,5 @@
 using RealmEngine.Data.Services;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -12,6 +11,7 @@ public class GeneratorRegistry
 {
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
+    private readonly ILoggerFactory _loggerFactory;
     
     // Lazy-loaded generators
     private AbilityGenerator? _abilityGenerator;
@@ -25,10 +25,11 @@ public class GeneratorRegistry
     private DialogueGenerator? _dialogueGenerator;
     private EnchantmentGenerator? _enchantmentGenerator;
 
-    public GeneratorRegistry(GameDataCache dataCache, ReferenceResolverService referenceResolver)
+    public GeneratorRegistry(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILoggerFactory loggerFactory)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
+        _loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
     }
 
     /// <summary>
@@ -38,7 +39,7 @@ public class GeneratorRegistry
     {
         get
         {
-            _abilityGenerator ??= new AbilityGenerator(_dataCache, _referenceResolver);
+            _abilityGenerator ??= new AbilityGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<AbilityGenerator>());
             return _abilityGenerator;
         }
     }
@@ -50,11 +51,7 @@ public class GeneratorRegistry
     {
         get
         {
-            if (_classGenerator == null)
-            {
-                var logger = NullLoggerFactory.Instance.CreateLogger<CharacterClassGenerator>();
-                _classGenerator = new CharacterClassGenerator(_dataCache, _referenceResolver, logger);
-            }
+            _classGenerator ??= new CharacterClassGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<CharacterClassGenerator>());
             return _classGenerator;
         }
     }
@@ -66,7 +63,7 @@ public class GeneratorRegistry
     {
         get
         {
-            _enemyGenerator ??= new EnemyGenerator(_dataCache, _referenceResolver);
+            _enemyGenerator ??= new EnemyGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<EnemyGenerator>());
             return _enemyGenerator;
         }
     }
@@ -78,7 +75,7 @@ public class GeneratorRegistry
     {
         get
         {
-            _itemGenerator ??= new ItemGenerator(_dataCache, _referenceResolver);
+            _itemGenerator ??= new ItemGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<ItemGenerator>(), _loggerFactory);
             return _itemGenerator;
         }
     }
@@ -90,7 +87,7 @@ public class GeneratorRegistry
     {
         get
         {
-            _npcGenerator ??= new NpcGenerator(_dataCache, _referenceResolver);
+            _npcGenerator ??= new NpcGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<NpcGenerator>());
             return _npcGenerator;
         }
     }
@@ -102,7 +99,7 @@ public class GeneratorRegistry
     {
         get
         {
-            _questGenerator ??= new QuestGenerator(_dataCache, _referenceResolver);
+            _questGenerator ??= new QuestGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<QuestGenerator>());
             return _questGenerator;
         }
     }
@@ -114,7 +111,7 @@ public class GeneratorRegistry
     {
         get
         {
-            _locationGenerator ??= new LocationGenerator(_dataCache, _referenceResolver);
+            _locationGenerator ??= new LocationGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<LocationGenerator>());
             return _locationGenerator;
         }
     }
@@ -126,7 +123,7 @@ public class GeneratorRegistry
     {
         get
         {
-            _organizationGenerator ??= new OrganizationGenerator(_dataCache, _referenceResolver);
+            _organizationGenerator ??= new OrganizationGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<OrganizationGenerator>());
             return _organizationGenerator;
         }
     }
@@ -138,7 +135,7 @@ public class GeneratorRegistry
     {
         get
         {
-            _dialogueGenerator ??= new DialogueGenerator(_dataCache, _referenceResolver);
+            _dialogueGenerator ??= new DialogueGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<DialogueGenerator>());
             return _dialogueGenerator;
         }
     }
@@ -150,7 +147,7 @@ public class GeneratorRegistry
     {
         get
         {
-            _enchantmentGenerator ??= new EnchantmentGenerator(_dataCache, _referenceResolver);
+            _enchantmentGenerator ??= new EnchantmentGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<EnchantmentGenerator>());
             return _enchantmentGenerator;
         }
     }
