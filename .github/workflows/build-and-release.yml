@@ -412,9 +412,64 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  auto-tag:
+    name: Auto-Tag Version
+    needs: [test, build-package]
+    runs-on: windows-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Get version from build
+      id: get_version
+      run: |
+        $version = "${{ needs.build-package.outputs.version }}"
+        Write-Output "VERSION=$version" >> $env:GITHUB_ENV
+        Write-Output "version=$version" >> $env:GITHUB_OUTPUT
+        Write-Output "Version from build: $version"
+        
+        # Check if tag already exists
+        $tagExists = git tag -l "v$version"
+        if ($tagExists) {
+          Write-Output "TAG_EXISTS=true" >> $env:GITHUB_ENV
+          Write-Output "Tag v$version already exists, skipping creation"
+        } else {
+          Write-Output "TAG_EXISTS=false" >> $env:GITHUB_ENV
+          Write-Output "Tag v$version does not exist, will create"
+        }
+      shell: pwsh
+      
+    - name: Create and push tag
+      if: env.TAG_EXISTS == 'false'
+      run: |
+        $version = "${{ env.VERSION }}"
+        $tagName = "v$version"
+        
+        # Configure git
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # Create annotated tag
+        git tag -a "$tagName" -m "Release version $version"
+        
+        # Push tag
+        git push origin "$tagName"
+        
+        Write-Output "✓ Created and pushed tag: $tagName"
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   notify:
     name: Build Notification
-    needs: [test, build-package, publish-nuget, release]
+    needs: [test, build-package, publish-nuget, release, auto-tag]
     runs-on: ubuntu-latest
     if: always()
     
@@ -425,6 +480,10 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "- **Tests**: ${{ needs.test.result }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Package**: ${{ needs.build-package.result }}" >> $GITHUB_STEP_SUMMARY
+        
+        if [[ "${{ github.ref }}" == refs/heads/main ]]; then
+          echo "- **Auto-Tag**: ${{ needs.auto-tag.result }}" >> $GITHUB_STEP_SUMMARY
+        fi
         
         if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
           echo "- **NuGet Publish**: ${{ needs.publish-nuget.result }}" >> $GITHUB_STEP_SUMMARY
