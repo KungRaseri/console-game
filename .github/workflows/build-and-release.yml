@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, develop ]
     tags:
-      - 'v*.*.*'
+      - 'v*'  # Match any tag starting with 'v' (includes v0.1.379-29c1030)
   pull_request:
     branches: [ main ]
   workflow_dispatch:
