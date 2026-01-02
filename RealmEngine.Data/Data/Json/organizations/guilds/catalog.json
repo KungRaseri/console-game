@@ -67,7 +67,7 @@
             "training": "Advanced weapon techniques",
             "equipment": "Discounted weapons and armor",
             "quests": "Combat-focused guild missions",
-            "faction_bonus": "@organizations/factions:military"
+            "faction_bonus": "@organizations/factions/military:military"
           },
           "rivals": [
             "thieves_guild"
@@ -141,7 +141,7 @@
             "training": "Spell research and theory",
             "equipment": "Magical components and scrolls",
             "quests": "Magical artifact retrieval",
-            "faction_bonus": "@organizations/factions:mages_circle"
+            "faction_bonus": "@organizations/factions/magical:mages_circle"
           },
           "rivals": [],
           "allies": [
@@ -213,7 +213,7 @@
             "training": "Negotiation and appraisal",
             "equipment": "Trade goods and inventory",
             "quests": "Trade route establishment",
-            "faction_bonus": "@organizations/factions:merchants_guild"
+            "faction_bonus": "@organizations/factions/trade:merchants_guild"
           },
           "rivals": [
             "thieves_guild"
@@ -288,7 +288,7 @@
             "training": "Advanced crafting techniques",
             "equipment": "Tools and rare materials",
             "quests": "Commission fulfillment",
-            "faction_bonus": "@organizations/factions:craftsmen_guild"
+            "faction_bonus": "@organizations/factions/labor:craftsmen_guild"
           },
           "rivals": [],
           "allies": [

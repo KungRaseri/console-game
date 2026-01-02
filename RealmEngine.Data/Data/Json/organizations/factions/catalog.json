@@ -161,6 +161,69 @@
               "combat"
             ]
           }
+        },
+        {
+          "name": "military",
+          "displayName": "Military Forces",
+          "rarityWeight": 10,
+          "reputation": "lawful",
+          "description": "Organized armed forces and soldiers",
+          "memberTypes": [
+            "@npcs/military:*"
+          ],
+          "allies": [
+            "nobility",
+            "city_guard"
+          ],
+          "enemies": [
+            "thieves_guild"
+          ],
+          "neutralTowards": [
+            "commoners",
+            "merchants_guild"
+          ],
+          "benefits": {
+            "combat_training": true,
+            "equipment": "military_grade"
+          },
+          "joinRequirements": {
+            "level": 3,
+            "strength": 12,
+            "skills": [
+              "combat"
+            ]
+          }
+        },
+        {
+          "name": "fighters_guild",
+          "displayName": "Fighters Guild",
+          "rarityWeight": 12,
+          "reputation": "neutral",
+          "description": "Brotherhood of warriors and mercenaries",
+          "memberTypes": [
+            "@npcs/military:*"
+          ],
+          "allies": [
+            "merchants_guild"
+          ],
+          "enemies": [
+            "thieves_guild"
+          ],
+          "neutralTowards": [
+            "commoners",
+            "nobility"
+          ],
+          "benefits": {
+            "combat_training": true,
+            "guild_contracts": true
+          },
+          "joinRequirements": {
+            "level": 3,
+            "strength": 12,
+            "skills": [
+              "combat"
+            ]
+          }
         }
       ]
     }

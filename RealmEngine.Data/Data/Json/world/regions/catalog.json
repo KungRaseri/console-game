@@ -34,9 +34,9 @@
             "livestock"
           ],
           "factions": [
-            "@organizations/factions:nobility",
-            "@organizations/factions:merchants_guild",
-            "@organizations/factions:city_guard"
+            "@organizations/factions/political:nobility",
+            "@organizations/factions/trade:merchants_guild",
+            "@organizations/factions/military:city_guard"
           ],
           "relations": {
             "allies": [
@@ -76,8 +76,8 @@
             "gems"
           ],
           "factions": [
-            "@organizations/factions:craftsmen_guild",
-            "@organizations/factions:commoners"
+            "@organizations/factions/labor:craftsmen_guild",
+            "@organizations/factions/social:commoners"
           ],
           "relations": {
             "allies": [
@@ -229,7 +229,7 @@
             "blessed_water"
           ],
           "factions": [
-            "@organizations/factions:clergy"
+            "@organizations/factions/religious:clergy"
           ],
           "relations": {
             "allies": [
@@ -265,8 +265,8 @@
             "artifacts"
           ],
           "factions": [
-            "@organizations/factions:mages_circle",
-            "@organizations/factions:scholars_guild"
+            "@organizations/factions/magical:mages_circle",
+            "@organizations/factions/academic:scholars_guild"
           ],
           "relations": {
             "allies": [],
@@ -307,7 +307,7 @@
             "plunder"
           ],
           "factions": [
-            "@organizations/factions:thieves_guild"
+            "@organizations/factions/criminal:thieves_guild"
           ],
           "relations": {
             "allies": [],
@@ -377,7 +377,7 @@
             "war_salvage"
           ],
           "factions": [
-            "@organizations/factions:military"
+            "@organizations/factions/military:military"
           ],
           "relations": {
             "allies": [],
