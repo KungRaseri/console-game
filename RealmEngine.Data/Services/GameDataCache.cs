@@ -20,7 +20,7 @@ public class GameDataCache : IDisposable
     private FileSystemWatcher? _fileWatcher;
     private bool _hotReloadEnabled;
     private bool _disposed;
-    
+
     // Performance tracking
     private long _cacheHits;
     private long _cacheMisses;
@@ -35,7 +35,7 @@ public class GameDataCache : IDisposable
         _pathsByDomain = new Dictionary<string, List<string>>();
         _domainHierarchy = new Dictionary<string, Dictionary<string, List<string>>>();
         _subdomainsByDomain = new Dictionary<string, List<string>>();
-        
+
         Log.Information("GameDataCache initialized with path: {Path}", _dataRootPath);
     }
 
@@ -98,13 +98,13 @@ public class GameDataCache : IDisposable
             var stats = new DataCacheStats
             {
                 TotalFiles = TotalFilesLoaded,
-                CatalogFiles = _pathsByType.ContainsKey(JsonFileType.GenericCatalog.ToString()) 
+                CatalogFiles = _pathsByType.ContainsKey(JsonFileType.GenericCatalog.ToString())
                     ? _pathsByType[JsonFileType.GenericCatalog.ToString()].Count : 0,
-                NamesFiles = _pathsByType.ContainsKey(JsonFileType.NamesFile.ToString()) 
+                NamesFiles = _pathsByType.ContainsKey(JsonFileType.NamesFile.ToString())
                     ? _pathsByType[JsonFileType.NamesFile.ToString()].Count : 0,
-                ConfigFiles = _pathsByType.ContainsKey(JsonFileType.ConfigFile.ToString()) 
+                ConfigFiles = _pathsByType.ContainsKey(JsonFileType.ConfigFile.ToString())
                     ? _pathsByType[JsonFileType.ConfigFile.ToString()].Count : 0,
-                ComponentFiles = _pathsByType.ContainsKey(JsonFileType.ComponentData.ToString()) 
+                ComponentFiles = _pathsByType.ContainsKey(JsonFileType.ComponentData.ToString())
                     ? _pathsByType[JsonFileType.ComponentData.ToString()].Count : 0,
                 Domains = _pathsByDomain.Keys.ToList(),
                 CacheHits = _cacheHits,
@@ -157,9 +157,9 @@ public class GameDataCache : IDisposable
         }
 
         var elapsed = DateTime.Now - startTime;
-        Log.Information("Data load complete. Loaded {Loaded} files, {Failed} failed in {Duration}ms", 
+        Log.Information("Data load complete. Loaded {Loaded} files, {Failed} failed in {Duration}ms",
             loaded, failed, elapsed.TotalMilliseconds);
-        
+
         LogStats();
     }
 
@@ -171,7 +171,7 @@ public class GameDataCache : IDisposable
         // Normalize path to use forward slashes for consistent cache keys
         var normalizedPath = NormalizePath(relativePath);
         var absolutePath = Path.Combine(_dataRootPath, relativePath);
-        
+
         if (!File.Exists(absolutePath))
         {
             Log.Warning("File not found: {Path}", normalizedPath);
@@ -206,7 +206,7 @@ public class GameDataCache : IDisposable
             // Update indexes for fast querying
             AddToTypeIndex(fileType.ToString(), normalizedPath);
             AddToDomainIndex(domain, normalizedPath);
-            
+
             // Skip .cbconfig.json files from hierarchy (they're metadata, not game data)
             if (fileType != JsonFileType.ConfigFile)
             {
@@ -230,7 +230,7 @@ public class GameDataCache : IDisposable
         // Normalize path to match cache key format
         var normalizedPath = NormalizePath(relativePath);
         var startTime = DateTime.Now;
-        
+
         if (_cache.TryGetValue($"json:{normalizedPath}", out CachedJsonFile? cachedFile))
         {
             // Cache hit!
@@ -249,21 +249,21 @@ public class GameDataCache : IDisposable
         {
             _cacheMisses++;
         }
-        
+
         try
         {
             Log.Warning("💾 CACHE MISS: Loading from disk: {Path}", normalizedPath);
             LoadFileIntoCache(relativePath);
             _cache.TryGetValue($"json:{normalizedPath}", out cachedFile);
-            
+
             var elapsed = (DateTime.Now - startTime).TotalMilliseconds;
             Log.Information("💾 Disk load completed: {Path} ({Time:F1}ms)", normalizedPath, elapsed);
-            
+
             lock (_statsLock)
             {
                 _totalLoadTime += (long)elapsed;
             }
-            
+
             return cachedFile;
         }
         catch (Exception ex)
@@ -296,10 +296,10 @@ public class GameDataCache : IDisposable
             return Enumerable.Empty<CachedJsonFile>();
 
         IEnumerable<CachedJsonFile> files = paths.Select(GetFile).Where(f => f != null)!;
-        
+
         if (excludeConfigFiles)
             files = files.Where(f => f.FileType != JsonFileType.ConfigFile);
-            
+
         return files;
     }
 
@@ -345,8 +345,8 @@ public class GameDataCache : IDisposable
     /// <returns>List of subdomain names for the domain</returns>
     public IReadOnlyList<string> GetSubdomainsForDomain(string domain)
     {
-        return _subdomainsByDomain.TryGetValue(domain, out var subdomains) 
-            ? subdomains.AsReadOnly() 
+        return _subdomainsByDomain.TryGetValue(domain, out var subdomains)
+            ? subdomains.AsReadOnly()
             : new List<string>().AsReadOnly();
     }
 
@@ -374,7 +374,7 @@ public class GameDataCache : IDisposable
                 // Skip config files if requested (default behavior)
                 if (excludeConfigFiles && file.FileType == JsonFileType.ConfigFile)
                     continue;
-                    
+
                 files.Add(file);
             }
         }
@@ -389,7 +389,7 @@ public class GameDataCache : IDisposable
         get
         {
             var result = new Dictionary<string, IReadOnlyDictionary<string, IReadOnlyList<string>>>();
-            
+
             foreach (var (domain, subdomains) in _domainHierarchy)
             {
                 var subdomainDict = new Dictionary<string, IReadOnlyList<string>>();
@@ -399,7 +399,7 @@ public class GameDataCache : IDisposable
                 }
                 result[domain] = subdomainDict;
             }
-            
+
             return result;
         }
     }
@@ -467,13 +467,13 @@ public class GameDataCache : IDisposable
     {
         var normalizedPath = NormalizePath(relativePath);
         Log.Information("Reloading file: {Path}", normalizedPath);
-        
+
         // Remove from cache
         _cache.Remove($"json:{normalizedPath}");
-        
+
         // Remove from indexes
         RemoveFromIndexes(relativePath);
-        
+
         // Reload
         try
         {
@@ -492,7 +492,7 @@ public class GameDataCache : IDisposable
     {
         // Debounce: ignore rapid successive changes
         System.Threading.Thread.Sleep(100);
-        
+
         var relativePath = Path.GetRelativePath(_dataRootPath, e.FullPath);
         Log.Information("🔥 File changed: {Path}", relativePath);
         ReloadFile(relativePath);
@@ -502,7 +502,7 @@ public class GameDataCache : IDisposable
     {
         var relativePath = Path.GetRelativePath(_dataRootPath, e.FullPath);
         Log.Information("🔥 File deleted: {Path}", relativePath);
-        
+
         _cache.Remove($"json:{relativePath}");
         RemoveFromIndexes(relativePath);
     }
@@ -511,13 +511,13 @@ public class GameDataCache : IDisposable
     {
         var oldRelativePath = Path.GetRelativePath(_dataRootPath, e.OldFullPath);
         var newRelativePath = Path.GetRelativePath(_dataRootPath, e.FullPath);
-        
+
         Log.Information("🔥 File renamed: {OldPath} → {NewPath}", oldRelativePath, newRelativePath);
-        
+
         // Remove old
         _cache.Remove($"json:{oldRelativePath}");
         RemoveFromIndexes(oldRelativePath);
-        
+
         // Add new
         LoadFileIntoCache(newRelativePath);
     }
@@ -538,7 +538,7 @@ public class GameDataCache : IDisposable
     {
         if (!_pathsByType.ContainsKey(typeKey))
             _pathsByType[typeKey] = new List<string>();
-        
+
         if (!_pathsByType[typeKey].Contains(relativePath))
             _pathsByType[typeKey].Add(relativePath);
     }
@@ -550,7 +550,7 @@ public class GameDataCache : IDisposable
 
         if (!_pathsByDomain.ContainsKey(domain))
             _pathsByDomain[domain] = new List<string>();
-        
+
         if (!_pathsByDomain[domain].Contains(relativePath))
             _pathsByDomain[domain].Add(relativePath);
     }
@@ -570,15 +570,15 @@ public class GameDataCache : IDisposable
 
         if (fileName == ".cbconfig.json")
             return JsonFileType.ConfigFile;
-        
+
         if (fileName == "catalog.json")
             return JsonFileType.GenericCatalog;
-        
+
         if (fileName == "names.json")
             return JsonFileType.NamesFile;
-        
-        if (fileName.EndsWith(".json") && 
-            (fileName.Contains("colors") || fileName.Contains("traits") || 
+
+        if (fileName.EndsWith(".json") &&
+            (fileName.Contains("colors") || fileName.Contains("traits") ||
              fileName.Contains("objectives") || fileName.Contains("materials") ||
              fileName.Contains("rarity_config") || fileName.Contains("sizes") ||
              fileName.Contains("types")))
@@ -598,8 +598,13 @@ public class GameDataCache : IDisposable
     private string ExtractSubdomain(string relativePath)
     {
         var parts = relativePath.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        // Return the second path component if it exists, or empty string for root-level files
-        return parts.Length > 1 ? parts[1] : string.Empty;
+
+        // If there are only 2 parts (domain/file.json), there's no subdomain
+        if (parts.Length <= 2)
+            return string.Empty;
+
+        // Return the second path component (the folder between domain and file)
+        return parts[1];
     }
 
     private void AddToHierarchyIndex(string domain, string subdomain, string relativePath)
@@ -612,13 +617,18 @@ public class GameDataCache : IDisposable
         if (!_subdomainsByDomain.ContainsKey(domain))
             _subdomainsByDomain[domain] = new List<string>();
 
-        // Add subdomain to domain's subdomain list if not empty and not already present
-        if (!string.IsNullOrEmpty(subdomain) && !_subdomainsByDomain[domain].Contains(subdomain))
+        // Only add to subdomain list if it's a real folder (not empty, not a filename)
+        // Subdomains should only be directory names, not filenames
+        if (!string.IsNullOrEmpty(subdomain) &&
+            !subdomain.Contains('.') && // Exclude filenames with extensions
+            !_subdomainsByDomain[domain].Contains(subdomain))
+        {
             _subdomainsByDomain[domain].Add(subdomain);
+        }
 
         // Use "root" as subdomain for files directly in the domain folder
         var effectiveSubdomain = string.IsNullOrEmpty(subdomain) ? "root" : subdomain;
-        
+
         // Initialize subdomain file list if it doesn't exist
         if (!_domainHierarchy[domain].ContainsKey(effectiveSubdomain))
             _domainHierarchy[domain][effectiveSubdomain] = new List<string>();
@@ -639,7 +649,7 @@ public class GameDataCache : IDisposable
         Log.Information("  Component Data: {Components}", stats.ComponentFiles);
         Log.Information("  Domains: {Domains}", string.Join(", ", stats.Domains));
     }
-    
+
     /// <summary>
     /// Logs performance statistics (cache efficiency)
     /// </summary>
@@ -674,7 +684,7 @@ public class GameDataCache : IDisposable
         if (disposing)
         {
             DisableHotReload();
-            
+
             if (_cache is IDisposable disposableCache)
                 disposableCache.Dispose();
         }
@@ -710,7 +720,7 @@ public class DataCacheStats
     public int ConfigFiles { get; set; }
     public int ComponentFiles { get; set; }
     public List<string> Domains { get; set; } = new();
-    
+
     // Performance metrics
     public long CacheHits { get; set; }
     public long CacheMisses { get; set; }
