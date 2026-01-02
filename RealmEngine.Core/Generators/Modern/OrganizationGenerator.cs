@@ -13,6 +13,11 @@ public class OrganizationGenerator
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the OrganizationGenerator class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache for accessing organization catalog files.</param>
+    /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
     public OrganizationGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

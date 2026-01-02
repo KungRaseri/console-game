@@ -8,51 +8,169 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public class Character
 {
+    /// <summary>
+    /// Gets or sets the character's name.
+    /// </summary>
     public string Name { get; set; } = string.Empty;
-    public string ClassName { get; set; } = string.Empty;  // Character's class (Warrior, Mage, etc.)
+    
+    /// <summary>
+    /// Gets or sets the character's class name (e.g., "Warrior", "Mage", "Rogue").
+    /// </summary>
+    public string ClassName { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the character's current level.
+    /// </summary>
     public int Level { get; set; } = 1;
+    
+    /// <summary>
+    /// Gets or sets the character's current experience points.
+    /// </summary>
     public int Experience { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the character's current health points.
+    /// </summary>
     public int Health { get; set; } = 100;
+    
+    /// <summary>
+    /// Gets or sets the character's maximum health points.
+    /// </summary>
     public int MaxHealth { get; set; } = 100;
+    
+    /// <summary>
+    /// Gets or sets the character's current mana points.
+    /// </summary>
     public int Mana { get; set; } = 50;
+    
+    /// <summary>
+    /// Gets or sets the character's maximum mana points.
+    /// </summary>
     public int MaxMana { get; set; } = 50;
+    
+    /// <summary>
+    /// Gets or sets the amount of gold the character possesses.
+    /// </summary>
     public int Gold { get; set; } = 0;
 
-    // D20 Attributes (core stats that affect everything)
-    public int Strength { get; set; } = 10;      // Melee damage, carry weight
-    public int Dexterity { get; set; } = 10;     // Dodge, accuracy, crit chance
-    public int Constitution { get; set; } = 10;  // Max HP, physical defense
-    public int Intelligence { get; set; } = 10;  // Magic damage, crafting
-    public int Wisdom { get; set; } = 10;        // Max Mana, magic defense
-    public int Charisma { get; set; } = 10;      // Shop prices, rare loot
+    /// <summary>
+    /// Gets or sets the Strength attribute. Affects melee damage and carry weight.
+    /// </summary>
+    public int Strength { get; set; } = 10;
+    
+    /// <summary>
+    /// Gets or sets the Dexterity attribute. Affects dodge, accuracy, and critical hit chance.
+    /// </summary>
+    public int Dexterity { get; set; } = 10;
+    
+    /// <summary>
+    /// Gets or sets the Constitution attribute. Affects max HP and physical defense.
+    /// </summary>
+    public int Constitution { get; set; } = 10;
+    
+    /// <summary>
+    /// Gets or sets the Intelligence attribute. Affects magic damage and crafting.
+    /// </summary>
+    public int Intelligence { get; set; } = 10;
+    
+    /// <summary>
+    /// Gets or sets the Wisdom attribute. Affects max mana and magic defense.
+    /// </summary>
+    public int Wisdom { get; set; } = 10;
+    
+    /// <summary>
+    /// Gets or sets the Charisma attribute. Affects shop prices and rare loot drops.
+    /// </summary>
+    public int Charisma { get; set; } = 10;
 
-    // Level-up tracking
+    /// <summary>
+    /// Gets or sets the number of unspent attribute points available for allocation.
+    /// </summary>
     public int UnspentAttributePoints { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the number of unspent skill points available for learning new abilities.
+    /// </summary>
     public int UnspentSkillPoints { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the collection of pending level-up bonuses to be applied.
+    /// </summary>
     public List<LevelUpInfo> PendingLevelUps { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the collection of skills the character has learned.
+    /// </summary>
     public List<Skill> LearnedSkills { get; set; } = new();
 
-    // Inventory
+    /// <summary>
+    /// Gets or sets the character's inventory of items.
+    /// </summary>
     public List<Item> Inventory { get; set; } = new();
 
-    // Equipment slots (13 total)
-    // Weapons & Off-hand
+    /// <summary>
+    /// Gets or sets the weapon equipped in the main hand slot.
+    /// </summary>
     public Item? EquippedMainHand { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the item equipped in the off-hand slot (weapon or shield).
+    /// </summary>
     public Item? EquippedOffHand { get; set; }
 
-    // Armor pieces (8 slots)
+    /// <summary>
+    /// Gets or sets the helmet equipped in the head armor slot.
+    /// </summary>
     public Item? EquippedHelmet { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the shoulder armor equipped.
+    /// </summary>
     public Item? EquippedShoulders { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the chest armor equipped.
+    /// </summary>
     public Item? EquippedChest { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the bracer armor equipped on the wrists.
+    /// </summary>
     public Item? EquippedBracers { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the glove armor equipped on the hands.
+    /// </summary>
     public Item? EquippedGloves { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the belt equipped.
+    /// </summary>
     public Item? EquippedBelt { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the leg armor equipped.
+    /// </summary>
     public Item? EquippedLegs { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the boot armor equipped.
+    /// </summary>
     public Item? EquippedBoots { get; set; }
 
-    // Jewelry (3 slots)
+    /// <summary>
+    /// Gets or sets the necklace equipped in the jewelry slot.
+    /// </summary>
     public Item? EquippedNecklace { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the first ring equipped.
+    /// </summary>
     public Item? EquippedRing1 { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the second ring equipped.
+    /// </summary>
     public Item? EquippedRing2 { get; set; }
 
     /// <summary>

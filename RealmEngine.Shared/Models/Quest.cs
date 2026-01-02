@@ -6,50 +6,150 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public class Quest : ITraitable
 {
+    /// <summary>
+    /// Gets or sets the unique identifier for this quest.
+    /// </summary>
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    
+    /// <summary>
+    /// Gets or sets the quest title displayed to the player.
+    /// </summary>
     public string Title { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the descriptive text explaining the quest objectives.
+    /// </summary>
     public string Description { get; set; } = string.Empty;
-    public string QuestType { get; set; } = string.Empty; // kill, fetch, escort, investigate, delivery
-    public string Difficulty { get; set; } = string.Empty; // easy, medium, hard
-    public string Type { get; set; } = "side"; // "main", "side", "legendary" - For quest categorization in Phase 4
+    
+    /// <summary>
+    /// Gets or sets the quest type (e.g., "kill", "fetch", "escort", "investigate", "delivery").
+    /// </summary>
+    public string QuestType { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the difficulty rating (e.g., "easy", "medium", "hard").
+    /// </summary>
+    public string Difficulty { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the quest category ("main", "side", "legendary").
+    /// </summary>
+    public string Type { get; set; } = "side";
 
-    // Quest giver
+    /// <summary>
+    /// Gets or sets the unique identifier of the NPC who gives this quest.
+    /// </summary>
     public string QuestGiverId { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the display name of the quest giver NPC.
+    /// </summary>
     public string QuestGiverName { get; set; } = string.Empty;
 
-    // Objectives - Enhanced for Phase 4
-    public string TargetType { get; set; } = string.Empty; // beast, undead, demon, etc.
-    public string TargetName { get; set; } = string.Empty; // "Ancient Red Dragon"
+    /// <summary>
+    /// Gets or sets the type of target for the objective (e.g., "beast", "undead", "demon").
+    /// </summary>
+    public string TargetType { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the specific name of the target (e.g., "Ancient Red Dragon").
+    /// </summary>
+    public string TargetName { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the required quantity to complete the objective.
+    /// </summary>
     public int Quantity { get; set; } = 1;
+    
+    /// <summary>
+    /// Gets or sets the location where the quest objective must be completed.
+    /// </summary>
     public string Location { get; set; } = string.Empty;
 
-    // Phase 4: Quest prerequisites and objectives tracking
-    public List<string> Prerequisites { get; set; } = new(); // Quest IDs that must be completed first
-    public Dictionary<string, int> Objectives { get; set; } = new(); // Objective name -> required count
-    public Dictionary<string, int> ObjectiveProgress { get; set; } = new(); // Objective name -> current count
-
-    // Rewards
-    public int GoldReward { get; set; }
-    public int XpReward { get; set; }
-    public int ApocalypseBonusMinutes { get; set; } = 0; // Bonus time for Apocalypse mode (Phase 4)
+    /// <summary>
+    /// Gets or sets the collection of prerequisite quest IDs that must be completed before this quest becomes available.
+    /// </summary>
+    public List<string> Prerequisites { get; set; } = new();
     
-    // Resolved reference collections
+    /// <summary>
+    /// Gets or sets the dictionary mapping objective names to their required completion counts.
+    /// </summary>
+    public Dictionary<string, int> Objectives { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the dictionary tracking current progress towards each objective.
+    /// </summary>
+    public Dictionary<string, int> ObjectiveProgress { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the gold reward for completing this quest.
+    /// </summary>
+    public int GoldReward { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the experience points reward for completing this quest.
+    /// </summary>
+    public int XpReward { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the bonus time (in minutes) awarded in Apocalypse mode for completing this quest.
+    /// </summary>
+    public int ApocalypseBonusMinutes { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the collection of item reward IDs resolved from @items references in JSON data.
+    /// </summary>
     public List<string> ItemRewardIds { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the collection of ability reward IDs resolved from @abilities references in JSON data.
+    /// </summary>
     public List<string> AbilityRewardIds { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the collection of location IDs for quest objectives resolved from @locations references.
+    /// </summary>
     public List<string> ObjectiveLocationIds { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the collection of NPC IDs for quest objectives resolved from @npcs references.
+    /// </summary>
     public List<string> ObjectiveNpcIds { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the collection of enemy IDs for quest objectives resolved from @enemies references.
+    /// </summary>
     public List<string> ObjectiveEnemyIds { get; set; } = new();
 
-    // Status
+    /// <summary>
+    /// Gets or sets whether this quest is currently active in the player's quest log.
+    /// </summary>
     public bool IsActive { get; set; } = false;
+    
+    /// <summary>
+    /// Gets or sets whether this quest has been completed.
+    /// </summary>
     public bool IsCompleted { get; set; } = false;
-    public int Progress { get; set; } = 0; // Current count towards objective
+    
+    /// <summary>
+    /// Gets or sets the current progress count towards the quest objective.
+    /// </summary>
+    public int Progress { get; set; } = 0;
 
-    // Time limit (in hours, 0 = no limit)
+    /// <summary>
+    /// Gets or sets the time limit for this quest in hours (0 = no time limit).
+    /// </summary>
     public int TimeLimit { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the timestamp when this quest was started.
+    /// </summary>
     public DateTime? StartTime { get; set; }
 
-    // Traits from quest template
+    /// <summary>
+    /// Gets or sets the trait system dictionary for dynamic quest properties.
+    /// Implements ITraitable interface.
+    /// </summary>
     public Dictionary<string, TraitValue> Traits { get; set; } = new();
 
     /// <summary>

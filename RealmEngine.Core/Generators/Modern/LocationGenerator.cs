@@ -13,6 +13,11 @@ public class LocationGenerator
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the LocationGenerator class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache for accessing location catalog files.</param>
+    /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
     public LocationGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

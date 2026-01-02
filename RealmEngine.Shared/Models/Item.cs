@@ -2,56 +2,144 @@ namespace RealmEngine.Shared.Models;
 
 /// <summary>
 /// Represents an item in the game.
+/// Supports the Hybrid Enhancement System v1.0 with materials, enchantments, and gem sockets.
 /// </summary>
 public class Item : ITraitable
 {
+    /// <summary>
+    /// Gets or sets the unique identifier for this item.
+    /// </summary>
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    
+    /// <summary>
+    /// Gets or sets the display name of the item (may include enhancements).
+    /// </summary>
     public string Name { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the descriptive text for the item.
+    /// </summary>
     public string Description { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the market value of the item in gold.
+    /// </summary>
     public int Price { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the item rarity (Common, Uncommon, Rare, Epic, Legendary, Mythic).
+    /// </summary>
     public ItemRarity Rarity { get; set; } = ItemRarity.Common;
+    
+    /// <summary>
+    /// Gets or sets the item type/category (Weapon, Armor, Consumable, Quest, Material, etc.).
+    /// </summary>
     public ItemType Type { get; set; } = ItemType.Consumable;
 
-    // Trait system - flexible properties defined in JSON
+    /// <summary>
+    /// Gets or sets the trait system dictionary for dynamic properties defined in JSON.
+    /// Implements ITraitable interface.
+    /// </summary>
     public Dictionary<string, TraitValue> Traits { get; set; } = new();
 
-    // Equipment set
+    /// <summary>
+    /// Gets or sets the equipment set name this item belongs to (if any).
+    /// Items in a set grant bonuses when multiple pieces are equipped.
+    /// </summary>
     public string? SetName { get; set; }
 
-    // Weapon properties
+    /// <summary>
+    /// Gets or sets whether this weapon requires both hands to wield.
+    /// Two-handed weapons cannot be used with shields.
+    /// </summary>
     public bool IsTwoHanded { get; set; } = false;
 
     // Enhancement System v1.0 (Hybrid Model)
     // ========================================
     
-    // Material System (Baked into item at generation)
-    public string? Material { get; set; } // e.g., "iron", "steel", "mithril"
-    public Dictionary<string, TraitValue> MaterialTraits { get; set; } = new(); // Traits from material
+    /// <summary>
+    /// Gets or sets the material this item is crafted from (e.g., \"iron\", \"steel\", \"mithril\").
+    /// Materials are baked into the item at generation time.
+    /// </summary>
+    public string? Material { get; set; }
     
-    // Enchantment System (Baked into item at generation)
+    /// <summary>
+    /// Gets or sets the traits provided by this item's material.
+    /// Materials contribute to the item's overall power level.
+    /// </summary>
+    public Dictionary<string, TraitValue> MaterialTraits { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the collection of enchantments applied to this item.
+    /// Enchantments are baked into the item at generation time.
+    /// </summary>
     public List<Enchantment> Enchantments { get; set; } = new();
     
-    // Gem Socket System (Player customizable after generation)
+    /// <summary>
+    /// Gets or sets the collection of gem sockets available on this item.
+    /// Gem sockets are player-customizable after generation.
+    /// </summary>
     public List<GemSocket> GemSockets { get; set; } = new();
     
-    // Rarity Weight System
-    public int TotalRarityWeight { get; set; } = 0; // Sum of base + material + pattern + enchantments + sockets
-    public string BaseName { get; set; } = string.Empty; // Base item name before enhancements (e.g., "Longsword")
+    /// <summary>
+    /// Gets or sets the total rarity weight calculated from base item, material, enchantments, and sockets.
+    /// </summary>
+    public int TotalRarityWeight { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the base item name before enhancements are applied (e.g., \"Longsword\").
+    /// </summary>
+    public string BaseName { get; set; } = string.Empty;
 
-    // Upgrade level (+1, +2, +3, etc.)
+    /// <summary>
+    /// Gets or sets the upgrade level of this item (+1, +2, +3, etc.).
+    /// Higher upgrade levels increase attribute bonuses.
+    /// </summary>
     public int UpgradeLevel { get; set; } = 0;
 
-    // Reference collections for resolved @references
+    /// <summary>
+    /// Gets or sets the collection of enchantment IDs resolved from @enchantments references in JSON data.
+    /// </summary>
     public List<string> EnchantmentIds { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the collection of material IDs resolved from @materials references in JSON data.
+    /// </summary>
     public List<string> MaterialIds { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the collection of required item IDs for crafting or upgrades.
+    /// </summary>
     public List<string> RequiredItemIds { get; set; } = new();
 
-    // D20 Attribute Bonuses - bonuses provided by this item
+    /// <summary>
+    /// Gets or sets the Strength attribute bonus provided by this item.
+    /// </summary>
     public int BonusStrength { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the Dexterity attribute bonus provided by this item.
+    /// </summary>
     public int BonusDexterity { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the Constitution attribute bonus provided by this item.
+    /// </summary>
     public int BonusConstitution { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the Intelligence attribute bonus provided by this item.
+    /// </summary>
     public int BonusIntelligence { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the Wisdom attribute bonus provided by this item.
+    /// </summary>
     public int BonusWisdom { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the Charisma attribute bonus provided by this item.
+    /// </summary>
     public int BonusCharisma { get; set; } = 0;
 
     /// <summary>

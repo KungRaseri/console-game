@@ -26,6 +26,12 @@ public class NpcGenerator
         _random = new Random();
     }
 
+    /// <summary>
+    /// Generates a list of random NPCs from a specific category.
+    /// </summary>
+    /// <param name="category">The NPC category (e.g., "merchants", "guards", "quest-givers").</param>
+    /// <param name="count">The number of NPCs to generate (default: 5).</param>
+    /// <returns>A list of generated NPC instances.</returns>
     public async Task<List<NPC>> GenerateNpcsAsync(string category, int count = 5)
     {
         try
@@ -68,6 +74,12 @@ public class NpcGenerator
         }
     }
 
+    /// <summary>
+    /// Generates a specific NPC by name from a category.
+    /// </summary>
+    /// <param name="category">The NPC category to search in.</param>
+    /// <param name="npcName">The name or display name of the NPC to generate.</param>
+    /// <returns>The generated NPC instance, or null if not found.</returns>
     public async Task<NPC?> GenerateNpcByNameAsync(string category, string npcName)
     {
         try

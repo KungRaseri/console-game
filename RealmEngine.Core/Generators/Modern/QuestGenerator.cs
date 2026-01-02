@@ -26,6 +26,12 @@ public class QuestGenerator
         _random = new Random();
     }
 
+    /// <summary>
+    /// Generates a list of random quests of a specific type.
+    /// </summary>
+    /// <param name="questType">The quest type (e.g., "kill", "collect", "escort", "explore").</param>
+    /// <param name="count">The number of quests to generate (default: 3).</param>
+    /// <returns>A list of generated Quest instances.</returns>
     public async Task<List<Quest>> GenerateQuestsAsync(string questType, int count = 3)
     {
         try
@@ -68,6 +74,12 @@ public class QuestGenerator
         }
     }
 
+    /// <summary>
+    /// Generates a specific quest by name from a quest type category.
+    /// </summary>
+    /// <param name="questType">The quest type category to search in.</param>
+    /// <param name="questName">The name or display name of the quest to generate.</param>
+    /// <returns>The generated Quest instance, or null if not found.</returns>
     public async Task<Quest?> GenerateQuestByNameAsync(string questType, string questName)
     {
         try

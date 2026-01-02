@@ -15,6 +15,11 @@ public class ItemGenerator
     private readonly Random _random;
     private EnchantmentGenerator? _enchantmentGenerator;
 
+    /// <summary>
+    /// Initializes a new instance of the ItemGenerator class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache for accessing item catalog files.</param>
+    /// <param name="referenceResolver">The reference resolver for resolving JSON references.</param>
     public ItemGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
@@ -34,6 +39,13 @@ public class ItemGenerator
         }
     }
 
+    /// <summary>
+    /// Generates a list of random items from a specific category.
+    /// Items may include materials, enchantments, and gem sockets based on the Hybrid Enhancement System.
+    /// </summary>
+    /// <param name="category">The item category (e.g., "weapons", "armor", "consumables").</param>
+    /// <param name="count">The number of items to generate (default: 10).</param>
+    /// <returns>A list of generated Item instances.</returns>
     public async Task<List<Item>> GenerateItemsAsync(string category, int count = 10)
     {
         try
@@ -76,6 +88,13 @@ public class ItemGenerator
         }
     }
 
+    /// <summary>
+    /// Generates a specific item by name from a category.
+    /// The item will include enhancement system features (materials, enchantments, gem sockets).
+    /// </summary>
+    /// <param name="category">The item category to search in.</param>
+    /// <param name="itemName">The name of the item to generate.</param>
+    /// <returns>The generated Item instance, or null if not found.</returns>
     public async Task<Item?> GenerateItemByNameAsync(string category, string itemName)
     {
         try
