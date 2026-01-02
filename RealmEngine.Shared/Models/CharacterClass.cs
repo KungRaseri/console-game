@@ -50,15 +50,61 @@ public class CharacterClass
     public int BonusCharisma { get; set; } = 10;
 
     /// <summary>
-    /// Starting ability IDs for this class (resolved from @abilities references).
-    /// Maps to startingAbilities in JSON (space-separated reference string).
+    /// Collection of starting ability IDs that characters of this class begin with.
+    /// These are resolved from @abilities JSON references during character creation.
     /// </summary>
-    public List<string> StartingAbilities { get; set; } = new();
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Resolve IDs to full Ability objects
+    /// var abilities = await abilityRepository.GetByIdsAsync(characterClass.StartingAbilityIds);
+    /// character.LearnedSkills.AddRange(abilities);
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Load ability data from IDs
+    /// var abilities = []
+    /// for ability_id in character_class.StartingAbilityIds:
+    ///     var ability = await ability_service.get_by_id(ability_id)
+    ///     abilities.append(ability)
+    /// character.learned_skills.append_array(abilities)
+    /// </code>
+    /// <para><strong>Why IDs instead of objects?</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Memory efficiency - templates don't duplicate full objects</description></item>
+    /// <item><description>Lazy loading - resolve only when creating a character</description></item>
+    /// <item><description>Cross-domain references - abilities live in separate catalog</description></item>
+    /// <item><description>Save file optimization - serialize IDs instead of full object graphs</description></item>
+    /// </list>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["basic-attack", "power-strike", "defensive-stance"]
+    /// </example>
+    public List<string> StartingAbilityIds { get; set; } = new();
 
     /// <summary>
-    /// Starting equipment item names for this class.
+    /// Collection of starting equipment item IDs that characters of this class begin with.
+    /// These are resolved from @items JSON references during character creation.
     /// </summary>
-    public List<string> StartingEquipment { get; set; } = new();
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Resolve IDs to full Item objects
+    /// var equipment = await itemRepository.GetByIdsAsync(characterClass.StartingEquipmentIds);
+    /// character.Inventory.AddRange(equipment);
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Load equipment data from IDs
+    /// for item_id in character_class.StartingEquipmentIds:
+    ///     var item = await item_service.get_by_id(item_id)
+    ///     character.inventory.add_item(item)
+    /// </code>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["iron-sword", "wooden-shield", "leather-armor"]
+    /// </example>
+    public List<string> StartingEquipmentIds { get; set; } = new();
 
     /// <summary>
     /// Traits/properties specific to this class (bonus damage types, resistances, etc.).
@@ -88,8 +134,31 @@ public class ClassProgression
     public Dictionary<string, double> StatGrowth { get; set; } = new();
 
     /// <summary>
-    /// Ability unlock schedule (level -> ability IDs).
+    /// Ability unlock schedule mapping level to ability IDs.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Get abilities unlocked at level 5
+    /// if (progression.AbilityUnlocks.TryGetValue(5, out var abilityIds))
+    /// {
+    ///     var unlockedAbilities = await abilityRepository.GetByIdsAsync(abilityIds);
+    ///     character.LearnedSkills.AddRange(unlockedAbilities);
+    /// }
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Check for abilities at current level
+    /// if progression.AbilityUnlocks.has(character.level):
+    ///     var ability_ids = progression.AbilityUnlocks[character.level]
+    ///     for ability_id in ability_ids:
+    ///         var ability = await ability_service.get_by_id(ability_id)
+    ///         character.learned_skills.append(ability)
+    /// </code>
+    /// </remarks>
+    /// <example>
+    /// Example: { 5: ["power-strike", "cleave"], 10: ["whirlwind", "battle-cry"] }
+    /// </example>
     public Dictionary<int, List<string>> AbilityUnlocks { get; set; } = new();
 }
 

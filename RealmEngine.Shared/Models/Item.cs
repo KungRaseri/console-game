@@ -98,18 +98,97 @@ public class Item : ITraitable
     public int UpgradeLevel { get; set; } = 0;
 
     /// <summary>
-    /// Gets or sets the collection of enchantment IDs resolved from @enchantments references in JSON data.
+    /// Collection of enchantment IDs that can be applied to this item during generation.
+    /// These are resolved from @enchantments JSON references and baked into item at creation.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Apply enchantments during item generation
+    /// var enchantments = await enchantmentRepository.GetByIdsAsync(item.EnchantmentIds);
+    /// item.Enchantments = enchantments.Select(e => ApplyEnchantment(e, item)).ToList();
+    /// item.Name = GenerateEnchantedName(item.BaseName, enchantments);
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Generate enchanted item
+    /// var enchantments = []
+    /// for enchantment_id in item.EnchantmentIds:
+    ///     var enchantment = await enchantment_service.get_by_id(enchantment_id)
+    ///     enchantments.append(enchantment)
+    /// item.apply_enchantments(enchantments)
+    /// </code>
+    /// <para><strong>Why IDs instead of objects?</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Template references - points to enchantment catalog</description></item>
+    /// <item><description>Generation-time resolution - enchantments applied when item created</description></item>
+    /// <item><description>Hybrid pattern - IDs + resolved Enchantments list both exist</description></item>
+    /// </list>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["@enchantments/elemental:fire", "@enchantments/attribute:strength-boost"]
+    /// </example>
     public List<string> EnchantmentIds { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the collection of material IDs resolved from @materials references in JSON data.
+    /// Collection of material IDs that this item can be crafted from.
+    /// These are resolved from @materials JSON references during item generation.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Apply material during crafting
+    /// var materials = await materialRepository.GetByIdsAsync(item.MaterialIds);
+    /// var selectedMaterial = materials.RandomElement();
+    /// item.Material = selectedMaterial.Name;
+    /// item.MaterialTraits = selectedMaterial.Traits;
+    /// item.Name = $"{selectedMaterial.Name} {item.BaseName}";
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Craft item with material
+    /// var material_id = item.MaterialIds.pick_random()
+    /// var material = await material_service.get_by_id(material_id)
+    /// item.material = material.name
+    /// item.apply_material_traits(material.traits)
+    /// </code>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["@materials/metals:iron", "@materials/metals:steel", "@materials/metals:mithril"]
+    /// </example>
     public List<string> MaterialIds { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the collection of required item IDs for crafting or upgrades.
+    /// Collection of item IDs required for crafting recipes or item upgrades.
+    /// These are resolved from @items JSON references when checking craft requirements.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Check if player can craft item
+    /// var requiredItems = await itemRepository.GetByIdsAsync(item.RequiredItemIds);
+    /// bool canCraft = requiredItems.All(req => player.Inventory.Contains(req));
+    /// if (canCraft)
+    /// {
+    ///     CraftItem(item, requiredItems);
+    ///     player.Inventory.RemoveRange(requiredItems);
+    /// }
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Verify crafting materials
+    /// var can_craft = true
+    /// for required_id in item.RequiredItemIds:
+    ///     if not player.inventory.has_item(required_id):
+    ///         can_craft = false
+    ///         break
+    /// if can_craft:
+    ///     craft_item(item)
+    /// </code>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["@items/materials/metals:iron-ingot", "@items/materials/leather:thick-leather"]
+    /// </example>
     public List<string> RequiredItemIds { get; set; } = new();
 
     /// <summary>

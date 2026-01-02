@@ -102,13 +102,66 @@ public class Enemy : ITraitable
     public EnemyDifficulty Difficulty { get; set; } = EnemyDifficulty.Easy;
 
     /// <summary>
-    /// Gets or sets the collection of ability IDs resolved from @abilities references in JSON data.
+    /// Collection of ability IDs this enemy can use in combat.
+    /// These are resolved from @abilities JSON references during enemy generation.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Resolve IDs to full Ability objects
+    /// var abilities = await abilityRepository.GetByIdsAsync(enemy.AbilityIds);
+    /// foreach (var ability in abilities)
+    /// {
+    ///     if (ShouldUseAbility(ability))
+    ///         ExecuteAbility(ability, target);
+    /// }
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Load enemy abilities for combat
+    /// var abilities = []
+    /// for ability_id in enemy.AbilityIds:
+    ///     var ability = await ability_service.get_by_id(ability_id)
+    ///     abilities.append(ability)
+    /// enemy.combat_abilities = abilities
+    /// </code>
+    /// <para><strong>Why IDs instead of objects?</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Enemy is a template, not a live combat instance</description></item>
+    /// <item><description>Abilities loaded when combat starts</description></item>
+    /// <item><description>Memory efficiency - 1000s of enemy templates in catalog</description></item>
+    /// </list>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["basic-attack", "fire-breath", "tail-swipe"]
+    /// </example>
     public List<string> AbilityIds { get; set; } = new();
-    
+
     /// <summary>
-    /// Gets or sets the collection of loot table IDs resolved from @items references in JSON data.
+    /// Collection of loot table IDs for determining drops when this enemy is defeated.
+    /// These are resolved from @loot JSON references during enemy generation.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Generate loot on enemy death
+    /// var lootTables = await lootTableRepository.GetByIdsAsync(enemy.LootTableIds);
+    /// var droppedItems = lootGenerator.GenerateLoot(lootTables, enemy.Level);
+    /// player.Inventory.AddRange(droppedItems);
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Generate loot when enemy dies
+    /// var loot_items = []
+    /// for loot_table_id in enemy.LootTableIds:
+    ///     var loot_table = await loot_service.get_by_id(loot_table_id)
+    ///     var items = loot_generator.roll_loot(loot_table, enemy.Level)
+    ///     loot_items.append_array(items)
+    /// </code>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["common-humanoid-loot", "dragon-hoard"]
+    /// </example>
     public List<string> LootTableIds { get; set; } = new();
 
     /// <summary>

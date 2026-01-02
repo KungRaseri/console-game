@@ -97,28 +97,149 @@ public class Quest : ITraitable
     public int ApocalypseBonusMinutes { get; set; } = 0;
     
     /// <summary>
-    /// Gets or sets the collection of item reward IDs resolved from @items references in JSON data.
+    /// Collection of item reward IDs given to player upon quest completion.
+    /// These are resolved from @items JSON references when quest is completed.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Award items when quest completes
+    /// var rewardItems = await itemRepository.GetByIdsAsync(quest.ItemRewardIds);
+    /// character.Inventory.AddRange(rewardItems);
+    /// ShowQuestRewards(rewardItems, quest.GoldReward, quest.XpReward);
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Complete quest and give rewards
+    /// for item_id in quest.ItemRewardIds:
+    ///     var item = await item_service.get_by_id(item_id)
+    ///     player.inventory.add_item(item)
+    /// player.add_gold(quest.GoldReward)
+    /// player.gain_experience(quest.XpReward)
+    /// </code>
+    /// <para><strong>Why IDs instead of objects?</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Items created fresh when quest completes (not pre-instantiated)</description></item>
+    /// <item><description>Save file optimization - store IDs instead of full items</description></item>
+    /// <item><description>Lazy loading - only resolve when quest is completed</description></item>
+    /// </list>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["@items/weapons/swords:magic-longsword", "@items/consumables/potions:health-potion"]
+    /// </example>
     public List<string> ItemRewardIds { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the collection of ability reward IDs resolved from @abilities references in JSON data.
+    /// Collection of ability reward IDs granted to player upon quest completion.
+    /// These are resolved from @abilities JSON references when quest is completed.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Grant new abilities when quest completes
+    /// var rewardAbilities = await abilityRepository.GetByIdsAsync(quest.AbilityRewardIds);
+    /// character.LearnedSkills.AddRange(rewardAbilities);
+    /// ShowNewAbilitiesUnlocked(rewardAbilities);
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Learn new abilities from quest
+    /// for ability_id in quest.AbilityRewardIds:
+    ///     var ability = await ability_service.get_by_id(ability_id)
+    ///     player.learn_ability(ability)
+    ///     show_notification("New ability unlocked: " + ability.DisplayName)
+    /// </code>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["power-strike", "heroic-leap"]
+    /// </example>
     public List<string> AbilityRewardIds { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the collection of location IDs for quest objectives resolved from @locations references.
+    /// Collection of location IDs where quest objectives must be completed.
+    /// These are resolved from @locations JSON references when displaying quest info.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Show quest objective locations on map
+    /// var locations = await locationRepository.GetByIdsAsync(quest.ObjectiveLocationIds);
+    /// foreach (var location in locations)
+    /// {
+    ///     AddQuestMarkerToMap(location.Name, location.Coordinates);
+    /// }
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Mark quest locations on map
+    /// for location_id in quest.ObjectiveLocationIds:
+    ///     var location = await location_service.get_by_id(location_id)
+    ///     add_quest_marker(location.name, location.coordinates)
+    /// </code>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["@locations/dungeons:dark-cavern", "@locations/towns:riverside"]
+    /// </example>
     public List<string> ObjectiveLocationIds { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the collection of NPC IDs for quest objectives resolved from @npcs references.
+    /// Collection of NPC IDs involved in quest objectives (talk to, escort, etc.).
+    /// These are resolved from @npcs JSON references when quest becomes active.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Load quest NPCs for objectives
+    /// var questNpcs = await npcRepository.GetByIdsAsync(quest.ObjectiveNpcIds);
+    /// foreach (var npc in questNpcs)
+    /// {
+    ///     npc.HasQuestMarker = true;
+    ///     UpdateNpcDialogue(npc, quest.Id);
+    /// }
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Mark quest NPCs with indicators
+    /// for npc_id in quest.ObjectiveNpcIds:
+    ///     var npc = await npc_service.get_by_id(npc_id)
+    ///     npc.show_quest_marker = true
+    ///     world.update_npc(npc)
+    /// </code>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["@npcs/merchants:blacksmith-john", "@npcs/quest-givers:elder-sage"]
+    /// </example>
     public List<string> ObjectiveNpcIds { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the collection of enemy IDs for quest objectives resolved from @enemies references.
+    /// Collection of enemy IDs that must be defeated for quest objectives.
+    /// These are resolved from @enemies JSON references when tracking quest progress.
     /// </summary>
+    /// <remarks>
+    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <code>
+    /// // Track enemy kills for quest
+    /// public void OnEnemyDefeated(Enemy defeated)
+    /// {
+    ///     if (quest.ObjectiveEnemyIds.Contains(defeated.Id))
+    ///     {
+    ///         quest.Progress++;
+    ///         UpdateQuestLog(quest);
+    ///     }
+    /// }
+    /// </code>
+    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
+    /// <code>
+    /// # Check if enemy kill counts for quest
+    /// func on_enemy_defeated(enemy):
+    ///     if enemy.id in quest.ObjectiveEnemyIds:
+    ///         quest.progress += 1
+    ///         update_quest_tracker(quest)
+    /// </code>
+    /// </remarks>
+    /// <example>
+    /// Example IDs: ["@enemies/beasts:dire-wolf", "@enemies/undead:skeleton-warrior"]
+    /// </example>
     public List<string> ObjectiveEnemyIds { get; set; } = new();
 
     /// <summary>

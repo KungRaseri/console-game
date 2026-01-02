@@ -45,15 +45,15 @@ public class CharacterClassRepository : ICharacterClassRepository
             BonusStrength = 2,
             BonusConstitution = 1,
             StartingHealth = 10,
-            StartingEquipment = new List<string>
+            StartingEquipmentIds = new List<string>
             {
-                "Iron Sword",
-                "Wooden Shield",
-                "Leather Helmet",
-                "Chain Chestpiece",
-                "Leather Gloves",
-                "Chain Leggings",
-                "Leather Boots"
+                "@items/weapons/swords:longsword",
+                "@items/armor/shields:wooden-shield",
+                "@items/armor/head:helmet",
+                "@items/armor/chest:chainmail",
+                "@items/armor/hands:leather-gloves",
+                "@items/armor/legs:chain-leggings",
+                "@items/armor/feet:leather-boots"
             },
             FlavorText = "\"Steel and valor are my weapons. I stand unbroken against any foe.\""
         };
@@ -70,16 +70,16 @@ public class CharacterClassRepository : ICharacterClassRepository
             BonusCharisma = 1,
             StartingHealth = 0,
             StartingMana = 5,
-            StartingEquipment = new List<string>
+            StartingEquipmentIds = new List<string>
             {
-                "Steel Dagger",
-                "Leather Hood",
-                "Leather Shoulderpads",
-                "Leather Chestpiece",
-                "Leather Gloves",
-                "Leather Belt",
-                "Leather Leggings",
-                "Leather Boots"
+                "@items/weapons/daggers:dagger",
+                "@items/armor/head:hood",
+                "@items/armor/shoulders:leather-shoulders",
+                "@items/armor/chest:leather-armor",
+                "@items/armor/hands:leather-gloves",
+                "@items/armor/waist:leather-belt",
+                "@items/armor/legs:leather-leggings",
+                "@items/armor/feet:leather-boots"
             },
             FlavorText = "\"Shadows are my ally. They'll never see me coming.\""
         };
@@ -96,15 +96,15 @@ public class CharacterClassRepository : ICharacterClassRepository
             BonusWisdom = 1,
             StartingHealth = -5,
             StartingMana = 20,
-            StartingEquipment = new List<string>
+            StartingEquipmentIds = new List<string>
             {
-                "Wooden Staff",
-                "Tome of Power",
-                "Silk Circlet",
-                "Silk Robes",
-                "Silk Gloves",
-                "Silk Belt",
-                "Silk Boots"
+                "@items/weapons/staves:quarterstaff",
+                "@items/accessories/jewelry:amulet",
+                "@items/armor/head:circlet",
+                "@items/armor/chest:robes",
+                "@items/armor/hands:silk-gloves",
+                "@items/armor/waist:cloth-belt",
+                "@items/armor/feet:cloth-boots"
             },
             FlavorText = "\"Knowledge is the ultimate power. Reality bends to my will.\""
         };
@@ -121,18 +121,18 @@ public class CharacterClassRepository : ICharacterClassRepository
             BonusConstitution = 1,
             StartingHealth = 5,
             StartingMana = 15,
-            StartingEquipment = new List<string>
+            StartingEquipmentIds = new List<string>
             {
-                "Iron Mace",
-                "Wooden Shield",
-                "Chain Helmet",
-                "Chain Shoulderpads",
-                "Chain Chestpiece",
-                "Chain Bracers",
-                "Chain Gloves",
-                "Leather Belt",
-                "Chain Leggings",
-                "Chain Boots"
+                "@items/weapons/maces:mace",
+                "@items/armor/shields:wooden-shield",
+                "@items/armor/head:helmet",
+                "@items/armor/shoulders:chain-shoulders",
+                "@items/armor/chest:chainmail",
+                "@items/armor/arms:chain-bracers",
+                "@items/armor/hands:chain-gloves",
+                "@items/armor/waist:leather-belt",
+                "@items/armor/legs:chain-leggings",
+                "@items/armor/feet:chain-boots"
             },
             FlavorText = "\"By faith and steel, I will protect the innocent and vanquish evil.\""
         };
@@ -149,17 +149,17 @@ public class CharacterClassRepository : ICharacterClassRepository
             BonusWisdom = 1,
             StartingHealth = 3,
             StartingMana = 10,
-            StartingEquipment = new List<string>
+            StartingEquipmentIds = new List<string>
             {
-                "Longbow",
-                "Leather Hood",
-                "Leather Shoulderpads",
-                "Studded Leather Chestpiece",
-                "Leather Bracers",
-                "Leather Gloves",
-                "Leather Belt",
-                "Leather Leggings",
-                "Leather Boots"
+                "@items/weapons/bows:longbow",
+                "@items/armor/head:hood",
+                "@items/armor/shoulders:leather-shoulders",
+                "@items/armor/chest:studded-leather",
+                "@items/armor/arms:leather-bracers",
+                "@items/armor/hands:leather-gloves",
+                "@items/armor/waist:leather-belt",
+                "@items/armor/legs:leather-leggings",
+                "@items/armor/feet:leather-boots"
             },
             FlavorText = "\"The wild is my home. My arrows never miss their mark.\""
         };
@@ -176,18 +176,18 @@ public class CharacterClassRepository : ICharacterClassRepository
             BonusCharisma = 2,
             StartingHealth = 8,
             StartingMana = 12,
-            StartingEquipment = new List<string>
+            StartingEquipmentIds = new List<string>
             {
-                "Steel Longsword",
-                "Steel Shield",
-                "Plate Helmet",
-                "Plate Shoulderpads",
-                "Plate Chestpiece",
-                "Plate Bracers",
-                "Plate Gauntlets",
-                "Plate Belt",
-                "Plate Leggings",
-                "Plate Boots"
+                "@items/weapons/swords:longsword",
+                "@items/armor/shields:steel-shield",
+                "@items/armor/head:great-helm",
+                "@items/armor/shoulders:plate-shoulders",
+                "@items/armor/chest:plate-armor",
+                "@items/armor/arms:plate-bracers",
+                "@items/armor/hands:plate-gauntlets",
+                "@items/armor/waist:plate-belt",
+                "@items/armor/legs:plate-leggings",
+                "@items/armor/feet:plate-boots"
             },
             FlavorText = "\"I am the light in the darkness, a beacon of hope for all.\""
         };

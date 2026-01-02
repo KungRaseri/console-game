@@ -135,7 +135,7 @@ public class CharacterClassGenerator
             RarityWeight = data.RarityWeight,
             IsSubclass = data.IsSubclass,
             ParentClassId = ParseParentClassReference(data.ParentClass),
-            StartingAbilities = ParseAbilityReferences(data.StartingAbilities),
+            StartingAbilityIds = ParseAbilityReferences(data.StartingAbilityIds),
             Traits = data.Traits ?? new Dictionary<string, object>()
         };
 
