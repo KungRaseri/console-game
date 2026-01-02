@@ -97,148 +97,193 @@ public class Quest : ITraitable
     public int ApocalypseBonusMinutes { get; set; } = 0;
     
     /// <summary>
-    /// Collection of item reward IDs given to player upon quest completion.
-    /// These are resolved from @items JSON references when quest is completed.
+    /// Collection of item reward reference IDs (v4.1 format) given to player upon quest completion.
+    /// Each ID is a JSON reference like "@items/weapons/swords:magic-longsword".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Award items when quest completes
-    /// var rewardItems = await itemRepository.GetByIdsAsync(quest.ItemRewardIds);
+    /// // C# - Resolve quest reward items
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var rewardItems = new List&lt;Item&gt;();
+    /// foreach (var refId in quest.ItemRewardIds)
+    /// {
+    ///     var itemJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var item = itemJson.ToObject&lt;Item&gt;();
+    ///     rewardItems.Add(item);
+    /// }
     /// character.Inventory.AddRange(rewardItems);
-    /// ShowQuestRewards(rewardItems, quest.GoldReward, quest.XpReward);
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Complete quest and give rewards
-    /// for item_id in quest.ItemRewardIds:
-    ///     var item = await item_service.get_by_id(item_id)
-    ///     player.inventory.add_item(item)
+    /// // GDScript - Resolve rewards in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
+    /// for ref_id in quest.ItemRewardIds:
+    ///     var item_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     player.inventory.add_item(item_data)
     /// player.add_gold(quest.GoldReward)
-    /// player.gain_experience(quest.XpReward)
     /// </code>
-    /// <para><strong>Why IDs instead of objects?</strong></para>
-    /// <list type="bullet">
-    /// <item><description>Items created fresh when quest completes (not pre-instantiated)</description></item>
-    /// <item><description>Save file optimization - store IDs instead of full items</description></item>
-    /// <item><description>Lazy loading - only resolve when quest is completed</description></item>
-    /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["@items/weapons/swords:magic-longsword", "@items/consumables/potions:health-potion"]
+    /// Example reward reference IDs:
+    /// <code>
+    /// [
+    ///   "@items/weapons/swords:magic-longsword",
+    ///   "@items/consumables/potions:health-potion"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> ItemRewardIds { get; set; } = new();
     
     /// <summary>
-    /// Collection of ability reward IDs granted to player upon quest completion.
-    /// These are resolved from @abilities JSON references when quest is completed.
+    /// Collection of ability reward reference IDs (v4.1 format) granted to player upon quest completion.
+    /// Each ID is a JSON reference like "@abilities/active/offensive:power-strike".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Grant new abilities when quest completes
-    /// var rewardAbilities = await abilityRepository.GetByIdsAsync(quest.AbilityRewardIds);
+    /// // C# - Resolve ability rewards
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var rewardAbilities = new List&lt;Ability&gt;();
+    /// foreach (var refId in quest.AbilityRewardIds)
+    /// {
+    ///     var abilityJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var ability = abilityJson.ToObject&lt;Ability&gt;();
+    ///     rewardAbilities.Add(ability);
+    /// }
     /// character.LearnedSkills.AddRange(rewardAbilities);
-    /// ShowNewAbilitiesUnlocked(rewardAbilities);
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Learn new abilities from quest
-    /// for ability_id in quest.AbilityRewardIds:
-    ///     var ability = await ability_service.get_by_id(ability_id)
-    ///     player.learn_ability(ability)
-    ///     show_notification("New ability unlocked: " + ability.DisplayName)
+    /// // GDScript - Resolve ability rewards in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
+    /// for ref_id in quest.AbilityRewardIds:
+    ///     var ability_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     player.learn_ability(ability_data)
+    ///     show_notification("New ability: " + ability_data.DisplayName)
     /// </code>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["power-strike", "heroic-leap"]
+    /// Example ability reward reference IDs:
+    /// <code>
+    /// [
+    ///   "@abilities/active/offensive:power-strike",
+    ///   "@abilities/passive/utility:heroic-leap"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> AbilityRewardIds { get; set; } = new();
     
     /// <summary>
-    /// Collection of location IDs where quest objectives must be completed.
-    /// These are resolved from @locations JSON references when displaying quest info.
+    /// Collection of location reference IDs (v4.1 format) where quest objectives must be completed.
+    /// Each ID is a JSON reference like "@world/locations/dungeons:dark-cavern".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Show quest objective locations on map
-    /// var locations = await locationRepository.GetByIdsAsync(quest.ObjectiveLocationIds);
-    /// foreach (var location in locations)
+    /// // C# - Resolve quest objective locations
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var locations = new List&lt;Location&gt;();
+    /// foreach (var refId in quest.ObjectiveLocationIds)
     /// {
+    ///     var locationJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var location = locationJson.ToObject&lt;Location&gt;();
+    ///     locations.Add(location);
     ///     AddQuestMarkerToMap(location.Name, location.Coordinates);
     /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Mark quest locations on map
-    /// for location_id in quest.ObjectiveLocationIds:
-    ///     var location = await location_service.get_by_id(location_id)
-    ///     add_quest_marker(location.name, location.coordinates)
+    /// // GDScript - Resolve locations in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
+    /// for ref_id in quest.ObjectiveLocationIds:
+    ///     var location_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     add_quest_marker(location_data.name, location_data.coordinates)
     /// </code>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["@locations/dungeons:dark-cavern", "@locations/towns:riverside"]
+    /// Example location reference IDs:
+    /// <code>
+    /// [
+    ///   "@world/locations/dungeons:dark-cavern",
+    ///   "@world/locations/towns:riverside"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> ObjectiveLocationIds { get; set; } = new();
     
     /// <summary>
-    /// Collection of NPC IDs involved in quest objectives (talk to, escort, etc.).
-    /// These are resolved from @npcs JSON references when quest becomes active.
+    /// Collection of NPC reference IDs (v4.1 format) involved in quest objectives.
+    /// Each ID is a JSON reference like "@npcs/merchants:blacksmith".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Load quest NPCs for objectives
-    /// var questNpcs = await npcRepository.GetByIdsAsync(quest.ObjectiveNpcIds);
-    /// foreach (var npc in questNpcs)
+    /// // C# - Resolve quest NPCs
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var questNpcs = new List&lt;NPC&gt;();
+    /// foreach (var refId in quest.ObjectiveNpcIds)
     /// {
+    ///     var npcJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var npc = npcJson.ToObject&lt;NPC&gt;();
     ///     npc.HasQuestMarker = true;
-    ///     UpdateNpcDialogue(npc, quest.Id);
+    ///     questNpcs.Add(npc);
     /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Mark quest NPCs with indicators
-    /// for npc_id in quest.ObjectiveNpcIds:
-    ///     var npc = await npc_service.get_by_id(npc_id)
-    ///     npc.show_quest_marker = true
-    ///     world.update_npc(npc)
+    /// // GDScript - Resolve NPCs in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
+    /// for ref_id in quest.ObjectiveNpcIds:
+    ///     var npc_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     npc_data.show_quest_marker = true
+    ///     world.update_npc(npc_data)
     /// </code>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["@npcs/merchants:blacksmith-john", "@npcs/quest-givers:elder-sage"]
+    /// Example NPC reference IDs:
+    /// <code>
+    /// [
+    ///   "@npcs/merchants:blacksmith",
+    ///   "@npcs/common:elder-sage"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> ObjectiveNpcIds { get; set; } = new();
     
     /// <summary>
-    /// Collection of enemy IDs that must be defeated for quest objectives.
-    /// These are resolved from @enemies JSON references when tracking quest progress.
+    /// Collection of enemy reference IDs (v4.1 format) that must be defeated for quest objectives.
+    /// Each ID is a JSON reference like "@enemies/goblinoids:goblin-warrior".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Track enemy kills for quest
-    /// public void OnEnemyDefeated(Enemy defeated)
+    /// // C# - Check if defeated enemy counts for quest
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// public async Task&lt;bool&gt; OnEnemyDefeated(string enemyRefId)
     /// {
-    ///     if (quest.ObjectiveEnemyIds.Contains(defeated.Id))
+    ///     if (quest.ObjectiveEnemyIds.Contains(enemyRefId))
     ///     {
     ///         quest.Progress++;
     ///         UpdateQuestLog(quest);
+    ///         return true;
     ///     }
+    ///     return false;
     /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Check if enemy kill counts for quest
-    /// func on_enemy_defeated(enemy):
-    ///     if enemy.id in quest.ObjectiveEnemyIds:
+    /// // GDScript - Track enemy kills in Godot
+    /// func on_enemy_defeated(enemy_ref_id: String):
+    ///     if enemy_ref_id in quest.ObjectiveEnemyIds:
     ///         quest.progress += 1
-    ///         update_quest_tracker(quest)
+    ///         update_quest_ui()
     /// </code>
+    /// <para><strong>Note:</strong> Enemy IDs are typically compared directly without resolving full objects.</para>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["@enemies/beasts:dire-wolf", "@enemies/undead:skeleton-warrior"]
+    /// Example enemy reference IDs:
+    /// <code>
+    /// [
+    ///   "@enemies/goblinoids:goblin-warrior",
+    ///   "@enemies/undead:skeleton"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> ObjectiveEnemyIds { get; set; } = new();
 

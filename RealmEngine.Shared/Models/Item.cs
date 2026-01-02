@@ -98,88 +98,128 @@ public class Item : ITraitable
     public int UpgradeLevel { get; set; } = 0;
 
     /// <summary>
-    /// Collection of enchantment IDs that can be applied to this item during generation.
-    /// These are resolved from @enchantments JSON references and baked into item at creation.
+    /// Collection of enchantment reference IDs (v4.1 format) that can be applied to this item.
+    /// ⚠️ HYBRID PATTERN: Both EnchantmentIds (templates) and Enchantments (resolved) exist.
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Apply enchantments during item generation
-    /// var enchantments = await enchantmentRepository.GetByIdsAsync(item.EnchantmentIds);
-    /// item.Enchantments = enchantments.Select(e => ApplyEnchantment(e, item)).ToList();
+    /// // C# - Apply enchantments during item generation
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var enchantments = new List&lt;ItemEnhancement&gt;();
+    /// foreach (var refId in item.EnchantmentIds)
+    /// {
+    ///     var enchantJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var enchantment = enchantJson.ToObject&lt;ItemEnhancement&gt;();
+    ///     enchantments.Add(enchantment);
+    /// }
+    /// item.Enchantments = enchantments; // Store resolved enchantments
     /// item.Name = GenerateEnchantedName(item.BaseName, enchantments);
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Generate enchanted item
+    /// // GDScript - Apply enchantments in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
     /// var enchantments = []
-    /// for enchantment_id in item.EnchantmentIds:
-    ///     var enchantment = await enchantment_service.get_by_id(enchantment_id)
-    ///     enchantments.append(enchantment)
-    /// item.apply_enchantments(enchantments)
+    /// for ref_id in item.EnchantmentIds:
+    ///     var enchant_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     enchantments.append(enchant_data)
+    /// item.enchantments = enchantments
     /// </code>
-    /// <para><strong>Why IDs instead of objects?</strong></para>
+    /// <para><strong>⚠️ Hybrid Pattern Explained:</strong></para>
     /// <list type="bullet">
-    /// <item><description>Template references - points to enchantment catalog</description></item>
-    /// <item><description>Generation-time resolution - enchantments applied when item created</description></item>
-    /// <item><description>Hybrid pattern - IDs + resolved Enchantments list both exist</description></item>
+    /// <item><description><strong>EnchantmentIds</strong> = Template references from item catalog</description></item>
+    /// <item><description><strong>Enchantments</strong> = Resolved enhancement objects baked into item</description></item>
+    /// <item><description>IDs used during generation, then resolved objects stored</description></item>
+    /// <item><description>At runtime, use Enchantments list (already resolved)</description></item>
     /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["@enchantments/elemental:fire", "@enchantments/attribute:strength-boost"]
+    /// Example enchantment reference IDs:
+    /// <code>
+    /// [
+    ///   "@items/enchantments/elemental:fire",
+    ///   "@items/enchantments/attribute:strength-boost"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> EnchantmentIds { get; set; } = new();
     
     /// <summary>
-    /// Collection of material IDs that this item can be crafted from.
-    /// These are resolved from @materials JSON references during item generation.
+    /// Collection of material reference IDs (v4.1 format) this item can be crafted from.
+    /// ⚠️ HYBRID PATTERN: Materials resolve to Material property string at generation time.
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Apply material during crafting
-    /// var materials = await materialRepository.GetByIdsAsync(item.MaterialIds);
-    /// var selectedMaterial = materials.RandomElement();
-    /// item.Material = selectedMaterial.Name;
-    /// item.MaterialTraits = selectedMaterial.Traits;
-    /// item.Name = $"{selectedMaterial.Name} {item.BaseName}";
+    /// // C# - Apply material during item generation
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// if (item.MaterialIds.Any())
+    /// {
+    ///     var randomMaterialRefId = item.MaterialIds.PickRandom();
+    ///     var materialJson = await resolver.ResolveToObjectAsync(randomMaterialRefId);
+    ///     var material = materialJson.ToObject&lt;Material&gt;();
+    ///     item.Material = material.Name; // Store resolved name
+    ///     item.Name = $"{material.Name} {item.BaseName}";
+    /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Craft item with material
-    /// var material_id = item.MaterialIds.pick_random()
-    /// var material = await material_service.get_by_id(material_id)
-    /// item.material = material.name
-    /// item.apply_material_traits(material.traits)
+    /// // GDScript - Apply material in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
+    /// if item.MaterialIds.size() > 0:
+    ///     var mat_ref_id = item.MaterialIds.pick_random()
+    ///     var mat_data = await resolver.ResolveToObjectAsync(mat_ref_id)
+    ///     item.material = mat_data.name
+    ///     item.name = mat_data.name + " " + item.base_name
     /// </code>
+    /// <para><strong>⚠️ Hybrid Pattern:</strong></para>
+    /// <list type="bullet">
+    /// <item><description><strong>MaterialIds</strong> = Template references from item catalog</description></item>
+    /// <item><description><strong>Material</strong> = Resolved material name string ("Iron", "Steel")</description></item>
+    /// <item><description>IDs used during generation, then resolved name stored</description></item>
+    /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["@materials/metals:iron", "@materials/metals:steel", "@materials/metals:mithril"]
+    /// Example material reference IDs:
+    /// <code>
+    /// [
+    ///   "@items/materials/metals:iron",
+    ///   "@items/materials/metals:steel",
+    ///   "@items/materials/metals:mithril"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> MaterialIds { get; set; } = new();
     
     /// <summary>
-    /// Collection of item IDs required for crafting recipes or item upgrades.
-    /// These are resolved from @items JSON references when checking craft requirements.
+    /// Collection of item reference IDs (v4.1 format) required for crafting recipes or upgrades.
+    /// Each ID is a JSON reference like "@items/materials/metals:iron-ingot".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Check if player can craft item
-    /// var requiredItems = await itemRepository.GetByIdsAsync(item.RequiredItemIds);
-    /// bool canCraft = requiredItems.All(req => player.Inventory.Contains(req));
+    /// // C# - Check crafting requirements
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var requiredItems = new List&lt;Item&gt;();
+    /// foreach (var refId in item.RequiredItemIds)
+    /// {
+    ///     var itemJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var requiredItem = itemJson.ToObject&lt;Item&gt;();
+    ///     requiredItems.Add(requiredItem);
+    /// }
+    /// bool canCraft = requiredItems.All(req => player.Inventory.Contains(req.Name));
     /// if (canCraft)
     /// {
-    ///     CraftItem(item, requiredItems);
+    ///     CraftItem(item);
     ///     player.Inventory.RemoveRange(requiredItems);
     /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Verify crafting materials
+    /// // GDScript - Verify crafting materials in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
     /// var can_craft = true
-    /// for required_id in item.RequiredItemIds:
-    ///     if not player.inventory.has_item(required_id):
+    /// for ref_id in item.RequiredItemIds:
+    ///     var required_item = await resolver.ResolveToObjectAsync(ref_id)
+    ///     if not player.inventory.has_item(required_item.name):
     ///         can_craft = false
     ///         break
     /// if can_craft:
@@ -187,7 +227,13 @@ public class Item : ITraitable
     /// </code>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["@items/materials/metals:iron-ingot", "@items/materials/leather:thick-leather"]
+    /// Example required item reference IDs:
+    /// <code>
+    /// [
+    ///   "@items/materials/metals:iron-ingot",
+    ///   "@items/materials/leather:thick-leather"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> RequiredItemIds { get; set; } = new();
 

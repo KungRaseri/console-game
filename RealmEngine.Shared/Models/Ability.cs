@@ -85,33 +85,41 @@ public class Ability
     public List<string> AllowedClasses { get; set; } = new();
 
     /// <summary>
-    /// Collection of item IDs required to use this ability (spell components, weapons, etc.).
-    /// These are resolved from @items JSON references when checking if ability can be used.
+    /// Collection of item reference IDs (v4.1 format) required to use this ability.
+    /// Each ID is a JSON reference like "@items/consumables/reagents:mana-crystal".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Check if player has required items to use ability
-    /// var requiredItems = await itemRepository.GetByIdsAsync(ability.RequiredItemIds);
-    /// bool canUse = requiredItems.All(item => character.Inventory.Contains(item));
-    /// if (canUse && character.Mana >= ability.ManaCost)
+    /// // C# - Validate required items before using ability
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var requiredItems = new List&lt;Item&gt;();
+    /// foreach (var refId in ability.RequiredItemIds)
+    /// {
+    ///     var itemJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var item = itemJson.ToObject&lt;Item&gt;();
+    ///     requiredItems.Add(item);
+    /// }
+    /// bool canUse = requiredItems.All(item => character.Inventory.Contains(item.Name));
+    /// if (canUse &amp;&amp; character.Mana >= ability.ManaCost)
     /// {
     ///     ExecuteAbility(ability, target);
     /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Validate ability requirements
+    /// // GDScript - Validate requirements in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
     /// var can_use = true
-    /// for item_id in ability.RequiredItemIds:
-    ///     if not player.inventory.has_item(item_id):
+    /// for ref_id in ability.RequiredItemIds:
+    ///     var item_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     if not player.inventory.has_item(item_data.name):
     ///         can_use = false
-    ///         show_error("Missing required item: " + item_id)
+    ///         show_error("Missing: " + item_data.name)
     ///         break
     /// if can_use:
     ///     cast_ability(ability)
     /// </code>
-    /// <para><strong>Why IDs instead of objects?</strong></para>
+    /// <para><strong>Why reference IDs instead of embedded objects?</strong></para>
     /// <list type="bullet">
     /// <item><description>Prevents circular dependency (Ability → Item → Ability)</description></item>
     /// <item><description>Validation at use-time - check if player has items</description></item>
@@ -119,41 +127,68 @@ public class Ability
     /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["@items/consumables/reagents:mana-crystal", "@items/weapons/staves:magic-staff"]
+    /// Example required item reference IDs:
+    /// <code>
+    /// [
+    ///   "@items/consumables/reagents:mana-crystal",
+    ///   "@items/weapons/staves:magic-staff"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> RequiredItemIds { get; set; } = new();
-    
+
     /// <summary>
-    /// Collection of ability IDs that must be learned before this ability becomes available (prerequisites).
-    /// These are resolved from @abilities JSON references when checking if ability can be learned.
+    /// Collection of ability reference IDs (v4.1 format) that must be learned first (prerequisites).
+    /// Each ID is a JSON reference like "@abilities/active/offensive:basic-attack".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Check if player meets prerequisites to learn ability
-    /// var prerequisites = await abilityRepository.GetByIdsAsync(ability.RequiredAbilityIds);
-    /// bool meetsRequirements = prerequisites.All(req => character.LearnedSkills.Any(s => s.Id == req.Id));
-    /// if (meetsRequirements && character.Level >= ability.RequiredLevel)
+    /// // C# - Validate prerequisites before learning ability
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var prerequisites = new List&lt;Ability&gt;();
+    /// foreach (var refId in ability.RequiredAbilityIds)
+    /// {
+    ///     var abilityJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var prereq = abilityJson.ToObject&lt;Ability&gt;();
+    ///     prerequisites.Add(prereq);
+    /// }
+    /// bool meetsRequirements = prerequisites.All(req => 
+    ///     character.LearnedSkills.Any(s => s.Name == req.Name));
+    /// if (meetsRequirements &amp;&amp; character.Level >= ability.RequiredLevel)
     /// {
     ///     character.LearnedSkills.Add(ability);
     ///     ShowAbilityLearned(ability);
     /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Validate prerequisite abilities
-    /// var has_prerequisites = true
-    /// for prereq_id in ability.RequiredAbilityIds:
-    ///     if not player.has_ability(prereq_id):
-    ///         has_prerequisites = false
-    ///         show_error("Must learn prerequisite: " + prereq_id)
+    /// // GDScript - Validate prerequisites in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
+    /// var has_prereqs = true
+    /// for ref_id in ability.RequiredAbilityIds:
+    ///     var prereq_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     if not player.has_ability(prereq_data.name):
+    ///         has_prereqs = false
+    ///         show_error("Must learn: " + prereq_data.display_name)
     ///         break
-    /// if has_prerequisites:
+    /// if has_prereqs:
     ///     player.learn_ability(ability)
     /// </code>
+    /// <para><strong>Typical prerequisites:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Advanced abilities require basic versions first</description></item>
+    /// <item><description>Talent tree progression (Tier 1 → Tier 2 → Tier 3)</description></item>
+    /// <item><description>Combo abilities requiring mastery of base skills</description></item>
+    /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["basic-attack", "power-strike"] (learn basic attacks before advanced ones)
+    /// Example prerequisite reference IDs:
+    /// <code>
+    /// [
+    ///   "@abilities/active/offensive:basic-attack",
+    ///   "@abilities/passive/defensive:armor-proficiency"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> RequiredAbilityIds { get; set; } = new();
 }

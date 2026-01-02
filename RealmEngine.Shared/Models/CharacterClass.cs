@@ -50,59 +50,91 @@ public class CharacterClass
     public int BonusCharisma { get; set; } = 10;
 
     /// <summary>
-    /// Collection of starting ability IDs that characters of this class begin with.
-    /// These are resolved from @abilities JSON references during character creation.
+    /// Collection of starting ability reference IDs (v4.1 format) that characters of this class begin with.
+    /// Each ID is a JSON reference like "@abilities/active/offensive:basic-attack".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Resolve IDs to full Ability objects
-    /// var abilities = await abilityRepository.GetByIdsAsync(characterClass.StartingAbilityIds);
-    /// character.LearnedSkills.AddRange(abilities);
+    /// // C# - Resolve each reference to a full Ability object
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var abilities = new List&lt;Ability&gt;();
+    /// foreach (var refId in characterClass.StartingAbilityIds)
+    /// {
+    ///     var abilityJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var ability = abilityJson.ToObject&lt;Ability&gt;();
+    ///     abilities.Add(ability);
+    /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Load ability data from IDs
+    /// // GDScript - Resolve references in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
     /// var abilities = []
-    /// for ability_id in character_class.StartingAbilityIds:
-    ///     var ability = await ability_service.get_by_id(ability_id)
-    ///     abilities.append(ability)
-    /// character.learned_skills.append_array(abilities)
+    /// for ref_id in character_class.StartingAbilityIds:
+    ///     var ability_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     abilities.append(ability_data)
     /// </code>
-    /// <para><strong>Why IDs instead of objects?</strong></para>
+    /// <para><strong>Why reference IDs instead of embedded objects?</strong></para>
     /// <list type="bullet">
-    /// <item><description>Memory efficiency - templates don't duplicate full objects</description></item>
-    /// <item><description>Lazy loading - resolve only when creating a character</description></item>
-    /// <item><description>Cross-domain references - abilities live in separate catalog</description></item>
+    /// <item><description>Memory efficiency - templates don't duplicate full ability data</description></item>
+    /// <item><description>Lazy loading - resolve only when creating a character instance</description></item>
+    /// <item><description>Cross-domain references - abilities live in separate catalog files</description></item>
     /// <item><description>Save file optimization - serialize IDs instead of full object graphs</description></item>
     /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["basic-attack", "power-strike", "defensive-stance"]
+    /// Example reference IDs:
+    /// <code>
+    /// [
+    ///   "@abilities/active/offensive:basic-attack",
+    ///   "@abilities/active/offensive:power-strike",
+    ///   "@abilities/passive/defensive:shield-mastery"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> StartingAbilityIds { get; set; } = new();
 
     /// <summary>
-    /// Collection of starting equipment item IDs that characters of this class begin with.
-    /// These are resolved from @items JSON references during character creation.
+    /// Collection of starting equipment reference IDs (v4.1 format) that characters of this class begin with.
+    /// Each ID is a JSON reference like "@items/weapons/swords:longsword".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Resolve IDs to full Item objects
-    /// var equipment = await itemRepository.GetByIdsAsync(characterClass.StartingEquipmentIds);
-    /// character.Inventory.AddRange(equipment);
+    /// // C# - Resolve each reference to a full Item object
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var equipment = new List&lt;Item&gt;();
+    /// foreach (var refId in characterClass.StartingEquipmentIds)
+    /// {
+    ///     var itemJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var item = itemJson.ToObject&lt;Item&gt;();
+    ///     equipment.Add(item);
+    /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Load equipment data from IDs
-    /// for item_id in character_class.StartingEquipmentIds:
-    ///     var item = await item_service.get_by_id(item_id)
-    ///     character.inventory.add_item(item)
+    /// // GDScript - Resolve references in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
+    /// var equipment = []
+    /// for ref_id in character_class.StartingEquipmentIds:
+    ///     var item_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     equipment.append(item_data)
     /// </code>
+    /// <para><strong>Typical starting equipment includes:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Primary weapon (sword, staff, bow, etc.)</description></item>
+    /// <item><description>Armor pieces (helmet, chest, legs, etc.)</description></item>
+    /// <item><description>Consumables (health potions, mana potions)</description></item>
+    /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["iron-sword", "wooden-shield", "leather-armor"]
+    /// Example reference IDs:
+    /// <code>
+    /// [
+    ///   "@items/weapons/swords:longsword",
+    ///   "@items/armor/chest:leather-armor",
+    ///   "@items/consumables/potions:health-potion"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> StartingEquipmentIds { get; set; } = new();
 

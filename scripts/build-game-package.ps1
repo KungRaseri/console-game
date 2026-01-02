@@ -50,8 +50,6 @@ Write-Output "Building RealmEngine.Core..."
 $CoreOutput = Join-Path $PackageRoot "Libraries\RealmEngine.Core"
 dotnet publish (Join-Path $SolutionRoot "RealmEngine.Core\RealmEngine.Core.csproj") --configuration $Configuration --output $CoreOutput --no-self-contained --verbosity quiet $VersionArgs
 if ($LASTEXITCODE -ne 0) { Write-Error "RealmEngine.Core build failed!"; exit 1 }
-# Copy XML documentation to Libraries root for Godot IntelliSense
-Copy-Item -Path (Join-Path $CoreOutput "RealmEngine.Core.xml") -Destination (Join-Path $PackageRoot "Libraries\RealmEngine.Core.xml") -ErrorAction SilentlyContinue
 Write-Output "[OK] RealmEngine.Core published (with XML docs)"
 Write-Output ""
 
@@ -60,8 +58,6 @@ Write-Output "Building RealmEngine.Shared..."
 $SharedOutput = Join-Path $PackageRoot "Libraries\RealmEngine.Shared"
 dotnet publish (Join-Path $SolutionRoot "RealmEngine.Shared\RealmEngine.Shared.csproj") --configuration $Configuration --output $SharedOutput --no-self-contained --verbosity quiet $VersionArgs
 if ($LASTEXITCODE -ne 0) { Write-Error "RealmEngine.Shared build failed!"; exit 1 }
-# Copy XML documentation to Libraries root for Godot IntelliSense
-Copy-Item -Path (Join-Path $SharedOutput "RealmEngine.Shared.xml") -Destination (Join-Path $PackageRoot "Libraries\RealmEngine.Shared.xml") -ErrorAction SilentlyContinue
 Write-Output "[OK] RealmEngine.Shared published (with XML docs)"
 Write-Output ""
 
@@ -70,8 +66,6 @@ Write-Output "Building RealmEngine.Data..."
 $DataOutput = Join-Path $PackageRoot "Libraries\RealmEngine.Data"
 dotnet publish (Join-Path $SolutionRoot "RealmEngine.Data\RealmEngine.Data.csproj") --configuration $Configuration --output $DataOutput --no-self-contained --verbosity quiet $VersionArgs
 if ($LASTEXITCODE -ne 0) { Write-Error "RealmEngine.Data build failed!"; exit 1 }
-# Copy XML documentation to Libraries root for Godot IntelliSense
-Copy-Item -Path (Join-Path $DataOutput "RealmEngine.Data.xml") -Destination (Join-Path $PackageRoot "Libraries\RealmEngine.Data.xml") -ErrorAction SilentlyContinue
 Write-Output "[OK] RealmEngine.Data published (with XML docs)"
 Write-Output ""
 

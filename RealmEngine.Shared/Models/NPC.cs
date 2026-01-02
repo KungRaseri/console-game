@@ -75,56 +75,94 @@ public class NPC : ITraitable
     public List<string> DialogueIds { get; set; } = new();
     
     /// <summary>
-    /// Collection of ability IDs this NPC can use (if hostile or in combat).
-    /// These are resolved from @abilities JSON references if NPC enters combat.
+    /// Collection of ability reference IDs (v4.1 format) this NPC can use if hostile or in combat.
+    /// Each ID is a JSON reference like "@abilities/active/offensive:staff-strike".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Load abilities if NPC becomes hostile
+    /// // C# - Resolve abilities if NPC becomes hostile
     /// if (!npc.IsFriendly)
     /// {
-    ///     var abilities = await abilityRepository.GetByIdsAsync(npc.AbilityIds);
+    ///     var resolver = new ReferenceResolverService(dataCache);
+    ///     var abilities = new List&lt;Ability&gt;();
+    ///     foreach (var refId in npc.AbilityIds)
+    ///     {
+    ///         var abilityJson = await resolver.ResolveToObjectAsync(refId);
+    ///         var ability = abilityJson.ToObject&lt;Ability&gt;();
+    ///         abilities.Add(ability);
+    ///     }
     ///     npc.CombatAbilities = abilities;
     /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # NPC turned hostile, load combat abilities
+    /// // GDScript - Resolve abilities in Godot
     /// if not npc.is_friendly:
-    ///     for ability_id in npc.AbilityIds:
-    ///         var ability = await ability_service.get_by_id(ability_id)
-    ///         npc.add_combat_ability(ability)
+    ///     var resolver = ReferenceResolverService.new(data_cache)
+    ///     for ref_id in npc.AbilityIds:
+    ///         var ability_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///         npc.add_combat_ability(ability_data)
     /// </code>
+    /// <para><strong>Use cases:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>Guards who attack when player steals</description></item>
+    /// <item><description>Quest NPCs who fight alongside player</description></item>
+    /// <item><description>Arena trainers for combat tutorials</description></item>
+    /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["guard-strike", "call-for-help"]
+    /// Example ability reference IDs:
+    /// <code>
+    /// [
+    ///   "@abilities/active/offensive:sword-slash",
+    ///   "@abilities/active/support:healing-word"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> AbilityIds { get; set; } = new();
     
     /// <summary>
-    /// Collection of inventory item IDs this NPC possesses (for shops, trading, or looting).
-    /// These are resolved from @items JSON references when accessing NPC inventory.
+    /// Collection of inventory item reference IDs (v4.1 format) this NPC possesses.
+    /// Used for merchant shops, trading, or NPC looting. Supports wildcard references.
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Load shop inventory when player opens shop UI
-    /// var shopItems = await itemRepository.GetByIdsAsync(npc.InventoryIds);
+    /// // C# - Resolve shop inventory
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var shopItems = new List&lt;Item&gt;();
+    /// foreach (var refId in npc.InventoryIds)
+    /// {
+    ///     var itemJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var item = itemJson.ToObject&lt;Item&gt;();
+    ///     shopItems.Add(item);
+    /// }
     /// DisplayShopInventory(shopItems, npc.Occupation);
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Open merchant shop
+    /// // GDScript - Resolve inventory in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
     /// var shop_items = []
-    /// for item_id in npc.InventoryIds:
-    ///     var item = await item_service.get_by_id(item_id)
-    ///     shop_items.append(item)
+    /// for ref_id in npc.InventoryIds:
+    ///     var item_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     shop_items.append(item_data)
     /// show_shop_ui(shop_items)
     /// </code>
+    /// <para><strong>Wildcard support for random stock:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>"@items/consumables/potions:*" - Random potion types</description></item>
+    /// <item><description>"@items/weapons/swords:*" - Random swords in stock</description></item>
+    /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["@items/consumables/potions:health-potion", "@items/weapons/swords:iron-sword"]
+    /// Example inventory reference IDs:
+    /// <code>
+    /// [
+    ///   \"@items/consumables/potions:health-potion\",
+    ///   \"@items/weapons/swords:*\",
+    ///   \"@items/armor/chest:leather-armor\"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> InventoryIds { get; set; } = new();
 

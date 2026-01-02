@@ -102,65 +102,95 @@ public class Enemy : ITraitable
     public EnemyDifficulty Difficulty { get; set; } = EnemyDifficulty.Easy;
 
     /// <summary>
-    /// Collection of ability IDs this enemy can use in combat.
-    /// These are resolved from @abilities JSON references during enemy generation.
+    /// Collection of ability reference IDs (v4.1 format) this enemy can use in combat.
+    /// Each ID is a JSON reference like "@abilities/active/offensive:fireball".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Resolve IDs to full Ability objects
-    /// var abilities = await abilityRepository.GetByIdsAsync(enemy.AbilityIds);
-    /// foreach (var ability in abilities)
+    /// // C# - Resolve each reference to a full Ability object
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var abilities = new List&lt;Ability&gt;();
+    /// foreach (var refId in enemy.AbilityIds)
     /// {
-    ///     if (ShouldUseAbility(ability))
-    ///         ExecuteAbility(ability, target);
+    ///     var abilityJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var ability = abilityJson.ToObject&lt;Ability&gt;();
+    ///     abilities.Add(ability);
     /// }
+    /// // Now use abilities in combat AI
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Load enemy abilities for combat
+    /// // GDScript - Resolve references in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
     /// var abilities = []
-    /// for ability_id in enemy.AbilityIds:
-    ///     var ability = await ability_service.get_by_id(ability_id)
-    ///     abilities.append(ability)
+    /// for ref_id in enemy.AbilityIds:
+    ///     var ability_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     abilities.append(ability_data)
     /// enemy.combat_abilities = abilities
     /// </code>
-    /// <para><strong>Why IDs instead of objects?</strong></para>
+    /// <para><strong>Why reference IDs instead of embedded objects?</strong></para>
     /// <list type="bullet">
     /// <item><description>Enemy is a template, not a live combat instance</description></item>
-    /// <item><description>Abilities loaded when combat starts</description></item>
-    /// <item><description>Memory efficiency - 1000s of enemy templates in catalog</description></item>
+    /// <item><description>Lazy loading - resolve only when spawning enemy in combat</description></item>
+    /// <item><description>Ability data can be updated without changing enemy templates</description></item>
+    /// <item><description>Memory efficiency - shared ability data across multiple enemy types</description></item>
     /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["basic-attack", "fire-breath", "tail-swipe"]
+    /// Example ability reference IDs:
+    /// <code>
+    /// [
+    ///   "@abilities/active/offensive:bite",
+    ///   "@abilities/active/offensive:claw",
+    ///   "@abilities/passive/defensive:thick-hide"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> AbilityIds { get; set; } = new();
 
     /// <summary>
-    /// Collection of loot table IDs for determining drops when this enemy is defeated.
-    /// These are resolved from @loot JSON references during enemy generation.
+    /// Collection of loot table reference IDs (v4.1 format) for items this enemy can drop.
+    /// Each ID is a JSON reference to an item catalog like \"@items/weapons/swords:*\".
     /// </summary>
     /// <remarks>
-    /// <para><strong>Resolution Pattern (C#):</strong></para>
+    /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
     /// <code>
-    /// // Generate loot on enemy death
-    /// var lootTables = await lootTableRepository.GetByIdsAsync(enemy.LootTableIds);
-    /// var droppedItems = lootGenerator.GenerateLoot(lootTables, enemy.Level);
-    /// player.Inventory.AddRange(droppedItems);
+    /// // C# - Resolve loot table references
+    /// var resolver = new ReferenceResolverService(dataCache);
+    /// var lootItems = new List&lt;Item&gt;();
+    /// foreach (var refId in enemy.LootTableIds)
+    /// {
+    ///     // Wildcards (*) return random items from category
+    ///     var itemJson = await resolver.ResolveToObjectAsync(refId);
+    ///     var item = itemJson.ToObject&lt;Item&gt;();
+    ///     if (RollForLoot()) lootItems.Add(item);
+    /// }
     /// </code>
-    /// <para><strong>Resolution Pattern (GDScript/Godot):</strong></para>
     /// <code>
-    /// # Generate loot when enemy dies
-    /// var loot_items = []
-    /// for loot_table_id in enemy.LootTableIds:
-    ///     var loot_table = await loot_service.get_by_id(loot_table_id)
-    ///     var items = loot_generator.roll_loot(loot_table, enemy.Level)
-    ///     loot_items.append_array(items)
+    /// // GDScript - Resolve loot tables in Godot
+    /// var resolver = ReferenceResolverService.new(data_cache)
+    /// var loot = []
+    /// for ref_id in enemy.LootTableIds:
+    ///     var item_data = await resolver.ResolveToObjectAsync(ref_id)
+    ///     if roll_for_loot():
+    ///         loot.append(item_data)
     /// </code>
+    /// <para><strong>Wildcard support for random loot:</strong></para>
+    /// <list type="bullet">
+    /// <item><description>\"@items/weapons/swords:*\" - Random sword from catalog</description></item>
+    /// <item><description>\"@items/consumables/potions:*\" - Random potion</description></item>
+    /// <item><description>\"@items/materials/metals:iron-ore\" - Specific item</description></item>
+    /// </list>
     /// </remarks>
     /// <example>
-    /// Example IDs: ["common-humanoid-loot", "dragon-hoard"]
+    /// Example loot table reference IDs:
+    /// <code>
+    /// [
+    ///   \"@items/consumables/potions:*\",
+    ///   \"@items/weapons/swords:*\",
+    ///   \"@items/materials/gems:ruby\"
+    /// ]
+    /// </code>
     /// </example>
     public List<string> LootTableIds { get; set; } = new();
 
