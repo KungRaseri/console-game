@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Player and NPC class definitions with archetypes, subclasses, specializations, and progression data",
     "version": "4.0",
@@ -166,7 +166,7 @@
                 "@abilities/active/support:avenging-wrath"
               ],
               "30": [
-                "@abilities/passive/passive:crusader"
+                "@abilities/passive:crusader"
               ],
               "50": [
                 "@abilities/ultimate:holy-champion"
@@ -248,7 +248,7 @@
                 "@abilities/active/mobility:shadow-step"
               ],
               "20": [
-                "@abilities/passive/passive:master-thief"
+                "@abilities/passive:master-thief"
               ],
               "30": [
                 "@abilities/active/utility:vanish"
@@ -324,7 +324,7 @@
                 "@abilities/active/offensive:execute"
               ],
               "30": [
-                "@abilities/passive/passive:shadow-master"
+                "@abilities/passive:shadow-master"
               ],
               "50": [
                 "@abilities/ultimate:death-incarnate"
@@ -395,10 +395,10 @@
                 "@abilities/active/support:showstopper"
               ],
               "20": [
-                "@abilities/passive/passive:master-of-blades"
+                "@abilities/passive:master-of-blades"
               ],
               "30": [
-                "@abilities/passive/passive:legendary-swagger"
+                "@abilities/passive:legendary-swagger"
               ],
               "50": [
                 "@abilities/ultimate:dread-pirate"
@@ -485,7 +485,7 @@
                 "@abilities/active/offensive:volley"
               ],
               "30": [
-                "@abilities/passive/passive:master-tracker"
+                "@abilities/passive:master-tracker"
               ],
               "50": [
                 "@abilities/ultimate:apex-predator"
@@ -555,10 +555,10 @@
                 "@abilities/active/offensive:alpha-strike"
               ],
               "20": [
-                "@abilities/passive/passive:primal-bond"
+                "@abilities/passive:primal-bond"
               ],
               "30": [
-                "@abilities/passive/passive:king-of-beasts"
+                "@abilities/passive:king-of-beasts"
               ],
               "50": [
                 "@abilities/ultimate:natures-wrath"
@@ -649,16 +649,16 @@
                 "@abilities/active/defensive:indomitable"
               ],
               "25": [
-                "@abilities/passive/passive:weapon-mastery"
+                "@abilities/passive:weapon-mastery"
               ],
               "30": [
                 "@abilities/active/offensive:devastating-blow"
               ],
               "40": [
-                "@abilities/passive/passive:combat-supremacy"
+                "@abilities/passive:combat-supremacy"
               ],
               "50": [
-                "@abilities/passive/passive:titans-strength"
+                "@abilities/passive:titans-strength"
               ]
             }
           }
@@ -724,10 +724,10 @@
                 "@abilities/active/offensive:frenzy"
               ],
               "20": [
-                "@abilities/passive/passive:unstoppable"
+                "@abilities/passive:unstoppable"
               ],
               "30": [
-                "@abilities/passive/passive:deaths-door"
+                "@abilities/passive:deaths-door"
               ],
               "50": [
                 "@abilities/ultimate:ragnarok"
@@ -792,7 +792,7 @@
                 "@abilities/active/defensive:shield-wall"
               ],
               "10": [
-                "@abilities/passive/passive:sentinel"
+                "@abilities/passive:sentinel"
               ],
               "15": [
                 "@abilities/active/defensive:bulwark"
@@ -869,7 +869,7 @@
                 "@abilities/active/offensive:flurry"
               ],
               "15": [
-                "@abilities/passive/passive:bladework"
+                "@abilities/passive:bladework"
               ],
               "20": [
                 "@abilities/active/defensive:perfect-parry"
@@ -988,7 +988,7 @@
           },
           "startingAbilities": [
             "@abilities/active/offensive:elemental-bolt",
-            "@abilities/passive/passive:elemental-mastery",
+            "@abilities/passive:elemental-mastery",
             "@abilities/active/defensive:elemental-shield"
           ],
           "traits": {
@@ -1015,7 +1015,7 @@
             "abilityUnlocks": {
               "1": [
                 "@abilities/active/offensive:elemental-bolt",
-                "@abilities/passive/passive:elemental-mastery"
+                "@abilities/passive:elemental-mastery"
               ],
               "5": [
                 "@abilities/active/defensive:elemental-shield"

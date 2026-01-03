@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Demon enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -113,7 +113,7 @@
               "@abilities/active/offensive:*"
             ],
             "13": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -327,10 +327,10 @@
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ],
             "18": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -357,10 +357,10 @@
           ],
           "abilityUnlocks": {
             "19": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ],
             "22": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -387,11 +387,11 @@
           ],
           "abilityUnlocks": {
             "20": [
-              "@abilities/ultimate/ultimate:*",
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*",
+              "@abilities/ultimate:*"
             ],
             "23": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -417,7 +417,7 @@
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -437,7 +437,7 @@
           ],
           "abilityUnlocks": {
             "17": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }

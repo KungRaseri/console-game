@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Joinable guilds with progression systems, ranks, and exclusive benefits",
     "version": "4.0",
@@ -234,7 +234,7 @@
           "displayName": "Craftsmen Guild",
           "rarityWeight": 12,
           "description": "Association of master artisans and skilled workers",
-          "headquarters": "@world/locations/towns/towns:Ironforge",
+          "headquarters": "@world/locations/towns:Ironforge",
           "joinRequirements": {
             "level": 2,
             "skills": [
@@ -306,7 +306,7 @@
           "displayName": "Thieves Guild",
           "rarityWeight": 20,
           "description": "Underground network of thieves, spies, and assassins",
-          "headquarters": "@world/locations/towns/towns:CrimsonHarbor",
+          "headquarters": "@world/locations/towns:CrimsonHarbor",
           "joinRequirements": {
             "level": 3,
             "dexterity": 13,

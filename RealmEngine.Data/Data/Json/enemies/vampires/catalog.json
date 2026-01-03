@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Vampire enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -169,7 +169,7 @@
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -196,7 +196,7 @@
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -224,7 +224,7 @@
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -270,7 +270,7 @@
           ],
           "abilityUnlocks": {
             "17": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -300,7 +300,7 @@
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -330,8 +330,8 @@
           ],
           "abilityUnlocks": {
             "21": [
-              "@abilities/ultimate/ultimate:*",
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*",
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -359,7 +359,7 @@
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }

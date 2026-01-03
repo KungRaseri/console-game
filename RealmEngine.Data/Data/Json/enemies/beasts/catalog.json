@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Beast enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -91,7 +91,7 @@
               "@abilities/active/offensive:*"
             ],
             "12": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -217,10 +217,10 @@
               "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/passive/passive:unstoppable"
+              "@abilities/passive:unstoppable"
             ],
             "18": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -259,7 +259,7 @@
               "@abilities/active/offensive:*"
             ],
             "12": [
-              "@abilities/passive/passive:master-tracker"
+              "@abilities/passive:master-tracker"
             ]
           }
         },
@@ -316,7 +316,7 @@
               "@abilities/active/offensive:*"
             ],
             "13": [
-              "@abilities/passive/passive:king-of-beasts"
+              "@abilities/passive:king-of-beasts"
             ]
           }
         }

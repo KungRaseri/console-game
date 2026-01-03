@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Goblinoid enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -237,7 +237,7 @@
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -327,7 +327,7 @@
           ],
           "abilityUnlocks": {
             "10": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -368,10 +368,10 @@
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ],
             "16": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }

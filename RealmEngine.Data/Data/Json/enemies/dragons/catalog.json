@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Dragon enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -52,7 +52,7 @@
               "@abilities/active/offensive:*"
             ],
             "30": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -79,7 +79,7 @@
               "@abilities/active/offensive:*"
             ],
             "28": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -106,7 +106,7 @@
               "@abilities/active/offensive:*"
             ],
             "28": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -133,7 +133,7 @@
               "@abilities/active/offensive:*"
             ],
             "26": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -160,7 +160,7 @@
               "@abilities/active/offensive:*"
             ],
             "25": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -205,7 +205,7 @@
               "@abilities/active/support:*"
             ],
             "30": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -238,7 +238,7 @@
               "@abilities/active/offensive:*"
             ],
             "29": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -271,7 +271,7 @@
               "@abilities/active/offensive:*"
             ],
             "28": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -304,7 +304,7 @@
               "@abilities/active/offensive:*"
             ],
             "27": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -337,7 +337,7 @@
               "@abilities/active/offensive:*"
             ],
             "26": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }

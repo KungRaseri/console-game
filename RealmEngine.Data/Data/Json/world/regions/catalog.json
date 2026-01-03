@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Kingdoms, territories, and political regions defining the game world's geography",
     "version": "4.0",
@@ -20,7 +20,7 @@
           "military": "Professional Army",
           "majorCities": [
             "@world/locations/towns/cities:Silverport",
-            "@world/locations/towns/towns:Ironforge"
+            "@world/locations/towns:Ironforge"
           ],
           "terrain": [
             "plains",
@@ -62,7 +62,7 @@
           "economy": "Mining & Smithing",
           "military": "Clan Warriors",
           "majorCities": [
-            "@world/locations/towns/towns:Ironforge"
+            "@world/locations/towns:Ironforge"
           ],
           "terrain": [
             "mountains",
@@ -101,7 +101,7 @@
           "economy": "Plunder & Dark Magic",
           "military": "Undead Legions",
           "majorCities": [
-            "@world/locations/towns/towns:Ravenhollow",
+            "@world/locations/towns:Ravenhollow",
             "@world/locations/towns/special:DeadwoodGrove"
           ],
           "terrain": [
@@ -176,12 +176,12 @@
           "rarityWeight": 22,
           "description": "Federation of desert city-states ruled by merchant princes",
           "government": "Merchant Federation",
-          "capital": "@world/locations/towns/towns:Sandstone",
+          "capital": "@world/locations/towns:Sandstone",
           "population": "Medium",
           "economy": "Trade & Exotic Goods",
           "military": "Mercenary Companies",
           "majorCities": [
-            "@world/locations/towns/towns:Sandstone"
+            "@world/locations/towns:Sandstone"
           ],
           "terrain": [
             "desert",
@@ -289,12 +289,12 @@
           "rarityWeight": 30,
           "description": "Lawless coastal region controlled by pirate lords",
           "government": "Pirate Council",
-          "capital": "@world/locations/towns/towns:CrimsonHarbor",
+          "capital": "@world/locations/towns:CrimsonHarbor",
           "population": "Small",
           "economy": "Piracy & Black Market",
           "military": "Pirate Fleets",
           "majorCities": [
-            "@world/locations/towns/towns:CrimsonHarbor"
+            "@world/locations/towns:CrimsonHarbor"
           ],
           "terrain": [
             "coast",
@@ -365,7 +365,7 @@
           "military": "Warlords & Mercenaries",
           "majorCities": [
             "@world/locations/towns/cities:Stormhaven",
-            "@world/locations/towns/towns:Ashborough"
+            "@world/locations/towns:Ashborough"
           ],
           "terrain": [
             "plains",

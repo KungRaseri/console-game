@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Humanoid enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -214,7 +214,7 @@
               "@abilities/active/support:*"
             ],
             "18": [
-              "@abilities/passive/passive:weapon-mastery"
+              "@abilities/passive:weapon-mastery"
             ]
           }
         },
@@ -247,10 +247,10 @@
               "@abilities/active/defensive:*"
             ],
             "20": [
-              "@abilities/passive/passive:combat-supremacy"
+              "@abilities/passive:combat-supremacy"
             ],
             "25": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -293,10 +293,10 @@
               "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/passive/passive:shadow-master"
+              "@abilities/passive:shadow-master"
             ],
             "18": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -364,7 +364,7 @@
               "@abilities/active/offensive:*"
             ],
             "20": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -396,10 +396,10 @@
               "@abilities/active/offensive:*"
             ],
             "18": [
-              "@abilities/passive/passive:unstoppable"
+              "@abilities/passive:unstoppable"
             ],
             "20": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }

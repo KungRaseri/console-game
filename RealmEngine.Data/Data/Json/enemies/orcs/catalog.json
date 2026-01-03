@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Orc enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -126,7 +126,7 @@
               "@abilities/active/offensive:*"
             ],
             "10": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -218,7 +218,7 @@
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -246,10 +246,10 @@
           ],
           "abilityUnlocks": {
             "13": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ],
             "16": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -291,10 +291,10 @@
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ],
             "18": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -351,7 +351,7 @@
               "@abilities/active/offensive:*"
             ],
             "16": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }

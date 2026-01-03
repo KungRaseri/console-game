@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Giant insect enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -136,7 +136,7 @@
               "@abilities/active/support:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -432,7 +432,7 @@
           ],
           "abilityUnlocks": {
             "12": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }

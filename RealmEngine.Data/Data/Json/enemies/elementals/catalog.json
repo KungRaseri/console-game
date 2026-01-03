@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Elemental enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -49,7 +49,7 @@
               "@abilities/active/defensive:*"
             ],
             "16": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -101,10 +101,10 @@
           ],
           "abilityUnlocks": {
             "17": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ],
             "20": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -147,7 +147,7 @@
               "@abilities/active/support:*"
             ],
             "16": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -214,7 +214,7 @@
               "@abilities/passive/defensive:ThickSkin"
             ],
             "17": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -310,7 +310,7 @@
               "@abilities/active/support:*"
             ],
             "16": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -361,10 +361,10 @@
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ],
             "19": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -391,10 +391,10 @@
           ],
           "abilityUnlocks": {
             "19": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ],
             "22": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }

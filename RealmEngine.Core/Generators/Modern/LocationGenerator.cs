@@ -39,6 +39,13 @@ public class LocationGenerator
     {
         try
         {
+            // Validate location type
+            if (string.IsNullOrWhiteSpace(locationType))
+            {
+                _logger.LogWarning("Empty location type provided to GenerateLocationsAsync");
+                return new List<Location>();
+            }
+
             var catalogPath = locationType switch
             {
                 "towns" => "world/locations/towns/catalog.json",
@@ -46,7 +53,7 @@ public class LocationGenerator
                 "wilderness" => "world/locations/wilderness/catalog.json",
                 "environments" => "world/environments/catalog.json",
                 "regions" => "world/regions/catalog.json",
-                _ => $"world/{locationType}/catalog.json"
+                _ => $"world/locations/{locationType}/catalog.json" // Assume subdirectory under locations
             };
 
             var catalogFile = _dataCache.GetFile(catalogPath);
@@ -103,6 +110,13 @@ public class LocationGenerator
     {
         try
         {
+            // Validate parameters
+            if (string.IsNullOrWhiteSpace(locationType))
+            {
+                _logger.LogWarning("Empty location type provided to GenerateLocationByNameAsync");
+                return null;
+            }
+
             var catalogPath = locationType switch
             {
                 "towns" => "world/locations/towns/catalog.json",
@@ -110,7 +124,7 @@ public class LocationGenerator
                 "wilderness" => "world/locations/wilderness/catalog.json",
                 "environments" => "world/environments/catalog.json",
                 "regions" => "world/regions/catalog.json",
-                _ => $"world/{locationType}/catalog.json"
+                _ => $"world/locations/{locationType}/catalog.json" // Assume subdirectory under locations
             };
 
             var catalogFile = _dataCache.GetFile(catalogPath);

@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Troll enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -114,7 +114,7 @@
               "@abilities/active/offensive:*"
             ],
             "16": [
-              "@abilities/passive/passive:unstoppable"
+              "@abilities/passive:unstoppable"
             ]
           }
         }
@@ -157,7 +157,7 @@
               "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -188,7 +188,7 @@
               "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -218,7 +218,7 @@
               "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -261,7 +261,7 @@
           ],
           "abilityUnlocks": {
             "16": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -290,7 +290,7 @@
           ],
           "abilityUnlocks": {
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -317,14 +317,14 @@
             "@abilities/active/offensive:*",
             "@abilities/active/offensive:*",
             "@abilities/passive/defensive:Regeneration",
-            "@abilities/passive/passive:unstoppable"
+            "@abilities/passive:unstoppable"
           ],
           "abilityUnlocks": {
             "18": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ],
             "21": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }

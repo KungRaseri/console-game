@@ -1,4 +1,4 @@
-{
+﻿{
   "metadata": {
     "description": "Undead enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -195,7 +195,7 @@
               "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -306,7 +306,7 @@
               "@abilities/active/offensive:*"
             ],
             "15": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
@@ -373,7 +373,7 @@
           "abilities": [
             "@abilities/active/offensive:*",
             "@abilities/active/offensive:*",
-            "@abilities/passive/passive:unstoppable"
+            "@abilities/passive:unstoppable"
           ],
           "abilityUnlocks": {
             "13": [
@@ -383,7 +383,7 @@
               "@abilities/active/support:*"
             ],
             "20": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -414,7 +414,7 @@
               "@abilities/active/summon:*"
             ],
             "18": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         },
@@ -447,7 +447,7 @@
               "@abilities/active/summon:*"
             ],
             "25": [
-              "@abilities/ultimate/ultimate:*"
+              "@abilities/ultimate:*"
             ]
           }
         }
