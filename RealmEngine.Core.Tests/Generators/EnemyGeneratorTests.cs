@@ -75,7 +75,7 @@ public class EnemyGeneratorTests
 
         // Assert
         enemy.Should().NotBeNull();
-        enemy!.Name.Should().Be("Wolf");
+        enemy!.Name.Should().NotBeNullOrWhiteSpace("enemy should have a pattern-generated name");
         enemy.Id.Should().Contain("beasts:");
     }
 

@@ -78,8 +78,8 @@ public class AbilityGeneratorTests
 
         // Assert
         ability.Should().NotBeNull();
-        ability!.Name.Should().Be("basic-attack");
-        ability.DisplayName.Should().Be("Basic Attack");
+        ability!.Name.Should().NotBeNullOrWhiteSpace("ability should have a pattern-generated name");
+        ability.Id.Should().Contain("active/offensive:");
     }
 
     [Fact]

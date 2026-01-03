@@ -73,51 +73,60 @@ public class EnchantmentGenerator
                 return Task.FromResult<Enchantment?>(null);
             }
 
-            // Use NameComposer to resolve pattern (no {base} token in enchantment patterns)
-            var (name, baseName, prefixes, suffixes) = _nameComposer.ComposeNameWithComponents(patternString, components);
-            
-            // Determine position based on token name suffix (_prefix or _suffix)
-            // Since there's no {base}, we use the token naming convention
-            EnchantmentPosition position;
-            JToken? componentData = null;
-            string enchantmentName;
-            
-            // Check if any token ends with "_prefix" or "_suffix"
+            // Extract token name from pattern (e.g., "element_prefix" from "{element_prefix}")
             var tokenMatch = System.Text.RegularExpressions.Regex.Match(patternString, @"\{([^}]+)\}");
             if (!tokenMatch.Success)
             {
+                _logger.LogWarning("Enchantment pattern '{Pattern}' does not contain a valid token", patternString);
                 return Task.FromResult<Enchantment?>(null);
             }
             
             var tokenName = tokenMatch.Groups[1].Value;
             
+            // Get the component array for this token
+            var componentArray = components[tokenName];
+            if (componentArray == null || !componentArray.Any())
+            {
+                _logger.LogWarning("No components found for enchantment token '{Token}'", tokenName);
+                return Task.FromResult<Enchantment?>(null);
+            }
+
+            // Select a random component using weighted selection
+            var selectedComponent = GetRandomWeightedComponent(componentArray);
+            if (selectedComponent == null)
+            {
+                _logger.LogWarning("Failed to select component for token '{Token}'", tokenName);
+                return Task.FromResult<Enchantment?>(null);
+            }
+
+            // Get the enchantment name from the component
+            var enchantmentName = GetStringProperty(selectedComponent, "value") 
+                               ?? GetStringProperty(selectedComponent, "name");
+            
+            if (string.IsNullOrWhiteSpace(enchantmentName))
+            {
+                _logger.LogWarning("Component for token '{Token}' has no valid name/value", tokenName);
+                return Task.FromResult<Enchantment?>(null);
+            }
+
+            // Determine position based on token naming convention (_prefix vs _suffix)
+            EnchantmentPosition position;
             if (tokenName.EndsWith("_prefix"))
             {
                 position = EnchantmentPosition.Prefix;
-                if (!prefixes.Any())
-                {
-                    return Task.FromResult<Enchantment?>(null);
-                }
-                enchantmentName = prefixes.First().Value;
-                componentData = FindComponentByValue(components[tokenName], enchantmentName);
             }
             else if (tokenName.EndsWith("_suffix"))
             {
                 position = EnchantmentPosition.Suffix;
-                if (!suffixes.Any())
-                {
-                    return Task.FromResult<Enchantment?>(null);
-                }
-                enchantmentName = suffixes.First().Value;
-                componentData = FindComponentByValue(components[tokenName], enchantmentName);
             }
             else
             {
-                // Fallback: treat as suffix if not explicitly marked
-                position = EnchantmentPosition.Suffix;
-                enchantmentName = name;
-                componentData = FindComponentByValue(components[tokenName], enchantmentName);
+                _logger.LogWarning("Enchantment token '{Token}' does not follow _prefix or _suffix convention", tokenName);
+                position = EnchantmentPosition.Suffix; // Fallback
             }
+            
+            // Use selected component as componentData
+            var componentData = selectedComponent;
             
             // Build enchantment from component
             return Task.FromResult<Enchantment?>(BuildEnchantment(componentData, enchantmentName, position));
@@ -145,6 +154,30 @@ public class EnchantmentGenerator
         }
         
         return null;
+    }
+
+    /// <summary>
+    /// Selects a random component from a component array using rarityWeight.
+    /// </summary>
+    private JToken? GetRandomWeightedComponent(JToken components)
+    {
+        var componentList = components.ToList();
+        if (!componentList.Any()) return null;
+
+        var totalWeight = componentList.Sum(c => GetIntProperty(c, "rarityWeight", 1));
+        var randomValue = _random.Next(1, totalWeight + 1);
+
+        int currentWeight = 0;
+        foreach (var component in componentList)
+        {
+            currentWeight += GetIntProperty(component, "rarityWeight", 1);
+            if (randomValue <= currentWeight)
+            {
+                return component;
+            }
+        }
+
+        return componentList.First();
     }
 
     /// <summary>

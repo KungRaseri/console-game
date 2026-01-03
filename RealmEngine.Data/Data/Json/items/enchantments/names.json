@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "description": "Enchantment naming system for the Hybrid Enhancement System v1.0 (positional prefix/suffix model)",
-    "version": "4.1",
+    "description": "Enchantment naming system using convention-based positioning (_prefix/_suffix suffixes)",
+    "version": "4.0",
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
     "supportsTraits": true,
