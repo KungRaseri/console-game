@@ -292,7 +292,7 @@ jobs:
 
   notify:
     name: Build Notification
-    needs: [test, build-package, publish-nuget, release, auto-tag]
+    needs: [test, build-package, publish-nuget, auto-tag]
     runs-on: ubuntu-latest
     if: always()
     
@@ -306,21 +306,11 @@ jobs:
         
         if [[ "${{ github.ref }}" == refs/heads/main ]]; then
           echo "- **Auto-Tag**: ${{ needs.auto-tag.result }}" >> $GITHUB_STEP_SUMMARY
-        fi
-        
-        if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
           echo "- **NuGet Publish**: ${{ needs.publish-nuget.result }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Release**: ${{ needs.release.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Note**: Tag creation will trigger separate release workflow" >> $GITHUB_STEP_SUMMARY
         fi
         
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Ref**: \`${{ github.ref }}\`" >> $GITHUB_STEP_SUMMARY
         echo "**Commit**: [\`${{ github.sha }}\`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})" >> $GITHUB_STEP_SUMMARY
-        
-        if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Release Assets" >> $GITHUB_STEP_SUMMARY
-          echo "- Full package: RealmEngine-${{ github.ref_name }}.zip" >> $GITHUB_STEP_SUMMARY
-          echo "- RealmForge: RealmForge-${{ github.ref_name }}.zip" >> $GITHUB_STEP_SUMMARY
-          echo "- NuGet packages published to GitHub Packages" >> $GITHUB_STEP_SUMMARY
-        fi
