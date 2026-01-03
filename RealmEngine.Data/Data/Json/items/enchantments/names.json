@@ -1,21 +1,21 @@
 {
   "metadata": {
-    "description": "Enchantment naming system for the Hybrid Enhancement System v1.0 (prefix/suffix model)",
-    "version": "4.0",
-    "lastUpdated": "2025-12-31",
+    "description": "Enchantment naming system for the Hybrid Enhancement System v1.0 (positional prefix/suffix model)",
+    "version": "4.1",
+    "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
     "supportsTraits": true,
-    "componentKeys": ["element_prefix", "element_suffix", "combat_suffix", "magic_suffix"],
-    "patternTokens": ["element_prefix", "element_suffix", "combat_suffix", "magic_suffix"],
+    "componentKeys": ["base", "element_prefix", "element_suffix", "combat_suffix", "magic_suffix"],
+    "patternTokens": ["base", "element_prefix", "element_suffix", "combat_suffix", "magic_suffix"],
     "totalPatterns": 4,
     "raritySystem": "weight-based",
     "notes": [
       "Enchantments are baked into items at generation time",
-      "Each enchantment is either a prefix (before base name) or suffix (after base name)",
-      "Prefix enchantments: elemental damage types",
-      "Suffix enchantments: stat bonuses, utility effects",
-      "Patterns no longer use {base} token - just component names",
-      "Position metadata determines whether enchantment goes before or after item name"
+      "Position relative to {base} token determines prefix (before) or suffix (after)",
+      "Prefix patterns: tokens before {base}",
+      "Suffix patterns: tokens after {base}",
+      "No explicit position metadata needed - pattern structure determines position",
+      "The {base} token is resolved by ItemGenerator (not from components)"
     ]
   },
   "components": {
@@ -234,24 +234,24 @@
   },
   "patterns": [
     {
-      "pattern": "{element_prefix}",
+      "pattern": "{element_prefix} {base}",
       "rarityWeight": 40,
-      "position": "prefix"
+      "note": "Prefix pattern - elemental modifier before base name"
     },
     {
-      "pattern": "{element_suffix}",
+      "pattern": "{base} {element_suffix}",
       "rarityWeight": 35,
-      "position": "suffix"
+      "note": "Suffix pattern - elemental effect after base name"
     },
     {
-      "pattern": "{combat_suffix}",
+      "pattern": "{base} {combat_suffix}",
       "rarityWeight": 30,
-      "position": "suffix"
+      "note": "Suffix pattern - combat bonus after base name"
     },
     {
-      "pattern": "{magic_suffix}",
+      "pattern": "{base} {magic_suffix}",
       "rarityWeight": 35,
-      "position": "suffix"
+      "note": "Suffix pattern - magical effect after base name"
     }
   ]
 }

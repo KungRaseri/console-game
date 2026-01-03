@@ -2,6 +2,7 @@ using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -16,6 +17,7 @@ public class ItemGenerator
     private readonly Random _random;
     private readonly ILogger<ItemGenerator> _logger;
     private readonly ILoggerFactory _loggerFactory;
+    private readonly NameComposer _nameComposer;
     private EnchantmentGenerator? _enchantmentGenerator;
 
     /// <summary>
@@ -32,6 +34,7 @@ public class ItemGenerator
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
         _random = new Random();
+        _nameComposer = new NameComposer(NullLogger<NameComposer>.Instance);
     }
 
     /// <summary>
@@ -251,7 +254,7 @@ public class ItemGenerator
     }
 
     /// <summary>
-    /// Apply enhancements (materials, enchantments, gem sockets) from names.json pattern.
+    /// Apply enhancements (materials, enchantments, gem sockets) AND pattern-based naming from names.json pattern.
     /// </summary>
     private async Task ApplyEnhancementsFromPatternAsync(Item item, string category)
     {
@@ -270,11 +273,38 @@ public class ItemGenerator
             var pattern = GetRandomWeightedPattern(patterns);
             if (pattern == null) return;
 
+            // Get pattern string (e.g., "{quality} {material} {base} {suffix}")
+            var patternString = GetStringProperty(pattern, "pattern");
+            if (!string.IsNullOrEmpty(patternString))
+            {
+                // Use NameComposer to resolve pattern with components
+                var components = namesFile.JsonData["components"];
+                if (components != null)
+                {
+                    var (name, baseName, prefixes, suffixes) = _nameComposer.ComposeNameWithComponents(patternString, components);
+                    
+                    // Store pattern-based naming components (NOT including enchantments yet)
+                    // Enchantments will be added separately in BuildEnhancedName()
+                    item.Prefixes.AddRange(prefixes);
+                    item.Suffixes.AddRange(suffixes);
+                }
+            }
+
             // Apply material if pattern has materialRef
             var materialRef = GetStringProperty(pattern, "materialRef");
             if (!string.IsNullOrEmpty(materialRef))
             {
                 await SelectMaterialAsync(item, materialRef);
+                
+                // Add material to Prefixes list after selection
+                if (!string.IsNullOrEmpty(item.Material))
+                {
+                    item.Prefixes.Add(new NameComponent
+                    {
+                        Token = "material",
+                        Value = item.Material
+                    });
+                }
             }
 
             // Apply enchantments from enchantmentSlots
@@ -462,23 +492,24 @@ public class ItemGenerator
 
     /// <summary>
     /// Build the enhanced item name from all components and populate naming component properties.
+    /// Order: [Enchantment Prefixes] [Pattern Prefixes] [BaseName] [Pattern Suffixes] [Enchantment Suffixes] [Sockets]
     /// </summary>
     private string BuildEnhancedName(Item item)
     {
         var nameParts = new List<string>();
         
-        // Clear component lists
-        item.Prefixes.Clear();
-        item.Suffixes.Clear();
-
-        // Prefix enchantments
+        // NOTE: Prefixes/Suffixes lists are already populated by ApplyEnhancementsFromPatternAsync
+        // We just need to add enchantments and build the final name
+        
+        // 1. Prefix enchantments
         var prefixEnchantments = item.Enchantments
             .Where(e => e.Position == EnchantmentPosition.Prefix)
             .ToList();
         
         foreach (var enchantment in prefixEnchantments)
         {
-            item.Prefixes.Add(new NameComponent 
+            // Add to Prefixes list with special token
+            item.Prefixes.Insert(0, new NameComponent 
             { 
                 Token = "enchantment_prefix", 
                 Value = enchantment.Name 
@@ -487,22 +518,30 @@ public class ItemGenerator
             nameParts.Add(enchantment.Name);
         }
 
-        // Material
-        if (!string.IsNullOrEmpty(item.Material))
-        {
-            item.Prefixes.Add(new NameComponent 
-            { 
-                Token = "material", 
-                Value = item.Material 
-            });
+        // 2. Pattern prefixes (quality, material, etc.) - already in Prefixes list
+        var patternPrefixes = item.Prefixes
+            .Where(p => p.Token != "enchantment_prefix")
+            .ToList();
             
-            nameParts.Add(item.Material);
+        foreach (var prefix in patternPrefixes)
+        {
+            nameParts.Add(prefix.Value);
         }
 
-        // Base name
+        // 3. Base name
         nameParts.Add(item.BaseName);
 
-        // Suffix enchantments
+        // 4. Pattern suffixes - already in Suffixes list
+        var patternSuffixes = item.Suffixes
+            .Where(s => s.Token != "enchantment_suffix")
+            .ToList();
+            
+        foreach (var suffix in patternSuffixes)
+        {
+            nameParts.Add(suffix.Value);
+        }
+
+        // 5. Suffix enchantments
         var suffixEnchantments = item.Enchantments
             .Where(e => e.Position == EnchantmentPosition.Suffix)
             .ToList();
@@ -518,7 +557,7 @@ public class ItemGenerator
             nameParts.Add(enchantment.Name);
         }
 
-        // Gem socket indicator (separate from naming components per design decision)
+        // 6. Gem socket indicator (separate from naming components per design decision)
         if (item.GemSockets.Any())
         {
             var filledSockets = item.GemSockets.Count(s => s.Gem != null);

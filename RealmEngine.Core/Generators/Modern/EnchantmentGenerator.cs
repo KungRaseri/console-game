@@ -2,11 +2,12 @@ using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace RealmEngine.Core.Generators.Modern;
 
 /// <summary>
-/// Generates enchantments using the v4.2 prefix/suffix system.
+/// Generates enchantments using the v4.1 positional pattern system.
 /// Part of the Hybrid Enhancement System v1.0.
 /// </summary>
 public class EnchantmentGenerator
@@ -15,6 +16,7 @@ public class EnchantmentGenerator
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
     private readonly ILogger<EnchantmentGenerator> _logger;
+    private readonly NameComposer _nameComposer;
 
     public EnchantmentGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<EnchantmentGenerator> logger)
     {
@@ -22,10 +24,14 @@ public class EnchantmentGenerator
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
+        
+        // Create a NullLogger for NameComposer (it doesn't need logging for our use case)
+        _nameComposer = new NameComposer(NullLogger<NameComposer>.Instance);
     }
 
     /// <summary>
     /// Generate a single enchantment from a reference.
+    /// Uses positional pattern system to determine prefix/suffix placement.
     /// </summary>
     public Task<Enchantment?> GenerateEnchantmentAsync(string reference)
     {
@@ -40,7 +46,7 @@ public class EnchantmentGenerator
                 return Task.FromResult<Enchantment?>(null);
             }
 
-            // Get patterns that match the reference filter
+            // Get patterns
             var patterns = namesFile.JsonData["patterns"];
             if (patterns == null || !patterns.Any())
             {
@@ -54,39 +60,84 @@ public class EnchantmentGenerator
                 return Task.FromResult<Enchantment?>(null);
             }
 
-            // Get position from pattern
-            var position = GetStringProperty(pattern, "position");
-            var format = GetStringProperty(pattern, "pattern");
+            var patternString = GetStringProperty(pattern, "pattern");
+            if (string.IsNullOrEmpty(patternString))
+            {
+                return Task.FromResult<Enchantment?>(null);
+            }
+
+            // Get components
+            var components = namesFile.JsonData["components"];
+            if (components == null)
+            {
+                return Task.FromResult<Enchantment?>(null);
+            }
+
+            // Use NameComposer to resolve pattern with {base} placeholder
+            var (name, baseName, prefixes, suffixes) = _nameComposer.ComposeNameWithComponents(patternString, components);
             
-            if (string.IsNullOrEmpty(format))
-            {
-                return Task.FromResult<Enchantment?>(null);
-            }
-
-            // Resolve components from pattern (e.g., "{element_prefix}" -> element_prefix component)
-            var componentName = format.Trim('{', '}');
-            var components = namesFile.JsonData["components"]?[componentName];
+            // Determine position based on whether name has prefixes or suffixes
+            EnchantmentPosition position;
+            JToken? componentData = null;
             
-            if (components == null || !components.Any())
+            if (prefixes.Any())
+            {
+                // Pattern has tokens before {base} - this is a prefix enchantment
+                position = EnchantmentPosition.Prefix;
+                // Get the component data for the prefix
+                var prefixToken = prefixes.First().Token;
+                var prefixValue = prefixes.First().Value;
+                componentData = FindComponentByValue(components[prefixToken], prefixValue);
+            }
+            else if (suffixes.Any())
+            {
+                // Pattern has tokens after {base} - this is a suffix enchantment
+                position = EnchantmentPosition.Suffix;
+                // Get the component data for the suffix
+                var suffixToken = suffixes.First().Token;
+                var suffixValue = suffixes.First().Value;
+                componentData = FindComponentByValue(components[suffixToken], suffixValue);
+            }
+            else
+            {
+                // Fallback - shouldn't happen with valid patterns
+                return Task.FromResult<Enchantment?>(null);
+            }
+
+            if (componentData == null)
             {
                 return Task.FromResult<Enchantment?>(null);
             }
 
-            // Select random component by weight
-            var component = GetRandomWeightedItem(components);
-            if (component == null)
-            {
-                return Task.FromResult<Enchantment?>(null);
-            }
-
+            // Get the actual enchantment name (without the {base} placeholder)
+            var enchantmentName = prefixes.Any() ? prefixes.First().Value : suffixes.First().Value;
+            
             // Build enchantment from component
-            return Task.FromResult<Enchantment?>(BuildEnchantment(component, position));
+            return Task.FromResult<Enchantment?>(BuildEnchantment(componentData, enchantmentName, position));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error generating enchantment");
             return Task.FromResult<Enchantment?>(null);
         }
+    }
+    
+    /// <summary>
+    /// Find a component by its value.
+    /// </summary>
+    private JToken? FindComponentByValue(JToken? componentsArray, string value)
+    {
+        if (componentsArray == null) return null;
+        
+        foreach (var component in componentsArray.Children())
+        {
+            if (GetStringProperty(component, "value") == value)
+            {
+                return component;
+            }
+        }
+        
+        return null;
     }
 
     /// <summary>
@@ -111,15 +162,13 @@ public class EnchantmentGenerator
     /// <summary>
     /// Build an Enchantment model from a component.
     /// </summary>
-    private Enchantment BuildEnchantment(JToken component, string? position)
+    private Enchantment BuildEnchantment(JToken component, string name, EnchantmentPosition position)
     {
         var enchantment = new Enchantment
         {
-            Name = GetStringProperty(component, "value") ?? "Unknown Enchantment",
+            Name = name,
             RarityWeight = GetIntProperty(component, "rarityWeight", 50),
-            Position = position?.ToLower() == "prefix" 
-                ? EnchantmentPosition.Prefix 
-                : EnchantmentPosition.Suffix,
+            Position = position,
             Description = "Enchantment"
         };
 
