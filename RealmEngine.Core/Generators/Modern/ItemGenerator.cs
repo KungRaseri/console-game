@@ -257,7 +257,10 @@ public class ItemGenerator
     {
         try
         {
-            var namesFile = _dataCache.GetFile($"items/{category}/names.json");
+            var namesPath = $"items/{category}/names.json";
+            if (!_dataCache.FileExists(namesPath)) return;
+            
+            var namesFile = _dataCache.GetFile(namesPath);
             if (namesFile?.JsonData == null) return;
 
             var patterns = namesFile.JsonData["patterns"];
@@ -509,20 +512,32 @@ public class ItemGenerator
         try
         {
             var traits = catalogItem["traits"];
-            if (traits != null)
+            if (traits != null && traits.Type == JTokenType.Object)
             {
                 foreach (var traitProp in traits.Children<JProperty>())
                 {
                     var traitName = traitProp.Name;
                     var traitData = traitProp.Value;
                     
-                    var traitValue = new TraitValue
+                    // If trait data is a simple value (not an object), create TraitValue directly
+                    if (traitData.Type != JTokenType.Object)
                     {
-                        Value = traitData["value"]?.ToObject<object>(),
-                        Type = ParseTraitType(traitData["type"]?.ToString() ?? "number")
-                    };
-                    
-                    item.Traits[traitName] = traitValue;
+                        item.Traits[traitName] = new TraitValue
+                        {
+                            Value = traitData.ToObject<object>(),
+                            Type = ParseTraitType(traitData.Type.ToString())
+                        };
+                    }
+                    else
+                    {
+                        // Trait data is an object with value and type
+                        var traitValue = new TraitValue
+                        {
+                            Value = traitData["value"]?.ToObject<object>(),
+                            Type = ParseTraitType(traitData["type"]?.ToString() ?? "number")
+                        };
+                        item.Traits[traitName] = traitValue;
+                    }
                 }
             }
         }

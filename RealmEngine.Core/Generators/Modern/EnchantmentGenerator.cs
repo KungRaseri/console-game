@@ -31,7 +31,10 @@ public class EnchantmentGenerator
     {
         try
         {
-            var namesFile = _dataCache.GetFile("items/enchantments/names.json");
+            var namesPath = "items/enchantments/names.json";
+            if (!_dataCache.FileExists(namesPath)) return Task.FromResult<Enchantment?>(null);
+            
+            var namesFile = _dataCache.GetFile(namesPath);
             if (namesFile?.JsonData == null)
             {
                 return Task.FromResult<Enchantment?>(null);

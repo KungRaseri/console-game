@@ -240,6 +240,17 @@ public class GameDataCache : IDisposable
     }
 
     /// <summary>
+    /// Checks if a file exists in the cache (without triggering disk load)
+    /// </summary>
+    /// <param name="relativePath">Path relative to data root (e.g., "abilities/offensive/catalog.json")</param>
+    /// <returns>True if file is in cache, false otherwise</returns>
+    public bool FileExists(string relativePath)
+    {
+        var normalizedPath = NormalizePath(relativePath);
+        return _cache.TryGetValue($"json:{normalizedPath}", out _);
+    }
+
+    /// <summary>
     /// Gets a cached file by its relative path
     /// </summary>
     /// <param name="relativePath">Path relative to data root (e.g., "abilities/offensive/catalog.json")</param>

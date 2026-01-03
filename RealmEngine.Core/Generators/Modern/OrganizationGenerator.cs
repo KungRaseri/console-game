@@ -56,7 +56,8 @@ public class OrganizationGenerator
             }
 
             var result = new List<Organization>();
-            var namesFile = _dataCache.GetFile(catalogPath.Replace("catalog.json", "names.json"));
+            var namesPath = catalogPath.Replace("catalog.json", "names.json");
+            var namesFile = _dataCache.FileExists(namesPath) ? _dataCache.GetFile(namesPath) : null;
 
             for (int i = 0; i < count; i++)
             {
@@ -111,7 +112,8 @@ public class OrganizationGenerator
                 return null;
             }
 
-            var namesFile = _dataCache.GetFile(catalogPath.Replace("catalog.json", "names.json"));
+            var namesPath = catalogPath.Replace("catalog.json", "names.json");
+            var namesFile = _dataCache.FileExists(namesPath) ? _dataCache.GetFile(namesPath) : null;
             var organization = await ConvertToOrganizationAsync(item, organizationType, namesFile);
             if (organization != null && hydrate)
             {
