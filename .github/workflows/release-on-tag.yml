@@ -3,7 +3,9 @@ name: Create Release on Tag
 on:
   push:
     tags:
-      - 'v*'  # Trigger on any tag starting with 'v'
+      - 'v*'  # Only trigger on tag pushes starting with 'v'
+    branches-ignore:
+      - '**'  # Explicitly ignore all branch pushes
 
 env:
   DOTNET_VERSION: '9.0.x'
