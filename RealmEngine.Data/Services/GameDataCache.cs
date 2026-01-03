@@ -140,6 +140,7 @@ public class GameDataCache : IDisposable
 
         int loaded = 0;
         int failed = 0;
+        var failedFiles = new List<string>();
 
         foreach (var filePath in allJsonFiles)
         {
@@ -151,14 +152,32 @@ public class GameDataCache : IDisposable
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to load file: {FilePath}", filePath);
+                var relativePath = Path.GetRelativePath(_dataRootPath, filePath);
+                Log.Error(ex, "❌ FAILED to load file: {FilePath}", relativePath);
                 failed++;
+                failedFiles.Add($"{relativePath}: {ex.Message}");
             }
         }
 
         var elapsed = DateTime.Now - startTime;
-        Log.Information("Data load complete. Loaded {Loaded} files, {Failed} failed in {Duration}ms",
-            loaded, failed, elapsed.TotalMilliseconds);
+        
+        if (failed > 0)
+        {
+            Log.Error("⚠️ Data load completed with ERRORS: {Loaded} loaded, {Failed} FAILED in {Duration}ms",
+                loaded, failed, elapsed.TotalMilliseconds);
+            Log.Error("Failed files:");
+            foreach (var failedFile in failedFiles)
+            {
+                Log.Error("  - {FailedFile}", failedFile);
+            }
+            
+            // Throw exception to ensure failures aren't silently ignored
+            throw new InvalidOperationException(
+                $"Failed to load {failed} JSON files. See logs for details. Failed files: {string.Join(", ", failedFiles)}");
+        }
+        
+        Log.Information("✅ Data load complete: ALL {Loaded} files loaded successfully in {Duration}ms",
+            loaded, elapsed.TotalMilliseconds);
 
         LogStats();
     }
