@@ -29,6 +29,12 @@ public class Ability
     public string? BaseAbilityName { get; set; }
     
     /// <summary>
+    /// Ordered list of prefix components (power, school) that appear before the base ability name.
+    /// Each component preserves its token identifier and display value.
+    /// </summary>
+    public List<NameComponent> Prefixes { get; set; } = new();
+    
+    /// <summary>
     /// Gets or sets the power modifier prefix (e.g., "Greater", "Lesser", "Supreme").
     /// </summary>
     public string? PowerPrefix { get; set; }
@@ -240,6 +246,16 @@ public class Ability
     public List<Ability> RequiredAbilities { get; set; } = new();
 
     /// <summary>
+    /// Gets the value of a specific prefix component by token name.
+    /// </summary>
+    /// <param name="token">The token name to search for (e.g., "power", "school").</param>
+    /// <returns>The component value if found, otherwise null.</returns>
+    public string? GetPrefixValue(string token)
+    {
+        return Prefixes.FirstOrDefault(p => p.Token == token)?.Value;
+    }
+    
+    /// <summary>
     /// Composes the ability display name from individual naming components.
     /// Useful for rebuilding names, localization, or debugging.
     /// </summary>
@@ -248,10 +264,10 @@ public class Ability
     {
         var parts = new List<string>();
         
-        // Order: [Power] [School] [Base]
-        // Examples: "Greater Fireball", "Holy Shield", "Lesser Frost Bolt"
-        if (!string.IsNullOrWhiteSpace(PowerPrefix)) parts.Add(PowerPrefix);
-        if (!string.IsNullOrWhiteSpace(SchoolPrefix)) parts.Add(SchoolPrefix);
+        // Add all prefixes in order
+        parts.AddRange(Prefixes.Select(p => p.Value));
+        
+        // Add base name
         if (!string.IsNullOrWhiteSpace(BaseAbilityName)) parts.Add(BaseAbilityName);
         
         return string.Join(" ", parts.Where(p => !string.IsNullOrWhiteSpace(p)));

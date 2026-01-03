@@ -90,12 +90,27 @@ public class Item : ITraitable
     /// Gets or sets the base item name before enhancements are applied (e.g., \"Longsword\").
     /// </summary>
     public string BaseName { get; set; } = string.Empty;
-    // Naming Component Breakdown
-    // ===========================
+    
+    /// <summary>
+    /// Ordered list of prefix components (quality, material, enchantments, etc.) that appear before the base name.
+    /// Each component preserves its token identifier and display value.
+    /// </summary>
+    public List<NameComponent> Prefixes { get; set; } = new();
+    
+    /// <summary>
+    /// Ordered list of suffix components (enchantments, sockets, etc.) that appear after the base name.
+    /// Each component preserves its token identifier and display value.
+    /// </summary>
+    public List<NameComponent> Suffixes { get; set; } = new();
+    
+    // Naming Component Breakdown (LEGACY - TEMPORARY)
+    // ================================================
+    // These properties will be removed in Phase 3 cleanup
     
     /// <summary>
     /// Gets or sets the quality prefix applied to the item (e.g., "Masterwork", "Crude", "Fine").
     /// Quality affects item stats and pricing.
+    /// TEMPORARY: Will be removed once migration to Prefixes list is complete.
     /// </summary>
     public string? QualityPrefix { get; set; }
     
@@ -477,11 +492,52 @@ public class Item : ITraitable
     }
 
     /// <summary>
+    /// Gets the value of a specific prefix component by token name.
+    /// </summary>
+    /// <param name="token">The token name to search for (e.g., "quality", "material").</param>
+    /// <returns>The component value if found, otherwise null.</returns>
+    public string? GetPrefixValue(string token)
+    {
+        return Prefixes.FirstOrDefault(p => p.Token == token)?.Value;
+    }
+    
+    /// <summary>
+    /// Gets the value of a specific suffix component by token name.
+    /// </summary>
+    /// <param name="token">The token name to search for.</param>
+    /// <returns>The component value if found, otherwise null.</returns>
+    public string? GetSuffixValue(string token)
+    {
+        return Suffixes.FirstOrDefault(s => s.Token == token)?.Value;
+    }
+
+    /// <summary>
     /// Rebuilds the full item name from naming components in the correct order.
-    /// Format: [EnchantmentPrefixes] [Quality] [Material] [BaseName] [EnchantmentSuffixes] [Sockets]
+    /// Format: [Prefixes] [BaseName] [Suffixes]
     /// </summary>
     /// <returns>The properly composed item name.</returns>
     public string ComposeNameFromComponents()
+    {
+        var parts = new List<string>();
+        
+        // Add all prefixes in order
+        parts.AddRange(Prefixes.Select(p => p.Value));
+        
+        // Add base name
+        if (!string.IsNullOrWhiteSpace(BaseName)) parts.Add(BaseName);
+        
+        // Add all suffixes in order
+        parts.AddRange(Suffixes.Select(s => s.Value));
+        
+        return string.Join(" ", parts.Where(p => !string.IsNullOrWhiteSpace(p)));
+    }
+
+    /// <summary>
+    /// LEGACY: Rebuilds name from old individual properties.
+    /// TEMPORARY: Used during migration. Will be removed in Phase 3.
+    /// Format: [EnchantmentPrefixes] [Quality] [Material] [BaseName] [EnchantmentSuffixes] [Sockets]
+    /// </summary>
+    private string ComposeNameFromComponentsLegacy()
     {
         var parts = new List<string>();
         

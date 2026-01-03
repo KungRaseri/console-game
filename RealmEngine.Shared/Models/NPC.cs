@@ -21,7 +21,20 @@ public class NPC : ITraitable
     public string? BaseName { get; set; }
     
     /// <summary>
+    /// Ordered list of prefix components (title_prefix) that appear before the base name.
+    /// Each component preserves its token identifier and display value.
+    /// </summary>
+    public List<NameComponent> Prefixes { get; set; } = new();
+    
+    /// <summary>
+    /// Ordered list of suffix components (title_suffix) that appear after the base name.
+    /// Each component preserves its token identifier and display value.
+    /// </summary>
+    public List<NameComponent> Suffixes { get; set; } = new();
+    
+    /// <summary>
     /// Gets or sets the title prefix (e.g., "Master", "Apprentice", "Lord").
+    /// TEMPORARY: Will be removed once migration to Prefixes list is complete.
     /// </summary>
     public string? TitlePrefix { get; set; }
     
@@ -236,6 +249,26 @@ public class NPC : ITraitable
     public Dictionary<string, TraitValue> Traits { get; set; } = new();
 
     /// <summary>
+    /// Gets the value of a specific prefix component by token name.
+    /// </summary>
+    /// <param name="token">The token name to search for (e.g., "title_prefix").</param>
+    /// <returns>The component value if found, otherwise null.</returns>
+    public string? GetPrefixValue(string token)
+    {
+        return Prefixes.FirstOrDefault(p => p.Token == token)?.Value;
+    }
+    
+    /// <summary>
+    /// Gets the value of a specific suffix component by token name.
+    /// </summary>
+    /// <param name="token">The token name to search for.</param>
+    /// <returns>The component value if found, otherwise null.</returns>
+    public string? GetSuffixValue(string token)
+    {
+        return Suffixes.FirstOrDefault(s => s.Token == token)?.Value;
+    }
+    
+    /// <summary>
     /// Composes the NPC name from individual naming components.
     /// Useful for rebuilding names, localization, or debugging.
     /// </summary>
@@ -244,11 +277,14 @@ public class NPC : ITraitable
     {
         var parts = new List<string>();
         
-        // Order: [TitlePrefix] [Base] [TitleSuffix]
-        // Examples: "Master Garrick", "Elara the Wise", "Lord Marcus of Stormwind"
-        if (!string.IsNullOrWhiteSpace(TitlePrefix)) parts.Add(TitlePrefix);
+        // Add all prefixes in order
+        parts.AddRange(Prefixes.Select(p => p.Value));
+        
+        // Add base name
         if (!string.IsNullOrWhiteSpace(BaseName)) parts.Add(BaseName);
-        if (!string.IsNullOrWhiteSpace(TitleSuffix)) parts.Add(TitleSuffix);
+        
+        // Add all suffixes in order
+        parts.AddRange(Suffixes.Select(s => s.Value));
         
         return string.Join(" ", parts.Where(p => !string.IsNullOrWhiteSpace(p)));
     }
