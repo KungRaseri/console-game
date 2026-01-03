@@ -238,6 +238,24 @@ public class Ability
     /// </remarks>
     [System.Text.Json.Serialization.JsonIgnore]
     public List<Ability> RequiredAbilities { get; set; } = new();
+
+    /// <summary>
+    /// Composes the ability display name from individual naming components.
+    /// Useful for rebuilding names, localization, or debugging.
+    /// </summary>
+    /// <returns>The composed display name string.</returns>
+    public string ComposeDisplayNameFromComponents()
+    {
+        var parts = new List<string>();
+        
+        // Order: [Power] [School] [Base]
+        // Examples: "Greater Fireball", "Holy Shield", "Lesser Frost Bolt"
+        if (!string.IsNullOrWhiteSpace(PowerPrefix)) parts.Add(PowerPrefix);
+        if (!string.IsNullOrWhiteSpace(SchoolPrefix)) parts.Add(SchoolPrefix);
+        if (!string.IsNullOrWhiteSpace(BaseAbilityName)) parts.Add(BaseAbilityName);
+        
+        return string.Join(" ", parts.Where(p => !string.IsNullOrWhiteSpace(p)));
+    }
 }
 
 /// <summary>

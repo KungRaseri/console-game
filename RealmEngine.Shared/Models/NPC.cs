@@ -234,4 +234,22 @@ public class NPC : ITraitable
     /// Implements ITraitable interface.
     /// </summary>
     public Dictionary<string, TraitValue> Traits { get; set; } = new();
+
+    /// <summary>
+    /// Composes the NPC name from individual naming components.
+    /// Useful for rebuilding names, localization, or debugging.
+    /// </summary>
+    /// <returns>The composed name string.</returns>
+    public string ComposeNameFromComponents()
+    {
+        var parts = new List<string>();
+        
+        // Order: [TitlePrefix] [Base] [TitleSuffix]
+        // Examples: "Master Garrick", "Elara the Wise", "Lord Marcus of Stormwind"
+        if (!string.IsNullOrWhiteSpace(TitlePrefix)) parts.Add(TitlePrefix);
+        if (!string.IsNullOrWhiteSpace(BaseName)) parts.Add(BaseName);
+        if (!string.IsNullOrWhiteSpace(TitleSuffix)) parts.Add(TitleSuffix);
+        
+        return string.Join(" ", parts.Where(p => !string.IsNullOrWhiteSpace(p)));
+    }
 }
