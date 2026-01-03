@@ -105,56 +105,61 @@ jobs:
     - name: Generate release notes
       run: |
         $manifest = Get-Content "package-manifest.json" | ConvertFrom-Json
+        $version = "${{ env.VERSION }}"
+        $jsonCount = "${{ env.JSON_COUNT }}"
+        $commit = "${{ github.sha }}"
+        $repoUrl = "${{ github.server_url }}/${{ github.repository }}"
+        $repoOwner = "${{ github.repository_owner }}"
         
         $notes = @"
-## RealmEngine ${{ env.VERSION }}
+## RealmEngine $version
 
 **Build Date**: $($manifest.PackageDate)  
-**Commit**: [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+**Commit**: [$commit]($repoUrl/commit/$commit)
 
 ### What's Included
 
 - **Game Libraries** - Core engine DLLs with XML IntelliSense documentation
 - **RealmForge** - WPF desktop editor for JSON game data (v4.0 standards)
-- **Game Data** - ${{ env.JSON_COUNT }} JSON files (abilities, items, enemies, NPCs, quests, etc.)
+- **Game Data** - $jsonCount JSON files (abilities, items, enemies, NPCs, quests, etc.)
 - **NuGet Packages** - Available on GitHub Packages
 
 ### Downloads
 
 | Package | Description | Size |
 |---------|-------------|------|
-| **RealmEngine-${{ env.VERSION }}.zip** | 📦 Complete package (libraries + data + RealmForge) | Full |
-| **RealmEngine-Libraries-${{ env.VERSION }}.zip** | 📚 DLLs only (for Godot C# integration) | ~2-5 MB |
-| **RealmForge-${{ env.VERSION }}.zip** | 🛠️ JSON Editor standalone | ~50 MB |
+| **RealmEngine-$version.zip** | 📦 Complete package (libraries + data + RealmForge) | Full |
+| **RealmEngine-Libraries-$version.zip** | 📚 DLLs only (for Godot C# integration) | ~2-5 MB |
+| **RealmForge-$version.zip** | 🛠️ JSON Editor standalone | ~50 MB |
 | **package-manifest.json** | 📋 Build metadata and file inventory | <1 KB |
 
 ### Installation
 
 #### For Godot Integration
 
-1. Download \`RealmEngine-Libraries-${{ env.VERSION }}.zip\`
+1. Download ``RealmEngine-Libraries-$version.zip``
 2. Extract to your Godot project folder
 3. Reference DLLs in your C# scripts:
-   \`\`\`csharp
+   ````csharp
    using RealmEngine.Core;
    using RealmEngine.Shared.Models;
-   \`\`\`
+   ````
 4. IntelliSense documentation is automatically available
 
 #### For Content Editing
 
-1. Download \`RealmForge-${{ env.VERSION }}.zip\`
-2. Extract and run \`RealmForge.exe\`
+1. Download ``RealmForge-$version.zip``
+2. Extract and run ``RealmForge.exe``
 3. Edit JSON game data with visual validation
 4. All changes comply with JSON v4.0 standards
 
 #### Via NuGet (GitHub Packages)
 
-\`\`\`bash
-dotnet add package RealmEngine.Core --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-dotnet add package RealmEngine.Shared --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-dotnet add package RealmEngine.Data --version ${{ env.VERSION }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-\`\`\`
+````bash
+dotnet add package RealmEngine.Core --version $version --source https://nuget.pkg.github.com/$repoOwner/index.json
+dotnet add package RealmEngine.Shared --version $version --source https://nuget.pkg.github.com/$repoOwner/index.json
+dotnet add package RealmEngine.Data --version $version --source https://nuget.pkg.github.com/$repoOwner/index.json
+````
 
 ### Requirements
 
@@ -165,16 +170,16 @@ dotnet add package RealmEngine.Data --version ${{ env.VERSION }} --source https:
 ### Package Contents
 
 **Libraries** (in RealmEngine-Libraries-*.zip):
-- \`RealmEngine.Core.dll\` + \`.xml\` - Game mechanics (generators, validators, combat)
-- \`RealmEngine.Shared.dll\` + \`.xml\` - Shared models and services
-- \`RealmEngine.Data.dll\` + \`.xml\` - JSON data loading and validation
+- ``RealmEngine.Core.dll`` + ``.xml`` - Game mechanics (generators, validators, combat)
+- ``RealmEngine.Shared.dll`` + ``.xml`` - Shared models and services
+- ``RealmEngine.Data.dll`` + ``.xml`` - JSON data loading and validation
 
 **RealmForge** (in RealmForge-*.zip):
-- \`RealmForge.exe\` - Visual JSON editor
+- ``RealmForge.exe`` - Visual JSON editor
 - All dependencies and runtime files
 
 **Data** (in full package):
-- ${{ env.JSON_COUNT }} JSON files organized by domain
+- $jsonCount JSON files organized by domain
 - v4.0 compliant with reference system support
 
 ### Changes in This Release
