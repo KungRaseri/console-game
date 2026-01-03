@@ -16,6 +16,21 @@ public class NPC : ITraitable
     public string Name { get; set; } = string.Empty;
     
     /// <summary>
+    /// Gets or sets the base name of the NPC without titles (e.g., "Garrick", "Elara").
+    /// </summary>
+    public string? BaseName { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the title prefix (e.g., "Master", "Apprentice", "Lord").
+    /// </summary>
+    public string? TitlePrefix { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the title suffix (e.g., "the Wise", "of Stormwind").
+    /// </summary>
+    public string? TitleSuffix { get; set; }
+    
+    /// <summary>
     /// Gets or sets the age of the NPC in years.
     /// </summary>
     public int Age { get; set; }

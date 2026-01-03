@@ -22,6 +22,21 @@ public class Ability
     /// Display name shown to players.
     /// </summary>
     public string DisplayName { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the base name of the ability without modifiers (e.g., "Fireball", "Shield").
+    /// </summary>
+    public string? BaseAbilityName { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the power modifier prefix (e.g., "Greater", "Lesser", "Supreme").
+    /// </summary>
+    public string? PowerPrefix { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the elemental or school modifier (e.g., "Frost", "Holy", "Shadow").
+    /// </summary>
+    public string? SchoolPrefix { get; set; }
 
     /// <summary>
     /// Description of what the ability does.

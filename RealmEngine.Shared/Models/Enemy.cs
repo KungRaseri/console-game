@@ -16,6 +16,31 @@ public class Enemy : ITraitable
     public string Name { get; set; } = string.Empty;
     
     /// <summary>
+    /// Gets or sets the base name of the enemy without modifiers (e.g., "Wolf", "Dragon").
+    /// </summary>
+    public string BaseName { get; set; } = string.Empty;
+    
+    /// <summary>
+    /// Gets or sets the size descriptor (e.g., "Giant", "Tiny", "Colossal").
+    /// </summary>
+    public string? SizePrefix { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the type descriptor (e.g., "Frost", "Shadow", "Ancient").
+    /// </summary>
+    public string? TypePrefix { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the descriptive modifier (e.g., "Enraged", "Corrupted", "Elite").
+    /// </summary>
+    public string? DescriptivePrefix { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the title suffix (e.g., "the Devourer", "of the Abyss").
+    /// </summary>
+    public string? TitleSuffix { get; set; }
+    
+    /// <summary>
     /// Gets or sets the descriptive text for the enemy.
     /// </summary>
     public string Description { get; set; } = string.Empty;
@@ -280,6 +305,25 @@ public class Enemy : ITraitable
     public bool IsAlive()
     {
         return Health > 0;
+    }
+
+    /// <summary>
+    /// Composes the enemy name from individual naming components.
+    /// Useful for rebuilding names, localization, or debugging.
+    /// </summary>
+    /// <returns>The composed name string.</returns>
+    public string ComposeNameFromComponents()
+    {
+        var parts = new List<string>();
+        
+        // Order: [Size] [Type] [Descriptive] [Base] [Title]
+        if (!string.IsNullOrWhiteSpace(SizePrefix)) parts.Add(SizePrefix);
+        if (!string.IsNullOrWhiteSpace(TypePrefix)) parts.Add(TypePrefix);
+        if (!string.IsNullOrWhiteSpace(DescriptivePrefix)) parts.Add(DescriptivePrefix);
+        if (!string.IsNullOrWhiteSpace(BaseName)) parts.Add(BaseName);
+        if (!string.IsNullOrWhiteSpace(TitleSuffix)) parts.Add(TitleSuffix);
+        
+        return string.Join(" ", parts.Where(p => !string.IsNullOrWhiteSpace(p)));
     }
 }
 

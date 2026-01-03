@@ -393,7 +393,7 @@ public class ItemGenerator
         {
             foreach (var slot in enchantmentSlots.Children())
             {
-                var position = GetStringProperty(slot, "position");
+                var slotPosition = GetStringProperty(slot, "position");
                 var reference = GetStringProperty(slot, "reference");
                 
                 if (string.IsNullOrEmpty(reference)) continue;
@@ -401,10 +401,16 @@ public class ItemGenerator
                 var enchantment = await EnchantmentGenerator.GenerateEnchantmentAsync(reference);
                 if (enchantment != null)
                 {
-                    // Set position from slot
-                    enchantment.Position = position?.ToLower() == "prefix" 
-                        ? EnchantmentPosition.Prefix 
-                        : EnchantmentPosition.Suffix;
+                    // Only override position if reference is NOT to enchantments domain
+                    // Enchantments from @items/enchantments have position metadata in names.json
+                    // Materials and other references need position from slot
+                    if (!reference.StartsWith("@items/enchantments", StringComparison.OrdinalIgnoreCase) 
+                        && !string.IsNullOrEmpty(slotPosition))
+                    {
+                        enchantment.Position = slotPosition.ToLower() == "prefix" 
+                            ? EnchantmentPosition.Prefix 
+                            : EnchantmentPosition.Suffix;
+                    }
                     
                     item.Enchantments.Add(enchantment);
                     
@@ -455,7 +461,7 @@ public class ItemGenerator
     }
 
     /// <summary>
-    /// Build the enhanced item name from all components.
+    /// Build the enhanced item name from all components and populate naming component properties.
     /// </summary>
     private string BuildEnhancedName(Item item)
     {
@@ -466,14 +472,18 @@ public class ItemGenerator
             .Where(e => e.Position == EnchantmentPosition.Prefix)
             .ToList();
         
+        // Populate EnchantmentPrefixes property
+        item.EnchantmentPrefixes.Clear();
         foreach (var enchantment in prefixEnchantments)
         {
+            item.EnchantmentPrefixes.Add(enchantment.Name);
             nameParts.Add(enchantment.Name);
         }
 
         // Material
         if (!string.IsNullOrEmpty(item.Material))
         {
+            item.MaterialPrefix = item.Material;
             nameParts.Add(item.Material);
         }
 
@@ -485,8 +495,11 @@ public class ItemGenerator
             .Where(e => e.Position == EnchantmentPosition.Suffix)
             .ToList();
         
+        // Populate EnchantmentSuffixes property
+        item.EnchantmentSuffixes.Clear();
         foreach (var enchantment in suffixEnchantments)
         {
+            item.EnchantmentSuffixes.Add(enchantment.Name);
             nameParts.Add(enchantment.Name);
         }
 
@@ -497,7 +510,9 @@ public class ItemGenerator
             var totalSockets = item.GemSockets.Count;
             if (totalSockets > 0)
             {
-                nameParts.Add($"[{filledSockets}/{totalSockets} Sockets]");
+                var socketsText = $"[{filledSockets}/{totalSockets} Sockets]";
+                item.SocketsText = socketsText;
+                nameParts.Add(socketsText);
             }
         }
 
