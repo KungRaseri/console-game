@@ -33,16 +33,7 @@ public class Ability
     /// Each component preserves its token identifier and display value.
     /// </summary>
     public List<NameComponent> Prefixes { get; set; } = new();
-    
-    /// <summary>
-    /// Gets or sets the power modifier prefix (e.g., "Greater", "Lesser", "Supreme").
-    /// </summary>
-    public string? PowerPrefix { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the elemental or school modifier (e.g., "Frost", "Holy", "Shadow").
-    /// </summary>
-    public string? SchoolPrefix { get; set; }
+
 
     /// <summary>
     /// Description of what the ability does.

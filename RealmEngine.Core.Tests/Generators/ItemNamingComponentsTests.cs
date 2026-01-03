@@ -56,7 +56,7 @@ public class ItemNamingComponentsTests
     }
 
     [Fact]
-    public async Task Items_With_Material_Should_Have_MaterialPrefix_Property()
+    public async Task Items_With_Material_Should_Have_Material_In_Prefixes()
     {
         // Generate many items to increase chance of getting one with material
         var allItems = new List<Item>();
@@ -75,17 +75,18 @@ public class ItemNamingComponentsTests
         foreach (var item in itemsWithMaterial.Take(5))
         {
             item.Material.Should().NotBeNullOrWhiteSpace();
-            item.MaterialPrefix.Should().Be(item.Material, "MaterialPrefix should match Material property");
+            var materialComponent = item.GetPrefixValue("material");
+            materialComponent.Should().Be(item.Material, "material component should match Material property");
             item.Name.Should().Contain(item.Material, "item name should contain the material");
             
             _output.WriteLine($"Item: {item.Name}");
             _output.WriteLine($"  Material: {item.Material}");
-            _output.WriteLine($"  MaterialPrefix: {item.MaterialPrefix}");
+            _output.WriteLine($"  Material Component: {materialComponent}");
         }
     }
 
     [Fact]
-    public async Task Items_With_Enchantments_Should_Have_Prefix_Or_Suffix_Lists()
+    public async Task Items_With_Enchantments_Should_Have_Component_Lists()
     {
         // Generate many items to increase chance of getting enchanted ones
         var allItems = new List<Item>();
@@ -106,38 +107,46 @@ public class ItemNamingComponentsTests
             var prefixEnchants = item.Enchantments.Where(e => e.Position == EnchantmentPosition.Prefix).ToList();
             var suffixEnchants = item.Enchantments.Where(e => e.Position == EnchantmentPosition.Suffix).ToList();
 
-            // Check prefix enchantments
+            // Check prefix enchantments are in Prefixes list
             if (prefixEnchants.Any())
             {
-                item.EnchantmentPrefixes.Should().HaveCount(prefixEnchants.Count, 
-                    "EnchantmentPrefixes list should match number of prefix enchantments");
+                var enchantmentPrefixes = item.Prefixes
+                    .Where(p => p.Token == "enchantment_prefix")
+                    .ToList();
+                    
+                enchantmentPrefixes.Should().HaveCount(prefixEnchants.Count, 
+                    "Prefixes list should contain all prefix enchantments");
                 
                 foreach (var enchant in prefixEnchants)
                 {
-                    item.EnchantmentPrefixes.Should().Contain(enchant.Name,
-                        "EnchantmentPrefixes should contain all prefix enchantment names");
+                    enchantmentPrefixes.Should().Contain(p => p.Value == enchant.Name,
+                        "Prefixes should contain all prefix enchantment names");
                 }
             }
 
-            // Check suffix enchantments
+            // Check suffix enchantments are in Suffixes list
             if (suffixEnchants.Any())
             {
-                item.EnchantmentSuffixes.Should().HaveCount(suffixEnchants.Count,
-                    "EnchantmentSuffixes list should match number of suffix enchantments");
+                var enchantmentSuffixes = item.Suffixes
+                    .Where(s => s.Token == "enchantment_suffix")
+                    .ToList();
+                    
+                enchantmentSuffixes.Should().HaveCount(suffixEnchants.Count,
+                    "Suffixes list should contain all suffix enchantments");
                 
                 foreach (var enchant in suffixEnchants)
                 {
-                    item.EnchantmentSuffixes.Should().Contain(enchant.Name,
-                        "EnchantmentSuffixes should contain all suffix enchantment names");
+                    enchantmentSuffixes.Should().Contain(s => s.Value == enchant.Name,
+                        "Suffixes should contain all suffix enchantment names");
                 }
             }
 
             _output.WriteLine($"\nItem: {item.Name}");
             _output.WriteLine($"  BaseName: {item.BaseName}");
-            if (item.EnchantmentPrefixes.Any())
-                _output.WriteLine($"  Prefixes: [{string.Join(", ", item.EnchantmentPrefixes)}]");
-            if (item.EnchantmentSuffixes.Any())
-                _output.WriteLine($"  Suffixes: [{string.Join(", ", item.EnchantmentSuffixes)}]");
+            if (item.Prefixes.Any())
+                _output.WriteLine($"  Prefixes: [{string.Join(", ", item.Prefixes.Select(p => p.Value))}]");
+            if (item.Suffixes.Any())
+                _output.WriteLine($"  Suffixes: [{string.Join(", ", item.Suffixes.Select(s => s.Value))}]");
         }
     }
 
@@ -275,7 +284,8 @@ public class ItemNamingComponentsTests
         var items = await _generator.GenerateItemsAsync("weapons", 50);
         
         // Find item with suffix enchantment
-        var itemWithSuffixEnchantment = items.FirstOrDefault(i => i.EnchantmentSuffixes.Any());
+        var itemWithSuffixEnchantment = items.FirstOrDefault(i => 
+            i.Suffixes.Any(s => s.Token == "enchantment_suffix"));
         
         if (itemWithSuffixEnchantment != null)
         {
@@ -305,7 +315,9 @@ public class ItemNamingComponentsTests
 
         // Find items with suffix enchantments that start with "of"
         var itemsWithOfSuffixes = allItems
-            .Where(i => i.EnchantmentSuffixes.Any(s => s.StartsWith("of ", StringComparison.OrdinalIgnoreCase)))
+            .Where(i => i.Suffixes.Any(s => 
+                s.Token == "enchantment_suffix" && 
+                s.Value.StartsWith("of ", StringComparison.OrdinalIgnoreCase)))
             .ToList();
 
         _output.WriteLine($"Found {itemsWithOfSuffixes.Count} items with 'of' suffix enchantments");
@@ -315,13 +327,18 @@ public class ItemNamingComponentsTests
         {
             _output.WriteLine($"\nItem: {item.Name}");
             _output.WriteLine($"  Base: {item.BaseName}");
-            if (item.EnchantmentPrefixes.Any())
-                _output.WriteLine($"  Prefixes: [{string.Join(", ", item.EnchantmentPrefixes)}]");
-            if (item.EnchantmentSuffixes.Any())
-                _output.WriteLine($"  Suffixes: [{string.Join(", ", item.EnchantmentSuffixes)}]");
+            if (item.Prefixes.Any())
+                _output.WriteLine($"  Prefixes: [{string.Join(", ", item.Prefixes.Select(p => p.Value))}]");
+            if (item.Suffixes.Any())
+                _output.WriteLine($"  Suffixes: [{string.Join(", ", item.Suffixes.Select(s => s.Value))}]");
 
             // Verify that "of" suffixes don't appear at the start
-            foreach (var suffix in item.EnchantmentSuffixes.Where(s => s.StartsWith("of ")))
+            var ofSuffixes = item.Suffixes
+                .Where(s => s.Token == "enchantment_suffix" && s.Value.StartsWith("of "))
+                .Select(s => s.Value)
+                .ToList();
+                
+            foreach (var suffix in ofSuffixes)
             {
                 item.Name.Should().NotStartWith(suffix, 
                     $"suffix enchantment '{suffix}' should not appear at the start of the item name");

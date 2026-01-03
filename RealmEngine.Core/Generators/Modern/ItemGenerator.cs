@@ -467,9 +467,7 @@ public class ItemGenerator
     {
         var nameParts = new List<string>();
         
-        // Clear both old and new properties
-        item.EnchantmentPrefixes.Clear();
-        item.EnchantmentSuffixes.Clear();
+        // Clear component lists
         item.Prefixes.Clear();
         item.Suffixes.Clear();
 
@@ -478,13 +476,8 @@ public class ItemGenerator
             .Where(e => e.Position == EnchantmentPosition.Prefix)
             .ToList();
         
-        // Populate both old (legacy) and new properties
         foreach (var enchantment in prefixEnchantments)
         {
-            // Legacy property (Phase 3 removal)
-            item.EnchantmentPrefixes.Add(enchantment.Name);
-            
-            // New property (Phase 2+)
             item.Prefixes.Add(new NameComponent 
             { 
                 Token = "enchantment_prefix", 
@@ -497,10 +490,6 @@ public class ItemGenerator
         // Material
         if (!string.IsNullOrEmpty(item.Material))
         {
-            // Legacy property (Phase 3 removal)
-            item.MaterialPrefix = item.Material;
-            
-            // New property (Phase 2+)
             item.Prefixes.Add(new NameComponent 
             { 
                 Token = "material", 
@@ -518,13 +507,8 @@ public class ItemGenerator
             .Where(e => e.Position == EnchantmentPosition.Suffix)
             .ToList();
         
-        // Populate both old (legacy) and new properties
         foreach (var enchantment in suffixEnchantments)
         {
-            // Legacy property (Phase 3 removal)
-            item.EnchantmentSuffixes.Add(enchantment.Name);
-            
-            // New property (Phase 2+)
             item.Suffixes.Add(new NameComponent 
             { 
                 Token = "enchantment_suffix", 

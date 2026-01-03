@@ -103,38 +103,9 @@ public class Item : ITraitable
     /// </summary>
     public List<NameComponent> Suffixes { get; set; } = new();
     
-    // Naming Component Breakdown (LEGACY - TEMPORARY)
-    // ================================================
-    // These properties will be removed in Phase 3 cleanup
-    
-    /// <summary>
-    /// Gets or sets the quality prefix applied to the item (e.g., "Masterwork", "Crude", "Fine").
-    /// Quality affects item stats and pricing.
-    /// TEMPORARY: Will be removed once migration to Prefixes list is complete.
-    /// </summary>
-    public string? QualityPrefix { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the material prefix applied to the item (e.g., "Silver", "Mithril", "Godforged").
-    /// Material determines base attributes and special properties.
-    /// </summary>
-    public string? MaterialPrefix { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the list of enchantment prefixes applied to the item (e.g., ["Flaming", "Venomous"]).
-    /// Prefix enchantments appear before the base name.
-    /// </summary>
-    public List<string> EnchantmentPrefixes { get; set; } = new();
-    
-    /// <summary>
-    /// Gets or sets the list of enchantment suffixes applied to the item (e.g., ["of Power", "of the Titan"]).
-    /// Suffix enchantments appear after the base name.
-    /// </summary>
-    public List<string> EnchantmentSuffixes { get; set; } = new();
-    
     /// <summary>
     /// Gets or sets the socket display text (e.g., "[0/2 Sockets]", "[2/2 Sockets]").
-    /// Empty if the item has no sockets.
+    /// Separate from naming components as sockets are a mechanical property.
     /// </summary>
     public string? SocketsText { get; set; }
     /// <summary>
@@ -528,54 +499,6 @@ public class Item : ITraitable
         
         // Add all suffixes in order
         parts.AddRange(Suffixes.Select(s => s.Value));
-        
-        return string.Join(" ", parts.Where(p => !string.IsNullOrWhiteSpace(p)));
-    }
-
-    /// <summary>
-    /// LEGACY: Rebuilds name from old individual properties.
-    /// TEMPORARY: Used during migration. Will be removed in Phase 3.
-    /// Format: [EnchantmentPrefixes] [Quality] [Material] [BaseName] [EnchantmentSuffixes] [Sockets]
-    /// </summary>
-    private string ComposeNameFromComponentsLegacy()
-    {
-        var parts = new List<string>();
-        
-        // 1. Enchantment prefixes (e.g., "Flaming", "Frozen")
-        if (EnchantmentPrefixes.Any())
-        {
-            parts.AddRange(EnchantmentPrefixes);
-        }
-        
-        // 2. Quality prefix (e.g., "Masterwork")
-        if (!string.IsNullOrWhiteSpace(QualityPrefix))
-        {
-            parts.Add(QualityPrefix);
-        }
-        
-        // 3. Material prefix (e.g., "Silver", "Mithril")
-        if (!string.IsNullOrWhiteSpace(MaterialPrefix))
-        {
-            parts.Add(MaterialPrefix);
-        }
-        
-        // 4. Base name (e.g., "Longsword")
-        if (!string.IsNullOrWhiteSpace(BaseName))
-        {
-            parts.Add(BaseName);
-        }
-        
-        // 5. Enchantment suffixes (e.g., "of Power", "of the Titan")
-        if (EnchantmentSuffixes.Any())
-        {
-            parts.AddRange(EnchantmentSuffixes);
-        }
-        
-        // 6. Sockets (e.g., "[0/2 Sockets]")
-        if (!string.IsNullOrWhiteSpace(SocketsText))
-        {
-            parts.Add(SocketsText);
-        }
         
         return string.Join(" ", parts.Where(p => !string.IsNullOrWhiteSpace(p)));
     }

@@ -33,27 +33,6 @@ public class Enemy : ITraitable
     public List<NameComponent> Suffixes { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the size descriptor (e.g., "Giant", "Tiny", "Colossal").
-    /// TEMPORARY: Will be removed once migration to Prefixes list is complete.
-    /// </summary>
-    public string? SizePrefix { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the type descriptor (e.g., "Frost", "Shadow", "Ancient").
-    /// </summary>
-    public string? TypePrefix { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the descriptive modifier (e.g., "Enraged", "Corrupted", "Elite").
-    /// </summary>
-    public string? DescriptivePrefix { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the title suffix (e.g., "the Devourer", "of the Abyss").
-    /// </summary>
-    public string? TitleSuffix { get; set; }
-    
-    /// <summary>
     /// Gets or sets the descriptive text for the enemy.
     /// </summary>
     public string Description { get; set; } = string.Empty;

@@ -33,17 +33,6 @@ public class NPC : ITraitable
     public List<NameComponent> Suffixes { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the title prefix (e.g., "Master", "Apprentice", "Lord").
-    /// TEMPORARY: Will be removed once migration to Prefixes list is complete.
-    /// </summary>
-    public string? TitlePrefix { get; set; }
-    
-    /// <summary>
-    /// Gets or sets the title suffix (e.g., "the Wise", "of Stormwind").
-    /// </summary>
-    public string? TitleSuffix { get; set; }
-    
-    /// <summary>
     /// Gets or sets the age of the NPC in years.
     /// </summary>
     public int Age { get; set; }
