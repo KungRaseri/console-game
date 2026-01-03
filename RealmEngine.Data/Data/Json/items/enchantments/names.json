@@ -234,24 +234,24 @@
   },
   "patterns": [
     {
-      "pattern": "{element_prefix} {base}",
+      "pattern": "{element_prefix}",
       "rarityWeight": 40,
-      "note": "Prefix pattern - elemental modifier before base name"
+      "note": "Prefix pattern - elemental modifier (position determined by _prefix suffix)"
     },
     {
-      "pattern": "{base} {element_suffix}",
+      "pattern": "{element_suffix}",
       "rarityWeight": 35,
-      "note": "Suffix pattern - elemental effect after base name"
+      "note": "Suffix pattern - elemental effect (position determined by _suffix suffix)"
     },
     {
-      "pattern": "{base} {combat_suffix}",
+      "pattern": "{combat_suffix}",
       "rarityWeight": 30,
-      "note": "Suffix pattern - combat bonus after base name"
+      "note": "Suffix pattern - combat bonus (position determined by _suffix suffix)"
     },
     {
-      "pattern": "{base} {magic_suffix}",
+      "pattern": "{magic_suffix}",
       "rarityWeight": 35,
-      "note": "Suffix pattern - magical effect after base name"
+      "note": "Suffix pattern - magical effect (position determined by _suffix suffix)"
     }
   ]
 }

@@ -2,6 +2,7 @@ using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -15,6 +16,7 @@ public class EnemyGenerator
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
     private readonly ILogger<EnemyGenerator> _logger;
+    private readonly NameComposer _nameComposer;
 
     /// <summary>
     /// Initializes a new instance of the EnemyGenerator class.
@@ -28,6 +30,7 @@ public class EnemyGenerator
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
+        _nameComposer = new NameComposer(NullLogger<NameComposer>.Instance);
     }
 
     /// <summary>
@@ -221,12 +224,62 @@ public class EnemyGenerator
                 enemy.LootTableIds = resolvedLoot;
             }
 
+            // Apply pattern-based naming from names.json
+            ApplyNameFromPattern(enemy, category);
+
             return enemy;
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error converting catalog enemy to Enemy");
             return null;
+        }
+    }
+
+    /// <summary>
+    /// Apply pattern-based naming from names.json to populate Prefixes/Suffixes and enhanced Name.
+    /// </summary>
+    private void ApplyNameFromPattern(Enemy enemy, string category)
+    {
+        try
+        {
+            var namesPath = $"enemies/{category}/names.json";
+            if (!_dataCache.FileExists(namesPath)) return;
+
+            var namesFile = _dataCache.GetFile(namesPath);
+            if (namesFile?.JsonData == null) return;
+
+            var patterns = namesFile.JsonData["patterns"];
+            if (patterns == null) return;
+
+            // Select random pattern
+            var pattern = GetRandomWeightedPattern(patterns);
+            if (pattern == null) return;
+
+            var patternString = GetStringProperty(pattern, "pattern");
+            if (string.IsNullOrEmpty(patternString)) return;
+
+            // Get components
+            var components = namesFile.JsonData["components"];
+            if (components == null) return;
+
+            // Use NameComposer to resolve pattern
+            var (name, baseName, prefixes, suffixes) = _nameComposer.ComposeNameWithComponents(patternString, components);
+
+            // Populate component lists
+            enemy.Prefixes.AddRange(prefixes);
+            enemy.Suffixes.AddRange(suffixes);
+
+            // Update the name if we got a better one from the pattern
+            if (!string.IsNullOrEmpty(name) && name != enemy.BaseName)
+            {
+                enemy.Name = name;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Error applying name pattern for {Category}", category);
+            // Fallback: keep catalog name
         }
     }
 
@@ -302,6 +355,29 @@ public class EnemyGenerator
         {
             return null;
         }
+    }
+
+    private JToken? GetRandomWeightedPattern(JToken patterns)
+    {
+        if (patterns == null || !patterns.Any()) return null;
+
+        var patternList = patterns.Children().ToList();
+        if (!patternList.Any()) return null;
+
+        var totalWeight = patternList.Sum(p => GetIntProperty(p, "rarityWeight", 1));
+        var randomValue = _random.Next(1, totalWeight + 1);
+
+        int currentWeight = 0;
+        foreach (var pattern in patternList)
+        {
+            currentWeight += GetIntProperty(pattern, "rarityWeight", 1);
+            if (randomValue <= currentWeight)
+            {
+                return pattern;
+            }
+        }
+
+        return patternList.FirstOrDefault();
     }
 
     /// <summary>

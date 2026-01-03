@@ -2,6 +2,7 @@ using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -15,6 +16,7 @@ public class AbilityGenerator
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
     private readonly ILogger<AbilityGenerator> _logger;
+    private readonly NameComposer _nameComposer;
 
     /// <summary>
     /// Initializes a new instance of the AbilityGenerator class.
@@ -28,6 +30,7 @@ public class AbilityGenerator
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
+        _nameComposer = new NameComposer(NullLogger<NameComposer>.Instance);
     }
 
     /// <summary>
@@ -210,6 +213,9 @@ public class AbilityGenerator
                 }
             }
 
+            // Apply pattern-based naming from names.json
+            ApplyNameFromPattern(ability, category, subcategory);
+
             return ability;
         }
         catch (Exception ex)
@@ -217,6 +223,76 @@ public class AbilityGenerator
             _logger.LogError(ex, "Error converting catalog ability to Ability");
             return null;
         }
+    }
+
+    /// <summary>
+    /// Apply pattern-based naming from names.json to populate Prefixes and enhanced Name.
+    /// </summary>
+    private void ApplyNameFromPattern(Ability ability, string category, string subcategory)
+    {
+        try
+        {
+            var namesPath = $"abilities/{category}/{subcategory}/names.json";
+            if (!_dataCache.FileExists(namesPath)) return;
+
+            var namesFile = _dataCache.GetFile(namesPath);
+            if (namesFile?.JsonData == null) return;
+
+            var patterns = namesFile.JsonData["patterns"];
+            if (patterns == null) return;
+
+            // Select random pattern
+            var pattern = GetRandomWeightedPattern(patterns);
+            if (pattern == null) return;
+
+            var patternString = GetStringProperty(pattern, "pattern");
+            if (string.IsNullOrEmpty(patternString)) return;
+
+            // Get components
+            var components = namesFile.JsonData["components"];
+            if (components == null) return;
+
+            // Use NameComposer to resolve pattern
+            var (name, baseName, prefixes, suffixes) = _nameComposer.ComposeNameWithComponents(patternString, components);
+
+            // Populate component lists (abilities typically only have prefixes)
+            ability.Prefixes.AddRange(prefixes);
+
+            // Update the name if we got a better one from the pattern
+            if (!string.IsNullOrEmpty(name) && name != ability.DisplayName)
+            {
+                ability.DisplayName = name;
+                ability.Name = name;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Error applying name pattern for {Category}/{Subcategory}", category, subcategory);
+            // Fallback: keep catalog name
+        }
+    }
+
+    private JToken? GetRandomWeightedPattern(JToken patterns)
+    {
+        if (patterns == null || !patterns.Any()) return null;
+
+        var patternList = patterns.Children().ToList();
+        if (!patternList.Any()) return null;
+
+        var totalWeight = patternList.Sum(p => GetIntProperty(p, "rarityWeight", 1));
+        var randomValue = _random.Next(1, totalWeight + 1);
+
+        int currentWeight = 0;
+        foreach (var pattern in patternList)
+        {
+            currentWeight += GetIntProperty(pattern, "rarityWeight", 1);
+            if (randomValue <= currentWeight)
+            {
+                return pattern;
+            }
+        }
+
+        return patternList.FirstOrDefault();
     }
 
     private async Task<List<string>> ResolveReferencesAsync(JArray? referenceArray)

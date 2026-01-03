@@ -187,6 +187,36 @@ public class NameComposer
         foreach (System.Text.RegularExpressions.Match match in tokens)
         {
             var token = match.Groups[1].Value; // e.g., "size", "base", "title"
+            
+            // Special handling for {base} token - it's a positional marker
+            if (token == "base")
+            {
+                foundBase = true;
+                var baseComponentArray = components?[token];
+                
+                // If base component exists, resolve it; otherwise leave as placeholder
+                if (baseComponentArray != null && baseComponentArray.Any())
+                {
+                    var selectedComponent = GetRandomWeightedComponent(baseComponentArray);
+                    if (selectedComponent != null)
+                    {
+                        var value = GetStringProperty(selectedComponent, "value") 
+                                  ?? GetStringProperty(selectedComponent, "name") 
+                                  ?? token;
+                        baseName = value;
+                        nameParts.Add(value);
+                        result = result.Replace($"{{{token}}}", value);
+                    }
+                }
+                else
+                {
+                    // {base} exists in pattern but has no component - it's a placeholder
+                    // Don't add to nameParts, just mark position for prefix/suffix categorization
+                    result = result.Replace($"{{{token}}}", "");
+                }
+                continue;
+            }
+            
             var componentArray = components?[token];
             
             if (componentArray != null && componentArray.Any())

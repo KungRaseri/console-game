@@ -3,6 +3,7 @@ using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace RealmEngine.Core.Generators.Modern;
 
@@ -16,6 +17,7 @@ public class NpcGenerator
     private readonly ReferenceResolverService _referenceResolver;
     private readonly Random _random;
     private readonly ILogger<NpcGenerator> _logger;
+    private readonly NameComposer _nameComposer;
 
     /// <summary>
     /// Initializes a new instance of the NpcGenerator class.
@@ -29,6 +31,7 @@ public class NpcGenerator
         _referenceResolver = referenceResolver ?? throw new ArgumentNullException(nameof(referenceResolver));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _random = new Random();
+        _nameComposer = new NameComposer(NullLogger<NameComposer>.Instance);
     }
 
     /// <summary>
@@ -190,6 +193,9 @@ public class NpcGenerator
                 npc.InventoryIds = await ResolveReferencesAsync(inventory);
             }
 
+            // Apply pattern-based naming from names.json
+            ApplyNameFromPattern(npc);
+
             return npc;
         }
         catch (Exception ex)
@@ -197,6 +203,77 @@ public class NpcGenerator
             _logger.LogError(ex, "Error converting catalog NPC to NPC");
             return null;
         }
+    }
+
+    /// <summary>
+    /// Apply pattern-based naming from names.json to populate Prefixes/Suffixes and enhanced Name.
+    /// Note: NPCs use a single names.json file (not category-specific).
+    /// </summary>
+    private void ApplyNameFromPattern(NPC npc)
+    {
+        try
+        {
+            var namesPath = "npcs/names.json";
+            if (!_dataCache.FileExists(namesPath)) return;
+
+            var namesFile = _dataCache.GetFile(namesPath);
+            if (namesFile?.JsonData == null) return;
+
+            var patterns = namesFile.JsonData["patterns"];
+            if (patterns == null) return;
+
+            // Select random pattern
+            var pattern = GetRandomWeightedPattern(patterns);
+            if (pattern == null) return;
+
+            var patternString = GetStringProperty(pattern, "pattern");
+            if (string.IsNullOrEmpty(patternString)) return;
+
+            // Get components
+            var components = namesFile.JsonData["components"];
+            if (components == null) return;
+
+            // Use NameComposer to resolve pattern
+            var (name, baseName, prefixes, suffixes) = _nameComposer.ComposeNameWithComponents(patternString, components);
+
+            // Populate component lists
+            npc.Prefixes.AddRange(prefixes);
+            npc.Suffixes.AddRange(suffixes);
+
+            // Update the name if we got a better one from the pattern
+            if (!string.IsNullOrEmpty(name))
+            {
+                npc.Name = name;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Error applying name pattern for NPC");
+            // Fallback: keep catalog name
+        }
+    }
+
+    private JToken? GetRandomWeightedPattern(JToken patterns)
+    {
+        if (patterns == null || !patterns.Any()) return null;
+
+        var patternList = patterns.Children().ToList();
+        if (!patternList.Any()) return null;
+
+        var totalWeight = patternList.Sum(p => GetIntProperty(p, "rarityWeight", 1));
+        var randomValue = _random.Next(1, totalWeight + 1);
+
+        int currentWeight = 0;
+        foreach (var pattern in patternList)
+        {
+            currentWeight += GetIntProperty(pattern, "rarityWeight", 1);
+            if (randomValue <= currentWeight)
+            {
+                return pattern;
+            }
+        }
+
+        return patternList.FirstOrDefault();
     }
 
     private async Task<List<string>> ResolveReferencesAsync(JArray? referenceArray)

@@ -73,44 +73,51 @@ public class EnchantmentGenerator
                 return Task.FromResult<Enchantment?>(null);
             }
 
-            // Use NameComposer to resolve pattern with {base} placeholder
+            // Use NameComposer to resolve pattern (no {base} token in enchantment patterns)
             var (name, baseName, prefixes, suffixes) = _nameComposer.ComposeNameWithComponents(patternString, components);
             
-            // Determine position based on whether name has prefixes or suffixes
+            // Determine position based on token name suffix (_prefix or _suffix)
+            // Since there's no {base}, we use the token naming convention
             EnchantmentPosition position;
             JToken? componentData = null;
+            string enchantmentName;
             
-            if (prefixes.Any())
+            // Check if any token ends with "_prefix" or "_suffix"
+            var tokenMatch = System.Text.RegularExpressions.Regex.Match(patternString, @"\{([^}]+)\}");
+            if (!tokenMatch.Success)
             {
-                // Pattern has tokens before {base} - this is a prefix enchantment
-                position = EnchantmentPosition.Prefix;
-                // Get the component data for the prefix
-                var prefixToken = prefixes.First().Token;
-                var prefixValue = prefixes.First().Value;
-                componentData = FindComponentByValue(components[prefixToken], prefixValue);
+                return Task.FromResult<Enchantment?>(null);
             }
-            else if (suffixes.Any())
+            
+            var tokenName = tokenMatch.Groups[1].Value;
+            
+            if (tokenName.EndsWith("_prefix"))
             {
-                // Pattern has tokens after {base} - this is a suffix enchantment
+                position = EnchantmentPosition.Prefix;
+                if (!prefixes.Any())
+                {
+                    return Task.FromResult<Enchantment?>(null);
+                }
+                enchantmentName = prefixes.First().Value;
+                componentData = FindComponentByValue(components[tokenName], enchantmentName);
+            }
+            else if (tokenName.EndsWith("_suffix"))
+            {
                 position = EnchantmentPosition.Suffix;
-                // Get the component data for the suffix
-                var suffixToken = suffixes.First().Token;
-                var suffixValue = suffixes.First().Value;
-                componentData = FindComponentByValue(components[suffixToken], suffixValue);
+                if (!suffixes.Any())
+                {
+                    return Task.FromResult<Enchantment?>(null);
+                }
+                enchantmentName = suffixes.First().Value;
+                componentData = FindComponentByValue(components[tokenName], enchantmentName);
             }
             else
             {
-                // Fallback - shouldn't happen with valid patterns
-                return Task.FromResult<Enchantment?>(null);
+                // Fallback: treat as suffix if not explicitly marked
+                position = EnchantmentPosition.Suffix;
+                enchantmentName = name;
+                componentData = FindComponentByValue(components[tokenName], enchantmentName);
             }
-
-            if (componentData == null)
-            {
-                return Task.FromResult<Enchantment?>(null);
-            }
-
-            // Get the actual enchantment name (without the {base} placeholder)
-            var enchantmentName = prefixes.Any() ? prefixes.First().Value : suffixes.First().Value;
             
             // Build enchantment from component
             return Task.FromResult<Enchantment?>(BuildEnchantment(componentData, enchantmentName, position));
