@@ -172,7 +172,7 @@ public class ItemNamingComponentsTests
     }
 
     [Fact]
-    public async Task ComposeNameFromComponents_Should_Match_Generated_Name()
+    public async Task ComposeNameFromComponents_Should_Match_Generated_Name_Without_Sockets()
     {
         // Generate items
         var items = await _generator.GenerateItemsAsync("weapons", 20);
@@ -183,12 +183,112 @@ public class ItemNamingComponentsTests
         foreach (var item in items)
         {
             var composedName = item.ComposeNameFromComponents();
-            composedName.Should().Be(item.Name, 
-                "ComposeNameFromComponents should produce the same name as the generator");
+            
+            // ComposeNameFromComponents should match the name WITHOUT SocketsText
+            // (sockets are separate from naming components per design decision)
+            var expectedName = item.Name;
+            if (!string.IsNullOrWhiteSpace(item.SocketsText))
+            {
+                expectedName = item.Name.Replace($" {item.SocketsText}", "").Trim();
+            }
+            
+            composedName.Should().Be(expectedName, 
+                "ComposeNameFromComponents should produce the name without sockets");
             
             _output.WriteLine($"Generated: {item.Name}");
             _output.WriteLine($"Composed:  {composedName}");
-            _output.WriteLine($"  Match: {composedName == item.Name}\n");
+            _output.WriteLine($"  Match: {composedName == expectedName}\n");
+        }
+    }
+
+    [Fact]
+    public async Task Generated_Items_Should_Populate_Component_Lists()
+    {
+        // Generate items with enchantments and materials
+        var items = await _generator.GenerateItemsAsync("weapons", 50);
+        
+        // Find items with components
+        var itemsWithPrefixes = items.Where(i => i.Prefixes.Any()).ToList();
+        var itemsWithSuffixes = items.Where(i => i.Suffixes.Any()).ToList();
+        
+        // Assert
+        itemsWithPrefixes.Should().NotBeEmpty("some items should have prefix components");
+        
+        foreach (var item in itemsWithPrefixes.Take(5))
+        {
+            _output.WriteLine($"Item: {item.Name}");
+            _output.WriteLine($"  BaseName: {item.BaseName}");
+            _output.WriteLine($"  Prefixes ({item.Prefixes.Count}):");
+            foreach (var prefix in item.Prefixes)
+            {
+                _output.WriteLine($"    [{prefix.Token}] = {prefix.Value}");
+            }
+            _output.WriteLine($"  Suffixes ({item.Suffixes.Count}):");
+            foreach (var suffix in item.Suffixes)
+            {
+                _output.WriteLine($"    [{suffix.Token}] = {suffix.Value}");
+            }
+            _output.WriteLine("");
+            
+            // Verify components are accessible
+            item.Prefixes.Should().AllSatisfy(p =>
+            {
+                p.Token.Should().NotBeNullOrEmpty();
+                p.Value.Should().NotBeNullOrEmpty();
+            });
+        }
+        
+        if (itemsWithSuffixes.Any())
+        {
+            itemsWithSuffixes.First().Suffixes.Should().AllSatisfy(s =>
+            {
+                s.Token.Should().NotBeNullOrEmpty();
+                s.Value.Should().NotBeNullOrEmpty();
+            });
+        }
+    }
+
+    [Fact]
+    public async Task GetPrefixValue_Should_Return_Component_By_Token()
+    {
+        // Generate items
+        var items = await _generator.GenerateItemsAsync("weapons", 30);
+        
+        // Find item with material
+        var itemWithMaterial = items.FirstOrDefault(i => !string.IsNullOrEmpty(i.Material));
+        itemWithMaterial.Should().NotBeNull("at least one item should have a material");
+        
+        // Test GetPrefixValue
+        var material = itemWithMaterial!.GetPrefixValue("material");
+        material.Should().Be(itemWithMaterial.Material, 
+            "GetPrefixValue should return the material component");
+        
+        _output.WriteLine($"Item: {itemWithMaterial.Name}");
+        _output.WriteLine($"  Material via property: {itemWithMaterial.Material}");
+        _output.WriteLine($"  Material via GetPrefixValue: {material}");
+    }
+
+    [Fact]
+    public async Task GetSuffixValue_Should_Return_Component_By_Token()
+    {
+        // Generate many items to find one with suffix enchantment
+        var items = await _generator.GenerateItemsAsync("weapons", 50);
+        
+        // Find item with suffix enchantment
+        var itemWithSuffixEnchantment = items.FirstOrDefault(i => i.EnchantmentSuffixes.Any());
+        
+        if (itemWithSuffixEnchantment != null)
+        {
+            // Test GetSuffixValue
+            var enchantmentSuffix = itemWithSuffixEnchantment.GetSuffixValue("enchantment_suffix");
+            enchantmentSuffix.Should().NotBeNullOrEmpty("item has suffix enchantment");
+            
+            _output.WriteLine($"Item: {itemWithSuffixEnchantment.Name}");
+            _output.WriteLine($"  Suffix enchantment: {enchantmentSuffix}");
+        }
+        else
+        {
+            _output.WriteLine("No items generated with suffix enchantments in this run");
         }
     }
 

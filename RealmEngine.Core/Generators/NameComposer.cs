@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Logging;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Generators;
 
@@ -155,5 +156,101 @@ public class NameComposer
         }
 
         return patternList.First();
+    }
+
+    /// <summary>
+    /// Composes a name from a pattern and components, returning structured component data.
+    /// This method categorizes components into prefixes and suffixes based on their position relative to {base}.
+    /// </summary>
+    /// <param name="pattern">Pattern string with tokens like "{size} {base} {title}"</param>
+    /// <param name="components">Components dictionary from names.json</param>
+    /// <returns>Tuple containing (composed name, base name, prefix components, suffix components)</returns>
+    public (string name, string baseName, List<NameComponent> prefixes, List<NameComponent> suffixes) 
+        ComposeNameWithComponents(string pattern, JToken components)
+    {
+        var prefixes = new List<NameComponent>();
+        var suffixes = new List<NameComponent>();
+        string baseName = string.Empty;
+        
+        if (string.IsNullOrWhiteSpace(pattern))
+        {
+            return (string.Empty, string.Empty, prefixes, suffixes);
+        }
+
+        var result = pattern;
+        var nameParts = new List<string>();
+        bool foundBase = false;
+        
+        // Find all tokens in the pattern like {size}, {base}, {title}
+        var tokens = System.Text.RegularExpressions.Regex.Matches(pattern, @"\{([^}]+)\}");
+        
+        foreach (System.Text.RegularExpressions.Match match in tokens)
+        {
+            var token = match.Groups[1].Value; // e.g., "size", "base", "title"
+            var componentArray = components?[token];
+            
+            if (componentArray != null && componentArray.Any())
+            {
+                // Select random component by weight
+                var selectedComponent = GetRandomWeightedComponent(componentArray);
+                if (selectedComponent != null)
+                {
+                    var value = GetStringProperty(selectedComponent, "value") 
+                              ?? GetStringProperty(selectedComponent, "name") 
+                              ?? token;
+                    
+                    // Categorize component based on position relative to {base}
+                    if (token == "base")
+                    {
+                        baseName = value;
+                        foundBase = true;
+                        nameParts.Add(value);
+                    }
+                    else if (!foundBase)
+                    {
+                        // Token appears before {base} → Prefix
+                        prefixes.Add(new NameComponent { Token = token, Value = value });
+                        nameParts.Add(value);
+                    }
+                    else
+                    {
+                        // Token appears after {base} → Suffix
+                        suffixes.Add(new NameComponent { Token = token, Value = value });
+                        nameParts.Add(value);
+                    }
+                    
+                    // Replace token with actual value in result string
+                    result = result.Replace($"{{{token}}}", value);
+                }
+            }
+            else
+            {
+                // No components found for this token, remove it
+                result = result.Replace($"{{{token}}}", "");
+            }
+        }
+        
+        // If pattern is just "base" without braces, return the base directly
+        if (pattern == "base" && components?["base"] != null)
+        {
+            var baseComponents = components["base"];
+            if (baseComponents != null)
+            {
+                var selectedComponent = GetRandomWeightedComponent(baseComponents);
+                if (selectedComponent != null)
+                {
+                    var value = GetStringProperty(selectedComponent, "value") 
+                              ?? GetStringProperty(selectedComponent, "name") 
+                              ?? "";
+                    baseName = value;
+                    return (value, baseName, prefixes, suffixes);
+                }
+            }
+        }
+        
+        // Clean up the composed name
+        var composedName = string.Join(" ", nameParts.Where(p => !string.IsNullOrWhiteSpace(p)));
+        
+        return (composedName, baseName, prefixes, suffixes);
     }
 }

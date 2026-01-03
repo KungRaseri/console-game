@@ -466,24 +466,47 @@ public class ItemGenerator
     private string BuildEnhancedName(Item item)
     {
         var nameParts = new List<string>();
+        
+        // Clear both old and new properties
+        item.EnchantmentPrefixes.Clear();
+        item.EnchantmentSuffixes.Clear();
+        item.Prefixes.Clear();
+        item.Suffixes.Clear();
 
         // Prefix enchantments
         var prefixEnchantments = item.Enchantments
             .Where(e => e.Position == EnchantmentPosition.Prefix)
             .ToList();
         
-        // Populate EnchantmentPrefixes property
-        item.EnchantmentPrefixes.Clear();
+        // Populate both old (legacy) and new properties
         foreach (var enchantment in prefixEnchantments)
         {
+            // Legacy property (Phase 3 removal)
             item.EnchantmentPrefixes.Add(enchantment.Name);
+            
+            // New property (Phase 2+)
+            item.Prefixes.Add(new NameComponent 
+            { 
+                Token = "enchantment_prefix", 
+                Value = enchantment.Name 
+            });
+            
             nameParts.Add(enchantment.Name);
         }
 
         // Material
         if (!string.IsNullOrEmpty(item.Material))
         {
+            // Legacy property (Phase 3 removal)
             item.MaterialPrefix = item.Material;
+            
+            // New property (Phase 2+)
+            item.Prefixes.Add(new NameComponent 
+            { 
+                Token = "material", 
+                Value = item.Material 
+            });
+            
             nameParts.Add(item.Material);
         }
 
@@ -495,15 +518,23 @@ public class ItemGenerator
             .Where(e => e.Position == EnchantmentPosition.Suffix)
             .ToList();
         
-        // Populate EnchantmentSuffixes property
-        item.EnchantmentSuffixes.Clear();
+        // Populate both old (legacy) and new properties
         foreach (var enchantment in suffixEnchantments)
         {
+            // Legacy property (Phase 3 removal)
             item.EnchantmentSuffixes.Add(enchantment.Name);
+            
+            // New property (Phase 2+)
+            item.Suffixes.Add(new NameComponent 
+            { 
+                Token = "enchantment_suffix", 
+                Value = enchantment.Name 
+            });
+            
             nameParts.Add(enchantment.Name);
         }
 
-        // Gem socket indicator
+        // Gem socket indicator (separate from naming components per design decision)
         if (item.GemSockets.Any())
         {
             var filledSockets = item.GemSockets.Count(s => s.Gem != null);
