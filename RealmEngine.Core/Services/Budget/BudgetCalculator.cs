@@ -1,0 +1,164 @@
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+
+namespace RealmEngine.Core.Services.Budget;
+
+/// <summary>
+/// Calculates budget costs for materials, components, and enchantments.
+/// Uses formulas from budget-config.json.
+/// </summary>
+public class BudgetCalculator
+{
+    private readonly BudgetConfig _config;
+    private readonly ILogger<BudgetCalculator> _logger;
+
+    public BudgetCalculator(BudgetConfig config, ILogger<BudgetCalculator> logger)
+    {
+        _config = config ?? throw new ArgumentNullException(nameof(config));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+
+    /// <summary>
+    /// Calculate the base budget for an item based on enemy level.
+    /// </summary>
+    public int CalculateBaseBudget(int enemyLevel, bool isBoss = false, bool isElite = false)
+    {
+        var baseBudget = enemyLevel * _config.SourceMultipliers.EnemyLevelMultiplier;
+
+        if (isBoss)
+        {
+            baseBudget *= _config.SourceMultipliers.BossMultiplier;
+        }
+        else if (isElite)
+        {
+            baseBudget *= _config.SourceMultipliers.EliteMultiplier;
+        }
+
+        return (int)Math.Round(baseBudget);
+    }
+
+    /// <summary>
+    /// Apply quality modifier to base budget (multiplicative).
+    /// </summary>
+    public int ApplyQualityModifier(int baseBudget, double qualityModifier)
+    {
+        var adjustedBudget = baseBudget * (1.0 + qualityModifier);
+        return (int)Math.Round(adjustedBudget);
+    }
+
+    /// <summary>
+    /// Calculate material budget allocation.
+    /// </summary>
+    public int CalculateMaterialBudget(int totalBudget, double? materialPercentageOverride = null)
+    {
+        var percentage = materialPercentageOverride ?? _config.Allocation.MaterialPercentage;
+        return (int)Math.Round(totalBudget * percentage);
+    }
+
+    /// <summary>
+    /// Calculate component budget (remaining after material allocation).
+    /// </summary>
+    public int CalculateComponentBudget(int totalBudget, int materialBudget)
+    {
+        return totalBudget - materialBudget;
+    }
+
+    /// <summary>
+    /// Calculate the cost of a material using direct budgetCost property.
+    /// </summary>
+    public int CalculateMaterialCost(JToken material)
+    {
+        var budgetCost = GetIntProperty(material, "budgetCost", 0);
+        if (budgetCost <= 0)
+        {
+            _logger.LogWarning("Material {MaterialName} has invalid budgetCost: {Cost}", 
+                GetStringProperty(material, "name"), budgetCost);
+            return 999999; // Unaffordable
+        }
+        return budgetCost;
+    }
+
+    /// <summary>
+    /// Calculate the cost of a component using inverse formula: numerator / selectionWeight.
+    /// </summary>
+    public int CalculateComponentCost(JToken component)
+    {
+        var selectionWeight = GetIntProperty(component, "selectionWeight", 0);
+        if (selectionWeight <= 0)
+        {
+            _logger.LogWarning("Component {ComponentName} has invalid selectionWeight: {Weight}", 
+                GetStringProperty(component, "value"), selectionWeight);
+            return 999999; // Unaffordable
+        }
+
+        var numerator = _config.Formulas.Component.Numerator ?? 100;
+        var cost = (double)numerator / selectionWeight;
+        return (int)Math.Round(cost);
+    }
+
+    /// <summary>
+    /// Calculate the cost of an enchantment using premium formula: numerator / selectionWeight.
+    /// </summary>
+    public int CalculateEnchantmentCost(JToken enchantment)
+    {
+        var selectionWeight = GetIntProperty(enchantment, "selectionWeight", 0);
+        if (selectionWeight <= 0)
+        {
+            _logger.LogWarning("Enchantment {EnchantmentName} has invalid selectionWeight: {Weight}", 
+                GetStringProperty(enchantment, "value"), selectionWeight);
+            return 999999; // Unaffordable
+        }
+
+        var numerator = _config.Formulas.Enchantment.Numerator ?? 130;
+        var cost = (double)numerator / selectionWeight;
+        return (int)Math.Round(cost);
+    }
+
+    /// <summary>
+    /// Calculate the cost of a material quality modifier using inverse formula.
+    /// </summary>
+    public int CalculateQualityCost(JToken quality)
+    {
+        var selectionWeight = GetIntProperty(quality, "selectionWeight", 0);
+        if (selectionWeight <= 0)
+        {
+            return 999999; // Unaffordable
+        }
+
+        var numerator = _config.Formulas.MaterialQuality.Numerator ?? 150;
+        var cost = (double)numerator / selectionWeight;
+        return (int)Math.Round(cost);
+    }
+
+    /// <summary>
+    /// Get pattern overhead cost.
+    /// </summary>
+    public int GetPatternCost(string patternString)
+    {
+        if (_config.PatternCosts.TryGetValue(patternString, out var cost))
+        {
+            return cost;
+        }
+        
+        // Default to 0 for unknown patterns
+        return 0;
+    }
+
+    /// <summary>
+    /// Check if an item is affordable within budget.
+    /// </summary>
+    public bool CanAfford(int currentBudget, int cost)
+    {
+        return currentBudget >= cost;
+    }
+
+    private static string GetStringProperty(JToken token, string propertyName)
+    {
+        return token[propertyName]?.Value<string>() ?? string.Empty;
+    }
+
+    private static int GetIntProperty(JToken token, string propertyName, int defaultValue)
+    {
+        return token[propertyName]?.Value<int>() ?? defaultValue;
+    }
+}

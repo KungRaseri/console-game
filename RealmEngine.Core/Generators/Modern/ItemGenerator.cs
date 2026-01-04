@@ -3,11 +3,12 @@ using RealmEngine.Shared.Models;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using RealmEngine.Core.Services.Budget;
 
 namespace RealmEngine.Core.Generators.Modern;
 
 /// <summary>
-/// Generates items using the Hybrid Enhancement System v1.0.
+/// Generates items using the Hybrid Enhancement System v1.0 and Budget-Based Generation v2.0.
 /// Supports materials (baked), enchantments (baked), and gem sockets (player customizable).
 /// </summary>
 public class ItemGenerator
@@ -19,6 +20,7 @@ public class ItemGenerator
     private readonly ILoggerFactory _loggerFactory;
     private readonly NameComposer _nameComposer;
     private EnchantmentGenerator? _enchantmentGenerator;
+    private BudgetItemGenerationService? _budgetGenerator;
 
     /// <summary>
     /// Initializes a new instance of the ItemGenerator class.
@@ -46,6 +48,40 @@ public class ItemGenerator
         {
             _enchantmentGenerator ??= new EnchantmentGenerator(_dataCache, _referenceResolver, _loggerFactory.CreateLogger<EnchantmentGenerator>());
             return _enchantmentGenerator;
+        }
+    }
+
+    /// <summary>
+    /// Gets or creates the budget generator (lazy initialization).
+    /// </summary>
+    private BudgetItemGenerationService BudgetGenerator
+    {
+        get
+        {
+            if (_budgetGenerator == null)
+            {
+                var configFactory = new BudgetConfigFactory(_dataCache, _loggerFactory.CreateLogger<BudgetConfigFactory>());
+                var budgetConfig = configFactory.GetBudgetConfig();
+                var materialPools = configFactory.GetMaterialPools();
+                var enemyTypes = configFactory.GetEnemyTypes();
+
+                var budgetCalculator = new BudgetCalculator(budgetConfig, _loggerFactory.CreateLogger<BudgetCalculator>());
+                var materialPoolService = new MaterialPoolService(
+                    _dataCache,
+                    _referenceResolver,
+                    budgetCalculator,
+                    materialPools,
+                    enemyTypes,
+                    _loggerFactory.CreateLogger<MaterialPoolService>());
+
+                _budgetGenerator = new BudgetItemGenerationService(
+                    _dataCache,
+                    _referenceResolver,
+                    budgetCalculator,
+                    materialPoolService,
+                    _loggerFactory.CreateLogger<BudgetItemGenerationService>());
+            }
+            return _budgetGenerator;
         }
     }
 
@@ -856,6 +892,334 @@ public class ItemGenerator
                 try
                 {
                     var itemJson = await _referenceResolver.ResolveToObjectAsync(refId);
+                    if (itemJson != null)
+                    {
+                        // Convert resolved JSON to Item
+                        var resolvedItem = itemJson.ToObject<Item>();
+                        if (resolvedItem != null)
+                        {
+                            requiredItems.Add(resolvedItem);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to resolve required item: {RefId}", refId);
+                }
+            }
+            item.RequiredItems = requiredItems;
+        }
+    }
+
+    #region Budget-Based Generation v2.0
+
+    /// <summary>
+    /// Generate an item using budget-based generation (v2.0).
+    /// Uses forward-building approach with material pools and budget constraints.
+    /// </summary>
+    /// <param name="request">Budget generation request parameters.</param>
+    /// <returns>Generated item with full budget breakdown.</returns>
+    public async Task<Item?> GenerateItemWithBudgetAsync(BudgetItemRequest request)
+    {
+        try
+        {
+            var budgetResult = await BudgetGenerator.GenerateItemAsync(request);
+            if (budgetResult == null)
+            {
+                _logger.LogWarning("Budget generation failed for request: {EnemyType} level {Level}", 
+                    request.EnemyType, request.EnemyLevel);
+                return null;
+            }
+
+            var item = ConvertBudgetResultToItem(budgetResult, request.ItemCategory);
+            return item;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error generating item with budget");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Generate multiple items using budget-based generation.
+    /// </summary>
+    public async Task<List<Item>> GenerateItemsWithBudgetAsync(BudgetItemRequest request, int count = 10)
+    {
+        var items = new List<Item>();
+
+        for (int i = 0; i < count; i++)
+        {
+            var item = await GenerateItemWithBudgetAsync(request);
+            if (item != null)
+            {
+                items.Add(item);
+            }
+        }
+
+        return items;
+    }
+
+    /// <summary>
+    /// Convert BudgetItemResult to Item model with composed name.
+    /// </summary>
+    private Item ConvertBudgetResultToItem(BudgetItemResult result, string category)
+    {
+        var baseItemName = GetStringProperty(result.BaseItem!, "name") ?? "Unknown";
+        
+        var item = new Item
+        {
+            Id = $"{category}:{baseItemName}",
+            BaseName = baseItemName,
+            Name = baseItemName, // Will be updated
+            Description = $"A {baseItemName}",
+            Price = GetIntProperty(result.BaseItem!, "value", 1),
+            Type = category switch
+            {
+                "weapons" => ItemType.Weapon,
+                "armor" => ItemType.Chest,
+                "consumables" => ItemType.Consumable,
+                "shields" => ItemType.Shield,
+                _ => ItemType.Consumable
+            }
+        };
+
+        // Store budget metadata
+        item.Traits.Add(new TraitInstance
+        {
+            Name = "Budget.Total",
+            Value = result.AdjustedBudget,
+            Type = TraitType.Integer,
+            Source = "Budget System"
+        });
+
+        item.Traits.Add(new TraitInstance
+        {
+            Name = "Budget.Spent",
+            Value = result.SpentBudget,
+            Type = TraitType.Integer,
+            Source = "Budget System"
+        });
+
+        // Apply material
+        if (result.Material != null)
+        {
+            item.Material = GetStringProperty(result.Material, "name");
+            ApplyMaterialTraits(item, result.Material);
+        }
+
+        // Apply quality modifier
+        if (result.Quality != null)
+        {
+            item.Prefixes.Add(new NameComponent
+            {
+                Token = "quality",
+                Value = GetStringProperty(result.Quality, "value") ?? ""
+            });
+        }
+
+        // Apply components from budget
+        foreach (var component in result.Components)
+        {
+            var value = GetStringProperty(component, "value") ?? "";
+            var token = GetStringProperty(component, "token") ?? "component";
+            
+            // Determine if prefix or suffix based on typical naming
+            if (token.Contains("prefix") || token == "descriptive")
+            {
+                item.Prefixes.Add(new NameComponent { Token = token, Value = value });
+            }
+            else if (token.Contains("suffix") || token == "effect")
+            {
+                item.Suffixes.Add(new NameComponent { Token = token, Value = value });
+            }
+        }
+
+        // Apply base item stats
+        ApplyBaseItemStats(item, result.BaseItem!);
+
+        // Compose final name
+        item.Name = ComposeBudgetItemName(item, result);
+
+        // Calculate rarity from budget
+        item.Rarity = CalculateRarityFromBudget(result.AdjustedBudget);
+
+        return item;
+    }
+
+    /// <summary>
+    /// Compose the final item name from budget result components.
+    /// </summary>
+    private string ComposeBudgetItemName(Item item, BudgetItemResult result)
+    {
+        var nameParts = new List<string>();
+
+        // Quality (if present)
+        if (result.Quality != null)
+        {
+            nameParts.Add(GetStringProperty(result.Quality, "value") ?? "");
+        }
+
+        // Material
+        if (!string.IsNullOrEmpty(item.Material))
+        {
+            nameParts.Add(item.Material);
+        }
+
+        // Prefixes
+        foreach (var prefix in item.Prefixes)
+        {
+            if (prefix.Token != "quality" && !string.IsNullOrEmpty(prefix.Value))
+            {
+                nameParts.Add(prefix.Value);
+            }
+        }
+
+        // Base name
+        nameParts.Add(item.BaseName);
+
+        // Suffixes
+        foreach (var suffix in item.Suffixes)
+        {
+            if (!string.IsNullOrEmpty(suffix.Value))
+            {
+                nameParts.Add($"of {suffix.Value}");
+            }
+        }
+
+        return string.Join(" ", nameParts.Where(p => !string.IsNullOrWhiteSpace(p)));
+    }
+
+    /// <summary>
+    /// Apply material traits to item from material catalog data.
+    /// </summary>
+    private void ApplyMaterialTraits(Item item, JToken material)
+    {
+        var traits = material["traits"];
+        if (traits != null)
+        {
+            foreach (var traitProp in traits.Children<JProperty>())
+            {
+                var traitName = traitProp.Name;
+                var traitValue = traitProp.Value;
+
+                item.Traits.Add(new TraitInstance
+                {
+                    Name = $"Material.{traitName}",
+                    Value = traitValue.Type == JTokenType.Integer ? traitValue.Value<int>() : 
+                            traitValue.Type == JTokenType.Float ? traitValue.Value<double>() :
+                            traitValue.Type == JTokenType.Boolean ? traitValue.Value<bool>() :
+                            traitValue.Value<string>(),
+                    Type = traitValue.Type == JTokenType.Integer ? TraitType.Integer :
+                           traitValue.Type == JTokenType.Float ? TraitType.Float :
+                           traitValue.Type == JTokenType.Boolean ? TraitType.Boolean :
+                           TraitType.String,
+                    Source = "Material"
+                });
+            }
+        }
+
+        // Apply item-type-specific traits
+        var itemTypeTraits = material["itemTypeTraits"];
+        if (itemTypeTraits != null)
+        {
+            var typeKey = item.Type == ItemType.Weapon ? "weapon" : "armor";
+            var specificTraits = itemTypeTraits[typeKey];
+            
+            if (specificTraits != null)
+            {
+                foreach (var traitProp in specificTraits.Children<JProperty>())
+                {
+                    var traitName = traitProp.Name;
+                    var traitValue = traitProp.Value;
+
+                    item.Traits.Add(new TraitInstance
+                    {
+                        Name = $"Material.{traitName}",
+                        Value = traitValue.Type == JTokenType.Integer ? traitValue.Value<int>() :
+                                traitValue.Type == JTokenType.Float ? traitValue.Value<double>() :
+                                traitValue.Value<string>(),
+                        Type = traitValue.Type == JTokenType.Integer ? TraitType.Integer :
+                               traitValue.Type == JTokenType.Float ? TraitType.Float :
+                               TraitType.String,
+                        Source = "Material (Type-Specific)"
+                    });
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Apply base item stats (damage, defense, etc.) from catalog.
+    /// </summary>
+    private void ApplyBaseItemStats(Item item, JToken baseItem)
+    {
+        // Weapons: damage
+        if (baseItem["damage"] != null)
+        {
+            item.Traits.Add(new TraitInstance
+            {
+                Name = "Damage",
+                Value = GetStringProperty(baseItem, "damage"),
+                Type = TraitType.String,
+                Source = "Base Item"
+            });
+        }
+
+        // Armor: defense
+        if (baseItem["defense"] != null)
+        {
+            item.Traits.Add(new TraitInstance
+            {
+                Name = "Defense",
+                Value = GetIntProperty(baseItem, "defense", 0),
+                Type = TraitType.Integer,
+                Source = "Base Item"
+            });
+        }
+
+        // Weight
+        if (baseItem["weight"] != null)
+        {
+            item.Traits.Add(new TraitInstance
+            {
+                Name = "Weight",
+                Value = GetDoubleProperty(baseItem, "weight", 0.0),
+                Type = TraitType.Float,
+                Source = "Base Item"
+            });
+        }
+    }
+
+    /// <summary>
+    /// Calculate item rarity from budget value.
+    /// </summary>
+    private ItemRarity CalculateRarityFromBudget(int budget)
+    {
+        return budget switch
+        {
+            < 50 => ItemRarity.Common,
+            < 100 => ItemRarity.Uncommon,
+            < 200 => ItemRarity.Rare,
+            < 350 => ItemRarity.Epic,
+            _ => ItemRarity.Legendary
+        };
+    }
+
+    private static double GetDoubleProperty(JToken token, string propertyName, double defaultValue)
+    {
+        try
+        {
+            return token[propertyName]?.Value<double>() ?? defaultValue;
+        }
+        catch
+        {
+            return defaultValue;
+        }
+    }
+
+    #endregion
+}
                     if (itemJson != null)
                     {
                         var requiredItem = itemJson.ToObject<Item>();
