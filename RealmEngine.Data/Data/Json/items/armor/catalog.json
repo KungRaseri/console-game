@@ -48,7 +48,9 @@
           "weight": 5.0,
           "value": 40,
           "armorClass": "heavy",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 10,
+          "budgetCost": 28
         },
         {
           "name": "Armet",
@@ -56,7 +58,9 @@
           "weight": 3.5,
           "value": 35,
           "armorClass": "heavy",
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "selectionWeight": 8,
+          "budgetCost": 25
         },
         {
           "name": "Sallet",
@@ -64,7 +68,9 @@
           "weight": 2.5,
           "value": 25,
           "armorClass": "medium",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 20
         },
         {
           "name": "Barbute",
@@ -72,7 +78,9 @@
           "weight": 3.0,
           "value": 30,
           "armorClass": "heavy",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 10,
+          "budgetCost": 22
         },
         {
           "name": "Coif",
@@ -80,7 +88,9 @@
           "weight": 1.5,
           "value": 12,
           "armorClass": "light",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 22,
+          "budgetCost": 15
         },
         {
           "name": "Cowl",
@@ -88,7 +98,9 @@
           "weight": 0.5,
           "value": 8,
           "armorClass": "light",
-          "rarityWeight": 4
+          "rarityWeight": 4,
+          "selectionWeight": 24,
+          "budgetCost": 12
         },
         {
           "name": "Hood",
@@ -96,7 +108,9 @@
           "weight": 0.3,
           "value": 5,
           "armorClass": "light",
-          "rarityWeight": 3
+          "rarityWeight": 3,
+          "selectionWeight": 25,
+          "budgetCost": 10
         },
         {
           "name": "Crown",
@@ -104,7 +118,9 @@
           "weight": 1.0,
           "value": 100,
           "armorClass": "light",
-          "rarityWeight": 50
+          "rarityWeight": 50,
+          "selectionWeight": 1,
+          "budgetCost": 30
         },
         {
           "name": "Circlet",
@@ -112,7 +128,9 @@
           "weight": 0.5,
           "value": 80,
           "armorClass": "light",
-          "rarityWeight": 45
+          "rarityWeight": 45,
+          "selectionWeight": 2,
+          "budgetCost": 28
         }
       ]
     },
@@ -139,7 +157,9 @@
           "weight": 12.0,
           "value": 70,
           "armorClass": "heavy",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 10,
+          "budgetCost": 48
         },
         {
           "name": "Chestplate",
@@ -147,7 +167,9 @@
           "weight": 14.0,
           "value": 75,
           "armorClass": "heavy",
-          "rarityWeight": 14
+          "rarityWeight": 14,
+          "selectionWeight": 8,
+          "budgetCost": 52
         },
         {
           "name": "Hauberk",
@@ -155,7 +177,9 @@
           "weight": 20.0,
           "value": 60,
           "armorClass": "medium",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 42
         },
         {
           "name": "Chainmail",
@@ -163,7 +187,9 @@
           "weight": 18.0,
           "value": 50,
           "armorClass": "medium",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 15,
+          "budgetCost": 38
         },
         {
           "name": "Plate Mail",
@@ -171,7 +197,9 @@
           "weight": 25.0,
           "value": 120,
           "armorClass": "heavy",
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "selectionWeight": 5,
+          "budgetCost": 60
         },
         {
           "name": "Scale Mail",
@@ -179,7 +207,9 @@
           "weight": 15.0,
           "value": 45,
           "armorClass": "medium",
-          "rarityWeight": 9
+          "rarityWeight": 9,
+          "selectionWeight": 13,
+          "budgetCost": 36
         },
         {
           "name": "Ring Mail",
@@ -187,7 +217,9 @@
           "weight": 12.0,
           "value": 35,
           "armorClass": "medium",
-          "rarityWeight": 7
+          "rarityWeight": 7,
+          "selectionWeight": 16,
+          "budgetCost": 32
         },
         {
           "name": "Banded Mail",
@@ -195,7 +227,9 @@
           "weight": 16.0,
           "value": 55,
           "armorClass": "medium",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 40
         },
         {
           "name": "Vest",
@@ -203,7 +237,9 @@
           "weight": 3.0,
           "value": 15,
           "armorClass": "light",
-          "rarityWeight": 4
+          "rarityWeight": 4,
+          "selectionWeight": 24,
+          "budgetCost": 30
         },
         {
           "name": "Jerkin",
@@ -211,7 +247,9 @@
           "weight": 4.0,
           "value": 20,
           "armorClass": "light",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 22,
+          "budgetCost": 34
         }
       ]
     },
@@ -228,7 +266,9 @@
           "weight": 2.0,
           "value": 15,
           "armorClass": "heavy",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 15,
+          "budgetCost": 18
         },
         {
           "name": "Gloves",
@@ -236,7 +276,9 @@
           "weight": 0.5,
           "value": 8,
           "armorClass": "light",
-          "rarityWeight": 4
+          "rarityWeight": 4,
+          "selectionWeight": 24,
+          "budgetCost": 10
         },
         {
           "name": "Vambraces",
@@ -244,7 +286,9 @@
           "weight": 1.5,
           "value": 12,
           "armorClass": "medium",
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 18,
+          "budgetCost": 14
         },
         {
           "name": "Bracers",
@@ -252,7 +296,9 @@
           "weight": 1.0,
           "value": 10,
           "armorClass": "light",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 22,
+          "budgetCost": 12
         },
         {
           "name": "Mittens",
@@ -260,7 +306,9 @@
           "weight": 0.3,
           "value": 5,
           "armorClass": "light",
-          "rarityWeight": 3
+          "rarityWeight": 3,
+          "selectionWeight": 25,
+          "budgetCost": 8
         }
       ]
     },
@@ -277,7 +325,9 @@
           "weight": 6.0,
           "value": 30,
           "armorClass": "heavy",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 35
         },
         {
           "name": "Leggings",
@@ -285,7 +335,9 @@
           "weight": 4.0,
           "value": 20,
           "armorClass": "medium",
-          "rarityWeight": 7
+          "rarityWeight": 7,
+          "selectionWeight": 16,
+          "budgetCost": 28
         },
         {
           "name": "Chausses",
@@ -293,7 +345,9 @@
           "weight": 5.0,
           "value": 25,
           "armorClass": "medium",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 15,
+          "budgetCost": 30
         },
         {
           "name": "Tassets",
@@ -301,7 +355,9 @@
           "weight": 3.0,
           "value": 15,
           "armorClass": "light",
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 18,
+          "budgetCost": 25
         }
       ]
     },
@@ -318,7 +374,9 @@
           "weight": 2.0,
           "value": 12,
           "armorClass": "medium",
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 18,
+          "budgetCost": 16
         },
         {
           "name": "Sabatons",
@@ -326,7 +384,9 @@
           "weight": 4.0,
           "value": 20,
           "armorClass": "heavy",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 20
         },
         {
           "name": "Sollerets",
@@ -334,7 +394,9 @@
           "weight": 3.5,
           "value": 18,
           "armorClass": "heavy",
-          "rarityWeight": 9
+          "rarityWeight": 9,
+          "selectionWeight": 13,
+          "budgetCost": 18
         },
         {
           "name": "Shoes",
@@ -342,7 +404,9 @@
           "weight": 1.0,
           "value": 5,
           "armorClass": "light",
-          "rarityWeight": 3
+          "rarityWeight": 3,
+          "selectionWeight": 25,
+          "budgetCost": 10
         },
         {
           "name": "Sandals",
@@ -350,7 +414,9 @@
           "weight": 0.5,
           "value": 3,
           "armorClass": "light",
-          "rarityWeight": 2
+          "rarityWeight": 2,
+          "selectionWeight": 25,
+          "budgetCost": 8
         }
       ]
     },
@@ -367,7 +433,9 @@
           "weight": 4.0,
           "value": 25,
           "armorClass": "heavy",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 22
         },
         {
           "name": "Spaulders",
@@ -375,7 +443,9 @@
           "weight": 3.0,
           "value": 18,
           "armorClass": "medium",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 15,
+          "budgetCost": 18
         },
         {
           "name": "Shoulderguards",
@@ -383,7 +453,9 @@
           "weight": 2.5,
           "value": 15,
           "armorClass": "medium",
-          "rarityWeight": 7
+          "rarityWeight": 7,
+          "selectionWeight": 16,
+          "budgetCost": 16
         },
         {
           "name": "Mantle",
@@ -391,7 +463,9 @@
           "weight": 1.0,
           "value": 10,
           "armorClass": "light",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 22,
+          "budgetCost": 12
         }
       ]
     },
@@ -409,7 +483,9 @@
           "weight": 6.0,
           "value": 25,
           "blockChance": 15,
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 15,
+          "budgetCost": 28
         },
         {
           "name": "Buckler",
@@ -417,7 +493,9 @@
           "weight": 3.0,
           "value": 15,
           "blockChance": 10,
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 18,
+          "budgetCost": 20
         },
         {
           "name": "Tower Shield",
@@ -425,7 +503,9 @@
           "weight": 15.0,
           "value": 60,
           "blockChance": 25,
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "selectionWeight": 8,
+          "budgetCost": 50
         },
         {
           "name": "Kite Shield",
@@ -433,7 +513,9 @@
           "weight": 8.0,
           "value": 35,
           "blockChance": 18,
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 35
         },
         {
           "name": "Heater",
@@ -441,7 +523,9 @@
           "weight": 5.0,
           "value": 20,
           "blockChance": 12,
-          "rarityWeight": 7
+          "rarityWeight": 7,
+          "selectionWeight": 16,
+          "budgetCost": 25
         }
       ]
     }
