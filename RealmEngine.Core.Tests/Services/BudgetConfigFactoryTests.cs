@@ -78,4 +78,214 @@ public class BudgetConfigFactoryTests
         (materialPools1 || materialPools2).Should().BeTrue($"material-pools.json should exist. Total files loaded: {totalFiles}");
         (enemyTypes1 || enemyTypes2).Should().BeTrue($"enemy-types.json should exist. Total files loaded: {totalFiles}");
     }
+
+    [Fact]
+    public void BudgetConfig_ShouldHaveAllRequiredFields()
+    {
+        // Act
+        var config = _configFactory.GetBudgetConfig();
+
+        // Assert - Allocation
+        config.Allocation.Should().NotBeNull();
+        config.Allocation.MaterialPercentage.Should().BeGreaterThan(0).And.BeLessThanOrEqualTo(1);
+        config.Allocation.ComponentPercentage.Should().BeGreaterThan(0).And.BeLessThanOrEqualTo(1);
+        (config.Allocation.MaterialPercentage + config.Allocation.ComponentPercentage).Should().BeApproximately(1.0, 0.01);
+
+        // Assert - Formulas
+        config.Formulas.Should().NotBeNull();
+        config.Formulas.Material.Should().NotBeNull();
+        config.Formulas.Component.Should().NotBeNull();
+        config.Formulas.Enchantment.Should().NotBeNull();
+        config.Formulas.MaterialQuality.Should().NotBeNull();
+
+        // Assert - Pattern Costs
+        config.PatternCosts.Should().NotBeNull().And.NotBeEmpty();
+        config.PatternCosts.Should().ContainKey("{base}");
+
+        // Assert - Source Multipliers
+        config.SourceMultipliers.Should().NotBeNull();
+        config.SourceMultipliers.EnemyLevelMultiplier.Should().BeGreaterThan(0);
+        config.SourceMultipliers.BossMultiplier.Should().BeGreaterThan(1);
+        config.SourceMultipliers.EliteMultiplier.Should().BeGreaterThan(1);
+    }
+
+    [Fact]
+    public void MaterialPools_ShouldHaveAllDeclaredPools()
+    {
+        // Act
+        var pools = _configFactory.GetMaterialPools();
+
+        // Assert - Check common pool types exist
+        pools.Pools.Should().ContainKey("humanoid_low");
+        pools.Pools.Should().ContainKey("humanoid_mid");
+        pools.Pools.Should().ContainKey("humanoid_high");
+        pools.Pools.Should().ContainKey("dragon_hoard");
+        pools.Pools.Should().ContainKey("elemental_fire");
+        pools.Pools.Should().ContainKey("elemental_ice");
+        pools.Pools.Should().ContainKey("undead");
+        pools.Pools.Should().ContainKey("beast");
+        pools.Pools.Should().ContainKey("demonic");
+
+        // Assert - Each pool has metals
+        foreach (var pool in pools.Pools.Values)
+        {
+            pool.Metals.Should().NotBeNull();
+            pool.Metals.Should().NotBeEmpty();
+        }
+    }
+
+    [Fact]
+    public void EnemyTypes_ShouldHaveValidConfigurations()
+    {
+        // Act
+        var enemyTypes = _configFactory.GetEnemyTypes();
+
+        // Assert - Check common enemy types
+        var expectedTypes = new[] { "goblin", "orc", "troll", "knight", "elite_knight", "dragon", 
+                                    "fire_elemental", "ice_elemental", "undead", "skeleton", "demon" };
+        
+        foreach (var typeName in expectedTypes)
+        {
+            enemyTypes.Types.Should().ContainKey(typeName, $"{typeName} should be defined");
+            var type = enemyTypes.Types[typeName];
+            
+            type.MaterialPool.Should().NotBeNullOrEmpty($"{typeName} should have materialPool");
+            
+            var multiplier = type.BudgetMultiplier;
+            multiplier.Should().BeGreaterThan(0, $"{typeName} budgetMultiplier must be positive");
+        }
+    }
+
+    [Fact]
+    public void EnemyTypes_WithCustomMaterialPercentage_ShouldUseCustomValue()
+    {
+        // Act
+        var enemyTypes = _configFactory.GetEnemyTypes();
+
+        // Assert - Dragon should have custom material percentage
+        var dragon = enemyTypes.Types["dragon"];
+        dragon.MaterialPercentage.Should().NotBeNull("dragons should have custom material percentage");
+        var dragonMaterialPercentage = dragon.MaterialPercentage!.Value;
+        dragonMaterialPercentage.Should().Be(0.40, "dragons should allocate 40% to materials");
+
+        // Assert - Fire elemental should have custom material percentage
+        var fireElemental = enemyTypes.Types["fire_elemental"];
+        fireElemental.MaterialPercentage.Should().NotBeNull();
+        var fireMaterialPercentage = fireElemental.MaterialPercentage!.Value;
+        fireMaterialPercentage.Should().Be(0.50, "fire elementals should allocate 50% to materials");
+
+        // Assert - Goblin should NOT have custom material percentage (uses default)
+        var goblin = enemyTypes.Types["goblin"];
+        var goblinMaterialPercentage = goblin.MaterialPercentage;
+        goblinMaterialPercentage.Should().BeNull("goblins should use default material percentage");
+    }
+
+    [Fact]
+    public void MaterialPools_AllReferences_ShouldBeValid()
+    {
+        // Act
+        var pools = _configFactory.GetMaterialPools();
+
+        // Assert - Each material reference should be properly formatted
+        foreach (var poolEntry in pools.Pools)
+        {
+            var poolName = poolEntry.Key;
+            var pool = poolEntry.Value;
+            var metals = pool.Metals;
+            
+            if (metals == null) continue;
+
+            foreach (var metalEntry in metals)
+            {
+                var materialRef = metalEntry.MaterialRef;
+                materialRef.Should().NotBeNullOrEmpty($"pool '{poolName}' should have materialRef");
+                materialRef.Should().StartWith("@items/materials/", $"pool '{poolName}' reference should use correct format");
+                
+                var selectionWeight = metalEntry.SelectionWeight;
+                selectionWeight.Should().BeGreaterThan(0, $"pool '{poolName}' materials should have positive selectionWeight");
+            }
+        }
+    }
+
+    [Fact]
+    public void BudgetConfig_FormulasHaveRequiredFields()
+    {
+        // Act
+        var config = _configFactory.GetBudgetConfig();
+
+        // Assert - Material formula (direct)
+        config.Formulas.Material.Formula.Should().Be("direct");
+        config.Formulas.Material.Field.Should().Be("budgetCost");
+
+        // Assert - Component formula (inverse)
+        config.Formulas.Component.Formula.Should().Be("inverse");
+        config.Formulas.Component.Field.Should().Be("selectionWeight");
+        config.Formulas.Component.Numerator.Should().BeGreaterThan(0);
+
+        // Assert - Enchantment formula (inverse, higher cost)
+        config.Formulas.Enchantment.Formula.Should().Be("inverse");
+        config.Formulas.Enchantment.Numerator.Should().NotBeNull();
+        config.Formulas.Enchantment.Numerator!.Value.Should().BeGreaterThan(config.Formulas.Component.Numerator!.Value, 
+            "enchantments should be more expensive than regular components");
+
+        // Assert - Material quality formula (inverse, highest cost)
+        config.Formulas.MaterialQuality.Formula.Should().Be("inverse");
+        config.Formulas.MaterialQuality.Numerator.Should().NotBeNull();
+        config.Formulas.MaterialQuality.Numerator!.Value.Should().BeGreaterThan(config.Formulas.Enchantment.Numerator!.Value,
+            "material quality should be most expensive");
+    }
+
+    [Fact]
+    public void BudgetConfig_PatternCosts_SimplePatternsCostLess()
+    {
+        // Act
+        var config = _configFactory.GetBudgetConfig();
+
+        // Assert
+        var simplePattern = config.PatternCosts["{base}"];
+        var complexPattern = config.PatternCosts["{prefix} {descriptive} {base} {suffix}"];
+
+        simplePattern.Should().BeLessThan(complexPattern, "complex patterns should cost more budget");
+    }
+
+    [Theory]
+    [InlineData("goblin", "humanoid_low", 1.0)]
+    [InlineData("dragon", "dragon_hoard", 2.5)]
+    [InlineData("fire_elemental", "elemental_fire", 1.5)]
+    [InlineData("knight", "humanoid_mid", 1.3)]
+    public void EnemyTypes_SpecificTypes_HaveCorrectConfiguration(string enemyType, string expectedPool, double expectedMultiplier)
+    {
+        // Act
+        var enemyTypes = _configFactory.GetEnemyTypes();
+
+        // Assert
+        enemyTypes.Types.Should().ContainKey(enemyType);
+        var type = enemyTypes.Types[enemyType];
+        
+        type.MaterialPool.Should().Be(expectedPool);
+        type.BudgetMultiplier.Should().Be(expectedMultiplier);
+    }
+
+    [Theory]
+    [InlineData("humanoid_low", "iron", "bronze", "steel")]
+    [InlineData("dragon_hoard", "mithril", "adamantine", "dragonbone", "celestial-ore")]
+    [InlineData("elemental_fire", "obsidian", "steel", "mithril")]
+    public void MaterialPools_SpecificPools_ContainExpectedMaterials(string poolName, params string[] expectedMaterials)
+    {
+        // Act
+        var pools = _configFactory.GetMaterialPools();
+
+        // Assert
+        pools.Pools.Should().ContainKey(poolName);
+        var pool = pools.Pools[poolName];
+        var metals = pool.Metals;
+
+        foreach (var expectedMaterial in expectedMaterials)
+        {
+            metals.Should().Contain(m => 
+                m.MaterialRef.Contains($":{expectedMaterial}") ||
+                m.MaterialRef.Contains($":{expectedMaterial.Replace("-", "")}"),
+                $"pool '{poolName}' should contain material '{expectedMaterial}'");
+        }
+    }
 }

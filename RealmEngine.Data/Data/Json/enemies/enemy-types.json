@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Default configurations for enemy types - defines material pools and budget modifiers per type",
-    "version": "1.0",
+    "version": "4.0",
     "lastUpdated": "2026-01-04",
     "type": "enemy_type_configuration"
   },

@@ -139,15 +139,20 @@ public class JsonDataComplianceTests
 
         if (!allItems.Any()) return; // Skip if no items
 
-        // Assert
+        // Assert - items should have rarityWeight OR selectionWeight
         foreach (var item in allItems)
         {
-            ((JObject)item).Should().ContainKey("rarityWeight", 
-                $"{relativePath} - Item '{item["name"]}' missing rarityWeight");
+            var hasRarityWeight = ((JObject)item).ContainsKey("rarityWeight");
+            var hasSelectionWeight = ((JObject)item).ContainsKey("selectionWeight");
             
-            var weight = item["rarityWeight"]?.Value<int>();
-            weight.Should().NotBeNull($"{relativePath} - Item '{item["name"]}' null rarityWeight");
-            weight.Should().BeGreaterThan(0, $"{relativePath} - Item '{item["name"]}' invalid rarityWeight");
+            (hasRarityWeight || hasSelectionWeight).Should().BeTrue(
+                $"{relativePath} - Item '{item["name"]}' missing rarityWeight or selectionWeight");
+            
+            var weight = hasRarityWeight 
+                ? item["rarityWeight"]?.Value<int>() 
+                : item["selectionWeight"]?.Value<int>();
+            weight.Should().NotBeNull($"{relativePath} - Item '{item["name"]}' null weight");
+            weight.Should().BeGreaterThan(0, $"{relativePath} - Item '{item["name"]}' invalid weight");
         }
     }
 
@@ -178,16 +183,22 @@ public class JsonDataComplianceTests
         var json = JObject.Parse(File.ReadAllText(fullPath));
         var allItems = GetAllItemsFromCatalog(json);
 
-        // Assert - should use rarityWeight, not weight (unless it's physical weight)
+        // Assert - items should have rarityWeight OR selectionWeight (weight is for physical weight only)
         foreach (var item in allItems)
         {
-            if (item.ContainsKey("weight") && !item.ContainsKey("rarityWeight"))
+            var hasRarityWeight = item.ContainsKey("rarityWeight");
+            var hasSelectionWeight = item.ContainsKey("selectionWeight");
+            var hasWeight = item.ContainsKey("weight");
+            
+            // If item has "weight" but no rarityWeight or selectionWeight, check if it's a decimal (physical weight)
+            if (hasWeight && !hasRarityWeight && !hasSelectionWeight)
             {
-                // Only fail if it looks like a rarity value (not physical weight)
                 var weight = item["weight"]?.Value<double>();
-                if (weight != null && weight <= 100 && weight > 0)
+                // Physical weight is typically a decimal (1.5, 3.0, etc.) or > 100
+                // If it's an integer <= 100, it's likely meant to be rarityWeight
+                if (weight != null && weight % 1 == 0 && weight <= 100 && weight > 0)
                 {
-                    Assert.Fail($"{relativePath} - Item '{item["name"]}' uses 'weight' instead of 'rarityWeight'");
+                    Assert.Fail($"{relativePath} - Item '{item["name"]}' has 'weight' = {weight} which looks like rarityWeight. Use 'rarityWeight' or 'selectionWeight' instead.");
                 }
             }
         }

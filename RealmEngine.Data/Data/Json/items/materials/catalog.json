@@ -2,9 +2,9 @@
   "metadata": {
     "description": "Comprehensive material catalog with item-type-specific stat modifiers",
     "version": "4.0",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2026-01-04",
     "type": "material_catalog",
-    "totalMaterials": 46,
+    "totalMaterials": 50,
     "categories": [
       "metals",
       "leathers",
@@ -351,6 +351,138 @@
               "resistMagic": 40,
               "thorns": 20,
               "value": 1500
+            }
+          }
+        },
+        {
+          "slug": "dragonbone",
+          "name": "Dragonbone",
+          "displayName": "Dragonbone",
+          "selectionWeight": 2,
+          "budgetCost": 40,
+          "traits": {
+            "durability": 150,
+            "weight": 0.8,
+            "enchantability": 85,
+            "organic": true,
+            "legendary": true
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 12,
+              "bonusDragonSlaying": 30,
+              "critChance": 10,
+              "value": 400
+            },
+            "armor": {
+              "armorRating": 18,
+              "defenseBonus": 12,
+              "resistFire": 40,
+              "resistPhysical": 25,
+              "value": 450
+            }
+          }
+        },
+        {
+          "slug": "celestial-ore",
+          "name": "Celestial Ore",
+          "displayName": "Celestial Ore",
+          "selectionWeight": 1,
+          "budgetCost": 50,
+          "traits": {
+            "durability": 200,
+            "weight": 1.0,
+            "enchantability": 95,
+            "glowEffect": true,
+            "visualColor": "celestial_blue",
+            "legendary": true
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 15,
+              "bonusHolyDamage": 20,
+              "bonusVsUndead": 35,
+              "bonusVsDemons": 35,
+              "value": 500
+            },
+            "armor": {
+              "armorRating": 25,
+              "defenseBonus": 18,
+              "resistHoly": 50,
+              "resistDark": 30,
+              "blessedProtection": 15,
+              "value": 600
+            }
+          }
+        },
+        {
+          "slug": "crystal",
+          "name": "Crystal",
+          "displayName": "Crystal",
+          "selectionWeight": 8,
+          "budgetCost": 18,
+          "traits": {
+            "durability": 80,
+            "weight": 0.5,
+            "enchantability": 75,
+            "brittle": true
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 6,
+              "bonusIceDamage": 12,
+              "critChance": 8,
+              "value": 120
+            },
+            "armor": {
+              "armorRating": 14,
+              "defenseBonus": 8,
+              "resistIce": 40,
+              "resistFire": -10,
+              "value": 150
+            },
+            "socket": {
+              "bonusMana": 25,
+              "spellPower": 10,
+              "value": 100
+            }
+          }
+        },
+        {
+          "slug": "void-crystal",
+          "name": "Void Crystal",
+          "displayName": "Void Crystal",
+          "selectionWeight": 2,
+          "budgetCost": 45,
+          "traits": {
+            "durability": 90,
+            "weight": 0.3,
+            "enchantability": 90,
+            "cursed": true,
+            "visualColor": "void_black",
+            "legendary": true
+          },
+          "itemTypeTraits": {
+            "weapon": {
+              "damage": 14,
+              "bonusDarkDamage": 25,
+              "lifeDrain": 10,
+              "bonusVsCelestial": 30,
+              "value": 450
+            },
+            "armor": {
+              "armorRating": 20,
+              "defenseBonus": 14,
+              "resistDark": 50,
+              "resistHoly": -20,
+              "shadowCloak": 15,
+              "value": 500
+            },
+            "socket": {
+              "bonusDarkDamage": 15,
+              "lifeDrain": 5,
+              "curseResistance": 10,
+              "value": 300
             }
           }
         }

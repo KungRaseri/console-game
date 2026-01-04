@@ -270,4 +270,170 @@ public class BudgetCalculatorTests
         // Assert
         result.Should().Be(20); // 100 / 5 = 20 (high cost for rare)
     }
+
+    [Theory]
+    [InlineData(1, 5)]    // Level 1 * 5.0 = 5
+    [InlineData(5, 25)]   // Level 5 * 5.0 = 25
+    [InlineData(10, 50)]  // Level 10 * 5.0 = 50
+    [InlineData(20, 100)] // Level 20 * 5.0 = 100
+    [InlineData(50, 250)] // Level 50 * 5.0 = 250
+    public void CalculateBaseBudget_VariousLevels_ReturnsCorrectBudget(int level, int expectedBudget)
+    {
+        // Act
+        var result = _calculator.CalculateBaseBudget(level);
+
+        // Assert
+        result.Should().Be(expectedBudget);
+    }
+
+    [Theory]
+    [InlineData(0.0, 100)]   // No modifier
+    [InlineData(0.25, 125)]  // +25%
+    [InlineData(0.50, 150)]  // +50%
+    [InlineData(-0.25, 75)]  // -25%
+    [InlineData(-0.50, 50)]  // -50%
+    public void ApplyQualityModifier_VariousModifiers_CalculatesCorrectly(double modifier, int expectedResult)
+    {
+        // Arrange
+        var baseBudget = 100;
+
+        // Act
+        var result = _calculator.ApplyQualityModifier(baseBudget, modifier);
+
+        // Assert
+        result.Should().Be(expectedResult);
+    }
+
+    [Fact]
+    public void CalculateMaterialBudget_ZeroPercentage_ReturnsZero()
+    {
+        // Arrange
+        var totalBudget = 100;
+
+        // Act
+        var result = _calculator.CalculateMaterialBudget(totalBudget, 0.0);
+
+        // Assert
+        result.Should().Be(0);
+    }
+
+    [Fact]
+    public void CalculateMaterialBudget_FullPercentage_ReturnsFullBudget()
+    {
+        // Arrange
+        var totalBudget = 100;
+
+        // Act
+        var result = _calculator.CalculateMaterialBudget(totalBudget, 1.0);
+
+        // Assert
+        result.Should().Be(100);
+    }
+
+    [Theory]
+    [InlineData(10, 125)]   // Boss: 10 * 5.0 * 2.5 = 125
+    [InlineData(20, 250)]  // Boss: 20 * 5.0 * 2.5 = 250
+    public void CalculateBaseBudget_BossEnemy_AppliesBossMultiplier(int level, int expectedBudget)
+    {
+        // Act
+        var result = _calculator.CalculateBaseBudget(level, isBoss: true);
+
+        // Assert - Boss multiplier is 2.5
+        result.Should().Be(expectedBudget);
+    }
+
+    [Theory]
+    [InlineData(10, 75)]   // Elite: 10 * 5.0 * 1.5 = 75
+    [InlineData(20, 150)]  // Elite: 20 * 5.0 * 1.5 = 150
+    public void CalculateBaseBudget_EliteEnemy_AppliesEliteMultiplier(int level, int expectedBudget)
+    {
+        // Act
+        var result = _calculator.CalculateBaseBudget(level, isElite: true);
+
+        // Assert - Elite multiplier is 1.5
+        result.Should().Be(expectedBudget);
+    }
+
+    [Fact]
+    public void CalculateBaseBudget_BossAndElite_OnlyAppliesBossMultiplier()
+    {
+        // Act
+        var result = _calculator.CalculateBaseBudget(10, isBoss: true, isElite: true);
+
+        // Assert - Should only apply boss multiplier (2.5), not both
+        result.Should().Be(125); // 10 * 5.0 * 2.5
+    }
+
+    [Theory]
+    [InlineData(10, 10, true)]   // 100 / 10 = 10, budget 10 can afford
+    [InlineData(20, 10, true)]   // 100 / 20 = 5, budget 10 can afford  
+    [InlineData(50, 10, true)]   // 100 / 50 = 2, budget 10 can afford
+    [InlineData(1, 5, false)]    // 100 / 1 = 100, budget 5 can't afford
+    public void CanAffordComponent_InverseFormula_WorksCorrectly(int selectionWeight, int budget, bool canAfford)
+    {
+        // Arrange
+        var component = JToken.Parse($@"{{
+            ""value"": ""Test Component"",
+            ""selectionWeight"": {selectionWeight}
+        }}");
+
+        var cost = _calculator.CalculateComponentCost(component);
+
+        // Act
+        var result = _calculator.CanAfford(budget, cost);
+
+        // Assert
+        result.Should().Be(canAfford);
+    }
+
+    [Fact]
+    public void MaterialCost_DirectFormula_UsesBudgetCostDirectly()
+    {
+        // Arrange
+        var cheapMaterial = JToken.Parse(@"{ ""budgetCost"": 10 }");
+        var expensiveMaterial = JToken.Parse(@"{ ""budgetCost"": 100 }");
+
+        // Act
+        var cheapCost = _calculator.CalculateMaterialCost(cheapMaterial);
+        var expensiveCost = _calculator.CalculateMaterialCost(expensiveMaterial);
+
+        // Assert
+        cheapCost.Should().Be(10);
+        expensiveCost.Should().Be(100);
+        expensiveCost.Should().BeGreaterThan(cheapCost);
+    }
+
+    [Fact]
+    public void ComponentCost_LowerThanEnchantmentCost_ForSameWeight()
+    {
+        // Arrange - Same selection weight for both
+        var component = JToken.Parse(@"{ ""selectionWeight"": 10 }");
+        var enchantment = JToken.Parse(@"{ ""selectionWeight"": 10 }");
+
+        // Act
+        var componentCost = _calculator.CalculateComponentCost(component);
+        var enchantmentCost = _calculator.CalculateEnchantmentCost(enchantment);
+
+        // Assert
+        enchantmentCost.Should().BeGreaterThan(componentCost, 
+            "enchantments should be more expensive than components with same rarity");
+    }
+
+    [Fact]
+    public void QualityCost_HighestCostTier_ForSameWeight()
+    {
+        // Arrange - Same selection weight for all
+        var component = JToken.Parse(@"{ ""selectionWeight"": 10 }");
+        var enchantment = JToken.Parse(@"{ ""selectionWeight"": 10 }");
+        var quality = JToken.Parse(@"{ ""selectionWeight"": 10 }");
+
+        // Act
+        var componentCost = _calculator.CalculateComponentCost(component);
+        var enchantmentCost = _calculator.CalculateEnchantmentCost(enchantment);
+        var qualityCost = _calculator.CalculateQualityCost(quality);
+
+        // Assert
+        qualityCost.Should().BeGreaterThan(enchantmentCost, "quality should be most expensive");
+        enchantmentCost.Should().BeGreaterThan(componentCost, "enchantments should be more expensive than components");
+    }
 }

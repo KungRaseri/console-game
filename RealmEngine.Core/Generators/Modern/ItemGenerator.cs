@@ -290,79 +290,142 @@ public class ItemGenerator
     }
 
     /// <summary>
-    /// Apply enhancements (materials, enchantments, gem sockets) AND pattern-based naming from names.json pattern.
+    /// Apply enhancements using budget-based generation system.
+    /// Uses the multi-step budget process: material selection → base selection → pattern → components.
     /// </summary>
     private async Task ApplyEnhancementsFromPatternAsync(Item item, string category)
     {
         try
         {
-            var namesPath = $"items/{category}/names.json";
-            if (!_dataCache.FileExists(namesPath)) return;
-            
-            var namesFile = _dataCache.GetFile(namesPath);
-            if (namesFile?.JsonData == null) return;
-
-            var patterns = namesFile.JsonData["patterns"];
-            if (patterns == null) return;
-
-            // Select a random pattern
-            var pattern = GetRandomWeightedPattern(patterns);
-            if (pattern == null) return;
-
-            // Get pattern string (e.g., "{quality} {material} {base} {suffix}")
-            var patternString = GetStringProperty(pattern, "pattern");
-            if (!string.IsNullOrEmpty(patternString))
+            // Use budget-based generation to apply materials and enhancements
+            // Create a default budget request for simple item generation
+            var request = new BudgetItemRequest
             {
-                // Use NameComposer to resolve pattern with components
-                var components = namesFile.JsonData["components"];
-                if (components != null)
+                ItemCategory = category,
+                EnemyType = "common", // Default to common enemy type
+                EnemyLevel = 5, // Default level 5 (mid-tier)
+                IsBoss = false,
+                IsElite = false,
+                AllowQuality = true
+            };
+
+            var budgetResult = await BudgetGenerator.GenerateItemAsync(request);
+            if (budgetResult == null) return;
+
+            // Apply material from budget generation
+            if (budgetResult.Material != null)
+            {
+                var materialName = GetStringProperty(budgetResult.Material, "name");
+                if (!string.IsNullOrEmpty(materialName))
                 {
-                    var (name, baseName, prefixes, suffixes) = _nameComposer.ComposeNameWithComponents(patternString, components);
+                    item.Material = materialName;
                     
-                    // Store pattern-based naming components (NOT including enchantments yet)
-                    // Enchantments will be added separately in BuildEnhancedName()
-                    item.Prefixes.AddRange(prefixes);
-                    item.Suffixes.AddRange(suffixes);
-                }
-            }
-
-            // Apply material if pattern has materialRef
-            var materialRef = GetStringProperty(pattern, "materialRef");
-            if (!string.IsNullOrEmpty(materialRef))
-            {
-                await SelectMaterialAsync(item, materialRef);
-                
-                // Add material to Prefixes list after selection
-                if (!string.IsNullOrEmpty(item.Material))
-                {
+                    // Add material to Prefixes list
                     item.Prefixes.Add(new NameComponent
                     {
                         Token = "material",
-                        Value = item.Material
+                        Value = materialName
                     });
+                    
+                    // Apply material traits
+                    var traits = budgetResult.Material["traits"];
+                    if (traits != null && traits.Type == JTokenType.Object)
+                    {
+                        foreach (var traitProp in traits.Children<JProperty>())
+                        {
+                            var traitName = traitProp.Name;
+                            var traitValue = traitProp.Value;
+                            
+                            object? value;
+                            TraitType type;
+                            
+                            if (traitValue.Type == JTokenType.Object && traitValue["value"] != null)
+                            {
+                                value = traitValue["value"]?.ToObject<object>();
+                                type = ParseTraitType(traitValue["type"]?.ToString() ?? "number");
+                            }
+                            else
+                            {
+                                value = traitValue.ToObject<object>();
+                                type = ParseTraitType(traitValue.Type.ToString());
+                            }
+                            
+                            item.MaterialTraits[traitName] = new TraitValue
+                            {
+                                Value = value,
+                                Type = type
+                            };
+                        }
+                    }
+                    
+                    // Add material rarity weight
+                    var materialWeight = GetIntProperty(budgetResult.Material, "rarityWeight", 0);
+                    if (materialWeight == 0)
+                    {
+                        materialWeight = GetIntProperty(budgetResult.Material, "selectionWeight", 0);
+                    }
+                    item.TotalRarityWeight += materialWeight;
                 }
             }
 
-            // Apply enchantments from enchantmentSlots
-            var enchantmentSlots = pattern["enchantmentSlots"];
-            if (enchantmentSlots != null && enchantmentSlots.Any())
+            // Apply components from budget generation
+            foreach (var component in budgetResult.Components)
             {
-                await GenerateEnchantmentsAsync(item, enchantmentSlots);
+                var value = GetStringProperty(component, "value");
+                var token = GetStringProperty(component, "token") ?? "component";
+                
+                if (!string.IsNullOrEmpty(value))
+                {
+                    // Determine if prefix or suffix based on token name
+                    var isPrefixToken = token is "prefix" or "quality" or "descriptive";
+                    
+                    if (isPrefixToken)
+                    {
+                        item.Prefixes.Add(new NameComponent { Token = token, Value = value });
+                    }
+                    else
+                    {
+                        item.Suffixes.Add(new NameComponent { Token = token, Value = value });
+                    }
+                }
             }
 
-            // Generate sockets from socketSlots (new multi-type system)
-            var socketSlots = pattern["socketSlots"];
-            if (socketSlots != null)
+            // Legacy pattern-based support for enchantments and sockets
+            var namesPath = $"items/{category}/names.json";
+            if (_dataCache.FileExists(namesPath))
             {
-                GenerateSockets(item, socketSlots);
-            }
-            // Legacy support: convert old gemSocketCount to new format
-            else
-            {
-                var gemSocketCount = pattern["gemSocketCount"];
-                if (gemSocketCount != null)
+                var namesFile = _dataCache.GetFile(namesPath);
+                if (namesFile?.JsonData != null)
                 {
-                    GenerateGemSocketsLegacy(item, gemSocketCount);
+                    var patterns = namesFile.JsonData["patterns"];
+                    if (patterns != null)
+                    {
+                        var pattern = GetRandomWeightedPattern(patterns);
+                        if (pattern != null)
+                        {
+                            // Apply enchantments from enchantmentSlots
+                            var enchantmentSlots = pattern["enchantmentSlots"];
+                            if (enchantmentSlots != null && enchantmentSlots.Any())
+                            {
+                                await GenerateEnchantmentsAsync(item, enchantmentSlots);
+                            }
+
+                            // Generate sockets from socketSlots
+                            var socketSlots = pattern["socketSlots"];
+                            if (socketSlots != null)
+                            {
+                                GenerateSockets(item, socketSlots);
+                            }
+                            else
+                            {
+                                var gemSocketCount = pattern["gemSocketCount"];
+                                if (gemSocketCount != null)
+                                {
+                                    GenerateGemSocketsLegacy(item, gemSocketCount);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

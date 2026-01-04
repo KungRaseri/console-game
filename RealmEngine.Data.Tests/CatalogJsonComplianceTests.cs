@@ -218,14 +218,17 @@ public class CatalogJsonComplianceTests
         var json = JObject.Parse(File.ReadAllText(fullPath));
         var allItems = GetAllItemsFromCatalog(json);
 
-        // Assert
+        // Assert - items should have rarityWeight OR selectionWeight
         foreach (var item in allItems)
         {
-            item.Should().ContainKey("rarityWeight", 
-                $"{catalogPath} - Item '{item["name"]}' missing rarityWeight");
+            var hasRarityWeight = item.ContainsKey("rarityWeight");
+            var hasSelectionWeight = item.ContainsKey("selectionWeight");
             
-            var weight = item["rarityWeight"];
-            weight.Should().NotBeNull($"{catalogPath} - Item '{item["name"]}' has null rarityWeight");
+            (hasRarityWeight || hasSelectionWeight).Should().BeTrue(
+                $"{catalogPath} - Item '{item["name"]}' missing rarityWeight or selectionWeight");
+            
+            var weight = hasRarityWeight ? item["rarityWeight"] : item["selectionWeight"];
+            weight.Should().NotBeNull($"{catalogPath} - Item '{item["name"]}' has null weight");
             
             var weightValue = weight.Value<int>();
             weightValue.Should().BeGreaterThan(0, 
@@ -244,17 +247,18 @@ public class CatalogJsonComplianceTests
 
         if (!allItems.Any()) return; // Skip empty catalogs
 
-        // Act
-        var weights = allItems.Select(i => i["rarityWeight"]?.Value<int>() ?? 0).ToList();
+        // Act - use rarityWeight OR selectionWeight
+        var weights = allItems.Select(i => 
+            i["rarityWeight"]?.Value<int>() ?? i["selectionWeight"]?.Value<int>() ?? 0).ToList();
         var commonItems = weights.Count(w => w <= 10);  // Common
         var uncommonItems = weights.Count(w => w > 10 && w <= 20);  // Uncommon
         var rareItems = weights.Count(w => w > 20 && w <= 30);  // Rare
         var epicItems = weights.Count(w => w > 30 && w <= 40);  // Epic
         var legendaryItems = weights.Count(w => w > 40);  // Legendary
 
-        // Assert - Just verify rarityWeight values are valid (relaxed - no distribution requirements)
+        // Assert - Just verify weight values are valid (relaxed - no distribution requirements)
         weights.Should().OnlyContain(w => w > 0 && w <= 1000, 
-            $"{catalogPath} has invalid rarityWeight values (must be 1-1000)");
+            $"{catalogPath} has invalid rarityWeight/selectionWeight values (must be 1-1000)");
         weights.Should().NotBeEmpty($"{catalogPath} should have items with rarityWeight");
     }
 
