@@ -1218,26 +1218,6 @@ public class ItemGenerator
         }
     }
 
-    #endregion
-}
-                    if (itemJson != null)
-                    {
-                        var requiredItem = itemJson.ToObject<Item>();
-                        if (requiredItem != null)
-                        {
-                            requiredItems.Add(requiredItem);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogWarning(ex, "Failed to resolve required item '{RefId}'", refId);
-                }
-            }
-            item.RequiredItems = requiredItems;
-        }
-    }
-
     private static ItemRarity ConvertWeightToRarity(int weight)
     {
         // v4.2 Rarity Weight System (from ITEM_ENHANCEMENT_SYSTEM.md)
@@ -1255,4 +1235,6 @@ public class ItemGenerator
             _ => ItemRarity.Legendary
         };
     }
+
+    #endregion
 }
