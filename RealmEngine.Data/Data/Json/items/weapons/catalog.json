@@ -28,7 +28,6 @@
           "weight": 3.0,
           "value": 15,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 15
         },
@@ -38,7 +37,6 @@
           "weight": 2.0,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 10
         },
@@ -48,7 +46,6 @@
           "weight": 6.0,
           "value": 50,
           "rarity": "uncommon",
-          "rarityWeight": 10,
           "selectionWeight": 10,
           "budgetCost": 30
         },
@@ -58,7 +55,6 @@
           "weight": 3.0,
           "value": 15,
           "rarity": "common",
-          "rarityWeight": 8,
           "selectionWeight": 18,
           "budgetCost": 12
         },
@@ -68,7 +64,6 @@
           "weight": 2.0,
           "value": 25,
           "rarity": "uncommon",
-          "rarityWeight": 12,
           "selectionWeight": 12,
           "budgetCost": 18
         },
@@ -78,7 +73,6 @@
           "weight": 3.0,
           "value": 40,
           "rarity": "uncommon",
-          "rarityWeight": 15,
           "selectionWeight": 10,
           "budgetCost": 25
         },
@@ -88,7 +82,6 @@
           "weight": 3.5,
           "value": 18,
           "rarity": "common",
-          "rarityWeight": 6,
           "selectionWeight": 20,
           "budgetCost": 15
         },
@@ -98,7 +91,6 @@
           "weight": 7.0,
           "value": 60,
           "rarity": "uncommon",
-          "rarityWeight": 12,
           "selectionWeight": 10,
           "budgetCost": 35
         },
@@ -108,7 +100,6 @@
           "weight": 2.5,
           "value": 20,
           "rarity": "common",
-          "rarityWeight": 7,
           "selectionWeight": 18,
           "budgetCost": 14
         },
@@ -118,7 +109,6 @@
           "weight": 2.0,
           "value": 12,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 10
         }
@@ -138,7 +128,6 @@
           "weight": 4.0,
           "value": 20,
           "rarity": "common",
-          "rarityWeight": 6,
           "selectionWeight": 20,
           "budgetCost": 16
         },
@@ -148,7 +137,6 @@
           "weight": 2.0,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 10
         },
@@ -158,7 +146,6 @@
           "weight": 7.0,
           "value": 55,
           "rarity": "uncommon",
-          "rarityWeight": 12,
           "selectionWeight": 10,
           "budgetCost": 40
         },
@@ -168,7 +155,6 @@
           "weight": 5.0,
           "value": 30,
           "rarity": "uncommon",
-          "rarityWeight": 10,
           "selectionWeight": 12,
           "budgetCost": 28
         },
@@ -178,7 +164,6 @@
           "weight": 1.5,
           "value": 5,
           "rarity": "common",
-          "rarityWeight": 3,
           "selectionWeight": 22,
           "budgetCost": 8
         },
@@ -188,7 +173,6 @@
           "weight": 2.0,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 10
         },
@@ -198,7 +182,6 @@
           "weight": 2.5,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 4,
           "selectionWeight": 20,
           "budgetCost": 10
         },
@@ -208,7 +191,6 @@
           "weight": 6.0,
           "value": 40,
           "rarity": "uncommon",
-          "rarityWeight": 11,
           "selectionWeight": 12,
           "budgetCost": 32
         }
@@ -229,7 +211,6 @@
           "weight": 2.0,
           "value": 30,
           "rarity": "common",
-          "rarityWeight": 8,
           "selectionWeight": 18,
           "budgetCost": 20
         },
@@ -239,7 +220,6 @@
           "weight": 1.5,
           "value": 20,
           "rarity": "common",
-          "rarityWeight": 6,
           "selectionWeight": 20,
           "budgetCost": 15
         },
@@ -249,7 +229,6 @@
           "weight": 2.5,
           "value": 50,
           "rarity": "uncommon",
-          "rarityWeight": 15,
           "selectionWeight": 10,
           "budgetCost": 25
         },
@@ -259,7 +238,6 @@
           "weight": 2.0,
           "value": 35,
           "rarity": "common",
-          "rarityWeight": 10,
           "selectionWeight": 15,
           "budgetCost": 22
         },
@@ -269,7 +247,6 @@
           "weight": 5.0,
           "value": 50,
           "rarity": "uncommon",
-          "rarityWeight": 12,
           "selectionWeight": 12,
           "budgetCost": 30
         },
@@ -279,7 +256,6 @@
           "weight": 8.0,
           "value": 75,
           "rarity": "uncommon",
-          "rarityWeight": 14,
           "selectionWeight": 10,
           "budgetCost": 42
         },
@@ -289,7 +265,6 @@
           "weight": 3.0,
           "value": 80,
           "rarity": "rare",
-          "rarityWeight": 20,
           "selectionWeight": 6,
           "budgetCost": 50
         },
@@ -299,7 +274,6 @@
           "weight": 1.5,
           "value": 15,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 12
         }
@@ -320,7 +294,6 @@
           "weight": 1.0,
           "value": 5,
           "rarity": "common",
-          "rarityWeight": 3,
           "selectionWeight": 22,
           "budgetCost": 8
         },
@@ -330,7 +303,6 @@
           "weight": 1.0,
           "value": 6,
           "rarity": "common",
-          "rarityWeight": 4,
           "selectionWeight": 20,
           "budgetCost": 8
         },
@@ -340,7 +312,6 @@
           "weight": 0.5,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 6,
           "selectionWeight": 18,
           "budgetCost": 10
         },
@@ -350,7 +321,6 @@
           "weight": 1.5,
           "value": 15,
           "rarity": "uncommon",
-          "rarityWeight": 10,
           "selectionWeight": 12,
           "budgetCost": 14
         },
@@ -360,7 +330,6 @@
           "weight": 0.8,
           "value": 12,
           "rarity": "common",
-          "rarityWeight": 7,
           "selectionWeight": 18,
           "budgetCost": 10
         },
@@ -370,7 +339,6 @@
           "weight": 1.2,
           "value": 12,
           "rarity": "common",
-          "rarityWeight": 6,
           "selectionWeight": 18,
           "budgetCost": 12
         },
@@ -380,7 +348,6 @@
           "weight": 1.0,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 8
         },
@@ -390,7 +357,6 @@
           "weight": 1.5,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 6,
           "selectionWeight": 18,
           "budgetCost": 10
         }
@@ -411,7 +377,6 @@
           "weight": 3.0,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 12
         },
@@ -421,7 +386,6 @@
           "weight": 6.0,
           "value": 40,
           "rarity": "uncommon",
-          "rarityWeight": 12,
           "selectionWeight": 10,
           "budgetCost": 38
         },
@@ -431,7 +395,6 @@
           "weight": 2.0,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 10
         },
@@ -441,7 +404,6 @@
           "weight": 8.0,
           "value": 30,
           "rarity": "common",
-          "rarityWeight": 8,
           "selectionWeight": 16,
           "budgetCost": 26
         },
@@ -451,7 +413,6 @@
           "weight": 6.0,
           "value": 35,
           "rarity": "uncommon",
-          "rarityWeight": 10,
           "selectionWeight": 12,
           "budgetCost": 30
         },
@@ -461,7 +422,6 @@
           "weight": 4.0,
           "value": 25,
           "rarity": "common",
-          "rarityWeight": 8,
           "selectionWeight": 16,
           "budgetCost": 20
         },
@@ -471,7 +431,6 @@
           "weight": 5.0,
           "value": 30,
           "rarity": "uncommon",
-          "rarityWeight": 10,
           "selectionWeight": 12,
           "budgetCost": 24
         },
@@ -481,7 +440,6 @@
           "weight": 6.0,
           "value": 40,
           "rarity": "uncommon",
-          "rarityWeight": 11,
           "selectionWeight": 12,
           "budgetCost": 32
         }
@@ -501,7 +459,6 @@
           "weight": 4.0,
           "value": 12,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 12
         },
@@ -511,7 +468,6 @@
           "weight": 5.0,
           "value": 20,
           "rarity": "common",
-          "rarityWeight": 7,
           "selectionWeight": 18,
           "budgetCost": 18
         },
@@ -521,7 +477,6 @@
           "weight": 5.0,
           "value": 18,
           "rarity": "common",
-          "rarityWeight": 8,
           "selectionWeight": 18,
           "budgetCost": 16
         },
@@ -531,7 +486,6 @@
           "weight": 6.0,
           "value": 25,
           "rarity": "uncommon",
-          "rarityWeight": 10,
           "selectionWeight": 12,
           "budgetCost": 20
         },
@@ -541,7 +495,6 @@
           "weight": 2.0,
           "value": 2,
           "rarity": "common",
-          "rarityWeight": 2,
           "selectionWeight": 25,
           "budgetCost": 6
         },
@@ -551,7 +504,6 @@
           "weight": 10.0,
           "value": 45,
           "rarity": "uncommon",
-          "rarityWeight": 12,
           "selectionWeight": 10,
           "budgetCost": 35
         },
@@ -561,7 +513,6 @@
           "weight": 2.5,
           "value": 3,
           "rarity": "common",
-          "rarityWeight": 2,
           "selectionWeight": 25,
           "budgetCost": 6
         },
@@ -571,7 +522,6 @@
           "weight": 2.0,
           "value": 15,
           "rarity": "uncommon",
-          "rarityWeight": 10,
           "selectionWeight": 12,
           "budgetCost": 14
         }
@@ -592,7 +542,6 @@
           "weight": 4.0,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 5,
           "selectionWeight": 20,
           "budgetCost": 12
         },
@@ -602,7 +551,6 @@
           "weight": 4.0,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 4,
           "selectionWeight": 20,
           "budgetCost": 14
         },
@@ -612,7 +560,6 @@
           "weight": 5.0,
           "value": 25,
           "rarity": "uncommon",
-          "rarityWeight": 10,
           "selectionWeight": 12,
           "budgetCost": 20
         },
@@ -622,7 +569,6 @@
           "weight": 6.0,
           "value": 35,
           "rarity": "uncommon",
-          "rarityWeight": 12,
           "selectionWeight": 10,
           "budgetCost": 28
         },
@@ -632,7 +578,6 @@
           "weight": 2.0,
           "value": 20,
           "rarity": "uncommon",
-          "rarityWeight": 15,
           "selectionWeight": 10,
           "budgetCost": 16
         },
@@ -642,7 +587,6 @@
           "weight": 3.0,
           "value": 30,
           "rarity": "uncommon",
-          "rarityWeight": 18,
           "selectionWeight": 8,
           "budgetCost": 22
         }
