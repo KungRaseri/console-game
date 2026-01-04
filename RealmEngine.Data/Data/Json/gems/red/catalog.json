@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "description": "Red gems providing physical damage and offensive bonuses",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "gem_catalog"
+  },
+  "items": [
+    {
+      "name": "ruby",
+      "rarityWeight": 50,
+      "category": "red",
+      "traits": {
+        "physicalDamage": { "value": 10, "type": "number" },
+        "critChance": { "value": 2, "type": "number" }
+      }
+    },
+    {
+      "name": "garnet",
+      "rarityWeight": 60,
+      "category": "red",
+      "traits": {
+        "physicalDamage": { "value": 8, "type": "number" },
+        "attackSpeed": { "value": 5, "type": "number" }
+      }
+    },
+    {
+      "name": "bloodstone",
+      "rarityWeight": 40,
+      "category": "red",
+      "traits": {
+        "physicalDamage": { "value": 12, "type": "number" },
+        "lifesteal": { "value": 3, "type": "number" }
+      }
+    },
+    {
+      "name": "red-diamond",
+      "rarityWeight": 20,
+      "category": "red",
+      "traits": {
+        "physicalDamage": { "value": 15, "type": "number" },
+        "critChance": { "value": 5, "type": "number" },
+        "critDamage": { "value": 10, "type": "number" }
+      }
+    }
+  ]
+}

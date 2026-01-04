@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "description": "Naming patterns for mana crystals",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "pattern_generation",
+    "supportsTraits": true
+  },
+  "patterns": [
+    {
+      "pattern": "{quality} {base}",
+      "rarityWeight": 50
+    },
+    {
+      "pattern": "{base}",
+      "rarityWeight": 50
+    }
+  ],
+  "components": {
+    "quality": [
+      { "value": "Radiant", "rarityWeight": 25 },
+      { "value": "Gleaming", "rarityWeight": 35 },
+      { "value": "Dim", "rarityWeight": 50 },
+      { "value": "Cloudy", "rarityWeight": 60 }
+    ],
+    "base": [
+      { "value": "Mana Crystal", "rarityWeight": 60 },
+      { "value": "Pure Mana Crystal", "rarityWeight": 35 },
+      { "value": "Arcane Crystal", "rarityWeight": 45 }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "description": "Life crystals providing health-related bonuses",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "crystal_catalog"
+  },
+  "items": [
+    {
+      "name": "life-crystal",
+      "rarityWeight": 60,
+      "category": "life",
+      "traits": {
+        "maxHealth": { "value": 40, "type": "number" },
+        "healthRegen": { "value": 3, "type": "number" }
+      }
+    },
+    {
+      "name": "vitality-crystal",
+      "rarityWeight": 45,
+      "category": "life",
+      "traits": {
+        "maxHealth": { "value": 60, "type": "number" },
+        "healthRegen": { "value": 5, "type": "number" },
+        "armor": { "value": 10, "type": "number" }
+      }
+    },
+    {
+      "name": "rejuvenation-crystal",
+      "rarityWeight": 35,
+      "category": "life",
+      "traits": {
+        "healthRegen": { "value": 10, "type": "number" },
+        "maxHealth": { "value": 30, "type": "number" },
+        "lifesteal": { "value": 5, "type": "number" }
+      }
+    }
+  ]
+}

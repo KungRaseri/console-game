@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "description": "Naming patterns for combat orbs",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "pattern_generation",
+    "supportsTraits": true
+  },
+  "patterns": [
+    {
+      "pattern": "{base} {suffix}",
+      "rarityWeight": 40
+    },
+    {
+      "pattern": "{base}",
+      "rarityWeight": 60
+    }
+  ],
+  "components": {
+    "base": [
+      { "value": "Strike Orb", "rarityWeight": 55 },
+      { "value": "Berserk Orb", "rarityWeight": 40 },
+      { "value": "Precision Orb", "rarityWeight": 45 }
+    ],
+    "suffix": [
+      { "value": "of Mastery", "rarityWeight": 35 },
+      { "value": "of Excellence", "rarityWeight": 40 },
+      { "value": "of the Warrior", "rarityWeight": 30 },
+      { "value": "of Prowess", "rarityWeight": 45 }
+    ]
+  }
+}

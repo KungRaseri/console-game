@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "description": "Defensive runes providing protection modifiers",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "rune_catalog"
+  },
+  "items": [
+    {
+      "name": "protection-rune",
+      "rarityWeight": 55,
+      "category": "defensive",
+      "traits": {
+        "armor": { "value": 20, "type": "number" },
+        "physicalResistance": { "value": 10, "type": "number" }
+      }
+    },
+    {
+      "name": "warding-rune",
+      "rarityWeight": 50,
+      "category": "defensive",
+      "traits": {
+        "magicResistance": { "value": 15, "type": "number" },
+        "maxHealth": { "value": 30, "type": "number" }
+      }
+    },
+    {
+      "name": "fortitude-rune",
+      "rarityWeight": 40,
+      "category": "defensive",
+      "traits": {
+        "maxHealth": { "value": 50, "type": "number" },
+        "healthRegen": { "value": 5, "type": "number" }
+      }
+    }
+  ]
+}

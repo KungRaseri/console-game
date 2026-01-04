@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "description": "Naming patterns for fire essences",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "pattern_generation",
+    "supportsTraits": true
+  },
+  "patterns": [
+    {
+      "pattern": "{intensity} {base}",
+      "rarityWeight": 50
+    },
+    {
+      "pattern": "{base}",
+      "rarityWeight": 50
+    }
+  ],
+  "components": {
+    "intensity": [
+      { "value": "Blazing", "rarityWeight": 30 },
+      { "value": "Scorching", "rarityWeight": 25 },
+      { "value": "Smoldering", "rarityWeight": 40 },
+      { "value": "Minor", "rarityWeight": 60 }
+    ],
+    "base": [
+      { "value": "Flame Essence", "rarityWeight": 60 },
+      { "value": "Inferno Essence", "rarityWeight": 40 },
+      { "value": "Ember Essence", "rarityWeight": 70 }
+    ]
+  }
+}

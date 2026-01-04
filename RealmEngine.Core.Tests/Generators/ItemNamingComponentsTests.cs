@@ -162,21 +162,22 @@ public class ItemNamingComponentsTests
         }
 
         // Find items with sockets
-        var itemsWithSockets = allItems.Where(i => i.GemSockets.Any()).ToList();
+        var itemsWithSockets = allItems.Where(i => i.Sockets.Any()).ToList();
 
         // Assert
-        itemsWithSockets.Should().NotBeEmpty("at least some generated items should have gem sockets");
+        itemsWithSockets.Should().NotBeEmpty("at least some generated items should have sockets");
 
         foreach (var item in itemsWithSockets.Take(5))
         {
-            item.SocketsText.Should().NotBeNullOrWhiteSpace("items with sockets should have SocketsText");
-            item.SocketsText.Should().Contain("Sockets", "SocketsText should contain the word 'Sockets'");
-            item.SocketsText.Should().Contain($"{item.GemSockets.Count}", 
-                "SocketsText should show the total number of sockets");
+            var socketsDisplay = item.GetSocketsDisplayText();
+            socketsDisplay.Should().NotBeNullOrWhiteSpace("items with sockets should have socket display text");
+            socketsDisplay.Should().Match("*:*", "socket display should show type and count");
+            
+            var totalSockets = item.Sockets.Values.Sum(list => list.Count);
             
             _output.WriteLine($"Item: {item.Name}");
-            _output.WriteLine($"  SocketsText: {item.SocketsText}");
-            _output.WriteLine($"  Actual Sockets: {item.GemSockets.Count}");
+            _output.WriteLine($"  Socket Display: {socketsDisplay}");
+            _output.WriteLine($"  Actual Sockets: {totalSockets}");
         }
     }
 
@@ -193,12 +194,13 @@ public class ItemNamingComponentsTests
         {
             var composedName = item.ComposeNameFromComponents();
             
-            // ComposeNameFromComponents should match the name WITHOUT SocketsText
+            // ComposeNameFromComponents should match the name WITHOUT socket display
             // (sockets are separate from naming components per design decision)
             var expectedName = item.Name;
-            if (!string.IsNullOrWhiteSpace(item.SocketsText))
+            var socketsDisplay = item.GetSocketsDisplayText();
+            if (!string.IsNullOrWhiteSpace(socketsDisplay))
             {
-                expectedName = item.Name.Replace($" {item.SocketsText}", "").Trim();
+                expectedName = item.Name.Replace($" [{socketsDisplay}]", "").Trim();
             }
             
             composedName.Should().Be(expectedName, 

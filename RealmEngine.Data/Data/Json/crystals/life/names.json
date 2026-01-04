@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "description": "Naming patterns for life crystals",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "pattern_generation",
+    "supportsTraits": true
+  },
+  "patterns": [
+    {
+      "pattern": "{quality} {base}",
+      "rarityWeight": 50
+    },
+    {
+      "pattern": "{base}",
+      "rarityWeight": 50
+    }
+  ],
+  "components": {
+    "quality": [
+      { "value": "Vibrant", "rarityWeight": 30 },
+      { "value": "Pulsing", "rarityWeight": 40 },
+      { "value": "Fading", "rarityWeight": 55 },
+      { "value": "Dull", "rarityWeight": 60 }
+    ],
+    "base": [
+      { "value": "Life Crystal", "rarityWeight": 60 },
+      { "value": "Vitality Crystal", "rarityWeight": 45 },
+      { "value": "Rejuvenation Crystal", "rarityWeight": 35 }
+    ]
+  }
+}

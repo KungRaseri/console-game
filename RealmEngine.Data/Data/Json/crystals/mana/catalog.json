@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "description": "Mana crystals providing mana-related bonuses",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "crystal_catalog"
+  },
+  "items": [
+    {
+      "name": "mana-crystal",
+      "rarityWeight": 60,
+      "category": "mana",
+      "traits": {
+        "maxMana": { "value": 30, "type": "number" },
+        "manaRegen": { "value": 5, "type": "number" }
+      }
+    },
+    {
+      "name": "pure-mana-crystal",
+      "rarityWeight": 35,
+      "category": "mana",
+      "traits": {
+        "maxMana": { "value": 50, "type": "number" },
+        "manaRegen": { "value": 10, "type": "number" },
+        "magicDamage": { "value": 8, "type": "number" }
+      }
+    },
+    {
+      "name": "arcane-crystal",
+      "rarityWeight": 45,
+      "category": "mana",
+      "traits": {
+        "maxMana": { "value": 40, "type": "number" },
+        "cooldownReduction": { "value": 10, "type": "number" }
+      }
+    }
+  ]
+}

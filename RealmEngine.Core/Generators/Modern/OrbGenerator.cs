@@ -1,0 +1,108 @@
+using RealmEngine.Data.Services;
+using RealmEngine.Shared.Models;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace RealmEngine.Core.Generators.Modern;
+
+public class OrbGenerator
+{
+    private readonly GameDataCache _dataCache;
+    private readonly ILogger<OrbGenerator> _logger;
+    private readonly Random _random = new();
+
+    public OrbGenerator(GameDataCache dataCache, ILogger<OrbGenerator> logger)
+    {
+        _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+
+    public Orb? Generate(string? category = null)
+    {
+        try
+        {
+            var orbs = LoadAllOrbs();
+            if (!orbs.Any()) { _logger.LogWarning("No orb catalog items found"); return null; }
+            if (!string.IsNullOrEmpty(category))
+            {
+                var filtered = orbs.Where(o => o.Category?.Equals(category, StringComparison.OrdinalIgnoreCase) == true).ToList();
+                if (filtered.Any()) orbs = filtered;
+            }
+            var selected = SelectWeighted(orbs);
+            return new Orb
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = selected.Name,
+                Description = selected.Description,
+                SocketType = SocketType.Orb,
+                Category = selected.Category,
+                Rarity = selected.Rarity,
+                Price = selected.Price,
+                Traits = new Dictionary<string, TraitValue>(selected.Traits),
+                RarityWeight = selected.RarityWeight
+            };
+        }
+        catch (Exception ex) { _logger.LogError(ex, "Error generating orb"); return null; }
+    }
+
+    private List<Orb> LoadAllOrbs()
+    {
+        var all = new List<Orb>();
+        var categories = new[] { "combat", "magic", "stealth", "social" };
+        foreach (var category in categories)
+        {
+            var catalogFile = _dataCache.GetFile($"orbs/{category}/catalog.json");
+            if (catalogFile?.JsonData == null) continue;
+            var items = catalogFile.JsonData["items"] as JArray;
+            if (items == null) continue;
+            foreach (var item in items)
+            {
+                all.Add(new Orb
+                {
+                    Name = item["name"]?.ToString() ?? "Unknown Orb",
+                    Category = item["category"]?.ToString() ?? category,
+                    Description = item["description"]?.ToString() ?? string.Empty,
+                    RarityWeight = item["rarityWeight"]?.Value<int>() ?? 50,
+                    Traits = ParseTraits(item["traits"])
+                });
+            }
+        }
+        return all;
+    }
+
+    private Dictionary<string, TraitValue> ParseTraits(JToken? traitsToken)
+    {
+        var traits = new Dictionary<string, TraitValue>();
+        if (traitsToken == null) return traits;
+        foreach (var prop in traitsToken.Children<JProperty>())
+        {
+            var traitObj = prop.Value as JObject;
+            if (traitObj == null) continue;
+            var value = traitObj["value"];
+            var typeStr = traitObj["type"]?.ToString() ?? "number";
+            var traitType = typeStr.ToLower() switch
+            {
+                "number" => TraitType.Number,
+                "string" => TraitType.String,
+                "boolean" => TraitType.Boolean,
+                "stringarray" => TraitType.StringArray,
+                "numberarray" => TraitType.NumberArray,
+                _ => TraitType.Number
+            };
+            if (value != null) traits[prop.Name] = new TraitValue { Value = value.ToString(), Type = traitType };
+        }
+        return traits;
+    }
+
+    private Orb SelectWeighted(List<Orb> items)
+    {
+        var totalWeight = items.Sum(i => i.RarityWeight);
+        var roll = _random.Next(1, totalWeight + 1);
+        var runningTotal = 0;
+        foreach (var item in items) { runningTotal += item.RarityWeight; if (roll <= runningTotal) return item; }
+        return items.Last();
+    }
+}

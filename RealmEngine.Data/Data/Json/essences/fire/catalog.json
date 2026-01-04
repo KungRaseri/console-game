@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "description": "Fire essences providing fire damage and burning effects",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "essence_catalog"
+  },
+  "items": [
+    {
+      "name": "flame-essence",
+      "rarityWeight": 60,
+      "category": "fire",
+      "traits": {
+        "fireDamage": { "value": 10, "type": "number" },
+        "burnChance": { "value": 15, "type": "number" }
+      }
+    },
+    {
+      "name": "inferno-essence",
+      "rarityWeight": 40,
+      "category": "fire",
+      "traits": {
+        "fireDamage": { "value": 15, "type": "number" },
+        "burnChance": { "value": 20, "type": "number" },
+        "burnDuration": { "value": 3, "type": "number" }
+      }
+    },
+    {
+      "name": "ember-essence",
+      "rarityWeight": 70,
+      "category": "fire",
+      "traits": {
+        "fireDamage": { "value": 8, "type": "number" },
+        "fireResistance": { "value": 10, "type": "number" }
+      }
+    }
+  ]
+}

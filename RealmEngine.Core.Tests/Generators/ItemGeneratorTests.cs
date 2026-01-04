@@ -254,20 +254,23 @@ public class ItemGeneratorTests
         var items = await _generator.GenerateItemsAsync("weapons", 30);
 
         // Assert
-        var itemsWithSockets = items.Where(i => i.GemSockets.Any()).ToList();
+        var itemsWithSockets = items.Where(i => i.Sockets.Any()).ToList();
         
-        // Some items should have sockets (patterns with gemSocketCount > 0)
-        itemsWithSockets.Should().NotBeEmpty("At least some items should have gem sockets");
+        // Some items should have sockets (patterns with socketSlots > 0)
+        itemsWithSockets.Should().NotBeEmpty("At least some items should have sockets");
         
         foreach (var item in itemsWithSockets)
         {
-            item.GemSockets.Should().NotBeEmpty();
+            item.Sockets.Should().NotBeEmpty();
             
-            foreach (var socket in item.GemSockets)
+            foreach (var socketList in item.Sockets.Values)
             {
-                socket.Color.Should().BeDefined("Socket should have a valid color");
-                socket.IsLocked.Should().BeFalse("New sockets should not be locked");
-                socket.Gem.Should().BeNull("New sockets should be empty");
+                foreach (var socket in socketList)
+                {
+                    socket.Type.Should().BeDefined("Socket should have a valid type");
+                    socket.IsLocked.Should().BeFalse("New sockets should not be locked");
+                    socket.Content.Should().BeNull("New sockets should be empty");
+                }
             }
         }
     }
@@ -328,7 +331,7 @@ public class ItemGeneratorTests
         var enhancedItems = items.Where(i => 
             !string.IsNullOrEmpty(i.Material) || 
             i.Enchantments.Any() || 
-            i.GemSockets.Any()).ToList();
+            i.Sockets.Any()).ToList();
         
         enhancedItems.Should().NotBeEmpty("Should generate some enhanced items");
         

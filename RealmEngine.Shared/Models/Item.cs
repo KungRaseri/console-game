@@ -76,10 +76,11 @@ public class Item : ITraitable
     public List<Enchantment> Enchantments { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the collection of gem sockets available on this item.
-    /// Gem sockets are player-customizable after generation.
+    /// Gets or sets the collection of sockets available on this item, organized by socket type.
+    /// Sockets are player-customizable after generation.
+    /// Key = SocketType, Value = List of sockets for that type.
     /// </summary>
-    public List<GemSocket> GemSockets { get; set; } = new();
+    public Dictionary<SocketType, List<Socket>> Sockets { get; set; } = new();
     
     /// <summary>
     /// Gets or sets the total rarity weight calculated from base item, material, enchantments, and sockets.
@@ -102,12 +103,6 @@ public class Item : ITraitable
     /// Each component preserves its token identifier and display value.
     /// </summary>
     public List<NameComponent> Suffixes { get; set; } = new();
-    
-    /// <summary>
-    /// Gets or sets the socket display text (e.g., "[0/2 Sockets]", "[2/2 Sockets]").
-    /// Separate from naming components as sockets are a mechanical property.
-    /// </summary>
-    public string? SocketsText { get; set; }
     /// <summary>
     /// Gets or sets the upgrade level of this item (+1, +2, +3, etc.).
     /// Higher upgrade levels increase attribute bonuses.
@@ -431,29 +426,32 @@ public class Item : ITraitable
             }
         }
 
-        // 4. Add gem socket traits (additive for numeric, last one wins for text)
-        foreach (var socket in GemSockets)
+        // 4. Add socket content traits (additive for numeric, last one wins for text)
+        foreach (var socketList in Sockets.Values)
         {
-            if (socket.Gem != null)
+            foreach (var socket in socketList)
             {
-                foreach (var trait in socket.Gem.Traits)
+                if (socket.Content != null)
                 {
-                    if (mergedTraits.ContainsKey(trait.Key))
+                    foreach (var trait in socket.Content.Traits)
                     {
-                        var existing = mergedTraits[trait.Key];
-                        if (existing.Type == TraitType.Number && trait.Value.Type == TraitType.Number)
+                        if (mergedTraits.ContainsKey(trait.Key))
                         {
-                            var sum = existing.AsDouble() + trait.Value.AsDouble();
-                            mergedTraits[trait.Key] = new TraitValue(sum, TraitType.Number);
+                            var existing = mergedTraits[trait.Key];
+                            if (existing.Type == TraitType.Number && trait.Value.Type == TraitType.Number)
+                            {
+                                var sum = existing.AsDouble() + trait.Value.AsDouble();
+                                mergedTraits[trait.Key] = new TraitValue(sum, TraitType.Number);
+                            }
+                            else
+                            {
+                                mergedTraits[trait.Key] = trait.Value;
+                            }
                         }
                         else
                         {
                             mergedTraits[trait.Key] = trait.Value;
                         }
-                    }
-                    else
-                    {
-                        mergedTraits[trait.Key] = trait.Value;
                     }
                 }
             }
@@ -526,5 +524,36 @@ public class Item : ITraitable
         }
 
         return string.Join(" ", nameParts);
+    }
+    
+    /// <summary>
+    /// Get rich socket information for all socket types on this item.
+    /// Useful for Godot UI display.
+    /// </summary>
+    public List<SocketInfo> GetSocketsInfo()
+    {
+        return Sockets
+            .Where(kvp => kvp.Value.Any())
+            .Select(kvp => new SocketInfo
+            {
+                Type = kvp.Key,
+                Sockets = kvp.Value,
+                FilledCount = kvp.Value.Count(s => s.Content != null),
+                TotalCount = kvp.Value.Count
+            })
+            .OrderBy(info => info.Type)
+            .ToList();
+    }
+    
+    /// <summary>
+    /// Get a display string showing all socket types and their fill status.
+    /// Example: "Gem: 1/2 | Essence: 0/1 | Rune: 3/3"
+    /// </summary>
+    public string GetSocketsDisplayText()
+    {
+        var infos = GetSocketsInfo();
+        if (!infos.Any()) return string.Empty;
+        
+        return string.Join(" | ", infos.Select(info => info.DisplayText));
     }
 }

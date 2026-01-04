@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "description": "Naming patterns for blue gems",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "pattern_generation",
+    "supportsTraits": true
+  },
+  "patterns": [
+    {
+      "pattern": "{quality} {base}",
+      "rarityWeight": 40
+    },
+    {
+      "pattern": "{base}",
+      "rarityWeight": 60
+    }
+  ],
+  "components": {
+    "quality": [
+      { "value": "Flawless", "rarityWeight": 10 },
+      { "value": "Perfect", "rarityWeight": 20 },
+      { "value": "Pristine", "rarityWeight": 15 },
+      { "value": "Polished", "rarityWeight": 30 },
+      { "value": "Chipped", "rarityWeight": 50 },
+      { "value": "Cracked", "rarityWeight": 40 }
+    ],
+    "base": [
+      { "value": "Sapphire", "rarityWeight": 50 },
+      { "value": "Aquamarine", "rarityWeight": 60 },
+      { "value": "Lapis Lazuli", "rarityWeight": 55 },
+      { "value": "Blue Diamond", "rarityWeight": 20 }
+    ]
+  }
+}

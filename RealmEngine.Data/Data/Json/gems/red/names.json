@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "description": "Naming patterns for red gems",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "pattern_generation",
+    "supportsTraits": true
+  },
+  "patterns": [
+    {
+      "pattern": "{quality} {base}",
+      "rarityWeight": 40
+    },
+    {
+      "pattern": "{base}",
+      "rarityWeight": 60
+    }
+  ],
+  "components": {
+    "quality": [
+      { "value": "Flawless", "rarityWeight": 10 },
+      { "value": "Perfect", "rarityWeight": 20 },
+      { "value": "Pristine", "rarityWeight": 15 },
+      { "value": "Polished", "rarityWeight": 30 },
+      { "value": "Chipped", "rarityWeight": 50 },
+      { "value": "Cracked", "rarityWeight": 40 }
+    ],
+    "base": [
+      { "value": "Ruby", "rarityWeight": 50 },
+      { "value": "Garnet", "rarityWeight": 60 },
+      { "value": "Bloodstone", "rarityWeight": 40 },
+      { "value": "Red Diamond", "rarityWeight": 20 }
+    ]
+  }
+}

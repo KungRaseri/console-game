@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "description": "Blue gems providing mana and magic damage bonuses",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "gem_catalog"
+  },
+  "items": [
+    {
+      "name": "sapphire",
+      "rarityWeight": 50,
+      "category": "blue",
+      "traits": {
+        "magicDamage": { "value": 8, "type": "number" },
+        "manaRegen": { "value": 5, "type": "number" }
+      }
+    },
+    {
+      "name": "aquamarine",
+      "rarityWeight": 60,
+      "category": "blue",
+      "traits": {
+        "maxMana": { "value": 20, "type": "number" },
+        "manaRegen": { "value": 3, "type": "number" }
+      }
+    },
+    {
+      "name": "lapis-lazuli",
+      "rarityWeight": 55,
+      "category": "blue",
+      "traits": {
+        "magicDamage": { "value": 10, "type": "number" },
+        "cooldownReduction": { "value": 5, "type": "number" }
+      }
+    },
+    {
+      "name": "blue-diamond",
+      "rarityWeight": 20,
+      "category": "blue",
+      "traits": {
+        "magicDamage": { "value": 15, "type": "number" },
+        "maxMana": { "value": 30, "type": "number" },
+        "manaRegen": { "value": 8, "type": "number" }
+      }
+    }
+  ]
+}

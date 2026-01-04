@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "description": "Magic orbs providing skill enhancements for magic abilities",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "orb_catalog"
+  },
+  "items": [
+    {
+      "name": "sorcery-orb",
+      "rarityWeight": 50,
+      "category": "magic",
+      "traits": {
+        "spellDamage": { "value": 20, "type": "number" },
+        "spellRange": { "value": 15, "type": "number" }
+      }
+    },
+    {
+      "name": "mysticism-orb",
+      "rarityWeight": 45,
+      "category": "magic",
+      "traits": {
+        "spellDuration": { "value": 25, "type": "number" },
+        "spellCooldown": { "value": -15, "type": "number" }
+      }
+    },
+    {
+      "name": "arcana-orb",
+      "rarityWeight": 35,
+      "category": "magic",
+      "traits": {
+        "spellDamage": { "value": 25, "type": "number" },
+        "spellCrit": { "value": 12, "type": "number" },
+        "spellManaCost": { "value": -10, "type": "number" }
+      }
+    }
+  ]
+}

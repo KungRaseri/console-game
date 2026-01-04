@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "description": "Naming patterns for offensive runes",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "pattern_generation",
+    "supportsTraits": true
+  },
+  "patterns": [
+    {
+      "pattern": "{base} {suffix}",
+      "rarityWeight": 40
+    },
+    {
+      "pattern": "{base}",
+      "rarityWeight": 60
+    }
+  ],
+  "components": {
+    "base": [
+      { "value": "Fury Rune", "rarityWeight": 50 },
+      { "value": "Piercing Rune", "rarityWeight": 45 },
+      { "value": "Devastation Rune", "rarityWeight": 30 }
+    ],
+    "suffix": [
+      { "value": "of Power", "rarityWeight": 40 },
+      { "value": "of Might", "rarityWeight": 35 },
+      { "value": "of Destruction", "rarityWeight": 25 },
+      { "value": "of Wrath", "rarityWeight": 20 }
+    ]
+  }
+}

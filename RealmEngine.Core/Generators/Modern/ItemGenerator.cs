@@ -314,11 +314,20 @@ public class ItemGenerator
                 await GenerateEnchantmentsAsync(item, enchantmentSlots);
             }
 
-            // Generate gem sockets from gemSocketCount
-            var gemSocketCount = pattern["gemSocketCount"];
-            if (gemSocketCount != null)
+            // Generate sockets from socketSlots (new multi-type system)
+            var socketSlots = pattern["socketSlots"];
+            if (socketSlots != null)
             {
-                GenerateGemSockets(item, gemSocketCount);
+                GenerateSockets(item, socketSlots);
+            }
+            // Legacy support: convert old gemSocketCount to new format
+            else
+            {
+                var gemSocketCount = pattern["gemSocketCount"];
+                if (gemSocketCount != null)
+                {
+                    GenerateGemSocketsLegacy(item, gemSocketCount);
+                }
             }
         }
         catch (Exception ex)
@@ -456,9 +465,102 @@ public class ItemGenerator
     }
 
     /// <summary>
-    /// Generate gem sockets for the item.
+    /// Generate sockets for the item using the new multi-type socket system.
+    /// Supports weighted generation of Gem, Essence, Rune, Crystal, and Orb sockets.
     /// </summary>
-    private void GenerateGemSockets(Item item, JToken gemSocketCount)
+    private void GenerateSockets(Item item, JToken socketSlots)
+    {
+        try
+        {
+            // socketSlots format: array of { "type": "gem", "count": { "min": 0, "max": 2 }, "rarityWeight": 80 }
+            foreach (var slotConfig in socketSlots.Children())
+            {
+                var socketTypeName = GetStringProperty(slotConfig, "type");
+                if (string.IsNullOrEmpty(socketTypeName)) continue;
+                
+                // Parse socket type
+                if (!Enum.TryParse<SocketType>(socketTypeName, true, out var socketType))
+                {
+                    _logger.LogWarning("Invalid socket type: {SocketType}", socketTypeName);
+                    continue;
+                }
+                
+                var weight = GetIntProperty(slotConfig, "rarityWeight", 0);
+                
+                // Roll 1: Should this socket type appear?
+                if (!RollForSocketType(weight, item.TotalRarityWeight))
+                    continue;
+                
+                var countConfig = slotConfig["count"];
+                if (countConfig == null) continue;
+                
+                var min = GetIntProperty(countConfig, "min", 0);
+                var max = GetIntProperty(countConfig, "max", 0);
+                
+                if (max == 0) continue;
+                
+                // Roll 2: How many sockets? (weighted toward max for higher rarity)
+                var count = GetWeightedSocketCount(min, max, item.TotalRarityWeight);
+                
+                if (count == 0) continue;
+                
+                var sockets = new List<Socket>();
+                for (int i = 0; i < count; i++)
+                {
+                    sockets.Add(new Socket 
+                    { 
+                        Type = socketType,
+                        Content = null,
+                        IsLocked = false
+                    });
+                    
+                    // Each socket adds to rarity weight
+                    item.TotalRarityWeight += 10;
+                }
+                
+                item.Sockets[socketType] = sockets;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error generating sockets");
+        }
+    }
+    
+    /// <summary>
+    /// Roll to determine if a socket type should appear on the item.
+    /// Combines socket weight and item rarity for probability.
+    /// </summary>
+    private bool RollForSocketType(int socketWeight, int itemRarityWeight)
+    {
+        if (socketWeight == 0) return false;
+        
+        // Combine socket weight + half of item rarity for effective weight
+        var effectiveWeight = socketWeight + (itemRarityWeight / 2);
+        var roll = _random.Next(1, 200);
+        return roll <= effectiveWeight;
+    }
+    
+    /// <summary>
+    /// Get a weighted socket count biased toward max for higher rarity items.
+    /// </summary>
+    private int GetWeightedSocketCount(int min, int max, int itemRarityWeight)
+    {
+        if (max == min) return min;
+        
+        var range = max - min;
+        // Higher rarity = bias toward max (0.0 to 1.0 bonus)
+        var rarityBonus = Math.Min(itemRarityWeight / 150.0, 1.0);
+        var weightedRoll = _random.NextDouble() + (rarityBonus * 0.3);
+        
+        return min + (int)(range * Math.Min(weightedRoll, 1.0));
+    }
+    
+    /// <summary>
+    /// Legacy support: Generate gem sockets from old gemSocketCount format.
+    /// Converts to new socket system format.
+    /// </summary>
+    private void GenerateGemSocketsLegacy(Item item, JToken gemSocketCount)
     {
         try
         {
@@ -469,24 +571,28 @@ public class ItemGenerator
 
             var socketCount = _random.Next(min, max + 1);
             
+            var sockets = new List<Socket>();
             for (int i = 0; i < socketCount; i++)
             {
-                var socket = new GemSocket
+                sockets.Add(new Socket
                 {
-                    Color = GetRandomGemColor(),
-                    Gem = null, // Empty socket
+                    Type = SocketType.Gem,
+                    Content = null,
                     IsLocked = false
-                };
-                
-                item.GemSockets.Add(socket);
+                });
                 
                 // Each socket adds 10 to rarity weight
                 item.TotalRarityWeight += 10;
             }
+            
+            if (sockets.Any())
+            {
+                item.Sockets[SocketType.Gem] = sockets;
+            }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error generating gem sockets");
+            _logger.LogError(ex, "Error generating legacy gem sockets");
         }
     }
 
@@ -557,17 +663,11 @@ public class ItemGenerator
             nameParts.Add(enchantment.Name);
         }
 
-        // 6. Gem socket indicator (separate from naming components per design decision)
-        if (item.GemSockets.Any())
+        // 6. Socket indicator (separate from naming components per design decision)
+        var socketsDisplay = item.GetSocketsDisplayText();
+        if (!string.IsNullOrEmpty(socketsDisplay))
         {
-            var filledSockets = item.GemSockets.Count(s => s.Gem != null);
-            var totalSockets = item.GemSockets.Count;
-            if (totalSockets > 0)
-            {
-                var socketsText = $"[{filledSockets}/{totalSockets} Sockets]";
-                item.SocketsText = socketsText;
-                nameParts.Add(socketsText);
-            }
+            nameParts.Add($"[{socketsDisplay}]");
         }
 
         return string.Join(" ", nameParts);

@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "description": "Naming patterns for magic orbs",
+    "version": "4.0",
+    "lastUpdated": "2026-01-03",
+    "type": "pattern_generation",
+    "supportsTraits": true
+  },
+  "patterns": [
+    {
+      "pattern": "{base} {suffix}",
+      "rarityWeight": 40
+    },
+    {
+      "pattern": "{base}",
+      "rarityWeight": 60
+    }
+  ],
+  "components": {
+    "base": [
+      { "value": "Sorcery Orb", "rarityWeight": 50 },
+      { "value": "Mysticism Orb", "rarityWeight": 45 },
+      { "value": "Arcana Orb", "rarityWeight": 35 }
+    ],
+    "suffix": [
+      { "value": "of the Archmage", "rarityWeight": 30 },
+      { "value": "of Power", "rarityWeight": 40 },
+      { "value": "of Knowledge", "rarityWeight": 35 },
+      { "value": "of Wisdom", "rarityWeight": 45 }
+    ]
+  }
+}
