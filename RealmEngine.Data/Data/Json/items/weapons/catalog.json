@@ -28,7 +28,9 @@
           "weight": 3.0,
           "value": 15,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 15
         },
         {
           "name": "Shortsword",
@@ -36,7 +38,9 @@
           "weight": 2.0,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 10
         },
         {
           "name": "Greatsword",
@@ -44,7 +48,9 @@
           "weight": 6.0,
           "value": 50,
           "rarity": "uncommon",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 10,
+          "budgetCost": 30
         },
         {
           "name": "Scimitar",
@@ -52,7 +58,9 @@
           "weight": 3.0,
           "value": 15,
           "rarity": "common",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 18,
+          "budgetCost": 12
         },
         {
           "name": "Rapier",
@@ -60,7 +68,9 @@
           "weight": 2.0,
           "value": 25,
           "rarity": "uncommon",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 12,
+          "budgetCost": 18
         },
         {
           "name": "Katana",
@@ -68,7 +78,9 @@
           "weight": 3.0,
           "value": 40,
           "rarity": "uncommon",
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "selectionWeight": 10,
+          "budgetCost": 25
         },
         {
           "name": "Broadsword",
@@ -76,7 +88,9 @@
           "weight": 3.5,
           "value": 18,
           "rarity": "common",
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 20,
+          "budgetCost": 15
         },
         {
           "name": "Claymore",
@@ -84,7 +98,9 @@
           "weight": 7.0,
           "value": 60,
           "rarity": "uncommon",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 10,
+          "budgetCost": 35
         },
         {
           "name": "Saber",
@@ -92,7 +108,9 @@
           "weight": 2.5,
           "value": 20,
           "rarity": "common",
-          "rarityWeight": 7
+          "rarityWeight": 7,
+          "selectionWeight": 18,
+          "budgetCost": 14
         },
         {
           "name": "Gladius",
@@ -100,7 +118,9 @@
           "weight": 2.0,
           "value": 12,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 10
         }
       ]
     },
@@ -118,7 +138,9 @@
           "weight": 4.0,
           "value": 20,
           "rarity": "common",
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 20,
+          "budgetCost": 16
         },
         {
           "name": "Handaxe",
@@ -126,7 +148,9 @@
           "weight": 2.0,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 10
         },
         {
           "name": "Greataxe",
@@ -134,7 +158,9 @@
           "weight": 7.0,
           "value": 55,
           "rarity": "uncommon",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 10,
+          "budgetCost": 40
         },
         {
           "name": "Waraxe",
@@ -142,7 +168,9 @@
           "weight": 5.0,
           "value": 30,
           "rarity": "uncommon",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 28
         },
         {
           "name": "Hatchet",
@@ -150,7 +178,9 @@
           "weight": 1.5,
           "value": 5,
           "rarity": "common",
-          "rarityWeight": 3
+          "rarityWeight": 3,
+          "selectionWeight": 22,
+          "budgetCost": 8
         },
         {
           "name": "Tomahawk",
@@ -158,7 +188,9 @@
           "weight": 2.0,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 10
         },
         {
           "name": "Cleaver",
@@ -166,7 +198,9 @@
           "weight": 2.5,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 4
+          "rarityWeight": 4,
+          "selectionWeight": 20,
+          "budgetCost": 10
         },
         {
           "name": "Poleaxe",
@@ -174,7 +208,9 @@
           "weight": 6.0,
           "value": 40,
           "rarity": "uncommon",
-          "rarityWeight": 11
+          "rarityWeight": 11,
+          "selectionWeight": 12,
+          "budgetCost": 32
         }
       ]
     },
@@ -193,7 +229,9 @@
           "weight": 2.0,
           "value": 30,
           "rarity": "common",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 18,
+          "budgetCost": 20
         },
         {
           "name": "Shortbow",
@@ -201,7 +239,9 @@
           "weight": 1.5,
           "value": 20,
           "rarity": "common",
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 20,
+          "budgetCost": 15
         },
         {
           "name": "Composite Bow",
@@ -209,7 +249,9 @@
           "weight": 2.5,
           "value": 50,
           "rarity": "uncommon",
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "selectionWeight": 10,
+          "budgetCost": 25
         },
         {
           "name": "Recurve Bow",
@@ -217,7 +259,9 @@
           "weight": 2.0,
           "value": 35,
           "rarity": "common",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 15,
+          "budgetCost": 22
         },
         {
           "name": "Crossbow",
@@ -225,7 +269,9 @@
           "weight": 5.0,
           "value": 50,
           "rarity": "uncommon",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 12,
+          "budgetCost": 30
         },
         {
           "name": "Heavy Crossbow",
@@ -233,7 +279,9 @@
           "weight": 8.0,
           "value": 75,
           "rarity": "uncommon",
-          "rarityWeight": 14
+          "rarityWeight": 14,
+          "selectionWeight": 10,
+          "budgetCost": 42
         },
         {
           "name": "Warbow",
@@ -241,7 +289,9 @@
           "weight": 3.0,
           "value": 80,
           "rarity": "rare",
-          "rarityWeight": 20
+          "rarityWeight": 20,
+          "selectionWeight": 6,
+          "budgetCost": 50
         },
         {
           "name": "Hunting Bow",
@@ -249,7 +299,9 @@
           "weight": 1.5,
           "value": 15,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 12
         }
       ]
     },
@@ -268,7 +320,9 @@
           "weight": 1.0,
           "value": 5,
           "rarity": "common",
-          "rarityWeight": 3
+          "rarityWeight": 3,
+          "selectionWeight": 22,
+          "budgetCost": 8
         },
         {
           "name": "Dirk",
@@ -276,7 +330,9 @@
           "weight": 1.0,
           "value": 6,
           "rarity": "common",
-          "rarityWeight": 4
+          "rarityWeight": 4,
+          "selectionWeight": 20,
+          "budgetCost": 8
         },
         {
           "name": "Stiletto",
@@ -284,7 +340,9 @@
           "weight": 0.5,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 18,
+          "budgetCost": 10
         },
         {
           "name": "Kris",
@@ -292,7 +350,9 @@
           "weight": 1.5,
           "value": 15,
           "rarity": "uncommon",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 14
         },
         {
           "name": "Tanto",
@@ -300,7 +360,9 @@
           "weight": 0.8,
           "value": 12,
           "rarity": "common",
-          "rarityWeight": 7
+          "rarityWeight": 7,
+          "selectionWeight": 18,
+          "budgetCost": 10
         },
         {
           "name": "Kukri",
@@ -308,7 +370,9 @@
           "weight": 1.2,
           "value": 12,
           "rarity": "common",
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 18,
+          "budgetCost": 12
         },
         {
           "name": "Rondel",
@@ -316,7 +380,9 @@
           "weight": 1.0,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 8
         },
         {
           "name": "Main Gauche",
@@ -324,7 +390,9 @@
           "weight": 1.5,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 6
+          "rarityWeight": 6,
+          "selectionWeight": 18,
+          "budgetCost": 10
         }
       ]
     },
@@ -343,7 +411,9 @@
           "weight": 3.0,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 12
         },
         {
           "name": "Lance",
@@ -351,7 +421,9 @@
           "weight": 6.0,
           "value": 40,
           "rarity": "uncommon",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 10,
+          "budgetCost": 38
         },
         {
           "name": "Javelin",
@@ -359,7 +431,9 @@
           "weight": 2.0,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 10
         },
         {
           "name": "Pike",
@@ -367,7 +441,9 @@
           "weight": 8.0,
           "value": 30,
           "rarity": "common",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 16,
+          "budgetCost": 26
         },
         {
           "name": "Halberd",
@@ -375,7 +451,9 @@
           "weight": 6.0,
           "value": 35,
           "rarity": "uncommon",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 30
         },
         {
           "name": "Trident",
@@ -383,7 +461,9 @@
           "weight": 4.0,
           "value": 25,
           "rarity": "common",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 16,
+          "budgetCost": 20
         },
         {
           "name": "Partisan",
@@ -391,7 +471,9 @@
           "weight": 5.0,
           "value": 30,
           "rarity": "uncommon",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 24
         },
         {
           "name": "Glaive",
@@ -399,7 +481,9 @@
           "weight": 6.0,
           "value": 40,
           "rarity": "uncommon",
-          "rarityWeight": 11
+          "rarityWeight": 11,
+          "selectionWeight": 12,
+          "budgetCost": 32
         }
       ]
     },
@@ -417,7 +501,9 @@
           "weight": 4.0,
           "value": 12,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 12
         },
         {
           "name": "Warhammer",
@@ -425,7 +511,9 @@
           "weight": 5.0,
           "value": 20,
           "rarity": "common",
-          "rarityWeight": 7
+          "rarityWeight": 7,
+          "selectionWeight": 18,
+          "budgetCost": 18
         },
         {
           "name": "Flail",
@@ -433,7 +521,9 @@
           "weight": 5.0,
           "value": 18,
           "rarity": "common",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 18,
+          "budgetCost": 16
         },
         {
           "name": "Morning Star",
@@ -441,7 +531,9 @@
           "weight": 6.0,
           "value": 25,
           "rarity": "uncommon",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 20
         },
         {
           "name": "Club",
@@ -449,7 +541,9 @@
           "weight": 2.0,
           "value": 2,
           "rarity": "common",
-          "rarityWeight": 2
+          "rarityWeight": 2,
+          "selectionWeight": 25,
+          "budgetCost": 6
         },
         {
           "name": "Maul",
@@ -457,7 +551,9 @@
           "weight": 10.0,
           "value": 45,
           "rarity": "uncommon",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 10,
+          "budgetCost": 35
         },
         {
           "name": "Cudgel",
@@ -465,7 +561,9 @@
           "weight": 2.5,
           "value": 3,
           "rarity": "common",
-          "rarityWeight": 2
+          "rarityWeight": 2,
+          "selectionWeight": 25,
+          "budgetCost": 6
         },
         {
           "name": "Scepter",
@@ -473,7 +571,9 @@
           "weight": 2.0,
           "value": 15,
           "rarity": "uncommon",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 14
         }
       ]
     },
@@ -492,7 +592,9 @@
           "weight": 4.0,
           "value": 10,
           "rarity": "common",
-          "rarityWeight": 5
+          "rarityWeight": 5,
+          "selectionWeight": 20,
+          "budgetCost": 12
         },
         {
           "name": "Quarterstaff",
@@ -500,7 +602,9 @@
           "weight": 4.0,
           "value": 8,
           "rarity": "common",
-          "rarityWeight": 4
+          "rarityWeight": 4,
+          "selectionWeight": 20,
+          "budgetCost": 14
         },
         {
           "name": "War Staff",
@@ -508,7 +612,9 @@
           "weight": 5.0,
           "value": 25,
           "rarity": "uncommon",
-          "rarityWeight": 10
+          "rarityWeight": 10,
+          "selectionWeight": 12,
+          "budgetCost": 20
         },
         {
           "name": "Battle Staff",
@@ -516,7 +622,9 @@
           "weight": 6.0,
           "value": 35,
           "rarity": "uncommon",
-          "rarityWeight": 12
+          "rarityWeight": 12,
+          "selectionWeight": 10,
+          "budgetCost": 28
         },
         {
           "name": "Rod",
@@ -524,7 +632,9 @@
           "weight": 2.0,
           "value": 20,
           "rarity": "uncommon",
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "selectionWeight": 10,
+          "budgetCost": 16
         },
         {
           "name": "Scepter Staff",
@@ -532,7 +642,9 @@
           "weight": 3.0,
           "value": 30,
           "rarity": "uncommon",
-          "rarityWeight": 18
+          "rarityWeight": 18,
+          "selectionWeight": 8,
+          "budgetCost": 22
         }
       ]
     }

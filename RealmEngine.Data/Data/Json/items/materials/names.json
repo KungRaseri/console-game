@@ -26,43 +26,53 @@
     "quality": [
       {
         "value": "Fine",
-        "rarityWeight": 20
+        "rarityWeight": 20,
+        "budgetModifier": 0.20
       },
       {
         "value": "Superior",
-        "rarityWeight": 30
+        "rarityWeight": 30,
+        "budgetModifier": 0.40
       },
       {
         "value": "Masterwork",
-        "rarityWeight": 40
+        "rarityWeight": 40,
+        "budgetModifier": 1.00
       },
       {
         "value": "Exquisite",
-        "rarityWeight": 50
+        "rarityWeight": 50,
+        "budgetModifier": 0.60
       },
       {
         "value": "Cursed",
-        "rarityWeight": 55
+        "rarityWeight": 55,
+        "budgetModifier": -0.30
       },
       {
         "value": "Flawless",
-        "rarityWeight": 60
+        "rarityWeight": 60,
+        "budgetModifier": 0.80
       },
       {
         "value": "Blessed",
-        "rarityWeight": 65
+        "rarityWeight": 65,
+        "budgetModifier": 1.50
       },
       {
         "value": "Ancient",
-        "rarityWeight": 70
+        "rarityWeight": 70,
+        "budgetModifier": 1.20
       },
       {
         "value": "Perfect",
-        "rarityWeight": 80
+        "rarityWeight": 80,
+        "budgetModifier": 2.00
       },
       {
         "value": "Legendary",
-        "rarityWeight": 100
+        "rarityWeight": 100,
+        "budgetModifier": 2.50
       }
     ]
   },

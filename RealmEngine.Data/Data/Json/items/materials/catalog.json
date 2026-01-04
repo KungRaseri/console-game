@@ -30,6 +30,8 @@
           "name": "Iron",
           "displayName": "Iron",
           "rarityWeight": 5,
+          "selectionWeight": 60,
+          "budgetCost": 10,
           "traits": {
             "durability": 80,
             "weight": 1.5,
@@ -51,6 +53,8 @@
           "name": "Bronze",
           "displayName": "Bronze",
           "rarityWeight": 8,
+          "selectionWeight": 50,
+          "budgetCost": 8,
           "traits": {
             "durability": 60,
             "weight": 1.0,
@@ -73,6 +77,8 @@
           "name": "Steel",
           "displayName": "Steel",
           "rarityWeight": 15,
+          "selectionWeight": 40,
+          "budgetCost": 20,
           "traits": {
             "durability": 120,
             "weight": 1.1,
@@ -96,6 +102,8 @@
           "name": "Silver",
           "displayName": "Silver",
           "rarityWeight": 30,
+          "selectionWeight": 25,
+          "budgetCost": 35,
           "traits": {
             "durability": 70,
             "weight": 0.9,
@@ -121,6 +129,8 @@
           "name": "Electrum",
           "displayName": "Electrum",
           "rarityWeight": 45,
+          "selectionWeight": 18,
+          "budgetCost": 50,
           "traits": {
             "durability": 55,
             "weight": 0.95,
@@ -144,6 +154,8 @@
           "name": "Cold Iron",
           "displayName": "Cold Iron",
           "rarityWeight": 35,
+          "selectionWeight": 22,
+          "budgetCost": 40,
           "traits": {
             "durability": 100,
             "weight": 1.8,
@@ -168,6 +180,8 @@
           "name": "Obsidian",
           "displayName": "Obsidian",
           "rarityWeight": 35,
+          "selectionWeight": 20,
+          "budgetCost": 45,
           "traits": {
             "durability": 30,
             "weight": 0.8,
@@ -193,6 +207,8 @@
           "name": "Mithril",
           "displayName": "Mithril",
           "rarityWeight": 75,
+          "selectionWeight": 10,
+          "budgetCost": 80,
           "traits": {
             "durability": 200,
             "weight": 0.5,
@@ -219,6 +235,8 @@
           "name": "Darksteel",
           "displayName": "Darksteel",
           "rarityWeight": 60,
+          "selectionWeight": 12,
+          "budgetCost": 75,
           "traits": {
             "durability": 250,
             "weight": 1.4,
@@ -246,6 +264,8 @@
           "name": "Adamantine",
           "displayName": "Adamantine",
           "rarityWeight": 100,
+          "selectionWeight": 5,
+          "budgetCost": 120,
           "traits": {
             "durability": 300,
             "weight": 1.3,
@@ -273,6 +293,8 @@
           "name": "Dragon Steel",
           "displayName": "Dragon Steel",
           "rarityWeight": 120,
+          "selectionWeight": 3,
+          "budgetCost": 150,
           "traits": {
             "durability": 120,
             "weight": 1.2,
@@ -299,6 +321,8 @@
           "name": "Godforged",
           "displayName": "Godforged",
           "rarityWeight": 150,
+          "selectionWeight": 1,
+          "budgetCost": 300,
           "traits": {
             "durability": 9999,
             "weight": 0.0,
@@ -343,6 +367,8 @@
           "name": "Hide",
           "displayName": "Hide",
           "rarityWeight": 5,
+          "selectionWeight": 60,
+          "budgetCost": 8,
           "traits": {
             "durability": 50,
             "weight": 1.0,
@@ -360,6 +386,8 @@
           "name": "Leather",
           "displayName": "Leather",
           "rarityWeight": 10,
+          "selectionWeight": 50,
+          "budgetCost": 12,
           "traits": {
             "durability": 65,
             "weight": 0.9,
@@ -378,6 +406,8 @@
           "name": "Studded Leather",
           "displayName": "Studded Leather",
           "rarityWeight": 20,
+          "selectionWeight": 35,
+          "budgetCost": 25,
           "traits": {
             "durability": 75,
             "weight": 1.1,
@@ -397,6 +427,8 @@
           "name": "Hardened Leather",
           "displayName": "Hardened Leather",
           "rarityWeight": 30,
+          "selectionWeight": 28,
+          "budgetCost": 35,
           "traits": {
             "durability": 85,
             "weight": 1.2,
@@ -415,6 +447,8 @@
           "name": "Drake Leather",
           "displayName": "Drake Leather",
           "rarityWeight": 60,
+          "selectionWeight": 12,
+          "budgetCost": 70,
           "traits": {
             "durability": 100,
             "weight": 1.0,
@@ -434,6 +468,8 @@
           "name": "Wyvern Leather",
           "displayName": "Wyvern Leather",
           "rarityWeight": 70,
+          "selectionWeight": 10,
+          "budgetCost": 85,
           "traits": {
             "durability": 105,
             "weight": 0.9,
@@ -453,6 +489,8 @@
           "name": "Shadow Leather",
           "displayName": "Shadow Leather",
           "rarityWeight": 85,
+          "selectionWeight": 8,
+          "budgetCost": 105,
           "traits": {
             "durability": 70,
             "weight": 0.6,
@@ -472,6 +510,8 @@
           "name": "Chimera Hide",
           "displayName": "Chimera Hide",
           "rarityWeight": 95,
+          "selectionWeight": 6,
+          "budgetCost": 125,
           "traits": {
             "durability": 115,
             "weight": 1.1,
@@ -492,6 +532,8 @@
           "name": "Dragon Leather",
           "displayName": "Dragon Leather",
           "rarityWeight": 120,
+          "selectionWeight": 3,
+          "budgetCost": 160,
           "traits": {
             "durability": 150,
             "weight": 0.8,
@@ -522,6 +564,8 @@
           "name": "Oak",
           "displayName": "Oak",
           "rarityWeight": 5,
+          "selectionWeight": 60,
+          "budgetCost": 10,
           "traits": {
             "durability": 70,
             "weight": 1.0,
@@ -539,6 +583,8 @@
           "name": "Ash",
           "displayName": "Ash",
           "rarityWeight": 10,
+          "selectionWeight": 50,
+          "budgetCost": 15,
           "traits": {
             "durability": 75,
             "weight": 0.9,
@@ -557,6 +603,8 @@
           "name": "Maple",
           "displayName": "Maple",
           "rarityWeight": 15,
+          "selectionWeight": 42,
+          "budgetCost": 20,
           "traits": {
             "durability": 72,
             "weight": 0.85,
@@ -576,6 +624,8 @@
           "name": "Yew",
           "displayName": "Yew",
           "rarityWeight": 25,
+          "selectionWeight": 30,
+          "budgetCost": 35,
           "traits": {
             "durability": 80,
             "weight": 0.8,
@@ -596,6 +646,8 @@
           "name": "Ebony",
           "displayName": "Ebony",
           "rarityWeight": 70,
+          "selectionWeight": 10,
+          "budgetCost": 90,
           "traits": {
             "durability": 100,
             "weight": 1.2,
@@ -617,6 +669,8 @@
           "name": "Ironwood",
           "displayName": "Ironwood",
           "rarityWeight": 60,
+          "selectionWeight": 12,
+          "budgetCost": 75,
           "traits": {
             "durability": 120,
             "weight": 1.3,
@@ -636,6 +690,8 @@
           "name": "Living Wood",
           "displayName": "Living Wood",
           "rarityWeight": 85,
+          "selectionWeight": 8,
+          "budgetCost": 110,
           "traits": {
             "durability": 90,
             "weight": 0.7,
@@ -657,6 +713,8 @@
           "name": "Elder Wood",
           "displayName": "Elder Wood",
           "rarityWeight": 100,
+          "selectionWeight": 5,
+          "budgetCost": 135,
           "traits": {
             "durability": 110,
             "weight": 0.6,
@@ -678,6 +736,8 @@
           "name": "Heartwood",
           "displayName": "Heartwood",
           "rarityWeight": 110,
+          "selectionWeight": 4,
+          "budgetCost": 170,
           "traits": {
             "durability": 130,
             "weight": 0.5,
@@ -708,6 +768,8 @@
           "name": "Topaz",
           "displayName": "Topaz",
           "rarityWeight": 25,
+          "selectionWeight": 30,
+          "budgetCost": 38,
           "traits": {
             "magicPower": 55,
             "attunement": 65,
@@ -734,6 +796,8 @@
           "name": "Amethyst",
           "displayName": "Amethyst",
           "rarityWeight": 30,
+          "selectionWeight": 28,
+          "budgetCost": 45,
           "traits": {
             "magicPower": 60,
             "attunement": 70,
@@ -762,6 +826,8 @@
           "name": "Ruby",
           "displayName": "Ruby",
           "rarityWeight": 50,
+          "selectionWeight": 18,
+          "budgetCost": 65,
           "traits": {
             "magicPower": 70,
             "attunement": 80,
@@ -789,6 +855,8 @@
           "name": "Sapphire",
           "displayName": "Sapphire",
           "rarityWeight": 55,
+          "selectionWeight": 16,
+          "budgetCost": 72,
           "traits": {
             "magicPower": 75,
             "attunement": 85,
@@ -817,6 +885,8 @@
           "name": "Emerald",
           "displayName": "Emerald",
           "rarityWeight": 60,
+          "selectionWeight": 14,
+          "budgetCost": 80,
           "traits": {
             "magicPower": 80,
             "attunement": 90,
@@ -846,6 +916,8 @@
           "name": "Onyx",
           "displayName": "Onyx",
           "rarityWeight": 70,
+          "selectionWeight": 10,
+          "budgetCost": 95,
           "traits": {
             "magicPower": 85,
             "attunement": 85,
@@ -876,6 +948,8 @@
           "name": "Opal",
           "displayName": "Opal",
           "rarityWeight": 75,
+          "selectionWeight": 9,
+          "budgetCost": 100,
           "traits": {
             "magicPower": 90,
             "attunement": 95,
@@ -905,6 +979,8 @@
           "name": "Obsidian",
           "displayName": "Obsidian",
           "rarityWeight": 80,
+          "selectionWeight": 8,
+          "budgetCost": 105,
           "traits": {
             "magicPower": 85,
             "attunement": 80,
@@ -933,6 +1009,8 @@
           "name": "Diamond",
           "displayName": "Diamond",
           "rarityWeight": 100,
+          "selectionWeight": 5,
+          "budgetCost": 140,
           "traits": {
             "magicPower": 95,
             "attunement": 100,
@@ -963,6 +1041,8 @@
           "name": "Star Stone",
           "displayName": "Star Stone",
           "rarityWeight": 130,
+          "selectionWeight": 2,
+          "budgetCost": 280,
           "traits": {
             "magicPower": 110,
             "attunement": 110,

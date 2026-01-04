@@ -28,7 +28,9 @@
           "weight": 3.0,
           "value": 20,
           "armorClass": "heavy",
-          "rarityWeight": 8
+          "rarityWeight": 8,
+          "selectionWeight": 12,
+          "budgetCost": 18
         },
         {
           "name": "Helmet",
@@ -36,7 +38,9 @@
           "weight": 3.0,
           "value": 18,
           "armorClass": "heavy",
-          "rarityWeight": 7
+          "rarityWeight": 7,
+          "selectionWeight": 14,
+          "budgetCost": 16
         },
         {
           "name": "Great Helm",
@@ -125,7 +129,9 @@
           "weight": 15.0,
           "value": 80,
           "armorClass": "heavy",
-          "rarityWeight": 15
+          "rarityWeight": 15,
+          "selectionWeight": 6,
+          "budgetCost": 50
         },
         {
           "name": "Breastplate",
