@@ -67,10 +67,17 @@ public class MaterialPoolService
                     continue;
                 }
 
-                var cost = _budgetCalculator.CalculateMaterialCost(resolved);
+                var materialToken = resolved as JToken;
+                if (materialToken == null)
+                {
+                    _logger.LogWarning("Resolved material is not a JToken: {Ref}", materialRef.MaterialRef);
+                    continue;
+                }
+
+                var cost = _budgetCalculator.CalculateMaterialCost(materialToken);
                 if (_budgetCalculator.CanAfford(availableBudget, cost))
                 {
-                    affordableMaterials.Add((resolved, cost, materialRef.SelectionWeight));
+                    affordableMaterials.Add((materialToken, cost, materialRef.SelectionWeight));
                 }
             }
 

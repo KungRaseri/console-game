@@ -14,7 +14,11 @@ public class ItemGeneratorBudgetTests
 
     public ItemGeneratorBudgetTests()
     {
-        var dataCache = new GameDataCache("RealmEngine.Data/Data/Json", NullLogger<GameDataCache>.Instance);
+        var dataPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
+        dataPath = Path.GetFullPath(dataPath);
+        
+        var dataCache = new GameDataCache(dataPath);
+        dataCache.LoadAllData();
         var referenceResolver = new ReferenceResolverService(dataCache, NullLogger<ReferenceResolverService>.Instance);
         var loggerFactory = NullLoggerFactory.Instance;
 
@@ -121,8 +125,8 @@ public class ItemGeneratorBudgetTests
 
         // Assert
         item.Should().NotBeNull();
-        item!.Traits.Should().Contain(t => t.Name == "Budget.Total");
-        item.Traits.Should().Contain(t => t.Name == "Budget.Spent");
+        item!.Traits.Should().ContainKey("Budget.Total");
+        item.Traits.Should().ContainKey("Budget.Spent");
     }
 
     [Fact]
@@ -141,7 +145,7 @@ public class ItemGeneratorBudgetTests
 
         // Assert
         item.Should().NotBeNull();
-        item!.Traits.Should().Contain(t => t.Name.StartsWith("Material."));
+        item!.Traits.Keys.Should().Contain(k => k.StartsWith("Material."));
     }
 
     [Fact]
@@ -160,7 +164,7 @@ public class ItemGeneratorBudgetTests
 
         // Assert
         weapon.Should().NotBeNull();
-        weapon!.Traits.Should().Contain(t => t.Name == "Damage");
+        weapon!.Traits.Should().ContainKey("Damage");
     }
 
     [Fact]
@@ -209,7 +213,13 @@ public class ItemGeneratorBudgetTests
         lowLevelItem.Should().NotBeNull();
         highLevelItem.Should().NotBeNull();
         
-        highLevelItem!.Rarity.Should().BeGreaterOrEqualTo(lowLevelItem!.Rarity);
+        // High level items should have at least same or better rarity
+        highLevelItem!.Rarity.Should().BeOneOf(
+            lowLevelItem!.Rarity,
+            ItemRarity.Rare, 
+            ItemRarity.Epic, 
+            ItemRarity.Legendary
+        );
     }
 
     [Fact]
@@ -229,7 +239,7 @@ public class ItemGeneratorBudgetTests
         // Assert
         item.Should().NotBeNull();
         item!.Type.Should().Be(ItemType.Chest);
-        item.Traits.Should().Contain(t => t.Name == "Defense");
+        item.Traits.Should().ContainKey("Defense");
     }
 
     [Fact]

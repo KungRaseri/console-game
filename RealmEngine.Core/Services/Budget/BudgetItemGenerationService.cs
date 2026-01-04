@@ -163,15 +163,15 @@ public class BudgetItemGenerationService
     {
         var namesPath = "items/materials/names.json";
         if (!_dataCache.FileExists(namesPath))
-            return null;
+            return Task.FromResult<JToken?>(null);
 
         var namesFile = _dataCache.GetFile(namesPath);
         if (namesFile?.JsonData == null)
-            return null;
+            return Task.FromResult<JToken?>(null);
 
         var qualityComponents = namesFile.JsonData["components"]?["quality"];
         if (qualityComponents == null)
-            return null;
+            return Task.FromResult<JToken?>(null);
 
         // 50% chance to not have quality modifier
         if (_random.Next(100) < 50)
@@ -184,11 +184,11 @@ public class BudgetItemGenerationService
     {
         var catalogPath = $"items/{category}/catalog.json";
         if (!_dataCache.FileExists(catalogPath))
-            return null;
+            return Task.FromResult<JToken?>(null);
 
         var catalogFile = _dataCache.GetFile(catalogPath);
         if (catalogFile?.JsonData == null)
-            return null;
+            return Task.FromResult<JToken?>(null);
 
         var items = GetItemsFromCatalog(catalogFile.JsonData);
         if (items == null || !items.Any())
@@ -201,11 +201,11 @@ public class BudgetItemGenerationService
     {
         var namesPath = $"items/{category}/names.json";
         if (!_dataCache.FileExists(namesPath))
-            return null;
+            return Task.FromResult<JToken?>(null);
 
         var namesFile = _dataCache.GetFile(namesPath);
         if (namesFile?.JsonData == null)
-            return null;
+            return Task.FromResult<JToken?>(null);
 
         var patterns = namesFile.JsonData["patterns"];
         if (patterns == null)
@@ -219,19 +219,19 @@ public class BudgetItemGenerationService
         string patternString,
         int availableBudget)
     {
-        var result = new List<(JToken, int)>();
+        var result = new List<(JToken Component, int Cost)>();
 
         var namesPath = $"items/{category}/names.json";
         if (!_dataCache.FileExists(namesPath))
-            return result;
+            return Task.FromResult(result);
 
         var namesFile = _dataCache.GetFile(namesPath);
         if (namesFile?.JsonData == null)
-            return result;
+            return Task.FromResult(result);
 
         var components = namesFile.JsonData["components"];
         if (components == null)
-            return result;
+            return Task.FromResult(result);
 
         // Parse pattern tokens (e.g., {prefix}, {suffix}, {descriptive})
         var tokens = ExtractTokens(patternString);
