@@ -2,10 +2,12 @@
   "metadata": {
     "description": "Fire essences providing fire damage and burning effects",
     "version": "4.0",
-    "lastUpdated": "2026-01-03",
+    "lastUpdated": "2026-01-04",
     "type": "essence_catalog"
   },
-  "items": [
+  "essence_types": {
+    "fire": {
+      "items": [
     {
       "slug": "flame-essence",
       "name": "flame-essence",
@@ -58,5 +60,7 @@
         }
       }
     }
-  ]
+      ]
+    }
+  }
 }

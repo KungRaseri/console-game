@@ -100,7 +100,8 @@ public class ReferenceResolutionIntegrationTests
         // Assert
         result.Should().NotBeNull();
         result!["name"]!.ToString().Should().Be("Longsword");
-        result["rarityWeight"].Should().NotBeNull();
+        // Weapons use selectionWeight, not rarityWeight
+        (result["rarityWeight"] != null || result["selectionWeight"] != null).Should().BeTrue("item should have either rarityWeight or selectionWeight");
     }
 
     [Fact]
@@ -411,8 +412,8 @@ public class ReferenceResolutionIntegrationTests
     [Fact]
     public void Should_Resolve_Property_Access()
     {
-        // Arrange
-        var reference = "@items/weapons/swords:Longsword.rarityWeight";
+        // Arrange - weapons use selectionWeight not rarityWeight
+        var reference = "@items/weapons/swords:Longsword.selectionWeight";
 
         // Act
         var result = _resolver.ResolveReference(reference);

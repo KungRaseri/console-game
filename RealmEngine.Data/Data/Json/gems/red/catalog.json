@@ -2,10 +2,12 @@
   "metadata": {
     "description": "Red gems providing physical damage and offensive bonuses",
     "version": "4.0",
-    "lastUpdated": "2026-01-03",
+    "lastUpdated": "2026-01-04",
     "type": "gem_catalog"
   },
-  "items": [
+  "gem_types": {
+    "red": {
+      "items": [
     {
       "slug": "ruby",
       "name": "ruby",
@@ -74,5 +76,7 @@
         }
       }
     }
-  ]
+      ]
+    }
+  }
 }

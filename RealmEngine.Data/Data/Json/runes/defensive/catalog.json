@@ -2,10 +2,12 @@
   "metadata": {
     "description": "Defensive runes providing protection modifiers",
     "version": "4.0",
-    "lastUpdated": "2026-01-03",
+    "lastUpdated": "2026-01-04",
     "type": "rune_catalog"
   },
-  "items": [
+  "rune_types": {
+    "defensive": {
+      "items": [
     {
       "slug": "protection-rune",
       "name": "protection-rune",
@@ -54,5 +56,7 @@
         }
       }
     }
-  ]
+      ]
+    }
+  }
 }

@@ -2,10 +2,12 @@
   "metadata": {
     "description": "Life crystals providing health-related bonuses",
     "version": "4.0",
-    "lastUpdated": "2026-01-03",
+    "lastUpdated": "2026-01-04",
     "type": "crystal_catalog"
   },
-  "items": [
+  "crystal_types": {
+    "life": {
+      "items": [
     {
       "slug": "life-crystal",
       "name": "life-crystal",
@@ -62,5 +64,7 @@
         }
       }
     }
-  ]
+      ]
+    }
+  }
 }

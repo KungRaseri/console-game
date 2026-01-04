@@ -2,10 +2,12 @@
   "metadata": {
     "description": "Shadow essences providing dark damage and stealth bonuses",
     "version": "4.0",
-    "lastUpdated": "2026-01-03",
+    "lastUpdated": "2026-01-04",
     "type": "essence_catalog"
   },
-  "items": [
+  "essence_types": {
+    "shadow": {
+      "items": [
     {
       "slug": "shadow-essence",
       "name": "shadow-essence",
@@ -54,5 +56,7 @@
         }
       }
     }
-  ]
+      ]
+    }
+  }
 }

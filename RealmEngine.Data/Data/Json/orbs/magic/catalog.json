@@ -2,10 +2,12 @@
   "metadata": {
     "description": "Magic orbs providing skill enhancements for magic abilities",
     "version": "4.0",
-    "lastUpdated": "2026-01-03",
+    "lastUpdated": "2026-01-04",
     "type": "orb_catalog"
   },
-  "items": [
+  "orb_types": {
+    "magic": {
+      "items": [
     {
       "slug": "sorcery-orb",
       "name": "sorcery-orb",
@@ -58,5 +60,7 @@
         }
       }
     }
-  ]
+      ]
+    }
+  }
 }

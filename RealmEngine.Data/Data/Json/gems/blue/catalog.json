@@ -2,10 +2,12 @@
   "metadata": {
     "description": "Blue gems providing mana and magic damage bonuses",
     "version": "4.0",
-    "lastUpdated": "2026-01-03",
+    "lastUpdated": "2026-01-04",
     "type": "gem_catalog"
   },
-  "items": [
+  "gem_types": {
+    "blue": {
+      "items": [
     {
       "slug": "sapphire",
       "name": "sapphire",
@@ -74,5 +76,7 @@
         }
       }
     }
-  ]
+      ]
+    }
+  }
 }
