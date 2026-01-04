@@ -26,7 +26,7 @@ This directory contains essential scripts for building and deploying the game.
 
 ### `deploy-to-godot.ps1`
 
-**Purpose**: Deploys packaged game files to a Godot project directory.
+**Purpose**: Deploys packaged game files to a Godot project directory with automatic API changelog generation.
 
 **Usage**:
 ```powershell
@@ -34,16 +34,73 @@ This directory contains essential scripts for building and deploying the game.
 ```
 
 **What it does**:
-1. Validates package exists
-2. Validates Godot project (checks for project.godot)
-3. Copies Libraries/ to Godot project
-4. Copies Data/Json/ to Godot project
-5. Optionally copies ContentBuilder
-6. Creates deployment info file
+1. **Analyzes XML documentation changes** (compares old vs new)
+2. **Generates API changelog** (CHANGELOG_API.md) with:
+   - Added methods/properties/types
+   - Removed API members
+   - Modified documentation
+3. Validates package exists
+4. Validates Godot project (checks for project.godot)
+5. Copies Libraries/ to Godot project
+6. Copies Data/Json/ to Godot project
+7. Optionally copies RealmForge
+8. Creates deployment info file
+
+**Automatic Changelog Features**:
+- Detects new, removed, and modified XML documentation
+- Parses API members (Types, Methods, Properties, Fields, Events)
+- Prepends changes to existing CHANGELOG_API.md
+- No manual tracking required!
 
 **Parameters**:
 - `GodotProjectPath` (required) - Path to Godot project root
 - `PackagePath` (optional) - Path to package folder (default: ..\package)
+
+**Example Output**:
+```
+Analyzing XML documentation changes...
+  • Changes detected in RealmEngine.Core.xml
+    → Added: 5 | Removed: 0 | Modified: 3
+  • New file: RealmEngine.Shared.xml
+✓ Changelog generated: CHANGELOG_API.md
+  → 2 file(s) with changes documented
+```
+
+---
+
+### `view-api-changes.ps1`
+
+**Purpose**: View recent API changes from the auto-generated changelog.
+
+**Usage**:
+```powershell
+.\view-api-changes.ps1 -GodotProjectPath "C:\path\to\godot-project" [-Entries 3]
+```
+
+**What it does**:
+- Reads CHANGELOG_API.md from Godot project
+- Shows most recent N deployment changes
+- Color-coded output (Added=Green, Removed=Red, Modified=Cyan)
+- Shows API member details (Methods, Properties, Types, etc.)
+
+**Parameters**:
+- `GodotProjectPath` (required) - Path to Godot project root
+- `Entries` (optional) - Number of recent deployments to show (default: 3)
+
+**Example Output**:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Deployment #1 - 2026-01-03 17:30:00
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  📄 RealmEngine.Core.xml
+    ➕ Added (5):
+      [Method] GemGenerator.Generate
+      [Method] EssenceGenerator.Generate
+      [Property] SocketSlot.SocketType
+    📝 Modified (3):
+      [Method] ItemGenerator.Generate (documentation updated)
+```
 
 ---
 

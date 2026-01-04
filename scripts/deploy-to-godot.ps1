@@ -51,12 +51,105 @@ if (Test-Path $ManifestPath) {
 }
 
 # ============================================
-# 1. Deploy Game Libraries
+# 1. Generate Changelog from XML Differences
 # ============================================
-Write-Host "Deploying game libraries..." -ForegroundColor Yellow
+Write-Host "Analyzing XML documentation changes..." -ForegroundColor Yellow
 
 $LibrariesSource = Join-Path $PackageRoot "Libraries"
 $LibrariesDest = Join-Path $GodotProjectPath "Libraries"
+
+$ChangelogEntries = @()
+$HasChanges = $false
+
+# Get all XML files from source
+$NewXmlFiles = Get-ChildItem -Path $LibrariesSource -Filter "*.xml"
+
+foreach ($newXml in $NewXmlFiles) {
+    $oldXmlPath = Join-Path $LibrariesDest $newXml.Name
+    
+    if (Test-Path $oldXmlPath) {
+        # Compare existing file
+        $oldContent = Get-Content $oldXmlPath -Raw
+        $newContent = Get-Content $newXml.FullName -Raw
+        
+        if ($oldContent -ne $newContent) {
+            Write-Host "  • Changes detected in $($newXml.Name)" -ForegroundColor Cyan
+            
+            # Parse XML to extract changes
+            try {
+                [xml]$oldXmlDoc = $oldContent
+                [xml]$newXmlDoc = $newContent
+                
+                # Compare member counts
+                $oldMembers = $oldXmlDoc.SelectNodes("//member")
+                $newMembers = $newXmlDoc.SelectNodes("//member")
+                
+                $oldMemberNames = @($oldMembers | ForEach-Object { $_.name })
+                $newMemberNames = @($newMembers | ForEach-Object { $_.name })
+                
+                # Find added members
+                $addedMembers = $newMemberNames | Where-Object { $_ -notin $oldMemberNames }
+                # Find removed members
+                $removedMembers = $oldMemberNames | Where-Object { $_ -notin $newMemberNames }
+                # Find modified members (same name but different content)
+                $modifiedMembers = @()
+                foreach ($member in $newMembers) {
+                    $oldMember = $oldMembers | Where-Object { $_.name -eq $member.name }
+                    if ($oldMember -and $oldMember.InnerXml -ne $member.InnerXml) {
+                        $modifiedMembers += $member.name
+                    }
+                }
+                
+                if ($addedMembers.Count -gt 0 -or $removedMembers.Count -gt 0 -or $modifiedMembers.Count -gt 0) {
+                    $HasChanges = $true
+                    $changeEntry = @{
+                        File = $newXml.Name
+                        Added = $addedMembers
+                        Removed = $removedMembers
+                        Modified = $modifiedMembers
+                    }
+                    $ChangelogEntries += $changeEntry
+                    
+                    Write-Host "    → Added: $($addedMembers.Count) | Removed: $($removedMembers.Count) | Modified: $($modifiedMembers.Count)" -ForegroundColor Gray
+                }
+            }
+            catch {
+                Write-Host "    ⚠ Could not parse XML for detailed comparison" -ForegroundColor Yellow
+                $HasChanges = $true
+                $ChangelogEntries += @{ File = $newXml.Name; Message = "File changed (details unavailable)" }
+            }
+        }
+    } else {
+        # New file
+        Write-Host "  • New file: $($newXml.Name)" -ForegroundColor Green
+        $HasChanges = $true
+        $ChangelogEntries += @{ File = $newXml.Name; Message = "New documentation file added" }
+    }
+}
+
+# Check for removed files
+if (Test-Path $LibrariesDest) {
+    $OldXmlFiles = Get-ChildItem -Path $LibrariesDest -Filter "*.xml"
+    foreach ($oldXml in $OldXmlFiles) {
+        $newExists = $NewXmlFiles | Where-Object { $_.Name -eq $oldXml.Name }
+        if (-not $newExists) {
+            Write-Host "  • Removed file: $($oldXml.Name)" -ForegroundColor Red
+            $HasChanges = $true
+            $ChangelogEntries += @{ File = $oldXml.Name; Message = "Documentation file removed" }
+        }
+    }
+}
+
+if (-not $HasChanges) {
+    Write-Host "  ✓ No changes detected in XML documentation" -ForegroundColor Green
+}
+
+Write-Host ""
+
+# ============================================
+# 2. Deploy Game Libraries
+# ============================================
+Write-Host "Deploying game libraries..." -ForegroundColor Yellow
 
 if (Test-Path $LibrariesDest) {
     Write-Host "Removing existing Libraries folder..." -ForegroundColor Gray
@@ -180,7 +273,7 @@ if ($DeployRealmForge -eq "y" -or $DeployRealmForge -eq "Y") {
 }
 
 # ============================================
-# 4. Generate Deployment Info
+# 4. Generate Deployment Info & Changelog
 # ============================================
 Write-Host "Generating deployment info..." -ForegroundColor Yellow
 
@@ -197,6 +290,100 @@ $DeploymentPath = Join-Path $GodotProjectPath ".deployment-info.json"
 Set-Content -Path $DeploymentPath -Value $DeploymentJson
 
 Write-Host "Deployment info saved" -ForegroundColor Green
+
+# Generate Changelog if changes detected
+if ($HasChanges -and $ChangelogEntries.Count -gt 0) {
+    Write-Host "Generating changelog..." -ForegroundColor Yellow
+    
+    $ChangelogPath = Join-Path $GodotProjectPath "CHANGELOG_API.md"
+    $ChangelogExists = Test-Path $ChangelogPath
+    
+    # Build changelog entry
+    $ChangelogHeader = @"
+## Deployment - $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+
+"@
+    
+    $ChangelogBody = ""
+    
+    foreach ($entry in $ChangelogEntries) {
+        if ($entry.Message) {
+            # Simple message entry
+            $ChangelogBody += "### $($entry.File)`n"
+            $ChangelogBody += "$($entry.Message)`n`n"
+        } else {
+            # Detailed API changes
+            $ChangelogBody += "### $($entry.File)`n`n"
+            
+            if ($entry.Added -and $entry.Added.Count -gt 0) {
+                $ChangelogBody += "**Added ($($entry.Added.Count)):**`n"
+                foreach ($member in $entry.Added) {
+                    $memberName = $member -replace "^[TFMPE]:", "" -replace "[\(\[].*", ""
+                    $memberType = switch -Regex ($member) {
+                        "^T:" { "Type" }
+                        "^F:" { "Field" }
+                        "^M:" { "Method" }
+                        "^P:" { "Property" }
+                        "^E:" { "Event" }
+                        default { "Member" }
+                    }
+                    $ChangelogBody += "- [$memberType] ``$memberName```n"
+                }
+                $ChangelogBody += "`n"
+            }
+            
+            if ($entry.Removed -and $entry.Removed.Count -gt 0) {
+                $ChangelogBody += "**Removed ($($entry.Removed.Count)):**`n"
+                foreach ($member in $entry.Removed) {
+                    $memberName = $member -replace "^[TFMPE]:", "" -replace "[\(\[].*", ""
+                    $memberType = switch -Regex ($member) {
+                        "^T:" { "Type" }
+                        "^F:" { "Field" }
+                        "^M:" { "Method" }
+                        "^P:" { "Property" }
+                        "^E:" { "Event" }
+                        default { "Member" }
+                    }
+                    $ChangelogBody += "- ~~[$memberType] ``$memberName``~~`n"
+                }
+                $ChangelogBody += "`n"
+            }
+            
+            if ($entry.Modified -and $entry.Modified.Count -gt 0) {
+                $ChangelogBody += "**Modified ($($entry.Modified.Count)):**`n"
+                foreach ($member in $entry.Modified) {
+                    $memberName = $member -replace "^[TFMPE]:", "" -replace "[\(\[].*", ""
+                    $memberType = switch -Regex ($member) {
+                        "^T:" { "Type" }
+                        "^F:" { "Field" }
+                        "^M:" { "Method" }
+                        "^P:" { "Property" }
+                        "^E:" { "Event" }
+                        default { "Member" }
+                    }
+                    $ChangelogBody += "- [$memberType] ``$memberName`` (documentation updated)`n"
+                }
+                $ChangelogBody += "`n"
+            }
+        }
+    }
+    
+    # Prepend to existing changelog or create new
+    if ($ChangelogExists) {
+        $ExistingChangelog = Get-Content $ChangelogPath -Raw
+        $NewChangelog = $ChangelogHeader + $ChangelogBody + "`n---`n`n" + $ExistingChangelog
+    } else {
+        $NewChangelog = "# API Changelog`n`nAutomatically generated from XML documentation differences.`n`n---`n`n" + $ChangelogHeader + $ChangelogBody
+    }
+    
+    Set-Content -Path $ChangelogPath -Value $NewChangelog
+    
+    Write-Host "✓ Changelog generated: CHANGELOG_API.md" -ForegroundColor Green
+    Write-Host "  → $($ChangelogEntries.Count) file(s) with changes documented" -ForegroundColor Gray
+} else {
+    Write-Host "No API changes detected - changelog not updated" -ForegroundColor Gray
+}
+
 Write-Host ""
 
 # ============================================
@@ -212,8 +399,11 @@ Write-Host ""
 Write-Host "Components:" -ForegroundColor Yellow
 Write-Host "  - $DllCount DLL files in Libraries" -ForegroundColor Green
 Write-Host "  - $JsonFileCount JSON files in Data/Json" -ForegroundColor Green
-if ($DeployContentBuilder -eq "y" -or $DeployContentBuilder -eq "Y") {
+if ($DeployRealmForge -eq "y" -or $DeployRealmForge -eq "Y") {
     Write-Host "  - RealmForge in Tools/RealmForge" -ForegroundColor Green
+}
+if ($HasChanges) {
+    Write-Host "  - API Changelog updated (CHANGELOG_API.md)" -ForegroundColor Cyan
 }
 Write-Host ""
 Write-Host "Next Steps:" -ForegroundColor Cyan
