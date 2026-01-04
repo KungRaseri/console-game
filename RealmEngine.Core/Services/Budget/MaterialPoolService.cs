@@ -60,7 +60,7 @@ public class MaterialPoolService
 
             foreach (var materialRef in pool.Metals)
             {
-                var resolved = await _referenceResolver.ResolveReferenceAsync(materialRef.MaterialRef);
+                var resolved = await _referenceResolver.ResolveAsync(materialRef.MaterialRef);
                 if (resolved == null)
                 {
                     _logger.LogWarning("Failed to resolve material reference: {Ref}", materialRef.MaterialRef);

@@ -985,21 +985,17 @@ public class ItemGenerator
         };
 
         // Store budget metadata
-        item.Traits.Add(new TraitInstance
+        item.Traits["Budget.Total"] = new TraitValue
         {
-            Name = "Budget.Total",
             Value = result.AdjustedBudget,
-            Type = TraitType.Integer,
-            Source = "Budget System"
-        });
+            Type = TraitType.Number
+        };
 
-        item.Traits.Add(new TraitInstance
+        item.Traits["Budget.Spent"] = new TraitValue
         {
-            Name = "Budget.Spent",
             Value = result.SpentBudget,
-            Type = TraitType.Integer,
-            Source = "Budget System"
-        });
+            Type = TraitType.Number
+        };
 
         // Apply material
         if (result.Material != null)
@@ -1103,19 +1099,17 @@ public class ItemGenerator
                 var traitName = traitProp.Name;
                 var traitValue = traitProp.Value;
 
-                item.Traits.Add(new TraitInstance
+                item.Traits[$"Material.{traitName}"] = new TraitValue
                 {
-                    Name = $"Material.{traitName}",
                     Value = traitValue.Type == JTokenType.Integer ? traitValue.Value<int>() : 
                             traitValue.Type == JTokenType.Float ? traitValue.Value<double>() :
                             traitValue.Type == JTokenType.Boolean ? traitValue.Value<bool>() :
                             traitValue.Value<string>(),
-                    Type = traitValue.Type == JTokenType.Integer ? TraitType.Integer :
-                           traitValue.Type == JTokenType.Float ? TraitType.Float :
+                    Type = traitValue.Type == JTokenType.Integer ? TraitType.Number :
+                           traitValue.Type == JTokenType.Float ? TraitType.Number :
                            traitValue.Type == JTokenType.Boolean ? TraitType.Boolean :
-                           TraitType.String,
-                    Source = "Material"
-                });
+                           TraitType.String
+                };
             }
         }
 
@@ -1133,17 +1127,15 @@ public class ItemGenerator
                     var traitName = traitProp.Name;
                     var traitValue = traitProp.Value;
 
-                    item.Traits.Add(new TraitInstance
+                    item.Traits[$"Material.{traitName}"] = new TraitValue
                     {
-                        Name = $"Material.{traitName}",
                         Value = traitValue.Type == JTokenType.Integer ? traitValue.Value<int>() :
                                 traitValue.Type == JTokenType.Float ? traitValue.Value<double>() :
                                 traitValue.Value<string>(),
-                        Type = traitValue.Type == JTokenType.Integer ? TraitType.Integer :
-                               traitValue.Type == JTokenType.Float ? TraitType.Float :
-                               TraitType.String,
-                        Source = "Material (Type-Specific)"
-                    });
+                        Type = traitValue.Type == JTokenType.Integer ? TraitType.Number :
+                               traitValue.Type == JTokenType.Float ? TraitType.Number :
+                               TraitType.String
+                    };
                 }
             }
         }
@@ -1157,37 +1149,31 @@ public class ItemGenerator
         // Weapons: damage
         if (baseItem["damage"] != null)
         {
-            item.Traits.Add(new TraitInstance
+            item.Traits["Damage"] = new TraitValue
             {
-                Name = "Damage",
                 Value = GetStringProperty(baseItem, "damage"),
-                Type = TraitType.String,
-                Source = "Base Item"
-            });
+                Type = TraitType.String
+            };
         }
 
         // Armor: defense
         if (baseItem["defense"] != null)
         {
-            item.Traits.Add(new TraitInstance
+            item.Traits["Defense"] = new TraitValue
             {
-                Name = "Defense",
                 Value = GetIntProperty(baseItem, "defense", 0),
-                Type = TraitType.Integer,
-                Source = "Base Item"
-            });
+                Type = TraitType.Number
+            };
         }
 
         // Weight
         if (baseItem["weight"] != null)
         {
-            item.Traits.Add(new TraitInstance
+            item.Traits["Weight"] = new TraitValue
             {
-                Name = "Weight",
                 Value = GetDoubleProperty(baseItem, "weight", 0.0),
-                Type = TraitType.Float,
-                Source = "Base Item"
-            });
+                Type = TraitType.Number
+            };
         }
     }
 
@@ -1204,18 +1190,6 @@ public class ItemGenerator
             < 350 => ItemRarity.Epic,
             _ => ItemRarity.Legendary
         };
-    }
-
-    private static double GetDoubleProperty(JToken token, string propertyName, double defaultValue)
-    {
-        try
-        {
-            return token[propertyName]?.Value<double>() ?? defaultValue;
-        }
-        catch
-        {
-            return defaultValue;
-        }
     }
 
     private static ItemRarity ConvertWeightToRarity(int weight)

@@ -159,7 +159,7 @@ public class BudgetItemGenerationService
         }
     }
 
-    private async Task<JToken?> SelectQualityAsync()
+    private Task<JToken?> SelectQualityAsync()
     {
         var namesPath = "items/materials/names.json";
         if (!_dataCache.FileExists(namesPath))
@@ -175,12 +175,12 @@ public class BudgetItemGenerationService
 
         // 50% chance to not have quality modifier
         if (_random.Next(100) < 50)
-            return null;
+            return Task.FromResult<JToken?>(null);
 
-        return SelectWeightedRandomComponent(qualityComponents);
+        return Task.FromResult(SelectWeightedRandomComponent(qualityComponents));
     }
 
-    private async Task<JToken?> SelectBaseItemAsync(string category)
+    private Task<JToken?> SelectBaseItemAsync(string category)
     {
         var catalogPath = $"items/{category}/catalog.json";
         if (!_dataCache.FileExists(catalogPath))
@@ -192,12 +192,12 @@ public class BudgetItemGenerationService
 
         var items = GetItemsFromCatalog(catalogFile.JsonData);
         if (items == null || !items.Any())
-            return null;
+            return Task.FromResult<JToken?>(null);
 
-        return SelectWeightedRandomItem(items);
+        return Task.FromResult(SelectWeightedRandomItem(items));
     }
 
-    private async Task<JToken?> SelectPatternAsync(string category)
+    private Task<JToken?> SelectPatternAsync(string category)
     {
         var namesPath = $"items/{category}/names.json";
         if (!_dataCache.FileExists(namesPath))
@@ -209,12 +209,12 @@ public class BudgetItemGenerationService
 
         var patterns = namesFile.JsonData["patterns"];
         if (patterns == null)
-            return null;
+            return Task.FromResult<JToken?>(null);
 
-        return SelectWeightedRandomPattern(patterns);
+        return Task.FromResult(SelectWeightedRandomPattern(patterns));
     }
 
-    private async Task<List<(JToken Component, int Cost)>> SelectComponentsAsync(
+    private Task<List<(JToken Component, int Cost)>> SelectComponentsAsync(
         string category,
         string patternString,
         int availableBudget)
@@ -263,7 +263,7 @@ public class BudgetItemGenerationService
             }
         }
 
-        return result;
+        return Task.FromResult(result);
     }
 
     private List<string> ExtractTokens(string patternString)
