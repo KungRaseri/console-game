@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "description": "Budget-based item generation configuration - controls how budget is allocated across item components",
+    "version": "1.0",
+    "lastUpdated": "2026-01-04",
+    "type": "budget_configuration"
+  },
+  "budgetAllocation": {
+    "materialPercentage": 0.30,
+    "componentPercentage": 0.70,
+    "description": "Default budget split: 30% material, 70% components (weapons/armor/consumables). componentPercentage auto-calculated as 1.0 - materialPercentage"
+  },
+  "costFormulas": {
+    "material": {
+      "formula": "direct",
+      "field": "budgetCost",
+      "description": "Material cost uses budgetCost property directly (higher rarityWeight materials cost more)"
+    },
+    "component": {
+      "formula": "inverse",
+      "numerator": 100,
+      "field": "selectionWeight",
+      "description": "Component cost = 100 / selectionWeight (rarer components cost more budget)"
+    },
+    "enchantment": {
+      "formula": "inverse",
+      "numerator": 130,
+      "field": "selectionWeight",
+      "description": "Enchantment cost = 130 / selectionWeight (enchantments are more valuable than regular components)"
+    },
+    "materialQuality": {
+      "formula": "inverse",
+      "numerator": 150,
+      "field": "selectionWeight",
+      "description": "Material quality cost = 150 / selectionWeight (quality modifiers are premium)"
+    }
+  },
+  "patternCosts": {
+    "{base}": 0,
+    "{prefix} {base}": 0,
+    "{base} {suffix}": 0,
+    "{prefix} {base} {suffix}": 0,
+    "{descriptive} {base}": 0,
+    "{quality} {base}": 0,
+    "{prefix} {descriptive} {base} {suffix}": 5,
+    "{quality} {effect} {base} {suffix}": 5
+  },
+  "minimumCosts": {
+    "materialQuality": 5,
+    "prefix": 3,
+    "suffix": 3,
+    "descriptive": 3,
+    "enchantment": 15,
+    "socket": 10
+  },
+  "budgetRanges": {
+    "minimal": { "min": 20, "max": 40 },
+    "common": { "min": 40, "max": 80 },
+    "uncommon": { "min": 80, "max": 150 },
+    "rare": { "min": 150, "max": 250 },
+    "epic": { "min": 250, "max": 400 },
+    "legendary": { "min": 400, "max": 600 }
+  },
+  "sourceMultipliers": {
+    "enemyLevelMultiplier": 5,
+    "shopTierBase": 30,
+    "bossMultiplier": 2.5,
+    "eliteMultiplier": 1.5
+  }
+}
