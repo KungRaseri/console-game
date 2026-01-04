@@ -25,6 +25,7 @@
       },
       "items": [
         {
+          "slug": "scholarlyscribe",
           "name": "ScholarlyScribe",
           "displayName": "Scholarly Scribe",
           "description": "Dedicated to learning and record-keeping",
@@ -66,6 +67,7 @@
           "schedule": "@social/schedules/*:scholar"
         },
         {
+          "slug": "lorekeeper",
           "name": "LoreKeeper",
           "displayName": "Lore Keeper",
           "description": "Guardian of ancient knowledge and history",
@@ -121,6 +123,7 @@
       },
       "items": [
         {
+          "slug": "healerapprentice",
           "name": "HealerApprentice",
           "displayName": "Healer's Apprentice",
           "description": "Studied medicine and herbalism",
@@ -161,6 +164,7 @@
           "schedule": "@social/schedules/*:healer"
         },
         {
+          "slug": "alchemist",
           "name": "Alchemist",
           "displayName": "Alchemist",
           "description": "Expert in transmutation and potion-making",
@@ -218,6 +222,7 @@
       },
       "items": [
         {
+          "slug": "apothecary",
           "name": "Apothecary",
           "displayName": "Apothecary",
           "strength": 10,
@@ -284,6 +289,7 @@
           "schedule": "@social/schedules/*:healer"
         },
         {
+          "slug": "healer",
           "name": "Healer",
           "displayName": "Healer",
           "strength": 10,
@@ -347,6 +353,7 @@
           "schedule": "@social/schedules/*:healer"
         },
         {
+          "slug": "herbalist",
           "name": "Herbalist",
           "displayName": "Herbalist",
           "strength": 10,
@@ -423,6 +430,7 @@
       },
       "items": [
         {
+          "slug": "scholar",
           "name": "Scholar",
           "displayName": "Scholar",
           "strength": 9,
@@ -489,6 +497,7 @@
           "schedule": "@social/schedules/*:scholar"
         },
         {
+          "slug": "sage",
           "name": "Sage",
           "displayName": "Sage",
           "strength": 9,
@@ -555,6 +564,7 @@
           "schedule": "@social/schedules/*:scholar"
         },
         {
+          "slug": "cartographer",
           "name": "Cartographer",
           "displayName": "Cartographer",
           "strength": 9,

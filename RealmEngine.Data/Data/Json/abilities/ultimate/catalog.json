@@ -17,6 +17,7 @@
     "ultimate": {
       "items": [
         {
+          "slug": "demon-lord",
           "name": "Demon Lord",
           "displayName": "Demon Lord",
           "description": "Commands legions of lesser demons",
@@ -58,6 +59,7 @@
           }
         },
         {
+          "slug": "reality-warp",
           "name": "Reality Warp",
           "displayName": "Reality Warp",
           "description": "Bends the laws of nature",
@@ -97,6 +99,7 @@
           }
         },
         {
+          "slug": "ancient-power",
           "rarityWeight": 250,
           "description": "Power grows with age",
           "name": "Ancient Power",
@@ -109,6 +112,7 @@
           "displayName": "Ancient Power"
         },
         {
+          "slug": "godlike-might",
           "rarityWeight": 500,
           "description": "Power rivaling the gods themselves",
           "name": "Godlike Might",
@@ -121,6 +125,7 @@
           "displayName": "Godlike Might"
         },
         {
+          "slug": "primordial-power",
           "rarityWeight": 250,
           "description": "Raw elemental force from creation",
           "name": "Primordial Power",
@@ -133,6 +138,7 @@
           "displayName": "Primordial Power"
         },
         {
+          "slug": "elemental-lord",
           "rarityWeight": 250,
           "description": "Supreme master of its element",
           "name": "Elemental Lord",
@@ -145,6 +151,7 @@
           "displayName": "Elemental Lord"
         },
         {
+          "slug": "plane-walker",
           "rarityWeight": 500,
           "description": "Can traverse elemental planes",
           "name": "Plane Walker",
@@ -157,6 +164,7 @@
           "displayName": "Plane Walker"
         },
         {
+          "slug": "leadership",
           "rarityWeight": 150,
           "description": "Commands and coordinates allies",
           "name": "Leadership",
@@ -169,6 +177,7 @@
           "displayName": "Leadership"
         },
         {
+          "slug": "champion",
           "rarityWeight": 250,
           "description": "Elite warrior of legendary skill",
           "name": "Champion",
@@ -181,6 +190,7 @@
           "displayName": "Champion"
         },
         {
+          "slug": "battlemaster",
           "rarityWeight": 150,
           "description": "Expert warrior with multiple weapon techniques",
           "name": "BattleMaster",
@@ -193,6 +203,7 @@
           "displayName": "Battle Master"
         },
         {
+          "slug": "demonblood",
           "rarityWeight": 250,
           "description": "Infused with demonic power, regenerates rapidly",
           "name": "DemonBlood",
@@ -205,6 +216,7 @@
           "displayName": "Demon Blood"
         },
         {
+          "slug": "immortal",
           "rarityWeight": 250,
           "description": "Cannot be permanently killed, resurrects after death",
           "name": "Immortal",
@@ -217,6 +229,7 @@
           "displayName": "Immortal"
         },
         {
+          "slug": "godslayer",
           "rarityWeight": 500,
           "description": "Has defeated divine beings, empowered beyond mortals",
           "name": "GodSlayer",
@@ -229,6 +242,7 @@
           "displayName": "God Slayer"
         },
         {
+          "slug": "primalforce",
           "rarityWeight": 500,
           "description": "Embodies pure destructive power",
           "name": "PrimalForce",
@@ -241,6 +255,7 @@
           "displayName": "Primal Force"
         },
         {
+          "slug": "titanic",
           "rarityWeight": 250,
           "description": "Enormous size with devastating power",
           "name": "Titanic",
@@ -253,6 +268,7 @@
           "displayName": "Titanic"
         },
         {
+          "slug": "dragonancestor",
           "rarityWeight": 250,
           "description": "Descended from dragons, can breathe fire",
           "name": "DragonAncestor",
@@ -265,6 +281,7 @@
           "displayName": "Dragon Ancestor"
         },
         {
+          "slug": "dinosaurking",
           "rarityWeight": 500,
           "description": "Apex predator from prehistoric times",
           "name": "DinosaurKing",
@@ -277,6 +294,7 @@
           "displayName": "Dinosaur King"
         },
         {
+          "slug": "basilisk",
           "rarityWeight": 500,
           "description": "Legendary serpent with petrifying gaze",
           "name": "Basilisk",
@@ -289,6 +307,7 @@
           "displayName": "Basilisk"
         },
         {
+          "slug": "ancient-evil",
           "rarityWeight": 250,
           "description": "Powered by centuries of dark magic",
           "name": "Ancient Evil",
@@ -301,6 +320,7 @@
           "displayName": "Ancient Evil"
         },
         {
+          "slug": "soul-harvest",
           "rarityWeight": 500,
           "description": "Grows stronger with each kill",
           "name": "Soul Harvest",
@@ -313,6 +333,7 @@
           "displayName": "Soul Harvest"
         },
         {
+          "slug": "ragnarok",
           "name": "ragnarok",
           "displayName": "Ragnarok",
           "description": "Call down the apocalypse itself",
@@ -347,6 +368,7 @@
           }
         },
         {
+          "slug": "fortress",
           "name": "fortress",
           "displayName": "Fortress",
           "description": "Become an impenetrable wall",
@@ -376,6 +398,7 @@
           }
         },
         {
+          "slug": "grandmaster-duelist",
           "name": "grandmaster-duelist",
           "displayName": "Grandmaster Duelist",
           "description": "Perfection in single combat",
@@ -405,6 +428,7 @@
           }
         },
         {
+          "slug": "holy-champion",
           "name": "holy-champion",
           "displayName": "Holy Champion",
           "description": "Become a vessel of divine power",
@@ -438,6 +462,7 @@
           }
         },
         {
+          "slug": "apex-predator",
           "name": "apex-predator",
           "displayName": "Apex Predator",
           "description": "Ultimate hunter commanding nature itself",
@@ -467,6 +492,7 @@
           }
         },
         {
+          "slug": "archmages-supremacy",
           "name": "archmages-supremacy",
           "displayName": "Archmage's Supremacy",
           "description": "Transcend mortal magical limits",
@@ -496,6 +522,7 @@
           }
         },
         {
+          "slug": "avatar-of-light",
           "name": "avatar-of-light",
           "displayName": "Avatar of Light",
           "description": "Pure divine radiance incarnate",
@@ -525,6 +552,7 @@
           }
         },
         {
+          "slug": "death-incarnate",
           "name": "death-incarnate",
           "displayName": "Death Incarnate",
           "description": "Embody death itself",
@@ -554,6 +582,7 @@
           }
         },
         {
+          "slug": "death-lord",
           "name": "death-lord",
           "displayName": "Death Lord",
           "description": "Supreme necromantic mastery",
@@ -583,6 +612,7 @@
           }
         },
         {
+          "slug": "dread-pirate",
           "name": "dread-pirate",
           "displayName": "Dread Pirate",
           "description": "Legendary status of infamy",
@@ -616,6 +646,7 @@
           }
         },
         {
+          "slug": "elemental-apocalypse",
           "name": "elemental-apocalypse",
           "displayName": "Elemental Apocalypse",
           "description": "Unleash all elements at once",
@@ -646,6 +677,7 @@
           }
         },
         {
+          "slug": "master-of-elements",
           "name": "master-of-elements",
           "displayName": "Master of Elements",
           "description": "Perfect elemental control",
@@ -675,6 +707,7 @@
           }
         },
         {
+          "slug": "perfect-crime",
           "name": "perfect-crime",
           "displayName": "Perfect Crime",
           "description": "The ultimate heist",
@@ -704,6 +737,7 @@
           }
         },
         {
+          "slug": "natures-wrath",
           "name": "natures-wrath",
           "displayName": "Nature's Wrath",
           "description": "Call upon primal nature's fury",
@@ -733,6 +767,7 @@
           }
         },
         {
+          "slug": "ancient-power",
           "name": "ancient-power",
           "displayName": "Ancient Power",
           "description": "Tap into primordial draconic might",
@@ -762,6 +797,7 @@
           }
         },
         {
+          "slug": "storm-fury",
           "name": "storm-fury",
           "displayName": "Storm Fury",
           "description": "Become the embodiment of the storm",
@@ -787,6 +823,7 @@
           }
         },
         {
+          "slug": "plague-bearer",
           "name": "plague-bearer",
           "displayName": "Plague Bearer",
           "description": "Spread disease and corruption",
@@ -816,6 +853,7 @@
           }
         },
         {
+          "slug": "corruption-wave",
           "name": "corruption-wave",
           "displayName": "Corruption Wave",
           "description": "Unleash wave of pure corruption",
@@ -845,6 +883,7 @@
           }
         },
         {
+          "slug": "blizzard",
           "name": "blizzard",
           "displayName": "Blizzard",
           "description": "Summon devastating ice storm",

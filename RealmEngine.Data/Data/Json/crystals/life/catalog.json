@@ -7,32 +7,59 @@
   },
   "items": [
     {
+      "slug": "life-crystal",
       "name": "life-crystal",
       "rarityWeight": 60,
       "category": "life",
       "traits": {
-        "maxHealth": { "value": 40, "type": "number" },
-        "healthRegen": { "value": 3, "type": "number" }
+        "maxHealth": {
+          "value": 40,
+          "type": "number"
+        },
+        "healthRegen": {
+          "value": 3,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "vitality-crystal",
       "name": "vitality-crystal",
       "rarityWeight": 45,
       "category": "life",
       "traits": {
-        "maxHealth": { "value": 60, "type": "number" },
-        "healthRegen": { "value": 5, "type": "number" },
-        "armor": { "value": 10, "type": "number" }
+        "maxHealth": {
+          "value": 60,
+          "type": "number"
+        },
+        "healthRegen": {
+          "value": 5,
+          "type": "number"
+        },
+        "armor": {
+          "value": 10,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "rejuvenation-crystal",
       "name": "rejuvenation-crystal",
       "rarityWeight": 35,
       "category": "life",
       "traits": {
-        "healthRegen": { "value": 10, "type": "number" },
-        "maxHealth": { "value": 30, "type": "number" },
-        "lifesteal": { "value": 5, "type": "number" }
+        "healthRegen": {
+          "value": 10,
+          "type": "number"
+        },
+        "maxHealth": {
+          "value": 30,
+          "type": "number"
+        },
+        "lifesteal": {
+          "value": 5,
+          "type": "number"
+        }
       }
     }
   ]

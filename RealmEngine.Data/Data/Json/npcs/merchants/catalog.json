@@ -26,6 +26,7 @@
       },
       "items": [
         {
+          "slug": "generalmerchant",
           "name": "GeneralMerchant",
           "displayName": "General Merchant",
           "description": "Jack-of-all-trades merchant selling everything",

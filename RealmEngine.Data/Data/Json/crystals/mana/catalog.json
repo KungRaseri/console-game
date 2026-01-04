@@ -7,31 +7,55 @@
   },
   "items": [
     {
+      "slug": "mana-crystal",
       "name": "mana-crystal",
       "rarityWeight": 60,
       "category": "mana",
       "traits": {
-        "maxMana": { "value": 30, "type": "number" },
-        "manaRegen": { "value": 5, "type": "number" }
+        "maxMana": {
+          "value": 30,
+          "type": "number"
+        },
+        "manaRegen": {
+          "value": 5,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "pure-mana-crystal",
       "name": "pure-mana-crystal",
       "rarityWeight": 35,
       "category": "mana",
       "traits": {
-        "maxMana": { "value": 50, "type": "number" },
-        "manaRegen": { "value": 10, "type": "number" },
-        "magicDamage": { "value": 8, "type": "number" }
+        "maxMana": {
+          "value": 50,
+          "type": "number"
+        },
+        "manaRegen": {
+          "value": 10,
+          "type": "number"
+        },
+        "magicDamage": {
+          "value": 8,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "arcane-crystal",
       "name": "arcane-crystal",
       "rarityWeight": 45,
       "category": "mana",
       "traits": {
-        "maxMana": { "value": 40, "type": "number" },
-        "cooldownReduction": { "value": 10, "type": "number" }
+        "maxMana": {
+          "value": 40,
+          "type": "number"
+        },
+        "cooldownReduction": {
+          "value": 10,
+          "type": "number"
+        }
       }
     }
   ]

@@ -17,6 +17,7 @@
     "utility": {
       "items": [
         {
+          "slug": "teleportation",
           "name": "Teleportation",
           "displayName": "Teleportation",
           "description": "Can teleport short distances",
@@ -39,6 +40,7 @@
           }
         },
         {
+          "slug": "dark-pact",
           "name": "Dark Pact",
           "displayName": "Dark Pact",
           "description": "Gains power from fallen allies and enemies",
@@ -63,6 +65,7 @@
           }
         },
         {
+          "slug": "toxic-miasma",
           "name": "Toxic Miasma",
           "displayName": "Toxic Miasma",
           "description": "Emits poisonous fumes",
@@ -101,6 +104,7 @@
           }
         },
         {
+          "slug": "summon-lesser-demons",
           "name": "Summon Lesser Demons",
           "displayName": "Summon Lesser Demons",
           "description": "Calls forth minor demonic servants",
@@ -131,6 +135,7 @@
           }
         },
         {
+          "slug": "spellcasting",
           "rarityWeight": 150,
           "description": "Can cast powerful magic",
           "name": "Spellcasting",
@@ -143,6 +148,7 @@
           "displayName": "Spellcasting"
         },
         {
+          "slug": "regeneration",
           "rarityWeight": 150,
           "description": "Heals rapidly during combat",
           "name": "Regeneration",
@@ -155,6 +161,7 @@
           "displayName": "Regeneration"
         },
         {
+          "slug": "shape-shifting",
           "rarityWeight": 250,
           "description": "Can assume humanoid form",
           "name": "Shape Shifting",
@@ -167,6 +174,7 @@
           "displayName": "Shape Shifting"
         },
         {
+          "slug": "essence-drain",
           "rarityWeight": 35,
           "description": "Absorbs enemy energy to heal",
           "name": "Essence Drain",
@@ -179,6 +187,7 @@
           "displayName": "Essence Drain"
         },
         {
+          "slug": "tactical-mind",
           "rarityWeight": 35,
           "description": "Uses advanced combat strategies",
           "name": "Tactical Mind",
@@ -191,6 +200,7 @@
           "displayName": "Tactical Mind"
         },
         {
+          "slug": "opportunist",
           "rarityWeight": 10,
           "description": "Takes advantage of enemy mistakes",
           "name": "Opportunist",
@@ -203,6 +213,7 @@
           "displayName": "Opportunist"
         },
         {
+          "slug": "coordinated-strike",
           "rarityWeight": 35,
           "description": "Works seamlessly with allies",
           "name": "Coordinated Strike",
@@ -215,6 +226,7 @@
           "displayName": "Coordinated Strike"
         },
         {
+          "slug": "assassin-training",
           "rarityWeight": 150,
           "description": "Deadly from stealth, critical hit specialist",
           "name": "Assassin Training",
@@ -227,6 +239,7 @@
           "displayName": "Assassin Training"
         },
         {
+          "slug": "spellsword",
           "rarityWeight": 150,
           "description": "Combines magic and melee combat",
           "name": "Spellsword",
@@ -239,6 +252,7 @@
           "displayName": "Spellsword"
         },
         {
+          "slug": "veteran-fighter",
           "rarityWeight": 35,
           "description": "Years of experience make them formidable",
           "name": "Veteran Fighter",
@@ -251,6 +265,7 @@
           "displayName": "Veteran Fighter"
         },
         {
+          "slug": "wardrums",
           "rarityWeight": 35,
           "description": "Buffs nearby orcs with increased attack speed",
           "name": "WarDrums",
@@ -263,6 +278,7 @@
           "displayName": "War Drums"
         },
         {
+          "slug": "raise-dead",
           "rarityWeight": 150,
           "description": "Can summon lesser undead",
           "name": "Raise Dead",
@@ -275,6 +291,7 @@
           "displayName": "Raise Dead"
         },
         {
+          "slug": "necromancy",
           "rarityWeight": 150,
           "description": "Commands the undead",
           "name": "Necromancy",
@@ -287,6 +304,7 @@
           "displayName": "Necromancy"
         },
         {
+          "slug": "summon-minions",
           "rarityWeight": 35,
           "description": "Calls forth rats, bats, or wolves",
           "name": "Summon Minions",
@@ -299,6 +317,7 @@
           "displayName": "Summon Minions"
         },
         {
+          "slug": "create-spawn",
           "rarityWeight": 75,
           "description": "Can turn victims into vampire thralls",
           "name": "Create Spawn",
@@ -311,6 +330,7 @@
           "displayName": "Create Spawn"
         },
         {
+          "slug": "children-of-the-night",
           "rarityWeight": 150,
           "description": "Controls all creatures of darkness",
           "name": "Children of the Night",
@@ -323,6 +343,7 @@
           "displayName": "Children of the Night"
         },
         {
+          "slug": "lockpicking",
           "name": "lockpicking",
           "displayName": "Lockpicking",
           "description": "Pick locks and disarm traps",
@@ -340,6 +361,7 @@
           }
         },
         {
+          "slug": "steal",
           "name": "steal",
           "displayName": "Steal",
           "description": "Pickpocket items from targets",
@@ -361,6 +383,7 @@
           }
         },
         {
+          "slug": "vanish",
           "name": "vanish",
           "displayName": "Vanish",
           "description": "Disappear from sight, entering stealth",
@@ -382,6 +405,7 @@
           }
         },
         {
+          "slug": "track",
           "name": "track",
           "displayName": "Track",
           "description": "Follow tracks and signs of prey",
@@ -399,6 +423,7 @@
           }
         },
         {
+          "slug": "trap",
           "name": "trap",
           "displayName": "Trap",
           "description": "Set traps to damage and hinder enemies",
@@ -421,6 +446,7 @@
           }
         },
         {
+          "slug": "soul-harvest",
           "name": "soul-harvest",
           "displayName": "Soul Harvest",
           "description": "Collect souls from slain enemies",
@@ -442,6 +468,7 @@
           }
         },
         {
+          "slug": "time-stop",
           "name": "time-stop",
           "displayName": "Time Stop",
           "description": "Freezes time briefly",
@@ -463,6 +490,7 @@
           }
         },
         {
+          "slug": "resurrection",
           "name": "resurrection",
           "displayName": "Resurrection",
           "description": "Brings the dead back to life",

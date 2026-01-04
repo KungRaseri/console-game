@@ -25,6 +25,7 @@
       },
       "items": [
         {
+          "slug": "formersoldier",
           "name": "FormerSoldier",
           "displayName": "Former Soldier",
           "description": "Served in the military and retired or deserted",
@@ -70,6 +71,7 @@
           "schedule": "@social/schedules/*:guard"
         },
         {
+          "slug": "guardduty",
           "name": "GuardDuty",
           "displayName": "Former Guard",
           "description": "Protected city or noble house",
@@ -111,6 +113,7 @@
           "schedule": "@social/schedules/*:guard"
         },
         {
+          "slug": "formermercenary",
           "name": "FormerMercenary",
           "displayName": "Former Mercenary",
           "description": "Sold sword skills to highest bidder",
@@ -169,6 +172,7 @@
       },
       "items": [
         {
+          "slug": "guard",
           "name": "Guard",
           "displayName": "Guard",
           "strength": 15,

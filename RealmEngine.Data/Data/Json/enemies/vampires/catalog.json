@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Vampire enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -28,6 +28,7 @@
       },
       "items": [
         {
+          "slug": "vampire-spawn",
           "name": "Vampire Spawn",
           "strength": 14,
           "dexterity": 16,
@@ -53,6 +54,7 @@
           }
         },
         {
+          "slug": "thrall",
           "name": "Thrall",
           "strength": 13,
           "dexterity": 14,
@@ -77,6 +79,7 @@
           }
         },
         {
+          "slug": "fledgling",
           "name": "Fledgling",
           "strength": 15,
           "dexterity": 17,
@@ -120,6 +123,7 @@
       },
       "items": [
         {
+          "slug": "vampire",
           "name": "Vampire",
           "strength": 16,
           "dexterity": 18,
@@ -147,6 +151,7 @@
           }
         },
         {
+          "slug": "vampire-knight",
           "name": "Vampire Knight",
           "strength": 18,
           "dexterity": 16,
@@ -174,6 +179,7 @@
           }
         },
         {
+          "slug": "vampire-mage",
           "name": "Vampire Mage",
           "strength": 12,
           "dexterity": 16,
@@ -201,6 +207,7 @@
           }
         },
         {
+          "slug": "vampire-lord",
           "name": "Vampire Lord",
           "strength": 18,
           "dexterity": 18,
@@ -246,6 +253,7 @@
       },
       "items": [
         {
+          "slug": "elder-vampire",
           "name": "Elder Vampire",
           "strength": 20,
           "dexterity": 20,
@@ -275,6 +283,7 @@
           }
         },
         {
+          "slug": "vampire-prince",
           "name": "Vampire Prince",
           "strength": 20,
           "dexterity": 20,
@@ -305,6 +314,7 @@
           }
         },
         {
+          "slug": "vampire-progenitor",
           "name": "Vampire Progenitor",
           "strength": 20,
           "dexterity": 18,
@@ -336,6 +346,7 @@
           }
         },
         {
+          "slug": "nosferatu",
           "name": "Nosferatu",
           "strength": 19,
           "dexterity": 16,

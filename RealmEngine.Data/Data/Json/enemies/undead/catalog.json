@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Undead enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -30,6 +30,7 @@
       },
       "items": [
         {
+          "slug": "zombie",
           "name": "Zombie",
           "health": 40,
           "attack": 6,
@@ -48,6 +49,7 @@
           }
         },
         {
+          "slug": "corpse",
           "name": "Corpse",
           "health": 35,
           "attack": 5,
@@ -66,6 +68,7 @@
           }
         },
         {
+          "slug": "ghoul",
           "name": "Ghoul",
           "health": 50,
           "attack": 9,
@@ -100,6 +103,7 @@
       },
       "items": [
         {
+          "slug": "skeleton",
           "name": "Skeleton",
           "strength": 13,
           "dexterity": 12,
@@ -127,6 +131,7 @@
           }
         },
         {
+          "slug": "ghast",
           "name": "Ghast",
           "strength": 15,
           "dexterity": 10,
@@ -169,6 +174,7 @@
       },
       "items": [
         {
+          "slug": "wraith",
           "name": "Wraith",
           "strength": 8,
           "dexterity": 16,
@@ -200,6 +206,7 @@
           }
         },
         {
+          "slug": "specter",
           "name": "Specter",
           "strength": 7,
           "dexterity": 15,
@@ -228,6 +235,7 @@
           }
         },
         {
+          "slug": "phantom",
           "name": "Phantom",
           "strength": 7,
           "dexterity": 14,
@@ -256,6 +264,7 @@
           }
         },
         {
+          "slug": "shade",
           "name": "Shade",
           "strength": 7,
           "dexterity": 14,
@@ -283,6 +292,7 @@
           }
         },
         {
+          "slug": "banshee",
           "name": "Banshee",
           "strength": 8,
           "dexterity": 17,
@@ -325,6 +335,7 @@
       },
       "items": [
         {
+          "slug": "wight",
           "name": "Wight",
           "strength": 15,
           "dexterity": 12,
@@ -356,6 +367,7 @@
           }
         },
         {
+          "slug": "revenant",
           "name": "Revenant",
           "strength": 18,
           "dexterity": 12,
@@ -388,6 +400,7 @@
           }
         },
         {
+          "slug": "mummy",
           "name": "Mummy",
           "strength": 16,
           "dexterity": 9,
@@ -419,6 +432,7 @@
           }
         },
         {
+          "slug": "lich",
           "name": "Lich",
           "strength": 11,
           "dexterity": 14,

@@ -24,6 +24,7 @@
       },
       "items": [
         {
+          "slug": "potion",
           "name": "Potion",
           "effect": "heal",
           "power": 25,
@@ -34,6 +35,7 @@
           "rarity": "common"
         },
         {
+          "slug": "elixir",
           "name": "Elixir",
           "effect": "heal",
           "power": 50,
@@ -44,6 +46,7 @@
           "rarity": "uncommon"
         },
         {
+          "slug": "tonic",
           "name": "Tonic",
           "effect": "buff",
           "power": 10,
@@ -54,6 +57,7 @@
           "rarity": "common"
         },
         {
+          "slug": "greater-potion",
           "name": "Greater Potion",
           "effect": "heal",
           "power": 100,
@@ -64,6 +68,7 @@
           "rarity": "rare"
         },
         {
+          "slug": "superior-elixir",
           "name": "Superior Elixir",
           "effect": "heal",
           "power": 150,
@@ -85,6 +90,7 @@
       },
       "items": [
         {
+          "slug": "elixir-of-vitality",
           "name": "Elixir of Vitality",
           "effect": "healthRegeneration",
           "power": 50,
@@ -105,6 +111,7 @@
       },
       "items": [
         {
+          "slug": "salve",
           "name": "Salve",
           "effect": "heal_overtime",
           "power": 20,
@@ -114,6 +121,7 @@
           "rarityWeight": 6
         },
         {
+          "slug": "ointment",
           "name": "Ointment",
           "effect": "heal_overtime",
           "power": 30,
@@ -123,6 +131,7 @@
           "rarityWeight": 8
         },
         {
+          "slug": "balm",
           "name": "Balm",
           "effect": "heal_overtime",
           "power": 40,
@@ -132,6 +141,7 @@
           "rarityWeight": 10
         },
         {
+          "slug": "unguent",
           "name": "Unguent",
           "effect": "cure_poison",
           "power": 50,
@@ -152,6 +162,7 @@
       },
       "items": [
         {
+          "slug": "essence",
           "name": "Essence",
           "effect": "restore_mana",
           "power": 30,
@@ -161,6 +172,7 @@
           "rarityWeight": 10
         },
         {
+          "slug": "extract",
           "name": "Extract",
           "effect": "restore_mana",
           "power": 50,
@@ -170,6 +182,7 @@
           "rarityWeight": 15
         },
         {
+          "slug": "distillation",
           "name": "Distillation",
           "effect": "restore_mana",
           "power": 75,
@@ -179,6 +192,7 @@
           "rarityWeight": 20
         },
         {
+          "slug": "infusion",
           "name": "Infusion",
           "effect": "magic_buff",
           "power": 25,
@@ -188,6 +202,7 @@
           "rarityWeight": 18
         },
         {
+          "slug": "tincture",
           "name": "Tincture",
           "effect": "mixed",
           "power": 40,
@@ -208,6 +223,7 @@
       },
       "items": [
         {
+          "slug": "fortifier",
           "name": "Fortifier",
           "effect": "increase_defense",
           "power": 15,
@@ -217,6 +233,7 @@
           "rarityWeight": 12
         },
         {
+          "slug": "strengthener",
           "name": "Strengthener",
           "effect": "increase_attack",
           "power": 15,
@@ -226,6 +243,7 @@
           "rarityWeight": 12
         },
         {
+          "slug": "enhancer",
           "name": "Enhancer",
           "effect": "increase_all",
           "power": 10,
@@ -235,6 +253,7 @@
           "rarityWeight": 15
         },
         {
+          "slug": "booster",
           "name": "Booster",
           "effect": "increase_speed",
           "power": 20,
@@ -244,6 +263,7 @@
           "rarityWeight": 10
         },
         {
+          "slug": "amplifier",
           "name": "Amplifier",
           "effect": "increase_damage",
           "power": 25,
@@ -253,6 +273,7 @@
           "rarityWeight": 18
         },
         {
+          "slug": "stimulant",
           "name": "Stimulant",
           "effect": "increase_stamina",
           "power": 30,
@@ -262,6 +283,7 @@
           "rarityWeight": 11
         },
         {
+          "slug": "energizer",
           "name": "Energizer",
           "effect": "restore_stamina",
           "power": 50,
@@ -271,6 +293,7 @@
           "rarityWeight": 9
         },
         {
+          "slug": "invigorator",
           "name": "Invigorator",
           "effect": "restore_energy",
           "power": 40,
@@ -291,6 +314,7 @@
       },
       "items": [
         {
+          "slug": "antidote",
           "name": "Antidote",
           "effect": "cure_poison",
           "power": 100,
@@ -300,6 +324,7 @@
           "rarityWeight": 20
         },
         {
+          "slug": "remedy",
           "name": "Remedy",
           "effect": "cure_disease",
           "power": 100,
@@ -309,6 +334,7 @@
           "rarityWeight": 25
         },
         {
+          "slug": "restorative",
           "name": "Restorative",
           "effect": "restore_all",
           "power": 50,
@@ -318,6 +344,7 @@
           "rarityWeight": 30
         },
         {
+          "slug": "rejuvenator",
           "name": "Rejuvenator",
           "effect": "restore_all",
           "power": 75,
@@ -327,6 +354,7 @@
           "rarityWeight": 40
         },
         {
+          "slug": "refresher",
           "name": "Refresher",
           "effect": "remove_debuff",
           "power": 100,
@@ -336,6 +364,7 @@
           "rarityWeight": 22
         },
         {
+          "slug": "revitalizer",
           "name": "Revitalizer",
           "effect": "revive",
           "power": 50,
@@ -345,6 +374,7 @@
           "rarityWeight": 60
         },
         {
+          "slug": "nectar",
           "name": "Nectar",
           "effect": "restore_all_overtime",
           "power": 100,

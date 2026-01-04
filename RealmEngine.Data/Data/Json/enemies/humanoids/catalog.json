@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Humanoid enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -28,6 +28,7 @@
       },
       "items": [
         {
+          "slug": "bandit",
           "name": "Bandit",
           "health": 35,
           "attack": 8,
@@ -46,6 +47,7 @@
           }
         },
         {
+          "slug": "thug",
           "name": "Thug",
           "health": 40,
           "attack": 9,
@@ -68,6 +70,7 @@
           }
         },
         {
+          "slug": "brigand",
           "name": "Brigand",
           "health": 45,
           "attack": 10,
@@ -90,6 +93,7 @@
           }
         },
         {
+          "slug": "highwayman",
           "name": "Highwayman",
           "health": 50,
           "attack": 11,
@@ -124,6 +128,7 @@
       },
       "items": [
         {
+          "slug": "warrior",
           "name": "Warrior",
           "strength": 13,
           "dexterity": 12,
@@ -155,6 +160,7 @@
           }
         },
         {
+          "slug": "mercenary",
           "name": "Mercenary",
           "strength": 14,
           "dexterity": 13,
@@ -187,6 +193,7 @@
           }
         },
         {
+          "slug": "captain",
           "name": "Captain",
           "strength": 14,
           "dexterity": 12,
@@ -219,6 +226,7 @@
           }
         },
         {
+          "slug": "champion",
           "name": "Champion",
           "strength": 16,
           "dexterity": 14,
@@ -266,6 +274,7 @@
       },
       "items": [
         {
+          "slug": "assassin",
           "name": "Assassin",
           "strength": 12,
           "dexterity": 18,
@@ -301,6 +310,7 @@
           }
         },
         {
+          "slug": "archer",
           "name": "Archer",
           "strength": 11,
           "dexterity": 17,
@@ -332,6 +342,7 @@
           }
         },
         {
+          "slug": "mage",
           "name": "Mage",
           "strength": 8,
           "dexterity": 13,
@@ -369,6 +380,7 @@
           }
         },
         {
+          "slug": "berserker",
           "name": "Berserker",
           "strength": 18,
           "dexterity": 14,
@@ -415,6 +427,7 @@
       },
       "items": [
         {
+          "slug": "cultist",
           "name": "Cultist",
           "strength": 9,
           "dexterity": 11,
@@ -443,6 +456,7 @@
           }
         },
         {
+          "slug": "zealot",
           "name": "Zealot",
           "strength": 13,
           "dexterity": 11,

@@ -340,7 +340,9 @@ public class ReferenceResolverService
             {
                 foreach (var item in rootItems)
                 {
-                    if (item["name"]?.ToString() == itemName)
+                    // Prefer slug (exact match), fallback to case-insensitive name
+                    if (item["slug"]?.ToString() == itemName || 
+                        string.Equals(item["name"]?.ToString(), itemName, StringComparison.OrdinalIgnoreCase))
                         return item;
                 }
             }
@@ -360,7 +362,9 @@ public class ReferenceResolverService
                     {
                         foreach (var item in items)
                         {
-                            if (item["name"]?.ToString() == itemName)
+                            // Prefer slug (exact match), fallback to case-insensitive name
+                            if (item["slug"]?.ToString() == itemName || 
+                                string.Equals(item["name"]?.ToString(), itemName, StringComparison.OrdinalIgnoreCase))
                                 return item;
                         }
                     }

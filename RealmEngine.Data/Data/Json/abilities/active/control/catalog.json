@@ -16,6 +16,7 @@
     "control": {
       "items": [
         {
+          "slug": "fear-aura",
           "name": "Fear Aura",
           "displayName": "Fear Aura",
           "description": "Terrifies nearby enemies",
@@ -45,6 +46,7 @@
           }
         },
         {
+          "slug": "charm",
           "name": "Charm",
           "displayName": "Charm",
           "description": "Can mind-control weak-willed foes",
@@ -71,6 +73,7 @@
           }
         },
         {
+          "slug": "soul-corruption",
           "name": "Soul Corruption",
           "displayName": "Soul Corruption",
           "description": "Attacks corrupt and weaken souls",
@@ -102,6 +105,7 @@
           }
         },
         {
+          "slug": "ancient-wisdom",
           "rarityWeight": 150,
           "description": "Centuries of knowledge and magical power",
           "name": "Ancient Wisdom",
@@ -114,6 +118,7 @@
           "displayName": "Ancient Wisdom"
         },
         {
+          "slug": "frightful-presence",
           "rarityWeight": 75,
           "description": "Terrifying aura that breaks enemy morale",
           "name": "Frightful Presence",
@@ -126,6 +131,7 @@
           "displayName": "Frightful Presence"
         },
         {
+          "slug": "summon-elementals",
           "rarityWeight": 150,
           "description": "Can call forth lesser elementals",
           "name": "Summon Elementals",
@@ -138,6 +144,7 @@
           "displayName": "Summon Elementals"
         },
         {
+          "slug": "environmental-control",
           "rarityWeight": 75,
           "description": "Shapes the battlefield to its advantage",
           "name": "Environmental Control",
@@ -150,6 +157,7 @@
           "displayName": "Environmental Control"
         },
         {
+          "slug": "elemental-mastery",
           "rarityWeight": 150,
           "description": "Perfect control over its element",
           "name": "Elemental Mastery",

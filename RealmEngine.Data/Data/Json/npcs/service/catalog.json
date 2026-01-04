@@ -26,6 +26,7 @@
       },
       "items": [
         {
+          "slug": "innkeeper",
           "name": "Innkeeper",
           "displayName": "Innkeeper",
           "strength": 12,
@@ -95,6 +96,7 @@
           "schedule": "@social/schedules/*:innkeeper"
         },
         {
+          "slug": "tavernkeeper",
           "name": "TavernKeeper",
           "displayName": "Tavern Keeper",
           "strength": 11,
@@ -171,6 +173,7 @@
       },
       "items": [
         {
+          "slug": "cook",
           "name": "Cook",
           "displayName": "Cook",
           "strength": 12,
@@ -244,6 +247,7 @@
       },
       "items": [
         {
+          "slug": "stablemaster",
           "name": "StableMaster",
           "displayName": "Stable Master",
           "strength": 13,

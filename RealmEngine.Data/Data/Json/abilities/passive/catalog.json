@@ -17,6 +17,7 @@
     "passive": {
       "items": [
         {
+          "slug": "weapon-mastery",
           "name": "weapon-mastery",
           "displayName": "Weapon Mastery",
           "description": "Expert proficiency with all weapons",
@@ -37,6 +38,7 @@
           }
         },
         {
+          "slug": "combat-supremacy",
           "name": "combat-supremacy",
           "displayName": "Combat Supremacy",
           "description": "Unmatched battle prowess",
@@ -57,6 +59,7 @@
           }
         },
         {
+          "slug": "titans-strength",
           "name": "titans-strength",
           "displayName": "Titan's Strength",
           "description": "Strength of ancient titans",
@@ -77,6 +80,7 @@
           }
         },
         {
+          "slug": "unstoppable",
           "name": "unstoppable",
           "displayName": "Unstoppable",
           "description": "Cannot be slowed or stopped",
@@ -97,6 +101,7 @@
           }
         },
         {
+          "slug": "deaths-door",
           "name": "deaths-door",
           "displayName": "Death's Door",
           "description": "Grows stronger as death approaches",
@@ -113,6 +118,7 @@
           }
         },
         {
+          "slug": "sentinel",
           "name": "sentinel",
           "displayName": "Sentinel",
           "description": "Watchful guardian protecting allies",
@@ -133,6 +139,7 @@
           }
         },
         {
+          "slug": "bladework",
           "name": "bladework",
           "displayName": "Bladework",
           "description": "Masterful swordplay techniques",
@@ -153,6 +160,7 @@
           }
         },
         {
+          "slug": "master-thief",
           "name": "master-thief",
           "displayName": "Master Thief",
           "description": "Legendary thieving skills",
@@ -173,6 +181,7 @@
           }
         },
         {
+          "slug": "shadow-master",
           "name": "shadow-master",
           "displayName": "Shadow Master",
           "description": "One with the shadows",
@@ -193,6 +202,7 @@
           }
         },
         {
+          "slug": "master-of-blades",
           "name": "master-of-blades",
           "displayName": "Master of Blades",
           "description": "Supreme dueling expertise",
@@ -213,6 +223,7 @@
           }
         },
         {
+          "slug": "legendary-swagger",
           "name": "legendary-swagger",
           "displayName": "Legendary Swagger",
           "description": "Unmatched charisma and presence",
@@ -233,6 +244,7 @@
           }
         },
         {
+          "slug": "elemental-mastery",
           "name": "elemental-mastery",
           "displayName": "Elemental Mastery",
           "description": "Perfect control over chosen element",
@@ -253,6 +265,7 @@
           }
         },
         {
+          "slug": "crusader",
           "name": "crusader",
           "displayName": "Crusader",
           "description": "Holy warrior's aura",
@@ -273,6 +286,7 @@
           }
         },
         {
+          "slug": "master-tracker",
           "name": "master-tracker",
           "displayName": "Master Tracker",
           "description": "Supreme tracking and hunting skills",
@@ -293,6 +307,7 @@
           }
         },
         {
+          "slug": "primal-bond",
           "name": "primal-bond",
           "displayName": "Primal Bond",
           "description": "Deep connection with animal companions",
@@ -313,6 +328,7 @@
           }
         },
         {
+          "slug": "king-of-beasts",
           "name": "king-of-beasts",
           "displayName": "King of Beasts",
           "description": "Commands all creatures of the wild",

@@ -1,46 +1,59 @@
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RealmEngine.Core.Services.Budget;
 using RealmEngine.Data.Services;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace RealmEngine.Core.Tests.Services;
 
 public class BudgetItemGenerationTests
 {
+    private readonly ITestOutputHelper _output;
     private readonly GameDataCache _dataCache;
     private readonly ReferenceResolverService _referenceResolver;
     private readonly BudgetItemGenerationService _generator;
 
-    public BudgetItemGenerationTests()
+    public BudgetItemGenerationTests(ITestOutputHelper output)
     {
+        _output = output;
+        
         var dataPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
         dataPath = Path.GetFullPath(dataPath);
         
         _dataCache = new GameDataCache(dataPath);
         _dataCache.LoadAllData();
-        _referenceResolver = new ReferenceResolverService(_dataCache, NullLogger<ReferenceResolverService>.Instance);
+        
+        // Create console logger factory for debugging
+        var loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddProvider(new XunitLoggerProvider(output));
+            builder.SetMinimumLevel(LogLevel.Debug);
+        });
 
-        var configFactory = new BudgetConfigFactory(_dataCache, NullLogger<BudgetConfigFactory>.Instance);
+        _referenceResolver = new ReferenceResolverService(_dataCache, loggerFactory.CreateLogger<ReferenceResolverService>());
+
+        var configFactory = new BudgetConfigFactory(_dataCache, loggerFactory.CreateLogger<BudgetConfigFactory>());
         var budgetConfig = configFactory.GetBudgetConfig();
         var materialPools = configFactory.GetMaterialPools();
         var enemyTypes = configFactory.GetEnemyTypes();
 
-        var budgetCalculator = new BudgetCalculator(budgetConfig, NullLogger<BudgetCalculator>.Instance);
+        var budgetCalculator = new BudgetCalculator(budgetConfig, loggerFactory.CreateLogger<BudgetCalculator>());
         var materialPoolService = new MaterialPoolService(
             _dataCache,
             _referenceResolver,
             budgetCalculator,
             materialPools,
             enemyTypes,
-            NullLogger<MaterialPoolService>.Instance);
+            loggerFactory.CreateLogger<MaterialPoolService>());
 
         _generator = new BudgetItemGenerationService(
             _dataCache,
             _referenceResolver,
             budgetCalculator,
             materialPoolService,
-            NullLogger<BudgetItemGenerationService>.Instance);
+            loggerFactory.CreateLogger<BudgetItemGenerationService>());
     }
 
     [Fact]

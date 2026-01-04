@@ -60,24 +60,17 @@ public class MaterialPoolService
 
             foreach (var materialRef in pool.Metals)
             {
-                var resolved = await _referenceResolver.ResolveAsync(materialRef.MaterialRef);
+                var resolved = await _referenceResolver.ResolveToObjectAsync(materialRef.MaterialRef);
                 if (resolved == null)
                 {
                     _logger.LogWarning("Failed to resolve material reference: {Ref}", materialRef.MaterialRef);
                     continue;
                 }
 
-                var materialToken = resolved as JToken;
-                if (materialToken == null)
-                {
-                    _logger.LogWarning("Resolved material is not a JToken: {Ref}", materialRef.MaterialRef);
-                    continue;
-                }
-
-                var cost = _budgetCalculator.CalculateMaterialCost(materialToken);
+                var cost = _budgetCalculator.CalculateMaterialCost(resolved);
                 if (_budgetCalculator.CanAfford(availableBudget, cost))
                 {
-                    affordableMaterials.Add((materialToken, cost, materialRef.SelectionWeight));
+                    affordableMaterials.Add((resolved, cost, materialRef.SelectionWeight));
                 }
             }
 

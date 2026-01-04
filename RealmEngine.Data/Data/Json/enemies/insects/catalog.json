@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Giant insect enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -30,6 +30,7 @@
       },
       "items": [
         {
+          "slug": "giant-spider",
           "name": "Giant Spider",
           "strength": 12,
           "dexterity": 15,
@@ -56,6 +57,7 @@
           }
         },
         {
+          "slug": "phase-spider",
           "name": "Phase Spider",
           "strength": 14,
           "dexterity": 17,
@@ -84,6 +86,7 @@
           }
         },
         {
+          "slug": "widow-spider",
           "name": "Widow Spider",
           "strength": 13,
           "dexterity": 16,
@@ -111,6 +114,7 @@
           }
         },
         {
+          "slug": "spider-matriarch",
           "name": "Spider Matriarch",
           "strength": 17,
           "dexterity": 15,
@@ -154,6 +158,7 @@
       },
       "items": [
         {
+          "slug": "giant-beetle",
           "name": "Giant Beetle",
           "strength": 14,
           "dexterity": 9,
@@ -179,6 +184,7 @@
           }
         },
         {
+          "slug": "fire-beetle",
           "name": "Fire Beetle",
           "strength": 13,
           "dexterity": 10,
@@ -205,6 +211,7 @@
           }
         },
         {
+          "slug": "bombardier-beetle",
           "name": "Bombardier Beetle",
           "strength": 15,
           "dexterity": 10,
@@ -244,6 +251,7 @@
       },
       "items": [
         {
+          "slug": "giant-wasp",
           "name": "Giant Wasp",
           "strength": 12,
           "dexterity": 16,
@@ -270,6 +278,7 @@
           }
         },
         {
+          "slug": "giant-hornet",
           "name": "Giant Hornet",
           "strength": 13,
           "dexterity": 17,
@@ -297,6 +306,7 @@
           }
         },
         {
+          "slug": "giant-dragonfly",
           "name": "Giant Dragonfly",
           "strength": 11,
           "dexterity": 18,
@@ -322,6 +332,7 @@
           }
         },
         {
+          "slug": "giant-mantis",
           "name": "Giant Mantis",
           "strength": 16,
           "dexterity": 17,
@@ -359,6 +370,7 @@
       },
       "items": [
         {
+          "slug": "giant-ant",
           "name": "Giant Ant",
           "strength": 10,
           "dexterity": 12,
@@ -384,6 +396,7 @@
           }
         },
         {
+          "slug": "giant-ant-soldier",
           "name": "Giant Ant Soldier",
           "strength": 14,
           "dexterity": 11,
@@ -410,6 +423,7 @@
           }
         },
         {
+          "slug": "giant-ant-queen",
           "name": "Giant Ant Queen",
           "strength": 16,
           "dexterity": 10,

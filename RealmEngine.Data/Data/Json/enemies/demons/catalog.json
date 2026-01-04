@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Demon enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -26,6 +26,7 @@
       },
       "items": [
         {
+          "slug": "imp",
           "name": "Imp",
           "strength": 9,
           "dexterity": 15,
@@ -50,6 +51,7 @@
           }
         },
         {
+          "slug": "shadow-demon",
           "name": "Shadow Demon",
           "strength": 10,
           "dexterity": 16,
@@ -90,6 +92,7 @@
       },
       "items": [
         {
+          "slug": "demon",
           "name": "Demon",
           "strength": 14,
           "dexterity": 13,
@@ -118,6 +121,7 @@
           }
         },
         {
+          "slug": "vrock",
           "name": "Vrock",
           "strength": 18,
           "dexterity": 15,
@@ -143,6 +147,7 @@
           }
         },
         {
+          "slug": "hellhound",
           "name": "Hellhound",
           "strength": 15,
           "dexterity": 16,
@@ -168,6 +173,7 @@
           }
         },
         {
+          "slug": "nightmare",
           "name": "Nightmare",
           "strength": 16,
           "dexterity": 15,
@@ -211,6 +217,7 @@
       },
       "items": [
         {
+          "slug": "devil",
           "name": "Devil",
           "strength": 14,
           "dexterity": 13,
@@ -237,6 +244,7 @@
           }
         },
         {
+          "slug": "incubus",
           "name": "Incubus",
           "strength": 12,
           "dexterity": 14,
@@ -262,6 +270,7 @@
           }
         },
         {
+          "slug": "succubus",
           "name": "Succubus",
           "strength": 12,
           "dexterity": 14,
@@ -306,6 +315,7 @@
       },
       "items": [
         {
+          "slug": "fiend",
           "name": "Fiend",
           "strength": 18,
           "dexterity": 14,
@@ -335,6 +345,7 @@
           }
         },
         {
+          "slug": "balor",
           "name": "Balor",
           "strength": 24,
           "dexterity": 14,
@@ -365,6 +376,7 @@
           }
         },
         {
+          "slug": "pit-fiend",
           "name": "Pit Fiend",
           "strength": 24,
           "dexterity": 13,
@@ -396,6 +408,7 @@
           }
         },
         {
+          "slug": "marilith",
           "name": "Marilith",
           "strength": 19,
           "dexterity": 20,
@@ -422,6 +435,7 @@
           }
         },
         {
+          "slug": "beholder",
           "name": "Beholder",
           "health": 150,
           "attack": 25,

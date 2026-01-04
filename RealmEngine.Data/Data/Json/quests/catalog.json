@@ -31,6 +31,7 @@
     "investigate": {
       "items": [
         {
+          "slug": "findclues",
           "name": "FindClues",
           "displayName": "Find the Clues",
           "rarityWeight": 15,
@@ -50,6 +51,7 @@
           "description": "Investigate the mysterious occurrences in {location}"
         },
         {
+          "slug": "trackthief",
           "name": "TrackThief",
           "displayName": "Track the Thief",
           "rarityWeight": 12,
@@ -69,6 +71,7 @@
           "description": "Follow the clues to catch the thief who stole from the market"
         },
         {
+          "slug": "solvemystery",
           "name": "SolveMystery",
           "displayName": "Solve the Mystery",
           "rarityWeight": 35,
@@ -89,6 +92,7 @@
           "description": "Uncover the truth behind the strange events at {location}"
         },
         {
+          "slug": "investigatemurder",
           "name": "InvestigateMurder",
           "displayName": "Investigate the Murder",
           "rarityWeight": 40,
@@ -109,6 +113,7 @@
           "description": "Solve the murder case before the trail goes cold"
         },
         {
+          "slug": "uncoverconspiracy",
           "name": "UncoverConspiracy",
           "displayName": "Uncover the Conspiracy",
           "rarityWeight": 70,
@@ -134,6 +139,7 @@
     "fetch": {
       "items": [
         {
+          "slug": "gatherherbs",
           "name": "GatherHerbs",
           "displayName": "Gather Herbs",
           "rarityWeight": 10,
@@ -153,6 +159,7 @@
           "description": "Gather {quantity} {itemType} from the surrounding area"
         },
         {
+          "slug": "collectminerals",
           "name": "CollectMinerals",
           "displayName": "Collect Minerals",
           "rarityWeight": 12,
@@ -172,6 +179,7 @@
           "description": "Collect {quantity} {itemType} from the mines"
         },
         {
+          "slug": "gatherwood",
           "name": "GatherWood",
           "displayName": "Gather Wood",
           "rarityWeight": 8,
@@ -191,6 +199,7 @@
           "description": "Collect {quantity} pieces of quality {itemType}"
         },
         {
+          "slug": "huntanimals",
           "name": "HuntAnimals",
           "displayName": "Hunt Animals",
           "rarityWeight": 15,
@@ -211,6 +220,7 @@
           "description": "Hunt {quantity} {animalType} and bring back their pelts"
         },
         {
+          "slug": "recoverartifact",
           "name": "RecoverArtifact",
           "displayName": "Recover the Artifact",
           "rarityWeight": 30,
@@ -232,6 +242,7 @@
           "description": "Retrieve the ancient {itemName} from {location}"
         },
         {
+          "slug": "stealtreasure",
           "name": "StealTreasure",
           "displayName": "Steal the Treasure",
           "rarityWeight": 35,
@@ -251,6 +262,7 @@
           "description": "Steal {quantity} valuable items from the noble's vault"
         },
         {
+          "slug": "findlegendaryweapon",
           "name": "FindLegendaryWeapon",
           "displayName": "Find the Legendary Weapon",
           "rarityWeight": 60,
@@ -277,6 +289,7 @@
     "escort": {
       "items": [
         {
+          "slug": "escortmerchant",
           "name": "EscortMerchant",
           "displayName": "Escort the Merchant",
           "rarityWeight": 12,
@@ -296,6 +309,7 @@
           "description": "Escort the merchant safely to the next town"
         },
         {
+          "slug": "guidetraveler",
           "name": "GuideTraveler",
           "displayName": "Guide the Traveler",
           "rarityWeight": 10,
@@ -315,6 +329,7 @@
           "description": "Guide the lost traveler back to civilization"
         },
         {
+          "slug": "protectnoble",
           "name": "ProtectNoble",
           "displayName": "Protect the Noble",
           "rarityWeight": 32,
@@ -334,6 +349,7 @@
           "description": "Guard the noble on their journey through dangerous territory"
         },
         {
+          "slug": "escortwizard",
           "name": "EscortWizard",
           "displayName": "Escort the Wizard",
           "rarityWeight": 38,
@@ -353,6 +369,7 @@
           "description": "Protect the wizard carrying dangerous artifacts to the academy"
         },
         {
+          "slug": "escortprophet",
           "name": "EscortProphet",
           "displayName": "Escort the Prophet",
           "rarityWeight": 65,
@@ -377,6 +394,7 @@
     "kill": {
       "items": [
         {
+          "slug": "slaybeasts",
           "name": "SlayBeasts",
           "displayName": "Slay the Beasts",
           "rarityWeight": 8,
@@ -396,6 +414,7 @@
           "description": "Eliminate {quantity} {target} threatening the area"
         },
         {
+          "slug": "clearundead",
           "name": "ClearUndead",
           "displayName": "Clear the Undead",
           "rarityWeight": 10,
@@ -415,6 +434,7 @@
           "description": "Cleanse {quantity} {target} from the graveyard"
         },
         {
+          "slug": "huntdemons",
           "name": "HuntDemons",
           "displayName": "Hunt the Demons",
           "rarityWeight": 35,
@@ -435,6 +455,7 @@
           "description": "Hunt down {quantity} {target} before they summon reinforcements"
         },
         {
+          "slug": "banishelementals",
           "name": "BanishElementals",
           "displayName": "Banish the Elementals",
           "rarityWeight": 30,
@@ -455,6 +476,7 @@
           "description": "Banish {quantity} {target} from {location}"
         },
         {
+          "slug": "slaydragons",
           "name": "SlayDragons",
           "displayName": "Slay the Dragon",
           "rarityWeight": 70,
@@ -476,6 +498,7 @@
           "description": "Defeat the legendary {target} terrorizing the mountains"
         },
         {
+          "slug": "defeatchampions",
           "name": "DefeatChampions",
           "displayName": "Defeat the Champions",
           "rarityWeight": 55,
@@ -499,6 +522,7 @@
     "delivery": {
       "items": [
         {
+          "slug": "delivermessage",
           "name": "DeliverMessage",
           "displayName": "Deliver the Message",
           "rarityWeight": 8,
@@ -517,6 +541,7 @@
           "description": "Deliver this message to the recipient in the neighboring town"
         },
         {
+          "slug": "deliverpackage",
           "name": "DeliverPackage",
           "displayName": "Deliver the Package",
           "rarityWeight": 10,
@@ -535,6 +560,7 @@
           "description": "Bring this package to {recipient} in {destination}"
         },
         {
+          "slug": "transportgoods",
           "name": "TransportGoods",
           "displayName": "Transport the Goods",
           "rarityWeight": 28,
@@ -554,6 +580,7 @@
           "description": "Transport fragile goods safely across dangerous roads"
         },
         {
+          "slug": "urgentdelivery",
           "name": "UrgentDelivery",
           "displayName": "Urgent Delivery",
           "rarityWeight": 32,
@@ -573,6 +600,7 @@
           "description": "Rush this urgent delivery across the kingdom before time runs out"
         },
         {
+          "slug": "deliverrelic",
           "name": "DeliverRelic",
           "displayName": "Deliver the Sacred Relic",
           "rarityWeight": 60,

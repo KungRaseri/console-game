@@ -25,6 +25,7 @@
       },
       "items": [
         {
+          "slug": "nobleborn",
           "name": "NobleBorn",
           "displayName": "Noble-born",
           "description": "Born into wealth and privilege",
@@ -71,6 +72,7 @@
           "schedule": "@social/schedules/*:noble"
         },
         {
+          "slug": "knighterrant",
           "name": "KnightErrant",
           "displayName": "Knight Errant",
           "description": "Sworn warrior of noble rank, seeking honor",
@@ -115,6 +117,7 @@
           "schedule": "@social/schedules/*:noble"
         },
         {
+          "slug": "courtattendant",
           "name": "CourtAttendant",
           "displayName": "Court Attendant",
           "description": "Served in royal court",
@@ -173,6 +176,7 @@
       },
       "items": [
         {
+          "slug": "noble",
           "name": "Noble",
           "displayName": "Noble",
           "strength": 10,

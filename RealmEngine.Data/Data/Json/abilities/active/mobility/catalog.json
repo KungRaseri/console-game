@@ -15,6 +15,7 @@
     "mobility": {
       "items": [
         {
+          "slug": "shadow-step",
           "name": "shadow-step",
           "displayName": "Shadow Step",
           "description": "Teleports through shadows to a nearby location",
@@ -37,6 +38,7 @@
           }
         },
         {
+          "slug": "teleport",
           "name": "teleport",
           "displayName": "Teleport",
           "description": "Instantly transports to a distant location",

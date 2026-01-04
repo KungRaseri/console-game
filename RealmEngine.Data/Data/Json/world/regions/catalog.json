@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Kingdoms, territories, and political regions defining the game world's geography",
     "version": "4.0",
@@ -9,6 +9,7 @@
     "kingdoms": {
       "items": [
         {
+          "slug": "goldenvale",
           "name": "Goldenvale",
           "displayName": "Kingdom of Goldenvale",
           "rarityWeight": 15,
@@ -52,6 +53,7 @@
           }
         },
         {
+          "slug": "frostheim",
           "name": "Frostheim",
           "displayName": "Kingdom of Frostheim",
           "rarityWeight": 20,
@@ -91,6 +93,7 @@
           }
         },
         {
+          "slug": "shadow-empire",
           "name": "Shadow_Empire",
           "displayName": "Shadow Empire",
           "rarityWeight": 40,
@@ -132,6 +135,7 @@
     "territories": {
       "items": [
         {
+          "slug": "elven-reaches",
           "name": "Elven_Reaches",
           "displayName": "The Elven Reaches",
           "rarityWeight": 25,
@@ -171,6 +175,7 @@
           }
         },
         {
+          "slug": "desert-emirates",
           "name": "Desert_Emirates",
           "displayName": "Desert Emirates",
           "rarityWeight": 22,
@@ -207,6 +212,7 @@
           }
         },
         {
+          "slug": "sanctuary-theocracy",
           "name": "Sanctuary_Theocracy",
           "displayName": "Theocracy of Sanctuary",
           "rarityWeight": 28,
@@ -242,6 +248,7 @@
           }
         },
         {
+          "slug": "mage-dominion",
           "name": "Mage_Dominion",
           "displayName": "Mage Dominion",
           "rarityWeight": 35,
@@ -284,6 +291,7 @@
     "frontiers": {
       "items": [
         {
+          "slug": "pirate-coast",
           "name": "Pirate_Coast",
           "displayName": "The Pirate Coast",
           "rarityWeight": 30,
@@ -319,6 +327,7 @@
           }
         },
         {
+          "slug": "frontier-outposts",
           "name": "Frontier_Outposts",
           "displayName": "Frontier Outposts",
           "rarityWeight": 18,
@@ -354,6 +363,7 @@
           }
         },
         {
+          "slug": "contested-lands",
           "name": "Contested_Lands",
           "displayName": "The Contested Lands",
           "rarityWeight": 32,

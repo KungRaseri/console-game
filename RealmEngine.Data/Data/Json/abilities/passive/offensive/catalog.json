@@ -16,6 +16,7 @@
     "offensive": {
       "items": [
         {
+          "slug": "venomous-bite",
           "rarityWeight": 35,
           "description": "Attacks inflict poison damage over time",
           "name": "Venomous Bite",
@@ -28,6 +29,7 @@
           "displayName": "Venomous Bite"
         },
         {
+          "slug": "swift-pounce",
           "rarityWeight": 35,
           "description": "Can leap at distant targets",
           "name": "Swift Pounce",
@@ -40,6 +42,7 @@
           "displayName": "Swift Pounce"
         },
         {
+          "slug": "savage-roar",
           "rarityWeight": 35,
           "description": "Intimidates enemies, reducing their combat effectiveness",
           "name": "Savage Roar",
@@ -52,6 +55,7 @@
           "displayName": "Savage Roar"
         },
         {
+          "slug": "pack-hunter",
           "rarityWeight": 10,
           "description": "Gains bonuses when fighting alongside allies",
           "name": "Pack Hunter",
@@ -64,6 +68,7 @@
           "displayName": "Pack Hunter"
         },
         {
+          "slug": "feral-rage",
           "rarityWeight": 35,
           "description": "Increases damage as health decreases",
           "name": "Feral Rage",
@@ -76,6 +81,7 @@
           "displayName": "Feral Rage"
         },
         {
+          "slug": "ferocious",
           "rarityWeight": 75,
           "description": "Attacks multiple times per round",
           "name": "Ferocious",
@@ -88,6 +94,7 @@
           "displayName": "Ferocious"
         },
         {
+          "slug": "primal-fury",
           "rarityWeight": 150,
           "description": "Enters berserk state when wounded",
           "name": "Primal Fury",
@@ -100,6 +107,7 @@
           "displayName": "Primal Fury"
         },
         {
+          "slug": "gore",
           "rarityWeight": 35,
           "description": "Critical hits cause bleeding damage",
           "name": "Gore",
@@ -112,6 +120,7 @@
           "displayName": "Gore"
         },
         {
+          "slug": "enrage",
           "rarityWeight": 35,
           "description": "Becomes more dangerous as allies fall",
           "name": "Enrage",
@@ -124,6 +133,7 @@
           "displayName": "Enrage"
         },
         {
+          "slug": "poisonweapons",
           "rarityWeight": 35,
           "description": "Attacks inflict poison damage over time",
           "name": "PoisonWeapons",
@@ -136,6 +146,7 @@
           "displayName": "Poison Weapons"
         },
         {
+          "slug": "berserker",
           "rarityWeight": 75,
           "description": "Enters rage when damaged, increasing damage output",
           "name": "Berserker",
@@ -148,6 +159,7 @@
           "displayName": "Berserker"
         },
         {
+          "slug": "bombthrower",
           "rarityWeight": 75,
           "description": "Throws explosive devices that deal area damage",
           "name": "BombThrower",
@@ -160,6 +172,7 @@
           "displayName": "Bomb Thrower"
         },
         {
+          "slug": "shamanmagic",
           "rarityWeight": 75,
           "description": "Can cast basic elemental spells",
           "name": "ShamanMagic",
@@ -172,6 +185,7 @@
           "displayName": "Shaman Magic"
         },
         {
+          "slug": "shadowstep",
           "rarityWeight": 150,
           "description": "Can teleport short distances in darkness",
           "name": "ShadowStep",
@@ -184,6 +198,7 @@
           "displayName": "Shadow Step"
         },
         {
+          "slug": "venommaster",
           "rarityWeight": 250,
           "description": "Advanced poison attacks that stack and spread",
           "name": "VenomMaster",
@@ -196,6 +211,7 @@
           "displayName": "Venom Master"
         },
         {
+          "slug": "battle-cry",
           "rarityWeight": 35,
           "description": "Rallies allies and intimidates foes",
           "name": "Battle Cry",
@@ -208,6 +224,7 @@
           "displayName": "Battle Cry"
         },
         {
+          "slug": "revenge",
           "rarityWeight": 75,
           "description": "Becomes more dangerous as allies fall",
           "name": "Revenge",
@@ -220,6 +237,7 @@
           "displayName": "Revenge"
         },
         {
+          "slug": "acidic",
           "rarityWeight": 35,
           "description": "Sprays corrosive acid that damages armor",
           "name": "Acidic",
@@ -232,6 +250,7 @@
           "displayName": "Acidic"
         },
         {
+          "slug": "paralyzing",
           "rarityWeight": 75,
           "description": "Stings paralyze targets temporarily",
           "name": "Paralyzing",
@@ -244,6 +263,7 @@
           "displayName": "Paralyzing"
         },
         {
+          "slug": "plaguecarrier",
           "rarityWeight": 150,
           "description": "Spreads disease to all nearby creatures",
           "name": "PlagueCarrier",
@@ -256,6 +276,7 @@
           "displayName": "Plague Carrier"
         },
         {
+          "slug": "charger",
           "rarityWeight": 35,
           "description": "Can rush enemies dealing knockback damage",
           "name": "Charger",
@@ -268,6 +289,7 @@
           "displayName": "Charger"
         },
         {
+          "slug": "bloodfrenzy",
           "rarityWeight": 75,
           "description": "Gains attack speed when dealing critical hits",
           "name": "BloodFrenzy",
@@ -280,6 +302,7 @@
           "displayName": "Blood Frenzy"
         },
         {
+          "slug": "executioner",
           "rarityWeight": 75,
           "description": "Deals massive damage to weakened foes",
           "name": "Executioner",
@@ -292,6 +315,7 @@
           "displayName": "Executioner"
         },
         {
+          "slug": "juggernaut",
           "rarityWeight": 75,
           "description": "Unstoppable charge that breaks through defenses",
           "name": "Juggernaut",
@@ -304,6 +328,7 @@
           "displayName": "Juggernaut"
         },
         {
+          "slug": "carnivorous",
           "rarityWeight": 35,
           "description": "Devours prey to restore health",
           "name": "Carnivorous",
@@ -316,6 +341,7 @@
           "displayName": "Carnivorous"
         },
         {
+          "slug": "parasitic",
           "rarityWeight": 75,
           "description": "Drains life from enemies over time",
           "name": "Parasitic",
@@ -328,6 +354,7 @@
           "displayName": "Parasitic"
         },
         {
+          "slug": "entangling",
           "rarityWeight": 75,
           "description": "Roots grow to immobilize enemies",
           "name": "Entangling",
@@ -340,6 +367,7 @@
           "displayName": "Entangling"
         },
         {
+          "slug": "sporecloud",
           "rarityWeight": 35,
           "description": "Releases clouds that damage and confuse",
           "name": "SporeCloud",
@@ -352,6 +380,7 @@
           "displayName": "Spore Cloud"
         },
         {
+          "slug": "vinewhip",
           "rarityWeight": 35,
           "description": "Attacks with long reaching vines",
           "name": "VineWhip",
@@ -364,6 +393,7 @@
           "displayName": "Vine Whip"
         },
         {
+          "slug": "toxicaura",
           "rarityWeight": 150,
           "description": "Damages all nearby creatures constantly",
           "name": "ToxicAura",
@@ -376,6 +406,7 @@
           "displayName": "Toxic Aura"
         },
         {
+          "slug": "tailwhip",
           "rarityWeight": 35,
           "description": "Powerful tail attack with knockback",
           "name": "TailWhip",
@@ -388,6 +419,7 @@
           "displayName": "Tail Whip"
         },
         {
+          "slug": "deathroll",
           "rarityWeight": 75,
           "description": "Grabs and spins enemies for massive damage",
           "name": "DeathRoll",
@@ -400,6 +432,7 @@
           "displayName": "Death Roll"
         },
         {
+          "slug": "acidspit",
           "rarityWeight": 150,
           "description": "Ranged acid attack that corrodes armor",
           "name": "AcidSpit",
@@ -412,6 +445,7 @@
           "displayName": "Acid Spit"
         },
         {
+          "slug": "rage",
           "rarityWeight": 75,
           "description": "Enters berserk state when injured",
           "name": "Rage",
@@ -424,6 +458,7 @@
           "displayName": "Rage"
         },
         {
+          "slug": "mountainstrength",
           "rarityWeight": 75,
           "description": "Incredible physical power",
           "name": "MountainStrength",
@@ -436,6 +471,7 @@
           "displayName": "Mountain Strength"
         },
         {
+          "slug": "rockthrow",
           "rarityWeight": 35,
           "description": "Hurls boulders at enemies",
           "name": "RockThrow",
@@ -448,6 +484,7 @@
           "displayName": "Rock Throw"
         },
         {
+          "slug": "smash",
           "rarityWeight": 35,
           "description": "Devastating ground pound attack",
           "name": "Smash",
@@ -460,6 +497,7 @@
           "displayName": "Smash"
         },
         {
+          "slug": "clubmaster",
           "rarityWeight": 75,
           "description": "Expertise with massive clubs and mauls",
           "name": "ClubMaster",

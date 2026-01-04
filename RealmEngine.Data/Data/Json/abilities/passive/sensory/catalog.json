@@ -16,6 +16,7 @@
     "sensory": {
       "items": [
         {
+          "slug": "keen-senses",
           "rarityWeight": 10,
           "description": "Cannot be surprised, detects hidden enemies",
           "name": "Keen Senses",

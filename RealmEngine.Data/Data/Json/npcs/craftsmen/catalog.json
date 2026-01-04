@@ -25,6 +25,7 @@
       },
       "items": [
         {
+          "slug": "craftsman",
           "name": "Craftsman",
           "displayName": "Craftsman",
           "description": "Skilled artisan or tradesperson",
@@ -56,6 +57,7 @@
           "dialogueStyle": "@social/dialogue/styles/casual:professional"
         },
         {
+          "slug": "smithapprentice",
           "name": "SmithApprentice",
           "displayName": "Smith's Apprentice",
           "description": "Trained under a master blacksmith",
@@ -105,6 +107,7 @@
       },
       "items": [
         {
+          "slug": "blacksmith",
           "name": "Blacksmith",
           "displayName": "Blacksmith",
           "description": "Master metalworker specializing in weapons and armor",
@@ -178,6 +181,7 @@
           ]
         },
         {
+          "slug": "weaponsmith",
           "name": "Weaponsmith",
           "displayName": "Weaponsmith",
           "description": "Specialist in crafting fine weapons",
@@ -243,6 +247,7 @@
           ]
         },
         {
+          "slug": "armorer",
           "name": "Armorer",
           "displayName": "Armorer",
           "description": "Expert in crafting and repairing armor",
@@ -309,6 +314,7 @@
           ]
         },
         {
+          "slug": "fletcher",
           "name": "Fletcher",
           "displayName": "Fletcher",
           "description": "Crafts bows and arrows",
@@ -376,6 +382,7 @@
           ]
         },
         {
+          "slug": "leatherworker",
           "name": "Leatherworker",
           "displayName": "Leatherworker",
           "description": "Crafts leather armor and accessories",
@@ -438,6 +445,7 @@
           ]
         },
         {
+          "slug": "jeweler",
           "name": "Jeweler",
           "displayName": "Jeweler",
           "description": "Crafts fine jewelry and gems",

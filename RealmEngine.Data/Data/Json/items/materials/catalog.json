@@ -27,6 +27,7 @@
       },
       "items": [
         {
+          "slug": "iron",
           "name": "Iron",
           "displayName": "Iron",
           "selectionWeight": 60,
@@ -49,6 +50,7 @@
           }
         },
         {
+          "slug": "bronze",
           "name": "Bronze",
           "displayName": "Bronze",
           "selectionWeight": 50,
@@ -72,6 +74,7 @@
           }
         },
         {
+          "slug": "steel",
           "name": "Steel",
           "displayName": "Steel",
           "selectionWeight": 40,
@@ -96,6 +99,7 @@
           }
         },
         {
+          "slug": "silver",
           "name": "Silver",
           "displayName": "Silver",
           "selectionWeight": 25,
@@ -122,6 +126,7 @@
           }
         },
         {
+          "slug": "electrum",
           "name": "Electrum",
           "displayName": "Electrum",
           "selectionWeight": 18,
@@ -146,6 +151,7 @@
           }
         },
         {
+          "slug": "cold-iron",
           "name": "Cold Iron",
           "displayName": "Cold Iron",
           "selectionWeight": 22,
@@ -171,6 +177,7 @@
           }
         },
         {
+          "slug": "obsidian",
           "name": "Obsidian",
           "displayName": "Obsidian",
           "selectionWeight": 20,
@@ -197,6 +204,7 @@
           }
         },
         {
+          "slug": "mithril",
           "name": "Mithril",
           "displayName": "Mithril",
           "selectionWeight": 10,
@@ -224,6 +232,7 @@
           }
         },
         {
+          "slug": "darksteel",
           "name": "Darksteel",
           "displayName": "Darksteel",
           "selectionWeight": 12,
@@ -252,6 +261,7 @@
           }
         },
         {
+          "slug": "adamantine",
           "name": "Adamantine",
           "displayName": "Adamantine",
           "selectionWeight": 5,
@@ -280,6 +290,7 @@
           }
         },
         {
+          "slug": "dragon-steel",
           "name": "Dragon Steel",
           "displayName": "Dragon Steel",
           "selectionWeight": 3,
@@ -307,6 +318,7 @@
           }
         },
         {
+          "slug": "godforged",
           "name": "Godforged",
           "displayName": "Godforged",
           "selectionWeight": 1,
@@ -352,6 +364,7 @@
       },
       "items": [
         {
+          "slug": "hide",
           "name": "Hide",
           "displayName": "Hide",
           "selectionWeight": 60,
@@ -370,6 +383,7 @@
           }
         },
         {
+          "slug": "leather",
           "name": "Leather",
           "displayName": "Leather",
           "selectionWeight": 50,
@@ -389,6 +403,7 @@
           }
         },
         {
+          "slug": "studded-leather",
           "name": "Studded Leather",
           "displayName": "Studded Leather",
           "selectionWeight": 35,
@@ -409,6 +424,7 @@
           }
         },
         {
+          "slug": "hardened-leather",
           "name": "Hardened Leather",
           "displayName": "Hardened Leather",
           "selectionWeight": 28,
@@ -428,6 +444,7 @@
           }
         },
         {
+          "slug": "drake-leather",
           "name": "Drake Leather",
           "displayName": "Drake Leather",
           "selectionWeight": 12,
@@ -448,6 +465,7 @@
           }
         },
         {
+          "slug": "wyvern-leather",
           "name": "Wyvern Leather",
           "displayName": "Wyvern Leather",
           "selectionWeight": 10,
@@ -468,6 +486,7 @@
           }
         },
         {
+          "slug": "shadow-leather",
           "name": "Shadow Leather",
           "displayName": "Shadow Leather",
           "selectionWeight": 8,
@@ -488,6 +507,7 @@
           }
         },
         {
+          "slug": "chimera-hide",
           "name": "Chimera Hide",
           "displayName": "Chimera Hide",
           "selectionWeight": 6,
@@ -509,6 +529,7 @@
           }
         },
         {
+          "slug": "dragon-leather",
           "name": "Dragon Leather",
           "displayName": "Dragon Leather",
           "selectionWeight": 3,
@@ -540,6 +561,7 @@
       },
       "items": [
         {
+          "slug": "oak",
           "name": "Oak",
           "displayName": "Oak",
           "selectionWeight": 60,
@@ -558,6 +580,7 @@
           }
         },
         {
+          "slug": "ash",
           "name": "Ash",
           "displayName": "Ash",
           "selectionWeight": 50,
@@ -577,6 +600,7 @@
           }
         },
         {
+          "slug": "maple",
           "name": "Maple",
           "displayName": "Maple",
           "selectionWeight": 42,
@@ -597,6 +621,7 @@
           }
         },
         {
+          "slug": "yew",
           "name": "Yew",
           "displayName": "Yew",
           "selectionWeight": 30,
@@ -618,6 +643,7 @@
           }
         },
         {
+          "slug": "ebony",
           "name": "Ebony",
           "displayName": "Ebony",
           "selectionWeight": 10,
@@ -640,6 +666,7 @@
           }
         },
         {
+          "slug": "ironwood",
           "name": "Ironwood",
           "displayName": "Ironwood",
           "selectionWeight": 12,
@@ -660,6 +687,7 @@
           }
         },
         {
+          "slug": "living-wood",
           "name": "Living Wood",
           "displayName": "Living Wood",
           "selectionWeight": 8,
@@ -682,6 +710,7 @@
           }
         },
         {
+          "slug": "elder-wood",
           "name": "Elder Wood",
           "displayName": "Elder Wood",
           "selectionWeight": 5,
@@ -704,6 +733,7 @@
           }
         },
         {
+          "slug": "heartwood",
           "name": "Heartwood",
           "displayName": "Heartwood",
           "selectionWeight": 4,
@@ -735,6 +765,7 @@
       },
       "items": [
         {
+          "slug": "topaz",
           "name": "Topaz",
           "displayName": "Topaz",
           "selectionWeight": 30,
@@ -762,6 +793,7 @@
           }
         },
         {
+          "slug": "amethyst",
           "name": "Amethyst",
           "displayName": "Amethyst",
           "selectionWeight": 28,
@@ -791,6 +823,7 @@
           }
         },
         {
+          "slug": "ruby",
           "name": "Ruby",
           "displayName": "Ruby",
           "selectionWeight": 18,
@@ -819,6 +852,7 @@
           }
         },
         {
+          "slug": "sapphire",
           "name": "Sapphire",
           "displayName": "Sapphire",
           "selectionWeight": 16,
@@ -848,6 +882,7 @@
           }
         },
         {
+          "slug": "emerald",
           "name": "Emerald",
           "displayName": "Emerald",
           "selectionWeight": 14,
@@ -878,6 +913,7 @@
           }
         },
         {
+          "slug": "onyx",
           "name": "Onyx",
           "displayName": "Onyx",
           "selectionWeight": 10,
@@ -909,6 +945,7 @@
           }
         },
         {
+          "slug": "opal",
           "name": "Opal",
           "displayName": "Opal",
           "selectionWeight": 9,
@@ -939,6 +976,7 @@
           }
         },
         {
+          "slug": "obsidian",
           "name": "Obsidian",
           "displayName": "Obsidian",
           "selectionWeight": 8,
@@ -968,6 +1006,7 @@
           }
         },
         {
+          "slug": "diamond",
           "name": "Diamond",
           "displayName": "Diamond",
           "selectionWeight": 5,
@@ -999,6 +1038,7 @@
           }
         },
         {
+          "slug": "star-stone",
           "name": "Star Stone",
           "displayName": "Star Stone",
           "selectionWeight": 2,

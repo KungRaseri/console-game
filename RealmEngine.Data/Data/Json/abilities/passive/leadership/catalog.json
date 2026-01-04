@@ -16,6 +16,7 @@
     "leadership": {
       "items": [
         {
+          "slug": "alpha-predator",
           "rarityWeight": 150,
           "description": "Commands nearby beasts, increasing their power",
           "name": "Alpha Predator",
@@ -28,6 +29,7 @@
           "displayName": "Alpha Predator"
         },
         {
+          "slug": "apex-predator",
           "rarityWeight": 250,
           "description": "Massive size and power, dominates all beasts",
           "name": "Apex Predator",
@@ -40,6 +42,7 @@
           "displayName": "Apex Predator"
         },
         {
+          "slug": "trapmaker",
           "rarityWeight": 35,
           "description": "Sets traps during combat",
           "name": "TrapMaker",
@@ -52,6 +55,7 @@
           "displayName": "Trap Maker"
         },
         {
+          "slug": "quickreflexes",
           "rarityWeight": 35,
           "description": "High dodge chance against melee attacks",
           "name": "QuickReflexes",
@@ -64,6 +68,7 @@
           "displayName": "Quick Reflexes"
         },
         {
+          "slug": "tunnelfighter",
           "rarityWeight": 75,
           "description": "Bonus defense in enclosed spaces",
           "name": "TunnelFighter",
@@ -76,6 +81,7 @@
           "displayName": "Tunnel Fighter"
         },
         {
+          "slug": "warchief",
           "rarityWeight": 150,
           "description": "Commands nearby goblinoids and buffs their stats",
           "name": "WarChief",
@@ -88,6 +94,7 @@
           "displayName": "War Chief"
         },
         {
+          "slug": "kingofgoblins",
           "rarityWeight": 250,
           "description": "Supreme leader with all goblinoid abilities",
           "name": "KingOfGoblins",
@@ -100,6 +107,7 @@
           "displayName": "King of Goblins"
         },
         {
+          "slug": "queencommand",
           "rarityWeight": 150,
           "description": "Summons and controls insect minions",
           "name": "QueenCommand",
@@ -112,6 +120,7 @@
           "displayName": "Queen Command"
         },
         {
+          "slug": "mindcontrol",
           "rarityWeight": 150,
           "description": "Can take control of other creatures",
           "name": "MindControl",
@@ -124,6 +133,7 @@
           "displayName": "Mind Control"
         },
         {
+          "slug": "swarmlord",
           "rarityWeight": 250,
           "description": "Commands infinite swarms of insects",
           "name": "SwarmLord",
@@ -136,6 +146,7 @@
           "displayName": "Swarm Lord"
         },
         {
+          "slug": "webspinner",
           "rarityWeight": 35,
           "description": "Creates webs that slow and trap enemies",
           "name": "WebSpinner",
@@ -148,6 +159,7 @@
           "displayName": "Web Spinner"
         },
         {
+          "slug": "hivemind",
           "rarityWeight": 75,
           "description": "Shares awareness with all nearby insects",
           "name": "HiveMind",
@@ -160,6 +172,7 @@
           "displayName": "Hive Mind"
         },
         {
+          "slug": "warlord",
           "rarityWeight": 75,
           "description": "Commands orc troops and grants them bonuses",
           "name": "Warlord",
@@ -172,6 +185,7 @@
           "displayName": "Warlord"
         },
         {
+          "slug": "shamanwisdom",
           "rarityWeight": 150,
           "description": "Casts primal magic and curses",
           "name": "ShamanWisdom",
@@ -184,6 +198,7 @@
           "displayName": "Shaman Wisdom"
         },
         {
+          "slug": "alphaleader",
           "rarityWeight": 150,
           "description": "Commands and buffs reptilian allies",
           "name": "AlphaLeader",
@@ -196,6 +211,7 @@
           "displayName": "Alpha Leader"
         },
         {
+          "slug": "ambushpredator",
           "rarityWeight": 35,
           "description": "Deals bonus damage on first strike",
           "name": "AmbushPredator",
@@ -208,6 +224,7 @@
           "displayName": "Ambush Predator"
         },
         {
+          "slug": "primalroar",
           "rarityWeight": 75,
           "description": "Intimidating roar that fears enemies",
           "name": "PrimalRoar",
@@ -220,6 +237,7 @@
           "displayName": "Primal Roar"
         },
         {
+          "slug": "chieftaincommand",
           "rarityWeight": 150,
           "description": "Leads troll tribes and buffs allies",
           "name": "ChieftainCommand",
@@ -232,6 +250,7 @@
           "displayName": "Chieftain Command"
         },
         {
+          "slug": "trollking",
           "rarityWeight": 250,
           "description": "Sovereign ruler of all trolls",
           "name": "TrollKing",
@@ -244,6 +263,7 @@
           "displayName": "Troll King"
         },
         {
+          "slug": "necromantic-aura",
           "rarityWeight": 75,
           "description": "Weakens living enemies nearby",
           "name": "Necromantic Aura",
@@ -256,6 +276,7 @@
           "displayName": "Necromantic Aura"
         },
         {
+          "slug": "fearsome-presence",
           "rarityWeight": 35,
           "description": "Instills terror in those who behold it",
           "name": "Fearsome Presence",
@@ -268,6 +289,7 @@
           "displayName": "Fearsome Presence"
         },
         {
+          "slug": "ancient-power",
           "rarityWeight": 150,
           "description": "Centuries of accumulated strength",
           "name": "Ancient Power",
@@ -280,6 +302,7 @@
           "displayName": "Ancient Power"
         },
         {
+          "slug": "vampire-lord",
           "rarityWeight": 250,
           "description": "Rules over lesser vampires",
           "name": "Vampire Lord",
@@ -292,6 +315,7 @@
           "displayName": "Vampire Lord"
         },
         {
+          "slug": "progenitor",
           "rarityWeight": 500,
           "description": "One of the first vampires",
           "name": "Progenitor",

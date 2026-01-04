@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Elemental enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -26,6 +26,7 @@
       },
       "items": [
         {
+          "slug": "fire-elemental",
           "name": "Fire Elemental",
           "strength": 14,
           "dexterity": 15,
@@ -54,6 +55,7 @@
           }
         },
         {
+          "slug": "salamander",
           "name": "Salamander",
           "strength": 13,
           "dexterity": 16,
@@ -79,6 +81,7 @@
           }
         },
         {
+          "slug": "efreeti",
           "name": "Efreeti",
           "strength": 19,
           "dexterity": 14,
@@ -124,6 +127,7 @@
       },
       "items": [
         {
+          "slug": "water-elemental",
           "name": "Water Elemental",
           "strength": 14,
           "dexterity": 12,
@@ -152,6 +156,7 @@
           }
         },
         {
+          "slug": "undine",
           "name": "Undine",
           "strength": 12,
           "dexterity": 15,
@@ -191,6 +196,7 @@
       },
       "items": [
         {
+          "slug": "earth-elemental",
           "name": "Earth Elemental",
           "strength": 18,
           "dexterity": 8,
@@ -219,6 +225,7 @@
           }
         },
         {
+          "slug": "golem",
           "name": "Golem",
           "strength": 20,
           "dexterity": 7,
@@ -247,6 +254,7 @@
           }
         },
         {
+          "slug": "gnome",
           "name": "Gnome",
           "strength": 14,
           "dexterity": 10,
@@ -287,6 +295,7 @@
       },
       "items": [
         {
+          "slug": "air-elemental",
           "name": "Air Elemental",
           "strength": 12,
           "dexterity": 18,
@@ -315,6 +324,7 @@
           }
         },
         {
+          "slug": "sylph",
           "name": "Sylph",
           "strength": 10,
           "dexterity": 18,
@@ -340,6 +350,7 @@
           }
         },
         {
+          "slug": "djinn",
           "name": "Djinn",
           "strength": 18,
           "dexterity": 16,
@@ -369,6 +380,7 @@
           }
         },
         {
+          "slug": "phoenix",
           "name": "Phoenix",
           "strength": 20,
           "dexterity": 18,

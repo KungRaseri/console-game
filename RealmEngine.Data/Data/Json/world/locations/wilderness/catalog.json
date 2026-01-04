@@ -9,6 +9,7 @@
     "low_danger": {
       "items": [
         {
+          "slug": "goldenplains",
           "name": "GoldenPlains",
           "displayName": "Golden Plains",
           "rarityWeight": 10,
@@ -26,6 +27,7 @@
           ]
         },
         {
+          "slug": "mistyhills",
           "name": "MistyHills",
           "displayName": "Misty Hills",
           "rarityWeight": 12,
@@ -44,6 +46,7 @@
           ]
         },
         {
+          "slug": "silverlake",
           "name": "SilverLake",
           "displayName": "Silver Lake",
           "rarityWeight": 15,
@@ -67,6 +70,7 @@
     "medium_danger": {
       "items": [
         {
+          "slug": "darkwoodforest",
           "name": "DarkwoodForest",
           "displayName": "Darkwood Forest",
           "rarityWeight": 25,
@@ -86,6 +90,7 @@
           ]
         },
         {
+          "slug": "endlessdesert",
           "name": "EndlessDesert",
           "displayName": "Endless Desert",
           "rarityWeight": 28,
@@ -104,6 +109,7 @@
           ]
         },
         {
+          "slug": "crystalcaverns",
           "name": "CrystalCaverns",
           "displayName": "Crystal Caverns",
           "rarityWeight": 32,
@@ -122,6 +128,7 @@
           ]
         },
         {
+          "slug": "stormycoast",
           "name": "StormyCoast",
           "displayName": "Stormy Coast",
           "rarityWeight": 30,
@@ -140,6 +147,7 @@
           ]
         },
         {
+          "slug": "whisperingwoods",
           "name": "WhisperingWoods",
           "displayName": "Whispering Woods",
           "rarityWeight": 35,
@@ -165,6 +173,7 @@
     "high_danger": {
       "items": [
         {
+          "slug": "crimsonpeaks",
           "name": "CrimsonPeaks",
           "displayName": "Crimson Peaks",
           "rarityWeight": 50,
@@ -184,6 +193,7 @@
           ]
         },
         {
+          "slug": "frozentundra",
           "name": "FrozenTundra",
           "displayName": "Frozen Tundra",
           "rarityWeight": 55,
@@ -203,6 +213,7 @@
           ]
         },
         {
+          "slug": "poisonswamp",
           "name": "PoisonSwamp",
           "displayName": "Poison Swamp",
           "rarityWeight": 58,
@@ -222,6 +233,7 @@
           ]
         },
         {
+          "slug": "ancientbattlefield",
           "name": "AncientBattlefield",
           "displayName": "Ancient Battlefield",
           "rarityWeight": 60,
@@ -239,6 +251,7 @@
           ]
         },
         {
+          "slug": "shatteredisles",
           "name": "ShatteredIsles",
           "displayName": "Shattered Isles",
           "rarityWeight": 65,
@@ -257,6 +270,7 @@
           ]
         },
         {
+          "slug": "jungleoffangs",
           "name": "JungleOfFangs",
           "displayName": "Jungle of Fangs",
           "rarityWeight": 62,
@@ -275,6 +289,7 @@
           ]
         },
         {
+          "slug": "thegreatrift",
           "name": "TheGreatRift",
           "displayName": "The Great Rift",
           "rarityWeight": 68,
@@ -300,6 +315,7 @@
     "very_high_danger": {
       "items": [
         {
+          "slug": "volcanicwastelands",
           "name": "VolcanicWastelands",
           "displayName": "Volcanic Wastelands",
           "rarityWeight": 100,
@@ -318,6 +334,7 @@
           ]
         },
         {
+          "slug": "deadlands",
           "name": "DeadLands",
           "displayName": "Dead Lands",
           "rarityWeight": 110,
@@ -336,6 +353,7 @@
           ]
         },
         {
+          "slug": "bloodmoors",
           "name": "BloodMoors",
           "displayName": "Blood Moors",
           "rarityWeight": 115,

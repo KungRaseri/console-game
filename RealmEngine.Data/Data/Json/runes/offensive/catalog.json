@@ -7,30 +7,51 @@
   },
   "items": [
     {
+      "slug": "fury-rune",
       "name": "fury-rune",
       "rarityWeight": 50,
       "category": "offensive",
       "traits": {
-        "attackPower": { "value": 15, "type": "number" },
-        "attackSpeed": { "value": 10, "type": "number" }
+        "attackPower": {
+          "value": 15,
+          "type": "number"
+        },
+        "attackSpeed": {
+          "value": 10,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "piercing-rune",
       "name": "piercing-rune",
       "rarityWeight": 45,
       "category": "offensive",
       "traits": {
-        "armorPenetration": { "value": 20, "type": "number" },
-        "critChance": { "value": 5, "type": "number" }
+        "armorPenetration": {
+          "value": 20,
+          "type": "number"
+        },
+        "critChance": {
+          "value": 5,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "devastation-rune",
       "name": "devastation-rune",
       "rarityWeight": 30,
       "category": "offensive",
       "traits": {
-        "critDamage": { "value": 25, "type": "number" },
-        "attackPower": { "value": 20, "type": "number" }
+        "critDamage": {
+          "value": 25,
+          "type": "number"
+        },
+        "attackPower": {
+          "value": 20,
+          "type": "number"
+        }
       }
     }
   ]

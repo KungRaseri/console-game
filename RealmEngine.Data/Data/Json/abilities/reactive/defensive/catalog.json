@@ -16,6 +16,7 @@
     "defensive": {
       "items": [
         {
+          "slug": "thorns",
           "name": "Thorns",
           "displayName": "Thorns",
           "description": "Reflects damage back to attackers",
@@ -37,6 +38,7 @@
           }
         },
         {
+          "slug": "counter-shield",
           "name": "Counter Shield",
           "displayName": "Counter Shield",
           "description": "Raises shield when attacked, blocking damage",
@@ -62,6 +64,7 @@
           }
         },
         {
+          "slug": "adaptive-armor",
           "name": "Adaptive Armor",
           "displayName": "Adaptive Armor",
           "description": "Gains resistance to damage type that hit it",
@@ -87,6 +90,7 @@
           }
         },
         {
+          "slug": "second-wind",
           "name": "Second Wind",
           "displayName": "Second Wind",
           "description": "Heals when HP drops below 30%",
@@ -116,6 +120,7 @@
           }
         },
         {
+          "slug": "last-stand",
           "name": "Last Stand",
           "displayName": "Last Stand",
           "description": "Greatly increases defense when near death",
@@ -145,6 +150,7 @@
           }
         },
         {
+          "slug": "evasive-maneuver",
           "name": "Evasive Maneuver",
           "displayName": "Evasive Maneuver",
           "description": "Automatically dodges next attack after being hit",
@@ -170,6 +176,7 @@
           }
         },
         {
+          "slug": "iron-will",
           "name": "Iron Will",
           "displayName": "Iron Will",
           "description": "Prevents death once per battle, leaving you at 1 HP",
@@ -195,6 +202,7 @@
           }
         },
         {
+          "slug": "reactive-barrier",
           "name": "Reactive Barrier",
           "displayName": "Reactive Barrier",
           "description": "Creates temporary shield when health drops below 50%",
@@ -224,6 +232,7 @@
           }
         },
         {
+          "slug": "defensive-stance",
           "name": "Defensive Stance",
           "displayName": "Defensive Stance",
           "description": "Automatically blocks after taking consecutive hits",
@@ -253,6 +262,7 @@
           }
         },
         {
+          "slug": "parry",
           "name": "Parry",
           "displayName": "Parry",
           "description": "Chance to deflect melee attacks completely",
@@ -274,6 +284,7 @@
           }
         },
         {
+          "slug": "spell-reflection",
           "name": "Spell Reflection",
           "displayName": "Spell Reflection",
           "description": "Reflects magical attacks back to caster",
@@ -299,6 +310,7 @@
           }
         },
         {
+          "slug": "revenge",
           "name": "Revenge",
           "displayName": "Revenge",
           "description": "Gains damage buff after taking damage",

@@ -7,30 +7,51 @@
   },
   "items": [
     {
+      "slug": "strike-orb",
       "name": "strike-orb",
       "rarityWeight": 55,
       "category": "combat",
       "traits": {
-        "meleeSkillDamage": { "value": 15, "type": "number" },
-        "meleeSkillCooldown": { "value": -10, "type": "number" }
+        "meleeSkillDamage": {
+          "value": 15,
+          "type": "number"
+        },
+        "meleeSkillCooldown": {
+          "value": -10,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "berserk-orb",
       "name": "berserk-orb",
       "rarityWeight": 40,
       "category": "combat",
       "traits": {
-        "combatSkillDamage": { "value": 20, "type": "number" },
-        "combatSkillCrit": { "value": 10, "type": "number" }
+        "combatSkillDamage": {
+          "value": 20,
+          "type": "number"
+        },
+        "combatSkillCrit": {
+          "value": 10,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "precision-orb",
       "name": "precision-orb",
       "rarityWeight": 45,
       "category": "combat",
       "traits": {
-        "rangedSkillDamage": { "value": 15, "type": "number" },
-        "rangedSkillRange": { "value": 20, "type": "number" }
+        "rangedSkillDamage": {
+          "value": 15,
+          "type": "number"
+        },
+        "rangedSkillRange": {
+          "value": 20,
+          "type": "number"
+        }
       }
     }
   ]

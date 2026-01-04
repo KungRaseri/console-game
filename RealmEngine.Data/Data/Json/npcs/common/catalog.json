@@ -26,6 +26,7 @@
       },
       "items": [
         {
+          "slug": "farmer",
           "name": "Farmer",
           "displayName": "Farmer",
           "description": "Works the land for a living",
@@ -56,6 +57,7 @@
           "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         },
         {
+          "slug": "laborer",
           "name": "Laborer",
           "displayName": "Laborer",
           "description": "Performs manual work",
@@ -98,6 +100,7 @@
       },
       "items": [
         {
+          "slug": "orphan",
           "name": "Orphan",
           "displayName": "Orphan",
           "description": "Grew up without parents on the streets",
@@ -134,6 +137,7 @@
           "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         },
         {
+          "slug": "refugee",
           "name": "Refugee",
           "displayName": "Refugee",
           "description": "Fled from war or disaster",
@@ -167,6 +171,7 @@
           "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         },
         {
+          "slug": "exile",
           "name": "Exile",
           "displayName": "Exile",
           "description": "Banished from their homeland",
@@ -200,6 +205,7 @@
           "dialogueStyle": "@social/dialogue/styles/gruff:mysterious"
         },
         {
+          "slug": "formerslave",
           "name": "FormerSlave",
           "displayName": "Former Slave",
           "description": "Escaped or freed from bondage",
@@ -233,6 +239,7 @@
           "dialogueStyle": "@social/dialogue/styles/casual:friendly"
         },
         {
+          "slug": "formergladiator",
           "name": "FormerGladiator",
           "displayName": "Former Gladiator",
           "description": "Fought in arenas for entertainment, won freedom",
@@ -283,6 +290,7 @@
       },
       "items": [
         {
+          "slug": "farmer",
           "name": "Farmer",
           "displayName": "Farmer",
           "description": "Tends crops and livestock",
@@ -311,6 +319,7 @@
           ]
         },
         {
+          "slug": "peasant",
           "name": "Peasant",
           "displayName": "Peasant",
           "description": "Simple laborer or commoner",
@@ -338,6 +347,7 @@
           ]
         },
         {
+          "slug": "beggar",
           "name": "Beggar",
           "displayName": "Beggar",
           "description": "Homeless person seeking charity",
@@ -365,6 +375,7 @@
           ]
         },
         {
+          "slug": "streeturchin",
           "name": "StreetUrchin",
           "displayName": "Street Urchin",
           "description": "Young person living on the streets",

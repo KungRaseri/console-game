@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Beast enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -30,6 +30,7 @@
       },
       "items": [
         {
+          "slug": "wolf",
           "name": "Wolf",
           "health": 30,
           "attack": 8,
@@ -51,6 +52,7 @@
           }
         },
         {
+          "slug": "timber-wolf",
           "name": "Timber Wolf",
           "health": 40,
           "attack": 10,
@@ -73,6 +75,7 @@
           }
         },
         {
+          "slug": "frost-wolf",
           "name": "Frost Wolf",
           "health": 45,
           "attack": 12,
@@ -108,6 +111,7 @@
       },
       "items": [
         {
+          "slug": "bear",
           "name": "Bear",
           "strength": 16,
           "dexterity": 12,
@@ -136,6 +140,7 @@
           }
         },
         {
+          "slug": "black-bear",
           "name": "Black Bear",
           "strength": 15,
           "dexterity": 13,
@@ -164,6 +169,7 @@
           }
         },
         {
+          "slug": "grizzly-bear",
           "name": "Grizzly Bear",
           "strength": 18,
           "dexterity": 12,
@@ -193,6 +199,7 @@
           }
         },
         {
+          "slug": "cave-bear",
           "name": "Cave Bear",
           "strength": 20,
           "dexterity": 11,
@@ -236,6 +243,7 @@
       },
       "items": [
         {
+          "slug": "tiger",
           "name": "Tiger",
           "strength": 15,
           "dexterity": 16,
@@ -264,6 +272,7 @@
           }
         },
         {
+          "slug": "panther",
           "name": "Panther",
           "strength": 14,
           "dexterity": 17,
@@ -292,6 +301,7 @@
           }
         },
         {
+          "slug": "lion",
           "name": "Lion",
           "strength": 17,
           "dexterity": 15,
@@ -332,6 +342,7 @@
       },
       "items": [
         {
+          "slug": "serpent",
           "name": "Serpent",
           "strength": 10,
           "dexterity": 16,
@@ -357,6 +368,7 @@
           }
         },
         {
+          "slug": "crocodile",
           "name": "Crocodile",
           "strength": 18,
           "dexterity": 10,
@@ -382,6 +394,7 @@
           }
         },
         {
+          "slug": "scorpion",
           "name": "Scorpion",
           "strength": 13,
           "dexterity": 14,
@@ -407,6 +420,7 @@
           }
         },
         {
+          "slug": "spider",
           "name": "Spider",
           "strength": 8,
           "dexterity": 16,
@@ -432,6 +446,7 @@
           }
         },
         {
+          "slug": "boar",
           "name": "Boar",
           "strength": 15,
           "dexterity": 11,

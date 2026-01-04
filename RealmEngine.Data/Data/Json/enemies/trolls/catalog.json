@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Troll enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -34,6 +34,7 @@
       },
       "items": [
         {
+          "slug": "troll",
           "name": "Troll",
           "health": 120,
           "attack": 30,
@@ -53,6 +54,7 @@
           }
         },
         {
+          "slug": "cave-troll",
           "name": "Cave Troll",
           "health": 140,
           "attack": 34,
@@ -73,6 +75,7 @@
           }
         },
         {
+          "slug": "mountain-troll",
           "name": "Mountain Troll",
           "health": 160,
           "attack": 38,
@@ -96,6 +99,7 @@
           }
         },
         {
+          "slug": "war-troll",
           "name": "War Troll",
           "health": 180,
           "attack": 42,
@@ -132,6 +136,7 @@
       },
       "items": [
         {
+          "slug": "ice-troll",
           "name": "Ice Troll",
           "strength": 18,
           "dexterity": 8,
@@ -162,6 +167,7 @@
           }
         },
         {
+          "slug": "fire-troll",
           "name": "Fire Troll",
           "strength": 19,
           "dexterity": 9,
@@ -193,6 +199,7 @@
           }
         },
         {
+          "slug": "venom-troll",
           "name": "Venom Troll",
           "strength": 18,
           "dexterity": 8,
@@ -235,6 +242,7 @@
       },
       "items": [
         {
+          "slug": "dire-troll",
           "name": "Dire Troll",
           "strength": 22,
           "dexterity": 8,
@@ -266,6 +274,7 @@
           }
         },
         {
+          "slug": "troll-chieftain",
           "name": "Troll Chieftain",
           "strength": 21,
           "dexterity": 9,
@@ -295,6 +304,7 @@
           }
         },
         {
+          "slug": "ancient-troll",
           "name": "Ancient Troll",
           "strength": 23,
           "dexterity": 10,

@@ -9,6 +9,7 @@
     "outposts": {
       "items": [
         {
+          "slug": "crossroads",
           "name": "Crossroads",
           "displayName": "Crossroads",
           "rarityWeight": 8,
@@ -32,6 +33,7 @@
     "villages": {
       "items": [
         {
+          "slug": "riverside",
           "name": "Riverside",
           "displayName": "Riverside",
           "rarityWeight": 10,
@@ -52,6 +54,7 @@
           ]
         },
         {
+          "slug": "oakshire",
           "name": "Oakshire",
           "displayName": "Oakshire",
           "rarityWeight": 15,
@@ -71,6 +74,7 @@
           ]
         },
         {
+          "slug": "frostpeak",
           "name": "FrostPeak",
           "displayName": "Frost Peak",
           "rarityWeight": 18,
@@ -95,6 +99,7 @@
     "towns": {
       "items": [
         {
+          "slug": "ironforge",
           "name": "Ironforge",
           "displayName": "Ironforge",
           "rarityWeight": 25,
@@ -117,6 +122,7 @@
           ]
         },
         {
+          "slug": "ravenhollow",
           "name": "Ravenhollow",
           "displayName": "Ravenhollow",
           "rarityWeight": 35,
@@ -138,6 +144,7 @@
           ]
         },
         {
+          "slug": "sandstone",
           "name": "Sandstone",
           "displayName": "Sandstone",
           "rarityWeight": 28,
@@ -159,6 +166,7 @@
           ]
         },
         {
+          "slug": "ashborough",
           "name": "Ashborough",
           "displayName": "Ashborough",
           "rarityWeight": 32,
@@ -179,6 +187,7 @@
           ]
         },
         {
+          "slug": "crimsonharbor",
           "name": "CrimsonHarbor",
           "displayName": "Crimson Harbor",
           "rarityWeight": 40,
@@ -206,6 +215,7 @@
     "cities": {
       "items": [
         {
+          "slug": "silverport",
           "name": "Silverport",
           "displayName": "Silverport",
           "rarityWeight": 50,
@@ -230,6 +240,7 @@
           ]
         },
         {
+          "slug": "stormhaven",
           "name": "Stormhaven",
           "displayName": "Stormhaven",
           "rarityWeight": 55,
@@ -251,6 +262,7 @@
           ]
         },
         {
+          "slug": "thenexus",
           "name": "TheNexus",
           "displayName": "The Nexus",
           "rarityWeight": 80,
@@ -272,6 +284,7 @@
           ]
         },
         {
+          "slug": "sanctuary",
           "name": "Sanctuary",
           "displayName": "Sanctuary",
           "rarityWeight": 70,
@@ -299,6 +312,7 @@
     "capitals": {
       "items": [
         {
+          "slug": "goldenspire",
           "name": "GoldenSpire",
           "displayName": "Golden Spire",
           "rarityWeight": 100,
@@ -327,6 +341,7 @@
     "special": {
       "items": [
         {
+          "slug": "deadwoodgrove",
           "name": "DeadwoodGrove",
           "displayName": "Deadwood Grove",
           "rarityWeight": 60,

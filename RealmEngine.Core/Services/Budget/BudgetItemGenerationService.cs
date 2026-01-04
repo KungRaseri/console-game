@@ -84,7 +84,8 @@ public class BudgetItemGenerationService
             var material = await _materialPoolService.SelectMaterialAsync(request.EnemyType, materialBudget);
             if (material == null)
             {
-                _logger.LogWarning("Failed to select material for enemy type {EnemyType}", request.EnemyType);
+                _logger.LogError("GENERATION FAILED at Step 5: No material found for enemy type '{EnemyType}' with material budget {MaterialBudget}. Check material-pools.json and materials catalog.", 
+                    request.EnemyType, materialBudget);
                 return null;
             }
 
@@ -95,28 +96,26 @@ public class BudgetItemGenerationService
                 GetStringProperty(material, "name"), materialCost);
 
             // Step 6: Select base item (weapon/armor type) - uses component budget
-            var baseItem = await SelectBaseItemAsync(request.ItemCategory);
+            var baseItem = await SelectBaseItemAsync(request.ItemCategory, remainingBudget);
             if (baseItem == null)
             {
-                _logger.LogWarning("Failed to select base item from category {Category}", request.ItemCategory);
+                _logger.LogError("GENERATION FAILED at Step 6: No affordable base item in category '{Category}' with component budget {Budget}. Path checked: items/{Category}/catalog.json", 
+                    request.ItemCategory, remainingBudget, request.ItemCategory);
                 return null;
             }
 
             var baseItemCost = GetIntProperty(baseItem, "budgetCost", 0);
-            if (!_budgetCalculator.CanAfford(remainingBudget, baseItemCost))
-            {
-                _logger.LogWarning("Cannot afford base item {ItemName} (cost={Cost}, budget={Budget})", 
-                    GetStringProperty(baseItem, "name"), baseItemCost, remainingBudget);
-                return null;
-            }
-
             remainingBudget -= baseItemCost;
+
+            _logger.LogDebug("Base item selected: {ItemName} (cost={Cost}, remaining={Remaining})", 
+                GetStringProperty(baseItem, "name"), baseItemCost, remainingBudget);
 
             // Step 7: Select pattern from names.json
             var pattern = await SelectPatternAsync(request.ItemCategory);
             if (pattern == null)
             {
-                _logger.LogWarning("Failed to select pattern for category {Category}", request.ItemCategory);
+                _logger.LogError("GENERATION FAILED at Step 7: No pattern found in category '{Category}'. Path checked: items/{Category}/names.json. Verify 'patterns' array exists.", 
+                    request.ItemCategory, request.ItemCategory);
                 return null;
             }
 
@@ -154,7 +153,8 @@ public class BudgetItemGenerationService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error generating budget-based item");
+            _logger.LogError(ex, "GENERATION FAILED with EXCEPTION for {EnemyType} level {Level} {Category}: {Message}. Stack trace logged above.", 
+                request.EnemyType, request.EnemyLevel, request.ItemCategory, ex.Message);
             return null;
         }
     }
@@ -180,37 +180,79 @@ public class BudgetItemGenerationService
         return Task.FromResult(SelectWeightedRandomComponent(qualityComponents));
     }
 
-    private Task<JToken?> SelectBaseItemAsync(string category)
+    private Task<JToken?> SelectBaseItemAsync(string category, int availableBudget)
     {
         var catalogPath = $"items/{category}/catalog.json";
         if (!_dataCache.FileExists(catalogPath))
+        {
+            _logger.LogError("Base item selection failed: File not found at {Path}", catalogPath);
             return Task.FromResult<JToken?>(null);
+        }
 
         var catalogFile = _dataCache.GetFile(catalogPath);
         if (catalogFile?.JsonData == null)
+        {
+            _logger.LogError("Base item selection failed: File exists but JsonData is null at {Path}", catalogPath);
             return Task.FromResult<JToken?>(null);
+        }
 
         var items = GetItemsFromCatalog(catalogFile.JsonData);
         if (items == null || !items.Any())
+        {
+            _logger.LogError("Base item selection failed: No items found in catalog {Path}. Check file structure.", catalogPath);
             return Task.FromResult<JToken?>(null);
+        }
 
-        return Task.FromResult(SelectWeightedRandomItem(items));
+        // Filter by budget
+        var affordableItems = items.Where(item =>
+        {
+            var cost = GetIntProperty(item, "budgetCost", 0);
+            return _budgetCalculator.CanAfford(availableBudget, cost);
+        }).ToList();
+
+        if (!affordableItems.Any())
+        {
+            _logger.LogError("Base item selection failed: Found {TotalItems} items but none affordable with budget {Budget}. Cheapest item may cost more than budget.", 
+                items.Count(), availableBudget);
+            return Task.FromResult<JToken?>(null);
+        }
+
+        _logger.LogDebug("Base item selection: {AffordableCount}/{TotalCount} items affordable with budget {Budget}", 
+            affordableItems.Count, items.Count(), availableBudget);
+        return Task.FromResult(SelectWeightedRandomItem(affordableItems));
     }
 
     private Task<JToken?> SelectPatternAsync(string category)
     {
         var namesPath = $"items/{category}/names.json";
         if (!_dataCache.FileExists(namesPath))
+        {
+            _logger.LogError("Pattern selection failed: File not found at {Path}", namesPath);
             return Task.FromResult<JToken?>(null);
+        }
 
         var namesFile = _dataCache.GetFile(namesPath);
         if (namesFile?.JsonData == null)
+        {
+            _logger.LogError("Pattern selection failed: File exists but JsonData is null at {Path}", namesPath);
             return Task.FromResult<JToken?>(null);
+        }
 
         var patterns = namesFile.JsonData["patterns"];
         if (patterns == null)
+        {
+            _logger.LogError("Pattern selection failed: 'patterns' array not found in {Path}. Check JSON structure.", namesPath);
             return Task.FromResult<JToken?>(null);
+        }
 
+        var patternCount = patterns.Children().Count();
+        if (patternCount == 0)
+        {
+            _logger.LogError("Pattern selection failed: 'patterns' array is empty in {Path}", namesPath);
+            return Task.FromResult<JToken?>(null);
+        }
+
+        _logger.LogDebug("Pattern selection: Found {Count} patterns in {Path}", patternCount, namesPath);
         return Task.FromResult(SelectWeightedRandomPattern(patterns));
     }
 

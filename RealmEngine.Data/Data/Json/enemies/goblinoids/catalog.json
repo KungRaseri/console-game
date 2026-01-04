@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Goblinoid enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -28,6 +28,7 @@
       },
       "items": [
         {
+          "slug": "goblin",
           "name": "Goblin",
           "strength": 8,
           "dexterity": 16,
@@ -52,6 +53,7 @@
           }
         },
         {
+          "slug": "goblin-scout",
           "name": "Goblin Scout",
           "strength": 8,
           "dexterity": 17,
@@ -77,6 +79,7 @@
           }
         },
         {
+          "slug": "goblin-shaman",
           "name": "Goblin Shaman",
           "strength": 7,
           "dexterity": 13,
@@ -102,6 +105,7 @@
           }
         },
         {
+          "slug": "goblin-chief",
           "name": "Goblin Chief",
           "strength": 10,
           "dexterity": 14,
@@ -140,6 +144,7 @@
       },
       "items": [
         {
+          "slug": "hobgoblin",
           "name": "Hobgoblin",
           "strength": 13,
           "dexterity": 12,
@@ -164,6 +169,7 @@
           }
         },
         {
+          "slug": "hobgoblin-soldier",
           "name": "Hobgoblin Soldier",
           "strength": 13,
           "dexterity": 13,
@@ -189,6 +195,7 @@
           }
         },
         {
+          "slug": "hobgoblin-captain",
           "name": "Hobgoblin Captain",
           "strength": 14,
           "dexterity": 13,
@@ -215,6 +222,7 @@
           }
         },
         {
+          "slug": "hobgoblin-warlord",
           "name": "Hobgoblin Warlord",
           "strength": 15,
           "dexterity": 14,
@@ -255,6 +263,7 @@
       },
       "items": [
         {
+          "slug": "bugbear",
           "name": "Bugbear",
           "strength": 17,
           "dexterity": 13,
@@ -280,6 +289,7 @@
           }
         },
         {
+          "slug": "bugbear-hunter",
           "name": "Bugbear Hunter",
           "strength": 18,
           "dexterity": 15,
@@ -306,6 +316,7 @@
           }
         },
         {
+          "slug": "bugbear-chieftain",
           "name": "Bugbear Chieftain",
           "strength": 19,
           "dexterity": 14,
@@ -343,6 +354,7 @@
       },
       "items": [
         {
+          "slug": "goblin-king",
           "name": "Goblin King",
           "strength": 12,
           "dexterity": 16,

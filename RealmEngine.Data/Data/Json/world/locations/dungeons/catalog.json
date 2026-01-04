@@ -9,6 +9,7 @@
     "easy": {
       "items": [
         {
+          "slug": "bandithideout",
           "name": "BanditHideout",
           "displayName": "Bandit Hideout",
           "rarityWeight": 15,
@@ -26,6 +27,7 @@
           ]
         },
         {
+          "slug": "goblinwarrens",
           "name": "GoblinWarrens",
           "displayName": "Goblin Warrens",
           "rarityWeight": 12,
@@ -43,6 +45,7 @@
           ]
         },
         {
+          "slug": "spidernest",
           "name": "SpiderNest",
           "displayName": "Spider Nest",
           "rarityWeight": 18,
@@ -66,6 +69,7 @@
     "medium": {
       "items": [
         {
+          "slug": "cryptofshadows",
           "name": "CryptOfShadows",
           "displayName": "Crypt of Shadows",
           "rarityWeight": 30,
@@ -84,6 +88,7 @@
           ]
         },
         {
+          "slug": "forgottentemple",
           "name": "ForgottenTemple",
           "displayName": "Forgotten Temple",
           "rarityWeight": 35,
@@ -103,6 +108,7 @@
           ]
         },
         {
+          "slug": "icecaverns",
           "name": "IceCaverns",
           "displayName": "Ice Caverns",
           "rarityWeight": 32,
@@ -121,6 +127,7 @@
           ]
         },
         {
+          "slug": "swamplair",
           "name": "SwampLair",
           "displayName": "Swamp Lair",
           "rarityWeight": 28,
@@ -139,6 +146,7 @@
           ]
         },
         {
+          "slug": "dwarvenmines",
           "name": "DwarvenMines",
           "displayName": "Dwarven Mines",
           "rarityWeight": 25,
@@ -157,6 +165,7 @@
           ]
         },
         {
+          "slug": "enchantedforest",
           "name": "EnchantedForest",
           "displayName": "Enchanted Forest",
           "rarityWeight": 38,
@@ -181,6 +190,7 @@
     "hard": {
       "items": [
         {
+          "slug": "arcanelibrary",
           "name": "ArcaneLibrary",
           "displayName": "Arcane Library",
           "rarityWeight": 55,
@@ -200,6 +210,7 @@
           ]
         },
         {
+          "slug": "ancientcatacombs",
           "name": "AncientCatacombs",
           "displayName": "Ancient Catacombs",
           "rarityWeight": 50,
@@ -217,6 +228,7 @@
           ]
         },
         {
+          "slug": "orcstronghold",
           "name": "OrcStronghold",
           "displayName": "Orc Stronghold",
           "rarityWeight": 52,
@@ -240,6 +252,7 @@
     "very_hard": {
       "items": [
         {
+          "slug": "dragonlair",
           "name": "DragonLair",
           "displayName": "Dragon's Lair",
           "rarityWeight": 90,
@@ -259,6 +272,7 @@
           ]
         },
         {
+          "slug": "necromancerstower",
           "name": "NecromancersTower",
           "displayName": "Necromancer's Tower",
           "rarityWeight": 85,
@@ -276,6 +290,7 @@
           ]
         },
         {
+          "slug": "vampirecastle",
           "name": "VampireCastle",
           "displayName": "Vampire Castle",
           "rarityWeight": 95,
@@ -300,6 +315,7 @@
     "epic": {
       "items": [
         {
+          "slug": "abyssaldepths",
           "name": "AbyssalDepths",
           "displayName": "Abyssal Depths",
           "rarityWeight": 130,
@@ -317,6 +333,7 @@
           ]
         },
         {
+          "slug": "elementalplane",
           "name": "ElementalPlane",
           "displayName": "Elemental Plane",
           "rarityWeight": 140,
@@ -340,6 +357,7 @@
     "legendary": {
       "items": [
         {
+          "slug": "shadowrealm",
           "name": "ShadowRealm",
           "displayName": "Shadow Realm",
           "rarityWeight": 200,

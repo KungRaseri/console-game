@@ -25,6 +25,7 @@
       },
       "items": [
         {
+          "slug": "wizardapprentice",
           "name": "WizardApprentice",
           "displayName": "Wizard's Apprentice",
           "description": "Studied arcane magic under a master",
@@ -67,6 +68,7 @@
           "schedule": "@social/schedules/*:mage"
         },
         {
+          "slug": "hedgewizard",
           "name": "HedgeWizard",
           "displayName": "Hedge Wizard",
           "description": "Self-taught practitioner of folk magic",

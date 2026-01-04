@@ -25,6 +25,7 @@
       },
       "items": [
         {
+          "slug": "acolyteoffaith",
           "name": "AcolyteOfFaith",
           "displayName": "Acolyte of Faith",
           "description": "Devoted to religious service",
@@ -82,6 +83,7 @@
       },
       "items": [
         {
+          "slug": "priest",
           "name": "Priest",
           "displayName": "Priest",
           "strength": 10,

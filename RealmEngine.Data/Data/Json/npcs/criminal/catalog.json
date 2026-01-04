@@ -25,6 +25,7 @@
       },
       "items": [
         {
+          "slug": "formercriminal",
           "name": "FormerCriminal",
           "displayName": "Former Criminal",
           "description": "Has a history of illegal activities",
@@ -67,6 +68,7 @@
           "schedule": "@social/schedules/*:criminal"
         },
         {
+          "slug": "formerspy",
           "name": "FormerSpy",
           "displayName": "Former Spy",
           "description": "Gathered intelligence for crown or guild",
@@ -110,6 +112,7 @@
           "schedule": "@social/schedules/*:criminal"
         },
         {
+          "slug": "formersmuggler",
           "name": "FormerSmuggler",
           "displayName": "Former Smuggler",
           "description": "Dealt in contraband goods",
@@ -152,6 +155,7 @@
           "schedule": "@social/schedules/*:criminal"
         },
         {
+          "slug": "reformedthief",
           "name": "ReformedThief",
           "displayName": "Reformed Thief",
           "description": "Lived by stealth and cunning, now seeking honest work",
@@ -193,6 +197,7 @@
           "schedule": "@social/schedules/*:criminal"
         },
         {
+          "slug": "formerpirate",
           "name": "FormerPirate",
           "displayName": "Former Pirate",
           "description": "Sailed under black flag, now seeking redemption",

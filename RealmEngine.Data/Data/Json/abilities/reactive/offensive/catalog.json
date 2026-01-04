@@ -16,6 +16,7 @@
     "offensive": {
       "items": [
         {
+          "slug": "vengeance-strike",
           "name": "Vengeance Strike",
           "displayName": "Vengeance Strike",
           "description": "Counterattacks when hit with increased damage",
@@ -42,6 +43,7 @@
           }
         },
         {
+          "slug": "retaliation",
           "name": "Retaliation",
           "displayName": "Retaliation",
           "description": "Automatically attacks enemy after being struck",
@@ -64,6 +66,7 @@
           }
         },
         {
+          "slug": "berserker-rage",
           "name": "Berserker Rage",
           "displayName": "Berserker Rage",
           "description": "Enters rage when health drops below 25%, massively increasing damage",
@@ -97,6 +100,7 @@
           }
         },
         {
+          "slug": "death-throes",
           "name": "Death Throes",
           "displayName": "Death Throes",
           "description": "Explodes when killed, damaging nearby enemies",
@@ -123,6 +127,7 @@
           }
         },
         {
+          "slug": "opportunity-strike",
           "name": "Opportunity Strike",
           "displayName": "Opportunity Strike",
           "description": "Attacks enemy when they miss an attack",
@@ -145,6 +150,7 @@
           }
         },
         {
+          "slug": "punishing-blow",
           "name": "Punishing Blow",
           "displayName": "Punishing Blow",
           "description": "Critical strike when blocking an attack",
@@ -171,6 +177,7 @@
           }
         },
         {
+          "slug": "bloodlust",
           "name": "Bloodlust",
           "displayName": "Bloodlust",
           "description": "Gains attack speed with each kill",
@@ -200,6 +207,7 @@
           }
         },
         {
+          "slug": "frenzy",
           "name": "Frenzy",
           "displayName": "Frenzy",
           "description": "Each hit increases attack damage for next attack",
@@ -225,6 +233,7 @@
           }
         },
         {
+          "slug": "execution",
           "name": "Execution",
           "displayName": "Execution",
           "description": "Instantly kills enemies below 15% health",
@@ -250,6 +259,7 @@
           }
         },
         {
+          "slug": "predators-instinct",
           "name": "Predator's Instinct",
           "displayName": "Predator's Instinct",
           "description": "Deals bonus damage to wounded enemies",
@@ -275,6 +285,7 @@
           }
         },
         {
+          "slug": "chain-lightning",
           "name": "Chain Lightning",
           "displayName": "Chain Lightning",
           "description": "Lightning arcs to nearby enemies after dealing damage",
@@ -305,6 +316,7 @@
           }
         },
         {
+          "slug": "life-drain",
           "name": "Life Drain",
           "displayName": "Life Drain",
           "description": "Steals health from enemies when attacking",
@@ -326,6 +338,7 @@
           }
         },
         {
+          "slug": "mana-burn",
           "name": "Mana Burn",
           "displayName": "Mana Burn",
           "description": "Burns enemy mana when dealing damage, causing extra damage",
@@ -351,6 +364,7 @@
           }
         },
         {
+          "slug": "fury-of-the-fallen",
           "name": "Fury of the Fallen",
           "displayName": "Fury of the Fallen",
           "description": "Becomes stronger when allies die nearby",

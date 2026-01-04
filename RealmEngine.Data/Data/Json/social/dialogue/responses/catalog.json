@@ -9,6 +9,7 @@
     "affirmative": {
       "items": [
         {
+          "slug": "agreement",
           "name": "agreement",
           "displayName": "Agreement",
           "rarityWeight": 10,
@@ -22,6 +23,7 @@
           ]
         },
         {
+          "slug": "acceptance",
           "name": "acceptance",
           "displayName": "Acceptance",
           "rarityWeight": 12,
@@ -41,6 +43,7 @@
     "negative": {
       "items": [
         {
+          "slug": "refusal",
           "name": "refusal",
           "displayName": "Refusal",
           "rarityWeight": 15,
@@ -54,6 +57,7 @@
           ]
         },
         {
+          "slug": "disagreement",
           "name": "disagreement",
           "displayName": "Disagreement",
           "rarityWeight": 18,
@@ -73,6 +77,7 @@
     "questioning": {
       "items": [
         {
+          "slug": "curiosity",
           "name": "curiosity",
           "displayName": "Curiosity",
           "rarityWeight": 20,
@@ -86,6 +91,7 @@
           ]
         },
         {
+          "slug": "clarification",
           "name": "clarification",
           "displayName": "Clarification",
           "rarityWeight": 22,
@@ -105,6 +111,7 @@
     "emotional": {
       "items": [
         {
+          "slug": "gratitude",
           "name": "gratitude",
           "displayName": "Gratitude",
           "rarityWeight": 12,
@@ -118,6 +125,7 @@
           ]
         },
         {
+          "slug": "concern",
           "name": "concern",
           "displayName": "Concern",
           "rarityWeight": 25,
@@ -131,6 +139,7 @@
           ]
         },
         {
+          "slug": "anger",
           "name": "anger",
           "displayName": "Anger",
           "rarityWeight": 30,
@@ -144,6 +153,7 @@
           ]
         },
         {
+          "slug": "joy",
           "name": "joy",
           "displayName": "Joy",
           "rarityWeight": 15,
@@ -157,6 +167,7 @@
           ]
         },
         {
+          "slug": "sadness",
           "name": "sadness",
           "displayName": "Sadness",
           "rarityWeight": 28,
@@ -176,6 +187,7 @@
     "informative": {
       "items": [
         {
+          "slug": "knowledge",
           "name": "knowledge",
           "displayName": "Sharing Knowledge",
           "rarityWeight": 18,
@@ -189,6 +201,7 @@
           ]
         },
         {
+          "slug": "rumor",
           "name": "rumor",
           "displayName": "Spreading Rumors",
           "rarityWeight": 20,
@@ -202,6 +215,7 @@
           ]
         },
         {
+          "slug": "warning",
           "name": "warning",
           "displayName": "Warning",
           "rarityWeight": 25,
@@ -221,6 +235,7 @@
     "trading": {
       "items": [
         {
+          "slug": "haggling",
           "name": "haggling",
           "displayName": "Haggling",
           "rarityWeight": 22,
@@ -234,6 +249,7 @@
           ]
         },
         {
+          "slug": "deal-made",
           "name": "deal_made",
           "displayName": "Deal Made",
           "rarityWeight": 15,
@@ -247,6 +263,7 @@
           ]
         },
         {
+          "slug": "no-deal",
           "name": "no_deal",
           "displayName": "No Deal",
           "rarityWeight": 20,

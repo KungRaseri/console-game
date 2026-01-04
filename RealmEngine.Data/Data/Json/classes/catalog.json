@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Player and NPC class definitions with archetypes, subclasses, specializations, and progression data",
     "version": "4.0",
@@ -30,6 +30,7 @@
       },
       "items": [
         {
+          "slug": "priest",
           "name": "Priest",
           "displayName": "Priest",
           "description": "Holy healer devoted to protecting and restoring allies",
@@ -102,6 +103,7 @@
           }
         },
         {
+          "slug": "paladin",
           "name": "Paladin",
           "displayName": "Paladin",
           "description": "Holy warrior combining divine magic with martial prowess",
@@ -189,6 +191,7 @@
       },
       "items": [
         {
+          "slug": "thief",
           "name": "Thief",
           "displayName": "Thief",
           "description": "Master of stealth, lockpicking, and cunning strikes",
@@ -260,6 +263,7 @@
           }
         },
         {
+          "slug": "assassin",
           "name": "Assassin",
           "displayName": "Assassin",
           "description": "Deadly killer specializing in instant-kill techniques",
@@ -333,6 +337,7 @@
           }
         },
         {
+          "slug": "swashbuckler",
           "name": "Swashbuckler",
           "displayName": "Swashbuckler",
           "description": "Charismatic rogue combining agility with showmanship",
@@ -422,6 +427,7 @@
       },
       "items": [
         {
+          "slug": "hunter",
           "name": "Hunter",
           "displayName": "Hunter",
           "description": "Expert tracker and archer specializing in ranged combat",
@@ -494,6 +500,7 @@
           }
         },
         {
+          "slug": "beastmaster",
           "name": "Beastmaster",
           "displayName": "Beastmaster",
           "description": "Ranger who commands powerful animal companions in battle",
@@ -584,6 +591,7 @@
       },
       "items": [
         {
+          "slug": "fighter",
           "name": "Fighter",
           "displayName": "Fighter",
           "description": "Versatile warrior skilled in all forms of combat",
@@ -664,6 +672,7 @@
           }
         },
         {
+          "slug": "berserker",
           "name": "Berserker",
           "displayName": "Berserker",
           "description": "Rage-fueled warrior who sacrifices defense for devastating offense",
@@ -736,6 +745,7 @@
           }
         },
         {
+          "slug": "knight",
           "name": "Knight",
           "displayName": "Knight",
           "description": "Heavily armored defender who protects allies",
@@ -810,6 +820,7 @@
           }
         },
         {
+          "slug": "duelist",
           "name": "Duelist",
           "displayName": "Duelist",
           "description": "Agile warrior specializing in single-weapon finesse combat",
@@ -898,6 +909,7 @@
       },
       "items": [
         {
+          "slug": "wizard",
           "name": "Wizard",
           "displayName": "Wizard",
           "description": "Scholar of arcane arts mastering elemental and utility spells",
@@ -970,6 +982,7 @@
           }
         },
         {
+          "slug": "elementalist",
           "name": "Elementalist",
           "displayName": "Elementalist",
           "description": "Specialized mage focusing on a single element for devastating power",
@@ -1039,6 +1052,7 @@
           }
         },
         {
+          "slug": "necromancer",
           "name": "Necromancer",
           "displayName": "Necromancer",
           "description": "Dark mage commanding death magic and undead minions",

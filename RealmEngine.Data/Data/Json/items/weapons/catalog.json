@@ -23,94 +23,104 @@
       },
       "items": [
         {
+          "slug": "longsword",
           "name": "Longsword",
           "damage": "1d8",
           "weight": 3.0,
           "value": 15,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 15
+          "budgetCost": 3
         },
         {
+          "slug": "shortsword",
           "name": "Shortsword",
           "damage": "1d6",
           "weight": 2.0,
           "value": 10,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "greatsword",
           "name": "Greatsword",
           "damage": "2d6",
           "weight": 6.0,
           "value": 50,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 30
+          "budgetCost": 6
         },
         {
+          "slug": "scimitar",
           "name": "Scimitar",
           "damage": "1d6",
           "weight": 3.0,
           "value": 15,
           "rarity": "common",
           "selectionWeight": 18,
-          "budgetCost": 12
+          "budgetCost": 3
         },
         {
+          "slug": "rapier",
           "name": "Rapier",
           "damage": "1d8",
           "weight": 2.0,
           "value": 25,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 18
+          "budgetCost": 4
         },
         {
+          "slug": "katana",
           "name": "Katana",
           "damage": "1d10",
           "weight": 3.0,
           "value": 40,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 25
+          "budgetCost": 5
         },
         {
+          "slug": "broadsword",
           "name": "Broadsword",
           "damage": "1d8",
           "weight": 3.5,
           "value": 18,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 15
+          "budgetCost": 3
         },
         {
+          "slug": "claymore",
           "name": "Claymore",
           "damage": "2d6",
           "weight": 7.0,
           "value": 60,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 35
+          "budgetCost": 7
         },
         {
+          "slug": "saber",
           "name": "Saber",
           "damage": "1d8",
           "weight": 2.5,
           "value": 20,
           "rarity": "common",
           "selectionWeight": 18,
-          "budgetCost": 14
+          "budgetCost": 3
         },
         {
+          "slug": "gladius",
           "name": "Gladius",
           "damage": "1d6",
           "weight": 2.0,
           "value": 12,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 10
+          "budgetCost": 2
         }
       ]
     },
@@ -123,76 +133,84 @@
       },
       "items": [
         {
+          "slug": "battleaxe",
           "name": "Battleaxe",
           "damage": "1d8",
           "weight": 4.0,
           "value": 20,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 16
+          "budgetCost": 4
         },
         {
+          "slug": "handaxe",
           "name": "Handaxe",
           "damage": "1d6",
           "weight": 2.0,
           "value": 10,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "greataxe",
           "name": "Greataxe",
           "damage": "1d12",
           "weight": 7.0,
           "value": 55,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 40
+          "budgetCost": 8
         },
         {
+          "slug": "waraxe",
           "name": "Waraxe",
           "damage": "1d10",
           "weight": 5.0,
           "value": 30,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 28
+          "budgetCost": 6
         },
         {
+          "slug": "hatchet",
           "name": "Hatchet",
           "damage": "1d4",
           "weight": 1.5,
           "value": 5,
           "rarity": "common",
           "selectionWeight": 22,
-          "budgetCost": 8
+          "budgetCost": 2
         },
         {
+          "slug": "tomahawk",
           "name": "Tomahawk",
           "damage": "1d6",
           "weight": 2.0,
           "value": 8,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "cleaver",
           "name": "Cleaver",
           "damage": "1d6",
           "weight": 2.5,
           "value": 8,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "poleaxe",
           "name": "Poleaxe",
           "damage": "1d10",
           "weight": 6.0,
           "value": 40,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 32
+          "budgetCost": 7
         }
       ]
     },
@@ -206,76 +224,84 @@
       },
       "items": [
         {
+          "slug": "longbow",
           "name": "Longbow",
           "damage": "1d8",
           "weight": 2.0,
           "value": 30,
           "rarity": "common",
           "selectionWeight": 18,
-          "budgetCost": 20
+          "budgetCost": 4
         },
         {
+          "slug": "shortbow",
           "name": "Shortbow",
           "damage": "1d6",
           "weight": 1.5,
           "value": 20,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 15
+          "budgetCost": 3
         },
         {
+          "slug": "composite-bow",
           "name": "Composite Bow",
           "damage": "1d8",
           "weight": 2.5,
           "value": 50,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 25
+          "budgetCost": 5
         },
         {
+          "slug": "recurve-bow",
           "name": "Recurve Bow",
           "damage": "1d8",
           "weight": 2.0,
           "value": 35,
           "rarity": "common",
           "selectionWeight": 15,
-          "budgetCost": 22
+          "budgetCost": 5
         },
         {
+          "slug": "crossbow",
           "name": "Crossbow",
           "damage": "1d10",
           "weight": 5.0,
           "value": 50,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 30
+          "budgetCost": 6
         },
         {
+          "slug": "heavy-crossbow",
           "name": "Heavy Crossbow",
           "damage": "1d12",
           "weight": 8.0,
           "value": 75,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 42
+          "budgetCost": 9
         },
         {
+          "slug": "warbow",
           "name": "Warbow",
           "damage": "2d6",
           "weight": 3.0,
           "value": 80,
           "rarity": "rare",
           "selectionWeight": 6,
-          "budgetCost": 50
+          "budgetCost": 10
         },
         {
+          "slug": "hunting-bow",
           "name": "Hunting Bow",
           "damage": "1d6",
           "weight": 1.5,
           "value": 15,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 12
+          "budgetCost": 3
         }
       ]
     },
@@ -289,76 +315,84 @@
       },
       "items": [
         {
+          "slug": "dagger",
           "name": "Dagger",
           "damage": "1d4",
           "weight": 1.0,
           "value": 5,
           "rarity": "common",
           "selectionWeight": 22,
-          "budgetCost": 8
+          "budgetCost": 2
         },
         {
+          "slug": "dirk",
           "name": "Dirk",
           "damage": "1d4",
           "weight": 1.0,
           "value": 6,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 8
+          "budgetCost": 2
         },
         {
+          "slug": "stiletto",
           "name": "Stiletto",
           "damage": "1d4",
           "weight": 0.5,
           "value": 10,
           "rarity": "common",
           "selectionWeight": 18,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "kris",
           "name": "Kris",
           "damage": "1d6",
           "weight": 1.5,
           "value": 15,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 14
+          "budgetCost": 3
         },
         {
+          "slug": "tanto",
           "name": "Tanto",
           "damage": "1d4",
           "weight": 0.8,
           "value": 12,
           "rarity": "common",
           "selectionWeight": 18,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "kukri",
           "name": "Kukri",
           "damage": "1d6",
           "weight": 1.2,
           "value": 12,
           "rarity": "common",
           "selectionWeight": 18,
-          "budgetCost": 12
+          "budgetCost": 3
         },
         {
+          "slug": "rondel",
           "name": "Rondel",
           "damage": "1d4",
           "weight": 1.0,
           "value": 8,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 8
+          "budgetCost": 2
         },
         {
+          "slug": "main-gauche",
           "name": "Main Gauche",
           "damage": "1d4",
           "weight": 1.5,
           "value": 10,
           "rarity": "common",
           "selectionWeight": 18,
-          "budgetCost": 10
+          "budgetCost": 2
         }
       ]
     },
@@ -372,76 +406,84 @@
       },
       "items": [
         {
+          "slug": "spear",
           "name": "Spear",
           "damage": "1d6",
           "weight": 3.0,
           "value": 10,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 12
+          "budgetCost": 3
         },
         {
+          "slug": "lance",
           "name": "Lance",
           "damage": "1d12",
           "weight": 6.0,
           "value": 40,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 38
+          "budgetCost": 8
         },
         {
+          "slug": "javelin",
           "name": "Javelin",
           "damage": "1d6",
           "weight": 2.0,
           "value": 8,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "pike",
           "name": "Pike",
           "damage": "1d10",
           "weight": 8.0,
           "value": 30,
           "rarity": "common",
           "selectionWeight": 16,
-          "budgetCost": 26
+          "budgetCost": 6
         },
         {
+          "slug": "halberd",
           "name": "Halberd",
           "damage": "1d10",
           "weight": 6.0,
           "value": 35,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 30
+          "budgetCost": 6
         },
         {
+          "slug": "trident",
           "name": "Trident",
           "damage": "1d8",
           "weight": 4.0,
           "value": 25,
           "rarity": "common",
           "selectionWeight": 16,
-          "budgetCost": 20
+          "budgetCost": 4
         },
         {
+          "slug": "partisan",
           "name": "Partisan",
           "damage": "1d8",
           "weight": 5.0,
           "value": 30,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 24
+          "budgetCost": 5
         },
         {
+          "slug": "glaive",
           "name": "Glaive",
           "damage": "1d10",
           "weight": 6.0,
           "value": 40,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 32
+          "budgetCost": 7
         }
       ]
     },
@@ -454,76 +496,84 @@
       },
       "items": [
         {
+          "slug": "mace",
           "name": "Mace",
           "damage": "1d6",
           "weight": 4.0,
           "value": 12,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 12
+          "budgetCost": 3
         },
         {
+          "slug": "warhammer",
           "name": "Warhammer",
           "damage": "1d8",
           "weight": 5.0,
           "value": 20,
           "rarity": "common",
           "selectionWeight": 18,
-          "budgetCost": 18
+          "budgetCost": 4
         },
         {
+          "slug": "flail",
           "name": "Flail",
           "damage": "1d8",
           "weight": 5.0,
           "value": 18,
           "rarity": "common",
           "selectionWeight": 18,
-          "budgetCost": 16
+          "budgetCost": 4
         },
         {
+          "slug": "morning-star",
           "name": "Morning Star",
           "damage": "1d8",
           "weight": 6.0,
           "value": 25,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 20
+          "budgetCost": 4
         },
         {
+          "slug": "club",
           "name": "Club",
           "damage": "1d4",
           "weight": 2.0,
           "value": 2,
           "rarity": "common",
           "selectionWeight": 25,
-          "budgetCost": 6
+          "budgetCost": 2
         },
         {
+          "slug": "maul",
           "name": "Maul",
           "damage": "2d6",
           "weight": 10.0,
           "value": 45,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 35
+          "budgetCost": 7
         },
         {
+          "slug": "cudgel",
           "name": "Cudgel",
           "damage": "1d4",
           "weight": 2.5,
           "value": 3,
           "rarity": "common",
           "selectionWeight": 25,
-          "budgetCost": 6
+          "budgetCost": 2
         },
         {
+          "slug": "scepter",
           "name": "Scepter",
           "damage": "1d6",
           "weight": 2.0,
           "value": 15,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 14
+          "budgetCost": 3
         }
       ]
     },
@@ -537,58 +587,64 @@
       },
       "items": [
         {
+          "slug": "staff",
           "name": "Staff",
           "damage": "1d6",
           "weight": 4.0,
           "value": 10,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 12
+          "budgetCost": 3
         },
         {
+          "slug": "quarterstaff",
           "name": "Quarterstaff",
           "damage": "1d8",
           "weight": 4.0,
           "value": 8,
           "rarity": "common",
           "selectionWeight": 20,
-          "budgetCost": 14
+          "budgetCost": 3
         },
         {
+          "slug": "war-staff",
           "name": "War Staff",
           "damage": "1d8",
           "weight": 5.0,
           "value": 25,
           "rarity": "uncommon",
           "selectionWeight": 12,
-          "budgetCost": 20
+          "budgetCost": 4
         },
         {
+          "slug": "battle-staff",
           "name": "Battle Staff",
           "damage": "1d10",
           "weight": 6.0,
           "value": 35,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 28
+          "budgetCost": 6
         },
         {
+          "slug": "rod",
           "name": "Rod",
           "damage": "1d4",
           "weight": 2.0,
           "value": 20,
           "rarity": "uncommon",
           "selectionWeight": 10,
-          "budgetCost": 16
+          "budgetCost": 4
         },
         {
+          "slug": "scepter-staff",
           "name": "Scepter Staff",
           "damage": "1d6",
           "weight": 3.0,
           "value": 30,
           "rarity": "uncommon",
           "selectionWeight": 8,
-          "budgetCost": 22
+          "budgetCost": 5
         }
       ]
     }

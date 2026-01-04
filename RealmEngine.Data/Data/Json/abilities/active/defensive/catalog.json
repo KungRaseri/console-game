@@ -17,6 +17,7 @@
     "defensive": {
       "items": [
         {
+          "slug": "demonic-regeneration",
           "name": "Demonic Regeneration",
           "displayName": "Demonic Regeneration",
           "description": "Rapidly heals wounds",
@@ -33,6 +34,7 @@
           }
         },
         {
+          "slug": "hellborn-armor",
           "name": "Hellborn Armor",
           "displayName": "Hellborn Armor",
           "description": "Natural resistance to physical damage",
@@ -53,6 +55,7 @@
           }
         },
         {
+          "slug": "dimensional-shift",
           "name": "Dimensional Shift",
           "displayName": "Dimensional Shift",
           "description": "Phases between realms to avoid damage",
@@ -74,6 +77,7 @@
           }
         },
         {
+          "slug": "magic-immunity",
           "name": "Magic Immunity",
           "displayName": "Magic Immunity",
           "description": "Cannot be harmed by spells",
@@ -98,6 +102,7 @@
           }
         },
         {
+          "slug": "armored-scales",
           "rarityWeight": 35,
           "description": "Nearly impenetrable natural armor",
           "name": "Armored Scales",
@@ -110,6 +115,7 @@
           "displayName": "Armored Scales"
         },
         {
+          "slug": "magic-resistance",
           "rarityWeight": 75,
           "description": "High resistance to magical attacks",
           "name": "Magic Resistance",
@@ -122,6 +128,7 @@
           "displayName": "Magic Resistance"
         },
         {
+          "slug": "elemental-immunity",
           "rarityWeight": 75,
           "description": "Immune to its breath weapon's element",
           "name": "Elemental Immunity",
@@ -134,6 +141,7 @@
           "displayName": "Elemental Immunity"
         },
         {
+          "slug": "legendary-resistance",
           "rarityWeight": 250,
           "description": "Can shrug off debilitating effects",
           "name": "Legendary Resistance",
@@ -146,6 +154,7 @@
           "displayName": "Legendary Resistance"
         },
         {
+          "slug": "incorporeal",
           "rarityWeight": 75,
           "description": "Physical attacks pass through",
           "name": "Incorporeal",
@@ -158,6 +167,7 @@
           "displayName": "Incorporeal"
         },
         {
+          "slug": "phase-shift",
           "rarityWeight": 75,
           "description": "Can merge with its element in environment",
           "name": "Phase Shift",
@@ -170,6 +180,7 @@
           "displayName": "Phase Shift"
         },
         {
+          "slug": "adaptive-form",
           "rarityWeight": 75,
           "description": "Changes shape to avoid attacks",
           "name": "Adaptive Form",
@@ -182,6 +193,7 @@
           "displayName": "Adaptive Form"
         },
         {
+          "slug": "armor-expert",
           "rarityWeight": 10,
           "description": "Maximizes protection from armor",
           "name": "Armor Expert",
@@ -194,6 +206,7 @@
           "displayName": "Armor Expert"
         },
         {
+          "slug": "skeletal-frame",
           "rarityWeight": 10,
           "description": "Resistant to piercing, vulnerable to bludgeoning",
           "name": "Skeletal Frame",
@@ -206,6 +219,7 @@
           "displayName": "Skeletal Frame"
         },
         {
+          "slug": "regeneration",
           "rarityWeight": 75,
           "description": "Slowly reforms from damage",
           "name": "Regeneration",
@@ -218,6 +232,7 @@
           "displayName": "Regeneration"
         },
         {
+          "slug": "undying",
           "rarityWeight": 75,
           "description": "Cannot be permanently killed without holy magic",
           "name": "Undying",
@@ -230,6 +245,7 @@
           "displayName": "Undying"
         },
         {
+          "slug": "shapeshifting",
           "rarityWeight": 75,
           "description": "Can transform into bat, wolf, or mist",
           "name": "Shapeshifting",
@@ -242,6 +258,7 @@
           "displayName": "Shapeshifting"
         },
         {
+          "slug": "mist-form",
           "rarityWeight": 75,
           "description": "Becomes incorporeal fog",
           "name": "Mist Form",
@@ -254,6 +271,7 @@
           "displayName": "Mist Form"
         },
         {
+          "slug": "shadow-walk",
           "rarityWeight": 75,
           "description": "Can teleport through darkness",
           "name": "Shadow Walk",
@@ -266,6 +284,7 @@
           "displayName": "Shadow Walk"
         },
         {
+          "slug": "defend",
           "name": "defend",
           "displayName": "Defend",
           "description": "Defensive stance that reduces incoming damage",
@@ -287,6 +306,7 @@
           }
         },
         {
+          "slug": "indomitable",
           "name": "indomitable",
           "displayName": "Indomitable",
           "description": "Becomes immune to crowd control effects",
@@ -304,6 +324,7 @@
           }
         },
         {
+          "slug": "guardian",
           "name": "guardian",
           "displayName": "Guardian",
           "description": "Protects nearby allies by redirecting damage",
@@ -325,6 +346,7 @@
           }
         },
         {
+          "slug": "shield-wall",
           "name": "shield-wall",
           "displayName": "Shield Wall",
           "description": "Raises shield to block all frontal attacks",
@@ -350,6 +372,7 @@
           }
         },
         {
+          "slug": "bulwark",
           "name": "bulwark",
           "displayName": "Bulwark",
           "description": "Massive defense boost and damage reflection",
@@ -371,6 +394,7 @@
           }
         },
         {
+          "slug": "aegis",
           "name": "aegis",
           "displayName": "Aegis",
           "description": "Divine shield that absorbs damage",
@@ -388,6 +412,7 @@
           }
         },
         {
+          "slug": "last-stand",
           "name": "last-stand",
           "displayName": "Last Stand",
           "description": "Cannot be reduced below 1 HP",
@@ -405,6 +430,7 @@
           }
         },
         {
+          "slug": "riposte",
           "name": "riposte",
           "displayName": "Riposte",
           "description": "Counter-attack after successful parry",
@@ -427,6 +453,7 @@
           }
         },
         {
+          "slug": "parry",
           "name": "parry",
           "displayName": "Parry",
           "description": "Deflect incoming melee attack",
@@ -444,6 +471,7 @@
           }
         },
         {
+          "slug": "perfect-parry",
           "name": "perfect-parry",
           "displayName": "Perfect Parry",
           "description": "Flawlessly deflects all attacks briefly",
@@ -465,6 +493,7 @@
           }
         },
         {
+          "slug": "en-garde",
           "name": "en-garde",
           "displayName": "En Garde",
           "description": "Defensive stance increasing parry chance",
@@ -486,6 +515,7 @@
           }
         },
         {
+          "slug": "evasion",
           "name": "evasion",
           "displayName": "Evasion",
           "description": "Greatly increases chance to dodge attacks",
@@ -503,6 +533,7 @@
           }
         },
         {
+          "slug": "arcane-shield",
           "name": "arcane-shield",
           "displayName": "Arcane Shield",
           "description": "Magical barrier that absorbs spell damage",
@@ -528,6 +559,7 @@
           }
         },
         {
+          "slug": "elemental-shield",
           "name": "elemental-shield",
           "displayName": "Elemental Shield",
           "description": "Absorbs damage from chosen element",
@@ -553,6 +585,7 @@
           }
         },
         {
+          "slug": "divine-shield",
           "name": "divine-shield",
           "displayName": "Divine Shield",
           "description": "Invulnerability granted by divine power",
@@ -574,6 +607,7 @@
           }
         },
         {
+          "slug": "frightful-presence",
           "name": "frightful-presence",
           "displayName": "Frightful Presence",
           "description": "Terrifying aura that strikes fear into enemies",

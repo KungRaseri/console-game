@@ -7,40 +7,71 @@
   },
   "items": [
     {
+      "slug": "ruby",
       "name": "ruby",
       "rarityWeight": 50,
       "category": "red",
       "traits": {
-        "physicalDamage": { "value": 10, "type": "number" },
-        "critChance": { "value": 2, "type": "number" }
+        "physicalDamage": {
+          "value": 10,
+          "type": "number"
+        },
+        "critChance": {
+          "value": 2,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "garnet",
       "name": "garnet",
       "rarityWeight": 60,
       "category": "red",
       "traits": {
-        "physicalDamage": { "value": 8, "type": "number" },
-        "attackSpeed": { "value": 5, "type": "number" }
+        "physicalDamage": {
+          "value": 8,
+          "type": "number"
+        },
+        "attackSpeed": {
+          "value": 5,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "bloodstone",
       "name": "bloodstone",
       "rarityWeight": 40,
       "category": "red",
       "traits": {
-        "physicalDamage": { "value": 12, "type": "number" },
-        "lifesteal": { "value": 3, "type": "number" }
+        "physicalDamage": {
+          "value": 12,
+          "type": "number"
+        },
+        "lifesteal": {
+          "value": 3,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "red-diamond",
       "name": "red-diamond",
       "rarityWeight": 20,
       "category": "red",
       "traits": {
-        "physicalDamage": { "value": 15, "type": "number" },
-        "critChance": { "value": 5, "type": "number" },
-        "critDamage": { "value": 10, "type": "number" }
+        "physicalDamage": {
+          "value": 15,
+          "type": "number"
+        },
+        "critChance": {
+          "value": 5,
+          "type": "number"
+        },
+        "critDamage": {
+          "value": 10,
+          "type": "number"
+        }
       }
     }
   ]

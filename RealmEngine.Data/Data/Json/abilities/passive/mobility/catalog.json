@@ -16,6 +16,7 @@
     "mobility": {
       "items": [
         {
+          "slug": "flight",
           "rarityWeight": 10,
           "description": "Can fly and attack from above",
           "name": "Flight",
@@ -28,6 +29,7 @@
           "displayName": "Flight"
         },
         {
+          "slug": "flying",
           "rarityWeight": 35,
           "description": "Can fly and avoid ground-based attacks",
           "name": "Flying",
@@ -40,6 +42,7 @@
           "displayName": "Flying"
         },
         {
+          "slug": "burrowing",
           "rarityWeight": 35,
           "description": "Can burrow underground to ambush or escape",
           "name": "Burrowing",
@@ -52,6 +55,7 @@
           "displayName": "Burrowing"
         },
         {
+          "slug": "ambulatory",
           "rarityWeight": 75,
           "description": "Can move despite being a plant",
           "name": "Ambulatory",
@@ -64,6 +68,7 @@
           "displayName": "Ambulatory"
         },
         {
+          "slug": "swiftswimmer",
           "rarityWeight": 35,
           "description": "Moves quickly through water",
           "name": "SwiftSwimmer",
@@ -76,6 +81,7 @@
           "displayName": "Swift Swimmer"
         },
         {
+          "slug": "camouflage",
           "rarityWeight": 35,
           "description": "Can become invisible in natural environments",
           "name": "Camouflage",
@@ -88,6 +94,7 @@
           "displayName": "Camouflage"
         },
         {
+          "slug": "shadow-walk",
           "rarityWeight": 150,
           "description": "Can teleport through darkness",
           "name": "Shadow Walk",

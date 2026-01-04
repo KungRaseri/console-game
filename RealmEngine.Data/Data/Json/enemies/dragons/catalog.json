@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Dragon enemy type catalog with base stats and traits",
     "version": "4.0",
@@ -30,6 +30,7 @@
       },
       "items": [
         {
+          "slug": "red-dragon",
           "name": "Red Dragon",
           "health": 300,
           "attack": 35,
@@ -57,6 +58,7 @@
           }
         },
         {
+          "slug": "blue-dragon",
           "name": "Blue Dragon",
           "health": 280,
           "attack": 32,
@@ -84,6 +86,7 @@
           }
         },
         {
+          "slug": "green-dragon",
           "name": "Green Dragon",
           "health": 270,
           "attack": 30,
@@ -111,6 +114,7 @@
           }
         },
         {
+          "slug": "black-dragon",
           "name": "Black Dragon",
           "health": 260,
           "attack": 31,
@@ -138,6 +142,7 @@
           }
         },
         {
+          "slug": "white-dragon",
           "name": "White Dragon",
           "health": 250,
           "attack": 28,
@@ -176,6 +181,7 @@
       },
       "items": [
         {
+          "slug": "gold-dragon",
           "name": "Gold Dragon",
           "strength": 26,
           "dexterity": 14,
@@ -210,6 +216,7 @@
           }
         },
         {
+          "slug": "silver-dragon",
           "name": "Silver Dragon",
           "strength": 25,
           "dexterity": 13,
@@ -243,6 +250,7 @@
           }
         },
         {
+          "slug": "bronze-dragon",
           "name": "Bronze Dragon",
           "strength": 24,
           "dexterity": 13,
@@ -276,6 +284,7 @@
           }
         },
         {
+          "slug": "copper-dragon",
           "name": "Copper Dragon",
           "strength": 23,
           "dexterity": 13,
@@ -309,6 +318,7 @@
           }
         },
         {
+          "slug": "brass-dragon",
           "name": "Brass Dragon",
           "strength": 23,
           "dexterity": 12,
@@ -352,6 +362,7 @@
       },
       "items": [
         {
+          "slug": "drake",
           "name": "Drake",
           "strength": 20,
           "dexterity": 12,
@@ -380,6 +391,7 @@
           }
         },
         {
+          "slug": "wyrm",
           "name": "Wyrm",
           "strength": 21,
           "dexterity": 11,
@@ -409,6 +421,7 @@
           }
         },
         {
+          "slug": "wyvern",
           "name": "Wyvern",
           "strength": 19,
           "dexterity": 14,

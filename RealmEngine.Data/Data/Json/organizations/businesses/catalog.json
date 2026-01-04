@@ -9,6 +9,7 @@
     "lodging": {
       "items": [
         {
+          "slug": "inn-basic",
           "name": "inn_basic",
           "displayName": "Basic Inn",
           "rarityWeight": 5,
@@ -73,6 +74,7 @@
           "npc_count": "2-4"
         },
         {
+          "slug": "inn-quality",
           "name": "inn_quality",
           "displayName": "Quality Inn",
           "rarityWeight": 12,
@@ -147,6 +149,7 @@
           "npc_count": "5-8"
         },
         {
+          "slug": "inn-luxury",
           "name": "inn_luxury",
           "displayName": "Luxury Inn",
           "rarityWeight": 30,
@@ -229,6 +232,7 @@
     "food_drink": {
       "items": [
         {
+          "slug": "tavern-rough",
           "name": "tavern_rough",
           "displayName": "Rough Tavern",
           "rarityWeight": 8,
@@ -297,6 +301,7 @@
           "quest_board": true
         },
         {
+          "slug": "tavern-respectable",
           "name": "tavern_respectable",
           "displayName": "Respectable Tavern",
           "rarityWeight": 10,
@@ -365,6 +370,7 @@
           "quest_board": true
         },
         {
+          "slug": "restaurant-fine",
           "name": "restaurant_fine",
           "displayName": "Fine Restaurant",
           "rarityWeight": 25,
@@ -437,6 +443,7 @@
     "services": {
       "items": [
         {
+          "slug": "stable",
           "name": "stable",
           "displayName": "Stable",
           "rarityWeight": 5,
@@ -514,6 +521,7 @@
           "required_population": 500
         },
         {
+          "slug": "temple",
           "name": "temple",
           "displayName": "Temple",
           "rarityWeight": 10,
@@ -589,6 +597,7 @@
           "faction": "@organizations/factions/religious:clergy"
         },
         {
+          "slug": "bank",
           "name": "bank",
           "displayName": "Bank",
           "rarityWeight": 20,
@@ -665,6 +674,7 @@
     "entertainment": {
       "items": [
         {
+          "slug": "theater",
           "name": "theater",
           "displayName": "Theater",
           "rarityWeight": 22,
@@ -715,6 +725,7 @@
           "required_population": 8000
         },
         {
+          "slug": "arena",
           "name": "arena",
           "displayName": "Arena",
           "rarityWeight": 28,
@@ -775,6 +786,7 @@
           "faction": "@organizations/factions/military:fighters_guild"
         },
         {
+          "slug": "gambling-hall",
           "name": "gambling_hall",
           "displayName": "Gambling Hall",
           "rarityWeight": 32,

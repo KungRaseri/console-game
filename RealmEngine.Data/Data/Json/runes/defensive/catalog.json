@@ -7,30 +7,51 @@
   },
   "items": [
     {
+      "slug": "protection-rune",
       "name": "protection-rune",
       "rarityWeight": 55,
       "category": "defensive",
       "traits": {
-        "armor": { "value": 20, "type": "number" },
-        "physicalResistance": { "value": 10, "type": "number" }
+        "armor": {
+          "value": 20,
+          "type": "number"
+        },
+        "physicalResistance": {
+          "value": 10,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "warding-rune",
       "name": "warding-rune",
       "rarityWeight": 50,
       "category": "defensive",
       "traits": {
-        "magicResistance": { "value": 15, "type": "number" },
-        "maxHealth": { "value": 30, "type": "number" }
+        "magicResistance": {
+          "value": 15,
+          "type": "number"
+        },
+        "maxHealth": {
+          "value": 30,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "fortitude-rune",
       "name": "fortitude-rune",
       "rarityWeight": 40,
       "category": "defensive",
       "traits": {
-        "maxHealth": { "value": 50, "type": "number" },
-        "healthRegen": { "value": 5, "type": "number" }
+        "maxHealth": {
+          "value": 50,
+          "type": "number"
+        },
+        "healthRegen": {
+          "value": 5,
+          "type": "number"
+        }
       }
     }
   ]

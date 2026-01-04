@@ -16,6 +16,7 @@
     "support": {
       "items": [
         {
+          "slug": "second-wind",
           "name": "second-wind",
           "displayName": "Second Wind",
           "description": "Fighter recovers stamina, healing minor wounds",
@@ -37,6 +38,7 @@
           }
         },
         {
+          "slug": "battle-cry",
           "name": "battle-cry",
           "displayName": "Battle Cry",
           "description": "Inspires allies with a fearsome shout, boosting damage",
@@ -62,6 +64,7 @@
           }
         },
         {
+          "slug": "berserker-rage",
           "name": "berserker-rage",
           "displayName": "Berserker Rage",
           "description": "Enters uncontrollable fury, massively boosting damage but reducing defense",
@@ -87,6 +90,7 @@
           }
         },
         {
+          "slug": "bloodlust",
           "name": "bloodlust",
           "displayName": "Bloodlust",
           "description": "Gains attack speed and lifesteal when wounded",
@@ -112,6 +116,7 @@
           }
         },
         {
+          "slug": "primal-roar",
           "name": "primal-roar",
           "displayName": "Primal Roar",
           "description": "Terrifying roar that weakens enemies and empowers the berserker",
@@ -141,6 +146,7 @@
           }
         },
         {
+          "slug": "taunt",
           "name": "taunt",
           "displayName": "Taunt",
           "description": "Forces enemies to attack the knight, protecting allies",
@@ -166,6 +172,7 @@
           }
         },
         {
+          "slug": "feint",
           "name": "feint",
           "displayName": "Feint",
           "description": "Deceptive movement that increases critical chance on next attack",
@@ -191,6 +198,7 @@
           }
         },
         {
+          "slug": "flourish",
           "name": "flourish",
           "displayName": "Flourish",
           "description": "Showy display that distracts enemies and boosts morale",
@@ -220,6 +228,7 @@
           }
         },
         {
+          "slug": "panache",
           "name": "panache",
           "displayName": "Panache",
           "description": "Charismatic presence that inspires allies and charms enemies",
@@ -249,6 +258,7 @@
           }
         },
         {
+          "slug": "daring-gambit",
           "name": "daring-gambit",
           "displayName": "Daring Gambit",
           "description": "Risky maneuver that grants massive bonuses if successful",
@@ -278,6 +288,7 @@
           }
         },
         {
+          "slug": "showstopper",
           "name": "showstopper",
           "displayName": "Showstopper",
           "description": "Spectacular performance that stuns all who witness it",
@@ -303,6 +314,7 @@
           }
         },
         {
+          "slug": "elemental-avatar",
           "name": "elemental-avatar",
           "displayName": "Elemental Avatar",
           "description": "Transforms into a powerful elemental being",
@@ -328,6 +340,7 @@
           }
         },
         {
+          "slug": "lich-form",
           "name": "lich-form",
           "displayName": "Lich Form",
           "description": "Transforms into an undead lich, gaining immense power",
@@ -357,6 +370,7 @@
           }
         },
         {
+          "slug": "heal",
           "name": "heal",
           "displayName": "Heal",
           "description": "Channels divine energy to restore health",
@@ -382,6 +396,7 @@
           }
         },
         {
+          "slug": "bless",
           "name": "bless",
           "displayName": "Bless",
           "description": "Bestows holy blessing, increasing all stats temporarily",
@@ -407,6 +422,7 @@
           }
         },
         {
+          "slug": "mass-heal",
           "name": "mass-heal",
           "displayName": "Mass Heal",
           "description": "Heals all nearby allies with divine light",
@@ -436,6 +452,7 @@
           }
         },
         {
+          "slug": "divine-intervention",
           "name": "divine-intervention",
           "displayName": "Divine Intervention",
           "description": "Calls upon divine power to prevent death and restore health",
@@ -461,6 +478,7 @@
           }
         },
         {
+          "slug": "lay-on-hands",
           "name": "lay-on-hands",
           "displayName": "Lay on Hands",
           "description": "Touch heals wounds and removes negative effects",
@@ -486,6 +504,7 @@
           }
         },
         {
+          "slug": "holy-aura",
           "name": "holy-aura",
           "displayName": "Holy Aura",
           "description": "Radiates holy energy, protecting and empowering nearby allies",
@@ -515,6 +534,7 @@
           }
         },
         {
+          "slug": "consecrate",
           "name": "consecrate",
           "displayName": "Consecrate",
           "description": "Blesses the ground, healing allies and damaging undead",
@@ -544,6 +564,7 @@
           }
         },
         {
+          "slug": "avenging-wrath",
           "name": "avenging-wrath",
           "displayName": "Avenging Wrath",
           "description": "Holy fury increases damage and attack speed dramatically",
@@ -569,6 +590,7 @@
           }
         },
         {
+          "slug": "hunters-mark",
           "name": "hunters-mark",
           "displayName": "Hunter's Mark",
           "description": "Marks prey, increasing damage dealt to target",
@@ -590,6 +612,7 @@
           }
         },
         {
+          "slug": "beast-command",
           "name": "beast-command",
           "displayName": "Beast Command",
           "description": "Commands animal companions to attack with increased ferocity",
@@ -615,6 +638,7 @@
           }
         },
         {
+          "slug": "pack-tactics",
           "name": "pack-tactics",
           "displayName": "Pack Tactics",
           "description": "Coordinates attacks with animal companions for devastating combos",
@@ -644,6 +668,7 @@
           }
         },
         {
+          "slug": "howl",
           "name": "howl",
           "displayName": "Howl",
           "description": "Rallying howl that buffs nearby allies with increased attack and movement speed",
@@ -673,6 +698,7 @@
           }
         },
         {
+          "slug": "wild-growth",
           "name": "wild-growth",
           "displayName": "Wild Growth",
           "description": "Empowers animal companions with natural magic, increasing their size and power",
@@ -702,6 +728,7 @@
           }
         },
         {
+          "slug": "beast-fury",
           "name": "beast-fury",
           "displayName": "Beast Fury",
           "description": "Enrages animal companions, greatly increasing attack speed",
@@ -731,6 +758,7 @@
           }
         },
         {
+          "slug": "death-mark",
           "name": "death-mark",
           "displayName": "Death Mark",
           "description": "Marks target for death, increasing all damage taken",

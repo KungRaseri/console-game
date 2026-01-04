@@ -9,6 +9,7 @@
     "trade": {
       "items": [
         {
+          "slug": "merchants-guild",
           "name": "merchants_guild",
           "displayName": "Merchants Guild",
           "rarityWeight": 20,
@@ -50,6 +51,7 @@
     "labor": {
       "items": [
         {
+          "slug": "craftsmen-guild",
           "name": "craftsmen_guild",
           "displayName": "Craftsmen Guild",
           "rarityWeight": 20,
@@ -90,6 +92,7 @@
     "criminal": {
       "items": [
         {
+          "slug": "thieves-guild",
           "name": "thieves_guild",
           "displayName": "Thieves Guild",
           "rarityWeight": 35,
@@ -128,6 +131,7 @@
     "military": {
       "items": [
         {
+          "slug": "city-guard",
           "name": "city_guard",
           "displayName": "City Guard",
           "rarityWeight": 15,
@@ -163,6 +167,7 @@
           }
         },
         {
+          "slug": "military",
           "name": "military",
           "displayName": "Military Forces",
           "rarityWeight": 10,
@@ -195,6 +200,7 @@
           }
         },
         {
+          "slug": "fighters-guild",
           "name": "fighters_guild",
           "displayName": "Fighters Guild",
           "rarityWeight": 12,
@@ -232,6 +238,7 @@
     "magical": {
       "items": [
         {
+          "slug": "mages-circle",
           "name": "mages_circle",
           "displayName": "Mages Circle",
           "rarityWeight": 30,
@@ -271,6 +278,7 @@
     "academic": {
       "items": [
         {
+          "slug": "scholars-guild",
           "name": "scholars_guild",
           "displayName": "Scholars Guild",
           "rarityWeight": 25,
@@ -311,6 +319,7 @@
     "religious": {
       "items": [
         {
+          "slug": "clergy",
           "name": "clergy",
           "displayName": "The Clergy",
           "rarityWeight": 20,
@@ -348,6 +357,7 @@
     "social": {
       "items": [
         {
+          "slug": "commoners",
           "name": "commoners",
           "displayName": "Common Folk",
           "rarityWeight": 10,
@@ -385,6 +395,7 @@
     "political": {
       "items": [
         {
+          "slug": "nobility",
           "name": "nobility",
           "displayName": "The Nobility",
           "rarityWeight": 40,

@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Reptilian enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -29,6 +29,7 @@
       },
       "items": [
         {
+          "slug": "kobold",
           "name": "Kobold",
           "strength": 7,
           "dexterity": 15,
@@ -53,6 +54,7 @@
           }
         },
         {
+          "slug": "kobold-scout",
           "name": "Kobold Scout",
           "strength": 7,
           "dexterity": 16,
@@ -78,6 +80,7 @@
           }
         },
         {
+          "slug": "kobold-trapmaker",
           "name": "Kobold Trapmaker",
           "strength": 8,
           "dexterity": 15,
@@ -103,6 +106,7 @@
           }
         },
         {
+          "slug": "kobold-sorcerer",
           "name": "Kobold Sorcerer",
           "strength": 7,
           "dexterity": 14,
@@ -141,6 +145,7 @@
       },
       "items": [
         {
+          "slug": "lizardfolk",
           "name": "Lizardfolk",
           "strength": 14,
           "dexterity": 11,
@@ -166,6 +171,7 @@
           }
         },
         {
+          "slug": "lizardfolk-warrior",
           "name": "Lizardfolk Warrior",
           "strength": 16,
           "dexterity": 11,
@@ -191,6 +197,7 @@
           }
         },
         {
+          "slug": "lizardfolk-shaman",
           "name": "Lizardfolk Shaman",
           "strength": 12,
           "dexterity": 11,
@@ -216,6 +223,7 @@
           }
         },
         {
+          "slug": "lizardfolk-king",
           "name": "Lizardfolk King",
           "strength": 17,
           "dexterity": 12,
@@ -256,6 +264,7 @@
       },
       "items": [
         {
+          "slug": "yuan-ti-pureblood",
           "name": "Yuan-ti Pureblood",
           "strength": 13,
           "dexterity": 14,
@@ -282,6 +291,7 @@
           }
         },
         {
+          "slug": "yuan-ti-malison",
           "name": "Yuan-ti Malison",
           "strength": 15,
           "dexterity": 14,
@@ -308,6 +318,7 @@
           }
         },
         {
+          "slug": "yuan-ti-abomination",
           "name": "Yuan-ti Abomination",
           "strength": 17,
           "dexterity": 15,
@@ -345,6 +356,7 @@
       },
       "items": [
         {
+          "slug": "naga",
           "name": "Naga",
           "strength": 14,
           "dexterity": 13,
@@ -373,6 +385,7 @@
           }
         },
         {
+          "slug": "basilisk",
           "name": "Basilisk",
           "strength": 16,
           "dexterity": 9,

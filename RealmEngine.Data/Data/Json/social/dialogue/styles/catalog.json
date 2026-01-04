@@ -14,6 +14,7 @@
     "formal": {
       "items": [
         {
+          "slug": "scholarly",
           "name": "scholarly",
           "displayName": "Scholarly",
           "rarityWeight": 10,
@@ -28,6 +29,7 @@
           ]
         },
         {
+          "slug": "noble",
           "name": "noble",
           "displayName": "Noble",
           "rarityWeight": 15,
@@ -42,6 +44,7 @@
           ]
         },
         {
+          "slug": "wise",
           "name": "wise",
           "displayName": "Wise",
           "rarityWeight": 12,
@@ -63,6 +66,7 @@
     "gruff": {
       "items": [
         {
+          "slug": "mysterious",
           "name": "mysterious",
           "displayName": "Mysterious",
           "rarityWeight": 18,
@@ -77,6 +81,7 @@
           ]
         },
         {
+          "slug": "intimidating",
           "name": "intimidating",
           "displayName": "Intimidating",
           "rarityWeight": 20,
@@ -91,6 +96,7 @@
           ]
         },
         {
+          "slug": "nervous",
           "name": "nervous",
           "displayName": "Nervous",
           "rarityWeight": 15,
@@ -105,6 +111,7 @@
           ]
         },
         {
+          "slug": "sarcastic",
           "name": "sarcastic",
           "displayName": "Sarcastic",
           "rarityWeight": 25,
@@ -123,6 +130,7 @@
     "casual": {
       "items": [
         {
+          "slug": "friendly",
           "name": "friendly",
           "displayName": "Friendly",
           "rarityWeight": 8,
@@ -137,6 +145,7 @@
           ]
         },
         {
+          "slug": "cheerful",
           "name": "cheerful",
           "displayName": "Cheerful",
           "rarityWeight": 10,
@@ -151,6 +160,7 @@
           ]
         },
         {
+          "slug": "gruff",
           "name": "gruff",
           "displayName": "Gruff",
           "rarityWeight": 12,
@@ -165,6 +175,7 @@
           ]
         },
         {
+          "slug": "professional",
           "name": "professional",
           "displayName": "Professional",
           "rarityWeight": 8,
@@ -179,6 +190,7 @@
           ]
         },
         {
+          "slug": "greedy",
           "name": "greedy",
           "displayName": "Greedy",
           "rarityWeight": 15,

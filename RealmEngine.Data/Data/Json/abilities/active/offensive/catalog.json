@@ -17,6 +17,7 @@
     "offensive": {
       "items": [
         {
+          "slug": "infernal-flames",
           "name": "Infernal Flames",
           "displayName": "Infernal Flames",
           "description": "Wreathed in hellfire, burns attackers",
@@ -48,6 +49,7 @@
           }
         },
         {
+          "slug": "hellfire-breath",
           "name": "Hellfire Breath",
           "displayName": "Hellfire Breath",
           "description": "Exhales devastating flames",
@@ -87,6 +89,7 @@
           }
         },
         {
+          "slug": "cursed-weapons",
           "name": "Cursed Weapons",
           "displayName": "Cursed Weapons",
           "description": "Attacks inflict lingering curses",
@@ -120,6 +123,7 @@
           }
         },
         {
+          "slug": "unholy-strength",
           "name": "Unholy Strength",
           "displayName": "Unholy Strength",
           "description": "Possesses supernatural physical power",
@@ -148,6 +152,7 @@
           }
         },
         {
+          "slug": "blood-frenzy",
           "name": "Blood Frenzy",
           "displayName": "Blood Frenzy",
           "description": "Becomes more dangerous as it bleeds",
@@ -176,6 +181,7 @@
           }
         },
         {
+          "slug": "dragon-breath",
           "rarityWeight": 75,
           "description": "Devastating breath weapon attack",
           "name": "Dragon Breath",
@@ -188,6 +194,7 @@
           "displayName": "Dragon Breath"
         },
         {
+          "slug": "tail-sweep",
           "rarityWeight": 35,
           "description": "Can attack multiple enemies with tail",
           "name": "Tail Sweep",
@@ -200,6 +207,7 @@
           "displayName": "Tail Sweep"
         },
         {
+          "slug": "wing-buffet",
           "rarityWeight": 35,
           "description": "Creates powerful wind gusts",
           "name": "Wing Buffet",
@@ -212,6 +220,7 @@
           "displayName": "Wing Buffet"
         },
         {
+          "slug": "crushing-bite",
           "rarityWeight": 35,
           "description": "Jaw strength can break armor",
           "name": "Crushing Bite",
@@ -224,6 +233,7 @@
           "displayName": "Crushing Bite"
         },
         {
+          "slug": "engulf",
           "rarityWeight": 35,
           "description": "Can surround and trap enemies",
           "name": "Engulf",
@@ -236,6 +246,7 @@
           "displayName": "Engulf"
         },
         {
+          "slug": "elemental-burst",
           "rarityWeight": 75,
           "description": "Explosive discharge of elemental energy",
           "name": "Elemental Burst",
@@ -248,6 +259,7 @@
           "displayName": "Elemental Burst"
         },
         {
+          "slug": "elemental-aura",
           "rarityWeight": 35,
           "description": "Damages nearby enemies with elemental energy",
           "name": "Elemental Aura",
@@ -260,6 +272,7 @@
           "displayName": "Elemental Aura"
         },
         {
+          "slug": "elemental-fury",
           "rarityWeight": 150,
           "description": "Unleashes devastating elemental storms",
           "name": "Elemental Fury",
@@ -272,6 +285,7 @@
           "displayName": "Elemental Fury"
         },
         {
+          "slug": "unstable",
           "rarityWeight": 35,
           "description": "Explodes when defeated",
           "name": "Unstable",
@@ -284,6 +298,7 @@
           "displayName": "Unstable"
         },
         {
+          "slug": "skilled-fighter",
           "rarityWeight": 10,
           "description": "Trained in combat techniques",
           "name": "Skilled Fighter",
@@ -296,6 +311,7 @@
           "displayName": "Skilled Fighter"
         },
         {
+          "slug": "dual-wielding",
           "rarityWeight": 75,
           "description": "Fights with two weapons simultaneously",
           "name": "Dual Wielding",
@@ -308,6 +324,7 @@
           "displayName": "Dual Wielding"
         },
         {
+          "slug": "shield-mastery",
           "rarityWeight": 35,
           "description": "Expert at blocking and parrying",
           "name": "Shield Mastery",
@@ -320,6 +337,7 @@
           "displayName": "Shield Mastery"
         },
         {
+          "slug": "marksman",
           "rarityWeight": 35,
           "description": "Deadly accurate with ranged weapons",
           "name": "Marksman",
@@ -332,6 +350,7 @@
           "displayName": "Marksman"
         },
         {
+          "slug": "weapon-master",
           "rarityWeight": 75,
           "description": "Proficient with all weapon types",
           "name": "Weapon Master",
@@ -344,6 +363,7 @@
           "displayName": "Weapon Master"
         },
         {
+          "slug": "brutalstrength",
           "rarityWeight": 10,
           "description": "Deals increased melee damage",
           "name": "BrutalStrength",
@@ -356,6 +376,7 @@
           "displayName": "Brutal Strength"
         },
         {
+          "slug": "tough",
           "rarityWeight": 10,
           "description": "Increased maximum health",
           "name": "Tough",
@@ -368,6 +389,7 @@
           "displayName": "Tough"
         },
         {
+          "slug": "battlerage",
           "rarityWeight": 10,
           "description": "Damage increases as health decreases",
           "name": "BattleRage",
@@ -380,6 +402,7 @@
           "displayName": "Battle Rage"
         },
         {
+          "slug": "fearless",
           "rarityWeight": 35,
           "description": "Immune to fear and intimidation effects",
           "name": "Fearless",
@@ -392,6 +415,7 @@
           "displayName": "Fearless"
         },
         {
+          "slug": "life-drain",
           "rarityWeight": 35,
           "description": "Steals life force from living creatures",
           "name": "Life Drain",
@@ -404,6 +428,7 @@
           "displayName": "Life Drain"
         },
         {
+          "slug": "death-touch",
           "rarityWeight": 150,
           "description": "Can instantly kill weak enemies",
           "name": "Death Touch",
@@ -416,6 +441,7 @@
           "displayName": "Death Touch"
         },
         {
+          "slug": "paralytic-touch",
           "rarityWeight": 75,
           "description": "Attacks may paralyze victims",
           "name": "Paralytic Touch",
@@ -428,6 +454,7 @@
           "displayName": "Paralytic Touch"
         },
         {
+          "slug": "plague-bearer",
           "rarityWeight": 35,
           "description": "Spreads disease with attacks",
           "name": "Plague Bearer",
@@ -440,6 +467,7 @@
           "displayName": "Plague Bearer"
         },
         {
+          "slug": "superhuman-strength",
           "rarityWeight": 35,
           "description": "Possesses incredible physical power",
           "name": "Superhuman Strength",
@@ -452,6 +480,7 @@
           "displayName": "Superhuman Strength"
         },
         {
+          "slug": "charm",
           "rarityWeight": 35,
           "description": "Hypnotic gaze controls minds",
           "name": "Charm",
@@ -464,6 +493,7 @@
           "displayName": "Charm"
         },
         {
+          "slug": "basic-attack",
           "name": "basic-attack",
           "displayName": "Basic Attack",
           "description": "Standard melee or ranged weapon attack",
@@ -482,6 +512,7 @@
           }
         },
         {
+          "slug": "sneak-attack",
           "name": "sneak-attack",
           "displayName": "Sneak Attack",
           "description": "Strike from shadows for massive bonus damage",
@@ -504,6 +535,7 @@
           }
         },
         {
+          "slug": "power-strike",
           "name": "power-strike",
           "displayName": "Power Strike",
           "description": "Heavy blow that deals increased damage",
@@ -522,6 +554,7 @@
           }
         },
         {
+          "slug": "cleave",
           "name": "cleave",
           "displayName": "Cleave",
           "description": "Wide swing that hits multiple enemies",
@@ -544,6 +577,7 @@
           }
         },
         {
+          "slug": "whirlwind",
           "name": "whirlwind",
           "displayName": "Whirlwind",
           "description": "Spin attack hitting all nearby enemies",
@@ -566,6 +600,7 @@
           }
         },
         {
+          "slug": "devastating-blow",
           "name": "devastating-blow",
           "displayName": "Devastating Blow",
           "description": "Powerful strike with high critical chance",
@@ -588,6 +623,7 @@
           }
         },
         {
+          "slug": "reckless-attack",
           "name": "reckless-attack",
           "displayName": "Reckless Attack",
           "description": "All-out assault with no regard for defense",
@@ -610,6 +646,7 @@
           }
         },
         {
+          "slug": "frenzy",
           "name": "frenzy",
           "displayName": "Frenzy",
           "description": "Rapid series of attacks in berserker fury",
@@ -632,6 +669,7 @@
           }
         },
         {
+          "slug": "shield-bash",
           "name": "shield-bash",
           "displayName": "Shield Bash",
           "description": "Strike with shield to damage and stun",
@@ -654,6 +692,7 @@
           }
         },
         {
+          "slug": "precision-strike",
           "name": "precision-strike",
           "displayName": "Precision Strike",
           "description": "Carefully aimed attack that ignores armor",
@@ -672,6 +711,7 @@
           }
         },
         {
+          "slug": "flurry",
           "name": "flurry",
           "displayName": "Flurry",
           "description": "Lightning-fast series of strikes",
@@ -690,6 +730,7 @@
           }
         },
         {
+          "slug": "dance-of-blades",
           "name": "dance-of-blades",
           "displayName": "Dance of Blades",
           "description": "Elegant flurry of strikes hitting multiple enemies",
@@ -712,6 +753,7 @@
           }
         },
         {
+          "slug": "backstab",
           "name": "backstab",
           "displayName": "Backstab",
           "description": "Strike vital points from behind for massive damage",
@@ -734,6 +776,7 @@
           }
         },
         {
+          "slug": "assassinate",
           "name": "assassinate",
           "displayName": "Assassinate",
           "description": "Instant kill attempt on low-health targets",
@@ -756,6 +799,7 @@
           }
         },
         {
+          "slug": "poison-blade",
           "name": "poison-blade",
           "displayName": "Poison Blade",
           "description": "Coat weapon in deadly poison",
@@ -778,6 +822,7 @@
           }
         },
         {
+          "slug": "silent-kill",
           "name": "silent-kill",
           "displayName": "Silent Kill",
           "description": "Execute target without alerting others",
@@ -800,6 +845,7 @@
           }
         },
         {
+          "slug": "execute",
           "name": "execute",
           "displayName": "Execute",
           "description": "Finishing blow that deals more damage to wounded targets",
@@ -818,6 +864,7 @@
           }
         },
         {
+          "slug": "magic-missile",
           "name": "magic-missile",
           "displayName": "Magic Missile",
           "description": "Unerring magical projectile",
@@ -840,6 +887,7 @@
           }
         },
         {
+          "slug": "fireball",
           "name": "fireball",
           "displayName": "Fireball",
           "description": "Explosive ball of flame",
@@ -863,6 +911,7 @@
           }
         },
         {
+          "slug": "ice-shard",
           "name": "ice-shard",
           "displayName": "Ice Shard",
           "description": "Piercing shard of ice that slows target",
@@ -889,6 +938,7 @@
           }
         },
         {
+          "slug": "lightning-bolt",
           "name": "lightning-bolt",
           "displayName": "Lightning Bolt",
           "description": "Devastating bolt of electricity",
@@ -911,6 +961,7 @@
           }
         },
         {
+          "slug": "meteor",
           "name": "meteor",
           "displayName": "Meteor",
           "description": "Summons massive flaming meteor from sky",
@@ -937,6 +988,7 @@
           }
         },
         {
+          "slug": "elemental-bolt",
           "name": "elemental-bolt",
           "displayName": "Elemental Bolt",
           "description": "Focused blast of chosen element",
@@ -959,6 +1011,7 @@
           }
         },
         {
+          "slug": "elemental-storm",
           "name": "elemental-storm",
           "displayName": "Elemental Storm",
           "description": "Massive area storm of chosen element",
@@ -985,6 +1038,7 @@
           }
         },
         {
+          "slug": "elemental-fury",
           "name": "elemental-fury",
           "displayName": "Elemental Fury",
           "description": "Rapid barrage of elemental attacks",
@@ -1007,6 +1061,7 @@
           }
         },
         {
+          "slug": "drain-life",
           "name": "drain-life",
           "displayName": "Drain Life",
           "description": "Siphons life force from target",
@@ -1029,6 +1084,7 @@
           }
         },
         {
+          "slug": "death-bolt",
           "name": "death-bolt",
           "displayName": "Death Bolt",
           "description": "Bolt of pure death energy",
@@ -1051,6 +1107,7 @@
           }
         },
         {
+          "slug": "death-and-decay",
           "name": "death-and-decay",
           "displayName": "Death and Decay",
           "description": "Ground erupts with necrotic energy",
@@ -1081,6 +1138,7 @@
           }
         },
         {
+          "slug": "smite",
           "name": "smite",
           "displayName": "Smite",
           "description": "Holy strike that deals extra damage to undead",
@@ -1103,6 +1161,7 @@
           }
         },
         {
+          "slug": "holy-nova",
           "name": "holy-nova",
           "displayName": "Holy Nova",
           "description": "Explosion of holy energy",
@@ -1129,6 +1188,7 @@
           }
         },
         {
+          "slug": "divine-strike",
           "name": "divine-strike",
           "displayName": "Divine Strike",
           "description": "Weapon infused with holy power",
@@ -1151,6 +1211,7 @@
           }
         },
         {
+          "slug": "hammer-of-justice",
           "name": "hammer-of-justice",
           "displayName": "Hammer of Justice",
           "description": "Summons divine hammer to strike down evil",
@@ -1173,6 +1234,7 @@
           }
         },
         {
+          "slug": "bow-shot",
           "name": "bow-shot",
           "displayName": "Bow Shot",
           "description": "Ranged arrow attack",
@@ -1192,6 +1254,7 @@
           }
         },
         {
+          "slug": "multi-shot",
           "name": "multi-shot",
           "displayName": "Multi-Shot",
           "description": "Fire multiple arrows at different targets",
@@ -1214,6 +1277,7 @@
           }
         },
         {
+          "slug": "volley",
           "name": "volley",
           "displayName": "Volley",
           "description": "Rain of arrows on area",
@@ -1236,6 +1300,7 @@
           }
         },
         {
+          "slug": "alpha-strike",
           "name": "alpha-strike",
           "displayName": "Alpha Strike",
           "description": "Combined attack with all animal companions",
@@ -1258,6 +1323,7 @@
           }
         },
         {
+          "slug": "claw-attack",
           "name": "claw-attack",
           "displayName": "Claw Attack",
           "description": "Vicious claw swipe",
@@ -1276,6 +1342,7 @@
           }
         },
         {
+          "slug": "bite",
           "name": "bite",
           "displayName": "Bite",
           "description": "Powerful bite attack",
@@ -1294,6 +1361,7 @@
           }
         },
         {
+          "slug": "dragon-breath",
           "name": "dragon-breath",
           "displayName": "Dragon Breath",
           "description": "Devastating breath weapon",
@@ -1320,6 +1388,7 @@
           }
         },
         {
+          "slug": "tail-sweep",
           "name": "tail-sweep",
           "displayName": "Tail Sweep",
           "description": "Sweep tail to knock back enemies",
@@ -1342,6 +1411,7 @@
           }
         },
         {
+          "slug": "wing-buffet",
           "name": "wing-buffet",
           "displayName": "Wing Buffet",
           "description": "Powerful wing flap creates shockwave",
@@ -1368,6 +1438,7 @@
           }
         },
         {
+          "slug": "poison-cloud",
           "name": "poison-cloud",
           "displayName": "Poison Cloud",
           "description": "Exhale toxic cloud",
@@ -1394,6 +1465,7 @@
           }
         },
         {
+          "slug": "acid-pool",
           "name": "acid-pool",
           "displayName": "Acid Pool",
           "description": "Create pool of corrosive acid",
@@ -1424,6 +1496,7 @@
           }
         },
         {
+          "slug": "ice-storm",
           "name": "ice-storm",
           "displayName": "Ice Storm",
           "description": "Summon freezing ice storm",

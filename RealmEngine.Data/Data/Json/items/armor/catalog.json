@@ -23,103 +23,114 @@
       },
       "items": [
         {
+          "slug": "helm",
           "name": "Helm",
           "defense": 3,
           "weight": 3.0,
           "value": 20,
           "armorClass": "heavy",
           "selectionWeight": 12,
-          "budgetCost": 18
+          "budgetCost": 4
         },
         {
+          "slug": "helmet",
           "name": "Helmet",
           "defense": 3,
           "weight": 3.0,
           "value": 18,
           "armorClass": "heavy",
           "selectionWeight": 14,
-          "budgetCost": 16
+          "budgetCost": 4
         },
         {
+          "slug": "great-helm",
           "name": "Great Helm",
           "defense": 5,
           "weight": 5.0,
           "value": 40,
           "armorClass": "heavy",
           "selectionWeight": 10,
-          "budgetCost": 28
+          "budgetCost": 6
         },
         {
+          "slug": "armet",
           "name": "Armet",
           "defense": 4,
           "weight": 3.5,
           "value": 35,
           "armorClass": "heavy",
           "selectionWeight": 8,
-          "budgetCost": 25
+          "budgetCost": 5
         },
         {
+          "slug": "sallet",
           "name": "Sallet",
           "defense": 3,
           "weight": 2.5,
           "value": 25,
           "armorClass": "medium",
           "selectionWeight": 12,
-          "budgetCost": 20
+          "budgetCost": 4
         },
         {
+          "slug": "barbute",
           "name": "Barbute",
           "defense": 4,
           "weight": 3.0,
           "value": 30,
           "armorClass": "heavy",
           "selectionWeight": 10,
-          "budgetCost": 22
+          "budgetCost": 5
         },
         {
+          "slug": "coif",
           "name": "Coif",
           "defense": 2,
           "weight": 1.5,
           "value": 12,
           "armorClass": "light",
           "selectionWeight": 22,
-          "budgetCost": 15
+          "budgetCost": 3
         },
         {
+          "slug": "cowl",
           "name": "Cowl",
           "defense": 1,
           "weight": 0.5,
           "value": 8,
           "armorClass": "light",
           "selectionWeight": 24,
-          "budgetCost": 12
+          "budgetCost": 3
         },
         {
+          "slug": "hood",
           "name": "Hood",
           "defense": 1,
           "weight": 0.3,
           "value": 5,
           "armorClass": "light",
           "selectionWeight": 25,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "crown",
           "name": "Crown",
           "defense": 1,
           "weight": 1.0,
           "value": 100,
           "armorClass": "light",
           "selectionWeight": 1,
-          "budgetCost": 30
+          "budgetCost": 6
         },
         {
+          "slug": "circlet",
           "name": "Circlet",
           "defense": 1,
           "weight": 0.5,
           "value": 80,
           "armorClass": "light",
           "selectionWeight": 2,
-          "budgetCost": 28
+          "budgetCost": 6
         }
       ]
     },
@@ -131,103 +142,114 @@
       },
       "items": [
         {
+          "slug": "cuirass",
           "name": "Cuirass",
           "defense": 8,
           "weight": 15.0,
           "value": 80,
           "armorClass": "heavy",
           "selectionWeight": 6,
-          "budgetCost": 50
+          "budgetCost": 10
         },
         {
+          "slug": "breastplate",
           "name": "Breastplate",
           "defense": 7,
           "weight": 12.0,
           "value": 70,
           "armorClass": "heavy",
           "selectionWeight": 10,
-          "budgetCost": 48
+          "budgetCost": 10
         },
         {
+          "slug": "chestplate",
           "name": "Chestplate",
           "defense": 8,
           "weight": 14.0,
           "value": 75,
           "armorClass": "heavy",
           "selectionWeight": 8,
-          "budgetCost": 52
+          "budgetCost": 11
         },
         {
+          "slug": "hauberk",
           "name": "Hauberk",
           "defense": 6,
           "weight": 20.0,
           "value": 60,
           "armorClass": "medium",
           "selectionWeight": 12,
-          "budgetCost": 42
+          "budgetCost": 9
         },
         {
+          "slug": "chainmail",
           "name": "Chainmail",
           "defense": 5,
           "weight": 18.0,
           "value": 50,
           "armorClass": "medium",
           "selectionWeight": 15,
-          "budgetCost": 38
+          "budgetCost": 8
         },
         {
+          "slug": "plate-mail",
           "name": "Plate Mail",
           "defense": 9,
           "weight": 25.0,
           "value": 120,
           "armorClass": "heavy",
           "selectionWeight": 5,
-          "budgetCost": 60
+          "budgetCost": 12
         },
         {
+          "slug": "scale-mail",
           "name": "Scale Mail",
           "defense": 5,
           "weight": 15.0,
           "value": 45,
           "armorClass": "medium",
           "selectionWeight": 13,
-          "budgetCost": 36
+          "budgetCost": 8
         },
         {
+          "slug": "ring-mail",
           "name": "Ring Mail",
           "defense": 4,
           "weight": 12.0,
           "value": 35,
           "armorClass": "medium",
           "selectionWeight": 16,
-          "budgetCost": 32
+          "budgetCost": 7
         },
         {
+          "slug": "banded-mail",
           "name": "Banded Mail",
           "defense": 6,
           "weight": 16.0,
           "value": 55,
           "armorClass": "medium",
           "selectionWeight": 12,
-          "budgetCost": 40
+          "budgetCost": 8
         },
         {
+          "slug": "vest",
           "name": "Vest",
           "defense": 2,
           "weight": 3.0,
           "value": 15,
           "armorClass": "light",
           "selectionWeight": 24,
-          "budgetCost": 30
+          "budgetCost": 6
         },
         {
+          "slug": "jerkin",
           "name": "Jerkin",
           "defense": 3,
           "weight": 4.0,
           "value": 20,
           "armorClass": "light",
           "selectionWeight": 22,
-          "budgetCost": 34
+          "budgetCost": 7
         }
       ]
     },
@@ -239,49 +261,54 @@
       },
       "items": [
         {
+          "slug": "gauntlets",
           "name": "Gauntlets",
           "defense": 2,
           "weight": 2.0,
           "value": 15,
           "armorClass": "heavy",
           "selectionWeight": 15,
-          "budgetCost": 18
+          "budgetCost": 4
         },
         {
+          "slug": "gloves",
           "name": "Gloves",
           "defense": 1,
           "weight": 0.5,
           "value": 8,
           "armorClass": "light",
           "selectionWeight": 24,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "vambraces",
           "name": "Vambraces",
           "defense": 2,
           "weight": 1.5,
           "value": 12,
           "armorClass": "medium",
           "selectionWeight": 18,
-          "budgetCost": 14
+          "budgetCost": 3
         },
         {
+          "slug": "bracers",
           "name": "Bracers",
           "defense": 1,
           "weight": 1.0,
           "value": 10,
           "armorClass": "light",
           "selectionWeight": 22,
-          "budgetCost": 12
+          "budgetCost": 3
         },
         {
+          "slug": "mittens",
           "name": "Mittens",
           "defense": 1,
           "weight": 0.3,
           "value": 5,
           "armorClass": "light",
           "selectionWeight": 25,
-          "budgetCost": 8
+          "budgetCost": 2
         }
       ]
     },
@@ -293,40 +320,44 @@
       },
       "items": [
         {
+          "slug": "greaves",
           "name": "Greaves",
           "defense": 4,
           "weight": 6.0,
           "value": 30,
           "armorClass": "heavy",
           "selectionWeight": 12,
-          "budgetCost": 35
+          "budgetCost": 7
         },
         {
+          "slug": "leggings",
           "name": "Leggings",
           "defense": 3,
           "weight": 4.0,
           "value": 20,
           "armorClass": "medium",
           "selectionWeight": 16,
-          "budgetCost": 28
+          "budgetCost": 6
         },
         {
+          "slug": "chausses",
           "name": "Chausses",
           "defense": 3,
           "weight": 5.0,
           "value": 25,
           "armorClass": "medium",
           "selectionWeight": 15,
-          "budgetCost": 30
+          "budgetCost": 6
         },
         {
+          "slug": "tassets",
           "name": "Tassets",
           "defense": 2,
           "weight": 3.0,
           "value": 15,
           "armorClass": "light",
           "selectionWeight": 18,
-          "budgetCost": 25
+          "budgetCost": 5
         }
       ]
     },
@@ -338,49 +369,54 @@
       },
       "items": [
         {
+          "slug": "boots",
           "name": "Boots",
           "defense": 2,
           "weight": 2.0,
           "value": 12,
           "armorClass": "medium",
           "selectionWeight": 18,
-          "budgetCost": 16
+          "budgetCost": 4
         },
         {
+          "slug": "sabatons",
           "name": "Sabatons",
           "defense": 3,
           "weight": 4.0,
           "value": 20,
           "armorClass": "heavy",
           "selectionWeight": 12,
-          "budgetCost": 20
+          "budgetCost": 4
         },
         {
+          "slug": "sollerets",
           "name": "Sollerets",
           "defense": 3,
           "weight": 3.5,
           "value": 18,
           "armorClass": "heavy",
           "selectionWeight": 13,
-          "budgetCost": 18
+          "budgetCost": 4
         },
         {
+          "slug": "shoes",
           "name": "Shoes",
           "defense": 1,
           "weight": 1.0,
           "value": 5,
           "armorClass": "light",
           "selectionWeight": 25,
-          "budgetCost": 10
+          "budgetCost": 2
         },
         {
+          "slug": "sandals",
           "name": "Sandals",
           "defense": 1,
           "weight": 0.5,
           "value": 3,
           "armorClass": "light",
           "selectionWeight": 25,
-          "budgetCost": 8
+          "budgetCost": 2
         }
       ]
     },
@@ -392,40 +428,44 @@
       },
       "items": [
         {
+          "slug": "pauldrons",
           "name": "Pauldrons",
           "defense": 3,
           "weight": 4.0,
           "value": 25,
           "armorClass": "heavy",
           "selectionWeight": 12,
-          "budgetCost": 22
+          "budgetCost": 5
         },
         {
+          "slug": "spaulders",
           "name": "Spaulders",
           "defense": 2,
           "weight": 3.0,
           "value": 18,
           "armorClass": "medium",
           "selectionWeight": 15,
-          "budgetCost": 18
+          "budgetCost": 4
         },
         {
+          "slug": "shoulderguards",
           "name": "Shoulderguards",
           "defense": 2,
           "weight": 2.5,
           "value": 15,
           "armorClass": "medium",
           "selectionWeight": 16,
-          "budgetCost": 16
+          "budgetCost": 4
         },
         {
+          "slug": "mantle",
           "name": "Mantle",
           "defense": 1,
           "weight": 1.0,
           "value": 10,
           "armorClass": "light",
           "selectionWeight": 22,
-          "budgetCost": 12
+          "budgetCost": 3
         }
       ]
     },
@@ -438,49 +478,54 @@
       },
       "items": [
         {
+          "slug": "shield",
           "name": "Shield",
           "defense": 3,
           "weight": 6.0,
           "value": 25,
           "blockChance": 15,
           "selectionWeight": 15,
-          "budgetCost": 28
+          "budgetCost": 6
         },
         {
+          "slug": "buckler",
           "name": "Buckler",
           "defense": 2,
           "weight": 3.0,
           "value": 15,
           "blockChance": 10,
           "selectionWeight": 18,
-          "budgetCost": 20
+          "budgetCost": 4
         },
         {
+          "slug": "tower-shield",
           "name": "Tower Shield",
           "defense": 5,
           "weight": 15.0,
           "value": 60,
           "blockChance": 25,
           "selectionWeight": 8,
-          "budgetCost": 50
+          "budgetCost": 10
         },
         {
+          "slug": "kite-shield",
           "name": "Kite Shield",
           "defense": 4,
           "weight": 8.0,
           "value": 35,
           "blockChance": 18,
           "selectionWeight": 12,
-          "budgetCost": 35
+          "budgetCost": 7
         },
         {
+          "slug": "heater",
           "name": "Heater",
           "defense": 3,
           "weight": 5.0,
           "value": 20,
           "blockChance": 12,
           "selectionWeight": 16,
-          "budgetCost": 25
+          "budgetCost": 5
         }
       ]
     }

@@ -16,6 +16,7 @@
     "summon": {
       "items": [
         {
+          "slug": "animal-companion",
           "name": "animal-companion",
           "displayName": "Animal Companion",
           "description": "Summons a loyal animal to fight alongside you",
@@ -49,6 +50,7 @@
           }
         },
         {
+          "slug": "summon-skeleton",
           "name": "summon-skeleton",
           "displayName": "Summon Skeleton",
           "description": "Raises a skeleton warrior from the dead",
@@ -82,6 +84,7 @@
           }
         },
         {
+          "slug": "raise-dead",
           "name": "raise-dead",
           "displayName": "Raise Dead",
           "description": "Reanimates a corpse to serve as a temporary minion",
@@ -119,6 +122,7 @@
           }
         },
         {
+          "slug": "army-of-the-dead",
           "name": "army-of-the-dead",
           "displayName": "Army of the Dead",
           "description": "Raises multiple powerful undead minions simultaneously",

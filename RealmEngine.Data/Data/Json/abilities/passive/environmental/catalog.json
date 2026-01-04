@@ -16,6 +16,7 @@
     "environmental": {
       "items": [
         {
+          "slug": "territorial",
           "rarityWeight": 10,
           "description": "Deals extra damage when defending its lair",
           "name": "Territorial",
@@ -28,6 +29,7 @@
           "displayName": "Territorial"
         },
         {
+          "slug": "night-hunter",
           "rarityWeight": 35,
           "description": "Stronger during nighttime hours",
           "name": "Night Hunter",
@@ -40,6 +42,7 @@
           "displayName": "Night Hunter"
         },
         {
+          "slug": "lair-actions",
           "rarityWeight": 150,
           "description": "Environment bends to dragon's will",
           "name": "Lair Actions",
@@ -52,6 +55,7 @@
           "displayName": "Lair Actions"
         },
         {
+          "slug": "treasure-sense",
           "rarityWeight": 10,
           "description": "Can detect valuable items",
           "name": "Treasure Sense",
@@ -64,6 +68,7 @@
           "displayName": "Treasure Sense"
         },
         {
+          "slug": "regeneration",
           "rarityWeight": 75,
           "description": "Rapidly heals wounds",
           "name": "Regeneration",
@@ -76,6 +81,7 @@
           "displayName": "Regeneration"
         },
         {
+          "slug": "metamorphosis",
           "rarityWeight": 75,
           "description": "Can transform into stronger forms",
           "name": "Metamorphosis",
@@ -88,6 +94,7 @@
           "displayName": "Metamorphosis"
         },
         {
+          "slug": "colossalsize",
           "rarityWeight": 250,
           "description": "Massive creature with devastating attacks",
           "name": "ColossalSize",
@@ -100,6 +107,7 @@
           "displayName": "Colossal Size"
         },
         {
+          "slug": "primordial",
           "rarityWeight": 500,
           "description": "Ancient insect from the dawn of time",
           "name": "Primordial",
@@ -112,6 +120,7 @@
           "displayName": "Primordial"
         },
         {
+          "slug": "eldritchhorror",
           "rarityWeight": 500,
           "description": "Otherworldly insect touched by cosmic forces",
           "name": "EldritchHorror",
@@ -124,6 +133,7 @@
           "displayName": "Eldritch Horror"
         },
         {
+          "slug": "seedspawner",
           "rarityWeight": 150,
           "description": "Creates smaller plant minions",
           "name": "SeedSpawner",
@@ -136,6 +146,7 @@
           "displayName": "Seed Spawner"
         },
         {
+          "slug": "bioluminescent",
           "rarityWeight": 150,
           "description": "Glows brightly, can blind enemies",
           "name": "Bioluminescent",
@@ -148,6 +159,7 @@
           "displayName": "Bioluminescent"
         },
         {
+          "slug": "ancienttreent",
           "rarityWeight": 250,
           "description": "Massive tree-like creature of immense power",
           "name": "AncientTreent",
@@ -160,6 +172,7 @@
           "displayName": "Ancient Treent"
         },
         {
+          "slug": "forestspirit",
           "rarityWeight": 250,
           "description": "Embodies the essence of nature itself",
           "name": "ForestSpirit",
@@ -172,6 +185,7 @@
           "displayName": "Forest Spirit"
         },
         {
+          "slug": "worldtree",
           "rarityWeight": 500,
           "description": "Mythical plant connecting all realms",
           "name": "WorldTree",
@@ -184,6 +198,7 @@
           "displayName": "World Tree"
         },
         {
+          "slug": "primalgrowth",
           "rarityWeight": 500,
           "description": "Unstoppable force of nature's wrath",
           "name": "PrimalGrowth",
@@ -196,6 +211,7 @@
           "displayName": "Primal Growth"
         },
         {
+          "slug": "colossus",
           "rarityWeight": 250,
           "description": "Gigantic troll of legendary size",
           "name": "Colossus",
@@ -208,6 +224,7 @@
           "displayName": "Colossus"
         },
         {
+          "slug": "primaltitan",
           "rarityWeight": 500,
           "description": "Ancient troll of unimaginable power",
           "name": "PrimalTitan",
@@ -220,6 +237,7 @@
           "displayName": "Primal Titan"
         },
         {
+          "slug": "worldeater",
           "rarityWeight": 500,
           "description": "Mythical troll that devours mountains",
           "name": "WorldEater",
@@ -232,6 +250,7 @@
           "displayName": "World Eater"
         },
         {
+          "slug": "stoneform",
           "rarityWeight": 35,
           "description": "Turns to stone in sunlight, becoming immobile but invincible",
           "name": "StoneForm",
@@ -244,6 +263,7 @@
           "displayName": "Stone Form"
         },
         {
+          "slug": "caveadaptation",
           "rarityWeight": 75,
           "description": "Bonus stats in underground environments",
           "name": "CaveAdaptation",
@@ -256,6 +276,7 @@
           "displayName": "Cave Adaptation"
         },
         {
+          "slug": "icetroll",
           "rarityWeight": 150,
           "description": "Frost-resistant variant with ice attacks",
           "name": "IceTroll",
@@ -268,6 +289,7 @@
           "displayName": "Ice Troll"
         },
         {
+          "slug": "lavaimmunity",
           "rarityWeight": 150,
           "description": "Immune to fire, adapted to volcanic regions",
           "name": "LavaImmunity",

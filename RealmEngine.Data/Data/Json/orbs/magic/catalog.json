@@ -7,31 +7,55 @@
   },
   "items": [
     {
+      "slug": "sorcery-orb",
       "name": "sorcery-orb",
       "rarityWeight": 50,
       "category": "magic",
       "traits": {
-        "spellDamage": { "value": 20, "type": "number" },
-        "spellRange": { "value": 15, "type": "number" }
+        "spellDamage": {
+          "value": 20,
+          "type": "number"
+        },
+        "spellRange": {
+          "value": 15,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "mysticism-orb",
       "name": "mysticism-orb",
       "rarityWeight": 45,
       "category": "magic",
       "traits": {
-        "spellDuration": { "value": 25, "type": "number" },
-        "spellCooldown": { "value": -15, "type": "number" }
+        "spellDuration": {
+          "value": 25,
+          "type": "number"
+        },
+        "spellCooldown": {
+          "value": -15,
+          "type": "number"
+        }
       }
     },
     {
+      "slug": "arcana-orb",
       "name": "arcana-orb",
       "rarityWeight": 35,
       "category": "magic",
       "traits": {
-        "spellDamage": { "value": 25, "type": "number" },
-        "spellCrit": { "value": 12, "type": "number" },
-        "spellManaCost": { "value": -10, "type": "number" }
+        "spellDamage": {
+          "value": 25,
+          "type": "number"
+        },
+        "spellCrit": {
+          "value": 12,
+          "type": "number"
+        },
+        "spellManaCost": {
+          "value": -10,
+          "type": "number"
+        }
       }
     }
   ]

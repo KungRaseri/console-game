@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Plant creature enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -30,6 +30,7 @@
       },
       "items": [
         {
+          "slug": "vine",
           "name": "Vine",
           "strength": 12,
           "dexterity": 10,
@@ -54,6 +55,7 @@
           }
         },
         {
+          "slug": "carnivorous-plant",
           "name": "Carnivorous Plant",
           "strength": 14,
           "dexterity": 8,
@@ -79,6 +81,7 @@
           }
         },
         {
+          "slug": "venus-trap",
           "name": "Venus Trap",
           "strength": 16,
           "dexterity": 7,
@@ -104,6 +107,7 @@
           }
         },
         {
+          "slug": "man-eater",
           "name": "Man-Eater",
           "strength": 18,
           "dexterity": 7,
@@ -145,6 +149,7 @@
       },
       "items": [
         {
+          "slug": "thorn-bush",
           "name": "Thorn Bush",
           "strength": 11,
           "dexterity": 7,
@@ -170,6 +175,7 @@
           }
         },
         {
+          "slug": "bramble",
           "name": "Bramble",
           "strength": 13,
           "dexterity": 7,
@@ -195,6 +201,7 @@
           }
         },
         {
+          "slug": "thorn-tree",
           "name": "Thorn Tree",
           "strength": 16,
           "dexterity": 7,
@@ -235,6 +242,7 @@
       },
       "items": [
         {
+          "slug": "shambling-mound",
           "name": "Shambling Mound",
           "strength": 18,
           "dexterity": 8,
@@ -262,6 +270,7 @@
           }
         },
         {
+          "slug": "treant",
           "name": "Treant",
           "strength": 22,
           "dexterity": 8,
@@ -289,6 +298,7 @@
           }
         },
         {
+          "slug": "myconid",
           "name": "Myconid",
           "strength": 10,
           "dexterity": 10,
@@ -316,6 +326,7 @@
           }
         },
         {
+          "slug": "awakened-tree",
           "name": "Awakened Tree",
           "strength": 20,
           "dexterity": 7,
@@ -356,6 +367,7 @@
       },
       "items": [
         {
+          "slug": "elder-treant",
           "name": "Elder Treant",
           "strength": 24,
           "dexterity": 8,
@@ -388,6 +400,7 @@
           }
         },
         {
+          "slug": "ancient-grove-guardian",
           "name": "Ancient Grove Guardian",
           "strength": 26,
           "dexterity": 8,

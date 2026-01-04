@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Joinable guilds with progression systems, ranks, and exclusive benefits",
     "version": "4.0",
@@ -9,6 +9,7 @@
     "combat": {
       "items": [
         {
+          "slug": "fighters-guild",
           "name": "fighters_guild",
           "displayName": "Fighters Guild",
           "rarityWeight": 10,
@@ -83,6 +84,7 @@
     "magic": {
       "items": [
         {
+          "slug": "mages-guild",
           "name": "mages_guild",
           "displayName": "Mages Guild",
           "rarityWeight": 15,
@@ -155,6 +157,7 @@
     "trade": {
       "items": [
         {
+          "slug": "merchants-guild",
           "name": "merchants_guild",
           "displayName": "Merchants Guild",
           "rarityWeight": 8,
@@ -230,6 +233,7 @@
     "craft": {
       "items": [
         {
+          "slug": "craftsmen-guild",
           "name": "craftsmen_guild",
           "displayName": "Craftsmen Guild",
           "rarityWeight": 12,
@@ -302,6 +306,7 @@
     "stealth": {
       "items": [
         {
+          "slug": "thieves-guild",
           "name": "thieves_guild",
           "displayName": "Thieves Guild",
           "rarityWeight": 20,
@@ -371,6 +376,7 @@
           "allies": []
         },
         {
+          "slug": "assassins-guild",
           "name": "assassins_guild",
           "displayName": "Assassins Guild",
           "rarityWeight": 35,

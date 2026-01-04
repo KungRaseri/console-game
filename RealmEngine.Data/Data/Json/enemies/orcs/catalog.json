@@ -1,4 +1,4 @@
-﻿{
+{
   "metadata": {
     "description": "Orc enemy type catalog with base stats and rarityWeight values",
     "version": "4.0",
@@ -27,6 +27,7 @@
       },
       "items": [
         {
+          "slug": "orc",
           "name": "Orc",
           "strength": 16,
           "dexterity": 10,
@@ -51,6 +52,7 @@
           }
         },
         {
+          "slug": "orc-grunt",
           "name": "Orc Grunt",
           "strength": 18,
           "dexterity": 9,
@@ -76,6 +78,7 @@
           }
         },
         {
+          "slug": "orc-warrior",
           "name": "Orc Warrior",
           "strength": 19,
           "dexterity": 9,
@@ -102,6 +105,7 @@
           }
         },
         {
+          "slug": "orc-berserker",
           "name": "Orc Berserker",
           "strength": 20,
           "dexterity": 10,
@@ -144,6 +148,7 @@
       },
       "items": [
         {
+          "slug": "orc-champion",
           "name": "Orc Champion",
           "strength": 20,
           "dexterity": 10,
@@ -170,6 +175,7 @@
           }
         },
         {
+          "slug": "orc-shaman",
           "name": "Orc Shaman",
           "strength": 14,
           "dexterity": 10,
@@ -196,6 +202,7 @@
           }
         },
         {
+          "slug": "orc-warlord",
           "name": "Orc Warlord",
           "strength": 20,
           "dexterity": 12,
@@ -223,6 +230,7 @@
           }
         },
         {
+          "slug": "orc-chieftain",
           "name": "Orc Chieftain",
           "strength": 21,
           "dexterity": 12,
@@ -266,6 +274,7 @@
       },
       "items": [
         {
+          "slug": "orc-king",
           "name": "Orc King",
           "strength": 22,
           "dexterity": 13,
@@ -299,6 +308,7 @@
           }
         },
         {
+          "slug": "half-orc",
           "name": "Half-Orc",
           "strength": 15,
           "dexterity": 12,
@@ -325,6 +335,7 @@
           }
         },
         {
+          "slug": "orc-brute",
           "name": "Orc Brute",
           "strength": 22,
           "dexterity": 9,

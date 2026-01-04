@@ -16,6 +16,7 @@
     "defensive": {
       "items": [
         {
+          "slug": "thick-hide",
           "rarityWeight": 10,
           "description": "Natural armor provides extra protection",
           "name": "Thick Hide",
@@ -28,6 +29,7 @@
           "displayName": "Thick Hide"
         },
         {
+          "slug": "armored-scales",
           "rarityWeight": 75,
           "description": "Resistant to physical damage",
           "name": "Armored Scales",
@@ -40,6 +42,7 @@
           "displayName": "Armored Scales"
         },
         {
+          "slug": "regeneration",
           "rarityWeight": 75,
           "description": "Slowly heals wounds during combat",
           "name": "Regeneration",
@@ -52,6 +55,7 @@
           "displayName": "Regeneration"
         },
         {
+          "slug": "camouflage",
           "rarityWeight": 75,
           "description": "Difficult to detect in natural environments",
           "name": "Camouflage",
@@ -64,6 +68,7 @@
           "displayName": "Camouflage"
         },
         {
+          "slug": "elemental-body",
           "rarityWeight": 10,
           "description": "Made entirely of elemental matter",
           "name": "Elemental Body",
@@ -76,6 +81,7 @@
           "displayName": "Elemental Body"
         },
         {
+          "slug": "elemental-immunity",
           "rarityWeight": 10,
           "description": "Immune to its own element",
           "name": "Elemental Immunity",
@@ -88,6 +94,7 @@
           "displayName": "Elemental Immunity"
         },
         {
+          "slug": "elemental-weakness",
           "rarityWeight": 10,
           "description": "Vulnerable to opposing element",
           "name": "Elemental Weakness",
@@ -100,6 +107,7 @@
           "displayName": "Elemental Weakness"
         },
         {
+          "slug": "sneakattack",
           "rarityWeight": 10,
           "description": "Deals extra damage when attacking from stealth",
           "name": "SneakAttack",
@@ -112,6 +120,7 @@
           "displayName": "Sneak Attack"
         },
         {
+          "slug": "packtactics",
           "rarityWeight": 10,
           "description": "Gains bonus when fighting alongside allies",
           "name": "PackTactics",
@@ -124,6 +133,7 @@
           "displayName": "Pack Tactics"
         },
         {
+          "slug": "cowardly",
           "rarityWeight": 10,
           "description": "Flees when health drops below 30%",
           "name": "Cowardly",
@@ -136,6 +146,7 @@
           "displayName": "Cowardly"
         },
         {
+          "slug": "scavenger",
           "rarityWeight": 35,
           "description": "May loot random items during combat",
           "name": "Scavenger",
@@ -148,6 +159,7 @@
           "displayName": "Scavenger"
         },
         {
+          "slug": "mechanicalgenius",
           "rarityWeight": 150,
           "description": "Deploys mechanical constructs to fight",
           "name": "MechanicalGenius",
@@ -160,6 +172,7 @@
           "displayName": "Mechanical Genius"
         },
         {
+          "slug": "cursedbloodline",
           "rarityWeight": 500,
           "description": "Inflicts curses on attackers when damaged",
           "name": "CursedBloodline",
@@ -172,6 +185,7 @@
           "displayName": "Cursed Bloodline"
         },
         {
+          "slug": "demonpact",
           "rarityWeight": 500,
           "description": "Enhanced by demonic power, regenerates health",
           "name": "DemonPact",
@@ -184,6 +198,7 @@
           "displayName": "Demon Pact"
         },
         {
+          "slug": "swarm",
           "rarityWeight": 10,
           "description": "Attacks in groups, difficult to hit individually",
           "name": "Swarm",
@@ -196,6 +211,7 @@
           "displayName": "Swarm"
         },
         {
+          "slug": "chitinous",
           "rarityWeight": 10,
           "description": "Hard exoskeleton provides natural armor",
           "name": "Chitinous",
@@ -208,6 +224,7 @@
           "displayName": "Chitinous"
         },
         {
+          "slug": "venomous",
           "rarityWeight": 10,
           "description": "Attacks inflict poison damage",
           "name": "Venomous",
@@ -220,6 +237,7 @@
           "displayName": "Venomous"
         },
         {
+          "slug": "heavyarmor",
           "rarityWeight": 35,
           "description": "Reduced damage from physical attacks",
           "name": "HeavyArmor",
@@ -232,6 +250,7 @@
           "displayName": "Heavy Armor"
         },
         {
+          "slug": "ironhide",
           "rarityWeight": 150,
           "description": "Skin like steel, resistant to most damage",
           "name": "Ironhide",
@@ -244,6 +263,7 @@
           "displayName": "Ironhide"
         },
         {
+          "slug": "regenerative",
           "rarityWeight": 35,
           "description": "Heals slowly over time",
           "name": "Regenerative",
@@ -256,6 +276,7 @@
           "displayName": "Regenerative"
         },
         {
+          "slug": "naturalarmor",
           "rarityWeight": 75,
           "description": "Bark-like skin provides exceptional defense",
           "name": "NaturalArmor",
@@ -268,6 +289,7 @@
           "displayName": "Natural Armor"
         },
         {
+          "slug": "rooted",
           "rarityWeight": 10,
           "description": "Cannot move but has high defense",
           "name": "Rooted",
@@ -280,6 +302,7 @@
           "displayName": "Rooted"
         },
         {
+          "slug": "thorny",
           "rarityWeight": 10,
           "description": "Reflects damage back to attackers",
           "name": "Thorny",
@@ -292,6 +315,7 @@
           "displayName": "Thorny"
         },
         {
+          "slug": "poisonous",
           "rarityWeight": 10,
           "description": "Contact inflicts poison damage",
           "name": "Poisonous",
@@ -304,6 +328,7 @@
           "displayName": "Poisonous"
         },
         {
+          "slug": "scaledhide",
           "rarityWeight": 10,
           "description": "Natural armor from thick scales",
           "name": "ScaledHide",
@@ -316,6 +341,7 @@
           "displayName": "Scaled Hide"
         },
         {
+          "slug": "coldblooded",
           "rarityWeight": 10,
           "description": "Vulnerable to ice but resistant to fire",
           "name": "ColdBlooded",
@@ -328,6 +354,7 @@
           "displayName": "Cold Blooded"
         },
         {
+          "slug": "venomousbite",
           "rarityWeight": 10,
           "description": "Bite attacks inflict poison",
           "name": "VenomousBite",
@@ -340,6 +367,7 @@
           "displayName": "Venomous Bite"
         },
         {
+          "slug": "armoredplates",
           "rarityWeight": 75,
           "description": "Heavily armored with bone plates",
           "name": "ArmoredPlates",
@@ -352,6 +380,7 @@
           "displayName": "Armored Plates"
         },
         {
+          "slug": "thickskin",
           "rarityWeight": 10,
           "description": "Natural damage resistance",
           "name": "ThickSkin",
@@ -364,6 +393,7 @@
           "displayName": "Thick Skin"
         },
         {
+          "slug": "massive",
           "rarityWeight": 10,
           "description": "Large size with increased health and damage",
           "name": "Massive",
@@ -376,6 +406,7 @@
           "displayName": "Massive"
         },
         {
+          "slug": "fireweakness",
           "rarityWeight": 35,
           "description": "Takes extra damage from fire and stops regeneration",
           "name": "FireWeakness",
@@ -388,6 +419,7 @@
           "displayName": "Fire Weakness"
         },
         {
+          "slug": "immune-to-poison",
           "rarityWeight": 10,
           "description": "Cannot be poisoned or diseased",
           "name": "Immune to Poison",
@@ -400,6 +432,7 @@
           "displayName": "Immune to Poison"
         },
         {
+          "slug": "immune-to-cold",
           "rarityWeight": 10,
           "description": "Unaffected by ice and freezing",
           "name": "Immune to Cold",
@@ -412,6 +445,7 @@
           "displayName": "Immune to Cold"
         },
         {
+          "slug": "vulnerable-to-fire",
           "rarityWeight": 10,
           "description": "Takes extra damage from flames",
           "name": "Vulnerable to Fire",
@@ -424,6 +458,7 @@
           "displayName": "Vulnerable to Fire"
         },
         {
+          "slug": "vulnerable-to-holy",
           "rarityWeight": 10,
           "description": "Radiant magic is devastating",
           "name": "Vulnerable to Holy",
@@ -436,6 +471,7 @@
           "displayName": "Vulnerable to Holy"
         },
         {
+          "slug": "blood-drain",
           "rarityWeight": 10,
           "description": "Drains life force through bites",
           "name": "Blood Drain",
@@ -448,6 +484,7 @@
           "displayName": "Blood Drain"
         },
         {
+          "slug": "immortal",
           "rarityWeight": 10,
           "description": "Cannot die from age or disease",
           "name": "Immortal",
@@ -460,6 +497,7 @@
           "displayName": "Immortal"
         },
         {
+          "slug": "sunlight-weakness",
           "rarityWeight": 10,
           "description": "Destroyed by direct sunlight",
           "name": "Sunlight Weakness",
@@ -472,6 +510,7 @@
           "displayName": "Sunlight Weakness"
         },
         {
+          "slug": "enhanced-senses",
           "rarityWeight": 10,
           "description": "Superior sight, hearing, and smell",
           "name": "Enhanced Senses",

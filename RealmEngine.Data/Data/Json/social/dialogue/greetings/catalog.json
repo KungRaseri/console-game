@@ -14,6 +14,7 @@
     "religious": {
       "items": [
         {
+          "slug": "acolyte-blessed",
           "name": "acolyte-blessed",
           "displayName": "Acolyte Blessing",
           "rarityWeight": 20,
@@ -24,6 +25,7 @@
           ]
         },
         {
+          "slug": "priest-solemn",
           "name": "priest-solemn",
           "displayName": "Priest Solemn Greeting",
           "rarityWeight": 25,
@@ -38,6 +40,7 @@
     "noble": {
       "items": [
         {
+          "slug": "noble-formal",
           "name": "noble-formal",
           "displayName": "Noble Formal Greeting",
           "rarityWeight": 15,
@@ -48,6 +51,7 @@
           ]
         },
         {
+          "slug": "noble-friendly",
           "name": "noble-friendly",
           "displayName": "Noble Friendly Greeting",
           "rarityWeight": 12,
@@ -58,6 +62,7 @@
           ]
         },
         {
+          "slug": "knight-honorable",
           "name": "knight-honorable",
           "displayName": "Knight Honorable Greeting",
           "rarityWeight": 18,
@@ -68,6 +73,7 @@
           ]
         },
         {
+          "slug": "courtier-refined",
           "name": "courtier-refined",
           "displayName": "Courtier Refined Greeting",
           "rarityWeight": 20,
@@ -82,6 +88,7 @@
     "magical": {
       "items": [
         {
+          "slug": "mage-distracted",
           "name": "mage-distracted",
           "displayName": "Mage Distracted Greeting",
           "rarityWeight": 25,
@@ -92,6 +99,7 @@
           ]
         },
         {
+          "slug": "hedge-wizard-cryptic",
           "name": "hedge-wizard-cryptic",
           "displayName": "Hedge Wizard Cryptic Greeting",
           "rarityWeight": 30,
@@ -106,6 +114,7 @@
     "merchant": {
       "items": [
         {
+          "slug": "merchant-eager",
           "name": "merchant-eager",
           "displayName": "Merchant Eager Greeting",
           "rarityWeight": 10,
@@ -116,6 +125,7 @@
           ]
         },
         {
+          "slug": "merchant-professional",
           "name": "merchant-professional",
           "displayName": "Merchant Professional Greeting",
           "rarityWeight": 12,
@@ -130,6 +140,7 @@
     "criminal": {
       "items": [
         {
+          "slug": "thief-suspicious",
           "name": "thief-suspicious",
           "displayName": "Thief Suspicious Greeting",
           "rarityWeight": 30,
@@ -140,6 +151,7 @@
           ]
         },
         {
+          "slug": "criminal-wary",
           "name": "criminal-wary",
           "displayName": "Criminal Wary Greeting",
           "rarityWeight": 28,
@@ -150,6 +162,7 @@
           ]
         },
         {
+          "slug": "spy-enigmatic",
           "name": "spy-enigmatic",
           "displayName": "Spy Enigmatic Greeting",
           "rarityWeight": 35,
@@ -160,6 +173,7 @@
           ]
         },
         {
+          "slug": "smuggler-shifty",
           "name": "smuggler-shifty",
           "displayName": "Smuggler Shifty Greeting",
           "rarityWeight": 32,
@@ -170,6 +184,7 @@
           ]
         },
         {
+          "slug": "thief-nervous",
           "name": "thief-nervous",
           "displayName": "Thief Nervous Greeting",
           "rarityWeight": 25,
@@ -184,6 +199,7 @@
     "professional": {
       "items": [
         {
+          "slug": "warm-professional",
           "name": "warm-professional",
           "displayName": "Warm Professional Greeting",
           "rarityWeight": 12,
@@ -194,6 +210,7 @@
           ]
         },
         {
+          "slug": "warm-rural",
           "name": "warm-rural",
           "displayName": "Warm Rural Greeting",
           "rarityWeight": 10,
@@ -204,6 +221,7 @@
           ]
         },
         {
+          "slug": "apothecary-clinical",
           "name": "apothecary-clinical",
           "displayName": "Apothecary Clinical Greeting",
           "rarityWeight": 18,
@@ -214,6 +232,7 @@
           ]
         },
         {
+          "slug": "professional-busy",
           "name": "professional-busy",
           "displayName": "Professional Busy Greeting",
           "rarityWeight": 15,
@@ -228,6 +247,7 @@
     "military": {
       "items": [
         {
+          "slug": "guard-formal",
           "name": "guard-formal",
           "displayName": "Guard Formal Greeting",
           "rarityWeight": 20,
@@ -238,6 +258,7 @@
           ]
         },
         {
+          "slug": "soldier-casual",
           "name": "soldier-casual",
           "displayName": "Soldier Casual Greeting",
           "rarityWeight": 15,
@@ -248,6 +269,7 @@
           ]
         },
         {
+          "slug": "military-formal",
           "name": "military-formal",
           "displayName": "Military Formal Greeting",
           "rarityWeight": 20,
@@ -258,6 +280,7 @@
           ]
         },
         {
+          "slug": "guard-watchful",
           "name": "guard-watchful",
           "displayName": "Guard Watchful Greeting",
           "rarityWeight": 18,
@@ -268,6 +291,7 @@
           ]
         },
         {
+          "slug": "mercenary-blunt",
           "name": "mercenary-blunt",
           "displayName": "Mercenary Blunt Greeting",
           "rarityWeight": 22,
@@ -282,6 +306,7 @@
     "service": {
       "items": [
         {
+          "slug": "innkeeper-welcoming",
           "name": "innkeeper-welcoming",
           "displayName": "Innkeeper Welcome",
           "rarityWeight": 8,
@@ -292,6 +317,7 @@
           ]
         },
         {
+          "slug": "tavern-rowdy",
           "name": "tavern-rowdy",
           "displayName": "Tavern Keeper Rowdy Greeting",
           "rarityWeight": 10,
@@ -302,6 +328,7 @@
           ]
         },
         {
+          "slug": "cook-busy",
           "name": "cook-busy",
           "displayName": "Cook Busy Greeting",
           "rarityWeight": 12,
@@ -312,6 +339,7 @@
           ]
         },
         {
+          "slug": "stable-earthy",
           "name": "stable-earthy",
           "displayName": "Stable Hand Earthy Greeting",
           "rarityWeight": 15,
@@ -326,6 +354,7 @@
     "common": {
       "items": [
         {
+          "slug": "peasant-humble",
           "name": "peasant-humble",
           "displayName": "Peasant Humble Greeting",
           "rarityWeight": 8,
@@ -336,6 +365,7 @@
           ]
         },
         {
+          "slug": "farmer-simple",
           "name": "farmer-simple",
           "displayName": "Farmer Simple Greeting",
           "rarityWeight": 10,
@@ -350,6 +380,7 @@
     "scholarly": {
       "items": [
         {
+          "slug": "scholarly-formal",
           "name": "scholarly-formal",
           "displayName": "Scholar Formal Greeting",
           "rarityWeight": 18,
@@ -360,6 +391,7 @@
           ]
         },
         {
+          "slug": "distracted-scholar",
           "name": "distracted-scholar",
           "displayName": "Distracted Scholar Greeting",
           "rarityWeight": 22,
