@@ -4,7 +4,11 @@
     "version": "4.0",
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
-    "supportsTraits": true
+    "supportsTraits": true,
+    "componentKeys": ["quality"],
+    "patternTokens": ["{quality}", "{base}"],
+    "totalPatterns": 2,
+    "raritySystem": "weight-based"
   },
   "patterns": [
     {
@@ -22,11 +26,7 @@
       { "value": "Gleaming", "rarityWeight": 35 },
       { "value": "Dim", "rarityWeight": 50 },
       { "value": "Cloudy", "rarityWeight": 60 }
-    ],
-    "base": [
-      { "value": "Mana Crystal", "rarityWeight": 60 },
-      { "value": "Pure Mana Crystal", "rarityWeight": 35 },
-      { "value": "Arcane Crystal", "rarityWeight": 45 }
+
     ]
   }
 }

@@ -48,6 +48,17 @@ public class CrystalGenerator
         catch (Exception ex) { _logger.LogError(ex, "Error generating crystal"); return null; }
     }
 
+    public List<Crystal> GenerateMany(int count, string? category = null)
+    {
+        var crystals = new List<Crystal>();
+        for (int i = 0; i < count; i++)
+        {
+            var crystal = Generate(category);
+            if (crystal != null) crystals.Add(crystal);
+        }
+        return crystals;
+    }
+
     private List<Crystal> LoadAllCrystals()
     {
         var all = new List<Crystal>();

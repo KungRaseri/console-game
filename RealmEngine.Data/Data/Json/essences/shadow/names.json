@@ -4,7 +4,11 @@
     "version": "4.0",
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
-    "supportsTraits": true
+    "supportsTraits": true,
+    "componentKeys": ["intensity"],
+    "patternTokens": ["{intensity}", "{base}"],
+    "totalPatterns": 2,
+    "raritySystem": "weight-based"
   },
   "patterns": [
     {
@@ -22,11 +26,7 @@
       { "value": "Abyssal", "rarityWeight": 25 },
       { "value": "Murky", "rarityWeight": 50 },
       { "value": "Faint", "rarityWeight": 60 }
-    ],
-    "base": [
-      { "value": "Shadow Essence", "rarityWeight": 55 },
-      { "value": "Void Essence", "rarityWeight": 35 },
-      { "value": "Twilight Essence", "rarityWeight": 45 }
+
     ]
   }
 }

@@ -48,6 +48,17 @@ public class RuneGenerator
         catch (Exception ex) { _logger.LogError(ex, "Error generating rune"); return null; }
     }
 
+    public List<Rune> GenerateMany(int count, string? category = null)
+    {
+        var runes = new List<Rune>();
+        for (int i = 0; i < count; i++)
+        {
+            var rune = Generate(category);
+            if (rune != null) runes.Add(rune);
+        }
+        return runes;
+    }
+
     private List<Rune> LoadAllRunes()
     {
         var all = new List<Rune>();

@@ -4,7 +4,11 @@
     "version": "4.0",
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
-    "supportsTraits": true
+    "supportsTraits": true,
+    "componentKeys": ["suffix"],
+    "patternTokens": ["{base}", "{suffix}"],
+    "totalPatterns": 2,
+    "raritySystem": "weight-based"
   },
   "patterns": [
     {
@@ -17,11 +21,6 @@
     }
   ],
   "components": {
-    "base": [
-      { "value": "Protection Rune", "rarityWeight": 55 },
-      { "value": "Warding Rune", "rarityWeight": 50 },
-      { "value": "Fortitude Rune", "rarityWeight": 40 }
-    ],
     "suffix": [
       { "value": "of the Guardian", "rarityWeight": 35 },
       { "value": "of Resilience", "rarityWeight": 40 },

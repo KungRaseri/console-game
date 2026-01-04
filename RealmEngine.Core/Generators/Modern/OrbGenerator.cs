@@ -48,6 +48,17 @@ public class OrbGenerator
         catch (Exception ex) { _logger.LogError(ex, "Error generating orb"); return null; }
     }
 
+    public List<Orb> GenerateMany(int count, string? category = null)
+    {
+        var orbs = new List<Orb>();
+        for (int i = 0; i < count; i++)
+        {
+            var orb = Generate(category);
+            if (orb != null) orbs.Add(orb);
+        }
+        return orbs;
+    }
+
     private List<Orb> LoadAllOrbs()
     {
         var all = new List<Orb>();

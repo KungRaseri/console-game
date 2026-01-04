@@ -4,7 +4,11 @@
     "version": "4.0",
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
-    "supportsTraits": true
+    "supportsTraits": true,
+    "componentKeys": ["suffix"],
+    "patternTokens": ["{base}", "{suffix}"],
+    "totalPatterns": 2,
+    "raritySystem": "weight-based"
   },
   "patterns": [
     {
@@ -17,11 +21,6 @@
     }
   ],
   "components": {
-    "base": [
-      { "value": "Strike Orb", "rarityWeight": 55 },
-      { "value": "Berserk Orb", "rarityWeight": 40 },
-      { "value": "Precision Orb", "rarityWeight": 45 }
-    ],
     "suffix": [
       { "value": "of Mastery", "rarityWeight": 35 },
       { "value": "of Excellence", "rarityWeight": 40 },

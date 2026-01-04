@@ -62,6 +62,20 @@ public class EssenceGenerator
         }
     }
 
+    /// <summary>
+    /// Generate multiple essences
+    /// </summary>
+    public List<Essence> GenerateMany(int count, string? category = null)
+    {
+        var essences = new List<Essence>();
+        for (int i = 0; i < count; i++)
+        {
+            var essence = Generate(category);
+            if (essence != null) essences.Add(essence);
+        }
+        return essences;
+    }
+
     private List<Essence> LoadAllEssences()
     {
         var all = new List<Essence>();

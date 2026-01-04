@@ -4,7 +4,11 @@
     "version": "4.0",
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
-    "supportsTraits": true
+    "supportsTraits": true,
+    "componentKeys": ["intensity"],
+    "patternTokens": ["{intensity}", "{base}"],
+    "totalPatterns": 2,
+    "raritySystem": "weight-based"
   },
   "patterns": [
     {
@@ -22,11 +26,7 @@
       { "value": "Scorching", "rarityWeight": 25 },
       { "value": "Smoldering", "rarityWeight": 40 },
       { "value": "Minor", "rarityWeight": 60 }
-    ],
-    "base": [
-      { "value": "Flame Essence", "rarityWeight": 60 },
-      { "value": "Inferno Essence", "rarityWeight": 40 },
-      { "value": "Ember Essence", "rarityWeight": 70 }
+
     ]
   }
 }

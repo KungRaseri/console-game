@@ -4,7 +4,11 @@
     "version": "4.0",
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
-    "supportsTraits": true
+    "supportsTraits": true,
+    "componentKeys": ["suffix"],
+    "patternTokens": ["{base}", "{suffix}"],
+    "totalPatterns": 2,
+    "raritySystem": "weight-based"
   },
   "patterns": [
     {
@@ -17,11 +21,6 @@
     }
   ],
   "components": {
-    "base": [
-      { "value": "Fury Rune", "rarityWeight": 50 },
-      { "value": "Piercing Rune", "rarityWeight": 45 },
-      { "value": "Devastation Rune", "rarityWeight": 30 }
-    ],
     "suffix": [
       { "value": "of Power", "rarityWeight": 40 },
       { "value": "of Might", "rarityWeight": 35 },
