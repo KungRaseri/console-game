@@ -86,7 +86,13 @@ public class EssenceGenerator
             var catalogFile = _dataCache.GetFile($"essences/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
 
-            var items = catalogFile.JsonData["items"] as JArray;
+            var essenceTypes = catalogFile.JsonData["essence_types"] as JObject;
+            if (essenceTypes == null) continue;
+            
+            var categoryData = essenceTypes[category] as JObject;
+            if (categoryData == null) continue;
+            
+            var items = categoryData["items"] as JArray;
             if (items == null) continue;
 
             foreach (var item in items)

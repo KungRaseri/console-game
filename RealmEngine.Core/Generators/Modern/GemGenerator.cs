@@ -113,7 +113,13 @@ public class GemGenerator
             var catalogFile = _dataCache.GetFile($"gems/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
 
-            var items = catalogFile.JsonData["items"] as JArray;
+            var gemTypes = catalogFile.JsonData["gem_types"] as JObject;
+            if (gemTypes == null) continue;
+            
+            var categoryData = gemTypes[category] as JObject;
+            if (categoryData == null) continue;
+            
+            var items = categoryData["items"] as JArray;
             if (items == null) continue;
 
             foreach (var item in items)

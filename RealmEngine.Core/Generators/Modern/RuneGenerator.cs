@@ -67,7 +67,14 @@ public class RuneGenerator
         {
             var catalogFile = _dataCache.GetFile($"runes/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
-            var items = catalogFile.JsonData["items"] as JArray;
+            
+            var runeTypes = catalogFile.JsonData["rune_types"] as JObject;
+            if (runeTypes == null) continue;
+            
+            var categoryData = runeTypes[category] as JObject;
+            if (categoryData == null) continue;
+            
+            var items = categoryData["items"] as JArray;
             if (items == null) continue;
             foreach (var item in items)
             {

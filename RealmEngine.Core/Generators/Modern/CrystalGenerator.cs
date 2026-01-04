@@ -67,7 +67,14 @@ public class CrystalGenerator
         {
             var catalogFile = _dataCache.GetFile($"crystals/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
-            var items = catalogFile.JsonData["items"] as JArray;
+            
+            var crystalTypes = catalogFile.JsonData["crystal_types"] as JObject;
+            if (crystalTypes == null) continue;
+            
+            var categoryData = crystalTypes[category] as JObject;
+            if (categoryData == null) continue;
+            
+            var items = categoryData["items"] as JArray;
             if (items == null) continue;
             foreach (var item in items)
             {

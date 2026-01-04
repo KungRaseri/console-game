@@ -67,7 +67,14 @@ public class OrbGenerator
         {
             var catalogFile = _dataCache.GetFile($"orbs/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
-            var items = catalogFile.JsonData["items"] as JArray;
+            
+            var orbTypes = catalogFile.JsonData["orb_types"] as JObject;
+            if (orbTypes == null) continue;
+            
+            var categoryData = orbTypes[category] as JObject;
+            if (categoryData == null) continue;
+            
+            var items = categoryData["items"] as JArray;
             if (items == null) continue;
             foreach (var item in items)
             {
