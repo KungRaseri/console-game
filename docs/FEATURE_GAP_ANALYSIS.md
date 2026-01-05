@@ -507,13 +507,13 @@ Trait Data Exists But Unused:
 
 ## Part 2: GDD Inaccuracies
 
-### 🚨 False Claims (GDD Says "✅" But Code Doesn't Exist)
+### 🚨 False Claims (GDD Says "✅" But Implementation Incomplete)
 
 #### 1. Skill System
-- **GDD Claim**: "✅ Skill learning and progression"
-- **Reality**: Skill system does not exist (0% complete)
-- **Severity**: HIGH - Embarrassing claim for documented feature
-- **Action**: Move to 🔮 Future Features or remove entirely
+- **GDD Claim**: Skills/Abilities section exists but doesn't distinguish clearly
+- **Reality**: Abilities 80% complete, Skills 30% complete (model/UI exist, effects missing)
+- **Severity**: MEDIUM - Foundation exists but effects not applied
+- **Action**: GDD now correctly distinguishes Abilities vs Skills
 
 #### 2. Main Quest Chain
 - **GDD Claim**: "✅ Main quest chain (6 quests)"
@@ -580,43 +580,52 @@ Trait Data Exists But Unused:
 ## Part 3: Prioritized Gap Remediation Plan
 
 ### Priority 1: Complete Skill System ⭐⭐⭐
-**Status**: 0% complete  
-**GDD Status**: Claims "✅ Implemented" (FALSE)  
+**Status**: 30% complete  
+**GDD Status**: Not mentioned (confused with Abilities)  
 **Impact**: HIGH - Affects build variety, player progression, combat depth  
 **Effort**: 2-3 weeks  
-**Risk**: LOW - Self-contained feature, won't break existing systems  
+**Risk**: LOW - Foundation exists, just needs effect application  
+
+**What Exists:**
+- ✅ Skill model exists (Skill.cs)
+- ✅ Character.LearnedSkills property exists
+- ✅ GetAvailableSkills() method with 10 hardcoded skills
+- ✅ Skill selection UI working during level-up
+- ✅ Skill data displayed to players
+
+**What's Missing:**
+- ❌ Skill effects not applied to combat (CombatService ignores LearnedSkills)
+- ❌ Skill effects not applied to stats (no HP/MP bonuses)
+- ❌ No skills/catalog.json file
+- ❌ Skills hardcoded in LevelUpService instead of data-driven
 
 **Why Priority 1:**
-1. GDD embarrassingly claims it's done
-2. Manageable scope (only 8 skills)
+1. Foundation already 30% built (don't waste work)
+2. Manageable scope (apply effects, create JSON catalog)
 3. High player impact (build variety)
-4. Demonstrates full vertical slice implementation
+4. Demonstrates completing partially-built features
 
 **Implementation Steps:**
 
-**Week 1: Foundation (Model & Data)**
-1. Create `Skill.cs` model in `RealmEngine.Shared/Models/`
-   - Properties: Id, Name, Description, LevelRequirement, Effects
-2. Add `LearnedSkills` property to `Character.cs`
-3. Create `skills/catalog.json` with 8 skill definitions
-4. Create Skill tests (SkillTests.cs)
+**Week 1: Data-Driven Skills**
+1. Create `skills/catalog.json` with skill definitions
+2. Move skills from hardcoded list to JSON data
+3. Load skills dynamically in GetAvailableSkills()
+4. Add skill catalog validation tests
 
-**Week 2: Learning System (UI & Logic)**
-1. Create `Features/Skills/` folder structure
-2. Implement `LearnSkillCommand` and handler
-3. Modify `LevelUpService` to offer skill selection
-4. Create skill selection UI (ConsoleUI menu)
-5. Add skill learning tests
+**Week 2: Combat Effects**
+1. Modify `CombatService` to check Character.LearnedSkills
+2. Apply offensive skill bonuses (Power Strike: +20% melee damage)
+3. Apply defensive skill bonuses (Evasion: +10% dodge chance)
+4. Apply critical strike skills (Lucky Strike: +10% crit chance)
+5. Add combat skill effect tests
 
-**Week 3: Effects & Integration**
-1. Modify `CombatService` to apply skill bonuses
-   - Power Strike: +20% melee damage
-   - Lucky Strike: +10% crit chance
-   - Evasion: +10% dodge chance
-2. Modify `Character` stat calculations for skill bonuses
+**Week 3: Stat Effects & Integration**
+1. Modify Character stat calculations for skill bonuses
    - Toughness: +25% max HP
    - Mana Mastery: +50% max MP
-3. Add skill effects tests
+2. Apply stat bonuses during level-up
+3. Display skill effects in character sheet UI
 4. Integration testing
 
 **Files to Create:**
@@ -869,9 +878,9 @@ This section documents features that are partially complete or where the GDD doc
 ### High-Priority Gaps (Missing Promised Features)
 
 #### 1. Skill System (Priority 1)
-- **Status**: Not implemented (0%)
-- **GDD Claim**: "✅ Implemented"
-- **Reality**: Design complete, code doesn't exist
+- **Status**: Partially implemented (30%)
+- **GDD Claim**: Not mentioned (confused with Abilities)
+- **Reality**: Model and UI exist, effects missing
 - **Impact**: HIGH - Affects build variety, player progression
 - **Effort**: 2-3 weeks
 - **Next Steps**: See Priority 1 implementation plan
