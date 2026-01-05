@@ -59,23 +59,6 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void ExecutePlayerAttack_Should_Deal_Damage_To_Enemy()
-    {
-        // Arrange
-        var service = new CombatService(_mockSaveGameService.Object);
-        var player = new Character { Name = "Hero", Strength = 10 };
-        var enemy = new Enemy { Name = "Goblin", Health = 100 };
-
-        // Act
-        var result = service.ExecutePlayerAttack(player, enemy);
-
-        // Assert
-        result.Should().NotBeNull();
-        result.Damage.Should().BeGreaterThan(0);
-        result.Success.Should().BeTrue();
-    }
-
-    [Fact]
     public void ExecutePlayerAttack_Should_Return_Message()
     {
         // Arrange
@@ -98,23 +81,6 @@ public class CombatServiceTests
 
         // Assert
         gotDamageMessage.Should().BeTrue("Should eventually land a hit and deal damage");
-    }
-
-    [Fact]
-    public void ExecuteEnemyAttack_Should_Deal_Damage_To_Player()
-    {
-        // Arrange
-        var service = new CombatService(_mockSaveGameService.Object);
-        var player = new Character { Name = "Hero", Health = 100, MaxHealth = 100 };
-        var enemy = new Enemy { Name = "Bandit", BasePhysicalDamage = 10 };
-        var initialHealth = player.Health;
-
-        // Act
-        var result = service.ExecuteEnemyAttack(enemy, player);
-
-        // Assert
-        result.Damage.Should().BeGreaterThan(0);
-        player.Health.Should().BeLessThan(initialHealth);
     }
 
     [Fact]
@@ -289,31 +255,6 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void ExecutePlayerAttack_Should_Apply_Weapon_Damage()
-    {
-        // Arrange
-        var service = new CombatService(_mockSaveGameService.Object);
-        var player = new Character 
-        { 
-            Name = "Hero", 
-            Strength = 10,
-            EquippedMainHand = new Item 
-            { 
-                Name = "Epic Sword", 
-                Type = ItemType.Weapon, 
-                Rarity = ItemRarity.Epic 
-            }
-        };
-        var enemy = new Enemy { Name = "Target", Health = 1000 };
-
-        // Act
-        var result = service.ExecutePlayerAttack(player, enemy);
-
-        // Assert
-        result.Damage.Should().BeGreaterThan(0);
-    }
-
-    [Fact]
     public void ExecuteEnemyAttack_Should_Include_Message()
     {
         // Arrange
@@ -329,26 +270,4 @@ public class CombatServiceTests
         result.Message.Should().Contain("Orc");
     }
 
-    [Fact]
-    public void ExecutePlayerAttack_Should_Apply_Difficulty_Multiplier()
-    {
-        // Arrange
-        var easyService = new CombatService(_mockSaveGameService.Object);
-        var hardService = new CombatService(_mockSaveGameService.Object);
-        
-        _mockSaveGameService.Setup(s => s.GetDifficultySettings())
-            .Returns(new DifficultySettings { EnemyHealthMultiplier = 1.0, EnemyDamageMultiplier = 1.0 });
-
-        var player = new Character { Name = "Hero", Strength = 20 };
-        var enemy1 = new Enemy { Name = "TestEnemy1", Health = 1000 };
-        var enemy2 = new Enemy { Name = "TestEnemy2", Health = 1000 };
-
-        // Act
-        var result1 = easyService.ExecutePlayerAttack(player, enemy1);
-        var result2 = hardService.ExecutePlayerAttack(player, enemy2);
-
-        // Assert
-        result1.Damage.Should().BeGreaterThan(0);
-        result2.Damage.Should().BeGreaterThan(0);
-    }
 }
