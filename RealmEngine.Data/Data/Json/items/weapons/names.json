@@ -29,7 +29,7 @@
       "Traits are applied when components are selected in patterns",
       "Trait merging: numbers take highest, strings take last, booleans use OR",
       "Emergent rarity calculated from combined component weights",
-      "Materials are directly in patterns using @items/materials/metals:* references",
+      "Materials are now applied through the budget-based generation system, not pattern references",
       "Enchantments can be added to patterns using component tokens or references"
     ]
   },
@@ -1341,14 +1341,6 @@
       "rarityWeight": 100
     },
     {
-      "pattern": "@items/materials/metals:* {base}",
-      "rarityWeight": 50
-    },
-    {
-      "pattern": "{quality} {base}",
-      "rarityWeight": 40
-    },
-    {
       "pattern": "{prefix} {base}",
       "rarityWeight": 30
     },
@@ -1361,52 +1353,16 @@
       "rarityWeight": 30
     },
     {
-      "pattern": "@items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 20
-    },
-    {
-      "pattern": "{quality} @items/materials/metals:* {base}",
-      "rarityWeight": 15
-    },
-    {
-      "pattern": "{prefix} @items/materials/metals:* {base}",
-      "rarityWeight": 10
-    },
-    {
       "pattern": "{descriptive} {base} {suffix}",
       "rarityWeight": 12
-    },
-    {
-      "pattern": "{quality} {base} {suffix}",
-      "rarityWeight": 15
     },
     {
       "pattern": "{prefix} {base} {suffix}",
       "rarityWeight": 8
     },
     {
-      "pattern": "{quality} @items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 5
-    },
-    {
-      "pattern": "{prefix} @items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 3
-    },
-    {
-      "pattern": "{descriptive} @items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 4
-    },
-    {
-      "pattern": "{prefix} {quality} @items/materials/metals:* {base}",
-      "rarityWeight": 2
-    },
-    {
       "pattern": "{prefix} {descriptive} {base} {suffix}",
       "rarityWeight": 2
-    },
-    {
-      "pattern": "{prefix} {quality} @items/materials/metals:* {base} {suffix}",
-      "rarityWeight": 1
     }
   ]
 }
