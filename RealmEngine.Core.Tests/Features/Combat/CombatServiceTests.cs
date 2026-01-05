@@ -108,11 +108,21 @@ public class CombatServiceTests
         var player = new Character { Name = "Warrior", Strength = 15 };
         var enemy = new Enemy { Name = "Orc", Health = 100 };
 
-        // Act
-        var result = service.ExecutePlayerAttack(player, enemy);
+        // Act - Multiple attempts to account for dodge RNG
+        bool gotDamageMessage = false;
+        for (int i = 0; i < 10; i++)
+        {
+            var result = service.ExecutePlayerAttack(player, enemy);
+            result.Message.Should().NotBeNullOrEmpty();
+            if (result.Message.Contains("damage", StringComparison.OrdinalIgnoreCase))
+            {
+                gotDamageMessage = true;
+                break;
+            }
+        }
 
         // Assert
-        result.Message.Should().NotBeNullOrEmpty();
+        gotDamageMessage.Should().BeTrue("Should eventually land a hit and deal damage");
     }
 
     [Fact]
@@ -215,14 +225,16 @@ public class CombatServiceTests
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object);
         var player = new Character { Name = "Hero", Level = 10, Dexterity = 10 };
-        var weakEnemy = new Enemy { Name = "Rat", Level = 1 };
-        var strongEnemy = new Enemy { Name = "Dragon", Level = 20 };
+        // Weak enemy has lower DEX (flee mechanics use DEX, not level)
+        var weakEnemy = new Enemy { Name = "Rat", Level = 1, Dexterity = 5 };
+        // Strong enemy has higher DEX
+        var strongEnemy = new Enemy { Name = "Dragon", Level = 20, Dexterity = 15 };
 
-        // Act - Multiple attempts (RNG)
+        // Act - Multiple attempts (RNG) - Increased sample size for better statistical reliability
         int weakEnemySuccesses = 0;
         int strongEnemySuccesses = 0;
         
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 100; i++)
         {
             var result1 = service.AttemptFlee(player, weakEnemy);
             if (result1.Success) weakEnemySuccesses++;
@@ -231,9 +243,13 @@ public class CombatServiceTests
             if (result2.Success) strongEnemySuccesses++;
         }
 
-        // Assert - Should have more success fleeing from weak enemy
-        weakEnemySuccesses.Should().BeGreaterThan(strongEnemySuccesses,
-            "Fleeing from lower level enemies should be easier");
+        // Assert - Should have more success fleeing from weak enemy (player DEX 10 vs enemy DEX 5/15)
+        // Player has 10 DEX vs 5 DEX (weak) = +25% flee chance (50% base + 25% = 75%)
+        // Player has 10 DEX vs 15 DEX (strong) = -25% flee chance (50% base - 25% = 25%)
+        // Expected ~75 successes vs ~25 successes (with RNG variance)
+        weakEnemySuccesses.Should().BeGreaterThan(strongEnemySuccesses + 20,
+            "Fleeing from lower DEX enemies should be significantly easier (got {0} vs {1})",
+            weakEnemySuccesses, strongEnemySuccesses);
     }
 
     [Fact]

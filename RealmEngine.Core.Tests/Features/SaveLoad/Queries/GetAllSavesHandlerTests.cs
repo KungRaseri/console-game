@@ -37,11 +37,13 @@ public class GetAllSavesHandlerTests : IDisposable
         // Create multiple saves
         var player1 = new Character { Name = "Player1", Level = 5, Health = 100, MaxHealth = 100 };
         var save1 = _saveGameService.CreateNewGame(player1, DifficultySettings.Normal);
-        _saveGameService.SaveGame(player1, new List<Item>(), save1.Id);
+        save1.Character = player1; // Ensure character is set
+        _saveGameService.SaveGame(save1); // Save the SaveGame object directly
 
         var player2 = new Character { Name = "Player2", Level = 10, Health = 150, MaxHealth = 150 };
         var save2 = _saveGameService.CreateNewGame(player2, DifficultySettings.Hard);
-        _saveGameService.SaveGame(player2, new List<Item>(), save2.Id);
+        save2.Character = player2; // Ensure character is set
+        _saveGameService.SaveGame(save2); // Save the SaveGame object directly
 
         var query = new GetAllSavesQuery();
 
