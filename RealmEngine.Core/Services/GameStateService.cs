@@ -16,7 +16,10 @@ public class GameStateService
     /// <summary>
     /// Current location in the game world.
     /// </summary>
-    public string CurrentLocation { get; set; } = "Hub Town";
+    public virtual string CurrentLocation { get; set; } = "Hub Town";
+
+    // Protected parameterless constructor for mocking
+    protected GameStateService() { _saveGameService = null!; _logger = null!; }
 
     public GameStateService(SaveGameService saveGameService, ILogger<GameStateService> logger)
     {
@@ -36,7 +39,7 @@ public class GameStateService
     /// Get the player character from the current save.
     /// Throws InvalidOperationException if no save is active.
     /// </summary>
-    public Character Player => CurrentSave.Character;
+    public virtual Character Player => CurrentSave.Character;
 
     /// <summary>
     /// Get the difficulty level string (Easy, Normal, Hard, Expert).
@@ -51,7 +54,7 @@ public class GameStateService
     /// <summary>
     /// Update the current location and track it in the save game.
     /// </summary>
-    public void UpdateLocation(string location)
+    public virtual void UpdateLocation(string location)
     {
         CurrentLocation = location;
 

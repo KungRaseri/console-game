@@ -15,7 +15,7 @@ public class QuestService
         _mainQuestService = mainQuestService;
     }
 
-    public async Task<(bool Success, Quest? Quest, string ErrorMessage)> StartQuestAsync(string questId)
+    public virtual async Task<(bool Success, Quest? Quest, string ErrorMessage)> StartQuestAsync(string questId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
@@ -52,7 +52,7 @@ public class QuestService
         return await Task.FromResult((true, quest, string.Empty));
     }
 
-    public async Task<(bool Success, Quest? Quest, string ErrorMessage)> CompleteQuestAsync(string questId)
+    public virtual async Task<(bool Success, Quest? Quest, string ErrorMessage)> CompleteQuestAsync(string questId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
@@ -84,7 +84,7 @@ public class QuestService
         return await Task.FromResult((true, quest, string.Empty));
     }
 
-    public async Task<List<Quest>> GetActiveQuestsAsync()
+    public virtual async Task<List<Quest>> GetActiveQuestsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
         return await Task.FromResult(saveGame?.ActiveQuests ?? new List<Quest>());

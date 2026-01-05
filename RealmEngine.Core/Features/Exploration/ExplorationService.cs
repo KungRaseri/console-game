@@ -29,6 +29,9 @@ public class ExplorationService
         "Underground Caverns"
     };
 
+    // Protected parameterless constructor for mocking
+    protected ExplorationService() { _mediator = null!; _gameState = null!; _saveGameService = null!; _console = null!; }
+
     public ExplorationService(IMediator mediator, GameStateService gameState, SaveGameService saveGameService, IGameUI console)
     {
         _mediator = mediator;
@@ -156,7 +159,7 @@ public class ExplorationService
     /// <summary>
     /// Get all known locations.
     /// </summary>
-    public IReadOnlyList<string> GetKnownLocations() => _knownLocations.AsReadOnly();
+    public virtual IReadOnlyList<string> GetKnownLocations() => _knownLocations.AsReadOnly();
 
     private static string GetRarityColor(ItemRarity rarity)
     {

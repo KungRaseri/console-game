@@ -11,7 +11,7 @@ public class QuestProgressService
         _saveGameService = saveGameService;
     }
 
-    public async Task<(bool Success, bool ObjectiveCompleted, bool QuestCompleted)> UpdateProgressAsync(
+    public virtual async Task<(bool Success, bool ObjectiveCompleted, bool QuestCompleted)> UpdateProgressAsync(
         string questId, string objectiveId, int amount)
     {
         var saveGame = _saveGameService.GetCurrentSave();

@@ -8,12 +8,18 @@ public class MainQuestService
 {
     private readonly List<Quest> _allQuests;
 
+    // Protected parameterless constructor for mocking
+    protected MainQuestService(bool initForMocking)
+    {
+        _allQuests = new List<Quest>();
+    }
+
     public MainQuestService()
     {
         _allQuests = InitializeQuestDatabase();
     }
 
-    public async Task<List<Quest>> GetMainQuestChainAsync()
+    public virtual async Task<List<Quest>> GetMainQuestChainAsync()
     {
         return await Task.FromResult(
             _allQuests.Where(q => q.Type == "main")
