@@ -34,16 +34,26 @@ public class GetAllSavesHandlerTests : IDisposable
         // Arrange
         var handler = new GetAllSavesHandler(_saveGameService);
 
-        // Create multiple saves
-        var player1 = new Character { Name = "Player1", Level = 5, Health = 100, MaxHealth = 100 };
+        // Create first save
+        var player1 = new Character { Name = "Player1", ClassName = "Warrior", Level = 5, Health = 100, MaxHealth = 100 };
         var save1 = _saveGameService.CreateNewGame(player1, DifficultySettings.Normal);
-        save1.Character = player1; // Ensure character is set
-        _saveGameService.SaveGame(save1); // Save the SaveGame object directly
+        _saveGameService.SaveGame(save1);
 
-        var player2 = new Character { Name = "Player2", Level = 10, Health = 150, MaxHealth = 150 };
-        var save2 = _saveGameService.CreateNewGame(player2, DifficultySettings.Hard);
-        save2.Character = player2; // Ensure character is set
-        _saveGameService.SaveGame(save2); // Save the SaveGame object directly
+        // Create second save (creates a new SaveGame, not using CreateNewGame to avoid overwriting _currentSave)
+        var player2 = new Character { Name = "Player2", ClassName = "Mage", Level = 10, Health = 150, MaxHealth = 150 };
+        var save2 = new SaveGame
+        {
+            Id = Guid.NewGuid().ToString(),
+            PlayerName = player2.Name,
+            Character = player2,
+            CreationDate = DateTime.Now,
+            SaveDate = DateTime.Now,
+            DifficultyLevel = "Hard",
+            IronmanMode = false,
+            PermadeathMode = false,
+            ApocalypseMode = false
+        };
+        _saveGameService.SaveGame(save2);
 
         var query = new GetAllSavesQuery();
 

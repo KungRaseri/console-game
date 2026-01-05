@@ -85,7 +85,7 @@ public class ItemNamingComponentsTests
         }
     }
 
-    [Fact(Skip = "Enchantments require pattern definitions with 'enchantmentSlots'. Current patterns don't have this field.")]
+    [Fact]
     public async Task Items_With_Enchantments_Should_Have_Component_Lists()
     {
         // Generate many items to increase chance of getting enchanted ones
@@ -150,7 +150,7 @@ public class ItemNamingComponentsTests
         }
     }
 
-    [Fact(Skip = "Gem sockets require pattern definitions with 'socketSlots' or 'gemSocketCount'. Current patterns don't have these fields.")]
+    [Fact]
     public async Task Items_With_Sockets_Should_Have_SocketsText_Property()
     {
         // Generate many items to increase chance of getting ones with sockets

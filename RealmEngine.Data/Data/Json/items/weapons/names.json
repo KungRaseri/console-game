@@ -1342,27 +1342,114 @@
     },
     {
       "pattern": "{prefix} {base}",
-      "rarityWeight": 30
+      "rarityWeight": 30,
+      "socketSlots": [
+        {
+          "type": "gem",
+          "count": { "min": 0, "max": 1 },
+          "rarityWeight": 40
+        }
+      ]
     },
     {
       "pattern": "{descriptive} {base}",
-      "rarityWeight": 35
+      "rarityWeight": 35,
+      "socketSlots": [
+        {
+          "type": "gem",
+          "count": { "min": 0, "max": 1 },
+          "rarityWeight": 45
+        }
+      ]
     },
     {
       "pattern": "{base} {suffix}",
-      "rarityWeight": 30
+      "rarityWeight": 30,
+      "enchantmentSlots": [
+        {
+          "position": "suffix",
+          "reference": "@items/enchantments"
+        }
+      ]
     },
     {
       "pattern": "{descriptive} {base} {suffix}",
-      "rarityWeight": 12
+      "rarityWeight": 12,
+      "enchantmentSlots": [
+        {
+          "position": "suffix",
+          "reference": "@items/enchantments"
+        }
+      ],
+      "socketSlots": [
+        {
+          "type": "gem",
+          "count": { "min": 0, "max": 1 },
+          "rarityWeight": 60
+        },
+        {
+          "type": "essence",
+          "count": { "min": 0, "max": 1 },
+          "rarityWeight": 30
+        }
+      ]
     },
     {
       "pattern": "{prefix} {base} {suffix}",
-      "rarityWeight": 8
+      "rarityWeight": 8,
+      "enchantmentSlots": [
+        {
+          "position": "prefix",
+          "reference": "@items/enchantments"
+        },
+        {
+          "position": "suffix",
+          "reference": "@items/enchantments"
+        }
+      ],
+      "socketSlots": [
+        {
+          "type": "gem",
+          "count": { "min": 1, "max": 2 },
+          "rarityWeight": 80
+        },
+        {
+          "type": "essence",
+          "count": { "min": 0, "max": 1 },
+          "rarityWeight": 50
+        }
+      ]
     },
     {
       "pattern": "{prefix} {descriptive} {base} {suffix}",
-      "rarityWeight": 2
+      "rarityWeight": 2,
+      "enchantmentSlots": [
+        {
+          "position": "prefix",
+          "reference": "@items/enchantments"
+        },
+        {
+          "position": "suffix",
+          "reference": "@items/enchantments"
+        }
+      ],
+      "socketSlots": [
+        {
+          "type": "gem",
+          "count": { "min": 1, "max": 3 },
+          "rarityWeight": 100
+        },
+        {
+          "type": "essence",
+          "count": { "min": 0, "max": 2 },
+          "rarityWeight": 60
+        },
+        {
+          "type": "rune",
+          "count": { "min": 0, "max": 1 },
+          "rarityWeight": 30
+        }
+      ]
     }
   ]
 }

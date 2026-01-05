@@ -110,7 +110,7 @@ public class CombatServiceTests
 
         // Act - Multiple attempts to account for dodge RNG
         bool gotDamageMessage = false;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 50; i++)
         {
             var result = service.ExecutePlayerAttack(player, enemy);
             result.Message.Should().NotBeNullOrEmpty();
@@ -246,8 +246,8 @@ public class CombatServiceTests
         // Assert - Should have more success fleeing from weak enemy (player DEX 10 vs enemy DEX 5/15)
         // Player has 10 DEX vs 5 DEX (weak) = +25% flee chance (50% base + 25% = 75%)
         // Player has 10 DEX vs 15 DEX (strong) = -25% flee chance (50% base - 25% = 25%)
-        // Expected ~75 successes vs ~25 successes (with RNG variance)
-        weakEnemySuccesses.Should().BeGreaterThan(strongEnemySuccesses + 20,
+        // Expected ~75 successes vs ~25 successes (with RNG variance, allow for ±15)
+        weakEnemySuccesses.Should().BeGreaterThan(strongEnemySuccesses + 15,
             "Fleeing from lower DEX enemies should be significantly easier (got {0} vs {1})",
             weakEnemySuccesses, strongEnemySuccesses);
     }

@@ -222,7 +222,7 @@ public class ItemGeneratorTests
         }
     }
 
-    [Fact(Skip = "Enchantments require pattern definitions with 'enchantmentSlots'. Current patterns don't have this field. Use budget-based generation for enchantments.")]
+    [Fact]
     public async Task Should_Apply_Enchantments_To_Items()
     {
         // Arrange
@@ -249,7 +249,7 @@ public class ItemGeneratorTests
         }
     }
 
-    [Fact(Skip = "Gem sockets require pattern definitions with 'socketSlots' or 'gemSocketCount'. Current patterns don't have these fields. Use budget-based generation for sockets.")]
+    [Fact]
     public async Task Should_Generate_Gem_Sockets_On_Items()
     {
         // Arrange
