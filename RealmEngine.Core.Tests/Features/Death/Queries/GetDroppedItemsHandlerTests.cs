@@ -24,7 +24,7 @@ public class GetDroppedItemsHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>
             {
                 ["Dark Cave"] = droppedItems
@@ -56,7 +56,7 @@ public class GetDroppedItemsHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>
             {
                 ["Forest"] = new List<Item>
@@ -110,7 +110,7 @@ public class GetDroppedItemsHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>()
         };
 
@@ -135,15 +135,15 @@ public class GetDroppedItemsHandlerTests
 
         var droppedItems = new List<Item>
         {
-            new() { Name = "Health Potion", Type = ItemType.Consumable, Value = 10 },
-            new() { Name = "Iron Sword", Type = ItemType.Weapon, Value = 50 },
-            new() { Name = "Leather Armor", Type = ItemType.Armor, Value = 30 },
-            new() { Name = "Iron Ore", Type = ItemType.Material, Value = 5 }
+            new() { Name = "Health Potion", Type = ItemType.Consumable, Price = 10 },
+            new() { Name = "Iron Sword", Type = ItemType.Weapon, Price = 50 },
+            new() { Name = "Leather Armor", Type = ItemType.Chest, Price = 30 },
+            new() { Name = "Iron Ore", Type = ItemType.Consumable, Price = 5 }
         };
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>
             {
                 ["Battlefield"] = droppedItems
@@ -164,8 +164,7 @@ public class GetDroppedItemsHandlerTests
         result.Items.Should().HaveCount(4);
         result.Items.Should().Contain(i => i.Type == ItemType.Consumable);
         result.Items.Should().Contain(i => i.Type == ItemType.Weapon);
-        result.Items.Should().Contain(i => i.Type == ItemType.Armor);
-        result.Items.Should().Contain(i => i.Type == ItemType.Material);
+        result.Items.Should().Contain(i => i.Type == ItemType.Chest);
         result.HasItems.Should().BeTrue();
     }
 
@@ -186,7 +185,7 @@ public class GetDroppedItemsHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>
             {
                 [location] = droppedItems

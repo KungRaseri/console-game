@@ -13,7 +13,7 @@ public class VictoryService
         _saveGameService = saveGameService;
     }
 
-    public async Task<VictoryStatistics?> CalculateVictoryStatisticsAsync()
+    public virtual async Task<VictoryStatistics?> CalculateVictoryStatisticsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
@@ -37,7 +37,7 @@ public class VictoryService
         return await Task.FromResult(statistics);
     }
 
-    public async Task MarkGameCompleteAsync()
+    public virtual async Task MarkGameCompleteAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)

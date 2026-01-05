@@ -33,7 +33,7 @@ public class HandlePlayerDeathHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DeathCount = 0,
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>()
         };
@@ -41,7 +41,7 @@ public class HandlePlayerDeathHandlerTests
         var difficulty = new DifficultySettings
         {
             Name = "Permadeath",
-            PermadeathEnabled = true
+            IsPermadeath = true
         };
 
         mockSaveGameService.Setup(x => x.GetCurrentSave()).Returns(saveGame);
@@ -94,7 +94,7 @@ public class HandlePlayerDeathHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DeathCount = 0,
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>()
         };
@@ -102,12 +102,13 @@ public class HandlePlayerDeathHandlerTests
         var difficulty = new DifficultySettings
         {
             Name = "Hard",
-            PermadeathEnabled = false,
+            IsPermadeath = false,
             ItemsDroppedOnDeath = 1
         };
 
         mockSaveGameService.Setup(x => x.GetCurrentSave()).Returns(saveGame);
         mockSaveGameService.Setup(x => x.GetDifficultySettings()).Returns(difficulty);
+        mockSaveGameService.Setup(x => x.SaveGame(It.IsAny<SaveGame>()));
         
         mockDeathService.Setup(x => x.HandleItemDropping(player, saveGame, "Dark Cave", difficulty))
             .Returns(new List<Item> { new() { Name = "Health Potion", Type = ItemType.Consumable } });
@@ -154,7 +155,7 @@ public class HandlePlayerDeathHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DeathCount = 0,
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>()
         };
@@ -162,12 +163,16 @@ public class HandlePlayerDeathHandlerTests
         var difficulty = new DifficultySettings
         {
             Name = "Normal",
-            PermadeathEnabled = false,
-            GoldPenaltyPercentage = 25
+            IsPermadeath = false,
+            GoldLossPercentage = 0.25
         };
 
         mockSaveGameService.Setup(x => x.GetCurrentSave()).Returns(saveGame);
         mockSaveGameService.Setup(x => x.GetDifficultySettings()).Returns(difficulty);
+        mockSaveGameService.Setup(x => x.SaveGame(It.IsAny<SaveGame>()));
+        
+        mockDeathService.Setup(x => x.HandleItemDropping(It.IsAny<Character>(), It.IsAny<SaveGame>(), It.IsAny<string>(), It.IsAny<DifficultySettings>()))
+            .Returns(new List<Item>());
 
         var handler = new HandlePlayerDeathHandler(
             mockDeathService.Object,
@@ -210,7 +215,7 @@ public class HandlePlayerDeathHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DeathCount = 0,
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>()
         };
@@ -218,12 +223,16 @@ public class HandlePlayerDeathHandlerTests
         var difficulty = new DifficultySettings
         {
             Name = "Normal",
-            PermadeathEnabled = false,
-            XPPenaltyPercentage = 10
+            IsPermadeath = false,
+            XPLossPercentage = 0.10
         };
 
         mockSaveGameService.Setup(x => x.GetCurrentSave()).Returns(saveGame);
         mockSaveGameService.Setup(x => x.GetDifficultySettings()).Returns(difficulty);
+        mockSaveGameService.Setup(x => x.SaveGame(It.IsAny<SaveGame>()));
+        
+        mockDeathService.Setup(x => x.HandleItemDropping(It.IsAny<Character>(), It.IsAny<SaveGame>(), It.IsAny<string>(), It.IsAny<DifficultySettings>()))
+            .Returns(new List<Item>());
 
         var handler = new HandlePlayerDeathHandler(
             mockDeathService.Object,
@@ -298,7 +307,7 @@ public class HandlePlayerDeathHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Hero",
+            PlayerName = "Hero",
             DeathCount = 2,
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>()
         };
@@ -306,11 +315,15 @@ public class HandlePlayerDeathHandlerTests
         var difficulty = new DifficultySettings
         {
             Name = "Normal",
-            PermadeathEnabled = false
+            IsPermadeath = false
         };
 
         mockSaveGameService.Setup(x => x.GetCurrentSave()).Returns(saveGame);
         mockSaveGameService.Setup(x => x.GetDifficultySettings()).Returns(difficulty);
+        mockSaveGameService.Setup(x => x.SaveGame(It.IsAny<SaveGame>()));
+        
+        mockDeathService.Setup(x => x.HandleItemDropping(It.IsAny<Character>(), It.IsAny<SaveGame>(), It.IsAny<string>(), It.IsAny<DifficultySettings>()))
+            .Returns(new List<Item>());
 
         var handler = new HandlePlayerDeathHandler(
             mockDeathService.Object,
@@ -358,7 +371,7 @@ public class HandlePlayerDeathHandlerTests
 
         var saveGame = new SaveGame
         {
-            CharacterName = "Legendary Hero",
+            PlayerName = "Legendary Hero",
             DeathCount = 0,
             DroppedItemsAtLocations = new Dictionary<string, List<Item>>()
         };
@@ -366,11 +379,12 @@ public class HandlePlayerDeathHandlerTests
         var difficulty = new DifficultySettings
         {
             Name = "Permadeath",
-            PermadeathEnabled = true
+            IsPermadeath = true
         };
 
         mockSaveGameService.Setup(x => x.GetCurrentSave()).Returns(saveGame);
         mockSaveGameService.Setup(x => x.GetDifficultySettings()).Returns(difficulty);
+        mockSaveGameService.Setup(x => x.DeleteSave(It.IsAny<string>())).Returns(true);
 
         var handler = new HandlePlayerDeathHandler(
             mockDeathService.Object,

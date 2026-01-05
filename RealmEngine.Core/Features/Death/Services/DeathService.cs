@@ -13,7 +13,7 @@ public class DeathService
     /// <summary>
     /// Handle item dropping based on difficulty settings.
     /// </summary>
-    public List<Item> HandleItemDropping(
+    public virtual List<Item> HandleItemDropping(
         Character player,
         SaveGame saveGame,
         string location,

@@ -74,7 +74,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     /// <summary>
     /// Save the current game state with all world data.
     /// </summary>
-    public void SaveGame(SaveGame saveGame)
+    public virtual void SaveGame(SaveGame saveGame)
     {
         try
         {
@@ -200,7 +200,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     /// <summary>
     /// Delete a save game.
     /// </summary>
-    public bool DeleteSave(string saveId)
+    public virtual bool DeleteSave(string saveId)
     {
         try
         {
@@ -598,7 +598,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     /// <summary>
     /// Get the current active save.
     /// </summary>
-    public SaveGame? GetCurrentSave()
+    public virtual SaveGame? GetCurrentSave()
     {
         return _currentSave;
     }

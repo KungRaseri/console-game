@@ -13,7 +13,7 @@ public class NewGamePlusService
         _saveGameService = saveGameService;
     }
 
-    public async Task<(bool Success, SaveGame? NewSave)> StartNewGamePlusAsync()
+    public virtual async Task<(bool Success, SaveGame? NewSave)> StartNewGamePlusAsync()
     {
         var completedSave = _saveGameService.GetCurrentSave();
         if (completedSave == null)
