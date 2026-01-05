@@ -38,14 +38,11 @@
 - **Difficulty Modes**: 5 difficulty levels including permadeath and Apocalypse mode
 - **New Game+**: Replay with bonus stats and retained achievements
 
-### Development Stats
+### Development
 
-- **397 Unit Tests** (393 passing, 4 skipped - 99.0% pass rate)
-- **10 Features** (Vertical Slices)
-- **27 CQRS Handlers** (Commands + Queries)
-- **19 Models** (Domain entities)
-- **6 Settings Categories** (Configuration)
-- **ContentBuilder Tool** (WPF desktop editor for game data)
+This game features a modern software architecture with vertical slice organization, CQRS pattern, and event-driven design using MediatR. A companion **ContentBuilder** WPF tool provides a visual editor for game data.
+
+**For current implementation status, test counts, and feature completion percentages, see IMPLEMENTATION_STATUS.md.**
 
 ---
 
@@ -277,9 +274,11 @@ On level-up, players receive **3 attribute points** to distribute freely among t
 - Hybrid builds (Battle Mage with STR + INT)
 - Balanced characters (jack-of-all-trades)
 
-#### Skill System
+#### Skills System (Passive Progression)
 
-**8 Learnable Skills** acquired on level-up:
+**Design Intent**: Players learn passive skills that provide permanent stat bonuses, creating diverse build options.
+
+**Planned Skills:**
 
 | Skill | Level Req | Effect |
 |-------|-----------|--------|
@@ -292,52 +291,370 @@ On level-up, players receive **3 attribute points** to distribute freely among t
 | **Lucky Strike** | 10 | +10% critical hit chance |
 | **Mana Mastery** | 10 | +50% max MP, +20% mana regen |
 
-Skills stack with attribute bonuses for powerful late-game builds.
+**Mechanics:**
+- Players select 1 skill per level-up
+- Skills have ranks (1-5) that can be upgraded
+- Skill bonuses stack with attribute bonuses
+- Skills provide passive, always-active benefits
+
+#### Abilities System (Active Powers)
+
+**Design Intent**: Characters learn active abilities that can be used in combat or exploration.
+
+**Ability Types:**
+- **Active/Offensive**: Attack abilities (Fireball, Power Attack, Backstab)
+- **Active/Defensive**: Defensive abilities (Shield Bash, Dodge Roll, Parry)
+- **Active/Support**: Buffs and utility (Heal, Bless, Haste)
+- **Passive**: Always-on effects (Regeneration, Thorns, Aura)
+- **Ultimate**: Powerful special moves with cooldowns
+
+**Mechanics:**
+- Abilities cost mana to activate
+- Abilities have cooldowns preventing spam
+- Abilities may require specific items (staves for spells)
+- Classes start with signature abilities
+- New abilities unlock at specific levels
+
+**Examples:**
+- Warrior: Power Strike, Shield Bash, Whirlwind Attack
+- Mage: Fireball, Ice Lance, Chain Lightning
+- Rogue: Backstab, Shadow Step, Poison Dagger
+- Cleric: Heal, Holy Smite, Divine Shield
 
 ### 5. Quest System
 
-#### Main Quest Chain
+The quest system provides structured objectives for players to pursue, ranging from a core main quest chain to procedurally generated side quests. Completing quests grants rewards (XP, gold, items) and drives narrative progression.
 
-**6 Major Quests** forming the core storyline:
+#### Quest Categories
 
-1. **The Awakening** (Level 1)
-   - Tutorial quest
-   - Rewards: 100 XP, 50 Gold, +5 Apocalypse minutes
+**Main Quest Chain:**
+- Linear story-driven quests forming the core narrative
+- Sequential prerequisites (must complete Quest A to unlock Quest B)
+- Culminates in a final confrontation that grants victory
+- Provides time bonuses in Apocalypse mode
 
-2. **Trials of Strength** (Level 5)
-   - Prerequisite: Complete "The Awakening"
-   - Objective: Defeat 5 enemies
-   - Rewards: 250 XP, 100 Gold, Iron Sword, +10 minutes
+**Side Quests:**
+- Optional quests for additional rewards and world-building
+- Procedurally generated from quest templates
+- Can be accepted and completed in any order
+- Provides variety and replay value
 
-3. **The Ancient Ruins** (Level 10)
-   - Prerequisite: Complete "Trials of Strength"
-   - Objective: Explore Ancient Ruins location
-   - Rewards: 500 XP, 200 Gold, Enchanted Amulet, +15 minutes
+**Daily/Repeatable Quests:** *(Future)*
+- Refresh daily for consistent engagement
+- Lower rewards but can be repeated
 
-4. **Shadow Rising** (Level 15)
-   - Prerequisite: Complete "The Ancient Ruins"
-   - Objective: Defeat Shadow Lord (boss)
-   - Rewards: 1000 XP, 500 Gold, Legendary Weapon, +20 minutes
+#### Quest Types
 
-5. **The Gathering Storm** (Level 20)
-   - Prerequisite: Complete "Shadow Rising"
-   - Objective: Collect 3 ancient artifacts
-   - Rewards: 2000 XP, 1000 Gold, Epic Armor, +30 minutes
+The system supports diverse objective types to create varied gameplay:
 
-6. **The Final Confrontation** (Level 25+)
-   - Prerequisite: Complete "The Gathering Storm"
-   - Objective: Defeat the final boss
-   - Rewards: Victory!, 5000 XP, 2000 Gold, Legendary Loot, +60 minutes
+**Investigation Quests:**
+- Gather clues (3-8 clues depending on difficulty)
+- Track targets across multiple locations
+- Optional combat encounters
+- May have multiple endings based on player choices
 
-#### Quest Mechanics
+**Fetch Quests:**
+- Retrieve specific items (herbs, artifacts, lost belongings)
+- Quantity varies by difficulty (5-20 items for easy, fewer for rare items)
+- Item types: herbs, relics, documents, supplies
+- May require exploring specific location types
 
-- **Prerequisites**: Level requirements and quest dependencies
-- **Objectives**: Kill enemies, explore locations, collect items
-- **Progress Tracking**: Dictionary-based objective system
-- **Rewards**: XP, Gold, Items, Apocalypse time bonuses
-- **Quest Journal**: (Future) View active/completed quests
+**Kill Quests:**
+- Eliminate specific enemy types (goblins, undead, bandits, dragons)
+- Target count scales with difficulty (3-15 enemies)
+- Location hints guide players to enemy spawns
+- Boss quests require defeating unique enemies
 
-### 6. Achievement System
+**Escort Quests:**
+- Protect NPCs traveling between locations
+- Difficulty based on distance and danger level
+- NPCs may provide dialogue or lore during journey
+- Failure if NPC dies
+
+**Delivery Quests:**
+- Transport items/messages between locations
+- Time limits for urgent deliveries
+- Stealth/speed challenges for high-difficulty versions
+
+#### Quest Structure
+
+**Prerequisites:**
+- Minimum level requirements
+- Completed previous quests (for chains)
+- Reputation thresholds *(Future)*
+- Owned items *(Future)*
+
+**Objective Tracking:**
+- Primary objectives (required for completion)
+- Secondary objectives (optional bonus rewards)
+- Hidden objectives (discovered during gameplay, unlock secrets)
+- Real-time progress updates (kill counters, collection tracking)
+
+**Quest States:**
+- Available (meets prerequisites, not yet accepted)
+- Active (accepted and in progress)
+- Completed (all objectives finished)
+- Failed (time limit expired or critical failure) *(Future)*
+
+**Difficulty Tiers:**
+- Easy (levels 1-10, low rewards)
+- Medium (levels 10-20, uncommon/rare rewards)
+- Hard (levels 20-30, rare/epic rewards)
+- Very Hard (levels 30-40, epic/legendary rewards)
+- Epic/Legendary (levels 40+, legendary/mythic rewards)
+
+#### Reward System
+
+**Gold Rewards:**
+- 9 tiers (trivial to ancient: 10g - 10,000g base)
+- Scales with player level: `final_amount = base_amount × (1 + player_level × 0.05)`
+- Matched to quest difficulty
+
+**Experience Rewards:**
+- 9 tiers (trivial to ancient: 50 XP - 50,000 XP base)
+- Scales with level and difficulty: `final_xp = base_xp × difficulty_multiplier × (1 + player_level × 0.1)`
+- Maintains progression balance across level ranges
+
+**Item Rewards:**
+- Equipment (weapons, armor, accessories)
+- Consumables (potions, scrolls, materials)
+- Unique quest items (progression unlocks)
+- Rarity matches quest difficulty (easy = common/uncommon, hard = epic/legendary)
+- Item level scales near player level (±2 levels)
+
+**Special Rewards:**
+- Apocalypse time bonuses (5-60 minutes)
+- Achievement unlocks
+- Reputation gains *(Future)*
+- Skill points *(Future)*
+
+#### Quest Integration
+
+**Quest Givers:**
+- NPCs in towns/locations offer quests
+- Quest giver types: common folk, merchants, military, nobles, professionals
+- Quest type matches NPC background (merchants give fetch, military gives kill)
+
+**Location Integration:**
+- Quest objectives reference location types (towns, dungeons, wilderness)
+- Location danger/difficulty matched to quest tier
+- Location hints guide players ("forests", "graveyards", "dragon-lair")
+
+**Combat Integration:**
+- Kill objectives track specific enemy types
+- Combat during investigation/escort quests
+- Boss encounters for story quests
+
+**Inventory Integration:**
+- Fetch quests require inventory space
+- Delivery quests place items in inventory
+- Item rewards automatically granted on completion
+
+#### Quest UI
+
+**Quest Journal:** *(Future)*
+- View active quests with progress
+- Read quest descriptions and lore
+- Track primary/secondary/hidden objectives
+- Mark quests for tracking
+
+**Quest Markers:** *(Future)*
+- Show relevant locations on map
+- Update as objectives progress
+- Distinguish between main/side quests
+
+**Completion Notifications:**
+- Display rewards earned
+- Show objective completion in real-time
+- Celebrate quest chain completion
+
+### 6. Exploration System
+
+The exploration system provides diverse locations for players to discover and traverse. Locations vary in purpose (towns provide services, dungeons provide combat/loot, wilderness provides random encounters) and difficulty (scaled to player level or fixed challenge rating).
+
+#### Location Types
+
+**Towns:**
+- Safe zones where players can access services
+- No random enemy encounters
+- NPCs provide quests, shops, lore, and social interactions
+- Resting/healing available at inns
+- Procedurally generated towns with unique names
+- Hand-crafted story-critical towns (Hub Town, capital cities)
+
+**Dungeons:**
+- Multi-room exploration with increasing difficulty
+- Combat encounters in most rooms
+- Treasure rooms with rare loot
+- Boss encounters in final rooms
+- Procedurally generated layouts from templates
+- Hand-crafted dungeons for story quests
+- May have environmental hazards (traps, darkness, poison gas)
+
+**Wilderness:**
+- Open areas connecting towns and dungeons
+- Random encounter rate (varies by location danger level)
+- Resource gathering opportunities *(Future)*
+- Dynamic weather affecting gameplay *(Future)*
+- Multiple biomes (forests, mountains, deserts, swamps)
+
+**Points of Interest:** *(Future)*
+- Unique, discoverable locations with lore
+- One-time special encounters
+- Hidden treasure caches
+- Lore books and environmental storytelling
+
+#### Exploration Mechanics
+
+**Location Discovery:**
+- Locations start hidden until discovered
+- Discovery through exploration, quests, or NPC hints
+- First visit grants XP bonus
+- Discovered locations added to map
+
+**Fast Travel:**
+- Return instantly to previously visited locations
+- Only accessible from safe zones (towns, camp sites)
+- Cannot fast travel during combat or quests
+- May cost gold *(Future)* or have cooldown
+
+**Location Levels:**
+- Locations have fixed or dynamic difficulty levels
+- Enemy spawns match location level (±2 levels)
+- Loot quality matches location level
+- Low-level players warned when entering high-level areas
+
+**Location States:**
+- Undiscovered (hidden, not yet found)
+- Discovered (found, can visit)
+- Cleared (dungeon boss defeated, reduced encounter rate)
+- Active Quest (location relevant to active quest)
+- Locked (requires key, quest completion, or level) *(Future)*
+
+#### Location Features
+
+**Enemy Spawns:**
+- Location defines enemy types that can appear
+- Spawn probability per enemy type
+- Boss spawns in specific locations
+- Combat frequency varies by location type (towns 0%, dungeons 80%, wilderness 40-60%)
+
+**Loot Distribution:**
+- Location defines loot tables
+- Rare items in dangerous locations
+- Common supplies in towns/safe areas
+- Unique items in story locations
+
+**Environmental Properties:**
+- Weather conditions (clear, rain, fog, snow) *(Future)*
+- Lighting levels (bright, dim, dark) affecting stealth *(Future)*
+- Temperature (hot, cold, moderate) affecting stamina *(Future)*
+- Danger rating (safe, low, moderate, high, extreme)
+
+**NPC Presence:**
+- Towns populated with merchants, quest givers, trainers
+- Dungeons may have hostile NPCs (bandits, cultists)
+- Wilderness may have travelers, hermits, or wandering merchants
+- NPC schedules *(Future)* - appear at different times
+
+#### Town Services
+
+**Shops:**
+- Buy and sell items
+- Shop inventory based on town tier and merchant type
+- Blacksmith (weapons/armor), Alchemist (potions), General Store (supplies)
+- Prices affected by player Charisma attribute
+
+**Inns:**
+- Rest to fully restore HP/MP
+- Save game at inn
+- Rumors and lore from patrons
+- May offer temporary buffs (well-rested bonus) *(Future)*
+
+**Quest Hubs:**
+- NPCs offer quests appropriate to player level
+- Quest boards for procedural quests *(Future)*
+- Completed quests turn in to quest givers
+
+**Trainers:** *(Future)*
+- Teach new abilities
+- Respec attribute points (fee required)
+- Provide skill training
+
+**Crafting Stations:** *(Future)*
+- Blacksmith forges (weapon/armor crafting)
+- Alchemy labs (potion brewing)
+- Enchanting altars (item enhancement)
+
+#### Dungeon Systems
+
+**Room Types:**
+- Combat rooms (enemy encounters)
+- Treasure rooms (loot chests, no enemies)
+- Rest rooms (safe zone mid-dungeon, limited use)
+- Puzzle rooms (challenges requiring wit, not combat) *(Future)*
+- Boss rooms (final challenge, unique rewards)
+
+**Multi-Room Progression:**
+- Navigate through 5-15 rooms depending on dungeon size
+- Map reveals explored rooms *(Future)*
+- Cannot backtrack once room cleared (forward-only progression)
+- Escape scrolls allow immediate exit *(Future)*
+
+**Dungeon Difficulty:**
+- Easy dungeons: 5-7 rooms, common/uncommon loot, level-appropriate enemies
+- Medium dungeons: 8-10 rooms, rare loot, +2 level enemies
+- Hard dungeons: 11-15 rooms, epic loot, +5 level enemies, boss required
+- Legendary dungeons: 15+ rooms, legendary loot, +10 level enemies, multiple bosses
+
+**Dungeon Generation:**
+- Procedural generation from room templates
+- Ensures path to boss room exists
+- Treasure room placement varies (1-3 per dungeon)
+- Room layout uses branching paths or linear progression
+
+#### Wilderness Encounters
+
+**Random Events:**
+- Combat encounters (60% of wilderness exploration)
+- Peaceful encounters (NPCs, travelers, merchants)
+- Resource nodes (gather herbs, mine ore) *(Future)*
+- Hidden caches (treasure chests off the beaten path)
+- Ambushes (higher-level enemies surprise attack) *(Future)*
+
+**Biome-Specific Features:**
+- Forests: Abundant herbs, animal enemies, thick undergrowth
+- Mountains: Ore nodes, flying enemies, cliff hazards
+- Deserts: Heat exhaustion risk, scorpion enemies, oases
+- Swamps: Poison hazards, undead enemies, disease risk
+- Tundra: Cold damage, ice enemies, limited visibility
+
+**Encounter Scaling:**
+- Wilderness difficulty based on distance from safe zones
+- Near towns: Low-level, common enemies
+- Remote areas: High-level, elite enemies
+- Unknown regions: Unpredictable, mixed difficulty
+
+#### Location-Quest Integration
+
+**Quest Objectives:**
+- Quests direct players to specific locations
+- "Explore [Location]" objectives mark location as quest target
+- "Kill enemies in [Location]" require visiting and combat
+- "Deliver item to [Location]" require travel and NPC interaction
+
+**Location Hints:**
+- Quest descriptions provide location type hints (forests, graveyards, dragon-lair)
+- NPCs give directions to quest locations
+- Location discovery may complete exploration objectives
+
+**Dynamic Events:** *(Future)*
+- Locations change state based on quest progress
+- Clearing dungeons reduces enemy respawns
+- Completing town quests improves services
+- Failed quests may alter location availability
+
+### 7. Achievement System
 
 **6 Achievements** tracking player milestones:
 
@@ -352,7 +669,7 @@ Skills stack with attribute bonuses for powerful late-game builds.
 
 Achievements persist across saves and New Game+ playthroughs.
 
-### 7. Difficulty System
+### 8. Difficulty System
 
 **5 Difficulty Modes** catering to different player preferences:
 
@@ -370,7 +687,7 @@ Achievements persist across saves and New Game+ playthroughs.
 - Game over when timer hits 0
 - UI displays remaining time in red/yellow/green
 
-### 8. Death System
+### 9. Death System
 
 #### Standard Modes (Casual, Normal, Hard)
 
@@ -397,7 +714,7 @@ Tracks top 10 characters with:
 - Cause of death, final location
 - Difficulty mode, play time
 
-### 9. Save/Load System
+### 10. Save/Load System
 
 #### Save Game Features
 
@@ -426,7 +743,7 @@ SaveGame {
 }
 ```
 
-### 10. New Game+ System
+### 11. New Game+ System
 
 After completing the main quest, players can start **New Game+**:
 
@@ -451,110 +768,118 @@ After completing the main quest, players can start **New Game+**:
 
 ## Game Features
 
-### Implemented Features ✅
+## Game Features
 
-#### Core Gameplay
-- ✅ Character creation with 6 classes
-- ✅ Turn-based combat system
-- ✅ Level-up with attribute allocation
-- ✅ Skill learning and progression
-- ✅ Save/load with auto-save
-- ✅ Multiple save slots
+This section describes the **intended feature set** for the complete game. For the current implementation status of each feature, see [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
 
-#### Content Systems
-- ✅ Procedural enemy generation
-- ✅ Item generation with 5 rarity tiers
-- ✅ Trait system for items and enemies
-- ✅ Equipment system (4 slots)
-- ✅ Inventory management (20 slots)
-- ✅ Consumable items (potions)
+### Core Gameplay
 
-#### Progression
-- ✅ Main quest chain (6 quests)
-- ✅ Achievement system (6 achievements)
-- ✅ 5 difficulty modes
-- ✅ Permadeath system
-- ✅ Hall of Fame leaderboard
-- ✅ New Game+ mode
+- **Character Creation**: 6 unique classes with distinct playstyles and starting equipment
+- **Turn-Based Combat**: Tactical combat with attack, defend, use item, and flee options
+- **Leveling System**: XP-based progression with attribute allocation on level-up
+- **Skills & Abilities**: Passive skills (stat bonuses) and active abilities (combat powers)
+- **Save/Load**: Persistent game state with auto-save and multiple save slots
 
-#### UI/UX
-- ✅ Rich console UI (Spectre.Console)
-- ✅ Interactive menus
-- ✅ Combat log with colored text
-- ✅ Progress bars (health, XP)
-- ✅ Tables (inventory, stats, leaderboard)
-- ✅ Victory celebration sequence
+### Content Systems
 
-#### Technical
-- ✅ CQRS + Vertical Slice architecture
-- ✅ MediatR event-driven system
-- ✅ FluentValidation for inputs
-- ✅ Serilog structured logging
-- ✅ Polly retry/resilience patterns
-- ✅ 397 unit tests (393 passing, 4 skipped*)
+- **Procedural Enemies**: Level-scaled enemies with traits and special behaviors
+- **Item Generation**: 5 rarity tiers (Common to Legendary) with procedural generation
+- **Trait System**: Custom properties for items and enemies affecting gameplay
+- **Equipment System**: 4 equipment slots (Weapon, Armor, Shield, Accessory)
+- **Inventory Management**: 20-slot inventory with sorting and consumable items
+- **Consumables**: Health and mana potions usable in and out of combat
 
-#### Development Tools
-- ✅ **ContentBuilder** - WPF desktop editor for game data
-  - Visual pattern composer with dynamic token buttons
-  - Reference browser for cross-file dependencies
-  - Dynamic component UI (adapts to each file type)
-  - Real-time pattern preview with generated examples
-  - Material catalog editor with trait management
-  - Quest catalog editor (v4.2) with objectives/rewards
-  - NPC name editor with social classes
-  - Readonly default patterns ({base}) for data integrity
-  - FluentValidation for all inputs
-  - Material Design UI (MaterialDesignThemes)
-  - MVVM architecture (CommunityToolkit.Mvvm)
-- ✅ **ContentBuilder** - WPF desktop editor for game data
-  - Visual pattern composer with token buttons
-  - Reference browser for cross-file dependencies
-  - Dynamic component UI (adapts to each file)
-  - Real-time pattern preview with examples
-  - Material catalog editor
-  - Quest catalog editor (v4.2)
-  - NPC name editor
-  - Readonly default patterns ({base})
+### Progression
 
-**Note:** 4 tests are intentionally skipped as they test UI orchestration methods that require interactive terminal input (ConsoleUI.ShowMenu, ShowTable, Confirm). The underlying business logic is fully tested through CQRS handlers and service layer tests.
+- **Main Quest Chain**: 6 major story quests forming the core narrative
+- **Achievement System**: 6 achievements tracking player milestones
+- **Difficulty Modes**: 5 difficulty levels (Casual to Apocalypse)
+- **Permadeath**: Optional permanent death in Nightmare/Apocalypse modes
+- **Hall of Fame**: Leaderboard tracking top characters
+- **New Game+**: Replay with bonus stats and retained achievements
 
-### Future Features 🔮
+### UI/UX
+
+- **Rich Console UI**: Colorful interface using Spectre.Console library
+- **Interactive Menus**: Keyboard navigation for all choices
+- **Combat Log**: Detailed combat feedback with colored text
+- **Progress Indicators**: Health bars, XP bars, and timers
+- **Data Tables**: Inventory, stats, and leaderboard displays
+- **Victory Sequence**: Dramatic celebration with statistics and rewards
+
+### Technical Architecture
+
+- **CQRS Pattern**: Command/Query separation for clean business logic
+- **Vertical Slice**: Feature-focused organization reducing coupling
+- **Event-Driven**: MediatR for decoupled event handling
+- **Input Validation**: FluentValidation for robust user input handling
+- **Structured Logging**: Serilog for debugging and diagnostics
+- **Resilience**: Polly for retry logic and error handling
+- **Comprehensive Testing**: Unit tests covering core gameplay systems
+
+### Development Tools
+
+#### ContentBuilder - Game Data Editor
+
+**ContentBuilder** is a WPF desktop application providing visual editing of game data files:
+
+**Core Features:**
+- **Pattern Composer**: Visual token-based pattern creation with dynamic UI
+- **Reference Browser**: Navigate cross-file dependencies using v4.1 reference system
+- **Dynamic Component UI**: Adapts interface based on file type and structure
+- **Real-Time Preview**: See generated examples as you edit patterns
+- **Material Catalog Editor**: Manage materials with trait properties
+- **Quest Editor**: Design quests with objectives and rewards (v4.2 standard)
+- **NPC Name Editor**: Create NPCs with social classes and traits
+- **Data Validation**: FluentValidation ensures data integrity
+- **Readonly Patterns**: Protects default patterns ({base}) from accidental edits
+
+**Technology Stack:**
+- MVVM architecture (CommunityToolkit.Mvvm)
+- Material Design UI (MaterialDesignThemes)
+- JSON v4.0 + v4.1 reference system compliance
+- Real-time syntax highlighting
+- Integrated file validation
+
+### Future Roadmap
+
+These are potential features being considered for future development. Priority and scope may change based on player feedback and development resources.
 
 #### Content Expansion
-- 🔮 Side quests (10-20 optional quests)
-- 🔮 Boss encounters (unique enemies)
-- 🔮 Dungeons (multi-room exploration)
-- 🔮 Towns (shops, NPCs, services)
-- 🔮 Crafting system (combine items)
-- 🔮 Enchanting system (modify items)
+- Side quests (10-20 optional quests for deeper world-building)
+- Boss encounters (unique, challenging enemies with special mechanics)
+- Dungeons (multi-room procedural exploration with puzzles)
+- Towns (shops, NPCs, rest areas, and services)
+- Crafting system (combine materials to create items)
+- Enchanting system (modify existing items with magical properties)
 
 #### Gameplay Features
-- 🔮 Party system (recruit NPCs)
-- 🔮 Magic/spell system (castable spells)
-- 🔮 Status effects (poison, burning, frozen)
-- 🔮 Weather system (affects combat)
-- 🔮 Day/night cycle (NPC schedules)
-- 🔮 Reputation system (factions)
+- Party system (recruit NPCs to join the player in combat)
+- Magic/spell system (expanded spellcasting beyond basic abilities)
+- Status effects (poison, burning, frozen, stunned, etc.)
+- Weather system (rain, snow, fog affecting visibility and combat)
+- Day/night cycle (NPC schedules, enemy spawn patterns)
+- Reputation system (faction relationships affecting interactions)
 
 #### Audio
-- 🔮 Background music (NAudio)
-- 🔮 Sound effects (combat, UI)
-- 🔮 Music per location/combat
-- 🔮 Audio settings (volume control)
+- Background music (NAudio integration for atmospheric soundtracks)
+- Sound effects (combat impacts, UI feedback, environmental sounds)
+- Dynamic music (changes based on location and combat state)
+- Audio settings (volume control, mute options)
 
 #### UI Enhancements
-- 🔮 Quest journal interface
-- 🔮 World map visualization
-- 🔮 Combat animations (ASCII art)
-- 🔮 FigletText title screens
-- 🔮 Minimap for dungeons
-- 🔮 Tooltip system for items
+- Quest journal interface (track active/completed quests)
+- World map visualization (navigate discovered locations)
+- Combat animations (ASCII art effects for abilities)
+- FigletText title screens (large ASCII art branding)
+- Minimap for dungeons (show explored rooms and current position)
+- Tooltip system (hover over items for detailed information)
 
 #### Online Features
-- 🔮 Leaderboards (global)
-- 🔮 Daily challenges
-- 🔮 Sharing save files
-- 🔮 Community events
+- Global leaderboards (compare scores with other players)
+- Daily challenges (randomized objectives with special rewards)
+- Save file sharing (export/import characters)
+- Community events (seasonal content updates)
 
 ---
 
