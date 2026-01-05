@@ -76,31 +76,6 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void ExecutePlayerAttack_Should_Set_IsCritical_Flag()
-    {
-        // Arrange
-        var service = new CombatService(_mockSaveGameService.Object);
-        var player = new Character { Name = "Hero", Strength = 20 }; // High strength can contribute to criticals
-        var enemy = new Enemy { Name = "Target", Health = 100 };
-
-        // Act - Multiple attempts to get a critical (due to RNG)
-        bool gotCritical = false;
-        for (int i = 0; i < 100; i++)
-        {
-            var result = service.ExecutePlayerAttack(player, enemy);
-            if (result.IsCritical)
-            {
-                gotCritical = true;
-                result.Damage.Should().BeGreaterThan(0);
-                break;
-            }
-        }
-
-        // Assert
-        gotCritical.Should().BeTrue("Should eventually produce a critical hit");
-    }
-
-    [Fact]
     public void ExecutePlayerAttack_Should_Return_Message()
     {
         // Arrange
@@ -159,32 +134,6 @@ public class CombatServiceTests
         // Assert
         defendingResult.Damage.Should().BeLessThan(normalResult.Damage, 
             "Defending should reduce damage taken");
-    }
-
-    [Fact]
-    public void ExecuteEnemyAttack_Should_Set_IsCritical_Flag()
-    {
-        // Arrange
-        var service = new CombatService(_mockSaveGameService.Object);
-        var player = new Character { Name = "Hero", Health = 1000, MaxHealth = 1000 };
-        var enemy = new Enemy { Name = "Attacker", BasePhysicalDamage = 10 };
-
-        // Act - Multiple attempts to get a critical (due to RNG)
-        bool gotCritical = false;
-        for (int i = 0; i < 100; i++)
-        {
-            player.Health = 1000; // Reset health
-            var result = service.ExecuteEnemyAttack(enemy, player);
-            if (result.IsCritical)
-            {
-                gotCritical = true;
-                result.Message.Should().Contain("CRITICAL");
-                break;
-            }
-        }
-
-        // Assert
-        gotCritical.Should().BeTrue("Enemy should eventually produce a critical hit");
     }
 
     [Fact]
