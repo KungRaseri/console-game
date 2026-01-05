@@ -17,7 +17,17 @@ public class AchievementService
         _allAchievements = InitializeAchievements();
     }
 
-    public async Task<Achievement?> UnlockAchievementAsync(string achievementId)
+    /// <summary>
+    /// Protected parameterless constructor for Moq proxy creation in tests.
+    /// </summary>
+    protected AchievementService()
+    {
+        _saveGameService = null!;
+        _console = null!;
+        _allAchievements = new List<Achievement>();
+    }
+
+    public virtual async Task<Achievement?> UnlockAchievementAsync(string achievementId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
@@ -46,7 +56,7 @@ public class AchievementService
         return await Task.FromResult(achievement);
     }
 
-    public async Task<List<Achievement>> CheckAllAchievementsAsync()
+    public virtual async Task<List<Achievement>> CheckAllAchievementsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
@@ -72,7 +82,7 @@ public class AchievementService
         return newlyUnlocked;
     }
 
-    public async Task<List<Achievement>> GetUnlockedAchievementsAsync()
+    public virtual async Task<List<Achievement>> GetUnlockedAchievementsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
         if (saveGame == null)
