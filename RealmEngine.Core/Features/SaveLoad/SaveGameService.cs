@@ -24,6 +24,16 @@ public class SaveGameService : ISaveGameService, IDisposable
     }
 
     /// <summary>
+    /// Parameterless constructor for testing/mocking purposes.
+    /// </summary>
+    protected SaveGameService()
+    {
+        _repository = null!;
+        _apocalypseTimer = null!;
+        _gameStartTime = DateTime.Now;
+    }
+
+    /// <summary>
     /// Initialize a new game session with a fresh SaveGame object.
     /// </summary>
     public SaveGame CreateNewGame(Character player, DifficultySettings difficulty)

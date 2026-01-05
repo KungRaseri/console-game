@@ -32,8 +32,8 @@ public class AttackEnemyHandler : IRequestHandler<AttackEnemyCommand, AttackEnem
         var damage = combatResult.Damage;
         var isCritical = combatResult.IsCritical;
 
-        // Apply damage to enemy
-        enemy.Health -= damage;
+        // Apply damage to enemy (clamped to 0)
+        enemy.Health = Math.Max(0, enemy.Health - damage);
         
         // Log to combat log
         combatLog?.AddEntry($"{player.Name} attacks for {damage} damage" + 

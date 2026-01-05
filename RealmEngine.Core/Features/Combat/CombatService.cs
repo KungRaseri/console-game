@@ -22,6 +22,14 @@ public class CombatService
     }
 
     /// <summary>
+    /// Parameterless constructor for testing/mocking purposes.
+    /// </summary>
+    protected CombatService()
+    {
+        _saveGameService = null!;
+    }
+
+    /// <summary>
     /// Initialize combat by applying difficulty multipliers to enemy stats.
     /// This should be called before combat begins.
     /// </summary>
