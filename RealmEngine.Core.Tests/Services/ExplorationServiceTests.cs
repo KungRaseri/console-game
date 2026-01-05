@@ -2,6 +2,7 @@ using RealmEngine.Core.Features.Exploration;
 using RealmEngine.Core.Abstractions;
 using RealmEngine.Core.Services;
 using RealmEngine.Core.Features.SaveLoad;
+using RealmEngine.Core.Features.Death.Queries;
 using RealmEngine.Shared.Models;
 using MediatR;
 using Moq;
@@ -38,6 +39,10 @@ public class ExplorationServiceTests
         };
         _mockGameState.Setup(g => g.Player).Returns(testPlayer);
         _mockGameState.Setup(g => g.CurrentLocation).Returns("Hub Town");
+
+        // Mock GetDroppedItemsQuery to return no items by default
+        _mockMediator.Setup(m => m.Send(It.IsAny<GetDroppedItemsQuery>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new GetDroppedItemsResult { Items = new List<Item>() });
 
         _service = new ExplorationService(
             _mockMediator.Object,

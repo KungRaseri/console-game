@@ -24,8 +24,8 @@ public class SaveGameHandlerTests : IDisposable
     {
         _testDbPath = $"test-savegame-{Guid.NewGuid()}.db";
         _mockGameUI = new Mock<IGameUI>();
-        _apocalypseTimer = new ApocalypseTimer(_mockGameUI.Object);
-        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
+        var mockApocalypseTimer = new Mock<IApocalypseTimer>();
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), mockApocalypseTimer.Object);
     }
 
     [Fact]

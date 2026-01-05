@@ -24,8 +24,8 @@ public class GetMostRecentSaveHandlerTests : IDisposable
     {
         _testDbPath = $"test-getrecent-{Guid.NewGuid()}.db";
         _mockConsoleUI = new Mock<IGameUI>();
-        _apocalypseTimer = new ApocalypseTimer(_mockConsoleUI.Object);
-        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
+        var mockApocalypseTimer = new Mock<IApocalypseTimer>();
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), mockApocalypseTimer.Object);
     }
 
     [Fact]

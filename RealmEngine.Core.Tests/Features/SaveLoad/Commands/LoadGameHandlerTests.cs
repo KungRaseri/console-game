@@ -17,16 +17,16 @@ public class LoadGameHandlerTests : IDisposable
 {
     private readonly string _testDbPath;
     private readonly Mock<IGameUI> _mockConsoleUI;
-    private readonly ApocalypseTimer _apocalypseTimer;
+    private readonly Mock<IApocalypseTimer> _mockApocalypseTimer;
     private readonly SaveGameService _saveGameService;
 
     public LoadGameHandlerTests()
     {
         _testDbPath = $"test-loadgame-{Guid.NewGuid()}.db";
         _mockConsoleUI = new Mock<IGameUI>();
-        _apocalypseTimer = new ApocalypseTimer(_mockConsoleUI.Object);
+        _mockApocalypseTimer = new Mock<IApocalypseTimer>();
         var repository = new SaveGameRepository(_testDbPath);
-        _saveGameService = new SaveGameService(repository, _apocalypseTimer);
+        _saveGameService = new SaveGameService(repository, _mockApocalypseTimer.Object);
     }
 
     [Fact]

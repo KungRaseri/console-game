@@ -8,7 +8,7 @@ namespace RealmEngine.Core.Services;
 /// Manages the countdown timer for Apocalypse mode.
 /// This is a shared service, not a feature, as it's infrastructure.
 /// </summary>
-public class ApocalypseTimer
+public class ApocalypseTimer : IApocalypseTimer
 {
     private readonly IGameUI _console;
     private DateTime _startTime;

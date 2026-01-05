@@ -11,10 +11,10 @@ namespace RealmEngine.Core.Features.SaveLoad;
 public class LoadGameService
 {
     private readonly SaveGameService _saveGameService;
-    private readonly ApocalypseTimer _apocalypseTimer;
+    private readonly IApocalypseTimer _apocalypseTimer;
     private readonly IGameUI _console;
 
-    public LoadGameService(SaveGameService saveGameService, ApocalypseTimer apocalypseTimer, IGameUI console)
+    public LoadGameService(SaveGameService saveGameService, IApocalypseTimer apocalypseTimer, IGameUI console)
     {
         _saveGameService = saveGameService;
         _apocalypseTimer = apocalypseTimer;

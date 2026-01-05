@@ -12,14 +12,14 @@ namespace RealmEngine.Core.Tests.Services;
 public class LoadGameServiceTests
 {
     private readonly Mock<SaveGameService> _mockSaveGameService;
-    private readonly Mock<ApocalypseTimer> _mockApocalypseTimer;
+    private readonly Mock<IApocalypseTimer> _mockApocalypseTimer;
     private readonly Mock<IGameUI> _mockGameUI;
     private readonly LoadGameService _service;
 
     public LoadGameServiceTests()
     {
         _mockSaveGameService = new Mock<SaveGameService>();
-        _mockApocalypseTimer = new Mock<ApocalypseTimer>();
+        _mockApocalypseTimer = new Mock<IApocalypseTimer>();
         _mockGameUI = new Mock<IGameUI>();
         _service = new LoadGameService(
             _mockSaveGameService.Object,

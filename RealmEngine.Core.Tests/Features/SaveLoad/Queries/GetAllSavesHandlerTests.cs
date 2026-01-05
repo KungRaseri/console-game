@@ -17,15 +17,15 @@ public class GetAllSavesHandlerTests : IDisposable
 {
     private readonly string _testDbPath;
     private readonly Mock<IGameUI> _mockConsoleUI;
-    private readonly ApocalypseTimer _apocalypseTimer;
+    private readonly Mock<IApocalypseTimer> _mockApocalypseTimer;
     private readonly SaveGameService _saveGameService;
 
     public GetAllSavesHandlerTests()
     {
         _testDbPath = $"test-getallsaves-{Guid.NewGuid()}.db";
         _mockConsoleUI = new Mock<IGameUI>();
-        _apocalypseTimer = new ApocalypseTimer(_mockConsoleUI.Object);
-        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _apocalypseTimer);
+        _mockApocalypseTimer = new Mock<IApocalypseTimer>();
+        _saveGameService = new SaveGameService(new SaveGameRepository(_testDbPath), _mockApocalypseTimer.Object);
     }
 
     [Fact]

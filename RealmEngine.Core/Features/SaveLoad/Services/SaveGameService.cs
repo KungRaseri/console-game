@@ -3,6 +3,7 @@ using RealmEngine.Shared.Models;
 using Serilog;
 using RealmEngine.Shared.Abstractions;
 using RealmEngine.Core.Services;
+using RealmEngine.Core.Abstractions;
 
 namespace RealmEngine.Core.Features.SaveLoad;
 
@@ -12,11 +13,11 @@ namespace RealmEngine.Core.Features.SaveLoad;
 public class SaveGameService : ISaveGameService, IDisposable
 {
     private readonly ISaveGameRepository _repository;
-    private readonly ApocalypseTimer _apocalypseTimer;
+    private readonly IApocalypseTimer _apocalypseTimer;
     private DateTime _gameStartTime;
     private SaveGame? _currentSave;
 
-    public SaveGameService(ISaveGameRepository repository, ApocalypseTimer apocalypseTimer)
+    public SaveGameService(ISaveGameRepository repository, IApocalypseTimer apocalypseTimer)
     {
         _repository = repository;
         _apocalypseTimer = apocalypseTimer;
@@ -130,7 +131,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     /// <summary>
     /// Save the current game state (legacy compatibility - simplified version).
     /// </summary>
-    public void SaveGame(Character player, List<Item> inventory, string? saveId = null)
+    public virtual void SaveGame(Character player, List<Item> inventory, string? saveId = null)
     {
         // For legacy compatibility, always create a new SaveGame unless saveId is provided
         var saveGame = saveId != null && _currentSave?.Id == saveId
@@ -182,7 +183,7 @@ public class SaveGameService : ISaveGameService, IDisposable
     /// <summary>
     /// Get all available save games sorted by most recent.
     /// </summary>
-    public List<SaveGame> GetAllSaves()
+    public virtual List<SaveGame> GetAllSaves()
     {
         try
         {
