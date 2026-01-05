@@ -1,10 +1,10 @@
-# Documentation Index
+# RealmEngine Documentation
 
-Welcome to the Console RPG documentation! This guide will help you navigate all available documentation.
+Clean, organized documentation for the RealmEngine game system.
 
 ---
 
-## 📖 Main Documentation
+## 📖 Core Documentation
 
 ### 🎮 [Game Design Document (GDD-Main.md)](./GDD-Main.md)
 **The primary documentation for the entire project.** Contains:
@@ -18,35 +18,34 @@ Welcome to the Console RPG documentation! This guide will help you navigate all 
 
 ---
 
-## 📚 Quick Reference Guides
+## 📏 Standards
 
-### For Developers
+### [Standards Documentation](./standards/)
+**All technical standards and specifications.**
 
-- **[Vertical Slice Quick Reference](./VERTICAL_SLICE_QUICK_REFERENCE.md)** - How to add new features using CQRS pattern
-- **[Architecture Decisions](./ARCHITECTURE_DECISIONS.md)** - Key architectural choices and rationale
-- **[Organization & Layers Guide](./ORGANIZATION_AND_LAYERS_GUIDE.md)** - Project structure and layering
-- **[Godot Reference Resolution Guide](./GODOT_REFERENCE_RESOLUTION_GUIDE.md)** - 🆕 Working with fully hydrated game objects in Godot C#
-- **[Hydrated Objects Changelog](./HYDRATED_OBJECTS_CHANGELOG.md)** - 🆕 v1.0 feature: Generators return resolved objects
+Quick links:
+- **[JSON Standards Overview](./standards/json/README.md)** - JSON data file standards (v4.0 + v4.1)
+- **[Catalog Standard](./standards/json/CATALOG_JSON_STANDARD.md)** - Item/enemy/NPC definitions
+- **[Names Standard](./standards/json/NAMES_JSON_STANDARD.md)** - Pattern-based name generation
+- **[Reference System](./standards/json/JSON_REFERENCE_STANDARDS.md)** - v4.1 reference syntax
+- **[Rarity System](./standards/systems/WEIGHT_BASED_RARITY_SYSTEM.md)** - Weight-based rarity
 
-### For Users/Players
-
-- **[Game Loop Guide](./guides/GAME_LOOP_GUIDE.md)** - Understanding the GameEngine and game flow
-- **[Inventory Guide](./guides/INVENTORY_GUIDE.md)** - Complete item management system
-- **[Save/Load Guide](./guides/SAVE_LOAD_GUIDE.md)** - Game persistence and save files
-- **[Settings Guide](./guides/SETTINGS_GUIDE.md)** - Configuration and options
+See [standards/README.md](./standards/README.md) for complete standards index.
 
 ---
 
-## 🔧 Implementation Guides
+## 📦 Archives
 
-Located in [`implementation/`](./implementation/):
+### [Archived Documentation](./archives/)
+**Historical documentation and completed projects.**
 
-### Core Systems
-- **[Combat Log Implementation](./implementation/COMBAT_LOG_IMPLEMENTATION.md)** - Combat logging system
-- **[Inventory Implementation](./implementation/INVENTORY_IMPLEMENTATION.md)** - Item management details
-- **[Save/Load Implementation](./implementation/SAVE_LOAD_IMPLEMENTATION.md)** - Persistence system
-- **[Settings Implementation](./implementation/SETTINGS_IMPLEMENTATION.md)** - Configuration system
-- **[GameEngine Modularization](./implementation/GAMEENGINE_MODULARIZATION.md)** - Game loop architecture
+- `2025-migration/` - Migration documentation
+- `2025-12-testing-sessions/` - Test coverage session logs
+- `2025-12-planning/` - Planning and migration documents
+- `2025-12-implementation/` - Implementation guides and completed features
+- `standards-discussions/` - Historical standards discussions
+
+Archives contain valuable historical context but are not required for current development
 
 ### Content Systems
 - **[Trait System Implementation](./implementation/TRAIT_SYSTEM_IMPLEMENTATION.md)** - Generic trait system for items/enemies
