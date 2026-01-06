@@ -2,6 +2,7 @@ using FluentAssertions;
 using Moq;
 using RealmEngine.Core.Features.Exploration;
 using RealmEngine.Core.Features.Exploration.Queries;
+using RealmEngine.Shared.Models;
 
 namespace RealmEngine.Core.Tests.Features.Exploration.Queries;
 
@@ -24,18 +25,18 @@ public class GetKnownLocationsQueryHandlerTests
     public async Task Handle_Should_Return_Known_Locations()
     {
         // Arrange
-        var knownLocations = new List<string>
+        var knownLocations = new List<Location>
         {
-            "Starting Village",
-            "Dark Forest",
-            "Ancient Ruins",
-            "Mountain Peak"
+            new Location { Id = "towns:starting-village", Name = "Starting Village", Description = "A peaceful starting village", Type = "towns" },
+            new Location { Id = "wilderness:dark-forest", Name = "Dark Forest", Description = "A dark and mysterious forest", Type = "wilderness" },
+            new Location { Id = "dungeons:ancient-ruins", Name = "Ancient Ruins", Description = "Ancient ruins filled with secrets", Type = "dungeons" },
+            new Location { Id = "wilderness:mountain-peak", Name = "Mountain Peak", Description = "A towering mountain peak", Type = "wilderness" }
         };
         var query = new GetKnownLocationsQuery();
 
         _mockExplorationService
-            .Setup(s => s.GetKnownLocations())
-            .Returns(knownLocations);
+            .Setup(s => s.GetKnownLocationsAsync())
+            .ReturnsAsync(knownLocations);
 
         // Act
         var result = await _handler.Handle(query, CancellationToken.None);
@@ -43,21 +44,21 @@ public class GetKnownLocationsQueryHandlerTests
         // Assert
         result.Success.Should().BeTrue();
         result.Locations.Should().NotBeNull();
-        result.Locations.Should().BeEquivalentTo(knownLocations);
+        result.Locations.Should().BeEquivalentTo(knownLocations.Select(l => l.Name));
         result.ErrorMessage.Should().BeNull();
-        _mockExplorationService.Verify(s => s.GetKnownLocations(), Times.Once);
+        _mockExplorationService.Verify(s => s.GetKnownLocationsAsync(), Times.Once);
     }
 
     [Fact]
     public async Task Handle_Should_Return_Empty_List_When_No_Locations_Known()
     {
         // Arrange
-        var emptyList = new List<string>();
+        var emptyList = new List<Location>();
         var query = new GetKnownLocationsQuery();
 
         _mockExplorationService
-            .Setup(s => s.GetKnownLocations())
-            .Returns(emptyList);
+            .Setup(s => s.GetKnownLocationsAsync())
+            .ReturnsAsync(emptyList);
 
         // Act
         var result = await _handler.Handle(query, CancellationToken.None);
@@ -72,12 +73,12 @@ public class GetKnownLocationsQueryHandlerTests
     public async Task Handle_Should_Return_Single_Location()
     {
         // Arrange
-        var singleLocation = new List<string> { "Starting Village" };
+        var singleLocation = new List<Location> { new Location { Id = "towns:starting-village", Name = "Starting Village", Description = "A peaceful starting village", Type = "towns" } };
         var query = new GetKnownLocationsQuery();
 
         _mockExplorationService
-            .Setup(s => s.GetKnownLocations())
-            .Returns(singleLocation);
+            .Setup(s => s.GetKnownLocationsAsync())
+            .ReturnsAsync(singleLocation);
 
         // Act
         var result = await _handler.Handle(query, CancellationToken.None);
@@ -92,24 +93,24 @@ public class GetKnownLocationsQueryHandlerTests
     public async Task Handle_Should_Preserve_Location_Order()
     {
         // Arrange
-        var orderedLocations = new List<string>
+        var orderedLocations = new List<Location>
         {
-            "First Location",
-            "Second Location",
-            "Third Location"
+            new Location { Id = "towns:first-location", Name = "First Location", Description = "First test location", Type = "towns" },
+            new Location { Id = "dungeons:second-location", Name = "Second Location", Description = "Second test location", Type = "dungeons" },
+            new Location { Id = "wilderness:third-location", Name = "Third Location", Description = "Third test location", Type = "wilderness" }
         };
         var query = new GetKnownLocationsQuery();
 
         _mockExplorationService
-            .Setup(s => s.GetKnownLocations())
-            .Returns(orderedLocations);
+            .Setup(s => s.GetKnownLocationsAsync())
+            .ReturnsAsync(orderedLocations);
 
         // Act
         var result = await _handler.Handle(query, CancellationToken.None);
 
         // Assert
         result.Success.Should().BeTrue();
-        result.Locations.Should().ContainInOrder(orderedLocations);
+        result.Locations.Should().ContainInOrder(orderedLocations.Select(l => l.Name));
     }
 
     [Fact]
@@ -117,13 +118,19 @@ public class GetKnownLocationsQueryHandlerTests
     {
         // Arrange
         var manyLocations = Enumerable.Range(1, 100)
-            .Select(i => $"Location {i}")
+            .Select(i => new Location 
+            { 
+                Id = $"towns:location-{i}",
+                Name = $"Location {i}", 
+                Description = $"Test location {i}",
+                Type = "towns" 
+            })
             .ToList();
         var query = new GetKnownLocationsQuery();
 
         _mockExplorationService
-            .Setup(s => s.GetKnownLocations())
-            .Returns(manyLocations);
+            .Setup(s => s.GetKnownLocationsAsync())
+            .ReturnsAsync(manyLocations);
 
         // Act
         var result = await _handler.Handle(query, CancellationToken.None);
@@ -141,8 +148,8 @@ public class GetKnownLocationsQueryHandlerTests
         var expectedException = new InvalidOperationException("Database error");
 
         _mockExplorationService
-            .Setup(s => s.GetKnownLocations())
-            .Throws(expectedException);
+            .Setup(s => s.GetKnownLocationsAsync())
+            .ThrowsAsync(expectedException);
 
         // Act
         var result = await _handler.Handle(query, CancellationToken.None);
@@ -157,12 +164,16 @@ public class GetKnownLocationsQueryHandlerTests
     public async Task Handle_Should_Return_Readonly_List()
     {
         // Arrange
-        var locations = new List<string> { "Location 1", "Location 2" };
+        var locations = new List<Location> 
+        { 
+            new Location { Id = "towns:location-1", Name = "Location 1", Description = "First test location", Type = "towns" }, 
+            new Location { Id = "dungeons:location-2", Name = "Location 2", Description = "Second test location", Type = "dungeons" } 
+        };
         var query = new GetKnownLocationsQuery();
 
         _mockExplorationService
-            .Setup(s => s.GetKnownLocations())
-            .Returns(locations);
+            .Setup(s => s.GetKnownLocationsAsync())
+            .ReturnsAsync(locations);
 
         // Act
         var result = await _handler.Handle(query, CancellationToken.None);
@@ -176,18 +187,18 @@ public class GetKnownLocationsQueryHandlerTests
     public async Task Handle_Should_Not_Modify_Exploration_Service_State()
     {
         // Arrange
-        var locations = new List<string> { "Test Location" };
+        var locations = new List<Location> { new Location { Id = "towns:test-location", Name = "Test Location", Description = "A test location", Type = "towns" } };
         var query = new GetKnownLocationsQuery();
 
         _mockExplorationService
-            .Setup(s => s.GetKnownLocations())
-            .Returns(locations);
+            .Setup(s => s.GetKnownLocationsAsync())
+            .ReturnsAsync(locations);
 
         // Act
         await _handler.Handle(query, CancellationToken.None);
 
         // Assert - Verify only read operation
-        _mockExplorationService.Verify(s => s.GetKnownLocations(), Times.Once);
+        _mockExplorationService.Verify(s => s.GetKnownLocationsAsync(), Times.Once);
         _mockExplorationService.VerifyNoOtherCalls();
     }
 }

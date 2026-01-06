@@ -2,6 +2,7 @@ using RealmEngine.Core.Abstractions;
 using RealmEngine.Shared.Models;
 using RealmEngine.Core.Features.SaveLoad;
 using RealmEngine.Core.Features.Death.Queries;
+using RealmEngine.Core.Generators.Modern;
 using MediatR;
 
 using RealmEngine.Core.Services;
@@ -16,28 +17,43 @@ public class ExplorationService
     private readonly GameStateService _gameState;
     private readonly SaveGameService _saveGameService;
     private readonly IGameUI _console;
+    private readonly LocationGenerator _locationGenerator;
 
-    private readonly List<string> _knownLocations = new()
-    {
-        "Hub Town",
-        "Dark Forest",
-        "Ancient Ruins",
-        "Dragon's Lair",
-        "Cursed Graveyard",
-        "Mountain Peak",
-        "Coastal Village",
-        "Underground Caverns"
-    };
+    private readonly List<Location> _knownLocations = new();
+    private bool _locationsInitialized = false;
 
     // Protected parameterless constructor for mocking
-    protected ExplorationService() { _mediator = null!; _gameState = null!; _saveGameService = null!; _console = null!; }
+    protected ExplorationService() { _mediator = null!; _gameState = null!; _saveGameService = null!; _console = null!; _locationGenerator = null!; }
 
-    public ExplorationService(IMediator mediator, GameStateService gameState, SaveGameService saveGameService, IGameUI console)
+    public ExplorationService(IMediator mediator, GameStateService gameState, SaveGameService saveGameService, IGameUI console, LocationGenerator locationGenerator)
     {
         _mediator = mediator;
         _gameState = gameState;
         _saveGameService = saveGameService;
         _console = console;
+        _locationGenerator = locationGenerator;
+    }
+    
+    /// <summary>
+    /// Initialize known locations by generating them from data.
+    /// </summary>
+    private async Task InitializeLocationsAsync()
+    {
+        if (_locationsInitialized)
+            return;
+
+        _knownLocations.Clear();
+        
+        // Generate initial locations (mix of towns, dungeons, wilderness)
+        var towns = await _locationGenerator.GenerateLocationsAsync("towns", 2, hydrate: false);
+        var dungeons = await _locationGenerator.GenerateLocationsAsync("dungeons", 3, hydrate: false);
+        var wilderness = await _locationGenerator.GenerateLocationsAsync("wilderness", 3, hydrate: false);
+        
+        _knownLocations.AddRange(towns);
+        _knownLocations.AddRange(dungeons);
+        _knownLocations.AddRange(wilderness);
+        
+        _locationsInitialized = true;
     }
 
     /// <summary>
@@ -103,8 +119,10 @@ public class ExplorationService
     /// </summary>
     public async Task TravelToLocation()
     {
+        await InitializeLocationsAsync();
+        
         var availableLocations = _knownLocations
-            .Where(loc => loc != _gameState.CurrentLocation)
+            .Where(loc => loc.Name != _gameState.CurrentLocation)
             .ToList();
 
         if (!availableLocations.Any())
@@ -113,9 +131,10 @@ public class ExplorationService
             return;
         }
 
+        var locationNames = availableLocations.Select(l => l.Name).ToArray();
         var choice = _console.ShowMenu(
             $"Current Location: {_gameState.CurrentLocation}\n\nWhere would you like to travel?",
-            availableLocations.Concat(new[] { "Cancel" }).ToArray()
+            locationNames.Concat(new[] { "Cancel" }).ToArray()
         );
 
         if (choice == "Cancel")
@@ -159,7 +178,11 @@ public class ExplorationService
     /// <summary>
     /// Get all known locations.
     /// </summary>
-    public virtual IReadOnlyList<string> GetKnownLocations() => _knownLocations.AsReadOnly();
+    public virtual async Task<IReadOnlyList<Location>> GetKnownLocationsAsync()
+    {
+        await InitializeLocationsAsync();
+        return _knownLocations.AsReadOnly();
+    }
 
     private static string GetRarityColor(ItemRarity rarity)
     {

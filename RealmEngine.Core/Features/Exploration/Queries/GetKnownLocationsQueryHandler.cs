@@ -15,17 +15,18 @@ public class GetKnownLocationsQueryHandler : IRequestHandler<GetKnownLocationsQu
         _explorationService = explorationService;
     }
 
-    public Task<GetKnownLocationsResult> Handle(GetKnownLocationsQuery request, CancellationToken cancellationToken)
+    public async Task<GetKnownLocationsResult> Handle(GetKnownLocationsQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            var locations = _explorationService.GetKnownLocations();
-            return Task.FromResult(new GetKnownLocationsResult(true, Locations: locations));
+            var locations = await _explorationService.GetKnownLocationsAsync();
+            var locationNames = locations.Select(l => l.Name).ToList();
+            return new GetKnownLocationsResult(true, Locations: locationNames);
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Error getting known locations");
-            return Task.FromResult(new GetKnownLocationsResult(false, ErrorMessage: ex.Message));
+            return new GetKnownLocationsResult(false, ErrorMessage: ex.Message);
         }
     }
 }

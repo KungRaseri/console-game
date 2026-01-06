@@ -35,7 +35,7 @@ public class LocationGenerator
     /// <param name="locationType">The location type to generate.</param>
     /// <param name="count">The number of locations to generate (default: 5).</param>
     /// <param name="hydrate">If true, populates resolved NpcObjects, EnemyObjects, and LootObjects properties (default: true).</param>
-    public async Task<List<Location>> GenerateLocationsAsync(string locationType, int count = 5, bool hydrate = true)
+    public virtual async Task<List<Location>> GenerateLocationsAsync(string locationType, int count = 5, bool hydrate = true)
     {
         try
         {

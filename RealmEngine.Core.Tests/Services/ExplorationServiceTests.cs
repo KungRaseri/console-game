@@ -3,11 +3,14 @@ using RealmEngine.Core.Abstractions;
 using RealmEngine.Core.Services;
 using RealmEngine.Core.Features.SaveLoad;
 using RealmEngine.Core.Features.Death.Queries;
+using RealmEngine.Core.Generators.Modern;
+using RealmEngine.Data.Services;
 using RealmEngine.Shared.Models;
 using MediatR;
 using Moq;
 using FluentAssertions;
 using Xunit;
+using Microsoft.Extensions.Logging;
 
 namespace RealmEngine.Core.Tests.Services;
 
@@ -18,7 +21,34 @@ public class ExplorationServiceTests
     private readonly Mock<GameStateService> _mockGameState;
     private readonly Mock<SaveGameService> _mockSaveGameService;
     private readonly Mock<IGameUI> _mockGameUI;
+    private readonly StubLocationGenerator _locationGenerator;
     private readonly ExplorationService _service;
+    
+    // Simple test stub that returns predefined locations without calling base class
+    private class StubLocationGenerator : LocationGenerator
+    {
+        private readonly List<Location> _testLocations;
+        
+        // Suppress null validation by providing dummy non-null arguments
+        public StubLocationGenerator() : base(
+            new GameDataCache(Path.GetTempPath()), // Dummy path, won't be used
+            new ReferenceResolverService(
+                new GameDataCache(Path.GetTempPath()),
+                Mock.Of<ILogger<ReferenceResolverService>>()),
+            Mock.Of<ILogger<LocationGenerator>>())
+        {
+            _testLocations = new List<Location>
+            {
+                new Location { Id = "towns:test-town", Name = "Test Town", Description = "A test town location", Type = "towns" },
+                new Location { Id = "dungeons:test-dungeon", Name = "Test Dungeon", Description = "A test dungeon location", Type = "dungeons" }
+            };
+        }
+        
+        public override Task<List<Location>> GenerateLocationsAsync(string locationType, int count = 5, bool hydrate = true)
+        {
+            return Task.FromResult(_testLocations);
+        }
+    }
 
     public ExplorationServiceTests()
     {
@@ -26,6 +56,7 @@ public class ExplorationServiceTests
         _mockGameState = new Mock<GameStateService>();
         _mockSaveGameService = new Mock<SaveGameService>();
         _mockGameUI = new Mock<IGameUI>();
+        _locationGenerator = new StubLocationGenerator();
 
         // Setup default game state
         var testPlayer = new Character
@@ -48,7 +79,9 @@ public class ExplorationServiceTests
             _mockMediator.Object,
             _mockGameState.Object,
             _mockSaveGameService.Object,
-            _mockGameUI.Object);
+            _mockGameUI.Object,
+            _locationGenerator
+        );
     }
 
     [Fact]
