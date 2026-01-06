@@ -5,8 +5,13 @@
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
     "supportsTraits": true,
-    "componentKeys": ["quality"],
-    "patternTokens": ["{quality}", "{base}"],
+    "componentKeys": [
+      "quality"
+    ],
+    "patternTokens": [
+      "{quality}",
+      "{base}"
+    ],
     "totalPatterns": 2,
     "raritySystem": "weight-based"
   },
@@ -22,11 +27,22 @@
   ],
   "components": {
     "quality": [
-      { "value": "Vibrant", "rarityWeight": 30 },
-      { "value": "Pulsing", "rarityWeight": 40 },
-      { "value": "Fading", "rarityWeight": 55 },
-      { "value": "Dull", "rarityWeight": 60 }
-
+      {
+        "value": "Vibrant",
+        "rarityWeight": 30
+      },
+      {
+        "value": "Pulsing",
+        "rarityWeight": 40
+      },
+      {
+        "value": "Fading",
+        "rarityWeight": 55
+      },
+      {
+        "value": "Dull",
+        "rarityWeight": 60
+      }
     ]
   }
 }

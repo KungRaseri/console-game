@@ -8,58 +8,58 @@
   "essence_types": {
     "fire": {
       "items": [
-    {
-      "slug": "flame-essence",
-      "name": "flame-essence",
-      "rarityWeight": 60,
-      "category": "fire",
-      "traits": {
-        "fireDamage": {
-          "value": 10,
-          "type": "number"
+        {
+          "slug": "flame-essence",
+          "name": "flame-essence",
+          "rarityWeight": 60,
+          "category": "fire",
+          "traits": {
+            "fireDamage": {
+              "value": 10,
+              "type": "number"
+            },
+            "burnChance": {
+              "value": 15,
+              "type": "number"
+            }
+          }
         },
-        "burnChance": {
-          "value": 15,
-          "type": "number"
+        {
+          "slug": "inferno-essence",
+          "name": "inferno-essence",
+          "rarityWeight": 40,
+          "category": "fire",
+          "traits": {
+            "fireDamage": {
+              "value": 15,
+              "type": "number"
+            },
+            "burnChance": {
+              "value": 20,
+              "type": "number"
+            },
+            "burnDuration": {
+              "value": 3,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "slug": "ember-essence",
+          "name": "ember-essence",
+          "rarityWeight": 70,
+          "category": "fire",
+          "traits": {
+            "fireDamage": {
+              "value": 8,
+              "type": "number"
+            },
+            "fireResistance": {
+              "value": 10,
+              "type": "number"
+            }
+          }
         }
-      }
-    },
-    {
-      "slug": "inferno-essence",
-      "name": "inferno-essence",
-      "rarityWeight": 40,
-      "category": "fire",
-      "traits": {
-        "fireDamage": {
-          "value": 15,
-          "type": "number"
-        },
-        "burnChance": {
-          "value": 20,
-          "type": "number"
-        },
-        "burnDuration": {
-          "value": 3,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "slug": "ember-essence",
-      "name": "ember-essence",
-      "rarityWeight": 70,
-      "category": "fire",
-      "traits": {
-        "fireDamage": {
-          "value": 8,
-          "type": "number"
-        },
-        "fireResistance": {
-          "value": 10,
-          "type": "number"
-        }
-      }
-    }
       ]
     }
   }

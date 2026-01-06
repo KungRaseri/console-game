@@ -35,31 +35,31 @@
     "dragon": {
       "materialPool": "dragon_hoard",
       "budgetMultiplier": 2.5,
-      "materialPercentage": 0.40,
+      "materialPercentage": 0.4,
       "description": "Dragons - legendary material hoarders, 40% material budget"
     },
     "fire_elemental": {
       "materialPool": "elemental_fire",
       "budgetMultiplier": 1.5,
-      "materialPercentage": 0.50,
+      "materialPercentage": 0.5,
       "description": "Fire elementals - obsidian and fire-themed materials, heavy material focus"
     },
     "ice_elemental": {
       "materialPool": "elemental_ice",
       "budgetMultiplier": 1.5,
-      "materialPercentage": 0.50,
+      "materialPercentage": 0.5,
       "description": "Ice elementals - crystal and frost materials, heavy material focus"
     },
     "undead": {
       "materialPool": "undead",
       "budgetMultiplier": 1.0,
-      "materialPercentage": 0.20,
+      "materialPercentage": 0.2,
       "description": "Undead - rusty materials, low material percentage, more enchantment focus"
     },
     "skeleton": {
       "materialPool": "undead",
       "budgetMultiplier": 0.9,
-      "materialPercentage": 0.20,
+      "materialPercentage": 0.2,
       "description": "Skeletons - worse than generic undead"
     },
     "vampire": {
@@ -77,7 +77,7 @@
     "angel": {
       "materialPool": "celestial",
       "budgetMultiplier": 2.2,
-      "materialPercentage": 0.40,
+      "materialPercentage": 0.4,
       "description": "Angels - divine materials, high budget"
     },
     "beast": {

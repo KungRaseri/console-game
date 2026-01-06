@@ -26,9 +26,18 @@
           "effectValue": 0.005,
           "effectDescription": "+0.5% melee damage per rank",
           "xpActions": [
-            { "action": "melee_attack", "xpAmount": 5 },
-            { "action": "melee_kill", "xpAmount": 15 },
-            { "action": "critical_hit", "xpAmount": 10 }
+            {
+              "action": "melee_attack",
+              "xpAmount": 5
+            },
+            {
+              "action": "melee_kill",
+              "xpAmount": 15
+            },
+            {
+              "action": "critical_hit",
+              "xpAmount": 10
+            }
           ]
         },
         {
@@ -41,9 +50,18 @@
           "effectValue": 0.002,
           "effectDescription": "+0.2% critical chance per rank",
           "xpActions": [
-            { "action": "ranged_attack", "xpAmount": 5 },
-            { "action": "dodge_success", "xpAmount": 10 },
-            { "action": "critical_hit", "xpAmount": 15 }
+            {
+              "action": "ranged_attack",
+              "xpAmount": 5
+            },
+            {
+              "action": "dodge_success",
+              "xpAmount": 10
+            },
+            {
+              "action": "critical_hit",
+              "xpAmount": 15
+            }
           ]
         },
         {
@@ -56,9 +74,18 @@
           "effectValue": 0.003,
           "effectDescription": "+0.3% max health per rank",
           "xpActions": [
-            { "action": "take_damage", "xpAmount": 3 },
-            { "action": "survive_low_health", "xpAmount": 20 },
-            { "action": "complete_combat", "xpAmount": 5 }
+            {
+              "action": "take_damage",
+              "xpAmount": 3
+            },
+            {
+              "action": "survive_low_health",
+              "xpAmount": 20
+            },
+            {
+              "action": "complete_combat",
+              "xpAmount": 5
+            }
           ]
         },
         {
@@ -71,9 +98,18 @@
           "effectValue": 0.003,
           "effectDescription": "+0.3% max mana per rank",
           "xpActions": [
-            { "action": "cast_spell", "xpAmount": 8 },
-            { "action": "learn_spell", "xpAmount": 50 },
-            { "action": "spell_kill", "xpAmount": 20 }
+            {
+              "action": "cast_spell",
+              "xpAmount": 8
+            },
+            {
+              "action": "learn_spell",
+              "xpAmount": 50
+            },
+            {
+              "action": "spell_kill",
+              "xpAmount": 20
+            }
           ]
         },
         {
@@ -86,9 +122,18 @@
           "effectValue": 0.01,
           "effectDescription": "+1% mana regeneration per rank",
           "xpActions": [
-            { "action": "rest", "xpAmount": 5 },
-            { "action": "meditation", "xpAmount": 10 },
-            { "action": "identify_item", "xpAmount": 15 }
+            {
+              "action": "rest",
+              "xpAmount": 5
+            },
+            {
+              "action": "meditation",
+              "xpAmount": 10
+            },
+            {
+              "action": "identify_item",
+              "xpAmount": 15
+            }
           ]
         },
         {
@@ -101,9 +146,18 @@
           "effectValue": 0.002,
           "effectDescription": "-0.2% merchant prices per rank",
           "xpActions": [
-            { "action": "successful_persuasion", "xpAmount": 15 },
-            { "action": "complete_quest", "xpAmount": 10 },
-            { "action": "merchant_transaction", "xpAmount": 3 }
+            {
+              "action": "successful_persuasion",
+              "xpAmount": 15
+            },
+            {
+              "action": "complete_quest",
+              "xpAmount": 10
+            },
+            {
+              "action": "merchant_transaction",
+              "xpAmount": 3
+            }
           ]
         }
       ]
@@ -121,9 +175,18 @@
           "effectValue": 0.005,
           "effectDescription": "+0.5% one-handed weapon damage per rank",
           "xpActions": [
-            { "action": "one_handed_hit", "xpAmount": 5 },
-            { "action": "one_handed_kill", "xpAmount": 20 },
-            { "action": "critical_with_one_handed", "xpAmount": 15 }
+            {
+              "action": "one_handed_hit",
+              "xpAmount": 5
+            },
+            {
+              "action": "one_handed_kill",
+              "xpAmount": 20
+            },
+            {
+              "action": "critical_with_one_handed",
+              "xpAmount": 15
+            }
           ]
         },
         {
@@ -136,9 +199,18 @@
           "effectValue": 0.005,
           "effectDescription": "+0.5% two-handed weapon damage per rank",
           "xpActions": [
-            { "action": "two_handed_hit", "xpAmount": 5 },
-            { "action": "two_handed_kill", "xpAmount": 20 },
-            { "action": "cleave_multiple", "xpAmount": 25 }
+            {
+              "action": "two_handed_hit",
+              "xpAmount": 5
+            },
+            {
+              "action": "two_handed_kill",
+              "xpAmount": 20
+            },
+            {
+              "action": "cleave_multiple",
+              "xpAmount": 25
+            }
           ]
         },
         {
@@ -151,9 +223,18 @@
           "effectValue": 0.005,
           "effectDescription": "+0.5% ranged weapon damage per rank",
           "xpActions": [
-            { "action": "ranged_hit", "xpAmount": 5 },
-            { "action": "ranged_kill", "xpAmount": 20 },
-            { "action": "headshot", "xpAmount": 30 }
+            {
+              "action": "ranged_hit",
+              "xpAmount": 5
+            },
+            {
+              "action": "ranged_kill",
+              "xpAmount": 20
+            },
+            {
+              "action": "headshot",
+              "xpAmount": 30
+            }
           ]
         },
         {
@@ -166,9 +247,18 @@
           "effectValue": 0.003,
           "effectDescription": "+0.3% block chance per rank",
           "xpActions": [
-            { "action": "block_success", "xpAmount": 10 },
-            { "action": "block_critical", "xpAmount": 20 },
-            { "action": "shield_bash", "xpAmount": 15 }
+            {
+              "action": "block_success",
+              "xpAmount": 10
+            },
+            {
+              "action": "block_critical",
+              "xpAmount": 20
+            },
+            {
+              "action": "shield_bash",
+              "xpAmount": 15
+            }
           ]
         },
         {
@@ -181,9 +271,18 @@
           "effectValue": 0.003,
           "effectDescription": "+0.3% armor rating per rank",
           "xpActions": [
-            { "action": "take_damage_in_heavy_armor", "xpAmount": 5 },
-            { "action": "survive_heavy_hit", "xpAmount": 15 },
-            { "action": "complete_combat_in_heavy_armor", "xpAmount": 10 }
+            {
+              "action": "take_damage_in_heavy_armor",
+              "xpAmount": 5
+            },
+            {
+              "action": "survive_heavy_hit",
+              "xpAmount": 15
+            },
+            {
+              "action": "complete_combat_in_heavy_armor",
+              "xpAmount": 10
+            }
           ]
         },
         {
@@ -196,9 +295,18 @@
           "effectValue": 0.002,
           "effectDescription": "+0.2% evasion per rank",
           "xpActions": [
-            { "action": "dodge_in_light_armor", "xpAmount": 10 },
-            { "action": "avoid_damage", "xpAmount": 15 },
-            { "action": "complete_combat_in_light_armor", "xpAmount": 8 }
+            {
+              "action": "dodge_in_light_armor",
+              "xpAmount": 10
+            },
+            {
+              "action": "avoid_damage",
+              "xpAmount": 15
+            },
+            {
+              "action": "complete_combat_in_light_armor",
+              "xpAmount": 8
+            }
           ]
         }
       ]
@@ -216,9 +324,18 @@
           "effectValue": 0.004,
           "effectDescription": "+0.4% arcane spell effectiveness per rank",
           "xpActions": [
-            { "action": "cast_arcane_spell", "xpAmount": 8 },
-            { "action": "arcane_damage_dealt", "xpAmount": 2 },
-            { "action": "study_spellbook", "xpAmount": 15 }
+            {
+              "action": "cast_arcane_spell",
+              "xpAmount": 8
+            },
+            {
+              "action": "arcane_damage_dealt",
+              "xpAmount": 2
+            },
+            {
+              "action": "study_spellbook",
+              "xpAmount": 15
+            }
           ]
         },
         {
@@ -231,9 +348,18 @@
           "effectValue": 0.004,
           "effectDescription": "+0.4% divine spell effectiveness per rank",
           "xpActions": [
-            { "action": "cast_divine_spell", "xpAmount": 8 },
-            { "action": "heal_ally", "xpAmount": 5 },
-            { "action": "smite_undead", "xpAmount": 15 }
+            {
+              "action": "cast_divine_spell",
+              "xpAmount": 8
+            },
+            {
+              "action": "heal_ally",
+              "xpAmount": 5
+            },
+            {
+              "action": "smite_undead",
+              "xpAmount": 15
+            }
           ]
         },
         {
@@ -246,9 +372,18 @@
           "effectValue": 0.004,
           "effectDescription": "+0.4% occult spell effectiveness per rank",
           "xpActions": [
-            { "action": "cast_occult_spell", "xpAmount": 8 },
-            { "action": "charm_success", "xpAmount": 15 },
-            { "action": "fear_success", "xpAmount": 15 }
+            {
+              "action": "cast_occult_spell",
+              "xpAmount": 8
+            },
+            {
+              "action": "charm_success",
+              "xpAmount": 15
+            },
+            {
+              "action": "fear_success",
+              "xpAmount": 15
+            }
           ]
         },
         {
@@ -261,9 +396,18 @@
           "effectValue": 0.004,
           "effectDescription": "+0.4% primal spell effectiveness per rank",
           "xpActions": [
-            { "action": "cast_primal_spell", "xpAmount": 8 },
-            { "action": "summon_creature", "xpAmount": 15 },
-            { "action": "elemental_damage", "xpAmount": 2 }
+            {
+              "action": "cast_primal_spell",
+              "xpAmount": 8
+            },
+            {
+              "action": "summon_creature",
+              "xpAmount": 15
+            },
+            {
+              "action": "elemental_damage",
+              "xpAmount": 2
+            }
           ]
         }
       ]
@@ -281,9 +425,18 @@
           "effectValue": 0.01,
           "effectDescription": "+1% crafted item quality per rank",
           "xpActions": [
-            { "action": "forge_item", "xpAmount": 20 },
-            { "action": "forge_masterwork", "xpAmount": 100 },
-            { "action": "discover_recipe", "xpAmount": 50 }
+            {
+              "action": "forge_item",
+              "xpAmount": 20
+            },
+            {
+              "action": "forge_masterwork",
+              "xpAmount": 100
+            },
+            {
+              "action": "discover_recipe",
+              "xpAmount": 50
+            }
           ]
         },
         {
@@ -296,9 +449,18 @@
           "effectValue": 0.01,
           "effectDescription": "+1% potion effectiveness per rank",
           "xpActions": [
-            { "action": "brew_potion", "xpAmount": 15 },
-            { "action": "discover_potion_recipe", "xpAmount": 50 },
-            { "action": "create_rare_potion", "xpAmount": 75 }
+            {
+              "action": "brew_potion",
+              "xpAmount": 15
+            },
+            {
+              "action": "discover_potion_recipe",
+              "xpAmount": 50
+            },
+            {
+              "action": "create_rare_potion",
+              "xpAmount": 75
+            }
           ]
         },
         {
@@ -311,9 +473,18 @@
           "effectValue": 0.01,
           "effectDescription": "+1% enchantment strength per rank",
           "xpActions": [
-            { "action": "enchant_item", "xpAmount": 25 },
-            { "action": "disenchant_item", "xpAmount": 15 },
-            { "action": "create_legendary_enchant", "xpAmount": 150 }
+            {
+              "action": "enchant_item",
+              "xpAmount": 25
+            },
+            {
+              "action": "disenchant_item",
+              "xpAmount": 15
+            },
+            {
+              "action": "create_legendary_enchant",
+              "xpAmount": 150
+            }
           ]
         }
       ]
@@ -331,9 +502,18 @@
           "effectValue": 0.005,
           "effectDescription": "+0.5% lockpick success per rank",
           "xpActions": [
-            { "action": "pick_easy_lock", "xpAmount": 10 },
-            { "action": "pick_hard_lock", "xpAmount": 30 },
-            { "action": "pick_master_lock", "xpAmount": 75 }
+            {
+              "action": "pick_easy_lock",
+              "xpAmount": 10
+            },
+            {
+              "action": "pick_hard_lock",
+              "xpAmount": 30
+            },
+            {
+              "action": "pick_master_lock",
+              "xpAmount": 75
+            }
           ]
         },
         {
@@ -346,9 +526,18 @@
           "effectValue": 0.003,
           "effectDescription": "+0.3% stealth per rank",
           "xpActions": [
-            { "action": "successful_sneak", "xpAmount": 5 },
-            { "action": "sneak_attack", "xpAmount": 20 },
-            { "action": "avoid_detection_close_call", "xpAmount": 15 }
+            {
+              "action": "successful_sneak",
+              "xpAmount": 5
+            },
+            {
+              "action": "sneak_attack",
+              "xpAmount": 20
+            },
+            {
+              "action": "avoid_detection_close_call",
+              "xpAmount": 15
+            }
           ]
         },
         {
@@ -361,9 +550,18 @@
           "effectValue": 0.005,
           "effectDescription": "+0.5% pickpocket success per rank",
           "xpActions": [
-            { "action": "successful_pickpocket", "xpAmount": 15 },
-            { "action": "steal_valuable_item", "xpAmount": 30 },
-            { "action": "perfect_theft", "xpAmount": 50 }
+            {
+              "action": "successful_pickpocket",
+              "xpAmount": 15
+            },
+            {
+              "action": "steal_valuable_item",
+              "xpAmount": 30
+            },
+            {
+              "action": "perfect_theft",
+              "xpAmount": 50
+            }
           ]
         },
         {
@@ -376,9 +574,18 @@
           "effectValue": 0.005,
           "effectDescription": "+0.5% persuasion success per rank",
           "xpActions": [
-            { "action": "successful_persuasion", "xpAmount": 15 },
-            { "action": "intimidation_success", "xpAmount": 20 },
-            { "action": "negotiate_better_price", "xpAmount": 10 }
+            {
+              "action": "successful_persuasion",
+              "xpAmount": 15
+            },
+            {
+              "action": "intimidation_success",
+              "xpAmount": 20
+            },
+            {
+              "action": "negotiate_better_price",
+              "xpAmount": 10
+            }
           ]
         },
         {
@@ -391,9 +598,18 @@
           "effectValue": 0.005,
           "effectDescription": "+0.5% resource gathering per rank",
           "xpActions": [
-            { "action": "gather_herbs", "xpAmount": 5 },
-            { "action": "track_creature", "xpAmount": 15 },
-            { "action": "find_rare_resource", "xpAmount": 30 }
+            {
+              "action": "gather_herbs",
+              "xpAmount": 5
+            },
+            {
+              "action": "track_creature",
+              "xpAmount": 15
+            },
+            {
+              "action": "find_rare_resource",
+              "xpAmount": 30
+            }
           ]
         },
         {
@@ -406,9 +622,18 @@
           "effectValue": 0.002,
           "effectDescription": "+0.2% movement speed per rank",
           "xpActions": [
-            { "action": "sprint", "xpAmount": 3 },
-            { "action": "climb_obstacle", "xpAmount": 10 },
-            { "action": "swim_distance", "xpAmount": 8 }
+            {
+              "action": "sprint",
+              "xpAmount": 3
+            },
+            {
+              "action": "climb_obstacle",
+              "xpAmount": 10
+            },
+            {
+              "action": "swim_distance",
+              "xpAmount": 8
+            }
           ]
         }
       ]

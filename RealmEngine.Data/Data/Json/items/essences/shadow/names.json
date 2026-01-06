@@ -5,8 +5,13 @@
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
     "supportsTraits": true,
-    "componentKeys": ["intensity"],
-    "patternTokens": ["{intensity}", "{base}"],
+    "componentKeys": [
+      "intensity"
+    ],
+    "patternTokens": [
+      "{intensity}",
+      "{base}"
+    ],
     "totalPatterns": 2,
     "raritySystem": "weight-based"
   },
@@ -22,11 +27,22 @@
   ],
   "components": {
     "intensity": [
-      { "value": "Dark", "rarityWeight": 40 },
-      { "value": "Abyssal", "rarityWeight": 25 },
-      { "value": "Murky", "rarityWeight": 50 },
-      { "value": "Faint", "rarityWeight": 60 }
-
+      {
+        "value": "Dark",
+        "rarityWeight": 40
+      },
+      {
+        "value": "Abyssal",
+        "rarityWeight": 25
+      },
+      {
+        "value": "Murky",
+        "rarityWeight": 50
+      },
+      {
+        "value": "Faint",
+        "rarityWeight": 60
+      }
     ]
   }
 }

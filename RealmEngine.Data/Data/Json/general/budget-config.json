@@ -6,8 +6,8 @@
     "type": "budget_configuration"
   },
   "budgetAllocation": {
-    "materialPercentage": 0.30,
-    "componentPercentage": 0.70,
+    "materialPercentage": 0.3,
+    "componentPercentage": 0.7,
     "description": "Default budget split: 30% material, 70% components (weapons/armor/consumables). componentPercentage auto-calculated as 1.0 - materialPercentage"
   },
   "costFormulas": {
@@ -54,12 +54,30 @@
     "socket": 10
   },
   "budgetRanges": {
-    "minimal": { "min": 20, "max": 40 },
-    "common": { "min": 40, "max": 80 },
-    "uncommon": { "min": 80, "max": 150 },
-    "rare": { "min": 150, "max": 250 },
-    "epic": { "min": 250, "max": 400 },
-    "legendary": { "min": 400, "max": 600 }
+    "minimal": {
+      "min": 20,
+      "max": 40
+    },
+    "common": {
+      "min": 40,
+      "max": 80
+    },
+    "uncommon": {
+      "min": 80,
+      "max": 150
+    },
+    "rare": {
+      "min": 150,
+      "max": 250
+    },
+    "epic": {
+      "min": 250,
+      "max": 400
+    },
+    "legendary": {
+      "min": 400,
+      "max": 600
+    }
   },
   "sourceMultipliers": {
     "enemyLevelMultiplier": 5,

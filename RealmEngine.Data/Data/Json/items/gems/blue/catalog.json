@@ -8,74 +8,74 @@
   "gem_types": {
     "blue": {
       "items": [
-    {
-      "slug": "sapphire",
-      "name": "sapphire",
-      "rarityWeight": 50,
-      "category": "blue",
-      "traits": {
-        "magicDamage": {
-          "value": 8,
-          "type": "number"
+        {
+          "slug": "sapphire",
+          "name": "sapphire",
+          "rarityWeight": 50,
+          "category": "blue",
+          "traits": {
+            "magicDamage": {
+              "value": 8,
+              "type": "number"
+            },
+            "manaRegen": {
+              "value": 5,
+              "type": "number"
+            }
+          }
         },
-        "manaRegen": {
-          "value": 5,
-          "type": "number"
+        {
+          "slug": "aquamarine",
+          "name": "aquamarine",
+          "rarityWeight": 60,
+          "category": "blue",
+          "traits": {
+            "maxMana": {
+              "value": 20,
+              "type": "number"
+            },
+            "manaRegen": {
+              "value": 3,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "slug": "lapis-lazuli",
+          "name": "lapis-lazuli",
+          "rarityWeight": 55,
+          "category": "blue",
+          "traits": {
+            "magicDamage": {
+              "value": 10,
+              "type": "number"
+            },
+            "cooldownReduction": {
+              "value": 5,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "slug": "blue-diamond",
+          "name": "blue-diamond",
+          "rarityWeight": 20,
+          "category": "blue",
+          "traits": {
+            "magicDamage": {
+              "value": 15,
+              "type": "number"
+            },
+            "maxMana": {
+              "value": 30,
+              "type": "number"
+            },
+            "manaRegen": {
+              "value": 8,
+              "type": "number"
+            }
+          }
         }
-      }
-    },
-    {
-      "slug": "aquamarine",
-      "name": "aquamarine",
-      "rarityWeight": 60,
-      "category": "blue",
-      "traits": {
-        "maxMana": {
-          "value": 20,
-          "type": "number"
-        },
-        "manaRegen": {
-          "value": 3,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "slug": "lapis-lazuli",
-      "name": "lapis-lazuli",
-      "rarityWeight": 55,
-      "category": "blue",
-      "traits": {
-        "magicDamage": {
-          "value": 10,
-          "type": "number"
-        },
-        "cooldownReduction": {
-          "value": 5,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "slug": "blue-diamond",
-      "name": "blue-diamond",
-      "rarityWeight": 20,
-      "category": "blue",
-      "traits": {
-        "magicDamage": {
-          "value": 15,
-          "type": "number"
-        },
-        "maxMana": {
-          "value": 30,
-          "type": "number"
-        },
-        "manaRegen": {
-          "value": 8,
-          "type": "number"
-        }
-      }
-    }
       ]
     }
   }

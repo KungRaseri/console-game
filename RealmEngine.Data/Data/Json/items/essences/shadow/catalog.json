@@ -8,54 +8,54 @@
   "essence_types": {
     "shadow": {
       "items": [
-    {
-      "slug": "shadow-essence",
-      "name": "shadow-essence",
-      "rarityWeight": 55,
-      "category": "shadow",
-      "traits": {
-        "shadowDamage": {
-          "value": 10,
-          "type": "number"
+        {
+          "slug": "shadow-essence",
+          "name": "shadow-essence",
+          "rarityWeight": 55,
+          "category": "shadow",
+          "traits": {
+            "shadowDamage": {
+              "value": 10,
+              "type": "number"
+            },
+            "stealth": {
+              "value": 10,
+              "type": "number"
+            }
+          }
         },
-        "stealth": {
-          "value": 10,
-          "type": "number"
-        }
-      }
-    },
-    {
-      "slug": "void-essence",
-      "name": "void-essence",
-      "rarityWeight": 35,
-      "category": "shadow",
-      "traits": {
-        "shadowDamage": {
-          "value": 15,
-          "type": "number"
+        {
+          "slug": "void-essence",
+          "name": "void-essence",
+          "rarityWeight": 35,
+          "category": "shadow",
+          "traits": {
+            "shadowDamage": {
+              "value": 15,
+              "type": "number"
+            },
+            "lifeLeech": {
+              "value": 5,
+              "type": "number"
+            }
+          }
         },
-        "lifeLeech": {
-          "value": 5,
-          "type": "number"
+        {
+          "slug": "twilight-essence",
+          "name": "twilight-essence",
+          "rarityWeight": 45,
+          "category": "shadow",
+          "traits": {
+            "shadowDamage": {
+              "value": 12,
+              "type": "number"
+            },
+            "evasion": {
+              "value": 8,
+              "type": "number"
+            }
+          }
         }
-      }
-    },
-    {
-      "slug": "twilight-essence",
-      "name": "twilight-essence",
-      "rarityWeight": 45,
-      "category": "shadow",
-      "traits": {
-        "shadowDamage": {
-          "value": 12,
-          "type": "number"
-        },
-        "evasion": {
-          "value": 8,
-          "type": "number"
-        }
-      }
-    }
       ]
     }
   }

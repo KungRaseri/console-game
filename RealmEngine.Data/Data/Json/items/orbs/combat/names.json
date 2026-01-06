@@ -5,8 +5,13 @@
     "lastUpdated": "2026-01-03",
     "type": "pattern_generation",
     "supportsTraits": true,
-    "componentKeys": ["suffix"],
-    "patternTokens": ["{base}", "{suffix}"],
+    "componentKeys": [
+      "suffix"
+    ],
+    "patternTokens": [
+      "{base}",
+      "{suffix}"
+    ],
     "totalPatterns": 2,
     "raritySystem": "weight-based"
   },
@@ -22,10 +27,22 @@
   ],
   "components": {
     "suffix": [
-      { "value": "of Mastery", "rarityWeight": 35 },
-      { "value": "of Excellence", "rarityWeight": 40 },
-      { "value": "of the Warrior", "rarityWeight": 30 },
-      { "value": "of Prowess", "rarityWeight": 45 }
+      {
+        "value": "of Mastery",
+        "rarityWeight": 35
+      },
+      {
+        "value": "of Excellence",
+        "rarityWeight": 40
+      },
+      {
+        "value": "of the Warrior",
+        "rarityWeight": 30
+      },
+      {
+        "value": "of Prowess",
+        "rarityWeight": 45
+      }
     ]
   }
 }

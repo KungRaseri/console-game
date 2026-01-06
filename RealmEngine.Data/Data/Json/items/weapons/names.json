@@ -1346,7 +1346,10 @@
       "socketSlots": [
         {
           "type": "gem",
-          "count": { "min": 0, "max": 1 },
+          "count": {
+            "min": 0,
+            "max": 1
+          },
           "rarityWeight": 40
         }
       ]
@@ -1357,7 +1360,10 @@
       "socketSlots": [
         {
           "type": "gem",
-          "count": { "min": 0, "max": 1 },
+          "count": {
+            "min": 0,
+            "max": 1
+          },
           "rarityWeight": 45
         }
       ]
@@ -1384,12 +1390,18 @@
       "socketSlots": [
         {
           "type": "gem",
-          "count": { "min": 0, "max": 1 },
+          "count": {
+            "min": 0,
+            "max": 1
+          },
           "rarityWeight": 60
         },
         {
           "type": "essence",
-          "count": { "min": 0, "max": 1 },
+          "count": {
+            "min": 0,
+            "max": 1
+          },
           "rarityWeight": 30
         }
       ]
@@ -1410,12 +1422,18 @@
       "socketSlots": [
         {
           "type": "gem",
-          "count": { "min": 1, "max": 2 },
+          "count": {
+            "min": 1,
+            "max": 2
+          },
           "rarityWeight": 80
         },
         {
           "type": "essence",
-          "count": { "min": 0, "max": 1 },
+          "count": {
+            "min": 0,
+            "max": 1
+          },
           "rarityWeight": 50
         }
       ]
@@ -1436,17 +1454,26 @@
       "socketSlots": [
         {
           "type": "gem",
-          "count": { "min": 1, "max": 3 },
+          "count": {
+            "min": 1,
+            "max": 3
+          },
           "rarityWeight": 100
         },
         {
           "type": "essence",
-          "count": { "min": 0, "max": 2 },
+          "count": {
+            "min": 0,
+            "max": 2
+          },
           "rarityWeight": 60
         },
         {
           "type": "rune",
-          "count": { "min": 0, "max": 1 },
+          "count": {
+            "min": 0,
+            "max": 1
+          },
           "rarityWeight": 30
         }
       ]

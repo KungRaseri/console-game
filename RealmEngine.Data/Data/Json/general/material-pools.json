@@ -9,97 +9,220 @@
     "humanoid_low": {
       "description": "Low-tier humanoid enemies (goblins, bandits, cultists)",
       "metals": [
-        { "materialRef": "@items/materials/metals:iron", "selectionWeight": 60 },
-        { "materialRef": "@items/materials/metals:bronze", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:steel", "selectionWeight": 10 }
+        {
+          "materialRef": "@items/materials/metals:iron",
+          "selectionWeight": 60
+        },
+        {
+          "materialRef": "@items/materials/metals:bronze",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:steel",
+          "selectionWeight": 10
+        }
       ]
     },
     "humanoid_mid": {
       "description": "Mid-tier humanoid enemies (knights, guards, mercenaries)",
       "metals": [
-        { "materialRef": "@items/materials/metals:steel", "selectionWeight": 50 },
-        { "materialRef": "@items/materials/metals:silver", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:mithril", "selectionWeight": 20 }
+        {
+          "materialRef": "@items/materials/metals:steel",
+          "selectionWeight": 50
+        },
+        {
+          "materialRef": "@items/materials/metals:silver",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:mithril",
+          "selectionWeight": 20
+        }
       ]
     },
     "humanoid_high": {
       "description": "High-tier humanoid enemies (champions, lords, elite warriors)",
       "metals": [
-        { "materialRef": "@items/materials/metals:mithril", "selectionWeight": 40 },
-        { "materialRef": "@items/materials/metals:adamantine", "selectionWeight": 40 },
-        { "materialRef": "@items/materials/metals:dragonbone", "selectionWeight": 20 }
+        {
+          "materialRef": "@items/materials/metals:mithril",
+          "selectionWeight": 40
+        },
+        {
+          "materialRef": "@items/materials/metals:adamantine",
+          "selectionWeight": 40
+        },
+        {
+          "materialRef": "@items/materials/metals:dragonbone",
+          "selectionWeight": 20
+        }
       ]
     },
     "dragon_hoard": {
       "description": "Dragon loot - can drop any material including legendary metals",
       "metals": [
-        { "materialRef": "@items/materials/metals:steel", "selectionWeight": 15 },
-        { "materialRef": "@items/materials/metals:mithril", "selectionWeight": 25 },
-        { "materialRef": "@items/materials/metals:adamantine", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:dragonbone", "selectionWeight": 20 },
-        { "materialRef": "@items/materials/metals:celestial-ore", "selectionWeight": 10 }
+        {
+          "materialRef": "@items/materials/metals:steel",
+          "selectionWeight": 15
+        },
+        {
+          "materialRef": "@items/materials/metals:mithril",
+          "selectionWeight": 25
+        },
+        {
+          "materialRef": "@items/materials/metals:adamantine",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:dragonbone",
+          "selectionWeight": 20
+        },
+        {
+          "materialRef": "@items/materials/metals:celestial-ore",
+          "selectionWeight": 10
+        }
       ]
     },
     "elemental_fire": {
       "description": "Fire-themed enemies (fire elementals, salamanders, ifrit)",
       "metals": [
-        { "materialRef": "@items/materials/metals:obsidian", "selectionWeight": 40 },
-        { "materialRef": "@items/materials/metals:steel", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:mithril", "selectionWeight": 20 },
-        { "materialRef": "@items/materials/metals:dragonbone", "selectionWeight": 10 }
+        {
+          "materialRef": "@items/materials/metals:obsidian",
+          "selectionWeight": 40
+        },
+        {
+          "materialRef": "@items/materials/metals:steel",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:mithril",
+          "selectionWeight": 20
+        },
+        {
+          "materialRef": "@items/materials/metals:dragonbone",
+          "selectionWeight": 10
+        }
       ]
     },
     "elemental_ice": {
       "description": "Ice-themed enemies (ice elementals, frost giants)",
       "metals": [
-        { "materialRef": "@items/materials/metals:crystal", "selectionWeight": 40 },
-        { "materialRef": "@items/materials/metals:silver", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:mithril", "selectionWeight": 20 },
-        { "materialRef": "@items/materials/metals:adamantine", "selectionWeight": 10 }
+        {
+          "materialRef": "@items/materials/metals:crystal",
+          "selectionWeight": 40
+        },
+        {
+          "materialRef": "@items/materials/metals:silver",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:mithril",
+          "selectionWeight": 20
+        },
+        {
+          "materialRef": "@items/materials/metals:adamantine",
+          "selectionWeight": 10
+        }
       ]
     },
     "undead": {
       "description": "Undead enemies - tend to have rusty, worn materials",
       "metals": [
-        { "materialRef": "@items/materials/metals:iron", "selectionWeight": 50 },
-        { "materialRef": "@items/materials/metals:silver", "selectionWeight": 40 },
-        { "materialRef": "@items/materials/metals:obsidian", "selectionWeight": 10 }
+        {
+          "materialRef": "@items/materials/metals:iron",
+          "selectionWeight": 50
+        },
+        {
+          "materialRef": "@items/materials/metals:silver",
+          "selectionWeight": 40
+        },
+        {
+          "materialRef": "@items/materials/metals:obsidian",
+          "selectionWeight": 10
+        }
       ]
     },
     "beast": {
       "description": "Beast enemies - natural materials, bone, hide",
       "metals": [
-        { "materialRef": "@items/materials/metals:iron", "selectionWeight": 40 },
-        { "materialRef": "@items/materials/metals:bronze", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:steel", "selectionWeight": 20 },
-        { "materialRef": "@items/materials/metals:dragonbone", "selectionWeight": 10 }
+        {
+          "materialRef": "@items/materials/metals:iron",
+          "selectionWeight": 40
+        },
+        {
+          "materialRef": "@items/materials/metals:bronze",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:steel",
+          "selectionWeight": 20
+        },
+        {
+          "materialRef": "@items/materials/metals:dragonbone",
+          "selectionWeight": 10
+        }
       ]
     },
     "demonic": {
       "description": "Demonic enemies - dark, cursed materials",
       "metals": [
-        { "materialRef": "@items/materials/metals:obsidian", "selectionWeight": 40 },
-        { "materialRef": "@items/materials/metals:steel", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:adamantine", "selectionWeight": 20 },
-        { "materialRef": "@items/materials/metals:void-crystal", "selectionWeight": 10 }
+        {
+          "materialRef": "@items/materials/metals:obsidian",
+          "selectionWeight": 40
+        },
+        {
+          "materialRef": "@items/materials/metals:steel",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:adamantine",
+          "selectionWeight": 20
+        },
+        {
+          "materialRef": "@items/materials/metals:void-crystal",
+          "selectionWeight": 10
+        }
       ]
     },
     "celestial": {
       "description": "Celestial/holy enemies - divine materials",
       "metals": [
-        { "materialRef": "@items/materials/metals:silver", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:mithril", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:celestial-ore", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:adamantine", "selectionWeight": 10 }
+        {
+          "materialRef": "@items/materials/metals:silver",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:mithril",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:celestial-ore",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:adamantine",
+          "selectionWeight": 10
+        }
       ]
     },
     "default": {
       "description": "Default pool if no specific pool defined - balanced selection",
       "metals": [
-        { "materialRef": "@items/materials/metals:iron", "selectionWeight": 40 },
-        { "materialRef": "@items/materials/metals:steel", "selectionWeight": 30 },
-        { "materialRef": "@items/materials/metals:mithril", "selectionWeight": 20 },
-        { "materialRef": "@items/materials/metals:adamantine", "selectionWeight": 10 }
+        {
+          "materialRef": "@items/materials/metals:iron",
+          "selectionWeight": 40
+        },
+        {
+          "materialRef": "@items/materials/metals:steel",
+          "selectionWeight": 30
+        },
+        {
+          "materialRef": "@items/materials/metals:mithril",
+          "selectionWeight": 20
+        },
+        {
+          "materialRef": "@items/materials/metals:adamantine",
+          "selectionWeight": 10
+        }
       ]
     }
   }
