@@ -443,7 +443,152 @@ The system supports diverse objective types to create varied gameplay:
 - Show objective completion in real-time
 - Celebrate quest chain completion
 
-### 6. Exploration System
+### 6. Crafting System
+
+The crafting system allows players to create, modify, and enhance equipment using gathered materials and recipes. Crafting provides an alternative progression path and enables customization beyond found loot.
+
+#### Crafting Stations
+
+**Station Types:**
+- **Blacksmith Forge**: Craft and upgrade weapons and armor
+- **Alchemy Lab**: Brew potions, elixirs, and consumables
+- **Enchanting Altar**: Add magical properties to equipment
+- **Tinker's Workbench**: Create utility items and accessories *(Future)*
+
+**Station Access:**
+- Found in towns and some dungeon safe rooms
+- Portable crafting kits allow field crafting *(Future)*
+- Higher-tier stations unlock advanced recipes
+
+#### Materials System
+
+**Material Sources:**
+- **Resource Gathering**: Mine ore, harvest herbs, collect components in wilderness
+- **Enemy Drops**: Creature parts, elemental essences, rare materials
+- **Salvaging**: Dismantle unwanted equipment for materials
+- **Vendor Purchase**: Buy common materials from merchants
+- **Quest Rewards**: Rare materials as quest completion rewards
+
+**Material Types:**
+- **Metals**: Iron, Steel, Mithril, Adamantine (weapon/armor crafting)
+- **Cloth & Leather**: Fabric, Hide, Dragon Scale (armor crafting)
+- **Herbs & Reagents**: Healing herbs, mana flowers, alchemical components (potions)
+- **Gems & Crystals**: Emeralds, Rubies, Soul Gems (enchanting)
+- **Creature Parts**: Claws, fangs, scales, essences (special crafting)
+
+**Material Quality:**
+- Common, Uncommon, Rare, Epic, Legendary tiers
+- Higher quality materials produce superior items
+- Material traits affect crafted item properties
+
+#### Recipe System
+
+**Recipe Acquisition:**
+- **Starting Recipes**: Basic recipes available immediately
+- **Discovery**: Learn recipes by experimenting with materials
+- **Trainers**: Purchase recipes from crafting trainers
+- **Quest Rewards**: Unique recipes from special quests
+- **Found Loot**: Recipe books in dungeons and hidden locations
+
+**Recipe Types:**
+- **Equipment Recipes**: Create weapons, armor, shields, accessories
+- **Consumable Recipes**: Brew potions and craft utility items
+- **Enchantment Recipes**: Apply magical effects to equipment
+- **Upgrade Recipes**: Improve existing equipment stats
+
+**Recipe Requirements:**
+- Specific materials in required quantities
+- Crafting station type and tier
+- Character level or skill requirements *(Future)*
+- Previous recipe prerequisites for advanced crafts
+
+#### Crafting Process
+
+**Creating Items:**
+1. Access appropriate crafting station
+2. Select recipe from available recipes
+3. Verify material availability in inventory
+4. Confirm crafting action
+5. Consume materials and create item
+
+**Success and Quality:**
+- Crafting success guaranteed for standard recipes *(may add skill checks in future)*
+- Item quality matches material quality used
+- Critical success chance creates superior items *(Future)*
+- Crafting skill affects outcome quality *(Future)*
+
+#### Equipment Enhancement
+
+**Upgrade System:**
+- Improve existing equipment with additional materials
+- Increases base stats (damage, defense, attributes)
+- Multiple upgrade levels per item (typically 3-5 tiers)
+- Upgrade costs increase exponentially with tier
+- Upgraded items retain enchantments and traits
+
+**Enchanting System:**
+- Apply magical effects to crafted or found equipment
+- Enchantments provide bonuses (attribute boosts, resistances, special effects)
+- Multiple enchantment slots per item based on rarity
+- Stronger enchantments require rarer materials
+- Enchantments can be replaced but not removed without loss
+
+**Modification System:** *(Future)*
+- Socket gems into special item slots
+- Reforge items to change stat distributions
+- Add trait modifiers using special materials
+- Rename custom-crafted items
+
+#### Crafting Skills *(Future)*
+
+**Skill Progression:**
+- Separate crafting skills for each profession (Blacksmithing, Alchemy, Enchanting)
+- Skills improve through successful crafting
+- Higher skill unlocks advanced recipes
+- Skill level affects item quality and critical success chance
+- Master crafters produce superior items
+
+**Specialization:**
+- Focus on specific crafting types for unique bonuses
+- Weapon specialist creates superior weapons
+- Armor specialist creates superior armor
+- Master Alchemist brews more potent potions
+
+#### Economic Integration
+
+**Crafting Value:**
+- Crafted items can be sold to merchants for profit
+- High-quality crafted items command premium prices
+- Crafting can be profitable with rare materials
+- Player-crafted items available in shops *(Future)*
+
+**Material Market:**
+- Purchase common materials from vendors
+- Rare materials sold at premium prices
+- Material prices fluctuate based on demand *(Future)*
+- Sell excess materials for gold
+
+#### Strategic Depth
+
+**Build Synergy:**
+- Craft equipment tailored to specific character builds
+- Create items with exact stat distributions desired
+- Enchant for targeted bonuses (elemental damage, resistances)
+- Optimization beyond random loot drops
+
+**Self-Sufficiency:**
+- Reduce reliance on shop inventory
+- Craft healing potions for sustainable adventuring
+- Create equipment upgrades during long expeditions
+- Emergency crafting in dungeon safe rooms
+
+**Collection Goals:**
+- Gather all recipes for completionists
+- Collect rare materials from elite enemies
+- Master all crafting professions
+- Create legendary custom equipment sets
+
+### 7. Exploration System
 
 The exploration system provides diverse locations for players to discover and traverse. Locations vary in purpose (towns provide services, dungeons provide combat/loot, wilderness provides random encounters) and difficulty (scaled to player level or fixed challenge rating).
 
@@ -629,7 +774,7 @@ The exploration system provides diverse locations for players to discover and tr
 - Completing town quests improves services
 - Failed quests may alter location availability
 
-### 7. Achievement System
+### 8. Achievement System
 
 **6 Achievements** tracking player milestones:
 
@@ -644,7 +789,7 @@ The exploration system provides diverse locations for players to discover and tr
 
 Achievements persist across saves and New Game+ playthroughs.
 
-### 8. Difficulty System
+### 9. Difficulty System
 
 Multiple difficulty modes cater to different player preferences and skill levels, adjusting challenge and rewards accordingly.
 
@@ -677,7 +822,7 @@ Multiple difficulty modes cater to different player preferences and skill levels
 - Legendary rewards for successful completion
 - Quest completion grants time extensions
 
-### 9. Death System
+### 10. Death System
 
 The death system handles character defeat with consequences varying by difficulty mode.
 
@@ -714,7 +859,7 @@ Leaderboard tracking memorable characters:
 - Difficulty mode and playtime
 - Ranks top characters for posterity
 
-### 10. Save/Load System
+### 11. Save/Load System
 
 A robust save system preserves game state and supports multiple characters.
 
@@ -738,7 +883,7 @@ Save files preserve complete game state:
 - Discovered locations and world state
 - Difficulty settings and mode flags
 
-### 11. New Game+ System
+### 12. New Game+ System
 
 New Game+ mode allows players to replay the game with bonuses earned from completing the main quest.
 
