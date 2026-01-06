@@ -13,14 +13,15 @@
 
 ### Verified Status Accuracy:
 - ✅ **8 systems ACCURATELY marked as COMPLETE** (Character, Combat, Achievement, Difficulty, Death, Save/Load, New Game+, Crafting [as 0%])
-- ✅ **3 systems ACCURATELY marked as PARTIAL** (Progression 65%, Quest 60%, Exploration 40%, Shop 50%, Trait 20%)
+- ✅ **3 systems ACCURATELY marked as PARTIAL** (Progression 65%, Quest 60%, Exploration 60%, Shop 50%, Trait 20%)
 - ⚠️ **1 system DESCRIPTION CORRECTED** (Inventory: 4 slots → 13 slots)
 - ✅ **Difficulty modes corrected** (5 modes → 7 modes: Easy, Normal, Hard, Expert, Ironman, Permadeath, Apocalypse)
 - ✅ **10 future systems confirmed as NOT STARTED** (Magic, Status Effects, Party, Reputation, Audio, Visual, Online, QoL, Modding, UI Evolution)
+- ✅ **LocationGenerator integration completed** (January 5, 2026) - Exploration 40% → 60%
 
 ### Critical Findings:
 1. **Inventory System** - Code implements 13 equipment slots (not 4 as documented)
-2. **LocationGenerator** - 300+ lines of fully-implemented orphaned code never called in gameplay
+2. ~~**LocationGenerator**~~ - ✅ **RESOLVED**: Integrated into ExplorationService (January 5, 2026)
 3. **Quest System** - Complete services exist but never invoked in main gameplay loop
 4. **Abilities** - 100+ JSON files and AbilityGenerator exist but not integrated into CombatService
 5. **ShopEconomyService** - 326 lines fully coded with 11 tests but no UI integration
@@ -154,26 +155,28 @@ This document tracks the current implementation status of all features in RealmE
 ---
 
 ### ⚠️ Exploration System
-**Status**: PARTIAL (40%)  
+**Status**: PARTIAL (60%)  
 **Feature Page**: [exploration-system.md](features/exploration-system.md)
 
 **What Works:**
 - ExplorationService with ExploreAsync() ✅
 - TravelToLocationCommand and handler ✅
-- **LocationGenerator FULLY IMPLEMENTED (300+ lines, 9 passing tests)** ✅
-- 8 hardcoded location names ✅
+- **LocationGenerator INTEGRATED (300+ lines, 9 passing tests)** ✅
+- **Dynamic location generation** - Generates 2 towns, 3 dungeons, 3 wilderness locations ✅
+- **GetKnownLocationsAsync()** - Returns Location objects with Id, Name, Description, Type ✅
+- **InitializeLocationsAsync()** - Lazy-loads locations from JSON catalogs ✅
 - SaveGameService tracks discovered locations ✅
 
 **What's Missing:**
 - ❌ **Generic exploration only** - All locations give same rewards (60% combat, 40% XP/gold)
-- ❌ **LocationGenerator NEVER CALLED** - Complete orphaned code (GenerateLocationsAsync, HydrateLocationAsync, name generation)
+- ❌ **Location hydration disabled** - NPC/Enemy/Loot references not resolved (hydrate: false)
 - ❌ **No location-specific spawns** - Enemy generation ignores location context
 - ❌ **No location-specific loot** - Loot randomly generated (TODO comments exist)
-- ❌ **No town mechanics** - Towns are just strings in _knownLocations list
+- ❌ **No town mechanics** - Towns have no services or NPCs yet
 - ❌ **No dungeon multi-room** - No room progression system
 
 **Priority**: MEDIUM - Location content (Priority 4)  
-**Note**: 300+ lines of LocationGenerator code ready to integrate
+**Recent Change**: LocationGenerator integrated into ExplorationService (January 5, 2026)
 
 ---
 
