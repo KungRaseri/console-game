@@ -12,8 +12,8 @@
 **Goal**: Connect existing production-ready code that's been orphaned
 
 ### LocationGenerator Integration
-- **Status**: `[✅ Finished]` (January 5, 2026)
-- **Effort**: Low (2-3 days) → **Actual: 1 day**
+- **Status**: `[✅ Finished]`
+- **Effort**: Low (integration-only)
 - **Impact**: HIGH - Unlocks location-specific content
 - **Work**: ~~Wire 300+ lines of LocationGenerator into ExplorationService~~ **DONE**
 - **File**: `RealmEngine.Core.Generators.Modern.LocationGenerator`
@@ -29,7 +29,7 @@
 
 ### Quest Service Connections
 - **Status**: `[Not Started]`
-- **Effort**: Low (2-3 days)
+- **Effort**: Low
 - **Impact**: HIGH - Makes quests playable
 - **Work**: 
   - Hook QuestService/QuestProgressService into gameplay loop
@@ -43,7 +43,7 @@
 
 ### Shop Service API
 - **Status**: `[Not Started]`
-- **Effort**: Medium (1 week)
+- **Effort**: Medium
 - **Impact**: MEDIUM - Enables merchant interactions
 - **Work**:
   - Expose ShopEconomyService methods as callable APIs
@@ -70,38 +70,47 @@
 ---
 
 #### 1. Skills System
-- **Status**: `[Rebuild Required]`
-- **Effort**: Very High (3-4 weeks)
+- **Status**: `[✅ Design Complete]`
+- **Effort**: Very High
 - **Current State**: 10 hardcoded passive bonuses (wrong approach)
 - **Vision**: Practice-based skill progression system
 
-**Design Needed**: `docs/designs/skills-system-design.md`
+**Design Complete**: `docs/designs/skills-system-design.md` ✅
 
-**Key Questions to Answer**:
-- Domain structure: `/skills/attributes/`, `/skills/combat/`, `/skills/magic/`, `/skills/professions/`?
-- Progression mechanics: XP per action? Milestone-based? Trainer-based?
-- Skill effects: Damage multipliers? Unlock abilities? Success rates?
-- Caps and limits: Hard cap at 100? Soft cap? Different per skill?
+**Architecture Decisions**:
+- **Rank System**: 0-100 ranks per skill (not 0-5)
+- **XP Formula**: `baseXPCost + (currentRank × baseXPCost × costMultiplier)`
+- **27 Skills Total**: Attribute (6), Combat (6), Magic (6), Profession (3), Survival (6)
+- **Effect Types**: Damage multipliers, defense bonuses, spell power, crafting quality
+- **JSON Catalog**: `skills/catalog.json` defines all skill properties
+- **Per-Rank Bonuses**: Combat +0.5%, Magic +0.4%, Defense +0.3%, Professions +1%
 
-**Proposed Skill Categories**:
+**Skill Categories**:
 - **Attribute Skills**: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma
-- **Combat Skills**: One-Handed, Two-Handed, Archery, Block, Heavy Armor, Light Armor
+- **Combat Skills**: One-Handed, Two-Handed, Archery, Block, Heavy Armor, Medium Armor, Light Armor
 - **Magic Skills**: Destruction, Restoration, Alteration, Conjuration, Illusion, Mysticism
 - **Profession Skills**: Blacksmithing, Alchemy, Enchanting
 - **Survival Skills**: Lockpicking, Sneaking, Pickpocketing, Speech
 
+**Implementation Steps**:
+1. Data models & JSON catalog
+2. SkillProgressionService & effect calculations
+3. Combat integration & notifications
+4. Save/load & backwards compatibility
+
 **Dependencies**: None (foundational)
 
 **API Impact**:
-- `GetSkillProgress(skillId)` → returns current level, XP, next level threshold
-- `GetAllSkills()` → returns character's skill sheet
-- Skill increases happen automatically during gameplay based on usage
+- `AwardSkillXP(skillId, xpAmount)` → awards XP, handles rank-ups
+- `GetSkillProgress(skillId)` → returns current rank, XP, next rank threshold
+- `GetAllSkills()` → returns character's full skill sheet with progress
+- Skill XP awarded automatically during gameplay (combat hits, spell casts, crafting)
 
 ---
 
 #### 2. Abilities System
 - **Status**: `[Needs Audit + Design]`
-- **Effort**: High (2-3 weeks)
+- **Effort**: High
 - **Current State**: 100+ JSON files in `/abilities/` (purpose unclear, needs audit)
 - **Vision**: Class and species-specific active powers
 
@@ -140,7 +149,7 @@
 
 #### 3. Magic & Spell System
 - **Status**: `[Not Started]`
-- **Effort**: High (3-4 weeks)
+- **Effort**: High 
 - **Current State**: Nothing (0%)
 - **Vision**: Learnable spell system with schools of magic (domains)
 
@@ -180,7 +189,7 @@
 
 #### Quest Service API
 - **Status**: `[Not Started]`
-- **Effort**: Medium (1-2 weeks)
+- **Effort**: Medium 
 - **Work**:
   - Expose QuestService methods as callable APIs
   - Design quest browsing/tracking interface
@@ -196,7 +205,7 @@
 
 #### Boss Encounters
 - **Status**: `[Not Started]`
-- **Effort**: High (2-3 weeks)
+- **Effort**: High 
 - **Work**:
   - Design unique boss enemies for quest climaxes
   - Boss-specific mechanics and abilities
@@ -214,7 +223,7 @@
 
 #### Location-Specific Content
 - **Status**: `[Not Started]`
-- **Effort**: Medium (2-3 weeks)
+- **Effort**: Medium 
 - **Work**:
   - Location-specific enemy spawn tables
   - Location-specific loot tables
@@ -227,7 +236,7 @@
 
 #### Town Mechanics
 - **Status**: `[Not Started]`
-- **Effort**: Medium (2-3 weeks)
+- **Effort**: Medium 
 - **Work**:
   - Rest/Inn system (heal, save, time passage)
   - Town-specific shops
@@ -243,7 +252,7 @@
 
 #### Dungeon Multi-Room System
 - **Status**: `[Not Started]`
-- **Effort**: High (3-4 weeks)
+- **Effort**: High 
 - **Work**:
   - Room-by-room progression (entrance → rooms → boss)
   - Room types (combat, puzzle, treasure, boss)
@@ -261,7 +270,7 @@
 
 #### Status Effects System
 - **Status**: `[Not Started]`
-- **Effort**: High (3-4 weeks)
+- **Effort**: High 
 - **Work**:
   - DoT effects (poison, burning, bleeding)
   - Buffs (strength, defense, speed)
@@ -281,7 +290,7 @@
 
 #### Trait Effects Integration
 - **Status**: `[Partially Done - 20%]`
-- **Effort**: Medium (2-3 weeks)
+- **Effort**: Medium 
 - **Current State**: Trait data exists in JSON, TraitValue class works, but traits don't affect gameplay
 - **Work**:
   - Integrate weapon traits into combat (Fire damage, Lightning chain, etc.)
@@ -300,7 +309,7 @@
 
 #### Reputation & Faction System
 - **Status**: `[Not Started]`
-- **Effort**: Medium (2-3 weeks)
+- **Effort**: Medium 
 - **Work**:
   - Faction definitions (guilds, cities, factions)
   - Reputation tracking per faction
@@ -314,7 +323,7 @@
 
 #### Party System
 - **Status**: `[Not Started]`
-- **Effort**: Very High (4-6 weeks)
+- **Effort**: Very High 
 - **Work**:
   - NPC recruitment system
   - Party management (add/remove members)
@@ -331,7 +340,7 @@
 
 #### Crafting System
 - **Status**: `[Not Started]`
-- **Effort**: High (3-4 weeks)
+- **Effort**: High 
 - **Work**:
   - Crafting stations (forge, alchemy table, enchanting altar)
   - Material system and gathering
@@ -350,7 +359,7 @@
 
 #### Audio System
 - **Status**: `[Not Started]`
-- **Effort**: Low (3-5 days)
+- **Effort**: Low 
 - **Work**:
   - Background music per location type
   - Combat music transitions
@@ -363,7 +372,7 @@
 
 #### Visual Enhancements
 - **Status**: `[Not Started]`
-- **Effort**: Medium (1-2 weeks)
+- **Effort**: Medium 
 - **Work**:
   - ASCII art for locations
   - Boss portraits
@@ -378,7 +387,7 @@
 
 #### Online & Community Features
 - **Status**: `[Not Started]`
-- **Effort**: High (3-4 weeks)
+- **Effort**: High 
 - **Work**:
   - Global leaderboards (Hall of Fame rankings)
   - Daily/weekly challenges
@@ -390,7 +399,7 @@
 
 #### Quality of Life Enhancements
 - **Status**: `[Not Started]`
-- **Effort**: Medium (2-3 weeks)
+- **Effort**: Medium 
 - **Work**:
   - Command history and undo
   - Keybind customization
@@ -403,7 +412,7 @@
 
 #### Modding Support
 - **Status**: `[Not Started]`
-- **Effort**: High (3-4 weeks)
+- **Effort**: High 
 - **Work**:
   - Mod loader system
   - Plugin architecture
