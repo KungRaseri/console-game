@@ -907,9 +907,178 @@ New Game+ mode allows players to replay the game with bonuses earned from comple
 - Encourages experimentation with different builds
 - Provides extended endgame content
 
----
+### 13. Magic & Spell System
 
-## Game Features
+**Design Philosophy:**
+A comprehensive spell-casting system providing magical combat options and utility beyond physical abilities.
+
+**Spell Categories:**
+- **Offensive Spells**: Direct damage, area effects, damage-over-time
+- **Defensive Spells**: Shields, wards, damage mitigation
+- **Healing Spells**: Health restoration, regeneration, cure effects
+- **Utility Spells**: Teleportation, detection, illumination, utility
+- **Buff/Debuff Spells**: Temporary stat modifications for allies or enemies
+
+**Spell Mechanics:**
+- Mana costs balance spell power
+- Cooldowns prevent ability spam
+- Spell learning through scrolls, trainers, quest rewards
+- Spell schools categorize magic types
+- Spell combinations create synergistic effects
+
+### 14. Status Effects System
+
+**Design Philosophy:**
+Status effects add tactical depth through temporary conditions affecting combat and exploration.
+
+**Effect Categories:**
+- **Damage-Over-Time**: Periodic damage (poison, burning, bleeding)
+- **Crowd Control**: Movement/action restriction (frozen, stunned, slowed)
+- **Stat Modification**: Temporary stat changes (blessed, cursed, weakened)
+- **Environmental**: Location-based effects (burning terrain, poison gas)
+
+**Status Mechanics:**
+- Duration-based effects with tick rates
+- Resistances and immunities reduce/prevent effects
+- Cure methods (items, spells, time)
+- Stacking rules for multiple effects
+- Visual indicators for active statuses
+
+### 15. Party System
+
+**Design Philosophy:**
+Recruit and manage NPC allies for cooperative combat and enhanced strategic depth.
+
+**Party Mechanics:**
+- **Recruitment**: NPCs join party through quests, reputation, or payment
+- **Party Combat**: AI-controlled allies fight alongside player
+- **Party Management**: Equip allies, assign roles, manage resources
+- **Party Progression**: Allies level up and gain abilities
+- **Permadeath Option**: Party members can permanently die based on difficulty
+
+**Strategic Depth:**
+- Formation positioning affects combat effectiveness
+- Party composition creates tactical variety
+- Ally abilities synergize with player skills
+- Resource management for entire party
+
+### 16. Reputation & Faction System
+
+**Design Philosophy:**
+Player actions influence relationships with factions, unlocking or locking content based on choices.
+
+**Reputation Mechanics:**
+- **Multiple Factions**: Guilds, kingdoms, organizations with competing interests
+- **Action Consequences**: Quest choices, combat decisions affect reputation
+- **Reputation Levels**: Hostile to Exalted with gradual progression
+- **Locked Content**: Quests, shops, areas restricted by reputation
+- **Multiple Endings**: Story outcomes vary based on faction allegiances
+
+**Faction Types:**
+- Story factions affecting main narrative
+- Guild factions providing specialized services
+- Antagonist factions creating conflict
+
+### 17. Audio System
+
+**Design Philosophy:**
+Immersive audio through background music and sound effects enhances atmosphere and player feedback.
+
+**Music System:**
+- **Location Music**: Unique themes per area type
+- **Combat Music**: Dynamic intensity based on battle state
+- **Boss Themes**: Memorable music for major encounters
+- **Ambient Soundscapes**: Environmental audio for immersion
+- **Victory Fanfares**: Celebration music for achievements
+
+**Sound Effects:**
+- **Combat Sounds**: Weapon impacts, ability effects, critical hits
+- **UI Sounds**: Menu navigation, confirmations, errors
+- **Environmental Sounds**: Ambient effects matching locations
+- **Action Feedback**: Audio cues for player actions
+
+### 18. Visual Enhancement System
+
+**Design Philosophy:**
+Visual polish through ASCII art, animations, and effects improves presentation without changing core gameplay.
+
+**Visual Features:**
+- **ASCII Art**: Location illustrations, title screens, boss portraits
+- **Combat Animations**: Attack effects, damage indicators, status visuals
+- **Transitions**: Screen transitions, fade effects, loading screens
+- **Particle Effects**: Visual flourishes for abilities and criticals
+- **UI Polish**: Refined menus, borders, decorative elements
+
+### 19. Online & Community Features
+
+**Design Philosophy:**
+Community engagement through leaderboards, challenges, and shared content extends replayability.
+
+**Online Features:**
+- **Global Leaderboards**: Rank characters across difficulty modes and playstyles
+- **Daily Challenges**: Pre-generated challenges with unique rewards
+- **Save Sharing**: Export/import characters and builds
+- **Community Events**: Limited-time content and seasonal activities
+- **Achievement Showcases**: Display accomplishments and compare with others
+
+**Integration:**
+- Optional online connectivity
+- Offline play remains fully functional
+- Community-driven content discovery
+
+### 20. Quality of Life Enhancements
+
+**Design Philosophy:**
+Convenience features reduce friction without compromising challenge or strategic depth.
+
+**QoL Features:**
+- **Undo Actions**: Reverse recent mistakes
+- **Keybind Customization**: Rebind controls to preference
+- **Quick-Save**: Instant save hotkey
+- **Tutorial System**: Guided introduction to mechanics
+- **Hint System**: Context-sensitive help
+- **Difficulty Adjustment**: Change difficulty mid-playthrough
+- **Fast Travel**: Quick navigation between discovered locations
+- **Auto-Sort**: Automatic inventory organization
+- **Batch Actions**: Perform multiple similar actions efficiently
+
+### 21. Modding Support
+
+**Design Philosophy:**
+Enable community content creation through modding tools and APIs for extended longevity.
+
+**Modding Features:**
+- **Mod Loader**: System for loading custom content
+- **Content Creation**: Tools for creating items, quests, locations
+- **Scripting API**: Programming interface for custom mechanics
+- **Asset Support**: Import custom data files, JSON content
+- **Mod Validation**: Ensure mods meet quality standards
+- **Community Sharing**: Platform for distributing mods
+
+**Mod Categories:**
+- Content mods (items, quests, NPCs)
+- Balance mods (difficulty, progression)
+- Visual mods (ASCII art, UI themes)
+- System mods (new mechanics, features)
+
+### 22. UI Technology Evolution
+
+**Design Philosophy:**
+Transition from console-based UI to graphical interface while preserving gameplay mechanics.
+
+**Godot Integration:**
+- **Graphical UI**: Rich visual interface replacing console
+- **Mouse & Controller**: Multiple input method support
+- **Animations**: Smooth transitions and visual feedback
+- **Accessibility**: Screen reader support, colorblind modes, font scaling
+- **Customization**: Player-adjustable UI layouts and themes
+
+**Migration Strategy:**
+- Preserve gameplay mechanics during transition
+- Maintain console UI as legacy option
+- Gradual feature migration ensuring stability
+
+---
 
 ## Game Features
 
@@ -1032,22 +1201,6 @@ Exploration areas follow structured difficulty progression, guiding players thro
 **Planned Locations (Future):**
 
 Locations will range from safe starting zones through late-game challenges, each with appropriate enemy levels, loot quality, and quest content. Progression encourages thorough exploration while maintaining appropriate challenge curves.
-
----
-
-## JSON Data Standards
-
-All game data files follow strict standards for consistency, maintainability, and tooling compatibility.
-
-Comprehensive standards are documented in the [docs/standards/](../standards/) folder, including:
-
-- **JSON v4.0 + v4.1**: Pattern generation, catalogs, references
-- **Pattern Components**: Component naming and structure  
-- **Trait System**: Trait documentation and usage
-- **Item Enhancement**: Enhancement system design
-- **Rarity Weighting**: Weight-based selection system
-
-For detailed specifications, see [docs/standards/README.md](../standards/README.md).
 
 ---
 
