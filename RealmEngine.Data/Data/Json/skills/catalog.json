@@ -1,0 +1,447 @@
+{
+  "metadata": {
+    "version": "4.1",
+    "type": "skills_catalog",
+    "description": "All character skills with practice-based progression",
+    "totalSkills": 27,
+    "lastUpdated": "Current Date",
+    "notes": [
+      "Skills are passive proficiencies that improve through use",
+      "All characters have access to the same skill list",
+      "Skills ranked from 0 (untrained) to 100 (master)",
+      "XP formula: baseXPCost + (currentRank × baseXPCost × costMultiplier)"
+    ]
+  },
+  "skill_types": {
+    "attribute": {
+      "description": "Core attribute skills that define character capabilities",
+      "items": [
+        {
+          "id": "strength",
+          "name": "Strength",
+          "description": "Physical power and melee damage",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "damage_multiplier",
+          "effectValue": 0.005,
+          "effectDescription": "+0.5% melee damage per rank",
+          "xpActions": [
+            { "action": "melee_attack", "xpAmount": 5 },
+            { "action": "melee_kill", "xpAmount": 15 },
+            { "action": "critical_hit", "xpAmount": 10 }
+          ]
+        },
+        {
+          "id": "dexterity",
+          "name": "Dexterity",
+          "description": "Agility, precision, and critical chance",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "critical_chance",
+          "effectValue": 0.002,
+          "effectDescription": "+0.2% critical chance per rank",
+          "xpActions": [
+            { "action": "ranged_attack", "xpAmount": 5 },
+            { "action": "dodge_success", "xpAmount": 10 },
+            { "action": "critical_hit", "xpAmount": 15 }
+          ]
+        },
+        {
+          "id": "constitution",
+          "name": "Constitution",
+          "description": "Endurance and maximum health",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "health_multiplier",
+          "effectValue": 0.003,
+          "effectDescription": "+0.3% max health per rank",
+          "xpActions": [
+            { "action": "take_damage", "xpAmount": 3 },
+            { "action": "survive_low_health", "xpAmount": 20 },
+            { "action": "complete_combat", "xpAmount": 5 }
+          ]
+        },
+        {
+          "id": "intelligence",
+          "name": "Intelligence",
+          "description": "Magical knowledge and spell power",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "mana_multiplier",
+          "effectValue": 0.003,
+          "effectDescription": "+0.3% max mana per rank",
+          "xpActions": [
+            { "action": "cast_spell", "xpAmount": 8 },
+            { "action": "learn_spell", "xpAmount": 50 },
+            { "action": "spell_kill", "xpAmount": 20 }
+          ]
+        },
+        {
+          "id": "wisdom",
+          "name": "Wisdom",
+          "description": "Insight, perception, and mana regeneration",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "mana_regen",
+          "effectValue": 0.01,
+          "effectDescription": "+1% mana regeneration per rank",
+          "xpActions": [
+            { "action": "rest", "xpAmount": 5 },
+            { "action": "meditation", "xpAmount": 10 },
+            { "action": "identify_item", "xpAmount": 15 }
+          ]
+        },
+        {
+          "id": "charisma",
+          "name": "Charisma",
+          "description": "Social influence and merchant prices",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "price_reduction",
+          "effectValue": 0.002,
+          "effectDescription": "-0.2% merchant prices per rank",
+          "xpActions": [
+            { "action": "successful_persuasion", "xpAmount": 15 },
+            { "action": "complete_quest", "xpAmount": 10 },
+            { "action": "merchant_transaction", "xpAmount": 3 }
+          ]
+        }
+      ]
+    },
+    "combat": {
+      "description": "Weapon proficiency and combat effectiveness",
+      "items": [
+        {
+          "id": "one-handed",
+          "name": "One-Handed",
+          "description": "Proficiency with one-handed weapons",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "damage_multiplier",
+          "effectValue": 0.005,
+          "effectDescription": "+0.5% one-handed weapon damage per rank",
+          "xpActions": [
+            { "action": "one_handed_hit", "xpAmount": 5 },
+            { "action": "one_handed_kill", "xpAmount": 20 },
+            { "action": "critical_with_one_handed", "xpAmount": 15 }
+          ]
+        },
+        {
+          "id": "two-handed",
+          "name": "Two-Handed",
+          "description": "Proficiency with two-handed weapons",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "damage_multiplier",
+          "effectValue": 0.005,
+          "effectDescription": "+0.5% two-handed weapon damage per rank",
+          "xpActions": [
+            { "action": "two_handed_hit", "xpAmount": 5 },
+            { "action": "two_handed_kill", "xpAmount": 20 },
+            { "action": "cleave_multiple", "xpAmount": 25 }
+          ]
+        },
+        {
+          "id": "archery",
+          "name": "Archery",
+          "description": "Proficiency with bows and crossbows",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "damage_multiplier",
+          "effectValue": 0.005,
+          "effectDescription": "+0.5% ranged weapon damage per rank",
+          "xpActions": [
+            { "action": "ranged_hit", "xpAmount": 5 },
+            { "action": "ranged_kill", "xpAmount": 20 },
+            { "action": "headshot", "xpAmount": 30 }
+          ]
+        },
+        {
+          "id": "block",
+          "name": "Block",
+          "description": "Effectiveness with shields and blocking",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "block_chance",
+          "effectValue": 0.003,
+          "effectDescription": "+0.3% block chance per rank",
+          "xpActions": [
+            { "action": "block_success", "xpAmount": 10 },
+            { "action": "block_critical", "xpAmount": 20 },
+            { "action": "shield_bash", "xpAmount": 15 }
+          ]
+        },
+        {
+          "id": "heavy-armor",
+          "name": "Heavy Armor",
+          "description": "Proficiency with heavy armor",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "armor_rating",
+          "effectValue": 0.003,
+          "effectDescription": "+0.3% armor rating per rank",
+          "xpActions": [
+            { "action": "take_damage_in_heavy_armor", "xpAmount": 5 },
+            { "action": "survive_heavy_hit", "xpAmount": 15 },
+            { "action": "complete_combat_in_heavy_armor", "xpAmount": 10 }
+          ]
+        },
+        {
+          "id": "light-armor",
+          "name": "Light Armor",
+          "description": "Proficiency with light armor",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "evasion",
+          "effectValue": 0.002,
+          "effectDescription": "+0.2% evasion per rank",
+          "xpActions": [
+            { "action": "dodge_in_light_armor", "xpAmount": 10 },
+            { "action": "avoid_damage", "xpAmount": 15 },
+            { "action": "complete_combat_in_light_armor", "xpAmount": 8 }
+          ]
+        }
+      ]
+    },
+    "magic": {
+      "description": "Schools of magic for spellcasting",
+      "items": [
+        {
+          "id": "destruction",
+          "name": "Destruction",
+          "description": "Offensive magic: fire, ice, lightning, arcane",
+          "baseXPCost": 120,
+          "costMultiplier": 0.6,
+          "effectType": "spell_power",
+          "effectValue": 0.004,
+          "effectDescription": "+0.4% destruction spell damage per rank",
+          "xpActions": [
+            { "action": "cast_destruction_spell", "xpAmount": 8 },
+            { "action": "spell_kill", "xpAmount": 25 },
+            { "action": "cast_master_spell", "xpAmount": 35 }
+          ]
+        },
+        {
+          "id": "restoration",
+          "name": "Restoration",
+          "description": "Healing and curing magic",
+          "baseXPCost": 120,
+          "costMultiplier": 0.6,
+          "effectType": "healing_power",
+          "effectValue": 0.004,
+          "effectDescription": "+0.4% restoration spell healing per rank",
+          "xpActions": [
+            { "action": "cast_restoration_spell", "xpAmount": 8 },
+            { "action": "heal_critical_health", "xpAmount": 20 },
+            { "action": "cure_status", "xpAmount": 15 }
+          ]
+        },
+        {
+          "id": "alteration",
+          "name": "Alteration",
+          "description": "Buffs, shields, and transmutation",
+          "baseXPCost": 120,
+          "costMultiplier": 0.6,
+          "effectType": "buff_duration",
+          "effectValue": 0.02,
+          "effectDescription": "+2% alteration spell duration per rank",
+          "xpActions": [
+            { "action": "cast_alteration_spell", "xpAmount": 8 },
+            { "action": "maintain_long_buff", "xpAmount": 15 },
+            { "action": "cast_shield", "xpAmount": 12 }
+          ]
+        },
+        {
+          "id": "conjuration",
+          "name": "Conjuration",
+          "description": "Summoning and binding",
+          "baseXPCost": 120,
+          "costMultiplier": 0.6,
+          "effectType": "summon_strength",
+          "effectValue": 0.004,
+          "effectDescription": "+0.4% summon health/damage per rank",
+          "xpActions": [
+            { "action": "cast_conjuration_spell", "xpAmount": 8 },
+            { "action": "summon_creature", "xpAmount": 20 },
+            { "action": "summon_survives_combat", "xpAmount": 25 }
+          ]
+        },
+        {
+          "id": "illusion",
+          "name": "Illusion",
+          "description": "Mind magic: charm, fear, invisibility",
+          "baseXPCost": 120,
+          "costMultiplier": 0.6,
+          "effectType": "cc_duration",
+          "effectValue": 0.02,
+          "effectDescription": "+2% crowd control duration per rank",
+          "xpActions": [
+            { "action": "cast_illusion_spell", "xpAmount": 8 },
+            { "action": "charm_enemy", "xpAmount": 20 },
+            { "action": "stealth_success", "xpAmount": 15 }
+          ]
+        },
+        {
+          "id": "mysticism",
+          "name": "Mysticism",
+          "description": "Detection, teleportation, and divination",
+          "baseXPCost": 120,
+          "costMultiplier": 0.6,
+          "effectType": "utility_effectiveness",
+          "effectValue": 0.005,
+          "effectDescription": "+0.5% detection range per rank",
+          "xpActions": [
+            { "action": "cast_mysticism_spell", "xpAmount": 8 },
+            { "action": "teleport", "xpAmount": 25 },
+            { "action": "detect_hidden", "xpAmount": 20 }
+          ]
+        }
+      ]
+    },
+    "profession": {
+      "description": "Crafting and trade skills",
+      "items": [
+        {
+          "id": "blacksmithing",
+          "name": "Blacksmithing",
+          "description": "Forging weapons and armor",
+          "baseXPCost": 150,
+          "costMultiplier": 0.8,
+          "effectType": "craft_quality",
+          "effectValue": 0.01,
+          "effectDescription": "+1% crafted item quality per rank",
+          "xpActions": [
+            { "action": "forge_item", "xpAmount": 20 },
+            { "action": "forge_masterwork", "xpAmount": 100 },
+            { "action": "discover_recipe", "xpAmount": 50 }
+          ]
+        },
+        {
+          "id": "alchemy",
+          "name": "Alchemy",
+          "description": "Brewing potions and poisons",
+          "baseXPCost": 150,
+          "costMultiplier": 0.8,
+          "effectType": "potion_power",
+          "effectValue": 0.01,
+          "effectDescription": "+1% potion effectiveness per rank",
+          "xpActions": [
+            { "action": "brew_potion", "xpAmount": 15 },
+            { "action": "discover_potion_recipe", "xpAmount": 50 },
+            { "action": "create_rare_potion", "xpAmount": 75 }
+          ]
+        },
+        {
+          "id": "enchanting",
+          "name": "Enchanting",
+          "description": "Enchanting items with magical properties",
+          "baseXPCost": 150,
+          "costMultiplier": 0.8,
+          "effectType": "enchant_power",
+          "effectValue": 0.01,
+          "effectDescription": "+1% enchantment strength per rank",
+          "xpActions": [
+            { "action": "enchant_item", "xpAmount": 25 },
+            { "action": "disenchant_item", "xpAmount": 15 },
+            { "action": "create_legendary_enchant", "xpAmount": 150 }
+          ]
+        }
+      ]
+    },
+    "survival": {
+      "description": "Stealth, exploration, and social skills",
+      "items": [
+        {
+          "id": "lockpicking",
+          "name": "Lockpicking",
+          "description": "Opening locked doors and chests",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "success_chance",
+          "effectValue": 0.005,
+          "effectDescription": "+0.5% lockpick success per rank",
+          "xpActions": [
+            { "action": "pick_easy_lock", "xpAmount": 10 },
+            { "action": "pick_hard_lock", "xpAmount": 30 },
+            { "action": "pick_master_lock", "xpAmount": 75 }
+          ]
+        },
+        {
+          "id": "sneaking",
+          "name": "Sneaking",
+          "description": "Moving stealthily to avoid detection",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "detection_avoidance",
+          "effectValue": 0.003,
+          "effectDescription": "+0.3% stealth per rank",
+          "xpActions": [
+            { "action": "successful_sneak", "xpAmount": 5 },
+            { "action": "sneak_attack", "xpAmount": 20 },
+            { "action": "avoid_detection_close_call", "xpAmount": 15 }
+          ]
+        },
+        {
+          "id": "pickpocketing",
+          "name": "Pickpocketing",
+          "description": "Stealing items from NPCs",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "theft_success",
+          "effectValue": 0.005,
+          "effectDescription": "+0.5% pickpocket success per rank",
+          "xpActions": [
+            { "action": "successful_pickpocket", "xpAmount": 15 },
+            { "action": "steal_valuable_item", "xpAmount": 30 },
+            { "action": "perfect_theft", "xpAmount": 50 }
+          ]
+        },
+        {
+          "id": "speech",
+          "name": "Speech",
+          "description": "Persuasion, intimidation, and bartering",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "persuasion_success",
+          "effectValue": 0.005,
+          "effectDescription": "+0.5% persuasion success per rank",
+          "xpActions": [
+            { "action": "successful_persuasion", "xpAmount": 15 },
+            { "action": "intimidation_success", "xpAmount": 20 },
+            { "action": "negotiate_better_price", "xpAmount": 10 }
+          ]
+        },
+        {
+          "id": "survival",
+          "name": "Survival",
+          "description": "Wilderness navigation and tracking",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "resource_finding",
+          "effectValue": 0.005,
+          "effectDescription": "+0.5% resource gathering per rank",
+          "xpActions": [
+            { "action": "gather_herbs", "xpAmount": 5 },
+            { "action": "track_creature", "xpAmount": 15 },
+            { "action": "find_rare_resource", "xpAmount": 30 }
+          ]
+        },
+        {
+          "id": "athletics",
+          "name": "Athletics",
+          "description": "Running, swimming, climbing",
+          "baseXPCost": 100,
+          "costMultiplier": 0.5,
+          "effectType": "movement_speed",
+          "effectValue": 0.002,
+          "effectDescription": "+0.2% movement speed per rank",
+          "xpActions": [
+            { "action": "sprint", "xpAmount": 3 },
+            { "action": "climb_obstacle", "xpAmount": 10 },
+            { "action": "swim_distance", "xpAmount": 8 }
+          ]
+        }
+      ]
+    }
+  }
+}
