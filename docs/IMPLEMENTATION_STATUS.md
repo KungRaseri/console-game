@@ -8,7 +8,11 @@
 
 ## Overview
 
-This document tracks the current implementation status of all features in RealmEngine. For design details, see [GDD-Main.md](GDD-Main.md). For future plans, see [ROADMAP.md](ROADMAP.md).
+This document tracks the current implementation status of all features in RealmEngine. 
+
+**For game design details**: See [GDD-Main.md](GDD-Main.md)  
+**For development timeline**: See [ROADMAP.md](ROADMAP.md)  
+**For feature documentation**: See individual feature pages linked below
 
 ---
 
@@ -254,6 +258,178 @@ This document tracks the current implementation status of all features in RealmE
 - ❌ **No status effects** - Poison, Burning, Frozen don't exist
 
 **Priority**: MEDIUM - Trait effects (Priority 5)
+
+---
+
+## Future Systems
+
+### 13. Magic & Spell System
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [magic-spell-system.md](features/magic-spell-system.md)
+
+**What Works:**
+- Nothing implemented yet
+
+**What's Missing:**
+- ❌ **All spell features** - Offensive, defensive, healing, utility spells
+- ❌ **Spell learning system**
+- ❌ **Mana cost integration**
+- ❌ **Spell schools and combinations**
+
+**Priority**: TBD
+
+---
+
+### 14. Status Effects System
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [status-effects-system.md](features/status-effects-system.md)
+
+**What Works:**
+- Nothing implemented yet
+
+**What's Missing:**
+- ❌ **All status effects** - DoT, crowd control, stat modifications
+- ❌ **Duration and tick system**
+- ❌ **Resistances and immunities**
+- ❌ **Cure methods and visual indicators**
+
+**Priority**: TBD
+
+---
+
+### 15. Party System
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [party-system.md](features/party-system.md)
+
+**What Works:**
+- Nothing implemented yet
+
+**What's Missing:**
+- ❌ **NPC recruitment**
+- ❌ **Party combat mechanics**
+- ❌ **Party management and progression**
+- ❌ **AI-controlled allies**
+
+**Priority**: TBD
+
+---
+
+### 16. Reputation & Faction System
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [reputation-faction-system.md](features/reputation-faction-system.md)
+
+**What Works:**
+- Nothing implemented yet
+
+**What's Missing:**
+- ❌ **Faction definitions**
+- ❌ **Reputation tracking**
+- ❌ **Action consequences**
+- ❌ **Locked content system**
+
+**Priority**: TBD
+
+---
+
+### 17. Audio System
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [audio-system.md](features/audio-system.md)
+
+**What Works:**
+- NAudio library installed ✅
+
+**What's Missing:**
+- ❌ **Background music** - Location themes, combat music, boss themes
+- ❌ **Sound effects** - Combat sounds, UI sounds, environmental audio
+- ❌ **Audio integration** - Music/SFX triggering in gameplay
+
+**Priority**: TBD
+
+---
+
+### 18. Visual Enhancement System
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [visual-enhancement-system.md](features/visual-enhancement-system.md)
+
+**What Works:**
+- Nothing implemented yet
+
+**What's Missing:**
+- ❌ **ASCII art** - Location illustrations, boss portraits
+- ❌ **Combat animations** - Attack effects, damage indicators
+- ❌ **Screen transitions** - Fade effects, loading screens
+- ❌ **Particle effects** - Visual flourishes
+
+**Priority**: TBD
+
+---
+
+### 19. Online & Community Features
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [online-community-features.md](features/online-community-features.md)
+
+**What Works:**
+- Nothing implemented yet
+
+**What's Missing:**
+- ❌ **Global leaderboards**
+- ❌ **Daily challenges**
+- ❌ **Save sharing**
+- ❌ **Community events**
+
+**Priority**: TBD
+
+---
+
+### 20. Quality of Life Enhancements
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [quality-of-life-system.md](features/quality-of-life-system.md)
+
+**What Works:**
+- Nothing implemented yet
+
+**What's Missing:**
+- ❌ **Undo actions**
+- ❌ **Keybind customization**
+- ❌ **Quick-save hotkey**
+- ❌ **Tutorial system**
+- ❌ **Hint system**
+
+**Priority**: TBD
+
+---
+
+### 21. Modding Support
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [modding-support.md](features/modding-support.md)
+
+**What Works:**
+- Nothing implemented yet
+
+**What's Missing:**
+- ❌ **Mod loader system**
+- ❌ **Content creation tools**
+- ❌ **Scripting API**
+- ❌ **Community sharing platform**
+
+**Priority**: TBD
+
+---
+
+### 22. UI Technology Evolution
+**Status**: NOT STARTED (0%)  
+**Feature Page**: [ui-technology-evolution.md](features/ui-technology-evolution.md)
+
+**What Works:**
+- Nothing implemented yet
+
+**What's Missing:**
+- ❌ **Godot integration**
+- ❌ **Graphical UI**
+- ❌ **Mouse and controller support**
+- ❌ **Accessibility features**
+
+**Priority**: TBD
 
 ---
 
