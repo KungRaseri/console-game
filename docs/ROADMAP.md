@@ -109,12 +109,46 @@
 ---
 
 #### 2. Abilities System
-- **Status**: `[Needs Audit + Design]`
+- **Status**: `[✅ Design Complete]`
 - **Effort**: High
 - **Current State**: 100+ JSON files in `/abilities/` (purpose unclear, needs audit)
 - **Vision**: Class and species-specific active powers
 
-**Design Needed**: `docs/designs/abilities-system-design.md`
+**Design Complete**: `docs/designs/abilities-system-design.md` ✅
+
+**Architecture Decisions**:
+- **Class-Based Organization**: Abilities reorganized by class (warrior/, rogue/, mage/, cleric/, ranger/, paladin/, shared/)
+- **8 Abilities Per Class**: 3 starting + 4 level-unlocked + 1 ultimate
+- **Level-Gated Unlocks**: Abilities unlock at levels 1, 5, 10, 12, 20
+- **Resource Management**: Mana costs + cooldown timers
+- **Clear Distinctions**: Skills (passive), Abilities (class powers), Spells (learnable)
+- **Passive Abilities**: Each class has 1 always-active passive (+10% HP, +15% crit, etc.)
+
+**Class Ability Counts** (Total: 48 abilities):
+- **Warrior**: Charge, Shield Bash, Iron Will, Whirlwind, Execute, Battle Cry, Last Stand (7)
+- **Rogue**: Backstab, Evasion, Shadow Affinity, Poison Strike, Vanish, Shadow Step, Assassination (7)
+- **Mage**: Arcane Missiles, Mana Shield, Arcane Affinity, Frost Nova, Blink, Spell Steal, Meteor (7)
+- **Cleric**: Smite, Heal, Divine Grace, Divine Shield, Cleanse, Blessing, Divine Intervention (7)
+- **Ranger**: Power Shot, Trap, Keen Senses, Hunter's Mark, Camouflage, Pet Summon, Arrow Storm (7)
+- **Paladin**: Holy Strike, Protective Aura, Righteous Vigor, Divine Smite, Lay on Hands, Consecration, Judgment (7)
+
+**Implementation Steps**:
+1. Audit existing 100+ ability JSON files
+2. Reorganize abilities by class folders
+3. Update JSON schemas with `isStartingAbility`, `requiredLevel`, `allowedClasses`
+4. Implement `CharacterAbility` tracking model
+5. Integrate ability usage into CombatService (cooldowns, mana costs)
+6. Level-up unlocking system
+7. Ability effect execution (damage, healing, buffs, debuffs)
+
+**JSON Migration Required**:
+- Move abilities from `active/offensive/`, `reactive/defensive/`, etc. → class-based folders
+- Create migration map for old references → new references
+- Update class definitions with `startingAbilityIds` and `abilityUnlocksByLevel`
+
+**Dependencies**: 
+- Skills System (skill bonuses affect ability damage)
+- Combat System (ability usage context)
 
 **Work Required**:
 1. **Audit existing abilities** - Are current JSON files class-specific? Spell-like? Usable?
@@ -123,21 +157,6 @@
 4. **Species abilities** - If applicable (e.g., Dwarf resistance, Elf magic affinity)
 5. **Acquisition system** - Level-based? Skill-based? Trainer-based?
 6. **Integrate into CombatService** - Mana costs, cooldowns, effects
-
-**Proposed Structure**:
-```
-/abilities/
-  /warrior/     - Melee-focused powers
-  /rogue/       - Stealth and critical powers
-  /mage/        - Arcane combat powers (distinct from learned spells)
-  /cleric/      - Divine powers
-  /ranger/      - Nature and archery powers
-  /paladin/     - Holy warrior powers
-  /species/     - Racial abilities (if applicable)
-  /shared/      - Universal abilities any class can learn
-```
-
-**Dependencies**: Skills System (for unlocking, balance)
 
 **API Impact**:
 - `GetClassAbilities(className)` → returns available abilities for class
@@ -148,40 +167,54 @@
 ---
 
 #### 3. Magic & Spell System
-- **Status**: `[Not Started]`
-- **Effort**: High 
+- **Status**: `[✅ Design Complete]`
+- **Effort**: High
 - **Current State**: Nothing (0%)
 - **Vision**: Learnable spell system with schools of magic (domains)
 
-**Design Needed**: `docs/designs/magic-system-design.md`
+**Design Complete**: `docs/designs/spells-system-design.md` ✅
 
-**Key Concepts**:
-- **Spell Domains/Schools**: Destruction (fire, ice, lightning), Restoration (healing), Alteration (shields, buffs), Conjuration (summons), Illusion (charm, fear), Mysticism (detect, teleport)
-- **Acquisition**: Spellbooks, scrolls, NPC teachers, quest rewards
-- **Casting**: Mana costs, casting time, spell fizzle (based on magic skill)
-- **Spell Levels**: Novice, Apprentice, Adept, Expert, Master
-- **Distinction from Abilities**: Anyone can learn spells (with skill), but abilities are class-specific
+**Architecture Decisions**:
+- **Six Spell Schools**: Destruction, Restoration, Alteration, Conjuration, Illusion, Mysticism
+- **Five Power Tiers**: Novice (Rank 0-20), Apprentice (20-40), Adept (40-60), Expert (60-80), Master (80-100)
+- **Skill-Based**: Spell power/success/mana efficiency scale with magic skills
+- **Universal Access**: Anyone can learn spells (unlike class-only abilities)
+- **Acquisition Methods**: Spellbooks (learn permanently), Scrolls (one-time cast), Trainers, Quest rewards
+- **30 Spells Total**: 5 per school covering all tiers
+- **JSON Catalog**: `spells/catalog.json` defines all spell properties
+- **Mana Efficiency**: -0.5% cost per rank above requirement (max 50% reduction)
+- **Success Rates**: 90% at minimum skill, 99% at 20+ ranks above
+- **Power Scaling**: +1% damage/healing per rank above requirement
 
-**Proposed Structure**:
-```
-/spells/
-  /destruction/     - Offensive magic
-  /restoration/     - Healing and curing
-  /alteration/      - Buffs, shields, utility
-  /conjuration/     - Summoning and binding
-  /illusion/        - Charm, fear, invisibility
-  /mysticism/       - Teleportation, detection
-```
+**Spell Schools**:
+- **Destruction**: Fire/Ice/Lightning/Arcane damage spells
+- **Restoration**: Healing, regeneration, curing, resurrection
+- **Alteration**: Shields, buffs, transmutation, utility
+- **Conjuration**: Summon creatures, conjure weapons, binding
+- **Illusion**: Charm, fear, invisibility, mind control
+- **Mysticism**: Detection, teleportation, clairvoyance, time magic
+
+**Implementation Steps**:
+1. Data models (Spell, CharacterSpell, Spellbook, Scroll)
+2. JSON catalog & SpellCatalogService
+3. SpellLearningService (spellbooks, trainers)
+4. SpellCastingService (success checks, mana, effects)
+5. Combat integration & spell effect execution
+6. Inventory integration (use spellbooks/scrolls)
+7. Cooldown system & spell statistics
 
 **Dependencies**: 
-- Skills System (magic skills affect success/power)
-- Abilities System (clear distinction needed)
+- Skills System (magic skills foundation) - MUST implement first
+- Combat System (spell casting in combat)
+- Inventory System (spellbooks/scrolls as items)
 
 **API Impact**:
-- `GetLearnedSpells()` → returns character's spellbook
-- `LearnSpell(spellId)` → add spell to spellbook (from item/teacher)
-- `CastSpell(spellId, targetId)` → cast spell in or out of combat
-- `GetSpellSchools()` → returns available magic domains
+- `GetLearnedSpells()` → returns character's spellbook with cast counts
+- `LearnSpellFromBook(spellId)` → learn from spellbook item
+- `CastSpell(spellId, targetId)` → cast in combat with skill checks
+- `CastFromScroll(scrollId)` → one-time cast without knowing spell
+- `GetCastableSpells()` → available spells (enough mana, not on cooldown)
+- `GetLearnableSpells()` → spells character can learn (meets skill requirements)
 
 ---
 
