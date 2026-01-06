@@ -2,36 +2,37 @@
 
 **Status**: See [IMPLEMENTATION_STATUS.md](../IMPLEMENTATION_STATUS.md)
 
+**Note**: This document has been superseded by [Spells System](spells-system.md) which provides full details on the learnable magic system.
+
 ## Overview
 
-A comprehensive spell-casting system providing magical combat options and utility beyond physical abilities.
+A comprehensive spell-casting system providing magical combat options and utility beyond physical abilities. Spells are learnable magic accessible to any character with sufficient magic skill investment.
 
-## Core Components
+## Key Distinctions
 
-### Spell Categories
-- **Offensive Spells**: Direct damage, area effects, damage-over-time
-- **Defensive Spells**: Shields, wards, damage mitigation
-- **Healing Spells**: Health restoration, regeneration, cure effects
-- **Utility Spells**: Teleportation, detection, illumination, utility
-- **Buff/Debuff Spells**: Temporary stat modifications for allies or enemies
+- **Skills** = Passive proficiency (determines spell effectiveness)
+- **Abilities** = Class-granted powers (always available)
+- **Spells** = Learnable magic (must be acquired, skill-dependent)
 
-### Spell Mechanics
-- **Resource Management**: Mana costs balance spell power
-- **Cooldowns**: Prevent ability spam and encourage tactical choices
-- **Spell Learning**: Acquire through scrolls, trainers, quest rewards
-- **Spell Schools**: Categorize magic types (Evocation, Restoration, etc.)
-- **Spell Combinations**: Synergistic effects from multiple spells
+## Core Features
 
-## Key Features
+- **Spell Schools**: Destruction, Restoration, Alteration, Conjuration, Illusion, Mysticism
+- **Universal Access**: Any class can learn spells with skill investment
+- **Acquisition Methods**: Spellbooks, scrolls, trainers, quest rewards
+- **Skill Scaling**: Effectiveness scales with magic skill ranks
+- **Spell Levels**: Novice through Master (gated by skill)
 
-- **Tactical Depth**: Spells provide combat alternatives to physical attacks
-- **Build Variety**: Magical builds distinct from physical builds
-- **Progressive Power**: Spells unlock and scale throughout progression
-- **Strategic Choices**: Mana management and cooldown timing matter
-- **Synergy**: Spells combine with abilities for enhanced effects
+## Full Documentation
+
+For complete details on spell mechanics, acquisition, schools, and integration, see:
+- [Spells System](spells-system.md) - Complete spell system documentation
+- [Skills System](skills-system.md) - Magic skill progression details
+- [Abilities System](abilities-system.md) - How spells differ from abilities
 
 ## Related Systems
 
+- [Spells System](spells-system.md) - Full spell system details
+- [Skills System](skills-system.md) - Magic skill progression
 - [Progression System](progression-system.md) - Spell learning and progression
 - [Combat System](combat-system.md) - Spell usage in combat
 - [Status Effects System](status-effects-system.md) - Spell-applied effects

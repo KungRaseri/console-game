@@ -28,5 +28,7 @@ Guided process for name selection, class selection, attribute distribution, equi
 ## Related Systems
 
 - [Progression System](progression-system.md) - Leveling and attribute allocation
+- [Skills System](skills-system.md) - Practice-based progression
+- [Abilities System](abilities-system.md) - Class-specific powers
 - [Combat System](combat-system.md) - Attributes affect combat calculations
 - [Inventory System](inventory-system.md) - Starting equipment and class-appropriate gear

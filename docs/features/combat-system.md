@@ -39,5 +39,9 @@ Players and enemies alternate actions each turn with tactical decision-making.
 ## Related Systems
 
 - [Character System](character-system.md) - Attributes affect damage and defense
+- [Skills System](skills-system.md) - Combat skills enhance damage, defense, accuracy
+- [Abilities System](abilities-system.md) - Class powers provide tactical options
+- [Spells System](spells-system.md) - Learnable magic for magical combat
 - [Inventory System](inventory-system.md) - Equipment and consumables used in combat
-- [Progression System](progression-system.md) - Skills and abilities enhance combat
+- [Progression System](progression-system.md) - Leveling unlocks abilities and spell access
+- [Status Effects System](status-effects-system.md) - Buffs, debuffs, and conditions in combat

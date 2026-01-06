@@ -255,46 +255,113 @@ Each level-up grants attribute points for flexible character building:
 **Customization Impact:**
 Attribute choices directly impact combat effectiveness, survivability, magic power, and utility. Players can respec their builds or commit to focused archetypes based on preferred playstyle.
 
-#### Skills System (Passive Progression)
+#### Skills System (Practice-Based Progression)
 
 **Design Philosophy:**
-Skills represent learned proficiencies providing permanent passive bonuses. The skill system allows players to specialize within their class archetype or branch into hybrid territories.
+Skills represent learned proficiencies that improve through use—"learning by doing." The skill system provides passive bonuses that automatically apply during relevant actions, creating organic character development distinct from level-based progression.
+
+**Core Concept: "Use It to Improve It"**
+- Swing swords → improve One-Handed skill
+- Cast spells → improve Destruction/Restoration skills
+- Sneak around → improve Stealth skill
+- Craft items → improve Blacksmithing/Alchemy skills
 
 **Skill Categories:**
-- **Combat Skills**: Enhance physical damage, critical chance, and weapon effectiveness
-- **Defensive Skills**: Improve survivability, resistance, and damage mitigation
-- **Magic Skills**: Boost spell power, mana efficiency, and magical effects
-- **Utility Skills**: Provide quality-of-life benefits like loot bonuses or resource management
+- **Attribute Skills**: STR, DEX, CON, INT, WIS, CHA (improve attributes through use)
+- **Combat Skills**: One-Handed, Two-Handed, Archery, Block, Heavy Armor, Light Armor
+- **Magic Skills**: Destruction, Restoration, Alteration, Conjuration, Illusion, Mysticism
+- **Profession Skills**: Blacksmithing, Alchemy, Enchanting
+- **Survival Skills**: Lockpicking, Sneaking, Pickpocketing, Speech
 
 **Skill Mechanics:**
-- Skills unlock at certain level thresholds
-- Multiple ranks allow progressive investment in preferred skills
-- Skill bonuses stack with attribute bonuses for multiplicative power
-- Skills provide always-active benefits requiring no activation
+- **Ranking System**: Skills rank from 0 (untrained) to 100 (master)
+- **Use-Based XP**: Gain skill XP by using the skill (combat, casting, crafting)
+- **Scaling Costs**: Each rank-up costs more XP (prevents instant mastery, rewards specialization)
+- **Per-Rank Bonuses**: Each skill has specific modifiers (+0.5% damage, +0.3% block chance, etc.)
+- **Passive Application**: Bonuses automatically apply, no activation required
 
 **Build Depth:**
-The skill system creates meaningful character differentiation. Two characters of the same class with different skill selections play noticeably differently, encouraging experimentation and multiple playthroughs.
+Skills create organic specialization—characters naturally improve at what they do most. Two Warriors who favor different weapons will develop distinct skill profiles, encouraging experimentation and multiple playthroughs.
 
-#### Abilities System (Active Powers)
+**Distinct from Abilities & Spells:**
+- **Skills** = How good you are at something (passive proficiency, improves with use)
+- **Abilities** = Class-granted special powers (active, limited use)
+- **Spells** = Learnable magic (active, must be acquired, skill-dependent)
+
+#### Abilities System (Class-Specific Powers)
 
 **Design Philosophy:**
-Abilities are active powers that characters can use in combat or exploration. Unlike passive skills, abilities require conscious activation and resource management.
+Abilities are class and species-specific active powers defining character identity. A Warrior's Charge, a Rogue's Backstab, a Mage's Fireball—these are signature moves that feel impactful and require conscious activation.
+
+**Core Concept: "Special Powers"**
+Abilities are granted by class choice and unlocked through leveling. They're not learned like spells—they're inherent to your class archetype.
 
 **Ability Categories:**
-- **Offensive Abilities**: Direct damage attacks with various effects (single-target, area-of-effect, damage-over-time)
-- **Defensive Abilities**: Active defensive maneuvers (blocks, dodges, counter-attacks)
-- **Support Abilities**: Buffs, healing, and utility powers for tactical advantage
-- **Passive Abilities**: Always-active effects requiring no activation (auras, regeneration)
-- **Ultimate Abilities**: Powerful special moves with significant cooldowns
+- **Offensive Abilities**: Direct damage attacks (Backstab, Execute, Smite, Fireball)
+- **Defensive Abilities**: Active defense maneuvers (Shield Wall, Evasion, Parry)
+- **Support Abilities**: Buffs, healing, and utility powers (Battle Cry, Heal, Blessing)
+- **Passive Abilities**: Always-active class bonuses (auras, triggered effects)
+- **Ultimate Abilities**: Powerful special moves with long cooldowns (Last Stand, Meteor, Assassination)
 
 **Ability Mechanics:**
-- Mana costs prevent spamming powerful abilities
-- Cooldown timers add tactical decision-making
-- Equipment requirements (staves, weapons) tie abilities to gear choices
-- Level requirements gate powerful abilities behind progression
+- **Mana Costs**: Prevent spamming powerful abilities (10-100 mana)
+- **Cooldown Timers**: Add tactical decision-making (1-20 turns)
+- **Equipment Requirements**: Some abilities require specific gear (shield, staff)
+- **Level Requirements**: Gate powerful abilities behind progression
 
 **Class Integration:**
-Each class starts with signature abilities matching their archetype. Additional abilities unlock through leveling, creating a growing tactical toolkit. Ability selection defines combat approach and synergizes with skill choices for cohesive builds.
+Each class starts with 2-3 signature abilities matching their archetype:
+- **Warrior**: Charge, Shield Bash, Whirlwind
+- **Rogue**: Backstab, Evasion, Poison Strike
+- **Mage**: Fireball, Mana Shield, Frost Nova
+- **Cleric**: Smite, Heal, Divine Shield
+- **Ranger**: Power Shot, Trap, Hunter's Mark
+- **Paladin**: Holy Strike, Protective Aura, Lay on Hands
+
+Additional abilities unlock through leveling (levels 5, 10, 15, 20), creating a growing tactical toolkit.
+
+**Distinct from Skills & Spells:**
+- **Skills** = Passive proficiency (always active, improves with use)
+- **Abilities** = Class powers (active, always available, class-locked)
+- **Spells** = Learnable magic (active, must be acquired, universal access)
+
+#### Magic & Spell System (Learnable Magic)
+
+**Design Philosophy:**
+Spells are universal magical knowledge that any character can learn (with sufficient skill) through spellbooks, scrolls, teachers, and quest rewards. Unlike class-specific abilities, spells are accessible to all who invest in magic skills.
+
+**Core Concept: "Knowledge Acquisition"**
+Spells must be found, purchased, or taught—they're not automatic. A Warrior can learn Fireball if they develop Destruction skill, though they won't be as effective as a dedicated Mage.
+
+**Spell Schools (Domains):**
+- **Destruction**: Offensive magic (fire, ice, lightning damage)
+- **Restoration**: Healing and curing magic (heal, regeneration, cure poison)
+- **Alteration**: Buffs and utility (shields, stat boosts, feather fall)
+- **Conjuration**: Summoning and binding (summon creatures, bound weapons)
+- **Illusion**: Mind magic (charm, fear, invisibility)
+- **Mysticism**: Detection and teleportation (detect magic, teleport, scrying)
+
+**Spell Mechanics:**
+- **Acquisition**: Find spellbooks, buy from merchants, learn from trainers, earn through quests
+- **Skill Requirements**: Each spell requires minimum magic skill rank (0-100)
+- **Spell Levels**: Novice, Apprentice, Adept, Expert, Master (gated by skill)
+- **Mana Costs**: 5-150 mana based on spell power (reduced by skill)
+- **Success/Failure**: Casting success based on skill vs spell difficulty (can fizzle or backfire)
+- **Skill Scaling**: Higher skill = more damage/healing, lower cost, better success rate
+
+**Spell Learning:**
+- **Spellbooks**: Consumable items that teach spells permanently
+- **Scrolls**: Single-use spell casting (no skill check required)
+- **Trainers**: NPCs teach spells for gold (must meet skill requirement)
+- **Quest Rewards**: Unique spells from story/side quests
+
+**Build Variety:**
+Spells enable hybrid builds—Warriors casting buffs, Rogues using invisibility, Clerics summoning allies. Spell collection creates exploration incentives and replayability (different spells each playthrough).
+
+**Distinct from Skills & Abilities:**
+- **Skills** = Passive proficiency (determines spell effectiveness)
+- **Abilities** = Class powers (always available to class members)
+- **Spells** = Learnable magic (must be acquired, universal access, skill-dependent)
 
 ### 5. Quest System
 
