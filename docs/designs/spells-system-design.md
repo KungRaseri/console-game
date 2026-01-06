@@ -1,7 +1,7 @@
 # Spells System Architecture Design
 
 **Status**: Design Document  
-**Purpose**: Technical specification for the learnable magic system with spell schools
+**Purpose**: Technical specification for the learnable magic system with Pathfinder 2e magical traditions
 
 **Related Documents**:
 - [spells-system.md](../features/spells-system.md) - Feature overview
@@ -13,20 +13,28 @@
 
 ## Executive Summary
 
-**Current State**: No spell system exists. Magic skills exist in design but aren't used. No spellcasting mechanics.
+**Current State**: Spell system redesigned to use Pathfinder 2e magical traditions instead of Elder Scrolls schools.
 
-**Target State**: Comprehensive learnable magic system where spells are acquired through spellbooks, scrolls, trainers, and quests. Spell effectiveness scales with magic skills. Six schools of magic (Destruction, Restoration, Alteration, Conjuration, Illusion, Mysticism) each with 5 power tiers (Novice to Master).
+**Target State**: Comprehensive learnable magic system where spells are acquired through spellbooks, scrolls, trainers, and quests. Spell effectiveness scales with magical tradition skills. Four magical traditions (Arcane, Divine, Occult, Primal) with spell ranks from Cantrip (0) to 10th rank.
 
 **Scope**: Complete spell system infrastructure
 - Data models for spells, spellbooks, and character spell knowledge
-- JSON catalog structure for spell definitions across all schools
+- JSON catalog structure for spell definitions across all traditions
 - Spell acquisition system (spellbooks, scrolls, trainers)
 - Casting mechanics with skill checks, success rates, and failure modes
-- Spell effect calculation scaling with magic skills
+- Spell effect calculation scaling with tradition skills
 - Integration with combat, inventory, and skills systems
 - Mana cost calculation with skill-based efficiency
+- Cantrips (rank 0 spells) are free to cast
+
+**Magical Traditions** (Pathfinder 2e):
+- **Arcane**: Study-based magic (raw power, force, transmutation)
+- **Divine**: Faith-based magic (healing, protection, holy power)
+- **Occult**: Mental/psychic magic (mind control, fear, illusions)
+- **Primal**: Nature-based magic (elements, beasts, growth)
 
 **Out of Scope** (Future Enhancements):
+- Heightening (casting spells at higher ranks)
 - Spell crafting/customization
 - Spell combinations and synergies
 - Metamagic modifiers
@@ -63,24 +71,29 @@ public class Spell
     public required string Description { get; set; }
     
     /// <summary>
-    /// School of magic (Destruction, Restoration, Alteration, etc.).
+    /// Magical tradition (Arcane, Divine, Occult, Primal).
     /// </summary>
-    public required SpellSchool School { get; set; }
+    public required MagicalTradition Tradition { get; set; }
     
     /// <summary>
-    /// Power tier (Novice, Apprentice, Adept, Expert, Master).
+    /// Spell rank: 0 (Cantrip) through 10.
     /// </summary>
-    public required SpellTier Tier { get; set; }
+    public required int Rank { get; set; }
     
     /// <summary>
-    /// Minimum magic skill rank required to learn (0-100).
+    /// Display name for rank (e.g., "Cantrip", "1st", "3rd").
+    /// </summary>
+    public required string RankName { get; set; }
+    
+    /// <summary>
+    /// Minimum tradition skill rank required to learn (0-100).
     /// </summary>
     public int MinimumSkillRank { get; set; }
     
     /// <summary>
-    /// Base mana cost before skill modifiers.
+    /// Base mana cost before skill modifiers (0 for cantrips).
     /// </summary>
-    public int BaseManaСost { get; set; }
+    public int BaseManaCost { get; set; }
     
     /// <summary>
     /// Spell effect type (Damage, Heal, Buff, Summon, etc.).

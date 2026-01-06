@@ -3,8 +3,8 @@
     "version": "4.1",
     "type": "skills_catalog",
     "description": "All character skills with practice-based progression",
-    "totalSkills": 27,
-    "lastUpdated": "Current Date",
+    "totalSkills": 25,
+    "lastUpdated": "2026-01-06",
     "notes": [
       "Skills are passive proficiencies that improve through use",
       "All characters have access to the same skill list",
@@ -204,96 +204,66 @@
       ]
     },
     "magic": {
-      "description": "Schools of magic for spellcasting",
+      "description": "Magical traditions for spellcasting",
       "items": [
         {
-          "id": "destruction",
-          "name": "Destruction",
-          "description": "Offensive magic: fire, ice, lightning, arcane",
+          "id": "arcane",
+          "name": "Arcane",
+          "description": "Study-based magic: raw magical power, transmutation, force",
           "baseXPCost": 120,
           "costMultiplier": 0.6,
           "effectType": "spell_power",
           "effectValue": 0.004,
-          "effectDescription": "+0.4% destruction spell damage per rank",
+          "effectDescription": "+0.4% arcane spell effectiveness per rank",
           "xpActions": [
-            { "action": "cast_destruction_spell", "xpAmount": 8 },
-            { "action": "spell_kill", "xpAmount": 25 },
-            { "action": "cast_master_spell", "xpAmount": 35 }
+            { "action": "cast_arcane_spell", "xpAmount": 8 },
+            { "action": "arcane_damage_dealt", "xpAmount": 2 },
+            { "action": "study_spellbook", "xpAmount": 15 }
           ]
         },
         {
-          "id": "restoration",
-          "name": "Restoration",
-          "description": "Healing and curing magic",
+          "id": "divine",
+          "name": "Divine",
+          "description": "Faith-based magic: healing, protection, holy/unholy power",
           "baseXPCost": 120,
           "costMultiplier": 0.6,
-          "effectType": "healing_power",
+          "effectType": "spell_power",
           "effectValue": 0.004,
-          "effectDescription": "+0.4% restoration spell healing per rank",
+          "effectDescription": "+0.4% divine spell effectiveness per rank",
           "xpActions": [
-            { "action": "cast_restoration_spell", "xpAmount": 8 },
-            { "action": "heal_critical_health", "xpAmount": 20 },
-            { "action": "cure_status", "xpAmount": 15 }
+            { "action": "cast_divine_spell", "xpAmount": 8 },
+            { "action": "heal_ally", "xpAmount": 5 },
+            { "action": "smite_undead", "xpAmount": 15 }
           ]
         },
         {
-          "id": "alteration",
-          "name": "Alteration",
-          "description": "Buffs, shields, and transmutation",
+          "id": "occult",
+          "name": "Occult",
+          "description": "Mental and psychic magic: mind control, fear, illusions",
           "baseXPCost": 120,
           "costMultiplier": 0.6,
-          "effectType": "buff_duration",
-          "effectValue": 0.02,
-          "effectDescription": "+2% alteration spell duration per rank",
-          "xpActions": [
-            { "action": "cast_alteration_spell", "xpAmount": 8 },
-            { "action": "maintain_long_buff", "xpAmount": 15 },
-            { "action": "cast_shield", "xpAmount": 12 }
-          ]
-        },
-        {
-          "id": "conjuration",
-          "name": "Conjuration",
-          "description": "Summoning and binding",
-          "baseXPCost": 120,
-          "costMultiplier": 0.6,
-          "effectType": "summon_strength",
+          "effectType": "spell_power",
           "effectValue": 0.004,
-          "effectDescription": "+0.4% summon health/damage per rank",
+          "effectDescription": "+0.4% occult spell effectiveness per rank",
           "xpActions": [
-            { "action": "cast_conjuration_spell", "xpAmount": 8 },
-            { "action": "summon_creature", "xpAmount": 20 },
-            { "action": "summon_survives_combat", "xpAmount": 25 }
+            { "action": "cast_occult_spell", "xpAmount": 8 },
+            { "action": "charm_success", "xpAmount": 15 },
+            { "action": "fear_success", "xpAmount": 15 }
           ]
         },
         {
-          "id": "illusion",
-          "name": "Illusion",
-          "description": "Mind magic: charm, fear, invisibility",
+          "id": "primal",
+          "name": "Primal",
+          "description": "Nature-based magic: elements, beasts, growth and decay",
           "baseXPCost": 120,
           "costMultiplier": 0.6,
-          "effectType": "cc_duration",
-          "effectValue": 0.02,
-          "effectDescription": "+2% crowd control duration per rank",
+          "effectType": "spell_power",
+          "effectValue": 0.004,
+          "effectDescription": "+0.4% primal spell effectiveness per rank",
           "xpActions": [
-            { "action": "cast_illusion_spell", "xpAmount": 8 },
-            { "action": "charm_enemy", "xpAmount": 20 },
-            { "action": "stealth_success", "xpAmount": 15 }
-          ]
-        },
-        {
-          "id": "mysticism",
-          "name": "Mysticism",
-          "description": "Detection, teleportation, and divination",
-          "baseXPCost": 120,
-          "costMultiplier": 0.6,
-          "effectType": "utility_effectiveness",
-          "effectValue": 0.005,
-          "effectDescription": "+0.5% detection range per rank",
-          "xpActions": [
-            { "action": "cast_mysticism_spell", "xpAmount": 8 },
-            { "action": "teleport", "xpAmount": 25 },
-            { "action": "detect_hidden", "xpAmount": 20 }
+            { "action": "cast_primal_spell", "xpAmount": 8 },
+            { "action": "summon_creature", "xpAmount": 15 },
+            { "action": "elemental_damage", "xpAmount": 2 }
           ]
         }
       ]
