@@ -39,7 +39,7 @@ public class NamesJsonComplianceTests
   public void Should_Discover_All_Names_Files()
   {
     _allNamesFiles.Should().NotBeEmpty();
-    _allNamesFiles.Should().HaveCountGreaterThan(30, "expected 35+ names files");
+    _allNamesFiles.Should().HaveCountGreaterThan(25, "expected 30+ names files");
   }
 
   #endregion

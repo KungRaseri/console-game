@@ -29,24 +29,10 @@ public class CatalogJsonComplianceTests
 
         _catalogPaths = new List<string>
         {
-            // Abilities domain (18 catalogs)
-            "abilities/active/offensive/catalog.json",
-            "abilities/active/defensive/catalog.json",
-            "abilities/active/utility/catalog.json",
-            "abilities/active/support/catalog.json",
-            "abilities/active/control/catalog.json",
-            "abilities/active/mobility/catalog.json",
-            "abilities/active/summon/catalog.json",
+            // Abilities domain (4 catalogs - consolidated structure)
+            "abilities/active/catalog.json",
             "abilities/passive/catalog.json",
-            "abilities/passive/offensive/catalog.json",
-            "abilities/passive/defensive/catalog.json",
-            "abilities/passive/mobility/catalog.json",
-            "abilities/passive/environmental/catalog.json",
-            "abilities/passive/sensory/catalog.json",
-            "abilities/passive/leadership/catalog.json",
-            "abilities/reactive/offensive/catalog.json",
-            "abilities/reactive/defensive/catalog.json",
-            "abilities/reactive/utility/catalog.json",
+            "abilities/reactive/catalog.json",
             "abilities/ultimate/catalog.json",
             
             // Classes domain (1 catalog)
@@ -54,24 +40,34 @@ public class CatalogJsonComplianceTests
             
             // Enemies domain (13 catalogs)
             "enemies/beasts/catalog.json",
-            "enemies/humanoids/catalog.json",
-            "enemies/undead/catalog.json",
             "enemies/demons/catalog.json",
             "enemies/dragons/catalog.json",
             "enemies/elementals/catalog.json",
             "enemies/goblinoids/catalog.json",
+            "enemies/humanoids/catalog.json",
             "enemies/insects/catalog.json",
             "enemies/orcs/catalog.json",
             "enemies/plants/catalog.json",
             "enemies/reptilians/catalog.json",
             "enemies/trolls/catalog.json",
+            "enemies/undead/catalog.json",
             "enemies/vampires/catalog.json",
             
-            // Items domain (4 catalogs)
-            "items/weapons/catalog.json",
+            // Items domain (14 catalogs - includes subcategories)
             "items/armor/catalog.json",
             "items/consumables/catalog.json",
+            "items/crystals/life/catalog.json",
+            "items/crystals/mana/catalog.json",
+            "items/essences/fire/catalog.json",
+            "items/essences/shadow/catalog.json",
+            "items/gems/blue/catalog.json",
+            "items/gems/red/catalog.json",
             "items/materials/catalog.json",
+            "items/orbs/combat/catalog.json",
+            "items/orbs/magic/catalog.json",
+            "items/runes/defensive/catalog.json",
+            "items/runes/offensive/catalog.json",
+            "items/weapons/catalog.json",
             
             // NPCs domain (10 catalogs)
             "npcs/common/catalog.json",
@@ -85,29 +81,35 @@ public class CatalogJsonComplianceTests
             "npcs/religious/catalog.json",
             "npcs/service/catalog.json",
             
+            // Organizations domain (4 catalogs)
+            "organizations/businesses/catalog.json",
+            "organizations/factions/catalog.json",
+            "organizations/guilds/catalog.json",
+            "organizations/shops/catalog.json",
+            
             // Quests domain (3 catalogs)
             "quests/catalog.json",
             "quests/objectives/catalog.json",
             "quests/rewards/catalog.json",
             
-            // World domain (5 catalogs)
-            "world/locations/towns/catalog.json",
-            "world/locations/dungeons/catalog.json",
-            "world/locations/wilderness/catalog.json",
-            "world/regions/catalog.json",
-            "world/environments/catalog.json",
+            // Skills domain (1 catalog)
+            "skills/catalog.json",
             
             // Social domain (4 catalogs)
-            "social/dialogue/styles/catalog.json",
-            "social/dialogue/greetings/catalog.json",
             "social/dialogue/farewells/catalog.json",
+            "social/dialogue/greetings/catalog.json",
             "social/dialogue/responses/catalog.json",
+            "social/dialogue/styles/catalog.json",
             
-            // Organizations domain (4 catalogs)
-            "organizations/factions/catalog.json",
-            "organizations/guilds/catalog.json",
-            "organizations/shops/catalog.json",
-            "organizations/businesses/catalog.json"
+            // Spells domain (1 catalog)
+            "spells/catalog.json",
+            
+            // World domain (5 catalogs)
+            "world/environments/catalog.json",
+            "world/locations/dungeons/catalog.json",
+            "world/locations/towns/catalog.json",
+            "world/locations/wilderness/catalog.json",
+            "world/regions/catalog.json"
         };
     }
 

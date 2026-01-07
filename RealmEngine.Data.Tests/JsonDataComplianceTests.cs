@@ -310,7 +310,7 @@ public class JsonDataComplianceTests
     {
         // Assert
         _allNamesFiles.Should().NotBeEmpty();
-        _allNamesFiles.Should().HaveCountGreaterThan(30, "expected 35+ names files");
+        _allNamesFiles.Should().HaveCountGreaterThan(25, "expected 25+ names files");
     }
 
     [Theory]

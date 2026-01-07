@@ -227,6 +227,12 @@ public class CombatService
         player.Health = Math.Max(0, player.Health - finalDamage);
         result.Damage = finalDamage;
 
+        // Award armor skill XP when taking damage (not defending)
+        if (!isDefending && finalDamage > 0)
+        {
+            await AwardArmorSkillXP(player, finalDamage);
+        }
+
         // Generate message
         if (isCritical)
         {
@@ -478,5 +484,74 @@ public class CombatService
         }
 
         return summary;
+    }
+
+    /// <summary>
+    /// Award armor skill XP based on equipped armor pieces and damage taken.
+    /// </summary>
+    /// <param name="player">The character taking damage.</param>
+    /// <param name="damageTaken">Amount of damage taken.</param>
+    private async Task AwardArmorSkillXP(Character player, int damageTaken)
+    {
+        // Calculate base XP from damage taken (minimum 2 XP, scale with damage)
+        int baseXP = Math.Max(2, damageTaken / 10);
+
+        // Get all equipped armor pieces
+        var armorPieces = new[]
+        {
+            player.EquippedHelmet,
+            player.EquippedShoulders,
+            player.EquippedChest,
+            player.EquippedBracers,
+            player.EquippedGloves,
+            player.EquippedBelt,
+            player.EquippedLegs,
+            player.EquippedBoots
+        }.Where(item => item != null).ToList();
+
+        // Award XP to each armor piece's associated skill
+        foreach (var armor in armorPieces)
+        {
+            // Get the skillReference trait from the armor
+            var totalTraits = armor!.GetTotalTraits();
+            
+            if (totalTraits.TryGetValue("skillReference", out var skillRefTrait) &&
+                skillRefTrait.Type == TraitType.String &&
+                !string.IsNullOrWhiteSpace(skillRefTrait.AsString()))
+            {
+                // Extract skill ID from reference (e.g., "@skills/armor:plate-armor" -> "plate-armor")
+                string skillReference = skillRefTrait.AsString();
+                string skillId = ExtractSkillIdFromReference(skillReference);
+
+                if (!string.IsNullOrWhiteSpace(skillId))
+                {
+                    await _mediator.Send(new AwardSkillXPCommand
+                    {
+                        Character = player,
+                        SkillId = skillId,
+                        XPAmount = baseXP,
+                        ActionSource = "armor_damage_taken"
+                    });
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Extract the skill ID from a reference string (e.g., "@skills/armor:plate-armor" -> "plate-armor").
+    /// </summary>
+    private string ExtractSkillIdFromReference(string reference)
+    {
+        if (string.IsNullOrWhiteSpace(reference))
+            return string.Empty;
+
+        // Format: @domain/path:item-name
+        int colonIndex = reference.IndexOf(':');
+        if (colonIndex > 0 && colonIndex < reference.Length - 1)
+        {
+            return reference.Substring(colonIndex + 1);
+        }
+
+        return string.Empty;
     }
 }

@@ -144,7 +144,7 @@ public class GameDataCacheDomainHierarchyTests : IDisposable
     public void CachedJsonFile_Should_Have_Subdomain_Property()
     {
         // Act
-        var file = _cache.GetFile("abilities/active/offensive/catalog.json");
+        var file = _cache.GetFile("abilities/active/catalog.json");
 
         // Assert
         file.Should().NotBeNull();
@@ -252,13 +252,13 @@ public class GameDataCacheDomainHierarchyTests : IDisposable
     [Fact]
     public void GetNamesByDomain_Should_Return_Only_Names()
     {
-        // Act
-        var names = _cache.GetNamesByDomain("abilities");
+        // Act - use enemies domain which has names.json files
+        var names = _cache.GetNamesByDomain("enemies");
 
         // Assert
         names.Should().NotBeEmpty();
         names.All(f => f.FileType == JsonFileType.NamesFile).Should().BeTrue();
-        names.All(f => f.Domain == "abilities").Should().BeTrue();
+        names.All(f => f.Domain == "enemies").Should().BeTrue();
     }
 
     [Fact]

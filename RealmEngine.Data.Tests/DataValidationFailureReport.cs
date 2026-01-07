@@ -154,9 +154,9 @@ public class DataValidationFailureReport
 
         // Check version
         var version = metadata["version"]?.ToString();
-        if (version != "1.0" && version != "4.0")
+        if (version != "1.0" && version != "4.0" && version != "4.2")
         {
-          issues.Add(new ValidationIssue(relativePath, "Version", $"Invalid version '{version}' (expected '1.0' or '4.0')"));
+          issues.Add(new ValidationIssue(relativePath, "Version", $"Invalid version '{version}' (expected '1.0', '4.0', or '4.2')"));
         }
       }
     }
