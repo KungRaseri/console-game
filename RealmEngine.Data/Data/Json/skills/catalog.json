@@ -2,85 +2,48 @@
   "metadata": {
     "version": "4.2",
     "type": "skills_catalog",
-    "description": "All character skills with practice-based progression",
-    "totalSkills": 25,
+    "description": "Complete character skill system with attributes, combat, magic, and professions",
+    "totalSkills": 54,
     "lastUpdated": "2026-01-06"
   },
   "skill_types": {
-    "attribute": {
-      "description": "Core attribute skills",
+    "attribute_strength": {
+      "description": "STR-based skills - Physical power",
+      "governingAttribute": "strength",
       "items": [
         {
-          "slug": "strength",
-          "name": "Strength",
-          "displayName": "Strength",
-          "description": "Physical power and melee damage",
+          "slug": "athletics",
+          "name": "Athletics",
+          "displayName": "Athletics",
+          "description": "Running, jumping, general physical activity",
           "traits": {
             "baseXPCost": {
-              "value": 100,
+              "value": 80,
               "type": "number"
             },
             "costMultiplier": {
-              "value": 0.5,
+              "value": 0.4,
               "type": "number"
             },
             "maxRank": {
               "value": 100,
               "type": "number"
             },
-            "effects": {
-              "value": [
-                {
-                  "effectType": "damage_multiplier",
-                  "effectValue": 0.005,
-                  "appliesTo": "melee"
-                }
-              ],
-              "type": "array"
-            },
-            "xpActions": {
-              "value": [
-                {
-                  "action": "melee_attack",
-                  "xpAmount": 5
-                },
-                {
-                  "action": "melee_kill",
-                  "xpAmount": 15
-                },
-                {
-                  "action": "critical_hit",
-                  "xpAmount": 10
-                }
-              ],
-              "type": "array"
-            }
-          }
-        },
-        {
-          "slug": "dexterity",
-          "name": "Dexterity",
-          "displayName": "Dexterity",
-          "description": "Agility, precision, and critical chance",
-          "traits": {
-            "baseXPCost": {
-              "value": 100,
-              "type": "number"
-            },
-            "costMultiplier": {
-              "value": 0.5,
-              "type": "number"
-            },
-            "maxRank": {
-              "value": 100,
-              "type": "number"
+            "governingAttribute": {
+              "value": "strength",
+              "type": "string"
             },
             "effects": {
               "value": [
                 {
-                  "effectType": "critical_chance",
+                  "effectType": "movement_speed",
                   "effectValue": 0.002,
-                  "appliesTo": "all"
+                  "appliesTo": "movement"
+                },
+                {
+                  "effectType": "jump_height",
+                  "effectValue": 0.01,
+                  "appliesTo": "jump"
                 }
               ],
               "type": "array"
@@ -88,15 +51,15 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "ranged_attack",
+                  "action": "sprint",
+                  "xpAmount": 2
+                },
+                {
+                  "action": "jump_distance",
                   "xpAmount": 5
                 },
                 {
-                  "action": "dodge_success",
-                  "xpAmount": 10
-                },
-                {
-                  "action": "critical_hit",
+                  "action": "complete_physical_challenge",
                   "xpAmount": 15
                 }
               ],
@@ -105,29 +68,38 @@
           }
         },
         {
-          "slug": "constitution",
-          "name": "Constitution",
-          "displayName": "Constitution",
-          "description": "Endurance and maximum health",
+          "slug": "swimming",
+          "name": "Swimming",
+          "displayName": "Swimming",
+          "description": "Moving through water efficiently",
           "traits": {
             "baseXPCost": {
-              "value": 100,
+              "value": 80,
               "type": "number"
             },
             "costMultiplier": {
-              "value": 0.5,
+              "value": 0.4,
               "type": "number"
             },
             "maxRank": {
               "value": 100,
               "type": "number"
             },
+            "governingAttribute": {
+              "value": "strength",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
-                  "effectType": "health_multiplier",
-                  "effectValue": 0.003,
-                  "appliesTo": "all"
+                  "effectType": "swim_speed",
+                  "effectValue": 0.005,
+                  "appliesTo": "swimming"
+                },
+                {
+                  "effectType": "oxygen_capacity",
+                  "effectValue": 0.01,
+                  "appliesTo": "underwater"
                 }
               ],
               "type": "array"
@@ -135,62 +107,15 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "take_damage",
+                  "action": "swim_distance",
                   "xpAmount": 3
                 },
                 {
-                  "action": "survive_low_health",
-                  "xpAmount": 20
-                },
-                {
-                  "action": "complete_combat",
+                  "action": "underwater_action",
                   "xpAmount": 5
-                }
-              ],
-              "type": "array"
-            }
-          }
-        },
-        {
-          "slug": "intelligence",
-          "name": "Intelligence",
-          "displayName": "Intelligence",
-          "description": "Magical knowledge and spell power",
-          "traits": {
-            "baseXPCost": {
-              "value": 100,
-              "type": "number"
-            },
-            "costMultiplier": {
-              "value": 0.5,
-              "type": "number"
-            },
-            "maxRank": {
-              "value": 100,
-              "type": "number"
-            },
-            "effects": {
-              "value": [
-                {
-                  "effectType": "mana_multiplier",
-                  "effectValue": 0.003,
-                  "appliesTo": "all"
-                }
-              ],
-              "type": "array"
-            },
-            "xpActions": {
-              "value": [
-                {
-                  "action": "cast_spell",
-                  "xpAmount": 8
                 },
                 {
-                  "action": "learn_spell",
-                  "xpAmount": 50
-                },
-                {
-                  "action": "spell_kill",
+                  "action": "survive_drowning",
                   "xpAmount": 20
                 }
               ],
@@ -199,29 +124,38 @@
           }
         },
         {
-          "slug": "wisdom",
-          "name": "Wisdom",
-          "displayName": "Wisdom",
-          "description": "Insight, perception, and mana regeneration",
+          "slug": "climbing",
+          "name": "Climbing",
+          "displayName": "Climbing",
+          "description": "Scaling walls and vertical surfaces",
           "traits": {
             "baseXPCost": {
-              "value": 100,
+              "value": 80,
               "type": "number"
             },
             "costMultiplier": {
-              "value": 0.5,
+              "value": 0.4,
               "type": "number"
             },
             "maxRank": {
               "value": 100,
               "type": "number"
             },
+            "governingAttribute": {
+              "value": "strength",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
-                  "effectType": "mana_regen",
+                  "effectType": "climb_speed",
+                  "effectValue": 0.005,
+                  "appliesTo": "climbing"
+                },
+                {
+                  "effectType": "grip_strength",
                   "effectValue": 0.01,
-                  "appliesTo": "all"
+                  "appliesTo": "climbing"
                 }
               ],
               "type": "array"
@@ -229,15 +163,394 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "rest",
+                  "action": "climb_surface",
                   "xpAmount": 5
                 },
                 {
-                  "action": "meditation",
+                  "action": "climb_difficult_surface",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "avoid_fall",
+                  "xpAmount": 10
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "carrying",
+          "name": "Carrying",
+          "displayName": "Carrying",
+          "description": "Managing heavy loads and encumbrance",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "strength",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "carry_capacity",
+                  "effectValue": 2.0,
+                  "appliesTo": "inventory"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "carry_heavy_load",
+                  "xpAmount": 2
+                },
+                {
+                  "action": "overencumbered_distance",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "lift_heavy_object",
+                  "xpAmount": 10
+                }
+              ],
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "attribute_dexterity": {
+      "description": "DEX-based skills - Agility and precision",
+      "governingAttribute": "dexterity",
+      "items": [
+        {
+          "slug": "acrobatics",
+          "name": "Acrobatics",
+          "displayName": "Acrobatics",
+          "description": "Balance, tumbling, and dodging",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "dexterity",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "dodge_chance",
+                  "effectValue": 0.002,
+                  "appliesTo": "combat"
+                },
+                {
+                  "effectType": "fall_damage_reduction",
+                  "effectValue": 0.01,
+                  "appliesTo": "falling"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "dodge_attack",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "fall_without_damage",
                   "xpAmount": 10
                 },
                 {
-                  "action": "identify_item",
+                  "action": "balance_check",
+                  "xpAmount": 3
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "stealth",
+          "name": "Stealth",
+          "displayName": "Stealth",
+          "description": "Moving silently and hiding",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "dexterity",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "detection_radius",
+                  "effectValue": -0.005,
+                  "appliesTo": "stealth"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "sneak_move",
+                  "xpAmount": 2
+                },
+                {
+                  "action": "avoid_detection",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "sneak_attack",
+                  "xpAmount": 20
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "sleight-of-hand",
+          "name": "Sleight of Hand",
+          "displayName": "Sleight of Hand",
+          "description": "Quick fingers for pickpocketing and manipulation",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "dexterity",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "pickpocket_success",
+                  "effectValue": 0.01,
+                  "appliesTo": "thievery"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "pickpocket_success",
+                  "xpAmount": 25
+                },
+                {
+                  "action": "plant_item",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "disarm_trap",
+                  "xpAmount": 30
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "lockpicking",
+          "name": "Lockpicking",
+          "displayName": "Lockpicking",
+          "description": "Opening locks without keys",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "dexterity",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "lockpick_success",
+                  "effectValue": 0.01,
+                  "appliesTo": "locks"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "pick_simple_lock",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "pick_complex_lock",
+                  "xpAmount": 30
+                },
+                {
+                  "action": "pick_master_lock",
+                  "xpAmount": 50
+                }
+              ],
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "attribute_constitution": {
+      "description": "CON-based skills - Endurance and resistance",
+      "governingAttribute": "constitution",
+      "items": [
+        {
+          "slug": "endurance",
+          "name": "Endurance",
+          "displayName": "Endurance",
+          "description": "Stamina and resistance to exhaustion",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "constitution",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "stamina_pool",
+                  "effectValue": 0.005,
+                  "appliesTo": "stamina"
+                },
+                {
+                  "effectType": "exhaustion_resistance",
+                  "effectValue": 0.01,
+                  "appliesTo": "fatigue"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "perform_stamina_action",
+                  "xpAmount": 2
+                },
+                {
+                  "action": "combat_while_exhausted",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "recover_from_exhaustion",
+                  "xpAmount": 5
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "concentration",
+          "name": "Concentration",
+          "displayName": "Concentration",
+          "description": "Maintaining focus under duress",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "constitution",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "interrupt_resistance",
+                  "effectValue": 0.01,
+                  "appliesTo": "spellcasting"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_while_damaged",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "maintain_concentration",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "resist_interrupt",
                   "xpAmount": 15
                 }
               ],
@@ -246,29 +559,566 @@
           }
         },
         {
-          "slug": "charisma",
-          "name": "Charisma",
-          "displayName": "Charisma",
-          "description": "Social influence and merchant prices",
+          "slug": "disease-resistance",
+          "name": "Disease Resistance",
+          "displayName": "Disease Resistance",
+          "description": "Resisting illness and infection",
           "traits": {
             "baseXPCost": {
-              "value": 100,
+              "value": 80,
               "type": "number"
             },
             "costMultiplier": {
-              "value": 0.5,
+              "value": 0.4,
               "type": "number"
             },
             "maxRank": {
               "value": 100,
               "type": "number"
             },
+            "governingAttribute": {
+              "value": "constitution",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
-                  "effectType": "price_reduction",
-                  "effectValue": 0.002,
-                  "appliesTo": "merchant"
+                  "effectType": "disease_resistance",
+                  "effectValue": 0.01,
+                  "appliesTo": "disease"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "resist_disease",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "cure_disease",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "exposure_to_disease",
+                  "xpAmount": 5
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "poison-resistance",
+          "name": "Poison Resistance",
+          "displayName": "Poison Resistance",
+          "description": "Resisting toxins and poisons",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "constitution",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "poison_resistance",
+                  "effectValue": 0.01,
+                  "appliesTo": "poison"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "resist_poison",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "cure_poison",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "exposure_to_poison",
+                  "xpAmount": 5
+                }
+              ],
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "attribute_intelligence": {
+      "description": "INT-based skills - Knowledge and analysis",
+      "governingAttribute": "intelligence",
+      "items": [
+        {
+          "slug": "arcana",
+          "name": "Arcana",
+          "displayName": "Arcana",
+          "description": "Knowledge of magical theory and phenomena",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "intelligence",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "spell_identification",
+                  "effectValue": 0.01,
+                  "appliesTo": "magic"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "identify_spell",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "analyze_magic_item",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "read_scroll",
+                  "xpAmount": 10
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "investigation",
+          "name": "Investigation",
+          "displayName": "Investigation",
+          "description": "Searching, analyzing clues, and deduction",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "intelligence",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "search_radius",
+                  "effectValue": 0.005,
+                  "appliesTo": "searching"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "find_hidden_object",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "solve_puzzle",
+                  "xpAmount": 25
+                },
+                {
+                  "action": "analyze_clue",
+                  "xpAmount": 10
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "nature",
+          "name": "Nature",
+          "displayName": "Nature",
+          "description": "Knowledge of plants, animals, and natural world",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "intelligence",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "foraging_yield",
+                  "effectValue": 0.01,
+                  "appliesTo": "gathering"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "identify_plant",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "gather_herbs",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "find_rare_ingredient",
+                  "xpAmount": 25
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "history",
+          "name": "History",
+          "displayName": "History",
+          "description": "Knowledge of past events, cultures, and lore",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "intelligence",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "lore_knowledge",
+                  "effectValue": 0.01,
+                  "appliesTo": "knowledge"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "recall_history",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "decipher_ancient_text",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "identify_artifact",
+                  "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "attribute_wisdom": {
+      "description": "WIS-based skills - Awareness and insight",
+      "governingAttribute": "wisdom",
+      "items": [
+        {
+          "slug": "perception",
+          "name": "Perception",
+          "displayName": "Perception",
+          "description": "Noticing details and spotting hidden things",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "wisdom",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "perception_radius",
+                  "effectValue": 0.005,
+                  "appliesTo": "awareness"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "spot_hidden_enemy",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "notice_trap",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "hear_distant_sound",
+                  "xpAmount": 10
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "insight",
+          "name": "Insight",
+          "displayName": "Insight",
+          "description": "Reading emotions and detecting lies",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "wisdom",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "lie_detection",
+                  "effectValue": 0.01,
+                  "appliesTo": "social"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "detect_lie",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "read_emotion",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "assess_intent",
+                  "xpAmount": 12
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "medicine",
+          "name": "Medicine",
+          "displayName": "Medicine",
+          "description": "Non-magical healing and treatment",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "wisdom",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "healing_effectiveness",
+                  "effectValue": 0.01,
+                  "appliesTo": "mundane_healing"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "bandage_wounds",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "stabilize_dying",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "diagnose_illness",
+                  "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "survival",
+          "name": "Survival",
+          "displayName": "Survival",
+          "description": "Wilderness knowledge, tracking, and enduring harsh conditions",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "wisdom",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "tracking_range",
+                  "effectValue": 0.005,
+                  "appliesTo": "tracking"
+                },
+                {
+                  "effectType": "environmental_resistance",
+                  "effectValue": 0.01,
+                  "appliesTo": "environment"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "track_target",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "survive_harsh_weather",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "craft_shelter",
+                  "xpAmount": 12
+                }
+              ],
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "attribute_charisma": {
+      "description": "CHA-based skills - Social interaction",
+      "governingAttribute": "charisma",
+      "items": [
+        {
+          "slug": "persuasion",
+          "name": "Persuasion",
+          "displayName": "Persuasion",
+          "description": "Convincing others through reason and charm",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "charisma",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "persuasion_bonus",
+                  "effectValue": 0.01,
+                  "appliesTo": "social"
                 }
               ],
               "type": "array"
@@ -280,12 +1130,165 @@
                   "xpAmount": 15
                 },
                 {
-                  "action": "successful_trade",
+                  "action": "negotiate_price",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "win_debate",
+                  "xpAmount": 20
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "intimidation",
+          "name": "Intimidation",
+          "displayName": "Intimidation",
+          "description": "Threatening and coercing through fear",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "charisma",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "intimidation_bonus",
+                  "effectValue": 0.01,
+                  "appliesTo": "social"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "successful_intimidation",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "cause_fear",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "force_surrender",
+                  "xpAmount": 25
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "deception",
+          "name": "Deception",
+          "displayName": "Deception",
+          "description": "Lying, bluffing, and disguising",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "charisma",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "deception_bonus",
+                  "effectValue": 0.01,
+                  "appliesTo": "social"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "successful_lie",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "maintain_disguise",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "feint_in_combat",
+                  "xpAmount": 10
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "performance",
+          "name": "Performance",
+          "displayName": "Performance",
+          "description": "Entertaining and impressing audiences",
+          "traits": {
+            "baseXPCost": {
+              "value": 80,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.4,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "governingAttribute": {
+              "value": "charisma",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "performance_quality",
+                  "effectValue": 0.01,
+                  "appliesTo": "entertainment"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "perform_for_crowd",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "earn_tips",
                   "xpAmount": 5
                 },
                 {
-                  "action": "intimidate",
-                  "xpAmount": 10
+                  "action": "win_performance_contest",
+                  "xpAmount": 25
                 }
               ],
               "type": "array"
@@ -294,14 +1297,14 @@
         }
       ]
     },
-    "combat": {
-      "description": "Combat proficiency skills",
+    "weapon": {
+      "description": "Weapon proficiency skills",
       "items": [
         {
-          "slug": "blade",
-          "name": "Blade",
-          "displayName": "Blade",
-          "description": "Proficiency with swords and daggers",
+          "slug": "light-blades",
+          "name": "Light Blades",
+          "displayName": "Light Blades",
+          "description": "Daggers, short swords, and rapiers",
           "traits": {
             "baseXPCost": {
               "value": 100,
@@ -315,12 +1318,25 @@
               "value": 100,
               "type": "number"
             },
+            "weaponTypes": {
+              "value": [
+                "dagger",
+                "short-sword",
+                "rapier"
+              ],
+              "type": "array"
+            },
             "effects": {
               "value": [
                 {
                   "effectType": "damage_multiplier",
                   "effectValue": 0.005,
-                  "appliesTo": "blade_weapons"
+                  "appliesTo": "light_blades"
+                },
+                {
+                  "effectType": "attack_speed",
+                  "effectValue": 0.002,
+                  "appliesTo": "light_blades"
                 }
               ],
               "type": "array"
@@ -328,16 +1344,132 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "blade_hit",
+                  "action": "light_blade_hit",
                   "xpAmount": 5
                 },
                 {
-                  "action": "blade_kill",
+                  "action": "light_blade_kill",
                   "xpAmount": 20
                 },
                 {
-                  "action": "parry_success",
+                  "action": "critical_hit",
                   "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "heavy-blades",
+          "name": "Heavy Blades",
+          "displayName": "Heavy Blades",
+          "description": "Longswords, greatswords, and scimitars",
+          "traits": {
+            "baseXPCost": {
+              "value": 100,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.5,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "weaponTypes": {
+              "value": [
+                "longsword",
+                "greatsword",
+                "scimitar",
+                "bastard-sword"
+              ],
+              "type": "array"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "damage_multiplier",
+                  "effectValue": 0.005,
+                  "appliesTo": "heavy_blades"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "heavy_blade_hit",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "heavy_blade_kill",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "cleave",
+                  "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "axes",
+          "name": "Axes",
+          "displayName": "Axes",
+          "description": "Hand axes, battleaxes, and great axes",
+          "traits": {
+            "baseXPCost": {
+              "value": 100,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.5,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "weaponTypes": {
+              "value": [
+                "hand-axe",
+                "battleaxe",
+                "great-axe"
+              ],
+              "type": "array"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "damage_multiplier",
+                  "effectValue": 0.005,
+                  "appliesTo": "axes"
+                },
+                {
+                  "effectType": "armor_penetration",
+                  "effectValue": 0.002,
+                  "appliesTo": "axes"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "axe_hit",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "axe_kill",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "crush_armor",
+                  "xpAmount": 25
                 }
               ],
               "type": "array"
@@ -348,7 +1480,7 @@
           "slug": "blunt",
           "name": "Blunt",
           "displayName": "Blunt",
-          "description": "Proficiency with maces and hammers",
+          "description": "Maces, hammers, and clubs",
           "traits": {
             "baseXPCost": {
               "value": 100,
@@ -362,12 +1494,26 @@
               "value": 100,
               "type": "number"
             },
+            "weaponTypes": {
+              "value": [
+                "mace",
+                "hammer",
+                "club",
+                "maul"
+              ],
+              "type": "array"
+            },
             "effects": {
               "value": [
                 {
                   "effectType": "damage_multiplier",
                   "effectValue": 0.005,
-                  "appliesTo": "blunt_weapons"
+                  "appliesTo": "blunt"
+                },
+                {
+                  "effectType": "stagger_chance",
+                  "effectValue": 0.002,
+                  "appliesTo": "blunt"
                 }
               ],
               "type": "array"
@@ -383,8 +1529,8 @@
                   "xpAmount": 20
                 },
                 {
-                  "action": "armor_crush",
-                  "xpAmount": 25
+                  "action": "stagger_enemy",
+                  "xpAmount": 15
                 }
               ],
               "type": "array"
@@ -392,10 +1538,10 @@
           }
         },
         {
-          "slug": "polearm",
-          "name": "Polearm",
-          "displayName": "Polearm",
-          "description": "Proficiency with spears and halberds",
+          "slug": "polearms",
+          "name": "Polearms",
+          "displayName": "Polearms",
+          "description": "Spears, halberds, and glaives",
           "traits": {
             "baseXPCost": {
               "value": 100,
@@ -409,12 +1555,26 @@
               "value": 100,
               "type": "number"
             },
+            "weaponTypes": {
+              "value": [
+                "spear",
+                "halberd",
+                "glaive",
+                "pike"
+              ],
+              "type": "array"
+            },
             "effects": {
               "value": [
                 {
                   "effectType": "damage_multiplier",
                   "effectValue": 0.005,
-                  "appliesTo": "polearm_weapons"
+                  "appliesTo": "polearms"
+                },
+                {
+                  "effectType": "reach_bonus",
+                  "effectValue": 0.5,
+                  "appliesTo": "polearms"
                 }
               ],
               "type": "array"
@@ -430,7 +1590,7 @@
                   "xpAmount": 20
                 },
                 {
-                  "action": "reach_advantage",
+                  "action": "reach_advantage_kill",
                   "xpAmount": 15
                 }
               ],
@@ -439,10 +1599,10 @@
           }
         },
         {
-          "slug": "two-handed",
-          "name": "Two-Handed",
-          "displayName": "Two-Handed",
-          "description": "Proficiency with two-handed weapons",
+          "slug": "bows",
+          "name": "Bows",
+          "displayName": "Bows",
+          "description": "Shortbows, longbows, and composite bows",
           "traits": {
             "baseXPCost": {
               "value": 100,
@@ -456,12 +1616,25 @@
               "value": 100,
               "type": "number"
             },
+            "weaponTypes": {
+              "value": [
+                "shortbow",
+                "longbow",
+                "composite-bow"
+              ],
+              "type": "array"
+            },
             "effects": {
               "value": [
                 {
                   "effectType": "damage_multiplier",
                   "effectValue": 0.005,
-                  "appliesTo": "two_handed_weapons"
+                  "appliesTo": "bows"
+                },
+                {
+                  "effectType": "critical_chance",
+                  "effectValue": 0.002,
+                  "appliesTo": "bows"
                 }
               ],
               "type": "array"
@@ -469,58 +1642,11 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "two_handed_hit",
+                  "action": "bow_hit",
                   "xpAmount": 5
                 },
                 {
-                  "action": "two_handed_kill",
-                  "xpAmount": 20
-                },
-                {
-                  "action": "cleave_multiple",
-                  "xpAmount": 25
-                }
-              ],
-              "type": "array"
-            }
-          }
-        },
-        {
-          "slug": "archery",
-          "name": "Archery",
-          "displayName": "Archery",
-          "description": "Proficiency with bows and crossbows",
-          "traits": {
-            "baseXPCost": {
-              "value": 100,
-              "type": "number"
-            },
-            "costMultiplier": {
-              "value": 0.5,
-              "type": "number"
-            },
-            "maxRank": {
-              "value": 100,
-              "type": "number"
-            },
-            "effects": {
-              "value": [
-                {
-                  "effectType": "damage_multiplier",
-                  "effectValue": 0.005,
-                  "appliesTo": "ranged_weapons"
-                }
-              ],
-              "type": "array"
-            },
-            "xpActions": {
-              "value": [
-                {
-                  "action": "ranged_hit",
-                  "xpAmount": 5
-                },
-                {
-                  "action": "ranged_kill",
+                  "action": "bow_kill",
                   "xpAmount": 20
                 },
                 {
@@ -533,10 +1659,182 @@
           }
         },
         {
-          "slug": "block",
-          "name": "Block",
-          "displayName": "Block",
-          "description": "Effectiveness with shields",
+          "slug": "crossbows",
+          "name": "Crossbows",
+          "displayName": "Crossbows",
+          "description": "Light, heavy, and repeating crossbows",
+          "traits": {
+            "baseXPCost": {
+              "value": 100,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.5,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "weaponTypes": {
+              "value": [
+                "light-crossbow",
+                "heavy-crossbow",
+                "repeating-crossbow"
+              ],
+              "type": "array"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "damage_multiplier",
+                  "effectValue": 0.005,
+                  "appliesTo": "crossbows"
+                },
+                {
+                  "effectType": "armor_penetration",
+                  "effectValue": 0.003,
+                  "appliesTo": "crossbows"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "crossbow_hit",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "crossbow_kill",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "pierce_armor",
+                  "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "throwing",
+          "name": "Throwing",
+          "displayName": "Throwing",
+          "description": "Throwing knives, javelins, and axes",
+          "traits": {
+            "baseXPCost": {
+              "value": 100,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.5,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "weaponTypes": {
+              "value": [
+                "throwing-knife",
+                "javelin",
+                "throwing-axe"
+              ],
+              "type": "array"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "damage_multiplier",
+                  "effectValue": 0.005,
+                  "appliesTo": "throwing"
+                },
+                {
+                  "effectType": "range",
+                  "effectValue": 0.5,
+                  "appliesTo": "throwing"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "throwing_hit",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "throwing_kill",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "long_range_hit",
+                  "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "unarmed",
+          "name": "Unarmed",
+          "displayName": "Unarmed",
+          "description": "Fists, kicks, and grappling",
+          "traits": {
+            "baseXPCost": {
+              "value": 100,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.5,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "damage_multiplier",
+                  "effectValue": 0.006,
+                  "appliesTo": "unarmed"
+                },
+                {
+                  "effectType": "attack_speed",
+                  "effectValue": 0.003,
+                  "appliesTo": "unarmed"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "unarmed_hit",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "unarmed_kill",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "disarm_enemy",
+                  "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "shield",
+          "name": "Shield",
+          "displayName": "Shield",
+          "description": "Blocking and shield bash attacks",
           "traits": {
             "baseXPCost": {
               "value": 100,
@@ -556,6 +1854,11 @@
                   "effectType": "block_chance",
                   "effectValue": 0.003,
                   "appliesTo": "all"
+                },
+                {
+                  "effectType": "bash_damage",
+                  "effectValue": 0.01,
+                  "appliesTo": "shield"
                 }
               ],
               "type": "array"
@@ -563,15 +1866,247 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "block_success",
+                  "action": "successful_block",
                   "xpAmount": 10
+                },
+                {
+                  "action": "shield_bash",
+                  "xpAmount": 15
                 },
                 {
                   "action": "block_critical",
                   "xpAmount": 20
+                }
+              ],
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "armor": {
+      "description": "Armor proficiency skills",
+      "items": [
+        {
+          "slug": "light-armor",
+          "name": "Light Armor",
+          "displayName": "Light Armor",
+          "description": "Cloth and leather armor",
+          "traits": {
+            "baseXPCost": {
+              "value": 90,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.45,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "armorTypes": {
+              "value": [
+                "cloth",
+                "leather",
+                "studded-leather"
+              ],
+              "type": "array"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "armor_rating",
+                  "effectValue": 0.003,
+                  "appliesTo": "light_armor"
                 },
                 {
-                  "action": "shield_bash",
+                  "effectType": "dodge_bonus",
+                  "effectValue": 0.002,
+                  "appliesTo": "light_armor"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "take_damage_light_armor",
+                  "xpAmount": 3
+                },
+                {
+                  "action": "dodge_in_light_armor",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "complete_combat_light_armor",
+                  "xpAmount": 10
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "medium-armor",
+          "name": "Medium Armor",
+          "displayName": "Medium Armor",
+          "description": "Chainmail and scale armor",
+          "traits": {
+            "baseXPCost": {
+              "value": 90,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.45,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "armorTypes": {
+              "value": [
+                "hide",
+                "chainmail",
+                "scale-mail"
+              ],
+              "type": "array"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "armor_rating",
+                  "effectValue": 0.004,
+                  "appliesTo": "medium_armor"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "take_damage_medium_armor",
+                  "xpAmount": 3
+                },
+                {
+                  "action": "block_in_medium_armor",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "complete_combat_medium_armor",
+                  "xpAmount": 10
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "heavy-armor",
+          "name": "Heavy Armor",
+          "displayName": "Heavy Armor",
+          "description": "Plate and full armor",
+          "traits": {
+            "baseXPCost": {
+              "value": 90,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.45,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "armorTypes": {
+              "value": [
+                "splint",
+                "plate",
+                "full-plate"
+              ],
+              "type": "array"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "armor_rating",
+                  "effectValue": 0.005,
+                  "appliesTo": "heavy_armor"
+                },
+                {
+                  "effectType": "damage_reduction",
+                  "effectValue": 0.002,
+                  "appliesTo": "heavy_armor"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "take_damage_heavy_armor",
+                  "xpAmount": 3
+                },
+                {
+                  "action": "absorb_heavy_hit",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "complete_combat_heavy_armor",
+                  "xpAmount": 10
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "unarmored-defense",
+          "name": "Unarmored Defense",
+          "displayName": "Unarmored Defense",
+          "description": "Fighting without armor",
+          "traits": {
+            "baseXPCost": {
+              "value": 90,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.45,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "dodge_chance",
+                  "effectValue": 0.003,
+                  "appliesTo": "unarmored"
+                },
+                {
+                  "effectType": "movement_speed",
+                  "effectValue": 0.002,
+                  "appliesTo": "unarmored"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "take_damage_unarmored",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "dodge_unarmored",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "complete_combat_unarmored",
                   "xpAmount": 15
                 }
               ],
@@ -581,14 +2116,15 @@
         }
       ]
     },
-    "magic": {
-      "description": "Magical traditions",
+    "magic_arcane": {
+      "description": "Arcane magic tradition - Study-based magic",
+      "tradition": "arcane",
       "items": [
         {
           "slug": "arcane",
           "name": "Arcane",
           "displayName": "Arcane",
-          "description": "Study-based magic",
+          "description": "Core arcane magic skill - study-based spellcasting",
           "traits": {
             "baseXPCost": {
               "value": 120,
@@ -602,11 +2138,24 @@
               "value": 100,
               "type": "number"
             },
+            "tradition": {
+              "value": "arcane",
+              "type": "string"
+            },
+            "governingAttribute": {
+              "value": "intelligence",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
+                  "effectType": "spell_access",
+                  "effectValue": 1,
+                  "appliesTo": "arcane_spells"
+                },
+                {
                   "effectType": "spell_power",
-                  "effectValue": 0.004,
+                  "effectValue": 0.003,
                   "appliesTo": "arcane_spells"
                 }
               ],
@@ -632,10 +2181,191 @@
           }
         },
         {
+          "slug": "force-magic",
+          "name": "Force Magic",
+          "displayName": "Force Magic",
+          "description": "Pure magical energy spells",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "arcane",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "force",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "damage_bonus",
+                  "effectValue": 0.005,
+                  "appliesTo": "force_spells"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_force_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "force_damage_dealt",
+                  "xpAmount": 3
+                },
+                {
+                  "action": "force_kill",
+                  "xpAmount": 25
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "chronomancy",
+          "name": "Chronomancy",
+          "displayName": "Chronomancy",
+          "description": "Time manipulation magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "arcane",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "time",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "duration_bonus",
+                  "effectValue": 0.01,
+                  "appliesTo": "time_spells"
+                },
+                {
+                  "effectType": "cooldown_reduction",
+                  "effectValue": 0.005,
+                  "appliesTo": "time_spells"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_time_spell",
+                  "xpAmount": 12
+                },
+                {
+                  "action": "maintain_time_effect",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "successful_time_manipulation",
+                  "xpAmount": 20
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "conjuration",
+          "name": "Conjuration",
+          "displayName": "Conjuration",
+          "description": "Summoning and creation magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "arcane",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "conjuration",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "summon_power",
+                  "effectValue": 0.01,
+                  "appliesTo": "conjuration_spells"
+                },
+                {
+                  "effectType": "summon_duration",
+                  "effectValue": 0.005,
+                  "appliesTo": "conjuration_spells"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_conjuration_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "summon_creature",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "summon_kill",
+                  "xpAmount": 20
+                }
+              ],
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "magic_divine": {
+      "description": "Divine magic tradition - Faith-based magic",
+      "tradition": "divine",
+      "items": [
+        {
           "slug": "divine",
           "name": "Divine",
           "displayName": "Divine",
-          "description": "Faith-based magic",
+          "description": "Core divine magic skill - faith-based spellcasting",
           "traits": {
             "baseXPCost": {
               "value": 120,
@@ -649,11 +2379,24 @@
               "value": 100,
               "type": "number"
             },
+            "tradition": {
+              "value": "divine",
+              "type": "string"
+            },
+            "governingAttribute": {
+              "value": "wisdom",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
+                  "effectType": "spell_access",
+                  "effectValue": 1,
+                  "appliesTo": "divine_spells"
+                },
+                {
                   "effectType": "spell_power",
-                  "effectValue": 0.004,
+                  "effectValue": 0.003,
                   "appliesTo": "divine_spells"
                 }
               ],
@@ -679,10 +2422,196 @@
           }
         },
         {
+          "slug": "restoration",
+          "name": "Restoration",
+          "displayName": "Restoration",
+          "description": "Healing and resurrection magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "divine",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "healing",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "healing_power",
+                  "effectValue": 0.01,
+                  "appliesTo": "healing_spells"
+                },
+                {
+                  "effectType": "resurrection_cost",
+                  "effectValue": -0.005,
+                  "appliesTo": "resurrection"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_healing_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "health_restored",
+                  "xpAmount": 1
+                },
+                {
+                  "action": "resurrect_ally",
+                  "xpAmount": 50
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "smiting",
+          "name": "Smiting",
+          "displayName": "Smiting",
+          "description": "Holy damage magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "divine",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "holy_damage",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "holy_damage_bonus",
+                  "effectValue": 0.005,
+                  "appliesTo": "smiting_spells"
+                },
+                {
+                  "effectType": "bonus_vs_undead",
+                  "effectValue": 0.01,
+                  "appliesTo": "undead"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_smite_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "holy_damage_dealt",
+                  "xpAmount": 3
+                },
+                {
+                  "action": "destroy_undead",
+                  "xpAmount": 25
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "warding",
+          "name": "Warding",
+          "displayName": "Warding",
+          "description": "Protection and blessing magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "divine",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "protection",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "ward_strength",
+                  "effectValue": 0.01,
+                  "appliesTo": "warding_spells"
+                },
+                {
+                  "effectType": "blessing_duration",
+                  "effectValue": 0.005,
+                  "appliesTo": "blessing_spells"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_ward_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "damage_absorbed_by_ward",
+                  "xpAmount": 2
+                },
+                {
+                  "action": "maintain_blessing",
+                  "xpAmount": 5
+                }
+              ],
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "magic_occult": {
+      "description": "Occult magic tradition - Mind and shadow magic",
+      "tradition": "occult",
+      "items": [
+        {
           "slug": "occult",
           "name": "Occult",
           "displayName": "Occult",
-          "description": "Mental and psychic magic",
+          "description": "Core occult magic skill - mental spellcasting",
           "traits": {
             "baseXPCost": {
               "value": 120,
@@ -696,11 +2625,24 @@
               "value": 100,
               "type": "number"
             },
+            "tradition": {
+              "value": "occult",
+              "type": "string"
+            },
+            "governingAttribute": {
+              "value": "charisma",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
+                  "effectType": "spell_access",
+                  "effectValue": 1,
+                  "appliesTo": "occult_spells"
+                },
+                {
                   "effectType": "spell_power",
-                  "effectValue": 0.004,
+                  "effectValue": 0.003,
                   "appliesTo": "occult_spells"
                 }
               ],
@@ -726,10 +2668,196 @@
           }
         },
         {
+          "slug": "enchantment",
+          "name": "Enchantment",
+          "displayName": "Enchantment",
+          "description": "Mind control magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "occult",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "mind_control",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "control_duration",
+                  "effectValue": 0.01,
+                  "appliesTo": "enchantment_spells"
+                },
+                {
+                  "effectType": "save_dc",
+                  "effectValue": 0.005,
+                  "appliesTo": "enchantment_spells"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_enchantment_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "successful_charm",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "successful_dominate",
+                  "xpAmount": 30
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "illusion",
+          "name": "Illusion",
+          "displayName": "Illusion",
+          "description": "Deception and invisibility magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "occult",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "illusion",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "illusion_believability",
+                  "effectValue": 0.01,
+                  "appliesTo": "illusion_spells"
+                },
+                {
+                  "effectType": "invisibility_duration",
+                  "effectValue": 0.005,
+                  "appliesTo": "invisibility"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_illusion_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "maintain_invisibility",
+                  "xpAmount": 5
+                },
+                {
+                  "action": "fool_enemy",
+                  "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "shadowcraft",
+          "name": "Shadowcraft",
+          "displayName": "Shadowcraft",
+          "description": "Darkness and psychic damage magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "occult",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "shadow",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "psychic_damage_bonus",
+                  "effectValue": 0.005,
+                  "appliesTo": "psychic_spells"
+                },
+                {
+                  "effectType": "fear_effectiveness",
+                  "effectValue": 0.01,
+                  "appliesTo": "fear_spells"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_shadow_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "psychic_damage_dealt",
+                  "xpAmount": 3
+                },
+                {
+                  "action": "cause_fear",
+                  "xpAmount": 20
+                }
+              ],
+              "type": "array"
+            }
+          }
+        }
+      ]
+    },
+    "magic_primal": {
+      "description": "Primal magic tradition - Nature-based magic",
+      "tradition": "primal",
+      "items": [
+        {
           "slug": "primal",
           "name": "Primal",
           "displayName": "Primal",
-          "description": "Nature-based magic",
+          "description": "Core primal magic skill - nature-based spellcasting",
           "traits": {
             "baseXPCost": {
               "value": 120,
@@ -743,11 +2871,24 @@
               "value": 100,
               "type": "number"
             },
+            "tradition": {
+              "value": "primal",
+              "type": "string"
+            },
+            "governingAttribute": {
+              "value": "wisdom",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
+                  "effectType": "spell_access",
+                  "effectValue": 1,
+                  "appliesTo": "primal_spells"
+                },
+                {
                   "effectType": "spell_power",
-                  "effectValue": 0.004,
+                  "effectValue": 0.003,
                   "appliesTo": "primal_spells"
                 }
               ],
@@ -771,17 +2912,197 @@
               "type": "array"
             }
           }
+        },
+        {
+          "slug": "elementalism",
+          "name": "Elementalism",
+          "displayName": "Elementalism",
+          "description": "Fire, ice, lightning, and earth magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "primal",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "elements",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "elemental_damage_bonus",
+                  "effectValue": 0.005,
+                  "appliesTo": "elemental_spells"
+                },
+                {
+                  "effectType": "elemental_resistance",
+                  "effectValue": 0.003,
+                  "appliesTo": "elements"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_elemental_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "elemental_damage_dealt",
+                  "xpAmount": 3
+                },
+                {
+                  "action": "elemental_kill",
+                  "xpAmount": 25
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "beast-mastery",
+          "name": "Beast Mastery",
+          "displayName": "Beast Mastery",
+          "description": "Shapeshifting and animal companion magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "primal",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "beasts",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "beast_form_power",
+                  "effectValue": 0.01,
+                  "appliesTo": "shapeshift"
+                },
+                {
+                  "effectType": "companion_strength",
+                  "effectValue": 0.01,
+                  "appliesTo": "animal_companion"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_beast_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "shapeshift_kill",
+                  "xpAmount": 20
+                },
+                {
+                  "action": "companion_kill",
+                  "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "verdancy",
+          "name": "Verdancy",
+          "displayName": "Verdancy",
+          "description": "Plants and natural healing magic",
+          "traits": {
+            "baseXPCost": {
+              "value": 140,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.7,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "tradition": {
+              "value": "primal",
+              "type": "string"
+            },
+            "specialization": {
+              "value": "plants",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "plant_control",
+                  "effectValue": 0.01,
+                  "appliesTo": "plant_spells"
+                },
+                {
+                  "effectType": "natural_healing_boost",
+                  "effectValue": 0.005,
+                  "appliesTo": "healing"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "cast_plant_spell",
+                  "xpAmount": 10
+                },
+                {
+                  "action": "entangle_enemy",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "regeneration_healing",
+                  "xpAmount": 5
+                }
+              ],
+              "type": "array"
+            }
+          }
         }
       ]
     },
     "profession": {
-      "description": "Crafting and trade",
+      "description": "Crafting, gathering, and trade skills",
       "items": [
         {
           "slug": "blacksmithing",
           "name": "Blacksmithing",
           "displayName": "Blacksmithing",
-          "description": "Forging weapons and armor",
+          "description": "Forging weapons and armor from metal",
           "traits": {
             "baseXPCost": {
               "value": 150,
@@ -795,11 +3116,20 @@
               "value": 100,
               "type": "number"
             },
+            "craftingType": {
+              "value": "smithing",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
                   "effectType": "craft_quality",
                   "effectValue": 0.01,
+                  "appliesTo": "smithing"
+                },
+                {
+                  "effectType": "material_efficiency",
+                  "effectValue": 0.005,
                   "appliesTo": "smithing"
                 }
               ],
@@ -825,10 +3155,10 @@
           }
         },
         {
-          "slug": "alchemy",
-          "name": "Alchemy",
-          "displayName": "Alchemy",
-          "description": "Brewing potions and poisons",
+          "slug": "leatherworking",
+          "name": "Leatherworking",
+          "displayName": "Leatherworking",
+          "description": "Crafting leather armor and bags",
           "traits": {
             "baseXPCost": {
               "value": 150,
@@ -842,12 +3172,230 @@
               "value": 100,
               "type": "number"
             },
+            "craftingType": {
+              "value": "leatherwork",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "craft_quality",
+                  "effectValue": 0.01,
+                  "appliesTo": "leatherworking"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "craft_leather_item",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "craft_masterwork_leather",
+                  "xpAmount": 80
+                },
+                {
+                  "action": "discover_pattern",
+                  "xpAmount": 40
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "tailoring",
+          "name": "Tailoring",
+          "displayName": "Tailoring",
+          "description": "Sewing cloth armor and clothing",
+          "traits": {
+            "baseXPCost": {
+              "value": 150,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.8,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "craftingType": {
+              "value": "sewing",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "craft_quality",
+                  "effectValue": 0.01,
+                  "appliesTo": "tailoring"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "craft_cloth_item",
+                  "xpAmount": 12
+                },
+                {
+                  "action": "craft_masterwork_cloth",
+                  "xpAmount": 60
+                },
+                {
+                  "action": "discover_pattern",
+                  "xpAmount": 35
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "woodworking",
+          "name": "Woodworking",
+          "displayName": "Woodworking",
+          "description": "Crafting bows, staves, and wooden items",
+          "traits": {
+            "baseXPCost": {
+              "value": 150,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.8,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "craftingType": {
+              "value": "woodcraft",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "craft_quality",
+                  "effectValue": 0.01,
+                  "appliesTo": "woodworking"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "craft_wood_item",
+                  "xpAmount": 15
+                },
+                {
+                  "action": "craft_masterwork_wood",
+                  "xpAmount": 75
+                },
+                {
+                  "action": "discover_blueprint",
+                  "xpAmount": 40
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "jewelcrafting",
+          "name": "Jewelcrafting",
+          "displayName": "Jewelcrafting",
+          "description": "Creating rings, amulets, and jewelry",
+          "traits": {
+            "baseXPCost": {
+              "value": 150,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.8,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "craftingType": {
+              "value": "jewelry",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "craft_quality",
+                  "effectValue": 0.01,
+                  "appliesTo": "jewelcrafting"
+                },
+                {
+                  "effectType": "gem_quality",
+                  "effectValue": 0.01,
+                  "appliesTo": "gems"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "craft_jewelry",
+                  "xpAmount": 25
+                },
+                {
+                  "action": "craft_masterwork_jewelry",
+                  "xpAmount": 120
+                },
+                {
+                  "action": "socket_gem",
+                  "xpAmount": 15
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "alchemy",
+          "name": "Alchemy",
+          "displayName": "Alchemy",
+          "description": "Brewing potions and creating poisons",
+          "traits": {
+            "baseXPCost": {
+              "value": 150,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.8,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "craftingType": {
+              "value": "brewing",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
                   "effectType": "potion_power",
                   "effectValue": 0.01,
                   "appliesTo": "alchemy"
+                },
+                {
+                  "effectType": "poison_potency",
+                  "effectValue": 0.01,
+                  "appliesTo": "poisons"
                 }
               ],
               "type": "array"
@@ -875,7 +3423,7 @@
           "slug": "enchanting",
           "name": "Enchanting",
           "displayName": "Enchanting",
-          "description": "Infusing items with magic",
+          "description": "Infusing items with magical properties",
           "traits": {
             "baseXPCost": {
               "value": 150,
@@ -888,6 +3436,10 @@
             "maxRank": {
               "value": 100,
               "type": "number"
+            },
+            "craftingType": {
+              "value": "enchantment",
+              "type": "string"
             },
             "effects": {
               "value": [
@@ -917,83 +3469,35 @@
               "type": "array"
             }
           }
-        }
-      ]
-    },
-    "survival": {
-      "description": "Wilderness and utility",
-      "items": [
-        {
-          "slug": "sneak",
-          "name": "Sneak",
-          "displayName": "Sneak",
-          "description": "Moving quietly",
-          "traits": {
-            "baseXPCost": {
-              "value": 80,
-              "type": "number"
-            },
-            "costMultiplier": {
-              "value": 0.4,
-              "type": "number"
-            },
-            "maxRank": {
-              "value": 100,
-              "type": "number"
-            },
-            "effects": {
-              "value": [
-                {
-                  "effectType": "stealth_bonus",
-                  "effectValue": 0.005,
-                  "appliesTo": "stealth"
-                }
-              ],
-              "type": "array"
-            },
-            "xpActions": {
-              "value": [
-                {
-                  "action": "sneak_move",
-                  "xpAmount": 2
-                },
-                {
-                  "action": "sneak_attack",
-                  "xpAmount": 20
-                },
-                {
-                  "action": "avoid_detection",
-                  "xpAmount": 15
-                }
-              ],
-              "type": "array"
-            }
-          }
         },
         {
-          "slug": "lockpicking",
-          "name": "Lockpicking",
-          "displayName": "Lockpicking",
-          "description": "Opening locks",
+          "slug": "runecrafting",
+          "name": "Runecrafting",
+          "displayName": "Runecrafting",
+          "description": "Inscribing runes and magical symbols",
           "traits": {
             "baseXPCost": {
-              "value": 80,
+              "value": 150,
               "type": "number"
             },
             "costMultiplier": {
-              "value": 0.4,
+              "value": 0.8,
               "type": "number"
             },
             "maxRank": {
               "value": 100,
               "type": "number"
             },
+            "craftingType": {
+              "value": "runes",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
-                  "effectType": "lockpick_success",
+                  "effectType": "rune_power",
                   "effectValue": 0.01,
-                  "appliesTo": "lockpicking"
+                  "appliesTo": "runecrafting"
                 }
               ],
               "type": "array"
@@ -1001,63 +3505,16 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "pick_lock",
-                  "xpAmount": 15
-                },
-                {
-                  "action": "pick_master_lock",
-                  "xpAmount": 50
-                },
-                {
-                  "action": "break_lockpick",
-                  "xpAmount": 2
-                }
-              ],
-              "type": "array"
-            }
-          }
-        },
-        {
-          "slug": "pickpocket",
-          "name": "Pickpocket",
-          "displayName": "Pickpocket",
-          "description": "Stealing from others",
-          "traits": {
-            "baseXPCost": {
-              "value": 80,
-              "type": "number"
-            },
-            "costMultiplier": {
-              "value": 0.4,
-              "type": "number"
-            },
-            "maxRank": {
-              "value": 100,
-              "type": "number"
-            },
-            "effects": {
-              "value": [
-                {
-                  "effectType": "steal_success",
-                  "effectValue": 0.01,
-                  "appliesTo": "pickpocketing"
-                }
-              ],
-              "type": "array"
-            },
-            "xpActions": {
-              "value": [
-                {
-                  "action": "successful_pickpocket",
+                  "action": "inscribe_rune",
                   "xpAmount": 25
                 },
                 {
-                  "action": "caught_pickpocketing",
-                  "xpAmount": 5
+                  "action": "create_runestone",
+                  "xpAmount": 35
                 },
                 {
-                  "action": "steal_valuable",
-                  "xpAmount": 50
+                  "action": "discover_rune",
+                  "xpAmount": 60
                 }
               ],
               "type": "array"
@@ -1065,29 +3522,38 @@
           }
         },
         {
-          "slug": "tracking",
-          "name": "Tracking",
-          "displayName": "Tracking",
-          "description": "Following trails",
+          "slug": "mining",
+          "name": "Mining",
+          "displayName": "Mining",
+          "description": "Extracting ore and gems from rocks",
           "traits": {
             "baseXPCost": {
-              "value": 80,
+              "value": 150,
               "type": "number"
             },
             "costMultiplier": {
-              "value": 0.4,
+              "value": 0.8,
               "type": "number"
             },
             "maxRank": {
               "value": 100,
               "type": "number"
             },
+            "craftingType": {
+              "value": "gathering",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
-                  "effectType": "tracking_bonus",
+                  "effectType": "mining_yield",
                   "effectValue": 0.01,
-                  "appliesTo": "tracking"
+                  "appliesTo": "mining"
+                },
+                {
+                  "effectType": "rare_find_chance",
+                  "effectValue": 0.005,
+                  "appliesTo": "mining"
                 }
               ],
               "type": "array"
@@ -1095,16 +3561,16 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "follow_trail",
-                  "xpAmount": 10
+                  "action": "mine_ore",
+                  "xpAmount": 5
                 },
                 {
-                  "action": "find_target",
+                  "action": "find_gem",
                   "xpAmount": 20
                 },
                 {
-                  "action": "identify_tracks",
-                  "xpAmount": 5
+                  "action": "find_rare_ore",
+                  "xpAmount": 30
                 }
               ],
               "type": "array"
@@ -1112,29 +3578,33 @@
           }
         },
         {
-          "slug": "foraging",
-          "name": "Foraging",
-          "displayName": "Foraging",
-          "description": "Finding resources",
+          "slug": "herbalism",
+          "name": "Herbalism",
+          "displayName": "Herbalism",
+          "description": "Gathering plants and herbs",
           "traits": {
             "baseXPCost": {
-              "value": 80,
+              "value": 150,
               "type": "number"
             },
             "costMultiplier": {
-              "value": 0.4,
+              "value": 0.8,
               "type": "number"
             },
             "maxRank": {
               "value": 100,
               "type": "number"
             },
+            "craftingType": {
+              "value": "gathering",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
-                  "effectType": "find_resources",
+                  "effectType": "herb_yield",
                   "effectValue": 0.01,
-                  "appliesTo": "foraging"
+                  "appliesTo": "herbalism"
                 }
               ],
               "type": "array"
@@ -1142,15 +3612,15 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "gather_food",
+                  "action": "gather_herb",
                   "xpAmount": 5
                 },
                 {
-                  "action": "find_rare_ingredient",
+                  "action": "find_rare_herb",
                   "xpAmount": 25
                 },
                 {
-                  "action": "harvest_herb",
+                  "action": "identify_plant",
                   "xpAmount": 10
                 }
               ],
@@ -1159,29 +3629,38 @@
           }
         },
         {
-          "slug": "survival",
-          "name": "Survival",
-          "displayName": "Survival",
-          "description": "Enduring harsh environments",
+          "slug": "cooking",
+          "name": "Cooking",
+          "displayName": "Cooking",
+          "description": "Preparing food and buffs",
           "traits": {
             "baseXPCost": {
-              "value": 80,
+              "value": 150,
               "type": "number"
             },
             "costMultiplier": {
-              "value": 0.4,
+              "value": 0.8,
               "type": "number"
             },
             "maxRank": {
               "value": 100,
               "type": "number"
             },
+            "craftingType": {
+              "value": "culinary",
+              "type": "string"
+            },
             "effects": {
               "value": [
                 {
-                  "effectType": "environmental_resistance",
+                  "effectType": "food_quality",
+                  "effectValue": 0.01,
+                  "appliesTo": "cooking"
+                },
+                {
+                  "effectType": "buff_duration",
                   "effectValue": 0.005,
-                  "appliesTo": "environment"
+                  "appliesTo": "food_buffs"
                 }
               ],
               "type": "array"
@@ -1189,16 +3668,72 @@
             "xpActions": {
               "value": [
                 {
-                  "action": "survive_weather",
+                  "action": "cook_meal",
                   "xpAmount": 10
                 },
                 {
-                  "action": "craft_shelter",
-                  "xpAmount": 15
+                  "action": "cook_gourmet_meal",
+                  "xpAmount": 40
                 },
                 {
-                  "action": "purify_water",
+                  "action": "discover_recipe",
+                  "xpAmount": 30
+                }
+              ],
+              "type": "array"
+            }
+          }
+        },
+        {
+          "slug": "fishing",
+          "name": "Fishing",
+          "displayName": "Fishing",
+          "description": "Catching fish and aquatic resources",
+          "traits": {
+            "baseXPCost": {
+              "value": 150,
+              "type": "number"
+            },
+            "costMultiplier": {
+              "value": 0.8,
+              "type": "number"
+            },
+            "maxRank": {
+              "value": 100,
+              "type": "number"
+            },
+            "craftingType": {
+              "value": "gathering",
+              "type": "string"
+            },
+            "effects": {
+              "value": [
+                {
+                  "effectType": "catch_rate",
+                  "effectValue": 0.01,
+                  "appliesTo": "fishing"
+                },
+                {
+                  "effectType": "rare_catch_chance",
+                  "effectValue": 0.005,
+                  "appliesTo": "fishing"
+                }
+              ],
+              "type": "array"
+            },
+            "xpActions": {
+              "value": [
+                {
+                  "action": "catch_fish",
                   "xpAmount": 5
+                },
+                {
+                  "action": "catch_rare_fish",
+                  "xpAmount": 25
+                },
+                {
+                  "action": "catch_treasure",
+                  "xpAmount": 50
                 }
               ],
               "type": "array"
