@@ -1,8 +1,8 @@
 # Game Design Document - RealmEngine
 
 **Project**: RealmEngine  
-**Version**: 1.6  
-**Last Updated**: January 5, 2026  
+**Version**: 1.7  
+**Last Updated**: January 6, 2026  
 **Engine**: .NET 9.0 Console Application  
 **Architecture**: Vertical Slice + CQRS Pattern  
 
@@ -260,70 +260,168 @@ Attribute choices directly impact combat effectiveness, survivability, magic pow
 **Design Philosophy:**
 Skills represent learned proficiencies that improve through use—"learning by doing." The skill system provides passive bonuses that automatically apply during relevant actions, creating organic character development distinct from level-based progression.
 
+**Total Skills: 54** organized into 5 major categories with practice-based XP progression.
+
 **Core Concept: "Use It to Improve It"**
-- Swing swords → improve One-Handed skill
-- Cast spells → improve Destruction/Restoration skills
-- Sneak around → improve Stealth skill
-- Craft items → improve Blacksmithing/Alchemy skills
+- Swing swords → improve weapon skill (Light Blades, Heavy Blades, Axes, etc.)
+- Cast spells → improve magic tradition (Arcane, Divine, Occult, Primal) and specializations
+- Sneak around → improve Stealth skill (DEX-based)
+- Craft items → improve profession skills (Blacksmithing, Alchemy, etc.)
 
 **Skill Categories:**
-- **Attribute Skills**: STR, DEX, CON, INT, WIS, CHA (improve attributes through use)
-- **Combat Skills**: One-Handed, Two-Handed, Archery, Block, Heavy Armor, Light Armor
-- **Magic Skills**: Destruction, Restoration, Alteration, Conjuration, Illusion, Mysticism
-- **Profession Skills**: Blacksmithing, Alchemy, Enchanting
-- **Survival Skills**: Lockpicking, Sneaking, Pickpocketing, Speech
+
+**1. Attribute Skills (24 total - 4 per attribute):**
+Each attribute governs 4 related skills that use attribute bonuses in checks:
+
+- **STR (Strength)**: Athletics, Swimming, Climbing, Carrying
+- **DEX (Dexterity)**: Acrobatics, Stealth, Sleight of Hand, Lockpicking
+- **CON (Constitution)**: Endurance, Concentration, Disease Resistance, Poison Resistance
+- **INT (Intelligence)**: Arcana, Investigation, Nature, History
+- **WIS (Wisdom)**: Perception, Insight, Medicine, Survival
+- **CHA (Charisma)**: Persuasion, Intimidation, Deception, Performance
+
+*Skill checks combine: d20 + Skill Rank + Attribute Modifier*
+
+**2. Weapon Skills (10 total):**
+- Light Blades (daggers, short swords, rapiers) - DEX synergy
+- Heavy Blades (longswords, greatswords) - STR synergy
+- Axes (hand axes, battleaxes, great axes) - STR synergy, armor penetration
+- Blunt (maces, hammers, mauls) - STR synergy, stagger enemies
+- Polearms (spears, halberds, glaives) - STR/DEX hybrid, reach advantage
+- Bows (shortbow, longbow, composite) - DEX synergy
+- Crossbows (light, heavy, repeating) - armor penetration
+- Throwing (knives, javelins, axes) - DEX synergy
+- Unarmed (fists, kicks, grappling) - STR/DEX hybrid
+- Shield (blocking, bash attacks) - STR synergy
+
+*Weapon skills provide accuracy, damage multipliers, and special techniques. Attributes provide base damage.*
+
+**3. Armor Skills (4 total):**
+- Light Armor (cloth, leather) - dodge bonuses
+- Medium Armor (chainmail, scale) - balanced protection
+- Heavy Armor (plate, full plate) - maximum protection, damage reduction
+- Unarmored Defense (monk-style) - dodge chance, movement speed
+
+**4. Magic Skills (16 total - 4 core traditions + 3 specializations each):**
+
+**Arcane Tradition (study-based magic, INT):**
+- Arcane (core) - spell access, general power
+- Force Magic - pure magical energy spells
+- Chronomancy - time manipulation (haste, slow, time stop)
+- Conjuration - summoning constructs/outsiders
+
+**Divine Tradition (faith-based magic, WIS):**
+- Divine (core) - spell access, general power
+- Restoration - healing, resurrection
+- Smiting - holy damage vs evil/undead
+- Warding - protection, blessings, sanctuary
+
+**Occult Tradition (mental magic, CHA):**
+- Occult (core) - spell access, general power
+- Enchantment - mind control, domination
+- Illusion - deception, invisibility
+- Shadowcraft - darkness, fear, psychic damage
+
+**Primal Tradition (nature magic, WIS):**
+- Primal (core) - spell access, general power
+- Elementalism - fire, ice, lightning, earth
+- Beast Mastery - shapeshifting, animal companions
+- Verdancy - plants, growth, natural healing
+
+*Core tradition skills unlock spells. Specialization skills boost specific spell types.*
+
+**5. Profession Skills (12 total):**
+- **Crafting**: Blacksmithing, Leatherworking, Tailoring, Woodworking, Jewelcrafting
+- **Magic Crafting**: Alchemy (potions/poisons), Enchanting, Runecrafting
+- **Gathering**: Mining (ore/gems), Herbalism (plants)
+- **Utility**: Cooking (food buffs), Fishing
 
 **Skill Mechanics:**
 - **Ranking System**: Skills rank from 0 (untrained) to 100 (master)
-- **Use-Based XP**: Gain skill XP by using the skill (combat, casting, crafting)
-- **Scaling Costs**: Each rank-up costs more XP (prevents instant mastery, rewards specialization)
-- **Per-Rank Bonuses**: Each skill has specific modifiers (+0.5% damage, +0.3% block chance, etc.)
+- **Use-Based XP**: Gain skill XP by performing related actions
+- **Scaling Costs**: Base XP cost × cost multiplier per rank
+- **Per-Rank Bonuses**: Each skill rank provides % bonuses (varies by skill)
+- **Multiple XP Actions**: Different actions grant different XP amounts
 - **Passive Application**: Bonuses automatically apply, no activation required
 
 **Build Depth:**
-Skills create organic specialization—characters naturally improve at what they do most. Two Warriors who favor different weapons will develop distinct skill profiles, encouraging experimentation and multiple playthroughs.
+Skills create organic specialization—characters naturally improve at what they do most. The dual system (attributes provide base power, skills provide proficiency) creates meaningful build choices: high STR + low Blade skill vs low STR + high Blade skill produce different results.
 
 **Distinct from Abilities & Spells:**
-- **Skills** = How good you are at something (passive proficiency, improves with use)
-- **Abilities** = Class-granted special powers (active, limited use)
-- **Spells** = Learnable magic (active, must be acquired, skill-dependent)
+- **Skills** = Proficiency level (passive bonuses, improves with use, 54 total)
+- **Abilities** = Class/race powers (active, tiered 1-5, 383 total)
+- **Spells** = Learnable magic (active, ranked 0-10, 144 total)
 
-#### Abilities System (Class-Specific Powers)
+#### Abilities System (Class & Species Powers)
 
 **Design Philosophy:**
-Abilities are class and species-specific active powers defining character identity. A Warrior's Charge, a Rogue's Backstab, a Mage's Fireball—these are signature moves that feel impactful and require conscious activation.
+Abilities are active powers from class, race, or items that define character identity. Unlike passive skills, abilities require activation and strategic timing. They provide tactical depth in combat and utility outside it.
+
+**Total Abilities: 383** organized by activation type and power tier.
 
 **Core Concept: "Special Powers"**
-Abilities are granted by class choice and unlocked through leveling. They're not learned like spells—they're inherent to your class archetype.
+Abilities are signature moves granted by class/race, unlocked through progression, or gained from special items/quests. They're inherent to character identity, not learned like spells.
 
-**Ability Categories:**
-- **Offensive Abilities**: Direct damage attacks (Backstab, Execute, Smite, Fireball)
-- **Defensive Abilities**: Active defense maneuvers (Shield Wall, Evasion, Parry)
-- **Support Abilities**: Buffs, healing, and utility powers (Battle Cry, Heal, Blessing)
-- **Passive Abilities**: Always-active class bonuses (auras, triggered effects)
-- **Ultimate Abilities**: Powerful special moves with long cooldowns (Last Stand, Meteor, Assassination)
+**Activation Types:**
+
+**1. Active Abilities (177 total)**
+Manually activated powers requiring conscious decision-making:
+- **Offensive (88)**: Damage-dealing attacks (Backstab, Execute, Power Strike)
+- **Defensive (34)**: Protective maneuvers (Shield Wall, Parry, Iron Skin)
+- **Support (27)**: Healing and buffs (Battle Cry, Heal, Rally)
+- **Utility (28)**: Non-combat utility (Teleportation, Detect Traps, Lockbreaking)
+- **Control (8)**: Crowd control (Fear Aura, Charm, Stun)
+- **Summon (4)**: Creature summoning (Animal Companion, Summon Skeleton)
+- **Mobility (2)**: Movement abilities (Shadow Step, Leap)
+
+**2. Passive Abilities (131 total)**
+Always-active bonuses requiring no activation:
+- **General (16)**: Core class passives (Weapon Mastery, Combat Supremacy)
+- **Offensive (38)**: Damage bonuses (Venomous Bite, Critical Strike, Berserker)
+- **Defensive (39)**: Protection bonuses (Thick Hide, Regeneration, Elemental Immunity)
+- **Leadership (24)**: Auras affecting allies (Alpha Predator, Warchief, Inspire)
+- **Environmental (22)**: Terrain adaptations (Night Hunter, Aquatic, Lair Actions)
+- **Mobility (7)**: Movement enhancements (Flight, Burrowing, Shadow Walk)
+- **Sensory (1)**: Perception bonuses (Keen Senses)
+
+**3. Reactive Abilities (36 total)**
+Triggered automatically by specific conditions:
+- **Offensive (14)**: Counterattacks (Vengeance Strike, Retaliation, Death Throes)
+- **Defensive (12)**: Defensive triggers (Thorns, Last Stand, Iron Will)
+- **Utility (10)**: Situation responses (Desperate Escape, Phoenix Rebirth, Cleanse)
+
+**4. Ultimate Abilities (39 total)**
+Powerful special moves with long cooldowns - all Tier 5:
+- Game-changing abilities for climactic moments
+- Examples: Demon Lord, Reality Warp, Ragnarok, Fortress
+
+**Tier System (Power Levels 1-5):**
+- **Tier 1**: Basic abilities (available early, low selectionWeight < 50)
+- **Tier 2**: Trained abilities (mid-game, selectionWeight 50-99)
+- **Tier 3**: Expert abilities (advanced, selectionWeight 100-199)
+- **Tier 4**: Master abilities (late-game, selectionWeight 200-399)
+- **Tier 5**: Legendary abilities (endgame, selectionWeight 400+ or Ultimate category)
 
 **Ability Mechanics:**
-- **Mana Costs**: Prevent spamming powerful abilities (10-100 mana)
-- **Cooldown Timers**: Add tactical decision-making (1-20 turns)
-- **Equipment Requirements**: Some abilities require specific gear (shield, staff)
-- **Level Requirements**: Gate powerful abilities behind progression
+- **Mana Costs**: Prevent spamming (stored in traits, 10-150 mana typical)
+- **Cooldown Timers**: Tactical pacing (0-300 seconds, in traits)
+- **Range/AoE**: Targeting parameters (in traits)
+- **Damage/Effects**: Stored in traits with type annotations
+- **Trigger Conditions**: For reactive abilities (onHit, onDeath, onLowHealth, etc.)
 
 **Class Integration:**
-Each class starts with 2-3 signature abilities matching their archetype:
-- **Warrior**: Charge, Shield Bash, Whirlwind
-- **Rogue**: Backstab, Evasion, Poison Strike
-- **Mage**: Fireball, Mana Shield, Frost Nova
-- **Cleric**: Smite, Heal, Divine Shield
-- **Ranger**: Power Shot, Trap, Hunter's Mark
-- **Paladin**: Holy Strike, Protective Aura, Lay on Hands
+Each class has signature abilities defining their playstyle. Classes start with 2-3 core abilities and unlock more through leveling, questing, or specialization choices.
 
-Additional abilities unlock through leveling (levels 5, 10, 15, 20), creating a growing tactical toolkit.
+**Data Structure (v4.2):**
+Abilities use consolidated catalogs with unified traits system:
+- Flat fields: slug, name, displayName, description, tier, selectionWeight
+- Traits contain: all gameplay properties (baseDamage, cooldown, range, etc.)
+- 4 catalog files: active, passive, reactive, ultimate
 
 **Distinct from Skills & Spells:**
-- **Skills** = Passive proficiency (always active, improves with use)
-- **Abilities** = Class powers (active, always available, class-locked)
-- **Spells** = Learnable magic (active, must be acquired, universal access)
+- **Skills** = Passive proficiency (always active, improves with use, no activation)
+- **Abilities** = Active/reactive powers (class-granted, tiered 1-5, cooldown/cost)
+- **Spells** = Learnable magic (must be acquired, ranked 0-10, tradition-based)
 
 #### Magic & Spell System (Learnable Magic)
 
