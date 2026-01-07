@@ -1,16 +1,17 @@
 {
   "metadata": {
     "description": "Weapon type catalog with base stats and traits",
-    "version": "4.0",
-    "lastUpdated": "2025-12-29",
+    "version": "4.1",
+    "lastUpdated": "2026-01-06",
     "type": "item_catalog",
-    "totalWeaponTypes": 6,
+    "totalWeaponTypes": 7,
     "totalWeapons": 69,
     "usage": "Base catalog of weapons with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
     "notes": [
       "Base items used in pattern generation with names.json",
-      "Each weapon has damage, weight, value, rarity, and rarityWeight",
-      "Type-level traits (damageType, slot, category) apply to all items in that weapon type"
+      "Each weapon has damage, weight, value, rarity, and selectionWeight",
+      "Type-level traits (damageType, slot, category) apply to all items in that weapon type",
+      "skillReference uses JSON v4.1 format: @skills/weapon:skill-slug"
     ]
   },
   "weapon_types": {
@@ -19,7 +20,10 @@
         "damageType": "slashing",
         "slot": "mainhand",
         "category": "melee_one_handed",
-        "skillType": "blade"
+        "skillReference": {
+          "value": "@skills/weapon:heavy-blades",
+          "type": "string"
+        }
       },
       "items": [
         {
@@ -129,7 +133,10 @@
         "damageType": "slashing",
         "slot": "mainhand",
         "category": "melee_one_handed",
-        "skillType": "axe"
+        "skillReference": {
+          "value": "@skills/weapon:axes",
+          "type": "string"
+        }
       },
       "items": [
         {
@@ -219,7 +226,10 @@
         "damageType": "piercing",
         "slot": "ranged",
         "category": "ranged",
-        "skillType": "archery",
+        "skillReference": {
+          "value": "@skills/weapon:bows",
+          "type": "string"
+        },
         "requiresAmmo": true
       },
       "items": [
@@ -310,7 +320,10 @@
         "damageType": "piercing",
         "slot": "mainhand",
         "category": "melee_one_handed",
-        "skillType": "blade",
+        "skillReference": {
+          "value": "@skills/weapon:light-blades",
+          "type": "string"
+        },
         "throwable": true
       },
       "items": [
@@ -401,7 +414,10 @@
         "damageType": "piercing",
         "slot": "mainhand",
         "category": "melee_two_handed",
-        "skillType": "polearm",
+        "skillReference": {
+          "value": "@skills/weapon:polearms",
+          "type": "string"
+        },
         "reach": true
       },
       "items": [
@@ -492,7 +508,10 @@
         "damageType": "bludgeoning",
         "slot": "mainhand",
         "category": "melee_one_handed",
-        "skillType": "blunt"
+        "skillReference": {
+          "value": "@skills/weapon:blunt",
+          "type": "string"
+        }
       },
       "items": [
         {
@@ -582,7 +601,10 @@
         "damageType": "bludgeoning",
         "slot": "mainhand",
         "category": "melee_two_handed",
-        "skillType": "staff",
+        "skillReference": {
+          "value": "@skills/weapon:blunt",
+          "type": "string"
+        },
         "magicFocus": true
       },
       "items": [
