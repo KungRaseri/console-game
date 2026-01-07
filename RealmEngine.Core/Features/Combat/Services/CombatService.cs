@@ -2,6 +2,8 @@ using RealmEngine.Shared.Models;
 using RealmEngine.Core.Features.SaveLoad;
 using RealmEngine.Shared.Utilities;
 using Serilog;
+using MediatR;
+using RealmEngine.Core.Features.Progression.Commands;
 
 namespace RealmEngine.Core.Features.Combat;
 
@@ -12,13 +14,15 @@ public class CombatService
 {
     private readonly Random _random = new();
     private readonly SaveGameService _saveGameService;
+    private readonly IMediator _mediator;
 
     /// <summary>
     /// Initialize the combat service with required dependencies.
     /// </summary>
-    public CombatService(SaveGameService saveGameService)
+    public CombatService(SaveGameService saveGameService, IMediator mediator)
     {
         _saveGameService = saveGameService;
+        _mediator = mediator;
     }
 
     /// <summary>
@@ -27,6 +31,7 @@ public class CombatService
     protected CombatService()
     {
         _saveGameService = null!;
+        _mediator = null!;
     }
 
     /// <summary>
@@ -48,7 +53,7 @@ public class CombatService
     /// <summary>
     /// Execute a player attack on an enemy.
     /// </summary>
-    public virtual CombatResult ExecutePlayerAttack(Character player, Enemy enemy, bool isDefending = false)
+    public virtual async Task<CombatResult> ExecutePlayerAttack(Character player, Enemy enemy, bool isDefending = false)
     {
         var result = new CombatResult { Success = true };
 
@@ -65,11 +70,14 @@ public class CombatService
         bool isCritical = RollCritical(critChance);
         result.IsCritical = isCritical;
 
+        // Determine weapon skill for XP awards (from item's skillReference trait)
+        string? weaponSkillSlug = player.GetEquippedWeaponSkillSlug();
+
         // Calculate base damage (weapon + attribute bonuses)
         int baseDamage = CalculatePlayerDamage(player);
 
-        // Apply skill damage multiplier
-        double skillMultiplier = SkillEffectCalculator.GetPhysicalDamageMultiplier(player);
+        // Apply skill damage multiplier (pass weapon skill slug for bonus)
+        double skillMultiplier = SkillEffectCalculator.GetPhysicalDamageMultiplier(player, weaponSkillSlug);
         baseDamage = (int)(baseDamage * skillMultiplier);
 
         // Apply critical multiplier
@@ -90,6 +98,31 @@ public class CombatService
         enemy.Health = Math.Max(0, enemy.Health - finalDamage);
         result.Damage = finalDamage;
 
+        // Award skill XP for successful hit
+        if (!string.IsNullOrEmpty(weaponSkillSlug))
+        {
+            int xpAmount = isCritical ? 15 : 5; // More XP for critical hits
+            await _mediator.Send(new AwardSkillXPCommand
+            {
+                Character = player,
+                SkillId = weaponSkillSlug,
+                XPAmount = xpAmount,
+                ActionSource = isCritical ? "critical_hit" : $"{weaponSkillSlug.Replace("-", "_")}_hit"
+            });
+        }
+
+        // Award precision skill XP for critical hits
+        if (isCritical)
+        {
+            await _mediator.Send(new AwardSkillXPCommand
+            {
+                Character = player,
+                SkillId = "precision",
+                XPAmount = 10,
+                ActionSource = "critical_hit"
+            });
+        }
+
         // Generate message
         if (isCritical)
         {
@@ -106,7 +139,7 @@ public class CombatService
     /// <summary>
     /// Execute an enemy attack on the player.
     /// </summary>
-    public CombatResult ExecuteEnemyAttack(Enemy enemy, Character player, bool isDefending = false)
+    public async Task<CombatResult> ExecuteEnemyAttack(Enemy enemy, Character player, bool isDefending = false)
     {
         var result = new CombatResult { Success = true };
 
@@ -116,6 +149,16 @@ public class CombatService
         {
             result.IsDodged = true;
             result.Message = $"You dodged {enemy.Name}'s attack!";
+            
+            // Award acrobatics XP for successful dodge
+            await _mediator.Send(new AwardSkillXPCommand
+            {
+                Character = player,
+                SkillId = "acrobatics",
+                XPAmount = 8,
+                ActionSource = "successful_dodge"
+            });
+            
             return result;
         }
 
@@ -124,6 +167,16 @@ public class CombatService
         {
             result.IsBlocked = true;
             result.Message = $"You blocked {enemy.Name}'s attack!";
+            
+            // Award block XP for successful block
+            await _mediator.Send(new AwardSkillXPCommand
+            {
+                Character = player,
+                SkillId = "block",
+                XPAmount = 8,
+                ActionSource = "successful_block"
+            });
+            
             return result;
         }
 
@@ -147,6 +200,15 @@ public class CombatService
         if (isDefending)
         {
             baseDamage = baseDamage / 2;
+            
+            // Award armor skill XP for defending (taking reduced damage)
+            await _mediator.Send(new AwardSkillXPCommand
+            {
+                Character = player,
+                SkillId = "armor",
+                XPAmount = 5,
+                ActionSource = "damage_reduction"
+            });
         }
 
         // Apply player defense (base + skill multiplier)
@@ -303,7 +365,7 @@ public class CombatService
     /// <summary>
     /// Generate combat outcome after victory.
     /// </summary>
-    public CombatOutcome GenerateVictoryOutcome(Character player, Enemy enemy)
+    public async Task<CombatOutcome> GenerateVictoryOutcome(Character player, Enemy enemy)
     {
         var outcome = new CombatOutcome
         {
@@ -311,6 +373,19 @@ public class CombatService
             XPGained = enemy.XPReward,
             GoldGained = enemy.GoldReward
         };
+
+        // Award weapon skill XP for kill (from item's skillReference trait)
+        string? weaponSkillSlug = player.GetEquippedWeaponSkillSlug();
+        if (!string.IsNullOrEmpty(weaponSkillSlug))
+        {
+            await _mediator.Send(new AwardSkillXPCommand
+            {
+                Character = player,
+                SkillId = weaponSkillSlug,
+                XPAmount = 20,
+                ActionSource = $"{weaponSkillSlug.Replace("-", "_")}_kill"
+            });
+        }
 
         // Try to generate loot
         // TODO: Modernize - var loot = GenerateLoot(player, enemy);

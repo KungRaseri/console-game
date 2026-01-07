@@ -27,8 +27,8 @@ public class AttackEnemyHandler : IRequestHandler<AttackEnemyCommand, AttackEnem
         var enemy = request.Enemy;
         var combatLog = request.CombatLog;
 
-        // Calculate damage using combat service
-        var combatResult = _combatService.ExecutePlayerAttack(player, enemy);
+        // Calculate damage using combat service (now async)
+        var combatResult = await _combatService.ExecutePlayerAttack(player, enemy);
         var damage = combatResult.Damage;
         var isCritical = combatResult.IsCritical;
 
