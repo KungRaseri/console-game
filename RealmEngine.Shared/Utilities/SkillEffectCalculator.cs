@@ -15,20 +15,7 @@ public static class SkillEffectCalculator
     {
         double multiplier = 1.0;
 
-        // Legacy support for old LearnedSkills
-#pragma warning disable CS0618 // Type or member is obsolete
-        if (character.LearnedSkills?.Any() == true)
-        {
-            var powerAttack = character.LearnedSkills.FirstOrDefault(s => s.Name == "Power Attack");
-            if (powerAttack != null)
-            {
-                multiplier += (powerAttack.CurrentRank * 0.10); // +10% per rank
-            }
-            return multiplier;
-        }
-#pragma warning restore CS0618
-
-        // New v4.2 system: Apply weapon skill damage multiplier
+        // Apply weapon skill damage multiplier
         if (!string.IsNullOrEmpty(weaponSkillSlug) && character.Skills.TryGetValue(weaponSkillSlug, out var weaponSkill))
         {
             // Most weapon skills give 0.005 damage multiplier per rank (0.5% per rank)
@@ -47,20 +34,7 @@ public static class SkillEffectCalculator
     {
         double multiplier = 1.0;
 
-        // Legacy support
-#pragma warning disable CS0618
-        if (character.LearnedSkills?.Any() == true)
-        {
-            var arcaneKnowledge = character.LearnedSkills.FirstOrDefault(s => s.Name == "Arcane Knowledge");
-            if (arcaneKnowledge != null)
-            {
-                multiplier += (arcaneKnowledge.CurrentRank * 0.10); // +10% per rank
-            }
-            return multiplier;
-        }
-#pragma warning restore CS0618
-
-        // New v4.2 system: Apply magic tradition skill multiplier
+        // Apply magic tradition skill multiplier
         if (!string.IsNullOrEmpty(magicSkillSlug) && character.Skills.TryGetValue(magicSkillSlug, out var magicSkill))
         {
             // Magic skills typically give 0.008 damage multiplier per rank
@@ -79,20 +53,7 @@ public static class SkillEffectCalculator
     {
         double bonus = 0.0;
 
-        // Legacy support
-#pragma warning disable CS0618
-        if (character.LearnedSkills?.Any() == true)
-        {
-            var criticalStrike = character.LearnedSkills.FirstOrDefault(s => s.Name == "Critical Strike");
-            if (criticalStrike != null)
-            {
-                bonus += (criticalStrike.CurrentRank * 2.0); // +2% per rank
-            }
-            return bonus;
-        }
-#pragma warning restore CS0618
-
-        // New v4.2 system: Check for precision skill
+        // Check for precision skill
         if (character.Skills.TryGetValue("precision", out var precision))
         {
             // Precision gives +0.5% crit per rank, maxing at +50% at rank 100
@@ -110,20 +71,7 @@ public static class SkillEffectCalculator
     {
         double multiplier = 1.0;
 
-        // Legacy support
-#pragma warning disable CS0618
-        if (character.LearnedSkills?.Any() == true)
-        {
-            var ironSkin = character.LearnedSkills.FirstOrDefault(s => s.Name == "Iron Skin");
-            if (ironSkin != null)
-            {
-                multiplier += (ironSkin.CurrentRank * 0.05); // +5% per rank
-            }
-            return multiplier;
-        }
-#pragma warning restore CS0618
-
-        // New v4.2 system: Check for armor skill and block skill
+        // Check for armor skill and block skill
         if (character.Skills.TryGetValue("armor", out var armorSkill))
         {
             // Armor skill gives +0.003 defense multiplier per rank
@@ -148,20 +96,7 @@ public static class SkillEffectCalculator
     {
         double bonus = 0.0;
 
-        // Legacy support
-#pragma warning disable CS0618
-        if (character.LearnedSkills?.Any() == true)
-        {
-            var quickReflexes = character.LearnedSkills.FirstOrDefault(s => s.Name == "Quick Reflexes");
-            if (quickReflexes != null)
-            {
-                bonus += (quickReflexes.CurrentRank * 3.0); // +3% per rank
-            }
-            return bonus;
-        }
-#pragma warning restore CS0618
-
-        // New v4.2 system: Check for acrobatics and light-armor skills
+        // Check for acrobatics and light-armor skills
         if (character.Skills.TryGetValue("acrobatics", out var acrobatics))
         {
             // Acrobatics gives +0.3% dodge per rank, maxing at +30% at rank 100
@@ -185,20 +120,7 @@ public static class SkillEffectCalculator
     {
         double bonus = 0.0;
 
-        // Legacy support
-#pragma warning disable CS0618
-        if (character.LearnedSkills?.Any() == true)
-        {
-            var treasureHunter = character.LearnedSkills.FirstOrDefault(s => s.Name == "Treasure Hunter");
-            if (treasureHunter != null)
-            {
-                bonus += (treasureHunter.CurrentRank * 10.0); // +10% per rank
-            }
-            return bonus;
-        }
-#pragma warning restore CS0618
-
-        // New v4.2 system: Check for luck skill
+        // Check for luck skill
         if (character.Skills.TryGetValue("luck", out var luck))
         {
             // Luck gives +0.5% rare find per rank, maxing at +50% at rank 100
@@ -216,20 +138,7 @@ public static class SkillEffectCalculator
     {
         double multiplier = 1.0;
 
-        // Legacy support
-#pragma warning disable CS0618
-        if (character.LearnedSkills?.Any() == true)
-        {
-            var manaEfficiency = character.LearnedSkills.FirstOrDefault(s => s.Name == "Mana Efficiency");
-            if (manaEfficiency != null)
-            {
-                multiplier += (manaEfficiency.CurrentRank * 0.10); // +10% per rank
-            }
-            return multiplier;
-        }
-#pragma warning restore CS0618
-
-        // New v4.2 system: Check for mana pool skill
+        // Check for mana pool skill
         if (character.Skills.TryGetValue("mana-pool", out var manaPool))
         {
             // Mana pool skill gives +0.01 multiplier per rank
@@ -248,20 +157,7 @@ public static class SkillEffectCalculator
     {
         int regen = 0;
 
-        // Legacy support
-#pragma warning disable CS0618
-        if (character.LearnedSkills?.Any() == true)
-        {
-            var regeneration = character.LearnedSkills.FirstOrDefault(s => s.Name == "Regeneration");
-            if (regeneration != null)
-            {
-                regen += (regeneration.CurrentRank * 2); // +2 HP per rank
-            }
-            return regen;
-        }
-#pragma warning restore CS0618
-
-        // New v4.2 system: Check for vitality skill
+        // Check for vitality skill
         if (character.Skills.TryGetValue("vitality", out var vitality))
         {
             // Vitality gives +0.5 HP regen per rank, rounded down
@@ -355,17 +251,6 @@ public static class SkillEffectCalculator
                 {
                     return reference.Substring(colonIndex + 1);
                 }
-            }
-        }
-
-        // Fallback: check for legacy skillType trait
-        if (item.Traits.TryGetValue("skillType", out var skillType) &&
-            skillType.Type == TraitType.String)
-        {
-            var typeValue = skillType.AsString();
-            if (!string.IsNullOrEmpty(typeValue))
-            {
-                return typeValue;
             }
         }
 

@@ -99,13 +99,6 @@ public class Character
     public List<LevelUpInfo> PendingLevelUps { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the collection of skills the character has learned (LEGACY - for backwards compatibility).
-    /// NEW CODE SHOULD USE Skills dictionary instead.
-    /// </summary>
-    [Obsolete("Use Skills dictionary instead for v4.2 progression system")]
-    public List<Skill> LearnedSkills { get; set; } = new();
-    
-    /// <summary>
     /// Gets or sets the character's skill proficiencies by skill ID.
     /// Dictionary key is skillId (e.g., "athletics", "light-blades", "arcane").
     /// Skills rank from 0-100 through practice-based XP gain.
@@ -118,6 +111,13 @@ public class Character
     /// Tracks usage statistics and cooldown state.
     /// </summary>
     public Dictionary<string, CharacterAbility> LearnedAbilities { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets abilities granted by equipped items.
+    /// Dictionary key is abilityId, value is the item ID that grants it.
+    /// These abilities are active only while the item is equipped.
+    /// </summary>
+    public Dictionary<string, string> EquipmentGrantedAbilities { get; set; } = new();
     
     /// <summary>
     /// Gets or sets the learned spells by spell ID.
@@ -562,6 +562,22 @@ public class Character
         }
 
         return total;
+    }
+
+    /// <summary>
+    /// Checks if character has access to an ability (either learned or granted by equipment).
+    /// </summary>
+    public bool HasAbility(string abilityId)
+    {
+        return LearnedAbilities.ContainsKey(abilityId) || EquipmentGrantedAbilities.ContainsKey(abilityId);
+    }
+    
+    /// <summary>
+    /// Gets all available ability IDs (both learned and equipment-granted).
+    /// </summary>
+    public IEnumerable<string> GetAvailableAbilityIds()
+    {
+        return LearnedAbilities.Keys.Concat(EquipmentGrantedAbilities.Keys).Distinct();
     }
 
     /// <summary>

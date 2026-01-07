@@ -424,14 +424,14 @@ public class CharacterTests
     }
 
     [Fact]
-    public void Character_Should_Start_With_Empty_LearnedSkills()
+    public void Character_Should_Start_With_Empty_Skills()
     {
         // Arrange & Act
         var character = new Character();
 
         // Assert
-        character.LearnedSkills.Should().NotBeNull();
-        character.LearnedSkills.Should().BeEmpty();
+        character.Skills.Should().NotBeNull();
+        character.Skills.Should().BeEmpty();
     }
 
     [Fact]

@@ -191,14 +191,14 @@ public class LevelUpTests
         var character = new Character();
 
         // Act
-        character.LearnedSkills.Add(new Skill { Name = "Power Attack", CurrentRank = 3 });
-        character.LearnedSkills.Add(new Skill { Name = "Iron Skin", CurrentRank = 2 });
-        character.LearnedSkills.Add(new Skill { Name = "Critical Strike", CurrentRank = 1 });
+        character.Skills["power-attack"] = new CharacterSkill { SkillId = "power-attack", CurrentRank = 3 };
+        character.Skills["iron-skin"] = new CharacterSkill { SkillId = "iron-skin", CurrentRank = 2 };
+        character.Skills["critical-strike"] = new CharacterSkill { SkillId = "critical-strike", CurrentRank = 1 };
 
         // Assert
-        character.LearnedSkills.Should().HaveCount(3);
-        character.LearnedSkills.Should().Contain(s => s.Name == "Power Attack");
-        character.LearnedSkills.Should().Contain(s => s.Name == "Iron Skin");
-        character.LearnedSkills.Should().Contain(s => s.Name == "Critical Strike");
+        character.Skills.Should().HaveCount(3);
+        character.Skills.Should().ContainKey("power-attack");
+        character.Skills.Should().ContainKey("iron-skin");
+        character.Skills.Should().ContainKey("critical-strike");
     }
 }
