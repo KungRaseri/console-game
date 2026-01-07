@@ -1,25 +1,395 @@
 {
   "metadata": {
     "description": "Armor type catalog with base stats and traits",
-    "version": "4.0",
-    "lastUpdated": "2025-12-29",
+    "version": "4.2",
+    "lastUpdated": "2026-01-06",
     "type": "item_catalog",
-    "total_armor_types": 7,
+    "total_armor_types": 3,
     "total_pieces": 40,
     "usage": "Base catalog of armor with inherent stats and traits. Each item has individual properties. Type-level traits apply to all items in category.",
     "notes": [
       "Base items used in pattern generation with names.json",
       "Each armor piece has defense, weight, value, and slot-specific stats",
       "Type-level traits (slot, category) apply to all items in that armor type",
-      "Special shield mechanics: blockChance property"
+      "Special shield mechanics: blockChance property",
+      "skillReference uses JSON v4.1 format: @skills/armor:skill-slug",
+      "v4.2: Reorganized armor_types by armor class (light-armor, medium-armor, heavy-armor)"
     ]
   },
   "armor_types": {
-    "head": {
+    "light-armor": {
       "traits": {
-        "slot": "head",
         "category": "armor",
-        "defenseType": "physical"
+        "armorClass": "light",
+        "skillReference": {
+          "value": "@skills/armor:light-armor",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "slug": "coif",
+          "name": "Coif",
+          "defense": 2,
+          "weight": 1.5,
+          "value": 12,
+          "armorClass": "light",
+          "selectionWeight": 22,
+          "budgetCost": 3,
+          "slot": "head"
+        },
+        {
+          "slug": "cowl",
+          "name": "Cowl",
+          "defense": 1,
+          "weight": 0.5,
+          "value": 8,
+          "armorClass": "light",
+          "selectionWeight": 24,
+          "budgetCost": 3,
+          "slot": "head"
+        },
+        {
+          "slug": "hood",
+          "name": "Hood",
+          "defense": 1,
+          "weight": 0.3,
+          "value": 5,
+          "armorClass": "light",
+          "selectionWeight": 25,
+          "budgetCost": 2,
+          "slot": "head"
+        },
+        {
+          "slug": "crown",
+          "name": "Crown",
+          "defense": 1,
+          "weight": 1.0,
+          "value": 100,
+          "armorClass": "light",
+          "selectionWeight": 1,
+          "budgetCost": 6,
+          "slot": "head"
+        },
+        {
+          "slug": "circlet",
+          "name": "Circlet",
+          "defense": 1,
+          "weight": 0.5,
+          "value": 80,
+          "armorClass": "light",
+          "selectionWeight": 2,
+          "budgetCost": 6,
+          "slot": "head"
+        },
+        {
+          "slug": "vest",
+          "name": "Vest",
+          "defense": 2,
+          "weight": 3.0,
+          "value": 15,
+          "armorClass": "light",
+          "selectionWeight": 24,
+          "budgetCost": 6,
+          "slot": "chest"
+        },
+        {
+          "slug": "jerkin",
+          "name": "Jerkin",
+          "defense": 3,
+          "weight": 4.0,
+          "value": 20,
+          "armorClass": "light",
+          "selectionWeight": 22,
+          "budgetCost": 7,
+          "slot": "chest"
+        },
+        {
+          "slug": "gloves",
+          "name": "Gloves",
+          "defense": 1,
+          "weight": 0.5,
+          "value": 8,
+          "armorClass": "light",
+          "selectionWeight": 24,
+          "budgetCost": 2,
+          "slot": "hands"
+        },
+        {
+          "slug": "bracers",
+          "name": "Bracers",
+          "defense": 1,
+          "weight": 1.0,
+          "value": 10,
+          "armorClass": "light",
+          "selectionWeight": 22,
+          "budgetCost": 3,
+          "slot": "hands"
+        },
+        {
+          "slug": "mittens",
+          "name": "Mittens",
+          "defense": 1,
+          "weight": 0.3,
+          "value": 5,
+          "armorClass": "light",
+          "selectionWeight": 25,
+          "budgetCost": 2,
+          "slot": "hands"
+        },
+        {
+          "slug": "tassets",
+          "name": "Tassets",
+          "defense": 2,
+          "weight": 3.0,
+          "value": 15,
+          "armorClass": "light",
+          "selectionWeight": 18,
+          "budgetCost": 5,
+          "slot": "legs"
+        },
+        {
+          "slug": "shoes",
+          "name": "Shoes",
+          "defense": 1,
+          "weight": 1.0,
+          "value": 5,
+          "armorClass": "light",
+          "selectionWeight": 25,
+          "budgetCost": 2,
+          "slot": "feet"
+        },
+        {
+          "slug": "sandals",
+          "name": "Sandals",
+          "defense": 1,
+          "weight": 0.5,
+          "value": 3,
+          "armorClass": "light",
+          "selectionWeight": 25,
+          "budgetCost": 2,
+          "slot": "feet"
+        },
+        {
+          "slug": "mantle",
+          "name": "Mantle",
+          "defense": 1,
+          "weight": 1.0,
+          "value": 10,
+          "armorClass": "light",
+          "selectionWeight": 22,
+          "budgetCost": 3,
+          "slot": "shoulders"
+        },
+        {
+          "slug": "shield",
+          "name": "Shield",
+          "defense": 3,
+          "weight": 6.0,
+          "value": 25,
+          "blockChance": 15,
+          "selectionWeight": 15,
+          "budgetCost": 6,
+          "slot": "shield"
+        },
+        {
+          "slug": "buckler",
+          "name": "Buckler",
+          "defense": 2,
+          "weight": 3.0,
+          "value": 15,
+          "blockChance": 10,
+          "selectionWeight": 18,
+          "budgetCost": 4,
+          "slot": "shield"
+        },
+        {
+          "slug": "tower-shield",
+          "name": "Tower Shield",
+          "defense": 5,
+          "weight": 15.0,
+          "value": 60,
+          "blockChance": 25,
+          "selectionWeight": 8,
+          "budgetCost": 10,
+          "slot": "shield"
+        },
+        {
+          "slug": "kite-shield",
+          "name": "Kite Shield",
+          "defense": 4,
+          "weight": 8.0,
+          "value": 35,
+          "blockChance": 18,
+          "selectionWeight": 12,
+          "budgetCost": 7,
+          "slot": "shield"
+        },
+        {
+          "slug": "heater",
+          "name": "Heater",
+          "defense": 3,
+          "weight": 5.0,
+          "value": 20,
+          "blockChance": 12,
+          "selectionWeight": 16,
+          "budgetCost": 5,
+          "slot": "shield"
+        }
+      ]
+    },
+    "medium-armor": {
+      "traits": {
+        "category": "armor",
+        "armorClass": "medium",
+        "skillReference": {
+          "value": "@skills/armor:medium-armor",
+          "type": "string"
+        }
+      },
+      "items": [
+        {
+          "slug": "sallet",
+          "name": "Sallet",
+          "defense": 3,
+          "weight": 2.5,
+          "value": 25,
+          "armorClass": "medium",
+          "selectionWeight": 12,
+          "budgetCost": 4,
+          "slot": "head"
+        },
+        {
+          "slug": "hauberk",
+          "name": "Hauberk",
+          "defense": 6,
+          "weight": 20.0,
+          "value": 60,
+          "armorClass": "medium",
+          "selectionWeight": 12,
+          "budgetCost": 9,
+          "slot": "chest"
+        },
+        {
+          "slug": "chainmail",
+          "name": "Chainmail",
+          "defense": 5,
+          "weight": 18.0,
+          "value": 50,
+          "armorClass": "medium",
+          "selectionWeight": 15,
+          "budgetCost": 8,
+          "slot": "chest"
+        },
+        {
+          "slug": "scale-mail",
+          "name": "Scale Mail",
+          "defense": 5,
+          "weight": 15.0,
+          "value": 45,
+          "armorClass": "medium",
+          "selectionWeight": 13,
+          "budgetCost": 8,
+          "slot": "chest"
+        },
+        {
+          "slug": "ring-mail",
+          "name": "Ring Mail",
+          "defense": 4,
+          "weight": 12.0,
+          "value": 35,
+          "armorClass": "medium",
+          "selectionWeight": 16,
+          "budgetCost": 7,
+          "slot": "chest"
+        },
+        {
+          "slug": "banded-mail",
+          "name": "Banded Mail",
+          "defense": 6,
+          "weight": 16.0,
+          "value": 55,
+          "armorClass": "medium",
+          "selectionWeight": 12,
+          "budgetCost": 8,
+          "slot": "chest"
+        },
+        {
+          "slug": "vambraces",
+          "name": "Vambraces",
+          "defense": 2,
+          "weight": 1.5,
+          "value": 12,
+          "armorClass": "medium",
+          "selectionWeight": 18,
+          "budgetCost": 3,
+          "slot": "hands"
+        },
+        {
+          "slug": "leggings",
+          "name": "Leggings",
+          "defense": 3,
+          "weight": 4.0,
+          "value": 20,
+          "armorClass": "medium",
+          "selectionWeight": 16,
+          "budgetCost": 6,
+          "slot": "legs"
+        },
+        {
+          "slug": "chausses",
+          "name": "Chausses",
+          "defense": 3,
+          "weight": 5.0,
+          "value": 25,
+          "armorClass": "medium",
+          "selectionWeight": 15,
+          "budgetCost": 6,
+          "slot": "legs"
+        },
+        {
+          "slug": "boots",
+          "name": "Boots",
+          "defense": 2,
+          "weight": 2.0,
+          "value": 12,
+          "armorClass": "medium",
+          "selectionWeight": 18,
+          "budgetCost": 4,
+          "slot": "feet"
+        },
+        {
+          "slug": "spaulders",
+          "name": "Spaulders",
+          "defense": 2,
+          "weight": 3.0,
+          "value": 18,
+          "armorClass": "medium",
+          "selectionWeight": 15,
+          "budgetCost": 4,
+          "slot": "shoulders"
+        },
+        {
+          "slug": "shoulderguards",
+          "name": "Shoulderguards",
+          "defense": 2,
+          "weight": 2.5,
+          "value": 15,
+          "armorClass": "medium",
+          "selectionWeight": 16,
+          "budgetCost": 4,
+          "slot": "shoulders"
+        }
+      ]
+    },
+    "heavy-armor": {
+      "traits": {
+        "category": "armor",
+        "armorClass": "heavy",
+        "skillReference": {
+          "value": "@skills/armor:heavy-armor",
+          "type": "string"
+        }
       },
       "items": [
         {
@@ -30,7 +400,8 @@
           "value": 20,
           "armorClass": "heavy",
           "selectionWeight": 12,
-          "budgetCost": 4
+          "budgetCost": 4,
+          "slot": "head"
         },
         {
           "slug": "helmet",
@@ -40,7 +411,8 @@
           "value": 18,
           "armorClass": "heavy",
           "selectionWeight": 14,
-          "budgetCost": 4
+          "budgetCost": 4,
+          "slot": "head"
         },
         {
           "slug": "great-helm",
@@ -50,7 +422,8 @@
           "value": 40,
           "armorClass": "heavy",
           "selectionWeight": 10,
-          "budgetCost": 6
+          "budgetCost": 6,
+          "slot": "head"
         },
         {
           "slug": "armet",
@@ -60,17 +433,8 @@
           "value": 35,
           "armorClass": "heavy",
           "selectionWeight": 8,
-          "budgetCost": 5
-        },
-        {
-          "slug": "sallet",
-          "name": "Sallet",
-          "defense": 3,
-          "weight": 2.5,
-          "value": 25,
-          "armorClass": "medium",
-          "selectionWeight": 12,
-          "budgetCost": 4
+          "budgetCost": 5,
+          "slot": "head"
         },
         {
           "slug": "barbute",
@@ -80,67 +444,9 @@
           "value": 30,
           "armorClass": "heavy",
           "selectionWeight": 10,
-          "budgetCost": 5
+          "budgetCost": 5,
+          "slot": "head"
         },
-        {
-          "slug": "coif",
-          "name": "Coif",
-          "defense": 2,
-          "weight": 1.5,
-          "value": 12,
-          "armorClass": "light",
-          "selectionWeight": 22,
-          "budgetCost": 3
-        },
-        {
-          "slug": "cowl",
-          "name": "Cowl",
-          "defense": 1,
-          "weight": 0.5,
-          "value": 8,
-          "armorClass": "light",
-          "selectionWeight": 24,
-          "budgetCost": 3
-        },
-        {
-          "slug": "hood",
-          "name": "Hood",
-          "defense": 1,
-          "weight": 0.3,
-          "value": 5,
-          "armorClass": "light",
-          "selectionWeight": 25,
-          "budgetCost": 2
-        },
-        {
-          "slug": "crown",
-          "name": "Crown",
-          "defense": 1,
-          "weight": 1.0,
-          "value": 100,
-          "armorClass": "light",
-          "selectionWeight": 1,
-          "budgetCost": 6
-        },
-        {
-          "slug": "circlet",
-          "name": "Circlet",
-          "defense": 1,
-          "weight": 0.5,
-          "value": 80,
-          "armorClass": "light",
-          "selectionWeight": 2,
-          "budgetCost": 6
-        }
-      ]
-    },
-    "chest": {
-      "traits": {
-        "slot": "chest",
-        "category": "armor",
-        "defenseType": "physical"
-      },
-      "items": [
         {
           "slug": "cuirass",
           "name": "Cuirass",
@@ -149,7 +455,8 @@
           "value": 80,
           "armorClass": "heavy",
           "selectionWeight": 6,
-          "budgetCost": 10
+          "budgetCost": 10,
+          "slot": "chest"
         },
         {
           "slug": "breastplate",
@@ -159,7 +466,8 @@
           "value": 70,
           "armorClass": "heavy",
           "selectionWeight": 10,
-          "budgetCost": 10
+          "budgetCost": 10,
+          "slot": "chest"
         },
         {
           "slug": "chestplate",
@@ -169,27 +477,8 @@
           "value": 75,
           "armorClass": "heavy",
           "selectionWeight": 8,
-          "budgetCost": 11
-        },
-        {
-          "slug": "hauberk",
-          "name": "Hauberk",
-          "defense": 6,
-          "weight": 20.0,
-          "value": 60,
-          "armorClass": "medium",
-          "selectionWeight": 12,
-          "budgetCost": 9
-        },
-        {
-          "slug": "chainmail",
-          "name": "Chainmail",
-          "defense": 5,
-          "weight": 18.0,
-          "value": 50,
-          "armorClass": "medium",
-          "selectionWeight": 15,
-          "budgetCost": 8
+          "budgetCost": 11,
+          "slot": "chest"
         },
         {
           "slug": "plate-mail",
@@ -199,67 +488,9 @@
           "value": 120,
           "armorClass": "heavy",
           "selectionWeight": 5,
-          "budgetCost": 12
+          "budgetCost": 12,
+          "slot": "chest"
         },
-        {
-          "slug": "scale-mail",
-          "name": "Scale Mail",
-          "defense": 5,
-          "weight": 15.0,
-          "value": 45,
-          "armorClass": "medium",
-          "selectionWeight": 13,
-          "budgetCost": 8
-        },
-        {
-          "slug": "ring-mail",
-          "name": "Ring Mail",
-          "defense": 4,
-          "weight": 12.0,
-          "value": 35,
-          "armorClass": "medium",
-          "selectionWeight": 16,
-          "budgetCost": 7
-        },
-        {
-          "slug": "banded-mail",
-          "name": "Banded Mail",
-          "defense": 6,
-          "weight": 16.0,
-          "value": 55,
-          "armorClass": "medium",
-          "selectionWeight": 12,
-          "budgetCost": 8
-        },
-        {
-          "slug": "vest",
-          "name": "Vest",
-          "defense": 2,
-          "weight": 3.0,
-          "value": 15,
-          "armorClass": "light",
-          "selectionWeight": 24,
-          "budgetCost": 6
-        },
-        {
-          "slug": "jerkin",
-          "name": "Jerkin",
-          "defense": 3,
-          "weight": 4.0,
-          "value": 20,
-          "armorClass": "light",
-          "selectionWeight": 22,
-          "budgetCost": 7
-        }
-      ]
-    },
-    "hands": {
-      "traits": {
-        "slot": "hands",
-        "category": "armor",
-        "defenseType": "physical"
-      },
-      "items": [
         {
           "slug": "gauntlets",
           "name": "Gauntlets",
@@ -268,57 +499,9 @@
           "value": 15,
           "armorClass": "heavy",
           "selectionWeight": 15,
-          "budgetCost": 4
+          "budgetCost": 4,
+          "slot": "hands"
         },
-        {
-          "slug": "gloves",
-          "name": "Gloves",
-          "defense": 1,
-          "weight": 0.5,
-          "value": 8,
-          "armorClass": "light",
-          "selectionWeight": 24,
-          "budgetCost": 2
-        },
-        {
-          "slug": "vambraces",
-          "name": "Vambraces",
-          "defense": 2,
-          "weight": 1.5,
-          "value": 12,
-          "armorClass": "medium",
-          "selectionWeight": 18,
-          "budgetCost": 3
-        },
-        {
-          "slug": "bracers",
-          "name": "Bracers",
-          "defense": 1,
-          "weight": 1.0,
-          "value": 10,
-          "armorClass": "light",
-          "selectionWeight": 22,
-          "budgetCost": 3
-        },
-        {
-          "slug": "mittens",
-          "name": "Mittens",
-          "defense": 1,
-          "weight": 0.3,
-          "value": 5,
-          "armorClass": "light",
-          "selectionWeight": 25,
-          "budgetCost": 2
-        }
-      ]
-    },
-    "legs": {
-      "traits": {
-        "slot": "legs",
-        "category": "armor",
-        "defenseType": "physical"
-      },
-      "items": [
         {
           "slug": "greaves",
           "name": "Greaves",
@@ -327,56 +510,8 @@
           "value": 30,
           "armorClass": "heavy",
           "selectionWeight": 12,
-          "budgetCost": 7
-        },
-        {
-          "slug": "leggings",
-          "name": "Leggings",
-          "defense": 3,
-          "weight": 4.0,
-          "value": 20,
-          "armorClass": "medium",
-          "selectionWeight": 16,
-          "budgetCost": 6
-        },
-        {
-          "slug": "chausses",
-          "name": "Chausses",
-          "defense": 3,
-          "weight": 5.0,
-          "value": 25,
-          "armorClass": "medium",
-          "selectionWeight": 15,
-          "budgetCost": 6
-        },
-        {
-          "slug": "tassets",
-          "name": "Tassets",
-          "defense": 2,
-          "weight": 3.0,
-          "value": 15,
-          "armorClass": "light",
-          "selectionWeight": 18,
-          "budgetCost": 5
-        }
-      ]
-    },
-    "feet": {
-      "traits": {
-        "slot": "feet",
-        "category": "armor",
-        "defenseType": "physical"
-      },
-      "items": [
-        {
-          "slug": "boots",
-          "name": "Boots",
-          "defense": 2,
-          "weight": 2.0,
-          "value": 12,
-          "armorClass": "medium",
-          "selectionWeight": 18,
-          "budgetCost": 4
+          "budgetCost": 7,
+          "slot": "legs"
         },
         {
           "slug": "sabatons",
@@ -386,7 +521,8 @@
           "value": 20,
           "armorClass": "heavy",
           "selectionWeight": 12,
-          "budgetCost": 4
+          "budgetCost": 4,
+          "slot": "feet"
         },
         {
           "slug": "sollerets",
@@ -396,37 +532,9 @@
           "value": 18,
           "armorClass": "heavy",
           "selectionWeight": 13,
-          "budgetCost": 4
+          "budgetCost": 4,
+          "slot": "feet"
         },
-        {
-          "slug": "shoes",
-          "name": "Shoes",
-          "defense": 1,
-          "weight": 1.0,
-          "value": 5,
-          "armorClass": "light",
-          "selectionWeight": 25,
-          "budgetCost": 2
-        },
-        {
-          "slug": "sandals",
-          "name": "Sandals",
-          "defense": 1,
-          "weight": 0.5,
-          "value": 3,
-          "armorClass": "light",
-          "selectionWeight": 25,
-          "budgetCost": 2
-        }
-      ]
-    },
-    "shoulders": {
-      "traits": {
-        "slot": "shoulders",
-        "category": "armor",
-        "defenseType": "physical"
-      },
-      "items": [
         {
           "slug": "pauldrons",
           "name": "Pauldrons",
@@ -435,97 +543,8 @@
           "value": 25,
           "armorClass": "heavy",
           "selectionWeight": 12,
-          "budgetCost": 5
-        },
-        {
-          "slug": "spaulders",
-          "name": "Spaulders",
-          "defense": 2,
-          "weight": 3.0,
-          "value": 18,
-          "armorClass": "medium",
-          "selectionWeight": 15,
-          "budgetCost": 4
-        },
-        {
-          "slug": "shoulderguards",
-          "name": "Shoulderguards",
-          "defense": 2,
-          "weight": 2.5,
-          "value": 15,
-          "armorClass": "medium",
-          "selectionWeight": 16,
-          "budgetCost": 4
-        },
-        {
-          "slug": "mantle",
-          "name": "Mantle",
-          "defense": 1,
-          "weight": 1.0,
-          "value": 10,
-          "armorClass": "light",
-          "selectionWeight": 22,
-          "budgetCost": 3
-        }
-      ]
-    },
-    "shield": {
-      "traits": {
-        "slot": "offhand",
-        "category": "shield",
-        "defenseType": "physical",
-        "blockChance": true
-      },
-      "items": [
-        {
-          "slug": "shield",
-          "name": "Shield",
-          "defense": 3,
-          "weight": 6.0,
-          "value": 25,
-          "blockChance": 15,
-          "selectionWeight": 15,
-          "budgetCost": 6
-        },
-        {
-          "slug": "buckler",
-          "name": "Buckler",
-          "defense": 2,
-          "weight": 3.0,
-          "value": 15,
-          "blockChance": 10,
-          "selectionWeight": 18,
-          "budgetCost": 4
-        },
-        {
-          "slug": "tower-shield",
-          "name": "Tower Shield",
-          "defense": 5,
-          "weight": 15.0,
-          "value": 60,
-          "blockChance": 25,
-          "selectionWeight": 8,
-          "budgetCost": 10
-        },
-        {
-          "slug": "kite-shield",
-          "name": "Kite Shield",
-          "defense": 4,
-          "weight": 8.0,
-          "value": 35,
-          "blockChance": 18,
-          "selectionWeight": 12,
-          "budgetCost": 7
-        },
-        {
-          "slug": "heater",
-          "name": "Heater",
-          "defense": 3,
-          "weight": 5.0,
-          "value": 20,
-          "blockChance": 12,
-          "selectionWeight": 16,
-          "budgetCost": 5
+          "budgetCost": 5,
+          "slot": "shoulders"
         }
       ]
     }
