@@ -426,26 +426,85 @@ Abilities use consolidated catalogs with unified traits system:
 #### Magic & Spell System (Learnable Magic)
 
 **Design Philosophy:**
-Spells are universal magical knowledge that any character can learn (with sufficient skill) through spellbooks, scrolls, teachers, and quest rewards. Unlike class-specific abilities, spells are accessible to all who invest in magic skills.
+Spells are universal magical knowledge accessible to any character through magical traditions and specializations. Unlike class-specific abilities, spells require study, practice, and tradition-specific skills.
 
-**Core Concept: "Knowledge Acquisition"**
-Spells must be found, purchased, or taught—they're not automatic. A Warrior can learn Fireball if they develop Destruction skill, though they won't be as effective as a dedicated Mage.
+**Total Spells: 144** (36 per tradition) organized by **Pathfinder 2e magic traditions** with rank-based progression (Rank 0-10).
 
-**Spell Schools (Domains):**
-- **Destruction**: Offensive magic (fire, ice, lightning damage)
-- **Restoration**: Healing and curing magic (heal, regeneration, cure poison)
-- **Alteration**: Buffs and utility (shields, stat boosts, feather fall)
-- **Conjuration**: Summoning and binding (summon creatures, bound weapons)
-- **Illusion**: Mind magic (charm, fear, invisibility)
-- **Mysticism**: Detection and teleportation (detect magic, teleport, scrying)
+**Core Concept: "Knowledge & Tradition"**
+Spells must be learned through spellbooks, scrolls, teachers, or quest rewards. Any character can learn spells if they develop the required tradition skill (Arcane, Divine, Occult, or Primal), though non-magical classes are less effective.
+
+**Magic Traditions (4 Core):**
+
+**1. Arcane Tradition (36 spells, INT-based)**
+Study-based magic from scholarly learning and manipulation of fundamental forces:
+- **Themes**: Force energy, elemental damage (fire/lightning), transmutation, teleportation
+- **Sample Spells**: Ray of Frost, Magic Missile, Fireball, Lightning Bolt, Haste, Teleport, Time Stop
+- **Ranks 0-10**: 8 cantrips (rank 0) → 1 legendary spell per rank (9-10)
+- **Ultimate**: Time Stop (rank 10, 200 mana, stop time for 2 turns)
+
+**2. Divine Tradition (36 spells, WIS-based)**
+Faith-based magic channeling divine power through devotion:
+- **Themes**: Healing, holy damage, protection, curing ailments, resurrection
+- **Sample Spells**: Stabilize, Heal, Bless, Prayer of Healing, Resurrection, True Resurrection
+- **Ranks 0-10**: 8 cantrips → Ultimate resurrection spells
+- **Ultimate**: True Resurrection (rank 10, 250 mana, restore fully from death)
+
+**3. Occult Tradition (36 spells, CHA-based)**
+Mental and psychic magic through force of personality and forbidden knowledge:
+- **Themes**: Mind control, illusions, psychic damage, fear, charm
+- **Sample Spells**: Daze, Charm, Invisibility, Fear, Hypnotic Pattern, Dominate Person, Weird
+- **Ranks 0-10**: 8 cantrips → Mass mind control
+- **Ultimate**: Weird (rank 10, 250 mana, mass phantasmal killer 25d10 psychic)
+
+**4. Primal Tradition (36 spells, WIS-based)**
+Nature-based magic from connection to natural world and primal forces:
+- **Themes**: Elements, animals, plants, weather, shapeshifting
+- **Sample Spells**: Produce Flame, Entangle, Call Lightning, Summon Animal, Earthquake, Nature Incarnate
+- **Ranks 0-10**: 8 cantrips → Transform into nature avatar
+- **Ultimate**: Nature Incarnate (rank 10, 250 mana, become avatar of nature)
+
+**Spell Rank Distribution (per tradition):**
+- **Rank 0 (Cantrips)**: 8 spells (0 mana cost, unlimited casting)
+- **Rank 1**: 6 spells
+- **Rank 2**: 5 spells
+- **Rank 3**: 4 spells
+- **Rank 4**: 3 spells
+- **Rank 5**: 3 spells
+- **Rank 6**: 2 spells
+- **Rank 7**: 2 spells
+- **Rank 8**: 1 spell
+- **Rank 9**: 1 spell
+- **Rank 10**: 1 spell (Ultimate)
+**Total**: 36 spells per tradition × 4 traditions = 144 total
 
 **Spell Mechanics:**
-- **Acquisition**: Find spellbooks, buy from merchants, learn from trainers, earn through quests
-- **Skill Requirements**: Each spell requires minimum magic skill rank (0-100)
-- **Spell Levels**: Novice, Apprentice, Adept, Expert, Master (gated by skill)
-- **Mana Costs**: 5-150 mana based on spell power (reduced by skill)
-- **Success/Failure**: Casting success based on skill vs spell difficulty (can fizzle or backfire)
-- **Skill Scaling**: Higher skill = more damage/healing, lower cost, better success rate
+- **Acquisition**: Find spellbooks, purchase from vendors, learn from trainers, earn through quests
+- **Skill Requirements**: Core tradition skill determines which spells you can learn (e.g., Arcane 25 for Fireball)
+- **Rank Gates**: Spell rank limits power progression (Rank 0-10)
+- **Mana Costs**: 0 (cantrips) to 250 mana (ultimate spells)
+- **Casting Success**: Based on tradition skill rank vs spell rank
+- **Skill Scaling**: Higher tradition skill = more damage/healing, better success rate
+- **Specialization Bonuses**: Specialist skills (Force Magic, Restoration, Illusion, etc.) provide targeted bonuses
+
+**Magic Skill Synergy:**
+The magic skill system provides depth through specialization:
+- **Core Tradition Skill** (Arcane/Divine/Occult/Primal): Unlocks spells, general effectiveness
+- **Specialization Skills** (Force Magic, Chronomancy, Restoration, Elementalism, etc.): Boost specific spell types
+- **Governing Attributes** (INT/WIS/CHA): Provide base spell power
+- **Combined Power**: Tradition skill + specialization + attribute = maximum effectiveness
+
+**Example**: A character with Arcane 50, Force Magic 30, INT 18 deals maximum damage with force-based arcane spells.
+
+**Data Structure (v4.2):**
+Spells use single consolidated catalog organized by tradition:
+- Flat fields: slug, name, displayName, description, rank, selectionWeight
+- Traits contain: minimumSkillRank, manaCost, range, targetType, damageType, baseDamage, duration, etc.
+- All 144 spells in `spells/catalog.json`
+
+**Distinct from Skills & Abilities:**
+- **Skills** = Passive proficiency (determines spell access and effectiveness)
+- **Abilities** = Class powers (instant activation, tiered 1-5)
+- **Spells** = Learnable magic (must acquire, ranked 0-10, tradition-based, mana cost)
 
 **Spell Learning:**
 - **Spellbooks**: Consumable items that teach spells permanently

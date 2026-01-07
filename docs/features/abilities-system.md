@@ -4,7 +4,7 @@
 
 ## Overview
 
-The Abilities System provides class and species-specific active powers that characters can use in combat or exploration. Unlike passive skills, abilities require conscious activation and resource management (mana, cooldowns).
+The Abilities System provides **383 total abilities** organized by activation type and power tier. Abilities are special powers that characters acquire through class selection, progression, and discovery. Unlike skills (passive proficiencies), abilities are discrete powers with specific effects. Unlike spells (learnable magic), abilities are inherent character powers not requiring spell acquisition.
 
 ## Core Philosophy
 
@@ -15,61 +15,78 @@ The Abilities System provides class and species-specific active powers that char
 **Class Identity**: Each class has a unique ability set reflecting their archetype. Warriors are melee-focused, Rogues are cunning, Mages are arcane.
 
 **Distinct from Skills & Spells**: 
-- **Skills** = How good you are at something (passive proficiency)
-- **Abilities** = Class-granted special powers (active, limited use)
-- **Spells** = Learnable magic anyone can acquire (universal, skill-dependent)
+- **Skills** = Passive proficiencies practiced through use (54 skills, ranks 0-100)
+- **Abilities** = Special powers with activation requirements (383 abilities, tiers 1-5)
+- **Spells** = Learnable magic requiring tradition access (144 spells, ranks 0-10)
 
-## Ability Categories
+## Ability Organization
 
-### Offensive Abilities
-Direct damage powers for eliminating enemies:
-- **Single-Target**: Focus damage on one enemy (Backstab, Execute, Smite)
-- **Area-of-Effect**: Hit multiple enemies (Whirlwind, Cone of Fire, Chain Lightning)
-- **Damage-Over-Time**: Apply lasting damage (Poison Strike, Hemorrhage, Curse)
-- **Execute Abilities**: Bonus damage against low-health targets
+### By Activation Type (4 Types)
 
-### Defensive Abilities
-Active defense maneuvers for survival:
-- **Blocks**: Temporarily negate incoming damage (Shield Wall, Parry)
-- **Dodges**: Avoid attacks with quick reflexes (Evasion, Roll)
-- **Counter-Attacks**: Punish attackers (Riposte, Thorns Aura)
-- **Damage Reduction**: Temporary armor buffs (Iron Skin, Stone Form)
+**Active Abilities (177 total)**: Require manual activation with mana cost and cooldown
+- **Offensive (88)**: Direct damage powers
+- **Defensive (34)**: Blocks, dodges, damage reduction
+- **Support (27)**: Buffs, healing, utility
+- **Utility (28)**: Non-combat benefits, exploration powers
+- **Control (8)**: Crowd control, disables, movement impairment
+- **Summon (4)**: Creature summoning
+- **Mobility (2)**: Movement abilities
 
-### Support Abilities
-Powers that assist the player or allies (future party system):
-- **Healing**: Restore health to self or allies (Lay on Hands, Second Wind)
-- **Buffs**: Temporary stat increases (Battle Cry, Blessing, Haste)
-- **Debuffs**: Weaken enemies (Disarm, Slow, Weakness Curse)
-- **Utility**: Non-combat benefits (Detect Traps, Night Vision, Leap)
+**Passive Abilities (131 total)**: Always-active effects requiring no activation
+- **General (16)**: Broad passive bonuses
+- **Offensive (38)**: Damage, critical, attack bonuses
+- **Defensive (39)**: Armor, resistance, health bonuses
+- **Leadership (24)**: Party/aura effects
+- **Environmental (22)**: Situational bonuses
+- **Mobility (7)**: Movement speed, terrain bonuses
+- **Sensory (1)**: Perception and detection
 
-### Passive Abilities
-Always-active effects requiring no activation:
-- **Auras**: Constant area effects (Leadership Aura, Regeneration Aura)
-- **Triggered Effects**: Auto-activate on conditions (Critical Riposte on crit, Cleanse on healing)
-- **Permanent Bonuses**: Class-specific stat boosts (Warrior +10% HP, Rogue +15% Crit)
+**Reactive Abilities (36 total)**: Auto-trigger on specific conditions
+- **Offensive (14)**: Counter-attacks, damage procs
+- **Defensive (12)**: Auto-blocks, damage reflection
+- **Utility (10)**: Situational auto-responses
 
-### Ultimate Abilities
-Powerful special moves with long cooldowns:
-- **High Impact**: Significant damage or effect (Final Strike, Divine Intervention)
-- **Long Cooldown**: 5-10 combat uses before recharge
-- **Mana Intensive**: Costs substantial mana (30-50% of mana pool)
-- **Game-Changing**: Can turn the tide of difficult battles
+**Ultimate Abilities (39 total)**: Powerful tier 5 abilities with major impact
+- All ultimates are tier 5 (epic/legendary power level)
+- Long cooldowns, high mana costs
+- Game-changing effects
+
+### By Power Tier (5 Tiers)
+
+Abilities are tiered by power level (based on `selectionWeight` in data):
+
+- **Tier 1 (Basic)**: selectionWeight < 50 — Starting abilities, common powers
+- **Tier 2 (Common)**: selectionWeight 50-99 — Standard abilities
+- **Tier 3 (Uncommon)**: selectionWeight 100-199 — Enhanced abilities
+- **Tier 4 (Rare)**: selectionWeight 200-399 — Powerful abilities
+- **Tier 5 (Epic/Legendary)**: selectionWeight 400+ or Ultimate type — Iconic abilities
+
+**Note**: Ultimate abilities are always tier 5 regardless of selectionWeight.
 
 ## Ability Mechanics
 
 ### Resource Management
 
-**Mana Costs**:
-- **Minor Abilities**: 10-20 mana (low-cost, frequent use)
-- **Major Abilities**: 30-50 mana (moderate-cost, tactical use)
-- **Ultimate Abilities**: 60-100 mana (high-cost, rare use)
-- **Mana Scaling**: Costs may reduce with Intelligence or skill ranks
+**Mana Costs** (stored in `manaCost` trait for active abilities):
+- **Minor Abilities**: 10-25 mana (low-cost, frequent use)
+- **Major Abilities**: 30-60 mana (moderate-cost, tactical use)
+- **Ultimate Abilities**: 70-150 mana (high-cost, rare use)
+- **Passive/Reactive**: No mana cost (always active or condition-triggered)
 
-**Cooldown Timers**:
-- **Short Cooldown**: 1-3 turns (spam protection)
-- **Medium Cooldown**: 4-7 turns (tactical spacing)
-- **Long Cooldown**: 8-15 turns (powerful abilities)
-- **Ultimate Cooldown**: Once per combat or 20+ turns
+**Cooldown Timers** (stored in `cooldown` trait for active abilities):
+- **Short Cooldown**: 2-5 seconds (frequent use)
+- **Medium Cooldown**: 6-15 seconds (tactical spacing)
+- **Long Cooldown**: 20-60 seconds (powerful abilities)
+- **Ultimate Cooldown**: 60-300 seconds (game-changing moments)
+- **Passive/Reactive**: No cooldown (always available)
+
+**Trigger Conditions** (stored in `triggerCondition` trait for reactive abilities):
+- **onHit**: Activates when character is hit
+- **onCrit**: Activates on critical hit (dealing or receiving)
+- **onKill**: Activates when enemy is killed
+- **onLowHealth**: Activates when health drops below threshold
+- **onSpellCast**: Activates when spell is cast
+- **onBlock**: Activates when successful block occurs
 
 ### Requirements
 
@@ -90,28 +107,28 @@ Powerful special moves with long cooldowns:
 ### Ability Acquisition
 
 **Starting Abilities**:
-Each class begins with 2-3 signature abilities defining their playstyle:
-- **Warrior**: Charge (gap closer), Shield Bash (stun)
-- **Rogue**: Backstab (high damage), Evasion (dodge)
-- **Mage**: Fireball (ranged damage), Mana Shield (defense)
-- **Cleric**: Smite (holy damage), Heal (restoration)
-- **Ranger**: Power Shot (ranged burst), Trap (utility)
+Each class begins with 2-3 tier 1 signature abilities defining their playstyle:
+- **Warrior**: Charge (gap closer), Shield Bash (stun), Battle Cry (buff)
+- **Rogue**: Backstab (high damage), Evasion (dodge), Poison Strike (DoT)
+- **Mage**: Force Missile (ranged damage), Mana Shield (defense), Blink (teleport)
+- **Cleric**: Smite (holy damage), Heal (restoration), Shield of Faith (protection)
+- **Ranger**: Power Shot (ranged burst), Trap (utility), Hunter's Mark (debuff)
 - **Paladin**: Holy Strike (damage+heal), Protective Aura (party defense)
 
 **Level-Up Unlocks**:
-Gain new abilities at specific level milestones:
-- **Level 5**: Second ability slot
-- **Level 10**: Third ability slot (upgrade existing or new ability)
-- **Level 15**: Fourth ability slot
-- **Level 20**: Ultimate ability unlocked
-- **Level 25+**: Advanced abilities and upgrades
+Gain new abilities at specific level milestones based on tier:
+- **Tier 1 Abilities**: Available at level 1 (starting abilities)
+- **Tier 2 Abilities**: Unlocked at level 5+
+- **Tier 3 Abilities**: Unlocked at level 10+
+- **Tier 4 Abilities**: Unlocked at level 15+
+- **Tier 5 Abilities**: Unlocked at level 20+ (including all ultimates)
 
-**Ability Upgrades** (future):
-Existing abilities improve with use or investment:
-- Increased damage/effect
-- Reduced cooldown
-- Lower mana cost
-- Additional effects (stun on Charge, heal on Smite)
+**Ability Selection** (future):
+Characters may choose abilities from a pool based on:
+- Class ability lists
+- Tier requirements (level-gated)
+- Build focus (offensive, defensive, support)
+- Specialization paths
 
 ## Class Ability Sets
 
