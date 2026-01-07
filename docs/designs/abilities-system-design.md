@@ -13,18 +13,26 @@
 
 ## Executive Summary
 
-**Current State**: 100+ ability JSON files exist in `/abilities/` directory with catalog structure. Ability model exists but integration is minimal. Abilities are loaded but not used in gameplay. No class-ability associations defined.
+**Current State**: 383 abilities in 4 JSON v4.2 catalogs organized by activation type (active, passive, reactive, ultimate). Abilities have tier system (1-5) and consistent trait-based structure. JSON data complete, code integration pending.
 
-**Target State**: Fully integrated abilities system where each class has signature abilities available from level 1, with additional abilities unlocking at level milestones. Abilities are actively used in combat with mana costs, cooldowns, and tactical effects. Clear distinction from passive skills and learnable spells.
+**Implementation Status**:
+- ✅ JSON catalogs complete (abilities/active/catalog.json, passive, reactive, ultimate)
+- ✅ 383 abilities organized: 177 active, 131 passive, 36 reactive, 39 ultimate
+- ✅ v4.2 standards applied (selectionWeight, traits with type annotations)
+- ✅ Tier system defined (1-5 based on selectionWeight)
+- ⏳ Code model integration pending
+- ⏳ Class-ability associations pending
+- ⏳ Combat integration pending
+- ⏳ Ability unlocking system pending
 
 **Scope**: Complete abilities system implementation
-- Audit existing 100+ ability JSON files and reorganize
-- Define class-specific ability sets (6 classes × 8-10 abilities each)
-- Implement ability unlocking system (level-gated progression)
+- Character model integration for ability storage
+- Define class-specific ability sets and progressions
+- Implement ability unlocking system (level-gated by tier)
 - Combat integration for ability usage with resource management
 - Cooldown tracking and ability state management
-- Ability effect execution (damage, healing, buffs, debuffs, crowd control)
-- Clear distinction from Skills (passive) and Spells (learnable)
+- Ability effect execution (damage, healing, buffs, debuffs)
+- Clear distinction from Skills (passive proficiencies) and Spells (learnable magic)
 
 **Out of Scope** (Future Enhancements):
 - Ability upgrades and talent trees
@@ -39,34 +47,41 @@
 
 ### 1.1 Three-Pillar Progression
 
-**Skills (Passive Proficiency)**:
-- Improve through practice
+**Skills (Passive Proficiencies)** - 54 total, ranks 0-100:
+- Improve through practice-based XP
 - Always active, no manual trigger
-- Universal (everyone has same skill list)
-- Example: "One-Handed Rank 50" = +25% melee damage
+- Universal (everyone has same 54 skill list)
+- Categories: Attribute (24), Weapon (10), Armor (4), Magic (16), Profession (12)
+- Example: "Light Blades Rank 50" = +25% damage with daggers/short swords
 
-**Abilities (Class Powers)**:
-- Granted by class choice
-- Active use, require manual trigger
-- Class-specific (Warrior abilities ≠ Mage abilities)
-- Example: "Charge" = Rush enemy, stun, bonus damage
+**Abilities (Special Powers)** - 383 total, tiers 1-5:
+- Granted by class/progression
+- Active, passive, or reactive activation
+- Class-specific (though some overlap possible)
+- Categories: Active (177), Passive (131), Reactive (36), Ultimate (39)
+- Example: "Charge" = Active ability, rush enemy, stun, bonus damage
 
-**Spells (Learnable Magic)**:
-- Must be learned from spellbooks/trainers
-- Active use, skill-dependent
-- Universal access (anyone can learn with sufficient skill)
-- Example: "Fireball" = Cast if Destruction Rank ≥ 0
+**Spells (Learnable Magic)** - 144 total, ranks 0-10:
+- Must be learned from spellbooks/trainers/scrolls
+- Active cast, tradition-dependent
+- Universal access (anyone with tradition skill can learn)
+- Traditions: Arcane (36), Divine (36), Occult (36), Primal (36)
+- Example: "Fireball" = Rank 3 Arcane spell, requires Arcane skill
 
 ### 1.2 When to Use Each System
 
-| Scenario | Use |
-|----------|-----|
-| Passive damage bonus | **Skill** (One-Handed +0.5% per rank) |
-| Active gap-closer | **Ability** (Charge - Warrior only) |
-| Cast fireball | **Spell** (learnable by anyone) |
-| Always-on class trait | **Passive Ability** (Warrior +10% max HP) |
-| Buff spell anyone can learn | **Spell** (Strength - Alteration school) |
-| Class-specific burst | **Ability** (Backstab - Rogue only) |
+| Scenario | Use | Example |
+|----------|-----|---------|
+| Passive damage bonus | **Skill** | Light Blades +0.5% damage per rank |
+| Active gap-closer | **Ability** | Charge (Warrior active ability) |
+| Cast fireball | **Spell** | Fireball (Rank 3 Arcane spell) |
+| Always-on class trait | **Passive Ability** | Warrior's Might (+10% max HP) |
+| Buff anyone can learn | **Spell** | Haste (Rank 3 Arcane spell) |
+| Class-specific burst | **Ability** | Backstab (Rogue active ability) |
+| Counter-attack on hit | **Reactive Ability** | Riposte (triggers when blocked) |
+| Game-changing power | **Ultimate Ability** | Time Stop (tier 5 ultimate) |
+| Magic tradition unlock | **Magic Skill** | Arcane skill unlocks Arcane spells |
+| Spell type boost | **Magic Skill** | Force Magic boosts force spells |
 
 ### 1.3 Design Principles
 
@@ -216,23 +231,148 @@ public Dictionary<int, List<string>> AbilityUnlocksByLevel { get; set; } = new()
 
 ## 3. JSON Catalog Structure
 
-### 3.1 Current Structure (AUDIT NEEDED)
+### 3.1 Implemented Structure ✅
 
-**Existing Directory Structure**:
+**Current Directory Structure**:
 ```
 abilities/
 ├── .cbconfig.json
 ├── active/
-│   ├── offensive/
-│   │   ├── catalog.json (88 abilities)
-│   │   └── names.json
-│   ├── support/
-│   │   ├── catalog.json
-│   │   └── names.json
-│   ├── utility/
-│   │   ├── catalog.json
-│   │   └── names.json
-│   └── summon/
+│   ├── .cbconfig.json
+│   └── catalog.json (177 abilities)
+├── passive/
+│   ├── .cbconfig.json
+│   └── catalog.json (131 abilities)
+├── reactive/
+│   ├── .cbconfig.json
+│   └── catalog.json (36 abilities)
+└── ultimate/
+    ├── .cbconfig.json
+    └── catalog.json (39 abilities)
+```
+
+**Total**: 383 abilities across 4 catalogs
+
+### 3.2 JSON v4.2 Structure
+
+**Example Active Ability**:
+```json
+{
+  "metadata": {
+    "version": "4.2",
+    "type": "abilities_active_catalog",
+    "totalAbilities": 177,
+    "lastUpdated": "2026-01-06"
+  },
+  "offensive": {
+    "description": "Direct damage abilities",
+    "abilities": [{
+      "slug": "charge",
+      "name": "Charge",
+      "displayName": "Charge",
+      "description": "Rush at an enemy, dealing damage and stunning them briefly",
+      "tier": 1,
+      "selectionWeight": 40,
+      "traits": {
+        "baseDamage": {"value": "2d6+STR", "type": "string"},
+        "cooldown": {"value": 10, "type": "number"},
+        "range": {"value": 20, "type": "number"},
+        "manaCost": {"value": 15, "type": "number"},
+        "statusEffect": {"value": "stunned", "type": "string"},
+        "statusDuration": {"value": 1, "type": "number"},
+        "damageType": {"value": "physical", "type": "string"}
+      }
+    }]
+  }
+}
+```
+
+**Example Passive Ability**:
+```json
+{
+  "slug": "warriors-might",
+  "name": "Warrior's Might",
+  "displayName": "Warrior's Might",
+  "description": "Permanent increase to maximum health",
+  "tier": 1,
+  "selectionWeight": 45,
+  "traits": {
+    "healthBonus": {"value": 0.10, "type": "number"},
+    "bonusType": {"value": "percentage", "type": "string"}
+  }
+}
+```
+
+**Example Reactive Ability**:
+```json
+{
+  "slug": "riposte",
+  "name": "Riposte",
+  "displayName": "Riposte",
+  "description": "Counter-attack when you successfully block",
+  "tier": 2,
+  "selectionWeight": 75,
+  "traits": {
+    "triggerCondition": {"value": "onBlock", "type": "string"},
+    "baseDamage": {"value": "1d8+DEX", "type": "string"},
+    "damageType": {"value": "physical", "type": "string"}
+  }
+}
+```
+
+**Example Ultimate Ability**:
+```json
+{
+  "slug": "time-stop",
+  "name": "Time Stop",
+  "displayName": "Time Stop",
+  "description": "Stop time for all enemies, allowing multiple free actions",
+  "tier": 5,
+  "selectionWeight": 500,
+  "traits": {
+    "duration": {"value": 3, "type": "number"},
+    "cooldown": {"value": 300, "type": "number"},
+    "manaCost": {"value": 150, "type": "number"},
+    "effectType": {"value": "time_manipulation", "type": "string"}
+  }
+}
+```
+
+### 3.3 Tier System
+
+Abilities are tiered by power level:
+
+- **Tier 1 (Basic)**: selectionWeight < 50, available at level 1
+- **Tier 2 (Common)**: selectionWeight 50-99, available at level 5+
+- **Tier 3 (Uncommon)**: selectionWeight 100-199, available at level 10+
+- **Tier 4 (Rare)**: selectionWeight 200-399, available at level 15+
+- **Tier 5 (Epic/Legendary)**: selectionWeight 400+ or Ultimate type, available at level 20+
+
+### 3.4 Ability Distribution
+
+**By Activation Type**:
+- Active: 177 (46%)
+  - Offensive: 88
+  - Defensive: 34
+  - Support: 27
+  - Utility: 28
+  - Control: 8
+  - Summon: 4
+  - Mobility: 2
+- Passive: 131 (34%)
+  - General: 16
+  - Offensive: 38
+  - Defensive: 39
+  - Leadership: 24
+  - Environmental: 22
+  - Mobility: 7
+  - Sensory: 1
+- Reactive: 36 (9%)
+  - Offensive: 14
+  - Defensive: 12
+  - Utility: 10
+- Ultimate: 39 (10%)
+  - All tier 5
 │       ├── catalog.json
 │       └── names.json
 ├── passive/

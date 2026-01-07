@@ -70,33 +70,42 @@
 ---
 
 #### 1. Skills System
-- **Status**: `[✅ Design Complete]`
-- **Effort**: Very High
-- **Current State**: 10 hardcoded passive bonuses (wrong approach)
+- **Status**: `[✅ JSON Complete]`
+- **Effort**: High (Code Implementation Remaining)
+- **Current State**: JSON v4.2 catalog complete with 54 skills, code integration pending
 - **Vision**: Practice-based skill progression system
 
-**Design Complete**: `docs/designs/skills-system-design.md` ✅
+**JSON Catalog Complete**: `RealmEngine.Data/Data/Json/skills/catalog.json` ✅
 
 **Architecture Decisions**:
-- **Rank System**: 0-100 ranks per skill (not 0-5)
-- **XP Formula**: `baseXPCost + (currentRank × baseXPCost × costMultiplier)`
-- **27 Skills Total**: Attribute (6), Combat (6), Magic (6), Profession (3), Survival (6)
+- **Rank System**: 0-100 ranks per skill
+- **XP Formula**: `baseXPCost × (1 + currentRank × costMultiplier)`
+- **54 Skills Total**: Attribute (24), Weapon (10), Armor (4), Magic (16), Profession (12)
 - **Effect Types**: Damage multipliers, defense bonuses, spell power, crafting quality
-- **JSON Catalog**: `skills/catalog.json` defines all skill properties
-- **Per-Rank Bonuses**: Combat +0.5%, Magic +0.4%, Defense +0.3%, Professions +1%
+- **JSON v4.2 Structure**: Traits with type annotations, selectionWeight, effects arrays, xpActions arrays
+- **Per-Rank Bonuses**: Weapon +0.5% damage, Magic +0.4% power, Attribute-specific effects
 
 **Skill Categories**:
-- **Attribute Skills**: Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma
-- **Combat Skills**: One-Handed, Two-Handed, Archery, Block, Heavy Armor, Medium Armor, Light Armor
-- **Magic Skills**: Destruction, Restoration, Alteration, Conjuration, Illusion, Mysticism
-- **Profession Skills**: Blacksmithing, Alchemy, Enchanting
-- **Survival Skills**: Lockpicking, Sneaking, Pickpocketing, Speech
+- **Attribute Skills (24)**: 4 per attribute (STR, DEX, CON, INT, WIS, CHA)
+  - Athletics, Swimming, Climbing, Carrying, Acrobatics, Stealth, etc.
+- **Weapon Skills (10)**: Light Blades, Heavy Blades, Axes, Blunt, Polearms, Bows, Crossbows, Throwing, Unarmed, Shield
+- **Armor Skills (4)**: Light, Medium, Heavy, Unarmored Defense
+- **Magic Skills (16)**: 4 core traditions (Arcane, Divine, Occult, Primal) + 3 specialists each
+  - Arcane: Force Magic, Chronomancy, Conjuration
+  - Divine: Restoration, Smiting, Warding
+  - Occult: Enchantment, Illusion, Shadowcraft
+  - Primal: Elementalism, Beast Mastery, Verdancy
+- **Profession Skills (12)**: Blacksmithing, Leatherworking, Tailoring, Woodworking, Jewelcrafting, Alchemy, Enchanting, Runecrafting, Mining, Herbalism, Cooking, Fishing
 
 **Implementation Steps**:
-1. Data models & JSON catalog
-2. SkillProgressionService & effect calculations
-3. Combat integration & notifications
-4. Save/load & backwards compatibility
+1. ✅ JSON catalog (skills/catalog.json with 54 skills) - DONE
+2. ⏳ Data models (CharacterSkill, SkillDefinition)
+3. ⏳ SkillCatalogService (load from JSON)
+4. ⏳ SkillProgressionService (XP awards, rank-ups, effect calculations)
+5. ⏳ Combat integration (weapon/armor skill effects)
+6. ⏳ Magic integration (tradition/specialist skill effects)
+7. ⏳ UI notifications (rank-up alerts)
+8. ⏳ Save/load integration
 
 **Dependencies**: None (foundational)
 
@@ -109,102 +118,91 @@
 ---
 
 #### 2. Abilities System
-- **Status**: `[✅ Design Complete]`
-- **Effort**: High
-- **Current State**: 100+ JSON files in `/abilities/` (purpose unclear, needs audit)
+- **Status**: `[✅ JSON Complete]`
+- **Effort**: High (Code Implementation Remaining)
+- **Current State**: JSON v4.2 catalogs complete with 383 abilities in 4 files, code integration pending
 - **Vision**: Class and species-specific active powers
 
-**Design Complete**: `docs/designs/abilities-system-design.md` ✅
+**JSON Catalogs Complete**: `RealmEngine.Data/Data/Json/abilities/` ✅
+- `active/catalog.json` (177 abilities)
+- `passive/catalog.json` (131 abilities)
+- `reactive/catalog.json` (36 abilities)
+- `ultimate/catalog.json` (39 abilities)
 
 **Architecture Decisions**:
-- **Class-Based Organization**: Abilities reorganized by class (warrior/, rogue/, mage/, cleric/, ranger/, paladin/, shared/)
-- **8 Abilities Per Class**: 3 starting + 4 level-unlocked + 1 ultimate
-- **Level-Gated Unlocks**: Abilities unlock at levels 1, 5, 10, 12, 20
-- **Resource Management**: Mana costs + cooldown timers
-- **Clear Distinctions**: Skills (passive), Abilities (class powers), Spells (learnable)
-- **Passive Abilities**: Each class has 1 always-active passive (+10% HP, +15% crit, etc.)
+- **Activation Type Organization**: 4 catalogs by activation type (not class-based)
+- **Tier System**: 5 tiers (1-5) based on selectionWeight
+- **Level-Gated Unlocks**: Tier 1 (level 1+), Tier 2 (level 5+), Tier 3 (level 10+), Tier 4 (level 15+), Tier 5 (level 20+)
+- **Resource Management**: Mana costs + cooldown timers in traits
+- **JSON v4.2 Structure**: All properties in traits with type annotations
+- **Clear Distinctions**: Skills (54, ranks 0-100), Abilities (383, tiers 1-5), Spells (144, ranks 0-10)
 
-**Class Ability Counts** (Total: 48 abilities):
-- **Warrior**: Charge, Shield Bash, Iron Will, Whirlwind, Execute, Battle Cry, Last Stand (7)
-- **Rogue**: Backstab, Evasion, Shadow Affinity, Poison Strike, Vanish, Shadow Step, Assassination (7)
-- **Mage**: Arcane Missiles, Mana Shield, Arcane Affinity, Frost Nova, Blink, Spell Steal, Meteor (7)
-- **Cleric**: Smite, Heal, Divine Grace, Divine Shield, Cleanse, Blessing, Divine Intervention (7)
-- **Ranger**: Power Shot, Trap, Keen Senses, Hunter's Mark, Camouflage, Pet Summon, Arrow Storm (7)
-- **Paladin**: Holy Strike, Protective Aura, Righteous Vigor, Divine Smite, Lay on Hands, Consecration, Judgment (7)
+**Ability Distribution** (Total: 383 abilities):
+- **Active (177)**: Offensive (88), Defensive (34), Support (27), Utility (28), Control (8), Summon (4), Mobility (2)
+- **Passive (131)**: General (16), Offensive (38), Defensive (39), Leadership (24), Environmental (22), Mobility (7), Sensory (1)
+- **Reactive (36)**: Offensive (14), Defensive (12), Utility (10)
+- **Ultimate (39)**: All tier 5 game-changing abilities
 
 **Implementation Steps**:
-1. Audit existing 100+ ability JSON files
-2. Reorganize abilities by class folders
-3. Update JSON schemas with `isStartingAbility`, `requiredLevel`, `allowedClasses`
-4. Implement `CharacterAbility` tracking model
-5. Integrate ability usage into CombatService (cooldowns, mana costs)
-6. Level-up unlocking system
-7. Ability effect execution (damage, healing, buffs, debuffs)
-
-**JSON Migration Required**:
-- Move abilities from `active/offensive/`, `reactive/defensive/`, etc. → class-based folders
-- Create migration map for old references → new references
-- Update class definitions with `startingAbilityIds` and `abilityUnlocksByLevel`
+1. ✅ JSON catalogs (4 files: active, passive, reactive, ultimate) - DONE
+2. ✅ Organize by activation type (not class folders) - DONE
+3. ✅ Apply v4.2 standards (traits, selectionWeight, tiers) - DONE
+4. ⏳ Data models (CharacterAbility tracking)
+5. ⏳ AbilityCatalogService (load from 4 JSON files)
+6. ⏳ Integrate ability usage into CombatService (cooldowns, mana costs)
+7. ⏳ Level-up unlocking system (tier-based)
+8. ⏳ Ability effect execution (damage, healing, buffs, debuffs)
+9. ⏳ Class-ability associations (define which classes get which abilities)
 
 **Dependencies**: 
-- Skills System (skill bonuses affect ability damage)
+- Skills System (skill bonuses affect ability damage) - JSON complete, code pending
 - Combat System (ability usage context)
-
-**Work Required**:
-1. **Audit existing abilities** - Are current JSON files class-specific? Spell-like? Usable?
-2. **Define ability domains** - Organize by class, by type, by acquisition method?
-3. **Class ability trees** - Warrior abilities (Charge, Cleave), Rogue abilities (Backstab, Vanish), etc.
-4. **Species abilities** - If applicable (e.g., Dwarf resistance, Elf magic affinity)
-5. **Acquisition system** - Level-based? Skill-based? Trainer-based?
-6. **Integrate into CombatService** - Mana costs, cooldowns, effects
-
-**API Impact**:
-- `GetClassAbilities(className)` → returns available abilities for class
-- `GetLearnedAbilities()` → returns character's known abilities
-- `UseAbility(abilityId, targetId)` → execute ability in combat
-- `GetAbilityCooldowns()` → returns cooldown timers
 
 ---
 
 #### 3. Magic & Spell System
-- **Status**: `[✅ Design Complete]`
-- **Effort**: High
-- **Current State**: Nothing (0%)
-- **Vision**: Learnable spell system with schools of magic (domains)
+- **Status**: `[✅ JSON Complete]`
+- **Effort**: High (Code Implementation Remaining)
+- **Current State**: JSON v4.2 catalog complete with 144 spells, code integration pending
+- **Vision**: Learnable spell system with Pathfinder 2e magical traditions
 
-**Design Complete**: `docs/designs/spells-system-design.md` ✅
+**JSON Catalog Complete**: `RealmEngine.Data/Data/Json/spells/catalog.json` ✅
 
 **Architecture Decisions**:
-- **Six Spell Schools**: Destruction, Restoration, Alteration, Conjuration, Illusion, Mysticism
-- **Five Power Tiers**: Novice (Rank 0-20), Apprentice (20-40), Adept (40-60), Expert (60-80), Master (80-100)
-- **Skill-Based**: Spell power/success/mana efficiency scale with magic skills
+- **Four Magical Traditions**: Arcane (INT), Divine (WIS), Occult (CHA), Primal (WIS)
+- **Spell Ranks**: 0 (Cantrip) through 10 (Ultimate)
+- **144 Spells Total**: 36 per tradition (8 cantrips + 28 ranked spells)
+- **Skill-Based**: Spell power scales with tradition + specialist magic skills
 - **Universal Access**: Anyone can learn spells (unlike class-only abilities)
 - **Acquisition Methods**: Spellbooks (learn permanently), Scrolls (one-time cast), Trainers, Quest rewards
-- **30 Spells Total**: 5 per school covering all tiers
-- **JSON Catalog**: `spells/catalog.json` defines all spell properties
-- **Mana Efficiency**: -0.5% cost per rank above requirement (max 50% reduction)
+- **JSON v4.2 Structure**: Traits with type annotations, selectionWeight, tradition-specific organization
+- **Cantrips (Rank 0)**: Free to cast (0 mana cost)
+- **Mana Costs**: Scale by rank (10-200 mana for ranks 1-10)
 - **Success Rates**: 90% at minimum skill, 99% at 20+ ranks above
-- **Power Scaling**: +1% damage/healing per rank above requirement
+- **Power Scaling**: +1% per tradition skill rank + specialist skill bonuses
 
-**Spell Schools**:
-- **Destruction**: Fire/Ice/Lightning/Arcane damage spells
-- **Restoration**: Healing, regeneration, curing, resurrection
-- **Alteration**: Shields, buffs, transmutation, utility
-- **Conjuration**: Summon creatures, conjure weapons, binding
-- **Illusion**: Charm, fear, invisibility, mind control
-- **Mysticism**: Detection, teleportation, clairvoyance, time magic
+**Magical Traditions**:
+- **Arcane (36)**: Force, transmutation, teleportation, raw power (INT-based)
+  - Specialists: Force Magic, Chronomancy, Conjuration
+- **Divine (36)**: Healing, holy damage, protection (WIS-based)
+  - Specialists: Restoration, Smiting, Warding
+- **Occult (36)**: Mind control, illusions, psychic damage (CHA-based)
+  - Specialists: Enchantment, Illusion, Shadowcraft
+- **Primal (36)**: Elements, beasts, nature, weather (WIS-based)
+  - Specialists: Elementalism, Beast Mastery, Verdancy
 
 **Implementation Steps**:
-1. Data models (Spell, CharacterSpell, Spellbook, Scroll)
-2. JSON catalog & SpellCatalogService
-3. SpellLearningService (spellbooks, trainers)
-4. SpellCastingService (success checks, mana, effects)
-5. Combat integration & spell effect execution
-6. Inventory integration (use spellbooks/scrolls)
-7. Cooldown system & spell statistics
+1. ✅ JSON catalog (spells/catalog.json with 144 spells) - DONE
+2. ⏳ Data models (Spell, CharacterSpell, Spellbook, Scroll)
+3. ⏳ SpellCatalogService (load from JSON)
+4. ⏳ SpellLearningService (spellbooks, trainers)
+5. ⏳ SpellCastingService (success checks, mana, effects)
+6. ⏳ Combat integration (spell casting in combat)
+7. ⏳ Inventory integration (use spellbooks/scrolls)
+8. ⏳ Spell effect execution with tradition + specialist skill scaling
 
 **Dependencies**: 
-- Skills System (magic skills foundation) - MUST implement first
+- Skills System (magic skills foundation) - JSON complete, code pending
 - Combat System (spell casting in combat)
 - Inventory System (spellbooks/scrolls as items)
 

@@ -4,7 +4,7 @@
 
 ## Overview
 
-The Spells System provides learnable magic that any character can acquire (with sufficient skill) through spellbooks, scrolls, teachers, and quest rewards. Unlike class-specific abilities, spells are universal magical knowledge requiring magic skill proficiency.
+The Spells System provides **144 total spells** organized into 4 magical traditions (Arcane, Divine, Occult, Primal) based on Pathfinder 2e. Each tradition contains 36 spells ranked from 0 (Cantrip) to 10. Any character can learn spells through spellbooks, scrolls, teachers, and quest rewards, but requires the appropriate tradition skill to cast effectively.
 
 ## Core Philosophy
 
@@ -19,49 +19,71 @@ The Spells System provides learnable magic that any character can acquire (with 
 - **Abilities** = Class-granted powers (active, always available)
 - **Spells** = Learnable magic (active, must be acquired, skill-dependent)
 
-## Spell Schools (Domains)
+## Magical Traditions (Pathfinder 2e)
 
-### Destruction (Offensive Magic)
-Elemental damage spells for combat:
-- **Fire**: Burning damage, DoT effects (Fireball, Flame Wall, Incinerate)
-- **Ice**: Freezing damage, slow effects (Ice Spike, Blizzard, Freeze)
-- **Lightning**: Shock damage, chain effects (Lightning Bolt, Chain Lightning, Thunderstorm)
-- **Arcane**: Pure magic damage, anti-magic (Arcane Missiles, Mana Burn, Dispel)
+### Arcane Tradition (36 Spells)
+**Governing Attribute**: Intelligence  
+**Theme**: Study-based magic, raw power, manipulation of forces
 
-### Restoration (Healing & Curing)
-Healing and recovery magic:
-- **Healing**: Restore health (Heal, Greater Heal, Full Heal)
-- **Regeneration**: Health-over-time (Regeneration, Fast Healing)
-- **Curing**: Remove negative effects (Cure Poison, Cure Disease, Remove Curse)
-- **Resurrection**: Revive fallen allies (Revive, Resurrection) *(future party system)*
+**Magic Skills**:
+- **Arcane** (core): Unlocks all Arcane spells
+- **Force Magic**: Boosts force/kinetic spells
+- **Chronomancy**: Boosts time manipulation spells
+- **Conjuration**: Boosts summoning/creation spells
 
-### Alteration (Buffs & Utility)
-Magic that alters reality or enhances abilities:
-- **Shields**: Magical protection (Mana Shield, Stoneskin, Reflect Damage)
-- **Buffs**: Enhance stats (Strength, Speed, Intelligence)
-- **Transmutation**: Change properties (Feather Fall, Water Walking, Detect Magic)
-- **Utility**: Practical magic (Light, Unlock, Telekinesis)
+**Sample Spells**:
+- **Cantrips**: Force Missile, Detect Magic, Prestidigitation, Light, Mage Hand, Read Magic, Ghost Sound, Dancing Lights
+- **Rank 1-3**: Magic Missile, Shield, Invisibility, Haste, Teleport, Fireball, Lightning Bolt
+- **Rank 4-7**: Dimension Door, Wall of Force, Telekinesis, Disintegrate, Delayed Blast Fireball
+- **Rank 8-10**: Time Stop, Meteor Swarm, Wish
 
-### Conjuration (Summoning & Binding)
-Magic that summons creatures or objects:
-- **Summon Creatures**: Call allies (Summon Wolf, Summon Elemental, Summon Demon)
-- **Conjure Weapons**: Create magical weapons (Bound Sword, Spectral Bow)
-- **Binding**: Control summoned entities (Command, Banish, Soul Trap)
-- **Planar Magic**: Deal with other realms (Gate, Planar Ally) *(high level)*
+### Divine Tradition (36 Spells)
+**Governing Attribute**: Wisdom  
+**Theme**: Faith-based magic, healing, protection, holy power
 
-### Illusion (Mind Magic)
-Magic affecting perception and minds:
-- **Charm**: Make enemies friendly (Charm Person, Mass Charm)
-- **Fear**: Frighten enemies (Fear, Terror, Panic)
-- **Invisibility**: Hide from sight (Invisibility, Greater Invisibility)
-- **Mind Control**: Control actions (Dominate, Suggestion) *(high level)*
+**Magic Skills**:
+- **Divine** (core): Unlocks all Divine spells
+- **Restoration**: Boosts healing spells
+- **Smiting**: Boosts holy damage spells
+- **Warding**: Boosts protection spells
 
-### Mysticism (Detection & Teleportation)
-Magic for information and movement:
-- **Detection**: Reveal hidden (Detect Life, Detect Magic, True Seeing)
-- **Teleportation**: Instant movement (Recall, Teleport, Dimension Door)
-- **Clairvoyance**: See distant places (Scrying, Far Sight)
-- **Time Magic**: Manipulate time (Haste, Slow, Time Stop) *(high level)*
+**Sample Spells**:
+- **Cantrips**: Stabilize, Sacred Flame, Guidance, Resistance, Virtue, Detect Alignment, Purify Food, Create Water
+- **Rank 1-3**: Heal, Bless, Shield of Faith, Prayer, Cure Disease, Remove Curse, Restoration
+- **Rank 4-7**: Holy Smite, Divine Power, Flame Strike, Greater Restoration, Regeneration
+- **Rank 8-10**: Mass Heal, Holy Aura, Miracle
+
+### Occult Tradition (36 Spells)
+**Governing Attribute**: Charisma  
+**Theme**: Mental/psychic magic, mind control, fear, illusions
+
+**Magic Skills**:
+- **Occult** (core): Unlocks all Occult spells
+- **Enchantment**: Boosts mind control spells
+- **Illusion**: Boosts deception/illusion spells
+- **Shadowcraft**: Boosts shadow magic spells
+
+**Sample Spells**:
+- **Cantrips**: Daze, Message, Ghost Sound, Mage Hand, Prestidigitation, Detect Thoughts, Read Aura, Telekinetic Projectile
+- **Rank 1-3**: Charm Person, Sleep, Invisibility, Fear, Suggestion, Phantasmal Killer
+- **Rank 4-7**: Confusion, Dominate Person, Greater Invisibility, Feeblemind, Shadow Conjuration
+- **Rank 8-10**: Weird, Dominate Monster, Mass Charm
+
+### Primal Tradition (36 Spells)
+**Governing Attribute**: Wisdom  
+**Theme**: Nature-based magic, elements, beasts, plants, weather
+
+**Magic Skills**:
+- **Primal** (core): Unlocks all Primal spells
+- **Elementalism**: Boosts elemental damage spells
+- **Beast Mastery**: Boosts animal/beast spells
+- **Verdancy**: Boosts plant/nature spells
+
+**Sample Spells**:
+- **Cantrips**: Produce Flame, Ray of Frost, Thorn Whip, Shillelagh, Druidcraft, Guidance, Detect Poison, Purify Water
+- **Rank 1-3**: Burning Hands, Ice Storm, Call Lightning, Summon Animal, Barkskin, Entangle
+- **Rank 4-7**: Flame Strike, Cone of Cold, Summon Elemental, Wall of Thorns, Earthquake
+- **Rank 8-10**: Meteor Swarm, Tsunami, Storm of Vengeance
 
 ## Spell Mechanics
 
@@ -83,32 +105,39 @@ Magic for information and movement:
   - Often tied to spell school mastery quests
 
 **Skill Requirements**:
-Each spell has minimum skill rank in its school:
-- **Novice Spells**: Rank 0-20 (beginner magic)
-- **Apprentice Spells**: Rank 20-40 (journeyman magic)
-- **Adept Spells**: Rank 40-60 (experienced magic)
-- **Expert Spells**: Rank 60-80 (master magic)
-- **Master Spells**: Rank 80-100 (legendary magic)
+Each spell requires the core tradition skill to cast:
+- **Core Tradition Skill**: Must have rank in Arcane/Divine/Occult/Primal to access spells
+- **Minimum Skill Rank**: Based on spell rank
+  - **Rank 0-1**: Skill rank 0+ (anyone can attempt)
+  - **Rank 2-3**: Skill rank 20+ (basic proficiency)
+  - **Rank 4-5**: Skill rank 40+ (intermediate)
+  - **Rank 6-7**: Skill rank 60+ (advanced)
+  - **Rank 8-10**: Skill rank 80+ (master level)
+- **Specialist Skills**: Force Magic, Restoration, Enchantment, etc. boost specific spell types
+  - Do NOT unlock spells, only increase effectiveness
+  - Example: High Elementalism boosts Fireball damage but doesn't unlock it
 
 ### Casting Mechanics
 
 **Mana Costs**:
-Spells consume mana based on power and school:
-- **Novice**: 5-15 mana
-- **Apprentice**: 15-30 mana
-- **Adept**: 30-50 mana
-- **Expert**: 50-80 mana
-- **Master**: 80-150 mana
+Spells consume mana based on rank (except cantrips):
+- **Rank 0 (Cantrips)**: 0 mana (unlimited casting)
+- **Rank 1-2**: 10-20 mana
+- **Rank 3-4**: 25-40 mana
+- **Rank 5-6**: 50-70 mana
+- **Rank 7-8**: 80-120 mana
+- **Rank 9-10**: 130-200 mana
 
-**Skill affects cost**: Higher skill = reduced mana cost (up to 50% reduction at max rank)
+**Tradition skill affects cost**: Higher skill = reduced mana cost (up to 50% reduction at rank 100)
 
 **Casting Time**:
 - **Instant**: Most spells cast immediately (1 action)
-- **Channeled**: Some spells require multiple turns (future)
-- **Ritual**: Powerful spells require out-of-combat casting (future)
+- **Cantrips**: Free action, can be cast alongside other actions
+- **Channeled**: Some spells require concentration (future)
+- **Ritual**: Powerful out-of-combat casting (future)
 
 **Success/Failure**:
-- **Success Rate**: Based on caster's skill rank vs spell difficulty
+- **Success Rate**: Based on tradition skill rank vs spell minimum
   - Meeting requirement = 90% base success
   - 20 ranks above = 99% success (near-guaranteed)
   - 10 ranks below = 60% success (risky but possible)
@@ -116,48 +145,54 @@ Spells consume mana based on power and school:
 - **Backfire**: Critical failure damages caster (rare, <5% chance)
 
 **Skill Scaling**:
-Spell effectiveness increases with skill:
-- **Damage Spells**: +1% damage per skill rank above requirement
-- **Healing Spells**: +1% healing per skill rank above requirement
-- **Duration Spells**: +2% duration per skill rank above requirement
-- **Efficiency**: -0.5% mana cost per skill rank above requirement (max 50% reduction)
+Spell effectiveness increases with tradition and specialist skills:
+- **Damage Spells**: +1% per tradition skill rank + specialist skill bonus
+  - Example: 50 Arcane + 30 Force Magic = +80% Force Missile damage
+- **Healing Spells**: +1% per tradition skill rank + Restoration bonus
+  - Example: 60 Divine + 40 Restoration = +100% Heal effectiveness
+- **Duration Spells**: +2% duration per tradition skill rank
+- **Efficiency**: -0.5% mana cost per skill rank (max 50% reduction)
 
-### Spell Levels
+### Spell Rank System
 
-**Novice (Rank 0-20)**:
-- **Fireball**: 30 fire damage, 5m AoE (15 mana)
-- **Healing**: Restore 40 HP (12 mana)
-- **Mana Shield**: Absorb 50 damage (20 mana)
-- **Summon Wolf**: Summon ally for 5 turns (25 mana)
-- **Invisibility**: Hide for 30 seconds (18 mana)
+Spells are organized by rank from 0 (Cantrips) to 10:
 
-**Apprentice (Rank 20-40)**:
-- **Flame Wall**: 50 fire damage AoE + DoT (30 mana)
-- **Greater Heal**: Restore 100 HP (28 mana)
-- **Stoneskin**: +50% defense for 5 turns (35 mana)
-- **Summon Bear**: Stronger summon for 5 turns (45 mana)
-- **Charm Person**: Control one enemy for 3 turns (40 mana)
+**Rank Distribution per Tradition** (36 spells each):
+- **Rank 0 (Cantrips)**: 8 spells — Free to cast, unlimited use
+- **Rank 1**: 6 spells — Basic spells
+- **Rank 2**: 5 spells — Utility and combat
+- **Rank 3**: 4 spells — Intermediate power
+- **Rank 4**: 3 spells — Advanced magic
+- **Rank 5**: 3 spells — Expert tier
+- **Rank 6**: 2 spells — Master tier
+- **Rank 7**: 2 spells — Powerful magic
+- **Rank 8**: 1 spell — Legendary
+- **Rank 9**: 1 spell — Epic
+- **Rank 10**: 1 spell — Ultimate
 
-**Adept (Rank 40-60)**:
-- **Blizzard**: 100 ice damage AoE + slow (55 mana)
-- **Full Heal**: Restore to max HP (50 mana)
-- **Strength of Steel**: +50% damage for 5 turns (45 mana)
-- **Summon Elemental**: Powerful summon for 8 turns (70 mana)
-- **Mass Invisibility**: Hide party for 45 seconds (65 mana)
+**Sample Progression (Arcane Tradition)**:
+- **Rank 0**: Force Missile, Detect Magic, Light, Prestidigitation (free cantrips)
+- **Rank 1**: Magic Missile (1d4+1 force × 3), Shield (+4 AC, 5 turns)
+- **Rank 3**: Fireball (8d6 fire, 20ft radius), Lightning Bolt (8d6 lightning, 100ft line)
+- **Rank 5**: Teleport (instant travel), Wall of Force (impenetrable barrier)
+- **Rank 7**: Delayed Blast Fireball (12d6+12 fire, delayed detonation)
+- **Rank 10**: Time Stop (stop time, take 1d4+1 extra turns)
 
-**Expert (Rank 60-80)**:
-- **Chain Lightning**: 150 shock damage, chains 3 enemies (75 mana)
-- **Resurrection**: Revive dead ally (90 mana) *(future)*
-- **Reflect Damage**: Return 50% damage to attackers (80 mana)
-- **Gate**: Summon powerful demon for 10 turns (100 mana)
-- **Dominate**: Control enemy for 5 turns (85 mana)
+**Sample Progression (Divine Tradition)**:
+- **Rank 0**: Stabilize, Sacred Flame, Guidance (free cantrips)
+- **Rank 1**: Heal (1d8+WIS healing), Bless (+1 attack/saves to allies)
+- **Rank 3**: Prayer (+1 all rolls to allies, -1 to enemies), Cure Disease
+- **Rank 5**: Flame Strike (8d6 fire/radiant), Greater Restoration (remove major debuffs)
+- **Rank 7**: Regeneration (restore limbs, heal over time)
+- **Rank 10**: Miracle (duplicate any spell or custom effect)
 
-**Master (Rank 80-100)**:
-- **Meteor**: 300 fire damage massive AoE (120 mana)
-- **Divine Intervention**: Full heal + buff entire party (150 mana)
-- **Time Stop**: Freeze enemies for 3 free turns (140 mana)
-- **Summon Dragon**: Ultimate summon for 15 turns (180 mana)
-- **Mass Charm**: Control all enemies for 3 turns (160 mana)
+**Mana Costs by Rank**:
+- **Rank 0**: 0 mana (cantrips are free)
+- **Rank 1-2**: 10-20 mana
+- **Rank 3-4**: 25-40 mana
+- **Rank 5-6**: 50-70 mana
+- **Rank 7-8**: 80-120 mana
+- **Rank 9-10**: 130-200 mana
 
 ## Spell Integration
 

@@ -13,25 +13,32 @@
 
 ## Executive Summary
 
-**Current State**: Spell system redesigned to use Pathfinder 2e magical traditions instead of Elder Scrolls schools.
+**Current State**: Spells system with **144 total spells** in JSON v4.2 catalog organized by Pathfinder 2e magical traditions. Each tradition contains 36 spells ranked from 0 (Cantrip) to 10.
 
-**Target State**: Comprehensive learnable magic system where spells are acquired through spellbooks, scrolls, trainers, and quests. Spell effectiveness scales with magical tradition skills. Four magical traditions (Arcane, Divine, Occult, Primal) with spell ranks from Cantrip (0) to 10th rank.
+**Implementation Status**:
+- ✅ JSON catalog complete (spells/catalog.json with v4.2 structure)
+- ✅ 144 spells: Arcane (36), Divine (36), Occult (36), Primal (36)
+- ✅ Rank 0-10 progression with proper distribution
+- ✅ v4.2 standards applied (selectionWeight, traits with type annotations)
+- ⏳ Code model integration pending
+- ⏳ Spell acquisition system pending
+- ⏳ Casting mechanics pending
+- ⏳ Combat integration pending
 
-**Scope**: Complete spell system infrastructure
-- Data models for spells, spellbooks, and character spell knowledge
-- JSON catalog structure for spell definitions across all traditions
+**Scope**: Complete spell system implementation
+- Character model integration for spell knowledge storage
 - Spell acquisition system (spellbooks, scrolls, trainers)
-- Casting mechanics with skill checks, success rates, and failure modes
-- Spell effect calculation scaling with tradition skills
-- Integration with combat, inventory, and skills systems
+- Casting mechanics with skill checks and success rates
+- Spell effect calculation scaling with tradition/specialist skills
+- Integration with combat and skills systems
 - Mana cost calculation with skill-based efficiency
-- Cantrips (rank 0 spells) are free to cast
+- Cantrips (rank 0) are free to cast
 
 **Magical Traditions** (Pathfinder 2e):
-- **Arcane**: Study-based magic (raw power, force, transmutation)
-- **Divine**: Faith-based magic (healing, protection, holy power)
-- **Occult**: Mental/psychic magic (mind control, fear, illusions)
-- **Primal**: Nature-based magic (elements, beasts, growth)
+- **Arcane (INT)**: Study-based magic (raw power, force, transmutation, teleportation)
+- **Divine (WIS)**: Faith-based magic (healing, protection, holy power)
+- **Occult (CHA)**: Mental/psychic magic (mind control, fear, illusions, psychic damage)
+- **Primal (WIS)**: Nature-based magic (elements, beasts, plants, weather)
 
 **Out of Scope** (Future Enhancements):
 - Heightening (casting spells at higher ranks)
@@ -81,11 +88,6 @@ public class Spell
     public required int Rank { get; set; }
     
     /// <summary>
-    /// Display name for rank (e.g., "Cantrip", "1st", "3rd").
-    /// </summary>
-    public required string RankName { get; set; }
-    
-    /// <summary>
     /// Minimum tradition skill rank required to learn (0-100).
     /// </summary>
     public int MinimumSkillRank { get; set; }
@@ -103,10 +105,10 @@ public class Spell
     /// <summary>
     /// Base effect value (damage amount, healing amount, etc.).
     /// </summary>
-    public int BaseEffectValue { get; set; }
+    public string BaseEffectValue { get; set; } = string.Empty; // e.g., "8d6" or "1d8+WIS"
     
     /// <summary>
-    /// Area of effect radius in meters (0 for single target).
+    /// Area of effect radius in feet (0 for single target).
     /// </summary>
     public int AreaOfEffect { get; set; } = 0;
     
@@ -116,38 +118,28 @@ public class Spell
     public int Duration { get; set; } = 0;
     
     /// <summary>
-    /// Cooldown in turns (0 for no cooldown).
+    /// Selection weight for spellbook/scroll generation (1-1000).
     /// </summary>
-    public int Cooldown { get; set; } = 0;
-    
-    /// <summary>
-    /// Can this spell be cast outside of combat?
-    /// </summary>
-    public bool CanCastOutOfCombat { get; set; } = false;
-    
-    /// <summary>
-    /// Rarity weight for spellbook/scroll generation (1-100).
-    /// </summary>
-    public int RarityWeight { get; set; } = 50;
+    public int SelectionWeight { get; set; } = 50;
 }
 
-public enum SpellSchool
+public enum MagicalTradition
 {
-    Destruction,    // Offensive magic (fire, ice, lightning, arcane)
-    Restoration,    // Healing and curing
-    Alteration,     // Buffs, shields, transmutation
-    Conjuration,    // Summoning creatures and objects
-    Illusion,       // Mind magic (charm, fear, invisibility)
-    Mysticism       // Detection, teleportation, divination
+    Arcane,      // INT-based: Force, transmutation, teleportation
+    Divine,      // WIS-based: Healing, holy, protection
+    Occult,      // CHA-based: Mind control, illusion, psychic
+    Primal       // WIS-based: Elements, beasts, nature
 }
 
-public enum SpellTier
+public enum SpellEffectType
 {
-    Novice,         // Rank 0-20
-    Apprentice,     // Rank 20-40
-    Adept,          // Rank 40-60
-    Expert,         // Rank 60-80
-    Master          // Rank 80-100
+    Damage,         // Deals damage
+    Heal,           // Restores health
+    Buff,           // Enhances abilities
+    Debuff,         // Weakens enemies
+    Summon,         // Summons creature
+    Utility,        // Non-combat effect
+    Control         // Crowd control
 }
 
 public enum SpellEffectType
@@ -272,32 +264,187 @@ public class Scroll : Item
 
 ## 2. JSON Catalog Structure
 
-### 2.1 Spells Catalog (Data/spells/catalog.json)
+### 2.1 Spells Catalog ✅ IMPLEMENTED
 
+**File**: `RealmEngine.Data/Data/Json/spells/catalog.json`
+
+**Structure** (JSON v4.2):
 ```json
 {
   "metadata": {
-    "version": "1.0",
+    "version": "4.2",
     "type": "spells_catalog",
-    "description": "All learnable spells organized by school",
-    "totalSpells": 30,
-    "lastUpdated": "Current Date"
+    "description": "All learnable spells organized by magical tradition",
+    "totalSpells": 144,
+    "lastUpdated": "2026-01-06"
   },
-  "schools": {
-    "destruction": [
-      {
-        "id": "fireball",
-        "name": "Fireball",
-        "description": "Hurl a ball of fire that explodes on impact, damaging all enemies in area",
-        "tier": "Novice",
-        "minimumSkillRank": 0,
-        "baseManaСost": 15,
-        "effectType": "Damage",
-        "baseEffectValue": 30,
-        "damageElement": "Fire",
-        "areaOfEffect": 5,
-        "duration": 0,
-        "cooldown": 0,
+  "arcane": {
+    "description": "Arcane tradition (INT) - 36 spells",
+    "tradition": "arcane",
+    "governingAttribute": "intelligence",
+    "spells": [{
+      "slug": "force-missile",
+      "name": "Force Missile",
+      "displayName": "Force Missile",
+      "description": "A missile of magical force strikes its target unerringly",
+      "rank": 0,
+      "selectionWeight": 100,
+      "traits": {
+        "tradition": {"value": "arcane", "type": "string"},
+        "spellType": {"value": "cantrip", "type": "string"},
+        "damageType": {"value": "force", "type": "string"},
+        "baseDamage": {"value": "1d4+1", "type": "string"},
+        "manaCost": {"value": 0, "type": "number"},
+        "range": {"value": 120, "type": "number"},
+        "target": {"value": "single", "type": "string"},
+        "savingThrow": {"value": "none", "type": "string"},
+        "duration": {"value": "instant", "type": "string"},
+        "castingTime": {"value": "1 action", "type": "string"}
+      }
+    }]
+  },
+  "divine": {
+    "description": "Divine tradition (WIS) - 36 spells",
+    "tradition": "divine",
+    "governingAttribute": "wisdom",
+    "spells": [{
+      "slug": "stabilize",
+      "name": "Stabilize",
+      "displayName": "Stabilize",
+      "description": "Stabilizes a dying creature, preventing death",
+      "rank": 0,
+      "selectionWeight": 100,
+      "traits": {
+        "tradition": {"value": "divine", "type": "string"},
+        "spellType": {"value": "cantrip", "type": "string"},
+        "effectType": {"value": "healing", "type": "string"},
+        "manaCost": {"value": 0, "type": "number"},
+        "range": {"value": 30, "type": "number"},
+        "target": {"value": "single", "type": "string"},
+        "duration": {"value": "instant", "type": "string"}
+      }
+    }]
+  },
+  "occult": {
+    "description": "Occult tradition (CHA) - 36 spells",
+    "tradition": "occult",
+    "governingAttribute": "charisma",
+    "spells": [...]
+  },
+  "primal": {
+    "description": "Primal tradition (WIS) - 36 spells",
+    "tradition": "primal",
+    "governingAttribute": "wisdom",
+    "spells": [...]
+  }
+}
+```
+
+### 2.2 Spell Rank Distribution
+
+**Per Tradition** (36 spells each × 4 traditions = 144 total):
+- **Rank 0 (Cantrips)**: 8 spells — Free to cast, unlimited use
+- **Rank 1**: 6 spells — 10-15 mana
+- **Rank 2**: 5 spells — 15-20 mana
+- **Rank 3**: 4 spells — 25-30 mana
+- **Rank 4**: 3 spells — 35-40 mana
+- **Rank 5**: 3 spells — 50-60 mana
+- **Rank 6**: 2 spells — 65-75 mana
+- **Rank 7**: 2 spells — 80-100 mana
+- **Rank 8**: 1 spell — 110-130 mana
+- **Rank 9**: 1 spell — 140-170 mana
+- **Rank 10**: 1 spell — 180-200 mana
+
+### 2.3 Sample Spell Examples
+
+**Arcane Rank 3 Spell**:
+```json
+{
+  "slug": "fireball",
+  "name": "Fireball",
+  "displayName": "Fireball",
+  "description": "A roaring blast of fire appears at a point you designate, exploding with a low roar",
+  "rank": 3,
+  "selectionWeight": 200,
+  "traits": {
+    "tradition": {"value": "arcane", "type": "string"},
+    "damageType": {"value": "fire", "type": "string"},
+    "baseDamage": {"value": "8d6", "type": "string"},
+    "manaCost": {"value": 30, "type": "number"},
+    "range": {"value": 150, "type": "number"},
+    "areaOfEffect": {"value": 20, "type": "number"},
+    "target": {"value": "area", "type": "string"},
+    "savingThrow": {"value": "reflex", "type": "string"},
+    "duration": {"value": "instant", "type": "string"}
+  }
+}
+```
+
+**Divine Rank 1 Spell**:
+```json
+{
+  "slug": "heal",
+  "name": "Heal",
+  "displayName": "Heal",
+  "description": "You channel positive energy to heal the living or damage the undead",
+  "rank": 1,
+  "selectionWeight": 100,
+  "traits": {
+    "tradition": {"value": "divine", "type": "string"},
+    "effectType": {"value": "healing", "type": "string"},
+    "baseHealing": {"value": "1d8+WIS", "type": "string"},
+    "manaCost": {"value": 10, "type": "number"},
+    "range": {"value": 30, "type": "number"},
+    "target": {"value": "single", "type": "string"},
+    "duration": {"value": "instant", "type": "string"}
+  }
+}
+```
+
+**Occult Rank 5 Spell**:
+```json
+{
+  "slug": "dominate-person",
+  "name": "Dominate Person",
+  "displayName": "Dominate Person",
+  "description": "You control the actions of a humanoid creature",
+  "rank": 5,
+  "selectionWeight": 300,
+  "traits": {
+    "tradition": {"value": "occult", "type": "string"},
+    "effectType": {"value": "control", "type": "string"},
+    "manaCost": {"value": 60, "type": "number"},
+    "range": {"value": 60, "type": "number"},
+    "target": {"value": "single", "type": "string"},
+    "savingThrow": {"value": "will", "type": "string"},
+    "duration": {"value": "concentration", "type": "string"},
+    "durationTurns": {"value": 10, "type": "number"}
+  }
+}
+```
+
+**Primal Rank 10 Spell**:
+```json
+{
+  "slug": "storm-of-vengeance",
+  "name": "Storm of Vengeance",
+  "displayName": "Storm of Vengeance",
+  "description": "You create a massive storm cloud that rains destruction",
+  "rank": 10,
+  "selectionWeight": 500,
+  "traits": {
+    "tradition": {"value": "primal", "type": "string"},
+    "damageType": {"value": "lightning", "type": "string"},
+    "baseDamage": {"value": "15d10", "type": "string"},
+    "manaCost": {"value": 200, "type": "number"},
+    "range": {"value": 500, "type": "number"},
+    "areaOfEffect": {"value": 360, "type": "number"},
+    "target": {"value": "area", "type": "string"},
+    "duration": {"value": "concentration", "type": "string"},
+    "durationTurns": {"value": 10, "type": "number"}
+  }
+}
+```
         "canCastOutOfCombat": false,
         "rarityWeight": 80
       },

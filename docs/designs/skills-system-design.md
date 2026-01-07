@@ -13,17 +13,23 @@
 
 ## Executive Summary
 
-**Current State**: 10 hardcoded passive bonuses stored in `List<Skill>` on Character model. MaxRank of 5, no real progression system.
+**Current State**: Skills system with JSON v4.2 catalog containing 54 skills organized into 5 categories (Attribute, Weapon, Armor, Magic, Profession). Skills rank 0-100 with XP-based progression.
 
-**Target State**: Practice-based skill system where actions grant skill XP, skills rank up (0-100), and provide cumulative passive bonuses. Skills stored per-character, persisted in save files, with JSON catalog defining skill properties.
+**Implementation Status**: 
+- ✅ JSON catalog structure complete (skills/catalog.json)
+- ✅ 54 skills defined with traits, effects, xpActions
+- ✅ v4.2 data standards applied
+- ⏳ Code implementation pending
+- ⏳ Service layer for skill progression
+- ⏳ UI integration
 
-**Scope**: Complete rebuild of skills system infrastructure
-- New data models supporting 0-100 ranks with XP progression
-- JSON catalog structure for skill definitions
+**Scope**: Skills progression system implementation
+- Character model integration for skill storage
 - Skill XP award system triggered by gameplay actions
 - Rank-up calculation and notification system
-- Integration with combat, magic, crafting, and exploration
+- Integration with combat, magic, crafting, exploration
 - Character sheet display with progress tracking
+- Data loading from JSON catalog
 
 **Out of Scope** (Future Enhancements):
 - Skill trainers and training mechanics
@@ -136,295 +142,119 @@ public Dictionary<string, int> RecentSkillRankUps { get; set; } = new();
 
 ### 1.3 Skill Definition Model (JSON Catalog Structure)
 
-**File**: `RealmEngine.Data/Data/Json/skills/catalog.json`
+**File**: `RealmEngine.Data/Data/Json/skills/catalog.json` ✅ IMPLEMENTED
 
+**Structure** (JSON v4.2):
 ```json
 {
   "metadata": {
-    "version": "1.0",
-    "lastUpdated": "Current Date",
-    "description": "Master catalog of all skills in the game",
+    "version": "4.2",
+    "lastUpdated": "2026-01-06",
+    "description": "Master catalog of all skills (54 total)",
     "type": "skills_catalog",
-    "totalSkills": 27
+    "totalSkills": 54
   },
-  "skills": {
-    "combat": [
-      {
-        "id": "one-handed",
-        "name": "One-Handed",
-        "description": "Skill with single-hand weapons like swords, axes, and maces",
-        "category": "Combat",
-        "maxRank": 100,
-        "baseXPCost": 100,
-        "costMultiplier": 0.5,
-        "effectType": "damage_multiplier",
-        "effectValue": 0.005,
-        "effectDescription": "+0.5% damage per rank",
-        "xpActions": [
-          {
-            "action": "melee_hit",
-            "xpAmount": 5,
-            "description": "Hit enemy with one-handed weapon"
-          },
-          {
-            "action": "melee_kill",
-            "xpAmount": 20,
-            "description": "Kill enemy with one-handed weapon"
-          },
-          {
-            "action": "critical_hit",
-            "xpAmount": 15,
-            "description": "Land critical hit with one-handed weapon"
-          }
-        ]
-      },
-      {
-        "id": "two-handed",
-        "name": "Two-Handed",
-        "description": "Skill with large weapons requiring both hands",
-        "category": "Combat",
-        "maxRank": 100,
-        "baseXPCost": 100,
-        "costMultiplier": 0.5,
-        "effectType": "damage_multiplier",
-        "effectValue": 0.005,
-        "effectDescription": "+0.5% damage per rank",
-        "xpActions": [
-          {
-            "action": "melee_hit",
-            "xpAmount": 5
-          },
-          {
-            "action": "melee_kill",
-            "xpAmount": 20
-          }
-        ]
-      },
-      {
-        "id": "archery",
-        "name": "Archery",
-        "description": "Skill with bows, crossbows, and thrown weapons",
-        "category": "Combat",
-        "maxRank": 100,
-        "baseXPCost": 100,
-        "costMultiplier": 0.5,
-        "effectType": "damage_multiplier",
-        "effectValue": 0.005,
-        "effectDescription": "+0.5% damage per rank",
-        "xpActions": [
-          {
-            "action": "ranged_hit",
-            "xpAmount": 5
-          },
-          {
-            "action": "ranged_kill",
-            "xpAmount": 20
-          }
-        ]
-      },
-      {
-        "id": "block",
-        "name": "Block",
-        "description": "Skill in shield blocking and parrying attacks",
-        "category": "Combat",
-        "maxRank": 100,
-        "baseXPCost": 100,
-        "costMultiplier": 0.4,
-        "effectType": "block_chance",
-        "effectValue": 0.003,
-        "effectDescription": "+0.3% block chance per rank",
-        "xpActions": [
-          {
-            "action": "block_success",
-            "xpAmount": 10
-          },
-          {
-            "action": "block_critical",
-            "xpAmount": 25
-          }
-        ]
-      },
-      {
-        "id": "heavy-armor",
-        "name": "Heavy Armor",
-        "description": "Proficiency in plate, chainmail, and heavy protective gear",
-        "category": "Combat",
-        "maxRank": 100,
-        "baseXPCost": 100,
-        "costMultiplier": 0.4,
-        "effectType": "armor_rating",
-        "effectValue": 0.003,
-        "effectDescription": "+0.3% armor rating per rank",
-        "xpActions": [
-          {
-            "action": "take_damage_heavy",
-            "xpAmount": 3
-          }
-        ]
-      },
-      {
-        "id": "light-armor",
-        "name": "Light Armor",
-        "description": "Proficiency in leather, cloth, and agile protective gear",
-        "category": "Combat",
-        "maxRank": 100,
-        "baseXPCost": 100,
-        "costMultiplier": 0.4,
-        "effectType": "evasion",
-        "effectValue": 0.002,
-        "effectDescription": "+0.2% dodge chance per rank",
-        "xpActions": [
-          {
-            "action": "take_damage_light",
-            "xpAmount": 3
-          },
-          {
-            "action": "dodge_success",
-            "xpAmount": 8
-          }
-        ]
+  "attribute_strength": {
+    "description": "Skills governed by Strength attribute",
+    "skills": [{
+      "slug": "athletics",
+      "name": "Athletics",
+      "displayName": "Athletics",
+      "description": "Running, jumping, general physical activity",
+      "traits": {
+        "baseXPCost": {"value": 80, "type": "number"},
+        "costMultiplier": {"value": 0.4, "type": "number"},
+        "maxRank": {"value": 100, "type": "number"},
+        "governingAttribute": {"value": "strength", "type": "string"},
+        "effects": {
+          "value": [
+            {"effectType": "movement_speed", "effectValue": 0.002, "appliesTo": "movement"},
+            {"effectType": "jump_height", "effectValue": 0.01, "appliesTo": "jump"}
+          ],
+          "type": "array"
+        },
+        "xpActions": {
+          "value": [
+            {"action": "sprint", "xpAmount": 2},
+            {"action": "jump_distance", "xpAmount": 5},
+            {"action": "complete_physical_challenge", "xpAmount": 15}
+          ],
+          "type": "array"
+        }
       }
-    ],
-    "magic": [
-      {
-        "id": "destruction",
-        "name": "Destruction",
-        "description": "Offensive magic dealing fire, ice, and lightning damage",
-        "category": "Magic",
-        "maxRank": 100,
-        "baseXPCost": 120,
-        "costMultiplier": 0.6,
-        "effectType": "spell_power",
-        "effectValue": 0.004,
-        "effectDescription": "+0.4% spell damage per rank",
-        "xpActions": [
-          {
-            "action": "cast_destruction_spell",
-            "xpAmount": 8
-          },
-          {
-            "action": "kill_with_spell",
-            "xpAmount": 25
-          }
-        ]
-      },
-      {
-        "id": "restoration",
-        "name": "Restoration",
-        "description": "Healing magic and restorative spells",
-        "category": "Magic",
-        "maxRank": 100,
-        "baseXPCost": 120,
-        "costMultiplier": 0.6,
-        "effectType": "healing_power",
-        "effectValue": 0.004,
-        "effectDescription": "+0.4% healing per rank",
-        "xpActions": [
-          {
-            "action": "cast_healing_spell",
-            "xpAmount": 8
-          },
-          {
-            "action": "restore_full_health",
-            "xpAmount": 20
-          }
-        ]
+    }]
+  },
+  "weapon": {
+    "description": "Weapon proficiency skills",
+    "skills": [{
+      "slug": "light-blades",
+      "name": "Light Blades",
+      "displayName": "Light Blades",
+      "description": "Daggers, short swords, rapiers - fast DEX-focused weapons",
+      "traits": {
+        "baseXPCost": {"value": 100, "type": "number"},
+        "costMultiplier": {"value": 0.5, "type": "number"},
+        "maxRank": {"value": 100, "type": "number"},
+        "governingAttribute": {"value": "dexterity", "type": "string"},
+        "effects": {
+          "value": [
+            {"effectType": "damage_multiplier", "effectValue": 0.005, "appliesTo": "light_blade_damage"},
+            {"effectType": "critical_chance", "effectValue": 0.002, "appliesTo": "light_blade_critical"}
+          ],
+          "type": "array"
+        },
+        "xpActions": {
+          "value": [
+            {"action": "light_blade_hit", "xpAmount": 5},
+            {"action": "light_blade_kill", "xpAmount": 20},
+            {"action": "light_blade_critical", "xpAmount": 15}
+          ],
+          "type": "array"
+        }
       }
-    ],
-    "profession": [
-      {
-        "id": "alchemy",
-        "name": "Alchemy",
-        "description": "Crafting potions and elixirs from ingredients",
-        "category": "Profession",
-        "maxRank": 100,
-        "baseXPCost": 150,
-        "costMultiplier": 0.8,
-        "effectType": "potion_effectiveness",
-        "effectValue": 0.01,
-        "effectDescription": "+1% potion power per rank",
-        "xpActions": [
-          {
-            "action": "craft_potion",
-            "xpAmount": 15
-          },
-          {
-            "action": "discover_recipe",
-            "xpAmount": 50
-          }
-        ]
-      },
-      {
-        "id": "blacksmithing",
-        "name": "Blacksmithing",
-        "description": "Forging weapons and armor at the smithy",
-        "category": "Profession",
-        "maxRank": 100,
-        "baseXPCost": 150,
-        "costMultiplier": 0.8,
-        "effectType": "crafted_quality",
-        "effectValue": 0.005,
-        "effectDescription": "+0.5% item quality per rank",
-        "xpActions": [
-          {
-            "action": "forge_weapon",
-            "xpAmount": 20
-          },
-          {
-            "action": "forge_armor",
-            "xpAmount": 25
-          }
-        ]
+    }]
+  },
+  "magic_arcane": {
+    "description": "Arcane tradition magic skills",
+    "skills": [{
+      "slug": "arcane",
+      "name": "Arcane",
+      "displayName": "Arcane",
+      "description": "Core Arcane tradition - unlocks all Arcane spells",
+      "traits": {
+        "baseXPCost": {"value": 120, "type": "number"},
+        "costMultiplier": {"value": 0.6, "type": "number"},
+        "maxRank": {"value": 100, "type": "number"},
+        "governingAttribute": {"value": "intelligence", "type": "string"},
+        "magicTradition": {"value": "arcane", "type": "string"},
+        "effects": {
+          "value": [
+            {"effectType": "spell_damage", "effectValue": 0.004, "appliesTo": "arcane_spells"},
+            {"effectType": "spell_critical_chance", "effectValue": 0.003, "appliesTo": "arcane_spells"}
+          ],
+          "type": "array"
+        },
+        "xpActions": {
+          "value": [
+            {"action": "cast_arcane_spell", "xpAmount": 8},
+            {"action": "arcane_spell_hit", "xpAmount": 10},
+            {"action": "arcane_spell_kill", "xpAmount": 25}
+          ],
+          "type": "array"
+        }
       }
-    ],
-    "survival": [
-      {
-        "id": "lockpicking",
-        "name": "Lockpicking",
-        "description": "Opening locked chests and doors",
-        "category": "Survival",
-        "maxRank": 100,
-        "baseXPCost": 100,
-        "costMultiplier": 0.5,
-        "effectType": "success_chance",
-        "effectValue": 0.003,
-        "effectDescription": "+0.3% lockpick success per rank",
-        "xpActions": [
-          {
-            "action": "pick_lock",
-            "xpAmount": 10
-          },
-          {
-            "action": "pick_difficult_lock",
-            "xpAmount": 30
-          }
-        ]
-      },
-      {
-        "id": "sneaking",
-        "name": "Sneaking",
-        "description": "Moving stealthily to avoid detection",
-        "category": "Survival",
-        "maxRank": 100,
-        "baseXPCost": 100,
-        "costMultiplier": 0.5,
-        "effectType": "detection_avoidance",
-        "effectValue": 0.003,
-        "effectDescription": "+0.3% stealth per rank",
-        "xpActions": [
-          {
-            "action": "successful_sneak",
-            "xpAmount": 5
-          },
-          {
-            "action": "sneak_attack",
-            "xpAmount": 20
-          }
-        ]
-      }
-    ]
+    }]
   }
 }
+```
+
+**Implemented Categories**:
+- `attribute_strength`, `attribute_dexterity`, `attribute_constitution`, `attribute_intelligence`, `attribute_wisdom`, `attribute_charisma` (24 skills)
+- `weapon` (10 skills: light-blades, heavy-blades, axes, blunt, polearms, bows, crossbows, throwing, unarmed, shield)
+- `armor` (4 skills: light-armor, medium-armor, heavy-armor, unarmored-defense)
+- `magic_arcane`, `magic_divine`, `magic_occult`, `magic_primal` (16 skills: 4 core + 12 specialists)
+- `profession` (12 skills: blacksmithing, leatherworking, tailoring, etc.)
+
 ```
 
 ---
