@@ -27,28 +27,30 @@ public class SpellCatalogService
     /// <summary>
     /// Initialize by loading spells catalog.
     /// </summary>
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
         if (_initialized)
         {
             _logger.LogWarning("SpellCatalogService already initialized");
-            return;
+            return Task.CompletedTask;
         }
 
         try
         {
-            var catalogPath = "spells/catalog";
-            var catalogData = await _dataCache.GetFileAsJsonAsync(catalogPath);
+            var catalogPath = "spells/catalog.json";
+            var catalogFile = _dataCache.GetFile(catalogPath);
             
-            if (catalogData == null)
+            if (catalogFile == null)
             {
                 throw new InvalidOperationException($"Failed to load spells catalog from {catalogPath}");
             }
 
-            ParseSpellCatalog(catalogData);
+            ParseSpellCatalog(catalogFile.JsonData);
             
             _initialized = true;
             _logger.LogInformation("SpellCatalogService initialized with {Count} spells", _spells.Count);
+            
+            return Task.CompletedTask;
         }
         catch (Exception ex)
         {

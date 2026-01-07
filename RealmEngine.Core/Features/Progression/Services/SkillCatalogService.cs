@@ -26,28 +26,30 @@ public class SkillCatalogService
     /// <summary>
     /// Initialize skill catalog by loading from JSON.
     /// </summary>
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
         if (_initialized)
         {
             _logger.LogWarning("SkillCatalogService already initialized");
-            return;
+            return Task.CompletedTask;
         }
 
         try
         {
-            var catalogPath = "skills/catalog";
-            var catalogData = await _dataCache.GetFileAsJsonAsync(catalogPath);
+            var catalogPath = "skills/catalog.json";
+            var catalogFile = _dataCache.GetFile(catalogPath);
             
-            if (catalogData == null)
+            if (catalogFile == null)
             {
                 throw new InvalidOperationException($"Failed to load skills catalog from {catalogPath}");
             }
 
-            ParseSkillCatalog(catalogData);
+            ParseSkillCatalog(catalogFile.JsonData);
             
             _initialized = true;
             _logger.LogInformation("SkillCatalogService initialized with {Count} skills", _skillDefinitions.Count);
+            
+            return Task.CompletedTask;
         }
         catch (Exception ex)
         {

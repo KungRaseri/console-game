@@ -27,12 +27,12 @@ public class AbilityCatalogService
     /// <summary>
     /// Initialize by loading all ability catalogs.
     /// </summary>
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
         if (_initialized)
         {
             _logger.LogWarning("AbilityCatalogService already initialized");
-            return;
+            return Task.CompletedTask;
         }
 
         try
@@ -42,20 +42,22 @@ public class AbilityCatalogService
             
             foreach (var catalogType in catalogTypes)
             {
-                var catalogPath = $"abilities/{catalogType}/catalog";
-                var catalogData = await _dataCache.GetFileAsJsonAsync(catalogPath);
+                var catalogPath = $"abilities/{catalogType}/catalog.json";
+                var catalogFile = _dataCache.GetFile(catalogPath);
                 
-                if (catalogData == null)
+                if (catalogFile == null)
                 {
                     _logger.LogWarning("Failed to load {CatalogType} abilities catalog", catalogType);
                     continue;
                 }
 
-                ParseAbilityCatalog(catalogData, catalogType);
+                ParseAbilityCatalog(catalogFile.JsonData, catalogType);
             }
 
             _initialized = true;
             _logger.LogInformation("AbilityCatalogService initialized with {Count} abilities", _abilities.Count);
+            
+            return Task.CompletedTask;
         }
         catch (Exception ex)
         {
@@ -131,7 +133,7 @@ public class AbilityCatalogService
 
     /// <summary>
     /// Calculate ability tier from selectionWeight.
-    /// Tier 1: < 50, Tier 2: 50-99, Tier 3: 100-199, Tier 4: 200-399, Tier 5: 400+
+    /// Tier 1: less than 50, Tier 2: 50-99, Tier 3: 100-199, Tier 4: 200-399, Tier 5: 400 or more
     /// </summary>
     public int CalculateTier(Ability ability)
     {
@@ -256,7 +258,10 @@ public class AbilityCatalogService
                     }
                     
                     // Store all traits in dictionary
-                    ability.Traits[trait.Name] = ExtractTraitValue(value);
+                    if (value != null)
+                    {
+                        ability.Traits[trait.Name] = ExtractTraitValue(value);
+                    }
                 }
             }
         }

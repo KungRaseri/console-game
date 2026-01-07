@@ -343,7 +343,7 @@ public class CatalogJsonComplianceTests
         var json = JObject.Parse(File.ReadAllText(fullPath));
         var allReferences = FindAllReferences(json);
         var validDomains = new[] { "abilities", "classes", "enemies", "items", "npcs", "quests", 
-            "world", "social", "organizations", "general" };
+            "world", "social", "organizations", "general", "skills" };
 
         // Assert
         foreach (var reference in allReferences)

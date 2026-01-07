@@ -95,7 +95,8 @@ public class SaveGameService : ISaveGameService, IDisposable
             // Clone all collections to avoid modification during LiteDB serialization
             saveGame.Character.Inventory = saveGame.Character.Inventory.ToList();
             saveGame.Character.PendingLevelUps = saveGame.Character.PendingLevelUps.ToList();
-            saveGame.Character.LearnedSkills = saveGame.Character.LearnedSkills.ToList();
+            // Skills is a Dictionary, not a List - no need to clone
+            // saveGame.Character.LearnedSkills = saveGame.Character.LearnedSkills.ToList();
 
             saveGame.ActiveQuests = saveGame.ActiveQuests.ToList();
             saveGame.CompletedQuests = saveGame.CompletedQuests.ToList();

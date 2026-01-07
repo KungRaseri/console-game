@@ -294,7 +294,9 @@ public class LevelUpService
                 var selectedSkill = availableSkills[skillChoices.IndexOf(choice)];
 
                 // Upgrade or learn the skill
-                var existingSkill = character.LearnedSkills.FirstOrDefault(s => s.Name == selectedSkill.Name);
+                var existingSkill = character.Skills.ContainsKey(selectedSkill.Name) 
+                    ? character.Skills[selectedSkill.Name] 
+                    : null;
 
                 if (existingSkill != null)
                 {
@@ -303,8 +305,14 @@ public class LevelUpService
                 }
                 else
                 {
-                    selectedSkill.CurrentRank = 1;
-                    character.LearnedSkills.Add(selectedSkill);
+                    var newSkill = new CharacterSkill
+                    {
+                        SkillId = selectedSkill.Name,
+                        CurrentRank = 1,
+                        CurrentXP = 0,
+                        TotalXP = 0
+                    };
+                    character.Skills[selectedSkill.Name] = newSkill;
                     _console.ShowSuccess($"Learned {selectedSkill.Name} (Rank 1)!");
                 }
 
@@ -403,8 +411,10 @@ public class LevelUpService
             .Where(s => s.RequiredLevel <= character.Level)
             .Where(s =>
             {
-                var learned = character.LearnedSkills.FirstOrDefault(ls => ls.Name == s.Name);
-                return learned == null || learned.CurrentRank < s.MaxRank;
+                if (!character.Skills.ContainsKey(s.Name))
+                    return true;
+                var learned = character.Skills[s.Name];
+                return learned.CurrentRank < s.MaxRank;
             })
             .ToList();
     }

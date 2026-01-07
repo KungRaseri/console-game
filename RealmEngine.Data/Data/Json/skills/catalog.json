@@ -16,6 +16,7 @@
           "name": "Athletics",
           "displayName": "Athletics",
           "description": "Running, jumping, general physical activity",
+          "selectionWeight": 100,
           "traits": {
             "baseXPCost": {
               "value": 80,
@@ -121,7 +122,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "climbing",
@@ -177,7 +179,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "carrying",
@@ -228,7 +231,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -290,7 +294,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "stealth",
@@ -341,7 +346,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "sleight-of-hand",
@@ -392,7 +398,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "lockpicking",
@@ -443,7 +450,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -505,7 +513,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "concentration",
@@ -556,7 +565,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "disease-resistance",
@@ -607,7 +617,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "poison-resistance",
@@ -658,7 +669,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -715,7 +727,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "investigation",
@@ -766,7 +779,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "nature",
@@ -817,7 +831,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "history",
@@ -868,7 +883,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -925,7 +941,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "insight",
@@ -976,7 +993,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "medicine",
@@ -1027,7 +1045,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "survival",
@@ -1083,7 +1102,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -1140,7 +1160,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "intimidation",
@@ -1191,7 +1212,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "deception",
@@ -1242,7 +1264,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "performance",
@@ -1293,7 +1316,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -1358,7 +1382,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "heavy-blades",
@@ -1414,7 +1439,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "axes",
@@ -1474,7 +1500,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "blunt",
@@ -1535,7 +1562,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "polearms",
@@ -1596,7 +1624,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "bows",
@@ -1656,7 +1685,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "crossbows",
@@ -1716,7 +1746,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "throwing",
@@ -1776,7 +1807,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "unarmed",
@@ -1828,7 +1860,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "shield",
@@ -1880,7 +1913,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -1945,7 +1979,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "medium-armor",
@@ -2000,7 +2035,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "heavy-armor",
@@ -2060,7 +2096,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "unarmored-defense",
@@ -2112,7 +2149,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -2178,7 +2216,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "force-magic",
@@ -2233,7 +2272,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "chronomancy",
@@ -2293,7 +2333,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "conjuration",
@@ -2353,7 +2394,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -2419,7 +2461,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "restoration",
@@ -2479,7 +2522,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "smiting",
@@ -2539,7 +2583,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "warding",
@@ -2599,7 +2644,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -2665,7 +2711,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "enchantment",
@@ -2725,7 +2772,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "illusion",
@@ -2785,7 +2833,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "shadowcraft",
@@ -2845,7 +2894,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -2911,7 +2961,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "elementalism",
@@ -2971,7 +3022,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "beast-mastery",
@@ -3031,7 +3083,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "verdancy",
@@ -3091,7 +3144,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     },
@@ -3152,7 +3206,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "leatherworking",
@@ -3203,7 +3258,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "tailoring",
@@ -3254,7 +3310,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "woodworking",
@@ -3305,7 +3362,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "jewelcrafting",
@@ -3361,7 +3419,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "alchemy",
@@ -3417,7 +3476,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "enchanting",
@@ -3468,7 +3528,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "runecrafting",
@@ -3519,7 +3580,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "mining",
@@ -3575,7 +3637,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "herbalism",
@@ -3626,7 +3689,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "cooking",
@@ -3682,7 +3746,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "fishing",
@@ -3738,7 +3803,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         }
       ]
     }
