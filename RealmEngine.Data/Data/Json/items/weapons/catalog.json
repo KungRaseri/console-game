@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Weapon type catalog with base stats and traits",
-    "version": "4.1",
+    "version": "4.2",
     "lastUpdated": "2026-01-06",
     "type": "item_catalog",
     "totalWeaponTypes": 7,
@@ -11,11 +11,12 @@
       "Base items used in pattern generation with names.json",
       "Each weapon has damage, weight, value, rarity, and selectionWeight",
       "Type-level traits (damageType, slot, category) apply to all items in that weapon type",
-      "skillReference uses JSON v4.1 format: @skills/weapon:skill-slug"
+      "skillReference uses JSON v4.1 format: @skills/weapon:skill-slug",
+      "v4.2: Reorganized weapon_types to match skill categories"
     ]
   },
   "weapon_types": {
-    "swords": {
+    "heavy-blades": {
       "traits": {
         "damageType": "slashing",
         "slot": "mainhand",
@@ -37,16 +38,6 @@
           "budgetCost": 3
         },
         {
-          "slug": "shortsword",
-          "name": "Shortsword",
-          "damage": "1d6",
-          "weight": 2.0,
-          "value": 10,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
-        },
-        {
           "slug": "greatsword",
           "name": "Greatsword",
           "damage": "2d6",
@@ -55,26 +46,6 @@
           "rarity": "uncommon",
           "selectionWeight": 10,
           "budgetCost": 6
-        },
-        {
-          "slug": "scimitar",
-          "name": "Scimitar",
-          "damage": "1d6",
-          "weight": 3.0,
-          "value": 15,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 3
-        },
-        {
-          "slug": "rapier",
-          "name": "Rapier",
-          "damage": "1d8",
-          "weight": 2.0,
-          "value": 25,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 4
         },
         {
           "slug": "katana",
@@ -115,6 +86,50 @@
           "rarity": "common",
           "selectionWeight": 18,
           "budgetCost": 3
+        }
+      ]
+    },
+    "light-blades": {
+      "traits": {
+        "damageType": "piercing",
+        "slot": "mainhand",
+        "category": "melee_one_handed",
+        "skillReference": {
+          "value": "@skills/weapon:light-blades",
+          "type": "string"
+        },
+        "finesse": true
+      },
+      "items": [
+        {
+          "slug": "shortsword",
+          "name": "Shortsword",
+          "damage": "1d6",
+          "weight": 2.0,
+          "value": 10,
+          "rarity": "common",
+          "selectionWeight": 20,
+          "budgetCost": 2
+        },
+        {
+          "slug": "scimitar",
+          "name": "Scimitar",
+          "damage": "1d6",
+          "weight": 3.0,
+          "value": 15,
+          "rarity": "common",
+          "selectionWeight": 18,
+          "budgetCost": 3
+        },
+        {
+          "slug": "rapier",
+          "name": "Rapier",
+          "damage": "1d8",
+          "weight": 2.0,
+          "value": 25,
+          "rarity": "uncommon",
+          "selectionWeight": 12,
+          "budgetCost": 4
         },
         {
           "slug": "gladius",
@@ -124,6 +139,86 @@
           "value": 12,
           "rarity": "common",
           "selectionWeight": 20,
+          "budgetCost": 2
+        },
+        {
+          "slug": "dagger",
+          "name": "Dagger",
+          "damage": "1d4",
+          "weight": 1.0,
+          "value": 5,
+          "rarity": "common",
+          "selectionWeight": 22,
+          "budgetCost": 2
+        },
+        {
+          "slug": "dirk",
+          "name": "Dirk",
+          "damage": "1d4",
+          "weight": 1.0,
+          "value": 6,
+          "rarity": "common",
+          "selectionWeight": 20,
+          "budgetCost": 2
+        },
+        {
+          "slug": "stiletto",
+          "name": "Stiletto",
+          "damage": "1d4",
+          "weight": 0.5,
+          "value": 10,
+          "rarity": "common",
+          "selectionWeight": 18,
+          "budgetCost": 2
+        },
+        {
+          "slug": "kris",
+          "name": "Kris",
+          "damage": "1d6",
+          "weight": 1.5,
+          "value": 15,
+          "rarity": "uncommon",
+          "selectionWeight": 12,
+          "budgetCost": 3
+        },
+        {
+          "slug": "tanto",
+          "name": "Tanto",
+          "damage": "1d4",
+          "weight": 0.8,
+          "value": 12,
+          "rarity": "common",
+          "selectionWeight": 18,
+          "budgetCost": 2
+        },
+        {
+          "slug": "kukri",
+          "name": "Kukri",
+          "damage": "1d6",
+          "weight": 1.2,
+          "value": 12,
+          "rarity": "common",
+          "selectionWeight": 18,
+          "budgetCost": 3
+        },
+        {
+          "slug": "rondel",
+          "name": "Rondel",
+          "damage": "1d4",
+          "weight": 1.0,
+          "value": 8,
+          "rarity": "common",
+          "selectionWeight": 20,
+          "budgetCost": 2
+        },
+        {
+          "slug": "main-gauche",
+          "name": "Main Gauche",
+          "damage": "1d4",
+          "weight": 1.5,
+          "value": 10,
+          "rarity": "common",
+          "selectionWeight": 18,
           "budgetCost": 2
         }
       ]
@@ -315,101 +410,7 @@
         }
       ]
     },
-    "daggers": {
-      "traits": {
-        "damageType": "piercing",
-        "slot": "mainhand",
-        "category": "melee_one_handed",
-        "skillReference": {
-          "value": "@skills/weapon:light-blades",
-          "type": "string"
-        },
-        "throwable": true
-      },
-      "items": [
-        {
-          "slug": "dagger",
-          "name": "Dagger",
-          "damage": "1d4",
-          "weight": 1.0,
-          "value": 5,
-          "rarity": "common",
-          "selectionWeight": 22,
-          "budgetCost": 2
-        },
-        {
-          "slug": "dirk",
-          "name": "Dirk",
-          "damage": "1d4",
-          "weight": 1.0,
-          "value": 6,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
-        },
-        {
-          "slug": "stiletto",
-          "name": "Stiletto",
-          "damage": "1d4",
-          "weight": 0.5,
-          "value": 10,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 2
-        },
-        {
-          "slug": "kris",
-          "name": "Kris",
-          "damage": "1d6",
-          "weight": 1.5,
-          "value": 15,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 3
-        },
-        {
-          "slug": "tanto",
-          "name": "Tanto",
-          "damage": "1d4",
-          "weight": 0.8,
-          "value": 12,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 2
-        },
-        {
-          "slug": "kukri",
-          "name": "Kukri",
-          "damage": "1d6",
-          "weight": 1.2,
-          "value": 12,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 3
-        },
-        {
-          "slug": "rondel",
-          "name": "Rondel",
-          "damage": "1d4",
-          "weight": 1.0,
-          "value": 8,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
-        },
-        {
-          "slug": "main-gauche",
-          "name": "Main Gauche",
-          "damage": "1d4",
-          "weight": 1.5,
-          "value": 10,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 2
-        }
-      ]
-    },
-    "spears": {
+    "polearms": {
       "traits": {
         "damageType": "piercing",
         "slot": "mainhand",
@@ -503,7 +504,7 @@
         }
       ]
     },
-    "maces": {
+    "blunt": {
       "traits": {
         "damageType": "bludgeoning",
         "slot": "mainhand",
