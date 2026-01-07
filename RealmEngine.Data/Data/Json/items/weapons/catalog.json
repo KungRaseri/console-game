@@ -11,7 +11,7 @@
       "Base items used in pattern generation with names.json",
       "Each weapon has damage, weight, value, rarity, and selectionWeight",
       "Type-level traits (damageType, slot, category) apply to all items in that weapon type",
-      "skillReference uses JSON v4.1 format: @skills/weapon:skill-slug",
+      "skillReference uses JSON v4.1 reference format to link to skills",
       "v4.2: Reorganized weapon_types to match skill categories"
     ]
   },

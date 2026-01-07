@@ -3,7 +3,7 @@
     "version": "4.2",
     "type": "abilities_catalog",
     "description": "Passive abilities providing continuous effects",
-    "totalAbilities": 131,
+    "totalAbilities": 148,
     "lastUpdated": "2026-01-06"
   },
   "ability_types": {
@@ -1865,6 +1865,235 @@
           "traits": {
             "category": {
               "value": "sensory",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "class_mastery": {
+      "description": "Class-specific mastery passive abilities",
+      "items": [
+        {
+          "slug": "weapon-mastery",
+          "name": "Weapon Mastery",
+          "displayName": "Weapon Mastery",
+          "description": "Increased damage and accuracy with all weapons",
+          "tier": 3,
+          "selectionWeight": 100,
+          "traits": {
+            "category": {
+              "value": "combat",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "combat-supremacy",
+          "name": "Combat Supremacy",
+          "displayName": "Combat Supremacy",
+          "description": "Superior combat skills and tactical awareness",
+          "tier": 4,
+          "selectionWeight": 150,
+          "traits": {
+            "category": {
+              "value": "combat",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "titans-strength",
+          "name": "Titan's Strength",
+          "displayName": "Titan's Strength",
+          "description": "Incredible physical power beyond normal limits",
+          "tier": 4,
+          "selectionWeight": 150,
+          "traits": {
+            "category": {
+              "value": "combat",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "unstoppable",
+          "name": "Unstoppable",
+          "displayName": "Unstoppable",
+          "description": "Cannot be stunned, knocked down, or otherwise incapacitated",
+          "tier": 3,
+          "selectionWeight": 120,
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "deaths-door",
+          "name": "Death's Door",
+          "displayName": "Death's Door",
+          "description": "Survive with 1 HP when receiving lethal damage (once per battle)",
+          "tier": 4,
+          "selectionWeight": 150,
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "sentinel",
+          "name": "Sentinel",
+          "displayName": "Sentinel",
+          "description": "Increased awareness and protection for allies",
+          "tier": 3,
+          "selectionWeight": 100,
+          "traits": {
+            "category": {
+              "value": "defensive",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "crusader",
+          "name": "Crusader",
+          "displayName": "Crusader",
+          "description": "Holy warrior with divine protection and enhanced healing",
+          "tier": 3,
+          "selectionWeight": 100,
+          "traits": {
+            "category": {
+              "value": "divine",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "master-thief",
+          "name": "Master Thief",
+          "displayName": "Master Thief",
+          "description": "Expert in stealth, lockpicking, and pickpocketing",
+          "tier": 4,
+          "selectionWeight": 150,
+          "traits": {
+            "category": {
+              "value": "stealth",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "shadow-master",
+          "name": "Shadow Master",
+          "displayName": "Shadow Master",
+          "description": "Master of shadows with enhanced stealth and evasion",
+          "tier": 4,
+          "selectionWeight": 150,
+          "traits": {
+            "category": {
+              "value": "stealth",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "master-of-blades",
+          "name": "Master of Blades",
+          "displayName": "Master of Blades",
+          "description": "Unparalleled skill with bladed weapons",
+          "tier": 4,
+          "selectionWeight": 150,
+          "traits": {
+            "category": {
+              "value": "combat",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "legendary-swagger",
+          "name": "Legendary Swagger",
+          "displayName": "Legendary Swagger",
+          "description": "Charisma and presence that inspires allies and intimidates enemies",
+          "tier": 4,
+          "selectionWeight": 150,
+          "traits": {
+            "category": {
+              "value": "social",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "master-tracker",
+          "name": "Master Tracker",
+          "displayName": "Master Tracker",
+          "description": "Expert at tracking and hunting prey",
+          "tier": 3,
+          "selectionWeight": 100,
+          "traits": {
+            "category": {
+              "value": "utility",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "primal-bond",
+          "name": "Primal Bond",
+          "displayName": "Primal Bond",
+          "description": "Deep connection with nature and animal companions",
+          "tier": 3,
+          "selectionWeight": 100,
+          "traits": {
+            "category": {
+              "value": "nature",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "king-of-beasts",
+          "name": "King of Beasts",
+          "displayName": "King of Beasts",
+          "description": "Command over wild animals and enhanced primal abilities",
+          "tier": 4,
+          "selectionWeight": 150,
+          "traits": {
+            "category": {
+              "value": "nature",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "bladework",
+          "name": "Bladework",
+          "displayName": "Bladework",
+          "description": "Expert techniques with light blades and finesse weapons",
+          "tier": 3,
+          "selectionWeight": 100,
+          "traits": {
+            "category": {
+              "value": "combat",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "slug": "elemental-mastery",
+          "name": "Elemental Mastery",
+          "displayName": "Elemental Mastery",
+          "description": "Control over elemental forces and enhanced magic",
+          "tier": 4,
+          "selectionWeight": 150,
+          "traits": {
+            "category": {
+              "value": "magic",
               "type": "string"
             }
           }

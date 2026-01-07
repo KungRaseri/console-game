@@ -12,7 +12,7 @@
       "Each armor piece has defense, weight, value, and slot-specific stats",
       "Type-level traits (slot, category) apply to all items in that armor type",
       "Special shield mechanics: blockChance property",
-      "skillReference uses JSON v4.1 format: @skills/armor:skill-slug",
+      "skillReference uses JSON v4.1 reference format to link to skills",
       "v4.2: Reorganized armor_types by armor class (light-armor, medium-armor, heavy-armor)"
     ]
   },

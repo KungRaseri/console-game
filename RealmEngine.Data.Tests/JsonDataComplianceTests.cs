@@ -90,10 +90,10 @@ public class JsonDataComplianceTests
         var json = JObject.Parse(File.ReadAllText(fullPath));
         var version = json["metadata"]?["version"]?.ToString();
 
-        // Assert - standard shows "1.0" but project uses "4.0" for v4.0+ catalogs
+        // Assert - standard shows "1.0" but project uses "4.0" for v4.0+ catalogs, "4.2" for v4.2 progression system
         version.Should().NotBeNullOrEmpty($"{relativePath} has empty version");
-        // Accept both 1.0 (legacy) and 4.0 (current standard)
-        version.Should().Match(v => v == "1.0" || v == "4.0", $"{relativePath} version should be '1.0' or '4.0'");
+        // Accept 4.0 (v4.0 standard), and 4.2 (v4.2 progression)
+        version.Should().Match(v => v == "4.0" || v == "4.2", $"{relativePath} version should be '4.0', or '4.2'");
     }
 
     [Theory]

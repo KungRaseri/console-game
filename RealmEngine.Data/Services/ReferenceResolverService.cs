@@ -354,6 +354,7 @@ public class ReferenceResolverService
         {
             if (property.Name != "metadata" && property.Name.EndsWith("_types") && property.Value is JObject typesObj)
             {
+                // First try exact category match
                 var categoryData = typesObj[category];
                 if (categoryData != null)
                 {
@@ -366,6 +367,26 @@ public class ReferenceResolverService
                             if (item["slug"]?.ToString() == itemName || 
                                 string.Equals(item["name"]?.ToString(), itemName, StringComparison.OrdinalIgnoreCase))
                                 return item;
+                        }
+                    }
+                }
+                
+                // If not found in exact category, search ALL subcategories
+                // This handles cases like @abilities/passive:weapon-mastery where "passive" is the file path,
+                // but the ability is in ability_types["class_mastery"]["items"]
+                foreach (var subcategory in typesObj.Children<JProperty>())
+                {
+                    if (subcategory.Value is JObject subcatObj)
+                    {
+                        var items = subcatObj["items"] as JArray;
+                        if (items != null)
+                        {
+                            foreach (var item in items)
+                            {
+                                if (item["slug"]?.ToString() == itemName || 
+                                    string.Equals(item["name"]?.ToString(), itemName, StringComparison.OrdinalIgnoreCase))
+                                    return item;
+                            }
                         }
                     }
                 }
