@@ -99,9 +99,44 @@ public class Character
     public List<LevelUpInfo> PendingLevelUps { get; set; } = new();
     
     /// <summary>
-    /// Gets or sets the collection of skills the character has learned.
+    /// Gets or sets the collection of skills the character has learned (LEGACY - for backwards compatibility).
+    /// NEW CODE SHOULD USE Skills dictionary instead.
     /// </summary>
+    [Obsolete("Use Skills dictionary instead for v4.2 progression system")]
     public List<Skill> LearnedSkills { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the character's skill proficiencies by skill ID.
+    /// Dictionary key is skillId (e.g., "athletics", "light-blades", "arcane").
+    /// Skills rank from 0-100 through practice-based XP gain.
+    /// </summary>
+    public Dictionary<string, CharacterSkill> Skills { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the learned abilities by ability ID.
+    /// Dictionary key is abilityId (e.g., "active/offensive:charge").
+    /// Tracks usage statistics and cooldown state.
+    /// </summary>
+    public Dictionary<string, CharacterAbility> LearnedAbilities { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the learned spells by spell ID.
+    /// Dictionary key is spellId (e.g., "fireball", "heal").
+    /// Tracks cast statistics and success rates.
+    /// </summary>
+    public Dictionary<string, CharacterSpell> LearnedSpells { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the active ability cooldowns (ability ID → turns remaining).
+    /// Decrements each combat turn. When reaches 0, ability is ready.
+    /// </summary>
+    public Dictionary<string, int> AbilityCooldowns { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the active spell cooldowns (spell ID → turns remaining).
+    /// Decrements each combat turn. When reaches 0, spell is ready.
+    /// </summary>
+    public Dictionary<string, int> SpellCooldowns { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the character's inventory of items.

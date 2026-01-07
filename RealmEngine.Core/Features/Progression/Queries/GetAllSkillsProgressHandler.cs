@@ -1,0 +1,40 @@
+using RealmEngine.Core.Features.Progression.Services;
+using MediatR;
+
+namespace RealmEngine.Core.Features.Progression.Queries;
+
+/// <summary>
+/// Handles getting all skills progress.
+/// </summary>
+public class GetAllSkillsProgressHandler : IRequestHandler<GetAllSkillsProgressQuery, GetAllSkillsProgressResult>
+{
+    private readonly SkillProgressionService _progressionService;
+
+    public GetAllSkillsProgressHandler(SkillProgressionService progressionService)
+    {
+        _progressionService = progressionService ?? throw new ArgumentNullException(nameof(progressionService));
+    }
+
+    public Task<GetAllSkillsProgressResult> Handle(GetAllSkillsProgressQuery request, CancellationToken cancellationToken)
+    {
+        var progress = _progressionService.GetAllSkillsProgress(request.Character);
+
+        var skills = progress.Select(p => new SkillProgressDisplay
+        {
+            SkillId = p.SkillId,
+            Name = p.Name,
+            Category = p.Category,
+            CurrentRank = p.CurrentRank,
+            CurrentXP = p.CurrentXP,
+            XPToNextRank = p.XPToNextRank,
+            ProgressPercent = p.ProgressPercent,
+            CurrentEffect = p.CurrentEffect,
+            NextRankEffect = p.NextRankEffect
+        }).ToList();
+
+        return Task.FromResult(new GetAllSkillsProgressResult
+        {
+            Skills = skills
+        });
+    }
+}
