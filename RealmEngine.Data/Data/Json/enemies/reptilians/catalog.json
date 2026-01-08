@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Reptilian enemy type catalog with base stats and rarityWeight values",
-    "version": "4.0",
-    "lastUpdated": "2025-12-28",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "item_catalog",
     "total_types": 13,
     "categories": [
@@ -18,399 +18,487 @@
   },
   "reptilian_types": {
     "kobolds": {
-      "traits": {
-        "category": "reptilian",
+      "properties": {
         "size": "small",
-        "intelligence": "low",
-        "social": "tribal",
-        "behavior": "cowardly",
+        "category": "reptilian",
         "damageType": "physical",
-        "pack_tactics": true
+        "behavior": "cowardly"
       },
       "items": [
         {
+          "level": 1,
           "slug": "kobold",
           "name": "Kobold",
-          "strength": 7,
-          "dexterity": 15,
-          "constitution": 10,
-          "intelligence": 8,
-          "wisdom": 9,
-          "charisma": 7,
-          "health": 12,
-          "attack": 4,
-          "defense": 2,
-          "speed": 5,
-          "level": 1,
-          "xp": 8,
           "rarityWeight": 3,
-          "abilities": [
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "2": [
-              "@abilities/active/support:*"
-            ]
-          }
-        },
-        {
-          "slug": "kobold-scout",
-          "name": "Kobold Scout",
-          "strength": 7,
-          "dexterity": 16,
-          "constitution": 10,
-          "intelligence": 8,
-          "wisdom": 11,
-          "charisma": 7,
-          "health": 15,
-          "attack": 5,
-          "defense": 3,
-          "speed": 7,
-          "level": 1,
-          "xp": 12,
-          "rarityWeight": 5,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/mobility:*"
-          ],
-          "abilityUnlocks": {
-            "2": [
-              "@abilities/active/support:*"
-            ]
-          }
-        },
-        {
-          "slug": "kobold-trapmaker",
-          "name": "Kobold Trapmaker",
-          "strength": 8,
-          "dexterity": 15,
-          "constitution": 11,
-          "intelligence": 12,
-          "wisdom": 10,
-          "charisma": 7,
-          "health": 18,
-          "attack": 6,
-          "defense": 2,
-          "speed": 5,
-          "level": 2,
-          "xp": 18,
-          "rarityWeight": 10,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "3": [
-              "@abilities/active/support:*"
-            ]
-          }
-        },
-        {
-          "slug": "kobold-sorcerer",
-          "name": "Kobold Sorcerer",
-          "strength": 7,
-          "dexterity": 14,
-          "constitution": 10,
-          "intelligence": 14,
-          "wisdom": 11,
-          "charisma": 10,
-          "health": 20,
-          "attack": 10,
-          "defense": 2,
-          "speed": 5,
-          "level": 3,
-          "xp": 30,
-          "rarityWeight": 15,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "4": [
+          "xp": 8,
+          "rarity": 15,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 9,
+            "strength": 7,
+            "dexterity": 15,
+            "intelligence": 8,
+            "charisma": 7
+          },
+          "stats": {
+            "attack": "strength_mod + level + 4",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 2",
+            "health": "constitution_mod * 2 + level * 5 + 12"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "2": [
+                "@abilities/active/support:*"
+              ]
+            },
+            "abilities": [
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
+        },
+        {
+          "level": 1,
+          "slug": "kobold-scout",
+          "name": "Kobold Scout",
+          "rarityWeight": 5,
+          "xp": 12,
+          "rarity": 15,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 11,
+            "strength": 7,
+            "dexterity": 16,
+            "intelligence": 8,
+            "charisma": 7
+          },
+          "stats": {
+            "attack": "strength_mod + level + 5",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 3",
+            "health": "constitution_mod * 2 + level * 5 + 15"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "2": [
+                "@abilities/active/support:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/mobility:*"
+            ]
+          },
+          "traits": {}
+        },
+        {
+          "level": 2,
+          "slug": "kobold-trapmaker",
+          "name": "Kobold Trapmaker",
+          "rarityWeight": 10,
+          "xp": 18,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 11,
+            "wisdom": 10,
+            "strength": 8,
+            "dexterity": 15,
+            "intelligence": 12,
+            "charisma": 7
+          },
+          "stats": {
+            "attack": "strength_mod + level + 6",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 2",
+            "health": "constitution_mod * 2 + level * 5 + 18"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "3": [
+                "@abilities/active/support:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
+            ]
+          },
+          "traits": {}
+        },
+        {
+          "level": 3,
+          "slug": "kobold-sorcerer",
+          "name": "Kobold Sorcerer",
+          "rarityWeight": 15,
+          "xp": 30,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 11,
+            "strength": 7,
+            "dexterity": 14,
+            "intelligence": 14,
+            "charisma": 10
+          },
+          "stats": {
+            "attack": "strength_mod + level + 10",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 2",
+            "health": "constitution_mod * 2 + level * 5 + 20"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "4": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*"
+            ]
+          },
+          "traits": {}
         }
       ]
     },
     "lizardfolk": {
-      "traits": {
-        "category": "reptilian",
+      "properties": {
         "size": "medium",
-        "intelligence": "medium",
-        "social": "tribal",
-        "behavior": "territorial",
+        "category": "reptilian",
         "damageType": "physical",
-        "amphibious": true
+        "behavior": "territorial"
       },
       "items": [
         {
+          "level": 4,
           "slug": "lizardfolk",
           "name": "Lizardfolk",
-          "strength": 14,
-          "dexterity": 11,
-          "constitution": 14,
-          "intelligence": 10,
-          "wisdom": 12,
-          "charisma": 9,
-          "health": 55,
-          "attack": 15,
-          "defense": 8,
-          "speed": 5,
-          "level": 4,
-          "xp": 60,
           "rarityWeight": 8,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "5": [
+          "xp": 60,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 14,
+            "wisdom": 12,
+            "strength": 14,
+            "dexterity": 11,
+            "intelligence": 10,
+            "charisma": 9
+          },
+          "stats": {
+            "attack": "strength_mod + level + 15",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 8",
+            "health": "constitution_mod * 2 + level * 5 + 55"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "5": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 5,
           "slug": "lizardfolk-warrior",
           "name": "Lizardfolk Warrior",
-          "strength": 16,
-          "dexterity": 11,
-          "constitution": 15,
-          "intelligence": 10,
-          "wisdom": 12,
-          "charisma": 9,
-          "health": 70,
-          "attack": 18,
-          "defense": 10,
-          "speed": 5,
-          "level": 5,
-          "xp": 80,
           "rarityWeight": 12,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "7": [
+          "xp": 80,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 15,
+            "wisdom": 12,
+            "strength": 16,
+            "dexterity": 11,
+            "intelligence": 10,
+            "charisma": 9
+          },
+          "stats": {
+            "attack": "strength_mod + level + 18",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 10",
+            "health": "constitution_mod * 2 + level * 5 + 70"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "7": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 6,
           "slug": "lizardfolk-shaman",
           "name": "Lizardfolk Shaman",
-          "strength": 12,
-          "dexterity": 11,
-          "constitution": 14,
-          "intelligence": 12,
-          "wisdom": 16,
-          "charisma": 12,
-          "health": 65,
-          "attack": 20,
-          "defense": 9,
-          "speed": 5,
-          "level": 6,
-          "xp": 95,
           "rarityWeight": 18,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "8": [
+          "xp": 95,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 14,
+            "wisdom": 16,
+            "strength": 12,
+            "dexterity": 11,
+            "intelligence": 12,
+            "charisma": 12
+          },
+          "stats": {
+            "attack": "strength_mod + level + 20",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 9",
+            "health": "constitution_mod * 2 + level * 5 + 65"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "8": [
+                "@abilities/active/support:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
               "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 8,
           "slug": "lizardfolk-king",
           "name": "Lizardfolk King",
-          "strength": 17,
-          "dexterity": 12,
-          "constitution": 16,
-          "intelligence": 12,
-          "wisdom": 14,
-          "charisma": 16,
-          "health": 100,
-          "attack": 28,
-          "defense": 14,
-          "speed": 6,
-          "level": 8,
-          "xp": 140,
           "rarityWeight": 35,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "10": [
-              "@abilities/ultimate:*"
+          "xp": 140,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 16,
+            "wisdom": 14,
+            "strength": 17,
+            "dexterity": 12,
+            "intelligence": 12,
+            "charisma": 16
+          },
+          "stats": {
+            "attack": "strength_mod + level + 28",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 14",
+            "health": "constitution_mod * 2 + level * 5 + 100"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "10": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     },
     "yuan_ti": {
-      "traits": {
-        "category": "reptilian",
+      "properties": {
         "size": "medium",
-        "intelligence": "high",
-        "social": "empire",
-        "behavior": "cunning",
+        "category": "reptilian",
         "damageType": "physical",
-        "magical": true,
-        "venomous": true
+        "behavior": "cunning"
       },
       "items": [
         {
+          "level": 6,
           "slug": "yuan-ti-pureblood",
           "name": "Yuan-ti Pureblood",
-          "strength": 13,
-          "dexterity": 14,
-          "constitution": 14,
-          "intelligence": 14,
-          "wisdom": 13,
-          "charisma": 16,
-          "health": 75,
-          "attack": 20,
-          "defense": 11,
-          "speed": 6,
-          "level": 6,
-          "xp": 100,
           "rarityWeight": 20,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "8": [
-              "@abilities/active/offensive:*"
+          "xp": 100,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 14,
+            "wisdom": 13,
+            "strength": 13,
+            "dexterity": 14,
+            "intelligence": 14,
+            "charisma": 16
+          },
+          "stats": {
+            "attack": "strength_mod + level + 20",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 11",
+            "health": "constitution_mod * 2 + level * 5 + 75"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "8": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 8,
           "slug": "yuan-ti-malison",
           "name": "Yuan-ti Malison",
-          "strength": 15,
-          "dexterity": 14,
-          "constitution": 15,
-          "intelligence": 15,
-          "wisdom": 14,
-          "charisma": 18,
-          "health": 95,
-          "attack": 26,
-          "defense": 13,
-          "speed": 6,
-          "level": 8,
-          "xp": 150,
           "rarityWeight": 32,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "10": [
-              "@abilities/active/offensive:*"
+          "xp": 150,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 15,
+            "wisdom": 14,
+            "strength": 15,
+            "dexterity": 14,
+            "intelligence": 15,
+            "charisma": 18
+          },
+          "stats": {
+            "attack": "strength_mod + level + 26",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 13",
+            "health": "constitution_mod * 2 + level * 5 + 95"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "10": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 10,
           "slug": "yuan-ti-abomination",
           "name": "Yuan-ti Abomination",
-          "strength": 17,
-          "dexterity": 15,
-          "constitution": 16,
-          "intelligence": 16,
-          "wisdom": 15,
-          "charisma": 20,
-          "health": 130,
-          "attack": 32,
-          "defense": 16,
-          "speed": 6,
-          "level": 10,
-          "xp": 200,
           "rarityWeight": 50,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "13": [
-              "@abilities/ultimate:*"
+          "xp": 200,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 16,
+            "wisdom": 15,
+            "strength": 17,
+            "dexterity": 15,
+            "intelligence": 16,
+            "charisma": 20
+          },
+          "stats": {
+            "attack": "strength_mod + level + 32",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 16",
+            "health": "constitution_mod * 2 + level * 5 + 130"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "13": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     },
     "special_reptilians": {
-      "traits": {
+      "properties": {
         "category": "reptilian",
-        "intelligence": 12,
-        "behavior": "unique",
-        "unique": true
+        "behavior": "unique"
       },
       "items": [
         {
+          "level": 9,
           "slug": "naga",
           "name": "Naga",
-          "strength": 14,
-          "dexterity": 13,
-          "constitution": 15,
-          "intelligence": 18,
-          "wisdom": 16,
-          "charisma": 16,
-          "health": 110,
-          "attack": 30,
-          "defense": 14,
-          "speed": 7,
-          "level": 9,
-          "xp": 170,
           "rarityWeight": 45,
-          "size": "large",
-          "damageType": "magical",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "12": [
-              "@abilities/active/support:*"
-            ]
-          }
-        },
-        {
-          "slug": "basilisk",
-          "name": "Basilisk",
-          "strength": 16,
-          "dexterity": 9,
-          "constitution": 17,
-          "intelligence": 4,
-          "wisdom": 12,
-          "charisma": 8,
-          "health": 90,
-          "attack": 24,
-          "defense": 12,
-          "speed": 4,
-          "level": 7,
-          "xp": 130,
-          "rarityWeight": 38,
-          "size": "medium",
-          "damageType": "physical",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "9": [
+          "xp": 170,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 15,
+            "wisdom": 16,
+            "strength": 14,
+            "dexterity": 13,
+            "intelligence": 18,
+            "charisma": 16
+          },
+          "stats": {
+            "attack": "strength_mod + level + 30",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 14",
+            "health": "constitution_mod * 2 + level * 5 + 110"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "12": [
+                "@abilities/active/support:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
+        },
+        {
+          "level": 7,
+          "slug": "basilisk",
+          "name": "Basilisk",
+          "rarityWeight": 38,
+          "xp": 130,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 17,
+            "wisdom": 12,
+            "strength": 16,
+            "dexterity": 9,
+            "intelligence": 4,
+            "charisma": 8
+          },
+          "stats": {
+            "attack": "strength_mod + level + 24",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 12",
+            "health": "constitution_mod * 2 + level * 5 + 90"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "9": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*"
+            ]
+          },
+          "traits": {}
         }
       ]
     }

@@ -16,7 +16,8 @@
             "min": 10,
             "max": 50
           },
-          "description": "Small monetary reward"
+          "description": "Small monetary reward",
+          "rarity": 50
         },
         {
           "slug": "modest-payment",
@@ -26,7 +27,8 @@
             "min": 50,
             "max": 150
           },
-          "description": "Modest gold payment"
+          "description": "Modest gold payment",
+          "rarity": 70
         },
         {
           "slug": "generous-reward",
@@ -36,7 +38,8 @@
             "min": 150,
             "max": 500
           },
-          "description": "Generous gold reward"
+          "description": "Generous gold reward",
+          "rarity": 100
         },
         {
           "slug": "fortune",
@@ -46,7 +49,8 @@
             "min": 500,
             "max": 2000
           },
-          "description": "A small fortune in gold"
+          "description": "A small fortune in gold",
+          "rarity": 200
         }
       ]
     },
@@ -58,7 +62,8 @@
           "rarityWeight": 60,
           "itemReference": "@items/weapons:*",
           "quantity": 1,
-          "description": "Common weapon reward"
+          "description": "Common weapon reward",
+          "rarity": 60
         },
         {
           "slug": "uncommon-armor",
@@ -66,7 +71,8 @@
           "rarityWeight": 100,
           "itemReference": "@items/armor:*",
           "quantity": 1,
-          "description": "Uncommon armor piece"
+          "description": "Uncommon armor piece",
+          "rarity": 100
         },
         {
           "slug": "rare-item",
@@ -74,7 +80,8 @@
           "rarityWeight": 180,
           "itemReference": "@items/weapons:*",
           "quantity": 1,
-          "description": "Rare item reward"
+          "description": "Rare item reward",
+          "rarity": 180
         },
         {
           "slug": "epic-equipment",
@@ -82,7 +89,8 @@
           "rarityWeight": 300,
           "itemReference": "@items/armor:*",
           "quantity": 1,
-          "description": "Epic equipment"
+          "description": "Epic equipment",
+          "rarity": 300
         },
         {
           "slug": "legendary-artifact",
@@ -90,7 +98,8 @@
           "rarityWeight": 500,
           "itemReference": "@items/weapons:*",
           "quantity": 1,
-          "description": "Legendary artifact"
+          "description": "Legendary artifact",
+          "rarity": 500
         },
         {
           "slug": "potion-bundle",
@@ -101,7 +110,8 @@
             "min": 3,
             "max": 10
           },
-          "description": "Bundle of potions"
+          "description": "Bundle of potions",
+          "rarity": 40
         }
       ],
       "reputation_rewards": [

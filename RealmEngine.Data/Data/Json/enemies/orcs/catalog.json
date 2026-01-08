@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Orc enemy type catalog with base stats and rarityWeight values",
-    "version": "4.0",
-    "lastUpdated": "2025-12-28",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "item_catalog",
     "total_types": 11,
     "categories": [
@@ -17,354 +17,430 @@
   },
   "orc_types": {
     "common_orcs": {
-      "traits": {
-        "category": "orc",
+      "properties": {
         "size": "medium",
-        "intelligence": 8,
-        "social": "clan",
-        "behavior": "aggressive",
-        "damageType": "physical"
+        "category": "orc",
+        "damageType": "physical",
+        "behavior": "aggressive"
       },
       "items": [
         {
+          "level": 3,
           "slug": "orc",
           "name": "Orc",
-          "strength": 16,
-          "dexterity": 10,
-          "constitution": 16,
-          "intelligence": 6,
-          "wisdom": 10,
-          "charisma": 6,
-          "health": 50,
-          "attack": 14,
-          "defense": 6,
-          "speed": 5,
-          "level": 3,
-          "xp": 40,
           "rarityWeight": 5,
-          "abilities": [
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "4": [
+          "xp": 40,
+          "rarity": 15,
+          "attributes": {
+            "constitution": 16,
+            "wisdom": 10,
+            "strength": 16,
+            "dexterity": 10,
+            "intelligence": 6,
+            "charisma": 6
+          },
+          "stats": {
+            "attack": "strength_mod + level + 14",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 6",
+            "health": "constitution_mod * 2 + level * 5 + 50"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "4": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 4,
           "slug": "orc-grunt",
           "name": "Orc Grunt",
-          "strength": 18,
-          "dexterity": 9,
-          "constitution": 17,
-          "intelligence": 6,
-          "wisdom": 9,
-          "charisma": 6,
-          "health": 60,
-          "attack": 16,
-          "defense": 7,
-          "speed": 5,
-          "level": 4,
-          "xp": 50,
           "rarityWeight": 8,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "5": [
-              "@abilities/active/offensive:*"
+          "xp": 50,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 17,
+            "wisdom": 9,
+            "strength": 18,
+            "dexterity": 9,
+            "intelligence": 6,
+            "charisma": 6
+          },
+          "stats": {
+            "attack": "strength_mod + level + 16",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 7",
+            "health": "constitution_mod * 2 + level * 5 + 60"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "5": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 5,
           "slug": "orc-warrior",
           "name": "Orc Warrior",
-          "strength": 19,
-          "dexterity": 9,
-          "constitution": 18,
-          "intelligence": 6,
-          "wisdom": 9,
-          "charisma": 6,
-          "health": 75,
-          "attack": 20,
-          "defense": 9,
-          "speed": 5,
-          "level": 5,
-          "xp": 70,
           "rarityWeight": 12,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "7": [
-              "@abilities/active/offensive:*"
+          "xp": 70,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 18,
+            "wisdom": 9,
+            "strength": 19,
+            "dexterity": 9,
+            "intelligence": 6,
+            "charisma": 6
+          },
+          "stats": {
+            "attack": "strength_mod + level + 20",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 9",
+            "health": "constitution_mod * 2 + level * 5 + 75"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "7": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 6,
           "slug": "orc-berserker",
           "name": "Orc Berserker",
-          "strength": 20,
-          "dexterity": 10,
-          "constitution": 18,
-          "intelligence": 5,
-          "wisdom": 8,
-          "charisma": 5,
-          "health": 85,
-          "attack": 26,
-          "defense": 6,
-          "speed": 6,
-          "level": 6,
-          "xp": 90,
           "rarityWeight": 18,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "8": [
-              "@abilities/active/offensive:*"
-            ],
-            "10": [
-              "@abilities/ultimate:*"
+          "xp": 90,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 18,
+            "wisdom": 8,
+            "strength": 20,
+            "dexterity": 10,
+            "intelligence": 5,
+            "charisma": 5
+          },
+          "stats": {
+            "attack": "strength_mod + level + 26",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 6",
+            "health": "constitution_mod * 2 + level * 5 + 85"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "8": [
+                "@abilities/active/offensive:*"
+              ],
+              "10": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     },
     "elite_orcs": {
-      "traits": {
-        "category": "orc",
+      "properties": {
         "size": "medium",
-        "intelligence": "medium",
-        "social": "clan",
-        "behavior": "tactical",
+        "category": "orc",
         "damageType": "physical",
-        "trained": true
+        "behavior": "tactical"
       },
       "items": [
         {
+          "level": 7,
           "slug": "orc-champion",
           "name": "Orc Champion",
-          "strength": 20,
-          "dexterity": 10,
-          "constitution": 19,
-          "intelligence": 7,
-          "wisdom": 10,
-          "charisma": 7,
-          "health": 100,
-          "attack": 28,
-          "defense": 12,
-          "speed": 6,
-          "level": 7,
-          "xp": 110,
           "rarityWeight": 22,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "9": [
+          "xp": 110,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 19,
+            "wisdom": 10,
+            "strength": 20,
+            "dexterity": 10,
+            "intelligence": 7,
+            "charisma": 7
+          },
+          "stats": {
+            "attack": "strength_mod + level + 28",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 12",
+            "health": "constitution_mod * 2 + level * 5 + 100"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "9": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 7,
           "slug": "orc-shaman",
           "name": "Orc Shaman",
-          "strength": 14,
-          "dexterity": 10,
-          "constitution": 16,
-          "intelligence": 14,
-          "wisdom": 14,
-          "charisma": 8,
-          "health": 80,
-          "attack": 22,
-          "defense": 10,
-          "speed": 5,
-          "level": 7,
-          "xp": 115,
           "rarityWeight": 25,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "9": [
-              "@abilities/active/offensive:*"
+          "xp": 115,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 16,
+            "wisdom": 14,
+            "strength": 14,
+            "dexterity": 10,
+            "intelligence": 14,
+            "charisma": 8
+          },
+          "stats": {
+            "attack": "strength_mod + level + 22",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 10",
+            "health": "constitution_mod * 2 + level * 5 + 80"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "9": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 9,
           "slug": "orc-warlord",
           "name": "Orc Warlord",
-          "strength": 20,
-          "dexterity": 12,
-          "constitution": 18,
-          "intelligence": 12,
-          "wisdom": 12,
-          "charisma": 14,
-          "health": 120,
-          "attack": 32,
-          "defense": 14,
-          "speed": 6,
-          "level": 9,
-          "xp": 150,
           "rarityWeight": 35,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "12": [
-              "@abilities/ultimate:*"
+          "xp": 150,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 18,
+            "wisdom": 12,
+            "strength": 20,
+            "dexterity": 12,
+            "intelligence": 12,
+            "charisma": 14
+          },
+          "stats": {
+            "attack": "strength_mod + level + 32",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 14",
+            "health": "constitution_mod * 2 + level * 5 + 120"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "12": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 10,
           "slug": "orc-chieftain",
           "name": "Orc Chieftain",
-          "strength": 21,
-          "dexterity": 12,
-          "constitution": 19,
-          "intelligence": 12,
-          "wisdom": 13,
-          "charisma": 14,
-          "health": 140,
-          "attack": 35,
-          "defense": 16,
-          "speed": 6,
-          "level": 10,
-          "xp": 180,
           "rarityWeight": 42,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "13": [
-              "@abilities/ultimate:*"
-            ],
-            "16": [
-              "@abilities/ultimate:*"
+          "xp": 180,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 19,
+            "wisdom": 13,
+            "strength": 21,
+            "dexterity": 12,
+            "intelligence": 12,
+            "charisma": 14
+          },
+          "stats": {
+            "attack": "strength_mod + level + 35",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 16",
+            "health": "constitution_mod * 2 + level * 5 + 140"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "13": [
+                "@abilities/ultimate:*"
+              ],
+              "16": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     },
     "special_orcs": {
-      "traits": {
-        "category": "orc",
+      "properties": {
         "size": "large",
-        "intelligence": "medium",
-        "social": "clan",
-        "behavior": "legendary",
-        "unique": true
+        "category": "orc",
+        "behavior": "legendary"
       },
       "items": [
         {
+          "level": 12,
           "slug": "orc-king",
           "name": "Orc King",
-          "strength": 22,
-          "dexterity": 13,
-          "constitution": 20,
-          "intelligence": 13,
-          "wisdom": 14,
-          "charisma": 16,
-          "health": 180,
-          "attack": 42,
-          "defense": 20,
-          "speed": 7,
-          "level": 12,
-          "xp": 250,
           "rarityWeight": 65,
-          "damageType": "physical",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "15": [
-              "@abilities/ultimate:*"
-            ],
-            "18": [
-              "@abilities/ultimate:*"
+          "xp": 250,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 20,
+            "wisdom": 14,
+            "strength": 22,
+            "dexterity": 13,
+            "intelligence": 13,
+            "charisma": 16
+          },
+          "stats": {
+            "attack": "strength_mod + level + 42",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 20",
+            "health": "constitution_mod * 2 + level * 5 + 180"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "15": [
+                "@abilities/ultimate:*"
+              ],
+              "18": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 4,
           "slug": "half-orc",
           "name": "Half-Orc",
-          "strength": 15,
-          "dexterity": 12,
-          "constitution": 14,
-          "intelligence": "high",
-          "wisdom": 11,
-          "charisma": 9,
-          "health": 65,
-          "attack": 18,
-          "defense": 8,
-          "speed": 6,
-          "level": 4,
-          "xp": 55,
           "rarityWeight": 15,
-          "damageType": "physical",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "5": [
+          "xp": 55,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 14,
+            "wisdom": 11,
+            "strength": 15,
+            "dexterity": 12,
+            "intelligence": 14,
+            "charisma": 9
+          },
+          "stats": {
+            "attack": "strength_mod + level + 18",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 8",
+            "health": "constitution_mod * 2 + level * 5 + 65"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "5": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 10,
           "slug": "orc-brute",
           "name": "Orc Brute",
-          "strength": 22,
-          "dexterity": 9,
-          "constitution": 20,
-          "intelligence": 5,
-          "wisdom": 9,
-          "charisma": 5,
-          "health": 160,
-          "attack": 38,
-          "defense": 10,
-          "speed": 4,
-          "level": 10,
-          "xp": 170,
           "rarityWeight": 30,
-          "damageType": "physical",
-          "size": "huge",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "13": [
-              "@abilities/active/offensive:*"
-            ],
-            "16": [
-              "@abilities/ultimate:*"
+          "xp": 170,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 20,
+            "wisdom": 9,
+            "strength": 22,
+            "dexterity": 9,
+            "intelligence": 5,
+            "charisma": 5
+          },
+          "stats": {
+            "attack": "strength_mod + level + 38",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 10",
+            "health": "constitution_mod * 2 + level * 5 + 160"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "13": [
+                "@abilities/active/offensive:*"
+              ],
+              "16": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     }

@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Life crystals providing health-related bonuses",
-    "version": "4.0",
-    "lastUpdated": "2026-01-04",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "crystal_catalog"
   },
   "crystal_types": {
@@ -10,9 +10,17 @@
       "items": [
         {
           "slug": "life-crystal",
-          "name": "life-crystal",
           "rarityWeight": 60,
-          "category": "life",
+          "name": "life-crystal",
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "dexterity": 10,
+            "strength": 10,
+            "intelligence": 8,
+            "charisma": 8,
+            "wisdom": 8
+          },
           "traits": {
             "maxHealth": {
               "value": 40,
@@ -26,9 +34,17 @@
         },
         {
           "slug": "vitality-crystal",
-          "name": "vitality-crystal",
           "rarityWeight": 45,
-          "category": "life",
+          "name": "vitality-crystal",
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "dexterity": 10,
+            "strength": 10,
+            "intelligence": 8,
+            "charisma": 8,
+            "wisdom": 8
+          },
           "traits": {
             "maxHealth": {
               "value": 60,
@@ -46,9 +62,17 @@
         },
         {
           "slug": "rejuvenation-crystal",
-          "name": "rejuvenation-crystal",
           "rarityWeight": 35,
-          "category": "life",
+          "name": "rejuvenation-crystal",
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "dexterity": 10,
+            "strength": 10,
+            "intelligence": 8,
+            "charisma": 8,
+            "wisdom": 8
+          },
           "traits": {
             "healthRegen": {
               "value": 10,

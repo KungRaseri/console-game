@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Giant insect enemy type catalog with base stats and rarityWeight values",
-    "version": "4.0",
-    "lastUpdated": "2025-12-28",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "item_catalog",
     "total_types": 14,
     "categories": [
@@ -18,437 +18,528 @@
   },
   "insect_types": {
     "spiders": {
-      "traits": {
-        "category": "insect",
+      "properties": {
         "size": "varies",
-        "intelligence": 3,
-        "social": "solitary",
-        "behavior": "ambush",
+        "category": "insect",
         "damageType": "physical",
-        "venomous": true,
-        "web_spinner": true
+        "behavior": "ambush"
       },
       "items": [
         {
+          "level": 3,
           "slug": "giant-spider",
           "name": "Giant Spider",
-          "strength": 12,
-          "dexterity": 15,
-          "constitution": 12,
-          "intelligence": 3,
-          "wisdom": 11,
-          "charisma": 5,
-          "health": 40,
-          "attack": 14,
-          "defense": 6,
-          "speed": 7,
-          "level": 3,
-          "xp": 45,
           "rarityWeight": 8,
-          "size": "medium",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "4": [
-              "@abilities/active/offensive:*"
+          "xp": 45,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 12,
+            "wisdom": 11,
+            "strength": 12,
+            "dexterity": 15,
+            "intelligence": 3,
+            "charisma": 5
+          },
+          "stats": {
+            "attack": "strength_mod + level + 14",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 6",
+            "health": "constitution_mod * 2 + level * 5 + 40"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "4": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 6,
           "slug": "phase-spider",
           "name": "Phase Spider",
-          "strength": 14,
-          "dexterity": 17,
-          "constitution": 14,
-          "intelligence": 3,
-          "wisdom": 12,
-          "charisma": 6,
-          "health": 60,
-          "attack": 20,
-          "defense": 8,
-          "speed": 9,
-          "level": 6,
-          "xp": 90,
           "rarityWeight": 25,
-          "size": "large",
-          "magical": true,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/defensive:*"
-          ],
-          "abilityUnlocks": {
-            "8": [
-              "@abilities/active/mobility:*"
+          "xp": 90,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 14,
+            "wisdom": 12,
+            "strength": 14,
+            "dexterity": 17,
+            "intelligence": 3,
+            "charisma": 6
+          },
+          "stats": {
+            "attack": "strength_mod + level + 20",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 8",
+            "health": "constitution_mod * 2 + level * 5 + 60"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "8": [
+                "@abilities/active/mobility:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/defensive:*"
             ]
-          }
+          },
+          "traits": {},
+          "magical": true
         },
         {
+          "level": 5,
           "slug": "widow-spider",
           "name": "Widow Spider",
-          "strength": 13,
-          "dexterity": 16,
-          "constitution": 13,
-          "intelligence": 3,
-          "wisdom": 11,
-          "charisma": 6,
-          "health": 55,
-          "attack": 18,
-          "defense": 7,
-          "speed": 8,
-          "level": 5,
-          "xp": 75,
           "rarityWeight": 18,
-          "size": "medium",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "7": [
-              "@abilities/active/offensive:*"
+          "xp": 75,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 13,
+            "wisdom": 11,
+            "strength": 13,
+            "dexterity": 16,
+            "intelligence": 3,
+            "charisma": 6
+          },
+          "stats": {
+            "attack": "strength_mod + level + 18",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 7",
+            "health": "constitution_mod * 2 + level * 5 + 55"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "7": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 9,
           "slug": "spider-matriarch",
           "name": "Spider Matriarch",
-          "strength": 17,
-          "dexterity": 15,
-          "constitution": 17,
-          "intelligence": 3,
-          "wisdom": 13,
-          "charisma": 8,
-          "health": 100,
-          "attack": 28,
-          "defense": 12,
-          "speed": 8,
-          "level": 9,
-          "xp": 160,
           "rarityWeight": 40,
-          "size": "huge",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "12": [
+          "xp": 160,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 17,
+            "wisdom": 13,
+            "strength": 17,
+            "dexterity": 15,
+            "intelligence": 3,
+            "charisma": 8
+          },
+          "stats": {
+            "attack": "strength_mod + level + 28",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 12",
+            "health": "constitution_mod * 2 + level * 5 + 100"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "12": [
+                "@abilities/active/support:*"
+              ],
+              "15": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
               "@abilities/active/support:*"
-            ],
-            "15": [
-              "@abilities/ultimate:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     },
     "beetles": {
-      "traits": {
-        "category": "insect",
+      "properties": {
         "size": "medium",
-        "intelligence": 2,
-        "social": "swarm",
-        "behavior": "defensive",
+        "category": "insect",
         "damageType": "physical",
-        "armored": true
+        "behavior": "defensive"
       },
       "items": [
         {
+          "level": 3,
           "slug": "giant-beetle",
           "name": "Giant Beetle",
-          "strength": 14,
-          "dexterity": 9,
-          "constitution": 15,
-          "intelligence": 2,
-          "wisdom": 10,
-          "charisma": 4,
-          "health": 50,
-          "attack": 12,
-          "defense": 10,
-          "speed": 4,
-          "level": 3,
-          "xp": 40,
           "rarityWeight": 6,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/passive/defensive:Chitinous"
-          ],
-          "abilityUnlocks": {
-            "4": [
-              "@abilities/active/offensive:*"
+          "xp": 40,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 15,
+            "wisdom": 10,
+            "strength": 14,
+            "dexterity": 9,
+            "intelligence": 2,
+            "charisma": 4
+          },
+          "stats": {
+            "attack": "strength_mod + level + 12",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 10",
+            "health": "constitution_mod * 2 + level * 5 + 50"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "4": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/passive/defensive:Chitinous"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 3,
           "slug": "fire-beetle",
           "name": "Fire Beetle",
-          "strength": 13,
-          "dexterity": 10,
-          "constitution": 14,
-          "intelligence": 2,
-          "wisdom": 10,
-          "charisma": 4,
-          "health": 45,
-          "attack": 14,
-          "defense": 9,
-          "speed": 5,
-          "level": 3,
-          "xp": 45,
           "rarityWeight": 10,
-          "damageType": "fire",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "4": [
-              "@abilities/active/defensive:*"
-            ]
-          }
-        },
-        {
-          "slug": "bombardier-beetle",
-          "name": "Bombardier Beetle",
-          "strength": 15,
-          "dexterity": 10,
-          "constitution": 16,
-          "intelligence": 2,
-          "wisdom": 10,
-          "charisma": 5,
-          "health": 60,
-          "attack": 18,
-          "defense": 11,
-          "speed": 5,
-          "level": 5,
-          "xp": 70,
-          "rarityWeight": 18,
-          "damageType": "acid",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "7": [
+          "xp": 45,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 14,
+            "wisdom": 10,
+            "strength": 13,
+            "dexterity": 10,
+            "intelligence": 2,
+            "charisma": 4
+          },
+          "stats": {
+            "attack": "strength_mod + level + 14",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 9",
+            "health": "constitution_mod * 2 + level * 5 + 45"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "4": [
+                "@abilities/active/defensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
+        },
+        {
+          "level": 5,
+          "slug": "bombardier-beetle",
+          "name": "Bombardier Beetle",
+          "rarityWeight": 18,
+          "xp": 70,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 16,
+            "wisdom": 10,
+            "strength": 15,
+            "dexterity": 10,
+            "intelligence": 2,
+            "charisma": 5
+          },
+          "stats": {
+            "attack": "strength_mod + level + 18",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 11",
+            "health": "constitution_mod * 2 + level * 5 + 60"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "7": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*"
+            ]
+          },
+          "traits": {}
         }
       ]
     },
     "flying_insects": {
-      "traits": {
-        "category": "insect",
+      "properties": {
         "size": "medium",
-        "intelligence": "low",
-        "social": "swarm",
-        "behavior": "aggressive",
+        "category": "insect",
         "damageType": "physical",
-        "flying": true
+        "behavior": "aggressive"
       },
       "items": [
         {
+          "level": 4,
           "slug": "giant-wasp",
           "name": "Giant Wasp",
-          "strength": 12,
-          "dexterity": 16,
-          "constitution": 12,
-          "intelligence": 3,
-          "wisdom": 11,
-          "charisma": 5,
-          "health": 35,
-          "attack": 16,
-          "defense": 5,
-          "speed": 10,
-          "level": 4,
-          "xp": 50,
           "rarityWeight": 10,
-          "venomous": true,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/passive/mobility:Flight"
-          ],
-          "abilityUnlocks": {
-            "5": [
-              "@abilities/active/offensive:*"
+          "xp": 50,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 12,
+            "wisdom": 11,
+            "strength": 12,
+            "dexterity": 16,
+            "intelligence": 3,
+            "charisma": 5
+          },
+          "stats": {
+            "attack": "strength_mod + level + 16",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 5",
+            "health": "constitution_mod * 2 + level * 5 + 35"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "5": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/passive/mobility:Flight"
             ]
-          }
+          },
+          "traits": {},
+          "venomous": true
         },
         {
+          "level": 5,
           "slug": "giant-hornet",
           "name": "Giant Hornet",
-          "strength": 13,
-          "dexterity": 17,
-          "constitution": 13,
-          "intelligence": 3,
-          "wisdom": 11,
-          "charisma": 5,
-          "health": 45,
-          "attack": 20,
-          "defense": 6,
-          "speed": 11,
-          "level": 5,
-          "xp": 70,
           "rarityWeight": 15,
-          "venomous": true,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/passive/mobility:Flight"
-          ],
-          "abilityUnlocks": {
-            "7": [
-              "@abilities/active/offensive:*"
+          "xp": 70,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 13,
+            "wisdom": 11,
+            "strength": 13,
+            "dexterity": 17,
+            "intelligence": 3,
+            "charisma": 5
+          },
+          "stats": {
+            "attack": "strength_mod + level + 20",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 6",
+            "health": "constitution_mod * 2 + level * 5 + 45"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "7": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/passive/mobility:Flight"
             ]
-          }
+          },
+          "traits": {},
+          "venomous": true
         },
         {
+          "level": 5,
           "slug": "giant-dragonfly",
           "name": "Giant Dragonfly",
-          "strength": 11,
-          "dexterity": 18,
-          "constitution": 12,
-          "intelligence": 3,
-          "wisdom": 12,
-          "charisma": 5,
-          "health": 40,
-          "attack": 18,
-          "defense": 7,
-          "speed": 12,
-          "level": 5,
-          "xp": 65,
           "rarityWeight": 12,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/passive/mobility:Flight"
-          ],
-          "abilityUnlocks": {
-            "7": [
-              "@abilities/active/mobility:*"
+          "xp": 65,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 12,
+            "wisdom": 12,
+            "strength": 11,
+            "dexterity": 18,
+            "intelligence": 3,
+            "charisma": 5
+          },
+          "stats": {
+            "attack": "strength_mod + level + 18",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 7",
+            "health": "constitution_mod * 2 + level * 5 + 40"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "7": [
+                "@abilities/active/mobility:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/passive/mobility:Flight"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 7,
           "slug": "giant-mantis",
           "name": "Giant Mantis",
-          "strength": 16,
-          "dexterity": 17,
-          "constitution": 14,
-          "intelligence": 3,
-          "wisdom": 13,
-          "charisma": 5,
-          "health": 70,
-          "attack": 24,
-          "defense": 9,
-          "speed": 8,
-          "level": 7,
-          "xp": 110,
           "rarityWeight": 22,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "9": [
+          "xp": 110,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 14,
+            "wisdom": 13,
+            "strength": 16,
+            "dexterity": 17,
+            "intelligence": 3,
+            "charisma": 5
+          },
+          "stats": {
+            "attack": "strength_mod + level + 24",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 9",
+            "health": "constitution_mod * 2 + level * 5 + 70"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "9": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     },
     "hive_insects": {
-      "traits": {
-        "category": "insect",
+      "properties": {
         "size": "varies",
-        "intelligence": "hive_mind",
-        "social": "colony",
-        "behavior": "organized",
-        "damageType": "physical"
+        "category": "insect",
+        "damageType": "physical",
+        "behavior": "organized"
       },
       "items": [
         {
+          "level": 2,
           "slug": "giant-ant",
           "name": "Giant Ant",
-          "strength": 10,
-          "dexterity": 12,
-          "constitution": 12,
-          "intelligence": 2,
-          "wisdom": 9,
-          "charisma": 4,
-          "health": 30,
-          "attack": 10,
-          "defense": 8,
-          "speed": 6,
-          "level": 2,
-          "xp": 25,
           "rarityWeight": 5,
-          "size": "small",
-          "abilities": [
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "3": [
-              "@abilities/active/support:*"
-            ]
-          }
-        },
-        {
-          "slug": "giant-ant-soldier",
-          "name": "Giant Ant Soldier",
-          "strength": 14,
-          "dexterity": 11,
-          "constitution": 15,
-          "intelligence": 2,
-          "wisdom": 9,
-          "charisma": 4,
-          "health": 50,
-          "attack": 16,
-          "defense": 12,
-          "speed": 6,
-          "level": 4,
-          "xp": 50,
-          "rarityWeight": 10,
-          "size": "medium",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "6": [
+          "xp": 25,
+          "rarity": 15,
+          "attributes": {
+            "constitution": 12,
+            "wisdom": 9,
+            "strength": 10,
+            "dexterity": 12,
+            "intelligence": 2,
+            "charisma": 4
+          },
+          "stats": {
+            "attack": "strength_mod + level + 10",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 8",
+            "health": "constitution_mod * 2 + level * 5 + 30"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "3": [
+                "@abilities/active/support:*"
+              ]
+            },
+            "abilities": [
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 4,
+          "slug": "giant-ant-soldier",
+          "name": "Giant Ant Soldier",
+          "rarityWeight": 10,
+          "xp": 50,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 15,
+            "wisdom": 9,
+            "strength": 14,
+            "dexterity": 11,
+            "intelligence": 2,
+            "charisma": 4
+          },
+          "stats": {
+            "attack": "strength_mod + level + 16",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 12",
+            "health": "constitution_mod * 2 + level * 5 + 50"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "6": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
+            ]
+          },
+          "traits": {}
+        },
+        {
+          "level": 9,
           "slug": "giant-ant-queen",
           "name": "Giant Ant Queen",
-          "strength": 16,
-          "dexterity": 10,
-          "constitution": 18,
-          "intelligence": 4,
-          "wisdom": 12,
-          "charisma": 10,
-          "health": 120,
-          "attack": 26,
-          "defense": 16,
-          "speed": 4,
-          "level": 9,
-          "xp": 170,
           "rarityWeight": 45,
-          "size": "huge",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "12": [
-              "@abilities/ultimate:*"
+          "xp": 170,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 18,
+            "wisdom": 12,
+            "strength": 16,
+            "dexterity": 10,
+            "intelligence": 4,
+            "charisma": 10
+          },
+          "stats": {
+            "attack": "strength_mod + level + 26",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 16",
+            "health": "constitution_mod * 2 + level * 5 + 120"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "12": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     }

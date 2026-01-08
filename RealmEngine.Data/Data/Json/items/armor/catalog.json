@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Armor type catalog with base stats and traits",
-    "version": "4.2",
-    "lastUpdated": "2026-01-06",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "item_catalog",
     "total_armor_types": 3,
     "total_pieces": 40,
@@ -18,533 +18,1025 @@
   },
   "armor_types": {
     "light-armor": {
-      "traits": {
-        "category": "armor",
-        "armorClass": "light",
+      "properties": {
         "skillReference": {
           "value": "@skills/armor:light-armor",
           "type": "string"
-        }
+        },
+        "category": "armor"
       },
       "items": [
         {
-          "slug": "coif",
           "name": "Coif",
-          "defense": 2,
-          "weight": 1.5,
+          "slug": "coif",
           "value": 12,
-          "armorClass": "light",
-          "selectionWeight": 22,
+          "weight": 1.5,
           "budgetCost": 3,
-          "slot": "head"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 2"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 22,
+          "rarity": 22
         },
         {
-          "slug": "cowl",
           "name": "Cowl",
-          "defense": 1,
-          "weight": 0.5,
+          "slug": "cowl",
           "value": 8,
-          "armorClass": "light",
-          "selectionWeight": 24,
+          "weight": 0.5,
           "budgetCost": 3,
-          "slot": "head"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 24,
+          "rarity": 24
         },
         {
-          "slug": "hood",
           "name": "Hood",
-          "defense": 1,
-          "weight": 0.3,
+          "slug": "hood",
           "value": 5,
-          "armorClass": "light",
-          "selectionWeight": 25,
+          "weight": 0.3,
           "budgetCost": 2,
-          "slot": "head"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 25,
+          "rarity": 25
         },
         {
-          "slug": "crown",
           "name": "Crown",
-          "defense": 1,
-          "weight": 1.0,
+          "slug": "crown",
           "value": 100,
-          "armorClass": "light",
-          "selectionWeight": 1,
+          "weight": 1.0,
           "budgetCost": 6,
-          "slot": "head"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 1,
+          "rarity": 1
         },
         {
-          "slug": "circlet",
           "name": "Circlet",
-          "defense": 1,
-          "weight": 0.5,
+          "slug": "circlet",
           "value": 80,
-          "armorClass": "light",
-          "selectionWeight": 2,
+          "weight": 0.5,
           "budgetCost": 6,
-          "slot": "head"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 2,
+          "rarity": 2
         },
         {
-          "slug": "vest",
           "name": "Vest",
-          "defense": 2,
-          "weight": 3.0,
+          "slug": "vest",
           "value": 15,
-          "armorClass": "light",
-          "selectionWeight": 24,
+          "weight": 3.0,
           "budgetCost": 6,
-          "slot": "chest"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 2"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 24,
+          "rarity": 24
         },
         {
-          "slug": "jerkin",
           "name": "Jerkin",
-          "defense": 3,
+          "slug": "jerkin",
+          "value": 20,
           "weight": 4.0,
-          "value": 20,
-          "armorClass": "light",
-          "selectionWeight": 22,
           "budgetCost": 7,
-          "slot": "chest"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 22,
+          "rarity": 22
         },
         {
-          "slug": "gloves",
           "name": "Gloves",
-          "defense": 1,
-          "weight": 0.5,
+          "slug": "gloves",
           "value": 8,
-          "armorClass": "light",
-          "selectionWeight": 24,
-          "budgetCost": 2,
-          "slot": "hands"
-        },
-        {
-          "slug": "bracers",
-          "name": "Bracers",
-          "defense": 1,
-          "weight": 1.0,
-          "value": 10,
-          "armorClass": "light",
-          "selectionWeight": 22,
-          "budgetCost": 3,
-          "slot": "hands"
-        },
-        {
-          "slug": "mittens",
-          "name": "Mittens",
-          "defense": 1,
-          "weight": 0.3,
-          "value": 5,
-          "armorClass": "light",
-          "selectionWeight": 25,
-          "budgetCost": 2,
-          "slot": "hands"
-        },
-        {
-          "slug": "tassets",
-          "name": "Tassets",
-          "defense": 2,
-          "weight": 3.0,
-          "value": 15,
-          "armorClass": "light",
-          "selectionWeight": 18,
-          "budgetCost": 5,
-          "slot": "legs"
-        },
-        {
-          "slug": "shoes",
-          "name": "Shoes",
-          "defense": 1,
-          "weight": 1.0,
-          "value": 5,
-          "armorClass": "light",
-          "selectionWeight": 25,
-          "budgetCost": 2,
-          "slot": "feet"
-        },
-        {
-          "slug": "sandals",
-          "name": "Sandals",
-          "defense": 1,
           "weight": 0.5,
-          "value": 3,
-          "armorClass": "light",
-          "selectionWeight": 25,
           "budgetCost": 2,
-          "slot": "feet"
-        },
-        {
-          "slug": "mantle",
-          "name": "Mantle",
-          "defense": 1,
-          "weight": 1.0,
-          "value": 10,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
           "armorClass": "light",
-          "selectionWeight": 22,
+          "rarityWeight": 24,
+          "rarity": 24
+        },
+        {
+          "name": "Bracers",
+          "slug": "bracers",
+          "value": 10,
+          "weight": 1.0,
           "budgetCost": 3,
-          "slot": "shoulders"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 22,
+          "rarity": 22
         },
         {
-          "slug": "shield",
-          "name": "Shield",
-          "defense": 3,
-          "weight": 6.0,
-          "value": 25,
-          "blockChance": 15,
-          "selectionWeight": 15,
-          "budgetCost": 6,
-          "slot": "shield"
+          "name": "Mittens",
+          "slug": "mittens",
+          "value": 5,
+          "weight": 0.3,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 25,
+          "rarity": 25
         },
         {
-          "slug": "buckler",
-          "name": "Buckler",
-          "defense": 2,
-          "weight": 3.0,
+          "name": "Tassets",
+          "slug": "tassets",
           "value": 15,
-          "blockChance": 10,
-          "selectionWeight": 18,
-          "budgetCost": 4,
-          "slot": "shield"
-        },
-        {
-          "slug": "tower-shield",
-          "name": "Tower Shield",
-          "defense": 5,
-          "weight": 15.0,
-          "value": 60,
-          "blockChance": 25,
-          "selectionWeight": 8,
-          "budgetCost": 10,
-          "slot": "shield"
-        },
-        {
-          "slug": "kite-shield",
-          "name": "Kite Shield",
-          "defense": 4,
-          "weight": 8.0,
-          "value": 35,
-          "blockChance": 18,
-          "selectionWeight": 12,
-          "budgetCost": 7,
-          "slot": "shield"
-        },
-        {
-          "slug": "heater",
-          "name": "Heater",
-          "defense": 3,
-          "weight": 5.0,
-          "value": 20,
-          "blockChance": 12,
-          "selectionWeight": 16,
+          "weight": 3.0,
           "budgetCost": 5,
-          "slot": "shield"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 2"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 18,
+          "rarity": 18
+        },
+        {
+          "name": "Shoes",
+          "slug": "shoes",
+          "value": 5,
+          "weight": 1.0,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 25,
+          "rarity": 25
+        },
+        {
+          "name": "Sandals",
+          "slug": "sandals",
+          "value": 3,
+          "weight": 0.5,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 25,
+          "rarity": 25
+        },
+        {
+          "name": "Mantle",
+          "slug": "mantle",
+          "value": 10,
+          "weight": 1.0,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 1"
+          },
+          "traits": {},
+          "armorClass": "light",
+          "rarityWeight": 22,
+          "rarity": 22
+        },
+        {
+          "name": "Shield",
+          "slug": "shield",
+          "value": 25,
+          "weight": 6.0,
+          "budgetCost": 6,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "blockChance": 15,
+          "rarityWeight": 15,
+          "rarity": 15
+        },
+        {
+          "name": "Buckler",
+          "slug": "buckler",
+          "value": 15,
+          "weight": 3.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 2"
+          },
+          "traits": {},
+          "blockChance": 10,
+          "rarityWeight": 18,
+          "rarity": 18
+        },
+        {
+          "name": "Tower Shield",
+          "slug": "tower-shield",
+          "value": 60,
+          "weight": 15.0,
+          "budgetCost": 10,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 5"
+          },
+          "traits": {},
+          "blockChance": 25,
+          "rarityWeight": 8,
+          "rarity": 8
+        },
+        {
+          "name": "Kite Shield",
+          "slug": "kite-shield",
+          "value": 35,
+          "weight": 8.0,
+          "budgetCost": 7,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 4"
+          },
+          "traits": {},
+          "blockChance": 18,
+          "rarityWeight": 12,
+          "rarity": 12
+        },
+        {
+          "name": "Heater",
+          "slug": "heater",
+          "value": 20,
+          "weight": 5.0,
+          "budgetCost": 5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "blockChance": 12,
+          "rarityWeight": 16,
+          "rarity": 16
         }
       ]
     },
     "medium-armor": {
-      "traits": {
-        "category": "armor",
-        "armorClass": "medium",
+      "properties": {
         "skillReference": {
           "value": "@skills/armor:medium-armor",
           "type": "string"
-        }
+        },
+        "category": "armor"
       },
       "items": [
         {
-          "slug": "sallet",
           "name": "Sallet",
-          "defense": 3,
-          "weight": 2.5,
+          "slug": "sallet",
           "value": 25,
-          "armorClass": "medium",
-          "selectionWeight": 12,
+          "weight": 2.5,
           "budgetCost": 4,
-          "slot": "head"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 12,
+          "rarity": 12
         },
         {
-          "slug": "hauberk",
           "name": "Hauberk",
-          "defense": 6,
-          "weight": 20.0,
+          "slug": "hauberk",
           "value": 60,
-          "armorClass": "medium",
-          "selectionWeight": 12,
+          "weight": 20.0,
           "budgetCost": 9,
-          "slot": "chest"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 6"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 12,
+          "rarity": 12
         },
         {
-          "slug": "chainmail",
           "name": "Chainmail",
-          "defense": 5,
-          "weight": 18.0,
+          "slug": "chainmail",
           "value": 50,
-          "armorClass": "medium",
-          "selectionWeight": 15,
+          "weight": 18.0,
           "budgetCost": 8,
-          "slot": "chest"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 5"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 15,
+          "rarity": 15
         },
         {
-          "slug": "scale-mail",
           "name": "Scale Mail",
-          "defense": 5,
-          "weight": 15.0,
+          "slug": "scale-mail",
           "value": 45,
-          "armorClass": "medium",
-          "selectionWeight": 13,
+          "weight": 15.0,
           "budgetCost": 8,
-          "slot": "chest"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 5"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 13,
+          "rarity": 13
         },
         {
-          "slug": "ring-mail",
           "name": "Ring Mail",
-          "defense": 4,
-          "weight": 12.0,
+          "slug": "ring-mail",
           "value": 35,
-          "armorClass": "medium",
-          "selectionWeight": 16,
+          "weight": 12.0,
           "budgetCost": 7,
-          "slot": "chest"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 4"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 16,
+          "rarity": 16
         },
         {
-          "slug": "banded-mail",
           "name": "Banded Mail",
-          "defense": 6,
-          "weight": 16.0,
+          "slug": "banded-mail",
           "value": 55,
-          "armorClass": "medium",
-          "selectionWeight": 12,
+          "weight": 16.0,
           "budgetCost": 8,
-          "slot": "chest"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 6"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 12,
+          "rarity": 12
         },
         {
-          "slug": "vambraces",
           "name": "Vambraces",
-          "defense": 2,
+          "slug": "vambraces",
+          "value": 12,
           "weight": 1.5,
-          "value": 12,
-          "armorClass": "medium",
-          "selectionWeight": 18,
           "budgetCost": 3,
-          "slot": "hands"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 2"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 18,
+          "rarity": 18
         },
         {
-          "slug": "leggings",
           "name": "Leggings",
-          "defense": 3,
-          "weight": 4.0,
+          "slug": "leggings",
           "value": 20,
-          "armorClass": "medium",
-          "selectionWeight": 16,
+          "weight": 4.0,
           "budgetCost": 6,
-          "slot": "legs"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 16,
+          "rarity": 16
         },
         {
-          "slug": "chausses",
           "name": "Chausses",
-          "defense": 3,
-          "weight": 5.0,
+          "slug": "chausses",
           "value": 25,
-          "armorClass": "medium",
-          "selectionWeight": 15,
+          "weight": 5.0,
           "budgetCost": 6,
-          "slot": "legs"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 15,
+          "rarity": 15
         },
         {
-          "slug": "boots",
           "name": "Boots",
-          "defense": 2,
-          "weight": 2.0,
+          "slug": "boots",
           "value": 12,
-          "armorClass": "medium",
-          "selectionWeight": 18,
+          "weight": 2.0,
           "budgetCost": 4,
-          "slot": "feet"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 2"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 18,
+          "rarity": 18
         },
         {
-          "slug": "spaulders",
           "name": "Spaulders",
-          "defense": 2,
-          "weight": 3.0,
+          "slug": "spaulders",
           "value": 18,
-          "armorClass": "medium",
-          "selectionWeight": 15,
+          "weight": 3.0,
           "budgetCost": 4,
-          "slot": "shoulders"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 2"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 15,
+          "rarity": 15
         },
         {
-          "slug": "shoulderguards",
           "name": "Shoulderguards",
-          "defense": 2,
-          "weight": 2.5,
+          "slug": "shoulderguards",
           "value": 15,
-          "armorClass": "medium",
-          "selectionWeight": 16,
+          "weight": 2.5,
           "budgetCost": 4,
-          "slot": "shoulders"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 2"
+          },
+          "traits": {},
+          "armorClass": "medium",
+          "rarityWeight": 16,
+          "rarity": 16
         }
       ]
     },
     "heavy-armor": {
-      "traits": {
-        "category": "armor",
-        "armorClass": "heavy",
+      "properties": {
         "skillReference": {
           "value": "@skills/armor:heavy-armor",
           "type": "string"
-        }
+        },
+        "category": "armor"
       },
       "items": [
         {
-          "slug": "helm",
           "name": "Helm",
-          "defense": 3,
-          "weight": 3.0,
+          "slug": "helm",
           "value": 20,
-          "armorClass": "heavy",
-          "selectionWeight": 12,
+          "weight": 3.0,
           "budgetCost": 4,
-          "slot": "head"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 12,
+          "rarity": 12
         },
         {
-          "slug": "helmet",
           "name": "Helmet",
-          "defense": 3,
-          "weight": 3.0,
+          "slug": "helmet",
           "value": 18,
-          "armorClass": "heavy",
-          "selectionWeight": 14,
+          "weight": 3.0,
           "budgetCost": 4,
-          "slot": "head"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 14,
+          "rarity": 14
         },
         {
-          "slug": "great-helm",
           "name": "Great Helm",
-          "defense": 5,
-          "weight": 5.0,
+          "slug": "great-helm",
           "value": 40,
-          "armorClass": "heavy",
-          "selectionWeight": 10,
+          "weight": 5.0,
           "budgetCost": 6,
-          "slot": "head"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 5"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 10,
+          "rarity": 10
         },
         {
-          "slug": "armet",
           "name": "Armet",
-          "defense": 4,
-          "weight": 3.5,
+          "slug": "armet",
           "value": 35,
-          "armorClass": "heavy",
-          "selectionWeight": 8,
-          "budgetCost": 5,
-          "slot": "head"
-        },
-        {
-          "slug": "barbute",
-          "name": "Barbute",
-          "defense": 4,
-          "weight": 3.0,
-          "value": 30,
-          "armorClass": "heavy",
-          "selectionWeight": 10,
-          "budgetCost": 5,
-          "slot": "head"
-        },
-        {
-          "slug": "cuirass",
-          "name": "Cuirass",
-          "defense": 8,
-          "weight": 15.0,
-          "value": 80,
-          "armorClass": "heavy",
-          "selectionWeight": 6,
-          "budgetCost": 10,
-          "slot": "chest"
-        },
-        {
-          "slug": "breastplate",
-          "name": "Breastplate",
-          "defense": 7,
-          "weight": 12.0,
-          "value": 70,
-          "armorClass": "heavy",
-          "selectionWeight": 10,
-          "budgetCost": 10,
-          "slot": "chest"
-        },
-        {
-          "slug": "chestplate",
-          "name": "Chestplate",
-          "defense": 8,
-          "weight": 14.0,
-          "value": 75,
-          "armorClass": "heavy",
-          "selectionWeight": 8,
-          "budgetCost": 11,
-          "slot": "chest"
-        },
-        {
-          "slug": "plate-mail",
-          "name": "Plate Mail",
-          "defense": 9,
-          "weight": 25.0,
-          "value": 120,
-          "armorClass": "heavy",
-          "selectionWeight": 5,
-          "budgetCost": 12,
-          "slot": "chest"
-        },
-        {
-          "slug": "gauntlets",
-          "name": "Gauntlets",
-          "defense": 2,
-          "weight": 2.0,
-          "value": 15,
-          "armorClass": "heavy",
-          "selectionWeight": 15,
-          "budgetCost": 4,
-          "slot": "hands"
-        },
-        {
-          "slug": "greaves",
-          "name": "Greaves",
-          "defense": 4,
-          "weight": 6.0,
-          "value": 30,
-          "armorClass": "heavy",
-          "selectionWeight": 12,
-          "budgetCost": 7,
-          "slot": "legs"
-        },
-        {
-          "slug": "sabatons",
-          "name": "Sabatons",
-          "defense": 3,
-          "weight": 4.0,
-          "value": 20,
-          "armorClass": "heavy",
-          "selectionWeight": 12,
-          "budgetCost": 4,
-          "slot": "feet"
-        },
-        {
-          "slug": "sollerets",
-          "name": "Sollerets",
-          "defense": 3,
           "weight": 3.5,
-          "value": 18,
+          "budgetCost": 5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 4"
+          },
+          "traits": {},
           "armorClass": "heavy",
-          "selectionWeight": 13,
-          "budgetCost": 4,
-          "slot": "feet"
+          "rarityWeight": 8,
+          "rarity": 8
         },
         {
-          "slug": "pauldrons",
-          "name": "Pauldrons",
-          "defense": 3,
-          "weight": 4.0,
-          "value": 25,
-          "armorClass": "heavy",
-          "selectionWeight": 12,
+          "name": "Barbute",
+          "slug": "barbute",
+          "value": 30,
+          "weight": 3.0,
           "budgetCost": 5,
-          "slot": "shoulders"
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 4"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 10,
+          "rarity": 10
+        },
+        {
+          "name": "Cuirass",
+          "slug": "cuirass",
+          "value": 80,
+          "weight": 15.0,
+          "budgetCost": 10,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 8"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 6,
+          "rarity": 6
+        },
+        {
+          "name": "Breastplate",
+          "slug": "breastplate",
+          "value": 70,
+          "weight": 12.0,
+          "budgetCost": 10,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 7"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 10,
+          "rarity": 10
+        },
+        {
+          "name": "Chestplate",
+          "slug": "chestplate",
+          "value": 75,
+          "weight": 14.0,
+          "budgetCost": 11,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 8"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 8,
+          "rarity": 8
+        },
+        {
+          "name": "Plate Mail",
+          "slug": "plate-mail",
+          "value": 120,
+          "weight": 25.0,
+          "budgetCost": 12,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 9"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 5,
+          "rarity": 5
+        },
+        {
+          "name": "Gauntlets",
+          "slug": "gauntlets",
+          "value": 15,
+          "weight": 2.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 2"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 15,
+          "rarity": 15
+        },
+        {
+          "name": "Greaves",
+          "slug": "greaves",
+          "value": 30,
+          "weight": 6.0,
+          "budgetCost": 7,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 4"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 12,
+          "rarity": 12
+        },
+        {
+          "name": "Sabatons",
+          "slug": "sabatons",
+          "value": 20,
+          "weight": 4.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 12,
+          "rarity": 12
+        },
+        {
+          "name": "Sollerets",
+          "slug": "sollerets",
+          "value": 18,
+          "weight": 3.5,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 13,
+          "rarity": 13
+        },
+        {
+          "name": "Pauldrons",
+          "slug": "pauldrons",
+          "value": 25,
+          "weight": 4.0,
+          "budgetCost": 5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "stats": {
+            "defense": "10 + dexterity_mod + constitution_mod + 3"
+          },
+          "traits": {},
+          "armorClass": "heavy",
+          "rarityWeight": 12,
+          "rarity": 12
         }
       ]
     }

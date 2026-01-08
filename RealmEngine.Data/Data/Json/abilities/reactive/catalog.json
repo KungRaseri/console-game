@@ -16,7 +16,6 @@
           "displayName": "Vengeance Strike",
           "description": "Counterattacks when hit with increased damage",
           "tier": 1,
-          "selectionWeight": 35,
           "traits": {
             "damageMultiplier": {
               "value": 1.5,
@@ -42,7 +41,9 @@
               "value": "onHit",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "retaliation",
@@ -50,7 +51,6 @@
           "displayName": "Retaliation",
           "description": "Automatically attacks enemy after being struck",
           "tier": 1,
-          "selectionWeight": 10,
           "traits": {
             "damageBonus": {
               "value": 5,
@@ -72,7 +72,9 @@
               "value": "onDamageTaken",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 10,
+          "rarity": 10
         },
         {
           "slug": "reactive-berserker-rage",
@@ -80,7 +82,6 @@
           "displayName": "Berserker Rage",
           "description": "Enters rage when health drops below 25%, massively increasing damage",
           "tier": 3,
-          "selectionWeight": 150,
           "traits": {
             "damageMultiplier": {
               "value": 2.0,
@@ -110,7 +111,9 @@
               "value": "onLowHealth",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "death-throes",
@@ -118,7 +121,6 @@
           "displayName": "Death Throes",
           "description": "Explodes when killed, damaging nearby enemies",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "areaOfEffect": {
               "value": 10,
@@ -144,7 +146,9 @@
               "value": "onDeath",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "opportunity-strike",
@@ -152,7 +156,6 @@
           "displayName": "Opportunity Strike",
           "description": "Attacks enemy when they miss an attack",
           "tier": 1,
-          "selectionWeight": 35,
           "traits": {
             "critChance": {
               "value": 25,
@@ -174,7 +177,9 @@
               "value": "onEnemyMiss",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "punishing-blow",
@@ -182,7 +187,6 @@
           "displayName": "Punishing Blow",
           "description": "Critical strike when blocking an attack",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "damageBonus": {
               "value": 10,
@@ -208,7 +212,9 @@
               "value": "onSuccessfulBlock",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "reactive-bloodlust",
@@ -216,7 +222,6 @@
           "displayName": "Bloodlust",
           "description": "Gains attack speed with each kill",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "attackSpeedBonus": {
               "value": 10,
@@ -242,7 +247,9 @@
               "value": "onKill",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "reactive-frenzy",
@@ -250,7 +257,6 @@
           "displayName": "Frenzy",
           "description": "Each hit increases attack damage for next attack",
           "tier": 1,
-          "selectionWeight": 35,
           "traits": {
             "damageBonus": {
               "value": 5,
@@ -272,7 +278,9 @@
               "value": "onAttackHit",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "execution",
@@ -280,7 +288,6 @@
           "displayName": "Execution",
           "description": "Instantly kills enemies below 15% health",
           "tier": 4,
-          "selectionWeight": 250,
           "traits": {
             "executeThreshold": {
               "value": 15,
@@ -302,7 +309,9 @@
               "value": "onEnemyLowHealth",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "predators-instinct",
@@ -310,7 +319,6 @@
           "displayName": "Predator's Instinct",
           "description": "Deals bonus damage to wounded enemies",
           "tier": 1,
-          "selectionWeight": 35,
           "traits": {
             "damageMultiplier": {
               "value": 1.25,
@@ -332,7 +340,9 @@
               "value": "onAttackWounded",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "chain-lightning",
@@ -340,7 +350,6 @@
           "displayName": "Chain Lightning",
           "description": "Lightning arcs to nearby enemies after dealing damage",
           "tier": 3,
-          "selectionWeight": 150,
           "traits": {
             "chainCount": {
               "value": 3,
@@ -370,7 +379,9 @@
               "value": "onDamageDealt",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "reactive-life-drain",
@@ -378,7 +389,6 @@
           "displayName": "Life Drain",
           "description": "Steals health from enemies when attacking",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "lifeStealPercent": {
               "value": 15,
@@ -396,7 +406,9 @@
               "value": "onAttackHit",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "mana-burn",
@@ -404,7 +416,6 @@
           "displayName": "Mana Burn",
           "description": "Burns enemy mana when dealing damage, causing extra damage",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "manaBurnPercent": {
               "value": 10,
@@ -426,7 +437,9 @@
               "value": "onDamageDealt",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "fury-of-the-fallen",
@@ -434,7 +447,6 @@
           "displayName": "Fury of the Fallen",
           "description": "Becomes stronger when allies die nearby",
           "tier": 3,
-          "selectionWeight": 150,
           "traits": {
             "damageBonus": {
               "value": 25,
@@ -464,7 +476,9 @@
               "value": "onAllyDeath",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         }
       ]
     },
@@ -477,7 +491,6 @@
           "displayName": "Thorns",
           "description": "Reflects damage back to attackers",
           "tier": 1,
-          "selectionWeight": 10,
           "traits": {
             "reflectDamage": {
               "value": 25,
@@ -495,7 +508,9 @@
               "value": "onHit",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 10,
+          "rarity": 10
         },
         {
           "slug": "counter-shield",
@@ -503,7 +518,6 @@
           "displayName": "Counter Shield",
           "description": "Raises shield when attacked, blocking damage",
           "tier": 1,
-          "selectionWeight": 35,
           "traits": {
             "blockChance": {
               "value": 40,
@@ -525,7 +539,9 @@
               "value": "onAttacked",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "adaptive-armor",
@@ -533,7 +549,6 @@
           "displayName": "Adaptive Armor",
           "description": "Gains resistance to damage type that hit it",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "resistanceGain": {
               "value": 20,
@@ -555,7 +570,9 @@
               "value": "onDamageTaken",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "reactive-second-wind",
@@ -563,7 +580,6 @@
           "displayName": "Second Wind",
           "description": "Heals when HP drops below 30%",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "healAmount": {
               "value": 30,
@@ -589,7 +605,9 @@
               "value": "onLowHealth",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "reactive-last-stand",
@@ -597,7 +615,6 @@
           "displayName": "Last Stand",
           "description": "Greatly increases defense when near death",
           "tier": 3,
-          "selectionWeight": 150,
           "traits": {
             "defenseBonus": {
               "value": 100,
@@ -623,7 +640,9 @@
               "value": "onCriticalHealth",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "evasive-maneuver",
@@ -631,7 +650,6 @@
           "displayName": "Evasive Maneuver",
           "description": "Automatically dodges next attack after being hit",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "dodgeChance": {
               "value": 100,
@@ -653,7 +671,9 @@
               "value": "onHit",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "iron-will",
@@ -661,7 +681,6 @@
           "displayName": "Iron Will",
           "description": "Prevents death once per battle, leaving you at 1 HP",
           "tier": 4,
-          "selectionWeight": 250,
           "traits": {
             "surviveAmount": {
               "value": 1,
@@ -683,7 +702,9 @@
               "value": "onFatalDamage",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "reactive-barrier",
@@ -691,7 +712,6 @@
           "displayName": "Reactive Barrier",
           "description": "Creates temporary shield when health drops below 50%",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "shieldAmount": {
               "value": 50,
@@ -717,7 +737,9 @@
               "value": "onHealthThreshold",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "defensive-stance",
@@ -725,7 +747,6 @@
           "displayName": "Defensive Stance",
           "description": "Automatically blocks after taking consecutive hits",
           "tier": 1,
-          "selectionWeight": 35,
           "traits": {
             "blockChance": {
               "value": 75,
@@ -751,7 +772,9 @@
               "value": "onConsecutiveHits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "reactive-parry",
@@ -759,7 +782,6 @@
           "displayName": "Parry",
           "description": "Chance to deflect melee attacks completely",
           "tier": 1,
-          "selectionWeight": 35,
           "traits": {
             "parryChance": {
               "value": 30,
@@ -777,7 +799,9 @@
               "value": "onMeleeAttack",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "spell-reflection",
@@ -785,7 +809,6 @@
           "displayName": "Spell Reflection",
           "description": "Reflects magical attacks back to caster",
           "tier": 3,
-          "selectionWeight": 150,
           "traits": {
             "reflectChance": {
               "value": 50,
@@ -807,7 +830,9 @@
               "value": "onMagicAttack",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "reactive-revenge",
@@ -815,7 +840,6 @@
           "displayName": "Revenge",
           "description": "Gains damage buff after taking damage",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "damageBonus": {
               "value": 25,
@@ -841,7 +865,9 @@
               "value": "onDamageTaken",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         }
       ]
     },
@@ -854,7 +880,6 @@
           "displayName": "Desperate Escape",
           "description": "Teleports away when health drops critically low",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "threshold": {
               "value": 15,
@@ -880,7 +905,9 @@
               "value": "onCriticalHealth",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "crowd-control-immunity",
@@ -888,7 +915,6 @@
           "displayName": "Crowd Control Immunity",
           "description": "Breaks free from stuns and roots after being controlled",
           "tier": 3,
-          "selectionWeight": 150,
           "traits": {
             "breakChance": {
               "value": 75,
@@ -910,7 +936,9 @@
               "value": "onControlEffect",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "summon-aid",
@@ -918,7 +946,6 @@
           "displayName": "Summon Aid",
           "description": "Calls for help when health is low",
           "tier": 3,
-          "selectionWeight": 150,
           "traits": {
             "summonCount": {
               "value": 2,
@@ -948,7 +975,9 @@
               "value": "onLowHealth",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "cleanse",
@@ -956,7 +985,6 @@
           "displayName": "Cleanse",
           "description": "Removes debuffs when hit by status effect",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "cleanseChance": {
               "value": 50,
@@ -974,7 +1002,9 @@
               "value": "onDebuff",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "adrenaline-rush",
@@ -982,7 +1012,6 @@
           "displayName": "Adrenaline Rush",
           "description": "Gains movement and attack speed when taking damage",
           "tier": 1,
-          "selectionWeight": 35,
           "traits": {
             "movementSpeedBonus": {
               "value": 30,
@@ -1008,7 +1037,9 @@
               "value": "onDamageTaken",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "smoke-bomb",
@@ -1016,7 +1047,6 @@
           "displayName": "Smoke Bomb",
           "description": "Creates smoke cloud when attacked, increasing dodge",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "dodgeBonus": {
               "value": 40,
@@ -1042,7 +1072,9 @@
               "value": "onAttacked",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "phoenix-rebirth",
@@ -1050,7 +1082,6 @@
           "displayName": "Phoenix Rebirth",
           "description": "Resurrects with partial health after death",
           "tier": 5,
-          "selectionWeight": 500,
           "traits": {
             "reviveHealthPercent": {
               "value": 50,
@@ -1072,7 +1103,9 @@
               "value": "onDeath",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 500,
+          "rarity": 500
         },
         {
           "slug": "blink",
@@ -1080,7 +1113,6 @@
           "displayName": "Blink",
           "description": "Short teleport when dodging an attack",
           "tier": 2,
-          "selectionWeight": 75,
           "traits": {
             "teleportRange": {
               "value": 10,
@@ -1098,7 +1130,9 @@
               "value": "onSuccessfulDodge",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "reactive-battle-cry",
@@ -1106,7 +1140,6 @@
           "displayName": "Battle Cry",
           "description": "Rallies allies when entering combat",
           "tier": 1,
-          "selectionWeight": 35,
           "traits": {
             "damageBonus": {
               "value": 10,
@@ -1136,7 +1169,9 @@
               "value": "onCombatStart",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "last-laugh",
@@ -1144,7 +1179,6 @@
           "displayName": "Last Laugh",
           "description": "Drops valuable loot or buff when killed",
           "tier": 3,
-          "selectionWeight": 150,
           "traits": {
             "lootMultiplier": {
               "value": 2.0,
@@ -1166,7 +1200,9 @@
               "value": "onDeath",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         }
       ]
     }

@@ -24,7 +24,8 @@
           ],
           "resources": [
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 10
         },
         {
           "slug": "mistyhills",
@@ -43,7 +44,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 12
         },
         {
           "slug": "silverlake",
@@ -61,7 +63,8 @@
           "resources": [
             "@items/consumables:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 15
         }
       ]
     }
@@ -87,7 +90,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 25
         },
         {
           "slug": "endlessdesert",
@@ -106,7 +110,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 28
         },
         {
           "slug": "crystalcaverns",
@@ -125,7 +130,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 32
         },
         {
           "slug": "stormycoast",
@@ -144,7 +150,8 @@
           "resources": [
             "@items/materials:*",
             "@items/consumables:*"
-          ]
+          ],
+          "rarity": 30
         },
         {
           "slug": "whisperingwoods",
@@ -164,7 +171,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 35
         }
       ]
     }
@@ -190,7 +198,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 50
         },
         {
           "slug": "frozentundra",
@@ -210,7 +219,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 55
         },
         {
           "slug": "poisonswamp",
@@ -230,7 +240,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 58
         },
         {
           "slug": "ancientbattlefield",
@@ -248,7 +259,8 @@
           "resources": [
             "@items/weapons:*",
             "@items/armor:*"
-          ]
+          ],
+          "rarity": 60
         },
         {
           "slug": "shatteredisles",
@@ -267,7 +279,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 65
         },
         {
           "slug": "jungleoffangs",
@@ -286,7 +299,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 62
         },
         {
           "slug": "thegreatrift",
@@ -306,7 +320,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 68
         }
       ]
     }
@@ -331,7 +346,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 100
         },
         {
           "slug": "deadlands",
@@ -350,7 +366,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 110
         },
         {
           "slug": "bloodmoors",
@@ -370,7 +387,8 @@
           "resources": [
             "@items/materials:*",
             "@items/materials:*"
-          ]
+          ],
+          "rarity": 115
         }
       ]
     }

@@ -77,7 +77,8 @@
             "towns",
             "cities"
           ],
-          "required_population": 500
+          "required_population": 500,
+          "rarity": 5
         },
         {
           "slug": "weapon-master",
@@ -138,7 +139,8 @@
           "location_types": [
             "cities"
           ],
-          "required_population": 5000
+          "required_population": 5000,
+          "rarity": 15
         }
       ]
     }
@@ -215,7 +217,8 @@
             "towns",
             "cities"
           ],
-          "required_population": 800
+          "required_population": 800,
+          "rarity": 8
         }
       ]
     }
@@ -292,7 +295,8 @@
             "towns",
             "cities"
           ],
-          "required_population": 1000
+          "required_population": 1000,
+          "rarity": 12
         },
         {
           "slug": "magic-shop",
@@ -363,7 +367,8 @@
             "cities",
             "towers"
           ],
-          "required_population": 3000
+          "required_population": 3000,
+          "rarity": 20
         }
       ]
     }
@@ -439,7 +444,8 @@
             "towns",
             "villages"
           ],
-          "required_population": 100
+          "required_population": 100,
+          "rarity": 3
         },
         {
           "slug": "trading-post",
@@ -510,7 +516,8 @@
             "wilderness",
             "frontiers"
           ],
-          "required_population": 50
+          "required_population": 50,
+          "rarity": 10
         }
       ]
     }
@@ -586,7 +593,8 @@
           "location_types": [
             "cities"
           ],
-          "required_population": 2000
+          "required_population": 2000,
+          "rarity": 18
         },
         {
           "slug": "fletcher",
@@ -657,7 +665,8 @@
             "towns",
             "forests"
           ],
-          "required_population": 500
+          "required_population": 500,
+          "rarity": 14
         },
         {
           "slug": "black-market",
@@ -730,7 +739,8 @@
           ],
           "required_population": 5000,
           "hidden": true,
-          "reputation_required": -20
+          "reputation_required": -20,
+          "rarity": 40
         }
       ]
     }

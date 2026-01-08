@@ -65,7 +65,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "thieves_guild",
-          "schedule": "@social/schedules/*:criminal"
+          "schedule": "@social/schedules/*:criminal",
+          "rarity": 32
         },
         {
           "slug": "formerspy",
@@ -109,7 +110,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules/*:criminal"
+          "schedule": "@social/schedules/*:criminal",
+          "rarity": 50
         },
         {
           "slug": "formersmuggler",
@@ -152,7 +154,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "thieves_guild",
-          "schedule": "@social/schedules/*:criminal"
+          "schedule": "@social/schedules/*:criminal",
+          "rarity": 38
         },
         {
           "slug": "reformedthief",
@@ -194,7 +197,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "thieves_guild",
-          "schedule": "@social/schedules/*:criminal"
+          "schedule": "@social/schedules/*:criminal",
+          "rarity": 30
         },
         {
           "slug": "formerpirate",
@@ -238,7 +242,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules/*:flexible"
+          "schedule": "@social/schedules/*:flexible",
+          "rarity": 48
         }
       ]
     }

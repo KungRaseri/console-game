@@ -100,7 +100,8 @@
                 "@abilities/ultimate:avatar-of-light"
               ]
             }
-          }
+          },
+          "rarity": 20
         },
         {
           "slug": "paladin",
@@ -174,7 +175,8 @@
                 "@abilities/ultimate:holy-champion"
               ]
             }
-          }
+          },
+          "rarity": 75
         }
       ]
     },
@@ -260,7 +262,8 @@
                 "@abilities/ultimate:perfect-crime"
               ]
             }
-          }
+          },
+          "rarity": 10
         },
         {
           "slug": "assassin",
@@ -334,7 +337,8 @@
                 "@abilities/ultimate:death-incarnate"
               ]
             }
-          }
+          },
+          "rarity": 150
         },
         {
           "slug": "swashbuckler",
@@ -409,7 +413,8 @@
                 "@abilities/ultimate:dread-pirate"
               ]
             }
-          }
+          },
+          "rarity": 100
         }
       ]
     },
@@ -497,7 +502,8 @@
                 "@abilities/ultimate:apex-predator"
               ]
             }
-          }
+          },
+          "rarity": 15
         },
         {
           "slug": "beastmaster",
@@ -571,7 +577,8 @@
                 "@abilities/ultimate:natures-wrath"
               ]
             }
-          }
+          },
+          "rarity": 100
         }
       ]
     },
@@ -669,7 +676,8 @@
                 "@abilities/passive:titans-strength"
               ]
             }
-          }
+          },
+          "rarity": 5
         },
         {
           "slug": "berserker",
@@ -742,7 +750,8 @@
                 "@abilities/ultimate:ragnarok"
               ]
             }
-          }
+          },
+          "rarity": 50
         },
         {
           "slug": "knight",
@@ -817,7 +826,8 @@
                 "@abilities/ultimate:fortress"
               ]
             }
-          }
+          },
+          "rarity": 35
         },
         {
           "slug": "duelist",
@@ -892,7 +902,8 @@
                 "@abilities/ultimate:grandmaster-duelist"
               ]
             }
-          }
+          },
+          "rarity": 75
         }
       ]
     },
@@ -979,7 +990,8 @@
                 "@abilities/ultimate:archmages-supremacy"
               ]
             }
-          }
+          },
+          "rarity": 15
         },
         {
           "slug": "elementalist",
@@ -1049,7 +1061,8 @@
                 "@abilities/ultimate:master-of-elements"
               ]
             }
-          }
+          },
+          "rarity": 100
         },
         {
           "slug": "necromancer",
@@ -1123,7 +1136,8 @@
                 "@abilities/ultimate:death-lord"
               ]
             }
-          }
+          },
+          "rarity": 250
         }
       ]
     }

@@ -54,7 +54,8 @@
             "tools.farming"
           ],
           "uniqueItems": [],
-          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
+          "rarity": 5
         },
         {
           "slug": "laborer",
@@ -84,7 +85,8 @@
             "consumables.food"
           ],
           "uniqueItems": [],
-          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
+          "rarity": 8
         }
       ]
     },
@@ -134,7 +136,8 @@
             "Lucky Coin",
             "Worn Doll"
           ],
-          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
+          "rarity": 20
         },
         {
           "slug": "refugee",
@@ -168,7 +171,8 @@
             "Tattered Map",
             "Foreign Keepsake"
           ],
-          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
+          "rarity": 25
         },
         {
           "slug": "exile",
@@ -202,7 +206,8 @@
             "Exile's Brand",
             "Homeland Memento"
           ],
-          "dialogueStyle": "@social/dialogue/styles/gruff:mysterious"
+          "dialogueStyle": "@social/dialogue/styles/gruff:mysterious",
+          "rarity": 40
         },
         {
           "slug": "formerslave",
@@ -236,7 +241,8 @@
             "Broken Shackles",
             "Freedom Papers"
           ],
-          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
+          "rarity": 35
         },
         {
           "slug": "formergladiator",
@@ -272,7 +278,8 @@
             "Arena Champion's Crown",
             "Freedom Token"
           ],
-          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
+          "rarity": 48
         }
       ]
     }
@@ -316,7 +323,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/simple:simple"
-          ]
+          ],
+          "rarity": 85
         },
         {
           "slug": "peasant",
@@ -344,7 +352,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/simple:simple"
-          ]
+          ],
+          "rarity": 90
         },
         {
           "slug": "beggar",
@@ -372,7 +381,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/simple:simple"
-          ]
+          ],
+          "rarity": 40
         },
         {
           "slug": "streeturchin",
@@ -401,7 +411,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/simple:simple"
-          ]
+          ],
+          "rarity": 35
         }
       ]
     }

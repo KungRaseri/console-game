@@ -48,7 +48,8 @@
             "service",
             "military"
           ],
-          "description": "Investigate the mysterious occurrences in {location}"
+          "description": "Investigate the mysterious occurrences in {location}",
+          "rarity": 15
         },
         {
           "slug": "trackthief",
@@ -68,7 +69,8 @@
             "service",
             "military"
           ],
-          "description": "Follow the clues to catch the thief who stole from the market"
+          "description": "Follow the clues to catch the thief who stole from the market",
+          "rarity": 12
         },
         {
           "slug": "solvemystery",
@@ -89,7 +91,8 @@
             "military",
             "professional"
           ],
-          "description": "Uncover the truth behind the strange events at {location}"
+          "description": "Uncover the truth behind the strange events at {location}",
+          "rarity": 35
         },
         {
           "slug": "investigatemurder",
@@ -110,7 +113,8 @@
             "noble",
             "service"
           ],
-          "description": "Solve the murder case before the trail goes cold"
+          "description": "Solve the murder case before the trail goes cold",
+          "rarity": 40
         },
         {
           "slug": "uncoverconspiracy",
@@ -132,7 +136,8 @@
             "military",
             "magical"
           ],
-          "description": "Expose the conspiracy threatening the kingdom"
+          "description": "Expose the conspiracy threatening the kingdom",
+          "rarity": 70
         }
       ]
     },
@@ -156,7 +161,8 @@
             "religious",
             "common"
           ],
-          "description": "Gather {quantity} {itemType} from the surrounding area"
+          "description": "Gather {quantity} {itemType} from the surrounding area",
+          "rarity": 10
         },
         {
           "slug": "collectminerals",
@@ -176,7 +182,8 @@
             "merchant",
             "professional"
           ],
-          "description": "Collect {quantity} {itemType} from the mines"
+          "description": "Collect {quantity} {itemType} from the mines",
+          "rarity": 12
         },
         {
           "slug": "gatherwood",
@@ -196,7 +203,8 @@
             "common",
             "service"
           ],
-          "description": "Collect {quantity} pieces of quality {itemType}"
+          "description": "Collect {quantity} pieces of quality {itemType}",
+          "rarity": 8
         },
         {
           "slug": "huntanimals",
@@ -217,7 +225,8 @@
             "merchant",
             "common"
           ],
-          "description": "Hunt {quantity} {animalType} and bring back their pelts"
+          "description": "Hunt {quantity} {animalType} and bring back their pelts",
+          "rarity": 15
         },
         {
           "slug": "recoverartifact",
@@ -239,7 +248,8 @@
             "magical",
             "religious"
           ],
-          "description": "Retrieve the ancient {itemName} from {location}"
+          "description": "Retrieve the ancient {itemName} from {location}",
+          "rarity": 30
         },
         {
           "slug": "stealtreasure",
@@ -259,7 +269,8 @@
             "criminal"
           ],
           "required_faction": "thieves_guild",
-          "description": "Steal {quantity} valuable items from the noble's vault"
+          "description": "Steal {quantity} valuable items from the noble's vault",
+          "rarity": 35
         },
         {
           "slug": "findlegendaryweapon",
@@ -282,7 +293,8 @@
             "military",
             "magical"
           ],
-          "description": "Seek the legendary {itemName} hidden in {location}"
+          "description": "Seek the legendary {itemName} hidden in {location}",
+          "rarity": 60
         }
       ]
     },
@@ -306,7 +318,8 @@
             "service",
             "common"
           ],
-          "description": "Escort the merchant safely to the next town"
+          "description": "Escort the merchant safely to the next town",
+          "rarity": 12
         },
         {
           "slug": "guidetraveler",
@@ -326,7 +339,8 @@
             "service",
             "military"
           ],
-          "description": "Guide the lost traveler back to civilization"
+          "description": "Guide the lost traveler back to civilization",
+          "rarity": 10
         },
         {
           "slug": "protectnoble",
@@ -346,7 +360,8 @@
             "noble",
             "military"
           ],
-          "description": "Guard the noble on their journey through dangerous territory"
+          "description": "Guard the noble on their journey through dangerous territory",
+          "rarity": 32
         },
         {
           "slug": "escortwizard",
@@ -366,7 +381,8 @@
             "magical",
             "noble"
           ],
-          "description": "Protect the wizard carrying dangerous artifacts to the academy"
+          "description": "Protect the wizard carrying dangerous artifacts to the academy",
+          "rarity": 38
         },
         {
           "slug": "escortprophet",
@@ -387,7 +403,8 @@
             "religious",
             "noble"
           ],
-          "description": "Protect the prophet from assassins during their pilgrimage"
+          "description": "Protect the prophet from assassins during their pilgrimage",
+          "rarity": 65
         }
       ]
     },
@@ -411,7 +428,8 @@
             "service",
             "military"
           ],
-          "description": "Eliminate {quantity} {target} threatening the area"
+          "description": "Eliminate {quantity} {target} threatening the area",
+          "rarity": 8
         },
         {
           "slug": "clearundead",
@@ -431,7 +449,8 @@
             "military",
             "noble"
           ],
-          "description": "Cleanse {quantity} {target} from the graveyard"
+          "description": "Cleanse {quantity} {target} from the graveyard",
+          "rarity": 10
         },
         {
           "slug": "huntdemons",
@@ -452,7 +471,8 @@
             "magical",
             "noble"
           ],
-          "description": "Hunt down {quantity} {target} before they summon reinforcements"
+          "description": "Hunt down {quantity} {target} before they summon reinforcements",
+          "rarity": 35
         },
         {
           "slug": "banishelementals",
@@ -473,7 +493,8 @@
             "religious",
             "noble"
           ],
-          "description": "Banish {quantity} {target} from {location}"
+          "description": "Banish {quantity} {target} from {location}",
+          "rarity": 30
         },
         {
           "slug": "slaydragons",
@@ -495,7 +516,8 @@
             "noble",
             "military"
           ],
-          "description": "Defeat the legendary {target} terrorizing the mountains"
+          "description": "Defeat the legendary {target} terrorizing the mountains",
+          "rarity": 70
         },
         {
           "slug": "defeatchampions",
@@ -515,7 +537,8 @@
             "noble",
             "military"
           ],
-          "description": "Challenge {quantity} arena champions to prove your worth"
+          "description": "Challenge {quantity} arena champions to prove your worth",
+          "rarity": 55
         }
       ]
     },
@@ -538,7 +561,8 @@
             "service",
             "merchant"
           ],
-          "description": "Deliver this message to the recipient in the neighboring town"
+          "description": "Deliver this message to the recipient in the neighboring town",
+          "rarity": 8
         },
         {
           "slug": "deliverpackage",
@@ -557,7 +581,8 @@
             "common",
             "service"
           ],
-          "description": "Bring this package to {recipient} in {destination}"
+          "description": "Bring this package to {recipient} in {destination}",
+          "rarity": 10
         },
         {
           "slug": "transportgoods",
@@ -577,7 +602,8 @@
             "craftsmen",
             "noble"
           ],
-          "description": "Transport fragile goods safely across dangerous roads"
+          "description": "Transport fragile goods safely across dangerous roads",
+          "rarity": 28
         },
         {
           "slug": "urgentdelivery",
@@ -597,7 +623,8 @@
             "military",
             "service"
           ],
-          "description": "Rush this urgent delivery across the kingdom before time runs out"
+          "description": "Rush this urgent delivery across the kingdom before time runs out",
+          "rarity": 32
         },
         {
           "slug": "deliverrelic",
@@ -619,7 +646,8 @@
             "magical",
             "noble"
           ],
-          "description": "Deliver the cursed relic while evading those who hunt it"
+          "description": "Deliver the cursed relic while evading those who hunt it",
+          "rarity": 60
         }
       ]
     }

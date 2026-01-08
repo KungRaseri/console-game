@@ -93,7 +93,8 @@
             "@social/dialogue/farewells/merchant:merchant"
           ],
           "faction": "merchants_guild",
-          "schedule": "@social/schedules/*:merchant"
+          "schedule": "@social/schedules/*:merchant",
+          "rarity": 10
         }
       ]
     }

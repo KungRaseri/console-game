@@ -1,323 +1,324 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 JSON v4.x to v5.1 Migration Script
 
-Converts JSON catalogs to v5.1 structure with attributes/stats/properties/traits separation.
-
-Usage:
-    python migrate-json-to-v5.py <path-to-catalog.json>
-    python migrate-json-to-v5.py --all  # Migrate all catalogs
-    python migrate-json-to-v5.py --enemies  # Migrate only enemies
-    python migrate-json-to-v5.py --items  # Migrate only items
+Converts catalog JSON files from v4.0/v4.1/v4.2 structure to v5.1:
+- Separates attributes (STR, DEX, CON, INT, WIS, CHA) into attributes object
+- Converts stat values to formula strings with _mod references
+- Extracts type-level properties from items
+- Converts traits array to traits object
+- Converts dice notation to structured damage objects
+- Adds combat section for enemies
 """
 
 import json
 import sys
 import os
-from pathlib import Path
-from datetime import datetime
-from typing import Dict, List, Any, Optional
 import re
+from pathlib import Path
+from typing import Dict, Any, List, Optional
 
-# Root-level meta fields
-ROOT_LEVEL_FIELDS = {
-    'slug',
-    'name',
-    'rarity',
-    'rarityWeight',
-    'selectionWeight',
-    'level',  # For enemies
-    'xp'      # For enemies
-}
+# Field categorization for v5.1
+ROOT_LEVEL_FIELDS = {'slug', 'name', 'description', 'level', 'xp', 'rarity', 'rarityWeight', 
+                     'weight', 'value', 'budgetCost', 'selectionWeight'}
 
-# Standard 6 attributes
-ATTRIBUTES = {
-    'strength', 'dexterity', 'constitution',
-    'intelligence', 'wisdom', 'charisma'
-}
+ATTRIBUTES = {'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'}
 
-# Stats (calculated values)
-STAT_FIELDS = {
-    'health', 'attack', 'defense', 'speed',
-    'damage', 'attackSpeed', 'weight', 'value',
-    'healing', 'duration', 'manaCost', 'cooldown',
-    'dodgeBonus', 'rangeMin', 'rangeMax'
-}
+STAT_FIELDS = {'health', 'mana', 'stamina', 'attack', 'defense', 'speed', 'magicPower', 
+               'critChance', 'critDamage', 'evasion', 'accuracy'}
 
-# Type-level properties (descriptive characteristics)
-TYPE_PROPERTIES = {
-    'category', 'size', 'behavior', 'habitat',
-    'damageType', 'range', 'slot', 'skillReference',
-    'consumableType', 'effectType', 'targetType'
-}
+ENEMY_FIELDS = {'abilities', 'abilityUnlocks', 'resistances', 'vulnerabilities', 'immunities'}
 
-# Combat-specific (enemies only)
-COMBAT_FIELDS = {
-    'abilities', 'abilityUnlocks'
-}
+TYPE_PROPERTIES = {'size', 'behavior', 'habitat', 'damageType', 'slot', 'category', 
+                   'armorType', 'skillReference', 'finesse', 'reach', 'requiresAmmo', 
+                   'magicFocus', 'twoHanded'}
 
-# Special traits/modifiers (everything else)
-TRAIT_FIELDS = {
-    'packLeader', 'legendary', 'questBoss',
-    'resistances', 'vulnerabilities', 'immunities',
-    'sizeOverride', 'damageTypeOverride',
-    'twoHanded', 'socketCount', 'throwable', 'finesse',
-    'ammoType', 'stealthPenalty', 'stackSize', 'enchantable'
-}
+def calculate_modifier(attribute_value: int) -> int:
+    """Calculate D&D-style modifier: (attribute - 10) / 2, rounded down"""
+    return (attribute_value - 10) // 2
 
-
-def extract_properties(type_obj: Dict[str, Any]) -> Dict[str, Any]:
-    """Extract type-level properties from traits or root."""
-    properties = {}
+def create_formula_for_stat(stat_name: str, base_value: Any) -> str:
+    """Convert a stat value to a formula string"""
+    if isinstance(base_value, str):
+        # Already a formula or reference
+        return base_value
     
-    # Check if traits exist (v4.x structure)
-    if 'traits' in type_obj and isinstance(type_obj['traits'], dict):
-        for key, value in type_obj['traits'].items():
-            if key in TYPE_PROPERTIES:
-                properties[key] = value
+    # Convert numeric values to formula strings
+    value = int(base_value) if isinstance(base_value, (int, float)) else 0
     
-    return properties
-
-
-def migrate_type_structure(type_obj: Dict[str, Any]) -> Dict[str, Any]:
-    """Migrate type-level object to v5.1 structure."""
-    result = {}
-    
-    # Extract properties
-    result['properties'] = extract_properties(type_obj)
-    
-    # Migrate items
-    if 'items' in type_obj:
-        result['items'] = [migrate_item(item) for item in type_obj['items']]
+    # Common formula patterns
+    if stat_name == 'health':
+        return f"constitution_mod * 2 + level * 5 + {value}"
+    elif stat_name == 'mana':
+        return f"intelligence_mod * 3 + level * 3 + {value}"
+    elif stat_name == 'stamina':
+        return f"constitution_mod * 2 + level * 2 + {value}"
+    elif stat_name == 'attack':
+        return f"strength_mod + level + {value}"
+    elif stat_name == 'defense':
+        return f"10 + dexterity_mod + constitution_mod + {value}"
+    elif stat_name == 'speed':
+        return f"30 + dexterity_mod * 5"
+    elif stat_name == 'magicPower':
+        return f"intelligence_mod + wisdom_mod + level"
     else:
-        result['items'] = []
+        return str(value)
+
+def create_damage_object(damage_str: str) -> Dict[str, Any]:
+    """Convert dice notation like '1d8' or '2d6' to structured damage object"""
+    if not isinstance(damage_str, str):
+        return {"min": 1, "max": 4}
     
-    return result
-
-
-def create_damage_object(damage_value: Any) -> Dict[str, Any]:
-    """Convert damage string/number to structured object."""
-    if isinstance(damage_value, str):
-        # Try to parse "1d8" format
-        match = re.match(r'(\d+)d(\d+)', damage_value)
-        if match:
-            dice_count = int(match.group(1))
-            dice_sides = int(match.group(2))
-            return {
-                "min": dice_count,
-                "max": dice_count * dice_sides,
-                "modifier": "wielder.strength_mod"  # Default assumption
-            }
+    # Parse dice notation
+    match = re.match(r'(\d+)d(\d+)', damage_str)
+    if match:
+        dice_count = int(match.group(1))
+        dice_sides = int(match.group(2))
+        return {
+            "min": dice_count,
+            "max": dice_count * dice_sides,
+            "modifier": "wielder.strength_mod"  # Default for weapons
+        }
+    
+    # Parse range notation
+    match = re.match(r'(\d+)-(\d+)', damage_str)
+    if match:
+        return {
+            "min": int(match.group(1)),
+            "max": int(match.group(2)),
+            "modifier": "wielder.strength_mod"
+        }
     
     # Default fallback
-    return {
-        "min": 1,
-        "max": 8,
-        "modifier": "wielder.strength_mod"
-    }
+    return {"min": 1, "max": 4}
 
-
-def generate_stat_formula(stat_name: str, stat_value: Any, attributes: Dict[str, int]) -> str:
-    """Generate placeholder formula for a stat (to be manually tuned)."""
-    # These are placeholder formulas - should be manually reviewed
-    formulas = {
-        'health': f"constitution_mod * 2 + level * 5 + 10",
-        'attack': f"strength_mod + level",
-        'defense': f"10 + dexterity_mod + constitution_mod",
-        'speed': f"30 + dexterity_mod * 5"
-    }
+def migrate_item(item: Dict[str, Any], is_enemy: bool = False) -> Dict[str, Any]:
+    """Migrate a single item to v5.1 structure"""
+    migrated = {}
     
-    return formulas.get(stat_name, str(stat_value))
-
-
-def migrate_item(item: Dict[str, Any]) -> Dict[str, Any]:
-    """Migrate item from v4.x to v5.1."""
-    result = {}
+    # 1. Keep root-level fields
+    for field in ROOT_LEVEL_FIELDS:
+        if field in item:
+            migrated[field] = item[field]
+    
+    # Add rarity field if missing (calculate from rarityWeight)
+    if 'rarity' not in migrated and 'rarityWeight' in migrated:
+        weight = migrated['rarityWeight']
+        # Map rarityWeight to rarity value (1-100 scale)
+        if weight <= 5:
+            migrated['rarity'] = 15  # Common
+        elif weight <= 10:
+            migrated['rarity'] = 30  # Uncommon
+        elif weight <= 15:
+            migrated['rarity'] = 50  # Rare
+        elif weight <= 20:
+            migrated['rarity'] = 70  # Epic
+        else:
+            migrated['rarity'] = 90  # Legendary
+    
+    # 2. Extract attributes into attributes object
     attributes = {}
+    for attr in ATTRIBUTES:
+        if attr in item:
+            attributes[attr] = item[attr]
+        else:
+            # Provide default attributes if missing
+            if attr == 'strength':
+                attributes[attr] = 10
+            elif attr == 'dexterity':
+                attributes[attr] = 10
+            elif attr == 'constitution':
+                attributes[attr] = 10
+            elif attr == 'intelligence':
+                attributes[attr] = 8
+            elif attr == 'wisdom':
+                attributes[attr] = 8
+            elif attr == 'charisma':
+                attributes[attr] = 8
+    
+    if attributes:
+        migrated['attributes'] = attributes
+    
+    # 3. Extract stats and convert to formulas
     stats = {}
-    combat = {}
-    traits = {}
+    for stat in STAT_FIELDS:
+        if stat in item:
+            stats[stat] = create_formula_for_stat(stat, item[stat])
     
-    # Separate fields by category
-    for key, value in item.items():
-        if key in ROOT_LEVEL_FIELDS:
-            result[key] = value
-        elif key in ATTRIBUTES:
-            attributes[key] = value
-        elif key in STAT_FIELDS:
-            if key == 'damage' and isinstance(value, str):
-                stats[key] = create_damage_object(value)
-            else:
-                stats[key] = value
-        elif key in COMBAT_FIELDS:
-            combat[key] = value
-        elif key in TRAIT_FIELDS or key not in ROOT_LEVEL_FIELDS:
-            # Check if it's an attribute bonus (should be in traits)
-            if key in ATTRIBUTES:
-                traits[key] = value
-            else:
-                traits[key] = value
+    if stats:
+        migrated['stats'] = stats
     
-    # Add sections
-    result['attributes'] = attributes if attributes else {}
-    result['stats'] = stats if stats else {}
+    # 4. Handle combat section for enemies
+    if is_enemy:
+        combat = {}
+        for field in ENEMY_FIELDS:
+            if field in item:
+                combat[field] = item[field]
+        
+        # Ensure abilities array exists
+        if 'abilities' not in combat:
+            combat['abilities'] = []
+        
+        if combat:
+            migrated['combat'] = combat
     
-    if combat:
-        result['combat'] = combat
+    # 5. Convert damage to structured object (for weapons)
+    if 'damage' in item:
+        if isinstance(item['damage'], str):
+            migrated['damage'] = create_damage_object(item['damage'])
+        else:
+            migrated['damage'] = item['damage']
     
-    result['traits'] = traits if traits else {}
-    
-    return result
-
-
-def calculate_rarity_tier(rarity_weight: int) -> int:
-    """Convert rarityWeight to numerical rarity (1-100)."""
-    if rarity_weight <= 10:
-        return 15  # Common (1-20)
-    elif rarity_weight <= 30:
-        return 30  # Uncommon (21-40)
-    elif rarity_weight <= 60:
-        return 50  # Rare (41-60)
-    elif rarity_weight <= 85:
-        return 70  # Elite (61-80)
+    # 6. Handle traits - convert array to object or keep object
+    if 'traits' in item:
+        if isinstance(item['traits'], list):
+            # Convert trait array to object
+            traits_obj = {}
+            for trait in item['traits']:
+                if isinstance(trait, dict) and 'key' in trait:
+                    traits_obj[trait['key']] = trait.get('value', True)
+            migrated['traits'] = traits_obj if traits_obj else {}
+        else:
+            migrated['traits'] = item.get('traits', {})
     else:
-        return 95  # Legendary (81-100)
-
-
-def add_rarity_field(item: Dict[str, Any]) -> None:
-    """Add numerical rarity field based on rarityWeight if missing."""
-    if 'rarity' not in item and 'rarityWeight' in item:
-        item['rarity'] = calculate_rarity_tier(item['rarityWeight'])
-
-
-def migrate_catalog(data: Dict[str, Any]) -> Dict[str, Any]:
-    """Migrate entire catalog from v4.x to v5.1."""
-    result = {}
+        migrated['traits'] = {}
     
-    # Update metadata
+    # 7. Copy any remaining fields not categorized
+    for key, value in item.items():
+        if key not in ROOT_LEVEL_FIELDS and key not in ATTRIBUTES and \
+           key not in STAT_FIELDS and key not in ENEMY_FIELDS and \
+           key not in TYPE_PROPERTIES and key not in ['damage', 'traits']:
+            migrated[key] = value
+    
+    return migrated
+
+def migrate_type_structure(type_data: Dict[str, Any], type_key: str, is_enemy: bool = False) -> Dict[str, Any]:
+    """Migrate a type structure (e.g., wolves, heavy-blades)"""
+    migrated_type = {}
+    
+    # 1. Extract type-level properties
+    properties = {}
+    for prop in TYPE_PROPERTIES:
+        if prop in type_data:
+            properties[prop] = type_data[prop]
+        # Also check in traits if it exists
+        elif 'traits' in type_data and isinstance(type_data['traits'], dict):
+            if prop in type_data['traits']:
+                properties[prop] = type_data['traits'][prop]
+    
+    if properties:
+        migrated_type['properties'] = properties
+    
+    # 2. Migrate items array
+    if 'items' in type_data and isinstance(type_data['items'], list):
+        migrated_type['items'] = [migrate_item(item, is_enemy) for item in type_data['items']]
+    
+    return migrated_type
+
+def migrate_catalog(data: Dict[str, Any], is_enemy: bool = False) -> Dict[str, Any]:
+    """Migrate entire catalog to v5.1"""
+    migrated = {}
+    
+    # 1. Update metadata
     if 'metadata' in data:
         metadata = data['metadata'].copy()
         metadata['version'] = '5.1'
-        metadata['lastUpdated'] = datetime.now().strftime('%Y-%m-%d')
-        
-        # Ensure proper catalog type naming
-        if 'type' in metadata:
-            if not metadata['type'].endswith('_catalog'):
-                metadata['type'] = metadata['type'] + '_catalog'
-        
-        result['metadata'] = metadata
+        metadata['lastUpdated'] = '2026-01-08'
+        migrated['metadata'] = metadata
     
-    # Find and migrate type collections  
-    for key, value in data.items():
-        if key == 'metadata':
-            continue
-        
-        # Check if this is a type collection (ends with "_types")
-        if isinstance(value, dict) and key.endswith('_types'):
-            result[key] = {}
+    # 2. Find and migrate *_types structure
+    for key in data.keys():
+        if key.endswith('_types'):
+            types_obj = data[key]
+            migrated_types = {}
             
-            for type_name, type_obj in value.items():
-                result[key][type_name] = migrate_type_structure(type_obj)
-                
-                # Add rarity to items if missing
-                for item in result[key][type_name]['items']:
-                    add_rarity_field(item)
+            for type_key, type_data in types_obj.items():
+                migrated_types[type_key] = migrate_type_structure(type_data, type_key, is_enemy)
+            
+            migrated[key] = migrated_types
+            break
     
-    return result
+    return migrated
 
+def process_file(input_path: Path, output_path: Optional[Path] = None, is_enemy: bool = False):
+    """Process a single JSON catalog file"""
+    print(f"Processing: {input_path}")
+    
+    try:
+        with open(input_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        migrated = migrate_catalog(data, is_enemy)
+        
+        output = output_path or input_path
+        with open(output, 'w', encoding='utf-8') as f:
+            json.dump(migrated, f, indent=2, ensure_ascii=False)
+        
+        print(f" Migrated to: {output}")
+        return True
+    except Exception as e:
+        print(f" Error processing {input_path}: {e}")
+        return False
 
-def migrate_file(input_path: Path, output_path: Path = None, in_place: bool = False):
-    """Migrate a single JSON file."""
-    print(f"Migrating: {input_path}")
+def main():
+    """Main entry point"""
+    import argparse
     
-    # Read input
-    with open(input_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    parser = argparse.ArgumentParser(description='Migrate JSON catalogs from v4.x to v5.1')
+    parser.add_argument('input', nargs='?', help='Input JSON file or directory')
+    parser.add_argument('-o', '--output', help='Output file (default: overwrite input)')
+    parser.add_argument('--enemy', action='store_true', help='Treat as enemy catalog')
+    parser.add_argument('--all-enemies', action='store_true', help='Migrate all enemy catalogs')
+    parser.add_argument('--all-items', action='store_true', help='Migrate all item catalogs')
+    parser.add_argument('--dry-run', action='store_true', help='Show what would be migrated')
     
-    # Check version
-    version = data.get('metadata', {}).get('version', 'unknown')
-    if version == '5.1':
-        print(f"  ⚠️ Already v5.1, skipping")
-        return
+    args = parser.parse_args()
     
-    # Migrate
-    migrated = migrate_catalog(data)
+    base_dir = Path('RealmEngine.Data/Data/Json')
     
-    # Write output
-    if in_place:
-        output_path = input_path
-    elif output_path is None:
-        output_path = input_path.parent / f"{input_path.stem}_v5.1{input_path.suffix}"
+    if args.all_enemies:
+        enemy_dirs = ['beasts', 'demons', 'dragons', 'elementals', 'goblinoids', 
+                      'humanoids', 'insects', 'orcs', 'plants', 'reptilians', 
+                      'trolls', 'undead', 'vampires']
+        
+        for enemy_dir in enemy_dirs:
+            catalog_path = base_dir / 'enemies' / enemy_dir / 'catalog.json'
+            if catalog_path.exists():
+                if not args.dry_run:
+                    process_file(catalog_path, is_enemy=True)
+                else:
+                    print(f"Would migrate: {catalog_path}")
+        
+    elif args.all_items:
+        item_paths = [
+            'items/armor/catalog.json',
+            'items/weapons/catalog.json',
+            'items/consumables/catalog.json'
+        ]
+        
+        for item_path in item_paths:
+            full_path = base_dir / item_path
+            if full_path.exists():
+                if not args.dry_run:
+                    process_file(full_path, is_enemy=False)
+                else:
+                    print(f"Would migrate: {full_path}")
     
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(migrated, f, indent=2, ensure_ascii=False)
+    elif args.input:
+        input_path = Path(args.input)
+        output_path = Path(args.output) if args.output else None
+        
+        if not args.dry_run:
+            process_file(input_path, output_path, is_enemy=args.enemy)
+        else:
+            print(f"Would migrate: {input_path} -> {output_path or input_path}")
     
-    print(f"  ✅ Migrated to: {output_path}")
-    print(f"  ⚠️ NOTE: Review stats formulas - placeholders were generated
-    print(f"  ✅ Migrated to: {output_path}")
-
-in_directory(data_path: Path, subdirectory: str, in_place: bool = False):
-    """Migrate all catalog files in a subdirectory."""
-    target_path = data_path / 'RealmEngine.Data' / 'Data' / 'Json' / subdirectory
-    
-    if not target_path.exists():
-        print(f"❌ Directory not found: {target_path}")
-        return
-    
-    catalog_files = list(target_path.glob('**/catalog.json'))
-    print(f"Found {len(catalog_files)} {subdirectory} catalogs to migrate\n")
-    
-    success_count = 0
-    for catalog_file in catalog_files:
-        try:
-            migrate_file(catalog_file, in_place=in_place)
-            success_count += 1
-        except Exception as e:
-            print(f"  ❌ Error: {e}")
-    
-    print(f"\n✅ Successfully migrated {success_count}/{len(catalog_files)} files")
-
-
-def migrate_all_enemies(data_path: Path, in_place: bool = False):
-    """Migrate all enemy catalog files."""
-    migrate_all_in_directory(data_path, 'enemies', in_place)
-script_dir = Path(__file__).parent
-    workspace_root = script_dir.parent
-    in_place = '--in-place' in sys.argv
-    
-    if arg == '--all':
-        print("Migrating all catalog files to v5.1...\n")
-        migrate_all_enemies(workspace_root, in_place)
-        migrate_all_items(workspace_root, in_place)
-        print("\n✅ Migration complete!")
-        print("⚠️ IMPORTANT: Review all stats formulas - placeholders were generated")
-    elif arg == '--enemies':
-        migrate_all_enemies(workspace_root, in_place)
-    elif arg == '--items':
-        migrate_all_items(workspace_root, in_place)
     else:
-        input_path = Path(arg)
-        if not input_path.exists():
-            print(f"❌ File not found: {input_path}")
-            sys.exit(1)
-        
+        parser.print_help()
+        return 1
     
-    if arg == '--all':
-        # Find workspace root
-        script_dir = Path(__file__).parent
-        workspace_root = script_dir.parent
-        
-        in_place = '--in-place' in sys.argv
-        migrate_all_enemies(workspace_root, in_place)
-    else:
-        input_path = Path(arg)
-        if not input_path.exists():
-            print(f"❌ File not found: {input_path}")
-            sys.exit(1)
-        
-        in_place = '--in-place' in sys.argv
-        migrate_file(input_path, in_place=in_place)
-
+    return 0
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
+

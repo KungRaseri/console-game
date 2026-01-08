@@ -64,7 +64,8 @@
             "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules/*:scholar"
+          "schedule": "@social/schedules/*:scholar",
+          "rarity": 22
         },
         {
           "slug": "lorekeeper",
@@ -107,7 +108,8 @@
             "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules/*:scholar"
+          "schedule": "@social/schedules/*:scholar",
+          "rarity": 35
         }
       ]
     },
@@ -161,7 +163,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules/*:healer"
+          "schedule": "@social/schedules/*:healer",
+          "rarity": 25
         },
         {
           "slug": "alchemist",
@@ -204,7 +207,8 @@
             "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "mages_circle",
-          "schedule": "@social/schedules/*:mage"
+          "schedule": "@social/schedules/*:mage",
+          "rarity": 40
         }
       ]
     }
@@ -286,7 +290,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules/*:healer"
+          "schedule": "@social/schedules/*:healer",
+          "rarity": 25
         },
         {
           "slug": "healer",
@@ -350,7 +355,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "clergy",
-          "schedule": "@social/schedules/*:healer"
+          "schedule": "@social/schedules/*:healer",
+          "rarity": 35
         },
         {
           "slug": "herbalist",
@@ -414,7 +420,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules/*:healer"
+          "schedule": "@social/schedules/*:healer",
+          "rarity": 28
         }
       ]
     },
@@ -494,7 +501,8 @@
             "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules/*:scholar"
+          "schedule": "@social/schedules/*:scholar",
+          "rarity": 30
         },
         {
           "slug": "sage",
@@ -561,7 +569,8 @@
             "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules/*:scholar"
+          "schedule": "@social/schedules/*:scholar",
+          "rarity": 50
         },
         {
           "slug": "cartographer",
@@ -624,7 +633,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "scholars_guild",
-          "schedule": "@social/schedules/*:scholar"
+          "schedule": "@social/schedules/*:scholar",
+          "rarity": 40
         }
       ]
     }

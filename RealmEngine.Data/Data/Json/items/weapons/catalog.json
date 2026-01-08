@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Weapon type catalog with base stats and traits",
-    "version": "4.2",
-    "lastUpdated": "2026-01-06",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "item_catalog",
     "totalWeaponTypes": 7,
     "totalWeapons": 69,
@@ -17,657 +17,1385 @@
   },
   "weapon_types": {
     "heavy-blades": {
-      "traits": {
-        "damageType": "slashing",
-        "slot": "mainhand",
-        "category": "melee_one_handed",
+      "properties": {
         "skillReference": {
           "value": "@skills/weapon:heavy-blades",
           "type": "string"
-        }
+        },
+        "damageType": "slashing",
+        "category": "melee_one_handed",
+        "slot": "mainhand"
       },
       "items": [
         {
-          "slug": "longsword",
           "name": "Longsword",
-          "damage": "1d8",
-          "weight": 3.0,
+          "slug": "longsword",
+          "rarity": 75,
           "value": 15,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 3
-        },
-        {
-          "slug": "greatsword",
-          "name": "Greatsword",
-          "damage": "2d6",
-          "weight": 6.0,
-          "value": 50,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 6
-        },
-        {
-          "slug": "katana",
-          "name": "Katana",
-          "damage": "1d10",
           "weight": 3.0,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
+        },
+        {
+          "name": "Greatsword",
+          "slug": "greatsword",
+          "rarity": 50,
+          "value": 50,
+          "weight": 6.0,
+          "budgetCost": 6,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 2,
+            "max": 12,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
+        },
+        {
+          "name": "Katana",
+          "slug": "katana",
+          "rarity": 50,
           "value": 40,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 5
+          "weight": 3.0,
+          "budgetCost": 5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 10,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
         },
         {
-          "slug": "broadsword",
           "name": "Broadsword",
-          "damage": "1d8",
-          "weight": 3.5,
+          "slug": "broadsword",
+          "rarity": 75,
           "value": 18,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 3
+          "weight": 3.5,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "claymore",
           "name": "Claymore",
-          "damage": "2d6",
-          "weight": 7.0,
+          "slug": "claymore",
+          "rarity": 50,
           "value": 60,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 7
+          "weight": 7.0,
+          "budgetCost": 7,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 2,
+            "max": 12,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
         },
         {
-          "slug": "saber",
           "name": "Saber",
-          "damage": "1d8",
-          "weight": 2.5,
+          "slug": "saber",
+          "rarity": 75,
           "value": 20,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 3
+          "weight": 2.5,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 18
         }
       ]
     },
     "light-blades": {
-      "traits": {
-        "damageType": "piercing",
-        "slot": "mainhand",
-        "category": "melee_one_handed",
+      "properties": {
         "skillReference": {
           "value": "@skills/weapon:light-blades",
           "type": "string"
         },
-        "finesse": true
+        "damageType": "piercing",
+        "category": "melee_one_handed",
+        "finesse": true,
+        "slot": "mainhand"
       },
       "items": [
         {
-          "slug": "shortsword",
           "name": "Shortsword",
-          "damage": "1d6",
-          "weight": 2.0,
+          "slug": "shortsword",
+          "rarity": 75,
           "value": 10,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
+          "weight": 2.0,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "scimitar",
           "name": "Scimitar",
-          "damage": "1d6",
+          "slug": "scimitar",
+          "rarity": 75,
+          "value": 15,
           "weight": 3.0,
-          "value": 15,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 3
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 18
         },
         {
-          "slug": "rapier",
           "name": "Rapier",
-          "damage": "1d8",
-          "weight": 2.0,
+          "slug": "rapier",
+          "rarity": 50,
           "value": 25,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 4
-        },
-        {
-          "slug": "gladius",
-          "name": "Gladius",
-          "damage": "1d6",
           "weight": 2.0,
-          "value": 12,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
         },
         {
-          "slug": "dagger",
+          "name": "Gladius",
+          "slug": "gladius",
+          "rarity": 75,
+          "value": 12,
+          "weight": 2.0,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
+        },
+        {
           "name": "Dagger",
-          "damage": "1d4",
-          "weight": 1.0,
+          "slug": "dagger",
+          "rarity": 75,
           "value": 5,
-          "rarity": "common",
-          "selectionWeight": 22,
-          "budgetCost": 2
+          "weight": 1.0,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 22
         },
         {
-          "slug": "dirk",
           "name": "Dirk",
-          "damage": "1d4",
-          "weight": 1.0,
+          "slug": "dirk",
+          "rarity": 75,
           "value": 6,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
-        },
-        {
-          "slug": "stiletto",
-          "name": "Stiletto",
-          "damage": "1d4",
-          "weight": 0.5,
-          "value": 10,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 2
-        },
-        {
-          "slug": "kris",
-          "name": "Kris",
-          "damage": "1d6",
-          "weight": 1.5,
-          "value": 15,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 3
-        },
-        {
-          "slug": "tanto",
-          "name": "Tanto",
-          "damage": "1d4",
-          "weight": 0.8,
-          "value": 12,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 2
-        },
-        {
-          "slug": "kukri",
-          "name": "Kukri",
-          "damage": "1d6",
-          "weight": 1.2,
-          "value": 12,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 3
-        },
-        {
-          "slug": "rondel",
-          "name": "Rondel",
-          "damage": "1d4",
           "weight": 1.0,
-          "value": 8,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "main-gauche",
-          "name": "Main Gauche",
-          "damage": "1d4",
-          "weight": 1.5,
+          "name": "Stiletto",
+          "slug": "stiletto",
+          "rarity": 75,
           "value": 10,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 2
+          "weight": 0.5,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 18
+        },
+        {
+          "name": "Kris",
+          "slug": "kris",
+          "rarity": 50,
+          "value": 15,
+          "weight": 1.5,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
+        },
+        {
+          "name": "Tanto",
+          "slug": "tanto",
+          "rarity": 75,
+          "value": 12,
+          "weight": 0.8,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 18
+        },
+        {
+          "name": "Kukri",
+          "slug": "kukri",
+          "rarity": 75,
+          "value": 12,
+          "weight": 1.2,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 18
+        },
+        {
+          "name": "Rondel",
+          "slug": "rondel",
+          "rarity": 75,
+          "value": 8,
+          "weight": 1.0,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
+        },
+        {
+          "name": "Main Gauche",
+          "slug": "main-gauche",
+          "rarity": 75,
+          "value": 10,
+          "weight": 1.5,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 18
         }
       ]
     },
     "axes": {
-      "traits": {
-        "damageType": "slashing",
-        "slot": "mainhand",
-        "category": "melee_one_handed",
+      "properties": {
         "skillReference": {
           "value": "@skills/weapon:axes",
           "type": "string"
-        }
+        },
+        "damageType": "slashing",
+        "category": "melee_one_handed",
+        "slot": "mainhand"
       },
       "items": [
         {
-          "slug": "battleaxe",
           "name": "Battleaxe",
-          "damage": "1d8",
-          "weight": 4.0,
+          "slug": "battleaxe",
+          "rarity": 75,
           "value": 20,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 4
+          "weight": 4.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "handaxe",
           "name": "Handaxe",
-          "damage": "1d6",
-          "weight": 2.0,
+          "slug": "handaxe",
+          "rarity": 75,
           "value": 10,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
-        },
-        {
-          "slug": "greataxe",
-          "name": "Greataxe",
-          "damage": "1d12",
-          "weight": 7.0,
-          "value": 55,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 8
-        },
-        {
-          "slug": "waraxe",
-          "name": "Waraxe",
-          "damage": "1d10",
-          "weight": 5.0,
-          "value": 30,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 6
-        },
-        {
-          "slug": "hatchet",
-          "name": "Hatchet",
-          "damage": "1d4",
-          "weight": 1.5,
-          "value": 5,
-          "rarity": "common",
-          "selectionWeight": 22,
-          "budgetCost": 2
-        },
-        {
-          "slug": "tomahawk",
-          "name": "Tomahawk",
-          "damage": "1d6",
           "weight": 2.0,
-          "value": 8,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "cleaver",
+          "name": "Greataxe",
+          "slug": "greataxe",
+          "rarity": 50,
+          "value": 55,
+          "weight": 7.0,
+          "budgetCost": 8,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 12,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
+        },
+        {
+          "name": "Waraxe",
+          "slug": "waraxe",
+          "rarity": 50,
+          "value": 30,
+          "weight": 5.0,
+          "budgetCost": 6,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 10,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
+        },
+        {
+          "name": "Hatchet",
+          "slug": "hatchet",
+          "rarity": 75,
+          "value": 5,
+          "weight": 1.5,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 22
+        },
+        {
+          "name": "Tomahawk",
+          "slug": "tomahawk",
+          "rarity": 75,
+          "value": 8,
+          "weight": 2.0,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
+        },
+        {
           "name": "Cleaver",
-          "damage": "1d6",
-          "weight": 2.5,
+          "slug": "cleaver",
+          "rarity": 75,
           "value": 8,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
+          "weight": 2.5,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "poleaxe",
           "name": "Poleaxe",
-          "damage": "1d10",
-          "weight": 6.0,
+          "slug": "poleaxe",
+          "rarity": 50,
           "value": 40,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 7
+          "weight": 6.0,
+          "budgetCost": 7,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 10,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
         }
       ]
     },
     "bows": {
-      "traits": {
-        "damageType": "piercing",
-        "slot": "ranged",
-        "category": "ranged",
+      "properties": {
         "skillReference": {
           "value": "@skills/weapon:bows",
           "type": "string"
         },
-        "requiresAmmo": true
+        "damageType": "piercing",
+        "category": "ranged",
+        "requiresAmmo": true,
+        "slot": "ranged"
       },
       "items": [
         {
-          "slug": "longbow",
           "name": "Longbow",
-          "damage": "1d8",
-          "weight": 2.0,
+          "slug": "longbow",
+          "rarity": 75,
           "value": 30,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 4
-        },
-        {
-          "slug": "shortbow",
-          "name": "Shortbow",
-          "damage": "1d6",
-          "weight": 1.5,
-          "value": 20,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 3
-        },
-        {
-          "slug": "composite-bow",
-          "name": "Composite Bow",
-          "damage": "1d8",
-          "weight": 2.5,
-          "value": 50,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 5
-        },
-        {
-          "slug": "recurve-bow",
-          "name": "Recurve Bow",
-          "damage": "1d8",
           "weight": 2.0,
-          "value": 35,
-          "rarity": "common",
-          "selectionWeight": 15,
-          "budgetCost": 5
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 18
         },
         {
-          "slug": "crossbow",
-          "name": "Crossbow",
-          "damage": "1d10",
-          "weight": 5.0,
-          "value": 50,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 6
-        },
-        {
-          "slug": "heavy-crossbow",
-          "name": "Heavy Crossbow",
-          "damage": "1d12",
-          "weight": 8.0,
-          "value": 75,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 9
-        },
-        {
-          "slug": "warbow",
-          "name": "Warbow",
-          "damage": "2d6",
-          "weight": 3.0,
-          "value": 80,
-          "rarity": "rare",
-          "selectionWeight": 6,
-          "budgetCost": 10
-        },
-        {
-          "slug": "hunting-bow",
-          "name": "Hunting Bow",
-          "damage": "1d6",
+          "name": "Shortbow",
+          "slug": "shortbow",
+          "rarity": 75,
+          "value": 20,
           "weight": 1.5,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
+        },
+        {
+          "name": "Composite Bow",
+          "slug": "composite-bow",
+          "rarity": 50,
+          "value": 50,
+          "weight": 2.5,
+          "budgetCost": 5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
+        },
+        {
+          "name": "Recurve Bow",
+          "slug": "recurve-bow",
+          "rarity": 75,
+          "value": 35,
+          "weight": 2.0,
+          "budgetCost": 5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 15
+        },
+        {
+          "name": "Crossbow",
+          "slug": "crossbow",
+          "rarity": 50,
+          "value": 50,
+          "weight": 5.0,
+          "budgetCost": 6,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 10,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
+        },
+        {
+          "name": "Heavy Crossbow",
+          "slug": "heavy-crossbow",
+          "rarity": 50,
+          "value": 75,
+          "weight": 8.0,
+          "budgetCost": 9,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 12,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
+        },
+        {
+          "name": "Warbow",
+          "slug": "warbow",
+          "rarity": 25,
+          "value": 80,
+          "weight": 3.0,
+          "budgetCost": 10,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 2,
+            "max": 12,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 6
+        },
+        {
+          "name": "Hunting Bow",
+          "slug": "hunting-bow",
+          "rarity": 75,
           "value": 15,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 3
+          "weight": 1.5,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         }
       ]
     },
     "polearms": {
-      "traits": {
-        "damageType": "piercing",
-        "slot": "mainhand",
-        "category": "melee_two_handed",
+      "properties": {
+        "reach": true,
         "skillReference": {
           "value": "@skills/weapon:polearms",
           "type": "string"
         },
-        "reach": true
+        "damageType": "piercing",
+        "category": "melee_two_handed",
+        "slot": "mainhand"
       },
       "items": [
         {
-          "slug": "spear",
           "name": "Spear",
-          "damage": "1d6",
-          "weight": 3.0,
+          "slug": "spear",
+          "rarity": 75,
           "value": 10,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 3
+          "weight": 3.0,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "lance",
           "name": "Lance",
-          "damage": "1d12",
-          "weight": 6.0,
+          "slug": "lance",
+          "rarity": 50,
           "value": 40,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 8
+          "weight": 6.0,
+          "budgetCost": 8,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 12,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
         },
         {
-          "slug": "javelin",
           "name": "Javelin",
-          "damage": "1d6",
-          "weight": 2.0,
+          "slug": "javelin",
+          "rarity": 75,
           "value": 8,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 2
+          "weight": 2.0,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "pike",
           "name": "Pike",
-          "damage": "1d10",
+          "slug": "pike",
+          "rarity": 75,
+          "value": 30,
           "weight": 8.0,
-          "value": 30,
-          "rarity": "common",
-          "selectionWeight": 16,
-          "budgetCost": 6
+          "budgetCost": 6,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 10,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 16
         },
         {
-          "slug": "halberd",
           "name": "Halberd",
-          "damage": "1d10",
-          "weight": 6.0,
+          "slug": "halberd",
+          "rarity": 50,
           "value": 35,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 6
-        },
-        {
-          "slug": "trident",
-          "name": "Trident",
-          "damage": "1d8",
-          "weight": 4.0,
-          "value": 25,
-          "rarity": "common",
-          "selectionWeight": 16,
-          "budgetCost": 4
-        },
-        {
-          "slug": "partisan",
-          "name": "Partisan",
-          "damage": "1d8",
-          "weight": 5.0,
-          "value": 30,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 5
-        },
-        {
-          "slug": "glaive",
-          "name": "Glaive",
-          "damage": "1d10",
           "weight": 6.0,
+          "budgetCost": 6,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 10,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
+        },
+        {
+          "name": "Trident",
+          "slug": "trident",
+          "rarity": 75,
+          "value": 25,
+          "weight": 4.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 16
+        },
+        {
+          "name": "Partisan",
+          "slug": "partisan",
+          "rarity": 50,
+          "value": 30,
+          "weight": 5.0,
+          "budgetCost": 5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
+        },
+        {
+          "name": "Glaive",
+          "slug": "glaive",
+          "rarity": 50,
           "value": 40,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 7
+          "weight": 6.0,
+          "budgetCost": 7,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 10,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
         }
       ]
     },
     "blunt": {
-      "traits": {
-        "damageType": "bludgeoning",
-        "slot": "mainhand",
-        "category": "melee_one_handed",
+      "properties": {
         "skillReference": {
           "value": "@skills/weapon:blunt",
           "type": "string"
-        }
+        },
+        "damageType": "bludgeoning",
+        "category": "melee_one_handed",
+        "slot": "mainhand"
       },
       "items": [
         {
-          "slug": "mace",
           "name": "Mace",
-          "damage": "1d6",
-          "weight": 4.0,
+          "slug": "mace",
+          "rarity": 75,
           "value": 12,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 3
+          "weight": 4.0,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "warhammer",
           "name": "Warhammer",
-          "damage": "1d8",
-          "weight": 5.0,
+          "slug": "warhammer",
+          "rarity": 75,
           "value": 20,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 4
-        },
-        {
-          "slug": "flail",
-          "name": "Flail",
-          "damage": "1d8",
           "weight": 5.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 18
+        },
+        {
+          "name": "Flail",
+          "slug": "flail",
+          "rarity": 75,
           "value": 18,
-          "rarity": "common",
-          "selectionWeight": 18,
-          "budgetCost": 4
+          "weight": 5.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 18
         },
         {
-          "slug": "morning-star",
           "name": "Morning Star",
-          "damage": "1d8",
-          "weight": 6.0,
+          "slug": "morning-star",
+          "rarity": 50,
           "value": 25,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 4
+          "weight": 6.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
         },
         {
-          "slug": "club",
           "name": "Club",
-          "damage": "1d4",
-          "weight": 2.0,
+          "slug": "club",
+          "rarity": 75,
           "value": 2,
-          "rarity": "common",
-          "selectionWeight": 25,
-          "budgetCost": 2
-        },
-        {
-          "slug": "maul",
-          "name": "Maul",
-          "damage": "2d6",
-          "weight": 10.0,
-          "value": 45,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 7
-        },
-        {
-          "slug": "cudgel",
-          "name": "Cudgel",
-          "damage": "1d4",
-          "weight": 2.5,
-          "value": 3,
-          "rarity": "common",
-          "selectionWeight": 25,
-          "budgetCost": 2
-        },
-        {
-          "slug": "scepter",
-          "name": "Scepter",
-          "damage": "1d6",
           "weight": 2.0,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 25
+        },
+        {
+          "name": "Maul",
+          "slug": "maul",
+          "rarity": 50,
+          "value": 45,
+          "weight": 10.0,
+          "budgetCost": 7,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 2,
+            "max": 12,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
+        },
+        {
+          "name": "Cudgel",
+          "slug": "cudgel",
+          "rarity": 75,
+          "value": 3,
+          "weight": 2.5,
+          "budgetCost": 2,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 25
+        },
+        {
+          "name": "Scepter",
+          "slug": "scepter",
+          "rarity": 50,
           "value": 15,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 3
+          "weight": 2.0,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
         }
       ]
     },
     "staves": {
-      "traits": {
-        "damageType": "bludgeoning",
-        "slot": "mainhand",
-        "category": "melee_two_handed",
+      "properties": {
         "skillReference": {
           "value": "@skills/weapon:blunt",
           "type": "string"
         },
-        "magicFocus": true
+        "damageType": "bludgeoning",
+        "category": "melee_two_handed",
+        "magicFocus": true,
+        "slot": "mainhand"
       },
       "items": [
         {
-          "slug": "staff",
           "name": "Staff",
-          "damage": "1d6",
-          "weight": 4.0,
+          "slug": "staff",
+          "rarity": 75,
           "value": 10,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 3
-        },
-        {
-          "slug": "quarterstaff",
-          "name": "Quarterstaff",
-          "damage": "1d8",
           "weight": 4.0,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
+        },
+        {
+          "name": "Quarterstaff",
+          "slug": "quarterstaff",
+          "rarity": 75,
           "value": 8,
-          "rarity": "common",
-          "selectionWeight": 20,
-          "budgetCost": 3
+          "weight": 4.0,
+          "budgetCost": 3,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 20
         },
         {
-          "slug": "war-staff",
           "name": "War Staff",
-          "damage": "1d8",
-          "weight": 5.0,
+          "slug": "war-staff",
+          "rarity": 50,
           "value": 25,
-          "rarity": "uncommon",
-          "selectionWeight": 12,
-          "budgetCost": 4
+          "weight": 5.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 8,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 12
         },
         {
-          "slug": "battle-staff",
           "name": "Battle Staff",
-          "damage": "1d10",
-          "weight": 6.0,
+          "slug": "battle-staff",
+          "rarity": 50,
           "value": 35,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 6
+          "weight": 6.0,
+          "budgetCost": 6,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 10,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
         },
         {
-          "slug": "rod",
           "name": "Rod",
-          "damage": "1d4",
-          "weight": 2.0,
+          "slug": "rod",
+          "rarity": 50,
           "value": 20,
-          "rarity": "uncommon",
-          "selectionWeight": 10,
-          "budgetCost": 4
+          "weight": 2.0,
+          "budgetCost": 4,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 4,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 10
         },
         {
-          "slug": "scepter-staff",
           "name": "Scepter Staff",
-          "damage": "1d6",
-          "weight": 3.0,
+          "slug": "scepter-staff",
+          "rarity": 50,
           "value": 30,
-          "rarity": "uncommon",
-          "selectionWeight": 8,
-          "budgetCost": 5
+          "weight": 3.0,
+          "budgetCost": 5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "damage": {
+            "min": 1,
+            "max": 6,
+            "modifier": "wielder.strength_mod"
+          },
+          "traits": {},
+          "rarityWeight": 8
         }
       ]
     }

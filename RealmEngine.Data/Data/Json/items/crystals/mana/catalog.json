@@ -1,18 +1,26 @@
 {
   "metadata": {
     "description": "Mana crystals providing mana-related bonuses",
-    "version": "4.0",
-    "lastUpdated": "2026-01-04",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "crystal_catalog"
   },
   "crystal_types": {
     "mana": {
       "items": [
         {
-          "slug": "mana-crystal",
           "name": "mana-crystal",
+          "rarity": 90,
           "rarityWeight": 60,
-          "category": "mana",
+          "slug": "mana-crystal",
+          "attributes": {
+            "intelligence": 8,
+            "dexterity": 10,
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "charisma": 8
+          },
           "traits": {
             "maxMana": {
               "value": 30,
@@ -25,10 +33,18 @@
           }
         },
         {
-          "slug": "pure-mana-crystal",
           "name": "pure-mana-crystal",
+          "rarity": 90,
           "rarityWeight": 35,
-          "category": "mana",
+          "slug": "pure-mana-crystal",
+          "attributes": {
+            "intelligence": 8,
+            "dexterity": 10,
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "charisma": 8
+          },
           "traits": {
             "maxMana": {
               "value": 50,
@@ -45,10 +61,18 @@
           }
         },
         {
-          "slug": "arcane-crystal",
           "name": "arcane-crystal",
+          "rarity": 90,
           "rarityWeight": 45,
-          "category": "mana",
+          "slug": "arcane-crystal",
+          "attributes": {
+            "intelligence": 8,
+            "dexterity": 10,
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "charisma": 8
+          },
           "traits": {
             "maxMana": {
               "value": 40,

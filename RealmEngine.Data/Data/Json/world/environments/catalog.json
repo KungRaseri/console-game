@@ -26,7 +26,8 @@
             "@items/materials:*"
           ],
           "travelDifficulty": "Easy",
-          "visibility": "Medium"
+          "visibility": "Medium",
+          "rarity": 10
         },
         {
           "slug": "grassland",
@@ -46,7 +47,8 @@
             "@items/consumables:*"
           ],
           "travelDifficulty": "Easy",
-          "visibility": "High"
+          "visibility": "High",
+          "rarity": 8
         },
         {
           "slug": "desert",
@@ -70,7 +72,8 @@
           "hazards": [
             "dehydration",
             "heat_exhaustion"
-          ]
+          ],
+          "rarity": 15
         },
         {
           "slug": "mountain",
@@ -94,7 +97,8 @@
           "hazards": [
             "falling_rocks",
             "altitude_sickness"
-          ]
+          ],
+          "rarity": 18
         },
         {
           "slug": "swamp",
@@ -119,7 +123,8 @@
             "disease",
             "quicksand",
             "poison_gas"
-          ]
+          ],
+          "rarity": 20
         },
         {
           "slug": "tundra",
@@ -144,7 +149,8 @@
             "frostbite",
             "hypothermia",
             "blizzards"
-          ]
+          ],
+          "rarity": 22
         },
         {
           "slug": "jungle",
@@ -169,7 +175,8 @@
             "disease",
             "venomous_creatures",
             "dense_undergrowth"
-          ]
+          ],
+          "rarity": 25
         },
         {
           "slug": "volcanic",
@@ -194,7 +201,8 @@
             "lava_flows",
             "toxic_fumes",
             "extreme_heat"
-          ]
+          ],
+          "rarity": 35
         }
       ]
     }
@@ -214,7 +222,8 @@
             "movement": 1.0,
             "combat": 1.0
           },
-          "duration": "Variable"
+          "duration": "Variable",
+          "rarity": 10
         },
         {
           "slug": "cloudy",
@@ -228,7 +237,8 @@
             "movement": 1.0,
             "combat": 1.0
           },
-          "duration": "1-6 hours"
+          "duration": "1-6 hours",
+          "rarity": 15
         },
         {
           "slug": "light-rain",
@@ -242,7 +252,8 @@
             "movement": 0.95,
             "combat": 0.95
           },
-          "duration": "2-8 hours"
+          "duration": "2-8 hours",
+          "rarity": 18
         },
         {
           "slug": "heavy-rain",
@@ -257,7 +268,8 @@
             "combat": 0.8,
             "ranged_penalty": -2
           },
-          "duration": "1-4 hours"
+          "duration": "1-4 hours",
+          "rarity": 25
         },
         {
           "slug": "thunderstorm",
@@ -276,7 +288,8 @@
           "duration": "30-90 minutes",
           "hazards": [
             "lightning_strikes"
-          ]
+          ],
+          "rarity": 30
         },
         {
           "slug": "fog",
@@ -291,7 +304,8 @@
             "combat": 0.6,
             "ranged_penalty": -5
           },
-          "duration": "2-12 hours"
+          "duration": "2-12 hours",
+          "rarity": 20
         },
         {
           "slug": "snow",
@@ -306,7 +320,8 @@
             "combat": 0.85
           },
           "duration": "3-12 hours",
-          "temperatureRequired": "Cold"
+          "temperatureRequired": "Cold",
+          "rarity": 22
         },
         {
           "slug": "blizzard",
@@ -328,7 +343,8 @@
             "frostbite",
             "hypothermia",
             "disorientation"
-          ]
+          ],
+          "rarity": 40
         },
         {
           "slug": "sandstorm",
@@ -348,7 +364,8 @@
           "hazards": [
             "disorientation",
             "sand_damage"
-          ]
+          ],
+          "rarity": 35
         }
       ]
     }
@@ -372,7 +389,8 @@
             "trapped": true,
             "escape_difficulty": "Hard",
             "damage": "None (Drowning risk)"
-          }
+          },
+          "rarity": 25
         },
         {
           "slug": "lava-flows",
@@ -388,7 +406,8 @@
           "effects": {
             "damage": "10d10 fire",
             "instant_death": true
-          }
+          },
+          "rarity": 45
         },
         {
           "slug": "thin-ice",
@@ -406,7 +425,8 @@
             "fall_through": true,
             "cold_damage": "2d6 per round",
             "hypothermia_risk": true
-          }
+          },
+          "rarity": 30
         },
         {
           "slug": "poison-gas",
@@ -424,7 +444,8 @@
             "damage": "1d6 poison per round",
             "constitution_save": "DC 15",
             "disease_risk": true
-          }
+          },
+          "rarity": 35
         },
         {
           "slug": "rockslide",
@@ -442,7 +463,8 @@
             "damage": "4d10 bludgeoning",
             "dexterity_save": "DC 15",
             "area_effect": true
-          }
+          },
+          "rarity": 28
         },
         {
           "slug": "dense-undergrowth",
@@ -460,7 +482,8 @@
             "movement": 0.5,
             "stealth_bonus": 2,
             "visibility": 0.6
-          }
+          },
+          "rarity": 15
         },
         {
           "slug": "cursed-ground",
@@ -478,7 +501,8 @@
             "necrotic_damage": "1d6 per hour",
             "healing_reduction": 0.5,
             "undead_attraction": true
-          }
+          },
+          "rarity": 50
         }
       ]
     }

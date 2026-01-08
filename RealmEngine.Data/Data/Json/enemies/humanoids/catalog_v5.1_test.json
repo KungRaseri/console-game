@@ -16,66 +16,70 @@
   "humanoid_types": {
     "bandits": {
       "properties": {
-        "size": "medium",
+        "behavior": "opportunistic",
         "category": "humanoid",
-        "behavior": "opportunistic"
+        "size": "medium"
       },
       "items": [
         {
           "level": 3,
           "slug": "bandit",
-          "name": "Bandit",
-          "rarityWeight": 5,
           "xp": 50,
+          "rarityWeight": 5,
+          "name": "Bandit",
           "rarity": 15,
           "attributes": {
+            "charisma": 8,
             "constitution": 10,
-            "wisdom": 8,
-            "strength": 10,
             "dexterity": 10,
+            "strength": 10,
             "intelligence": 8,
-            "charisma": 8
+            "wisdom": 8
           },
           "stats": {
-            "attack": "strength_mod + level + 8",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 35",
             "defense": "10 + dexterity_mod + constitution_mod + 5",
-            "health": "constitution_mod * 2 + level * 5 + 35"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 8"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*"
+            ],
             "abilityUnlocks": {
               "5": [
                 "@abilities/active/offensive:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 4,
           "slug": "thug",
-          "name": "Thug",
-          "rarityWeight": 6,
           "xp": 60,
+          "rarityWeight": 6,
+          "name": "Thug",
           "rarity": 30,
           "attributes": {
+            "charisma": 8,
             "constitution": 10,
-            "wisdom": 8,
-            "strength": 10,
             "dexterity": 10,
+            "strength": 10,
             "intelligence": 8,
-            "charisma": 8
+            "wisdom": 8
           },
           "stats": {
-            "attack": "strength_mod + level + 9",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 40",
             "defense": "10 + dexterity_mod + constitution_mod + 6",
-            "health": "constitution_mod * 2 + level * 5 + 40"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 9"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*"
+            ],
             "abilityUnlocks": {
               "6": [
                 "@abilities/active/support:*"
@@ -83,36 +87,36 @@
               "8": [
                 "@abilities/active/offensive:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 5,
           "slug": "brigand",
-          "name": "Brigand",
-          "rarityWeight": 8,
           "xp": 75,
+          "rarityWeight": 8,
+          "name": "Brigand",
           "rarity": 30,
           "attributes": {
+            "charisma": 8,
             "constitution": 10,
-            "wisdom": 8,
-            "strength": 10,
             "dexterity": 10,
+            "strength": 10,
             "intelligence": 8,
-            "charisma": 8
+            "wisdom": 8
           },
           "stats": {
-            "attack": "strength_mod + level + 10",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 45",
             "defense": "10 + dexterity_mod + constitution_mod + 7",
-            "health": "constitution_mod * 2 + level * 5 + 45"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 10"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*"
+            ],
             "abilityUnlocks": {
               "7": [
                 "@abilities/active/utility:*"
@@ -120,36 +124,37 @@
               "10": [
                 "@abilities/active/offensive:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 6,
           "slug": "highwayman",
-          "name": "Highwayman",
-          "rarityWeight": 10,
           "xp": 90,
+          "rarityWeight": 10,
+          "name": "Highwayman",
           "rarity": 30,
           "attributes": {
+            "charisma": 8,
             "constitution": 10,
-            "wisdom": 8,
-            "strength": 10,
             "dexterity": 10,
+            "strength": 10,
             "intelligence": 8,
-            "charisma": 8
+            "wisdom": 8
           },
           "stats": {
-            "attack": "strength_mod + level + 11",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 50",
             "defense": "10 + dexterity_mod + constitution_mod + 8",
-            "health": "constitution_mod * 2 + level * 5 + 50"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 11"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/utility:*"
+            ],
             "abilityUnlocks": {
               "8": [
                 "@abilities/active/mobility:*"
@@ -157,12 +162,7 @@
               "12": [
                 "@abilities/active/offensive:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*",
-              "@abilities/active/utility:*"
-            ]
+            }
           },
           "traits": {}
         }
@@ -170,33 +170,37 @@
     },
     "soldiers": {
       "properties": {
-        "size": "medium",
+        "behavior": "disciplined",
         "category": "humanoid",
-        "behavior": "disciplined"
+        "size": "medium"
       },
       "items": [
         {
           "level": 6,
           "slug": "warrior",
-          "name": "Warrior",
-          "rarityWeight": 10,
           "xp": 100,
+          "rarityWeight": 10,
+          "name": "Warrior",
           "rarity": 30,
           "attributes": {
+            "charisma": 10,
             "constitution": 13,
-            "wisdom": 12,
-            "strength": 13,
             "dexterity": 12,
+            "strength": 13,
             "intelligence": 10,
-            "charisma": 10
+            "wisdom": 12
           },
           "stats": {
-            "attack": "strength_mod + level + 12",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 55",
             "defense": "10 + dexterity_mod + constitution_mod + 10",
-            "health": "constitution_mod * 2 + level * 5 + 55"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 12"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/defensive:*"
+            ],
             "abilityUnlocks": {
               "8": [
                 "@abilities/active/offensive:*"
@@ -207,36 +211,37 @@
               "12": [
                 "@abilities/active/offensive:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/defensive:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 7,
           "slug": "mercenary",
-          "name": "Mercenary",
-          "rarityWeight": 12,
           "xp": 120,
+          "rarityWeight": 12,
+          "name": "Mercenary",
           "rarity": 50,
           "attributes": {
+            "charisma": 10,
             "constitution": 14,
-            "wisdom": 11,
-            "strength": 14,
             "dexterity": 13,
+            "strength": 14,
             "intelligence": 10,
-            "charisma": 10
+            "wisdom": 11
           },
           "stats": {
-            "attack": "strength_mod + level + 13",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 60",
             "defense": "10 + dexterity_mod + constitution_mod + 11",
-            "health": "constitution_mod * 2 + level * 5 + 60"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 13"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/defensive:*"
+            ],
             "abilityUnlocks": {
               "9": [
                 "@abilities/active/support:*"
@@ -247,37 +252,37 @@
               "15": [
                 "@abilities/active/defensive:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*",
-              "@abilities/active/defensive:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 9,
           "slug": "captain",
-          "name": "Captain",
-          "rarityWeight": 20,
           "xp": 200,
+          "rarityWeight": 20,
+          "name": "Captain",
           "rarity": 70,
           "attributes": {
+            "charisma": 16,
             "constitution": 15,
-            "wisdom": 14,
-            "strength": 14,
             "dexterity": 12,
+            "strength": 14,
             "intelligence": 13,
-            "charisma": 16
+            "wisdom": 14
           },
           "stats": {
-            "attack": "strength_mod + level + 16",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 80",
             "defense": "10 + dexterity_mod + constitution_mod + 14",
-            "health": "constitution_mod * 2 + level * 5 + 80"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 16"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
+            ],
             "abilityUnlocks": {
               "12": [
                 "@abilities/active/offensive:*"
@@ -288,37 +293,38 @@
               "18": [
                 "@abilities/passive:weapon-mastery"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*",
-              "@abilities/active/support:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 11,
           "slug": "champion",
-          "name": "Champion",
-          "rarityWeight": 30,
           "xp": 300,
+          "rarityWeight": 30,
+          "name": "Champion",
           "rarity": 90,
           "attributes": {
+            "charisma": 18,
             "constitution": 16,
-            "wisdom": 14,
-            "strength": 16,
             "dexterity": 14,
+            "strength": 16,
             "intelligence": 14,
-            "charisma": 18
+            "wisdom": 14
           },
           "stats": {
-            "attack": "strength_mod + level + 18",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 100",
             "defense": "10 + dexterity_mod + constitution_mod + 16",
-            "health": "constitution_mod * 2 + level * 5 + 100"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 18"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
+            ],
             "abilityUnlocks": {
               "15": [
                 "@abilities/active/offensive:*"
@@ -332,13 +338,7 @@
               "25": [
                 "@abilities/ultimate:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*",
-              "@abilities/active/support:*"
-            ]
+            }
           },
           "traits": {}
         }
@@ -346,33 +346,38 @@
     },
     "specialists": {
       "properties": {
-        "size": "medium",
+        "behavior": "tactical",
         "category": "humanoid",
-        "behavior": "tactical"
+        "size": "medium"
       },
       "items": [
         {
           "level": 8,
           "slug": "assassin",
-          "name": "Assassin",
-          "rarityWeight": 22,
           "xp": 180,
+          "rarityWeight": 22,
+          "name": "Assassin",
           "rarity": 90,
           "attributes": {
+            "charisma": 10,
             "constitution": 13,
-            "wisdom": 14,
-            "strength": 12,
             "dexterity": 18,
+            "strength": 12,
             "intelligence": 13,
-            "charisma": 10
+            "wisdom": 14
           },
           "stats": {
-            "attack": "strength_mod + level + 15",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 50",
             "defense": "10 + dexterity_mod + constitution_mod + 8",
-            "health": "constitution_mod * 2 + level * 5 + 50"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 15"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/mobility:*"
+            ],
             "abilityUnlocks": {
               "10": [
                 "@abilities/active/offensive:*"
@@ -386,37 +391,36 @@
               "18": [
                 "@abilities/ultimate:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*",
-              "@abilities/active/mobility:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 7,
           "slug": "archer",
-          "name": "Archer",
-          "rarityWeight": 15,
           "xp": 140,
+          "rarityWeight": 15,
+          "name": "Archer",
           "rarity": 50,
           "attributes": {
+            "charisma": 10,
             "constitution": 12,
-            "wisdom": 15,
-            "strength": 11,
             "dexterity": 17,
+            "strength": 11,
             "intelligence": 11,
-            "charisma": 10
+            "wisdom": 15
           },
           "stats": {
-            "attack": "strength_mod + level + 14",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 45",
             "defense": "10 + dexterity_mod + constitution_mod + 7",
-            "health": "constitution_mod * 2 + level * 5 + 45"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 14"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/utility:*"
+            ],
             "abilityUnlocks": {
               "10": [
                 "@abilities/active/offensive:*"
@@ -427,36 +431,36 @@
               "15": [
                 "@abilities/active/offensive:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/utility:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 8,
           "slug": "mage",
-          "name": "Mage",
-          "rarityWeight": 25,
           "xp": 200,
+          "rarityWeight": 25,
+          "name": "Mage",
           "rarity": 90,
           "attributes": {
+            "charisma": 11,
             "constitution": 11,
-            "wisdom": 13,
-            "strength": 8,
             "dexterity": 13,
+            "strength": 8,
             "intelligence": 18,
-            "charisma": 11
+            "wisdom": 13
           },
           "stats": {
-            "attack": "strength_mod + level + 16",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 40",
             "defense": "10 + dexterity_mod + constitution_mod + 6",
-            "health": "constitution_mod * 2 + level * 5 + 40"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 16"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*"
+            ],
             "abilityUnlocks": {
               "10": [
                 "@abilities/active/offensive:*"
@@ -473,36 +477,37 @@
               "20": [
                 "@abilities/ultimate:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 9,
           "slug": "berserker",
-          "name": "Berserker",
-          "rarityWeight": 24,
           "xp": 220,
+          "rarityWeight": 24,
+          "name": "Berserker",
           "rarity": 90,
           "attributes": {
+            "charisma": 8,
             "constitution": 17,
-            "wisdom": 10,
-            "strength": 18,
             "dexterity": 14,
+            "strength": 18,
             "intelligence": 8,
-            "charisma": 8
+            "wisdom": 10
           },
           "stats": {
-            "attack": "strength_mod + level + 17",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 70",
             "defense": "10 + dexterity_mod + constitution_mod + 9",
-            "health": "constitution_mod * 2 + level * 5 + 70"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 17"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/offensive:*"
+            ],
             "abilityUnlocks": {
               "12": [
                 "@abilities/active/support:*"
@@ -516,12 +521,7 @@
               "20": [
                 "@abilities/ultimate:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/support:*",
-              "@abilities/active/offensive:*"
-            ]
+            }
           },
           "traits": {}
         }
@@ -529,33 +529,37 @@
     },
     "cultists": {
       "properties": {
-        "size": "medium",
+        "behavior": "fanatical",
         "category": "humanoid",
-        "behavior": "fanatical"
+        "size": "medium"
       },
       "items": [
         {
           "level": 4,
           "slug": "cultist",
-          "name": "Cultist",
-          "rarityWeight": 8,
           "xp": 65,
+          "rarityWeight": 8,
+          "name": "Cultist",
           "rarity": 30,
           "attributes": {
+            "charisma": 11,
             "constitution": 11,
-            "wisdom": 12,
-            "strength": 9,
             "dexterity": 11,
+            "strength": 9,
             "intelligence": 15,
-            "charisma": 11
+            "wisdom": 12
           },
           "stats": {
-            "attack": "strength_mod + level + 9",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 38",
             "defense": "10 + dexterity_mod + constitution_mod + 5",
-            "health": "constitution_mod * 2 + level * 5 + 38"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 9"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*"
+            ],
             "abilityUnlocks": {
               "6": [
                 "@abilities/active/offensive:*"
@@ -563,36 +567,37 @@
               "8": [
                 "@abilities/active/summon:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*"
-            ]
+            }
           },
           "traits": {}
         },
         {
           "level": 6,
           "slug": "zealot",
-          "name": "Zealot",
-          "rarityWeight": 14,
           "xp": 110,
+          "rarityWeight": 14,
+          "name": "Zealot",
           "rarity": 50,
           "attributes": {
+            "charisma": 13,
             "constitution": 14,
-            "wisdom": 16,
-            "strength": 13,
             "dexterity": 11,
+            "strength": 13,
             "intelligence": 12,
-            "charisma": 13
+            "wisdom": 16
           },
           "stats": {
-            "attack": "strength_mod + level + 12",
-            "speed": "30 + dexterity_mod * 5",
+            "health": "constitution_mod * 2 + level * 5 + 50",
             "defense": "10 + dexterity_mod + constitution_mod + 7",
-            "health": "constitution_mod * 2 + level * 5 + 50"
+            "speed": "30 + dexterity_mod * 5",
+            "attack": "strength_mod + level + 12"
           },
           "combat": {
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
+            ],
             "abilityUnlocks": {
               "8": [
                 "@abilities/active/defensive:*"
@@ -603,12 +608,7 @@
               "12": [
                 "@abilities/active/support:*"
               ]
-            },
-            "abilities": [
-              "@abilities/active/offensive:*",
-              "@abilities/active/offensive:*",
-              "@abilities/active/support:*"
-            ]
+            }
           },
           "traits": {}
         }

@@ -54,7 +54,8 @@
           "uniqueItems": [
             "Apprentice Badge"
           ],
-          "dialogueStyle": "@social/dialogue/styles/casual:professional"
+          "dialogueStyle": "@social/dialogue/styles/casual:professional",
+          "rarity": 10
         },
         {
           "slug": "smithapprentice",
@@ -89,7 +90,8 @@
             "Master's Hammer",
             "Forge-worn Apron"
           ],
-          "dialogueStyle": "@social/dialogue/styles/casual:friendly"
+          "dialogueStyle": "@social/dialogue/styles/casual:friendly",
+          "rarity": 20
         }
       ]
     }
@@ -178,7 +180,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/simple:simple"
-          ]
+          ],
+          "rarity": 20
         },
         {
           "slug": "weaponsmith",
@@ -244,7 +247,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/simple:simple"
-          ]
+          ],
+          "rarity": 30
         },
         {
           "slug": "armorer",
@@ -311,7 +315,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/simple:simple"
-          ]
+          ],
+          "rarity": 30
         },
         {
           "slug": "fletcher",
@@ -379,7 +384,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/simple:simple"
-          ]
+          ],
+          "rarity": 22
         },
         {
           "slug": "leatherworker",
@@ -442,7 +448,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/simple:simple"
-          ]
+          ],
+          "rarity": 20
         },
         {
           "slug": "jeweler",
@@ -507,7 +514,8 @@
           ],
           "farewells": [
             "@social/dialogue/farewells/merchant:merchant"
-          ]
+          ],
+          "rarity": 45
         }
       ]
     }

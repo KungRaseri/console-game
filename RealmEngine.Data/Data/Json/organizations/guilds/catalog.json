@@ -75,7 +75,8 @@
           ],
           "allies": [
             "merchants_guild"
-          ]
+          ],
+          "rarity": 10
         }
       ]
     }
@@ -148,7 +149,8 @@
           "rivals": [],
           "allies": [
             "scholars_guild"
-          ]
+          ],
+          "rarity": 15
         }
       ]
     }
@@ -224,7 +226,8 @@
           "allies": [
             "fighters_guild",
             "craftsmen_guild"
-          ]
+          ],
+          "rarity": 8
         }
       ]
     }
@@ -297,7 +300,8 @@
           "rivals": [],
           "allies": [
             "merchants_guild"
-          ]
+          ],
+          "rarity": 12
         }
       ]
     }
@@ -373,7 +377,8 @@
             "fighters_guild",
             "merchants_guild"
           ],
-          "allies": []
+          "allies": [],
+          "rarity": 20
         },
         {
           "slug": "assassins-guild",
@@ -443,7 +448,8 @@
             "fighters_guild",
             "clergy"
           ],
-          "allies": []
+          "allies": [],
+          "rarity": 35
         }
       ]
     }

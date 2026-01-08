@@ -1,18 +1,26 @@
 {
   "metadata": {
     "description": "Offensive runes providing attack modifiers",
-    "version": "4.0",
-    "lastUpdated": "2026-01-04",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "rune_catalog"
   },
   "rune_types": {
     "offensive": {
       "items": [
         {
+          "rarity": 90,
           "slug": "fury-rune",
           "name": "fury-rune",
           "rarityWeight": 50,
-          "category": "offensive",
+          "attributes": {
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8,
+            "constitution": 10,
+            "strength": 10,
+            "wisdom": 8
+          },
           "traits": {
             "attackPower": {
               "value": 15,
@@ -25,10 +33,18 @@
           }
         },
         {
+          "rarity": 90,
           "slug": "piercing-rune",
           "name": "piercing-rune",
           "rarityWeight": 45,
-          "category": "offensive",
+          "attributes": {
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8,
+            "constitution": 10,
+            "strength": 10,
+            "wisdom": 8
+          },
           "traits": {
             "armorPenetration": {
               "value": 20,
@@ -41,10 +57,18 @@
           }
         },
         {
+          "rarity": 90,
           "slug": "devastation-rune",
           "name": "devastation-rune",
           "rarityWeight": 30,
-          "category": "offensive",
+          "attributes": {
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8,
+            "constitution": 10,
+            "strength": 10,
+            "wisdom": 8
+          },
           "traits": {
             "critDamage": {
               "value": 25,

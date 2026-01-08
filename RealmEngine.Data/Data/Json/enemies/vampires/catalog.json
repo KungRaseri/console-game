@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Vampire enemy type catalog with base stats and rarityWeight values",
-    "version": "4.0",
-    "lastUpdated": "2025-12-28",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "item_catalog",
     "total_types": 11,
     "categories": [
@@ -15,364 +15,428 @@
   },
   "vampire_types": {
     "lesser_vampires": {
-      "traits": {
-        "category": "vampire",
+      "properties": {
         "size": "medium",
-        "intelligence": 14,
-        "social": "aristocratic",
-        "behavior": "predatory",
+        "category": "vampire",
         "damageType": "physical",
-        "undead": true,
-        "vulnerability": "radiant",
-        "regeneration": true
+        "behavior": "predatory"
       },
       "items": [
         {
+          "level": 6,
           "slug": "vampire-spawn",
           "name": "Vampire Spawn",
-          "strength": 14,
-          "dexterity": 16,
-          "constitution": 14,
-          "intelligence": 14,
-          "wisdom": 12,
-          "charisma": 15,
-          "health": 80,
-          "attack": 22,
-          "defense": 10,
-          "speed": 7,
-          "level": 6,
-          "xp": 100,
           "rarityWeight": 15,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "8": [
-              "@abilities/active/offensive:*"
-            ]
-          }
-        },
-        {
-          "slug": "thrall",
-          "name": "Thrall",
-          "strength": 13,
-          "dexterity": 14,
-          "constitution": 13,
-          "intelligence": 10,
-          "wisdom": 10,
-          "charisma": 12,
-          "health": 65,
-          "attack": 18,
-          "defense": 8,
-          "speed": 6,
-          "level": 5,
-          "xp": 75,
-          "rarityWeight": 10,
-          "abilities": [
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "7": [
+          "xp": 100,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 14,
+            "wisdom": 12,
+            "strength": 14,
+            "dexterity": 16,
+            "intelligence": 14,
+            "charisma": 15
+          },
+          "stats": {
+            "attack": "strength_mod + level + 22",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 10",
+            "health": "constitution_mod * 2 + level * 5 + 80"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "8": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
               "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
-          "slug": "fledgling",
-          "name": "Fledgling",
-          "strength": 15,
-          "dexterity": 17,
-          "constitution": 15,
-          "intelligence": 14,
-          "wisdom": 13,
-          "charisma": 16,
-          "health": 90,
-          "attack": 24,
-          "defense": 11,
-          "speed": 7,
-          "level": 7,
-          "xp": 120,
-          "rarityWeight": 20,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "9": [
+          "level": 5,
+          "slug": "thrall",
+          "name": "Thrall",
+          "rarityWeight": 10,
+          "xp": 75,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 13,
+            "wisdom": 10,
+            "strength": 13,
+            "dexterity": 14,
+            "intelligence": 10,
+            "charisma": 12
+          },
+          "stats": {
+            "attack": "strength_mod + level + 18",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 8",
+            "health": "constitution_mod * 2 + level * 5 + 65"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "7": [
+                "@abilities/active/support:*"
+              ]
+            },
+            "abilities": [
               "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
+        },
+        {
+          "level": 7,
+          "slug": "fledgling",
+          "name": "Fledgling",
+          "rarityWeight": 20,
+          "xp": 120,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 15,
+            "wisdom": 13,
+            "strength": 15,
+            "dexterity": 17,
+            "intelligence": 14,
+            "charisma": 16
+          },
+          "stats": {
+            "attack": "strength_mod + level + 24",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 11",
+            "health": "constitution_mod * 2 + level * 5 + 90"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "9": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/offensive:*"
+            ]
+          },
+          "traits": {}
         }
       ]
     },
     "true_vampires": {
-      "traits": {
-        "category": "vampire",
+      "properties": {
         "size": "medium",
-        "intelligence": 18,
-        "social": "aristocratic",
-        "behavior": "cunning",
+        "category": "vampire",
         "damageType": "physical",
-        "undead": true,
-        "vulnerability": "radiant",
-        "regeneration": true,
-        "magical": true,
-        "shapeshifter": true
+        "behavior": "cunning"
       },
       "items": [
         {
+          "level": 9,
           "slug": "vampire",
           "name": "Vampire",
-          "strength": 16,
-          "dexterity": 18,
-          "constitution": 16,
-          "intelligence": 16,
-          "wisdom": 14,
-          "charisma": 18,
-          "health": 120,
-          "attack": 30,
-          "defense": 14,
-          "speed": 8,
-          "level": 9,
-          "xp": 180,
           "rarityWeight": 30,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/mobility:*"
-          ],
-          "abilityUnlocks": {
-            "11": [
-              "@abilities/active/offensive:*"
+          "xp": 180,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 16,
+            "wisdom": 14,
+            "strength": 16,
+            "dexterity": 18,
+            "intelligence": 16,
+            "charisma": 18
+          },
+          "stats": {
+            "attack": "strength_mod + level + 30",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 14",
+            "health": "constitution_mod * 2 + level * 5 + 120"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "11": [
+                "@abilities/active/offensive:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/mobility:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 10,
           "slug": "vampire-knight",
           "name": "Vampire Knight",
-          "strength": 18,
-          "dexterity": 16,
-          "constitution": 18,
-          "intelligence": 14,
-          "wisdom": 14,
-          "charisma": 18,
-          "health": 140,
-          "attack": 34,
-          "defense": 16,
-          "speed": 8,
-          "level": 10,
-          "xp": 210,
           "rarityWeight": 38,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "12": [
-              "@abilities/ultimate:*"
+          "xp": 210,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 18,
+            "wisdom": 14,
+            "strength": 18,
+            "dexterity": 16,
+            "intelligence": 14,
+            "charisma": 18
+          },
+          "stats": {
+            "attack": "strength_mod + level + 34",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 16",
+            "health": "constitution_mod * 2 + level * 5 + 140"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "12": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 10,
           "slug": "vampire-mage",
           "name": "Vampire Mage",
-          "strength": 12,
-          "dexterity": 16,
-          "constitution": 16,
-          "intelligence": 18,
-          "wisdom": 15,
-          "charisma": 18,
-          "health": 130,
-          "attack": 36,
-          "defense": 15,
-          "speed": 7,
-          "level": 10,
-          "xp": 220,
           "rarityWeight": 42,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "13": [
-              "@abilities/ultimate:*"
+          "xp": 220,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 16,
+            "wisdom": 15,
+            "strength": 12,
+            "dexterity": 16,
+            "intelligence": 18,
+            "charisma": 18
+          },
+          "stats": {
+            "attack": "strength_mod + level + 36",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 15",
+            "health": "constitution_mod * 2 + level * 5 + 130"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "13": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 12,
           "slug": "vampire-lord",
           "name": "Vampire Lord",
-          "strength": 18,
-          "dexterity": 18,
-          "constitution": 18,
-          "intelligence": 18,
-          "wisdom": 16,
-          "charisma": 20,
-          "health": 160,
-          "attack": 40,
-          "defense": 18,
-          "speed": 9,
-          "level": 12,
-          "xp": 280,
           "rarityWeight": 55,
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/mobility:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "15": [
-              "@abilities/ultimate:*"
+          "xp": 280,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 18,
+            "wisdom": 16,
+            "strength": 18,
+            "dexterity": 18,
+            "intelligence": 18,
+            "charisma": 20
+          },
+          "stats": {
+            "attack": "strength_mod + level + 40",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 18",
+            "health": "constitution_mod * 2 + level * 5 + 160"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "15": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/mobility:*",
+              "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     },
     "ancient_vampires": {
-      "traits": {
-        "category": "vampire",
+      "properties": {
         "size": "medium",
-        "intelligence": 20,
-        "social": "aristocratic",
-        "behavior": "legendary",
-        "undead": true,
-        "unique": true,
-        "vulnerability": "radiant",
-        "regeneration": true,
-        "magical": true,
-        "shapeshifter": true
+        "category": "vampire",
+        "behavior": "legendary"
       },
       "items": [
         {
+          "level": 14,
           "slug": "elder-vampire",
           "name": "Elder Vampire",
-          "strength": 20,
-          "dexterity": 20,
-          "constitution": 20,
-          "intelligence": 20,
-          "wisdom": 18,
-          "charisma": 22,
-          "health": 200,
-          "attack": 48,
-          "defense": 22,
-          "speed": 10,
-          "level": 14,
-          "xp": 350,
           "rarityWeight": 70,
-          "damageType": "magical",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/mobility:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "17": [
-              "@abilities/ultimate:*"
+          "xp": 350,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 20,
+            "wisdom": 18,
+            "strength": 20,
+            "dexterity": 20,
+            "intelligence": 20,
+            "charisma": 22
+          },
+          "stats": {
+            "attack": "strength_mod + level + 48",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 22",
+            "health": "constitution_mod * 2 + level * 5 + 200"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "17": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/mobility:*",
+              "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 15,
           "slug": "vampire-prince",
           "name": "Vampire Prince",
-          "strength": 20,
-          "dexterity": 20,
-          "constitution": 20,
-          "intelligence": 20,
-          "wisdom": 18,
-          "charisma": 24,
-          "health": 220,
-          "attack": 50,
-          "defense": 24,
-          "speed": 10,
-          "level": 15,
-          "xp": 400,
           "rarityWeight": 80,
-          "damageType": "magical",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/mobility:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "18": [
-              "@abilities/ultimate:*"
+          "xp": 400,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 20,
+            "wisdom": 18,
+            "strength": 20,
+            "dexterity": 20,
+            "intelligence": 20,
+            "charisma": 24
+          },
+          "stats": {
+            "attack": "strength_mod + level + 50",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 24",
+            "health": "constitution_mod * 2 + level * 5 + 220"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "18": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/mobility:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 18,
           "slug": "vampire-progenitor",
           "name": "Vampire Progenitor",
-          "strength": 20,
-          "dexterity": 18,
-          "constitution": 20,
-          "intelligence": 20,
-          "wisdom": 17,
-          "charisma": 26,
-          "health": 280,
-          "attack": 60,
-          "defense": 28,
-          "speed": 11,
-          "level": 18,
-          "xp": 550,
           "rarityWeight": 100,
-          "damageType": "magical",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*",
-            "@abilities/active/mobility:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/support:*"
-          ],
-          "abilityUnlocks": {
-            "21": [
-              "@abilities/ultimate:*",
-              "@abilities/ultimate:*"
+          "xp": 550,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 20,
+            "wisdom": 17,
+            "strength": 20,
+            "dexterity": 18,
+            "intelligence": 20,
+            "charisma": 26
+          },
+          "stats": {
+            "attack": "strength_mod + level + 60",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 28",
+            "health": "constitution_mod * 2 + level * 5 + 280"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "21": [
+                "@abilities/ultimate:*",
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*",
+              "@abilities/active/mobility:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/support:*"
             ]
-          }
+          },
+          "traits": {}
         },
         {
+          "level": 13,
           "slug": "nosferatu",
           "name": "Nosferatu",
-          "strength": 19,
-          "dexterity": 16,
-          "constitution": 18,
-          "intelligence": 16,
-          "wisdom": 14,
-          "charisma": 20,
-          "health": 180,
-          "attack": 45,
-          "defense": 20,
-          "speed": 9,
-          "level": 13,
-          "xp": 320,
           "rarityWeight": 65,
-          "damageType": "physical",
-          "abilities": [
-            "@abilities/active/offensive:*",
-            "@abilities/active/offensive:*",
-            "@abilities/active/mobility:*",
-            "@abilities/active/offensive:*"
-          ],
-          "abilityUnlocks": {
-            "16": [
-              "@abilities/ultimate:*"
+          "xp": 320,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 18,
+            "wisdom": 14,
+            "strength": 19,
+            "dexterity": 16,
+            "intelligence": 16,
+            "charisma": 20
+          },
+          "stats": {
+            "attack": "strength_mod + level + 45",
+            "speed": "30 + dexterity_mod * 5",
+            "defense": "10 + dexterity_mod + constitution_mod + 20",
+            "health": "constitution_mod * 2 + level * 5 + 180"
+          },
+          "combat": {
+            "abilityUnlocks": {
+              "16": [
+                "@abilities/ultimate:*"
+              ]
+            },
+            "abilities": [
+              "@abilities/active/offensive:*",
+              "@abilities/active/offensive:*",
+              "@abilities/active/mobility:*",
+              "@abilities/active/offensive:*"
             ]
-          }
+          },
+          "traits": {}
         }
       ]
     }

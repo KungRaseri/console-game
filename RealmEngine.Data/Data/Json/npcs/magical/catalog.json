@@ -65,7 +65,8 @@
             "@social/dialogue/farewells/scholarly:scholarly"
           ],
           "faction": "mages_circle",
-          "schedule": "@social/schedules/*:mage"
+          "schedule": "@social/schedules/*:mage",
+          "rarity": 45
         },
         {
           "slug": "hedgewizard",
@@ -109,7 +110,8 @@
             "@social/dialogue/farewells/simple:simple"
           ],
           "faction": "independent",
-          "schedule": "@social/schedules/*:mage"
+          "schedule": "@social/schedules/*:mage",
+          "rarity": 38
         }
       ]
     }

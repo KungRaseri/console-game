@@ -24,7 +24,8 @@
           "notableFeatures": [
             "crossroads",
             "merchant_stalls"
-          ]
+          ],
+          "rarity": 8
         }
       ]
     }
@@ -51,7 +52,8 @@
             "river",
             "farmland",
             "mill"
-          ]
+          ],
+          "rarity": 10
         },
         {
           "slug": "oakshire",
@@ -71,7 +73,8 @@
           "notableFeatures": [
             "ancient_oaks",
             "elven_architecture"
-          ]
+          ],
+          "rarity": 15
         },
         {
           "slug": "frostpeak",
@@ -90,7 +93,8 @@
           "notableFeatures": [
             "snow_covered",
             "isolated"
-          ]
+          ],
+          "rarity": 18
         }
       ]
     }
@@ -119,7 +123,8 @@
             "iron_mines",
             "master_smiths",
             "dwarven_halls"
-          ]
+          ],
+          "rarity": 25
         },
         {
           "slug": "ravenhollow",
@@ -141,7 +146,8 @@
             "perpetual_mist",
             "ravens",
             "mysterious_residents"
-          ]
+          ],
+          "rarity": 35
         },
         {
           "slug": "sandstone",
@@ -163,7 +169,8 @@
             "oasis",
             "trade_caravans",
             "desert_architecture"
-          ]
+          ],
+          "rarity": 28
         },
         {
           "slug": "ashborough",
@@ -184,7 +191,8 @@
             "rebuilt",
             "volcanic_soil",
             "resilient_people"
-          ]
+          ],
+          "rarity": 32
         },
         {
           "slug": "crimsonharbor",
@@ -206,7 +214,8 @@
             "pirates",
             "lawless",
             "red_sails"
-          ]
+          ],
+          "rarity": 40
         }
       ]
     }
@@ -237,7 +246,8 @@
             "busy_docks",
             "trade_center",
             "cosmopolitan"
-          ]
+          ],
+          "rarity": 50
         },
         {
           "slug": "stormhaven",
@@ -259,7 +269,8 @@
             "massive_walls",
             "elite_guards",
             "battle_hardened"
-          ]
+          ],
+          "rarity": 55
         },
         {
           "slug": "thenexus",
@@ -281,7 +292,8 @@
             "floating",
             "mage_towers",
             "ley_lines"
-          ]
+          ],
+          "rarity": 80
         },
         {
           "slug": "sanctuary",
@@ -303,7 +315,8 @@
             "grand_cathedral",
             "holy_relics",
             "pilgrims"
-          ]
+          ],
+          "rarity": 70
         }
       ]
     }
@@ -332,7 +345,8 @@
             "golden_cathedral",
             "royal_palace",
             "cultural_center"
-          ]
+          ],
+          "rarity": 100
         }
       ]
     }
@@ -356,7 +370,8 @@
             "overgrown",
             "haunted",
             "ruins"
-          ]
+          ],
+          "rarity": 60
         }
       ]
     }

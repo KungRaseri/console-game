@@ -26,7 +26,8 @@
             "Greetings, dear scholar. How may I illuminate your path today?",
             "Indeed, the ancient texts corroborate your hypothesis.",
             "A most intriguing query. Let us examine this matter thoroughly."
-          ]
+          ],
+          "rarity": 10
         },
         {
           "slug": "noble",
@@ -41,7 +42,8 @@
             "Good day to you. How may our house be of service?",
             "Your presence graces our halls.",
             "One must maintain proper decorum in such matters."
-          ]
+          ],
+          "rarity": 15
         },
         {
           "slug": "wise",
@@ -56,7 +58,8 @@
             "Patience reveals what haste conceals, young one.",
             "The path of wisdom is walked slowly.",
             "Reflect upon this: all answers lie within the question."
-          ]
+          ],
+          "rarity": 12
         }
       ]
     },
@@ -78,7 +81,8 @@
             "All is not as it seems, traveler...",
             "The shadows know what the light cannot see.",
             "Perhaps. Perhaps not. Time will tell."
-          ]
+          ],
+          "rarity": 18
         },
         {
           "slug": "intimidating",
@@ -93,7 +97,8 @@
             "You dare address me?",
             "Choose your next words carefully.",
             "Leave. Now."
-          ]
+          ],
+          "rarity": 20
         },
         {
           "slug": "nervous",
@@ -108,7 +113,8 @@
             "Oh! Um... I-I didn't expect...",
             "Please don't... I mean, if you could...",
             "S-sorry, I'm not sure I..."
-          ]
+          ],
+          "rarity": 15
         },
         {
           "slug": "sarcastic",
@@ -123,7 +129,8 @@
             "Oh wonderful, another hero. Just what we needed.",
             "Sure, that'll work. If we're lucky.",
             "Right. Because that's never gone wrong before."
-          ]
+          ],
+          "rarity": 25
         }
       ]
     },
@@ -142,7 +149,8 @@
             "Hey there! Good to see you!",
             "No worries, I'm happy to help.",
             "Come on in, make yourself at home!"
-          ]
+          ],
+          "rarity": 8
         },
         {
           "slug": "cheerful",
@@ -157,7 +165,8 @@
             "Oh wonderful! I love visitors!",
             "What a beautiful day, isn't it?",
             "Absolutely! That sounds fantastic!"
-          ]
+          ],
+          "rarity": 10
         },
         {
           "slug": "gruff",
@@ -172,7 +181,8 @@
             "What do you want?",
             "Make it quick.",
             "Hmph. Fine."
-          ]
+          ],
+          "rarity": 12
         },
         {
           "slug": "professional",
@@ -187,7 +197,8 @@
             "Good day. How may I assist you?",
             "That will be 50 gold pieces.",
             "I'll have that ready for you by tomorrow."
-          ]
+          ],
+          "rarity": 8
         },
         {
           "slug": "greedy",
@@ -202,7 +213,8 @@
             "Ah, a customer! Let's talk business.",
             "That'll cost you extra.",
             "Gold talks, everything else walks."
-          ]
+          ],
+          "rarity": 15
         }
       ]
     }

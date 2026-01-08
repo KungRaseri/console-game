@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Magic orbs providing skill enhancements for magic abilities",
-    "version": "4.0",
-    "lastUpdated": "2026-01-04",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "orb_catalog"
   },
   "orb_types": {
@@ -11,8 +11,16 @@
         {
           "slug": "sorcery-orb",
           "name": "sorcery-orb",
+          "rarity": 90,
           "rarityWeight": 50,
-          "category": "magic",
+          "attributes": {
+            "constitution": 10,
+            "intelligence": 8,
+            "wisdom": 8,
+            "dexterity": 10,
+            "strength": 10,
+            "charisma": 8
+          },
           "traits": {
             "spellDamage": {
               "value": 20,
@@ -27,8 +35,16 @@
         {
           "slug": "mysticism-orb",
           "name": "mysticism-orb",
+          "rarity": 90,
           "rarityWeight": 45,
-          "category": "magic",
+          "attributes": {
+            "constitution": 10,
+            "intelligence": 8,
+            "wisdom": 8,
+            "dexterity": 10,
+            "strength": 10,
+            "charisma": 8
+          },
           "traits": {
             "spellDuration": {
               "value": 25,
@@ -43,8 +59,16 @@
         {
           "slug": "arcana-orb",
           "name": "arcana-orb",
+          "rarity": 90,
           "rarityWeight": 35,
-          "category": "magic",
+          "attributes": {
+            "constitution": 10,
+            "intelligence": 8,
+            "wisdom": 8,
+            "dexterity": 10,
+            "strength": 10,
+            "charisma": 8
+          },
           "traits": {
             "spellDamage": {
               "value": 25,

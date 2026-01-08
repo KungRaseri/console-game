@@ -16,7 +16,6 @@
           "displayName": "Demon Lord",
           "description": "Commands legions of lesser demons",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "damageMultiplier": {
               "value": 2.0,
@@ -54,7 +53,9 @@
               "value": 120,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "reality-warp",
@@ -62,7 +63,6 @@
           "displayName": "Reality Warp",
           "description": "Bends the laws of nature",
           "tier": 5,
-          "selectionWeight": 500,
           "traits": {
             "damageType": {
               "value": "magic",
@@ -104,7 +104,9 @@
               "value": 20,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 500,
+          "rarity": 500
         },
         {
           "slug": "alt-ancient-power",
@@ -112,13 +114,14 @@
           "displayName": "Ancient Power",
           "description": "Power grows with age",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "category": {
               "value": "legendary",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "godlike-might",
@@ -126,13 +129,14 @@
           "displayName": "Godlike Might",
           "description": "Power rivaling the gods themselves",
           "tier": 5,
-          "selectionWeight": 500,
           "traits": {
             "category": {
               "value": "legendary",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 500,
+          "rarity": 500
         },
         {
           "slug": "primordial-power",
@@ -140,13 +144,14 @@
           "displayName": "Primordial Power",
           "description": "Raw elemental force from creation",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "category": {
               "value": "legendary",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "elemental-lord",
@@ -154,13 +159,14 @@
           "displayName": "Elemental Lord",
           "description": "Supreme master of its element",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "category": {
               "value": "legendary",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "plane-walker",
@@ -168,13 +174,14 @@
           "displayName": "Plane Walker",
           "description": "Can traverse elemental planes",
           "tier": 5,
-          "selectionWeight": 500,
           "traits": {
             "category": {
               "value": "legendary",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 500,
+          "rarity": 500
         },
         {
           "slug": "leadership",
@@ -182,13 +189,14 @@
           "displayName": "Leadership",
           "description": "Commands and coordinates allies",
           "tier": 5,
-          "selectionWeight": 150,
           "traits": {
             "category": {
               "value": "elite",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "champion",
@@ -196,13 +204,14 @@
           "displayName": "Champion",
           "description": "Elite warrior of legendary skill",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "category": {
               "value": "elite",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "battlemaster",
@@ -210,13 +219,14 @@
           "displayName": "Battle Master",
           "description": "Expert warrior with multiple weapon techniques",
           "tier": 5,
-          "selectionWeight": 150,
           "traits": {
             "category": {
               "value": "legendary_traits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "demonblood",
@@ -224,13 +234,14 @@
           "displayName": "Demon Blood",
           "description": "Infused with demonic power, regenerates rapidly",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "category": {
               "value": "legendary_traits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "alt-immortal",
@@ -238,13 +249,14 @@
           "displayName": "Immortal",
           "description": "Cannot be permanently killed, resurrects after death",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "category": {
               "value": "legendary_traits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "godslayer",
@@ -252,13 +264,14 @@
           "displayName": "God Slayer",
           "description": "Has defeated divine beings, empowered beyond mortals",
           "tier": 5,
-          "selectionWeight": 500,
           "traits": {
             "category": {
               "value": "legendary_traits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 500,
+          "rarity": 500
         },
         {
           "slug": "primalforce",
@@ -266,13 +279,14 @@
           "displayName": "Primal Force",
           "description": "Embodies pure destructive power",
           "tier": 5,
-          "selectionWeight": 500,
           "traits": {
             "category": {
               "value": "legendary_traits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 500,
+          "rarity": 500
         },
         {
           "slug": "titanic",
@@ -280,13 +294,14 @@
           "displayName": "Titanic",
           "description": "Enormous size with devastating power",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "category": {
               "value": "legendary_traits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "dragonancestor",
@@ -294,13 +309,14 @@
           "displayName": "Dragon Ancestor",
           "description": "Descended from dragons, can breathe fire",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "category": {
               "value": "legendary_traits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "dinosaurking",
@@ -308,13 +324,14 @@
           "displayName": "Dinosaur King",
           "description": "Apex predator from prehistoric times",
           "tier": 5,
-          "selectionWeight": 500,
           "traits": {
             "category": {
               "value": "legendary_traits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 500,
+          "rarity": 500
         },
         {
           "slug": "basilisk",
@@ -322,13 +339,14 @@
           "displayName": "Basilisk",
           "description": "Legendary serpent with petrifying gaze",
           "tier": 5,
-          "selectionWeight": 500,
           "traits": {
             "category": {
               "value": "legendary_traits",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 500,
+          "rarity": 500
         },
         {
           "slug": "ancient-evil",
@@ -336,13 +354,14 @@
           "displayName": "Ancient Evil",
           "description": "Powered by centuries of dark magic",
           "tier": 5,
-          "selectionWeight": 250,
           "traits": {
             "category": {
               "value": "legendary",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 250,
+          "rarity": 250
         },
         {
           "slug": "alt-soul-harvest",
@@ -350,13 +369,14 @@
           "displayName": "Soul Harvest",
           "description": "Grows stronger with each kill",
           "tier": 5,
-          "selectionWeight": 500,
           "traits": {
             "category": {
               "value": "legendary",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 500,
+          "rarity": 500
         },
         {
           "slug": "ragnarok",
@@ -364,7 +384,6 @@
           "displayName": "Ragnarok",
           "description": "Call down the apocalypse itself",
           "tier": 5,
-          "selectionWeight": 5,
           "traits": {
             "damage": {
               "value": "10d100",
@@ -398,7 +417,9 @@
               "value": 500,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 5,
+          "rarity": 5
         },
         {
           "slug": "fortress",
@@ -406,7 +427,6 @@
           "displayName": "Fortress",
           "description": "Become an impenetrable wall",
           "tier": 5,
-          "selectionWeight": 75,
           "traits": {
             "damageReduction": {
               "value": 90,
@@ -432,7 +452,9 @@
               "value": 120,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "grandmaster-duelist",
@@ -440,7 +462,6 @@
           "displayName": "Grandmaster Duelist",
           "description": "Perfection in single combat",
           "tier": 5,
-          "selectionWeight": 50,
           "traits": {
             "critChance": {
               "value": 100,
@@ -466,7 +487,9 @@
               "value": 180,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "holy-champion",
@@ -474,7 +497,6 @@
           "displayName": "Holy Champion",
           "description": "Become a vessel of divine power",
           "tier": 5,
-          "selectionWeight": 100,
           "traits": {
             "holyDamageBonus": {
               "value": 200,
@@ -504,7 +526,9 @@
               "value": 200,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "alt-apex-predator",
@@ -512,7 +536,6 @@
           "displayName": "Apex Predator",
           "description": "Ultimate hunter commanding nature itself",
           "tier": 5,
-          "selectionWeight": 75,
           "traits": {
             "petCount": {
               "value": 10,
@@ -538,7 +561,9 @@
               "value": 150,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "archmages-supremacy",
@@ -546,7 +571,6 @@
           "displayName": "Archmage's Supremacy",
           "description": "Transcend mortal magical limits",
           "tier": 5,
-          "selectionWeight": 100,
           "traits": {
             "spellPowerBonus": {
               "value": 300,
@@ -572,7 +596,9 @@
               "value": 240,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "avatar-of-light",
@@ -580,7 +606,6 @@
           "displayName": "Avatar of Light",
           "description": "Pure divine radiance incarnate",
           "tier": 5,
-          "selectionWeight": 50,
           "traits": {
             "holyNova": {
               "value": "5d50",
@@ -606,7 +631,9 @@
               "value": 300,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "death-incarnate",
@@ -614,7 +641,6 @@
           "displayName": "Death Incarnate",
           "description": "Embody death itself",
           "tier": 5,
-          "selectionWeight": 35,
           "traits": {
             "lifeDrain": {
               "value": 100,
@@ -640,7 +666,9 @@
               "value": 180,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "death-lord",
@@ -648,7 +676,6 @@
           "displayName": "Death Lord",
           "description": "Supreme necromantic mastery",
           "tier": 5,
-          "selectionWeight": 50,
           "traits": {
             "undeadSummons": {
               "value": 20,
@@ -674,7 +701,9 @@
               "value": 200,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "dread-pirate",
@@ -682,7 +711,6 @@
           "displayName": "Dread Pirate",
           "description": "Legendary status of infamy",
           "tier": 5,
-          "selectionWeight": 100,
           "traits": {
             "goldMultiplier": {
               "value": 5.0,
@@ -712,7 +740,9 @@
               "value": 120,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "elemental-apocalypse",
@@ -720,7 +750,6 @@
           "displayName": "Elemental Apocalypse",
           "description": "Unleash all elements at once",
           "tier": 5,
-          "selectionWeight": 25,
           "traits": {
             "fireDamage": {
               "value": "3d100",
@@ -750,7 +779,9 @@
               "value": 750,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 25,
+          "rarity": 25
         },
         {
           "slug": "master-of-elements",
@@ -758,7 +789,6 @@
           "displayName": "Master of Elements",
           "description": "Perfect elemental control",
           "tier": 5,
-          "selectionWeight": 75,
           "traits": {
             "elementalDamageBonus": {
               "value": 250,
@@ -784,7 +814,9 @@
               "value": 180,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "perfect-crime",
@@ -792,7 +824,6 @@
           "displayName": "Perfect Crime",
           "description": "The ultimate heist",
           "tier": 5,
-          "selectionWeight": 100,
           "traits": {
             "goldSteal": {
               "value": 10000,
@@ -818,7 +849,9 @@
               "value": 600,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "natures-wrath",
@@ -826,7 +859,6 @@
           "displayName": "Nature's Wrath",
           "description": "Call upon primal nature's fury",
           "tier": 5,
-          "selectionWeight": 50,
           "traits": {
             "natureDamage": {
               "value": "5d50",
@@ -852,7 +884,9 @@
               "value": 180,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "alt-ancient-power",
@@ -860,7 +894,6 @@
           "displayName": "Ancient Power",
           "description": "Tap into primordial draconic might",
           "tier": 5,
-          "selectionWeight": 150,
           "traits": {
             "damageBonus": {
               "value": 200,
@@ -886,7 +919,9 @@
               "value": 240,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "storm-fury",
@@ -894,7 +929,6 @@
           "displayName": "Storm Fury",
           "description": "Become the embodiment of the storm",
           "tier": 5,
-          "selectionWeight": 150,
           "traits": {
             "lightningDamage": {
               "value": "8d50",
@@ -916,7 +950,9 @@
               "value": 200,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "alt-plague-bearer",
@@ -924,7 +960,6 @@
           "displayName": "Plague Bearer",
           "description": "Spread disease and corruption",
           "tier": 5,
-          "selectionWeight": 150,
           "traits": {
             "poisonDamage": {
               "value": "5d50",
@@ -950,7 +985,9 @@
               "value": 180,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "corruption-wave",
@@ -958,7 +995,6 @@
           "displayName": "Corruption Wave",
           "description": "Unleash wave of pure corruption",
           "tier": 5,
-          "selectionWeight": 150,
           "traits": {
             "acidDamage": {
               "value": "7d50",
@@ -984,7 +1020,9 @@
               "value": 200,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         },
         {
           "slug": "blizzard",
@@ -992,7 +1030,6 @@
           "displayName": "Blizzard",
           "description": "Summon devastating ice storm",
           "tier": 5,
-          "selectionWeight": 150,
           "traits": {
             "coldDamage": {
               "value": "6d50",
@@ -1018,7 +1055,9 @@
               "value": 180,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         }
       ]
     }

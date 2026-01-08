@@ -1,8 +1,8 @@
 {
   "metadata": {
     "description": "Consumable item catalog with base stats and traits",
-    "version": "4.0",
-    "lastUpdated": "2025-12-30",
+    "version": "5.1",
+    "lastUpdated": "2026-01-08",
     "type": "item_catalog",
     "total_consumableTypes": 5,
     "total_consumables": 50,
@@ -16,372 +16,650 @@
   },
   "consumable_types": {
     "potions": {
-      "traits": {
-        "slot": "consumable",
+      "properties": {
         "category": "potion",
-        "stackable": true,
-        "oneUse": true
+        "slot": "consumable"
       },
       "items": [
         {
-          "slug": "potion",
           "name": "Potion",
+          "slug": "potion",
+          "rarity": 75,
+          "rarityWeight": 50,
+          "value": 10,
+          "weight": 0.5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "heal",
           "power": 25,
-          "duration": 0,
-          "weight": 0.5,
-          "value": 10,
-          "rarityWeight": 50,
-          "rarity": "common"
+          "duration": 0
         },
         {
-          "slug": "elixir",
           "name": "Elixir",
+          "slug": "elixir",
+          "rarity": 50,
+          "rarityWeight": 30,
+          "value": 25,
+          "weight": 0.5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "heal",
           "power": 50,
-          "duration": 0,
-          "weight": 0.5,
-          "value": 25,
-          "rarityWeight": 30,
-          "rarity": "uncommon"
+          "duration": 0
         },
         {
-          "slug": "tonic",
           "name": "Tonic",
+          "slug": "tonic",
+          "rarity": 75,
+          "rarityWeight": 40,
+          "value": 15,
+          "weight": 0.5,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "buff",
           "power": 10,
-          "duration": 300,
-          "weight": 0.5,
-          "value": 15,
-          "rarityWeight": 40,
-          "rarity": "common"
+          "duration": 300
         },
         {
-          "slug": "greater-potion",
           "name": "Greater Potion",
+          "slug": "greater-potion",
+          "rarity": 25,
+          "rarityWeight": 15,
+          "value": 50,
+          "weight": 0.6,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "heal",
           "power": 100,
-          "duration": 0,
-          "weight": 0.6,
-          "value": 50,
-          "rarityWeight": 15,
-          "rarity": "rare"
+          "duration": 0
         },
         {
-          "slug": "superior-elixir",
           "name": "Superior Elixir",
+          "slug": "superior-elixir",
+          "rarity": 10,
+          "rarityWeight": 5,
+          "value": 100,
+          "weight": 0.7,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "heal",
           "power": 150,
-          "duration": 0,
-          "weight": 0.7,
-          "value": 100,
-          "rarityWeight": 5,
-          "rarity": "epic"
+          "duration": 0
         }
       ]
     },
     "elixirs": {
-      "traits": {
-        "slot": "consumable",
+      "properties": {
         "category": "elixir",
-        "stackable": true,
-        "oneUse": true,
-        "applicationType": "drinkable"
+        "slot": "consumable"
       },
       "items": [
         {
-          "slug": "elixir-of-vitality",
           "name": "Elixir of Vitality",
+          "slug": "elixir-of-vitality",
+          "rarityWeight": 50,
+          "value": 100,
+          "weight": 0.5,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "healthRegeneration",
           "power": 50,
-          "duration": 300,
-          "weight": 0.5,
-          "value": 100,
-          "rarityWeight": 50
+          "duration": 300
         }
       ]
     },
     "salves": {
-      "traits": {
-        "slot": "consumable",
+      "properties": {
         "category": "salve",
-        "stackable": true,
-        "oneUse": true,
-        "applicationType": "topical"
+        "slot": "consumable"
       },
       "items": [
         {
-          "slug": "salve",
           "name": "Salve",
+          "slug": "salve",
+          "rarityWeight": 6,
+          "value": 12,
+          "weight": 0.3,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "heal_overtime",
           "power": 20,
-          "duration": 180,
-          "weight": 0.3,
-          "value": 12,
-          "rarityWeight": 6
+          "duration": 180
         },
         {
-          "slug": "ointment",
           "name": "Ointment",
+          "slug": "ointment",
+          "rarityWeight": 8,
+          "value": 18,
+          "weight": 0.3,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "heal_overtime",
           "power": 30,
-          "duration": 240,
-          "weight": 0.3,
-          "value": 18,
-          "rarityWeight": 8
+          "duration": 240
         },
         {
-          "slug": "balm",
           "name": "Balm",
+          "slug": "balm",
+          "rarityWeight": 10,
+          "value": 25,
+          "weight": 0.3,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "heal_overtime",
           "power": 40,
-          "duration": 300,
-          "weight": 0.3,
-          "value": 25,
-          "rarityWeight": 10
+          "duration": 300
         },
         {
-          "slug": "unguent",
           "name": "Unguent",
+          "slug": "unguent",
+          "rarityWeight": 15,
+          "value": 30,
+          "weight": 0.2,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "cure_poison",
           "power": 50,
-          "duration": 0,
-          "weight": 0.2,
-          "value": 30,
-          "rarityWeight": 15
+          "duration": 0
         }
       ]
     },
     "essences": {
-      "traits": {
-        "slot": "consumable",
+      "properties": {
         "category": "essence",
-        "stackable": true,
-        "oneUse": true,
-        "magicalPotency": "high"
+        "slot": "consumable"
       },
       "items": [
         {
-          "slug": "essence",
           "name": "Essence",
+          "slug": "essence",
+          "rarityWeight": 10,
+          "value": 20,
+          "weight": 0.2,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "restore_mana",
           "power": 30,
-          "duration": 0,
-          "weight": 0.2,
-          "value": 20,
-          "rarityWeight": 10
+          "duration": 0
         },
         {
-          "slug": "extract",
           "name": "Extract",
+          "slug": "extract",
+          "rarityWeight": 15,
+          "value": 35,
+          "weight": 0.2,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "restore_mana",
           "power": 50,
-          "duration": 0,
-          "weight": 0.2,
-          "value": 35,
-          "rarityWeight": 15
+          "duration": 0
         },
         {
-          "slug": "distillation",
           "name": "Distillation",
+          "slug": "distillation",
+          "rarityWeight": 20,
+          "value": 50,
+          "weight": 0.2,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "restore_mana",
           "power": 75,
-          "duration": 0,
-          "weight": 0.2,
-          "value": 50,
-          "rarityWeight": 20
+          "duration": 0
         },
         {
-          "slug": "infusion",
           "name": "Infusion",
+          "slug": "infusion",
+          "rarityWeight": 18,
+          "value": 40,
+          "weight": 0.2,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "magic_buff",
           "power": 25,
-          "duration": 600,
-          "weight": 0.2,
-          "value": 40,
-          "rarityWeight": 18
+          "duration": 600
         },
         {
-          "slug": "tincture",
           "name": "Tincture",
+          "slug": "tincture",
+          "rarityWeight": 22,
+          "value": 45,
+          "weight": 0.2,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "mixed",
           "power": 40,
-          "duration": 300,
-          "weight": 0.2,
-          "value": 45,
-          "rarityWeight": 22
+          "duration": 300
         }
       ]
     },
     "boosters": {
-      "traits": {
-        "slot": "consumable",
+      "properties": {
         "category": "booster",
-        "stackable": true,
-        "oneUse": true,
-        "enhancementType": "temporary"
+        "slot": "consumable"
       },
       "items": [
         {
-          "slug": "fortifier",
           "name": "Fortifier",
+          "slug": "fortifier",
+          "rarityWeight": 12,
+          "value": 25,
+          "weight": 0.3,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "increase_defense",
           "power": 15,
-          "duration": 300,
-          "weight": 0.3,
-          "value": 25,
-          "rarityWeight": 12
+          "duration": 300
         },
         {
-          "slug": "strengthener",
           "name": "Strengthener",
+          "slug": "strengthener",
+          "rarityWeight": 12,
+          "value": 25,
+          "weight": 0.3,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "increase_attack",
           "power": 15,
-          "duration": 300,
-          "weight": 0.3,
-          "value": 25,
-          "rarityWeight": 12
+          "duration": 300
         },
         {
-          "slug": "enhancer",
           "name": "Enhancer",
+          "slug": "enhancer",
+          "rarityWeight": 15,
+          "value": 30,
+          "weight": 0.3,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "increase_all",
           "power": 10,
-          "duration": 240,
-          "weight": 0.3,
-          "value": 30,
-          "rarityWeight": 15
+          "duration": 240
         },
         {
-          "slug": "booster",
           "name": "Booster",
+          "slug": "booster",
+          "rarityWeight": 10,
+          "value": 20,
+          "weight": 0.2,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "increase_speed",
           "power": 20,
-          "duration": 180,
-          "weight": 0.2,
-          "value": 20,
-          "rarityWeight": 10
+          "duration": 180
         },
         {
-          "slug": "amplifier",
           "name": "Amplifier",
+          "slug": "amplifier",
+          "rarityWeight": 18,
+          "value": 35,
+          "weight": 0.3,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "increase_damage",
           "power": 25,
-          "duration": 300,
-          "weight": 0.3,
-          "value": 35,
-          "rarityWeight": 18
+          "duration": 300
         },
         {
-          "slug": "stimulant",
           "name": "Stimulant",
+          "slug": "stimulant",
+          "rarityWeight": 11,
+          "value": 22,
+          "weight": 0.2,
+          "rarity": 50,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "increase_stamina",
           "power": 30,
-          "duration": 300,
-          "weight": 0.2,
-          "value": 22,
-          "rarityWeight": 11
+          "duration": 300
         },
         {
-          "slug": "energizer",
           "name": "Energizer",
+          "slug": "energizer",
+          "rarityWeight": 9,
+          "value": 18,
+          "weight": 0.2,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "restore_stamina",
           "power": 50,
-          "duration": 0,
-          "weight": 0.2,
-          "value": 18,
-          "rarityWeight": 9
+          "duration": 0
         },
         {
-          "slug": "invigorator",
           "name": "Invigorator",
+          "slug": "invigorator",
+          "rarityWeight": 10,
+          "value": 20,
+          "weight": 0.2,
+          "rarity": 30,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "restore_energy",
           "power": 40,
-          "duration": 120,
-          "weight": 0.2,
-          "value": 20,
-          "rarityWeight": 10
+          "duration": 120
         }
       ]
     },
     "special": {
-      "traits": {
-        "slot": "consumable",
+      "properties": {
         "category": "special",
-        "stackable": true,
-        "oneUse": true,
-        "rarity": "rare"
+        "slot": "consumable"
       },
       "items": [
         {
-          "slug": "antidote",
           "name": "Antidote",
+          "slug": "antidote",
+          "rarityWeight": 20,
+          "value": 50,
+          "weight": 0.2,
+          "rarity": 70,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "cure_poison",
           "power": 100,
-          "duration": 0,
-          "weight": 0.2,
-          "value": 50,
-          "rarityWeight": 20
+          "duration": 0
         },
         {
-          "slug": "remedy",
           "name": "Remedy",
+          "slug": "remedy",
+          "rarityWeight": 25,
+          "value": 60,
+          "weight": 0.2,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "cure_disease",
           "power": 100,
-          "duration": 0,
-          "weight": 0.2,
-          "value": 60,
-          "rarityWeight": 25
+          "duration": 0
         },
         {
-          "slug": "restorative",
           "name": "Restorative",
+          "slug": "restorative",
+          "rarityWeight": 30,
+          "value": 75,
+          "weight": 0.3,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "restore_all",
           "power": 50,
-          "duration": 0,
-          "weight": 0.3,
-          "value": 75,
-          "rarityWeight": 30
+          "duration": 0
         },
         {
-          "slug": "rejuvenator",
           "name": "Rejuvenator",
+          "slug": "rejuvenator",
+          "rarityWeight": 40,
+          "value": 100,
+          "weight": 0.3,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "restore_all",
           "power": 75,
-          "duration": 0,
-          "weight": 0.3,
-          "value": 100,
-          "rarityWeight": 40
+          "duration": 0
         },
         {
-          "slug": "refresher",
           "name": "Refresher",
+          "slug": "refresher",
+          "rarityWeight": 22,
+          "value": 45,
+          "weight": 0.2,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "remove_debuff",
           "power": 100,
-          "duration": 0,
-          "weight": 0.2,
-          "value": 45,
-          "rarityWeight": 22
+          "duration": 0
         },
         {
-          "slug": "revitalizer",
           "name": "Revitalizer",
+          "slug": "revitalizer",
+          "rarityWeight": 60,
+          "value": 150,
+          "weight": 0.5,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "revive",
           "power": 50,
-          "duration": 0,
-          "weight": 0.5,
-          "value": 150,
-          "rarityWeight": 60
+          "duration": 0
         },
         {
-          "slug": "nectar",
           "name": "Nectar",
+          "slug": "nectar",
+          "rarityWeight": 80,
+          "value": 200,
+          "weight": 0.3,
+          "rarity": 90,
+          "attributes": {
+            "constitution": 10,
+            "wisdom": 8,
+            "strength": 10,
+            "dexterity": 10,
+            "charisma": 8,
+            "intelligence": 8
+          },
+          "traits": {},
           "effect": "restore_all_overtime",
           "power": 100,
-          "duration": 600,
-          "weight": 0.3,
-          "value": 200,
-          "rarityWeight": 80
+          "duration": 600
         }
       ]
     }

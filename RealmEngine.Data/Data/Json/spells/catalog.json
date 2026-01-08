@@ -16,7 +16,6 @@
           "displayName": "Ray of Frost",
           "description": "Blast of cold damages and slows",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -42,7 +41,9 @@
               "value": "1d4",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "acid-splash",
@@ -50,7 +51,6 @@
           "displayName": "Acid Splash",
           "description": "Orb of acid damages target",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -76,7 +76,9 @@
               "value": "1d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "shocking-grasp",
@@ -84,7 +86,6 @@
           "displayName": "Shocking Grasp",
           "description": "Touch delivers electricity",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -110,7 +111,9 @@
               "value": "1d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "telekinetic-projectile",
@@ -118,7 +121,6 @@
           "displayName": "Telekinetic Projectile",
           "description": "Hurl small object with magic",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -144,7 +146,9 @@
               "value": "1d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "light",
@@ -152,7 +156,6 @@
           "displayName": "Light",
           "description": "Object shines like torch",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -174,7 +177,9 @@
               "value": 600,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "detect-magic",
@@ -182,7 +187,6 @@
           "displayName": "Detect Magic",
           "description": "Sense magical auras nearby",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -200,7 +204,9 @@
               "value": "self",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "prestidigitation",
@@ -208,7 +214,6 @@
           "displayName": "Prestidigitation",
           "description": "Minor magical tricks",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -226,7 +231,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "shield",
@@ -234,7 +241,6 @@
           "displayName": "Shield",
           "description": "Invisible barrier blocks attacks",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -256,7 +262,9 @@
               "value": 1,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "mage-armor",
@@ -264,7 +272,6 @@
           "displayName": "Mage Armor",
           "description": "Invisible force grants armor bonus",
           "rank": 1,
-          "selectionWeight": 85,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -286,7 +293,9 @@
               "value": 600,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 85,
+          "rarity": 85
         },
         {
           "slug": "magic-missile",
@@ -294,7 +303,6 @@
           "displayName": "Magic Missile",
           "description": "Unerring darts of force",
           "rank": 1,
-          "selectionWeight": 85,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -320,7 +328,9 @@
               "value": "3d4",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 85,
+          "rarity": 85
         },
         {
           "slug": "burning-hands",
@@ -328,7 +338,6 @@
           "displayName": "Burning Hands",
           "description": "Cone of fire",
           "rank": 1,
-          "selectionWeight": 85,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -358,7 +367,9 @@
               "value": "2d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 85,
+          "rarity": 85
         },
         {
           "slug": "feather-fall",
@@ -366,7 +377,6 @@
           "displayName": "Feather Fall",
           "description": "Slow falling speed",
           "rank": 1,
-          "selectionWeight": 80,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -388,7 +398,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 80,
+          "rarity": 80
         },
         {
           "slug": "grease",
@@ -396,7 +408,6 @@
           "displayName": "Grease",
           "description": "Slippery area causes falls",
           "rank": 1,
-          "selectionWeight": 80,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -422,7 +433,9 @@
               "value": 5,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 80,
+          "rarity": 80
         },
         {
           "slug": "identify",
@@ -430,7 +443,6 @@
           "displayName": "Identify",
           "description": "Learn magic item properties",
           "rank": 1,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -448,7 +460,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "blur",
@@ -456,7 +470,6 @@
           "displayName": "Blur",
           "description": "Attacks miss more often",
           "rank": 2,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -478,7 +491,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "scorching-ray",
@@ -486,7 +501,6 @@
           "displayName": "Scorching Ray",
           "description": "Multiple fire rays",
           "rank": 2,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -512,7 +526,9 @@
               "value": "4d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "levitate",
@@ -520,7 +536,6 @@
           "displayName": "Levitate",
           "description": "Float up or down at will",
           "rank": 2,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -542,7 +557,9 @@
               "value": 20,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "knock",
@@ -550,7 +567,6 @@
           "displayName": "Knock",
           "description": "Open locked doors/chests",
           "rank": 2,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -568,7 +584,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "mirror-image",
@@ -576,7 +594,6 @@
           "displayName": "Mirror Image",
           "description": "Illusory duplicates confuse foes",
           "rank": 2,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -598,7 +615,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "fireball",
@@ -606,7 +625,6 @@
           "displayName": "Fireball",
           "description": "Explosive ball of fire",
           "rank": 3,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -636,7 +654,9 @@
               "value": "6d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "lightning-bolt",
@@ -644,7 +664,6 @@
           "displayName": "Lightning Bolt",
           "description": "Line of electricity",
           "rank": 3,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -670,7 +689,9 @@
               "value": "6d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "haste",
@@ -678,7 +699,6 @@
           "displayName": "Haste",
           "description": "Target moves and acts faster",
           "rank": 3,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -700,7 +720,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "fly",
@@ -708,7 +730,6 @@
           "displayName": "Fly",
           "description": "Gain flight speed",
           "rank": 3,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -730,7 +751,9 @@
               "value": 20,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "stoneskin",
@@ -738,7 +761,6 @@
           "displayName": "Stoneskin",
           "description": "Damage resistance",
           "rank": 4,
-          "selectionWeight": 60,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -760,7 +782,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 60,
+          "rarity": 60
         },
         {
           "slug": "dimension-door",
@@ -768,7 +792,6 @@
           "displayName": "Dimension Door",
           "description": "Short-range teleport",
           "rank": 4,
-          "selectionWeight": 60,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -786,7 +809,9 @@
               "value": "self",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 60,
+          "rarity": 60
         },
         {
           "slug": "ice-storm",
@@ -794,7 +819,6 @@
           "displayName": "Ice Storm",
           "description": "Hail and cold damage area",
           "rank": 4,
-          "selectionWeight": 55,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -824,7 +848,9 @@
               "value": "8d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 55,
+          "rarity": 55
         },
         {
           "slug": "wall-of-fire",
@@ -832,7 +858,6 @@
           "displayName": "Wall of Fire",
           "description": "Blazing barrier damages",
           "rank": 5,
-          "selectionWeight": 55,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -862,7 +887,9 @@
               "value": "5d8",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 55,
+          "rarity": 55
         },
         {
           "slug": "cone-of-cold",
@@ -870,7 +897,6 @@
           "displayName": "Cone of Cold",
           "description": "Freezing blast",
           "rank": 5,
-          "selectionWeight": 50,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -896,7 +922,9 @@
               "value": "12d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "telekinesis",
@@ -904,7 +932,6 @@
           "displayName": "Telekinesis",
           "description": "Move objects with mind",
           "rank": 5,
-          "selectionWeight": 50,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -926,7 +953,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "chain-lightning",
@@ -934,7 +963,6 @@
           "displayName": "Chain Lightning",
           "description": "Lightning chains to targets",
           "rank": 6,
-          "selectionWeight": 40,
           "traits": {
             "minimumSkillRank": {
               "value": 55,
@@ -960,7 +988,9 @@
               "value": "10d8",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 40,
+          "rarity": 40
         },
         {
           "slug": "disintegrate",
@@ -968,7 +998,6 @@
           "displayName": "Disintegrate",
           "description": "Ray destroys matter",
           "rank": 6,
-          "selectionWeight": 35,
           "traits": {
             "minimumSkillRank": {
               "value": 55,
@@ -994,7 +1023,9 @@
               "value": "12d10",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "teleport",
@@ -1002,7 +1033,6 @@
           "displayName": "Teleport",
           "description": "Long-range teleportation",
           "rank": 7,
-          "selectionWeight": 35,
           "traits": {
             "minimumSkillRank": {
               "value": 65,
@@ -1020,7 +1050,9 @@
               "value": "self",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "delayed-blast-fireball",
@@ -1028,7 +1060,6 @@
           "displayName": "Delayed Blast Fireball",
           "description": "Timed explosive",
           "rank": 7,
-          "selectionWeight": 30,
           "traits": {
             "minimumSkillRank": {
               "value": 65,
@@ -1058,7 +1089,9 @@
               "value": "14d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 30,
+          "rarity": 30
         },
         {
           "slug": "power-word-stun",
@@ -1066,7 +1099,6 @@
           "displayName": "Power Word Stun",
           "description": "Overwhelm creature's mind",
           "rank": 8,
-          "selectionWeight": 20,
           "traits": {
             "minimumSkillRank": {
               "value": 75,
@@ -1088,7 +1120,9 @@
               "value": 3,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 20,
+          "rarity": 20
         },
         {
           "slug": "meteor-swarm",
@@ -1096,7 +1130,6 @@
           "displayName": "Meteor Swarm",
           "description": "Multiple meteors",
           "rank": 9,
-          "selectionWeight": 10,
           "traits": {
             "minimumSkillRank": {
               "value": 85,
@@ -1126,7 +1159,9 @@
               "value": "20d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 10,
+          "rarity": 10
         },
         {
           "slug": "time-stop",
@@ -1134,7 +1169,6 @@
           "displayName": "Time Stop",
           "description": "Freeze time briefly",
           "rank": 10,
-          "selectionWeight": 5,
           "traits": {
             "minimumSkillRank": {
               "value": 95,
@@ -1156,7 +1190,9 @@
               "value": 3,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 5,
+          "rarity": 5
         }
       ]
     },
@@ -1169,7 +1205,6 @@
           "displayName": "Stabilize",
           "description": "Prevent dying",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -1191,7 +1226,9 @@
               "value": 1,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "divine-lance",
@@ -1199,7 +1236,6 @@
           "displayName": "Divine Lance",
           "description": "Holy/unholy energy ray",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -1225,7 +1261,9 @@
               "value": "1d4",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "guidance",
@@ -1233,7 +1271,6 @@
           "displayName": "Guidance",
           "description": "Bonus to next action",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -1255,7 +1292,9 @@
               "value": 1,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "shield-of-faith",
@@ -1263,7 +1302,6 @@
           "displayName": "Shield of Faith",
           "description": "Minor protection cantrip",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -1281,7 +1319,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "sacred-flame",
@@ -1289,7 +1329,6 @@
           "displayName": "Sacred Flame",
           "description": "Radiant flame damages",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -1315,7 +1354,9 @@
               "value": "1d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "resistance",
@@ -1323,7 +1364,6 @@
           "displayName": "Resistance",
           "description": "Resist one damage type briefly",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -1345,7 +1385,9 @@
               "value": 1,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "spare-the-dying",
@@ -1353,7 +1395,6 @@
           "displayName": "Spare the Dying",
           "description": "Stabilize at distance",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -1371,7 +1412,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "thaumaturgy",
@@ -1379,7 +1422,6 @@
           "displayName": "Thaumaturgy",
           "description": "Divine minor effects",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -1397,7 +1439,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "heal",
@@ -1405,7 +1449,6 @@
           "displayName": "Heal",
           "description": "Restore health",
           "rank": 1,
-          "selectionWeight": 90,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -1427,7 +1470,9 @@
               "value": 50,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 90,
+          "rarity": 90
         },
         {
           "slug": "bless",
@@ -1435,7 +1480,6 @@
           "displayName": "Bless",
           "description": "Grant bonuses",
           "rank": 1,
-          "selectionWeight": 85,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -1461,7 +1505,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 85,
+          "rarity": 85
         },
         {
           "slug": "sanctuary",
@@ -1469,7 +1515,6 @@
           "displayName": "Sanctuary",
           "description": "Protected from attacks",
           "rank": 1,
-          "selectionWeight": 85,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -1491,7 +1536,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 85,
+          "rarity": 85
         },
         {
           "slug": "command",
@@ -1499,7 +1546,6 @@
           "displayName": "Command",
           "description": "Force one-word action",
           "rank": 1,
-          "selectionWeight": 80,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -1521,7 +1567,9 @@
               "value": 1,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 80,
+          "rarity": 80
         },
         {
           "slug": "detect-evil",
@@ -1529,7 +1577,6 @@
           "displayName": "Detect Evil",
           "description": "Sense alignment",
           "rank": 1,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -1547,7 +1594,9 @@
               "value": "self",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "purify-food",
@@ -1555,7 +1604,6 @@
           "displayName": "Purify Food and Drink",
           "description": "Remove poison from food",
           "rank": 1,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -1573,7 +1621,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "cure-poison",
@@ -1581,7 +1631,6 @@
           "displayName": "Cure Poison",
           "description": "Remove poison/disease",
           "rank": 2,
-          "selectionWeight": 80,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -1599,7 +1648,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 80,
+          "rarity": 80
         },
         {
           "slug": "lesser-restoration",
@@ -1607,7 +1658,6 @@
           "displayName": "Lesser Restoration",
           "description": "Remove minor conditions",
           "rank": 2,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -1625,7 +1675,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "aid",
@@ -1633,7 +1685,6 @@
           "displayName": "Aid",
           "description": "Boost max health temporarily",
           "rank": 2,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -1655,7 +1706,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "spiritual-weapon",
@@ -1663,7 +1716,6 @@
           "displayName": "Spiritual Weapon",
           "description": "Floating weapon attacks",
           "rank": 2,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -1689,7 +1741,9 @@
               "value": "1d8",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "zone-of-truth",
@@ -1697,7 +1751,6 @@
           "displayName": "Zone of Truth",
           "description": "Cannot lie in area",
           "rank": 2,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -1723,7 +1776,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "prayer-of-healing",
@@ -1731,7 +1786,6 @@
           "displayName": "Prayer of Healing",
           "description": "Heal multiple allies",
           "rank": 3,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -1757,7 +1811,9 @@
               "value": 40,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "remove-curse",
@@ -1765,7 +1821,6 @@
           "displayName": "Remove Curse",
           "description": "End curse effects",
           "rank": 3,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -1783,7 +1838,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "spirit-guardians",
@@ -1791,7 +1848,6 @@
           "displayName": "Spirit Guardians",
           "description": "Protective spirits damage foes",
           "rank": 3,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -1821,7 +1877,9 @@
               "value": "3d8",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "daylight",
@@ -1829,7 +1887,6 @@
           "displayName": "Daylight",
           "description": "Bright light, dispel darkness",
           "rank": 3,
-          "selectionWeight": 60,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -1855,7 +1912,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 60,
+          "rarity": 60
         },
         {
           "slug": "death-ward",
@@ -1863,7 +1922,6 @@
           "displayName": "Death Ward",
           "description": "Prevent death once",
           "rank": 4,
-          "selectionWeight": 60,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -1885,7 +1943,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 60,
+          "rarity": 60
         },
         {
           "slug": "freedom-of-movement",
@@ -1893,7 +1953,6 @@
           "displayName": "Freedom of Movement",
           "description": "Ignore movement restrictions",
           "rank": 4,
-          "selectionWeight": 55,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -1915,7 +1974,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 55,
+          "rarity": 55
         },
         {
           "slug": "guardian-of-faith",
@@ -1923,7 +1984,6 @@
           "displayName": "Guardian of Faith",
           "description": "Spectral guardian protects",
           "rank": 4,
-          "selectionWeight": 55,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -1945,7 +2005,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 55,
+          "rarity": 55
         },
         {
           "slug": "mass-cure-wounds",
@@ -1953,7 +2015,6 @@
           "displayName": "Mass Cure Wounds",
           "description": "Heal multiple targets",
           "rank": 5,
-          "selectionWeight": 55,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -1979,7 +2040,9 @@
               "value": 50,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 55,
+          "rarity": 55
         },
         {
           "slug": "flame-strike",
@@ -1987,7 +2050,6 @@
           "displayName": "Flame Strike",
           "description": "Divine fire column",
           "rank": 5,
-          "selectionWeight": 50,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -2017,7 +2079,9 @@
               "value": "8d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "greater-restoration",
@@ -2025,7 +2089,6 @@
           "displayName": "Greater Restoration",
           "description": "Remove major conditions",
           "rank": 5,
-          "selectionWeight": 50,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -2043,7 +2106,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "heal-critical",
@@ -2051,7 +2116,6 @@
           "displayName": "Heal (Mass)",
           "description": "Major healing",
           "rank": 6,
-          "selectionWeight": 40,
           "traits": {
             "minimumSkillRank": {
               "value": 55,
@@ -2073,7 +2137,9 @@
               "value": 150,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 40,
+          "rarity": 40
         },
         {
           "slug": "blade-barrier",
@@ -2081,7 +2147,6 @@
           "displayName": "Blade Barrier",
           "description": "Wall of whirling blades",
           "rank": 6,
-          "selectionWeight": 35,
           "traits": {
             "minimumSkillRank": {
               "value": 55,
@@ -2107,7 +2172,9 @@
               "value": "6d10",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 35,
+          "rarity": 35
         },
         {
           "slug": "resurrection",
@@ -2115,7 +2182,6 @@
           "displayName": "Resurrection",
           "description": "Return dead to life",
           "rank": 7,
-          "selectionWeight": 30,
           "traits": {
             "minimumSkillRank": {
               "value": 65,
@@ -2133,7 +2199,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 30,
+          "rarity": 30
         },
         {
           "slug": "divine-word",
@@ -2141,7 +2209,6 @@
           "displayName": "Divine Word",
           "description": "Speak word of power",
           "rank": 7,
-          "selectionWeight": 25,
           "traits": {
             "minimumSkillRank": {
               "value": 65,
@@ -2171,7 +2238,9 @@
               "value": "10d10",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 25,
+          "rarity": 25
         },
         {
           "slug": "holy-aura",
@@ -2179,7 +2248,6 @@
           "displayName": "Holy Aura",
           "description": "Divine protection aura",
           "rank": 8,
-          "selectionWeight": 20,
           "traits": {
             "minimumSkillRank": {
               "value": 75,
@@ -2205,7 +2273,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 20,
+          "rarity": 20
         },
         {
           "slug": "mass-heal",
@@ -2213,7 +2283,6 @@
           "displayName": "Mass Heal",
           "description": "Heal all allies greatly",
           "rank": 9,
-          "selectionWeight": 10,
           "traits": {
             "minimumSkillRank": {
               "value": 85,
@@ -2239,7 +2308,9 @@
               "value": 250,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 10,
+          "rarity": 10
         },
         {
           "slug": "true-resurrection",
@@ -2247,7 +2318,6 @@
           "displayName": "True Resurrection",
           "description": "Restore fully from death",
           "rank": 10,
-          "selectionWeight": 5,
           "traits": {
             "minimumSkillRank": {
               "value": 95,
@@ -2265,7 +2335,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 5,
+          "rarity": 5
         }
       ]
     },
@@ -2278,7 +2350,6 @@
           "displayName": "Daze",
           "description": "Stun briefly",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -2300,7 +2371,9 @@
               "value": 1,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "message",
@@ -2308,7 +2381,6 @@
           "displayName": "Message",
           "description": "Whisper telepathically",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -2326,7 +2398,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "ghost-sound",
@@ -2334,7 +2408,6 @@
           "displayName": "Ghost Sound",
           "description": "Create illusory sounds",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -2352,7 +2425,9 @@
               "value": "area",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "mage-hand",
@@ -2360,7 +2435,6 @@
           "displayName": "Mage Hand",
           "description": "Invisible hand manipulates",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -2378,7 +2452,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "minor-illusion",
@@ -2386,7 +2462,6 @@
           "displayName": "Minor Illusion",
           "description": "Small sensory illusion",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -2404,7 +2479,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "telepathic-message",
@@ -2412,7 +2489,6 @@
           "displayName": "Telepathic Message",
           "description": "Send thoughts",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -2430,7 +2506,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "forbidding-ward",
@@ -2438,7 +2516,6 @@
           "displayName": "Forbidding Ward",
           "description": "Ward against approach",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -2456,7 +2533,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "read-aura",
@@ -2464,7 +2543,6 @@
           "displayName": "Read Aura",
           "description": "Sense emotions/magic",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -2482,7 +2560,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "charm",
@@ -2490,7 +2570,6 @@
           "displayName": "Charm",
           "description": "Make friendly",
           "rank": 1,
-          "selectionWeight": 80,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -2512,7 +2591,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 80,
+          "rarity": 80
         },
         {
           "slug": "sleep",
@@ -2520,7 +2601,6 @@
           "displayName": "Sleep",
           "description": "Put creatures to sleep",
           "rank": 1,
-          "selectionWeight": 85,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -2546,7 +2626,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 85,
+          "rarity": 85
         },
         {
           "slug": "disguise-self",
@@ -2554,7 +2636,6 @@
           "displayName": "Disguise Self",
           "description": "Change appearance",
           "rank": 1,
-          "selectionWeight": 80,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -2576,7 +2657,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 80,
+          "rarity": 80
         },
         {
           "slug": "illusory-object",
@@ -2584,7 +2667,6 @@
           "displayName": "Illusory Object",
           "description": "Create fake object",
           "rank": 1,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -2606,7 +2688,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "phantom-pain",
@@ -2614,7 +2698,6 @@
           "displayName": "Phantom Pain",
           "description": "Psychic damage",
           "rank": 1,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -2640,7 +2723,9 @@
               "value": "2d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "ventriloquism",
@@ -2648,7 +2733,6 @@
           "displayName": "Ventriloquism",
           "description": "Throw voice",
           "rank": 1,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -2670,7 +2754,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "invisibility",
@@ -2678,7 +2764,6 @@
           "displayName": "Invisibility",
           "description": "Become invisible",
           "rank": 2,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -2700,7 +2785,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "fear",
@@ -2708,7 +2795,6 @@
           "displayName": "Fear",
           "description": "Frighten target",
           "rank": 2,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -2730,7 +2816,9 @@
               "value": 3,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "mirror-image-occult",
@@ -2738,7 +2826,6 @@
           "displayName": "Mirror Image",
           "description": "Illusory duplicates",
           "rank": 2,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -2760,7 +2847,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "silence",
@@ -2768,7 +2857,6 @@
           "displayName": "Silence",
           "description": "No sound in area",
           "rank": 2,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -2794,7 +2882,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "calm-emotions",
@@ -2802,7 +2892,6 @@
           "displayName": "Calm Emotions",
           "description": "Suppress emotions",
           "rank": 2,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -2828,7 +2917,9 @@
               "value": 5,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "hypnotic-pattern",
@@ -2836,7 +2927,6 @@
           "displayName": "Hypnotic Pattern",
           "description": "Mesmerize creatures",
           "rank": 3,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -2862,7 +2952,9 @@
               "value": 5,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "major-image",
@@ -2870,7 +2962,6 @@
           "displayName": "Major Image",
           "description": "Complex illusion",
           "rank": 3,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -2892,7 +2983,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "clairvoyance",
@@ -2900,7 +2993,6 @@
           "displayName": "Clairvoyance",
           "description": "See/hear distant location",
           "rank": 3,
-          "selectionWeight": 60,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -2922,7 +3014,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 60,
+          "rarity": 60
         },
         {
           "slug": "suggestion",
@@ -2930,7 +3024,6 @@
           "displayName": "Suggestion",
           "description": "Influence action",
           "rank": 3,
-          "selectionWeight": 60,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -2952,7 +3045,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 60,
+          "rarity": 60
         },
         {
           "slug": "confusion",
@@ -2960,7 +3055,6 @@
           "displayName": "Confusion",
           "description": "Random actions",
           "rank": 4,
-          "selectionWeight": 55,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -2986,7 +3080,9 @@
               "value": 5,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 55,
+          "rarity": 55
         },
         {
           "slug": "phantasmal-killer",
@@ -2994,7 +3090,6 @@
           "displayName": "Phantasmal Killer",
           "description": "Terrifying illusion damages",
           "rank": 4,
-          "selectionWeight": 50,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -3020,7 +3115,9 @@
               "value": "6d10",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "detect-scrying",
@@ -3028,7 +3125,6 @@
           "displayName": "Detect Scrying",
           "description": "Know if being watched",
           "rank": 4,
-          "selectionWeight": 50,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -3046,7 +3142,9 @@
               "value": "self",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "dominate-person",
@@ -3054,7 +3152,6 @@
           "displayName": "Dominate Person",
           "description": "Control humanoid",
           "rank": 5,
-          "selectionWeight": 50,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -3076,7 +3173,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "mislead",
@@ -3084,7 +3183,6 @@
           "displayName": "Mislead",
           "description": "Illusory double + invisibility",
           "rank": 5,
-          "selectionWeight": 45,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -3106,7 +3204,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 45,
+          "rarity": 45
         },
         {
           "slug": "modify-memory",
@@ -3114,7 +3214,6 @@
           "displayName": "Modify Memory",
           "description": "Alter memories",
           "rank": 5,
-          "selectionWeight": 45,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -3132,7 +3231,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 45,
+          "rarity": 45
         },
         {
           "slug": "mass-suggestion",
@@ -3140,7 +3241,6 @@
           "displayName": "Mass Suggestion",
           "description": "Influence multiple",
           "rank": 6,
-          "selectionWeight": 30,
           "traits": {
             "minimumSkillRank": {
               "value": 55,
@@ -3166,7 +3266,9 @@
               "value": 24,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 30,
+          "rarity": 30
         },
         {
           "slug": "programmed-illusion",
@@ -3174,7 +3276,6 @@
           "displayName": "Programmed Illusion",
           "description": "Triggered illusion",
           "rank": 6,
-          "selectionWeight": 25,
           "traits": {
             "minimumSkillRank": {
               "value": 55,
@@ -3192,7 +3293,9 @@
               "value": "area",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 25,
+          "rarity": 25
         },
         {
           "slug": "project-image",
@@ -3200,7 +3303,6 @@
           "displayName": "Project Image",
           "description": "Illusory duplicate",
           "rank": 7,
-          "selectionWeight": 25,
           "traits": {
             "minimumSkillRank": {
               "value": 65,
@@ -3222,7 +3324,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 25,
+          "rarity": 25
         },
         {
           "slug": "reverse-gravity",
@@ -3230,7 +3334,6 @@
           "displayName": "Reverse Gravity",
           "description": "Invert gravity in area",
           "rank": 7,
-          "selectionWeight": 20,
           "traits": {
             "minimumSkillRank": {
               "value": 65,
@@ -3256,7 +3359,9 @@
               "value": 5,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 20,
+          "rarity": 20
         },
         {
           "slug": "mind-blank",
@@ -3264,7 +3369,6 @@
           "displayName": "Mind Blank",
           "description": "Immune to mental effects",
           "rank": 8,
-          "selectionWeight": 15,
           "traits": {
             "minimumSkillRank": {
               "value": 75,
@@ -3286,7 +3390,9 @@
               "value": 600,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 15,
+          "rarity": 15
         },
         {
           "slug": "psychic-crush",
@@ -3294,7 +3400,6 @@
           "displayName": "Psychic Crush",
           "description": "Devastating mental assault",
           "rank": 9,
-          "selectionWeight": 10,
           "traits": {
             "minimumSkillRank": {
               "value": 85,
@@ -3320,7 +3425,9 @@
               "value": "20d10",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 10,
+          "rarity": 10
         },
         {
           "slug": "weird",
@@ -3328,7 +3435,6 @@
           "displayName": "Weird",
           "description": "Mass phantasmal killer",
           "rank": 10,
-          "selectionWeight": 5,
           "traits": {
             "minimumSkillRank": {
               "value": 95,
@@ -3358,7 +3464,9 @@
               "value": "25d10",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 5,
+          "rarity": 5
         }
       ]
     },
@@ -3371,7 +3479,6 @@
           "displayName": "Produce Flame",
           "description": "Create fire",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -3397,7 +3504,9 @@
               "value": "1d4",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "tanglefoot",
@@ -3405,7 +3514,6 @@
           "displayName": "Tanglefoot",
           "description": "Vines hinder movement",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -3427,7 +3535,9 @@
               "value": 2,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "electric-arc",
@@ -3435,7 +3545,6 @@
           "displayName": "Electric Arc",
           "description": "Electricity zaps foes",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -3465,7 +3574,9 @@
               "value": "1d4",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "guidance-primal",
@@ -3473,7 +3584,6 @@
           "displayName": "Guidance",
           "description": "Nature's guidance",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -3495,7 +3605,9 @@
               "value": 1,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "know-direction",
@@ -3503,7 +3615,6 @@
           "displayName": "Know Direction",
           "description": "Find true north",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -3521,7 +3632,9 @@
               "value": "self",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "dancing-lights",
@@ -3529,7 +3642,6 @@
           "displayName": "Dancing Lights",
           "description": "Create floating lights",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -3551,7 +3663,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "stabilize-primal",
@@ -3559,7 +3673,6 @@
           "displayName": "Stabilize",
           "description": "Natural healing touch",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -3581,7 +3694,9 @@
               "value": 1,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "read-the-air",
@@ -3589,7 +3704,6 @@
           "displayName": "Read the Air",
           "description": "Sense weather changes",
           "rank": 0,
-          "selectionWeight": 100,
           "traits": {
             "minimumSkillRank": {
               "value": 0,
@@ -3607,7 +3721,9 @@
               "value": "self",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         },
         {
           "slug": "summon-animal",
@@ -3615,7 +3731,6 @@
           "displayName": "Summon Animal",
           "description": "Summon beast",
           "rank": 1,
-          "selectionWeight": 85,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -3637,7 +3752,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 85,
+          "rarity": 85
         },
         {
           "slug": "entangle",
@@ -3645,7 +3762,6 @@
           "displayName": "Entangle",
           "description": "Plants restrain creatures",
           "rank": 1,
-          "selectionWeight": 85,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -3671,7 +3787,9 @@
               "value": 5,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 85,
+          "rarity": 85
         },
         {
           "slug": "goodberry",
@@ -3679,7 +3797,6 @@
           "displayName": "Goodberry",
           "description": "Berries heal",
           "rank": 1,
-          "selectionWeight": 80,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -3701,7 +3818,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 80,
+          "rarity": 80
         },
         {
           "slug": "speak-with-animals",
@@ -3709,7 +3828,6 @@
           "displayName": "Speak with Animals",
           "description": "Communicate with beasts",
           "rank": 1,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -3731,7 +3849,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "jump",
@@ -3739,7 +3859,6 @@
           "displayName": "Jump",
           "description": "Leap great distances",
           "rank": 1,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -3761,7 +3880,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "longstrider",
@@ -3769,7 +3890,6 @@
           "displayName": "Longstrider",
           "description": "Increase speed",
           "rank": 1,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 5,
@@ -3791,7 +3911,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "barkskin",
@@ -3799,7 +3921,6 @@
           "displayName": "Barkskin",
           "description": "Tough as bark",
           "rank": 2,
-          "selectionWeight": 80,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -3821,7 +3942,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 80,
+          "rarity": 80
         },
         {
           "slug": "flaming-sphere",
@@ -3829,7 +3952,6 @@
           "displayName": "Flaming Sphere",
           "description": "Rolling ball of fire",
           "rank": 2,
-          "selectionWeight": 75,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -3859,7 +3981,9 @@
               "value": "3d6",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 75,
+          "rarity": 75
         },
         {
           "slug": "gust-of-wind",
@@ -3867,7 +3991,6 @@
           "displayName": "Gust of Wind",
           "description": "Strong wind pushes",
           "rank": 2,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -3889,7 +4012,9 @@
               "value": 5,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "animal-messenger",
@@ -3897,7 +4022,6 @@
           "displayName": "Animal Messenger",
           "description": "Send message via animal",
           "rank": 2,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -3915,7 +4039,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "pass-without-trace",
@@ -3923,7 +4049,6 @@
           "displayName": "Pass Without Trace",
           "description": "Hide movement traces",
           "rank": 2,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 15,
@@ -3945,7 +4070,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "call-lightning",
@@ -3953,7 +4080,6 @@
           "displayName": "Call Lightning",
           "description": "Storm strikes foes",
           "rank": 3,
-          "selectionWeight": 70,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -3983,7 +4109,9 @@
               "value": "5d8",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 70,
+          "rarity": 70
         },
         {
           "slug": "plant-growth",
@@ -3991,7 +4119,6 @@
           "displayName": "Plant Growth",
           "description": "Enrich or entangle plants",
           "rank": 3,
-          "selectionWeight": 65,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -4013,7 +4140,9 @@
               "value": 100,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 65,
+          "rarity": 65
         },
         {
           "slug": "water-breathing",
@@ -4021,7 +4150,6 @@
           "displayName": "Water Breathing",
           "description": "Breathe underwater",
           "rank": 3,
-          "selectionWeight": 60,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -4043,7 +4171,9 @@
               "value": 600,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 60,
+          "rarity": 60
         },
         {
           "slug": "wind-wall",
@@ -4051,7 +4181,6 @@
           "displayName": "Wind Wall",
           "description": "Wall of wind blocks projectiles",
           "rank": 3,
-          "selectionWeight": 60,
           "traits": {
             "minimumSkillRank": {
               "value": 25,
@@ -4073,7 +4202,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 60,
+          "rarity": 60
         },
         {
           "slug": "ice-storm-primal",
@@ -4081,7 +4212,6 @@
           "displayName": "Ice Storm",
           "description": "Hail damages area",
           "rank": 4,
-          "selectionWeight": 60,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -4111,7 +4241,9 @@
               "value": "7d8",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 60,
+          "rarity": 60
         },
         {
           "slug": "stone-shape",
@@ -4119,7 +4251,6 @@
           "displayName": "Stone Shape",
           "description": "Reshape stone",
           "rank": 4,
-          "selectionWeight": 55,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -4137,7 +4268,9 @@
               "value": "single",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 55,
+          "rarity": 55
         },
         {
           "slug": "freedom-of-movement-primal",
@@ -4145,7 +4278,6 @@
           "displayName": "Freedom of Movement",
           "description": "Move freely",
           "rank": 4,
-          "selectionWeight": 55,
           "traits": {
             "minimumSkillRank": {
               "value": 35,
@@ -4167,7 +4299,9 @@
               "value": 60,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 55,
+          "rarity": 55
         },
         {
           "slug": "wall-of-thorns",
@@ -4175,7 +4309,6 @@
           "displayName": "Wall of Thorns",
           "description": "Thorny barrier",
           "rank": 5,
-          "selectionWeight": 55,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -4209,7 +4342,9 @@
               "value": "3d8",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 55,
+          "rarity": 55
         },
         {
           "slug": "cone-of-cold-primal",
@@ -4217,7 +4352,6 @@
           "displayName": "Cone of Cold",
           "description": "Icy blast",
           "rank": 5,
-          "selectionWeight": 50,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -4243,7 +4377,9 @@
               "value": "11d8",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         },
         {
           "slug": "commune-with-nature",
@@ -4251,7 +4387,6 @@
           "displayName": "Commune with Nature",
           "description": "Learn terrain features",
           "rank": 5,
-          "selectionWeight": 45,
           "traits": {
             "minimumSkillRank": {
               "value": 45,
@@ -4269,7 +4404,9 @@
               "value": "self",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 45,
+          "rarity": 45
         },
         {
           "slug": "summon-elemental",
@@ -4277,7 +4414,6 @@
           "displayName": "Summon Elemental",
           "description": "Call elemental",
           "rank": 6,
-          "selectionWeight": 45,
           "traits": {
             "minimumSkillRank": {
               "value": 55,
@@ -4299,7 +4435,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 45,
+          "rarity": 45
         },
         {
           "slug": "wall-of-stone",
@@ -4307,7 +4445,6 @@
           "displayName": "Wall of Stone",
           "description": "Create stone barrier",
           "rank": 6,
-          "selectionWeight": 40,
           "traits": {
             "minimumSkillRank": {
               "value": 55,
@@ -4329,7 +4466,9 @@
               "value": 600,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 40,
+          "rarity": 40
         },
         {
           "slug": "sunbeam",
@@ -4337,7 +4476,6 @@
           "displayName": "Sunbeam",
           "description": "Radiant sun ray",
           "rank": 7,
-          "selectionWeight": 30,
           "traits": {
             "minimumSkillRank": {
               "value": 65,
@@ -4367,7 +4505,9 @@
               "value": "10d8",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 30,
+          "rarity": 30
         },
         {
           "slug": "fire-storm",
@@ -4375,7 +4515,6 @@
           "displayName": "Fire Storm",
           "description": "Massive fire area",
           "rank": 7,
-          "selectionWeight": 25,
           "traits": {
             "minimumSkillRank": {
               "value": 65,
@@ -4405,7 +4544,9 @@
               "value": "12d10",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 25,
+          "rarity": 25
         },
         {
           "slug": "earthquake",
@@ -4413,7 +4554,6 @@
           "displayName": "Earthquake",
           "description": "Shake earth violently",
           "rank": 8,
-          "selectionWeight": 15,
           "traits": {
             "minimumSkillRank": {
               "value": 75,
@@ -4443,7 +4583,9 @@
               "value": "12d10",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 15,
+          "rarity": 15
         },
         {
           "slug": "storm-of-vengeance",
@@ -4451,7 +4593,6 @@
           "displayName": "Storm of Vengeance",
           "description": "Devastating weather",
           "rank": 9,
-          "selectionWeight": 10,
           "traits": {
             "minimumSkillRank": {
               "value": 85,
@@ -4485,7 +4626,9 @@
               "value": "15d12",
               "type": "string"
             }
-          }
+          },
+          "rarityWeight": 10,
+          "rarity": 10
         },
         {
           "slug": "nature-incarnate",
@@ -4493,7 +4636,6 @@
           "displayName": "Nature Incarnate",
           "description": "Become avatar of nature",
           "rank": 10,
-          "selectionWeight": 5,
           "traits": {
             "minimumSkillRank": {
               "value": 95,
@@ -4515,7 +4657,9 @@
               "value": 10,
               "type": "number"
             }
-          }
+          },
+          "rarityWeight": 5,
+          "rarity": 5
         }
       ]
     }
