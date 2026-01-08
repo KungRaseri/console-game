@@ -19,7 +19,9 @@ public class CombatService
     /// <summary>
     /// Initialize the combat service with required dependencies.
     /// </summary>
-    public CombatService(SaveGameService saveGameService, IMediator mediator)
+    public CombatService(
+        SaveGameService saveGameService,
+        IMediator mediator)
     {
         _saveGameService = saveGameService;
         _mediator = mediator;
