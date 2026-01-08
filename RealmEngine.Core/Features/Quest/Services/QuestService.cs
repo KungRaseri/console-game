@@ -8,11 +8,16 @@ public class QuestService
 {
     private readonly ISaveGameService _saveGameService;
     private readonly MainQuestService _mainQuestService;
+    private readonly QuestInitializationService _initService;
 
-    public QuestService(ISaveGameService saveGameService, MainQuestService mainQuestService)
+    public QuestService(
+        ISaveGameService saveGameService, 
+        MainQuestService mainQuestService,
+        QuestInitializationService initService)
     {
         _saveGameService = saveGameService;
         _mainQuestService = mainQuestService;
+        _initService = initService;
     }
 
     public virtual async Task<(bool Success, Quest? Quest, string ErrorMessage)> StartQuestAsync(string questId)
@@ -80,6 +85,9 @@ public class QuestService
         _saveGameService.SaveGame(saveGame);
 
         Log.Information("Quest completed: {QuestId} - {QuestTitle}", questId, quest.Title);
+
+        // Unlock next quests in the chain
+        await _initService.UnlockNextQuestsAsync(saveGame, questId);
 
         return await Task.FromResult((true, quest, string.Empty));
     }

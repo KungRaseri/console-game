@@ -2,6 +2,7 @@ using RealmEngine.Shared.Models;
 using RealmEngine.Core.Features.SaveLoad;
 using MediatR;
 using Serilog;
+using RealmEngine.Core.Features.Quests.Commands;
 
 namespace RealmEngine.Core.Features.Combat.Commands.AttackEnemy;
 
@@ -61,6 +62,12 @@ public class AttackEnemyHandler : IRequestHandler<AttackEnemyCommand, AttackEnem
 
             await _mediator.Publish(new EnemyDefeated(player.Name, enemy.Name), cancellationToken);
             await _mediator.Publish(new GoldGained(player.Name, goldGained), cancellationToken);
+
+            // Update quest progress for kill objectives
+            await UpdateQuestProgressForEnemyKill(enemy, cancellationToken);
+
+            // Check for auto-completable quests after enemy defeat
+            await CheckAndCompleteReadyQuests(cancellationToken);
         }
 
         Log.Information("Player {PlayerName} attacked {EnemyName} for {Damage} damage (critical: {IsCritical})",
@@ -74,5 +81,99 @@ public class AttackEnemyHandler : IRequestHandler<AttackEnemyCommand, AttackEnem
             ExperienceGained = xpGained,
             GoldGained = goldGained
         };
+    }
+
+    /// <summary>
+    /// Updates quest progress when an enemy is defeated.
+    /// Checks all active quests and updates matching objectives.
+    /// </summary>
+    private async Task UpdateQuestProgressForEnemyKill(Enemy enemy, CancellationToken cancellationToken)
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null) return;
+
+        // Update total enemies defeated counter
+        saveGame.TotalEnemiesDefeated++;
+
+        // Update enemies defeated by type (convert enum to string)
+        var enemyType = enemy.Type.ToString().ToLowerInvariant();
+        if (!saveGame.EnemiesDefeatedByType.ContainsKey(enemyType))
+        {
+            saveGame.EnemiesDefeatedByType[enemyType] = 0;
+        }
+        saveGame.EnemiesDefeatedByType[enemyType]++;
+
+        // Check all active quests for matching objectives
+        foreach (var quest in saveGame.ActiveQuests)
+        {
+            foreach (var objective in quest.Objectives)
+            {
+                var objectiveId = objective.Key;
+
+                // Match objective ID patterns:
+                // Pattern 1: "defeat_<enemy_name>" (e.g., "defeat_shrine_guardian")
+                // Pattern 2: "defeat_<enemy_type>" (e.g., "defeat_abyssal_demons")
+                // Pattern 3: "kill_<enemy_type>" (e.g., "kill_goblins")
+
+                var enemyNameMatch = $"defeat_{enemy.Name.ToLowerInvariant().Replace(" ", "_")}";
+                var enemyTypeMatch = $"defeat_{enemyType}";
+                var killTypeMatch = $"kill_{enemyType}";
+
+                if (objectiveId == enemyNameMatch || 
+                    objectiveId == enemyTypeMatch || 
+                    objectiveId == killTypeMatch ||
+                    objectiveId.EndsWith($"_{enemyType}") ||
+                    objectiveId.Contains(enemyType))
+                {
+                    // Update quest progress
+                    var progressResult = await _mediator.Send(
+                        new UpdateQuestProgressCommand(quest.Id, objectiveId, 1), 
+                        cancellationToken);
+
+                    if (progressResult.ObjectiveCompleted)
+                    {
+                        Log.Information("Quest objective completed: {QuestId}/{ObjectiveId}", quest.Id, objectiveId);
+                    }
+
+                    if (progressResult.QuestCompleted)
+                    {
+                        Log.Information("Quest ready for completion: {QuestId}", quest.Id);
+                    }
+                }
+            }
+        }
+
+        // Save updated counters
+        _saveGameService.SaveGame(saveGame);
+    }
+
+    /// <summary>
+    /// Checks all active quests and auto-completes those with all objectives met.
+    /// </summary>
+    private async Task CheckAndCompleteReadyQuests(CancellationToken cancellationToken)
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null) return;
+
+        // Find quests that have all objectives completed
+        var readyQuests = saveGame.ActiveQuests
+            .Where(q => q.Objectives.All(kvp =>
+                q.ObjectiveProgress.ContainsKey(kvp.Key) && 
+                q.ObjectiveProgress[kvp.Key] >= kvp.Value))
+            .ToList();
+
+        // Auto-complete each ready quest
+        foreach (var quest in readyQuests)
+        {
+            var result = await _mediator.Send(
+                new CompleteQuestCommand(quest.Id), 
+                cancellationToken);
+
+            if (result.Success)
+            {
+                Log.Information("Quest auto-completed: {QuestTitle} - Rewards: {XP} XP, {Gold} gold",
+                    quest.Title, result.Rewards?.Xp ?? 0, result.Rewards?.Gold ?? 0);
+            }
+        }
     }
 }
