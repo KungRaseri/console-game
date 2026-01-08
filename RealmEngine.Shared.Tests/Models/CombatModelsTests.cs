@@ -109,18 +109,52 @@ public class CombatActionTests
     }
 
     [Fact]
-    public void CombatActionType_Enum_Should_Have_Four_Values()
+    public void CombatActionType_Enum_Should_Have_Six_Values()
     {
         // Assert
         var types = Enum.GetValues<CombatActionType>();
-        types.Should().HaveCount(4);
+        types.Should().HaveCount(6);
         types.Should().Contain(new[]
         {
             CombatActionType.Attack,
             CombatActionType.Defend,
             CombatActionType.UseItem,
+            CombatActionType.UseAbility,
+            CombatActionType.CastSpell,
             CombatActionType.Flee
         });
+    }
+
+    [Fact]
+    public void CombatAction_Should_Support_AbilityId_Property()
+    {
+        // Act
+        var action = new CombatAction
+        {
+            Type = CombatActionType.UseAbility,
+            ActorName = "Warrior",
+            AbilityId = "power-strike"
+        };
+
+        // Assert
+        action.Type.Should().Be(CombatActionType.UseAbility);
+        action.AbilityId.Should().Be("power-strike");
+    }
+
+    [Fact]
+    public void CombatAction_Should_Support_SpellId_Property()
+    {
+        // Act
+        var action = new CombatAction
+        {
+            Type = CombatActionType.CastSpell,
+            ActorName = "Mage",
+            SpellId = "fireball"
+        };
+
+        // Assert
+        action.Type.Should().Be(CombatActionType.CastSpell);
+        action.SpellId.Should().Be("fireball");
     }
 }
 

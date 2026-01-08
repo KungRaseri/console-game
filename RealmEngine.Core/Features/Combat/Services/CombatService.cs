@@ -4,6 +4,8 @@ using RealmEngine.Shared.Utilities;
 using Serilog;
 using MediatR;
 using RealmEngine.Core.Features.Progression.Commands;
+using RealmEngine.Core.Services;
+using RealmEngine.Core.Features.Progression.Services;
 
 namespace RealmEngine.Core.Features.Combat;
 
@@ -15,16 +17,19 @@ public class CombatService
     private readonly Random _random = new();
     private readonly SaveGameService _saveGameService;
     private readonly IMediator _mediator;
+    private readonly ReactiveAbilityService _reactiveAbilityService;
 
     /// <summary>
     /// Initialize the combat service with required dependencies.
     /// </summary>
     public CombatService(
         SaveGameService saveGameService,
-        IMediator mediator)
+        IMediator mediator,
+        AbilityCatalogService abilityCatalogService)
     {
         _saveGameService = saveGameService;
         _mediator = mediator;
+        _reactiveAbilityService = new ReactiveAbilityService(abilityCatalogService);
     }
 
     /// <summary>
@@ -34,6 +39,7 @@ public class CombatService
     {
         _saveGameService = null!;
         _mediator = null!;
+        _reactiveAbilityService = new ReactiveAbilityService();
     }
 
     /// <summary>
@@ -71,6 +77,12 @@ public class CombatService
         double critChance = player.GetCriticalChance() + SkillEffectCalculator.GetCriticalChanceBonus(player);
         bool isCritical = RollCritical(critChance);
         result.IsCritical = isCritical;
+
+        // Trigger reactive abilities on critical hit
+        if (isCritical)
+        {
+            _reactiveAbilityService.CheckAndTriggerReactiveAbilities(player, "onCrit");
+        }
 
         // Determine weapon skill for XP awards (from item's skillReference trait)
         string? weaponSkillSlug = player.GetEquippedWeaponSkillSlug();
@@ -152,6 +164,9 @@ public class CombatService
             result.IsDodged = true;
             result.Message = $"You dodged {enemy.Name}'s attack!";
             
+            // Trigger reactive abilities on dodge
+            _reactiveAbilityService.CheckAndTriggerReactiveAbilities(player, "onDodge");
+            
             // Award acrobatics XP for successful dodge
             await _mediator.Send(new AwardSkillXPCommand
             {
@@ -169,6 +184,9 @@ public class CombatService
         {
             result.IsBlocked = true;
             result.Message = $"You blocked {enemy.Name}'s attack!";
+            
+            // Trigger reactive abilities on block
+            _reactiveAbilityService.CheckAndTriggerReactiveAbilities(player, "onBlock");
             
             // Award block XP for successful block
             await _mediator.Send(new AwardSkillXPCommand
@@ -228,6 +246,9 @@ public class CombatService
         // Apply damage to player
         player.Health = Math.Max(0, player.Health - finalDamage);
         result.Damage = finalDamage;
+
+        // Trigger reactive abilities on damage taken
+        _reactiveAbilityService.CheckAndTriggerReactiveAbilities(player, "onDamageTaken");
 
         // Award armor skill XP when taking damage (not defending)
         if (!isDefending && finalDamage > 0)

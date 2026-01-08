@@ -111,7 +111,7 @@ public class GetCombatStateHandlerTests
     }
 
     [Fact]
-    public async Task Handle_Should_Return_Available_Actions()
+    public async Task Handle_Should_Return_Available_Actions_Without_Abilities_Or_Spells()
     {
         // Arrange
         var handler = new GetCombatStateHandler();
@@ -128,6 +128,149 @@ public class GetCombatStateHandlerTests
         result.AvailableActions.Should().Contain("Use Item");
         result.AvailableActions.Should().Contain("Flee");
         result.AvailableActions.Should().HaveCount(4);
+    }
+
+    [Fact]
+    public async Task Handle_Should_Include_Use_Ability_When_Player_Has_Available_Abilities()
+    {
+        // Arrange
+        var handler = new GetCombatStateHandler();
+        var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
+        var ability = new Ability { AbilityId = "test-ability", Name = "Test Ability" };
+        player.LearnedAbilities.Add("test-ability", ability);
+        player.AbilityCooldowns["test-ability"] = 0; // Not on cooldown
+        
+        var enemy = new Enemy { Health = 50, MaxHealth = 100 };
+        var query = new GetCombatStateQuery { Player = player, Enemy = enemy };
+
+        // Act
+        var result = await handler.Handle(query, CancellationToken.None);
+
+        // Assert
+        result.AvailableActions.Should().Contain("Use Ability");
+        result.AvailableAbilities.Should().Contain("test-ability");
+    }
+
+    [Fact]
+    public async Task Handle_Should_Not_Include_Ability_On_Cooldown()
+    {
+        // Arrange
+        var handler = new GetCombatStateHandler();
+        var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
+        var ability = new Ability { AbilityId = "test-ability", Name = "Test Ability" };
+        player.LearnedAbilities.Add("test-ability", ability);
+        player.AbilityCooldowns["test-ability"] = 2; // On cooldown
+        
+        var enemy = new Enemy { Health = 50, MaxHealth = 100 };
+        var query = new GetCombatStateQuery { Player = player, Enemy = enemy };
+
+        // Act
+        var result = await handler.Handle(query, CancellationToken.None);
+
+        // Assert
+        result.AvailableActions.Should().NotContain("Use Ability");
+        result.AvailableAbilities.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task Handle_Should_Include_Cast_Spell_When_Player_Has_Available_Spells()
+    {
+        // Arrange
+        var handler = new GetCombatStateHandler();
+        var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
+        var spell = new Spell { SpellId = "test-spell", Name = "Test Spell" };
+        player.LearnedSpells.Add("test-spell", spell);
+        player.SpellCooldowns["test-spell"] = 0; // Not on cooldown
+        
+        var enemy = new Enemy { Health = 50, MaxHealth = 100 };
+        var query = new GetCombatStateQuery { Player = player, Enemy = enemy };
+
+        // Act
+        var result = await handler.Handle(query, CancellationToken.None);
+
+        // Assert
+        result.AvailableActions.Should().Contain("Cast Spell");
+        result.AvailableSpells.Should().Contain("test-spell");
+    }
+
+    [Fact]
+    public async Task Handle_Should_Not_Include_Spell_On_Cooldown()
+    {
+        // Arrange
+        var handler = new GetCombatStateHandler();
+        var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
+        var spell = new Spell { SpellId = "test-spell", Name = "Test Spell" };
+        player.LearnedSpells.Add("test-spell", spell);
+        player.SpellCooldowns["test-spell"] = 3; // On cooldown
+        
+        var enemy = new Enemy { Health = 50, MaxHealth = 100 };
+        var query = new GetCombatStateQuery { Player = player, Enemy = enemy };
+
+        // Act
+        var result = await handler.Handle(query, CancellationToken.None);
+
+        // Assert
+        result.AvailableActions.Should().NotContain("Cast Spell");
+        result.AvailableSpells.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task Handle_Should_Include_Both_Abilities_And_Spells_When_Available()
+    {
+        // Arrange
+        var handler = new GetCombatStateHandler();
+        var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
+        
+        var ability = new Ability { AbilityId = "test-ability", Name = "Test Ability" };
+        player.LearnedAbilities.Add("test-ability", ability);
+        player.AbilityCooldowns["test-ability"] = 0;
+        
+        var spell = new Spell { SpellId = "test-spell", Name = "Test Spell" };
+        player.LearnedSpells.Add("test-spell", spell);
+        player.SpellCooldowns["test-spell"] = 0;
+        
+        var enemy = new Enemy { Health = 50, MaxHealth = 100 };
+        var query = new GetCombatStateQuery { Player = player, Enemy = enemy };
+
+        // Act
+        var result = await handler.Handle(query, CancellationToken.None);
+
+        // Assert
+        result.AvailableActions.Should().Contain("Use Ability");
+        result.AvailableActions.Should().Contain("Cast Spell");
+        result.AvailableAbilities.Should().Contain("test-ability");
+        result.AvailableSpells.Should().Contain("test-spell");
+        result.AvailableActions.Should().HaveCount(6); // Attack, Use Ability, Cast Spell, Defend, Use Item, Flee
+    }
+
+    [Fact]
+    public async Task Handle_Should_Order_Actions_Correctly_With_Abilities_And_Spells()
+    {
+        // Arrange
+        var handler = new GetCombatStateHandler();
+        var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
+        
+        var ability = new Ability { AbilityId = "test-ability", Name = "Test Ability" };
+        player.LearnedAbilities.Add("test-ability", ability);
+        player.AbilityCooldowns["test-ability"] = 0;
+        
+        var spell = new Spell { SpellId = "test-spell", Name = "Test Spell" };
+        player.LearnedSpells.Add("test-spell", spell);
+        player.SpellCooldowns["test-spell"] = 0;
+        
+        var enemy = new Enemy { Health = 50, MaxHealth = 100 };
+        var query = new GetCombatStateQuery { Player = player, Enemy = enemy };
+
+        // Act
+        var result = await handler.Handle(query, CancellationToken.None);
+
+        // Assert
+        result.AvailableActions[0].Should().Be("Attack");
+        result.AvailableActions[1].Should().Be("Use Ability");
+        result.AvailableActions[2].Should().Be("Cast Spell");
+        result.AvailableActions[3].Should().Be("Defend");
+        result.AvailableActions[4].Should().Be("Use Item");
+        result.AvailableActions[5].Should().Be("Flee");
     }
 
     [Theory]

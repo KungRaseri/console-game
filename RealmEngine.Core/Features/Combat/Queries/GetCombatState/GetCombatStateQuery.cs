@@ -22,4 +22,6 @@ public record CombatStateDto
     public bool PlayerCanFlee { get; init; }
     public bool PlayerHasItems { get; init; }
     public List<string> AvailableActions { get; init; } = new();
+    public List<string> AvailableAbilities { get; init; } = new();
+    public List<string> AvailableSpells { get; init; } = new();
 }

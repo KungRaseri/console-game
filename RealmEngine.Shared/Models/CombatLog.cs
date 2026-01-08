@@ -90,6 +90,8 @@ public enum CombatLogType
     Heal,
     Defend,
     ItemUse,
+    AbilityUse,
+    SpellCast,
     Victory,
     Defeat
 }

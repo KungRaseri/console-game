@@ -9,6 +9,8 @@ public class CombatAction
     public string ActorName { get; set; } = string.Empty;
     public string? TargetName { get; set; }
     public Item? ItemUsed { get; set; }
+    public string? AbilityId { get; set; }
+    public string? SpellId { get; set; }
 }
 
 /// <summary>
@@ -19,6 +21,8 @@ public enum CombatActionType
     Attack,      // Physical or magic attack
     Defend,      // Reduce incoming damage
     UseItem,     // Use consumable item
+    UseAbility,  // Use a learned ability
+    CastSpell,   // Cast a learned spell
     Flee         // Attempt to escape combat
 }
 
