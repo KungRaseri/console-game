@@ -1,7 +1,7 @@
 {
   "metadata": {
     "type": "hierarchical_catalog",
-    "version": "4.0",
+    "version": "5.1",
     "description": "Religious NPCs - clergy and faithful devoted to divine service and spiritual matters",
     "lastUpdated": "2026-01-08",
     "socialClass": "religious",
@@ -29,12 +29,14 @@
           "name": "AcolyteOfFaith",
           "displayName": "Acolyte of Faith",
           "description": "Devoted to religious service",
-          "strength": 10,
-          "dexterity": 10,
-          "constitution": 12,
-          "intelligence": 11,
-          "wisdom": 16,
-          "charisma": 13,
+          "attributes": {
+            "strength": 10,
+            "dexterity": 10,
+            "constitution": 12,
+            "intelligence": 11,
+            "wisdom": 16,
+            "charisma": 13
+          },
           "rarityWeight": 35,
           "socialClass": "religious",
           "startingGold": "1d10",

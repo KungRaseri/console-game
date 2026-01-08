@@ -1,7 +1,7 @@
 {
   "metadata": {
     "type": "hierarchical_catalog",
-    "version": "4.0",
+    "version": "5.1",
     "description": "Service NPCs - hospitality workers providing lodging, food, drink, and maintenance",
     "lastUpdated": "2026-01-08",
     "socialClass": "service",
