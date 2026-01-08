@@ -7,10 +7,12 @@ using RealmEngine.Core.Features.Combat.Commands.AttackEnemy;
 using RealmEngine.Core.Features.Quests.Commands;
 using RealmEngine.Core.Features.Quests.Services;
 using RealmEngine.Core.Features.SaveLoad;
+using RealmEngine.Core.Features.Progression.Services;
 using RealmEngine.Core.Services;
 using RealmEngine.Core.Abstractions;
 using RealmEngine.Shared.Abstractions;
 using RealmEngine.Shared.Models;
+using RealmEngine.Data.Services;
 using Xunit;
 
 namespace RealmEngine.Core.Tests.Features.Quest.Integration;
@@ -41,10 +43,14 @@ public class QuestIntegrationTests
             // Do nothing for tests
         });
 
+        // Create mock GameDataCache for AbilityCatalogService
+        var mockGameDataCache = new Mock<GameDataCache>(MockBehavior.Loose);
+
         // Register all required services
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(StartQuestCommand).Assembly));
         services.AddSingleton(mockTimer.Object);
         services.AddSingleton(mockRepository.Object);
+        services.AddSingleton(mockGameDataCache.Object);
         services.AddSingleton<SaveGameService>();
         services.AddSingleton<ISaveGameService>(sp => sp.GetRequiredService<SaveGameService>());
         services.AddSingleton<MainQuestService>();
@@ -52,8 +58,8 @@ public class QuestIntegrationTests
         services.AddSingleton<QuestProgressService>();
         services.AddSingleton<QuestRewardService>();
         services.AddSingleton<QuestInitializationService>();
-        services.AddSingleton<CombatService>();
         services.AddSingleton<AbilityCatalogService>();
+        services.AddSingleton<CombatService>();
 
         _serviceProvider = services.BuildServiceProvider();
         _mediator = _serviceProvider.GetRequiredService<IMediator>();
@@ -112,7 +118,6 @@ public class QuestIntegrationTests
             Name = "Shrine Guardian", 
             Health = 50, 
             MaxHealth = 50,
-            PhysicalDefense = 0,
             XPReward = 100,
             GoldReward = 50,
             Type = EnemyType.Boss
@@ -122,7 +127,12 @@ public class QuestIntegrationTests
         AttackEnemyResult? finalResult = null;
         while (enemy.Health > 0)
         {
-            finalResult = await _mediator.Send(new AttackEnemyCommand(character, enemy, null));
+            finalResult = await _mediator.Send(new AttackEnemyCommand 
+            { 
+                Player = character, 
+                Enemy = enemy,
+                CombatLog = null 
+            });
         }
 
         // Assert
@@ -171,7 +181,6 @@ public class QuestIntegrationTests
                 Name = $"Abyssal Demon {i+1}", 
                 Health = 30, 
                 MaxHealth = 30,
-                PhysicalDefense = 0,
                 XPReward = 50,
                 GoldReward = 25,
                 Type = EnemyType.Demon
@@ -179,14 +188,19 @@ public class QuestIntegrationTests
 
             while (demon.Health > 0)
             {
-                await _mediator.Send(new AttackEnemyCommand(character, demon, null));
+                await _mediator.Send(new AttackEnemyCommand 
+                { 
+                    Player = character, 
+                    Enemy = demon, 
+                    CombatLog = null 
+                });
             }
         }
 
         // Assert
         var demonObjective = quest.ObjectiveProgress.FirstOrDefault(kvp => kvp.Key.Contains("demon"));
         demonObjective.Should().NotBeNull();
-        demonObjective.Value.Should().BeGreaterOrEqualTo(5);
+        demonObjective.Value.Should().BeGreaterThanOrEqualTo(5);
     }
 
     [Fact]
@@ -220,7 +234,6 @@ public class QuestIntegrationTests
                 Name = "Abyssal Demon", 
                 Health = 30, 
                 MaxHealth = 30,
-                PhysicalDefense = 0,
                 XPReward = 50,
                 GoldReward = 25,
                 Type = EnemyType.Demon
@@ -228,7 +241,12 @@ public class QuestIntegrationTests
 
             while (demon.Health > 0)
             {
-                await _mediator.Send(new AttackEnemyCommand(character, demon, null));
+                await _mediator.Send(new AttackEnemyCommand 
+                { 
+                    Player = character, 
+                    Enemy = demon, 
+                    CombatLog = null 
+                });
             }
         }
 
@@ -345,7 +363,12 @@ public class QuestIntegrationTests
         // Act
         while (goblin.Health > 0)
         {
-            await _mediator.Send(new AttackEnemyCommand(character, goblin, null));
+            await _mediator.Send(new AttackEnemyCommand 
+            { 
+                Player = character, 
+                Enemy = goblin, 
+                CombatLog = null 
+            });
         }
 
         // Assert
@@ -353,42 +376,5 @@ public class QuestIntegrationTests
         saveGame.EnemiesDefeatedByType.Should().ContainKey("humanoid");
         saveGame.EnemiesDefeatedByType["humanoid"].Should().Be(1);
     }
-
-    // Helper classes for testing
-    private class TestApocalypseTimer : IApocalypseTimer
-    {
-        private int _bonusMinutes = 0;
-
-        public int GetBonusMinutes() => _bonusMinutes;
-        public void AddBonusMinutes(int minutes) => _bonusMinutes += minutes;
-        public DateTime? GetStartTime() => DateTime.Now;
-        public int GetRemainingMinutes() => 60;
-        public void Start(DateTime startTime, int bonusMinutes) => _bonusMinutes = bonusMinutes;
-        public void Stop() { }
-    }
-
-    private class InMemorySaveGameRepository : ISaveGameRepository
-    {
-        private readonly Dictionary<string, SaveGame> _saves = new();
-
-        public void Save(SaveGame saveGame)
-        {
-            _saves[saveGame.Id] = saveGame;
-        }
-
-        public SaveGame? Load(string saveId)
-        {
-            return _saves.TryGetValue(saveId, out var save) ? save : null;
-        }
-
-        public List<SaveGame> LoadAll()
-        {
-            return _saves.Values.ToList();
-        }
-
-        public void Delete(string saveId)
-        {
-            _saves.Remove(saveId);
-        }
-    }
 }
+

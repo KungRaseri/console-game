@@ -2,6 +2,8 @@ using FluentAssertions;
 using Moq;
 using RealmEngine.Core.Features.Quests.Commands;
 using RealmEngine.Core.Features.Quests.Services;
+using RealmEngine.Core.Features.SaveLoad;
+using RealmEngine.Shared.Models;
 using QuestModel = RealmEngine.Shared.Models.Quest;
 
 namespace RealmEngine.Core.Tests.Features.Quest.Commands;
@@ -13,12 +15,16 @@ namespace RealmEngine.Core.Tests.Features.Quest.Commands;
 public class CompleteQuestHandlerTests
 {
     private readonly Mock<QuestService> _mockQuestService;
+    private readonly Mock<QuestRewardService> _mockRewardService;
+    private readonly Mock<SaveGameService> _mockSaveGameService;
     private readonly CompleteQuestHandler _handler;
 
     public CompleteQuestHandlerTests()
     {
-        _mockQuestService = new Mock<QuestService>(MockBehavior.Strict, null!, null!);
-        _handler = new CompleteQuestHandler(_mockQuestService.Object);
+        _mockQuestService = new Mock<QuestService>(MockBehavior.Strict, null!, null!, null!);
+        _mockRewardService = new Mock<QuestRewardService>(MockBehavior.Strict, null!);
+        _mockSaveGameService = new Mock<SaveGameService>();
+        _handler = new CompleteQuestHandler(_mockQuestService.Object, _mockRewardService.Object, _mockSaveGameService.Object);
     }
 
     [Fact]
@@ -37,10 +43,19 @@ public class CompleteQuestHandlerTests
             ItemRewardIds = new List<string> { "item-001", "item-002" }
         };
         var command = new CompleteQuestCommand(questId);
+        var saveGame = new SaveGame { Character = new Character() };
 
         _mockQuestService
             .Setup(s => s.CompleteQuestAsync(questId))
             .ReturnsAsync((true, quest, string.Empty));
+        
+        _mockSaveGameService
+            .Setup(s => s.GetCurrentSave())
+            .Returns(saveGame);
+
+        _mockRewardService
+            .Setup(s => s.DistributeRewards(quest, saveGame.Character, saveGame))
+            .Verifiable();
 
         // Act
         var result = await _handler.Handle(command, CancellationToken.None);
@@ -55,6 +70,7 @@ public class CompleteQuestHandlerTests
         result.Rewards.ApocalypseBonus.Should().Be(10);
         result.Rewards.Items.Should().BeEquivalentTo(new[] { "item-001", "item-002" });
         _mockQuestService.Verify(s => s.CompleteQuestAsync(questId), Times.Once);
+        _mockRewardService.Verify();
     }
 
     [Fact]
