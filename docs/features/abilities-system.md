@@ -1,10 +1,20 @@
 # Abilities System
 
-**Status**: See [IMPLEMENTATION_STATUS.md](../IMPLEMENTATION_STATUS.md)
+**Status**: ✅ 95% Complete - Combat Integrated (See [IMPLEMENTATION_STATUS.md](../IMPLEMENTATION_STATUS.md))
 
 ## Overview
 
 The Abilities System provides **383 total abilities** organized by activation type and power tier. Abilities are special powers that characters acquire through class selection, progression, and discovery. Unlike skills (passive proficiencies), abilities are discrete powers with specific effects. Unlike spells (learnable magic), abilities are inherent character powers not requiring spell acquisition.
+
+**Combat Integration Status** (January 7, 2026):
+- ✅ **AbilityCatalogService** - Loads all 383 abilities from 4 JSON catalogs
+- ✅ **LearnAbilityCommand** - Class/level validation and learning system
+- ✅ **UseAbilityCommand** - Execution with damage, healing, cooldowns
+- ✅ **PassiveBonusCalculator** - Passive ability bonuses applied in combat
+- ✅ **ReactiveAbilityService** - Auto-triggered reactive abilities (4 events)
+- ✅ **EnemyAbilityAIService** - Intelligent enemy ability usage
+- ✅ **Combat Menu Integration** - Abilities shown with cooldowns/costs
+- ⚠️ **Class Starting Abilities** - Auto-learn not yet implemented
 
 ## Core Philosophy
 

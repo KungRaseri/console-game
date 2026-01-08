@@ -59,6 +59,16 @@ public class Enemy : ITraitable
     public int MaxHealth { get; set; } = 50;
 
     /// <summary>
+    /// Gets or sets the enemy's current mana points (for spellcasting enemies).
+    /// </summary>
+    public int Mana { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the enemy's maximum mana points.
+    /// </summary>
+    public int MaxMana { get; set; } = 0;
+
+    /// <summary>
     /// Gets or sets the Strength attribute. Affects melee damage and carry weight.
     /// </summary>
     public int Strength { get; set; } = 10;
@@ -164,6 +174,27 @@ public class Enemy : ITraitable
     /// </code>
     /// </example>
     public List<string> AbilityIds { get; set; } = new();
+
+    /// <summary>
+    /// Collection of spell IDs this enemy can cast in combat.
+    /// Only populated for spellcasting enemies (mages, priests, etc.).
+    /// </summary>
+    /// <example>
+    /// Example spell IDs:
+    /// <code>
+    /// [
+    ///   "magic-missile",
+    ///   "fireball",
+    ///   "shield"
+    /// ]
+    /// </code>
+    /// </example>
+    public List<string> SpellIds { get; set; } = new();
+    
+    /// <summary>
+    /// Tracks spell cooldowns for this enemy (spellId -> turns remaining).
+    /// </summary>
+    public Dictionary<string, int> SpellCooldowns { get; set; } = new();
 
     /// <summary>
     /// Collection of loot table reference IDs (v4.1 format) for items this enemy can drop.
