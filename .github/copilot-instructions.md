@@ -14,7 +14,6 @@ This is a .NET Core Console application in C# for building a console-based game.
 ```
 console-game/
 ├── Game/
-│   ├── ConsoleUI.cs           # Spectre.Console wrapper with best practices
 │   ├── Program.cs             # Main entry point
 │   └── Game.csproj            # Project file with Spectre.Console dependency
 ├── .vscode/

@@ -1,15 +1,16 @@
 {
   "metadata": {
-    "description": "Global rarity system configuration - thresholds and component multipliers for weight-based rarity calculation",
-    "version": "4.0",
-    "lastUpdated": "2025-12-27",
+    "description": "Global rarity system configuration - applies to items, enemies, and all game entities with rarity values",
+    "version": "5.0",
+    "lastUpdated": "2026-01-08",
     "type": "config",
+    "usage": "Universal rarity system supporting both calculated (items) and direct (enemies) rarity values",
     "notes": [
-      "Rarity emerges from component combinations rather than being pre-assigned",
-      "Component weights can vary within categories (e.g., Steel=20, Mithril=50, Dragonbone=100)",
-      "RarityCalculator service computes final rarity from component weights + multipliers",
-      "ContentBuilder shows live rarity preview as components are selected",
-      "Adjust individual component weights and category multipliers to fine-tune rarity distribution"
+      "Items: Rarity calculated from component weights + multipliers (materials, quality, prefixes, etc.)",
+      "Enemies: Rarity directly assigned (1-100 value) to determine stats, abilities, and rewards",
+      "All entities: Numerical rarity (1-100) maps to tier via thresholds (common, uncommon, rare, elite, legendary)",
+      "ContentBuilder: Shows live rarity preview and tier classification",
+      "Adjust thresholds and multipliers to fine-tune rarity distribution across all domains"
     ]
   },
   "settings": {
@@ -20,8 +21,10 @@
         "displayName": "Common",
         "color": "gray",
         "hexColor": "#808080",
-        "dropRate": 0.6,
-        "description": "Basic materials, simple items"
+        "dropRate": 0.60,
+        "spawnRate": 0.60,
+        "statMultiplier": 1.0,
+        "description": "Basic tier - standard items, weak enemies, common encounters"
       },
       "uncommon": {
         "min": 21,
@@ -30,7 +33,9 @@
         "color": "green",
         "hexColor": "#00FF00",
         "dropRate": 0.25,
-        "description": "Quality craftsmanship, refined materials"
+        "spawnRate": 0.25,
+        "statMultiplier": 1.3,
+        "description": "Enhanced tier - quality items, tougher enemies, less frequent"
       },
       "rare": {
         "min": 51,
@@ -38,8 +43,10 @@
         "displayName": "Rare",
         "color": "blue",
         "hexColor": "#0080FF",
-        "dropRate": 0.1,
-        "description": "Exceptional items, enchanted gear"
+        "dropRate": 0.10,
+        "spawnRate": 0.10,
+        "statMultiplier": 1.7,
+        "description": "Superior tier - exceptional items, elite enemies, uncommon encounters"
       },
       "epic": {
         "min": 101,
@@ -48,7 +55,9 @@
         "color": "purple",
         "hexColor": "#A020F0",
         "dropRate": 0.04,
-        "description": "Legendary craftsmanship, powerful enchantments"
+        "spawnRate": 0.04,
+        "statMultiplier": 2.5,
+        "description": "Powerful tier - legendary items, champion enemies, rare encounters"
       },
       "legendary": {
         "min": 201,
@@ -57,7 +66,9 @@
         "color": "orange",
         "hexColor": "#FF8000",
         "dropRate": 0.01,
-        "description": "Artifacts of immense power, unique named items"
+        "spawnRate": 0.01,
+        "statMultiplier": 4.0,
+        "description": "Ultimate tier - artifacts, boss enemies, quest-specific encounters"
       }
     },
     "multipliers": {
