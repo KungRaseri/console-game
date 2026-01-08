@@ -35,8 +35,7 @@ public class AttackEnemyHandlerTests
         var enemy = new Enemy { Name = "Goblin", Health = 50, MaxHealth = 50 };
         var combatResult = new CombatResult { Damage = 15, IsCritical = false };
 
-        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false))
-            .Returns(combatResult);
+        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false)).ReturnsAsync(combatResult);
         
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { GoldXPMultiplier = 1.0 });
@@ -61,8 +60,7 @@ public class AttackEnemyHandlerTests
         var enemy = new Enemy { Name = "Goblin", Health = 10, MaxHealth = 50, XPReward = 25, GoldReward = 10 };
         var combatResult = new CombatResult { Damage = 15, IsCritical = false };
 
-        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false))
-            .Returns(combatResult);
+        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false)).ReturnsAsync(combatResult);
         
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { GoldXPMultiplier = 1.0 });
@@ -89,8 +87,7 @@ public class AttackEnemyHandlerTests
         var enemy = new Enemy { Name = "Dragon", Health = 5, MaxHealth = 100, XPReward = 100, GoldReward = 50 };
         var combatResult = new CombatResult { Damage = 50, IsCritical = false };
 
-        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false))
-            .Returns(combatResult);
+        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false)).ReturnsAsync(combatResult);
         
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { GoldXPMultiplier = 1.5 });
@@ -115,8 +112,7 @@ public class AttackEnemyHandlerTests
         var enemy = new Enemy { Name = "Orc", Health = 100, MaxHealth = 100 };
         var combatResult = new CombatResult { Damage = 30, IsCritical = true };
 
-        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false))
-            .Returns(combatResult);
+        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false)).ReturnsAsync(combatResult);
         
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { GoldXPMultiplier = 1.0 });
@@ -140,8 +136,7 @@ public class AttackEnemyHandlerTests
         var enemy = new Enemy { Name = "Skeleton", Health = 50, MaxHealth = 50 };
         var combatResult = new CombatResult { Damage = 12, IsCritical = false };
 
-        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false))
-            .Returns(combatResult);
+        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false)).ReturnsAsync(combatResult);
         
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { GoldXPMultiplier = 1.0 });
@@ -165,8 +160,7 @@ public class AttackEnemyHandlerTests
         var enemy = new Enemy { Name = "Rat", Health = 5, MaxHealth = 10, XPReward = 5, GoldReward = 2 };
         var combatResult = new CombatResult { Damage = 10, IsCritical = false };
 
-        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false))
-            .Returns(combatResult);
+        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false)).ReturnsAsync(combatResult);
         
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { GoldXPMultiplier = 1.0 });
@@ -195,8 +189,7 @@ public class AttackEnemyHandlerTests
         var combatLog = new CombatLog();
         var combatResult = new CombatResult { Damage = 18, IsCritical = true };
 
-        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false))
-            .Returns(combatResult);
+        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false)).ReturnsAsync(combatResult);
         
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { GoldXPMultiplier = 1.0 });
@@ -218,8 +211,7 @@ public class AttackEnemyHandlerTests
         var enemy = new Enemy { Name = "Slime", Health = 5, MaxHealth = 10 };
         var combatResult = new CombatResult { Damage = 100, IsCritical = false };
 
-        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false))
-            .Returns(combatResult);
+        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false)).ReturnsAsync(combatResult);
         
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { GoldXPMultiplier = 1.0 });
@@ -252,8 +244,7 @@ public class AttackEnemyHandlerTests
         };
         var combatResult = new CombatResult { Damage = damage, IsCritical = false };
 
-        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false))
-            .Returns(combatResult);
+        _mockCombatService.Setup(s => s.ExecutePlayerAttack(player, enemy, false)).ReturnsAsync(combatResult);
         
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { GoldXPMultiplier = 1.0 });
@@ -267,4 +258,6 @@ public class AttackEnemyHandlerTests
         result.IsEnemyDefeated.Should().Be(expectedDefeat);
     }
 }
+
+
 

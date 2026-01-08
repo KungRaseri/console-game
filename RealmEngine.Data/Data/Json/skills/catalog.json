@@ -16,7 +16,6 @@
           "name": "Athletics",
           "displayName": "Athletics",
           "description": "Running, jumping, general physical activity",
-          "selectionWeight": 100,
           "traits": {
             "baseXPCost": {
               "value": 80,
@@ -66,7 +65,8 @@
               ],
               "type": "array"
             }
-          }
+          },
+          "selectionWeight": 100
         },
         {
           "slug": "swimming",

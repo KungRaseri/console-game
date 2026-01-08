@@ -47,23 +47,20 @@ public class GameDataCacheTests
     [Fact]
     public void Should_Load_Abilities_Catalogs()
     {
-        // Act - test some of the actual ability catalog files that exist
-        var controlFile = _dataCache.GetFile("abilities/active/control/catalog.json");
-        var offensiveFile = _dataCache.GetFile("abilities/active/offensive/catalog.json");
-        var passiveFile = _dataCache.GetFile("abilities/passive/enhancement/catalog.json");
+        // Act - test consolidated ability catalog files
+        var activeFile = _dataCache.GetFile("abilities/active/catalog.json");
+        var passiveFile = _dataCache.GetFile("abilities/passive/catalog.json");
 
-        // Assert
-        controlFile.Should().NotBeNull("control abilities catalog should exist");
-        controlFile!.JsonData.Should().NotBeNull();
+        // Assert - check consolidated catalogs exist
+        activeFile.Should().NotBeNull("active abilities catalog should exist");
+        activeFile!.JsonData.Should().NotBeNull();
+        activeFile.JsonData["metadata"].Should().NotBeNull();
+        activeFile.JsonData["ability_types"].Should().NotBeNull();
         
-        offensiveFile.Should().NotBeNull("offensive abilities catalog should exist");
-        offensiveFile!.JsonData.Should().NotBeNull();
-        
-        // Note: passive/enhancement may not exist, so make it optional
-        if (passiveFile != null)
-        {
-            passiveFile.JsonData.Should().NotBeNull();
-        }
+        passiveFile.Should().NotBeNull("passive abilities catalog should exist");
+        passiveFile!.JsonData.Should().NotBeNull();
+        passiveFile.JsonData["metadata"].Should().NotBeNull();
+        passiveFile.JsonData["ability_types"].Should().NotBeNull();
     }
 
     [Fact]

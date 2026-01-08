@@ -83,7 +83,9 @@ public class EssenceGenerator
 
         foreach (var category in categories)
         {
-            var catalogFile = _dataCache.GetFile($"essences/{category}/catalog.json");
+            // Try both paths: source data (items/essences/) and package data (essences/)
+            var catalogFile = _dataCache.GetFile($"items/essences/{category}/catalog.json") 
+                           ?? _dataCache.GetFile($"essences/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
 
             var essenceTypes = catalogFile.JsonData["essence_types"] as JObject;

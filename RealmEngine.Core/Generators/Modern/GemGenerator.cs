@@ -110,7 +110,9 @@ public class GemGenerator
 
         foreach (var category in categories)
         {
-            var catalogFile = _dataCache.GetFile($"gems/{category}/catalog.json");
+            // Try both paths: source data (items/gems/) and package data (gems/)
+            var catalogFile = _dataCache.GetFile($"items/gems/{category}/catalog.json") 
+                           ?? _dataCache.GetFile($"gems/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
 
             var gemTypes = catalogFile.JsonData["gem_types"] as JObject;

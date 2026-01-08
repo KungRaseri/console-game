@@ -65,7 +65,9 @@ public class RuneGenerator
         var categories = new[] { "offensive", "defensive", "utility" };
         foreach (var category in categories)
         {
-            var catalogFile = _dataCache.GetFile($"runes/{category}/catalog.json");
+            // Try both paths: source data (items/runes/) and package data (runes/)
+            var catalogFile = _dataCache.GetFile($"items/runes/{category}/catalog.json") 
+                           ?? _dataCache.GetFile($"runes/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
             
             var runeTypes = catalogFile.JsonData["rune_types"] as JObject;

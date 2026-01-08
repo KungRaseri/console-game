@@ -45,14 +45,15 @@ public class AbilityGenerator
     {
         try
         {
-            var catalogFile = _dataCache.GetFile($"abilities/{category}/{subcategory}/catalog.json");
+            // Load from consolidated catalog: abilities/{category}/catalog.json
+            var catalogFile = _dataCache.GetFile($"abilities/{category}/catalog.json");
             if (catalogFile?.JsonData == null)
             {
                 return new List<Ability>();
             }
 
             var catalog = catalogFile.JsonData;
-            var items = GetItemsFromCatalog(catalog);
+            var items = GetItemsFromSubcategory(catalog, subcategory);
             
             if (items == null || !items.Any())
             {
@@ -99,16 +100,18 @@ public class AbilityGenerator
     {
         try
         {
-            var catalogFile = _dataCache.GetFile($"abilities/{category}/{subcategory}/catalog.json");
+            // Load from consolidated catalog: abilities/{category}/catalog.json
+            var catalogFile = _dataCache.GetFile($"abilities/{category}/catalog.json");
             if (catalogFile?.JsonData == null)
             {
                 return null;
             }
 
             var catalog = catalogFile.JsonData;
-            var items = GetItemsFromCatalog(catalog);
+            var items = GetItemsFromSubcategory(catalog, subcategory);
             
             var catalogAbility = items?.FirstOrDefault(a => 
+                string.Equals(GetStringProperty(a, "slug"), abilityName, StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(GetStringProperty(a, "name"), abilityName, StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(GetStringProperty(a, "displayName"), abilityName, StringComparison.OrdinalIgnoreCase));
 
@@ -131,51 +134,61 @@ public class AbilityGenerator
         }
     }
 
-    private static IEnumerable<JToken>? GetItemsFromCatalog(JToken catalog)
+    /// <summary>
+    /// Gets items from a specific subcategory within the consolidated catalog structure.
+    /// Consolidated format: { "ability_types": { "offensive": { "items": [...] }, "defensive": { "items": [...] } } }
+    /// </summary>
+    private static IEnumerable<JToken>? GetItemsFromSubcategory(JToken catalog, string subcategory)
     {
-        var allItems = new List<JToken>();
-        
-        // Handle hierarchical structure: ability_types -> specific type -> items
-        foreach (var property in catalog.Children<JProperty>())
+        try
         {
-            if (property.Name == "metadata") continue;
-            
-            // This is a type category (ability_types, etc)
-            var typeCategory = property.Value;
-            if (typeCategory is JObject typeCategoryObj)
-            {
-                foreach (var subType in typeCategoryObj.Children<JProperty>())
-                {
-                    if (subType.Name == "metadata") continue;
-                    
-                    // This is a specific type with items array
-                    var items = subType.Value["items"];
-                    if (items != null && items.HasValues)
-                    {
-                        allItems.AddRange(items.Children());
-                    }
-                }
-            }
+            // Navigate: catalog -> ability_types -> {subcategory} -> items
+            var abilityTypes = catalog["ability_types"];
+            if (abilityTypes == null) return null;
+
+            var subcategoryData = abilityTypes[subcategory];
+            if (subcategoryData == null) return null;
+
+            var items = subcategoryData["items"];
+            if (items == null || !items.HasValues) return null;
+
+            return items.Children();
         }
-        
-        return allItems.Any() ? allItems : null;
+        catch
+        {
+            return null;
+        }
     }
 
     private async Task<Ability?> ConvertToAbilityAsync(JToken catalogAbility, string category, string subcategory)
     {
         try
         {
-            var name = GetStringProperty(catalogAbility, "name") ?? GetStringProperty(catalogAbility, "displayName") ?? "unknown-ability";
+            // Consolidated catalogs use "slug" as primary identifier
+            var slug = GetStringProperty(catalogAbility, "slug");
+            var name = GetStringProperty(catalogAbility, "name") ?? GetStringProperty(catalogAbility, "displayName") ?? slug ?? "unknown-ability";
+            var displayName = GetStringProperty(catalogAbility, "displayName") ?? name;
+            
             var ability = new Ability
             {
-                Id = $"{category}/{subcategory}:{name}",
+                Id = $"{category}/{subcategory}:{slug ?? name}",
                 Name = name,
-                DisplayName = GetStringProperty(catalogAbility, "displayName") ?? name,
+                DisplayName = displayName,
                 Description = GetStringProperty(catalogAbility, "description") ?? "An ability",
-                RarityWeight = GetIntProperty(catalogAbility, "rarityWeight", 1),
-                BaseDamage = GetStringProperty(catalogAbility, "baseDamage"),
-                Cooldown = GetIntProperty(catalogAbility, "cooldown", 0),
-                Range = GetIntProperty(catalogAbility, "range", null),
+                // Consolidated catalogs use "selectionWeight", old structure uses "rarityWeight"
+                RarityWeight = catalogAbility["selectionWeight"] != null 
+                    ? GetIntProperty(catalogAbility, "selectionWeight", 1) 
+                    : GetIntProperty(catalogAbility, "rarityWeight", 1),
+                // BaseDamage can be at top level or in traits (consolidated structure)
+                BaseDamage = GetStringProperty(catalogAbility, "baseDamage") ?? GetStringPropertyFromTraits(catalogAbility, "baseDamage"),
+                // Cooldown can be at top level or in traits (consolidated structure)
+                Cooldown = catalogAbility["cooldown"] != null 
+                    ? GetIntProperty(catalogAbility, "cooldown", 0)
+                    : GetIntPropertyFromTraits(catalogAbility, "cooldown", 0),
+                // Range can be at top level or in traits (consolidated structure)
+                Range = catalogAbility["range"] != null
+                    ? GetIntProperty(catalogAbility, "range", null)
+                    : GetIntPropertyFromTraits(catalogAbility, "range", null),
                 ManaCost = GetIntPropertyFromTraits(catalogAbility, "manaCost", 0),
                 Duration = GetIntPropertyFromTraits(catalogAbility, "duration", null),
                 IsPassive = category == "passive",
@@ -232,8 +245,14 @@ public class AbilityGenerator
     {
         try
         {
-            var namesPath = $"abilities/{category}/{subcategory}/names.json";
-            if (!_dataCache.FileExists(namesPath)) return;
+            // Try consolidated names file first: abilities/{category}/names.json
+            var namesPath = $"abilities/{category}/names.json";
+            if (!_dataCache.FileExists(namesPath))
+            {
+                // Fallback to old structure if needed
+                namesPath = $"abilities/{category}/{subcategory}/names.json";
+                if (!_dataCache.FileExists(namesPath)) return;
+            }
 
             var namesFile = _dataCache.GetFile(namesPath);
             if (namesFile?.JsonData == null) return;
@@ -356,13 +375,19 @@ public class AbilityGenerator
         var itemList = items.ToList();
         if (!itemList.Any()) return null;
 
-        var totalWeight = itemList.Sum(item => GetIntProperty(item, "rarityWeight", 1));
+        // Support both selectionWeight (consolidated) and rarityWeight (old structure)
+        var totalWeight = itemList.Sum(item => 
+            item["selectionWeight"] != null 
+                ? GetIntProperty(item, "selectionWeight", 1)
+                : GetIntProperty(item, "rarityWeight", 1));
         var randomValue = _random.Next(1, totalWeight + 1);
 
         int currentWeight = 0;
         foreach (var item in itemList)
         {
-            currentWeight += GetIntProperty(item, "rarityWeight", 1);
+            currentWeight += item["selectionWeight"] != null 
+                ? GetIntProperty(item, "selectionWeight", 1)
+                : GetIntProperty(item, "rarityWeight", 1);
             if (randomValue <= currentWeight)
             {
                 return item;
@@ -407,6 +432,27 @@ public class AbilityGenerator
         catch
         {
             return defaultValue ?? 0;
+        }
+    }
+
+    private static string? GetStringPropertyFromTraits(JToken obj, string propertyName)
+    {
+        try
+        {
+            var traits = obj["traits"];
+            if (traits != null && traits[propertyName] != null)
+            {
+                var trait = traits[propertyName];
+                if (trait is JObject traitObj && traitObj["value"] != null)
+                {
+                    return traitObj["value"]!.Value<string>();
+                }
+            }
+            return null;
+        }
+        catch
+        {
+            return null;
         }
     }
 

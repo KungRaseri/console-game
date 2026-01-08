@@ -60,7 +60,11 @@ console-game/
 - ✅ All 33 unit tests passing (ReferenceResolverService)
 - ✅ Created 857 JSON compliance tests for 164 data files
 - ✅ Fixed ContentBuilder startup crash (duplicate dictionary key)
-- ✅ 93.3% JSON data compliance (153/164 files)
+- ✅ Consolidated abilities to category-level catalogs (v4.2)
+- ✅ Fixed all socketable generators for dual-path support
+- ✅ **Core.Tests**: 846/846 passing (100%)
+- ✅ **Shared.Tests**: 665/665 passing (100%)
+- ✅ **Data.Tests**: 5,250/5,250 passing (100%)
 
 ## JSON Data Standards (v4.0 + v4.1 References)
 

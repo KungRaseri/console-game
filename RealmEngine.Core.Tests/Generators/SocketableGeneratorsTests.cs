@@ -15,6 +15,7 @@ public class SocketableGeneratorsTests
     {
         var basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
         _dataCache = new GameDataCache(basePath, null); // IMemoryCache is optional
+        _dataCache.LoadAllData(); // Load the data!
     }
 
     #region GemGenerator Tests

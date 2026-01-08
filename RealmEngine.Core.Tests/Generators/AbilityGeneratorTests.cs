@@ -73,8 +73,8 @@ public class AbilityGeneratorTests
         // Arrange
         _dataCache.LoadAllData();
 
-        // Act
-        var ability = await _generator.GenerateAbilityByNameAsync("active", "offensive", "basic-attack");
+        // Act - use an ability that actually exists in the consolidated catalog
+        var ability = await _generator.GenerateAbilityByNameAsync("active", "offensive", "infernal-flames");
 
         // Assert
         ability.Should().NotBeNull();
@@ -211,13 +211,13 @@ public class AbilityGeneratorTests
         // Arrange
         _dataCache.LoadAllData();
 
-        // Act
-        var ability = await _generator.GenerateAbilityByNameAsync("active", "offensive", "basic-attack");
+        // Act - use an ability that has baseDamage in traits
+        var ability = await _generator.GenerateAbilityByNameAsync("active", "offensive", "infernal-flames");
 
         // Assert
         ability.Should().NotBeNull();
         ability!.BaseDamage.Should().NotBeNullOrEmpty();
-        ability.BaseDamage.Should().Contain("d"); // dice notation like "1d6"
+        ability.BaseDamage.Should().Contain("d"); // dice notation like "1d6" or "2d6"
     }
 
     [Fact]

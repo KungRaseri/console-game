@@ -65,7 +65,9 @@ public class CrystalGenerator
         var categories = new[] { "mana", "life", "energy", "stamina" };
         foreach (var category in categories)
         {
-            var catalogFile = _dataCache.GetFile($"crystals/{category}/catalog.json");
+            // Try both paths: source data (items/crystals/) and package data (crystals/)
+            var catalogFile = _dataCache.GetFile($"items/crystals/{category}/catalog.json") 
+                           ?? _dataCache.GetFile($"crystals/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
             
             var crystalTypes = catalogFile.JsonData["crystal_types"] as JObject;

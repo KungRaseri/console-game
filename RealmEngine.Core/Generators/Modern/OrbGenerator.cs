@@ -65,7 +65,9 @@ public class OrbGenerator
         var categories = new[] { "combat", "magic", "stealth", "social" };
         foreach (var category in categories)
         {
-            var catalogFile = _dataCache.GetFile($"orbs/{category}/catalog.json");
+            // Try both paths: source data (items/orbs/) and package data (orbs/)
+            var catalogFile = _dataCache.GetFile($"items/orbs/{category}/catalog.json") 
+                           ?? _dataCache.GetFile($"orbs/{category}/catalog.json");
             if (catalogFile?.JsonData == null) continue;
             
             var orbTypes = catalogFile.JsonData["orb_types"] as JObject;

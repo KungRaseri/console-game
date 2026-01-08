@@ -31,7 +31,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void InitializeCombat_Should_Scale_Enemy_Health_By_Difficulty()
+    public async Task InitializeCombat_Should_Scale_Enemy_Health_By_Difficulty()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -48,7 +48,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void InitializeCombat_Should_Reset_Enemy_Health_To_Max()
+    public async Task InitializeCombat_Should_Reset_Enemy_Health_To_Max()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -62,7 +62,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void ExecutePlayerAttack_Should_Return_Message()
+    public async Task ExecutePlayerAttack_Should_Return_Message()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -73,7 +73,7 @@ public class CombatServiceTests
         bool gotDamageMessage = false;
         for (int i = 0; i < 50; i++)
         {
-            var result = service.ExecutePlayerAttack(player, enemy);
+            var result = await service.ExecutePlayerAttack(player, enemy);
             result.Message.Should().NotBeNullOrEmpty();
             if (result.Message.Contains("damage", StringComparison.OrdinalIgnoreCase))
             {
@@ -87,7 +87,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void ExecuteEnemyAttack_Should_Apply_Defense_Reduction_When_Defending()
+    public async Task ExecuteEnemyAttack_Should_Apply_Defense_Reduction_When_Defending()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -97,8 +97,8 @@ public class CombatServiceTests
         var enemy2 = new Enemy { Name = "Attacker2", BasePhysicalDamage = 20 };
 
         // Act
-        var normalResult = service.ExecuteEnemyAttack(enemy1, player1, isDefending: false);
-        var defendingResult = service.ExecuteEnemyAttack(enemy2, player2, isDefending: true);
+        var normalResult = await service.ExecuteEnemyAttack(enemy1, player1, isDefending: false);
+        var defendingResult = await service.ExecuteEnemyAttack(enemy2, player2, isDefending: true);
 
         // Assert
         defendingResult.Damage.Should().BeLessThan(normalResult.Damage, 
@@ -106,7 +106,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void ExecuteEnemyAttack_Should_Not_Reduce_Health_Below_Zero()
+    public async Task ExecuteEnemyAttack_Should_Not_Reduce_Health_Below_Zero()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -121,7 +121,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void AttemptFlee_Should_Return_Success_Or_Failure()
+    public async Task AttemptFlee_Should_Return_Success_Or_Failure()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -138,7 +138,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void AttemptFlee_Should_Be_Affected_By_Level_Difference()
+    public async Task AttemptFlee_Should_Be_Affected_By_Level_Difference()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -171,7 +171,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void UseItemInCombat_Should_Apply_Healing()
+    public async Task UseItemInCombat_Should_Apply_Healing()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -187,7 +187,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void UseItemInCombat_Should_Fail_For_Non_Consumables()
+    public async Task UseItemInCombat_Should_Fail_For_Non_Consumables()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -203,7 +203,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void GenerateVictoryOutcome_Should_Award_XP_And_Gold()
+    public async Task GenerateVictoryOutcome_Should_Award_XP_And_Gold()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -211,7 +211,7 @@ public class CombatServiceTests
         var enemy = new Enemy { Name = "Goblin", XPReward = 50, GoldReward = 25 };
 
         // Act
-        var outcome = service.GenerateVictoryOutcome(player, enemy);
+        var outcome = await service.GenerateVictoryOutcome(player, enemy);
 
         // Assert
         outcome.PlayerVictory.Should().BeTrue();
@@ -223,7 +223,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void GenerateVictoryOutcome_Should_Include_Enemy_Name_In_Summary()
+    public async Task GenerateVictoryOutcome_Should_Include_Enemy_Name_In_Summary()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -231,7 +231,7 @@ public class CombatServiceTests
         var enemy = new Enemy { Name = "Skeleton King", XPReward = 100, GoldReward = 50 };
 
         // Act
-        var outcome = service.GenerateVictoryOutcome(player, enemy);
+        var outcome = await service.GenerateVictoryOutcome(player, enemy);
 
         // Assert
         outcome.Summary.Should().Contain("Skeleton King");
@@ -258,7 +258,7 @@ public class CombatServiceTests
     }
 
     [Fact]
-    public void ExecuteEnemyAttack_Should_Include_Message()
+    public async Task ExecuteEnemyAttack_Should_Include_Message()
     {
         // Arrange
         var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object);
@@ -266,7 +266,7 @@ public class CombatServiceTests
         var enemy = new Enemy { Name = "Orc", BasePhysicalDamage = 10 };
 
         // Act
-        var result = service.ExecuteEnemyAttack(enemy, player);
+        var result = await service.ExecuteEnemyAttack(enemy, player);
 
         // Assert
         result.Message.Should().NotBeNullOrEmpty();
@@ -274,4 +274,6 @@ public class CombatServiceTests
     }
 
 }
+
+
 
