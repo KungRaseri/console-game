@@ -136,7 +136,7 @@ public class GetCombatStateHandlerTests
         // Arrange
         var handler = new GetCombatStateHandler();
         var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
-        var ability = new Ability { AbilityId = "test-ability", Name = "Test Ability" };
+        var ability = new CharacterAbility { AbilityId = "test-ability" };
         player.LearnedAbilities.Add("test-ability", ability);
         player.AbilityCooldowns["test-ability"] = 0; // Not on cooldown
         
@@ -157,7 +157,7 @@ public class GetCombatStateHandlerTests
         // Arrange
         var handler = new GetCombatStateHandler();
         var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
-        var ability = new Ability { AbilityId = "test-ability", Name = "Test Ability" };
+        var ability = new CharacterAbility { AbilityId = "test-ability" };
         player.LearnedAbilities.Add("test-ability", ability);
         player.AbilityCooldowns["test-ability"] = 2; // On cooldown
         
@@ -178,7 +178,7 @@ public class GetCombatStateHandlerTests
         // Arrange
         var handler = new GetCombatStateHandler();
         var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
-        var spell = new Spell { SpellId = "test-spell", Name = "Test Spell" };
+        var spell = new CharacterSpell { SpellId = "test-spell" };
         player.LearnedSpells.Add("test-spell", spell);
         player.SpellCooldowns["test-spell"] = 0; // Not on cooldown
         
@@ -199,7 +199,7 @@ public class GetCombatStateHandlerTests
         // Arrange
         var handler = new GetCombatStateHandler();
         var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
-        var spell = new Spell { SpellId = "test-spell", Name = "Test Spell" };
+        var spell = new CharacterSpell { SpellId = "test-spell" };
         player.LearnedSpells.Add("test-spell", spell);
         player.SpellCooldowns["test-spell"] = 3; // On cooldown
         
@@ -221,11 +221,11 @@ public class GetCombatStateHandlerTests
         var handler = new GetCombatStateHandler();
         var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
         
-        var ability = new Ability { AbilityId = "test-ability", Name = "Test Ability" };
+        var ability = new CharacterAbility { AbilityId = "test-ability" };
         player.LearnedAbilities.Add("test-ability", ability);
         player.AbilityCooldowns["test-ability"] = 0;
         
-        var spell = new Spell { SpellId = "test-spell", Name = "Test Spell" };
+        var spell = new CharacterSpell { SpellId = "test-spell" };
         player.LearnedSpells.Add("test-spell", spell);
         player.SpellCooldowns["test-spell"] = 0;
         
@@ -250,11 +250,11 @@ public class GetCombatStateHandlerTests
         var handler = new GetCombatStateHandler();
         var player = new Character { Health = 50, MaxHealth = 100, Mana = 50, MaxMana = 100 };
         
-        var ability = new Ability { AbilityId = "test-ability", Name = "Test Ability" };
+        var ability = new CharacterAbility { AbilityId = "test-ability" };
         player.LearnedAbilities.Add("test-ability", ability);
         player.AbilityCooldowns["test-ability"] = 0;
         
-        var spell = new Spell { SpellId = "test-spell", Name = "Test Spell" };
+        var spell = new CharacterSpell { SpellId = "test-spell" };
         player.LearnedSpells.Add("test-spell", spell);
         player.SpellCooldowns["test-spell"] = 0;
         

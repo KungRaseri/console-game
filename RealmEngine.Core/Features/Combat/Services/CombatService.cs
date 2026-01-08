@@ -6,6 +6,7 @@ using MediatR;
 using RealmEngine.Core.Features.Progression.Commands;
 using RealmEngine.Core.Services;
 using RealmEngine.Core.Features.Progression.Services;
+using RealmEngine.Core.Features.Combat.Services;
 
 namespace RealmEngine.Core.Features.Combat;
 
@@ -18,6 +19,7 @@ public class CombatService
     private readonly SaveGameService _saveGameService;
     private readonly IMediator _mediator;
     private readonly ReactiveAbilityService _reactiveAbilityService;
+    private readonly EnemyAbilityAIService _enemyAbilityAI;
 
     /// <summary>
     /// Initialize the combat service with required dependencies.
@@ -30,6 +32,7 @@ public class CombatService
         _saveGameService = saveGameService;
         _mediator = mediator;
         _reactiveAbilityService = new ReactiveAbilityService(abilityCatalogService);
+        _enemyAbilityAI = new EnemyAbilityAIService(abilityCatalogService);
     }
 
     /// <summary>
@@ -40,6 +43,7 @@ public class CombatService
         _saveGameService = null!;
         _mediator = null!;
         _reactiveAbilityService = new ReactiveAbilityService();
+        _enemyAbilityAI = new EnemyAbilityAIService();
     }
 
     /// <summary>
@@ -271,6 +275,173 @@ public class CombatService
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// Execute an enemy ability on the player (decided by AI).
+    /// </summary>
+    /// <param name="enemy">The enemy using the ability</param>
+    /// <param name="player">The target player</param>
+    /// <param name="abilityStates">Dictionary tracking ability cooldowns (abilityId -> turns remaining)</param>
+    /// <returns>Result of the ability usage, or null if no ability was used</returns>
+    public UseAbilityResult? ExecuteEnemyAbility(Enemy enemy, Character player, Dictionary<string, int> abilityStates)
+    {
+        // AI decides whether to use an ability
+        var chosenAbilityId = _enemyAbilityAI.DecideAbilityUsage(enemy, player, abilityStates);
+        
+        if (chosenAbilityId == null)
+        {
+            return null; // AI chose to use basic attack instead
+        }
+
+        // Find the chosen ability
+        var ability = enemy.Abilities.FirstOrDefault(a => a.Id == chosenAbilityId);
+        if (ability == null)
+        {
+            Log.Warning($"Enemy {enemy.Name} tried to use ability {chosenAbilityId} but it was not found");
+            return null;
+        }
+
+        // Check if ability requires mana (future enhancement - enemies don't have mana yet)
+        // For now, assume all enemy abilities are usable
+        
+        // Apply ability cooldown
+        abilityStates[chosenAbilityId] = ability.Cooldown;
+
+        // Execute ability effect
+        var result = new UseAbilityResult
+        {
+            Success = true,
+            Message = $"{enemy.Name} used {ability.Name}!",
+            AbilityUsed = ability,
+            ManaCost = 0, // Enemies don't use mana for now
+            DamageDealt = 0,
+            HealingDone = 0
+        };
+
+        // Apply ability effects based on type
+        switch (ability.Type)
+        {
+            case AbilityTypeEnum.Offensive:
+                // Calculate ability damage
+                int abilityDamage = CalculateAbilityDamage(enemy, ability);
+                player.Health = Math.Max(0, player.Health - abilityDamage);
+                result = result with 
+                { 
+                    DamageDealt = abilityDamage,
+                    Message = $"{enemy.Name} used {ability.Name}! You took {abilityDamage} damage!"
+                };
+                
+                // Trigger reactive abilities on damage taken
+                _reactiveAbilityService.CheckAndTriggerReactiveAbilities(player, "onDamageTaken");
+                break;
+
+            case AbilityTypeEnum.Defensive:
+            case AbilityTypeEnum.Healing:
+                // Healing ability
+                int healAmount = CalculateAbilityHealing(enemy, ability);
+                enemy.Health = Math.Min(enemy.MaxHealth, enemy.Health + healAmount);
+                result = result with 
+                { 
+                    HealingDone = healAmount,
+                    Message = $"{enemy.Name} used {ability.Name} and restored {healAmount} health!"
+                };
+                break;
+
+            case AbilityTypeEnum.Buff:
+                // Buff abilities (future enhancement - apply buffs to enemy)
+                result = result with { Message = $"{enemy.Name} used {ability.Name}!" };
+                break;
+
+            case AbilityTypeEnum.Debuff:
+                // Debuff abilities (future enhancement - apply debuffs to player)
+                result = result with { Message = $"{enemy.Name} used {ability.Name} on you!" };
+                break;
+        }
+
+        Log.Information($"Enemy {enemy.Name} used ability {ability.Name} (Type: {ability.Type})");
+        return result;
+    }
+
+    /// <summary>
+    /// Calculate damage for an enemy ability.
+    /// </summary>
+    private int CalculateAbilityDamage(Enemy enemy, Ability ability)
+    {
+        // Base damage from ability (if no BaseDamage string, use flat 10)
+        int baseDamage = 10;
+        
+        if (!string.IsNullOrEmpty(ability.BaseDamage))
+        {
+            // TODO: Implement dice rolling - for now, use simple average
+            // e.g., "2d6" = 2 * 3.5 = 7
+            baseDamage = EstimateDiceDamage(ability.BaseDamage);
+        }
+
+        // Add enemy's intelligence bonus (for magic attacks)
+        baseDamage += enemy.GetMagicDamageBonus();
+
+        // Apply variance (±20%)
+        baseDamage = (int)(baseDamage * _random.Next(80, 121) / 100.0);
+
+        return Math.Max(1, baseDamage);
+    }
+
+    /// <summary>
+    /// Calculate healing for an enemy ability.
+    /// </summary>
+    private int CalculateAbilityHealing(Enemy enemy, Ability ability)
+    {
+        // Base healing from ability (if no BaseDamage string, use flat 10)
+        int baseHealing = 10;
+        
+        if (!string.IsNullOrEmpty(ability.BaseDamage))
+        {
+            // Use BaseDamage for healing amount
+            baseHealing = EstimateDiceDamage(ability.BaseDamage);
+        }
+
+        // Add intelligence bonus
+        baseHealing += enemy.Intelligence / 2;
+
+        // Apply variance (±20%)
+        baseHealing = (int)(baseHealing * _random.Next(80, 121) / 100.0);
+
+        return Math.Max(1, baseHealing);
+    }
+
+    /// <summary>
+    /// Estimate average damage from dice notation (e.g., "2d6" returns 7).
+    /// TODO: Replace with proper dice roller service.
+    /// </summary>
+    private int EstimateDiceDamage(string diceNotation)
+    {
+        try
+        {
+            // Simple parser for "XdY" format
+            var parts = diceNotation.Split('d');
+            if (parts.Length == 2)
+            {
+                int count = int.Parse(parts[0]);
+                int sides = int.Parse(parts[1].Split('+')[0]); // Handle "2d6+3"
+                int average = count * (sides + 1) / 2;
+                
+                // Handle bonus (e.g., "2d6+3")
+                if (parts[1].Contains('+'))
+                {
+                    int bonus = int.Parse(parts[1].Split('+')[1]);
+                    average += bonus;
+                }
+                
+                return average;
+            }
+        }
+        catch
+        {
+            // Fallback to default if parsing fails
+        }
+        
+        return 10; // Default fallback
     }
 
     /// <summary>
