@@ -1,6 +1,7 @@
 using FluentAssertions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using RealmEngine.Core.Features.Combat;
 using RealmEngine.Core.Features.Combat.Commands.AttackEnemy;
@@ -43,14 +44,15 @@ public class QuestIntegrationTests
             // Do nothing for tests
         });
 
-        // Create mock GameDataCache for AbilityCatalogService
-        var mockGameDataCache = new Mock<GameDataCache>(MockBehavior.Loose);
+        // Create real GameDataCache for AbilityCatalogService (with fake path - won't load any files)
+        var memoryCache = new MemoryCache(new MemoryCacheOptions());
+        var gameDataCache = new GameDataCache("fakepath", memoryCache);
 
         // Register all required services
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(StartQuestCommand).Assembly));
         services.AddSingleton(mockTimer.Object);
         services.AddSingleton(mockRepository.Object);
-        services.AddSingleton(mockGameDataCache.Object);
+        services.AddSingleton(gameDataCache);
         services.AddSingleton<SaveGameService>();
         services.AddSingleton<ISaveGameService>(sp => sp.GetRequiredService<SaveGameService>());
         services.AddSingleton<MainQuestService>();
@@ -59,6 +61,8 @@ public class QuestIntegrationTests
         services.AddSingleton<QuestRewardService>();
         services.AddSingleton<QuestInitializationService>();
         services.AddSingleton<AbilityCatalogService>();
+        services.AddSingleton<SkillCatalogService>();
+        services.AddSingleton<SkillProgressionService>();
         services.AddSingleton<CombatService>();
 
         _serviceProvider = services.BuildServiceProvider();
@@ -333,7 +337,11 @@ public class QuestIntegrationTests
 
         // Assert
         result.Success.Should().BeTrue();
-        saveGame.ApocalypseBonusMinutes.Should().Be(initialBonusMinutes + 15);
+        
+        // Get the current save game from the service (in case the reference changed)
+        var currentSave = _saveGameService.GetCurrentSave();
+        currentSave.Should().NotBeNull();
+        currentSave!.ApocalypseBonusMinutes.Should().Be(initialBonusMinutes + 15);
     }
 
     [Fact]
