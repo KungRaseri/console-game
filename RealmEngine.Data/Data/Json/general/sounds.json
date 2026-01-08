@@ -125,7 +125,7 @@
     "description": "Sound descriptions for combat, environmental atmosphere, and immersive audio narratives",
     "version": "4.0",
     "type": "pattern_generation",
-    "lastUpdated": "2025-12-27",
+    "lastUpdated": "2026-01-08",
     "componentKeys": [
       "base_sound",
       "volume",

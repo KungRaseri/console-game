@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Orc name generation patterns with weight-based rarity components",
     "version": "4.0",
-    "lastUpdated": "2025-12-17",
+    "lastUpdated": "2026-01-08",
     "type": "pattern_generation",
     "componentKeys": [
       "rank",

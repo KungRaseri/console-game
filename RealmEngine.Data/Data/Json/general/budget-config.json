@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Budget-based item generation configuration - controls how budget is allocated across item components",
     "version": "4.0",
-    "lastUpdated": "2026-01-04",
+    "lastUpdated": "2026-01-08",
     "type": "budget_configuration"
   },
   "budgetAllocation": {

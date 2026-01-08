@@ -61,7 +61,7 @@
     "description": "Smell descriptions for environmental atmosphere, items, and narrative immersion",
     "version": "4.0",
     "type": "pattern_generation",
-    "lastUpdated": "2025-12-27",
+    "lastUpdated": "2026-01-08",
     "componentKeys": [
       "pleasant",
       "unpleasant",

@@ -26,9 +26,9 @@ public class EnemyAbilityAIService
     /// <returns>Ability to use, or null if should use basic attack</returns>
     public string? DecideAbilityUsage(Enemy enemy, Character player, Dictionary<string, int> abilityStates)
     {
-        if (_abilityCatalogService == null || enemy.Abilities.Count == 0)
+        if (enemy.Abilities.Count == 0)
         {
-            return null; // No abilities available or catalog not loaded
+            return null; // No abilities available
         }
 
         // Get available abilities (not on cooldown)

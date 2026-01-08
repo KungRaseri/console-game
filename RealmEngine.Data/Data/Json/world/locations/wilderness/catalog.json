@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Wilderness and outdoor location definitions organized by danger level",
     "version": "4.0",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2026-01-08",
     "type": "world_locations_wilderness_catalog"
   },
   "low_danger_types": {

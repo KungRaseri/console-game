@@ -4,7 +4,7 @@
     "type": "spells_catalog",
     "description": "All learnable spells organized by magical tradition",
     "totalSpells": 144,
-    "lastUpdated": "2026-01-06"
+    "lastUpdated": "2026-01-08"
   },
   "spell_types": {
     "arcane": {

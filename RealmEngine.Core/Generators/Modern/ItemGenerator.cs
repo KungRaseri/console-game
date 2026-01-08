@@ -1206,27 +1206,76 @@ public class ItemGenerator
 
     /// <summary>
     /// Apply base item stats (damage, defense, etc.) from catalog.
+    /// Supports both v4.0 (simple fields) and v5.1 (structured objects/stats) formats.
     /// </summary>
     private void ApplyBaseItemStats(Item item, JToken baseItem)
     {
-        // Weapons: damage
+        // Weapons: damage (v5.1 has structured object, v4.0 has string)
         if (baseItem["damage"] != null)
         {
-            item.Traits["Damage"] = new TraitValue
+            var damageToken = baseItem["damage"];
+            if (damageToken is JObject damageObj)
             {
-                Value = GetStringProperty(baseItem, "damage"),
-                Type = TraitType.String
-            };
+                // v5.1 format: { "min": 1, "max": 8, "modifier": "wielder.strength_mod" }
+                var min = damageObj["min"]?.Value<int>() ?? 1;
+                var max = damageObj["max"]?.Value<int>() ?? 1;
+                var modifier = damageObj["modifier"]?.ToString() ?? "";
+                
+                // Store as dice notation for compatibility
+                item.Traits["Damage"] = new TraitValue
+                {
+                    Value = $"{min}d{max}",
+                    Type = TraitType.String
+                };
+                
+                if (!string.IsNullOrEmpty(modifier))
+                {
+                    item.Traits["DamageModifier"] = new TraitValue
+                    {
+                        Value = modifier,
+                        Type = TraitType.String
+                    };
+                }
+            }
+            else
+            {
+                // v4.0 format: "1d8" string
+                item.Traits["Damage"] = new TraitValue
+                {
+                    Value = GetStringProperty(baseItem, "damage"),
+                    Type = TraitType.String
+                };
+            }
         }
 
-        // Armor: defense
-        if (baseItem["defense"] != null)
+        // Armor: defense (v5.1 in stats object, v4.0 as direct field)
+        var defenseValue = baseItem["defense"];
+        if (defenseValue == null && baseItem["stats"] is JObject statsObj)
         {
-            item.Traits["Defense"] = new TraitValue
+            // v5.1 format: stats.defense formula
+            defenseValue = statsObj["defense"];
+        }
+        
+        if (defenseValue != null)
+        {
+            if (defenseValue.Type == JTokenType.Integer)
             {
-                Value = GetIntProperty(baseItem, "defense", 0),
-                Type = TraitType.Number
-            };
+                // Numeric defense value
+                item.Traits["Defense"] = new TraitValue
+                {
+                    Value = defenseValue.Value<int>(),
+                    Type = TraitType.Number
+                };
+            }
+            else if (defenseValue.Type == JTokenType.String)
+            {
+                // Formula defense value (v5.1)
+                item.Traits["Defense"] = new TraitValue
+                {
+                    Value = defenseValue.ToString(),
+                    Type = TraitType.String
+                };
+            }
         }
 
         // Weight

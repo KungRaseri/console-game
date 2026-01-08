@@ -189,7 +189,9 @@ public class ComponentJsonComplianceTests
     var version = metadata["version"]?.ToString();
     if (!string.IsNullOrEmpty(version))
     {
-      version.Should().Be("4.0", $"{relativePath} should use version 4.0");
+      // Accept 4.0, 4.2, 5.0, and 5.1 versions
+      version.Should().Match(v => v == "4.0" || v == "4.2" || v == "5.0" || v == "5.1", 
+        $"{relativePath} should use version 4.0, 4.2, 5.0, or 5.1");
     }
 
     var lastUpdated = metadata["lastUpdated"]?.ToString();

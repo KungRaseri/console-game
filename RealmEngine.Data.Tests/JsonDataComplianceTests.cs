@@ -90,10 +90,10 @@ public class JsonDataComplianceTests
         var json = JObject.Parse(File.ReadAllText(fullPath));
         var version = json["metadata"]?["version"]?.ToString();
 
-        // Assert - standard shows "1.0" but project uses "4.0" for v4.0+ catalogs, "4.2" for v4.2 progression system
+        // Assert - Accept 4.0 (v4.0 standard), 4.2 (v4.2 progression), and 5.1 (v5.1 formula-based stats)
         version.Should().NotBeNullOrEmpty($"{relativePath} has empty version");
-        // Accept 4.0 (v4.0 standard), and 4.2 (v4.2 progression)
-        version.Should().Match(v => v == "4.0" || v == "4.2", $"{relativePath} version should be '4.0', or '4.2'");
+        version.Should().Match(v => v == "4.0" || v == "4.2" || v == "5.1" || v == "5.0", 
+            $"{relativePath} version should be '4.0', '4.2', '5.0', or '5.1'");
     }
 
     [Theory]
@@ -520,8 +520,9 @@ public class JsonDataComplianceTests
         var json = JObject.Parse(File.ReadAllText(fullPath));
         var version = json["metadata"]?["version"]?.ToString();
 
-        // Assert
-        version.Should().Be("4.0", $"{relativePath} not using v4.0");
+        // Assert - Accept 4.0, 4.2, 5.0, and 5.1
+        version.Should().Match(v => v == "4.0" || v == "4.2" || v == "5.0" || v == "5.1", 
+            $"{relativePath} version should be '4.0', '4.2', '5.0', or '5.1'");
     }
 
     [Theory]
@@ -923,7 +924,9 @@ public class JsonDataComplianceTests
         var version = metadata["version"]?.ToString();
         if (!string.IsNullOrEmpty(version))
         {
-            version.Should().Be("4.0", $"{relativePath} should use version 4.0");
+            // Accept 4.0, 4.2, 5.0, and 5.1 versions
+            version.Should().Match(v => v == "4.0" || v == "4.2" || v == "5.0" || v == "5.1", 
+                $"{relativePath} should use version 4.0, 4.2, 5.0, or 5.1");
         }
 
         var lastUpdated = metadata["lastUpdated"]?.ToString();

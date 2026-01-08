@@ -3,7 +3,7 @@
     "type": "hierarchical_catalog",
     "version": "4.0",
     "description": "NPC personality traits and quirks for characterization",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2026-01-08",
     "componentKeys": [
       "personality_traits",
       "quirks"

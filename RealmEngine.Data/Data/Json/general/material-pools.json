@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Material pool definitions for enemy loot tables - controls which materials can drop from which enemies",
     "version": "4.0",
-    "lastUpdated": "2026-01-04",
+    "lastUpdated": "2026-01-08",
     "type": "material_pools"
   },
   "pools": {

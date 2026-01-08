@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "4.0",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2026-01-08",
     "description": "Quest templates for procedural quest generation (locations migrated to world/locations domain)",
     "type": "hierarchical_catalog",
     "notes": "Quest templates define quest types with base rewards. Locations have been migrated to @world/locations domain catalogs (towns, dungeons, wilderness). Use location_references for cross-domain lookups. Supports weighted random selection using rarityWeight formula: probability = 100 / rarityWeight.",

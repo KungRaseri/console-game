@@ -66,7 +66,7 @@
     "description": "Color name generation with base colors, modifiers, and material-based colors for rich visual descriptions",
     "version": "4.0",
     "type": "pattern_generation",
-    "lastUpdated": "2025-12-27",
+    "lastUpdated": "2026-01-08",
     "componentKeys": [
       "base_color",
       "modifier",

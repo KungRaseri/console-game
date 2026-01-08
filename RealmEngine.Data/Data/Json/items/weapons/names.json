@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Unified weapon naming system with prefix/suffix support and trait assignment (v4.2 - Hybrid Enhancement System)",
     "version": "4.0",
-    "lastUpdated": "2025-12-31",
+    "lastUpdated": "2026-01-08",
     "type": "pattern_generation",
     "supportsTraits": true,
     "componentKeys": [

@@ -162,34 +162,53 @@ public class EnemyGenerator
     {
         try
         {
+            var level = GetIntProperty(catalogEnemy, "level", 1);
+            
+            // v5.1: Read attributes from attributes object, fallback to v4.0 top-level
+            var attributes = catalogEnemy["attributes"] as JObject;
+            int str = attributes?["strength"]?.Value<int>() ?? GetIntProperty(catalogEnemy, "strength", 10);
+            int dex = attributes?["dexterity"]?.Value<int>() ?? GetIntProperty(catalogEnemy, "dexterity", 10);
+            int con = attributes?["constitution"]?.Value<int>() ?? GetIntProperty(catalogEnemy, "constitution", 10);
+            int intel = attributes?["intelligence"]?.Value<int>() ?? GetIntProperty(catalogEnemy, "intelligence", 10);
+            int wis = attributes?["wisdom"]?.Value<int>() ?? GetIntProperty(catalogEnemy, "wisdom", 10);
+            int cha = attributes?["charisma"]?.Value<int>() ?? GetIntProperty(catalogEnemy, "charisma", 10);
+            
+            // v5.1: Read stats from stats object (formulas), fallback to v4.0 direct values
+            var statsObj = catalogEnemy["stats"] as JObject;
+            int health = GetStatValue(statsObj, "health", catalogEnemy, "health", 50, level, str, dex, con, intel, wis, cha);
+            int attack = GetStatValue(statsObj, "attack", catalogEnemy, "attack", 5, level, str, dex, con, intel, wis, cha);
+            int defense = GetStatValue(statsObj, "defense", catalogEnemy, "defense", 10, level, str, dex, con, intel, wis, cha);
+            int magicAttack = GetStatValue(statsObj, "magicAttack", catalogEnemy, "magicAttack", 0, level, str, dex, con, intel, wis, cha);
+            
             var enemy = new Enemy
             {
                 Id = $"{category}:{GetStringProperty(catalogEnemy, "name")}",
                 Name = GetStringProperty(catalogEnemy, "name") ?? "Unknown Enemy",
                 Description = GetStringProperty(catalogEnemy, "description") ?? "A mysterious creature",
-                Health = GetIntProperty(catalogEnemy, "health", 50),
-                MaxHealth = GetIntProperty(catalogEnemy, "health", 50),
-                Level = GetIntProperty(catalogEnemy, "level", 1),
+                Health = health,
+                MaxHealth = health,
+                Level = level,
                 
-                // Map stats from catalog
-                Strength = GetIntProperty(catalogEnemy, "strength", 10),
-                Dexterity = GetIntProperty(catalogEnemy, "dexterity", 10),
-                Constitution = GetIntProperty(catalogEnemy, "constitution", 10),
-                Intelligence = GetIntProperty(catalogEnemy, "intelligence", 10),
-                Wisdom = GetIntProperty(catalogEnemy, "wisdom", 10),
-                Charisma = GetIntProperty(catalogEnemy, "charisma", 10),
+                // Map attributes
+                Strength = str,
+                Dexterity = dex,
+                Constitution = con,
+                Intelligence = intel,
+                Wisdom = wis,
+                Charisma = cha,
                 
                 // Map damage properties
-                BasePhysicalDamage = GetIntProperty(catalogEnemy, "attack", 5),
-                BaseMagicDamage = GetIntProperty(catalogEnemy, "magicAttack", 0),
+                BasePhysicalDamage = attack,
+                BaseMagicDamage = magicAttack,
                 
                 // Map rewards
                 XPReward = GetIntProperty(catalogEnemy, "xp", 25),
                 GoldReward = GetIntProperty(catalogEnemy, "gold", 10)
             };
 
-            // Resolve ability references
-            var abilities = GetStringArrayProperty(catalogEnemy, "abilities");
+            // v5.1: Resolve ability references from combat.abilities, fallback to v4.0 top-level abilities
+            var combatObj = catalogEnemy["combat"] as JObject;
+            var abilities = combatObj?["abilities"]?.ToObject<string[]>() ?? GetStringArrayProperty(catalogEnemy, "abilities");
             if (abilities?.Any() == true)
             {
                 var resolvedAbilities = new List<string>();
@@ -379,6 +398,94 @@ public class EnemyGenerator
 
         return patternList.FirstOrDefault();
     }
+
+    /// <summary>
+    /// Gets a stat value from v5.1 stats object (formula) or v4.0 direct property (number).
+    /// </summary>
+    /// <param name="statsObj">v5.1 stats object with formula strings</param>
+    /// <param name="statName">Name of the stat in stats object</param>
+    /// <param name="catalogEnemy">v4.0 catalog enemy with direct properties</param>
+    /// <param name="fallbackProperty">v4.0 property name for fallback</param>
+    /// <param name="defaultValue">Default value if neither v5.1 nor v4.0 found</param>
+    /// <param name="level">Character level for formula evaluation</param>
+    /// <param name="str">Strength attribute</param>
+    /// <param name="dex">Dexterity attribute</param>
+    /// <param name="con">Constitution attribute</param>
+    /// <param name="intel">Intelligence attribute</param>
+    /// <param name="wis">Wisdom attribute</param>
+    /// <param name="cha">Charisma attribute</param>
+    /// <returns>Evaluated stat value</returns>
+    private int GetStatValue(JObject? statsObj, string statName, JToken catalogEnemy, string fallbackProperty, 
+        int defaultValue, int level, int str, int dex, int con, int intel, int wis, int cha)
+    {
+        // Try v5.1 stats object first (formula strings)
+        if (statsObj?[statName] != null)
+        {
+            var formula = statsObj[statName]?.Value<string>();
+            if (!string.IsNullOrEmpty(formula))
+            {
+                try
+                {
+                    return EvaluateStatFormula(formula, level, str, dex, con, intel, wis, cha);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to evaluate formula '{Formula}' for stat '{StatName}'", formula, statName);
+                    // Fall through to v4.0 fallback
+                }
+            }
+        }
+        
+        // Fallback to v4.0 direct property (numeric value)
+        return GetIntProperty(catalogEnemy, fallbackProperty, defaultValue);
+    }
+
+    /// <summary>
+    /// Evaluates a stat formula string like "constitution_mod * 2 + level * 5 + 30".
+    /// </summary>
+    private int EvaluateStatFormula(string formula, int level, int str, int dex, int con, int intel, int wis, int cha)
+    {
+        // Calculate ability modifiers
+        int str_mod = (str - 10) / 2;
+        int dex_mod = (dex - 10) / 2;
+        int con_mod = (con - 10) / 2;
+        int int_mod = (intel - 10) / 2;
+        int wis_mod = (wis - 10) / 2;
+        int cha_mod = (cha - 10) / 2;
+        
+        // Replace variables with actual values
+        var evalFormula = formula
+            .Replace("strength_mod", str_mod.ToString())
+            .Replace("dexterity_mod", dex_mod.ToString())
+            .Replace("constitution_mod", con_mod.ToString())
+            .Replace("intelligence_mod", int_mod.ToString())
+            .Replace("wisdom_mod", wis_mod.ToString())
+            .Replace("charisma_mod", cha_mod.ToString())
+            .Replace("level", level.ToString())
+            .Replace(" ", ""); // Remove spaces for parsing
+        
+        // Simple expression evaluator (handles +, -, *, /)
+        return EvaluateExpression(evalFormula);
+    }
+
+    /// <summary>
+    /// Evaluates a simple mathematical expression (supports +, -, *, /).
+    /// </summary>
+    private int EvaluateExpression(string expression)
+    {
+        try
+        {
+            // Use DataTable.Compute as a simple expression evaluator
+            var result = new System.Data.DataTable().Compute(expression, null);
+            return Convert.ToInt32(result);
+        }
+        catch
+        {
+            _logger.LogWarning("Failed to evaluate expression '{Expression}'", expression);
+            return 10; // Default fallback value
+        }
+    }
+
 
     /// <summary>
     /// Hydrates an enemy by resolving reference IDs to full objects.

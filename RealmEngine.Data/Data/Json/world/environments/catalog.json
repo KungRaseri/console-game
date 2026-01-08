@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Environmental systems including biomes, weather patterns, and terrain hazards",
     "version": "4.0",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2026-01-08",
     "type": "world_environments_catalog"
   },
   "biomes_types": {

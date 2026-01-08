@@ -3,7 +3,7 @@
     "version": "4.0",
     "type": "hierarchical_catalog",
     "description": "Dialogue speaking styles that define NPC personality and tone",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2026-01-08",
     "notes": [
       "Styles affect word choice, sentence structure, and formality",
       "Referenced by NPCs via dialogueStyle field",

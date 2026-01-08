@@ -3,7 +3,7 @@
     "type": "relationship_catalog",
     "version": "4.0",
     "description": "NPC faction and relationship definitions (simplified v1.0)",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2026-01-08",
     "notes": [
       "Defines faction memberships and basic relationships between NPC groups",
       "Simplified version - expand later with detailed relationship mechanics",

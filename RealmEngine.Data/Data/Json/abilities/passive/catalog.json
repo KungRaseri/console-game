@@ -4,7 +4,7 @@
     "type": "abilities_catalog",
     "description": "Passive abilities providing continuous effects",
     "totalAbilities": 148,
-    "lastUpdated": "2026-01-06"
+    "lastUpdated": "2026-01-08"
   },
   "ability_types": {
     "offensive": {

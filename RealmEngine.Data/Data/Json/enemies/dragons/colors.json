@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Reference data components for dragons",
     "version": "4.0",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2026-01-08",
     "type": "reference_data",
     "notes": [
       "Reference data for dragons colors. Used as component source in name generation and stat calculations."

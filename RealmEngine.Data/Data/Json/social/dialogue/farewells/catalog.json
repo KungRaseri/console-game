@@ -3,7 +3,7 @@
     "version": "4.0",
     "type": "hierarchical_catalog",
     "description": "Farewell dialogue templates organized by NPC type and context",
-    "lastUpdated": "2025-12-29",
+    "lastUpdated": "2026-01-08",
     "notes": [
       "Templates support variable substitution: {player_name}, {faction}",
       "Used when conversation ends or player leaves",
