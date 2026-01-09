@@ -6,7 +6,10 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public class CharacterClass
 {
+    /// <summary>Gets or sets the unique identifier for this character class.</summary>
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    
+    /// <summary>Gets or sets the internal name of the character class.</summary>
     public string Name { get; set; } = string.Empty;
     
     /// <summary>
@@ -14,6 +17,7 @@ public class CharacterClass
     /// </summary>
     public string DisplayName { get; set; } = string.Empty;
     
+    /// <summary>Gets or sets the description of the character class.</summary>
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
@@ -41,12 +45,19 @@ public class CharacterClass
     /// Maps to startingStats in JSON.
     /// </summary>
     public int StartingHealth { get; set; } = 100;
+    /// <summary>Gets or sets the starting mana points for this class.</summary>
     public int StartingMana { get; set; } = 50;
+    /// <summary>Gets or sets the bonus strength modifier for this class.</summary>
     public int BonusStrength { get; set; } = 10;
+    /// <summary>Gets or sets the bonus dexterity modifier for this class.</summary>
     public int BonusDexterity { get; set; } = 10;
+    /// <summary>Gets or sets the bonus constitution modifier for this class.</summary>
     public int BonusConstitution { get; set; } = 10;
+    /// <summary>Gets or sets the bonus intelligence modifier for this class.</summary>
     public int BonusIntelligence { get; set; } = 10;
+    /// <summary>Gets or sets the bonus wisdom modifier for this class.</summary>
     public int BonusWisdom { get; set; } = 10;
+    /// <summary>Gets or sets the bonus charisma modifier for this class.</summary>
     public int BonusCharisma { get; set; } = 10;
 
     /// <summary>
@@ -231,11 +242,17 @@ public class ClassProgression
 /// </summary>
 public class AttributeAllocation
 {
+    /// <summary>Gets or sets strength points allocated.</summary>
     public int Strength { get; set; } = 8;
+    /// <summary>Gets or sets dexterity points allocated.</summary>
     public int Dexterity { get; set; } = 8;
+    /// <summary>Gets or sets constitution points allocated.</summary>
     public int Constitution { get; set; } = 8;
+    /// <summary>Gets or sets intelligence points allocated.</summary>
     public int Intelligence { get; set; } = 8;
+    /// <summary>Gets or sets wisdom points allocated.</summary>
     public int Wisdom { get; set; } = 8;
+    /// <summary>Gets or sets charisma points allocated.</summary>
     public int Charisma { get; set; } = 8;
 
     private const int MinAttributeValue = 8;

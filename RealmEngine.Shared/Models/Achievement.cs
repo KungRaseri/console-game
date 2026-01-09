@@ -77,24 +77,44 @@ public class AchievementCriteria
     public string? RequiredId { get; set; }
 }
 
+/// <summary>
+/// Category of achievement for organizing and filtering.
+/// </summary>
 public enum AchievementCategory
 {
+    /// <summary>Combat-related achievements.</summary>
     Combat,
+    /// <summary>Exploration and discovery achievements.</summary>
     Exploration,
+    /// <summary>Quest completion achievements.</summary>
     Quests,
+    /// <summary>Survival-based achievements.</summary>
     Survival,
+    /// <summary>Class or skill mastery achievements.</summary>
     Mastery,
+    /// <summary>Hidden achievements.</summary>
     Secret
 }
 
+/// <summary>
+/// Type of achievement defining its completion condition.
+/// </summary>
 public enum AchievementType
 {
+    /// <summary>Complete a specific quest.</summary>
     CompleteQuest,
+    /// <summary>Defeat a number of enemies.</summary>
     DefeatEnemies,
+    /// <summary>Reach a specific character level.</summary>
     ReachLevel,
+    /// <summary>Collect a certain amount of gold.</summary>
     CollectGold,
+    /// <summary>Survive for a duration of time.</summary>
     SurviveTime,
+    /// <summary>Complete the entire game.</summary>
     CompleteGame,
+    /// <summary>Complete the game on a specific difficulty.</summary>
     CompleteDifficulty,
+    /// <summary>Complete without dying.</summary>
     Deathless
 }

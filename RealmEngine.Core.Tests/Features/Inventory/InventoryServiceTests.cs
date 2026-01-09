@@ -3,6 +3,7 @@ using Moq;
 using RealmEngine.Shared.Models;
 using RealmEngine.Core.Features.Inventory;
 using MediatR;
+using System.Threading.Tasks;
 
 namespace RealmEngine.Core.Tests.Features.Inventory;
 
@@ -66,12 +67,12 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void RemoveItem_Should_Remove_Item_By_Id()
+    public async Task RemoveItem_Should_Remove_Item_By_Id()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
         var item = new Item { Id = "item-123", Name = "Sword", Type = ItemType.Weapon };
-        service.AddItemAsync(item, "Hero").Wait();
+        await service.AddItemAsync(item, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         var result = service.RemoveItem("item-123");
@@ -82,7 +83,7 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void RemoveItem_Should_Return_False_For_Nonexistent_Id()
+    public async Task RemoveItem_Should_Return_False_For_Nonexistent_Id()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
@@ -95,12 +96,12 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void RemoveItem_Should_Remove_Item_By_Reference()
+    public async Task RemoveItem_Should_Remove_Item_By_Reference()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
         var item = new Item { Name = "Helmet", Type = ItemType.Helmet };
-        service.AddItemAsync(item, "Hero").Wait();
+        await service.AddItemAsync(item, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         var result = service.RemoveItem(item);
@@ -111,7 +112,7 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void RemoveItem_Should_Return_False_For_Null_Item()
+    public async Task RemoveItem_Should_Return_False_For_Null_Item()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
@@ -124,16 +125,16 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void GetItemsByType_Should_Filter_By_Type()
+    public async Task GetItemsByType_Should_Filter_By_Type()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
         var weapon1 = new Item { Name = "Sword", Type = ItemType.Weapon };
         var weapon2 = new Item { Name = "Axe", Type = ItemType.Weapon };
         var armor = new Item { Name = "Shield", Type = ItemType.Shield };
-        service.AddItemAsync(weapon1, "Hero").Wait();
-        service.AddItemAsync(weapon2, "Hero").Wait();
-        service.AddItemAsync(armor, "Hero").Wait();
+        await service.AddItemAsync(weapon1, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(weapon2, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(armor, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         var weapons = service.GetItemsByType(ItemType.Weapon);
@@ -146,16 +147,16 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void GetItemsByRarity_Should_Filter_By_Rarity()
+    public async Task GetItemsByRarity_Should_Filter_By_Rarity()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
         var common = new Item { Name = "Iron Sword", Rarity = ItemRarity.Common };
         var rare = new Item { Name = "Excalibur", Rarity = ItemRarity.Rare };
         var legendary = new Item { Name = "Dragon Blade", Rarity = ItemRarity.Legendary };
-        service.AddItemAsync(common, "Hero").Wait();
-        service.AddItemAsync(rare, "Hero").Wait();
-        service.AddItemAsync(legendary, "Hero").Wait();
+        await service.AddItemAsync(common, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(rare, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(legendary, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         var rares = service.GetItemsByRarity(ItemRarity.Rare);
@@ -166,12 +167,12 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void FindItemById_Should_Return_Item_When_Found()
+    public async Task FindItemById_Should_Return_Item_When_Found()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
         var item = new Item { Id = "unique-123", Name = "Magic Ring" };
-        service.AddItemAsync(item, "Hero").Wait();
+        await service.AddItemAsync(item, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         var found = service.FindItemById("unique-123");
@@ -245,12 +246,12 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void HasItemOfType_Should_Return_True_When_Type_Exists()
+    public async Task HasItemOfType_Should_Return_True_When_Type_Exists()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
         var weapon = new Item { Name = "Sword", Type = ItemType.Weapon };
-        service.AddItemAsync(weapon, "Hero").Wait();
+        await service.AddItemAsync(weapon, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         var result = service.HasItemOfType(ItemType.Weapon);
@@ -273,13 +274,13 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void Clear_Should_Remove_All_Items()
+    public async Task Clear_Should_Remove_All_Items()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
-        service.AddItemAsync(new Item { Name = "Item1" }, "Hero").Wait();
-        service.AddItemAsync(new Item { Name = "Item2" }, "Hero").Wait();
-        service.AddItemAsync(new Item { Name = "Item3" }, "Hero").Wait();
+        await service.AddItemAsync(new Item { Name = "Item1" }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(new Item { Name = "Item2" }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(new Item { Name = "Item3" }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         service.Clear();
@@ -290,13 +291,13 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void SortByName_Should_Order_Items_Alphabetically()
+    public async Task SortByName_Should_Order_Items_Alphabetically()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
-        service.AddItemAsync(new Item { Name = "Zebra Sword" }, "Hero").Wait();
-        service.AddItemAsync(new Item { Name = "Alpha Shield" }, "Hero").Wait();
-        service.AddItemAsync(new Item { Name = "Beta Potion" }, "Hero").Wait();
+        await service.AddItemAsync(new Item { Name = "Zebra Sword" }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(new Item { Name = "Alpha Shield" }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(new Item { Name = "Beta Potion" }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         service.SortByName();
@@ -309,13 +310,13 @@ public class InventoryServiceTests
     }
 
     [Fact]
-    public void SortByRarity_Should_Order_Items_By_Rarity()
+    public async Task SortByRarity_Should_Order_Items_By_Rarity()
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
-        service.AddItemAsync(new Item { Name = "Common", Rarity = ItemRarity.Common }, "Hero").Wait();
-        service.AddItemAsync(new Item { Name = "Legendary", Rarity = ItemRarity.Legendary }, "Hero").Wait();
-        service.AddItemAsync(new Item { Name = "Rare", Rarity = ItemRarity.Rare }, "Hero").Wait();
+        await service.AddItemAsync(new Item { Name = "Common", Rarity = ItemRarity.Common }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(new Item { Name = "Legendary", Rarity = ItemRarity.Legendary }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(new Item { Name = "Rare", Rarity = ItemRarity.Rare }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         service.SortByRarity();
@@ -350,13 +351,13 @@ public class InventoryServiceTests
     [InlineData(ItemType.Weapon, 2)]
     [InlineData(ItemType.Shield, 1)]
     [InlineData(ItemType.Consumable, 0)]
-    public void GetItemsByType_Should_Return_Correct_Count(ItemType type, int expectedCount)
+    public async Task GetItemsByType_Should_Return_Correct_Count(ItemType type, int expectedCount)
     {
         // Arrange
         var service = new InventoryService(_mockMediator.Object);
-        service.AddItemAsync(new Item { Name = "Sword", Type = ItemType.Weapon }, "Hero").Wait();
-        service.AddItemAsync(new Item { Name = "Axe", Type = ItemType.Weapon }, "Hero").Wait();
-        service.AddItemAsync(new Item { Name = "Shield", Type = ItemType.Shield }, "Hero").Wait();
+        await service.AddItemAsync(new Item { Name = "Sword", Type = ItemType.Weapon }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(new Item { Name = "Axe", Type = ItemType.Weapon }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
+        await service.AddItemAsync(new Item { Name = "Shield", Type = ItemType.Shield }, "Hero").WaitAsync(TimeSpan.FromMilliseconds(500));
 
         // Act
         var items = service.GetItemsByType(type);

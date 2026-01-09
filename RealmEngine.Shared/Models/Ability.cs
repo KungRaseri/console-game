@@ -271,16 +271,28 @@ public class Ability
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum AbilityTypeEnum
 {
+    /// <summary>Offensive damage-dealing abilities.</summary>
     Offensive,
+    /// <summary>Defensive abilities that protect or mitigate damage.</summary>
     Defensive,
+    /// <summary>Support abilities that assist allies.</summary>
     Support,
+    /// <summary>Passive abilities that are always active.</summary>
     Passive,
+    /// <summary>Utility abilities with various non-combat effects.</summary>
     Utility,
+    /// <summary>Mobility abilities for movement and positioning.</summary>
     Mobility,
+    /// <summary>Summoning abilities that create minions or companions.</summary>
     Summon,
+    /// <summary>Transformation abilities that change form or state.</summary>
     Transformation,
+    /// <summary>Buff abilities that enhance stats or capabilities.</summary>
     Buff,
+    /// <summary>Debuff abilities that weaken enemies.</summary>
     Debuff,
+    /// <summary>Healing abilities that restore health or mana.</summary>
     Healing,
+    /// <summary>Crowd control abilities that restrict enemy actions.</summary>
     Crowd_Control
 }

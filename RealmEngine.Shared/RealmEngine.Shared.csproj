@@ -4,7 +4,9 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>RealmEngine.Shared</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     
     <!-- NuGet Package Metadata -->
     <PackageId>RealmEngine.Shared</PackageId>

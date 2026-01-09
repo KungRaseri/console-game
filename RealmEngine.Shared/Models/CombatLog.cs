@@ -8,11 +8,16 @@ public class CombatLog
     private readonly List<CombatLogEntry> _entries = new();
     private readonly int _maxEntries;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CombatLog"/> class.
+    /// </summary>
+    /// <param name="maxEntries">Maximum number of entries to retain in the log.</param>
     public CombatLog(int maxEntries = 15)
     {
         _maxEntries = maxEntries;
     }
 
+    /// <summary>Gets the read-only list of combat log entries.</summary>
     public IReadOnlyList<CombatLogEntry> Entries => _entries.AsReadOnly();
 
     /// <summary>
@@ -73,10 +78,16 @@ public class CombatLog
     }
 }
 
+/// <summary>
+/// Represents a single entry in the combat log.
+/// </summary>
 public class CombatLogEntry
 {
+    /// <summary>Gets or initializes the log message.</summary>
     public required string Message { get; init; }
+    /// <summary>Gets or initializes the type of combat log entry.</summary>
     public required CombatLogType Type { get; init; }
+    /// <summary>Gets or initializes the timestamp when the entry was created.</summary>
     public required DateTime Timestamp { get; init; }
 }
 
