@@ -8,6 +8,9 @@ namespace RealmEngine.Data.Repositories;
 /// </summary>
 public class EquipmentSetRepository : IEquipmentSetRepository
 {
+    /// <summary>
+    /// Gets all available equipment sets.
+    /// </summary>
     public List<EquipmentSet> GetAllSets()
     {
         return new List<EquipmentSet>
@@ -137,12 +140,24 @@ public class EquipmentSetRepository : IEquipmentSetRepository
         };
     }
 
-    // Interface implementation
+    /// <inheritdoc />
     public EquipmentSet? GetById(string id) => GetByName(id); // ID is the name for equipment sets
+    
+    /// <inheritdoc />
     public EquipmentSet? GetByName(string name) => GetAllSets().FirstOrDefault(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+    
+    /// <inheritdoc />
     public List<EquipmentSet> GetAll() => GetAllSets();
+    
+    /// <inheritdoc />
     public void Add(EquipmentSet entity) => throw new NotSupportedException("Equipment sets are predefined");
+    
+    /// <inheritdoc />
     public void Update(EquipmentSet entity) => throw new NotSupportedException("Equipment sets are predefined");
+    
+    /// <inheritdoc />
     public void Delete(string id) => throw new NotSupportedException("Equipment sets are predefined");
+    
+    /// <inheritdoc />
     public void Dispose() { } // No resources to dispose
 }

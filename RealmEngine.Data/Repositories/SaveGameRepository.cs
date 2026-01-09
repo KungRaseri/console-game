@@ -12,6 +12,9 @@ public class SaveGameRepository : ISaveGameRepository
     private readonly LiteDatabase _database;
     private readonly ILiteCollection<SaveGame> _collection;
 
+    /// <summary>
+    /// Initializes a new instance of the SaveGameRepository with the specified database path.
+    /// </summary>
     public SaveGameRepository(string databasePath = "savegames.db")
     {
         _database = new LiteDatabase(databasePath);
@@ -89,12 +92,24 @@ public class SaveGameRepository : ISaveGameRepository
     }
 
     // Additional interface methods (aliases for consistency)
+    /// <inheritdoc />
     public void SaveGame(SaveGame saveGame) => Save(saveGame);
+    
+    /// <inheritdoc />
     public SaveGame? LoadGame(int id) => GetById(id.ToString());
+    
+    /// <inheritdoc />
     public List<SaveGame> GetAllSaves() => GetAll();
+    
+    /// <inheritdoc />
     public bool DeleteSave(int id) => Delete(id.ToString());
+    
+    /// <inheritdoc />
     public bool SaveExists(int id) => GetById(id.ToString()) != null;
 
+    /// <summary>
+    /// Disposes the database connection.
+    /// </summary>
     public void Dispose()
     {
         _database?.Dispose();

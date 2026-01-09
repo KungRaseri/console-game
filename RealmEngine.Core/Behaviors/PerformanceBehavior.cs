@@ -12,6 +12,13 @@ public class PerformanceBehavior<TRequest, TResponse> : IPipelineBehavior<TReque
 {
     private const int SlowThresholdMs = 500;
 
+    /// <summary>
+    /// Handles the request and logs a warning if execution exceeds the slow threshold (500ms).
+    /// </summary>
+    /// <param name="request">The request to process.</param>
+    /// <param name="next">The next behavior in the pipeline.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The response from the request handler.</returns>
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,

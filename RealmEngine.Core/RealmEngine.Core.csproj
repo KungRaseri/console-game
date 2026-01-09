@@ -7,7 +7,6 @@
     <RootNamespace>RealmEngine.Core</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
     
     <!-- NuGet Package Metadata -->
     <PackageId>RealmEngine.Core</PackageId>

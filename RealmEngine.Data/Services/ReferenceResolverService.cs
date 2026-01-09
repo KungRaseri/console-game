@@ -15,6 +15,11 @@ public class ReferenceResolverService
     private static readonly Regex ReferencePattern = new(@"^@(?<domain>[\w-]+)/(?<path>[\w-]+(/[\w-]+)*):(?<item>[\w-*\s]+)(?<filters>\[[^\]]+\])?(?<optional>\?)?(?<property>\.[\w.]+)?$", RegexOptions.Compiled);
     private readonly Random _random = new();
 
+    /// <summary>
+    /// Initializes a new instance of the ReferenceResolverService.
+    /// </summary>
+    /// <param name="dataCache">Game data cache for accessing JSON files</param>
+    /// <param name="logger">Logger for diagnostics</param>
     public ReferenceResolverService(GameDataCache dataCache, ILogger<ReferenceResolverService> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

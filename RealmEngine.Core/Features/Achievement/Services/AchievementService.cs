@@ -4,12 +4,20 @@ using RealmEngine.Core.Abstractions;using Serilog;
 using RealmEngine.Shared.Models;
 namespace RealmEngine.Core.Features.Achievements.Services;
 
+/// <summary>
+/// Provides services for managing achievements, including unlocking, checking criteria, and retrieving achievement data.
+/// </summary>
 public class AchievementService
 {
     private readonly SaveGameService _saveGameService;
     private readonly List<Achievement> _allAchievements;
     private readonly IGameUI _console;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AchievementService"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="console">The game UI console.</param>
     public AchievementService(SaveGameService saveGameService, IGameUI console)
     {
         _saveGameService = saveGameService;
@@ -27,6 +35,11 @@ public class AchievementService
         _allAchievements = new List<Achievement>();
     }
 
+    /// <summary>
+    /// Unlocks an achievement by its ID.
+    /// </summary>
+    /// <param name="achievementId">The unique identifier of the achievement to unlock.</param>
+    /// <returns>A task representing the asynchronous operation, containing the unlocked achievement or null if already unlocked or not found.</returns>
     public virtual async Task<Achievement?> UnlockAchievementAsync(string achievementId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
@@ -56,6 +69,10 @@ public class AchievementService
         return await Task.FromResult(achievement);
     }
 
+    /// <summary>
+    /// Checks all achievements to determine if any should be unlocked based on current progress.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation, containing a list of newly unlocked achievements.</returns>
     public virtual async Task<List<Achievement>> CheckAllAchievementsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
@@ -82,6 +99,10 @@ public class AchievementService
         return newlyUnlocked;
     }
 
+    /// <summary>
+    /// Retrieves all unlocked achievements for the current save game.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation, containing a list of unlocked achievements.</returns>
     public virtual async Task<List<Achievement>> GetUnlockedAchievementsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();

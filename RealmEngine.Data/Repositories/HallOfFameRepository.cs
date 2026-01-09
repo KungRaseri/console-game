@@ -13,6 +13,9 @@ public class HallOfFameRepository : IHallOfFameRepository
     private readonly LiteDatabase _db;
     private readonly ILiteCollection<HallOfFameEntry> _heroes;
 
+    /// <summary>
+    /// Initializes a new instance of the HallOfFameRepository with the specified database path.
+    /// </summary>
     public HallOfFameRepository(string databasePath = "halloffame.db")
     {
         _db = new LiteDatabase(databasePath);
@@ -60,6 +63,9 @@ public class HallOfFameRepository : IHallOfFameRepository
             .ToList();
     }
 
+    /// <summary>
+    /// Disposes the database connection.
+    /// </summary>
     public void Dispose()
     {
         _db?.Dispose();

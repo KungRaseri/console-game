@@ -27,6 +27,11 @@ public class GameDataCache : IDisposable
     private long _totalLoadTime;
     private readonly object _statsLock = new object();
 
+    /// <summary>
+    /// Initializes a new instance of GameDataCache with the specified data path and optional memory cache.
+    /// </summary>
+    /// <param name="dataRootPath">Root path to the game data directory</param>
+    /// <param name="memoryCache">Optional IMemoryCache instance (creates new if not provided)</param>
     public GameDataCache(string dataRootPath, IMemoryCache? memoryCache = null)
     {
         _dataRootPath = dataRootPath ?? throw new ArgumentNullException(nameof(dataRootPath));
@@ -700,12 +705,19 @@ public class GameDataCache : IDisposable
 
     #region IDisposable
 
+    /// <summary>
+    /// Disposes the GameDataCache and releases resources.
+    /// </summary>
     public void Dispose()
     {
         Dispose(true);
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Disposes the GameDataCache with optional resource cleanup.
+    /// </summary>
+    /// <param name="disposing">True to release managed resources</param>
     protected virtual void Dispose(bool disposing)
     {
         if (_disposed)
@@ -730,12 +742,39 @@ public class GameDataCache : IDisposable
 /// </summary>
 public class CachedJsonFile
 {
+    /// <summary>
+    /// Full filesystem path to the JSON file
+    /// </summary>
     public required string AbsolutePath { get; init; }
+    
+    /// <summary>
+    /// Path relative to data root directory
+    /// </summary>
     public required string RelativePath { get; init; }
+    
+    /// <summary>
+    /// Type of JSON file (catalog, names, config, etc.)
+    /// </summary>
     public required JsonFileType FileType { get; init; }
+    
+    /// <summary>
+    /// Top-level domain category (e.g., 'abilities', 'npcs')
+    /// </summary>
     public required string Domain { get; init; }
+    
+    /// <summary>
+    /// Subdomain within the domain (e.g., 'active', 'passive')
+    /// </summary>
     public required string Subdomain { get; init; }
+    
+    /// <summary>
+    /// Parsed JSON data as JObject
+    /// </summary>
     public required JObject JsonData { get; init; }
+    
+    /// <summary>
+    /// Last modification timestamp of the file
+    /// </summary>
     public required DateTime LastModified { get; init; }
 }
 
@@ -744,19 +783,65 @@ public class CachedJsonFile
 /// </summary>
 public class DataCacheStats
 {
+    /// <summary>
+    /// Total number of files loaded in cache
+    /// </summary>
     public int TotalFiles { get; set; }
+    
+    /// <summary>
+    /// Number of catalog files
+    /// </summary>
     public int CatalogFiles { get; set; }
+    
+    /// <summary>
+    /// Number of names files
+    /// </summary>
     public int NamesFiles { get; set; }
+    
+    /// <summary>
+    /// Number of config files
+    /// </summary>
     public int ConfigFiles { get; set; }
+    
+    /// <summary>
+    /// Number of component data files
+    /// </summary>
     public int ComponentFiles { get; set; }
+    
+    /// <summary>
+    /// List of all available domains
+    /// </summary>
     public List<string> Domains { get; set; } = new();
 
     // Performance metrics
+    /// <summary>
+    /// Number of cache hits (data found in memory)
+    /// </summary>
     public long CacheHits { get; set; }
+    
+    /// <summary>
+    /// Number of cache misses (data loaded from disk)
+    /// </summary>
     public long CacheMisses { get; set; }
+    
+    /// <summary>
+    /// Total number of cache requests
+    /// </summary>
     public long TotalRequests => CacheHits + CacheMisses;
+    
+    /// <summary>
+    /// Cache hit rate percentage
+    /// </summary>
     public double CacheHitRate => TotalRequests > 0 ? (double)CacheHits / TotalRequests * 100 : 0;
+    
+    /// <summary>
+    /// Average load time per request in milliseconds
+    /// </summary>
     public long AverageLoadTimeMs => TotalRequests > 0 ? TotalLoadTimeMs / TotalRequests : 0;
+    
+    /// <summary>
+    /// Total cumulative load time in milliseconds
+    /// </summary>
     public long TotalLoadTimeMs { get; set; }
 }
 
@@ -765,9 +850,28 @@ public class DataCacheStats
 /// </summary>
 public enum JsonFileType
 {
+    /// <summary>
+    /// Unknown or unrecognized file type
+    /// </summary>
     Unknown,
+    
+    /// <summary>
+    /// Names file for procedural name generation
+    /// </summary>
     NamesFile,
+    
+    /// <summary>
+    /// Generic catalog file containing item/enemy/NPC definitions
+    /// </summary>
     GenericCatalog,
+    
+    /// <summary>
+    /// Component data file for shared attributes
+    /// </summary>
     ComponentData,
+    
+    /// <summary>
+    /// Configuration file (.cbconfig.json) for ContentBuilder metadata
+    /// </summary>
     ConfigFile
 }

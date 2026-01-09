@@ -11,11 +11,23 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ValidationBehavior{TRequest, TResponse}"/> class.
+    /// </summary>
+    /// <param name="validators">The collection of validators to apply to requests.</param>
     public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
         _validators = validators;
     }
 
+    /// <summary>
+    /// Handles the request by validating it with FluentValidation validators, throwing a ValidationException if validation fails.
+    /// </summary>
+    /// <param name="request">The request to validate and process.</param>
+    /// <param name="next">The next behavior in the pipeline.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The response from the request handler.</returns>
+    /// <exception cref="ValidationException">Thrown when validation fails.</exception>
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,

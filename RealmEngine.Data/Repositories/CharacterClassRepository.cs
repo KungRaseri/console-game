@@ -8,6 +8,9 @@ namespace RealmEngine.Data.Repositories;
 /// </summary>
 public class CharacterClassRepository : ICharacterClassRepository
 {
+    /// <summary>
+    /// Gets all available character classes.
+    /// </summary>
     public List<CharacterClass> GetAllClasses()
     {
         return new List<CharacterClass>
@@ -21,18 +24,33 @@ public class CharacterClassRepository : ICharacterClassRepository
         };
     }
 
+    /// <summary>
+    /// Gets a character class by name (case-insensitive).
+    /// </summary>
     public CharacterClass? GetClassByName(string name)
     {
         return GetAllClasses().FirstOrDefault(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
-    // Interface implementation
+    /// <inheritdoc />
     public CharacterClass? GetById(string id) => GetByName(id); // ID is the name for character classes
+    
+    /// <inheritdoc />
     public CharacterClass? GetByName(string name) => GetClassByName(name);
+    
+    /// <inheritdoc />
     public List<CharacterClass> GetAll() => GetAllClasses();
+    
+    /// <inheritdoc />
     public void Add(CharacterClass entity) => throw new NotSupportedException("Character classes are predefined");
+    
+    /// <inheritdoc />
     public void Update(CharacterClass entity) => throw new NotSupportedException("Character classes are predefined");
+    
+    /// <inheritdoc />
     public void Delete(string id) => throw new NotSupportedException("Character classes are predefined");
+    
+    /// <inheritdoc />
     public void Dispose() { } // No resources to dispose
 
     private CharacterClass CreateWarriorClass()
