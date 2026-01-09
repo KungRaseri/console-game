@@ -16,6 +16,11 @@ public class BudgetConfigFactory
     private MaterialPools? _materialPools;
     private EnemyTypes? _enemyTypes;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BudgetConfigFactory"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="logger">The logger instance.</param>
     public BudgetConfigFactory(GameDataCache dataCache, ILogger<BudgetConfigFactory> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

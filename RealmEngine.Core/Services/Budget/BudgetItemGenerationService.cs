@@ -18,6 +18,14 @@ public class BudgetItemGenerationService
     private readonly ILogger<BudgetItemGenerationService> _logger;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BudgetItemGenerationService"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="referenceResolver">The reference resolver service.</param>
+    /// <param name="budgetCalculator">The budget calculator.</param>
+    /// <param name="materialPoolService">The material pool service.</param>
+    /// <param name="logger">The logger instance.</param>
     public BudgetItemGenerationService(
         GameDataCache dataCache,
         ReferenceResolverService referenceResolver,
@@ -449,11 +457,17 @@ public class BudgetItemGenerationService
 /// </summary>
 public class BudgetItemRequest
 {
+    /// <summary>Gets or sets the enemy type (humanoid, beast, undead, etc.).</summary>
     public string EnemyType { get; set; } = "default";
+    /// <summary>Gets or sets the enemy level.</summary>
     public int EnemyLevel { get; set; } = 1;
+    /// <summary>Gets or sets a value indicating whether this is a boss enemy.</summary>
     public bool IsBoss { get; set; } = false;
+    /// <summary>Gets or sets a value indicating whether this is an elite enemy.</summary>
     public bool IsElite { get; set; } = false;
+    /// <summary>Gets or sets the item category (weapons, armor, accessories, etc.).</summary>
     public string ItemCategory { get; set; } = "weapons";
+    /// <summary>Gets or sets a value indicating whether quality modifiers are allowed.</summary>
     public bool AllowQuality { get; set; } = true;
 }
 
@@ -462,24 +476,39 @@ public class BudgetItemRequest
 /// </summary>
 public class BudgetItemResult
 {
+    /// <summary>Gets or sets the base budget before adjustments.</summary>
     public int BaseBudget { get; set; }
+    /// <summary>Gets or sets the adjusted budget after multipliers.</summary>
     public int AdjustedBudget { get; set; }
+    /// <summary>Gets or sets the budget allocated to materials.</summary>
     public int MaterialBudget { get; set; }
+    /// <summary>Gets or sets the budget allocated to components.</summary>
     public int ComponentBudget { get; set; }
+    /// <summary>Gets or sets the total budget spent on the item.</summary>
     public int SpentBudget { get; set; }
     
+    /// <summary>Gets or sets the selected material data.</summary>
     public JToken? Material { get; set; }
+    /// <summary>Gets or sets the material cost.</summary>
     public int MaterialCost { get; set; }
     
+    /// <summary>Gets or sets the quality modifier data.</summary>
     public JToken? Quality { get; set; }
+    /// <summary>Gets or sets the quality multiplier value.</summary>
     public double QualityModifier { get; set; }
     
+    /// <summary>Gets or sets the base item data.</summary>
     public JToken? BaseItem { get; set; }
+    /// <summary>Gets or sets the base item cost.</summary>
     public int BaseItemCost { get; set; }
     
+    /// <summary>Gets or sets the name pattern for the item.</summary>
     public string Pattern { get; set; } = string.Empty;
+    /// <summary>Gets or sets the pattern cost.</summary>
     public int PatternCost { get; set; }
     
+    /// <summary>Gets or sets the list of selected components.</summary>
     public List<JToken> Components { get; set; } = new();
+    /// <summary>Gets or sets the dictionary of component costs by component type.</summary>
     public Dictionary<string, int> ComponentCosts { get; set; } = new();
 }

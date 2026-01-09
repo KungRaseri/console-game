@@ -7,6 +7,9 @@ namespace RealmEngine.Core.Settings;
 /// </summary>
 public class GameSettingsValidator : AbstractValidator<GameSettings>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameSettingsValidator"/> class.
+    /// </summary>
     public GameSettingsValidator()
     {
         RuleFor(x => x.DefaultDifficulty)
@@ -54,6 +57,9 @@ public class GameSettingsValidator : AbstractValidator<GameSettings>
 /// </summary>
 public class AudioSettingsValidator : AbstractValidator<AudioSettings>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AudioSettingsValidator"/> class.
+    /// </summary>
     public AudioSettingsValidator()
     {
         RuleFor(x => x.MasterVolume)
@@ -75,6 +81,9 @@ public class AudioSettingsValidator : AbstractValidator<AudioSettings>
 /// </summary>
 public class UISettingsValidator : AbstractValidator<UISettings>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UISettingsValidator"/> class.
+    /// </summary>
     public UISettingsValidator()
     {
         RuleFor(x => x.ColorScheme)
@@ -99,6 +108,9 @@ public class UISettingsValidator : AbstractValidator<UISettings>
 /// </summary>
 public class LoggingSettingsValidator : AbstractValidator<LoggingSettings>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LoggingSettingsValidator"/> class.
+    /// </summary>
     public LoggingSettingsValidator()
     {
         RuleFor(x => x.LogLevel)
@@ -122,6 +134,9 @@ public class LoggingSettingsValidator : AbstractValidator<LoggingSettings>
 /// </summary>
 public class GameplaySettingsValidator : AbstractValidator<GameplaySettings>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameplaySettingsValidator"/> class.
+    /// </summary>
     public GameplaySettingsValidator()
     {
         RuleFor(x => x.BattleSpeed)

@@ -8,6 +8,9 @@ namespace RealmEngine.Core.Validators;
 /// </summary>
 public class CharacterValidator : AbstractValidator<Character>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CharacterValidator"/> class.
+    /// </summary>
     public CharacterValidator()
     {
         RuleFor(c => c.Name)

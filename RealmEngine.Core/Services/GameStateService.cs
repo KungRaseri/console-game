@@ -18,7 +18,10 @@ public class GameStateService
     /// </summary>
     public virtual string CurrentLocation { get; set; } = "Hub Town";
 
-    // Protected parameterless constructor for mocking
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameStateService"/> class.
+    /// Protected parameterless constructor for mocking and testing.
+    /// </summary>
     protected GameStateService() { _saveGameService = null!; _logger = null!; }
 
     /// <summary>

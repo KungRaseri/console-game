@@ -17,6 +17,15 @@ public class MaterialPoolService
     private readonly ILogger<MaterialPoolService> _logger;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MaterialPoolService"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="referenceResolver">The reference resolver service.</param>
+    /// <param name="budgetCalculator">The budget calculator.</param>
+    /// <param name="materialPools">The material pools configuration.</param>
+    /// <param name="enemyTypes">The enemy types configuration.</param>
+    /// <param name="logger">The logger instance.</param>
     public MaterialPoolService(
         GameDataCache dataCache,
         ReferenceResolverService referenceResolver,
