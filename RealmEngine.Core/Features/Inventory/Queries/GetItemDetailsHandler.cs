@@ -7,6 +7,12 @@ namespace RealmEngine.Core.Features.Inventory.Queries;
 /// </summary>
 public class GetItemDetailsHandler : IRequestHandler<GetItemDetailsQuery, GetItemDetailsResult>
 {
+    /// <summary>
+    /// Handles the get item details query.
+    /// </summary>
+    /// <param name="request">The query request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The item details result.</returns>
     public Task<GetItemDetailsResult> Handle(GetItemDetailsQuery request, CancellationToken cancellationToken)
     {
         var item = request.Item;

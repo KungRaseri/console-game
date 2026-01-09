@@ -11,11 +11,21 @@ public class LearnAbilityHandler : IRequestHandler<LearnAbilityCommand, LearnAbi
 {
     private readonly AbilityCatalogService _abilityCatalog;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LearnAbilityHandler"/> class.
+    /// </summary>
+    /// <param name="abilityCatalog">The ability catalog service.</param>
     public LearnAbilityHandler(AbilityCatalogService abilityCatalog)
     {
         _abilityCatalog = abilityCatalog ?? throw new ArgumentNullException(nameof(abilityCatalog));
     }
 
+    /// <summary>
+    /// Handles learning a new ability.
+    /// </summary>
+    /// <param name="request">The learn ability command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The learn ability result.</returns>
     public Task<LearnAbilityResult> Handle(LearnAbilityCommand request, CancellationToken cancellationToken)
     {
         var ability = _abilityCatalog.GetAbility(request.AbilityId);

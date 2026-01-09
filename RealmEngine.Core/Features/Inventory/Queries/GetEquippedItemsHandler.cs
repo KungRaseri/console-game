@@ -8,6 +8,12 @@ namespace RealmEngine.Core.Features.Inventory.Queries;
 /// </summary>
 public class GetEquippedItemsHandler : IRequestHandler<GetEquippedItemsQuery, GetEquippedItemsResult>
 {
+    /// <summary>
+    /// Handles the get equipped items query.
+    /// </summary>
+    /// <param name="request">The query request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The equipped items result.</returns>
     public Task<GetEquippedItemsResult> Handle(GetEquippedItemsQuery request, CancellationToken cancellationToken)
     {
         var player = request.Player;

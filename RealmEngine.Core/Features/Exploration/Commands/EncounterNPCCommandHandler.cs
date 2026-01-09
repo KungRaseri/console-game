@@ -15,6 +15,12 @@ public class EncounterNPCCommandHandler : IRequestHandler<EncounterNPCCommand, E
     private readonly IGameUI _console;
     private readonly ILogger<EncounterNPCCommandHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EncounterNPCCommandHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="console">The game UI.</param>
+    /// <param name="logger">The logger.</param>
     public EncounterNPCCommandHandler(
         ISaveGameService saveGameService,
         IGameUI console,
@@ -25,6 +31,12 @@ public class EncounterNPCCommandHandler : IRequestHandler<EncounterNPCCommand, E
         _logger = logger;
     }
 
+    /// <summary>
+    /// Handles the NPC encounter command.
+    /// </summary>
+    /// <param name="request">The encounter command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The encounter result.</returns>
     public Task<EncounterNPCResult> Handle(EncounterNPCCommand request, CancellationToken cancellationToken)
     {
         try

@@ -17,6 +17,11 @@ public class UseAbilityHandler : IRequestHandler<UseAbilityCommand, UseAbilityRe
     private readonly ILogger<UseAbilityHandler> _logger;
     private readonly Random _random = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UseAbilityHandler"/> class.
+    /// </summary>
+    /// <param name="abilityCatalog">The ability catalog service.</param>
+    /// <param name="logger">The logger.</param>
     public UseAbilityHandler(
         AbilityCatalogService abilityCatalog,
         ILogger<UseAbilityHandler>? logger = null)
@@ -25,6 +30,12 @@ public class UseAbilityHandler : IRequestHandler<UseAbilityCommand, UseAbilityRe
         _logger = logger ?? NullLogger<UseAbilityHandler>.Instance;
     }
 
+    /// <summary>
+    /// Handles using an ability.
+    /// </summary>
+    /// <param name="request">The use ability command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The use ability result.</returns>
     public Task<UseAbilityResult> Handle(UseAbilityCommand request, CancellationToken cancellationToken)
     {
         // Verify ability is known

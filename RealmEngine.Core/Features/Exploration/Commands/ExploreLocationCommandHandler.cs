@@ -15,6 +15,12 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
     private readonly GameStateService _gameState;
     private readonly IGameUI _console;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExploreLocationCommandHandler"/> class.
+    /// </summary>
+    /// <param name="mediator">The mediator.</param>
+    /// <param name="gameState">The game state service.</param>
+    /// <param name="console">The game UI.</param>
     public ExploreLocationCommandHandler(IMediator mediator, GameStateService gameState, IGameUI console)
     {
         _mediator = mediator;
@@ -22,6 +28,12 @@ public class ExploreLocationCommandHandler : IRequestHandler<ExploreLocationComm
         _console = console;
     }
 
+    /// <summary>
+    /// Handles the explore location command.
+    /// </summary>
+    /// <param name="request">The explore command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The exploration result.</returns>
     public async Task<ExploreLocationResult> Handle(ExploreLocationCommand request, CancellationToken cancellationToken)
     {
         try

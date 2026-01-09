@@ -12,6 +12,11 @@ public class GetEquippedItemsQueryHandler : IRequestHandler<GetEquippedItemsQuer
     private readonly SaveGameService _saveGameService;
     private readonly ILogger<GetEquippedItemsQueryHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetEquippedItemsQueryHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="logger">The logger.</param>
     public GetEquippedItemsQueryHandler(
         SaveGameService saveGameService,
         ILogger<GetEquippedItemsQueryHandler> logger)
@@ -20,6 +25,12 @@ public class GetEquippedItemsQueryHandler : IRequestHandler<GetEquippedItemsQuer
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Handles the equipped items query.
+    /// </summary>
+    /// <param name="request">The query request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The equipped items result.</returns>
     public Task<EquippedItemsResult> Handle(GetEquippedItemsQuery request, CancellationToken cancellationToken)
     {
         try

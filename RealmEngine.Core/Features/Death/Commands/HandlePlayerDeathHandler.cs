@@ -16,6 +16,13 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
     private readonly IHallOfFameRepository _hallOfFameService;
     private readonly IGameUI _console;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HandlePlayerDeathHandler"/> class.
+    /// </summary>
+    /// <param name="deathService">The death service.</param>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="IHallOfFameRepository">The hall of fame repository.</param>
+    /// <param name="console">The game UI.</param>
     public HandlePlayerDeathHandler(
         DeathService deathService,
         SaveGameService saveGameService,
@@ -28,6 +35,12 @@ public class HandlePlayerDeathHandler : IRequestHandler<HandlePlayerDeathCommand
         _console = console;
     }
 
+    /// <summary>
+    /// Handles the player death command and applies appropriate penalties.
+    /// </summary>
+    /// <param name="request">The death command request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The death result including penalties and permadeath status.</returns>
     public async Task<HandlePlayerDeathResult> Handle(HandlePlayerDeathCommand request, CancellationToken cancellationToken)
     {
         var player = request.Player;

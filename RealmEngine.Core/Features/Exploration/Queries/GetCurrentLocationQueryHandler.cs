@@ -11,11 +11,21 @@ public class GetCurrentLocationQueryHandler : IRequestHandler<GetCurrentLocation
 {
     private readonly GameStateService _gameState;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetCurrentLocationQueryHandler"/> class.
+    /// </summary>
+    /// <param name="gameState">The game state service.</param>
     public GetCurrentLocationQueryHandler(GameStateService gameState)
     {
         _gameState = gameState;
     }
 
+    /// <summary>
+    /// Handles the query to get the current location.
+    /// </summary>
+    /// <param name="request">The query request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The current location result.</returns>
     public Task<GetCurrentLocationResult> Handle(GetCurrentLocationQuery request, CancellationToken cancellationToken)
     {
         try

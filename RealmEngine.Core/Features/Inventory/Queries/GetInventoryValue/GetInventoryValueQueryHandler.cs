@@ -13,6 +13,11 @@ public class GetInventoryValueQueryHandler : IRequestHandler<GetInventoryValueQu
     private readonly SaveGameService _saveGameService;
     private readonly ILogger<GetInventoryValueQueryHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetInventoryValueQueryHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="logger">The logger.</param>
     public GetInventoryValueQueryHandler(
         SaveGameService saveGameService,
         ILogger<GetInventoryValueQueryHandler> logger)
@@ -21,6 +26,12 @@ public class GetInventoryValueQueryHandler : IRequestHandler<GetInventoryValueQu
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Handles the inventory value query.
+    /// </summary>
+    /// <param name="request">The query request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The inventory value result.</returns>
     public Task<InventoryValueResult> Handle(GetInventoryValueQuery request, CancellationToken cancellationToken)
     {
         try

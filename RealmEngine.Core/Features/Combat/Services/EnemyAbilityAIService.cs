@@ -11,6 +11,10 @@ public class EnemyAbilityAIService
     private readonly AbilityCatalogService? _abilityCatalogService;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EnemyAbilityAIService"/> class.
+    /// </summary>
+    /// <param name="abilityCatalogService">The ability catalog service.</param>
     public EnemyAbilityAIService(AbilityCatalogService? abilityCatalogService = null)
     {
         _abilityCatalogService = abilityCatalogService;

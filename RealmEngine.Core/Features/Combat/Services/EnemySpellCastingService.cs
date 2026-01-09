@@ -11,6 +11,10 @@ public class EnemySpellCastingService
     private readonly SpellCatalogService? _spellCatalogService;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EnemySpellCastingService"/> class.
+    /// </summary>
+    /// <param name="spellCatalogService">The spell catalog service.</param>
     public EnemySpellCastingService(SpellCatalogService? spellCatalogService = null)
     {
         _spellCatalogService = spellCatalogService;

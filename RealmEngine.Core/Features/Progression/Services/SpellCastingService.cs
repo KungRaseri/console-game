@@ -14,6 +14,12 @@ public class SpellCastingService
     private readonly SkillProgressionService _skillProgression;
     private readonly ILogger<SpellCastingService> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SpellCastingService"/> class.
+    /// </summary>
+    /// <param name="spellCatalog">The spell catalog service.</param>
+    /// <param name="skillProgression">The skill progression service.</param>
+    /// <param name="logger">Optional logger instance.</param>
     public SpellCastingService(
         SpellCatalogService spellCatalog,
         SkillProgressionService skillProgression,

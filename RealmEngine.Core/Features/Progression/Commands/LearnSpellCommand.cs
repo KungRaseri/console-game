@@ -8,7 +8,9 @@ namespace RealmEngine.Core.Features.Progression.Commands;
 /// </summary>
 public record LearnSpellCommand : IRequest<LearnSpellResult>
 {
+    /// <summary>Gets the character learning the spell.</summary>
     public required Character Character { get; init; }
+    /// <summary>Gets the spell ID to learn.</summary>
     public required string SpellId { get; init; }
 }
 
@@ -17,7 +19,10 @@ public record LearnSpellCommand : IRequest<LearnSpellResult>
 /// </summary>
 public record LearnSpellResult
 {
+    /// <summary>Gets a value indicating whether the spell was learned successfully.</summary>
     public bool Success { get; init; }
+    /// <summary>Gets the result message.</summary>
     public required string Message { get; init; }
+    /// <summary>Gets the spell that was learned.</summary>
     public Spell? SpellLearned { get; init; }
 }

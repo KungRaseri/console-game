@@ -22,9 +22,19 @@ public class ExplorationService
     private readonly List<Location> _knownLocations = new();
     private bool _locationsInitialized = false;
 
-    // Protected parameterless constructor for mocking
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExplorationService"/> class for mocking.
+    /// </summary>
     protected ExplorationService() { _mediator = null!; _gameState = null!; _saveGameService = null!; _console = null!; _locationGenerator = null!; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExplorationService"/> class.
+    /// </summary>
+    /// <param name="mediator">The mediator.</param>
+    /// <param name="gameState">The game state service.</param>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="console">The game UI.</param>
+    /// <param name="locationGenerator">The location generator.</param>
     public ExplorationService(IMediator mediator, GameStateService gameState, SaveGameService saveGameService, IGameUI console, LocationGenerator locationGenerator)
     {
         _mediator = mediator;

@@ -10,11 +10,21 @@ public class GetAvailableAbilitiesHandler : IRequestHandler<GetAvailableAbilitie
 {
     private readonly AbilityCatalogService _abilityService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetAvailableAbilitiesHandler"/> class.
+    /// </summary>
+    /// <param name="abilityService">The ability catalog service.</param>
     public GetAvailableAbilitiesHandler(AbilityCatalogService abilityService)
     {
         _abilityService = abilityService ?? throw new ArgumentNullException(nameof(abilityService));
     }
 
+    /// <summary>
+    /// Handles getting available abilities.
+    /// </summary>
+    /// <param name="request">The query request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The available abilities result.</returns>
     public Task<GetAvailableAbilitiesResult> Handle(GetAvailableAbilitiesQuery request, CancellationToken cancellationToken)
     {
         var abilities = request.Tier.HasValue

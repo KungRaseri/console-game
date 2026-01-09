@@ -10,11 +10,21 @@ public class GetKnownLocationsQueryHandler : IRequestHandler<GetKnownLocationsQu
 {
     private readonly ExplorationService _explorationService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetKnownLocationsQueryHandler"/> class.
+    /// </summary>
+    /// <param name="explorationService">The exploration service.</param>
     public GetKnownLocationsQueryHandler(ExplorationService explorationService)
     {
         _explorationService = explorationService;
     }
 
+    /// <summary>
+    /// Handles the query to get known locations.
+    /// </summary>
+    /// <param name="request">The query request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The known locations result.</returns>
     public async Task<GetKnownLocationsResult> Handle(GetKnownLocationsQuery request, CancellationToken cancellationToken)
     {
         try

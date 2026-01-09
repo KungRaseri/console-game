@@ -8,6 +8,9 @@ namespace RealmEngine.Core.Features.Inventory.Commands;
 /// </summary>
 public class EquipItemValidator : AbstractValidator<EquipItemCommand>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EquipItemValidator"/> class.
+    /// </summary>
     public EquipItemValidator()
     {
         RuleFor(x => x.Player)

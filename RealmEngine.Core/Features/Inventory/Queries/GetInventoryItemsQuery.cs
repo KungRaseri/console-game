@@ -8,6 +8,7 @@ namespace RealmEngine.Core.Features.Inventory.Queries;
 /// </summary>
 public record GetInventoryItemsQuery : IRequest<GetInventoryItemsResult>
 {
+    /// <summary>Gets the player character.</summary>
     public required Character Player { get; init; }
 }
 
@@ -16,6 +17,8 @@ public record GetInventoryItemsQuery : IRequest<GetInventoryItemsResult>
 /// </summary>
 public record GetInventoryItemsResult
 {
+    /// <summary>Gets the list of inventory items.</summary>
     public required List<Item> Items { get; init; }
+    /// <summary>Gets the total count of items.</summary>
     public required int TotalItems { get; init; }
 }

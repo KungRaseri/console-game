@@ -10,11 +10,21 @@ public class GetDroppedItemsHandler : IRequestHandler<GetDroppedItemsQuery, GetD
 {
     private readonly SaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetDroppedItemsHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
     public GetDroppedItemsHandler(SaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
 
+    /// <summary>
+    /// Handles the query to retrieve dropped items at a location.
+    /// </summary>
+    /// <param name="request">The query request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result containing dropped items.</returns>
     public Task<GetDroppedItemsResult> Handle(GetDroppedItemsQuery request, CancellationToken cancellationToken)
     {
         var saveGame = _saveGameService.GetCurrentSave();

@@ -13,6 +13,11 @@ public class GetNPCsAtLocationQueryHandler : IRequestHandler<GetNPCsAtLocationQu
     private readonly ISaveGameService _saveGameService;
     private readonly ILogger<GetNPCsAtLocationQueryHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetNPCsAtLocationQueryHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="logger">The logger.</param>
     public GetNPCsAtLocationQueryHandler(
         ISaveGameService saveGameService,
         ILogger<GetNPCsAtLocationQueryHandler> logger)
@@ -21,6 +26,12 @@ public class GetNPCsAtLocationQueryHandler : IRequestHandler<GetNPCsAtLocationQu
         _logger = logger;
     }
 
+    /// <summary>
+    /// Handles the query to get NPCs at a location.
+    /// </summary>
+    /// <param name="request">The query request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The NPCs at location result.</returns>
     public Task<GetNPCsAtLocationResult> Handle(GetNPCsAtLocationQuery request, CancellationToken cancellationToken)
     {
         try

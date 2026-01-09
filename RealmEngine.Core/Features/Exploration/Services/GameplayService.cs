@@ -13,6 +13,11 @@ public class GameplayService
     private readonly SaveGameService _saveGameService;
     private readonly IGameUI _console;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameplayService"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="console">The game UI.</param>
     public GameplayService(SaveGameService saveGameService, IGameUI console)
     {
         _saveGameService = saveGameService;

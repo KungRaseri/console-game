@@ -13,6 +13,11 @@ public class SkillProgressionService
     private readonly SkillCatalogService _catalogService;
     private readonly ILogger<SkillProgressionService> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SkillProgressionService"/> class.
+    /// </summary>
+    /// <param name="catalogService">The skill catalog service.</param>
+    /// <param name="logger">Optional logger instance.</param>
     public SkillProgressionService(
         SkillCatalogService catalogService, 
         ILogger<SkillProgressionService>? logger = null)

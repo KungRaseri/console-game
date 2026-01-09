@@ -10,6 +10,12 @@ namespace RealmEngine.Core.Features.Equipment.Commands;
 /// </summary>
 public class EquipItemHandler : IRequestHandler<EquipItemCommand, EquipItemResult>
 {
+    /// <summary>
+    /// Handles the equip item command.
+    /// </summary>
+    /// <param name="request">The equip item command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The equip result.</returns>
     public Task<EquipItemResult> Handle(EquipItemCommand request, CancellationToken cancellationToken)
     {
         // Note: In actual usage, character would be loaded from save game

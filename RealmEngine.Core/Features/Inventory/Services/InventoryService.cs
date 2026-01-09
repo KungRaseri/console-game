@@ -12,12 +12,21 @@ public class InventoryService
     private readonly IMediator _mediator;
     private readonly List<Item> _inventory;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InventoryService"/> class.
+    /// </summary>
+    /// <param name="mediator">The mediator.</param>
     public InventoryService(IMediator mediator)
     {
         _mediator = mediator;
         _inventory = new List<Item>();
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InventoryService"/> class with existing inventory.
+    /// </summary>
+    /// <param name="mediator">The mediator.</param>
+    /// <param name="existingInventory">The existing inventory items.</param>
     public InventoryService(IMediator mediator, List<Item> existingInventory)
     {
         _mediator = mediator;
@@ -222,16 +231,25 @@ public class InventoryService
         _inventory.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
     }
 
+    /// <summary>
+    /// Sorts inventory by item type.
+    /// </summary>
     public void SortByType()
     {
         _inventory.Sort((a, b) => a.Type.CompareTo(b.Type));
     }
 
+    /// <summary>
+    /// Sorts inventory by rarity (descending).
+    /// </summary>
     public void SortByRarity()
     {
         _inventory.Sort((a, b) => b.Rarity.CompareTo(a.Rarity)); // Descending (Legendary first)
     }
 
+    /// <summary>
+    /// Sorts inventory by value (descending).
+    /// </summary>
     public void SortByValue()
     {
         _inventory.Sort((a, b) => b.Price.CompareTo(a.Price)); // Descending (most expensive first)

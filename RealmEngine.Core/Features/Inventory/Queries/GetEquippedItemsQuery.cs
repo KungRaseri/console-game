@@ -8,6 +8,7 @@ namespace RealmEngine.Core.Features.Inventory.Queries;
 /// </summary>
 public record GetEquippedItemsQuery : IRequest<GetEquippedItemsResult>
 {
+    /// <summary>Gets the player character.</summary>
     public required Character Player { get; init; }
 }
 
@@ -16,5 +17,6 @@ public record GetEquippedItemsQuery : IRequest<GetEquippedItemsResult>
 /// </summary>
 public record GetEquippedItemsResult
 {
+    /// <summary>Gets the dictionary of equipped items by slot name.</summary>
     public required Dictionary<string, Item?> EquippedItems { get; init; }
 }

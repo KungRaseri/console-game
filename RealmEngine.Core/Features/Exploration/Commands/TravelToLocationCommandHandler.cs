@@ -14,12 +14,23 @@ public class TravelToLocationCommandHandler : IRequestHandler<TravelToLocationCo
     private readonly GameStateService _gameState;
     private readonly IGameUI _console;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TravelToLocationCommandHandler"/> class.
+    /// </summary>
+    /// <param name="gameState">The game state service.</param>
+    /// <param name="console">The game UI.</param>
     public TravelToLocationCommandHandler(GameStateService gameState, IGameUI console)
     {
         _gameState = gameState;
         _console = console;
     }
 
+    /// <summary>
+    /// Handles the travel to location command.
+    /// </summary>
+    /// <param name="request">The travel command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The travel result.</returns>
     public Task<TravelToLocationResult> Handle(TravelToLocationCommand request, CancellationToken cancellationToken)
     {
         try

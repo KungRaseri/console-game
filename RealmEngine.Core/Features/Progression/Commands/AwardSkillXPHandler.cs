@@ -13,6 +13,11 @@ public class AwardSkillXPHandler : IRequestHandler<AwardSkillXPCommand, AwardSki
     private readonly SkillProgressionService _progressionService;
     private readonly ILogger<AwardSkillXPHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AwardSkillXPHandler"/> class.
+    /// </summary>
+    /// <param name="progressionService">The skill progression service.</param>
+    /// <param name="logger">The logger instance.</param>
     public AwardSkillXPHandler(
         SkillProgressionService progressionService,
         ILogger<AwardSkillXPHandler> logger)
@@ -21,6 +26,12 @@ public class AwardSkillXPHandler : IRequestHandler<AwardSkillXPCommand, AwardSki
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Handles awarding skill XP and processing rank-ups.
+    /// </summary>
+    /// <param name="request">The award skill XP command.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The award skill XP result.</returns>
     public Task<AwardSkillXPResult> Handle(AwardSkillXPCommand request, CancellationToken cancellationToken)
     {
         var result = _progressionService.AwardSkillXP(
