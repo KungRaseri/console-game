@@ -1,13 +1,62 @@
 # Implementation Status
 
-**Last Updated**: January 9, 2026 00:15 UTC  
-**Test Count**: 890/892 passing tests (99.8% pass rate)  
-**Current Phase**: Shop System Integration Complete  
-**Recent Milestone**: Shop Commands, Handlers & Integration Tests Complete (10/10 passing)
+**Last Updated**: January 9, 2026 01:30 UTC  
+**Test Count**: 938/938 passing tests (100% pass rate) ✅  
+**Current Phase**: Inventory Query APIs Complete  
+**Recent Milestone**: 4 Inventory Query APIs + 15 Integration Tests (938/938 passing)
 
 ---
 
 ## Recent Progress (January 9, 2026)
+
+### ✅ Inventory Query APIs - COMPLETE
+
+**All inventory query APIs, handlers, and integration tests implemented:**
+
+**Completed:**
+- ✅ **GetPlayerInventoryQuery & Handler** - Retrieve filtered/sorted inventory with summary statistics
+  - Filters: ItemType, Rarity, MinValue, MaxValue
+  - Sorting: Name, Value, Rarity, Type (ascending/descending)
+  - Summary: Counts by type/rarity, total value, equipped count
+- ✅ **GetEquippedItemsQuery & Handler** - Get complete equipment loadout (13 slots)
+  - Returns: All equipped items (MainHand, OffHand, Helmet, Shoulders, Chest, Bracers, Gloves, Belt, Legs, Boots, Necklace, Ring1, Ring2)
+  - Stats: Total value, attack/defense bonuses, sockets, set bonuses
+- ✅ **CheckItemEquippedQuery & Handler** - Check if specific item is equipped and where
+  - Input: ItemId
+  - Returns: IsEquipped (bool), EquipSlot (string)
+- ✅ **GetInventoryValueQuery & Handler** - Calculate inventory wealth with categorization
+  - Calculates: Total/Equipped/Unequipped values
+  - Identifies: Most valuable item
+  - Categorizes: Wealth level (Pauper → Noble)
+- ✅ **15 Integration Tests** - Complete API validation (all passing)
+
+**Inventory Query API Architecture:**
+- **MediatR Pattern**: IRequest<TResult> queries with IRequestHandler implementations
+- **Service Dependencies**: SaveGameService (state access)
+- **Error Handling**: All failure cases return structured error messages with Success flag
+- **Rich Result Types**: Comprehensive DTOs with equipment stats, summaries, and wealth analysis
+
+**Test Status:**
+- ✅ Inventory Query API Tests: 15/15 (100%)
+- ✅ RealmEngine.Core.Tests: 938/938 (100%) ✅
+- ✅ RealmEngine.Shared.Tests: 665/665 (100%)
+- ✅ RealmEngine.Data.Tests: 5,250/5,250 (100%)
+
+**Benefits:**
+- Complete inventory inspection for UI without additional queries
+- Filtering/sorting reduces client-side processing
+- Summary statistics for dashboard displays
+- Wealth categorization for game progression feedback
+- Equipment stats aggregation for character sheet displays
+
+**Next Steps:**
+- Add transaction history query APIs (recent purchases/sales)
+- Add batch operation commands (equip multiple, sell multiple)
+- Add item comparison queries for UI
+
+---
+
+## Recent Progress (January 9, 2026) - Earlier
 
 ### ✅ Shop System Integration - COMPLETE
 
@@ -300,15 +349,20 @@ This document tracks the current implementation status of all features in RealmE
 **Feature Page**: [inventory-system.md](features/inventory-system.md)
 
 **What Works:**
-- 20 item slots with capacity management
-- **13 equipment slots** (MainHand, OffHand, Helmet, Shoulders, Chest, Bracers, Gloves, Belt, Legs, Boots, Necklace, Ring1, Ring2)
-- Consumable items (potions) with healing effects
-- Sorting by name/type/rarity
-- Procedural item generation with ItemGenerator
+- 20 item slots with capacity management ✅
+- **13 equipment slots** (MainHand, OffHand, Helmet, Shoulders, Chest, Bracers, Gloves, Belt, Legs, Boots, Necklace, Ring1, Ring2) ✅
+- Consumable items (potions) with healing effects ✅
+- Sorting by name/type/rarity ✅
+- Procedural item generation with ItemGenerator ✅
+- **4 Query APIs** - Complete inventory inspection system ✅
+  - GetPlayerInventoryQuery - Filtered/sorted inventory with summaries
+  - GetEquippedItemsQuery - Equipment loadout with aggregated stats
+  - CheckItemEquippedQuery - Item equipped status checking
+  - GetInventoryValueQuery - Wealth calculation and categorization
 
-**Tests**: 21 tests passing
+**Tests**: 36 tests passing (21 base + 15 query API tests)
 
-**Note**: GetEquippedItemsHandler implements full RPG equipment system (15 ItemTypes total)
+**Note**: Full MediatR-based query API layer for external UI consumption (Godot/Unity/Console)
 
 ---
 

@@ -62,10 +62,10 @@ public class EnemyGenerator
 
             for (int i = 0; i < count; i++)
             {
-                var randomEnemy = GetRandomWeightedItem(items);
+                var (randomEnemy, categoryProperties) = GetRandomWeightedItemWithProperties(catalog);
                 if (randomEnemy != null)
                 {
-                    var enemy = await ConvertToEnemyAsync(randomEnemy, category);
+                    var enemy = await ConvertToEnemyAsync(randomEnemy, category, categoryProperties);
                     if (enemy != null)
                     {
                         if (hydrate)
@@ -104,14 +104,11 @@ public class EnemyGenerator
             }
 
             var catalog = catalogFile.JsonData;
-            var items = GetItemsFromCatalog(catalog);
-            
-            var catalogEnemy = items?.FirstOrDefault(e => 
-                string.Equals(GetStringProperty(e, "name"), enemyName, StringComparison.OrdinalIgnoreCase));
+            var (catalogEnemy, categoryProperties) = FindEnemyInCatalog(catalog, enemyName);
 
             if (catalogEnemy != null)
             {
-                var enemy = await ConvertToEnemyAsync(catalogEnemy, category);
+                var enemy = await ConvertToEnemyAsync(catalogEnemy, category, categoryProperties);
                 if (enemy != null && hydrate)
                 {
                     await HydrateEnemyAsync(enemy);
@@ -158,7 +155,7 @@ public class EnemyGenerator
         return allItems.Any() ? allItems : null;
     }
 
-    private async Task<Enemy?> ConvertToEnemyAsync(JToken catalogEnemy, string category)
+    private async Task<Enemy?> ConvertToEnemyAsync(JToken catalogEnemy, string category, JObject? categoryProperties = null)
     {
         try
         {
@@ -172,6 +169,10 @@ public class EnemyGenerator
             int intel = attributes?["intelligence"]?.Value<int>() ?? GetIntProperty(catalogEnemy, "intelligence", 10);
             int wis = attributes?["wisdom"]?.Value<int>() ?? GetIntProperty(catalogEnemy, "wisdom", 10);
             int cha = attributes?["charisma"]?.Value<int>() ?? GetIntProperty(catalogEnemy, "charisma", 10);
+            
+            // Determine if this is a boss enemy from category properties
+            bool isBoss = categoryProperties?["isBoss"]?.Value<bool>() ?? false;
+            var rarity = GetIntProperty(catalogEnemy, "rarity", 10);
             
             // v5.1: Read stats from stats object (formulas), fallback to v4.0 direct values
             var statsObj = catalogEnemy["stats"] as JObject;
@@ -201,9 +202,13 @@ public class EnemyGenerator
                 BasePhysicalDamage = attack,
                 BaseMagicDamage = magicAttack,
                 
-                // Map rewards
-                XPReward = GetIntProperty(catalogEnemy, "xp", 25),
-                GoldReward = GetIntProperty(catalogEnemy, "gold", 10)
+                // Map rewards (bosses get 2.5x multiplier)
+                XPReward = GetIntProperty(catalogEnemy, "xp", 25) * (isBoss ? 2 : 1),
+                GoldReward = GetIntProperty(catalogEnemy, "gold", 10) * (isBoss ? 3 : 1),
+                
+                // Set Type and Difficulty based on boss status and rarity
+                Type = DetermineEnemyType(category, isBoss),
+                Difficulty = DetermineDifficulty(rarity, isBoss)
             };
 
             // v5.1: Resolve ability references from combat.abilities, fallback to v4.0 top-level abilities
@@ -545,5 +550,134 @@ public class EnemyGenerator
             }
             enemy.LootTable = lootTable;
         }
+    }
+    
+    /// <summary>
+    /// Get a random weighted item along with its category properties from the catalog.
+    /// </summary>
+    private (JToken?, JObject?) GetRandomWeightedItemWithProperties(JToken catalog)
+    {
+        var itemsWithProperties = new List<(JToken item, JObject properties)>();
+        
+        // Handle hierarchical structure: beast_types -> wolves/bears/etc -> items
+        foreach (var property in catalog.Children<JProperty>())
+        {
+            if (property.Name == "metadata") continue;
+            
+            // This is a type category (beast_types, undead_types, etc)
+            var typeCategory = property.Value;
+            if (typeCategory is JObject typeCategoryObj)
+            {
+                foreach (var subType in typeCategoryObj.Children<JProperty>())
+                {
+                    if (subType.Name == "metadata") continue;
+                    
+                    // Get properties object
+                    var props = subType.Value["properties"] as JObject;
+                    
+                    // Get items array
+                    var items = subType.Value["items"];
+                    if (items != null && items.HasValues)
+                    {
+                        foreach (var item in items.Children())
+                        {
+                            itemsWithProperties.Add((item, props ?? new JObject()));
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (!itemsWithProperties.Any()) return (null, null);
+        
+        // Calculate total weight
+        var totalWeight = itemsWithProperties.Sum(pair => GetIntProperty(pair.item, "rarityWeight", 1));
+        var randomValue = _random.Next(1, totalWeight + 1);
+        
+        int currentWeight = 0;
+        foreach (var (item, props) in itemsWithProperties)
+        {
+            currentWeight += GetIntProperty(item, "rarityWeight", 1);
+            if (randomValue <= currentWeight)
+            {
+                return (item, props);
+            }
+        }
+        
+        return itemsWithProperties.First();
+    }
+    
+    /// <summary>
+    /// Find a specific enemy by name in the catalog along with its category properties.
+    /// </summary>
+    private (JToken?, JObject?) FindEnemyInCatalog(JToken catalog, string enemyName)
+    {
+        // Handle hierarchical structure
+        foreach (var property in catalog.Children<JProperty>())
+        {
+            if (property.Name == "metadata") continue;
+            
+            var typeCategory = property.Value;
+            if (typeCategory is JObject typeCategoryObj)
+            {
+                foreach (var subType in typeCategoryObj.Children<JProperty>())
+                {
+                    if (subType.Name == "metadata") continue;
+                    
+                    // Get properties object
+                    var props = subType.Value["properties"] as JObject;
+                    
+                    // Search in items
+                    var items = subType.Value["items"];
+                    if (items != null && items.HasValues)
+                    {
+                        var enemy = items.Children().FirstOrDefault(e =>
+                            string.Equals(GetStringProperty(e, "name"), enemyName, StringComparison.OrdinalIgnoreCase));
+                        
+                        if (enemy != null)
+                        {
+                            return (enemy, props ?? new JObject());
+                        }
+                    }
+                }
+            }
+        }
+        
+        return (null, null);
+    }
+    
+    /// <summary>
+    /// Determines the enemy type based on category name and boss status.
+    /// </summary>
+    private static EnemyType DetermineEnemyType(string category, bool isBoss)
+    {
+        if (isBoss) return EnemyType.Boss;
+        
+        return category.ToLowerInvariant() switch
+        {
+            string c when c.Contains("beast") || c.Contains("wolf") || c.Contains("wolves") => EnemyType.Beast,
+            string c when c.Contains("undead") || c.Contains("skeleton") || c.Contains("zombie") || c.Contains("vampire") => EnemyType.Undead,
+            string c when c.Contains("demon") => EnemyType.Demon,
+            string c when c.Contains("elemental") => EnemyType.Elemental,
+            string c when c.Contains("humanoid") || c.Contains("orc") || c.Contains("goblin") || c.Contains("bandit") => EnemyType.Humanoid,
+            string c when c.Contains("dragon") => EnemyType.Dragon,
+            _ => EnemyType.Common
+        };
+    }
+    
+    /// <summary>
+    /// Determines the difficulty based on rarity and boss status.
+    /// </summary>
+    private static EnemyDifficulty DetermineDifficulty(int rarity, bool isBoss)
+    {
+        if (isBoss) return EnemyDifficulty.Boss;
+        
+        return rarity switch
+        {
+            >= 90 => EnemyDifficulty.Elite,
+            >= 60 => EnemyDifficulty.Hard,
+            >= 30 => EnemyDifficulty.Normal,
+            _ => EnemyDifficulty.Easy
+        };
     }
 }

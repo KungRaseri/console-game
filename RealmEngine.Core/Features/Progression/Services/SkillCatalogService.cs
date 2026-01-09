@@ -61,7 +61,7 @@ public class SkillCatalogService
     /// <summary>
     /// Get skill definition by ID.
     /// </summary>
-    public SkillDefinition? GetSkillDefinition(string skillId)
+    public virtual SkillDefinition? GetSkillDefinition(string skillId)
     {
         EnsureInitialized();
         return _skillDefinitions.GetValueOrDefault(skillId);
