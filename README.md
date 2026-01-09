@@ -36,7 +36,6 @@ This project uses **Vertical Slice Architecture** with **CQRS** (Command Query R
 - [Game Loop Guide](./docs/guides/GAME_LOOP_GUIDE.md) - Understanding the GameEngine architecture
 - [Inventory System Guide](./docs/guides/INVENTORY_GUIDE.md) - Complete item management system
 - [Settings Guide](./docs/guides/SETTINGS_GUIDE.md) - Configuration management
-- [ConsoleUI Guide](./docs/guides/CONSOLEUI_GUIDE.md) - Using Spectre.Console UI components
 - [Save/Load Guide](./docs/guides/SAVE_LOAD_GUIDE.md) - Game persistence system
 - [Test Coverage Report](./docs/testing/TEST_COVERAGE_REPORT.md) - Comprehensive test suite with high pass rate
 
@@ -75,10 +74,10 @@ Press F5
 - **Save/Load**: Persistent game state with auto-save and multiple character support
 - **Enemy AI**: Procedurally generated enemies with difficulty scaling
 
-### User Interface & Experience
-- **Rich Console UI**: Beautiful interactive displays (Spectre.Console)
+### Backend API & Integration
+- **MediatR Commands/Queries**: Complete API for Godot UI integration
 - **Data Persistence**: Save/load game state (LiteDB)
-- **Audio Support**: Background music and sound effects (NAudio)
+- **Audio Support**: Background music and sound effects (NAudio - planned for Godot)
 
 ### Development & Testing  
 - **Validation**: Robust input checking (FluentValidation)
@@ -229,14 +228,13 @@ using (var repo = new SaveGameRepository())
 
 ## Libraries Used
 
-- **Spectre.Console** - Rich console UI
-- **LiteDB** - NoSQL database
-- **Newtonsoft.Json** - JSON serialization
-- **NAudio** - Audio playback
+- **MediatR** - CQRS command/query pattern for Godot integration
+- **LiteDB** - NoSQL database for save games
+- **Newtonsoft.Json** - JSON serialization for game data
+- **NAudio** - Audio playback (for future Godot integration)
 - **FluentValidation** - Input validation
-- **Bogus** - Fake data generation
+- **Bogus** - Procedural content generation
 - **Humanizer** - Natural language formatting
-- **MediatR** - Event-driven patterns
 - **Polly** - Resilience patterns
 - **Serilog** - Structured logging
 - **xUnit** - Unit testing
@@ -349,14 +347,14 @@ The project follows a feature-driven development approach using vertical slices:
 - **[Architecture Documentation](./docs/)** - All implementation guides
 
 **External Resources**
-- [Spectre.Console Documentation](https://spectreconsole.net/)
 - [MediatR Documentation](https://github.com/jbogard/MediatR)
+- [Godot Engine Documentation](https://docs.godotengine.org/)
 - [.NET 9 Documentation](https://docs.microsoft.com/en-us/dotnet/)
 
 ---
 
 **Framework**: .NET 9.0 with C# 13  
-**Architecture**: Vertical Slice + CQRS Pattern  
-**UI Framework**: Spectre.Console  
+**Architecture**: MediatR CQRS Pattern (Backend API for Godot)  
+**UI Framework**: Godot Engine (separate project)  
 **Database**: LiteDB for persistence  
 **Testing**: xUnit with FluentAssertions

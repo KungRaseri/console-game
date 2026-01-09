@@ -1,69 +1,94 @@
-# .NET Core Console Game Application
+# RealmEngine - Game Engine Backend (.NET 9.0)
 
-This is a .NET Core Console application in C# for building a console-based game.
+This is a .NET Core backend game engine designed to be integrated with Godot for UI. This repository contains **ONLY** the game logic, data models, and API layer. All UI/UX is handled by a separate Godot project that consumes this engine via commands and queries.
 
 ## Project Type
 
 - **Language**: C#
 - **Framework**: .NET Core (.NET 9.0)
-- **Type**: Console Application (Game)
-- **UI Library**: Spectre.Console v0.54.0
+- **Type**: Game Engine Backend / API Library
+- **Architecture**: MediatR CQRS (Commands/Queries for Godot integration)
 
 ## Project Structure
 
 ```
-console-game/
-├── Game/
-│   ├── Program.cs             # Main entry point
-│   └── Game.csproj            # Project file with Spectre.Console dependency
+RealmEngine/ (Backend API for Godot)
+├── RealmEngine.Core/          # Game logic, commands, handlers
+├── RealmEngine.Shared/        # Models, abstractions, interfaces
+├── RealmEngine.Data/          # Data access, repositories, JSON loading
+├── RealmEngine.*.Tests/       # Unit and integration tests
 ├── .vscode/
-│   ├── launch.json            # Debug configuration
-│   └── tasks.json             # Build tasks
+│   ├── launch.json           # Debug configuration
+│   └── tasks.json            # Build tasks
 ├── .github/
 │   └── copilot-instructions.md
 ├── docs/
-│   └── standards/json/        # JSON v4.0 standards
-│       ├── NAMES_JSON_STANDARD.md
-│       ├── CATALOG_JSON_STANDARD.md
-│       ├── CBCONFIG_STANDARD.md
-│       └── README.md
-├── SPECTRE_BEST_PRACTICES.md  # Security and usage guidelines
-└── README.md
+│   ├── standards/json/       # JSON v4.0+ standards
+│   ├── features/             # Feature documentation
+│   └── GDD-Main.md          # Game design document
+└── package/                  # Deployment package for Godot integration
+```
+
+## Architecture: Backend Engine for Godot UI
+
+**IMPORTANT**: This repository contains **ZERO** production UI code. All UI is built in Godot.
+
+### What This Repository Contains:
+- ✅ **Game Logic**: Combat, inventory, progression, quests
+- ✅ **Data Models**: Character, Item, Enemy, NPC, Quest, SaveGame
+- ✅ **MediatR Commands**: CreateCharacter, AttackEnemy, BuyFromShop, CastSpell
+- ✅ **MediatR Queries**: GetPlayerInventory, GetCombatState, GetActiveQuests
+- ✅ **JSON Data**: 192 data files (enemies, items, abilities, spells, etc.)
+- ✅ **Generators**: Procedural content (items, enemies, NPCs, locations)
+- ✅ **Persistence**: LiteDB save/load system
+
+### What This Repository Does NOT Contain:
+- ❌ **Production UI**: No menus, HUD, or visual elements
+- ❌ **Input Handling**: Godot handles all player input
+- ❌ **Rendering**: Godot handles all graphics
+- ❌ **Audio Playback**: Godot handles all sound (NAudio unused in production)
+
+### Integration Pattern:
+```
+Godot UI → IMediator.Send(Command/Query) → RealmEngine Backend → Response DTO → Godot UI
+```
+
+**Example Integration:**
+```csharp
+// Godot calls this via DI-injected IMediator
+var result = await mediator.Send(new AttackEnemyCommand 
+{ 
+    CharacterName = "Player1",
+    Action = CombatActionType.Attack 
+});
+
+// Godot receives CombatResult and updates UI
+if (result.Success) {
+    UpdateHealthBar(result.PlayerHealth);
+    ShowDamageNumber(result.Damage);
+}
 ```
 
 ## Completed Setup
 
-- ✅ Created project structure with `dotnet new console`
-- ✅ Added Spectre.Console v0.54.0 package
-- ✅ Added Spectre.Console.Cli v0.53.1 for command-line parsing
-- ✅ Added LiteDB v5.0.21 for game data persistence
-- ✅ Added Newtonsoft.Json v13.0.4 for JSON serialization
-- ✅ Added NAudio v2.2.1 for sound effects and music
+- ✅ Created project structure with RealmEngine.Core/Shared/Data
+- ✅ Added MediatR v14.0.0 for CQRS command/query pattern
+- ✅ Added LiteDB v5.0.21 for save game persistence
+- ✅ Added Newtonsoft.Json v13.0.4 for JSON data loading
 - ✅ Added FluentValidation v12.1.1 for input validation
 - ✅ Added Bogus v35.6.5 for procedural content generation
 - ✅ Added Humanizer v3.0.1 for natural language formatting
-- ✅ Added MediatR v14.0.0 for event-driven architecture
 - ✅ Added Polly v8.6.5 for resilience patterns
-- ✅ Added Serilog v4.3.0 with Console and File sinks for logging
+- ✅ Added Serilog v4.3.0 for structured logging
 - ✅ Added xUnit v2.9.3 and FluentAssertions v8.8.0 for testing
-- ✅ Created `ConsoleUI` wrapper class with security best practices
 - ✅ Compiled successfully with `dotnet build`
 - ✅ Created VS Code build and debug tasks
-- ✅ Added README.md and best practices documentation
-- ✅ Created Game.Tests project with comprehensive test coverage
-- ✅ All 38 tests passing (Character, Validation, Generators)
-- ✅ Established JSON v4.0 standards for all game data files
-- ✅ Created RealmForge WPF application for JSON editing
-- ✅ Integrated JSON v4.1 reference system into ContentBuilder
-- ✅ All 35 integration tests passing (ReferenceResolverService)
-- ✅ All 33 unit tests passing (ReferenceResolverService)
-- ✅ Created 857 JSON compliance tests for 164 data files
-- ✅ Fixed ContentBuilder startup crash (duplicate dictionary key)
-- ✅ Consolidated abilities to category-level catalogs (v4.2)
-- ✅ Fixed all socketable generators for dual-path support
-- ✅ **Core.Tests**: 846/846 passing (100%)
-- ✅ **Shared.Tests**: 665/665 passing (100%)
-- ✅ **Data.Tests**: 5,250/5,250 passing (100%)
+- ✅ 7,564 tests passing (100% pass rate)
+- ✅ Established JSON v4.0+ standards for all game data files
+- ✅ Created RealmForge WPF application for JSON editing (separate tool, on hold)
+- ✅ Integrated JSON v4.1 reference system
+- ✅ All JSON compliance tests passing
+- ✅ Migrated 38 catalogs to JSON v5.1 (attributes, formulas, combat structure)
 
 ## JSON Data Standards (v4.0 + v4.1 References)
 
@@ -150,10 +175,6 @@ console-game/
 - `docs/standards/json/README.md`
 
 ## Dependencies
-
-### UI & Console
-- **Spectre.Console v0.54.0** - Rich console UI with colors, tables, prompts, progress bars
-- **Spectre.Console.Cli v0.53.1** - Command-line argument parsing and subcommands
 
 ### Data & Persistence
 - **LiteDB v5.0.21** - Lightweight NoSQL database for save files and game data
@@ -257,181 +278,6 @@ public void Should_Have_Error_When_Name_Is_Empty()
     // Act & Assert
     validator.ShouldHaveValidationErrorFor(c => c.Name, new Character { Name = "" });
 }
-```
-
-## Spectre.Console Capabilities
-
-### Available Features in ConsoleUI Wrapper
-
-The `ConsoleUI` class provides secure, easy-to-use methods for:
-
-#### Text Output
-- `WriteColoredText(string)` - Markup-enabled colored text (trusted content only)
-- `WriteText(string)` - Safe plain text (auto-escapes markup)
-- `ShowBanner(string, string)` - Styled title banners with rules
-- `ShowSuccess/Error/Warning/Info(string)` - Status messages with icons
-
-#### User Input
-- `AskForInput(string)` - Text input with prompt
-- `AskForNumber(string, int, int)` - Numeric input with validation
-- `ShowMenu(string, params string[])` - Single-selection menu (keyboard navigation)
-- `ShowMultiSelectMenu(string, params string[])` - Multi-selection menu
-- `Confirm(string)` - Yes/No confirmation prompt
-
-#### Layout & Display
-- `ShowTable(string, string[], List<string[]>)` - Tables with headers and rows
-- `ShowPanel(string, string, string)` - Bordered panels with titles
-- `ShowProgress(string, Action<ProgressTask>)` - Progress bars
-- `Clear()` - Clear console screen
-- `PressAnyKey(string)` - Wait for key press
-
-### Advanced Spectre.Console Features
-Beyond the wrapper, Spectre.Console supports:
-
-- **Charts**: Bar charts, breakdown charts
-- **Tree Views**: Hierarchical data display
-- **Live Display**: Real-time updating content
-- **Calendars**: Month/date displays
-- **FigletText**: ASCII art text
-- **Canvas**: Image rendering in terminal
-- **Status Spinners**: Animated loading indicators
-- **Grid Layouts**: Complex multi-column layouts
-- **Exceptions**: Pretty exception formatting
-- **JSON**: Syntax-highlighted JSON display
-
-### Using Advanced Features
-
-To use features not in the wrapper, import directly:
-```csharp
-using Spectre.Console;
-
-// Example: FigletText for large ASCII art
-AnsiConsole.Write(
-    new FigletText("GAME TITLE")
-        .Centered()
-        .Color(Color.Green));
-
-// Example: Tree view
-var root = new Tree("Inventory");
-root.AddNode("[yellow]Weapons[/]")
-    .AddNode("Sword")
-    .AddNode("Bow");
-root.AddNode("[blue]Potions[/]")
-    .AddNode("Health Potion x5");
-AnsiConsole.Write(root);
-
-// Example: Live display (auto-updating)
-await AnsiConsole.Live(new Panel("Loading..."))
-    .StartAsync(async ctx =>
-    {
-        // Update display in real-time
-        ctx.UpdateTarget(new Panel("50%..."));
-        await Task.Delay(500);
-        ctx.UpdateTarget(new Panel("100%!"));
-    });
-```
-
-## Security Best Practices
-
-⚠️ **IMPORTANT**: Always escape user input to prevent markup injection!
-
-### Safe Methods (Auto-Escape)
-- `ConsoleUI.WriteText()` - Safe for any input
-- `ConsoleUI.ShowSuccess/Error/Warning/Info()` - Messages are escaped
-- `ConsoleUI.ShowBanner()` - Title and subtitle are escaped
-- `ConsoleUI.AskForInput()` - Prompt is escaped
-
-### Unsafe Methods (No Escaping)
-- `ConsoleUI.WriteColoredText()` - Use ONLY with trusted/static text
-- `ConsoleUI.ShowPanel()` - Content supports markup (escape manually if needed)
-- `ConsoleUI.ShowTable()` - Table data is not escaped
-
-### Manual Escaping
-For advanced usage outside the wrapper:
-```csharp
-// BAD - vulnerable to injection
-string userInput = "[red]hacked[/]";
-AnsiConsole.MarkupLine(userInput); // Would render as red text!
-
-// GOOD - safe from injection
-string userInput = "[red]hacked[/]";
-string safe = userInput.Replace("[", "[[").Replace("]", "]]");
-AnsiConsole.MarkupLine(safe); // Displays literal brackets
-```
-
-## Color Support
-
-Spectre.Console automatically detects terminal capabilities:
-- **True Color** (24-bit RGB): Modern terminals
-- **256 Colors**: Standard terminals
-- **16 Colors**: Basic terminals
-- **No Color**: Fallback mode
-
-Test with different profiles:
-- `AnsiConsole.Profile.Capabilities.ColorSystem`
-
-## Development Guidelines
-
-### For Game Development
-1. **Use `ShowMenu()` for all player choices** - keyboard accessible
-2. **Validate numeric input** with `AskForNumber()` - prevents crashes
-3. **Use progress bars** for loading/long operations
-4. **Display game stats** in tables or panels
-5. **Use colored text** for game states (health, mana, etc.)
-6. **Create immersive title screens** with FigletText
-7. **Show inventory** with tree views or tables
-8. **Always escape player names** and user-generated content
-
-### Code Style
-- Use the `ConsoleUI` wrapper for common operations
-- For complex layouts, use Spectre.Console directly
-- Keep UI code separate from game logic
-- Test with different terminal sizes
-- Consider adding a "Safe Mode" for minimal color support
-
-## Debugging
-
-- **Launch Configuration**: Set to use `integratedTerminal` for proper color support
-- **Console Input**: Works correctly in VS Code integrated terminal
-- **Breakpoints**: Full debugger support with F5
-- **Watch Variables**: Inspect game state during debugging
-
-## Resources
-
-- **Spectre.Console Docs**: https://spectreconsole.net/
-- **GitHub Repository**: https://github.com/spectreconsole/spectre.console
-- **Best Practices**: See `SPECTRE_BEST_PRACTICES.md` in workspace
-- **Examples**: https://spectreconsole.net/examples
-
-## Performance Notes
-
-- Rendering is fast for most use cases
-- Live displays can impact performance if updated too frequently
-- Large tables should use pagination
-- Complex layouts should be pre-rendered when possible
-
-## Library Usage Guide
-
-### Spectre.Console.Cli - Command-line Arguments
-```csharp
-// Create commands for different game modes
-public class NewGameCommand : Command<NewGameSettings>
-{
-    public override int Execute(CommandContext context, NewGameSettings settings)
-    {
-        // Start new game with settings
-        return 0;
-    }
-}
-
-// Configure app with commands
-var app = new CommandApp();
-app.Configure(config =>
-{
-    config.AddCommand<NewGameCommand>("new");
-    config.AddCommand<LoadGameCommand>("load");
-    config.AddCommand<SettingsCommand>("settings");
-});
 ```
 
 ### LiteDB - Game Data Persistence
@@ -631,7 +477,7 @@ public class CharacterTests
 ### Project Organization
 ```
 Game/
-├── Commands/          # CLI commands (using Spectre.Console.Cli)
+├── Commands/          # CLI commands
 ├── Models/            # Game entities (Character, Item, Enemy, etc.)
 ├── Services/          # Game logic services
 ├── Handlers/          # MediatR event handlers
@@ -639,7 +485,6 @@ Game/
 ├── Data/              # LiteDB repositories
 ├── Audio/             # NAudio sound management
 ├── Generators/        # Bogus data generators
-└── ConsoleUI.cs       # Spectre.Console wrapper
 ```
 
 ### Best Practices
