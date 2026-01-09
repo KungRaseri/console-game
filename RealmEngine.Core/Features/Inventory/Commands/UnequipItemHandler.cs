@@ -9,6 +9,12 @@ namespace RealmEngine.Core.Features.Inventory.Commands;
 /// </summary>
 public class UnequipItemHandler : IRequestHandler<UnequipItemCommand, UnequipItemResult>
 {
+    /// <summary>
+    /// Handles the unequip item command and unequips the item from the specified slot.
+    /// </summary>
+    /// <param name="request">The unequip item command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the unequip result.</returns>
     public Task<UnequipItemResult> Handle(UnequipItemCommand request, CancellationToken cancellationToken)
     {
         var player = request.Player;

@@ -11,11 +11,21 @@ public class UseCombatItemHandler : IRequestHandler<UseCombatItemCommand, UseCom
 {
     private readonly IMediator _mediator;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UseCombatItemHandler"/> class.
+    /// </summary>
+    /// <param name="mediator">The mediator for publishing events.</param>
     public UseCombatItemHandler(IMediator mediator)
     {
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// Handles the use combat item command and applies item effects.
+    /// </summary>
+    /// <param name="request">The use combat item command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the item use result.</returns>
     public async Task<UseCombatItemResult> Handle(UseCombatItemCommand request, CancellationToken cancellationToken)
     {
         var player = request.Player;

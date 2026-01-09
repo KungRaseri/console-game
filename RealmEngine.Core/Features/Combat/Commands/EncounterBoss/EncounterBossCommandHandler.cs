@@ -14,6 +14,11 @@ public class EncounterBossCommandHandler : IRequestHandler<EncounterBossCommand,
     private readonly EnemyGenerator _enemyGenerator;
     private readonly ILogger<EncounterBossCommandHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EncounterBossCommandHandler"/> class.
+    /// </summary>
+    /// <param name="enemyGenerator">The enemy generator.</param>
+    /// <param name="logger">The logger.</param>
     public EncounterBossCommandHandler(
         EnemyGenerator enemyGenerator,
         ILogger<EncounterBossCommandHandler> logger)
@@ -22,6 +27,12 @@ public class EncounterBossCommandHandler : IRequestHandler<EncounterBossCommand,
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Handles the boss encounter command and returns detailed boss information.
+    /// </summary>
+    /// <param name="request">The boss encounter command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the boss encounter result.</returns>
     public async Task<BossEncounterResult> Handle(EncounterBossCommand request, CancellationToken cancellationToken)
     {
         try

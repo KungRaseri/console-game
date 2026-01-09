@@ -15,6 +15,12 @@ public class CharacterInitializationService
     private readonly SpellCastingService _spellCastingService;
     private readonly IMediator _mediator;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CharacterInitializationService"/> class.
+    /// </summary>
+    /// <param name="abilityCatalogService">The ability catalog service.</param>
+    /// <param name="spellCastingService">The spell casting service.</param>
+    /// <param name="mediator">The mediator for sending commands.</param>
     public CharacterInitializationService(
         AbilityCatalogService abilityCatalogService,
         SpellCastingService spellCastingService,

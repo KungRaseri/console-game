@@ -7,6 +7,9 @@ namespace RealmEngine.Core.Features.Combat.Commands.DefendAction;
 /// </summary>
 public class DefendActionValidator : AbstractValidator<DefendActionCommand>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefendActionValidator"/> class.
+    /// </summary>
     public DefendActionValidator()
     {
         RuleFor(x => x.Player)

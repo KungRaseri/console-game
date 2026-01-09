@@ -7,6 +7,12 @@ namespace RealmEngine.Core.Features.Combat.Queries.GetEnemyInfo;
 /// </summary>
 public class GetEnemyInfoHandler : IRequestHandler<GetEnemyInfoQuery, EnemyInfoDto>
 {
+    /// <summary>
+    /// Handles the get enemy info query and returns detailed enemy information.
+    /// </summary>
+    /// <param name="request">The get enemy info query.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the enemy information.</returns>
     public Task<EnemyInfoDto> Handle(GetEnemyInfoQuery request, CancellationToken cancellationToken)
     {
         var enemy = request.Enemy;

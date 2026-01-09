@@ -7,6 +7,9 @@ namespace RealmEngine.Core.Features.Combat.Commands.FleeFromCombat;
 /// </summary>
 public class FleeFromCombatValidator : AbstractValidator<FleeFromCombatCommand>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FleeFromCombatValidator"/> class.
+    /// </summary>
     public FleeFromCombatValidator()
     {
         RuleFor(x => x.Player)

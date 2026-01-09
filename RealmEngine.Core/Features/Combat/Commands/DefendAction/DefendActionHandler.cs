@@ -8,6 +8,12 @@ namespace RealmEngine.Core.Features.Combat.Commands.DefendAction;
 /// </summary>
 public class DefendActionHandler : IRequestHandler<DefendActionCommand, DefendActionResult>
 {
+    /// <summary>
+    /// Handles the defend action command and returns the defense bonus.
+    /// </summary>
+    /// <param name="request">The defend action command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the defend action result.</returns>
     public Task<DefendActionResult> Handle(DefendActionCommand request, CancellationToken cancellationToken)
     {
         var player = request.Player;

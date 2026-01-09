@@ -8,6 +8,9 @@ namespace RealmEngine.Core.Features.Combat.Commands.UseCombatItem;
 /// </summary>
 public class UseCombatItemValidator : AbstractValidator<UseCombatItemCommand>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UseCombatItemValidator"/> class.
+    /// </summary>
     public UseCombatItemValidator()
     {
         RuleFor(x => x.Player)

@@ -7,6 +7,9 @@ namespace RealmEngine.Core.Features.Combat.Commands.AttackEnemy;
 /// </summary>
 public class AttackEnemyValidator : AbstractValidator<AttackEnemyCommand>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AttackEnemyValidator"/> class.
+    /// </summary>
     public AttackEnemyValidator()
     {
         RuleFor(x => x.Player)

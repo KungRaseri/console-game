@@ -8,6 +8,12 @@ namespace RealmEngine.Core.Features.Inventory.Commands;
 /// </summary>
 public class DropItemHandler : IRequestHandler<DropItemCommand, DropItemResult>
 {
+    /// <summary>
+    /// Handles the drop item command and removes the item from inventory.
+    /// </summary>
+    /// <param name="request">The drop item command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the drop result.</returns>
     public Task<DropItemResult> Handle(DropItemCommand request, CancellationToken cancellationToken)
     {
         var player = request.Player;

@@ -9,6 +9,12 @@ namespace RealmEngine.Core.Features.Inventory.Commands;
 /// </summary>
 public class EquipItemHandler : IRequestHandler<EquipItemCommand, EquipItemResult>
 {
+    /// <summary>
+    /// Handles the equip item command and equips the specified item.
+    /// </summary>
+    /// <param name="request">The equip item command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the equip result.</returns>
     public Task<EquipItemResult> Handle(EquipItemCommand request, CancellationToken cancellationToken)
     {
         var player = request.Player;

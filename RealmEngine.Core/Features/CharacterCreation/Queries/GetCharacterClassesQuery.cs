@@ -15,5 +15,8 @@ public record GetCharacterClassesQuery : IRequest<GetCharacterClassesResult>
 /// </summary>
 public record GetCharacterClassesResult
 {
+    /// <summary>
+    /// Gets the list of available character classes.
+    /// </summary>
     public required List<CharacterClass> Classes { get; init; }
 }

@@ -8,6 +8,12 @@ namespace RealmEngine.Core.Features.Inventory.Commands;
 /// </summary>
 public class SortInventoryHandler : IRequestHandler<SortInventoryCommand, SortInventoryResult>
 {
+    /// <summary>
+    /// Handles the sort inventory command and sorts the inventory by the specified criteria.
+    /// </summary>
+    /// <param name="request">The sort inventory command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the sort result.</returns>
     public Task<SortInventoryResult> Handle(SortInventoryCommand request, CancellationToken cancellationToken)
     {
         var player = request.Player;

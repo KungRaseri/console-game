@@ -11,11 +11,21 @@ public class InitializeStartingAbilitiesHandler : IRequestHandler<InitializeStar
 {
     private readonly IMediator _mediator;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InitializeStartingAbilitiesHandler"/> class.
+    /// </summary>
+    /// <param name="mediator">The mediator for sending commands.</param>
     public InitializeStartingAbilitiesHandler(IMediator mediator)
     {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
+    /// <summary>
+    /// Handles the initialize starting abilities command and returns the result.
+    /// </summary>
+    /// <param name="request">The initialize starting abilities command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the initialization result.</returns>
     public async Task<InitializeStartingAbilitiesResult> Handle(InitializeStartingAbilitiesCommand request, CancellationToken cancellationToken)
     {
         var abilitiesLearned = 0;

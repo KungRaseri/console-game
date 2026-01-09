@@ -15,6 +15,12 @@ public class AttackEnemyHandler : IRequestHandler<AttackEnemyCommand, AttackEnem
     private readonly IMediator _mediator;
     private readonly SaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AttackEnemyHandler"/> class.
+    /// </summary>
+    /// <param name="combatService">The combat service.</param>
+    /// <param name="mediator">The mediator for publishing events.</param>
+    /// <param name="saveGameService">The save game service.</param>
     public AttackEnemyHandler(CombatService combatService, IMediator mediator, SaveGameService saveGameService)
     {
         _combatService = combatService;
@@ -22,6 +28,12 @@ public class AttackEnemyHandler : IRequestHandler<AttackEnemyCommand, AttackEnem
         _saveGameService = saveGameService;
     }
 
+    /// <summary>
+    /// Handles the attack enemy command and returns the result of the attack.
+    /// </summary>
+    /// <param name="request">The attack enemy command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the attack result.</returns>
     public async Task<AttackEnemyResult> Handle(AttackEnemyCommand request, CancellationToken cancellationToken)
     {
         var player = request.Player;

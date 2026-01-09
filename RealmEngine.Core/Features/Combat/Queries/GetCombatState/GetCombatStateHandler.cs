@@ -8,6 +8,12 @@ namespace RealmEngine.Core.Features.Combat.Queries.GetCombatState;
 /// </summary>
 public class GetCombatStateHandler : IRequestHandler<GetCombatStateQuery, CombatStateDto>
 {
+    /// <summary>
+    /// Handles the get combat state query and returns the current combat state.
+    /// </summary>
+    /// <param name="request">The get combat state query.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation, containing the combat state.</returns>
     public Task<CombatStateDto> Handle(GetCombatStateQuery request, CancellationToken cancellationToken)
     {
         var player = request.Player;
