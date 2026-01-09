@@ -11,6 +11,7 @@ namespace RealmEngine.Shared.Services;
 public class DataReferenceResolver
 {
     private static readonly Lazy<DataReferenceResolver> _instance = new(() => new DataReferenceResolver());
+    /// <summary>Gets the singleton instance of the DataReferenceResolver.</summary>
     public static DataReferenceResolver Instance => _instance.Value;
 
     private readonly ConcurrentDictionary<string, JObject> _catalogCache = new();

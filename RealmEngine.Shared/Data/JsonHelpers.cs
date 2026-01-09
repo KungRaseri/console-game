@@ -8,12 +8,18 @@ namespace RealmEngine.Shared.Data.Models;
 /// </summary>
 public class JsonTraitValue
 {
+    /// <summary>Gets or sets the value.</summary>
     [JsonPropertyName("value")]
     public object? Value { get; set; }
 
+    /// <summary>Gets or sets the type.</summary>
     [JsonPropertyName("type")]
     public string Type { get; set; } = "string";
 
+    /// <summary>
+    /// Converts to TraitValue.
+    /// </summary>
+    /// <returns>The converted TraitValue.</returns>
     public TraitValue ToTraitValue()
     {
         var traitType = Type.ToLower() switch

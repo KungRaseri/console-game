@@ -5,9 +5,14 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public enum ItemRarity
 {
+    /// <summary>Common rarity.</summary>
     Common,
+    /// <summary>Uncommon rarity.</summary>
     Uncommon,
+    /// <summary>Rare rarity.</summary>
     Rare,
+    /// <summary>Epic rarity.</summary>
     Epic,
+    /// <summary>Legendary rarity.</summary>
     Legendary
 }

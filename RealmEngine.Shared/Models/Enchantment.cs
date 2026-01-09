@@ -6,32 +6,49 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public class Enchantment : ITraitable
 {
+    /// <summary>Gets or sets the unique identifier.</summary>
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    
+    /// <summary>Gets or sets the name.</summary>
     public string Name { get; set; } = string.Empty;
+    
+    /// <summary>Gets or sets the description.</summary>
     public string Description { get; set; } = string.Empty;
+    
+    /// <summary>Gets or sets the rarity.</summary>
     public EnchantmentRarity Rarity { get; set; } = EnchantmentRarity.Minor;
 
-    // Enhancement System v1.0 - Trait-based bonuses
+    /// <summary>Gets or sets the trait-based bonuses.</summary>
     public Dictionary<string, TraitValue> Traits { get; set; } = new();
     
-    // Position in the name (prefix or suffix)
+    /// <summary>Gets or sets the position in the name (prefix or suffix).</summary>
     public EnchantmentPosition Position { get; set; } = EnchantmentPosition.Suffix;
     
-    // Rarity weight for procedural generation
+    /// <summary>Gets or sets the rarity weight for procedural generation.</summary>
     public int RarityWeight { get; set; } = 50;
 
-    // D20 Attribute Bonuses (legacy - consider migrating to Traits)
+    /// <summary>Gets or sets the bonus strength.</summary>
     public int BonusStrength { get; set; } = 0;
+    
+    /// <summary>Gets or sets the bonus dexterity.</summary>
     public int BonusDexterity { get; set; } = 0;
+    
+    /// <summary>Gets or sets the bonus constitution.</summary>
     public int BonusConstitution { get; set; } = 0;
+    
+    /// <summary>Gets or sets the bonus intelligence.</summary>
     public int BonusIntelligence { get; set; } = 0;
+    
+    /// <summary>Gets or sets the bonus wisdom.</summary>
     public int BonusWisdom { get; set; } = 0;
+    
+    /// <summary>Gets or sets the bonus charisma.</summary>
     public int BonusCharisma { get; set; } = 0;
 
-    // Special effects (for display/future implementation)
+    /// <summary>Gets or sets the special effect.</summary>
     public string? SpecialEffect { get; set; }
 
-    // Enchantment level (+1, +2, +3, etc.)
+    /// <summary>Gets or sets the enchantment level.</summary>
     public int Level { get; set; } = 1;
 }
 
@@ -40,8 +57,10 @@ public class Enchantment : ITraitable
 /// </summary>
 public enum EnchantmentPosition
 {
-    Prefix,  // e.g., "Flaming" in "Flaming Sword"
-    Suffix   // e.g., "of Fire" in "Sword of Fire"
+    /// <summary>Prefix position (e.g., "Flaming" in "Flaming Sword").</summary>
+    Prefix,
+    /// <summary>Suffix position (e.g., "of Fire" in "Sword of Fire").</summary>
+    Suffix
 }
 
 /// <summary>
@@ -49,9 +68,14 @@ public enum EnchantmentPosition
 /// </summary>
 public enum EnchantmentRarity
 {
+    /// <summary>Minor enchantment.</summary>
     Minor,
+    /// <summary>Lesser enchantment.</summary>
     Lesser,
+    /// <summary>Greater enchantment.</summary>
     Greater,
+    /// <summary>Superior enchantment.</summary>
     Superior,
+    /// <summary>Legendary enchantment.</summary>
     Legendary
 }

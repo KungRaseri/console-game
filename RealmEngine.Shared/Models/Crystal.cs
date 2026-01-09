@@ -6,8 +6,13 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public class Crystal : ISocketable
 {
+    /// <summary>Gets or sets the unique identifier.</summary>
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    
+    /// <summary>Gets or sets the name.</summary>
     public string Name { get; set; } = string.Empty;
+    
+    /// <summary>Gets or sets the description.</summary>
     public string Description { get; set; } = string.Empty;
     
     /// <summary>

@@ -5,25 +5,46 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public class DifficultySettings
 {
+    /// <summary>Gets or sets the difficulty name.</summary>
     public string Name { get; set; } = "Normal";
+    
+    /// <summary>Gets or sets the description.</summary>
     public string Description { get; set; } = string.Empty;
 
-    // Combat modifiers
+    /// <summary>Gets or sets the player damage multiplier.</summary>
     public double PlayerDamageMultiplier { get; set; } = 1.0;
+    
+    /// <summary>Gets or sets the enemy damage multiplier.</summary>
     public double EnemyDamageMultiplier { get; set; } = 1.0;
+    
+    /// <summary>Gets or sets the enemy health multiplier.</summary>
     public double EnemyHealthMultiplier { get; set; } = 1.0;
+    
+    /// <summary>Gets or sets the gold and XP multiplier.</summary>
     public double GoldXPMultiplier { get; set; } = 1.0;
 
-    // Save system behavior
+    /// <summary>Gets or sets a value indicating whether auto-save only mode is enabled.</summary>
     public bool AutoSaveOnly { get; set; } = false;
+    
+    /// <summary>Gets or sets a value indicating whether permadeath is enabled.</summary>
     public bool IsPermadeath { get; set; } = false;
+    
+    /// <summary>Gets or sets a value indicating whether apocalypse mode is enabled.</summary>
     public bool IsApocalypse { get; set; } = false;
-    public int ApocalypseTimeLimitMinutes { get; set; } = 240; // 4 hours default
+    
+    /// <summary>Gets or sets the apocalypse time limit in minutes.</summary>
+    public int ApocalypseTimeLimitMinutes { get; set; } = 240;
 
-    // Death penalties (used in Phase 2)
-    public double GoldLossPercentage { get; set; } = 0.10; // 10%
-    public double XPLossPercentage { get; set; } = 0.25; // 25%
+    /// <summary>Gets or sets the gold loss percentage on death.</summary>
+    public double GoldLossPercentage { get; set; } = 0.10;
+    
+    /// <summary>Gets or sets the XP loss percentage on death.</summary>
+    public double XPLossPercentage { get; set; } = 0.25;
+    
+    /// <summary>Gets or sets a value indicating whether all inventory is dropped on death.</summary>
     public bool DropAllInventoryOnDeath { get; set; } = false;
+    
+    /// <summary>Gets or sets the number of items dropped on death.</summary>
     public int ItemsDroppedOnDeath { get; set; } = 1;
 
     /// <summary>

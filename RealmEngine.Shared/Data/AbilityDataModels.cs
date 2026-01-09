@@ -15,12 +15,15 @@ namespace RealmEngine.Shared.Data.Models;
 /// </summary>
 public class AbilityNamesData
 {
+    /// <summary>Gets or sets the metadata.</summary>
     [JsonPropertyName("metadata")]
     public AbilityNamesMetadata Metadata { get; set; } = new();
 
+    /// <summary>Gets or sets the components dictionary.</summary>
     [JsonPropertyName("components")]
     public Dictionary<string, List<AbilityComponent>> Components { get; set; } = new();
 
+    /// <summary>Gets or sets the patterns.</summary>
     [JsonPropertyName("patterns")]
     public List<AbilityPattern> Patterns { get; set; } = new();
 }
@@ -30,33 +33,43 @@ public class AbilityNamesData
 /// </summary>
 public class AbilityNamesMetadata
 {
+    /// <summary>Gets or sets the description.</summary>
     [JsonPropertyName("description")]
     public string Description { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the version.</summary>
     [JsonPropertyName("version")]
     public string Version { get; set; } = "4.0";
 
+    /// <summary>Gets or sets the last updated date.</summary>
     [JsonPropertyName("lastUpdated")]
     public string LastUpdated { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the type.</summary>
     [JsonPropertyName("type")]
     public string Type { get; set; } = "pattern_generation";
 
+    /// <summary>Gets or sets a value indicating whether traits are supported.</summary>
     [JsonPropertyName("supportsTraits")]
     public bool SupportsTraits { get; set; } = true;
 
+    /// <summary>Gets or sets the component keys.</summary>
     [JsonPropertyName("componentKeys")]
     public List<string> ComponentKeys { get; set; } = new() { "prefix", "base", "suffix" };
 
+    /// <summary>Gets or sets the pattern tokens.</summary>
     [JsonPropertyName("patternTokens")]
     public List<string> PatternTokens { get; set; } = new() { "base", "prefix", "suffix" };
 
+    /// <summary>Gets or sets the total patterns count.</summary>
     [JsonPropertyName("totalPatterns")]
     public int TotalPatterns { get; set; }
 
+    /// <summary>Gets or sets the rarity system.</summary>
     [JsonPropertyName("raritySystem")]
     public string RaritySystem { get; set; } = "weight-based";
 
+    /// <summary>Gets or sets the notes.</summary>
     [JsonPropertyName("notes")]
     public List<string> Notes { get; set; } = new();
 }
@@ -66,12 +79,15 @@ public class AbilityNamesMetadata
 /// </summary>
 public class AbilityComponent
 {
+    /// <summary>Gets or sets the value.</summary>
     [JsonPropertyName("value")]
     public string Value { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the rarity weight.</summary>
     [JsonPropertyName("rarityWeight")]
     public int RarityWeight { get; set; } = 10;
 
+    /// <summary>Gets or sets the traits in JSON format.</summary>
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue>? JsonTraits { get; set; }
 
@@ -99,12 +115,15 @@ public class AbilityComponent
 /// </summary>
 public class AbilityPattern
 {
+    /// <summary>Gets or sets the pattern.</summary>
     [JsonPropertyName("pattern")]
     public string Pattern { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the weight.</summary>
     [JsonPropertyName("weight")]
     public int Weight { get; set; } = 10;
 
+    /// <summary>Gets or sets the example.</summary>
     [JsonPropertyName("example")]
     public string? Example { get; set; }
 }
@@ -118,9 +137,11 @@ public class AbilityPattern
 /// </summary>
 public class AbilityCatalogData
 {
+    /// <summary>Gets or sets the metadata.</summary>
     [JsonPropertyName("metadata")]
     public AbilityCatalogMetadata Metadata { get; set; } = new();
 
+    /// <summary>Gets or sets the ability types dictionary.</summary>
     [JsonPropertyName("ability_types")]
     public Dictionary<string, AbilityType> AbilityTypes { get; set; } = new();
 }
@@ -130,27 +151,35 @@ public class AbilityCatalogData
 /// </summary>
 public class AbilityCatalogMetadata
 {
+    /// <summary>Gets or sets the description.</summary>
     [JsonPropertyName("description")]
     public string Description { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the version.</summary>
     [JsonPropertyName("version")]
     public string Version { get; set; } = "4.0";
 
+    /// <summary>Gets or sets the last updated date.</summary>
     [JsonPropertyName("lastUpdated")]
     public string LastUpdated { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the type.</summary>
     [JsonPropertyName("type")]
     public string Type { get; set; } = "ability_catalog";
 
+    /// <summary>Gets or sets a value indicating whether traits are supported.</summary>
     [JsonPropertyName("supportsTraits")]
     public bool SupportsTraits { get; set; } = true;
 
+    /// <summary>Gets or sets the total ability types count.</summary>
     [JsonPropertyName("totalAbilityTypes")]
     public int TotalAbilityTypes { get; set; }
 
+    /// <summary>Gets or sets the total abilities count.</summary>
     [JsonPropertyName("totalAbilities")]
     public int TotalAbilities { get; set; }
 
+    /// <summary>Gets or sets the usage.</summary>
     [JsonPropertyName("usage")]
     public string? Usage { get; set; }
 }
@@ -161,9 +190,11 @@ public class AbilityCatalogMetadata
 /// </summary>
 public class AbilityType
 {
+    /// <summary>Gets or sets the type-level traits in JSON format.</summary>
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue>? TypeJsonTraits { get; set; }
 
+    /// <summary>Gets or sets the items.</summary>
     [JsonPropertyName("items")]
     public List<AbilityItem> Items { get; set; } = new();
 
@@ -191,28 +222,36 @@ public class AbilityType
 /// </summary>
 public class AbilityItem
 {
+    /// <summary>Gets or sets the name.</summary>
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the display name.</summary>
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the description.</summary>
     [JsonPropertyName("description")]
     public string Description { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the rarity weight.</summary>
     [JsonPropertyName("rarityWeight")]
     public int RarityWeight { get; set; } = 10;
 
     // Optional base stats (not all abilities will have these)
+    /// <summary>Gets or sets the base damage.</summary>
     [JsonPropertyName("baseDamage")]
     public string? BaseDamage { get; set; }
 
+    /// <summary>Gets or sets the cooldown.</summary>
     [JsonPropertyName("cooldown")]
     public int? Cooldown { get; set; }
 
+    /// <summary>Gets or sets the range.</summary>
     [JsonPropertyName("range")]
     public int? Range { get; set; }
 
+    /// <summary>Gets or sets the traits in JSON format.</summary>
     [JsonPropertyName("traits")]
     public Dictionary<string, JsonTraitValue>? JsonTraits { get; set; }
 

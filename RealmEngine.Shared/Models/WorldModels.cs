@@ -5,17 +5,36 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public class Location
 {
+    /// <summary>Gets or sets the unique identifier.</summary>
     public required string Id { get; set; }
+    
+    /// <summary>Gets or sets the name.</summary>
     public required string Name { get; set; }
+    
+    /// <summary>Gets or sets the description.</summary>
     public required string Description { get; set; }
-    public required string Type { get; set; } // "town", "dungeon", "wilderness", "environment", "region"
+    
+    /// <summary>Gets or sets the type (town, dungeon, wilderness, environment, region).</summary>
+    public required string Type { get; set; }
+    
+    /// <summary>Gets or sets the parent region.</summary>
     public string? ParentRegion { get; set; }
+    
+    /// <summary>Gets or sets the level.</summary>
     public int Level { get; set; }
+    
+    /// <summary>Gets or sets the danger rating.</summary>
     public int DangerRating { get; set; }
+    
+    /// <summary>Gets or sets the features.</summary>
     public List<string> Features { get; set; } = new();
+    /// <summary>Gets or sets the NPC IDs present at this location.</summary>
     public List<string> Npcs { get; set; } = new();
+    /// <summary>Gets or sets the enemy IDs that can spawn at this location.</summary>
     public List<string> Enemies { get; set; } = new();
+    /// <summary>Gets or sets the loot item IDs available at this location.</summary>
     public List<string> Loot { get; set; } = new();
+    /// <summary>Gets or sets additional metadata for the location.</summary>
     public Dictionary<string, object> Metadata { get; set; } = new();
 
     /// <summary>
@@ -48,17 +67,29 @@ public class Location
 /// </summary>
 public class Organization
 {
+    /// <summary>Gets or sets the unique identifier.</summary>
     public required string Id { get; set; }
+    /// <summary>Gets or sets the organization name.</summary>
     public required string Name { get; set; }
+    /// <summary>Gets or sets the description.</summary>
     public required string Description { get; set; }
-    public required string Type { get; set; } // "guild", "faction", "shop", "business"
+    /// <summary>Gets or sets the organization type (guild, faction, shop, business).</summary>
+    public required string Type { get; set; }
+    /// <summary>Gets or sets the leader ID.</summary>
     public string? Leader { get; set; }
+    /// <summary>Gets or sets the member IDs.</summary>
     public List<string> Members { get; set; } = new();
+    /// <summary>Gets or sets the reputation value.</summary>
     public int Reputation { get; set; }
+    /// <summary>Gets or sets the wealth amount.</summary>
     public int Wealth { get; set; }
+    /// <summary>Gets or sets the available services.</summary>
     public List<string> Services { get; set; } = new();
+    /// <summary>Gets or sets the inventory item IDs.</summary>
     public List<string> Inventory { get; set; } = new();
+    /// <summary>Gets or sets the item prices (item ID -> price).</summary>
     public Dictionary<string, int> Prices { get; set; } = new();
+    /// <summary>Gets or sets additional metadata.</summary>
     public Dictionary<string, object> Metadata { get; set; } = new();
 
     /// <summary>
@@ -83,11 +114,18 @@ public class Organization
 /// </summary>
 public class DialogueLine
 {
+    /// <summary>Gets or sets the unique identifier.</summary>
     public required string Id { get; set; }
+    /// <summary>Gets or sets the dialogue text.</summary>
     public required string Text { get; set; }
-    public required string Type { get; set; } // "greeting", "farewell", "response"
-    public required string Style { get; set; } // "formal", "casual", "aggressive", etc.
+    /// <summary>Gets or sets the dialogue type (greeting, farewell, response).</summary>
+    public required string Type { get; set; }
+    /// <summary>Gets or sets the speaking style (formal, casual, aggressive, etc.).</summary>
+    public required string Style { get; set; }
+    /// <summary>Gets or sets the dialogue context.</summary>
     public string? Context { get; set; }
+    /// <summary>Gets or sets the tags for categorizing the dialogue.</summary>
     public List<string> Tags { get; set; } = new();
+    /// <summary>Gets or sets additional metadata.</summary>
     public Dictionary<string, object> Metadata { get; set; } = new();
 }

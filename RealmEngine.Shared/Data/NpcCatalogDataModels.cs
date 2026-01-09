@@ -2,10 +2,8 @@ using System.Text.Json.Serialization;
 
 namespace RealmEngine.Shared.Data.Models;
 
-/// <summary>
-/// Data models for NPC catalog system (backgrounds, occupations, traits, names).
-/// These models map to the new v4.0 JSON structure.
-/// </summary>
+// Data models for NPC catalog system (backgrounds, occupations, traits, names).
+// These models map to the new v4.0 JSON structure.
 
 #region Catalog Models
 
@@ -265,80 +263,116 @@ public class BankGoldFormula
 
 #region Traits Models
 
+/// <summary>
+/// Root data model for NPC traits (personality traits and quirks).
+/// </summary>
 public class NpcTraitsData
 {
+    /// <summary>Gets or sets the metadata.</summary>
     [JsonPropertyName("metadata")]
     public TraitsMetadata Metadata { get; set; } = new();
 
+    /// <summary>Gets or sets the personality traits by category.</summary>
     [JsonPropertyName("personality_traits")]
     public Dictionary<string, List<TraitItem>> PersonalityTraits { get; set; } = new();
 
+    /// <summary>Gets or sets the quirks by category.</summary>
     [JsonPropertyName("quirks")]
     public Dictionary<string, List<QuirkItem>> Quirks { get; set; } = new();
 }
 
+/// <summary>
+/// Metadata for NPC traits data.
+/// </summary>
 public class TraitsMetadata
 {
+    /// <summary>Gets or sets the version.</summary>
     [JsonPropertyName("version")]
     public string Version { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the description.</summary>
     [JsonPropertyName("description")]
     public string Description { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the total traits.</summary>
     [JsonPropertyName("totalTraits")]
     public int TotalTraits { get; set; }
 
+    /// <summary>Gets or sets the total quirks.</summary>
     [JsonPropertyName("totalQuirks")]
     public int TotalQuirks { get; set; }
 }
 
+/// <summary>
+/// Personality trait definition.
+/// </summary>
 public class TraitItem
 {
+    /// <summary>Gets or sets the name.</summary>
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the display name.</summary>
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the description.</summary>
     [JsonPropertyName("description")]
     public string Description { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the rarity weight.</summary>
     [JsonPropertyName("rarityWeight")]
     public int RarityWeight { get; set; }
 
+    /// <summary>Gets or sets the shop modifiers.</summary>
     [JsonPropertyName("shopModifiers")]
     public TraitShopModifiers? ShopModifiers { get; set; }
 }
 
+/// <summary>
+/// Shop modifiers for personality traits.
+/// </summary>
 public class TraitShopModifiers
 {
+    /// <summary>Gets or sets the price multiplier.</summary>
     [JsonPropertyName("priceMultiplier")]
     public double? PriceMultiplier { get; set; }
 
+    /// <summary>Gets or sets the buy price multiplier.</summary>
     [JsonPropertyName("buyPriceMultiplier")]
     public double? BuyPriceMultiplier { get; set; }
 
+    /// <summary>Gets or sets the quality bonus.</summary>
     [JsonPropertyName("qualityBonus")]
     public int? QualityBonus { get; set; }
 
+    /// <summary>Gets or sets the reputation required.</summary>
     [JsonPropertyName("reputationRequired")]
     public int? ReputationRequired { get; set; }
 
+    /// <summary>Gets or sets the dialogue style.</summary>
     [JsonPropertyName("dialogueStyle")]
     public string? DialogueStyle { get; set; }
 }
 
+/// <summary>
+/// Quirk definition for NPCs.
+/// </summary>
 public class QuirkItem
 {
+    /// <summary>Gets or sets the name.</summary>
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the display name.</summary>
     [JsonPropertyName("displayName")]
     public string DisplayName { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the description.</summary>
     [JsonPropertyName("description")]
     public string Description { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the rarity weight.</summary>
     [JsonPropertyName("rarityWeight")]
     public int RarityWeight { get; set; }
 }
@@ -347,98 +381,144 @@ public class QuirkItem
 
 #region Names Models
 
+/// <summary>
+/// Root data model for NPC names (components and patterns).
+/// </summary>
 public class NpcNamesData
 {
+    /// <summary>Gets or sets the metadata.</summary>
     [JsonPropertyName("metadata")]
     public NamesMetadata Metadata { get; set; } = new();
 
+    /// <summary>Gets or sets the name components.</summary>
     [JsonPropertyName("components")]
     public NameComponents Components { get; set; } = new();
 
+    /// <summary>Gets or sets the name patterns.</summary>
     [JsonPropertyName("patterns")]
     public List<NamePattern> Patterns { get; set; } = new();
 }
 
+/// <summary>
+/// Metadata for NPC names data.
+/// </summary>
 public class NamesMetadata
 {
+    /// <summary>Gets or sets the version.</summary>
     [JsonPropertyName("version")]
     public string Version { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the description.</summary>
     [JsonPropertyName("description")]
     public string Description { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the type.</summary>
     [JsonPropertyName("type")]
     public string Type { get; set; } = string.Empty;
 }
 
+/// <summary>
+/// Components for generating NPC names.
+/// </summary>
 public class NameComponents
 {
+    /// <summary>Gets or sets the title components.</summary>
     [JsonPropertyName("title")]
     public List<TitleComponent>? Title { get; set; }
 
+    /// <summary>Gets or sets the first name components.</summary>
     [JsonPropertyName("first_name")]
     public FirstNameComponents? FirstName { get; set; }
 
+    /// <summary>Gets or sets the surname components by social class.</summary>
     [JsonPropertyName("surname")]
     public Dictionary<string, List<NameComponent>>? Surname { get; set; }
 
+    /// <summary>Gets or sets the suffix components.</summary>
     [JsonPropertyName("suffix")]
     public List<NameComponent>? Suffix { get; set; }
 }
 
+/// <summary>
+/// Title component with social class preferences.
+/// </summary>
 public class TitleComponent
 {
+    /// <summary>Gets or sets the value.</summary>
     [JsonPropertyName("value")]
     public string Value { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the rarity weight.</summary>
     [JsonPropertyName("rarityWeight")]
     public int RarityWeight { get; set; }
 
+    /// <summary>Gets or sets the gender.</summary>
     [JsonPropertyName("gender")]
     public string? Gender { get; set; }
 
+    /// <summary>Gets or sets the preferred social class.</summary>
     [JsonPropertyName("preferredSocialClass")]
     public string? PreferredSocialClass { get; set; }
 
+    /// <summary>Gets or sets the weight multiplier by social class.</summary>
     [JsonPropertyName("weightMultiplier")]
     public Dictionary<string, double>? WeightMultiplier { get; set; }
 }
 
+/// <summary>
+/// First name components by gender and social class.
+/// </summary>
 public class FirstNameComponents
 {
+    /// <summary>Gets or sets the male first names by social class.</summary>
     [JsonPropertyName("male")]
     public Dictionary<string, List<NameComponent>>? Male { get; set; }
 
+    /// <summary>Gets or sets the female first names by social class.</summary>
     [JsonPropertyName("female")]
     public Dictionary<string, List<NameComponent>>? Female { get; set; }
 }
 
+/// <summary>
+/// Basic name component with value and rarity weight.
+/// </summary>
 public class NameComponent
 {
+    /// <summary>Gets or sets the value.</summary>
     [JsonPropertyName("value")]
     public string Value { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the rarity weight.</summary>
     [JsonPropertyName("rarityWeight")]
     public int RarityWeight { get; set; }
 }
 
+/// <summary>
+/// Pattern template for generating NPC names.
+/// </summary>
 public class NamePattern
 {
+    /// <summary>Gets or sets the template.</summary>
     [JsonPropertyName("template")]
     public string Template { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets the rarity weight.</summary>
     [JsonPropertyName("rarityWeight")]
     public int RarityWeight { get; set; }
 
+    /// <summary>Gets or sets the social class filter.</summary>
     [JsonPropertyName("socialClass")]
     public List<string>? SocialClass { get; set; }
 
+    /// <summary>Gets or sets the description.</summary>
     [JsonPropertyName("description")]
     public string Description { get; set; } = string.Empty;
 
+    /// <summary>Gets or sets a value indicating whether a title is required.</summary>
     [JsonPropertyName("requiresTitle")]
     public bool? RequiresTitle { get; set; }
 
+    /// <summary>Gets or sets a value indicating whether titles are excluded.</summary>
     [JsonPropertyName("excludeTitles")]
     public bool? ExcludeTitles { get; set; }
 }

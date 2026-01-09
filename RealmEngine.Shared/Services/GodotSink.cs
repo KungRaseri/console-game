@@ -19,12 +19,20 @@ public class GodotSink : ILogEventSink
     /// </summary>
     public static event Action<LogLevel, string>? LogReceived;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GodotSink"/> class.
+    /// </summary>
+    /// <param name="textFormatter">Optional text formatter for log messages.</param>
     public GodotSink(ITextFormatter? textFormatter = null)
     {
         _textFormatter = textFormatter ?? new MessageTemplateTextFormatter(
             "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
     }
 
+    /// <summary>
+    /// Emits a log event to subscribed listeners.
+    /// </summary>
+    /// <param name="logEvent">The log event to emit.</param>
     public void Emit(LogEvent logEvent)
     {
         if (LogReceived == null)
@@ -65,10 +73,16 @@ public class GodotSink : ILogEventSink
 /// </summary>
 public enum LogLevel
 {
+    /// <summary>Trace level (most verbose).</summary>
     Trace,
+    /// <summary>Debug level.</summary>
     Debug,
+    /// <summary>Information level.</summary>
     Info,
+    /// <summary>Warning level.</summary>
     Warning,
+    /// <summary>Error level.</summary>
     Error,
+    /// <summary>Fatal level (most severe).</summary>
     Fatal
 }

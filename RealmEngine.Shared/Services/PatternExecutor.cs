@@ -16,6 +16,9 @@ public class PatternExecutor
 
     private readonly DataReferenceResolver _referenceResolver;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PatternExecutor"/> class.
+    /// </summary>
     public PatternExecutor()
     {
         _referenceResolver = DataReferenceResolver.Instance;

@@ -91,18 +91,33 @@ public class CombatLogEntry
     public required DateTime Timestamp { get; init; }
 }
 
+/// <summary>
+/// Types of combat log entries.
+/// </summary>
 public enum CombatLogType
 {
+    /// <summary>Informational message.</summary>
     Info,
+    /// <summary>Player attack action.</summary>
     PlayerAttack,
+    /// <summary>Enemy attack action.</summary>
     EnemyAttack,
+    /// <summary>Critical hit.</summary>
     Critical,
+    /// <summary>Dodge action.</summary>
     Dodge,
+    /// <summary>Healing action.</summary>
     Heal,
+    /// <summary>Defend action.</summary>
     Defend,
+    /// <summary>Item use action.</summary>
     ItemUse,
+    /// <summary>Ability use action.</summary>
     AbilityUse,
+    /// <summary>Spell cast action.</summary>
     SpellCast,
+    /// <summary>Victory message.</summary>
     Victory,
+    /// <summary>Defeat message.</summary>
     Defeat
 }

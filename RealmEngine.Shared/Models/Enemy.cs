@@ -377,14 +377,22 @@ public class Enemy : ITraitable
 /// </summary>
 public enum EnemyType
 {
-    Common,      // Regular enemies
-    Beast,       // Animals and monsters
-    Undead,      // Zombies, skeletons
-    Demon,       // Hellish creatures
-    Elemental,   // Fire, ice, earth, air
-    Humanoid,    // Bandits, soldiers
-    Dragon,      // Dragons and dragonkin
-    Boss         // Special boss enemies
+    /// <summary>Regular enemies.</summary>
+    Common,
+    /// <summary>Animals and monsters.</summary>
+    Beast,
+    /// <summary>Zombies, skeletons.</summary>
+    Undead,
+    /// <summary>Hellish creatures.</summary>
+    Demon,
+    /// <summary>Fire, ice, earth, air elementals.</summary>
+    Elemental,
+    /// <summary>Bandits, soldiers.</summary>
+    Humanoid,
+    /// <summary>Dragons and dragonkin.</summary>
+    Dragon,
+    /// <summary>Special boss enemies.</summary>
+    Boss
 }
 
 /// <summary>
@@ -392,9 +400,14 @@ public enum EnemyType
 /// </summary>
 public enum EnemyDifficulty
 {
-    Easy,        // 0.5x player level
-    Normal,      // 0.8x player level
-    Hard,        // 1.0x player level
-    Elite,       // 1.2x player level
-    Boss         // 1.5x+ player level
+    /// <summary>Easy difficulty (0.5x player level).</summary>
+    Easy,
+    /// <summary>Normal difficulty (0.8x player level).</summary>
+    Normal,
+    /// <summary>Hard difficulty (1.0x player level).</summary>
+    Hard,
+    /// <summary>Elite difficulty (1.2x player level).</summary>
+    Elite,
+    /// <summary>Boss difficulty (1.5x+ player level).</summary>
+    Boss
 }

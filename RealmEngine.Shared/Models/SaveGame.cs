@@ -7,61 +7,112 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public class SaveGame
 {
-    // === Save Metadata ===
+    /// <summary>Gets or sets the unique identifier.</summary>
     [BsonId]
     public string Id { get; set; } = Guid.NewGuid().ToString();
+    
+    /// <summary>Gets or sets the player name.</summary>
     public string PlayerName { get; set; } = string.Empty;
+    
+    /// <summary>Gets or sets the save date.</summary>
     public DateTime SaveDate { get; set; } = DateTime.Now;
+    
+    /// <summary>Gets or sets the creation date.</summary>
     public DateTime CreationDate { get; set; } = DateTime.Now;
+    
+    /// <summary>Gets or sets the play time in minutes.</summary>
     public int PlayTimeMinutes { get; set; }
+    
+    /// <summary>Gets or sets the game version.</summary>
     public string GameVersion { get; set; } = "1.0.0";
 
-    // === Character Data ===
+    /// <summary>Gets or sets the character data.</summary>
+    /// <summary>Gets or sets the character data.</summary>
     public Character Character { get; set; } = new();
 
-    // === Quest System ===
+    /// <summary>Gets or sets the active quests.</summary>
     public List<Quest> ActiveQuests { get; set; } = new();
+    
+    /// <summary>Gets or sets the completed quests.</summary>
     public List<Quest> CompletedQuests { get; set; } = new();
+    
+    /// <summary>Gets or sets the failed quests.</summary>
     public List<Quest> FailedQuests { get; set; } = new();
-    public List<Quest> AvailableQuests { get; set; } = new(); // Quests offered but not yet accepted
+    
+    /// <summary>Gets or sets the available quests (offered but not yet accepted).</summary>
+    public List<Quest> AvailableQuests { get; set; } = new();
 
     // === World State ===
-    public List<NPC> KnownNPCs { get; set; } = new(); // NPCs the player has met
-    public Dictionary<string, int> NPCRelationships { get; set; } = new(); // NPC ID -> relationship value (-100 to 100)
+    /// <summary>Gets or sets the known NPCs (NPCs the player has met).</summary>
+    public List<NPC> KnownNPCs { get; set; } = new();
+    /// <summary>Gets or sets the NPC relationships (NPC ID -> relationship value from -100 to 100).</summary>
+    public Dictionary<string, int> NPCRelationships { get; set; } = new();
+    /// <summary>Gets or sets the visited locations.</summary>
     public List<string> VisitedLocations { get; set; } = new();
-    public List<string> DiscoveredLocations { get; set; } = new(); // Locations on map but not visited
+    /// <summary>Gets or sets the discovered locations (on map but not visited).</summary>
+    public List<string> DiscoveredLocations { get; set; } = new();
 
-    // === Combat History ===
+    /// <summary>Gets or sets the total enemies defeated.</summary>
     public int TotalEnemiesDefeated { get; set; }
-    public Dictionary<string, int> EnemiesDefeatedByType { get; set; } = new(); // "dragon" -> 5, "beast" -> 12
-    public List<Enemy> LegendaryEnemiesDefeated { get; set; } = new(); // Keep record of legendary kills
+    
+    /// <summary>Gets or sets the enemies defeated by type.</summary>
+    public Dictionary<string, int> EnemiesDefeatedByType { get; set; } = new();
+    
+    /// <summary>Gets or sets the legendary enemies defeated.</summary>
+    public List<Enemy> LegendaryEnemiesDefeated { get; set; } = new();
 
-    // === Statistics ===
+    /// <summary>Gets or sets the total gold earned.</summary>
     public int TotalGoldEarned { get; set; }
+    
+    /// <summary>Gets or sets the total gold spent.</summary>
     public int TotalGoldSpent { get; set; }
+    
+    /// <summary>Gets or sets the quests completed.</summary>
     public int QuestsCompleted { get; set; }
+    
+    /// <summary>Gets or sets the quests failed.</summary>
     public int QuestsFailed { get; set; }
+    
+    /// <summary>Gets or sets the items crafted.</summary>
     public int ItemsCrafted { get; set; }
+    
+    /// <summary>Gets or sets the items sold.</summary>
     public int ItemsSold { get; set; }
+    
+    /// <summary>Gets or sets the death count.</summary>
     public int DeathCount { get; set; }
+    
+    /// <summary>Gets or sets the last death location.</summary>
     public string LastDeathLocation { get; set; } = string.Empty;
+    
+    /// <summary>Gets or sets the last death date.</summary>
     public DateTime? LastDeathDate { get; set; }
 
-    // === Achievements / Flags ===
+    /// <summary>Gets or sets the unlocked achievements.</summary>
     public List<string> UnlockedAchievements { get; set; } = new();
-    public Dictionary<string, bool> GameFlags { get; set; } = new(); // Story flags, events, etc.
+    
+    /// <summary>Gets or sets the game flags (story flags, events, etc.).</summary>
+    public Dictionary<string, bool> GameFlags { get; set; } = new();
 
-    // === Difficulty / Settings ===
-    public string DifficultyLevel { get; set; } = "Normal"; // Easy, Normal, Hard, Expert
-    public bool IronmanMode { get; set; } = false; // No reload, single save file
+    /// <summary>Gets or sets the difficulty level.</summary>
+    public string DifficultyLevel { get; set; } = "Normal";
+    
+    /// <summary>Gets or sets a value indicating whether ironman mode is enabled (no reload, single save file).</summary>
+    public bool IronmanMode { get; set; } = false;
 
-    // New difficulty system fields (Phase 1)
+    /// <summary>Gets or sets a value indicating whether permadeath mode is enabled.</summary>
     public bool PermadeathMode { get; set; } = false;
+    
+    /// <summary>Gets or sets a value indicating whether apocalypse mode is enabled.</summary>
     public bool ApocalypseMode { get; set; } = false;
+    
+    /// <summary>Gets or sets the apocalypse start time.</summary>
     public DateTime? ApocalypseStartTime { get; set; }
+    
+    /// <summary>Gets or sets the apocalypse bonus minutes.</summary>
     public int ApocalypseBonusMinutes { get; set; } = 0;
 
-    // For tracking dropped items on death (Phase 2)
+    /// <summary>Gets or sets the dropped items at locations (for tracking items dropped on death).</summary>
     public Dictionary<string, List<Item>> DroppedItemsAtLocations { get; set; } = new();
 
     /// <summary>

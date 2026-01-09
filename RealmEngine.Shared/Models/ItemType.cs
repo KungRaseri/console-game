@@ -5,28 +5,38 @@ namespace RealmEngine.Shared.Models;
 /// </summary>
 public enum ItemType
 {
+    /// <summary>Consumable item.</summary>
     Consumable,
 
-    // Weapons & Off-hand
+    /// <summary>Weapon item.</summary>
     Weapon,
+    /// <summary>Shield item.</summary>
     Shield,
-    // Orbs, tomes, etc.
+    /// <summary>Off-hand item (orbs, tomes, etc.).</summary>
     OffHand,
 
-    // Armor pieces
+    /// <summary>Helmet armor piece.</summary>
     Helmet,
+    /// <summary>Shoulders armor piece.</summary>
     Shoulders,
+    /// <summary>Chest armor piece.</summary>
     Chest,
+    /// <summary>Bracers armor piece.</summary>
     Bracers,
+    /// <summary>Gloves armor piece.</summary>
     Gloves,
+    /// <summary>Belt armor piece.</summary>
     Belt,
+    /// <summary>Legs armor piece.</summary>
     Legs,
+    /// <summary>Boots armor piece.</summary>
     Boots,
 
-    // Jewelry
+    /// <summary>Necklace jewelry.</summary>
     Necklace,
+    /// <summary>Ring jewelry.</summary>
     Ring,
 
-    // Special
+    /// <summary>Quest item.</summary>
     QuestItem
 }
