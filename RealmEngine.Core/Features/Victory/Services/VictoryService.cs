@@ -4,15 +4,26 @@ using Serilog;
 
 namespace RealmEngine.Core.Features.Victory.Services;
 
+/// <summary>
+/// Service for managing victory state and statistics.
+/// </summary>
 public class VictoryService
 {
     private readonly ISaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VictoryService"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
     public VictoryService(ISaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
 
+    /// <summary>
+    /// Calculates victory statistics from the current save game.
+    /// </summary>
+    /// <returns>Victory statistics if a save game exists; otherwise, null.</returns>
     public virtual async Task<VictoryStatistics?> CalculateVictoryStatisticsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();
@@ -37,6 +48,10 @@ public class VictoryService
         return await Task.FromResult(statistics);
     }
 
+    /// <summary>
+    /// Marks the current game as completed.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public virtual async Task MarkGameCompleteAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();

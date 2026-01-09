@@ -16,6 +16,8 @@ public class ShopEconomyService
     /// <summary>
     /// Get or create shop inventory for an NPC.
     /// </summary>
+    /// <param name="npc">The NPC merchant.</param>
+    /// <returns>The shop inventory.</returns>
     public ShopInventory GetOrCreateInventory(NPC npc)
     {
         if (!npc.Traits.ContainsKey("isMerchant") || !npc.Traits["isMerchant"].AsBool())
@@ -40,6 +42,9 @@ public class ShopEconomyService
     /// <summary>
     /// Calculate the sell price for an item (merchant sells to player).
     /// </summary>
+    /// <param name="item">The item.</param>
+    /// <param name="merchant">The merchant NPC.</param>
+    /// <returns>The sell price.</returns>
     public int CalculateSellPrice(Item item, NPC merchant)
     {
         var basePrice = item.Price;
@@ -62,6 +67,9 @@ public class ShopEconomyService
     /// Calculate the buy price for an item (merchant buys from player).
     /// Default: Player sells at 40% of merchant's sell price.
     /// </summary>
+    /// <param name="item">The item.</param>
+    /// <param name="merchant">The merchant NPC.</param>
+    /// <returns>The buy price.</returns>
     public int CalculateBuyPrice(Item item, NPC merchant)
     {
         var sellPrice = CalculateSellPrice(item, merchant);
@@ -88,6 +96,9 @@ public class ShopEconomyService
     /// <summary>
     /// Calculate resell price (merchant resells player item at 80%).
     /// </summary>
+    /// <param name="item">The item.</param>
+    /// <param name="merchant">The merchant NPC.</param>
+    /// <returns>The resell price.</returns>
     public int CalculateResellPrice(Item item, NPC merchant)
     {
         var originalPrice = CalculateSellPrice(item, merchant);
@@ -97,6 +108,10 @@ public class ShopEconomyService
     /// <summary>
     /// Buy item from player (player sells to merchant).
     /// </summary>
+    /// <param name="merchant">The merchant NPC.</param>
+    /// <param name="item">The item to buy.</param>
+    /// <param name="pricePaid">The price paid to player.</param>
+    /// <returns>True if purchase was successful.</returns>
     public bool BuyFromPlayer(NPC merchant, Item item, out int pricePaid)
     {
         pricePaid = 0;
@@ -145,6 +160,10 @@ public class ShopEconomyService
     /// <summary>
     /// Sell item to player (player buys from merchant).
     /// </summary>
+    /// <param name="merchant">The merchant NPC.</param>
+    /// <param name="item">The item to sell.</param>
+    /// <param name="priceCharged">The price charged to player.</param>
+    /// <returns>True if sale was successful.</returns>
     public bool SellToPlayer(NPC merchant, Item item, out int priceCharged)
     {
         priceCharged = CalculateSellPrice(item, merchant);

@@ -9,11 +9,21 @@ public class GetMostRecentSaveHandler : IRequestHandler<GetMostRecentSaveQuery, 
 {
     private readonly SaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetMostRecentSaveHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
     public GetMostRecentSaveHandler(SaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
 
+    /// <summary>
+    /// Handles the GetMostRecentSaveQuery and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<GetMostRecentSaveResult> Handle(GetMostRecentSaveQuery request, CancellationToken cancellationToken)
     {
         var saveGame = _saveGameService.GetMostRecentSave();

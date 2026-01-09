@@ -23,6 +23,8 @@ public class PassiveBonusCalculator : IPassiveBonusCalculator
     /// <summary>
     /// Calculate total physical damage bonus from passive abilities.
     /// </summary>
+    /// <param name="character">The character.</param>
+    /// <returns>The physical damage bonus.</returns>
     public int GetPhysicalDamageBonus(Character character)
     {
         int bonus = 0;
@@ -54,6 +56,8 @@ public class PassiveBonusCalculator : IPassiveBonusCalculator
     /// <summary>
     /// Calculate total magic damage bonus from passive abilities.
     /// </summary>
+    /// <param name="character">The character.</param>
+    /// <returns>The magic damage bonus.</returns>
     public int GetMagicDamageBonus(Character character)
     {
         int bonus = 0;
@@ -114,6 +118,8 @@ public class PassiveBonusCalculator : IPassiveBonusCalculator
     /// <summary>
     /// Calculate total dodge chance bonus from passive abilities.
     /// </summary>
+    /// <param name="character">The character.</param>
+    /// <returns>The dodge chance bonus percentage.</returns>
     public double GetDodgeChanceBonus(Character character)
     {
         double bonus = 0.0;
@@ -144,6 +150,8 @@ public class PassiveBonusCalculator : IPassiveBonusCalculator
     /// <summary>
     /// Calculate total defense bonus from passive abilities.
     /// </summary>
+    /// <param name="character">The character.</param>
+    /// <returns>The defense bonus.</returns>
     public int GetDefenseBonus(Character character)
     {
         int bonus = 0;

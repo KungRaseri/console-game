@@ -15,5 +15,6 @@ public record GetAllSavesQuery : IRequest<GetAllSavesResult>
 /// </summary>
 public record GetAllSavesResult
 {
+    /// <summary>Gets the list of all saved games.</summary>
     public required List<SaveGame> SaveGames { get; init; }
 }

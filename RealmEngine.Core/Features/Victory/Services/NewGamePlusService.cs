@@ -4,15 +4,26 @@ using Serilog;
 
 namespace RealmEngine.Core.Features.Victory.Services;
 
+/// <summary>
+/// Service for managing New Game Plus mode.
+/// </summary>
 public class NewGamePlusService
 {
     private readonly ISaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NewGamePlusService"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
     public NewGamePlusService(ISaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
 
+    /// <summary>
+    /// Starts a new game plus session with bonuses from completed save.
+    /// </summary>
+    /// <returns>A tuple indicating success and the new save game if successful.</returns>
     public virtual async Task<(bool Success, SaveGame? NewSave)> StartNewGamePlusAsync()
     {
         var completedSave = _saveGameService.GetCurrentSave();

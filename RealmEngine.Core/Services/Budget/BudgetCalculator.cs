@@ -12,6 +12,11 @@ public class BudgetCalculator
     private readonly BudgetConfig _config;
     private readonly ILogger<BudgetCalculator> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BudgetCalculator"/> class.
+    /// </summary>
+    /// <param name="config">The budget configuration.</param>
+    /// <param name="logger">The logger.</param>
     public BudgetCalculator(BudgetConfig config, ILogger<BudgetCalculator> logger)
     {
         _config = config ?? throw new ArgumentNullException(nameof(config));

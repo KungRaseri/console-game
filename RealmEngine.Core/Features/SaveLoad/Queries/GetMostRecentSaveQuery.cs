@@ -15,5 +15,6 @@ public record GetMostRecentSaveQuery : IRequest<GetMostRecentSaveResult>
 /// </summary>
 public record GetMostRecentSaveResult
 {
+    /// <summary>Gets the most recent save game.</summary>
     public SaveGame? SaveGame { get; init; }
 }

@@ -348,8 +348,11 @@ public class SpellCastingService
 /// </summary>
 public class SpellLearningResult
 {
+    /// <summary>Gets or sets a value indicating whether the learning was successful.</summary>
     public bool Success { get; set; }
+    /// <summary>Gets or sets the result message.</summary>
     public required string Message { get; set; }
+    /// <summary>Gets or sets the spell that was learned.</summary>
     public Spell? SpellLearned { get; set; }
 }
 
@@ -358,11 +361,17 @@ public class SpellLearningResult
 /// </summary>
 public class SpellCastResult
 {
+    /// <summary>Gets or sets a value indicating whether the cast was successful.</summary>
     public bool Success { get; set; }
+    /// <summary>Gets or sets the result message.</summary>
     public required string Message { get; set; }
+    /// <summary>Gets or sets the mana cost paid.</summary>
     public int ManaCostPaid { get; set; }
+    /// <summary>Gets or sets the effect value.</summary>
     public string EffectValue { get; set; } = string.Empty;
+    /// <summary>Gets or sets a value indicating whether the spell fizzled.</summary>
     public bool WasFizzle { get; set; }
+    /// <summary>Gets or sets the spell that was cast.</summary>
     public Spell? SpellCast { get; set; }
 }
 

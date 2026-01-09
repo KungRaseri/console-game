@@ -10,6 +10,10 @@ public class QuestInitializationService
 {
     private readonly MainQuestService _mainQuestService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QuestInitializationService"/> class.
+    /// </summary>
+    /// <param name="mainQuestService">The main quest service.</param>
     public QuestInitializationService(MainQuestService mainQuestService)
     {
         _mainQuestService = mainQuestService;

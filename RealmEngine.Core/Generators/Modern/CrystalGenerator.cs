@@ -8,18 +8,31 @@ using System.Linq;
 
 namespace RealmEngine.Core.Generators.Modern;
 
+/// <summary>
+/// Generator for creating crystals (socketable items).
+/// </summary>
 public class CrystalGenerator
 {
     private readonly GameDataCache _dataCache;
     private readonly ILogger<CrystalGenerator> _logger;
     private readonly Random _random = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CrystalGenerator"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="logger">The logger.</param>
     public CrystalGenerator(GameDataCache dataCache, ILogger<CrystalGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Generates a crystal with optional category filter.
+    /// </summary>
+    /// <param name="category">The category filter.</param>
+    /// <returns>The generated crystal.</returns>
     public Crystal? Generate(string? category = null)
     {
         try
@@ -48,6 +61,12 @@ public class CrystalGenerator
         catch (Exception ex) { _logger.LogError(ex, "Error generating crystal"); return null; }
     }
 
+    /// <summary>
+    /// Generates multiple crystals with optional category filter.
+    /// </summary>
+    /// <param name="count">Number of crystals to generate.</param>
+    /// <param name="category">Optional category filter.</param>
+    /// <returns>List of generated crystals.</returns>
     public List<Crystal> GenerateMany(int count, string? category = null)
     {
         var crystals = new List<Crystal>();

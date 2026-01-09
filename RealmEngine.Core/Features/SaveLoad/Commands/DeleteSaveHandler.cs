@@ -10,11 +10,21 @@ public class DeleteSaveHandler : IRequestHandler<DeleteSaveCommand, DeleteSaveRe
 {
     private readonly SaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DeleteSaveHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
     public DeleteSaveHandler(SaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
 
+    /// <summary>
+    /// Handles the DeleteSaveCommand and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<DeleteSaveResult> Handle(DeleteSaveCommand request, CancellationToken cancellationToken)
     {
         try

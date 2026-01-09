@@ -11,6 +11,10 @@ public class ReactiveAbilityService
 {
     private readonly AbilityCatalogService? _abilityCatalogService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReactiveAbilityService"/> class.
+    /// </summary>
+    /// <param name="abilityCatalogService">The ability catalog service.</param>
     public ReactiveAbilityService(AbilityCatalogService? abilityCatalogService = null)
     {
         _abilityCatalogService = abilityCatalogService;

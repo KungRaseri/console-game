@@ -14,6 +14,12 @@ public class BuyFromShopHandler : IRequestHandler<BuyFromShopCommand, BuyFromSho
     private readonly ISaveGameService _saveGameService;
     private readonly ILogger<BuyFromShopHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BuyFromShopHandler"/> class.
+    /// </summary>
+    /// <param name="shopService">The shop economy service.</param>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="logger">The logger.</param>
     public BuyFromShopHandler(
         ShopEconomyService shopService,
         ISaveGameService saveGameService,
@@ -24,6 +30,12 @@ public class BuyFromShopHandler : IRequestHandler<BuyFromShopCommand, BuyFromSho
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Handles the BuyFromShopCommand and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<BuyFromShopResult> Handle(BuyFromShopCommand request, CancellationToken cancellationToken)
     {
         try

@@ -19,6 +19,11 @@ public class GemGenerator
     private readonly ILogger<GemGenerator> _logger;
     private readonly Random _random = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GemGenerator"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="logger">The logger.</param>
     public GemGenerator(GameDataCache dataCache, ILogger<GemGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

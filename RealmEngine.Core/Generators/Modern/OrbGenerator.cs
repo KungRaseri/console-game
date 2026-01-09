@@ -8,18 +8,31 @@ using System.Linq;
 
 namespace RealmEngine.Core.Generators.Modern;
 
+/// <summary>
+/// Generator for creating orbs (socketable items).
+/// </summary>
 public class OrbGenerator
 {
     private readonly GameDataCache _dataCache;
     private readonly ILogger<OrbGenerator> _logger;
     private readonly Random _random = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OrbGenerator"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="logger">The logger.</param>
     public OrbGenerator(GameDataCache dataCache, ILogger<OrbGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Generates an orb with optional category filter.
+    /// </summary>
+    /// <param name="category">The category filter.</param>
+    /// <returns>The generated orb.</returns>
     public Orb? Generate(string? category = null)
     {
         try
@@ -48,6 +61,12 @@ public class OrbGenerator
         catch (Exception ex) { _logger.LogError(ex, "Error generating orb"); return null; }
     }
 
+    /// <summary>
+    /// Generates multiple orbs with optional category filter.
+    /// </summary>
+    /// <param name="count">Number of orbs to generate.</param>
+    /// <param name="category">Optional category filter.</param>
+    /// <returns>List of generated orbs.</returns>
     public List<Orb> GenerateMany(int count, string? category = null)
     {
         var orbs = new List<Orb>();

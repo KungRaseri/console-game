@@ -22,6 +22,8 @@ public class LevelUpService
     /// <summary>
     /// Process all pending level-ups for a character.
     /// </summary>
+    /// <param name="character">The character to process level-ups for.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task ProcessPendingLevelUpsAsync(Character character)
     {
         var unprocessedLevelUps = character.PendingLevelUps

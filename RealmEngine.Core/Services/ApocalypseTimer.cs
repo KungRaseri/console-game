@@ -21,6 +21,10 @@ public class ApocalypseTimer : IApocalypseTimer
     private bool _hasShownThirtyMinWarning = false;
     private bool _hasShownTenMinWarning = false;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApocalypseTimer"/> class.
+    /// </summary>
+    /// <param name="console">The game UI console.</param>
     public ApocalypseTimer(IGameUI console)
     {
         _console = console;
@@ -43,6 +47,8 @@ public class ApocalypseTimer : IApocalypseTimer
     /// <summary>
     /// Start timer from a saved state (for loading saves).
     /// </summary>
+    /// <param name="startTime">The saved start time.</param>
+    /// <param name="bonusMinutes">The bonus minutes earned.</param>
     public void StartFromSave(DateTime startTime, int bonusMinutes)
     {
         _startTime = startTime;
@@ -84,6 +90,7 @@ public class ApocalypseTimer : IApocalypseTimer
     /// <summary>
     /// Get remaining minutes on the timer.
     /// </summary>
+    /// <returns>The remaining minutes.</returns>
     public int GetRemainingMinutes()
     {
         if (_isPaused && _pauseStartTime.HasValue)
@@ -100,6 +107,7 @@ public class ApocalypseTimer : IApocalypseTimer
     /// <summary>
     /// Check if timer has expired.
     /// </summary>
+    /// <returns>True if timer has expired.</returns>
     public bool IsExpired()
     {
         return GetRemainingMinutes() <= 0;
@@ -108,6 +116,8 @@ public class ApocalypseTimer : IApocalypseTimer
     /// <summary>
     /// Add bonus minutes to the timer.
     /// </summary>
+    /// <param name="minutes">The minutes to add.</param>
+    /// <param name="reason">The reason for the bonus time.</param>
     public void AddBonusTime(int minutes, string reason = "Quest completed")
     {
         _bonusMinutes += minutes;
@@ -130,6 +140,7 @@ public class ApocalypseTimer : IApocalypseTimer
     /// <summary>
     /// Get formatted time remaining string.
     /// </summary>
+    /// <returns>The formatted time string.</returns>
     public string GetFormattedTimeRemaining()
     {
         var remaining = GetRemainingMinutes();
@@ -142,6 +153,7 @@ public class ApocalypseTimer : IApocalypseTimer
     /// <summary>
     /// Get colored time display for UI.
     /// </summary>
+    /// <returns>The colored time display string.</returns>
     public string GetColoredTimeDisplay()
     {
         var remaining = GetRemainingMinutes();
@@ -202,6 +214,7 @@ public class ApocalypseTimer : IApocalypseTimer
     /// <summary>
     /// Get total time limit with bonuses.
     /// </summary>
+    /// <returns>The total time limit in minutes.</returns>
     public int GetTotalTimeLimit()
     {
         return _totalMinutes + _bonusMinutes;
@@ -210,6 +223,7 @@ public class ApocalypseTimer : IApocalypseTimer
     /// <summary>
     /// Get time elapsed.
     /// </summary>
+    /// <returns>The elapsed time in minutes.</returns>
     public int GetElapsedMinutes()
     {
         var totalElapsed = (DateTime.Now - _startTime) - _pausedDuration;
@@ -219,6 +233,7 @@ public class ApocalypseTimer : IApocalypseTimer
     /// <summary>
     /// Get bonus minutes awarded so far (for save persistence).
     /// </summary>
+    /// <returns>The bonus minutes.</returns>
     public int GetBonusMinutes()
     {
         return _bonusMinutes;

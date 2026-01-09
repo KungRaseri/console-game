@@ -271,10 +271,15 @@ public class SkillProgressionService
 /// </summary>
 public class SkillRankUpResult
 {
+    /// <summary>Gets or sets the skill identifier.</summary>
     public required string SkillId { get; set; }
+    /// <summary>Gets or sets the new rank after XP award.</summary>
     public int NewRank { get; set; }
+    /// <summary>Gets or sets the number of ranks gained.</summary>
     public int RanksGained { get; set; }
+    /// <summary>Gets or sets the list of rank-up notifications.</summary>
     public List<string> Notifications { get; set; } = new();
+    /// <summary>Gets a value indicating whether a rank-up occurred.</summary>
     public bool DidRankUp => RanksGained > 0;
 }
 
@@ -283,13 +288,22 @@ public class SkillRankUpResult
 /// </summary>
 public class SkillProgressDisplay
 {
+    /// <summary>Gets or sets the skill identifier.</summary>
     public required string SkillId { get; set; }
+    /// <summary>Gets or sets the skill name.</summary>
     public required string Name { get; set; }
+    /// <summary>Gets or sets the skill category.</summary>
     public required string Category { get; set; }
+    /// <summary>Gets or sets the current rank.</summary>
     public int CurrentRank { get; set; }
+    /// <summary>Gets or sets the current XP.</summary>
     public int CurrentXP { get; set; }
+    /// <summary>Gets or sets the XP needed to reach next rank.</summary>
     public int XPToNextRank { get; set; }
+    /// <summary>Gets or sets the progress percentage.</summary>
     public double ProgressPercent { get; set; }
+    /// <summary>Gets or sets the current effect description.</summary>
     public required string CurrentEffect { get; set; }
+    /// <summary>Gets or sets the next rank effect description.</summary>
     public required string NextRankEffect { get; set; }
 }

@@ -18,6 +18,11 @@ public class AbilityCatalogService
     private readonly Dictionary<string, List<string>> _abilitiesByClass = new();
     private bool _initialized;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AbilityCatalogService"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="logger">Optional logger instance.</param>
     public AbilityCatalogService(GameDataCache dataCache, ILogger<AbilityCatalogService>? logger = null)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

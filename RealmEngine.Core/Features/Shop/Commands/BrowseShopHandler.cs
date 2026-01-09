@@ -14,6 +14,12 @@ public class BrowseShopHandler : IRequestHandler<BrowseShopCommand, BrowseShopRe
     private readonly ISaveGameService _saveGameService;
     private readonly ILogger<BrowseShopHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BrowseShopHandler"/> class.
+    /// </summary>
+    /// <param name="shopService">The shop economy service.</param>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="logger">The logger.</param>
     public BrowseShopHandler(
         ShopEconomyService shopService,
         ISaveGameService saveGameService,
@@ -24,6 +30,12 @@ public class BrowseShopHandler : IRequestHandler<BrowseShopCommand, BrowseShopRe
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Handles the BrowseShopCommand and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<BrowseShopResult> Handle(BrowseShopCommand request, CancellationToken cancellationToken)
     {
         try

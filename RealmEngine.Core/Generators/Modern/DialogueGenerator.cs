@@ -15,6 +15,12 @@ public class DialogueGenerator
     private readonly Random _random;
     private readonly ILogger<DialogueGenerator> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DialogueGenerator"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="referenceResolver">The reference resolver service.</param>
+    /// <param name="logger">The logger.</param>
     public DialogueGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<DialogueGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

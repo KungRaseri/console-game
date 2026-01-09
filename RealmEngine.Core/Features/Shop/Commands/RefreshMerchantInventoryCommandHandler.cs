@@ -15,6 +15,12 @@ public class RefreshMerchantInventoryCommandHandler : IRequestHandler<RefreshMer
     private readonly ShopEconomyService _shopService;
     private readonly ILogger<RefreshMerchantInventoryCommandHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RefreshMerchantInventoryCommandHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="shopService">The shop economy service.</param>
+    /// <param name="logger">The logger.</param>
     public RefreshMerchantInventoryCommandHandler(
         ISaveGameService saveGameService,
         ShopEconomyService shopService,
@@ -25,6 +31,12 @@ public class RefreshMerchantInventoryCommandHandler : IRequestHandler<RefreshMer
         _logger = logger;
     }
 
+    /// <summary>
+    /// Handles the RefreshMerchantInventoryCommand and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<RefreshMerchantInventoryResult> Handle(RefreshMerchantInventoryCommand request, CancellationToken cancellationToken)
     {
         try

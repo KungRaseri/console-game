@@ -10,11 +10,21 @@ public class LoadGameHandler : IRequestHandler<LoadGameCommand, LoadGameResult>
 {
     private readonly SaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LoadGameHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
     public LoadGameHandler(SaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
 
+    /// <summary>
+    /// Handles the LoadGameCommand and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<LoadGameResult> Handle(LoadGameCommand request, CancellationToken cancellationToken)
     {
         try

@@ -8,18 +8,31 @@ using System.Linq;
 
 namespace RealmEngine.Core.Generators.Modern;
 
+/// <summary>
+/// Generator for creating runes (socketable items).
+/// </summary>
 public class RuneGenerator
 {
     private readonly GameDataCache _dataCache;
     private readonly ILogger<RuneGenerator> _logger;
     private readonly Random _random = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RuneGenerator"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="logger">The logger.</param>
     public RuneGenerator(GameDataCache dataCache, ILogger<RuneGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Generates a rune with optional category filter.
+    /// </summary>
+    /// <param name="category">The category filter.</param>
+    /// <returns>The generated rune.</returns>
     public Rune? Generate(string? category = null)
     {
         try
@@ -48,6 +61,12 @@ public class RuneGenerator
         catch (Exception ex) { _logger.LogError(ex, "Error generating rune"); return null; }
     }
 
+    /// <summary>
+    /// Generates multiple runes with optional category filter.
+    /// </summary>
+    /// <param name="count">Number of runes to generate.</param>
+    /// <param name="category">Optional category filter.</param>
+    /// <returns>List of generated runes.</returns>
     public List<Rune> GenerateMany(int count, string? category = null)
     {
         var runes = new List<Rune>();

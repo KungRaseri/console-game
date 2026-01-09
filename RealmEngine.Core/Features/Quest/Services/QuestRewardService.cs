@@ -11,6 +11,10 @@ public class QuestRewardService
 {
     private readonly SaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QuestRewardService"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
     public QuestRewardService(SaveGameService saveGameService)
     {
         _saveGameService = saveGameService;

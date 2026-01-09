@@ -7,6 +7,7 @@ namespace RealmEngine.Core.Features.SaveLoad.Commands;
 /// </summary>
 public record DeleteSaveCommand : IRequest<DeleteSaveResult>
 {
+    /// <summary>Gets the save ID.</summary>
     public required string SaveId { get; init; }
 }
 
@@ -15,6 +16,8 @@ public record DeleteSaveCommand : IRequest<DeleteSaveResult>
 /// </summary>
 public record DeleteSaveResult
 {
+    /// <summary>Gets a value indicating whether the operation was successful.</summary>
     public required bool Success { get; init; }
+    /// <summary>Gets the result message.</summary>
     public required string Message { get; init; }
 }

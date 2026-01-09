@@ -4,12 +4,21 @@ using Serilog;
 using RealmEngine.Shared.Models;
 namespace RealmEngine.Core.Features.Quests.Services;
 
+/// <summary>
+/// Service for managing quest lifecycle including starting, completing, and tracking quests.
+/// </summary>
 public class QuestService
 {
     private readonly ISaveGameService _saveGameService;
     private readonly MainQuestService _mainQuestService;
     private readonly QuestInitializationService _initService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QuestService"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="mainQuestService">The main quest service.</param>
+    /// <param name="initService">The quest initialization service.</param>
     public QuestService(
         ISaveGameService saveGameService, 
         MainQuestService mainQuestService,
@@ -20,6 +29,11 @@ public class QuestService
         _initService = initService;
     }
 
+    /// <summary>
+    /// Starts a quest by adding it to the active quests list.
+    /// </summary>
+    /// <param name="questId">The quest identifier.</param>
+    /// <returns>A tuple containing success status, quest object, and error message if any.</returns>
     public virtual async Task<(bool Success, Quest? Quest, string ErrorMessage)> StartQuestAsync(string questId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
@@ -57,6 +71,11 @@ public class QuestService
         return await Task.FromResult((true, quest, string.Empty));
     }
 
+    /// <summary>
+    /// Completes a quest after verifying all objectives are met.
+    /// </summary>
+    /// <param name="questId">The quest identifier.</param>
+    /// <returns>A tuple containing success status, completed quest object, and error message if any.</returns>
     public virtual async Task<(bool Success, Quest? Quest, string ErrorMessage)> CompleteQuestAsync(string questId)
     {
         var saveGame = _saveGameService.GetCurrentSave();
@@ -92,6 +111,10 @@ public class QuestService
         return await Task.FromResult((true, quest, string.Empty));
     }
 
+    /// <summary>
+    /// Gets all active quests from the current save game.
+    /// </summary>
+    /// <returns>A list of active quests.</returns>
     public virtual async Task<List<Quest>> GetActiveQuestsAsync()
     {
         var saveGame = _saveGameService.GetCurrentSave();

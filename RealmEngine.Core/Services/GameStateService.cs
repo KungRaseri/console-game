@@ -21,6 +21,11 @@ public class GameStateService
     // Protected parameterless constructor for mocking
     protected GameStateService() { _saveGameService = null!; _logger = null!; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameStateService"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="logger">The logger.</param>
     public GameStateService(SaveGameService saveGameService, ILogger<GameStateService> logger)
     {
         _saveGameService = saveGameService;
@@ -54,6 +59,7 @@ public class GameStateService
     /// <summary>
     /// Update the current location and track it in the save game.
     /// </summary>
+    /// <param name="location">The new location.</param>
     public virtual void UpdateLocation(string location)
     {
         CurrentLocation = location;
@@ -69,6 +75,7 @@ public class GameStateService
     /// <summary>
     /// Record a player death in the current save.
     /// </summary>
+    /// <param name="killedBy">What killed the player.</param>
     public void RecordDeath(string killedBy)
     {
         _saveGameService.RecordDeath(CurrentLocation, killedBy);

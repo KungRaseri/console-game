@@ -18,6 +18,12 @@ public class EnchantmentGenerator
     private readonly ILogger<EnchantmentGenerator> _logger;
     private readonly NameComposer _nameComposer;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EnchantmentGenerator"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="referenceResolver">The reference resolver service.</param>
+    /// <param name="logger">The logger.</param>
     public EnchantmentGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<EnchantmentGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

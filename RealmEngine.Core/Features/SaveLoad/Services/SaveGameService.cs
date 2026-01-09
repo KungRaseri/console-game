@@ -17,6 +17,11 @@ public class SaveGameService : ISaveGameService, IDisposable
     private DateTime _gameStartTime;
     private SaveGame? _currentSave;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SaveGameService"/> class.
+    /// </summary>
+    /// <param name="repository">The save game repository.</param>
+    /// <param name="apocalypseTimer">The apocalypse timer.</param>
     public SaveGameService(ISaveGameRepository repository, IApocalypseTimer apocalypseTimer)
     {
         _repository = repository;
@@ -614,6 +619,9 @@ public class SaveGameService : ISaveGameService, IDisposable
         _gameStartTime = DateTime.Now.AddMinutes(-saveGame.PlayTimeMinutes);
     }
 
+    /// <summary>
+    /// Disposes of managed resources.
+    /// </summary>
     public void Dispose()
     {
         _repository?.Dispose();

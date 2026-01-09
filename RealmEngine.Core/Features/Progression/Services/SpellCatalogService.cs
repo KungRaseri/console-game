@@ -18,6 +18,11 @@ public class SpellCatalogService
     private readonly Dictionary<MagicalTradition, List<string>> _spellsByTradition = new();
     private bool _initialized;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SpellCatalogService"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="logger">The logger.</param>
     public SpellCatalogService(GameDataCache dataCache, ILogger<SpellCatalogService>? logger = null)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

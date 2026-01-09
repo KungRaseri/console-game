@@ -25,6 +25,12 @@ public class GeneratorRegistry
     private DialogueGenerator? _dialogueGenerator;
     private EnchantmentGenerator? _enchantmentGenerator;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GeneratorRegistry"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="referenceResolver">The reference resolver service.</param>
+    /// <param name="loggerFactory">The logger factory.</param>
     public GeneratorRegistry(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILoggerFactory loggerFactory)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

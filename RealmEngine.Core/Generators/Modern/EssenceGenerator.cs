@@ -18,12 +18,22 @@ public class EssenceGenerator
     private readonly ILogger<EssenceGenerator> _logger;
     private readonly Random _random = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EssenceGenerator"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="logger">The logger.</param>
     public EssenceGenerator(GameDataCache dataCache, ILogger<EssenceGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Generates an essence with optional category filter.
+    /// </summary>
+    /// <param name="category">The category filter.</param>
+    /// <returns>The generated essence.</returns>
     public Essence? Generate(string? category = null)
     {
         try

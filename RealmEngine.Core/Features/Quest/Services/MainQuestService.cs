@@ -8,17 +8,27 @@ public class MainQuestService
 {
     private readonly List<Quest> _allQuests;
 
-    // Protected parameterless constructor for mocking
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainQuestService"/> class for mocking.
+    /// </summary>
+    /// <param name="initForMocking">Whether to initialize for mocking purposes.</param>
     protected MainQuestService(bool initForMocking)
     {
         _allQuests = new List<Quest>();
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainQuestService"/> class.
+    /// </summary>
     public MainQuestService()
     {
         _allQuests = InitializeQuestDatabase();
     }
 
+    /// <summary>
+    /// Gets all main story quests in order.
+    /// </summary>
+    /// <returns>A list of main quests.</returns>
     public virtual async Task<List<Quest>> GetMainQuestChainAsync()
     {
         return await Task.FromResult(
@@ -28,6 +38,11 @@ public class MainQuestService
         );
     }
 
+    /// <summary>
+    /// Gets a quest by its identifier.
+    /// </summary>
+    /// <param name="questId">The quest identifier.</param>
+    /// <returns>The quest if found; otherwise, null.</returns>
     public virtual async Task<Quest?> GetQuestByIdAsync(string questId)
     {
         return await Task.FromResult(_allQuests.FirstOrDefault(q => q.Id == questId));

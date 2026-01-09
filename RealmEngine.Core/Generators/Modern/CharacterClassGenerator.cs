@@ -16,6 +16,12 @@ public class CharacterClassGenerator
     private readonly ILogger<CharacterClassGenerator> _logger;
     private ClassCatalogData? _classCatalog;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CharacterClassGenerator"/> class.
+    /// </summary>
+    /// <param name="dataCache">The game data cache.</param>
+    /// <param name="referenceResolver">The reference resolver service.</param>
+    /// <param name="logger">The logger.</param>
     public CharacterClassGenerator(GameDataCache dataCache, ReferenceResolverService referenceResolver, ILogger<CharacterClassGenerator> logger)
     {
         _dataCache = dataCache ?? throw new ArgumentNullException(nameof(dataCache));

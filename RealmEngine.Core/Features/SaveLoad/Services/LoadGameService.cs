@@ -14,6 +14,12 @@ public class LoadGameService
     private readonly IApocalypseTimer _apocalypseTimer;
     private readonly IGameUI _console;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LoadGameService"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="apocalypseTimer">The apocalypse timer.</param>
+    /// <param name="console">The game UI console.</param>
     public LoadGameService(SaveGameService saveGameService, IApocalypseTimer apocalypseTimer, IGameUI console)
     {
         _saveGameService = saveGameService;

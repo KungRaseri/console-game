@@ -14,6 +14,12 @@ public class SellToShopHandler : IRequestHandler<SellToShopCommand, SellToShopRe
     private readonly ISaveGameService _saveGameService;
     private readonly ILogger<SellToShopHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SellToShopHandler"/> class.
+    /// </summary>
+    /// <param name="shopService">The shop economy service.</param>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="logger">The logger.</param>
     public SellToShopHandler(
         ShopEconomyService shopService,
         ISaveGameService saveGameService,
@@ -24,6 +30,12 @@ public class SellToShopHandler : IRequestHandler<SellToShopCommand, SellToShopRe
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>
+    /// Handles the SellToShopCommand and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<SellToShopResult> Handle(SellToShopCommand request, CancellationToken cancellationToken)
     {
         try

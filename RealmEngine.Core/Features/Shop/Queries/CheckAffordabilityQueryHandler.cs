@@ -15,6 +15,12 @@ public class CheckAffordabilityQueryHandler : IRequestHandler<CheckAffordability
     private readonly ShopEconomyService _shopService;
     private readonly ILogger<CheckAffordabilityQueryHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CheckAffordabilityQueryHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="shopService">The shop economy service.</param>
+    /// <param name="logger">The logger.</param>
     public CheckAffordabilityQueryHandler(
         ISaveGameService saveGameService,
         ShopEconomyService shopService,
@@ -25,6 +31,12 @@ public class CheckAffordabilityQueryHandler : IRequestHandler<CheckAffordability
         _logger = logger;
     }
 
+    /// <summary>
+    /// Handles the CheckAffordabilityQuery and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<CheckAffordabilityResult> Handle(CheckAffordabilityQuery request, CancellationToken cancellationToken)
     {
         try

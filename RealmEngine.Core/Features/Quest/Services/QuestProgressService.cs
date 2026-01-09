@@ -2,15 +2,29 @@ using RealmEngine.Core.Features.SaveLoad;
 using Serilog;
 namespace RealmEngine.Core.Features.Quests.Services;
 
+/// <summary>
+/// Service for tracking and updating quest objective progress.
+/// </summary>
 public class QuestProgressService
 {
     private readonly SaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="QuestProgressService"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
     public QuestProgressService(SaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
 
+    /// <summary>
+    /// Updates progress for a specific quest objective.
+    /// </summary>
+    /// <param name="questId">The quest identifier.</param>
+    /// <param name="objectiveId">The objective identifier.</param>
+    /// <param name="amount">The amount to increment progress by.</param>
+    /// <returns>A tuple indicating success, objective completion status, and overall quest completion status.</returns>
     public virtual async Task<(bool Success, bool ObjectiveCompleted, bool QuestCompleted)> UpdateProgressAsync(
         string questId, string objectiveId, int amount)
     {

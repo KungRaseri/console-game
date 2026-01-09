@@ -15,6 +15,12 @@ public class GetMerchantInfoQueryHandler : IRequestHandler<GetMerchantInfoQuery,
     private readonly ShopEconomyService _shopService;
     private readonly ILogger<GetMerchantInfoQueryHandler> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetMerchantInfoQueryHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
+    /// <param name="shopService">The shop economy service.</param>
+    /// <param name="logger">The logger.</param>
     public GetMerchantInfoQueryHandler(
         ISaveGameService saveGameService,
         ShopEconomyService shopService,
@@ -25,6 +31,12 @@ public class GetMerchantInfoQueryHandler : IRequestHandler<GetMerchantInfoQuery,
         _logger = logger;
     }
 
+    /// <summary>
+    /// Handles the GetMerchantInfoQuery and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<GetMerchantInfoResult> Handle(GetMerchantInfoQuery request, CancellationToken cancellationToken)
     {
         try

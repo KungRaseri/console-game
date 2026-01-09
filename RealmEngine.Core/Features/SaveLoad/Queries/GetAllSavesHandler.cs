@@ -9,11 +9,21 @@ public class GetAllSavesHandler : IRequestHandler<GetAllSavesQuery, GetAllSavesR
 {
     private readonly SaveGameService _saveGameService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GetAllSavesHandler"/> class.
+    /// </summary>
+    /// <param name="saveGameService">The save game service.</param>
     public GetAllSavesHandler(SaveGameService saveGameService)
     {
         _saveGameService = saveGameService;
     }
 
+    /// <summary>
+    /// Handles the GetAllSavesQuery and returns the result.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The result.</returns>
     public Task<GetAllSavesResult> Handle(GetAllSavesQuery request, CancellationToken cancellationToken)
     {
         var saveGames = _saveGameService.GetAllSaves();

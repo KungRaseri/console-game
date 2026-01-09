@@ -13,6 +13,10 @@ public class NameComposer
     private readonly ILogger<NameComposer> _logger;
     private readonly Random _random;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NameComposer"/> class.
+    /// </summary>
+    /// <param name="logger">The logger.</param>
     public NameComposer(ILogger<NameComposer> logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -137,6 +141,8 @@ public class NameComposer
     /// <summary>
     /// Selects a random pattern from a patterns array using rarityWeight.
     /// </summary>
+    /// <param name="patterns">The patterns array.</param>
+    /// <returns>The selected pattern.</returns>
     public JToken? GetRandomWeightedPattern(JToken patterns)
     {
         var patternList = patterns.ToList();
