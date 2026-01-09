@@ -45,8 +45,8 @@ public class ReferenceIntegrityTests
 
         foreach (var weaponType in weaponTypes!.Properties())
         {
-            var traits = weaponType.Value["traits"];
-            var skillRef = traits?["skillReference"]?["value"]?.ToString();
+            var properties = weaponType.Value["properties"];
+            var skillRef = properties?["skillReference"]?["value"]?.ToString();
 
             if (string.IsNullOrEmpty(skillRef))
             {
@@ -106,8 +106,8 @@ public class ReferenceIntegrityTests
 
         foreach (var armorType in armorTypes!.Properties())
         {
-            var traits = armorType.Value["traits"];
-            var skillRef = traits?["skillReference"]?["value"]?.ToString();
+            var properties = armorType.Value["properties"];
+            var skillRef = properties?["skillReference"]?["value"]?.ToString();
 
             if (string.IsNullOrEmpty(skillRef))
             {
@@ -147,8 +147,8 @@ public class ReferenceIntegrityTests
 
         foreach (var weaponType in weaponTypes!.Properties())
         {
-            var traits = weaponType.Value["traits"];
-            var skillRef = traits?["skillReference"]?["value"]?.ToString();
+            var properties = weaponType.Value["properties"];
+            var skillRef = properties?["skillReference"]?["value"]?.ToString();
 
             if (string.IsNullOrEmpty(skillRef))
             {
@@ -173,8 +173,8 @@ public class ReferenceIntegrityTests
 
         foreach (var armorType in armorTypes!.Properties())
         {
-            var traits = armorType.Value["traits"];
-            var skillRef = traits?["skillReference"]?["value"]?.ToString();
+            var properties = armorType.Value["properties"];
+            var skillRef = properties?["skillReference"]?["value"]?.ToString();
 
             if (string.IsNullOrEmpty(skillRef))
             {

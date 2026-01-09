@@ -2695,6 +2695,201 @@
           },
           "rarityWeight": 75,
           "rarity": 75
+        },
+        {
+          "slug": "frost-bite",
+          "name": "Frost Bite",
+          "displayName": "Frost Bite",
+          "description": "Icy fangs that freeze and slow the target",
+          "tier": 1,
+          "traits": {
+            "damageType": {
+              "value": "cold",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 2,
+              "type": "number"
+            },
+            "statusEffect": {
+              "value": "slowed",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 60,
+              "type": "number"
+            },
+            "duration": {
+              "value": 3,
+              "type": "number"
+            },
+            "baseDamage": {
+              "value": "1d8",
+              "type": "string"
+            },
+            "cooldown": {
+              "value": 8,
+              "type": "number"
+            }
+          },
+          "rarityWeight": 25,
+          "rarity": 25
+        },
+        {
+          "slug": "ice-breath",
+          "name": "Ice Breath",
+          "displayName": "Ice Breath",
+          "description": "Exhales freezing cold that chills enemies",
+          "tier": 2,
+          "traits": {
+            "damageType": {
+              "value": "cold",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 5,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 3,
+              "type": "number"
+            },
+            "statusEffect": {
+              "value": "frozen",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 40,
+              "type": "number"
+            },
+            "duration": {
+              "value": 2,
+              "type": "number"
+            },
+            "baseDamage": {
+              "value": "2d6",
+              "type": "string"
+            },
+            "cooldown": {
+              "value": 12,
+              "type": "number"
+            }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
+        },
+        {
+          "slug": "savage-bite",
+          "name": "Savage Bite",
+          "displayName": "Savage Bite",
+          "description": "Vicious bite that causes bleeding",
+          "tier": 1,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 3,
+              "type": "number"
+            },
+            "statusEffect": {
+              "value": "bleeding",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 70,
+              "type": "number"
+            },
+            "duration": {
+              "value": 5,
+              "type": "number"
+            },
+            "baseDamage": {
+              "value": "1d10",
+              "type": "string"
+            },
+            "cooldown": {
+              "value": 6,
+              "type": "number"
+            }
+          },
+          "rarityWeight": 20,
+          "rarity": 20
+        },
+        {
+          "slug": "claw",
+          "name": "Claw",
+          "displayName": "Claw",
+          "description": "Raking claw attack",
+          "tier": 1,
+          "traits": {
+            "damageType": {
+              "value": "physical",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 2,
+              "type": "number"
+            },
+            "baseDamage": {
+              "value": "1d6",
+              "type": "string"
+            },
+            "cooldown": {
+              "value": 4,
+              "type": "number"
+            },
+            "attackCount": {
+              "value": 2,
+              "type": "number"
+            }
+          },
+          "rarityWeight": 15,
+          "rarity": 15
+        },
+        {
+          "slug": "apocalyptic-bite",
+          "name": "Apocalyptic Bite",
+          "displayName": "Apocalyptic Bite",
+          "description": "Devastating bite infused with dark magic",
+          "tier": 3,
+          "traits": {
+            "damageType": {
+              "value": "dark",
+              "type": "string"
+            },
+            "damageBonus": {
+              "value": 10,
+              "type": "number"
+            },
+            "statusEffect": {
+              "value": "cursed",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 90,
+              "type": "number"
+            },
+            "duration": {
+              "value": 10,
+              "type": "number"
+            },
+            "baseDamage": {
+              "value": "3d10",
+              "type": "string"
+            },
+            "cooldown": {
+              "value": 20,
+              "type": "number"
+            },
+            "lifestealPercent": {
+              "value": 30,
+              "type": "number"
+            }
+          },
+          "rarityWeight": 100,
+          "rarity": 100
         }
       ]
     },
@@ -4634,6 +4829,84 @@
           },
           "rarityWeight": 15,
           "rarity": 15
+        },
+        {
+          "slug": "commanding-howl",
+          "name": "Commanding Howl",
+          "displayName": "Commanding Howl",
+          "description": "Rallies wolf pack, boosting their damage and morale",
+          "tier": 2,
+          "traits": {
+            "damageBonus": {
+              "value": 20,
+              "type": "number"
+            },
+            "duration": {
+              "value": 30,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 15,
+              "type": "number"
+            },
+            "targetType": {
+              "value": "allies",
+              "type": "string"
+            },
+            "cooldown": {
+              "value": 60,
+              "type": "number"
+            },
+            "attackSpeedBonus": {
+              "value": 15,
+              "type": "number"
+            }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
+        },
+        {
+          "slug": "primal-howl",
+          "name": "Primal Howl",
+          "displayName": "Primal Howl",
+          "description": "Ancient howl that strikes fear and summons allies",
+          "tier": 2,
+          "traits": {
+            "statusEffect": {
+              "value": "feared",
+              "type": "string"
+            },
+            "statusChance": {
+              "value": 50,
+              "type": "number"
+            },
+            "duration": {
+              "value": 4,
+              "type": "number"
+            },
+            "areaOfEffect": {
+              "value": 10,
+              "type": "number"
+            },
+            "targetType": {
+              "value": "enemies",
+              "type": "string"
+            },
+            "cooldown": {
+              "value": 45,
+              "type": "number"
+            },
+            "summonType": {
+              "value": "wolf",
+              "type": "string"
+            },
+            "summonCount": {
+              "value": 2,
+              "type": "number"
+            }
+          },
+          "rarityWeight": 50,
+          "rarity": 50
         }
       ]
     }

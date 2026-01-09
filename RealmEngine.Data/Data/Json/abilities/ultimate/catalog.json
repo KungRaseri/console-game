@@ -1058,6 +1058,53 @@
           },
           "rarityWeight": 150,
           "rarity": 150
+        },
+        {
+          "slug": "lunar-rage",
+          "name": "Lunar Rage",
+          "displayName": "Lunar Rage",
+          "description": "Channel the power of the full moon, transforming into an unstoppable force",
+          "tier": 5,
+          "traits": {
+            "damageMultiplier": {
+              "value": 2.5,
+              "type": "number"
+            },
+            "healthMultiplier": {
+              "value": 2.0,
+              "type": "number"
+            },
+            "armorBonus": {
+              "value": 15,
+              "type": "number"
+            },
+            "attackSpeedBonus": {
+              "value": 50,
+              "type": "number"
+            },
+            "lifestealPercent": {
+              "value": 25,
+              "type": "number"
+            },
+            "duration": {
+              "value": 30,
+              "type": "number"
+            },
+            "cooldown": {
+              "value": 300,
+              "type": "number"
+            },
+            "abilityClass": {
+              "value": "transformation",
+              "type": "string"
+            },
+            "targetType": {
+              "value": "self",
+              "type": "string"
+            }
+          },
+          "rarityWeight": 150,
+          "rarity": 150
         }
       ]
     }
