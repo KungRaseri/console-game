@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
+using RealmEngine.Core.Abstractions;
 using RealmEngine.Core.Features.SaveLoad;
 using RealmEngine.Core.Features.Shop.Commands;
 using RealmEngine.Core.Services;
@@ -30,6 +31,11 @@ public class ShopIntegrationTests : IDisposable
     public ShopIntegrationTests()
     {
         var services = new ServiceCollection();
+
+        // Mock IApocalypseTimer
+        var mockTimer = new Mock<IApocalypseTimer>();
+        mockTimer.Setup(t => t.GetBonusMinutes()).Returns(0);
+        services.AddSingleton(mockTimer.Object);
 
         // Mock repository for testing
         var mockRepository = new Mock<ISaveGameRepository>();
