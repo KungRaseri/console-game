@@ -20,6 +20,7 @@ public class CombatService
     private readonly IMediator _mediator;
     private readonly ReactiveAbilityService _reactiveAbilityService;
     private readonly EnemyAbilityAIService _enemyAbilityAI;
+    private readonly EnemySpellCastingService _enemySpellCastingAI;
 
     /// <summary>
     /// Initialize the combat service with required dependencies.
@@ -27,12 +28,14 @@ public class CombatService
     public CombatService(
         SaveGameService saveGameService,
         IMediator mediator,
-        AbilityCatalogService abilityCatalogService)
+        AbilityCatalogService abilityCatalogService,
+        SpellCatalogService spellCatalogService)
     {
         _saveGameService = saveGameService;
         _mediator = mediator;
         _reactiveAbilityService = new ReactiveAbilityService(abilityCatalogService);
         _enemyAbilityAI = new EnemyAbilityAIService(abilityCatalogService);
+        _enemySpellCastingAI = new EnemySpellCastingService(spellCatalogService);
     }
 
     /// <summary>
@@ -44,6 +47,7 @@ public class CombatService
         _mediator = null!;
         _reactiveAbilityService = new ReactiveAbilityService();
         _enemyAbilityAI = new EnemyAbilityAIService();
+        _enemySpellCastingAI = new EnemySpellCastingService();
     }
 
     /// <summary>
@@ -364,6 +368,105 @@ public class CombatService
     }
 
     /// <summary>
+    /// Execute spell casting by enemy using AI to decide which spell to use.
+    /// Returns null if no spell was cast.
+    /// </summary>
+    public CastSpellResult? ExecuteEnemySpell(Enemy enemy, Character player, SpellCatalogService spellCatalog)
+    {
+        // AI decides which spell to cast (if any)
+        string? chosenSpellId = _enemySpellCastingAI.DecideSpellCasting(enemy, player);
+        
+        if (chosenSpellId == null)
+        {
+            return null; // AI chose not to cast spell
+        }
+
+        // Get spell from catalog
+        var spell = spellCatalog.GetSpell(chosenSpellId);
+            
+        if (spell == null)
+        {
+            Log.Warning($"Enemy {enemy.Name} tried to cast unknown spell {chosenSpellId}");
+            return null;
+        }
+
+        // Calculate actual mana cost (Intelligence reduces cost)
+        int manaCost = _enemySpellCastingAI.CalculateManaCost(spell, enemy);
+        
+        // Deduct mana
+        enemy.Mana -= manaCost;
+
+        // Initialize result
+        var result = new CastSpellResult
+        {
+            Success = true,
+            Message = string.Empty, // Will be set below based on effect
+            ManaCostPaid = manaCost,
+            SpellCast = spell
+        };
+
+        // Apply spell effects based on type
+        switch (spell.EffectType)
+        {
+            case SpellEffectType.Damage:
+                // Damage spell - apply damage to player
+                int spellDamage = CalculateSpellDamage(enemy, spell);
+                player.Health = Math.Max(0, player.Health - spellDamage);
+                result = result with 
+                { 
+                    EffectValue = spellDamage.ToString(),
+                    Message = $"{enemy.Name} cast {spell.DisplayName} and dealt {spellDamage} damage!"
+                };
+
+                // Trigger reactive abilities (player takes damage)
+                _reactiveAbilityService.CheckAndTriggerReactiveAbilities(player, "onDamageTaken");
+                break;
+
+            case SpellEffectType.Heal:
+                // Healing spell
+                int healAmount = CalculateSpellHealing(enemy, spell);
+                enemy.Health = Math.Min(enemy.MaxHealth, enemy.Health + healAmount);
+                result = result with 
+                { 
+                    EffectValue = healAmount.ToString(),
+                    Message = $"{enemy.Name} cast {spell.DisplayName} and restored {healAmount} health!"
+                };
+                break;
+
+            case SpellEffectType.Buff:
+            case SpellEffectType.Protection:
+                // Defensive buff (future enhancement - apply buffs to enemy)
+                result = result with { Message = $"{enemy.Name} cast {spell.DisplayName}!" };
+                break;
+
+            case SpellEffectType.Debuff:
+            case SpellEffectType.Control:
+                // Debuff spell (future enhancement - apply debuffs to player)
+                result = result with { Message = $"{enemy.Name} cast {spell.DisplayName} on you!" };
+                break;
+
+            case SpellEffectType.Utility:
+            case SpellEffectType.Summon:
+                // Utility spell (future enhancement)
+                result = result with { Message = $"{enemy.Name} cast {spell.DisplayName}!" };
+                break;
+        }
+
+        // Set cooldown
+        if (!enemy.SpellCooldowns.ContainsKey(spell.SpellId))
+        {
+            enemy.SpellCooldowns[spell.SpellId] = spell.Cooldown;
+        }
+        else
+        {
+            enemy.SpellCooldowns[spell.SpellId] = spell.Cooldown;
+        }
+
+        Log.Information($"Enemy {enemy.Name} cast spell {spell.DisplayName} (Type: {spell.EffectType}, Mana: {manaCost})");
+        return result;
+    }
+
+    /// <summary>
     /// Calculate damage for an enemy ability.
     /// </summary>
     private int CalculateAbilityDamage(Enemy enemy, Ability ability)
@@ -388,6 +491,28 @@ public class CombatService
     }
 
     /// <summary>
+    /// Calculate damage for an enemy spell.
+    /// </summary>
+    private int CalculateSpellDamage(Enemy enemy, Spell spell)
+    {
+        // Base damage from spell
+        int baseDamage = 15; // Spells generally stronger than abilities
+        
+        if (!string.IsNullOrEmpty(spell.BaseEffectValue))
+        {
+            baseDamage = EstimateDiceDamage(spell.BaseEffectValue);
+        }
+
+        // Add enemy's intelligence bonus (spells scale with intelligence)
+        baseDamage += enemy.GetMagicDamageBonus();
+
+        // Apply variance (±15% for spells, more reliable than physical attacks)
+        baseDamage = (int)(baseDamage * _random.Next(85, 116) / 100.0);
+
+        return Math.Max(1, baseDamage);
+    }
+
+    /// <summary>
     /// Calculate healing for an enemy ability.
     /// </summary>
     private int CalculateAbilityHealing(Enemy enemy, Ability ability)
@@ -406,6 +531,28 @@ public class CombatService
 
         // Apply variance (±20%)
         baseHealing = (int)(baseHealing * _random.Next(80, 121) / 100.0);
+
+        return Math.Max(1, baseHealing);
+    }
+
+    /// <summary>
+    /// Calculate healing for an enemy spell.
+    /// </summary>
+    private int CalculateSpellHealing(Enemy enemy, Spell spell)
+    {
+        // Base healing from spell
+        int baseHealing = 20; // Healing spells generally stronger
+        
+        if (!string.IsNullOrEmpty(spell.BaseEffectValue))
+        {
+            baseHealing = EstimateDiceDamage(spell.BaseEffectValue);
+        }
+
+        // Add intelligence bonus (spells scale with intelligence)
+        baseHealing += enemy.Intelligence / 2;
+
+        // Apply variance (±15% for spells)
+        baseHealing = (int)(baseHealing * _random.Next(85, 116) / 100.0);
 
         return Math.Max(1, baseHealing);
     }

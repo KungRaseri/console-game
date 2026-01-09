@@ -148,7 +148,7 @@ public class PatternExecutor
             var catalogPath = "materials/catalog.json";
             var catalog = _referenceResolver.GetType()
                 .GetMethod("LoadCatalog", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.Invoke(_referenceResolver, new object[] { catalogPath }) as JObject;
+                ?.Invoke(_referenceResolver, [catalogPath]) as JObject;
 
             if (catalog == null)
             {

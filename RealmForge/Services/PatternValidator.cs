@@ -55,7 +55,7 @@ public static class PatternValidator
         }
 
         // Split pattern by " + " separator
-        var tokens = pattern.Split(new[] { " + " }, StringSplitOptions.RemoveEmptyEntries)
+        var tokens = pattern.Split([" + "], StringSplitOptions.RemoveEmptyEntries)
                             .Select(t => t.Trim())
                             .ToList();
 

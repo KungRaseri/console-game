@@ -424,7 +424,7 @@ public partial class NameListEditorViewModel : ObservableObject
                     example = example.Replace("+", " ").Replace("-", " ");
 
                     // Split pattern by spaces
-                    var tokens = example.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                    var tokens = example.Split([' '], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
                     // Build the example by replacing tokens
                     var exampleParts = new List<string>();
@@ -1001,7 +1001,7 @@ public partial class NameListEditorViewModel : ObservableObject
                 example = example.Replace("+", " ").Replace("-", " ");
 
                 // Split pattern by spaces
-                var tokens = example.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                var tokens = example.Split([' '], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
                 // Build the example by replacing tokens
                 var exampleParts = new List<string>();

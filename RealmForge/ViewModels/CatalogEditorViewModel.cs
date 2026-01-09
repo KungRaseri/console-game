@@ -47,7 +47,7 @@ public partial class CatalogEditorViewModel : ObservableObject
             MetadataNotes.Clear();
             if (!string.IsNullOrWhiteSpace(value))
             {
-                var lines = value.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                var lines = value.Split(["\r\n", "\r", "\n"], StringSplitOptions.RemoveEmptyEntries);
                 foreach (var line in lines)
                 {
                     MetadataNotes.Add(line.Trim());

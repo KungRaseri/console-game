@@ -68,7 +68,7 @@ public class CompleteQuestHandlerTests
         result.Rewards!.Xp.Should().Be(100);
         result.Rewards.Gold.Should().Be(50);
         result.Rewards.ApocalypseBonus.Should().Be(10);
-        result.Rewards.Items.Should().BeEquivalentTo(new[] { "item-001", "item-002" });
+        result.Rewards.Items.Should().BeEquivalentTo(["item-001", "item-002"]);
         _mockQuestService.Verify(s => s.CompleteQuestAsync(questId), Times.Once);
         _mockRewardService.Verify();
     }

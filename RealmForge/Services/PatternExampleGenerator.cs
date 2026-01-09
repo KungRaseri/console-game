@@ -18,7 +18,7 @@ public class PatternExampleGenerator
         try
         {
             // Split pattern into tokens (e.g., "material + base" -> ["material", "base"])
-            var tokens = pattern.Split(new[] { " + " }, StringSplitOptions.RemoveEmptyEntries)
+            var tokens = pattern.Split([" + "], StringSplitOptions.RemoveEmptyEntries)
                                 .Select(t => t.Trim())
                                 .ToArray();
 

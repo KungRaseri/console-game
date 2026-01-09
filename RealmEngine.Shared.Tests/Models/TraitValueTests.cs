@@ -388,7 +388,7 @@ public class TraitValueTests
         var result = traitValue.AsStringList();
 
         // Assert
-        result.Should().BeEquivalentTo(new[] { "one", "two", "three" });
+        result.Should().BeEquivalentTo(["one", "two", "three"]);
     }
 
     [Fact]
@@ -402,7 +402,7 @@ public class TraitValueTests
         var result = traitValue.AsStringList();
 
         // Assert
-        result.Should().BeEquivalentTo(new[] { "red", "green", "blue" });
+        result.Should().BeEquivalentTo(["red", "green", "blue"]);
     }
 
     [Fact]

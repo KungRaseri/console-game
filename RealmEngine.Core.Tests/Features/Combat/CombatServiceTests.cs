@@ -34,7 +34,7 @@ public class CombatServiceTests
     public async Task InitializeCombat_Should_Scale_Enemy_Health_By_Difficulty()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var enemy = new Enemy { Name = "Goblin", MaxHealth = 100, Health = 50 };
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { EnemyHealthMultiplier = 1.5 });
@@ -51,7 +51,7 @@ public class CombatServiceTests
     public async Task InitializeCombat_Should_Reset_Enemy_Health_To_Max()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var enemy = new Enemy { Name = "Skeleton", MaxHealth = 80, Health = 20 };
 
         // Act
@@ -65,7 +65,7 @@ public class CombatServiceTests
     public async Task ExecutePlayerAttack_Should_Return_Message()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player = new Character { Name = "Warrior", Strength = 15 };
         var enemy = new Enemy { Name = "Orc", Health = 100 };
 
@@ -90,7 +90,7 @@ public class CombatServiceTests
     public async Task ExecuteEnemyAttack_Should_Apply_Defense_Reduction_When_Defending()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player1 = new Character { Name = "Hero1", Health = 100, MaxHealth = 100, Constitution = 10 };
         var player2 = new Character { Name = "Hero2", Health = 100, MaxHealth = 100, Constitution = 10 };
         var enemy1 = new Enemy { Name = "Attacker1", BasePhysicalDamage = 20 };
@@ -109,7 +109,7 @@ public class CombatServiceTests
     public async Task ExecuteEnemyAttack_Should_Not_Reduce_Health_Below_Zero()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player = new Character { Name = "Hero", Health = 1, MaxHealth = 100 };
         var enemy = new Enemy { Name = "Dragon", BasePhysicalDamage = 1000 };
 
@@ -124,7 +124,7 @@ public class CombatServiceTests
     public async Task AttemptFlee_Should_Return_Success_Or_Failure()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player = new Character { Name = "Hero", Dexterity = 15 };
         var enemy = new Enemy { Name = "Slowpoke", Level = 1 };
 
@@ -141,7 +141,7 @@ public class CombatServiceTests
     public async Task AttemptFlee_Should_Be_Affected_By_Level_Difference()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player = new Character { Name = "Hero", Level = 10, Dexterity = 10 };
         // Weak enemy has lower DEX (flee mechanics use DEX, not level)
         var weakEnemy = new Enemy { Name = "Rat", Level = 1, Dexterity = 5 };
@@ -174,7 +174,7 @@ public class CombatServiceTests
     public async Task UseItemInCombat_Should_Apply_Healing()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player = new Character { Name = "Hero", Health = 50, MaxHealth = 100 };
         var potion = new Item { Name = "Health Potion", Type = ItemType.Consumable };
 
@@ -190,7 +190,7 @@ public class CombatServiceTests
     public async Task UseItemInCombat_Should_Fail_For_Non_Consumables()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player = new Character { Name = "Hero", Health = 50, MaxHealth = 100 };
         var weapon = new Item { Name = "Sword", Type = ItemType.Weapon };
 
@@ -206,7 +206,7 @@ public class CombatServiceTests
     public async Task GenerateVictoryOutcome_Should_Award_XP_And_Gold()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player = new Character { Name = "Hero" };
         var enemy = new Enemy { Name = "Goblin", XPReward = 50, GoldReward = 25 };
 
@@ -226,7 +226,7 @@ public class CombatServiceTests
     public async Task GenerateVictoryOutcome_Should_Include_Enemy_Name_In_Summary()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player = new Character { Name = "Hero" };
         var enemy = new Enemy { Name = "Skeleton King", XPReward = 100, GoldReward = 50 };
 
@@ -244,7 +244,7 @@ public class CombatServiceTests
     public void InitializeCombat_Should_Scale_Health_Correctly(double multiplier, int expectedHealth)
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var enemy = new Enemy { Name = "TestEnemy", MaxHealth = 100, Health = 100 };
         _mockSaveGameService.Setup(s => s.GetDifficultySettings())
             .Returns(new DifficultySettings { EnemyHealthMultiplier = multiplier });
@@ -261,7 +261,7 @@ public class CombatServiceTests
     public async Task ExecuteEnemyAttack_Should_Include_Message()
     {
         // Arrange
-        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!);
+        var service = new CombatService(_mockSaveGameService.Object, _mockMediator.Object, null!, null!);
         var player = new Character { Name = "Hero", Health = 100, MaxHealth = 100 };
         var enemy = new Enemy { Name = "Orc", BasePhysicalDamage = 10 };
 

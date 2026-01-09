@@ -107,7 +107,7 @@ public partial class NameListMetadata : ObservableObject
             Notes.Clear();
             if (!string.IsNullOrWhiteSpace(value))
             {
-                var lines = value.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                var lines = value.Split(["\r\n", "\r", "\n"], StringSplitOptions.RemoveEmptyEntries);
                 foreach (var line in lines)
                 {
                     Notes.Add(line.Trim());

@@ -81,6 +81,7 @@ public class QuestIntegrationTests
         services.AddSingleton<QuestRewardService>();
         services.AddSingleton<QuestInitializationService>();
         services.AddSingleton<AbilityCatalogService>();
+        services.AddSingleton<SpellCatalogService>();
         services.AddSingleton(mockSkillCatalog.Object);
         services.AddSingleton<SkillProgressionService>();
         services.AddSingleton<CombatService>();

@@ -519,7 +519,7 @@ public class ReferenceResolverService
         var result = new JArray();
         
         // Split multiple filters by & or comma
-        var filterParts = filters.Split(new[] { '&', ',' }, StringSplitOptions.RemoveEmptyEntries);
+        var filterParts = filters.Split(['&', ','], StringSplitOptions.RemoveEmptyEntries);
         
         foreach (var item in items)
         {

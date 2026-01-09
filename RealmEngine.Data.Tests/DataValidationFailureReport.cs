@@ -14,6 +14,7 @@ public class DataValidationFailureReport
 {
   private readonly ITestOutputHelper _output;
   private readonly string _dataPath;
+  private readonly string[] _validVersions = ["4.0", "4.2", "5.1"];
 
   public DataValidationFailureReport(ITestOutputHelper output)
   {
@@ -48,7 +49,7 @@ public class DataValidationFailureReport
     }
 
     // Check all config files
-    var configFiles = Directory.GetFiles(_dataPath, ".cbconfig.json", SearchOption.AllDirectories);
+    var configFiles = Directory.GetFiles(_dataPath, "*.cbconfig.json", SearchOption.AllDirectories);
     foreach (var file in configFiles)
     {
       var relativePath = Path.GetRelativePath(_dataPath, file);
@@ -132,10 +133,10 @@ public class DataValidationFailureReport
       var unexpectedRoot = actualProperties
           .Where(p => p != "metadata" && !p.EndsWith("_types"))
           .ToList();
-      
+
       if (unexpectedRoot.Any())
       {
-        issues.Add(new ValidationIssue(relativePath, "Schema", 
+        issues.Add(new ValidationIssue(relativePath, "Schema",
             $"Unexpected root properties: {string.Join(", ", unexpectedRoot)}. Only 'metadata' and '*_types' allowed."));
       }
 
@@ -154,9 +155,9 @@ public class DataValidationFailureReport
 
         // Check version
         var version = metadata["version"]?.ToString();
-        if (version != "1.0" && version != "4.0" && version != "4.2")
+        if (!_validVersions.Contains(version))
         {
-          issues.Add(new ValidationIssue(relativePath, "Version", $"Invalid version '{version}' (expected '1.0', '4.0', or '4.2')"));
+          issues.Add(new ValidationIssue(relativePath, "Version", $"Invalid version '{version}' (expected one of: {string.Join(", ", _validVersions)}"));
         }
       }
     }
@@ -209,10 +210,10 @@ public class DataValidationFailureReport
           {
             var token = match.Groups[1].Value;
             if (token.StartsWith("@")) continue; // Reference token
-            
+
             if (!validKeys.Contains(token))
             {
-              issues.Add(new ValidationIssue(relativePath, "Pattern Token", 
+              issues.Add(new ValidationIssue(relativePath, "Pattern Token",
                   $"Pattern '{patternStr}' uses undefined token '{{{token}}}'. Valid: {string.Join(", ", validKeys.Select(k => $"{{{k}}}"))}"));
             }
           }
@@ -232,7 +233,7 @@ public class DataValidationFailureReport
           {
             var keyStr = key.ToString();
             if (keyStr == "base") continue;
-            
+
             if (!components.ContainsKey(keyStr))
             {
               issues.Add(new ValidationIssue(relativePath, "Components", $"componentKeys declares '{keyStr}' but it's not in components section"));
@@ -252,12 +253,12 @@ public class DataValidationFailureReport
             {
               if (!item.ContainsKey("value"))
               {
-                issues.Add(new ValidationIssue(relativePath, "Component Item", 
+                issues.Add(new ValidationIssue(relativePath, "Component Item",
                     $"Component '{componentGroup.Name}' has item missing 'value' field"));
               }
               if (!item.ContainsKey("rarityWeight"))
               {
-                issues.Add(new ValidationIssue(relativePath, "Component Item", 
+                issues.Add(new ValidationIssue(relativePath, "Component Item",
                     $"Component '{componentGroup.Name}' item missing 'rarityWeight' field"));
               }
             }

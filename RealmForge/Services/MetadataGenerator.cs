@@ -89,7 +89,7 @@ public static class MetadataGenerator
                 continue;
 
             // Split pattern by " + " separator
-            var parts = pattern.Pattern.Split(new[] { " + " }, StringSplitOptions.RemoveEmptyEntries);
+            var parts = pattern.Pattern.Split([" + "], StringSplitOptions.RemoveEmptyEntries);
             foreach (var part in parts)
             {
                 var token = part.Trim();

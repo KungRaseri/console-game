@@ -294,7 +294,7 @@ public class FileTreeService
     private static string FormatDisplayName(string name)
     {
         // Convert snake_case and kebab-case to Title Case
-        var parts = name.Split(new[] { '_', '-' }, StringSplitOptions.RemoveEmptyEntries);
+        var parts = name.Split(['_', '-'], StringSplitOptions.RemoveEmptyEntries);
         return string.Join(" ", parts)
             .Replace("npcs", "NPCs", StringComparison.OrdinalIgnoreCase)
             .Split(' ')

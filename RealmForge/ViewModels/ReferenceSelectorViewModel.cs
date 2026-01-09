@@ -379,7 +379,7 @@ public partial class ReferenceSelectorViewModel : ObservableObject
     private string FormatDisplayName(string name)
     {
         // Convert snake_case and kebab-case to Title Case
-        var parts = name.Split(new[] { '_', '-', '/' }, StringSplitOptions.RemoveEmptyEntries);
+        var parts = name.Split(['_', '-', '/'], StringSplitOptions.RemoveEmptyEntries);
         return string.Join(" ", parts.Select(p => char.ToUpper(p[0]) + p[1..]));
     }
 }

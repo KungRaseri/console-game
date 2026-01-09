@@ -164,10 +164,10 @@ public class OrganizationGenerator
         var categories = shopType.ToLower() switch
         {
             "weaponsmith" => new[] { "weapons" },
-            "armorer" => new[] { "armor" },
-            "general store" => new[] { "consumables", "materials" },
-            "alchemist" => new[] { "consumables" },
-            _ => new[] { "weapons", "armor", "consumables" }
+            "armorer" => ["armor"],
+            "general store" => ["consumables", "materials"],
+            "alchemist" => ["consumables"],
+            _ => ["weapons", "armor", "consumables"]
         };
 
         foreach (var category in categories)
