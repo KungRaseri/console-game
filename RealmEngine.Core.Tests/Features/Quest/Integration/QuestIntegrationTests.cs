@@ -2,6 +2,7 @@ using FluentAssertions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Moq;
 using RealmEngine.Core.Features.Combat;
 using RealmEngine.Core.Features.Combat.Commands.AttackEnemy;
@@ -34,12 +35,15 @@ public class QuestIntegrationTests
     {
         var services = new ServiceCollection();
 
-        // Create mock timer and repository
+        SaveGameService? saveGameService = null;
+        
+        // Create mock timer that returns the value from the current save game
+        // This prevents SaveGame() from overwriting quest reward bonuses
         var mockTimer = new Mock<IApocalypseTimer>();
-        mockTimer.Setup(t => t.GetBonusMinutes()).Returns(0);
+        mockTimer.Setup(t => t.GetBonusMinutes()).Returns(() => 
+            saveGameService?.GetCurrentSave()?.ApocalypseBonusMinutes ?? 0);
         
         var mockRepository = new Mock<ISaveGameRepository>();
-        var testSave = new SaveGame(); // Will be set later
         mockRepository.Setup(r => r.SaveGame(It.IsAny<SaveGame>())).Callback<SaveGame>(s => {
             // Do nothing for tests
         });
@@ -47,6 +51,22 @@ public class QuestIntegrationTests
         // Create real GameDataCache for AbilityCatalogService (with fake path - won't load any files)
         var memoryCache = new MemoryCache(new MemoryCacheOptions());
         var gameDataCache = new GameDataCache("fakepath", memoryCache);
+
+        // Mock SkillCatalogService to avoid file system dependencies
+        var mockSkillCatalog = new Mock<SkillCatalogService>(gameDataCache, null);
+        mockSkillCatalog.Setup(s => s.GetSkillDefinition(It.IsAny<string>()))
+            .Returns(new RealmEngine.Core.Features.Progression.Services.SkillDefinition 
+            { 
+                SkillId = "test_skill",
+                Name = "Test Skill",
+                DisplayName = "Test Skill",
+                Description = "Test Description",
+                Category = "combat",
+                MaxRank = 10
+            });
+
+        // Register logging for handlers
+        services.AddLogging();
 
         // Register all required services
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(StartQuestCommand).Assembly));
@@ -61,7 +81,7 @@ public class QuestIntegrationTests
         services.AddSingleton<QuestRewardService>();
         services.AddSingleton<QuestInitializationService>();
         services.AddSingleton<AbilityCatalogService>();
-        services.AddSingleton<SkillCatalogService>();
+        services.AddSingleton(mockSkillCatalog.Object);
         services.AddSingleton<SkillProgressionService>();
         services.AddSingleton<CombatService>();
 
@@ -69,6 +89,9 @@ public class QuestIntegrationTests
         _mediator = _serviceProvider.GetRequiredService<IMediator>();
         _saveGameService = _serviceProvider.GetRequiredService<SaveGameService>();
         _mainQuestService = _serviceProvider.GetRequiredService<MainQuestService>();
+        
+        // Wire up the saveGameService reference for the timer mock
+        saveGameService = _saveGameService;
 
         // Create test save game
         var character = new Character { Name = "TestHero", ClassName = "Warrior", Level = 1 };

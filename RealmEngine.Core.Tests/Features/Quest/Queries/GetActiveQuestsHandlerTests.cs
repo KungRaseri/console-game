@@ -2,6 +2,7 @@ using FluentAssertions;
 using Moq;
 using RealmEngine.Core.Features.Quests.Queries;
 using RealmEngine.Core.Features.Quests.Services;
+using RealmEngine.Core.Features.SaveLoad;
 using QuestModel = RealmEngine.Shared.Models.Quest;
 
 namespace RealmEngine.Core.Tests.Features.Quest.Queries;
@@ -17,7 +18,14 @@ public class GetActiveQuestsHandlerTests
 
     public GetActiveQuestsHandlerTests()
     {
-        _mockQuestService = new Mock<QuestService>(MockBehavior.Strict, null!, null!);
+        var mockSaveGameService = new Mock<ISaveGameService>();
+        var mockMainQuestService = new Mock<MainQuestService>(true); // Use protected constructor for mocking
+        var mockInitService = new Mock<QuestInitializationService>(mockMainQuestService.Object);
+        
+        _mockQuestService = new Mock<QuestService>(MockBehavior.Strict, 
+            mockSaveGameService.Object, 
+            mockMainQuestService.Object, 
+            mockInitService.Object);
         _handler = new GetActiveQuestsHandler(_mockQuestService.Object);
     }
 

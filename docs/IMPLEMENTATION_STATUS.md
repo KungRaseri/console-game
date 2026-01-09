@@ -1,47 +1,51 @@
 # Implementation Status
 
-**Last Updated**: January 8, 2026 19:45 UTC  
-**Test Count**: 876/892 passing tests (98.2% pass rate)  
-**Current Phase**: JSON v5.0 Standards Migration  
-**Recent Milestone**: JSON v5.0 Standard Finalized, Quest System 95% Complete
+**Last Updated**: January 8, 2026 23:30 UTC  
+**Test Count**: 880/892 passing tests (98.7% pass rate)  
+**Current Phase**: Core System Integration & Polish  
+**Recent Milestone**: JSON v5.1 Migration Complete (38 catalogs), All Progression Systems Integrated
 
 ---
 
 ## Recent Progress (January 8, 2026)
 
-### 🚧 JSON Standards v5.0 Migration - IN PROGRESS
+### ✅ JSON Standards v5.1 Migration - COMPLETE
 
-**Universal trait array system for all game data:**
+**Formula-based stats with D&D attribute modifiers for enemies, items, and NPCs:**
 
-**Completed:**
-- ✅ **JSON v5.0 Standard** - Finalized structure with trait arrays (ENEMY_JSON_STANDARD_v5.md)
-- ✅ **Rarity Config v5.0** - Updated to universal rarity system (items + enemies)
-  - Numerical rarity (1-100) maps to 5 tiers
-  - Added stat multipliers: 1.0x → 1.3x → 1.7x → 2.5x → 4.0x
-  - Added spawn rates: 60% → 25% → 10% → 4% → 1%
-  - Changed thresholds from 0-999999 to 1-100 scale
-- ✅ **Example Catalog** - Created EXAMPLE_ENEMY_CATALOG_v5.json demonstrating full structure
+**Completed (38 catalogs migrated to v5.1):**
+- ✅ **14 Enemy Catalogs** - All migrated to v5.1 with attributes object, stats formulas, combat object
+  - beasts, demons, dragons, elementals, goblinoids, humanoids, insects, orcs, plants, reptilians, trolls, undead, vampires, wolves
+- ✅ **14 Item Catalogs** - All migrated to v5.1 with damage objects, defense formulas, requirements
+  - armor, weapons, consumables, crystals (2), essences (2), gems (2), materials, orbs (2), runes (2)
+- ✅ **10 NPC Catalogs** - All migrated to v5.1 with attributes object structure
+  - common, craftsmen, criminal, magical, merchants, military, noble, professionals, religious, service
+- ✅ **EnemyGenerator** - Updated with formula evaluation system (D&D modifiers)
+- ✅ **ItemGenerator** - Updated for v5.1 damage/defense structure
+- ✅ **All 111 JSON files** - Updated with `lastUpdated: "2026-01-08"` review stamps
+- ✅ **Version Distribution** - v5.1: 38, v4.2: 6, v4.0: 16 (total 60 catalogs)
+- ✅ **Test Validation** - Updated to accept v5.0 and v5.1 versions
 
-**Key v5.0 Features:**
-- **Trait Arrays**: All gameplay data as `[{ "key": "health", "value": 30 }]` instead of nested objects
-- **Type Inheritance**: Type-level traits inherited by all items in that type
-- **Universal Application**: Same structure for enemies, items, classes, abilities, quests
-- **Rarity System Integration**: Numerical rarity → tier → stat multipliers
-- **Consistent Hierarchy**: `metadata` → `{domain}_types` → `traits[]` → `items[]` → `traits[]`
+**Key v5.1 Features:**
+- **Attributes Object**: `attributes: { strength: 14, dexterity: 15, ... }` instead of flat fields
+- **Stats Formulas**: `"health": "constitution_mod * 2 + level * 5 + 10"` with runtime evaluation
+- **D&D Modifiers**: `(attribute - 10) / 2` calculation for ability modifiers
+- **Combat Object**: `combat: { abilities: [...], behavior: "aggressive" }`
+- **Formula Evaluation**: Uses DataTable.Compute for math expressions
+- **Backward Compatible**: All generators support v4.0 fallbacks
 
-**In Progress:**
-- ⏳ Migrate enemy catalogs (beast, humanoid, undead, etc.)
-- ⏳ Add rare/elite/legendary/boss variants to each enemy type
-- ⏳ Migrate item catalogs (weapons, armor, consumables)
-- ⏳ Update ContentBuilder/RealmForge for v5.0 structure
-- ⏳ Audit all JSON files for v5.0 compliance
+**Test Status:**
+- ✅ Data.Tests: 1,794/1,794 (100%)
+- ✅ Core.Tests: 880/892 (98.7%)
+- ✅ Shared.Tests: 667/667 (100%)
+- ✅ v5.1 Compliance: 496/496 (100%)
 
 **Benefits:**
-- Consistent structure across ALL domains
-- Easy to add/modify traits without schema changes
-- Type-level traits reduce duplication
-- Uniform rarity system simplifies balance
-- Queryable key-value format
+- Consistent attribute-based structure across all combat entities
+- Dynamic stat scaling with formulas instead of hardcoded values
+- Easy balance tuning by modifying formulas
+- D&D-style modifiers familiar to RPG players
+- Type-safe formula evaluation with error handling
 
 ---
 
@@ -102,20 +106,16 @@
 
 #### Phase 4: Enemy Ability Usage AI ✅
 - **EnemyAbilityAIService** created with intelligent decision-making
-- ⚠️ **RealmEngine.Core.Tests**: 876/892 (98.2%) - 16 failures
+- ⚠️ **RealmEngine.Core.Tests**: 880/892 (98.7%) - 12 failures
   - 11 old QuestService unit tests (constructor changes)
-  - 4 EnemyAbilityAIServiceTests (pre-existing probabilistic failures)
   - 1 quest integration test (apocalypse bonus persistence)
 - ✅ **RealmEngine.Shared.Tests**: 665/665 (100%)
 - ✅ **RealmEngine.Data.Tests**: 5,250/5,250 (100%)
-- ⚠️ **Current Focus (January 8, 2026)
-1. **JSON Standards Refinement** - Audit all enemy/item JSON files
-   - Move attributes/stats into traits objects
-   - Add rare/elite/boss variants for all enemy types
-   - Separate general traits (species-level) from specific traits (individual-level)
-   - Standardize trait structure across all catalog types
-2. **Quest System Test Fixes** - Fix 12 failing tests
-3. **Enemy System Enhancement** - Boss enemies for main quests
+- ⚠️ **Current Focus (January 8, 2026 23:30 UTC)**
+1. **Quest System Test Fixes** - Fix 12 failing tests (11 constructor + 1 apocalypse)
+2. **Enemy System Enhancement** - Add boss enemies for main quests (#2, #4, #6)
+3. **NpcGenerator Update** - Add v5.1 attribute reading (optional enhancement)
+4. **Shop System Integration** - Connect ShopEconomyService to gameplay
 - ✅ **RealmEngine.Shared.Tests**: 665/665 (100%)
 - ✅ **RealmEngine.Data.Tests**: 5,250/5,250 (100%)
 - ⚠️ **RealmForge.Tests**: 169/174 (97.1%) - 5 reference resolution failures (deferred)
