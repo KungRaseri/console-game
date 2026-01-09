@@ -40,6 +40,8 @@ public static class DiceRoller
     /// <summary>
     /// Rolls a single die with the specified number of sides.
     /// </summary>
+    /// <param name="sides">The number of sides on the die.</param>
+    /// <returns>The result of the die roll.</returns>
     public static int Roll(int sides)
     {
         return _random.Next(1, sides + 1);
@@ -48,6 +50,9 @@ public static class DiceRoller
     /// <summary>
     /// Rolls multiple dice and returns the total.
     /// </summary>
+    /// <param name="count">The number of dice to roll.</param>
+    /// <param name="sides">The number of sides on each die.</param>
+    /// <returns>The total of all dice rolls.</returns>
     public static int Roll(int count, int sides)
     {
         int total = 0;

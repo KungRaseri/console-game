@@ -10,6 +10,10 @@ public class LevelUpService
 {
     private readonly IGameUI _console;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LevelUpService"/> class.
+    /// </summary>
+    /// <param name="console">The game UI console.</param>
     public LevelUpService(IGameUI console)
     {
         _console = console;

@@ -11,6 +11,10 @@ public class PassiveBonusCalculator : IPassiveBonusCalculator
 {
     private readonly AbilityCatalogService _abilityCatalogService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PassiveBonusCalculator"/> class.
+    /// </summary>
+    /// <param name="abilityCatalogService">The ability catalog service.</param>
     public PassiveBonusCalculator(AbilityCatalogService abilityCatalogService)
     {
         _abilityCatalogService = abilityCatalogService;
