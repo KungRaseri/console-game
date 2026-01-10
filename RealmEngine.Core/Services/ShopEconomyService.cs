@@ -12,6 +12,17 @@ public class ShopEconomyService
 {
     private readonly Dictionary<string, ShopInventory> _shopInventories = new();
     private DateTime _lastRefreshDate = DateTime.UtcNow.Date;
+    private readonly ItemCatalogLoader _catalogLoader;
+    private readonly Random _random = new();
+
+    /// <summary>
+    /// Initializes a new instance of the ShopEconomyService class.
+    /// </summary>
+    /// <param name="catalogLoader">The item catalog loader (optional, defaults to Data/Json path).</param>
+    public ShopEconomyService(ItemCatalogLoader? catalogLoader = null)
+    {
+        _catalogLoader = catalogLoader ?? new ItemCatalogLoader();
+    }
 
     /// <summary>
     /// Get or create shop inventory for an NPC.
@@ -240,8 +251,14 @@ public class ShopEconomyService
             LastRefresh = DateTime.UtcNow.Date
         };
 
-        // TODO: Load core items from catalog configuration
-        // TODO: Generate dynamic items based on merchant occupation
+        // Load core items from catalog based on shop type
+        var shopType = GetShopType(npc);
+        var coreItemCount = GetCoreItemCount(npc);
+        
+        inventory.CoreItems = GenerateCoreInventory(shopType, coreItemCount);
+        
+        Log.Information("Created initial inventory for {MerchantName} ({ShopType}) with {CoreCount} core items",
+            npc.Name, shopType, inventory.CoreItems.Count);
 
         return inventory;
     }
@@ -254,12 +271,16 @@ public class ShopEconomyService
         // Clear existing dynamic items
         inventory.DynamicItems.Clear();
 
-        // TODO: Generate new dynamic items based on:
-        // - merchant.Traits["shopDynamicCategories"]
-        // - merchant.Traits["shopDynamicCount"]
-        // - Rarity weights (common, uncommon, rare)
+        // Generate new dynamic items
+        var shopType = GetShopType(merchant);
+        var dynamicCount = GetDynamicItemCount(merchant);
+        
+        inventory.DynamicItems = GenerateDynamicInventory(shopType, dynamicCount);
 
         inventory.LastRefresh = DateTime.UtcNow.Date;
+        
+        Log.Information("Refreshed dynamic inventory for {MerchantName} with {DynamicCount} items",
+            merchant.Name, inventory.DynamicItems.Count);
     }
 
     /// <summary>
@@ -352,6 +373,171 @@ public class ShopEconomyService
         }
 
         return (int)price;
+    }
+
+    /// <summary>
+    /// Get shop type from merchant traits.
+    /// </summary>
+    private string GetShopType(NPC merchant)
+    {
+        if (merchant.Traits.TryGetValue("shopType", out var shopTypeTrait))
+        {
+            return shopTypeTrait.AsString().ToLower();
+        }
+
+        // Default to general store
+        return "general";
+    }
+
+    /// <summary>
+    /// Get core item count from merchant traits.
+    /// </summary>
+    private int GetCoreItemCount(NPC merchant)
+    {
+        if (merchant.Traits.TryGetValue("shopCoreCount", out var coreCountTrait))
+        {
+            return coreCountTrait.AsInt();
+        }
+
+        // Default based on shop type
+        return GetShopType(merchant) switch
+        {
+            "weaponsmith" => 10,
+            "armorer" => 10,
+            "apothecary" => 15,
+            "general" => 20,
+            _ => 15
+        };
+    }
+
+    /// <summary>
+    /// Get dynamic item count from merchant traits.
+    /// </summary>
+    private int GetDynamicItemCount(NPC merchant)
+    {
+        if (merchant.Traits.TryGetValue("shopDynamicCount", out var dynamicCountTrait))
+        {
+            return dynamicCountTrait.AsInt();
+        }
+
+        // Default to 5-10 dynamic items
+        return _random.Next(5, 11);
+    }
+
+    /// <summary>
+    /// Generate core inventory items based on shop type.
+    /// Core items are always available with unlimited quantity.
+    /// </summary>
+    private List<Item> GenerateCoreInventory(string shopType, int count)
+    {
+        var categories = GetCategoriesForShopType(shopType);
+        var items = _catalogLoader.LoadMultipleCategories(categories, ItemRarity.Common);
+        
+        return SelectItemsByWeight(items, count);
+    }
+
+    /// <summary>
+    /// Generate dynamic inventory items that refresh daily.
+    /// Includes uncommon and rare items with limited availability.
+    /// </summary>
+    private List<Item> GenerateDynamicInventory(string shopType, int count)
+    {
+        var categories = GetCategoriesForShopType(shopType);
+        var items = _catalogLoader.LoadMultipleCategories(categories);
+        
+        // Weight towards uncommon/rare for dynamic inventory
+        var filtered = items.Where(i => i.Rarity >= ItemRarity.Uncommon).ToList();
+        
+        if (filtered.Count == 0)
+        {
+            filtered = items; // Fallback to all if no uncommon+ items
+        }
+        
+        return SelectItemsByWeight(filtered, count);
+    }
+
+    /// <summary>
+    /// Get item categories appropriate for shop type.
+    /// </summary>
+    private List<string> GetCategoriesForShopType(string shopType)
+    {
+        return shopType.ToLower() switch
+        {
+            "weaponsmith" => new List<string> { "weapons" },
+            "armorer" => new List<string> { "armor" },
+            "apothecary" => new List<string> { "consumables" },
+            "alchemist" => new List<string> { "consumables" },
+            "general" => new List<string> { "weapons", "armor", "consumables" },
+            "blacksmith" => new List<string> { "weapons", "armor" },
+            _ => new List<string> { "consumables" } // Default to potions
+        };
+    }
+
+    /// <summary>
+    /// Select items from templates using weighted random selection.
+    /// </summary>
+    private List<Item> SelectItemsByWeight(List<ItemTemplate> templates, int count)
+    {
+        var selectedItems = new List<Item>();
+        
+        if (templates.Count == 0)
+        {
+            Log.Warning("No item templates available for selection");
+            return selectedItems;
+        }
+
+        // Calculate total weight
+        int totalWeight = templates.Sum(t => t.RarityWeight);
+        
+        for (int i = 0; i < count && templates.Count > 0; i++)
+        {
+            // Weighted random selection
+            int roll = _random.Next(totalWeight);
+            int cumulative = 0;
+            
+            ItemTemplate? selected = null;
+            
+            foreach (var template in templates)
+            {
+                cumulative += template.RarityWeight;
+                if (roll < cumulative)
+                {
+                    selected = template;
+                    break;
+                }
+            }
+
+            if (selected != null)
+            {
+                // Create item from template
+                var item = CreateItemFromTemplate(selected);
+                selectedItems.Add(item);
+            }
+        }
+
+        return selectedItems;
+    }
+
+    /// <summary>
+    /// Create an Item instance from an ItemTemplate.
+    /// </summary>
+    private Item CreateItemFromTemplate(ItemTemplate template)
+    {
+        return new Item
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = template.Name,
+            Price = template.BasePrice,
+            Rarity = template.Rarity,
+            TotalRarityWeight = template.RarityWeight,
+            Type = template.Category switch
+            {
+                "weapons" => ItemType.Weapon,
+                "armor" => ItemType.Chest, // Default armor pieces to chest
+                "consumables" => ItemType.Consumable,
+                _ => ItemType.Consumable
+            }
+        };
     }
 }
 
