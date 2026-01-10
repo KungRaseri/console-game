@@ -26,6 +26,15 @@ public class Location
     /// <summary>Gets or sets the danger rating.</summary>
     public int DangerRating { get; set; }
     
+    /// <summary>Gets or sets whether this location has a shop.</summary>
+    public bool HasShop { get; set; }
+    
+    /// <summary>Gets or sets whether this location has an inn for resting.</summary>
+    public bool HasInn { get; set; }
+    
+    /// <summary>Gets or sets whether this location is a safe zone (no random combat).</summary>
+    public bool IsSafeZone { get; set; }
+    
     /// <summary>Gets or sets the features.</summary>
     public List<string> Features { get; set; } = new();
     /// <summary>Gets or sets the NPC IDs present at this location.</summary>
@@ -128,4 +137,26 @@ public class DialogueLine
     public List<string> Tags { get; set; } = new();
     /// <summary>Gets or sets additional metadata.</summary>
     public Dictionary<string, object> Metadata { get; set; } = new();
+}
+
+/// <summary>
+/// Result of location-based loot generation.
+/// Provides gold, XP, and item drop information based on location danger.
+/// </summary>
+public class LocationLootResult
+{
+    /// <summary>Gets or sets the amount of gold to reward.</summary>
+    public int GoldAmount { get; set; }
+
+    /// <summary>Gets or sets the amount of experience to reward.</summary>
+    public int ExperienceAmount { get; set; }
+
+    /// <summary>Gets or sets whether an item should drop.</summary>
+    public bool ShouldDropItem { get; set; }
+
+    /// <summary>Gets or sets the suggested rarity for the dropped item.</summary>
+    public ItemRarity? SuggestedItemRarity { get; set; }
+
+    /// <summary>Gets or sets the suggested item category (weapons, armor, materials, consumables).</summary>
+    public string? ItemCategory { get; set; }
 }

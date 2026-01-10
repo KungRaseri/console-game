@@ -115,6 +115,10 @@ public class CombatService
         // Calculate base damage (weapon + attribute bonuses)
         int baseDamage = CalculatePlayerDamage(player);
 
+        // Calculate elemental damage from weapon traits
+        var (elementalDamage, damageType) = CalculateElementalDamage(player.EquippedMainHand);
+        baseDamage += elementalDamage;
+
         // Apply status effect stat modifiers
         if (playerStatusResult.TotalStatModifiers.TryGetValue("attack", out int attackMod))
         {
@@ -130,6 +134,10 @@ public class CombatService
         {
             baseDamage = (int)(baseDamage * 2.0);
         }
+
+        // Apply damage type modifier (resistance/vulnerability)
+        double damageTypeModifier = CalculateDamageTypeModifier(damageType, enemy);
+        baseDamage = (int)(baseDamage * damageTypeModifier);
 
         // Apply enemy defense
         int finalDamage = Math.Max(1, baseDamage - enemy.GetPhysicalDefense());
@@ -166,6 +174,70 @@ public class CombatService
                 XPAmount = 10,
                 ActionSource = "critical_hit"
             });
+        }
+
+        // Apply elemental status effects (20% chance per hit)
+        if (damageType != "physical" && _random.Next(100) < 20)
+        {
+            StatusEffectType statusEffect = damageType switch
+            {
+                "fire" => StatusEffectType.Burning,
+                "ice" => StatusEffectType.Frozen,
+                "lightning" => StatusEffectType.Stunned, // Lightning stuns
+                "poison" => StatusEffectType.Poisoned,
+                _ => (StatusEffectType)(-1) // Invalid sentinel value
+            };
+
+            // Only apply if valid status effect
+            if ((int)statusEffect >= 0)
+            {
+                int duration = damageType switch
+                {
+                    "fire" => 3,      // Burning: 3 turns
+                    "ice" => 2,       // Frozen: 2 turns (stun)
+                    "lightning" => 2, // Stunned: 2 turns
+                    "poison" => 5,    // Poisoned: 5 turns
+                    _ => 0
+                };
+
+                int tickDamage = damageType switch
+                {
+                    "fire" => 5,      // Burning: 5 damage/turn
+                    "poison" => 4,    // Poisoned: 4 damage/turn
+                    _ => 0
+                };
+
+                var category = statusEffect switch
+                {
+                    StatusEffectType.Burning => StatusEffectCategory.DamageOverTime,
+                    StatusEffectType.Poisoned => StatusEffectCategory.DamageOverTime,
+                    StatusEffectType.Frozen => StatusEffectCategory.CrowdControl,
+                    StatusEffectType.Stunned => StatusEffectCategory.CrowdControl,
+                    _ => StatusEffectCategory.Debuff
+                };
+
+                var effect = new StatusEffect
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Type = statusEffect,
+                    Category = category,
+                    Name = statusEffect.ToString(),
+                    Description = $"Afflicted by {damageType} damage",
+                    RemainingDuration = duration,
+                    OriginalDuration = duration,
+                    TickDamage = tickDamage,
+                    DamageType = damageType,
+                    Source = $"Elemental weapon"
+                };
+
+                await _mediator.Send(new ApplyStatusEffectCommand
+                {
+                    TargetEnemy = enemy,
+                    Effect = effect
+                });
+
+                result.Message += $"\n{enemy.Name} is now {statusEffect.ToString().ToLower()}!";
+            }
         }
 
         // Generate message
@@ -646,6 +718,7 @@ public class CombatService
 
     /// <summary>
     /// Calculate player's attack damage based on equipped weapon and attributes.
+    /// Includes elemental damage traits from weapons.
     /// </summary>
     private int CalculatePlayerDamage(Character player)
     {
@@ -675,6 +748,108 @@ public class CombatService
         totalDamage = (int)(totalDamage * _random.Next(85, 116) / 100.0);
 
         return Math.Max(1, totalDamage);
+    }
+
+    /// <summary>
+    /// Calculate elemental damage bonus from weapon traits.
+    /// Checks for fire, ice, lightning, and poison damage traits.
+    /// </summary>
+    /// <param name="weapon">The weapon to check for elemental traits.</param>
+    /// <returns>The elemental damage bonus and damage type.</returns>
+    private (int elementalDamage, string damageType) CalculateElementalDamage(Item? weapon)
+    {
+        if (weapon == null)
+            return (0, "physical");
+
+        var traits = weapon.GetTotalTraits();
+        int elementalDamage = 0;
+        string damageType = "physical";
+
+        // Check for elemental damage traits
+        if (traits.TryGetValue("fireDamage", out var fireDamage))
+        {
+            elementalDamage = fireDamage.AsInt();
+            damageType = "fire";
+        }
+        else if (traits.TryGetValue("iceDamage", out var iceDamage))
+        {
+            elementalDamage = iceDamage.AsInt();
+            damageType = "ice";
+        }
+        else if (traits.TryGetValue("lightningDamage", out var lightningDamage))
+        {
+            elementalDamage = lightningDamage.AsInt();
+            damageType = "lightning";
+        }
+        else if (traits.TryGetValue("poisonDamage", out var poisonDamage))
+        {
+            elementalDamage = poisonDamage.AsInt();
+            damageType = "poison";
+        }
+        else if (traits.TryGetValue("damageType", out var dmgType))
+        {
+            // Check generic damageType trait
+            damageType = dmgType.AsString().ToLower();
+        }
+
+        return (elementalDamage, damageType);
+    }
+
+    /// <summary>
+    /// Calculate damage resistance/vulnerability modifier based on damage type and enemy traits.
+    /// Returns a multiplier (0.5 for resistance, 1.0 for normal, 1.5 for weakness, 2.0 for vulnerability).
+    /// </summary>
+    /// <param name="damageType">The type of damage being dealt (fire, ice, lightning, poison, physical).</param>
+    /// <param name="enemy">The enemy being damaged.</param>
+    /// <returns>Damage multiplier based on resistances/vulnerabilities.</returns>
+    private double CalculateDamageTypeModifier(string damageType, Enemy enemy)
+    {
+        if (damageType == "physical")
+            return 1.0; // Physical damage is always neutral
+
+        var traits = enemy.Traits;
+        
+        // Check for immunity
+        if (traits.TryGetValue($"immuneTo{CapitalizeFirst(damageType)}", out var immunity) && immunity.AsBool())
+            return 0.0; // Immune - no damage
+
+        // Check for resistance
+        if (traits.TryGetValue($"resist{CapitalizeFirst(damageType)}", out var resistance))
+        {
+            int resistValue = resistance.AsInt();
+            if (resistValue >= 50)
+                return 0.5; // Strong resistance - half damage
+            else if (resistValue > 0)
+                return 0.75; // Moderate resistance
+        }
+
+        // Check for vulnerability/weakness
+        if (traits.TryGetValue("vulnerability", out var vuln))
+        {
+            var vulnType = vuln.AsString().ToLower();
+            if (vulnType == damageType)
+                return 2.0; // Vulnerable - double damage
+        }
+
+        // Check for weakness (alternative name)
+        if (traits.TryGetValue("weakness", out var weakness))
+        {
+            var weakType = weakness.AsString().ToLower();
+            if (weakType == damageType)
+                return 1.5; // Weak - 50% bonus damage
+        }
+
+        return 1.0; // Normal damage
+    }
+
+    /// <summary>
+    /// Capitalize first letter of a string.
+    /// </summary>
+    private static string CapitalizeFirst(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return input;
+        return char.ToUpper(input[0]) + input.Substring(1);
     }
 
     /// <summary>

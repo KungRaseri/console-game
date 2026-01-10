@@ -173,7 +173,10 @@ public class LocationGenerator
                 Description = locationData["description"]?.ToString() ?? "A mysterious location.",
                 Type = locationType,
                 Level = ParseLevel(locationData),
-                DangerRating = locationData["dangerRating"]?.Value<int>() ?? ParseDangerRating(locationData)
+                DangerRating = locationData["dangerRating"]?.Value<int>() ?? ParseDangerRating(locationData),
+                HasShop = DetermineHasShop(locationType, locationData),
+                HasInn = DetermineHasInn(locationType, locationData),
+                IsSafeZone = DetermineIsSafeZone(locationType, locationData)
             };
 
             // Parse features
@@ -521,5 +524,240 @@ public class LocationGenerator
 
         // Default random danger rating
         return _random.Next(1, 10);
+    }
+
+    /// <summary>
+    /// Determines if a location has a shop based on type and data.
+    /// </summary>
+    private bool DetermineHasShop(string locationType, JToken locationData)
+    {
+        // Check explicit shop flag in data
+        if (locationData["hasShop"] is JValue hasShopValue)
+        {
+            return hasShopValue.Value<bool>();
+        }
+
+        // Infer from location type
+        return locationType.ToLower() switch
+        {
+            "towns" => true,        // Towns always have shops
+            "dungeons" => false,    // Dungeons never have shops
+            "wilderness" => false,  // Wilderness never has shops
+            _ => false
+        };
+    }
+
+    /// <summary>
+    /// Determines if a location has an inn based on type and data.
+    /// </summary>
+    private bool DetermineHasInn(string locationType, JToken locationData)
+    {
+        // Check explicit inn flag in data
+        if (locationData["hasInn"] is JValue hasInnValue)
+        {
+            return hasInnValue.Value<bool>();
+        }
+
+        // Infer from location type
+        return locationType.ToLower() switch
+        {
+            "towns" => true,        // Towns always have inns
+            "dungeons" => false,    // Dungeons never have inns
+            "wilderness" => false,  // Wilderness never has inns
+            _ => false
+        };
+    }
+
+    /// <summary>
+    /// Generates a random enemy appropriate for the given location.
+    /// Filters enemies by location type and danger level.
+    /// </summary>
+    /// <param name="location">The location to generate an enemy for.</param>
+    /// <param name="enemyGenerator">The enemy generator service.</param>
+    /// <returns>An appropriate enemy for the location, or null if generation fails.</returns>
+    public async Task<Enemy?> GenerateLocationAppropriateEnemyAsync(Location location, EnemyGenerator enemyGenerator)
+    {
+        try
+        {
+            // Determine enemy category based on location type
+            var enemyCategory = location.Type.ToLower() switch
+            {
+                "dungeons" => GetDungeonEnemyCategory(location),
+                "wilderness" => GetWildernessEnemyCategory(location),
+                "towns" => "humanoids",  // Towns have guards/criminals if combat happens
+                _ => "beasts"  // Default fallback
+            };
+
+            // Generate enemies from the appropriate category
+            var enemies = await enemyGenerator.GenerateEnemiesAsync(enemyCategory, count: 5, hydrate: true);
+            
+            // Filter by danger level (use location level as guide)
+            var appropriateEnemies = enemies
+                .Where(e => Math.Abs(e.Level - location.Level) <= 2)  // Within ±2 levels
+                .ToList();
+
+            // If no appropriate enemies, return any from the category
+            if (!appropriateEnemies.Any())
+            {
+                appropriateEnemies = enemies;
+            }
+
+            // Return random appropriate enemy
+            return appropriateEnemies.Any() 
+                ? appropriateEnemies[_random.Next(appropriateEnemies.Count)] 
+                : null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error generating location-appropriate enemy for {LocationName}", location.Name);
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Generates location-appropriate loot with rarity based on danger level.
+    /// Higher danger locations yield better loot.
+    /// </summary>
+    /// <param name="location">The location to generate loot for.</param>
+    /// <returns>Loot information including gold and potential item rarity.</returns>
+    public LocationLootResult GenerateLocationLoot(Location location)
+    {
+        try
+        {
+            var dangerRating = location.DangerRating;
+            var locationType = location.Type.ToLower();
+
+            // Base gold rewards scale with danger
+            var baseGold = dangerRating * 5;
+            var goldAmount = _random.Next(baseGold, baseGold * 3);
+
+            // XP rewards also scale with danger
+            var baseXP = dangerRating * 3;
+            var xpAmount = _random.Next(baseXP, baseXP * 2);
+
+            // Item drop chance and rarity based on location type and danger
+            var itemDropChance = locationType switch
+            {
+                "dungeons" => 0.5 + (dangerRating * 0.05),  // 50-100% in dungeons
+                "wilderness" => 0.3 + (dangerRating * 0.03), // 30-60% in wilderness
+                "towns" => 0.1,                               // 10% in towns
+                _ => 0.25
+            };
+
+            // Determine item rarity based on danger rating
+            ItemRarity? suggestedRarity = null;
+            if (_random.NextDouble() < itemDropChance)
+            {
+                suggestedRarity = dangerRating switch
+                {
+                    <= 2 => ItemRarity.Common,
+                    <= 4 => _random.Next(100) < 70 ? ItemRarity.Common : ItemRarity.Uncommon,
+                    <= 6 => _random.Next(100) < 50 ? ItemRarity.Uncommon : ItemRarity.Rare,
+                    <= 8 => _random.Next(100) < 60 ? ItemRarity.Rare : ItemRarity.Epic,
+                    _ => _random.Next(100) < 70 ? ItemRarity.Epic : ItemRarity.Legendary
+                };
+            }
+
+            return new LocationLootResult
+            {
+                GoldAmount = goldAmount,
+                ExperienceAmount = xpAmount,
+                ShouldDropItem = suggestedRarity.HasValue,
+                SuggestedItemRarity = suggestedRarity,
+                ItemCategory = GetLocationItemCategory(locationType)
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error generating location loot for {LocationName}", location.Name);
+            return new LocationLootResult
+            {
+                GoldAmount = 10,
+                ExperienceAmount = 15,
+                ShouldDropItem = false
+            };
+        }
+    }
+
+    /// <summary>
+    /// Determines the appropriate item category for a location type.
+    /// </summary>
+    private string GetLocationItemCategory(string locationType)
+    {
+        return locationType switch
+        {
+            "dungeons" => "weapons",    // Dungeons drop weapons
+            "wilderness" => "materials", // Wilderness drops materials/resources
+            "towns" => "consumables",    // Towns drop consumables
+            _ => "materials"
+        };
+    }
+
+    /// <summary>
+    /// Determines the appropriate enemy category for a dungeon location.
+    /// </summary>
+    private string GetDungeonEnemyCategory(Location location)
+    {
+        // Check location features/metadata for hints
+        var features = location.Features.Select(f => f.ToLower()).ToList();
+        var name = location.Name.ToLower();
+
+        if (features.Any(f => f.Contains("undead")) || name.Contains("crypt") || name.Contains("tomb"))
+            return "undead";
+        
+        if (features.Any(f => f.Contains("demon")) || name.Contains("abyss") || name.Contains("hell"))
+            return "demons";
+        
+        if (features.Any(f => f.Contains("goblin")) || name.Contains("goblin"))
+            return "humanoids";  // Goblins are in humanoids
+
+        // Default dungeon enemies
+        return location.DangerRating >= 7 ? "demons" : "undead";
+    }
+
+    /// <summary>
+    /// Determines the appropriate enemy category for a wilderness location.
+    /// </summary>
+    private string GetWildernessEnemyCategory(Location location)
+    {
+        // Check location features/metadata for hints
+        var features = location.Features.Select(f => f.ToLower()).ToList();
+        var name = location.Name.ToLower();
+
+        if (features.Any(f => f.Contains("forest")) || name.Contains("forest") || name.Contains("woods"))
+            return "beasts";  // Wolves, bears
+        
+        if (features.Any(f => f.Contains("mountain")) || name.Contains("mountain") || name.Contains("peak"))
+            return "beasts";  // Mountain creatures
+        
+        if (features.Any(f => f.Contains("swamp")) || name.Contains("swamp") || name.Contains("marsh"))
+            return "undead";  // Swamp creatures, zombies
+        
+        if (features.Any(f => f.Contains("bandit")) || name.Contains("camp") || name.Contains("hideout"))
+            return "humanoids";  // Bandits
+
+        // Default wilderness enemies
+        return "beasts";
+    }
+
+    /// <summary>
+    /// Determines if a location is a safe zone (no random combat) based on type and data.
+    /// </summary>
+    private bool DetermineIsSafeZone(string locationType, JToken locationData)
+    {
+        // Check explicit safeZone flag in data
+        if (locationData["isSafeZone"] is JValue isSafeValue)
+        {
+            return isSafeValue.Value<bool>();
+        }
+
+        // Infer from location type
+        return locationType.ToLower() switch
+        {
+            "towns" => true,        // Towns are safe zones
+            "dungeons" => false,    // Dungeons are dangerous
+            "wilderness" => false,  // Wilderness is dangerous
+            _ => false
+        };
     }
 }
