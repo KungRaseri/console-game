@@ -55,9 +55,10 @@ public class ExplorationService
         _knownLocations.Clear();
         
         // Generate initial locations (mix of towns, dungeons, wilderness)
-        var towns = await _locationGenerator.GenerateLocationsAsync("towns", 2, hydrate: false);
-        var dungeons = await _locationGenerator.GenerateLocationsAsync("dungeons", 3, hydrate: false);
-        var wilderness = await _locationGenerator.GenerateLocationsAsync("wilderness", 3, hydrate: false);
+        // Hydration enabled: Resolves NPC/Enemy/Loot references to full objects
+        var towns = await _locationGenerator.GenerateLocationsAsync("towns", 2, hydrate: true);
+        var dungeons = await _locationGenerator.GenerateLocationsAsync("dungeons", 3, hydrate: true);
+        var wilderness = await _locationGenerator.GenerateLocationsAsync("wilderness", 3, hydrate: true);
         
         _knownLocations.AddRange(towns);
         _knownLocations.AddRange(dungeons);

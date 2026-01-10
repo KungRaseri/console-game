@@ -1,11 +1,11 @@
 # Implementation Status
 
-**Last Updated**: January 10, 2026 19:00 UTC  
+**Last Updated**: January 10, 2026 20:00 UTC  
 **Build Status**: ✅ Clean build (all projects compile)  
 **Test Status**: 7,843/7,844 tests passing (99.99% pass rate) ✅  
 **Documentation Coverage**: 100% XML documentation (3,816 members documented) ✅  
 **Current Phase**: System Completion & Polish  
-**Recent Milestone**: Shop Inventory System Complete! 🎉
+**Recent Milestone**: Crafting System Design Complete! Ready for Implementation 🎉
 
 **Quick Links:**
 - [Work Priorities](#-work-priorities---all-remaining-systems) - All remaining work, prioritized
@@ -139,25 +139,52 @@
 
 ---
 
-### Priority 4: Crafting System (3-4 weeks) 🟢 LOW
-**Current Status**: 0% Complete - Not started  
+### Priority 4: Crafting System (3-4 weeks) � MEDIUM - IN PLANNING
+**Current Status**: 0% Complete - Design finalized, ready for implementation  
 **Feature Page**: [crafting-system.md](features/crafting-system.md)
 
+**Design Complete (January 10, 2026 20:00 UTC):**
+- ✅ Post-craft enchanting via consumable scrolls (not socketable items)
+- ✅ Material-based enchantment slot expansion (catalysts add slots)
+- ✅ Stat consolidation (Traits-only system, remove legacy fields)
+- ✅ Hybrid binding rules (rarity-based: Common=Unbound, Rare=BindOnEquip, Epic/Legendary=BindOnApply)
+- ✅ Quality randomization (always succeed, skill affects quality)
+- ✅ All material sources (enemy drops, shops, gathering nodes)
+
 **What's Missing:**
-- ❌ Crafting stations (anvil, alchemy table, enchanting table)
-- ❌ Recipe system and discovery
-- ❌ Material combination logic
-- ❌ Item enhancement/upgrading
-- ❌ Crafting skills and progression
+- ❌ Recipe data model and catalog system
+- ❌ CraftingStation model and service
+- ❌ RecipeCatalogLoader service
+- ❌ CraftItemCommand and handler
+- ❌ Material validation and consumption
+- ❌ Item generation from recipes
+- ❌ Quality randomization based on skill
+- ❌ Experience and skill progression
+- ❌ Recipe discovery system
+- ❌ Station upgrade system
+- ❌ Enchantment scroll crafting
+- ❌ ApplyEnchantmentCommand (apply scroll to item)
+- ❌ MaxEnchantments slot management
+- ❌ Binding enforcement
+- ❌ JSON recipe catalogs (50+ weapon/armor, 30+ consumables, 30+ scrolls)
+
+**Implementation Phases:**
+1. **Phase 1** (Week 1): Core models, stat consolidation, binding system
+2. **Phase 2** (Week 1-2): Crafting commands, material validation, enchantment slots
+3. **Phase 3** (Week 2): Recipe discovery, unlock conditions, trainer integration
+4. **Phase 4** (Week 2-3): Station system, tier upgrades, location access
+5. **Phase 5** (Week 3): Enchantment scrolls, ApplyEnchantmentCommand, binding logic
+6. **Phase 6** (Week 3-4): Content creation (150+ recipes total)
+7. **Phase 7** (Week 4+): Equipment upgrades, salvaging
 
 **Why Priority 4:**
-- Nice-to-have feature, not core gameplay
-- Significant time investment
-- Depends on materials system (already exists)
-- Can be added post-launch
+- Alternative progression path (not reliant on RNG drops)
+- Significant time investment (3-4 weeks)
+- Design complete and documented
+- Enhances player agency and build customization
 
-**Backend Impact**: New CraftItemCommand, RecipeService, CraftingStationService  
-**Godot Integration**: Crafting UI with recipe book and material slots  
+**Backend Impact**: CraftItemCommand, RecipeCatalogLoader, CraftingService, ApplyEnchantmentCommand  
+**Godot Integration**: Crafting UI, recipe browser, station access, enchantment application  
 **Estimated Time**: 3-4 weeks
 
 ---
@@ -323,6 +350,68 @@
 ---
 
 ## 📅 Recent Progress (Last 7 Days)
+
+### ✅ January 10, 2026 (20:00 UTC) - Crafting System Design Finalized
+
+**Major Achievement: Comprehensive Crafting System Architecture Complete!**
+
+- ✅ Completed 650-line technical specification in crafting-system.md:
+  - JSON v5.1 recipe catalog structure with examples
+  - Recipe schema with materials, output, quality ranges, XP rewards
+  - Crafting station catalog with tier upgrades
+  - Backend architecture: CraftingService, RecipeCatalogLoader, MaterialValidator
+  - MediatR patterns: 5 commands, 5 queries with complete result types
+  - Data models: Recipe, CraftingStation, RecipeMaterial with C# definitions
+- ✅ Finalized design decisions:
+  - **Enchanting**: Post-craft via consumable scrolls (not socketable items)
+  - **Scrolls Only**: Minor/Lesser/Greater/Superior/Legendary tiers
+  - **Enchantment Slots**: 0-3 base slots + catalyst materials add slots
+  - **Binding**: Hybrid rules (Common=Unbound, Rare=BindOnEquip, Epic/Legendary=BindOnApply)
+  - **Quality**: Always succeeds, skill affects output quality
+  - **Materials**: All sources (enemy drops, shop purchases, gathering nodes)
+- ✅ Architectural changes defined:
+  - Stat consolidation: Remove legacy BonusStrength fields → Traits only
+  - Add MaxEnchantments property to Item model
+  - Add BindingType enum and properties to Item model
+  - Add ItemType.EnchantmentScroll
+  - ApplyEnchantmentCommand for applying scrolls to items
+- ✅ Implementation phases mapped:
+  - Phase 1: Core models, stat consolidation, binding
+  - Phase 2: Crafting commands, material validation
+  - Phase 3: Recipe discovery, unlocking
+  - Phase 4: Station system, tier upgrades
+  - Phase 5: Enchantment scrolls, application
+  - Phase 6: Content creation (150+ recipes)
+  - Phase 7: Equipment upgrades, salvaging
+- ✅ Updated IMPLEMENTATION_STATUS.md with Priority 4 details
+
+**Status**: Design complete, ready for Phase 1 implementation  
+**Estimated Time**: 3-4 weeks (7 phases)
+
+---
+
+### ✅ January 10, 2026 (19:00-19:30 UTC) - Location System 100% COMPLETE
+
+**Major Achievement: Priority 1 Fully Finished!**
+
+- ✅ Enabled location hydration in ExplorationService:
+  - Changed `GenerateLocationsAsync("towns", 2, hydrate: false)` → `hydrate: true`
+  - Changed `GenerateLocationsAsync("dungeons", 3, hydrate: false)` → `hydrate: true`
+  - Changed `GenerateLocationsAsync("wilderness", 3, hydrate: false)` → `hydrate: true`
+- ✅ Location entities now fully populated:
+  - `NpcObjects` - List of resolved NPC entities with complete data
+  - `EnemyObjects` - List of resolved Enemy entities with stats/abilities
+  - `LootObjects` - List of resolved Item entities with traits/prices
+- ✅ Reference resolution working:
+  - JSON v4.1 references like `@npcs/merchants:blacksmith` resolved to full objects
+  - JSON v4.1 references like `@enemies/humanoid:goblin-warrior` resolved to full objects
+  - All catalog data loaded via ReferenceResolver
+- ✅ Build successful, all tests passing (7,843/7,844 = 99.99%)
+
+**Architecture**: Full location hydration with resolved NPCs, enemies, and loot from JSON catalogs  
+**Godot Integration**: GetKnownLocationsQuery returns locations with complete entity data for rendering
+
+---
 
 ### ✅ January 10, 2026 (17:00-19:00 UTC) - Shop Inventory Generation 100% COMPLETE
 
@@ -793,14 +882,12 @@
 **For development timeline**: See [ROADMAP.md](ROADMAP.md)  
 **For feature documentation**: See individual feature pages linked throughout
 
-**Architecture Note**: This repository provides backend game logic and MediatR command/query APIs. All UI implementation happens in separate Godot project.
-
----
-
 ## 🏆 Recent Milestones
 
-- ✅ **Shop Inventory System 100% Complete** (January 10, 2026)
-- ✅ **Trait Combat Integration 100% Complete** (January 10, 2026)
+- ✅ **Crafting System Design Finalized** (January 10, 2026 20:00 UTC)
+- ✅ **Location System 100% Complete** (January 10, 2026 19:30 UTC)
+- ✅ **Shop Inventory System 100% Complete** (January 10, 2026 17:00 UTC)
+- ✅ **Trait Combat Integration 100% Complete** (January 10, 2026 15:00 UTC)
 - ✅ **Quest System 100% Complete** (January 10, 2026)
 - ✅ **Status Effects System 100% Complete** (January 10, 2026)
 - ✅ **Location Content System Complete** (January 10, 2026)
@@ -812,4 +899,4 @@
 
 ---
 
-**Last Updated**: January 10, 2026 12:00 UTC
+**Last Updated**: January 10, 2026 20:00 UTC
