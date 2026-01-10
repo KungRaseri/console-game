@@ -195,6 +195,12 @@ public class Enemy : ITraitable
     /// Tracks spell cooldowns for this enemy (spellId -> turns remaining).
     /// </summary>
     public Dictionary<string, int> SpellCooldowns { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the active status effects currently applied to the enemy.
+    /// Includes buffs, debuffs, and damage-over-time effects.
+    /// </summary>
+    public List<StatusEffect> ActiveStatusEffects { get; set; } = new();
 
     /// <summary>
     /// Collection of loot table reference IDs (v4.1 format) for items this enemy can drop.

@@ -71,6 +71,21 @@ public class CombatResult
     
     /// <summary>Gets or sets the combat effect applied.</summary>
     public CombatEffect Effect { get; set; } = CombatEffect.None;
+    
+    /// <summary>Gets or sets the status effects applied by this action.</summary>
+    public List<StatusEffect> StatusEffectsApplied { get; set; } = new();
+    
+    /// <summary>Gets or sets the status effects that expired this turn.</summary>
+    public List<StatusEffectType> StatusEffectsExpired { get; set; } = new();
+    
+    /// <summary>Gets or sets the active status effects on the target after this action.</summary>
+    public List<StatusEffect> ActiveStatusEffects { get; set; } = new();
+    
+    /// <summary>Gets or sets the damage dealt by DoT effects this turn.</summary>
+    public int DotDamage { get; set; } = 0;
+    
+    /// <summary>Gets or sets the healing from HoT effects this turn.</summary>
+    public int HotHealing { get; set; } = 0;
 }
 
 /// <summary>

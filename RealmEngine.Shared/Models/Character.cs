@@ -137,6 +137,12 @@ public class Character
     /// Decrements each combat turn. When reaches 0, spell is ready.
     /// </summary>
     public Dictionary<string, int> SpellCooldowns { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the active status effects currently applied to the character.
+    /// Includes buffs, debuffs, and damage-over-time effects.
+    /// </summary>
+    public List<StatusEffect> ActiveStatusEffects { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the character's inventory of items.
