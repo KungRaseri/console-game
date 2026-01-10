@@ -172,8 +172,8 @@ public class LocationGenerator
                 Name = name,
                 Description = locationData["description"]?.ToString() ?? "A mysterious location.",
                 Type = locationType,
-                Level = locationData["level"]?.Value<int>() ?? _random.Next(1, 20),
-                DangerRating = locationData["dangerRating"]?.Value<int>() ?? _random.Next(1, 10)
+                Level = ParseLevel(locationData),
+                DangerRating = locationData["dangerRating"]?.Value<int>() ?? ParseDangerRating(locationData)
             };
 
             // Parse features
@@ -188,13 +188,17 @@ public class LocationGenerator
                 location.Npcs = await ResolveReferencesAsync(npcs);
             }
 
-            // Parse and resolve enemy references
+            // Parse and resolve enemy references (from "enemies" or "enemyTypes")
             if (locationData["enemies"] is JArray enemies)
             {
                 location.Enemies = await ResolveReferencesAsync(enemies);
             }
+            else if (locationData["enemyTypes"] is JArray enemyTypes)
+            {
+                location.Enemies = await ResolveReferencesAsync(enemyTypes);
+            }
 
-            // Parse and resolve loot/resource references
+            // Parse and resolve loot/resource references (from "loot", "resources", or "rewards")
             if (locationData["loot"] is JArray loot)
             {
                 location.Loot = await ResolveReferencesAsync(loot);
@@ -202,6 +206,10 @@ public class LocationGenerator
             else if (locationData["resources"] is JArray resources)
             {
                 location.Loot = await ResolveReferencesAsync(resources);
+            }
+            else if (locationData["rewards"] is JArray rewards)
+            {
+                location.Loot = await ResolveReferencesAsync(rewards);
             }
 
             // Parse parent region
@@ -450,5 +458,68 @@ public class LocationGenerator
             }
             location.LootObjects = lootObjects;
         }
+    }
+
+    /// <summary>
+    /// Parses the level from location data, supporting "level" field or "recommendedLevel" range string.
+    /// </summary>
+    private int ParseLevel(JToken locationData)
+    {
+        // Check for direct "level" field
+        if (locationData["level"] is JValue levelValue)
+        {
+            return levelValue.Value<int>();
+        }
+
+        // Check for "recommendedLevel" field (e.g., "1-5", "10-15")
+        if (locationData["recommendedLevel"] is JValue recommendedLevel)
+        {
+            var levelStr = recommendedLevel.ToString();
+            if (levelStr.Contains("-"))
+            {
+                var parts = levelStr.Split('-');
+                if (parts.Length == 2 && int.TryParse(parts[0], out var minLevel))
+                {
+                    // Use the minimum level from the range
+                    return minLevel;
+                }
+            }
+            else if (int.TryParse(levelStr, out var singleLevel))
+            {
+                return singleLevel;
+            }
+        }
+
+        // Default random level if not specified
+        return _random.Next(1, 20);
+    }
+
+    /// <summary>
+    /// Parses the danger rating from location data, inferring from difficulty if not specified.
+    /// </summary>
+    private int ParseDangerRating(JToken locationData)
+    {
+        // Check for direct "dangerRating" field
+        if (locationData["dangerRating"] is JValue dangerRatingValue)
+        {
+            return dangerRatingValue.Value<int>();
+        }
+
+        // Infer from difficulty field
+        if (locationData["difficulty"] is JValue difficultyValue)
+        {
+            var difficulty = difficultyValue.ToString().ToLower();
+            return difficulty switch
+            {
+                "easy" or "low" => 2,
+                "medium" or "moderate" => 5,
+                "hard" or "high" => 8,
+                "deadly" or "extreme" => 10,
+                _ => _random.Next(1, 10)
+            };
+        }
+
+        // Default random danger rating
+        return _random.Next(1, 10);
     }
 }

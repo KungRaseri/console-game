@@ -1,0 +1,246 @@
+using Microsoft.Extensions.Logging;
+using RealmEngine.Shared.Models;
+
+namespace RealmEngine.Core.Services;
+
+/// <summary>
+/// Service for generating loot based on location loot tables.
+/// Handles weighted random selection and rarity filtering.
+/// </summary>
+public class LootTableService
+{
+    private readonly ILogger<LootTableService> _logger;
+    private readonly Random _random;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LootTableService"/> class.
+    /// </summary>
+    /// <param name="logger">The logger.</param>
+    public LootTableService(ILogger<LootTableService> logger)
+    {
+        _logger = logger;
+        _random = new Random();
+    }
+
+    /// <summary>
+    /// Generates loot for a location based on its loot references.
+    /// </summary>
+    /// <param name="location">The location to generate loot for.</param>
+    /// <param name="count">Number of loot items to generate.</param>
+    /// <param name="minRarity">Minimum rarity filter (optional).</param>
+    /// <param name="maxRarity">Maximum rarity filter (optional).</param>
+    /// <returns>List of loot item references.</returns>
+    public List<string> GenerateLootForLocation(
+        Location location,
+        int count = 1,
+        ItemRarity? minRarity = null,
+        ItemRarity? maxRarity = null)
+    {
+        if (location == null)
+        {
+            _logger.LogWarning("Cannot generate loot for null location");
+            return new List<string>();
+        }
+
+        if (location.Loot == null || !location.Loot.Any())
+        {
+            _logger.LogInformation("Location {LocationName} has no loot table", location.Name);
+            return new List<string>();
+        }
+
+        var lootTable = BuildLootTable(location.Loot);
+        var generatedLoot = new List<string>();
+
+        for (int i = 0; i < count; i++)
+        {
+            var lootRef = SelectWeightedLoot(lootTable);
+            if (lootRef != null)
+            {
+                // Apply rarity filter if needed
+                // Note: Rarity filtering would require resolving the reference to check rarity
+                // For now, we return the reference and let the caller handle filtering
+                generatedLoot.Add(lootRef);
+            }
+        }
+
+        _logger.LogDebug("Generated {Count} loot items for location {LocationName}", 
+            generatedLoot.Count, location.Name);
+
+        return generatedLoot;
+    }
+
+    /// <summary>
+    /// Gets the loot spawn weights for a location by category.
+    /// </summary>
+    /// <param name="location">The location to analyze.</param>
+    /// <returns>Dictionary of category to weight.</returns>
+    public Dictionary<string, int> GetLootSpawnWeights(Location location)
+    {
+        if (location == null || location.Loot == null)
+        {
+            return new Dictionary<string, int>();
+        }
+
+        return BuildLootTable(location.Loot);
+    }
+
+    /// <summary>
+    /// Gets all unique loot categories for a location.
+    /// </summary>
+    /// <param name="location">The location to analyze.</param>
+    /// <returns>List of loot categories.</returns>
+    public List<string> GetLootCategories(Location location)
+    {
+        if (location == null || location.Loot == null)
+        {
+            return new List<string>();
+        }
+
+        var categories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var lootRef in location.Loot)
+        {
+            var category = ExtractCategory(lootRef);
+            if (!string.IsNullOrEmpty(category))
+            {
+                categories.Add(category);
+            }
+        }
+
+        return categories.ToList();
+    }
+
+    /// <summary>
+    /// Calculates the total loot weight for a location.
+    /// </summary>
+    /// <param name="location">The location to analyze.</param>
+    /// <returns>Total weight value.</returns>
+    public int GetTotalLootWeight(Location location)
+    {
+        if (location == null || location.Loot == null)
+        {
+            return 0;
+        }
+
+        var lootTable = BuildLootTable(location.Loot);
+        return lootTable.Values.Sum();
+    }
+
+    /// <summary>
+    /// Builds a weighted loot table from loot references.
+    /// Each reference adds 10 weight to its category.
+    /// </summary>
+    /// <param name="lootReferences">The loot references to process.</param>
+    /// <returns>Dictionary of category to weight.</returns>
+    private Dictionary<string, int> BuildLootTable(List<string> lootReferences)
+    {
+        var lootTable = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var lootRef in lootReferences)
+        {
+            if (lootRef.StartsWith("@items/", StringComparison.OrdinalIgnoreCase))
+            {
+                var category = ExtractCategory(lootRef);
+                if (!string.IsNullOrEmpty(category))
+                {
+                    lootTable[category] = lootTable.GetValueOrDefault(category, 0) + 10;
+                }
+            }
+        }
+
+        return lootTable;
+    }
+
+    /// <summary>
+    /// Extracts the category from an item reference.
+    /// Example: "@items/weapons/swords:*" -> "weapons/swords"
+    /// </summary>
+    /// <param name="reference">The item reference.</param>
+    /// <returns>The category, or empty string if invalid.</returns>
+    private string ExtractCategory(string reference)
+    {
+        if (!reference.StartsWith("@items/", StringComparison.OrdinalIgnoreCase))
+        {
+            return string.Empty;
+        }
+
+        // Remove "@items/" prefix
+        var refPart = reference.Substring(7);
+        
+        // Find colon separator
+        var colonIndex = refPart.IndexOf(':');
+        if (colonIndex > 0)
+        {
+            return refPart.Substring(0, colonIndex);
+        }
+
+        return refPart;
+    }
+
+    /// <summary>
+    /// Selects a loot reference using weighted random selection.
+    /// </summary>
+    /// <param name="lootTable">The weighted loot table.</param>
+    /// <returns>A randomly selected loot category, or null if table is empty.</returns>
+    private string? SelectWeightedLoot(Dictionary<string, int> lootTable)
+    {
+        if (lootTable == null || !lootTable.Any())
+        {
+            return null;
+        }
+
+        var totalWeight = lootTable.Values.Sum();
+        var roll = _random.Next(totalWeight);
+        var cumulative = 0;
+
+        foreach (var (category, weight) in lootTable)
+        {
+            cumulative += weight;
+            if (roll < cumulative)
+            {
+                // Return a wildcard reference for this category
+                return $"@items/{category}:*";
+            }
+        }
+
+        // Fallback to first category (should never reach here)
+        return $"@items/{lootTable.Keys.First()}:*";
+    }
+
+    /// <summary>
+    /// Generates loot with specific category preference.
+    /// </summary>
+    /// <param name="location">The location to generate loot for.</param>
+    /// <param name="preferredCategory">The preferred loot category (e.g., "weapons/swords").</param>
+    /// <param name="count">Number of items to generate.</param>
+    /// <returns>List of loot references, preferring the specified category.</returns>
+    public List<string> GenerateLootWithPreference(
+        Location location,
+        string preferredCategory,
+        int count = 1)
+    {
+        if (location == null || location.Loot == null || !location.Loot.Any())
+        {
+            return new List<string>();
+        }
+
+        var lootTable = BuildLootTable(location.Loot);
+        
+        // Boost the preferred category weight by 50%
+        if (lootTable.ContainsKey(preferredCategory))
+        {
+            lootTable[preferredCategory] = (int)(lootTable[preferredCategory] * 1.5);
+        }
+
+        var generatedLoot = new List<string>();
+        for (int i = 0; i < count; i++)
+        {
+            var lootRef = SelectWeightedLoot(lootTable);
+            if (lootRef != null)
+            {
+                generatedLoot.Add(lootRef);
+            }
+        }
+
+        return generatedLoot;
+    }
+}
