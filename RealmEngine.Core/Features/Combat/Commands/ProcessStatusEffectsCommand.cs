@@ -114,23 +114,28 @@ public class ProcessStatusEffectsHandler : IRequestHandler<ProcessStatusEffectsC
             if (effect.TickHealing > 0)
             {
                 var healing = effect.TickHealing * effect.StackCount;
-                totalHealing += healing;
                 
-                // Apply healing to target
+                // Calculate actual healing applied (respect max health cap)
+                int actualHealing = 0;
                 if (request.TargetCharacter != null)
                 {
+                    var healthBefore = request.TargetCharacter.Health;
                     request.TargetCharacter.Health = Math.Min(request.TargetCharacter.MaxHealth, 
                         request.TargetCharacter.Health + healing);
+                    actualHealing = request.TargetCharacter.Health - healthBefore;
                 }
                 else if (request.TargetEnemy != null)
                 {
+                    var healthBefore = request.TargetEnemy.Health;
                     request.TargetEnemy.Health = Math.Min(request.TargetEnemy.MaxHealth, 
                         request.TargetEnemy.Health + healing);
+                    actualHealing = request.TargetEnemy.Health - healthBefore;
                 }
                 
-                messages.Add($"{targetName} heals {healing} HP from {effect.Name}");
+                totalHealing += actualHealing;
+                messages.Add($"{targetName} heals {actualHealing} HP from {effect.Name}");
                 _logger.LogInformation("{Target} heals {Healing} HP from {Effect}", 
-                    targetName, healing, effect.Name);
+                    targetName, actualHealing, effect.Name);
             }
 
             // Accumulate stat modifiers

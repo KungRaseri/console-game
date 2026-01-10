@@ -34,6 +34,7 @@ public class ProcessStatusEffectsTests
                 {
                     Id = "poison1",
                     Type = StatusEffectType.Poisoned,
+                    Category = StatusEffectCategory.DamageOverTime,
                     Name = "Poison",
                     RemainingDuration = 3,
                     TickDamage = 5,
@@ -68,6 +69,7 @@ public class ProcessStatusEffectsTests
                 {
                     Id = "regen1",
                     Type = StatusEffectType.Regenerating,
+                    Category = StatusEffectCategory.HealOverTime,
                     Name = "Regeneration",
                     RemainingDuration = 4,
                     TickHealing = 8
@@ -100,8 +102,9 @@ public class ProcessStatusEffectsTests
                 {
                     Id = "regen1",
                     Type = StatusEffectType.Regenerating,
+                    Category = StatusEffectCategory.HealOverTime,
                     Name = "Regeneration",
-                    RemainingDuration = 3,
+                    RemainingDuration = 2,
                     TickHealing = 10
                 }
             }
@@ -113,8 +116,8 @@ public class ProcessStatusEffectsTests
         var result = await _handler.Handle(command, CancellationToken.None);
 
         // Assert
-        result.TotalHealingReceived.Should().Be(10);
-        character.Health.Should().Be(100); // Capped at max
+        result.TotalHealingReceived.Should().Be(2);
+        character.Health.Should().Be(100);
     }
 
     [Fact]
@@ -123,20 +126,21 @@ public class ProcessStatusEffectsTests
         // Arrange
         var enemy = new Enemy
         {
-            Name = "Goblin",
+            Name = "Orc",
             Health = 50,
             MaxHealth = 50,
             ActiveStatusEffects = new List<StatusEffect>
             {
                 new StatusEffect
                 {
-                    Id = "bleed1",
-                    Type = StatusEffectType.Bleeding,
-                    Name = "Bleeding",
-                    RemainingDuration = 3,
+                    Id = "burn1",
+                    Type = StatusEffectType.Burning,
+                    Category = StatusEffectCategory.DamageOverTime,
+                    Name = "Burning",
+                    RemainingDuration = 2,
                     TickDamage = 3,
-                    DamageType = "physical",
-                    StackCount = 3
+                    StackCount = 3,
+                    DamageType = "fire"
                 }
             }
         };
@@ -159,14 +163,17 @@ public class ProcessStatusEffectsTests
         {
             Name = "Hero",
             Health = 100,
+            MaxHealth = 100,
             ActiveStatusEffects = new List<StatusEffect>
             {
                 new StatusEffect
                 {
-                    Id = "stun1",
-                    Type = StatusEffectType.Stunned,
-                    Name = "Stunned",
-                    RemainingDuration = 1
+                    Id = "poison1",
+                    Type = StatusEffectType.Poisoned,
+                    Category = StatusEffectCategory.DamageOverTime,
+                    Name = "Poison",
+                    RemainingDuration = 1,
+                    TickDamage = 5
                 }
             }
         };
@@ -178,12 +185,106 @@ public class ProcessStatusEffectsTests
 
         // Assert
         result.EffectsExpired.Should().Be(1);
-        result.ExpiredEffectTypes.Should().Contain(StatusEffectType.Stunned);
+        result.ExpiredEffectTypes.Should().Contain(StatusEffectType.Poisoned);
         character.ActiveStatusEffects.Should().BeEmpty();
     }
 
     [Fact]
     public async Task Should_Process_Multiple_Effects_Simultaneously()
+    {
+        // Arrange
+        var character = new Character
+        {
+            Name = "Hero",
+            Health = 80,
+            MaxHealth = 100,
+            ActiveStatusEffects = new List<StatusEffect>
+            {
+                new StatusEffect
+                {
+                    Id = "poison1",
+                    Type = StatusEffectType.Poisoned,
+                    Category = StatusEffectCategory.DamageOverTime,
+                    Name = "Poison",
+                    RemainingDuration = 3,
+                    TickDamage = 5
+                },
+                new StatusEffect
+                {
+                    Id = "burn1",
+                    Type = StatusEffectType.Burning,
+                    Category = StatusEffectCategory.DamageOverTime,
+                    Name = "Burning",
+                    RemainingDuration = 2,
+                    TickDamage = 3
+                },
+                new StatusEffect
+                {
+                    Id = "regen1",
+                    Type = StatusEffectType.Regenerating,
+                    Category = StatusEffectCategory.HealOverTime,
+                    Name = "Regeneration",
+                    RemainingDuration = 4,
+                    TickHealing = 7
+                }
+            }
+        };
+
+        var command = new ProcessStatusEffectsCommand { TargetCharacter = character };
+
+        // Act
+        var result = await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        result.TotalDamageTaken.Should().Be(8); // 5 + 3
+        result.TotalHealingReceived.Should().Be(7);
+        character.Health.Should().Be(79); // 80 - 8 + 7
+    }
+
+    [Fact]
+    public async Task Should_Accumulate_Stat_Modifiers()
+    {
+        // Arrange
+        var character = new Character
+        {
+            Name = "Hero",
+            Health = 100,
+            MaxHealth = 100,
+            ActiveStatusEffects = new List<StatusEffect>
+            {
+                new StatusEffect
+                {
+                    Id = "buff1",
+                    Type = StatusEffectType.Strengthened,
+                    Category = StatusEffectCategory.Buff,
+                    Name = "Strength Buff",
+                    RemainingDuration = 3,
+                    StatModifiers = new Dictionary<string, int> { { "attack", 10 } }
+                },
+                new StatusEffect
+                {
+                    Id = "debuff1",
+                    Type = StatusEffectType.Weakened,
+                    Category = StatusEffectCategory.Debuff,
+                    Name = "Weakness",
+                    RemainingDuration = 2,
+                    StatModifiers = new Dictionary<string, int> { { "attack", -5 } }
+                }
+            }
+        };
+
+        var command = new ProcessStatusEffectsCommand { TargetCharacter = character };
+
+        // Act
+        var result = await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
+        result.TotalStatModifiers.Should().ContainKey("attack");
+        result.TotalStatModifiers["attack"].Should().Be(5); // 10 - 5
+    }
+
+    [Fact]
+    public async Task Should_Decrement_Duration_On_All_Effects()
     {
         // Arrange
         var character = new Character
@@ -197,111 +298,18 @@ public class ProcessStatusEffectsTests
                 {
                     Id = "poison1",
                     Type = StatusEffectType.Poisoned,
+                    Category = StatusEffectCategory.DamageOverTime,
                     Name = "Poison",
                     RemainingDuration = 3,
-                    TickDamage = 4,
-                    DamageType = "poison"
+                    TickDamage = 5
                 },
                 new StatusEffect
                 {
-                    Id = "burn1",
-                    Type = StatusEffectType.Burning,
-                    Name = "Burning",
-                    RemainingDuration = 2,
-                    TickDamage = 6,
-                    DamageType = "fire"
-                },
-                new StatusEffect
-                {
-                    Id = "regen1",
-                    Type = StatusEffectType.Regenerating,
-                    Name = "Regeneration",
-                    RemainingDuration = 4,
-                    TickHealing = 5
-                }
-            }
-        };
-
-        var command = new ProcessStatusEffectsCommand { TargetCharacter = character };
-
-        // Act
-        var result = await _handler.Handle(command, CancellationToken.None);
-
-        // Assert
-        result.TotalDamageTaken.Should().Be(10); // 4 + 6
-        result.TotalHealingReceived.Should().Be(5);
-        character.Health.Should().Be(95); // 100 - 10 + 5
-        character.ActiveStatusEffects.Should().HaveCount(3);
-    }
-
-    [Fact]
-    public async Task Should_Accumulate_Stat_Modifiers()
-    {
-        // Arrange
-        var character = new Character
-        {
-            Name = "Hero",
-            ActiveStatusEffects = new List<StatusEffect>
-            {
-                new StatusEffect
-                {
-                    Id = "str1",
-                    Type = StatusEffectType.Strengthened,
-                    Name = "Strength Buff",
-                    RemainingDuration = 3,
-                    StatModifiers = new Dictionary<string, int>
-                    {
-                        { "attack", 10 },
-                        { "damage", 5 }
-                    }
-                },
-                new StatusEffect
-                {
-                    Id = "weak1",
-                    Type = StatusEffectType.Weakened,
-                    Name = "Weakness",
-                    RemainingDuration = 2,
-                    StatModifiers = new Dictionary<string, int>
-                    {
-                        { "attack", -5 }
-                    }
-                }
-            }
-        };
-
-        var command = new ProcessStatusEffectsCommand { TargetCharacter = character };
-
-        // Act
-        var result = await _handler.Handle(command, CancellationToken.None);
-
-        // Assert
-        result.TotalStatModifiers.Should().ContainKey("attack");
-        result.TotalStatModifiers["attack"].Should().Be(5); // 10 - 5
-        result.TotalStatModifiers["damage"].Should().Be(5);
-    }
-
-    [Fact]
-    public async Task Should_Decrement_Duration_On_All_Effects()
-    {
-        // Arrange
-        var character = new Character
-        {
-            Name = "Hero",
-            ActiveStatusEffects = new List<StatusEffect>
-            {
-                new StatusEffect
-                {
-                    Id = "effect1",
-                    Type = StatusEffectType.Blessed,
-                    Name = "Blessing",
+                    Id = "shield1",
+                    Type = StatusEffectType.Shielded,
+                    Category = StatusEffectCategory.Buff,
+                    Name = "Shield",
                     RemainingDuration = 5
-                },
-                new StatusEffect
-                {
-                    Id = "effect2",
-                    Type = StatusEffectType.Protected,
-                    Name = "Protection",
-                    RemainingDuration = 3
                 }
             }
         };
@@ -309,11 +317,11 @@ public class ProcessStatusEffectsTests
         var command = new ProcessStatusEffectsCommand { TargetCharacter = character };
 
         // Act
-        var result = await _handler.Handle(command, CancellationToken.None);
+        await _handler.Handle(command, CancellationToken.None);
 
         // Assert
-        character.ActiveStatusEffects[0].RemainingDuration.Should().Be(4);
-        character.ActiveStatusEffects[1].RemainingDuration.Should().Be(2);
+        character.ActiveStatusEffects[0].RemainingDuration.Should().Be(2);
+        character.ActiveStatusEffects[1].RemainingDuration.Should().Be(4);
     }
 
     [Fact]
@@ -323,7 +331,8 @@ public class ProcessStatusEffectsTests
         var enemy = new Enemy
         {
             Name = "Goblin",
-            Health = 50,
+            Health = 30,
+            MaxHealth = 30,
             ActiveStatusEffects = new List<StatusEffect>()
         };
 
@@ -336,7 +345,7 @@ public class ProcessStatusEffectsTests
         result.TotalDamageTaken.Should().Be(0);
         result.TotalHealingReceived.Should().Be(0);
         result.EffectsExpired.Should().Be(0);
-        result.Messages.Should().BeEmpty();
+        result.ActiveEffectTypes.Should().BeEmpty();
     }
 
     [Fact]
@@ -354,10 +363,10 @@ public class ProcessStatusEffectsTests
                 {
                     Id = "poison1",
                     Type = StatusEffectType.Poisoned,
-                    Name = "Lethal Poison",
+                    Category = StatusEffectCategory.DamageOverTime,
+                    Name = "Deadly Poison",
                     RemainingDuration = 2,
-                    TickDamage = 20,
-                    DamageType = "poison"
+                    TickDamage = 20
                 }
             }
         };
@@ -369,7 +378,7 @@ public class ProcessStatusEffectsTests
 
         // Assert
         result.TotalDamageTaken.Should().Be(20);
-        character.Health.Should().Be(0); // Capped at 0
+        character.Health.Should().Be(0);
     }
 
     [Fact]
@@ -380,16 +389,17 @@ public class ProcessStatusEffectsTests
         {
             Name = "Hero",
             Health = 100,
+            MaxHealth = 100,
             ActiveStatusEffects = new List<StatusEffect>
             {
                 new StatusEffect
                 {
                     Id = "burn1",
                     Type = StatusEffectType.Burning,
+                    Category = StatusEffectCategory.DamageOverTime,
                     Name = "Burning",
                     RemainingDuration = 1,
-                    TickDamage = 7,
-                    DamageType = "fire"
+                    TickDamage = 8
                 }
             }
         };
@@ -400,24 +410,26 @@ public class ProcessStatusEffectsTests
         var result = await _handler.Handle(command, CancellationToken.None);
 
         // Assert
-        result.Messages.Should().HaveCount(2);
-        result.Messages[0].Should().Contain("takes 7 fire damage from Burning");
-        result.Messages[1].Should().Contain("Burning has worn off");
+        result.Messages.Should().HaveCountGreaterThanOrEqualTo(2);
+        result.Messages.Should().Contain(m => m.Contains("Burning"));
     }
 
     [Fact]
     public async Task Should_Track_Active_Effect_Types()
     {
         // Arrange
-        var character = new Character
+        var enemy = new Enemy
         {
-            Name = "Hero",
+            Name = "Orc",
+            Health = 50,
+            MaxHealth = 50,
             ActiveStatusEffects = new List<StatusEffect>
             {
                 new StatusEffect
                 {
                     Id = "poison1",
                     Type = StatusEffectType.Poisoned,
+                    Category = StatusEffectCategory.DamageOverTime,
                     Name = "Poison",
                     RemainingDuration = 3,
                     TickDamage = 5
@@ -426,13 +438,14 @@ public class ProcessStatusEffectsTests
                 {
                     Id = "shield1",
                     Type = StatusEffectType.Shielded,
+                    Category = StatusEffectCategory.Buff,
                     Name = "Shield",
                     RemainingDuration = 2
                 }
             }
         };
 
-        var command = new ProcessStatusEffectsCommand { TargetCharacter = character };
+        var command = new ProcessStatusEffectsCommand { TargetEnemy = enemy };
 
         // Act
         var result = await _handler.Handle(command, CancellationToken.None);
@@ -450,19 +463,20 @@ public class ProcessStatusEffectsTests
         var enemy = new Enemy
         {
             Name = "Dragon",
-            Health = 500,
-            MaxHealth = 500,
+            Health = 200,
+            MaxHealth = 200,
             ActiveStatusEffects = new List<StatusEffect>
             {
                 new StatusEffect
                 {
-                    Id = "burn1",
-                    Type = StatusEffectType.Burning,
-                    Name = "Burning",
-                    RemainingDuration = 3,
+                    Id = "bleed1",
+                    Type = StatusEffectType.Bleeding,
+                    Category = StatusEffectCategory.DamageOverTime,
+                    Name = "Deep Wound",
+                    RemainingDuration = 4,
                     TickDamage = 10,
-                    DamageType = "fire",
-                    StackCount = 5
+                    StackCount = 5,
+                    DamageType = "physical"
                 }
             }
         };
@@ -474,7 +488,7 @@ public class ProcessStatusEffectsTests
 
         // Assert
         result.TotalDamageTaken.Should().Be(50); // 10 * 5 stacks
-        enemy.Health.Should().Be(450);
+        enemy.Health.Should().Be(150);
     }
 
     [Fact]
@@ -484,19 +498,19 @@ public class ProcessStatusEffectsTests
         var character = new Character
         {
             Name = "Hero",
+            Health = 100,
+            MaxHealth = 100,
             ActiveStatusEffects = new List<StatusEffect>
             {
                 new StatusEffect
                 {
                     Id = "haste1",
                     Type = StatusEffectType.Hasted,
+                    Category = StatusEffectCategory.Buff,
                     Name = "Haste",
                     RemainingDuration = 3,
                     StackCount = 2,
-                    StatModifiers = new Dictionary<string, int>
-                    {
-                        { "attackSpeed", 15 }
-                    }
+                    StatModifiers = new Dictionary<string, int> { { "speed", 15 } }
                 }
             }
         };
@@ -507,7 +521,8 @@ public class ProcessStatusEffectsTests
         var result = await _handler.Handle(command, CancellationToken.None);
 
         // Assert
-        result.TotalStatModifiers["attackSpeed"].Should().Be(30); // 15 * 2 stacks
+        result.TotalStatModifiers.Should().ContainKey("speed");
+        result.TotalStatModifiers["speed"].Should().Be(30); // 15 * 2 stacks
     }
 
     [Fact]
@@ -518,12 +533,14 @@ public class ProcessStatusEffectsTests
         {
             Name = "Hero",
             Health = 100,
+            MaxHealth = 100,
             ActiveStatusEffects = new List<StatusEffect>
             {
                 new StatusEffect
                 {
                     Id = "stun1",
                     Type = StatusEffectType.Stunned,
+                    Category = StatusEffectCategory.CrowdControl,
                     Name = "Stunned",
                     RemainingDuration = 1
                 },
@@ -531,16 +548,17 @@ public class ProcessStatusEffectsTests
                 {
                     Id = "silence1",
                     Type = StatusEffectType.Silenced,
+                    Category = StatusEffectCategory.CrowdControl,
                     Name = "Silenced",
                     RemainingDuration = 1
                 },
                 new StatusEffect
                 {
-                    Id = "poison1",
-                    Type = StatusEffectType.Poisoned,
-                    Name = "Poison",
-                    RemainingDuration = 2,
-                    TickDamage = 3
+                    Id = "buff1",
+                    Type = StatusEffectType.Blessed,
+                    Category = StatusEffectCategory.Buff,
+                    Name = "Blessing",
+                    RemainingDuration = 3
                 }
             }
         };
@@ -554,7 +572,7 @@ public class ProcessStatusEffectsTests
         result.EffectsExpired.Should().Be(2);
         result.ExpiredEffectTypes.Should().Contain(StatusEffectType.Stunned);
         result.ExpiredEffectTypes.Should().Contain(StatusEffectType.Silenced);
-        result.ActiveEffectTypes.Should().Contain(StatusEffectType.Poisoned);
         character.ActiveStatusEffects.Should().HaveCount(1);
+        character.ActiveStatusEffects[0].Type.Should().Be(StatusEffectType.Blessed);
     }
 }

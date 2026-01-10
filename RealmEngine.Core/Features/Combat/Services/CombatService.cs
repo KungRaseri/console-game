@@ -7,6 +7,7 @@ using RealmEngine.Core.Features.Progression.Commands;
 using RealmEngine.Core.Services;
 using RealmEngine.Core.Features.Progression.Services;
 using RealmEngine.Core.Features.Combat.Services;
+using RealmEngine.Core.Features.Combat.Commands;
 
 namespace RealmEngine.Core.Features.Combat;
 
@@ -72,6 +73,21 @@ public class CombatService
     public virtual async Task<CombatResult> ExecutePlayerAttack(Character player, Enemy enemy, bool isDefending = false)
     {
         var result = new CombatResult { Success = true };
+
+        // Process status effects on player at start of turn
+        var playerStatusResult = await _mediator.Send(new ProcessStatusEffectsCommand { TargetCharacter = player });
+        result.DotDamage = playerStatusResult.TotalDamageTaken;
+        result.HotHealing = playerStatusResult.TotalHealingReceived;
+        result.ActiveStatusEffects = player.ActiveStatusEffects.ToList();
+        result.StatusEffectsExpired = playerStatusResult.ExpiredEffectTypes.ToList();
+        
+        // Check if player can act (not crowd controlled)
+        if (!CanAct(player))
+        {
+            result.Success = false;
+            result.Message = GetCrowdControlMessage(player);
+            return result;
+        }
 
         // Check if enemy dodges
         if (RollDodge(enemy.GetDodgeChance()))
@@ -164,6 +180,21 @@ public class CombatService
     public async Task<CombatResult> ExecuteEnemyAttack(Enemy enemy, Character player, bool isDefending = false)
     {
         var result = new CombatResult { Success = true };
+
+        // Process status effects on enemy at start of turn
+        var enemyStatusResult = await _mediator.Send(new ProcessStatusEffectsCommand { TargetEnemy = enemy });
+        result.DotDamage = enemyStatusResult.TotalDamageTaken;
+        result.HotHealing = enemyStatusResult.TotalHealingReceived;
+        result.ActiveStatusEffects = enemy.ActiveStatusEffects.ToList();
+        result.StatusEffectsExpired = enemyStatusResult.ExpiredEffectTypes.ToList();
+        
+        // Check if enemy can act (not crowd controlled)
+        if (!CanAct(enemy))
+        {
+            result.Success = false;
+            result.Message = $"{enemy.Name} is crowd controlled and cannot act!";
+            return result;
+        }
 
         // Check if player dodges (base + skill bonus)
         double dodgeChance = player.GetDodgeChance() + SkillEffectCalculator.GetDodgeChanceBonus(player);
@@ -894,5 +925,57 @@ public class CombatService
         }
 
         return string.Empty;
+    }
+
+    /// <summary>
+    /// Check if a character can act (not crowd controlled).
+    /// </summary>
+    /// <param name="character">The character to check.</param>
+    /// <returns>True if character can act, false if crowd controlled.</returns>
+    private bool CanAct(Character character)
+    {
+        // Check for crowd control effects that prevent actions
+        return !character.ActiveStatusEffects.Any(e =>
+            e.Type == StatusEffectType.Stunned ||
+            e.Type == StatusEffectType.Frozen ||
+            e.Type == StatusEffectType.Paralyzed);
+    }
+
+    /// <summary>
+    /// Check if an enemy can act (not crowd controlled).
+    /// </summary>
+    /// <param name="enemy">The enemy to check.</param>
+    /// <returns>True if enemy can act, false if crowd controlled.</returns>
+    private bool CanAct(Enemy enemy)
+    {
+        // Check for crowd control effects that prevent actions
+        return !enemy.ActiveStatusEffects.Any(e =>
+            e.Type == StatusEffectType.Stunned ||
+            e.Type == StatusEffectType.Frozen ||
+            e.Type == StatusEffectType.Paralyzed);
+    }
+
+    /// <summary>
+    /// Get crowd control message for character.
+    /// </summary>
+    /// <param name="character">The character who is crowd controlled.</param>
+    /// <returns>Message describing the crowd control effect.</returns>
+    private string GetCrowdControlMessage(Character character)
+    {
+        var ccEffect = character.ActiveStatusEffects.FirstOrDefault(e =>
+            e.Type == StatusEffectType.Stunned ||
+            e.Type == StatusEffectType.Frozen ||
+            e.Type == StatusEffectType.Paralyzed);
+
+        if (ccEffect == null)
+            return "You cannot act!";
+
+        return ccEffect.Type switch
+        {
+            StatusEffectType.Stunned => "You are stunned and cannot act!",
+            StatusEffectType.Frozen => "You are frozen solid and cannot move!",
+            StatusEffectType.Paralyzed => "You are paralyzed and cannot act!",
+            _ => "You cannot act!"
+        };
     }
 }

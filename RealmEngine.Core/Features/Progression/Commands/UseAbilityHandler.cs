@@ -5,6 +5,8 @@ using RealmEngine.Core.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using RealmEngine.Core.Features.Combat.Services;
+using RealmEngine.Core.Features.Combat.Commands;
 
 namespace RealmEngine.Core.Features.Progression.Commands;
 
@@ -15,6 +17,7 @@ public class UseAbilityHandler : IRequestHandler<UseAbilityCommand, UseAbilityRe
 {
     private readonly AbilityCatalogService _abilityCatalog;
     private readonly ILogger<UseAbilityHandler> _logger;
+    private readonly IMediator? _mediator;
     private readonly Random _random = new();
 
     /// <summary>
@@ -22,12 +25,15 @@ public class UseAbilityHandler : IRequestHandler<UseAbilityCommand, UseAbilityRe
     /// </summary>
     /// <param name="abilityCatalog">The ability catalog service.</param>
     /// <param name="logger">The logger.</param>
+    /// <param name="mediator">The mediator for sending commands (optional for testing).</param>
     public UseAbilityHandler(
         AbilityCatalogService abilityCatalog,
-        ILogger<UseAbilityHandler>? logger = null)
+        ILogger<UseAbilityHandler>? logger = null,
+        IMediator? mediator = null)
     {
         _abilityCatalog = abilityCatalog ?? throw new ArgumentNullException(nameof(abilityCatalog));
         _logger = logger ?? NullLogger<UseAbilityHandler>.Instance;
+        _mediator = mediator;
     }
 
     /// <summary>
@@ -36,46 +42,46 @@ public class UseAbilityHandler : IRequestHandler<UseAbilityCommand, UseAbilityRe
     /// <param name="request">The use ability command.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The use ability result.</returns>
-    public Task<UseAbilityResult> Handle(UseAbilityCommand request, CancellationToken cancellationToken)
+    public async Task<UseAbilityResult> Handle(UseAbilityCommand request, CancellationToken cancellationToken)
     {
         // Verify ability is known
         if (!request.User.LearnedAbilities.TryGetValue(request.AbilityId, out var learnedAbility))
         {
-            return Task.FromResult(new UseAbilityResult
+            return new UseAbilityResult
             {
                 Success = false,
                 Message = "You don't know that ability!"
-            });
+            };
         }
 
         var ability = _abilityCatalog.GetAbility(request.AbilityId);
         if (ability == null)
         {
-            return Task.FromResult(new UseAbilityResult
+            return new UseAbilityResult
             {
                 Success = false,
                 Message = "Ability not found!"
-            });
+            };
         }
 
         // Check cooldown
         if (request.User.AbilityCooldowns.TryGetValue(request.AbilityId, out var cooldownRemaining) && cooldownRemaining > 0)
         {
-            return Task.FromResult(new UseAbilityResult
+            return new UseAbilityResult
             {
                 Success = false,
                 Message = $"{ability.DisplayName} is still cooling down ({cooldownRemaining} turns)."
-            });
+            };
         }
 
         // Check mana cost
         if (request.User.Mana < ability.ManaCost)
         {
-            return Task.FromResult(new UseAbilityResult
+            return new UseAbilityResult
             {
                 Success = false,
                 Message = $"Not enough mana! {ability.DisplayName} requires {ability.ManaCost} mana."
-            });
+            };
         }
 
         // Deduct mana
@@ -139,6 +145,9 @@ public class UseAbilityHandler : IRequestHandler<UseAbilityCommand, UseAbilityRe
             "Character {Character} used ability {Ability} (Damage: {Damage}, Healing: {Healing})",
             request.User.Name, ability.DisplayName, damageDealt, healingDone);
 
+        // Apply status effects if the ability has any
+        await TryApplyStatusEffect(ability, request);
+
         // Build result message
         string message = $"Used {ability.DisplayName}!";
         if (damageDealt > 0)
@@ -146,7 +155,7 @@ public class UseAbilityHandler : IRequestHandler<UseAbilityCommand, UseAbilityRe
         if (healingDone > 0)
             message += $" Healed {healingDone} HP.";
 
-        return Task.FromResult(new UseAbilityResult
+        return new UseAbilityResult
         {
             Success = true,
             Message = message,
@@ -154,6 +163,64 @@ public class UseAbilityHandler : IRequestHandler<UseAbilityCommand, UseAbilityRe
             HealingDone = healingDone,
             ManaCost = ability.ManaCost,
             AbilityUsed = ability
-        });
+        };
+    }
+
+    /// <summary>
+    /// Try to apply status effect from ability to target.
+    /// </summary>
+    private async Task TryApplyStatusEffect(Ability ability, UseAbilityCommand request)
+    {
+        if (_mediator == null)
+            return;
+
+        // Parse status effect from ability traits
+        var statusEffect = StatusEffectParser.ParseStatusEffectFromAbility(ability, ability.DisplayName);
+        if (statusEffect == null)
+            return;
+
+        // Check status effect chance
+        int chance = StatusEffectParser.GetStatusEffectChance(ability);
+        if (chance < 100 && _random.Next(100) >= chance)
+        {
+            _logger.LogInformation(
+                "Status effect {Effect} from {Ability} failed to apply ({Chance}% chance)",
+                statusEffect.Type, ability.DisplayName, chance);
+            return;
+        }
+
+        // Apply to target enemy or character
+        Character? targetCharacter = request.TargetCharacter;
+        Enemy? targetEnemy = request.TargetEnemy;
+
+        // If no target specified, apply to user (for buffs)
+        if (targetCharacter == null && targetEnemy == null && 
+            (statusEffect.Category == StatusEffectCategory.Buff || statusEffect.Category == StatusEffectCategory.HealOverTime))
+        {
+            targetCharacter = request.User;
+        }
+
+        if (targetCharacter != null || targetEnemy != null)
+        {
+            var applyCommand = new ApplyStatusEffectCommand
+            {
+                TargetCharacter = targetCharacter,
+                TargetEnemy = targetEnemy,
+                Effect = statusEffect,
+                AllowStacking = statusEffect.CanStack,
+                RefreshDuration = true
+            };
+
+            var result = await _mediator.Send(applyCommand);
+            
+            if (result.Success)
+            {
+                _logger.LogInformation(
+                    "Applied {Effect} to {Target} from {Ability}",
+                    statusEffect.Type,
+                    targetCharacter?.Name ?? targetEnemy?.Name ?? "Unknown",
+                    ability.DisplayName);
+            }
+        }
     }
 }

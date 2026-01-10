@@ -96,7 +96,7 @@ public class ApplyStatusEffectHandler : IRequestHandler<ApplyStatusEffectCommand
         if (existingEffect != null)
         {
             // Handle stacking
-            if (request.AllowStacking && request.Effect.CanStack && existingEffect.StackCount < existingEffect.MaxStacks)
+            if (request.AllowStacking && existingEffect.CanStack && existingEffect.StackCount < existingEffect.MaxStacks)
             {
                 existingEffect.StackCount++;
                 existingEffect.RemainingDuration = request.Effect.OriginalDuration;
@@ -111,6 +111,16 @@ public class ApplyStatusEffectHandler : IRequestHandler<ApplyStatusEffectCommand
                     CurrentStacks = existingEffect.StackCount,
                     ResistancePercentage = resistancePercentage,
                     Message = $"{request.Effect.Name} stacked on {targetName} ({existingEffect.StackCount} stacks)!"
+                });
+            }
+            else if (request.AllowStacking && existingEffect.CanStack && existingEffect.StackCount >= existingEffect.MaxStacks)
+            {
+                // Already at max stacks
+                return Task.FromResult(new ApplyStatusEffectResult
+                {
+                    Success = false,
+                    CurrentStacks = existingEffect.StackCount,
+                    Message = $"{request.Effect.Name} is already at max stacks on {targetName}."
                 });
             }
             
@@ -197,9 +207,9 @@ public class ApplyStatusEffectHandler : IRequestHandler<ApplyStatusEffectCommand
     {
         var resistance = 0;
 
-        // Get damage type resistance from enemy traits
+        // Get damage type resistance from enemy traits (skip if it's 'magic')
         var damageType = effect.DamageType.ToLower();
-        if (!string.IsNullOrEmpty(damageType))
+        if (!string.IsNullOrEmpty(damageType) && damageType != "magic")
         {
             var resistanceKey = $"resist{char.ToUpper(damageType[0])}{damageType.Substring(1)}";
             
@@ -216,10 +226,13 @@ public class ApplyStatusEffectHandler : IRequestHandler<ApplyStatusEffectCommand
             resistance += statusResistTrait.AsInt();
         }
 
-        // General magic resistance applies to all status effects (half value)
-        if (traits.TryGetValue(StandardTraits.ResistMagic, out var magicResistTrait))
+        // General magic resistance applies to all status effects (half value) if damageType is 'magic' or empty
+        if (damageType == "magic" || string.IsNullOrEmpty(damageType))
         {
-            resistance += magicResistTrait.AsInt() / 2;
+            if (traits.TryGetValue(StandardTraits.ResistMagic, out var magicResistTrait))
+            {
+                resistance += magicResistTrait.AsInt() / 2;
+            }
         }
 
         // For characters, derive resistance from Wisdom stat (1% per 10 Wisdom)
