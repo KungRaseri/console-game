@@ -8,78 +8,16 @@
 **Recent Milestone**: Quest Service Integration Complete! 🎉
 
 **Quick Links:**
-- [What's Next](#-whats-next---backend-priorities) - Actionable work items
-- [Partial Systems](#%EF%B8%8F-partial-systems-need-completion) - Systems needing work
+- [Work Priorities](#-work-priorities---all-remaining-systems) - All remaining work, prioritized
 - [Recent Work](#-recent-progress-last-7-days) - Latest achievements
 - [Complete Systems](#-complete-systems-100) - Finished features
-- [Future Systems](#-not-started-systems-0) - Backlog items
 
 ---
 
-## 🎯 What's Next - Backend Priorities
+## 🎯 Work Priorities - All Remaining Systems
 
-### 🔵 Priority 1: Location-Specific Content (2-3 weeks)
-**Current**: LocationGenerator integrated, generic exploration working
-
-**What's Missing:**
-- Location-specific enemy spawn rules (by location type/tier)
-- Location-specific loot tables  
-- Location properties (hasShop, hasInn, dangerLevel)
-- Richer LocationDto for Godot UI
-
-**Why High Value:**
-- Adds exploration variety and depth
-- Enhanced backend DTOs for richer Godot UI
-- Generic system works, this specializes it
-
-**Backend Impact**: ExplorationService returns context-aware location data  
-**Godot Integration**: Godot renders different UI states based on location properties  
-**Estimated Time**: 2-3 weeks
-
----
-
-### 🔵 Priority 2: Trait Effects System (1-2 weeks)  
-**Current**: Trait data exists but doesn't affect combat
-
-**What's Missing:**
-- Trait parsing in CombatService (weapon damage types, enemy resistances)
-- Elemental damage calculations (Fire/Ice/Lightning/Poison)
-- Resistance/weakness system
-- Trait-based enemy behaviors
-
-**Why High Value:**
-- Enables deeper combat strategy
-- Makes items more meaningful
-- Pure backend logic addition
-
-**Backend Impact**: Traits affect combat damage and enemy AI  
-**Godot Integration**: Combat UI shows damage type effectiveness  
-**Estimated Time**: 1-2 weeks
-
----
-
-### 🟢 Priority 3: Enhanced Shop System (1 week)
-**Current**: Shop commands complete, needs inventory generation
-
-**What's Missing:**
-- Dynamic shop inventory generation (TODO comments in ShopEconomyService)
-- Core item catalog loading for base shop inventory
-- Shop type specialization (weaponsmith, apothecary, general store)
-
-**Why Medium Value:**
-- Backend commands complete, just needs content
-- Shop system 50% done, quick win to finish it
-- Pure content work (JSON + generation)
-
-**Backend Impact**: Richer shop inventories with type-appropriate items  
-**Godot Integration**: Shops already callable via BrowseShopCommand  
-**Estimated Time**: 1 week
-
----
-
-## ⚠️ Partial Systems (Need Completion)
-
-### ⚠️ Exploration System (60% Complete)
+### Priority 1: Location-Specific Content (2-3 weeks) 🔴 HIGH
+**Current Status**: 60% Complete - LocationGenerator integrated, generic exploration working  
 **Feature Page**: [exploration-system.md](features/exploration-system.md)
 
 **What Works:**
@@ -91,39 +29,27 @@
 - SaveGameService tracks discovered locations ✅
 
 **What's Missing:**
-- ❌ Generic exploration only - all locations give same rewards
+- ❌ Location-specific enemy spawn rules (by location type/tier)
+- ❌ Location-specific loot tables
+- ❌ Location properties (hasShop, hasInn, dangerLevel)
 - ❌ Location hydration disabled - NPC/Enemy/Loot references not resolved
-- ❌ No location-specific spawns - enemy generation ignores location
-- ❌ No location-specific loot - randomly generated
 - ❌ No town mechanics - no services or NPCs
 - ❌ No dungeon multi-room progression
 
-**Priority**: HIGH (Priority #1)  
-**Next Step**: Location-specific content (see Priority 1 above)
+**Why Priority 1:**
+- Adds exploration variety and depth to existing system
+- Enhanced backend DTOs for richer Godot UI
+- Generic system works, this specializes it
+- Required for towns to have shops and NPCs
+
+**Backend Impact**: ExplorationService returns context-aware location data  
+**Godot Integration**: Godot renders different UI states based on location properties  
+**Estimated Time**: 2-3 weeks
 
 ---
 
-### ⚠️ Shop/Economy System (50% Complete)
-**Feature Page**: [shop-system-integration.md](features/shop-system-integration.md)
-
-**What Works:**
-- ShopEconomyService complete (326 lines, 11 tests) ✅
-- BrowseShopCommand, BuyFromShopCommand, SellToShopCommand ✅
-- Price calculations (markup, buyback rates) ✅
-- Merchant NPC support with traits ✅
-- 10 integration tests passing ✅
-
-**What's Missing:**
-- ❌ Dynamic inventory generation - TODO comments exist
-- ❌ Core items not loaded from catalog
-- ❌ Shop type specialization incomplete
-
-**Priority**: MEDIUM (Priority #3)  
-**Next Step**: Implement inventory generation (see Priority 3 above)
-
----
-
-### ⚠️ Trait System (20% Complete)
+### Priority 2: Trait Effects & Combat Depth (1-2 weeks) 🔴 HIGH
+**Current Status**: 20% Complete - Trait data exists but doesn't affect combat  
 **Feature Page**: [inventory-system.md](features/inventory-system.md)
 
 **What Works:**
@@ -134,12 +60,231 @@
 
 **What's Missing:**
 - ❌ Traits don't affect combat - CombatService ignores them
-- ❌ No damage type system - Fire/Ice/Lightning just data
-- ❌ No resistance calculations
-- ❌ No status effects - Poison/Burning/Frozen don't exist
+- ❌ Elemental damage calculations (Fire/Ice/Lightning/Poison)
+- ❌ Resistance/weakness system
+- ❌ Trait-based enemy behaviors
+- ❌ Weapon damage type bonuses
 
-**Priority**: MEDIUM (Priority #2)  
-**Next Step**: Integrate traits into combat (see Priority 2 above)
+**Why Priority 2:**
+- Enables deeper combat strategy
+- Makes items more meaningful (fire sword vs ice enemy)
+- Pure backend logic addition
+- Relatively quick implementation
+
+**Backend Impact**: Traits affect combat damage, resistances, and enemy AI  
+**Godot Integration**: Combat UI shows damage type effectiveness indicators  
+**Estimated Time**: 1-2 weeks
+
+---
+
+### Priority 3: Shop Inventory Generation (1 week) 🟡 MEDIUM
+**Current Status**: 50% Complete - Shop commands complete, needs inventory generation  
+**Feature Page**: [shop-system-integration.md](features/shop-system-integration.md)
+
+**What Works:**
+- ShopEconomyService complete (326 lines, 11 tests) ✅
+- BrowseShopCommand, BuyFromShopCommand, SellToShopCommand ✅
+- Price calculations (markup, buyback rates) ✅
+- Merchant NPC support with traits ✅
+- 10 integration tests passing ✅
+
+**What's Missing:**
+- ❌ Dynamic shop inventory generation (TODO comments in ShopEconomyService)
+- ❌ Core item catalog loading for base shop inventory
+- ❌ Shop type specialization (weaponsmith, apothecary, general store)
+
+**Why Priority 3:**
+- Backend commands complete, just needs content
+- Quick win to finish 50% done system
+- Pure content work (JSON + generation logic)
+- Works with Priority 1 (town shops)
+
+**Backend Impact**: Richer shop inventories with type-appropriate items  
+**Godot Integration**: Shops already callable via BrowseShopCommand  
+**Estimated Time**: 1 week
+
+---
+
+### Priority 4: Crafting System (3-4 weeks) 🟢 LOW
+**Current Status**: 0% Complete - Not started  
+**Feature Page**: [crafting-system.md](features/crafting-system.md)
+
+**What's Missing:**
+- ❌ Crafting stations (anvil, alchemy table, enchanting table)
+- ❌ Recipe system and discovery
+- ❌ Material combination logic
+- ❌ Item enhancement/upgrading
+- ❌ Crafting skills and progression
+
+**Why Priority 4:**
+- Nice-to-have feature, not core gameplay
+- Significant time investment
+- Depends on materials system (already exists)
+- Can be added post-launch
+
+**Backend Impact**: New CraftItemCommand, RecipeService, CraftingStationService  
+**Godot Integration**: Crafting UI with recipe book and material slots  
+**Estimated Time**: 3-4 weeks
+
+---
+
+### Priority 5: Party System (4-5 weeks) 🟢 LOW
+**Current Status**: 0% Complete - Not started  
+**Feature Page**: [party-system.md](features/party-system.md)
+
+**What's Missing:**
+- ❌ NPC recruitment system
+- ❌ Party combat mechanics (turn order, AI allies)
+- ❌ Party management UI (add/remove members)
+- ❌ NPC progression and equipment
+- ❌ AI-controlled ally behavior
+
+**Why Priority 5:**
+- Major system change (single-player → party-based)
+- Significant combat system refactoring required
+- Nice-to-have, not essential
+- Best added as expansion/DLC feature
+
+**Backend Impact**: Refactor CombatService for multi-character battles  
+**Godot Integration**: Party management UI, multiple character displays  
+**Estimated Time**: 4-5 weeks
+
+---
+
+### Priority 6: Reputation & Factions (2-3 weeks) 🟢 LOW
+**Current Status**: 0% Complete - Not started  
+**Feature Page**: [reputation-faction-system.md](features/reputation-faction-system.md)
+
+**What's Missing:**
+- ❌ Faction definitions and relationships
+- ❌ Reputation tracking per faction
+- ❌ Action consequences (quest choices affect reputation)
+- ❌ Faction-locked content (quests, items, areas)
+- ❌ NPC faction affiliations
+
+**Why Priority 6:**
+- Adds depth to NPC interactions
+- Requires significant content work (faction definitions)
+- Works well with quest system
+- Can be added incrementally
+
+**Backend Impact**: ReputationService, faction data models, quest integration  
+**Godot Integration**: Reputation UI, faction indicators on NPCs  
+**Estimated Time**: 2-3 weeks
+
+---
+
+### Priority 7: Audio System (1-2 weeks) 🟢 LOW
+**Current Status**: 0% Complete - NAudio library installed only  
+**Feature Page**: [audio-system.md](features/audio-system.md)
+
+**What Works:**
+- NAudio library installed ✅
+
+**What's Missing:**
+- ❌ Background music (location themes, combat music, boss themes)
+- ❌ Sound effects (combat sounds, UI sounds, environmental audio)
+- ❌ Audio integration (music/SFX triggering in gameplay)
+- ❌ Audio settings (volume control, mute options)
+
+**Why Priority 7:**
+- Polish feature, not core gameplay
+- Godot may handle audio instead
+- Requires audio asset creation/licensing
+- Can be added at any time
+
+**Backend Impact**: AudioService, music state management  
+**Godot Integration**: Godot typically handles audio better than backend  
+**Estimated Time**: 1-2 weeks (backend only, not asset creation)
+
+---
+
+### Priority 8: Visual Enhancements (2-3 weeks) 🟢 LOW
+**Current Status**: 0% Complete - Not started  
+**Feature Page**: [visual-enhancement-system.md](features/visual-enhancement-system.md)
+
+**What's Missing:**
+- ❌ ASCII art (location illustrations, boss portraits)
+- ❌ Combat animations (attack effects, damage indicators)
+- ❌ Screen transitions (fade effects, loading screens)
+- ❌ Particle effects (visual flourishes)
+
+**Why Priority 8:**
+- Pure Godot UI work, not backend
+- Entirely visual polish
+- No backend changes needed
+- Godot excels at this
+
+**Backend Impact**: None - pure frontend work  
+**Godot Integration**: All visual work happens in Godot  
+**Estimated Time**: 2-3 weeks (Godot team work)
+
+---
+
+### Priority 9: Online & Community Features (4-6 weeks) 🟢 LOW
+**Current Status**: 0% Complete - Not started  
+**Feature Page**: [online-community-features.md](features/online-community-features.md)
+
+**What's Missing:**
+- ❌ Global leaderboards (achievements, fastest runs)
+- ❌ Daily challenges
+- ❌ Save sharing/import
+- ❌ Community events
+
+**Why Priority 9:**
+- Requires server infrastructure
+- Significant development effort
+- Post-launch feature
+- Depends on player base
+
+**Backend Impact**: API endpoints, database, authentication, leaderboard service  
+**Godot Integration**: Online UI, leaderboard displays, challenge tracking  
+**Estimated Time**: 4-6 weeks (plus infrastructure costs)
+
+---
+
+### Priority 10: Quality of Life Enhancements (1-2 weeks) 🟢 LOW
+**Current Status**: 0% Complete - Not started  
+**Feature Page**: [quality-of-life-system.md](features/quality-of-life-system.md)
+
+**What's Missing:**
+- ❌ Undo actions (turn-based combat undo)
+- ❌ Keybind customization
+- ❌ Quick-save hotkey
+- ❌ Tutorial system (first-time player guidance)
+- ❌ Hint system (contextual help)
+
+**Why Priority 10:**
+- Nice-to-have polish features
+- Can be added iteratively
+- Some may be Godot-only (keybinds)
+- Good post-launch updates
+
+**Backend Impact**: Minimal - mostly UI work, some command history tracking  
+**Godot Integration**: Settings UI, tutorial overlays, hint tooltips  
+**Estimated Time**: 1-2 weeks (spread across multiple updates)
+
+---
+
+### Priority 11: Modding Support (3-4 weeks) 🟢 LOW
+**Current Status**: 0% Complete - Not started  
+**Feature Page**: [modding-support.md](features/modding-support.md)
+
+**What's Missing:**
+- ❌ Mod loader system
+- ❌ Content creation tools
+- ❌ Scripting API (Lua/C# scripts)
+- ❌ Community sharing platform
+
+**Why Priority 11:**
+- Post-launch feature
+- Requires significant architecture work
+- Community-driven content
+- Extends game lifespan
+
+**Backend Impact**: Plugin system, mod validation, sandboxed script execution  
+**Godot Integration**: Mod browser UI, mod management  
+**Estimated Time**: 3-4 weeks (plus ongoing support)
 
 ---
 
