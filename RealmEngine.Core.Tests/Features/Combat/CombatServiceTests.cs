@@ -2,6 +2,7 @@ using FluentAssertions;
 using Moq;
 using RealmEngine.Shared.Models;
 using RealmEngine.Core.Features.Combat;
+using RealmEngine.Core.Features.Combat.Commands;
 using RealmEngine.Core.Features.SaveLoad;
 using MediatR;
 
@@ -28,6 +29,16 @@ public class CombatServiceTests
                 GoldXPMultiplier = 1.0
             });
         _mockMediator = new Mock<IMediator>();
+        
+        // Setup mediator to return empty ProcessStatusEffectsResult for all status effect commands
+        _mockMediator.Setup(m => m.Send(It.IsAny<ProcessStatusEffectsCommand>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ProcessStatusEffectsResult
+            {
+                TotalDamageTaken = 0,
+                TotalHealingReceived = 0,
+                TotalStatModifiers = new Dictionary<string, int>(),
+                ExpiredEffectTypes = new List<StatusEffectType>()
+            });
     }
 
     [Fact]

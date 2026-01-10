@@ -408,5 +408,57 @@ public class QuestIntegrationTests
         saveGame.EnemiesDefeatedByType.Should().ContainKey("humanoid");
         saveGame.EnemiesDefeatedByType["humanoid"].Should().Be(1);
     }
+
+    [Fact]
+    public async Task Should_Include_Quest_Progress_In_Combat_Outcome_When_Enemy_Defeated()
+    {
+        // Arrange - Create character and start game
+        var character = new Character 
+        { 
+            Name = "TestHero", 
+            ClassName = "Warrior", 
+            Level = 5,
+            Health = 100,
+            MaxHealth = 100,
+            Strength = 15
+        };
+        var saveGame = _saveGameService.CreateNewGame(character, DifficultySettings.Normal);
+        _saveGameService.SetCurrentSave(saveGame);
+
+        // Get the second main quest (defeat_shrine_guardian)
+        var quest = await _mainQuestService.GetQuestByIdAsync("main_02_first_trial");
+        quest.Should().NotBeNull();
+
+        // Start the quest manually (bypass prerequisites for test)
+        quest!.IsActive = true;
+        saveGame.ActiveQuests.Add(quest);
+
+        // Create enemy matching the quest objective
+        var enemy = new Enemy 
+        { 
+            Id = "shrine_guardian",
+            Name = "Shrine Guardian", 
+            Health = 0, // Set to 0 to simulate defeated state
+            MaxHealth = 50,
+            XPReward = 100,
+            GoldReward = 50,
+            Type = EnemyType.Boss
+        };
+
+        // Get CombatService from the service provider
+        var combatService = _serviceProvider.GetRequiredService<CombatService>();
+
+        // Act - Generate victory outcome for the defeated enemy
+        var outcome = await combatService.GenerateVictoryOutcome(character, enemy);
+
+        // Assert - CombatOutcome should include quest progress information
+        outcome.Should().NotBeNull();
+        outcome.DefeatedEnemyId.Should().Be("shrine_guardian");
+        outcome.DefeatedEnemyType.Should().Be("Boss");
+        outcome.QuestObjectivesCompleted.Should().NotBeEmpty();
+        outcome.QuestObjectivesCompleted.Should().Contain(msg => msg.Contains("The First Trial"));
+        outcome.QuestsCompleted.Should().NotBeEmpty();
+        outcome.QuestsCompleted.Should().Contain("The First Trial");
+    }
 }
 

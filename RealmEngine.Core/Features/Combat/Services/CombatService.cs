@@ -8,6 +8,7 @@ using RealmEngine.Core.Services;
 using RealmEngine.Core.Features.Progression.Services;
 using RealmEngine.Core.Features.Combat.Services;
 using RealmEngine.Core.Features.Combat.Commands;
+using RealmEngine.Core.Features.Quests.Commands;
 
 namespace RealmEngine.Core.Features.Combat;
 
@@ -78,7 +79,7 @@ public class CombatService
         var playerStatusResult = await _mediator.Send(new ProcessStatusEffectsCommand { TargetCharacter = player });
         result.DotDamage = playerStatusResult.TotalDamageTaken;
         result.HotHealing = playerStatusResult.TotalHealingReceived;
-        result.ActiveStatusEffects = player.ActiveStatusEffects.ToList();
+        result.ActiveStatusEffects = player.ActiveStatusEffects?.ToList() ?? new List<StatusEffect>();
         result.StatusEffectsExpired = playerStatusResult.ExpiredEffectTypes.ToList();
         
         // Check if player can act (not crowd controlled)
@@ -113,6 +114,12 @@ public class CombatService
 
         // Calculate base damage (weapon + attribute bonuses)
         int baseDamage = CalculatePlayerDamage(player);
+
+        // Apply status effect stat modifiers
+        if (playerStatusResult.TotalStatModifiers.TryGetValue("attack", out int attackMod))
+        {
+            baseDamage += attackMod;
+        }
 
         // Apply skill damage multiplier (pass weapon skill slug for bonus)
         double skillMultiplier = SkillEffectCalculator.GetPhysicalDamageMultiplier(player, weaponSkillSlug);
@@ -185,7 +192,7 @@ public class CombatService
         var enemyStatusResult = await _mediator.Send(new ProcessStatusEffectsCommand { TargetEnemy = enemy });
         result.DotDamage = enemyStatusResult.TotalDamageTaken;
         result.HotHealing = enemyStatusResult.TotalHealingReceived;
-        result.ActiveStatusEffects = enemy.ActiveStatusEffects.ToList();
+        result.ActiveStatusEffects = enemy.ActiveStatusEffects?.ToList() ?? new List<StatusEffect>();
         result.StatusEffectsExpired = enemyStatusResult.ExpiredEffectTypes.ToList();
         
         // Check if enemy can act (not crowd controlled)
@@ -195,6 +202,9 @@ public class CombatService
             result.Message = $"{enemy.Name} is crowd controlled and cannot act!";
             return result;
         }
+
+        // Process player status effects to get stat modifiers (for defense calculation later)
+        var playerStatusResult = await _mediator.Send(new ProcessStatusEffectsCommand { TargetCharacter = player });
 
         // Check if player dodges (base + skill bonus)
         double dodgeChance = player.GetDodgeChance() + SkillEffectCalculator.GetDodgeChanceBonus(player);
@@ -246,6 +256,12 @@ public class CombatService
         // Calculate base damage
         int baseDamage = enemy.BasePhysicalDamage + enemy.GetPhysicalDamageBonus();
 
+        // Apply status effect stat modifiers
+        if (enemyStatusResult.TotalStatModifiers.TryGetValue("attack", out int attackMod))
+        {
+            baseDamage += attackMod;
+        }
+
         // Roll variance (±20%)
         baseDamage = (int)(baseDamage * _random.Next(80, 121) / 100.0);
 
@@ -274,6 +290,12 @@ public class CombatService
         int playerDefense = player.GetPhysicalDefense();
         double defenseMultiplier = SkillEffectCalculator.GetPhysicalDefenseMultiplier(player);
         playerDefense = (int)(playerDefense * defenseMultiplier);
+
+        // Apply status effect stat modifiers to defense
+        if (playerStatusResult.TotalStatModifiers.TryGetValue("defense", out int defenseMod))
+        {
+            playerDefense += defenseMod;
+        }
 
         int finalDamage = Math.Max(1, baseDamage - playerDefense);
 
@@ -749,7 +771,9 @@ public class CombatService
         {
             PlayerVictory = true,
             XPGained = enemy.XPReward,
-            GoldGained = enemy.GoldReward
+            GoldGained = enemy.GoldReward,
+            DefeatedEnemyId = enemy.Id,
+            DefeatedEnemyType = enemy.Type.ToString()
         };
 
         // Award weapon skill XP for kill (from item's skillReference trait)
@@ -764,6 +788,9 @@ public class CombatService
                 ActionSource = $"{weaponSkillSlug.Replace("-", "_")}_kill"
             });
         }
+
+        // Update quest progress for enemy kills
+        await UpdateQuestProgressForKill(enemy, outcome);
 
         // Try to generate loot
         // TODO: Modernize - var loot = GenerateLoot(player, enemy);
@@ -935,6 +962,9 @@ public class CombatService
     private bool CanAct(Character character)
     {
         // Check for crowd control effects that prevent actions
+        if (character.ActiveStatusEffects == null || !character.ActiveStatusEffects.Any())
+            return true;
+
         return !character.ActiveStatusEffects.Any(e =>
             e.Type == StatusEffectType.Stunned ||
             e.Type == StatusEffectType.Frozen ||
@@ -949,6 +979,9 @@ public class CombatService
     private bool CanAct(Enemy enemy)
     {
         // Check for crowd control effects that prevent actions
+        if (enemy.ActiveStatusEffects == null || !enemy.ActiveStatusEffects.Any())
+            return true;
+
         return !enemy.ActiveStatusEffects.Any(e =>
             e.Type == StatusEffectType.Stunned ||
             e.Type == StatusEffectType.Frozen ||
@@ -962,6 +995,9 @@ public class CombatService
     /// <returns>Message describing the crowd control effect.</returns>
     private string GetCrowdControlMessage(Character character)
     {
+        if (character.ActiveStatusEffects == null || !character.ActiveStatusEffects.Any())
+            return "You cannot act!";
+
         var ccEffect = character.ActiveStatusEffects.FirstOrDefault(e =>
             e.Type == StatusEffectType.Stunned ||
             e.Type == StatusEffectType.Frozen ||
@@ -978,4 +1014,68 @@ public class CombatService
             _ => "You cannot act!"
         };
     }
+
+    /// <summary>
+    /// Updates quest progress for all active quests based on enemy kill.
+    /// Checks for objectives matching defeat_{enemy_id} or defeat_{enemy_type}.
+    /// </summary>
+    /// <param name="enemy">The defeated enemy.</param>
+    /// <param name="outcome">The combat outcome to populate with quest progress information.</param>
+    private async Task UpdateQuestProgressForKill(Enemy enemy, CombatOutcome outcome)
+    {
+        var saveGame = _saveGameService.GetCurrentSave();
+        if (saveGame == null || !saveGame.ActiveQuests.Any())
+            return;
+
+        var enemyId = enemy.Id.Replace(" ", "_").ToLowerInvariant();
+        var enemyType = enemy.Type.ToString().Replace(" ", "_").ToLowerInvariant();
+        var enemyIdObjective = "defeat_" + enemyId;
+        var enemyTypeObjective = "defeat_" + enemyType;
+
+        foreach (var quest in saveGame.ActiveQuests)
+        {
+            if (quest.Objectives.ContainsKey(enemyIdObjective))
+            {
+                var result = await _mediator.Send(new UpdateQuestProgressCommand(
+                    quest.Id,
+                    enemyIdObjective,
+                    1
+                ));
+
+                if (result.ObjectiveCompleted)
+                {
+                    outcome.QuestObjectivesCompleted.Add($"{quest.Title}: {enemyIdObjective}");
+                    Log.Information("Quest objective completed: {QuestId}/{ObjectiveId}", quest.Id, enemyIdObjective);
+                }
+
+                if (result.QuestCompleted)
+                {
+                    outcome.QuestsCompleted.Add(quest.Title);
+                    Log.Information("Quest completed: {QuestId}", quest.Id);
+                }
+            }
+
+            if (quest.Objectives.ContainsKey(enemyTypeObjective))
+            {
+                var result = await _mediator.Send(new UpdateQuestProgressCommand(
+                    quest.Id,
+                    enemyTypeObjective,
+                    1
+                ));
+
+                if (result.ObjectiveCompleted)
+                {
+                    outcome.QuestObjectivesCompleted.Add($"{quest.Title}: {enemyTypeObjective}");
+                    Log.Information("Quest objective completed: {QuestId}/{ObjectiveId}", quest.Id, enemyTypeObjective);
+                }
+
+                if (result.QuestCompleted)
+                {
+                    outcome.QuestsCompleted.Add(quest.Title);
+                    Log.Information("Quest completed: {QuestId}", quest.Id);
+                }
+            }
+        }
+    }
+
 }

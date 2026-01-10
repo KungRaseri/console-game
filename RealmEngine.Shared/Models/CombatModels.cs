@@ -126,4 +126,16 @@ public class CombatOutcome
     
     /// <summary>Gets or sets the summary message.</summary>
     public string Summary { get; set; } = string.Empty;
+
+    /// <summary>Gets or sets the ID of the defeated enemy.</summary>
+    public string? DefeatedEnemyId { get; set; }
+
+    /// <summary>Gets or sets the type of the defeated enemy.</summary>
+    public string? DefeatedEnemyType { get; set; }
+
+    /// <summary>Gets or sets the list of quest objectives that were completed in this combat.</summary>
+    public List<string> QuestObjectivesCompleted { get; set; } = new();
+
+    /// <summary>Gets or sets the list of quests that were fully completed in this combat.</summary>
+    public List<string> QuestsCompleted { get; set; } = new();
 }
