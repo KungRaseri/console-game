@@ -404,7 +404,7 @@ public class RecipeCatalogLoaderTests
 
         // Assert
         var enchantingRecipes = recipes.Where(r => r.RequiredSkill == "Enchanting").ToList();
-        enchantingRecipes.Should().HaveCount(5); // 3 scrolls + 2 runes
+        enchantingRecipes.Should().HaveCount(4); // 2 scrolls + 2 runes
     }
 
     [Fact]

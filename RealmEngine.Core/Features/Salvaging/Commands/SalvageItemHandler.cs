@@ -115,9 +115,20 @@ public class SalvageItemHandler : IRequestHandler<SalvageItemCommand, SalvageIte
         // Calculate actual yield with skill-based rate
         var totalYield = (int)Math.Ceiling((baseYield + upgradeBonus) * (yieldRate / 100.0));
         
+        // Ensure minimum of 1 scrap if yield rate allows
+        if (totalYield < 1 && yieldRate >= 10)
+        {
+            totalYield = 1;
+        }
+        
         // Distribute between primary and secondary scraps
-        var primaryAmount = (int)Math.Ceiling(totalYield * 0.7);
-        var secondaryAmount = totalYield - primaryAmount;
+        // Always give at least 1 secondary if there's a secondary type
+        var primaryAmount = !string.IsNullOrEmpty(secondaryScrap) 
+            ? Math.Max(1, (int)Math.Ceiling(totalYield * 0.7))
+            : totalYield;
+        var secondaryAmount = !string.IsNullOrEmpty(secondaryScrap) 
+            ? Math.Max(1, totalYield - primaryAmount)
+            : 0;
         
         if (primaryAmount > 0)
         {
