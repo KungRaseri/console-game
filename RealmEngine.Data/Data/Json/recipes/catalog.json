@@ -8,9 +8,8 @@
       "description": "Tier 1 Blacksmithing - Refining raw materials into usable ingots",
       "items": [
         {
-          "id": "recipe-iron-ingot",
           "name": "Iron Ingot",
-          "slug": "iron-ingot",
+          "slug": "recipe-iron-ingot",
           "description": "Smelt iron ore into a usable ingot",
           "rarityWeight": 100,
           "requiredSkill": "Blacksmithing",
@@ -38,9 +37,8 @@
           }
         },
         {
-          "id": "recipe-steel-ingot",
           "name": "Steel Ingot",
-          "slug": "steel-ingot",
+          "slug": "recipe-steel-ingot",
           "description": "Alloy iron with coal to create stronger steel",
           "rarityWeight": 70,
           "requiredSkill": "Blacksmithing",
@@ -68,9 +66,8 @@
           ]
         },
         {
-          "id": "recipe-bronze-ingot",
           "name": "Bronze Ingot",
-          "slug": "bronze-ingot",
+          "slug": "recipe-bronze-ingot",
           "description": "Alloy copper and tin to create durable bronze",
           "rarityWeight": 80,
           "requiredSkill": "Blacksmithing",
@@ -98,9 +95,8 @@
           ]
         },
         {
-          "id": "recipe-mithril-ingot",
           "name": "Mithril Ingot",
-          "slug": "mithril-ingot",
+          "slug": "recipe-mithril-ingot",
           "description": "Refine the legendary mithril ore",
           "rarityWeight": 30,
           "requiredSkill": "Blacksmithing",
@@ -137,9 +133,8 @@
       "description": "Tier 2 Blacksmithing - Weapon crafting",
       "items": [
         {
-          "id": "recipe-iron-dagger",
           "name": "Iron Dagger",
-          "slug": "iron-dagger",
+          "slug": "recipe-iron-dagger",
           "description": "A basic dagger for beginners",
           "rarityWeight": 100,
           "requiredSkill": "Blacksmithing",
@@ -167,9 +162,8 @@
           ]
         },
         {
-          "id": "recipe-iron-sword",
           "name": "Iron Sword",
-          "slug": "iron-sword",
+          "slug": "recipe-iron-sword",
           "description": "A standard one-handed sword",
           "rarityWeight": 80,
           "requiredSkill": "Blacksmithing",
@@ -197,9 +191,8 @@
           ]
         },
         {
-          "id": "recipe-steel-axe",
           "name": "Steel Axe",
-          "slug": "steel-axe",
+          "slug": "recipe-steel-axe",
           "description": "A sturdy steel battleaxe",
           "rarityWeight": 60,
           "requiredSkill": "Blacksmithing",
@@ -236,9 +229,8 @@
       "description": "Tier 2-3 Blacksmithing - Armor crafting",
       "items": [
         {
-          "id": "recipe-iron-chainmail",
           "name": "Iron Chainmail",
-          "slug": "iron-chainmail",
+          "slug": "recipe-iron-chainmail",
           "description": "Interlocking rings of iron protection",
           "rarityWeight": 70,
           "requiredSkill": "Blacksmithing",
@@ -266,9 +258,8 @@
           ]
         },
         {
-          "id": "recipe-steel-plate-armor",
           "name": "Steel Plate Armor",
-          "slug": "steel-plate-armor",
+          "slug": "recipe-steel-plate-armor",
           "description": "Heavy steel plates offering maximum protection",
           "rarityWeight": 50,
           "requiredSkill": "Blacksmithing",
@@ -305,9 +296,8 @@
       "description": "Tier 1 Alchemy - Basic potions and brews",
       "items": [
         {
-          "id": "recipe-minor-health-potion",
           "name": "Minor Health Potion",
-          "slug": "minor-health-potion",
+          "slug": "recipe-minor-health-potion",
           "description": "Restores 50 HP",
           "rarityWeight": 100,
           "requiredSkill": "Alchemy",
@@ -335,9 +325,8 @@
           ]
         },
         {
-          "id": "recipe-health-potion",
           "name": "Health Potion",
-          "slug": "health-potion",
+          "slug": "recipe-health-potion",
           "description": "Restores 150 HP",
           "rarityWeight": 80,
           "requiredSkill": "Alchemy",
@@ -369,9 +358,8 @@
           ]
         },
         {
-          "id": "recipe-mana-potion",
           "name": "Mana Potion",
-          "slug": "mana-potion",
+          "slug": "recipe-mana-potion",
           "description": "Restores 100 mana",
           "rarityWeight": 80,
           "requiredSkill": "Alchemy",
@@ -399,9 +387,8 @@
           ]
         },
         {
-          "id": "recipe-stamina-potion",
           "name": "Stamina Potion",
-          "slug": "stamina-potion",
+          "slug": "recipe-stamina-potion",
           "description": "Restores 100 stamina",
           "rarityWeight": 75,
           "requiredSkill": "Alchemy",
@@ -434,9 +421,8 @@
       "description": "Tier 2 Alchemy - Enhanced elixirs and oils",
       "items": [
         {
-          "id": "recipe-elixir-of-strength",
           "name": "Elixir of Strength",
-          "slug": "elixir-of-strength",
+          "slug": "recipe-elixir-of-strength",
           "description": "Temporarily increases Strength by 5 for 1 hour",
           "rarityWeight": 60,
           "requiredSkill": "Alchemy",
@@ -468,9 +454,8 @@
           ]
         },
         {
-          "id": "recipe-quenching-oil",
           "name": "Quenching Oil",
-          "slug": "quenching-oil",
+          "slug": "recipe-quenching-oil",
           "description": "Special oil used by blacksmiths to enhance weapons",
           "rarityWeight": 50,
           "requiredSkill": "Alchemy",
@@ -507,9 +492,8 @@
       "description": "Tier 3 Alchemy - Crystal growth and refinement",
       "items": [
         {
-          "id": "recipe-life-crystal",
           "name": "Life Crystal",
-          "slug": "life-crystal",
+          "slug": "recipe-life-crystal",
           "description": "A pulsing crystal that enhances vitality",
           "rarityWeight": 40,
           "requiredSkill": "Alchemy",
@@ -545,9 +529,8 @@
           }
         },
         {
-          "id": "recipe-mana-crystal",
           "name": "Mana Crystal",
-          "slug": "mana-crystal",
+          "slug": "recipe-mana-crystal",
           "description": "A glowing crystal that amplifies magical power",
           "rarityWeight": 40,
           "requiredSkill": "Alchemy",
@@ -588,9 +571,8 @@
       "description": "Tier 1 Enchanting - Basic enchantment scrolls",
       "items": [
         {
-          "id": "recipe-minor-strength-scroll",
           "name": "Minor Strength Scroll",
-          "slug": "minor-strength-scroll",
+          "slug": "recipe-minor-strength-scroll",
           "description": "Enchants gear with +2 Strength",
           "rarityWeight": 70,
           "requiredSkill": "Enchanting",
@@ -622,9 +604,8 @@
           ]
         },
         {
-          "id": "recipe-agility-scroll",
           "name": "Agility Scroll",
-          "slug": "agility-scroll",
+          "slug": "recipe-agility-scroll",
           "description": "Enchants gear with +3 Dexterity",
           "rarityWeight": 60,
           "requiredSkill": "Enchanting",
@@ -656,9 +637,8 @@
           ]
         },
         {
-          "id": "recipe-intellect-scroll",
           "name": "Intellect Scroll",
-          "slug": "intellect-scroll",
+          "slug": "recipe-intellect-scroll",
           "description": "Enchants gear with +4 Intelligence",
           "rarityWeight": 55,
           "requiredSkill": "Enchanting",
@@ -695,9 +675,8 @@
       "description": "Tier 2 Enchanting - Permanent rune inscriptions",
       "items": [
         {
-          "id": "recipe-defensive-rune-fortitude",
           "name": "Rune of Fortitude",
-          "slug": "rune-of-fortitude",
+          "slug": "recipe-defensive-rune-fortitude",
           "description": "Permanent +Constitution bonus when socketed",
           "rarityWeight": 45,
           "requiredSkill": "Enchanting",
@@ -737,9 +716,8 @@
           }
         },
         {
-          "id": "recipe-offensive-rune-power",
           "name": "Rune of Power",
-          "slug": "rune-of-power",
+          "slug": "recipe-offensive-rune-power",
           "description": "Permanent +Strength bonus when socketed",
           "rarityWeight": 45,
           "requiredSkill": "Enchanting",
@@ -780,9 +758,8 @@
       "description": "Tier 1 Jewelcrafting - Gem cutting and polishing",
       "items": [
         {
-          "id": "recipe-polished-ruby",
           "name": "Polished Ruby",
-          "slug": "polished-ruby",
+          "slug": "recipe-polished-ruby",
           "description": "Cut and polish a raw ruby for socketing",
           "rarityWeight": 60,
           "requiredSkill": "Jewelcrafting",
@@ -810,9 +787,8 @@
           ]
         },
         {
-          "id": "recipe-polished-sapphire",
           "name": "Polished Sapphire",
-          "slug": "polished-sapphire",
+          "slug": "recipe-polished-sapphire",
           "description": "Cut and polish a raw sapphire for socketing",
           "rarityWeight": 60,
           "requiredSkill": "Jewelcrafting",
@@ -840,9 +816,8 @@
           ]
         },
         {
-          "id": "recipe-flawless-diamond",
           "name": "Flawless Diamond",
-          "slug": "flawless-diamond",
+          "slug": "recipe-flawless-diamond",
           "description": "Perfect cut diamond of exceptional quality",
           "rarityWeight": 20,
           "requiredSkill": "Jewelcrafting",
@@ -879,9 +854,8 @@
       "description": "Tier 3 Jewelcrafting - Magical orb creation",
       "items": [
         {
-          "id": "recipe-orb-of-flames",
           "name": "Orb of Flames",
-          "slug": "orb-of-flames",
+          "slug": "recipe-orb-of-flames",
           "description": "Magical orb channeling fire essence",
           "rarityWeight": 35,
           "requiredSkill": "Jewelcrafting",
@@ -917,9 +891,8 @@
           }
         },
         {
-          "id": "recipe-orb-of-combat-mastery",
           "name": "Orb of Combat Mastery",
-          "slug": "orb-of-combat-mastery",
+          "slug": "recipe-orb-of-combat-mastery",
           "description": "Enhances combat prowess through magical focus",
           "rarityWeight": 30,
           "requiredSkill": "Jewelcrafting",

@@ -1,0 +1,447 @@
+using FluentAssertions;
+using RealmEngine.Core.Services;
+using RealmEngine.Shared.Models;
+using Xunit;
+
+namespace RealmEngine.Core.Tests.Services;
+
+/// <summary>
+/// Unit tests for RecipeCatalogLoader service.
+/// Tests recipe loading, parsing, filtering, and caching.
+/// </summary>
+[Trait("Category", "Service")]
+public class RecipeCatalogLoaderTests
+{
+    private readonly string _testDataPath;
+    private readonly RecipeCatalogLoader _loader;
+
+    public RecipeCatalogLoaderTests()
+    {
+        // Use actual game data path - recipes catalog exists at RealmEngine.Data/Data/Json/recipes/catalog.json
+        _testDataPath = Path.Combine("..", "..", "..", "..", "RealmEngine.Data", "Data", "Json");
+        _loader = new RecipeCatalogLoader(_testDataPath);
+    }
+
+    #region LoadAllRecipes Tests
+
+    [Fact]
+    public void LoadAllRecipes_Should_Load_All_35_Recipes()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        recipes.Should().NotBeNull();
+        recipes.Should().HaveCount(35);
+    }
+
+    [Fact]
+    public void LoadAllRecipes_Should_Cache_Results()
+    {
+        // Act
+        var firstLoad = _loader.LoadAllRecipes();
+        var secondLoad = _loader.LoadAllRecipes();
+
+        // Assert - Should return same instance (cached)
+        firstLoad.Should().BeSameAs(secondLoad);
+    }
+
+    [Fact]
+    public void LoadAllRecipes_Should_Parse_Recipe_Names()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert - Check for known recipes
+        recipes.Should().Contain(r => r.Name == "Iron Ingot");
+        recipes.Should().Contain(r => r.Name == "Steel Ingot");
+        recipes.Should().Contain(r => r.Name == "Minor Health Potion");
+        recipes.Should().Contain(r => r.Name == "Iron Dagger");
+        recipes.Should().Contain(r => r.Name == "Polished Ruby");
+    }
+
+    [Fact]
+    public void LoadAllRecipes_Should_Parse_Recipe_Slugs()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var ironIngot = recipes.FirstOrDefault(r => r.Name == "Iron Ingot");
+        ironIngot.Should().NotBeNull();
+        ironIngot!.Slug.Should().Be("recipe-iron-ingot");
+    }
+
+    [Fact]
+    public void LoadAllRecipes_Should_Parse_Required_Skills()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var blacksmithingRecipes = recipes.Where(r => r.RequiredSkill == "Blacksmithing");
+        blacksmithingRecipes.Should().NotBeEmpty();
+
+        var alchemyRecipes = recipes.Where(r => r.RequiredSkill == "Alchemy");
+        alchemyRecipes.Should().NotBeEmpty();
+
+        var enchantingRecipes = recipes.Where(r => r.RequiredSkill == "Enchanting");
+        enchantingRecipes.Should().NotBeEmpty();
+
+        var jewelcraftingRecipes = recipes.Where(r => r.RequiredSkill == "Jewelcrafting");
+        jewelcraftingRecipes.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public void LoadAllRecipes_Should_Parse_Components()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var ironIngot = recipes.First(r => r.Name == "Iron Ingot");
+        ironIngot.Components.Should().HaveCount(1);
+        ironIngot.Components[0].ItemReference.Should().Be("@items/materials/ores:iron-ore");
+        ironIngot.Components[0].Quantity.Should().Be(2);
+    }
+
+    [Fact]
+    public void LoadAllRecipes_Should_Parse_Produced_Items()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var ironIngot = recipes.First(r => r.Name == "Iron Ingot");
+        ironIngot.OutputItemReference.Should().Be("@items/materials/metals:iron-ingot");
+        ironIngot.OutputQuantity.Should().Be(1);
+        ironIngot.MinQuality.Should().Be(ItemRarity.Common);
+        ironIngot.MaxQuality.Should().Be(ItemRarity.Common);
+    }
+
+    [Fact]
+    public void LoadAllRecipes_Should_Handle_Multi_Component_Recipes()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var steelIngot = recipes.First(r => r.Name == "Steel Ingot");
+        steelIngot.Components.Should().HaveCount(2);
+        steelIngot.Components.Should().Contain(c => c.ItemReference == "@items/materials/metals:iron-ingot");
+        steelIngot.Components.Should().Contain(c => c.ItemReference == "@items/materials/reagents:coal");
+    }
+
+    #endregion
+
+    #region LoadRecipesByCategory Tests
+
+    [Fact]
+    public void LoadRecipesByCategory_Should_Return_Blacksmithing_Refining_Recipes()
+    {
+        // Act
+        var recipes = _loader.LoadRecipesByCategory("blacksmithing_refining");
+
+        // Assert
+        recipes.Should().HaveCount(4);
+        recipes.Should().Contain(r => r.Name == "Iron Ingot");
+        recipes.Should().Contain(r => r.Name == "Steel Ingot");
+        recipes.Should().Contain(r => r.Name == "Bronze Ingot");
+        recipes.Should().Contain(r => r.Name == "Mithril Ingot");
+    }
+
+    [Fact]
+    public void LoadRecipesByCategory_Should_Return_Alchemy_Potions_Recipes()
+    {
+        // Act
+        var recipes = _loader.LoadRecipesByCategory("alchemy_potions");
+
+        // Assert
+        recipes.Should().HaveCount(4);
+        recipes.Should().Contain(r => r.Name == "Minor Health Potion");
+        recipes.Should().Contain(r => r.Name == "Health Potion");
+        recipes.Should().Contain(r => r.Name == "Mana Potion");
+        recipes.Should().Contain(r => r.Name == "Stamina Potion");
+    }
+
+    [Fact]
+    public void LoadRecipesByCategory_Should_Cache_Category_Results()
+    {
+        // Act
+        var firstLoad = _loader.LoadRecipesByCategory("blacksmithing_weapons");
+        var secondLoad = _loader.LoadRecipesByCategory("blacksmithing_weapons");
+
+        // Assert
+        firstLoad.Should().BeSameAs(secondLoad);
+    }
+
+    [Fact]
+    public void LoadRecipesByCategory_Should_Return_Empty_For_Invalid_Category()
+    {
+        // Act
+        var recipes = _loader.LoadRecipesByCategory("nonexistent_category");
+
+        // Assert
+        recipes.Should().BeEmpty();
+    }
+
+    #endregion
+
+    #region GetRecipeById Tests
+
+    [Fact]
+    public void GetRecipeById_Should_Find_Recipe_By_Slug()
+    {
+        // Act
+        var recipe = _loader.GetRecipeById("recipe-iron-ingot");
+
+        // Assert
+        recipe.Should().NotBeNull();
+        recipe!.Name.Should().Be("Iron Ingot");
+    }
+
+    [Fact]
+    public void GetRecipeById_Should_Return_Null_For_Invalid_Id()
+    {
+        // Act
+        var recipe = _loader.GetRecipeById("nonexistent-recipe");
+
+        // Assert
+        recipe.Should().BeNull();
+    }
+
+    [Fact]
+    public void GetRecipeById_Should_Find_Recipes_Across_Categories()
+    {
+        // Act
+        var ironIngot = _loader.GetRecipeById("recipe-iron-ingot");
+        var healthPotion = _loader.GetRecipeById("recipe-minor-health-potion");
+        var runeOfPower = _loader.GetRecipeById("recipe-offensive-rune-power");
+
+        // Assert
+        ironIngot.Should().NotBeNull();
+        ironIngot!.Category.Should().Be("blacksmithing_refining");
+
+        healthPotion.Should().NotBeNull();
+        healthPotion!.Category.Should().Be("alchemy_potions");
+
+        runeOfPower.Should().NotBeNull();
+        runeOfPower!.Category.Should().Be("enchanting_runes");
+    }
+
+    #endregion
+
+    #region GetAvailableRecipes Tests
+
+    [Theory]
+    [InlineData(1, 11)] // Level 1: All skill level 1 recipes
+    [InlineData(10, 21)] // Level 10: More recipes unlock
+    [InlineData(50, 35)] // Level 50: All recipes available
+    public void GetAvailableRecipes_Should_Filter_By_Skill_Level(int skillLevel, int expectedCount)
+    {
+        // Act
+        var recipes = _loader.GetAvailableRecipes(skillLevel);
+
+        // Assert
+        recipes.Should().HaveCount(expectedCount);
+        recipes.Should().OnlyContain(r => r.RequiredSkillLevel <= skillLevel);
+    }
+
+    [Fact]
+    public void GetAvailableRecipes_Should_Filter_By_Category_And_Level()
+    {
+        // Act
+        var recipes = _loader.GetAvailableRecipes(15, "blacksmithing_refining");
+
+        // Assert
+        recipes.Should().HaveCount(3); // Iron, Steel, Bronze (not Mithril level 45)
+        recipes.Should().Contain(r => r.Name == "Iron Ingot");
+        recipes.Should().Contain(r => r.Name == "Steel Ingot");
+        recipes.Should().Contain(r => r.Name == "Bronze Ingot");
+        recipes.Should().NotContain(r => r.Name == "Mithril Ingot");
+    }
+
+    [Fact]
+    public void GetAvailableRecipes_Should_Return_Empty_For_Level_Zero()
+    {
+        // Act
+        var recipes = _loader.GetAvailableRecipes(0);
+
+        // Assert
+        recipes.Should().BeEmpty();
+    }
+
+    #endregion
+
+    #region Recipe Structure Tests
+
+    [Fact]
+    public void Recipes_Should_Have_Valid_Crafting_Times()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        recipes.Should().OnlyContain(r => r.CraftingTime > 0);
+    }
+
+    [Fact]
+    public void Recipes_Should_Have_Valid_Experience_Values()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        recipes.Should().OnlyContain(r => r.ExperienceGained > 0);
+    }
+
+    [Fact]
+    public void Recipes_Should_Have_Valid_Station_Requirements()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var stations = new[] { "Anvil", "AlchemyTable", "EnchantingTable", "JewelryBench" };
+        recipes.Should().OnlyContain(r => stations.Contains(r.RequiredStation));
+    }
+
+    [Fact]
+    public void Recipes_Should_Have_Valid_Station_Tiers()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        recipes.Should().OnlyContain(r => r.RequiredStationTier >= 1 && r.RequiredStationTier <= 3);
+    }
+
+    [Fact]
+    public void Recipes_Should_Have_Progression_Tiers()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert - Basic recipes should have tier 1, advanced recipes tier 2-3
+        var tier1Recipes = recipes.Where(r => r.RequiredStationTier == 1).ToList();
+        var tier2Recipes = recipes.Where(r => r.RequiredStationTier == 2).ToList();
+        var tier3Recipes = recipes.Where(r => r.RequiredStationTier == 3).ToList();
+
+        tier1Recipes.Should().NotBeEmpty();
+        tier2Recipes.Should().NotBeEmpty();
+        tier3Recipes.Should().NotBeEmpty();
+    }
+
+    #endregion
+
+    #region Optional Catalyst Tests
+
+    [Fact]
+    public void Recipes_With_Catalysts_Should_Parse_Correctly()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert - Check a recipe with optional catalyst
+        var steelAxe = recipes.First(r => r.Name == "Steel Axe");
+        steelAxe.UnlockRequirement.Should().Contain("Catalyst:");
+        steelAxe.UnlockRequirement.Should().Contain("@items/consumables/elixirs:quenching-oil");
+        steelAxe.UnlockRequirement.Should().Contain("+1 enchantment slot");
+    }
+
+    [Fact]
+    public void Recipes_Without_Catalysts_Should_Not_Have_Catalyst_Data()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var ironDagger = recipes.First(r => r.Name == "Iron Dagger");
+        if (!string.IsNullOrEmpty(ironDagger.UnlockRequirement))
+        {
+            ironDagger.UnlockRequirement.Should().NotContain("Catalyst:");
+        }
+    }
+
+    #endregion
+
+    #region Cross-Discipline Tests
+
+    [Fact]
+    public void Should_Have_Blacksmithing_Recipes()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var blacksmithingRecipes = recipes.Where(r => r.RequiredSkill == "Blacksmithing").ToList();
+        blacksmithingRecipes.Should().HaveCount(9); // 4 refining + 3 weapons + 2 armor
+    }
+
+    [Fact]
+    public void Should_Have_Alchemy_Recipes()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var alchemyRecipes = recipes.Where(r => r.RequiredSkill == "Alchemy").ToList();
+        alchemyRecipes.Should().HaveCount(13); // 4 potions + 2 elixirs + 2 crystals + extra potions
+    }
+
+    [Fact]
+    public void Should_Have_Enchanting_Recipes()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var enchantingRecipes = recipes.Where(r => r.RequiredSkill == "Enchanting").ToList();
+        enchantingRecipes.Should().HaveCount(5); // 3 scrolls + 2 runes
+    }
+
+    [Fact]
+    public void Should_Have_Jewelcrafting_Recipes()
+    {
+        // Act
+        var recipes = _loader.LoadAllRecipes();
+
+        // Assert
+        var jewelcraftingRecipes = recipes.Where(r => r.RequiredSkill == "Jewelcrafting").ToList();
+        jewelcraftingRecipes.Should().HaveCount(5); // 3 cutting + 2 orbs
+    }
+
+    #endregion
+
+    #region Cache Management Tests
+
+    [Fact]
+    public void ClearCache_Should_Clear_All_Recipe_Cache()
+    {
+        // Arrange - Load recipes to populate cache
+        var firstLoad = _loader.LoadAllRecipes();
+
+        // Act
+        _loader.ClearCache();
+        var secondLoad = _loader.LoadAllRecipes();
+
+        // Assert - Should be different instances after cache clear
+        firstLoad.Should().NotBeSameAs(secondLoad);
+    }
+
+    [Fact]
+    public void ClearCache_Should_Clear_Category_Cache()
+    {
+        // Arrange
+        var firstLoad = _loader.LoadRecipesByCategory("blacksmithing_weapons");
+
+        // Act
+        _loader.ClearCache();
+        var secondLoad = _loader.LoadRecipesByCategory("blacksmithing_weapons");
+
+        // Assert - Different instances after cache clear
+        firstLoad.Should().NotBeSameAs(secondLoad);
+    }
+
+    #endregion
+}
