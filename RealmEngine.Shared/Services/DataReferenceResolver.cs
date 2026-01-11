@@ -60,20 +60,16 @@ public class DataReferenceResolver
             var category = parts[1]; // metals, woods, leathers, gemstones
             var materialName = parts[2]; // Iron, Oak, etc.
 
-            // Load materials catalog
-            var catalog = LoadCatalog("items/materials/catalog.json");
+            // Load materials property catalog (now at materials/properties/{category}/catalog.json)
+            var catalog = LoadCatalog($"materials/properties/{category}/catalog.json");
             if (catalog == null)
-                return null;
-
-            // Navigate: material_types.{category}.items[]
-            var categoryNode = catalog["material_types"]?[category] as JObject;
-            if (categoryNode == null)
             {
-                Log.Warning("Material category not found: {Category} in {MaterialRef}", category, materialRef);
+                Log.Warning("Material property catalog not found for category: {Category}", category);
                 return null;
             }
 
-            var items = categoryNode["items"] as JArray;
+            // Navigate directly to items[] (no material_types wrapper in new structure)
+            var items = catalog["items"] as JArray;
             if (items == null)
                 return null;
 

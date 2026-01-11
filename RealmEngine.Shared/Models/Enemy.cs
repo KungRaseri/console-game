@@ -233,7 +233,7 @@ public class Enemy : ITraitable
     /// <list type="bullet">
     /// <item><description>\"@items/weapons/swords:*\" - Random sword from catalog</description></item>
     /// <item><description>\"@items/consumables/potions:*\" - Random potion</description></item>
-    /// <item><description>\"@items/materials/metals:iron-ore\" - Specific item</description></item>
+    /// <item><description>\"@items/materials/ores:iron-ore\" - Specific item</description></item>
     /// </list>
     /// </remarks>
     /// <example>
@@ -242,7 +242,7 @@ public class Enemy : ITraitable
     /// [
     ///   \"@items/consumables/potions:*\",
     ///   \"@items/weapons/swords:*\",
-    ///   \"@items/materials/gems:ruby\"
+    ///   \"@items/materials/gems:raw-ruby\"
     /// ]
     /// </code>
     /// </example>

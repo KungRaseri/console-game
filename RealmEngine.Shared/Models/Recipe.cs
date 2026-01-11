@@ -74,7 +74,7 @@ public class Recipe
 /// </summary>
 public class RecipeMaterial
 {
-    /// <summary>Gets or sets the JSON v4.1 reference to the required item (e.g., "@items/materials/metals:iron-ingot").</summary>
+    /// <summary>Gets or sets the JSON v4.1 reference to the required item (e.g., "@items/materials/ingots:iron-ingot").</summary>
     public required string ItemReference { get; set; }
     
     /// <summary>Gets or sets the quantity of this material required.</summary>

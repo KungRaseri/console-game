@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "description": "Processed wood components for weapon crafting",
+    "version": "4.0",
+    "lastUpdated": "2026-01-10",
+    "type": "items_materials_catalog"
+  },
+  "items": [
+    {
+      "slug": "oak-handle",
+      "name": "Oak Handle",
+      "description": "Sturdy oak handle for basic weapons.",
+      "rarityWeight": 70,
+      "value": 2,
+      "weight": 0.5,
+      "stackSize": 10,
+      "itemType": "material",
+      "subType": "wood",
+      "tags": ["wood", "crafting", "weapon-component", "handle"]
+    },
+    {
+      "slug": "ash-handle",
+      "name": "Ash Handle",
+      "description": "Flexible ash wood handle, ideal for larger weapons.",
+      "rarityWeight": 50,
+      "value": 5,
+      "weight": 0.6,
+      "stackSize": 10,
+      "itemType": "material",
+      "subType": "wood",
+      "tags": ["wood", "crafting", "weapon-component", "handle"]
+    }
+  ]
+}

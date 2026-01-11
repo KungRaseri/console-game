@@ -144,30 +144,21 @@ public class PatternExecutor
 
         try
         {
-            // Load materials catalog
-            var catalogPath = "materials/catalog.json";
-            var catalog = _referenceResolver.GetType()
-                .GetMethod("LoadCatalog", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.Invoke(_referenceResolver, [catalogPath]) as JObject;
-
-            if (catalog == null)
-            {
-                Log.Warning("Failed to load materials catalog");
-                return null;
-            }
-
-            var materialTypes = catalog["material_types"] as JObject;
-            if (materialTypes == null) return null;
-
-            // Collect all materials with their weights for the given context
+            // Material properties are now in materials/properties/{category}/catalog.json
+            var categories = new[] { "metals", "leathers", "woods", "gemstones" };
             var materials = new List<(string name, int weight)>();
 
-            foreach (var category in materialTypes)
+            foreach (var category in categories)
             {
-                var categoryObj = category.Value as JObject;
-                if (categoryObj == null) continue;
+                // Load catalog for this category
+                var catalogPath = $"materials/properties/{category}/catalog.json";
+                var catalog = _referenceResolver.GetType()
+                    .GetMethod("LoadCatalog", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    ?.Invoke(_referenceResolver, [catalogPath]) as JObject;
 
-                var items = categoryObj["items"] as JArray;
+                if (catalog == null) continue;
+
+                var items = catalog["items"] as JArray;
                 if (items == null) continue;
 
                 foreach (var item in items.OfType<JObject>())

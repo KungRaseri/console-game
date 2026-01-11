@@ -10,15 +10,15 @@
       "description": "Low-tier humanoid enemies (goblins, bandits, cultists)",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:iron",
+          "materialRef": "@materials/properties/metals:iron",
           "selectionWeight": 60
         },
         {
-          "materialRef": "@items/materials/metals:bronze",
+          "materialRef": "@materials/properties/metals:bronze",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:steel",
+          "materialRef": "@materials/properties/metals:steel",
           "selectionWeight": 10
         }
       ]
@@ -27,15 +27,15 @@
       "description": "Mid-tier humanoid enemies (knights, guards, mercenaries)",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:steel",
+          "materialRef": "@materials/properties/metals:steel",
           "selectionWeight": 50
         },
         {
-          "materialRef": "@items/materials/metals:silver",
+          "materialRef": "@materials/properties/metals:silver",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:mithril",
+          "materialRef": "@materials/properties/metals:mithril",
           "selectionWeight": 20
         }
       ]
@@ -44,15 +44,15 @@
       "description": "High-tier humanoid enemies (champions, lords, elite warriors)",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:mithril",
+          "materialRef": "@materials/properties/metals:mithril",
           "selectionWeight": 40
         },
         {
-          "materialRef": "@items/materials/metals:adamantine",
+          "materialRef": "@materials/properties/metals:adamantine",
           "selectionWeight": 40
         },
         {
-          "materialRef": "@items/materials/metals:dragonbone",
+          "materialRef": "@materials/properties/metals:dragonbone",
           "selectionWeight": 20
         }
       ]
@@ -61,23 +61,23 @@
       "description": "Dragon loot - can drop any material including legendary metals",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:steel",
+          "materialRef": "@materials/properties/metals:steel",
           "selectionWeight": 15
         },
         {
-          "materialRef": "@items/materials/metals:mithril",
+          "materialRef": "@materials/properties/metals:mithril",
           "selectionWeight": 25
         },
         {
-          "materialRef": "@items/materials/metals:adamantine",
+          "materialRef": "@materials/properties/metals:adamantine",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:dragonbone",
+          "materialRef": "@materials/properties/metals:dragonbone",
           "selectionWeight": 20
         },
         {
-          "materialRef": "@items/materials/metals:celestial-ore",
+          "materialRef": "@materials/properties/metals:celestial-ore",
           "selectionWeight": 10
         }
       ]
@@ -86,19 +86,19 @@
       "description": "Fire-themed enemies (fire elementals, salamanders, ifrit)",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:obsidian",
+          "materialRef": "@materials/properties/metals:obsidian",
           "selectionWeight": 40
         },
         {
-          "materialRef": "@items/materials/metals:steel",
+          "materialRef": "@materials/properties/metals:steel",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:mithril",
+          "materialRef": "@materials/properties/metals:mithril",
           "selectionWeight": 20
         },
         {
-          "materialRef": "@items/materials/metals:dragonbone",
+          "materialRef": "@materials/properties/metals:dragonbone",
           "selectionWeight": 10
         }
       ]
@@ -107,19 +107,19 @@
       "description": "Ice-themed enemies (ice elementals, frost giants)",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:crystal",
+          "materialRef": "@materials/properties/metals:crystal",
           "selectionWeight": 40
         },
         {
-          "materialRef": "@items/materials/metals:silver",
+          "materialRef": "@materials/properties/metals:silver",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:mithril",
+          "materialRef": "@materials/properties/metals:mithril",
           "selectionWeight": 20
         },
         {
-          "materialRef": "@items/materials/metals:adamantine",
+          "materialRef": "@materials/properties/metals:adamantine",
           "selectionWeight": 10
         }
       ]
@@ -128,15 +128,15 @@
       "description": "Undead enemies - tend to have rusty, worn materials",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:iron",
+          "materialRef": "@materials/properties/metals:iron",
           "selectionWeight": 50
         },
         {
-          "materialRef": "@items/materials/metals:silver",
+          "materialRef": "@materials/properties/metals:silver",
           "selectionWeight": 40
         },
         {
-          "materialRef": "@items/materials/metals:obsidian",
+          "materialRef": "@materials/properties/metals:obsidian",
           "selectionWeight": 10
         }
       ]
@@ -145,19 +145,19 @@
       "description": "Beast enemies - natural materials, bone, hide",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:iron",
+          "materialRef": "@materials/properties/metals:iron",
           "selectionWeight": 40
         },
         {
-          "materialRef": "@items/materials/metals:bronze",
+          "materialRef": "@materials/properties/metals:bronze",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:steel",
+          "materialRef": "@materials/properties/metals:steel",
           "selectionWeight": 20
         },
         {
-          "materialRef": "@items/materials/metals:dragonbone",
+          "materialRef": "@materials/properties/metals:dragonbone",
           "selectionWeight": 10
         }
       ]
@@ -166,19 +166,19 @@
       "description": "Demonic enemies - dark, cursed materials",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:obsidian",
+          "materialRef": "@materials/properties/metals:obsidian",
           "selectionWeight": 40
         },
         {
-          "materialRef": "@items/materials/metals:steel",
+          "materialRef": "@materials/properties/metals:steel",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:adamantine",
+          "materialRef": "@materials/properties/metals:adamantine",
           "selectionWeight": 20
         },
         {
-          "materialRef": "@items/materials/metals:void-crystal",
+          "materialRef": "@materials/properties/metals:void-crystal",
           "selectionWeight": 10
         }
       ]
@@ -187,19 +187,19 @@
       "description": "Celestial/holy enemies - divine materials",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:silver",
+          "materialRef": "@materials/properties/metals:silver",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:mithril",
+          "materialRef": "@materials/properties/metals:mithril",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:celestial-ore",
+          "materialRef": "@materials/properties/metals:celestial-ore",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:adamantine",
+          "materialRef": "@materials/properties/metals:adamantine",
           "selectionWeight": 10
         }
       ]
@@ -208,19 +208,19 @@
       "description": "Default pool if no specific pool defined - balanced selection",
       "metals": [
         {
-          "materialRef": "@items/materials/metals:iron",
+          "materialRef": "@materials/properties/metals:iron",
           "selectionWeight": 40
         },
         {
-          "materialRef": "@items/materials/metals:steel",
+          "materialRef": "@materials/properties/metals:steel",
           "selectionWeight": 30
         },
         {
-          "materialRef": "@items/materials/metals:mithril",
+          "materialRef": "@materials/properties/metals:mithril",
           "selectionWeight": 20
         },
         {
-          "materialRef": "@items/materials/metals:adamantine",
+          "materialRef": "@materials/properties/metals:adamantine",
           "selectionWeight": 10
         }
       ]

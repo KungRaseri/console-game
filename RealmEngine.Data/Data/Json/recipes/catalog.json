@@ -20,7 +20,7 @@
           "experienceGained": 2,
           "unlockMethod": "SkillLevel",
           "producedItem": {
-            "itemReference": "@items/materials/metals:iron-ingot",
+            "itemReference": "@items/materials/ingots:iron-ingot",
             "quantity": 1,
             "minQuality": "Common",
             "maxQuality": "Common"
@@ -49,14 +49,14 @@
           "experienceGained": 8,
           "unlockMethod": "SkillLevel",
           "producedItem": {
-            "itemReference": "@items/materials/metals:steel-ingot",
+            "itemReference": "@items/materials/ingots:steel-ingot",
             "quantity": 1,
             "minQuality": "Uncommon",
             "maxQuality": "Rare"
           },
           "components": [
             {
-              "itemReference": "@items/materials/metals:iron-ingot",
+              "itemReference": "@items/materials/ingots:iron-ingot",
               "quantity": 2
             },
             {
@@ -78,7 +78,7 @@
           "experienceGained": 5,
           "unlockMethod": "SkillLevel",
           "producedItem": {
-            "itemReference": "@items/materials/metals:bronze-ingot",
+            "itemReference": "@items/materials/ingots:bronze-ingot",
             "quantity": 1,
             "minQuality": "Common",
             "maxQuality": "Uncommon"
@@ -107,7 +107,7 @@
           "experienceGained": 25,
           "unlockMethod": "SkillLevel",
           "producedItem": {
-            "itemReference": "@items/materials/metals:mithril-ingot",
+            "itemReference": "@items/materials/ingots:mithril-ingot",
             "quantity": 1,
             "minQuality": "Rare",
             "maxQuality": "Epic"
@@ -152,7 +152,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/metals:iron-ingot",
+              "itemReference": "@items/materials/ingots:iron-ingot",
               "quantity": 2
             },
             {
@@ -181,7 +181,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/metals:iron-ingot",
+              "itemReference": "@items/materials/ingots:iron-ingot",
               "quantity": 4
             },
             {
@@ -210,7 +210,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/metals:steel-ingot",
+              "itemReference": "@items/materials/ingots:steel-ingot",
               "quantity": 5
             },
             {
@@ -248,7 +248,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/metals:iron-ingot",
+              "itemReference": "@items/materials/ingots:iron-ingot",
               "quantity": 8
             },
             {
@@ -277,7 +277,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/metals:steel-ingot",
+              "itemReference": "@items/materials/ingots:steel-ingot",
               "quantity": 12
             },
             {
@@ -315,7 +315,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/herbs:bloodroot",
+              "itemReference": "@items/materials/organics:bloodroot",
               "quantity": 2
             },
             {
@@ -344,11 +344,11 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/herbs:bloodroot",
+              "itemReference": "@items/materials/organics:bloodroot",
               "quantity": 3
             },
             {
-              "itemReference": "@items/materials/herbs:silverleaf",
+              "itemReference": "@items/materials/organics:silverleaf",
               "quantity": 2
             },
             {
@@ -377,7 +377,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/herbs:mana-thistle",
+              "itemReference": "@items/materials/organics:mana-thistle",
               "quantity": 3
             },
             {
@@ -406,7 +406,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/herbs:mountain-sage",
+              "itemReference": "@items/materials/organics:mountain-sage",
               "quantity": 2
             },
             {
@@ -448,7 +448,7 @@
               "quantity": 2
             },
             {
-              "itemReference": "@items/materials/herbs:ironroot",
+              "itemReference": "@items/materials/organics:ironroot",
               "quantity": 3
             }
           ]
@@ -481,7 +481,7 @@
               "quantity": 1
             },
             {
-              "itemReference": "@items/materials/herbs:frost-lotus",
+              "itemReference": "@items/materials/organics:frost-lotus",
               "quantity": 2
             }
           ]

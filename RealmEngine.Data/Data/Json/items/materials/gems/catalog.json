@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "description": "Raw gemstones for jewelry and enchanting",
+    "version": "4.0",
+    "lastUpdated": "2026-01-10",
+    "type": "items_materials_catalog"
+  },
+  "items": [
+    {
+      "slug": "raw-ruby",
+      "name": "Raw Ruby",
+      "description": "Uncut ruby gemstone, can be polished by a jeweler.",
+      "rarityWeight": 25,
+      "value": 40,
+      "weight": 0.1,
+      "stackSize": 10,
+      "itemType": "material",
+      "subType": "gem",
+      "tags": ["gem", "raw", "jeweling", "red", "rare"]
+    },
+    {
+      "slug": "raw-sapphire",
+      "name": "Raw Sapphire",
+      "description": "Uncut sapphire gemstone, valuable when polished.",
+      "rarityWeight": 25,
+      "value": 40,
+      "weight": 0.1,
+      "stackSize": 10,
+      "itemType": "material",
+      "subType": "gem",
+      "tags": ["gem", "raw", "jeweling", "blue", "rare"]
+    },
+    {
+      "slug": "raw-diamond",
+      "name": "Raw Diamond",
+      "description": "Uncut diamond, the hardest and most valuable gemstone.",
+      "rarityWeight": 15,
+      "value": 80,
+      "weight": 0.1,
+      "stackSize": 10,
+      "itemType": "material",
+      "subType": "gem",
+      "tags": ["gem", "raw", "jeweling", "diamond", "very-rare"]
+    }
+  ]
+}

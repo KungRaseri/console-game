@@ -215,9 +215,9 @@ public class Item : ITraitable
     /// Example material reference IDs:
     /// <code>
     /// [
-    ///   "@items/materials/metals:iron",
-    ///   "@items/materials/metals:steel",
-    ///   "@items/materials/metals:mithril"
+    ///   "@materials/properties/metals:iron",
+    ///   "@materials/properties/metals:steel",
+    ///   "@materials/properties/woods:oak"
     /// ]
     /// </code>
     /// </example>
@@ -225,7 +225,7 @@ public class Item : ITraitable
     
     /// <summary>
     /// Collection of item reference IDs (v4.1 format) required for crafting recipes or upgrades.
-    /// Each ID is a JSON reference like "@items/materials/metals:iron-ingot".
+    /// Each ID is a JSON reference like "@items/materials/ingots:iron-ingot".
     /// </summary>
     /// <remarks>
     /// <para><strong>✅ HOW TO RESOLVE - Use ReferenceResolverService:</strong></para>
@@ -263,8 +263,8 @@ public class Item : ITraitable
     /// Example required item reference IDs:
     /// <code>
     /// [
-    ///   "@items/materials/metals:iron-ingot",
-    ///   "@items/materials/leather:thick-leather"
+    ///   "@items/materials/ingots:iron-ingot",
+    ///   "@items/materials/leather:leather-padding"
     /// ]
     /// </code>
     /// </example>
