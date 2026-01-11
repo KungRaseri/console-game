@@ -463,8 +463,8 @@ public class CraftingServiceTests
 
         // Assert - Should only include recipes at or below skill levels
         recipes.Should().OnlyContain(r =>
-            (r.RequiredStation.Contains("anvil") && r.RequiredSkillLevel <= 5) ||
-            (r.RequiredStation.Contains("alchemy") && r.RequiredSkillLevel <= 10)
+            (r.RequiredStation.Equals("Anvil", StringComparison.OrdinalIgnoreCase) && r.RequiredSkillLevel <= 5) ||
+            (r.RequiredStation.Equals("AlchemyTable", StringComparison.OrdinalIgnoreCase) && r.RequiredSkillLevel <= 10)
         );
     }
 
@@ -477,8 +477,8 @@ public class CraftingServiceTests
         // Act
         var recipes = _craftingService.GetAvailableRecipes(character, stationId: "anvil");
 
-        // Assert
-        recipes.Should().OnlyContain(r => r.RequiredStation == "anvil");
+        // Assert (case-insensitive comparison since service does case-insensitive filtering)
+        recipes.Should().OnlyContain(r => r.RequiredStation.Equals("anvil", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]

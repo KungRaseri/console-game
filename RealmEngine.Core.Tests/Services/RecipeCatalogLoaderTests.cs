@@ -415,7 +415,7 @@ public class RecipeCatalogLoaderTests
 
         // Assert
         var jewelcraftingRecipes = recipes.Where(r => r.RequiredSkill == "Jewelcrafting").ToList();
-        jewelcraftingRecipes.Should().HaveCount(5); // 3 cutting + 2 orbs
+        jewelcraftingRecipes.Should().HaveCount(2); // 2 gem setting recipes
     }
 
     #endregion

@@ -37,8 +37,9 @@ public class CraftingService
 
         foreach (var recipe in allRecipes)
         {
-            // Filter by station if specified
-            if (!string.IsNullOrEmpty(stationId) && recipe.RequiredStation != stationId)
+            // Filter by station if specified (case-insensitive)
+            if (!string.IsNullOrEmpty(stationId) && 
+                !recipe.RequiredStation.Equals(stationId, StringComparison.OrdinalIgnoreCase))
                 continue;
 
             // Check if character has unlocked this recipe
@@ -72,14 +73,7 @@ public class CraftingService
             return false;
         }
 
-        // Check if recipe is unlocked
-        if (!IsRecipeUnlocked(character, recipe))
-        {
-            failureReason = $"Recipe '{recipe.Name}' is not unlocked";
-            return false;
-        }
-
-        // Check skill level requirement
+        // Check skill level requirement FIRST (for better error messages)
         var craftingSkill = GetCraftingSkillForStation(recipe.RequiredStation);
         var skill = character.Skills?.GetValueOrDefault(craftingSkill);
         var characterSkillLevel = skill?.CurrentRank ?? 0;
@@ -87,6 +81,13 @@ public class CraftingService
         if (characterSkillLevel < recipe.RequiredSkillLevel)
         {
             failureReason = $"Requires {craftingSkill} skill level {recipe.RequiredSkillLevel} (current: {characterSkillLevel})";
+            return false;
+        }
+
+        // Then check if recipe is unlocked (for Trainer/Quest/Discovery)
+        if (!IsRecipeUnlocked(character, recipe))
+        {
+            failureReason = $"Recipe '{recipe.Name}' is not unlocked";
             return false;
         }
 
@@ -216,12 +217,27 @@ public class CraftingService
     /// <summary>
     /// Counts how many of a specific material the character has in their inventory.
     /// </summary>
-    private int CountMaterialInInventory(Character character, string itemId)
+    private int CountMaterialInInventory(Character character, string itemReference)
     {
         if (character.Inventory == null)
             return 0;
 
+        // Extract item name from reference (e.g., "@items/materials/ores:iron-ore" → "iron-ore")
+        var itemName = itemReference.Contains(':') 
+            ? itemReference.Split(':')[1].Split('?')[0]  // Handle optional "?" suffix
+            : itemReference;
+
+        // For wildcard references like "@items/materials/organics:*", match any item
+        // This is a simplified check - in production, you'd query the catalog
+        if (itemName == "*")
+        {
+            // Match items that could be materials (simple heuristic)
+            return character.Inventory.Count(item => 
+                !string.IsNullOrEmpty(item.Id) || !string.IsNullOrEmpty(item.Name));
+        }
+
         return character.Inventory
-            .Count(item => item.Id == itemId || item.Name == itemId);
+            .Count(item => item.Id == itemName || item.Name == itemName || 
+                          item.Id == itemReference || item.Name == itemReference);
     }
 }

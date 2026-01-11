@@ -1,8 +1,10 @@
 {
-  "description": "Crafting recipes catalog - all craftable items with progression tiers and interdependencies",
-  "version": "1.0",
-  "lastUpdated": "2026-01-10",
-  "type": "recipe_catalog",
+  "metadata": {
+    "description": "Crafting recipes catalog - all craftable items with progression tiers and interdependencies",
+    "version": "5.1",
+    "lastUpdated": "2026-01-11",
+    "type": "recipe_catalog"
+  },
   "recipe_types": {
     "blacksmithing_refining": {
       "description": "Tier 1 Blacksmithing - Refining raw materials into usable ingots",
@@ -164,6 +166,35 @@
             "itemReference": "@items/consumables/elixirs:quenching-oil",
             "effect": "+1 enchantment slot (requires Alchemy)"
           }
+        },
+        {
+          "name": "Legendary Sword",
+          "slug": "legendary-sword-recipe",
+          "description": "A masterwork sword taught only by master weaponsmiths",
+          "rarityWeight": 10,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 50,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 3,
+          "craftingTime": 180,
+          "experienceGained": 100,
+          "unlockMethod": "Trainer",
+          "producedItem": {
+            "itemReference": "@items/weapons/swords:longsword",
+            "quantity": 1,
+            "minQuality": "Epic",
+            "maxQuality": "Legendary"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/ingots:mithril-ingot",
+              "quantity": 8
+            },
+            {
+              "itemReference": "@items/materials/gems:*",
+              "quantity": 2
+            }
+          ]
         }
       ]
     },

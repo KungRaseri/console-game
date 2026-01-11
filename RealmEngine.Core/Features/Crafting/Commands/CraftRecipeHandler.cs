@@ -45,9 +45,10 @@ public class CraftRecipeHandler : IRequestHandler<CraftRecipeCommand, CraftRecip
                 };
             }
 
-            // Validate station matches recipe requirements
-            if (request.Station.Id != request.Recipe.RequiredStation && 
-                request.Station.Slug != request.Recipe.RequiredStation)
+            // Validate station matches recipe requirements (case-insensitive)
+            if (!request.Station.Id.Equals(request.Recipe.RequiredStation, StringComparison.OrdinalIgnoreCase) && 
+                !request.Station.Slug.Equals(request.Recipe.RequiredStation, StringComparison.OrdinalIgnoreCase) &&
+                !request.Station.Name.Equals(request.Recipe.RequiredStation, StringComparison.OrdinalIgnoreCase))
             {
                 return new CraftRecipeResult
                 {
@@ -109,8 +110,19 @@ public class CraftRecipeHandler : IRequestHandler<CraftRecipeCommand, CraftRecip
     {
         var consumed = new List<string>();
 
-        foreach (var material in recipe.Materials)
+        // Process specific materials first, then wildcards
+        // This prevents wildcards from consuming items needed for specific requirements
+        var specificMaterials = recipe.Materials.Where(m => !m.ItemReference.EndsWith(":*")).ToList();
+        var wildcardMaterials = recipe.Materials.Where(m => m.ItemReference.EndsWith(":*")).ToList();
+        var allMaterials = specificMaterials.Concat(wildcardMaterials);
+
+        foreach (var material in allMaterials)
         {
+            // Extract item name from reference (e.g., "@items/materials/ores:iron-ore" → "iron-ore")
+            var itemName = material.ItemReference.Contains(':') 
+                ? material.ItemReference.Split(':')[1].Split('?')[0]  // Handle optional "?" suffix
+                : material.ItemReference;
+            
             var remaining = material.Quantity;
             
             // Find and remove materials from inventory
@@ -118,12 +130,15 @@ public class CraftRecipeHandler : IRequestHandler<CraftRecipeCommand, CraftRecip
             {
                 var item = character.Inventory[i];
                 
-                if (item.Id == material.ItemReference || item.Name == material.ItemReference)
+                // Match against extracted item name OR full reference OR wildcard
+                if (item.Id == itemName || item.Name == itemName || 
+                    item.Id == material.ItemReference || item.Name == material.ItemReference ||
+                    itemName == "*")  // Wildcard match
                 {
                     // Remove entire item (assume 1 item = 1 unit for now)
                     character.Inventory.RemoveAt(i);
                     remaining--;
-                    consumed.Add($"1x {material.ItemReference}");
+                    consumed.Add($"1x {item.Name}");
                 }
             }
         }
