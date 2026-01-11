@@ -56,7 +56,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/ingots:*",
+              "itemReference": "@items/materials/ingots:iron-ingot",
               "quantity": 2
             },
             {
@@ -195,12 +195,8 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/organics:bloodroot",
-              "quantity": 3
-            },
-            {
-              "itemReference": "@items/materials/organics:silverleaf",
-              "quantity": 2
+              "itemReference": "@items/materials/organics:*",
+              "quantity": 5
             },
             {
               "itemReference": "@items/materials/reagents:distilled-water",
@@ -228,7 +224,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/organics:mana-thistle",
+              "itemReference": "@items/materials/organics:*",
               "quantity": 3
             },
             {
@@ -257,7 +253,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/organics:mountain-sage",
+              "itemReference": "@items/materials/organics:*",
               "quantity": 2
             },
             {
@@ -291,7 +287,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/consumables/potions:health-potion",
+              "itemReference": "@items/consumables/potions:*",
               "quantity": 1
             },
             {
@@ -299,7 +295,7 @@
               "quantity": 2
             },
             {
-              "itemReference": "@items/materials/organics:ironroot",
+              "itemReference": "@items/materials/organics:*",
               "quantity": 3
             }
           ]
@@ -332,7 +328,7 @@
               "quantity": 1
             },
             {
-              "itemReference": "@items/materials/organics:frost-lotus",
+              "itemReference": "@items/materials/organics:*",
               "quantity": 2
             }
           ]
@@ -433,7 +429,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/stone:runestone",
+              "itemReference": "@items/materials/stone:*",
               "quantity": 1
             },
             {
@@ -474,7 +470,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/stone:runestone",
+              "itemReference": "@items/materials/stone:*",
               "quantity": 1
             },
             {
@@ -521,7 +517,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/gems/red:ruby",
+              "itemReference": "@items/gems/red:*",
               "quantity": 3
             },
             {
@@ -554,7 +550,7 @@
           },
           "components": [
             {
-              "itemReference": "@items/materials/gems:raw-diamond",
+              "itemReference": "@items/materials/gems:*",
               "quantity": 1
             },
             {
