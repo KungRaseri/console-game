@@ -76,6 +76,20 @@ public class Item : ITraitable
     public List<Enchantment> Enchantments { get; set; } = new();
     
     /// <summary>
+    /// Gets or sets the collection of player-applied enchantments (post-crafting).
+    /// Separate from generation Enchantments. These are applied via enchantment scrolls.
+    /// Limited by MaxPlayerEnchantments based on rarity and socket crystals.
+    /// </summary>
+    public List<Enchantment> PlayerEnchantments { get; set; } = new();
+    
+    /// <summary>
+    /// Gets or sets the maximum number of player-applied enchantments allowed.
+    /// Determined by item rarity: Common=1, Rare=2, Legendary=3.
+    /// Can be increased up to 3 using socket crystals (requires Enchanting skill).
+    /// </summary>
+    public int MaxPlayerEnchantments { get; set; } = 1;
+    
+    /// <summary>
     /// Gets or sets the collection of sockets available on this item, organized by socket type.
     /// Sockets are player-customizable after generation.
     /// Key = SocketType, Value = List of sockets for that type.
@@ -368,6 +382,31 @@ public class Item : ITraitable
                 }
             }
         }
+        
+        // 3a. Add player-applied enchantment traits (post-crafting)
+        foreach (var enchantment in PlayerEnchantments)
+        {
+            foreach (var trait in enchantment.Traits)
+            {
+                if (mergedTraits.ContainsKey(trait.Key))
+                {
+                    var existing = mergedTraits[trait.Key];
+                    if (existing.Type == TraitType.Number && trait.Value.Type == TraitType.Number)
+                    {
+                        var sum = existing.AsDouble() + trait.Value.AsDouble();
+                        mergedTraits[trait.Key] = new TraitValue(sum, TraitType.Number);
+                    }
+                    else
+                    {
+                        mergedTraits[trait.Key] = trait.Value;
+                    }
+                }
+                else
+                {
+                    mergedTraits[trait.Key] = trait.Value;
+                }
+            }
+        }
 
         // 4. Add socket content traits (additive for numeric, last one wins for text)
         foreach (var socketList in Sockets.Values)
@@ -400,22 +439,21 @@ public class Item : ITraitable
             }
         }
 
-        // 5. Add upgrade level bonuses (+2 per level to primary attributes)
+        // 5. Add upgrade level bonuses (exponential scaling: base * (1 + level * 0.10 + level² * 0.01))
         if (UpgradeLevel > 0)
         {
-            var upgradeBonus = UpgradeLevel * 2;
-            var attributeNames = new[] { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" };
+            // Calculate multiplier: 1 + (0.10 * level) + (0.01 * level²)
+            // Examples: +1=1.11x, +5=1.75x, +8=2.12x, +10=2.5x
+            var upgradeMultiplier = 1.0 + (UpgradeLevel * 0.10) + (UpgradeLevel * UpgradeLevel * 0.01);
             
-            foreach (var attrName in attributeNames)
+            // Apply to all numeric traits
+            foreach (var traitKey in mergedTraits.Keys.ToList())
             {
-                if (mergedTraits.ContainsKey(attrName))
+                if (mergedTraits[traitKey].Type == TraitType.Number)
                 {
-                    var existing = mergedTraits[attrName];
-                    if (existing.Type == TraitType.Number)
-                    {
-                        var newValue = existing.AsDouble() + upgradeBonus;
-                        mergedTraits[attrName] = new TraitValue(newValue, TraitType.Number);
-                    }
+                    var baseValue = mergedTraits[traitKey].AsDouble();
+                    var upgradedValue = baseValue * upgradeMultiplier;
+                    mergedTraits[traitKey] = new TraitValue(upgradedValue, TraitType.Number);
                 }
             }
         }
@@ -480,10 +518,16 @@ public class Item : ITraitable
         // Add base name
         nameParts.Add(Name);
 
-        // Add enchantment suffixes
+        // Add generation enchantment suffixes
         foreach (var enchantment in Enchantments)
         {
             nameParts.Add($"({enchantment.Name})");
+        }
+        
+        // Add player-applied enchantment suffixes
+        foreach (var enchantment in PlayerEnchantments)
+        {
+            nameParts.Add($"[{enchantment.Name}]");
         }
 
         return string.Join(" ", nameParts);
@@ -521,18 +565,55 @@ public class Item : ITraitable
     }
     
     /// <summary>
-    /// Check if this item can accept an additional enchantment.
+    /// Check if this item can accept an additional player-applied enchantment.
     /// </summary>
+    public bool CanAddPlayerEnchantment() => PlayerEnchantments.Count < MaxPlayerEnchantments;
+    
+    /// <summary>
+    /// Check if this item has any player enchantment slots.
+    /// </summary>
+    public bool HasPlayerEnchantmentSlots() => MaxPlayerEnchantments > 0;
+    
+    /// <summary>
+    /// Get the number of available (unfilled) player enchantment slots.
+    /// </summary>
+    public int AvailablePlayerEnchantmentSlots() => MaxPlayerEnchantments - PlayerEnchantments.Count;
+    
+    /// <summary>
+    /// Get the maximum upgrade level allowed for this item based on rarity.
+    /// Common/Uncommon: +5, Rare: +7, Epic: +9, Legendary: +10
+    /// </summary>
+    public int GetMaxUpgradeLevel() => Rarity switch
+    {
+        ItemRarity.Common => 5,
+        ItemRarity.Uncommon => 5,
+        ItemRarity.Rare => 7,
+        ItemRarity.Epic => 9,
+        ItemRarity.Legendary => 10,
+        _ => 0
+    };
+    
+    /// <summary>
+    /// Check if this item can be upgraded further.
+    /// </summary>
+    public bool CanUpgrade() => UpgradeLevel < GetMaxUpgradeLevel();
+    
+    /// <summary>
+    /// Check if this item can accept an additional enchantment (legacy method for generation).
+    /// </summary>
+    [Obsolete("Use CanAddPlayerEnchantment() for player-applied enchantments")]
     public bool CanAddEnchantment() => Enchantments.Count < MaxEnchantments;
     
     /// <summary>
-    /// Check if this item has any enchantment slots.
+    /// Check if this item has any enchantment slots (legacy method for generation).
     /// </summary>
+    [Obsolete("Use HasPlayerEnchantmentSlots() for player-applied enchantments")]
     public bool HasEnchantmentSlots() => MaxEnchantments > 0;
     
     /// <summary>
-    /// Get the number of available (unfilled) enchantment slots.
+    /// Get the number of available (unfilled) enchantment slots (legacy method for generation).
     /// </summary>
+    [Obsolete("Use AvailablePlayerEnchantmentSlots() for player-applied enchantments")]
     public int AvailableEnchantmentSlots() => MaxEnchantments - Enchantments.Count;
     
     /// <summary>
