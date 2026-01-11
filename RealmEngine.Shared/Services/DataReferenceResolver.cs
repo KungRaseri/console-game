@@ -121,7 +121,7 @@ public class DataReferenceResolver
 
     /// <summary>
     /// Resolves an item reference from catalog
-    /// Format: "domain/category/itemName" (e.g., "weapons/swords/Longsword")
+    /// Format: "domain/category/itemName" (e.g., "weapons/swords/Longsword" or "materials/ingots/iron-ingot")
     /// </summary>
     public JObject? ResolveItem(string itemRef)
     {
@@ -138,39 +138,67 @@ public class DataReferenceResolver
                 return null;
             }
 
-            var domain = parts[0]; // weapons, armor
-            var category = parts[1]; // swords, axes
-            var itemName = parts[2]; // Longsword
+            var domain = parts[0]; // weapons, armor, materials
+            var category = parts[1]; // swords, axes, ingots
+            var itemName = parts[2]; // Longsword, iron-ingot
 
-            // Load catalog
-            var catalog = LoadCatalog($"items/{domain}/catalog.json");
-            if (catalog == null)
+            // Special handling for materials domain - uses subdirectory structure
+            if (domain == "materials")
+            {
+                var catalog = LoadCatalog($"items/materials/{category}/catalog.json");
+                if (catalog == null)
+                    return null;
+
+                // Materials use flat items[] array structure
+                var items = catalog["items"] as JArray;
+                if (items == null)
+                {
+                    Log.Warning("No items array found in materials catalog: {Category}", category);
+                    return null;
+                }
+
+                var item = items
+                    .OfType<JObject>()
+                    .FirstOrDefault(i => i["slug"]?.ToString() == itemName);
+
+                if (item == null)
+                {
+                    Log.Warning("Material item not found: {ItemName} in category {Category}", itemName, category);
+                    return null;
+                }
+
+                return item;
+            }
+
+            // Standard handling for other domains - uses domain_types structure
+            var stdCatalog = LoadCatalog($"items/{domain}/catalog.json");
+            if (stdCatalog == null)
                 return null;
 
             // Navigate: {domain}_types.{category}.items[]
-            var categoryNode = catalog[$"{domain}_types"]?[category] as JObject;
+            var categoryNode = stdCatalog[$"{domain}_types"]?[category] as JObject;
             if (categoryNode == null)
             {
                 Log.Warning("Item category not found: {Category} in {ItemRef}", category, itemRef);
                 return null;
             }
 
-            var items = categoryNode["items"] as JArray;
-            if (items == null)
+            var stdItems = categoryNode["items"] as JArray;
+            if (stdItems == null)
                 return null;
 
             // Find item by name
-            var item = items
+            var stdItem = stdItems
                 .OfType<JObject>()
                 .FirstOrDefault(i => i["name"]?.ToString() == itemName);
 
-            if (item == null)
+            if (stdItem == null)
             {
                 Log.Warning("Item not found: {ItemName} in category {Category}", itemName, category);
                 return null;
             }
 
-            return item;
+            return stdItem;
         }
         catch (Exception ex)
         {

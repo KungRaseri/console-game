@@ -1,6 +1,31 @@
 # Crafting System
 
-**Status**: See [IMPLEMENTATION_STATUS.md](../IMPLEMENTATION_STATUS.md)
+**Status**: 🔨 **65% IMPLEMENTED** - Core services complete, tests written, execution logic pending  
+**Last Updated**: January 10, 2026 22:30 UTC
+
+## Implementation Progress
+
+### ✅ Completed (65%)
+- **CraftingService** - All validation methods implemented
+- **RecipeCatalogLoader** - Loads 27 recipes from JSON
+- **Materials System** - Restructured into properties + items domains
+  - `materials/properties/` - Stat bonuses for crafting (44 materials)
+  - `items/materials/` - Inventory items (9 subdirectories, 20+ items)
+- **Recipe Validation** - Skill checks, material validation, unlock verification
+- **Quality Calculation** - Skill-based quality with variance
+- **Test Coverage** - 26/29 tests passing (89.7%)
+- **Reference Resolution** - Handles subdirectory catalogs
+
+### 🚧 In Progress (20%)
+- **ExecuteCraftCommand** - Implementation pending
+- **Material Consumption** - Remove items from inventory
+- **Recipe Output** - Create and add crafted item to inventory
+
+### ❌ Not Started (15%)
+- **Station Integration** - Verify player at correct station
+- **Recipe Discovery** - Learn recipes through experimentation
+- **Enchanting Integration** - Apply enchantment scrolls to items
+- **Upgrade System** - Improve existing items
 
 ## Design Decisions (January 10, 2026)
 

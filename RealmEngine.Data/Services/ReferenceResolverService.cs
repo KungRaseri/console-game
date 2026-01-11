@@ -354,7 +354,7 @@ public class ReferenceResolverService
             return null;
         }
 
-        // Try *_types structure: ability_types.offensive.items, class_types.warrior.items, etc.
+        // Try *_types structure first: ability_types.offensive.items, class_types.warrior.items, etc.
         foreach (var property in catalog.Children<JProperty>())
         {
             if (property.Name != "metadata" && property.Name.EndsWith("_types") && property.Value is JObject typesObj)
@@ -395,6 +395,20 @@ public class ReferenceResolverService
                         }
                     }
                 }
+            }
+        }
+
+        // Fallback: Try flat items[] array structure (used by materials subdirectories)
+        // This handles catalogs without *_types wrapper, like items/materials/ingots/catalog.json
+        var flatItems = catalog["items"] as JArray;
+        if (flatItems != null)
+        {
+            foreach (var item in flatItems)
+            {
+                // Prefer slug (exact match), fallback to case-insensitive name
+                if (item["slug"]?.ToString() == itemName || 
+                    string.Equals(item["name"]?.ToString(), itemName, StringComparison.OrdinalIgnoreCase))
+                    return item;
             }
         }
 
