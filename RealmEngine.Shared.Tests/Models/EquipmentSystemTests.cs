@@ -190,13 +190,13 @@ public class EquipmentSystemTests
     }
 
     [Fact]
-    public void ItemType_Should_Have_15_Total_Types()
+    public void ItemType_Should_Have_17_Total_Types()
     {
         // Arrange & Act
         var allTypes = Enum.GetValues<ItemType>();
 
         // Assert
-        allTypes.Should().HaveCount(15);
+        allTypes.Should().HaveCount(17);
         allTypes.Should().Contain(new[]
         {
             ItemType.Consumable,
@@ -213,7 +213,9 @@ public class EquipmentSystemTests
             ItemType.Boots,
             ItemType.Necklace,
             ItemType.Ring,
-            ItemType.QuestItem
+            ItemType.QuestItem,
+            ItemType.EnchantmentScroll,
+            ItemType.Material
         });
     }
 

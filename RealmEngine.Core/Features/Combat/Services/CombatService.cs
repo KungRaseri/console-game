@@ -738,7 +738,7 @@ public class CombatService
             });
 
             // Add weapon's bonus strength
-            weaponDamage += player.EquippedMainHand.GetTotalBonusStrength();
+            weaponDamage += (int)player.EquippedMainHand.GetTotalTrait("Strength", 0);
         }
 
         // Add STR bonus

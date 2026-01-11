@@ -83,118 +83,191 @@ public class ItemTests
         item.Type.Should().Be(type);
     }
 
-    // GetTotalBonus* Calculation Tests
+    // GetTotalTrait Calculation Tests
     [Fact]
-    public void GetTotalBonusStrength_Should_Return_Base_Bonus_When_No_Enchantments_Or_Upgrades()
+    public void GetTotalTrait_Should_Return_Base_Value_When_No_Enchantments_Or_Upgrades()
     {
-        var item = new Item { BonusStrength = 5 };
-        item.GetTotalBonusStrength().Should().Be(5);
-    }
-
-    [Fact]
-    public void GetTotalBonusStrength_Should_Include_Upgrade_Level_Bonus()
-    {
-        var item = new Item { BonusStrength = 3, UpgradeLevel = 2 };
-        item.GetTotalBonusStrength().Should().Be(7); // 3 + (2*2)
-    }
-
-    [Fact]
-    public void GetTotalBonusStrength_Should_Include_Enchantment_Bonuses()
-    {
-        var item = new Item
-        {
-            BonusStrength = 2,
-            Enchantments = new List<Enchantment>
+        var item = new Item 
+        { 
+            Traits = new Dictionary<string, TraitValue>
             {
-                new Enchantment { BonusStrength = 3 },
-                new Enchantment { BonusStrength = 5 }
+                { "Strength", new TraitValue(5, TraitType.Number) }
             }
         };
-        item.GetTotalBonusStrength().Should().Be(10); // 2 + 3 + 5
+        item.GetTotalTrait("Strength").Should().Be(5);
     }
 
     [Fact]
-    public void GetTotalBonusStrength_Should_Combine_All_Sources()
+    public void GetTotalTrait_Should_Include_Upgrade_Level_Bonus()
+    {
+        var item = new Item 
+        { 
+            Traits = new Dictionary<string, TraitValue>
+            {
+                { "Strength", new TraitValue(3, TraitType.Number) }
+            },
+            UpgradeLevel = 2 
+        };
+        item.GetTotalTrait("Strength").Should().Be(7); // 3 + (2*2)
+    }
+
+    [Fact]
+    public void GetTotalTrait_Should_Include_Enchantment_Bonuses()
     {
         var item = new Item
         {
-            BonusStrength = 5,
+            Traits = new Dictionary<string, TraitValue>
+            {
+                { "Strength", new TraitValue(2, TraitType.Number) }
+            },
+            Enchantments = new List<Enchantment>
+            {
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue>
+                    {
+                        { "Strength", new TraitValue(3, TraitType.Number) }
+                    }
+                },
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue>
+                    {
+                        { "Strength", new TraitValue(5, TraitType.Number) }
+                    }
+                }
+            }
+        };
+        item.GetTotalTrait("Strength").Should().Be(10); // 2 + 3 + 5
+    }
+
+    [Fact]
+    public void GetTotalTrait_Should_Combine_All_Sources()
+    {
+        var item = new Item
+        {
+            Traits = new Dictionary<string, TraitValue>
+            {
+                { "Strength", new TraitValue(5, TraitType.Number) }
+            },
             UpgradeLevel = 3,
             Enchantments = new List<Enchantment>
             {
-                new Enchantment { BonusStrength = 4 },
-                new Enchantment { BonusStrength = 2 }
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue>
+                    {
+                        { "Strength", new TraitValue(4, TraitType.Number) }
+                    }
+                },
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue>
+                    {
+                        { "Strength", new TraitValue(2, TraitType.Number) }
+                    }
+                }
             }
         };
-        item.GetTotalBonusStrength().Should().Be(17); // 5 + 6 + 4 + 2
+        item.GetTotalTrait("Strength").Should().Be(17); // 5 + 6 + 4 + 2
     }
 
     [Fact]
-    public void GetTotalBonusDexterity_Should_Combine_All_Sources()
+    public void GetTotalTrait_Dexterity_Should_Combine_All_Sources()
     {
         var item = new Item
         {
-            BonusDexterity = 3,
+            Traits = new Dictionary<string, TraitValue> { { "Dexterity", new TraitValue(3, TraitType.Number) } },
             UpgradeLevel = 2,
-            Enchantments = new List<Enchantment> { new Enchantment { BonusDexterity = 5 } }
+            Enchantments = new List<Enchantment> 
+            { 
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue> { { "Dexterity", new TraitValue(5, TraitType.Number) } }
+                } 
+            }
         };
-        item.GetTotalBonusDexterity().Should().Be(12); // 3 + 4 + 5
+        item.GetTotalTrait("Dexterity").Should().Be(12); // 3 + 4 + 5
     }
 
     [Fact]
-    public void GetTotalBonusConstitution_Should_Combine_All_Sources()
+    public void GetTotalTrait_Constitution_Should_Combine_All_Sources()
     {
         var item = new Item
         {
-            BonusConstitution = 6,
+            Traits = new Dictionary<string, TraitValue> { { "Constitution", new TraitValue(6, TraitType.Number) } },
             UpgradeLevel = 1,
             Enchantments = new List<Enchantment>
             {
-                new Enchantment { BonusConstitution = 3 },
-                new Enchantment { BonusConstitution = 1 }
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue> { { "Constitution", new TraitValue(3, TraitType.Number) } }
+                },
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue> { { "Constitution", new TraitValue(1, TraitType.Number) } }
+                }
             }
         };
-        item.GetTotalBonusConstitution().Should().Be(12); // 6 + 2 + 3 + 1
+        item.GetTotalTrait("Constitution").Should().Be(12); // 6 + 2 + 3 + 1
     }
 
     [Fact]
-    public void GetTotalBonusIntelligence_Should_Combine_All_Sources()
+    public void GetTotalTrait_Intelligence_Should_Combine_All_Sources()
     {
         var item = new Item
         {
-            BonusIntelligence = 4,
+            Traits = new Dictionary<string, TraitValue> { { "Intelligence", new TraitValue(4, TraitType.Number) } },
             UpgradeLevel = 5,
-            Enchantments = new List<Enchantment> { new Enchantment { BonusIntelligence = 7 } }
+            Enchantments = new List<Enchantment> 
+            { 
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue> { { "Intelligence", new TraitValue(7, TraitType.Number) } }
+                } 
+            }
         };
-        item.GetTotalBonusIntelligence().Should().Be(21); // 4 + 10 + 7
+        item.GetTotalTrait("Intelligence").Should().Be(21); // 4 + 10 + 7
     }
 
     [Fact]
-    public void GetTotalBonusWisdom_Should_Combine_All_Sources()
+    public void GetTotalTrait_Wisdom_Should_Combine_All_Sources()
     {
         var item = new Item
         {
-            BonusWisdom = 5,
+            Traits = new Dictionary<string, TraitValue> { { "Wisdom", new TraitValue(5, TraitType.Number) } },
             UpgradeLevel = 3,
             Enchantments = new List<Enchantment>
             {
-                new Enchantment { BonusWisdom = 2 },
-                new Enchantment { BonusWisdom = 4 }
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue> { { "Wisdom", new TraitValue(2, TraitType.Number) } }
+                },
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue> { { "Wisdom", new TraitValue(4, TraitType.Number) } }
+                }
             }
         };
-        item.GetTotalBonusWisdom().Should().Be(17); // 5 + 6 + 2 + 4
+        item.GetTotalTrait("Wisdom").Should().Be(17); // 5 + 6 + 2 + 4
     }
 
     [Fact]
-    public void GetTotalBonusCharisma_Should_Combine_All_Sources()
+    public void GetTotalTrait_Charisma_Should_Combine_All_Sources()
     {
         var item = new Item
         {
-            BonusCharisma = 3,
+            Traits = new Dictionary<string, TraitValue> { { "Charisma", new TraitValue(3, TraitType.Number) } },
             UpgradeLevel = 4,
-            Enchantments = new List<Enchantment> { new Enchantment { BonusCharisma = 6 } }
+            Enchantments = new List<Enchantment> 
+            { 
+                new Enchantment 
+                { 
+                    Traits = new Dictionary<string, TraitValue> { { "Charisma", new TraitValue(6, TraitType.Number) } }
+                } 
+            }
         };
-        item.GetTotalBonusCharisma().Should().Be(17); // 3 + 8 + 6
+        item.GetTotalTrait("Charisma").Should().Be(17); // 3 + 8 + 6
     }
 
     // GetDisplayName Tests
@@ -252,31 +325,37 @@ public class ItemTests
     {
         var item = new Item
         {
-            BonusStrength = 5,
-            BonusDexterity = 3,
+            Traits = new Dictionary<string, TraitValue> 
+            { 
+                { "Strength", new TraitValue(5, TraitType.Number) },
+                { "Dexterity", new TraitValue(3, TraitType.Number) }
+            },
             UpgradeLevel = upgradeLevel
         };
-        item.GetTotalBonusStrength().Should().Be(5 + (upgradeLevel * 2));
-        item.GetTotalBonusDexterity().Should().Be(3 + (upgradeLevel * 2));
+        item.GetTotalTrait("Strength").Should().Be(5 + (upgradeLevel * 2));
+        item.GetTotalTrait("Dexterity").Should().Be(3 + (upgradeLevel * 2));
     }
 
     [Fact]
-    public void All_Bonus_Methods_Should_Handle_Empty_Enchantments()
+    public void All_Trait_Methods_Should_Handle_Empty_Enchantments()
     {
         var item = new Item
         {
-            BonusStrength = 10,
-            BonusDexterity = 8,
-            BonusConstitution = 6,
-            BonusIntelligence = 4,
-            BonusWisdom = 2,
-            BonusCharisma = 1
+            Traits = new Dictionary<string, TraitValue>
+            {
+                { "Strength", new TraitValue(10, TraitType.Number) },
+                { "Dexterity", new TraitValue(8, TraitType.Number) },
+                { "Constitution", new TraitValue(6, TraitType.Number) },
+                { "Intelligence", new TraitValue(4, TraitType.Number) },
+                { "Wisdom", new TraitValue(2, TraitType.Number) },
+                { "Charisma", new TraitValue(1, TraitType.Number) }
+            }
         };
-        item.GetTotalBonusStrength().Should().Be(10);
-        item.GetTotalBonusDexterity().Should().Be(8);
-        item.GetTotalBonusConstitution().Should().Be(6);
-        item.GetTotalBonusIntelligence().Should().Be(4);
-        item.GetTotalBonusWisdom().Should().Be(2);
-        item.GetTotalBonusCharisma().Should().Be(1);
+        item.GetTotalTrait("Strength").Should().Be(10);
+        item.GetTotalTrait("Dexterity").Should().Be(8);
+        item.GetTotalTrait("Constitution").Should().Be(6);
+        item.GetTotalTrait("Intelligence").Should().Be(4);
+        item.GetTotalTrait("Wisdom").Should().Be(2);
+        item.GetTotalTrait("Charisma").Should().Be(1);
     }
 }

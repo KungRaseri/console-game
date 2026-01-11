@@ -27,23 +27,7 @@ public class Enchantment : ITraitable
     /// <summary>Gets or sets the rarity weight for procedural generation.</summary>
     public int RarityWeight { get; set; } = 50;
 
-    /// <summary>Gets or sets the bonus strength.</summary>
-    public int BonusStrength { get; set; } = 0;
-    
-    /// <summary>Gets or sets the bonus dexterity.</summary>
-    public int BonusDexterity { get; set; } = 0;
-    
-    /// <summary>Gets or sets the bonus constitution.</summary>
-    public int BonusConstitution { get; set; } = 0;
-    
-    /// <summary>Gets or sets the bonus intelligence.</summary>
-    public int BonusIntelligence { get; set; } = 0;
-    
-    /// <summary>Gets or sets the bonus wisdom.</summary>
-    public int BonusWisdom { get; set; } = 0;
-    
-    /// <summary>Gets or sets the bonus charisma.</summary>
-    public int BonusCharisma { get; set; } = 0;
+
 
     /// <summary>Gets or sets the special effect.</summary>
     public string? SpecialEffect { get; set; }

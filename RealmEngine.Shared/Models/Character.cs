@@ -329,31 +329,8 @@ public class Character
     /// </summary>
     public int GetPhysicalDefense(List<EquipmentSet>? sets = null)
     {
-        int defense = Constitution;  // Base defense from CON
-
-        // Add equipment defense bonuses
-        defense += EquippedMainHand?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedOffHand?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedHelmet?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedShoulders?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedChest?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedBracers?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedGloves?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedBelt?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedLegs?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedBoots?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedNecklace?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedRing1?.GetTotalBonusConstitution() ?? 0;
-        defense += EquippedRing2?.GetTotalBonusConstitution() ?? 0;
-
-        // Add set bonuses
-        if (sets != null)
-        {
-            var setBonuses = GetSetBonuses(sets, "Constitution");
-            defense += setBonuses.Values.Sum();
-        }
-
-        return defense;
+        // Defense is based on total Constitution (base + equipment + sets)
+        return GetTotalConstitution(sets);
     }
 
     /// <summary>
@@ -391,184 +368,73 @@ public class Character
     }
 
     /// <summary>
-    /// Calculate total strength (base + equipment bonuses + set bonuses).
+    /// Helper method to calculate total attribute from base + equipment + set bonuses.
     /// </summary>
-    public int GetTotalStrength(List<EquipmentSet>? sets = null)
+    private int GetTotalAttribute(string attributeName, int baseValue, List<EquipmentSet>? sets = null)
     {
-        int total = Strength;  // Base D20 attribute
-        total += EquippedMainHand?.GetTotalBonusStrength() ?? 0;
-        total += EquippedOffHand?.GetTotalBonusStrength() ?? 0;
-        total += EquippedHelmet?.GetTotalBonusStrength() ?? 0;
-        total += EquippedShoulders?.GetTotalBonusStrength() ?? 0;
-        total += EquippedChest?.GetTotalBonusStrength() ?? 0;
-        total += EquippedBracers?.GetTotalBonusStrength() ?? 0;
-        total += EquippedGloves?.GetTotalBonusStrength() ?? 0;
-        total += EquippedBelt?.GetTotalBonusStrength() ?? 0;
-        total += EquippedLegs?.GetTotalBonusStrength() ?? 0;
-        total += EquippedBoots?.GetTotalBonusStrength() ?? 0;
-        total += EquippedNecklace?.GetTotalBonusStrength() ?? 0;
-        total += EquippedRing1?.GetTotalBonusStrength() ?? 0;
-        total += EquippedRing2?.GetTotalBonusStrength() ?? 0;
+        int total = baseValue;
+
+        // Sum all equipped items' trait bonuses
+        var equippedItems = new[] 
+        { 
+            EquippedMainHand, EquippedOffHand, EquippedHelmet, EquippedShoulders,
+            EquippedChest, EquippedBracers, EquippedGloves, EquippedBelt,
+            EquippedLegs, EquippedBoots, EquippedNecklace, EquippedRing1, EquippedRing2
+        };
+
+        foreach (var item in equippedItems)
+        {
+            if (item != null)
+            {
+                total += (int)item.GetTotalTrait(attributeName, 0);
+            }
+        }
 
         // Add set bonuses
         if (sets != null)
         {
-            var setBonuses = GetSetBonuses(sets, "Strength");
+            var setBonuses = GetSetBonuses(sets, attributeName);
             total += setBonuses.Values.Sum();
         }
 
         return total;
     }
+
+    /// <summary>
+    /// Calculate total strength (base + equipment bonuses + set bonuses).
+    /// </summary>
+    public int GetTotalStrength(List<EquipmentSet>? sets = null) 
+        => GetTotalAttribute("Strength", Strength, sets);
 
     /// <summary>
     /// Calculate total dexterity (base + equipment bonuses + set bonuses).
     /// </summary>
-    public int GetTotalDexterity(List<EquipmentSet>? sets = null)
-    {
-        int total = Dexterity;  // Base D20 attribute
-        total += EquippedMainHand?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedOffHand?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedHelmet?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedShoulders?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedChest?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedBracers?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedGloves?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedBelt?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedLegs?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedBoots?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedNecklace?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedRing1?.GetTotalBonusDexterity() ?? 0;
-        total += EquippedRing2?.GetTotalBonusDexterity() ?? 0;
-
-        // Add set bonuses
-        if (sets != null)
-        {
-            var setBonuses = GetSetBonuses(sets, "Dexterity");
-            total += setBonuses.Values.Sum();
-        }
-
-        return total;
-    }
+    public int GetTotalDexterity(List<EquipmentSet>? sets = null) 
+        => GetTotalAttribute("Dexterity", Dexterity, sets);
 
     /// <summary>
     /// Calculate total constitution (base + equipment bonuses + set bonuses).
     /// </summary>
-    public int GetTotalConstitution(List<EquipmentSet>? sets = null)
-    {
-        int total = Constitution;  // Base D20 attribute
-        total += EquippedMainHand?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedOffHand?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedHelmet?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedShoulders?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedChest?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedBracers?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedGloves?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedBelt?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedLegs?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedBoots?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedNecklace?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedRing1?.GetTotalBonusConstitution() ?? 0;
-        total += EquippedRing2?.GetTotalBonusConstitution() ?? 0;
-
-        // Add set bonuses
-        if (sets != null)
-        {
-            var setBonuses = GetSetBonuses(sets, "Constitution");
-            total += setBonuses.Values.Sum();
-        }
-
-        return total;
-    }
+    public int GetTotalConstitution(List<EquipmentSet>? sets = null) 
+        => GetTotalAttribute("Constitution", Constitution, sets);
 
     /// <summary>
     /// Calculate total intelligence (base + equipment bonuses + set bonuses).
     /// </summary>
-    public int GetTotalIntelligence(List<EquipmentSet>? sets = null)
-    {
-        int total = Intelligence;  // Base D20 attribute
-        total += EquippedMainHand?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedOffHand?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedHelmet?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedShoulders?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedChest?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedBracers?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedGloves?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedBelt?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedLegs?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedBoots?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedNecklace?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedRing1?.GetTotalBonusIntelligence() ?? 0;
-        total += EquippedRing2?.GetTotalBonusIntelligence() ?? 0;
-
-        // Add set bonuses
-        if (sets != null)
-        {
-            var setBonuses = GetSetBonuses(sets, "Intelligence");
-            total += setBonuses.Values.Sum();
-        }
-
-        return total;
-    }
+    public int GetTotalIntelligence(List<EquipmentSet>? sets = null) 
+        => GetTotalAttribute("Intelligence", Intelligence, sets);
 
     /// <summary>
     /// Calculate total wisdom (base + equipment bonuses + set bonuses).
     /// </summary>
-    public int GetTotalWisdom(List<EquipmentSet>? sets = null)
-    {
-        int total = Wisdom;  // Base D20 attribute
-        total += EquippedMainHand?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedOffHand?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedHelmet?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedShoulders?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedChest?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedBracers?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedGloves?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedBelt?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedLegs?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedBoots?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedNecklace?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedRing1?.GetTotalBonusWisdom() ?? 0;
-        total += EquippedRing2?.GetTotalBonusWisdom() ?? 0;
-
-        // Add set bonuses
-        if (sets != null)
-        {
-            var setBonuses = GetSetBonuses(sets, "Wisdom");
-            total += setBonuses.Values.Sum();
-        }
-
-        return total;
-    }
+    public int GetTotalWisdom(List<EquipmentSet>? sets = null) 
+        => GetTotalAttribute("Wisdom", Wisdom, sets);
 
     /// <summary>
     /// Calculate total charisma (base + equipment bonuses + set bonuses).
     /// </summary>
-    public int GetTotalCharisma(List<EquipmentSet>? sets = null)
-    {
-        int total = Charisma;  // Base D20 attribute
-        total += EquippedMainHand?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedOffHand?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedHelmet?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedShoulders?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedChest?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedBracers?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedGloves?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedBelt?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedLegs?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedBoots?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedNecklace?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedRing1?.GetTotalBonusCharisma() ?? 0;
-        total += EquippedRing2?.GetTotalBonusCharisma() ?? 0;
-
-        // Add set bonuses
-        if (sets != null)
-        {
-            var setBonuses = GetSetBonuses(sets, "Charisma");
-            total += setBonuses.Values.Sum();
-        }
-
-        return total;
-    }
+    public int GetTotalCharisma(List<EquipmentSet>? sets = null) 
+        => GetTotalAttribute("Charisma", Charisma, sets);
 
     /// <summary>
     /// Checks if character has access to an ability (either learned or granted by equipment).

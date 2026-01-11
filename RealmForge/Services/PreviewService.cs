@@ -56,7 +56,7 @@ public class PreviewService
                 Category = "Weapon",
                 Name = weapon.Name,
                 Details = $"Rarity: {weapon.Rarity}",
-                FullDescription = $"{weapon.Description}\n\nStats: +{weapon.BonusStrength} Str, +{weapon.BonusDexterity} Dex, +{weapon.BonusConstitution} Con"
+                FullDescription = $"{weapon.Description}\n\nStats: +{weapon.GetTotalTrait("Strength")} Str, +{weapon.GetTotalTrait("Dexterity")} Dex, +{weapon.GetTotalTrait("Constitution")} Con"
             }).ToList();
         }
         catch (Exception ex)

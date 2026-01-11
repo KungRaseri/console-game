@@ -108,6 +108,27 @@ public class Item : ITraitable
     /// Higher upgrade levels increase attribute bonuses.
     /// </summary>
     public int UpgradeLevel { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the maximum number of enchantments that can be applied to this item.
+    /// Determined at crafting time based on rarity and catalyst materials.
+    /// </summary>
+    public int MaxEnchantments { get; set; } = 0;
+    
+    /// <summary>
+    /// Gets or sets the binding behavior of this item.
+    /// </summary>
+    public BindingType Binding { get; set; } = BindingType.Unbound;
+    
+    /// <summary>
+    /// Gets or sets whether this item is currently bound to a character.
+    /// </summary>
+    public bool IsBound { get; set; } = false;
+    
+    /// <summary>
+    /// Gets or sets the name of the character this item is bound to (if IsBound is true).
+    /// </summary>
+    public string? BoundToCharacter { get; set; } = null;
 
     /// <summary>
     /// Collection of enchantment reference IDs (v4.1 format) that can be applied to this item.
@@ -265,100 +286,22 @@ public class Item : ITraitable
     [System.Text.Json.Serialization.JsonIgnore]
     public List<Item> RequiredItems { get; set; } = new();
 
-    /// <summary>
-    /// Gets or sets the Strength attribute bonus provided by this item.
-    /// </summary>
-    public int BonusStrength { get; set; } = 0;
-    
-    /// <summary>
-    /// Gets or sets the Dexterity attribute bonus provided by this item.
-    /// </summary>
-    public int BonusDexterity { get; set; } = 0;
-    
-    /// <summary>
-    /// Gets or sets the Constitution attribute bonus provided by this item.
-    /// </summary>
-    public int BonusConstitution { get; set; } = 0;
-    
-    /// <summary>
-    /// Gets or sets the Intelligence attribute bonus provided by this item.
-    /// </summary>
-    public int BonusIntelligence { get; set; } = 0;
-    
-    /// <summary>
-    /// Gets or sets the Wisdom attribute bonus provided by this item.
-    /// </summary>
-    public int BonusWisdom { get; set; } = 0;
-    
-    /// <summary>
-    /// Gets or sets the Charisma attribute bonus provided by this item.
-    /// </summary>
-    public int BonusCharisma { get; set; } = 0;
+
 
     /// <summary>
-    /// Get the total strength bonus including base bonus, enchantments, and upgrade level.
+    /// Get the total value of a specific trait, including base item, enchantments, material, gems, and upgrade bonuses.
     /// </summary>
-    public int GetTotalBonusStrength()
+    /// <param name="traitName">Name of the trait (e.g., "Strength", "FireDamage")</param>
+    /// <param name="defaultValue">Default value if trait not found</param>
+    /// <returns>Total trait value with all bonuses applied</returns>
+    public double GetTotalTrait(string traitName, double defaultValue = 0)
     {
-        int total = BonusStrength;
-        total += Enchantments.Sum(e => e.BonusStrength);
-        total += UpgradeLevel * 2; // Each upgrade level adds +2 to all stats
-        return total;
-    }
-
-    /// <summary>
-    /// Get the total dexterity bonus including base bonus, enchantments, and upgrade level.
-    /// </summary>
-    public int GetTotalBonusDexterity()
-    {
-        int total = BonusDexterity;
-        total += Enchantments.Sum(e => e.BonusDexterity);
-        total += UpgradeLevel * 2;
-        return total;
-    }
-
-    /// <summary>
-    /// Get the total constitution bonus including base bonus, enchantments, and upgrade level.
-    /// </summary>
-    public int GetTotalBonusConstitution()
-    {
-        int total = BonusConstitution;
-        total += Enchantments.Sum(e => e.BonusConstitution);
-        total += UpgradeLevel * 2;
-        return total;
-    }
-
-    /// <summary>
-    /// Get the total intelligence bonus including base bonus, enchantments, and upgrade level.
-    /// </summary>
-    public int GetTotalBonusIntelligence()
-    {
-        int total = BonusIntelligence;
-        total += Enchantments.Sum(e => e.BonusIntelligence);
-        total += UpgradeLevel * 2;
-        return total;
-    }
-
-    /// <summary>
-    /// Get the total wisdom bonus including base bonus, enchantments, and upgrade level.
-    /// </summary>
-    public int GetTotalBonusWisdom()
-    {
-        int total = BonusWisdom;
-        total += Enchantments.Sum(e => e.BonusWisdom);
-        total += UpgradeLevel * 2;
-        return total;
-    }
-
-    /// <summary>
-    /// Get the total charisma bonus including base bonus, enchantments, and upgrade level.
-    /// </summary>
-    public int GetTotalBonusCharisma()
-    {
-        int total = BonusCharisma;
-        total += Enchantments.Sum(e => e.BonusCharisma);
-        total += UpgradeLevel * 2;
-        return total;
+        var totalTraits = GetTotalTraits();
+        if (totalTraits.TryGetValue(traitName, out var traitValue))
+        {
+            return traitValue.AsDouble();
+        }
+        return defaultValue;
     }
 
     /// <summary>
@@ -452,6 +395,26 @@ public class Item : ITraitable
                         {
                             mergedTraits[trait.Key] = trait.Value;
                         }
+                    }
+                }
+            }
+        }
+
+        // 5. Add upgrade level bonuses (+2 per level to primary attributes)
+        if (UpgradeLevel > 0)
+        {
+            var upgradeBonus = UpgradeLevel * 2;
+            var attributeNames = new[] { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" };
+            
+            foreach (var attrName in attributeNames)
+            {
+                if (mergedTraits.ContainsKey(attrName))
+                {
+                    var existing = mergedTraits[attrName];
+                    if (existing.Type == TraitType.Number)
+                    {
+                        var newValue = existing.AsDouble() + upgradeBonus;
+                        mergedTraits[attrName] = new TraitValue(newValue, TraitType.Number);
                     }
                 }
             }
@@ -556,4 +519,46 @@ public class Item : ITraitable
         
         return string.Join(" | ", infos.Select(info => info.DisplayText));
     }
+    
+    /// <summary>
+    /// Check if this item can accept an additional enchantment.
+    /// </summary>
+    public bool CanAddEnchantment() => Enchantments.Count < MaxEnchantments;
+    
+    /// <summary>
+    /// Check if this item has any enchantment slots.
+    /// </summary>
+    public bool HasEnchantmentSlots() => MaxEnchantments > 0;
+    
+    /// <summary>
+    /// Get the number of available (unfilled) enchantment slots.
+    /// </summary>
+    public int AvailableEnchantmentSlots() => MaxEnchantments - Enchantments.Count;
+    
+    /// <summary>
+    /// Bind this item to a specific character.
+    /// </summary>
+    public void BindToCharacter(string characterName)
+    {
+        IsBound = true;
+        BoundToCharacter = characterName;
+    }
+}
+
+/// <summary>
+/// Defines how and when an item becomes bound to a character.
+/// </summary>
+public enum BindingType
+{
+    /// <summary>Item can be freely traded and sold.</summary>
+    Unbound,
+    
+    /// <summary>Item binds to character when equipped.</summary>
+    BindOnEquip,
+    
+    /// <summary>Item binds to character when enchanted (for enchantment scrolls).</summary>
+    BindOnApply,
+    
+    /// <summary>Item is permanently bound to character (quest rewards).</summary>
+    CharacterBound
 }

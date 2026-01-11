@@ -24,12 +24,7 @@ public class EnchantmentTests
         enchantment.Description.Should().BeEmpty();
         enchantment.Rarity.Should().Be(EnchantmentRarity.Minor);
         enchantment.Level.Should().Be(1);
-        enchantment.BonusStrength.Should().Be(0);
-        enchantment.BonusDexterity.Should().Be(0);
-        enchantment.BonusConstitution.Should().Be(0);
-        enchantment.BonusIntelligence.Should().Be(0);
-        enchantment.BonusWisdom.Should().Be(0);
-        enchantment.BonusCharisma.Should().Be(0);
+        enchantment.Traits.Should().BeEmpty();
         enchantment.SpecialEffect.Should().BeNull();
     }
 
@@ -143,116 +138,43 @@ public class EnchantmentTests
     #region Attribute Bonus Tests
 
     [Fact]
-    public void Enchantment_Should_Allow_Strength_Bonus()
+    public void Enchantment_Should_Allow_Trait_Assignment()
     {
         // Arrange
         var enchantment = new Enchantment();
 
         // Act
-        enchantment.BonusStrength = 5;
+        enchantment.Traits = new Dictionary<string, TraitValue>
+        {
+            { "Strength", new TraitValue(5, TraitType.Number) },
+            { "FireDamage", new TraitValue(10, TraitType.Number) }
+        };
 
         // Assert
-        enchantment.BonusStrength.Should().Be(5);
+        enchantment.Traits.Should().HaveCount(2);
+        enchantment.Traits["Strength"].AsDouble().Should().Be(5);
+        enchantment.Traits["FireDamage"].AsDouble().Should().Be(10);
     }
 
     [Fact]
-    public void Enchantment_Should_Allow_Dexterity_Bonus()
+    public void Enchantment_Should_Support_Multiple_Trait_Types()
     {
         // Arrange
         var enchantment = new Enchantment();
 
         // Act
-        enchantment.BonusDexterity = 3;
+        enchantment.Traits = new Dictionary<string, TraitValue>
+        {
+            { "Strength", new TraitValue(3, TraitType.Number) },
+            { "Dexterity", new TraitValue(2, TraitType.Number) },
+            { "FireResistance", new TraitValue(15, TraitType.Number) }
+        };
 
         // Assert
-        enchantment.BonusDexterity.Should().Be(3);
-    }
-
-    [Fact]
-    public void Enchantment_Should_Allow_Constitution_Bonus()
-    {
-        // Arrange
-        var enchantment = new Enchantment();
-
-        // Act
-        enchantment.BonusConstitution = 4;
-
-        // Assert
-        enchantment.BonusConstitution.Should().Be(4);
-    }
-
-    [Fact]
-    public void Enchantment_Should_Allow_Intelligence_Bonus()
-    {
-        // Arrange
-        var enchantment = new Enchantment();
-
-        // Act
-        enchantment.BonusIntelligence = 6;
-
-        // Assert
-        enchantment.BonusIntelligence.Should().Be(6);
-    }
-
-    [Fact]
-    public void Enchantment_Should_Allow_Wisdom_Bonus()
-    {
-        // Arrange
-        var enchantment = new Enchantment();
-
-        // Act
-        enchantment.BonusWisdom = 2;
-
-        // Assert
-        enchantment.BonusWisdom.Should().Be(2);
-    }
-
-    [Fact]
-    public void Enchantment_Should_Allow_Charisma_Bonus()
-    {
-        // Arrange
-        var enchantment = new Enchantment();
-
-        // Act
-        enchantment.BonusCharisma = 7;
-
-        // Assert
-        enchantment.BonusCharisma.Should().Be(7);
-    }
-
-    [Fact]
-    public void Enchantment_Should_Allow_Negative_Bonuses()
-    {
-        // Arrange
-        var enchantment = new Enchantment();
-
-        // Act
-        enchantment.BonusStrength = -2;
-        enchantment.BonusDexterity = -1;
-
-        // Assert
-        enchantment.BonusStrength.Should().Be(-2);
-        enchantment.BonusDexterity.Should().Be(-1);
-    }
-
-    [Fact]
-    public void Enchantment_Should_Support_Multiple_Attribute_Bonuses()
-    {
-        // Arrange
-        var enchantment = new Enchantment();
-
-        // Act
-        enchantment.BonusStrength = 3;
-        enchantment.BonusDexterity = 2;
-        enchantment.BonusIntelligence = 5;
-
-        // Assert
-        enchantment.BonusStrength.Should().Be(3);
-        enchantment.BonusDexterity.Should().Be(2);
-        enchantment.BonusIntelligence.Should().Be(5);
-        enchantment.BonusConstitution.Should().Be(0);
-        enchantment.BonusWisdom.Should().Be(0);
-        enchantment.BonusCharisma.Should().Be(0);
+        enchantment.Traits.Should().HaveCount(3);
+        enchantment.Traits["Strength"].AsDouble().Should().Be(3);
+        enchantment.Traits["Dexterity"].AsDouble().Should().Be(2);
+        enchantment.Traits["FireResistance"].AsDouble().Should().Be(15);
     }
 
     #endregion
@@ -269,8 +191,11 @@ public class EnchantmentTests
             Description = "Deals additional fire damage",
             Rarity = EnchantmentRarity.Greater,
             Level = 3,
-            BonusStrength = 2,
-            BonusIntelligence = 3,
+            Traits = new Dictionary<string, TraitValue>
+            {
+                { "Strength", new TraitValue(2, TraitType.Number) },
+                { "Intelligence", new TraitValue(3, TraitType.Number) }
+            },
             SpecialEffect = "FireDamage"
         };
 
@@ -279,8 +204,8 @@ public class EnchantmentTests
         enchantment.Description.Should().Be("Deals additional fire damage");
         enchantment.Rarity.Should().Be(EnchantmentRarity.Greater);
         enchantment.Level.Should().Be(3);
-        enchantment.BonusStrength.Should().Be(2);
-        enchantment.BonusIntelligence.Should().Be(3);
+        enchantment.Traits["Strength"].AsDouble().Should().Be(2);
+        enchantment.Traits["Intelligence"].AsDouble().Should().Be(3);
         enchantment.SpecialEffect.Should().Be("FireDamage");
     }
 
@@ -294,8 +219,11 @@ public class EnchantmentTests
             Description = "Increases defensive capabilities",
             Rarity = EnchantmentRarity.Superior,
             Level = 4,
-            BonusConstitution = 5,
-            BonusWisdom = 2,
+            Traits = new Dictionary<string, TraitValue>
+            {
+                { "Constitution", new TraitValue(5, TraitType.Number) },
+                { "Wisdom", new TraitValue(2, TraitType.Number) }
+            },
             SpecialEffect = "Shield"
         };
 
@@ -303,8 +231,8 @@ public class EnchantmentTests
         enchantment.Name.Should().Be("Protection");
         enchantment.Rarity.Should().Be(EnchantmentRarity.Superior);
         enchantment.Level.Should().Be(4);
-        enchantment.BonusConstitution.Should().Be(5);
-        enchantment.BonusWisdom.Should().Be(2);
+        enchantment.Traits["Constitution"].AsDouble().Should().Be(5);
+        enchantment.Traits["Wisdom"].AsDouble().Should().Be(2);
     }
 
     [Fact]
@@ -317,24 +245,27 @@ public class EnchantmentTests
             Description = "Grants immense power",
             Rarity = EnchantmentRarity.Legendary,
             Level = 10,
-            BonusStrength = 10,
-            BonusDexterity = 10,
-            BonusConstitution = 10,
-            BonusIntelligence = 10,
-            BonusWisdom = 10,
-            BonusCharisma = 10,
+            Traits = new Dictionary<string, TraitValue>
+            {
+                { "Strength", new TraitValue(10, TraitType.Number) },
+                { "Dexterity", new TraitValue(10, TraitType.Number) },
+                { "Constitution", new TraitValue(10, TraitType.Number) },
+                { "Intelligence", new TraitValue(10, TraitType.Number) },
+                { "Wisdom", new TraitValue(10, TraitType.Number) },
+                { "Charisma", new TraitValue(10, TraitType.Number) }
+            },
             SpecialEffect = "GlowingAura"
         };
 
         // Assert
         enchantment.Rarity.Should().Be(EnchantmentRarity.Legendary);
         enchantment.Level.Should().Be(10);
-        enchantment.BonusStrength.Should().Be(10);
-        enchantment.BonusDexterity.Should().Be(10);
-        enchantment.BonusConstitution.Should().Be(10);
-        enchantment.BonusIntelligence.Should().Be(10);
-        enchantment.BonusWisdom.Should().Be(10);
-        enchantment.BonusCharisma.Should().Be(10);
+        enchantment.Traits["Strength"].AsDouble().Should().Be(10);
+        enchantment.Traits["Dexterity"].AsDouble().Should().Be(10);
+        enchantment.Traits["Constitution"].AsDouble().Should().Be(10);
+        enchantment.Traits["Intelligence"].AsDouble().Should().Be(10);
+        enchantment.Traits["Wisdom"].AsDouble().Should().Be(10);
+        enchantment.Traits["Charisma"].AsDouble().Should().Be(10);
     }
 
     [Fact]
@@ -349,12 +280,7 @@ public class EnchantmentTests
         };
 
         // Assert
-        enchantment.BonusStrength.Should().Be(0);
-        enchantment.BonusDexterity.Should().Be(0);
-        enchantment.BonusConstitution.Should().Be(0);
-        enchantment.BonusIntelligence.Should().Be(0);
-        enchantment.BonusWisdom.Should().Be(0);
-        enchantment.BonusCharisma.Should().Be(0);
+        enchantment.Traits.Should().BeEmpty();
     }
 
     [Fact]

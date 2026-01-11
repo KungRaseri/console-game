@@ -32,12 +32,12 @@ public class CharacterEquipmentBonusTests
         character.EquippedMainHand = new Item
         {
             Name = "Mighty Sword",
-            BonusStrength = 5
+            Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(5, TraitType.Number) } }
         };
         character.EquippedChest = new Item
         {
             Name = "Warrior Plate",
-            BonusStrength = 3
+            Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(3, TraitType.Number) } }
         };
 
         // Act
@@ -57,7 +57,11 @@ public class CharacterEquipmentBonusTests
             Name = "Enchanted Helm",
             Enchantments = new List<Enchantment>
             {
-                new Enchantment { Name = "Strength +2", BonusStrength = 2 }
+                new Enchantment 
+                { 
+                    Name = "Strength +2", 
+                    Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(2, TraitType.Number) } }
+                }
             }
         };
 
@@ -73,19 +77,19 @@ public class CharacterEquipmentBonusTests
     {
         // Arrange
         var character = new Character { Strength = 10 };
-        character.EquippedMainHand = new Item { BonusStrength = 1 };
-        character.EquippedOffHand = new Item { BonusStrength = 1 };
-        character.EquippedHelmet = new Item { BonusStrength = 1 };
-        character.EquippedShoulders = new Item { BonusStrength = 1 };
-        character.EquippedChest = new Item { BonusStrength = 1 };
-        character.EquippedBracers = new Item { BonusStrength = 1 };
-        character.EquippedGloves = new Item { BonusStrength = 1 };
-        character.EquippedBelt = new Item { BonusStrength = 1 };
-        character.EquippedLegs = new Item { BonusStrength = 1 };
-        character.EquippedBoots = new Item { BonusStrength = 1 };
-        character.EquippedNecklace = new Item { BonusStrength = 1 };
-        character.EquippedRing1 = new Item { BonusStrength = 1 };
-        character.EquippedRing2 = new Item { BonusStrength = 1 };
+        character.EquippedMainHand = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedOffHand = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedHelmet = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedShoulders = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedChest = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedBracers = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedGloves = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedBelt = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedLegs = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedBoots = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedNecklace = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedRing1 = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedRing2 = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
 
         // Act
         var totalStrength = character.GetTotalStrength();
@@ -116,8 +120,8 @@ public class CharacterEquipmentBonusTests
     {
         // Arrange
         var character = new Character { Dexterity = 10 };
-        character.EquippedGloves = new Item { BonusDexterity = 4 };
-        character.EquippedBoots = new Item { BonusDexterity = 3 };
+        character.EquippedGloves = new Item { Traits = new Dictionary<string, TraitValue> { { "Dexterity", new TraitValue(4, TraitType.Number) } } };
+        character.EquippedBoots = new Item { Traits = new Dictionary<string, TraitValue> { { "Dexterity", new TraitValue(3, TraitType.Number) } } };
 
         // Act
         var totalDexterity = character.GetTotalDexterity();
@@ -148,8 +152,8 @@ public class CharacterEquipmentBonusTests
     {
         // Arrange
         var character = new Character { Constitution = 10 };
-        character.EquippedChest = new Item { BonusConstitution = 5 };
-        character.EquippedBelt = new Item { BonusConstitution = 2 };
+        character.EquippedChest = new Item { Traits = new Dictionary<string, TraitValue> { { "Constitution", new TraitValue(5, TraitType.Number) } } };
+        character.EquippedBelt = new Item { Traits = new Dictionary<string, TraitValue> { { "Constitution", new TraitValue(2, TraitType.Number) } } };
 
         // Act
         var totalConstitution = character.GetTotalConstitution();
@@ -180,8 +184,8 @@ public class CharacterEquipmentBonusTests
     {
         // Arrange
         var character = new Character { Intelligence = 10 };
-        character.EquippedMainHand = new Item { Name = "Staff of Wisdom", BonusIntelligence = 6 };
-        character.EquippedHelmet = new Item { Name = "Thinking Cap", BonusIntelligence = 3 };
+        character.EquippedMainHand = new Item { Name = "Staff of Wisdom", Traits = new Dictionary<string, TraitValue> { { "Intelligence", new TraitValue(6, TraitType.Number) } } };
+        character.EquippedHelmet = new Item { Name = "Thinking Cap", Traits = new Dictionary<string, TraitValue> { { "Intelligence", new TraitValue(3, TraitType.Number) } } };
 
         // Act
         var totalIntelligence = character.GetTotalIntelligence();
@@ -212,8 +216,8 @@ public class CharacterEquipmentBonusTests
     {
         // Arrange
         var character = new Character { Wisdom = 10 };
-        character.EquippedNecklace = new Item { BonusWisdom = 4 };
-        character.EquippedRing1 = new Item { BonusWisdom = 2 };
+        character.EquippedNecklace = new Item { Traits = new Dictionary<string, TraitValue> { { "Wisdom", new TraitValue(4, TraitType.Number) } } };
+        character.EquippedRing1 = new Item { Traits = new Dictionary<string, TraitValue> { { "Wisdom", new TraitValue(2, TraitType.Number) } } };
 
         // Act
         var totalWisdom = character.GetTotalWisdom();
@@ -244,9 +248,9 @@ public class CharacterEquipmentBonusTests
     {
         // Arrange
         var character = new Character { Charisma = 10 };
-        character.EquippedNecklace = new Item { BonusCharisma = 3 };
-        character.EquippedRing1 = new Item { BonusCharisma = 2 };
-        character.EquippedRing2 = new Item { BonusCharisma = 2 };
+        character.EquippedNecklace = new Item { Traits = new Dictionary<string, TraitValue> { { "Charisma", new TraitValue(3, TraitType.Number) } } };
+        character.EquippedRing1 = new Item { Traits = new Dictionary<string, TraitValue> { { "Charisma", new TraitValue(2, TraitType.Number) } } };
+        character.EquippedRing2 = new Item { Traits = new Dictionary<string, TraitValue> { { "Charisma", new TraitValue(2, TraitType.Number) } } };
 
         // Act
         var totalCharisma = character.GetTotalCharisma();
@@ -374,12 +378,12 @@ public class CharacterEquipmentBonusTests
         };
 
         // Equip full set
-        character.EquippedMainHand = new Item { Name = "Great Sword", BonusStrength = 5, BonusDexterity = 2 };
-        character.EquippedOffHand = new Item { Name = "Steel Shield", BonusConstitution = 3 };
-        character.EquippedHelmet = new Item { Name = "Warrior Helm", BonusStrength = 2, BonusConstitution = 2 };
-        character.EquippedChest = new Item { Name = "Plate Mail", BonusConstitution = 5 };
-        character.EquippedGloves = new Item { Name = "Gauntlets", BonusStrength = 1 };
-        character.EquippedBoots = new Item { Name = "Heavy Boots", BonusConstitution = 1 };
+        character.EquippedMainHand = new Item { Name = "Great Sword", Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(5, TraitType.Number) }, { "Dexterity", new TraitValue(2, TraitType.Number) } } };
+        character.EquippedOffHand = new Item { Name = "Steel Shield", Traits = new Dictionary<string, TraitValue> { { "Constitution", new TraitValue(3, TraitType.Number) } } };
+        character.EquippedHelmet = new Item { Name = "Warrior Helm", Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(2, TraitType.Number) }, { "Constitution", new TraitValue(2, TraitType.Number) } } };
+        character.EquippedChest = new Item { Name = "Plate Mail", Traits = new Dictionary<string, TraitValue> { { "Constitution", new TraitValue(5, TraitType.Number) } } };
+        character.EquippedGloves = new Item { Name = "Gauntlets", Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(1, TraitType.Number) } } };
+        character.EquippedBoots = new Item { Name = "Heavy Boots", Traits = new Dictionary<string, TraitValue> { { "Constitution", new TraitValue(1, TraitType.Number) } } };
 
         // Act
         var totalStr = character.GetTotalStrength();
@@ -404,10 +408,10 @@ public class CharacterEquipmentBonusTests
             Charisma = 14
         };
 
-        character.EquippedMainHand = new Item { Name = "Arcane Staff", BonusIntelligence = 6, BonusWisdom = 3 };
-        character.EquippedHelmet = new Item { Name = "Wizard Hat", BonusIntelligence = 3 };
-        character.EquippedChest = new Item { Name = "Robe of the Magi", BonusIntelligence = 4, BonusWisdom = 4 };
-        character.EquippedNecklace = new Item { Name = "Amulet of Knowledge", BonusIntelligence = 2, BonusWisdom = 2 };
+        character.EquippedMainHand = new Item { Name = "Arcane Staff", Traits = new Dictionary<string, TraitValue> { { "Intelligence", new TraitValue(6, TraitType.Number) }, { "Wisdom", new TraitValue(3, TraitType.Number) } } };
+        character.EquippedHelmet = new Item { Name = "Wizard Hat", Traits = new Dictionary<string, TraitValue> { { "Intelligence", new TraitValue(3, TraitType.Number) } } };
+        character.EquippedChest = new Item { Name = "Robe of the Magi", Traits = new Dictionary<string, TraitValue> { { "Intelligence", new TraitValue(4, TraitType.Number) }, { "Wisdom", new TraitValue(4, TraitType.Number) } } };
+        character.EquippedNecklace = new Item { Name = "Amulet of Knowledge", Traits = new Dictionary<string, TraitValue> { { "Intelligence", new TraitValue(2, TraitType.Number) }, { "Wisdom", new TraitValue(2, TraitType.Number) } } };
 
         // Act
         var totalInt = character.GetTotalIntelligence();
@@ -435,8 +439,8 @@ public class CharacterEquipmentBonusTests
         var baseDexterity = character.GetTotalDexterity();
 
         // Add equipment
-        character.EquippedMainHand = new Item { BonusStrength = 10 };
-        character.EquippedBoots = new Item { BonusDexterity = 10 };
+        character.EquippedMainHand = new Item { Traits = new Dictionary<string, TraitValue> { { "Strength", new TraitValue(10, TraitType.Number) } } };
+        character.EquippedBoots = new Item { Traits = new Dictionary<string, TraitValue> { { "Dexterity", new TraitValue(10, TraitType.Number) } } };
 
         // After equipment
         var boostedStrength = character.GetTotalStrength();
