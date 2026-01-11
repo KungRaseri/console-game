@@ -81,7 +81,8 @@ public class CraftingService
 
         // Check skill level requirement
         var craftingSkill = GetCraftingSkillForStation(recipe.RequiredStation);
-        var characterSkillLevel = character.Skills?.GetValueOrDefault(craftingSkill) ?? 0;
+        var skill = character.Skills?.GetValueOrDefault(craftingSkill);
+        var characterSkillLevel = skill?.CurrentRank ?? 0;
 
         if (characterSkillLevel < recipe.RequiredSkillLevel)
         {
@@ -117,11 +118,11 @@ public class CraftingService
 
         foreach (var material in recipe.Materials)
         {
-            var availableCount = CountMaterialInInventory(character, material.ItemId);
+            var availableCount = CountMaterialInInventory(character, material.ItemReference);
 
             if (availableCount < material.Quantity)
             {
-                failureReason = $"Missing {material.ItemId}: need {material.Quantity}, have {availableCount}";
+                failureReason = $"Missing {material.ItemReference}: need {material.Quantity}, have {availableCount}";
                 return false;
             }
         }
@@ -139,28 +140,27 @@ public class CraftingService
     public int CalculateQuality(Character character, Recipe recipe)
     {
         if (character == null || recipe == null)
-            return recipe?.BaseQuality ?? 50;
+            return (int)(recipe?.MinQuality ?? ItemRarity.Common);
 
         var craftingSkill = GetCraftingSkillForStation(recipe.RequiredStation);
-        var characterSkillLevel = character.Skills?.GetValueOrDefault(craftingSkill) ?? 0;
+        var skill = character.Skills?.GetValueOrDefault(craftingSkill);
+        var characterSkillLevel = skill?.CurrentRank ?? 0;
 
-        // Base quality from recipe
-        var quality = recipe.BaseQuality;
+        // Calculate rarity based on skill level
+        var minRarity = (int)recipe.MinQuality;
+        var maxRarity = (int)recipe.MaxQuality;
+        var rarityRange = maxRarity - minRarity;
 
-        // Add skill bonus (skill above requirement adds to quality)
+        // Add skill bonus (skill above requirement improves rarity chance)
         var skillOverRequirement = characterSkillLevel - recipe.RequiredSkillLevel;
-        if (skillOverRequirement > 0)
-        {
-            quality += Math.Min(skillOverRequirement / 2, recipe.QualityRange / 2);
-        }
+        var rarityBonus = skillOverRequirement > 0 ? Math.Min(skillOverRequirement / 10, rarityRange) : 0;
 
-        // Random variance within quality range
+        // Random variance within rarity range
         var random = new Random();
-        var variance = random.Next(-recipe.QualityRange / 2, recipe.QualityRange / 2);
-        quality += variance;
+        var finalRarity = minRarity + rarityBonus + random.Next(0, Math.Max(1, rarityRange - rarityBonus + 1));
 
-        // Clamp to 0-100
-        return Math.Clamp(quality, 0, 100);
+        // Clamp to valid rarity range
+        return Math.Clamp(finalRarity, minRarity, maxRarity);
     }
 
     /// <summary>
@@ -173,14 +173,15 @@ public class CraftingService
             case RecipeUnlockMethod.SkillLevel:
                 // Recipe is unlocked when character reaches the required skill level
                 var craftingSkill = GetCraftingSkillForStation(recipe.RequiredStation);
-                var skillLevel = character.Skills?.GetValueOrDefault(craftingSkill) ?? 0;
+                var skill = character.Skills?.GetValueOrDefault(craftingSkill);
+                var skillLevel = skill?.CurrentRank ?? 0;
                 return skillLevel >= recipe.RequiredSkillLevel;
 
-            case RecipeUnlockMethod.Recipe:
+            case RecipeUnlockMethod.Trainer:
                 // Recipe must be explicitly learned (check character's learned recipes)
                 return character.LearnedRecipes?.Contains(recipe.Id) ?? false;
 
-            case RecipeUnlockMethod.Quest:
+            case RecipeUnlockMethod.QuestReward:
                 // Quest-unlocked recipes require quest completion
                 return character.LearnedRecipes?.Contains(recipe.Id) ?? false;
 
@@ -189,7 +190,7 @@ public class CraftingService
                 return character.LearnedRecipes?.Contains(recipe.Id) ?? false;
 
             default:
-                return false;
+                return true;
         }
     }
 
@@ -221,7 +222,6 @@ public class CraftingService
             return 0;
 
         return character.Inventory
-            .Where(item => item.Id == itemId || item.Name == itemId)
-            .Sum(item => item.StackSize);
+            .Count(item => item.Id == itemId || item.Name == itemId);
     }
 }

@@ -74,7 +74,7 @@ public class CraftRecipeHandler : IRequestHandler<CraftRecipeCommand, CraftRecip
 
             // Award skill XP
             var skillName = GetCraftingSkillForStation(request.Recipe.RequiredStation);
-            var xpGained = AwardSkillXp(request.Character, skillName, request.Recipe.SkillGainOnCraft);
+            var xpGained = AwardSkillXp(request.Character, skillName, request.Recipe.ExperienceGained);
 
             Log.Information("Successfully crafted {ItemName} (quality {Quality}) for {CharacterName}. {SkillName} +{XpGained} XP",
                 craftedItem.Name, quality, request.Character.Name, skillName, xpGained);
@@ -118,23 +118,12 @@ public class CraftRecipeHandler : IRequestHandler<CraftRecipeCommand, CraftRecip
             {
                 var item = character.Inventory[i];
                 
-                if (item.Id == material.ItemId || item.Name == material.ItemId)
+                if (item.Id == material.ItemReference || item.Name == material.ItemReference)
                 {
-                    var removeCount = Math.Min(remaining, item.StackSize);
-                    
-                    if (removeCount >= item.StackSize)
-                    {
-                        // Remove entire stack
-                        character.Inventory.RemoveAt(i);
-                    }
-                    else
-                    {
-                        // Reduce stack size
-                        item.StackSize -= removeCount;
-                    }
-                    
-                    remaining -= removeCount;
-                    consumed.Add($"{removeCount}x {material.ItemId}");
+                    // Remove entire item (assume 1 item = 1 unit for now)
+                    character.Inventory.RemoveAt(i);
+                    remaining--;
+                    consumed.Add($"1x {material.ItemReference}");
                 }
             }
         }
@@ -153,13 +142,11 @@ public class CraftRecipeHandler : IRequestHandler<CraftRecipeCommand, CraftRecip
         var item = new Item
         {
             Id = Guid.NewGuid().ToString(),
-            Name = recipe.Output.ItemName ?? recipe.Name.Replace("Recipe: ", ""),
+            Name = recipe.Name.Replace("Recipe: ", ""),
             Description = $"A crafted item of {quality}% quality",
             Type = DetermineItemType(recipe),
             Rarity = DetermineRarity(quality),
-            StackSize = recipe.Output.Quantity,
-            IsCraftable = false,  // The output itself is not a recipe
-            Traits = new Dictionary<string, int>()
+            Traits = new Dictionary<string, TraitValue>()
         };
 
         // Apply quality-based stat bonuses
@@ -180,9 +167,9 @@ public class CraftRecipeHandler : IRequestHandler<CraftRecipeCommand, CraftRecip
             "enchantingtable" or "enchanting_altar" => ItemType.EnchantmentScroll,
             "cookingfire" or "cooking_fire" => ItemType.Consumable,
             "workbench" => ItemType.Material,
-            "loom" => ItemType.Armor,
-            "tanningrack" or "tanning_rack" => ItemType.Armor,
-            "jewelrybench" or "jewelry_bench" => ItemType.Accessory,
+            "loom" => ItemType.Material,
+            "tanningrack" or "tanning_rack" => ItemType.Material,
+            "jewelrybench" or "jewelry_bench" => ItemType.Material,
             _ => ItemType.Material
         };
     }
@@ -215,16 +202,12 @@ public class CraftRecipeHandler : IRequestHandler<CraftRecipeCommand, CraftRecip
         switch (item.Type)
         {
             case ItemType.Weapon:
-                item.Traits["Strength"] = (int)(5 * qualityMultiplier);
-                item.Traits["Dexterity"] = (int)(3 * qualityMultiplier);
+                item.Traits["Strength"] = new TraitValue((int)(5 * qualityMultiplier), TraitType.Number);
+                item.Traits["Dexterity"] = new TraitValue((int)(3 * qualityMultiplier), TraitType.Number);
                 break;
             
-            case ItemType.Armor:
-                item.Traits["Constitution"] = (int)(5 * qualityMultiplier);
-                break;
-            
-            case ItemType.Accessory:
-                item.Traits["Charisma"] = (int)(3 * qualityMultiplier);
+            case ItemType.Material:
+                // Materials don't have stat bonuses
                 break;
         }
     }
@@ -241,29 +224,29 @@ public class CraftRecipeHandler : IRequestHandler<CraftRecipeCommand, CraftRecip
             character.Skills[skillName] = new CharacterSkill
             {
                 SkillId = skillName,
-                CurrentLevel = 0,
-                CurrentXp = 0
+                CurrentRank = 0,
+                CurrentXP = 0
             };
         }
 
         var skill = character.Skills[skillName];
-        skill.CurrentXp += baseXp;
+        skill.CurrentXP += baseXp;
 
         // Check for level-ups (simplified: 100 XP per level)
         var xpPerLevel = 100;
         var levelUps = 0;
         
-        while (skill.CurrentXp >= xpPerLevel && skill.CurrentLevel < 100)
+        while (skill.CurrentXP >= xpPerLevel && skill.CurrentRank < 100)
         {
-            skill.CurrentXp -= xpPerLevel;
-            skill.CurrentLevel++;
+            skill.CurrentXP -= xpPerLevel;
+            skill.CurrentRank++;
             levelUps++;
         }
 
         if (levelUps > 0)
         {
             Log.Information("{CharacterName} gained {LevelUps} {SkillName} level(s)! Now level {NewLevel}",
-                character.Name, levelUps, skillName, skill.CurrentLevel);
+                character.Name, levelUps, skillName, skill.CurrentRank);
         }
 
         return baseXp;

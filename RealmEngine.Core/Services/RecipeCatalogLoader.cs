@@ -138,18 +138,18 @@ public class RecipeCatalogLoader
     {
         try
         {
-            var id = recipeToken["id"]?.ToString();
+            var slug = recipeToken["slug"]?.ToString();
             var name = recipeToken["name"]?.ToString();
             
-            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(slug) || string.IsNullOrEmpty(name))
             {
-                Log.Warning("Recipe missing id or name in category {Category}", category);
+                Log.Warning("Recipe missing slug or name in category {Category}", category);
                 return null;
             }
 
             var recipe = new Recipe
             {
-                Id = id,
+                Id = slug,
                 Name = name,
                 Description = recipeToken["description"]?.ToString() ?? string.Empty,
                 Category = category,
@@ -244,7 +244,6 @@ public class RecipeCatalogLoader
             "Rare" => ItemRarity.Rare,
             "Epic" => ItemRarity.Epic,
             "Legendary" => ItemRarity.Legendary,
-            "Mythic" => ItemRarity.Mythic,
             _ => ItemRarity.Common
         };
     }
