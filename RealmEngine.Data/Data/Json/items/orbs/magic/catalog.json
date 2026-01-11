@@ -83,6 +83,23 @@
               "type": "number"
             }
           }
+        },
+        {
+          "slug": "orb-of-flames",
+          "name": "orb-of-flames",
+          "rarity": 75,
+          "rarityWeight": 45,
+          "attributes": {},
+          "traits": {
+            "spellDamage": {
+              "value": 18,
+              "type": "number"
+            },
+            "fireDamage": {
+              "value": 22,
+              "type": "number"
+            }
+          }
         }
       ]
     }

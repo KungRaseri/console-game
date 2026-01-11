@@ -79,6 +79,27 @@
               "type": "number"
             }
           }
+        },
+        {
+          "slug": "orb-of-combat-mastery",
+          "name": "orb-of-combat-mastery",
+          "rarity": 75,
+          "rarityWeight": 40,
+          "attributes": {},
+          "traits": {
+            "combatSkillDamage": {
+              "value": 18,
+              "type": "number"
+            },
+            "meleeSkillDamage": {
+              "value": 12,
+              "type": "number"
+            },
+            "combatSkillCooldown": {
+              "value": -12,
+              "type": "number"
+            }
+          }
         }
       ]
     }

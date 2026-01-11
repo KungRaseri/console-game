@@ -79,6 +79,23 @@
               "type": "number"
             }
           }
+        },
+        {
+          "rarityWeight": 45,
+          "name": "rune-of-fortitude",
+          "slug": "rune-of-fortitude",
+          "rarity": 75,
+          "attributes": {},
+          "traits": {
+            "maxHealth": {
+              "value": 40,
+              "type": "number"
+            },
+            "armor": {
+              "value": 15,
+              "type": "number"
+            }
+          }
         }
       ]
     }

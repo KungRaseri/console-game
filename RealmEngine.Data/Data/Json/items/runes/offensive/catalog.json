@@ -79,6 +79,23 @@
               "type": "number"
             }
           }
+        },
+        {
+          "rarity": 75,
+          "slug": "rune-of-power",
+          "name": "rune-of-power",
+          "rarityWeight": 45,
+          "attributes": {},
+          "traits": {
+            "attackPower": {
+              "value": 18,
+              "type": "number"
+            },
+            "magicDamage": {
+              "value": 12,
+              "type": "number"
+            }
+          }
         }
       ]
     }

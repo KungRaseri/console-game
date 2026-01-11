@@ -87,6 +87,44 @@
               "type": "number"
             }
           }
+        },
+        {
+          "slug": "minor-life-crystal",
+          "rarityWeight": 75,
+          "name": "minor-life-crystal",
+          "rarity": 75,
+          "attributes": {},
+          "traits": {
+            "maxHealth": {
+              "value": 20,
+              "type": "number"
+            },
+            "healthRegen": {
+              "value": 1,
+              "type": "number"
+            }
+          }
+        },
+        {
+          "slug": "greater-life-crystal",
+          "rarityWeight": 25,
+          "name": "greater-life-crystal",
+          "rarity": 50,
+          "attributes": {},
+          "traits": {
+            "maxHealth": {
+              "value": 80,
+              "type": "number"
+            },
+            "healthRegen": {
+              "value": 8,
+              "type": "number"
+            },
+            "armor": {
+              "value": 15,
+              "type": "number"
+            }
+          }
         }
       ]
     }

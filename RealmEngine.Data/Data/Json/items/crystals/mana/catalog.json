@@ -83,6 +83,23 @@
               "type": "number"
             }
           }
+        },
+        {
+          "name": "minor-mana-crystal",
+          "rarity": 75,
+          "rarityWeight": 70,
+          "slug": "minor-mana-crystal",
+          "attributes": {},
+          "traits": {
+            "maxMana": {
+              "value": 15,
+              "type": "number"
+            },
+            "manaRegen": {
+              "value": 2,
+              "type": "number"
+            }
+          }
         }
       ]
     }
