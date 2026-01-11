@@ -18,24 +18,6 @@
       },
       "items": [
         {
-          "name": "Minor Strength Scroll",
-          "slug": "minor-strength-scroll",
-          "rarity": 75,
-          "rarityWeight": 50,
-          "value": 30,
-          "weight": 0.1,
-          "attributes": {},
-          "traits": {
-            "strength": {
-              "value": 1,
-              "type": "number"
-            }
-          },
-          "effect": "stat_enchant",
-          "power": 1,
-          "duration": 0
-        },
-        {
           "name": "Agility Scroll",
           "slug": "agility-scroll",
           "rarity": 75,

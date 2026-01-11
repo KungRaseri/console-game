@@ -2,34 +2,12 @@
   "metadata": {
     "description": "Special rare gems providing unique bonuses",
     "version": "5.1",
-    "lastUpdated": "2026-01-10",
+    "lastUpdated": "2026-01-11",
     "type": "gem_catalog"
   },
   "gem_types": {
     "special": {
-      "items": [
-        {
-          "name": "flawless-diamond",
-          "slug": "flawless-diamond",
-          "rarity": 25,
-          "rarityWeight": 10,
-          "attributes": {},
-          "traits": {
-            "physicalDamage": {
-              "value": 15,
-              "type": "number"
-            },
-            "magicDamage": {
-              "value": 15,
-              "type": "number"
-            },
-            "critChance": {
-              "value": 5,
-              "type": "number"
-            }
-          }
-        }
-      ]
+      "items": []
     }
   }
 }

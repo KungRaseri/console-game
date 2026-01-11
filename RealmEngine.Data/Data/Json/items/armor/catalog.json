@@ -1039,53 +1039,6 @@
           "rarity": 12
         }
       ]
-    },
-    "chest": {
-      "properties": {
-        "skillReference": {
-          "value": "@skills/armor:medium-armor",
-          "type": "string"
-        },
-        "category": "armor"
-      },
-      "items": [
-        {
-          "name": "Iron Chainmail",
-          "slug": "iron-chainmail",
-          "value": 50,
-          "weight": 15.0,
-          "budgetCost": 8,
-          "attributes": {
-            "constitution": 2,
-            "strength": 1
-          },
-          "stats": {
-            "defense": "10 + dexterity_mod + constitution_mod + 5"
-          },
-          "traits": {},
-          "armorClass": "medium",
-          "rarityWeight": 15,
-          "rarity": 15
-        },
-        {
-          "name": "Steel Plate",
-          "slug": "steel-plate",
-          "value": 120,
-          "weight": 25.0,
-          "budgetCost": 12,
-          "attributes": {
-            "constitution": 3,
-            "strength": 2
-          },
-          "stats": {
-            "defense": "10 + dexterity_mod + constitution_mod + 8"
-          },
-          "traits": {},
-          "armorClass": "heavy",
-          "rarityWeight": 10,
-          "rarity": 10
-        }
-      ]
     }
   }
 }

@@ -122,19 +122,6 @@
           "duration": 0
         },
         {
-          "name": "Minor Health Potion",
-          "slug": "minor-health-potion",
-          "rarity": 75,
-          "rarityWeight": 55,
-          "value": 5,
-          "weight": 0.3,
-          "attributes": {},
-          "traits": {},
-          "effect": "heal",
-          "power": 15,
-          "duration": 0
-        },
-        {
           "name": "Health Potion",
           "slug": "health-potion",
           "rarity": 75,
@@ -145,19 +132,6 @@
           "traits": {},
           "effect": "heal",
           "power": 40,
-          "duration": 0
-        },
-        {
-          "name": "Greater Healing Potion",
-          "slug": "greater-healing-potion",
-          "rarity": 50,
-          "rarityWeight": 25,
-          "value": 50,
-          "weight": 0.6,
-          "attributes": {},
-          "traits": {},
-          "effect": "heal",
-          "power": 100,
           "duration": 0
         },
         {

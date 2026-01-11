@@ -107,23 +107,6 @@
               "type": "number"
             }
           }
-        },
-        {
-          "rarityWeight": 45,
-          "slug": "polished-sapphire",
-          "name": "polished-sapphire",
-          "rarity": 75,
-          "attributes": {},
-          "traits": {
-            "magicDamage": {
-              "value": 10,
-              "type": "number"
-            },
-            "manaRegen": {
-              "value": 6,
-              "type": "number"
-            }
-          }
         }
       ]
     }

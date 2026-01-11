@@ -651,24 +651,6 @@
           },
           "traits": {},
           "rarityWeight": 12
-        },
-        {
-          "name": "Steel Battleaxe",
-          "slug": "steel-battleaxe",
-          "rarity": 60,
-          "value": 35,
-          "weight": 5.0,
-          "budgetCost": 5,
-          "attributes": {
-            "strength": 3
-          },
-          "damage": {
-            "min": 2,
-            "max": 10,
-            "modifier": "wielder.strength_mod"
-          },
-          "traits": {},
-          "rarityWeight": 15
         }
       ]
     },
@@ -1414,69 +1396,6 @@
           },
           "traits": {},
           "rarityWeight": 8
-        }
-      ]
-    },
-    "swords": {
-      "properties": {
-        "skillReference": {
-          "value": "@skills/weapon:heavy-blades",
-          "type": "string"
-        },
-        "damageType": "slashing",
-        "category": "melee_one_handed",
-        "slot": "mainhand"
-      },
-      "items": [
-        {
-          "name": "Iron Sword",
-          "slug": "iron-sword",
-          "rarity": 75,
-          "value": 15,
-          "weight": 3.0,
-          "budgetCost": 3,
-          "attributes": {
-            "strength": 2
-          },
-          "damage": {
-            "min": 2,
-            "max": 8,
-            "modifier": "wielder.strength_mod"
-          },
-          "traits": {},
-          "rarityWeight": 20
-        }
-      ]
-    },
-    "daggers": {
-      "properties": {
-        "skillReference": {
-          "value": "@skills/weapon:light-blades",
-          "type": "string"
-        },
-        "damageType": "piercing",
-        "category": "melee_one_handed",
-        "finesse": true,
-        "slot": "mainhand"
-      },
-      "items": [
-        {
-          "name": "Iron Dagger",
-          "slug": "iron-dagger",
-          "rarity": 75,
-          "value": 5,
-          "weight": 1.0,
-          "budgetCost": 2,
-          "attributes": {
-            "dexterity": 1
-          },
-          "damage": {
-            "min": 1,
-            "max": 4,
-            "modifier": "wielder.dexterity_mod"
-          },
-          "traits": {},
-          "rarityWeight": 22
         }
       ]
     }
