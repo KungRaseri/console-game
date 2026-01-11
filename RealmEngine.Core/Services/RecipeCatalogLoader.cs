@@ -89,7 +89,7 @@ public class RecipeCatalogLoader
     /// <summary>
     /// Load recipes from a specific category.
     /// </summary>
-    /// <param name="category">The recipe category (weapons, consumables, enchantments).</param>
+    /// <param name="category">The recipe category (e.g., "blacksmithing_weapons", "alchemy_potions").</param>
     /// <returns>List of recipes in the specified category.</returns>
     public List<Recipe> LoadRecipesByCategory(string category)
     {
@@ -98,45 +98,11 @@ public class RecipeCatalogLoader
             return _cache[category];
         }
 
-        var recipesPath = Path.Combine(_dataPath, "crafting", "recipes", $"{category}.json");
+        var allRecipes = LoadAllRecipes();
+        var categoryRecipes = allRecipes.Where(r => r.Category == category).ToList();
         
-        if (!File.Exists(recipesPath))
-        {
-            Log.Warning("Recipe catalog not found: {RecipesPath}", recipesPath);
-            return new List<Recipe>();
-        }
-
-        try
-        {
-            var jsonContent = File.ReadAllText(recipesPath);
-            var catalog = JObject.Parse(jsonContent);
-            var recipes = new List<Recipe>();
-
-            var recipesArray = catalog["recipes"] as JArray;
-            if (recipesArray == null)
-            {
-                Log.Warning("Missing 'recipes' array in catalog: {Category}", category);
-                return new List<Recipe>();
-            }
-
-            foreach (var recipeToken in recipesArray)
-            {
-                var recipe = ParseRecipe(recipeToken);
-                if (recipe != null)
-                {
-                    recipes.Add(recipe);
-                }
-            }
-
-            _cache[category] = recipes;
-            Log.Information("Loaded {Count} recipes from {Category} catalog", recipes.Count, category);
-            return recipes;
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Error loading recipe catalog {Category}", category);
-            return new List<Recipe>();
-        }
+        _cache[category] = categoryRecipes;
+        return categoryRecipes;
     }
 
     /// <summary>
@@ -168,75 +134,119 @@ public class RecipeCatalogLoader
     /// <summary>
     /// Parse a recipe from JSON token.
     /// </summary>
-    private Recipe? ParseRecipe(JToken recipeToken)
+    private Recipe? ParseRecipe(JToken recipeToken, string category)
     {
         try
         {
+            var id = recipeToken["id"]?.ToString();
+            var name = recipeToken["name"]?.ToString();
+            
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(name))
+            {
+                Log.Warning("Recipe missing id or name in category {Category}", category);
+                return null;
+            }
+
             var recipe = new Recipe
             {
-                Id = recipeToken["id"]?.ToString() ?? Guid.NewGuid().ToString(),
-                Name = recipeToken["name"]?.ToString() ?? string.Empty,
+                Id = id,
+                Name = name,
                 Description = recipeToken["description"]?.ToString() ?? string.Empty,
-                Category = recipeToken["category"]?.ToString() ?? string.Empty,
-                RequiredSkillLevel = recipeToken["requiredSkillLevel"]?.ToObject<int>() ?? 1,
-                SkillGainOnCraft = recipeToken["skillGainOnCraft"]?.ToObject<int>() ?? 1,
-                CraftingTime = recipeToken["craftingTime"]?.ToObject<int>() ?? 1,
-                BaseQuality = recipeToken["baseQuality"]?.ToObject<int>() ?? 50,
-                QualityRange = recipeToken["qualityRange"]?.ToObject<int>() ?? 20
+                Category = category,
+                Slug = recipeToken["slug"]?.ToString() ?? string.Empty,
+                RequiredSkill = recipeToken["requiredSkill"]?.ToString(),
+                RequiredSkillLevel = recipeToken["requiredSkillLevel"]?.Value<int>() ?? 0,
+                RequiredStation = recipeToken["requiredStation"]?.ToString() ?? string.Empty,
+                RequiredStationTier = recipeToken["requiredStationTier"]?.Value<int>() ?? 1,
+                CraftingTime = recipeToken["craftingTime"]?.Value<int>() ?? 0,
+                ExperienceGained = recipeToken["experienceGained"]?.Value<int>() ?? 0,
+                RarityWeight = recipeToken["rarityWeight"]?.Value<int>() ?? 100,
+                UnlockMethod = ParseUnlockMethod(recipeToken["unlockMethod"]?.ToString())
             };
 
-            // Parse required station
-            if (recipeToken["requiredStation"] != null)
+            // Parse produced item
+            var producedItem = recipeToken["producedItem"] as JObject;
+            if (producedItem != null)
             {
-                recipe.RequiredStation = Enum.TryParse<CraftingStationType>(
-                    recipeToken["requiredStation"]!.ToString(), 
-                    true, 
-                    out var stationType) 
-                    ? stationType 
-                    : CraftingStationType.None;
+                recipe.OutputItemReference = producedItem["itemReference"]?.ToString() ?? string.Empty;
+                recipe.OutputQuantity = producedItem["quantity"]?.Value<int>() ?? 1;
+                recipe.MinQuality = ParseRarity(producedItem["minQuality"]?.ToString());
+                recipe.MaxQuality = ParseRarity(producedItem["maxQuality"]?.ToString());
             }
 
-            // Parse unlock method
-            if (recipeToken["unlockMethod"] != null)
+            // Parse components (materials)
+            var components = recipeToken["components"] as JArray;
+            if (components != null)
             {
-                recipe.UnlockMethod = Enum.TryParse<RecipeUnlockMethod>(
-                    recipeToken["unlockMethod"]!.ToString(), 
-                    true, 
-                    out var unlockMethod) 
-                    ? unlockMethod 
-                    : RecipeUnlockMethod.SkillLevel;
-            }
-
-            // Parse materials
-            var materialsArray = recipeToken["materials"] as JArray;
-            if (materialsArray != null)
-            {
-                foreach (var materialToken in materialsArray)
+                foreach (var component in components)
                 {
                     var material = new RecipeMaterial
                     {
-                        ItemId = materialToken["itemId"]?.ToString() ?? string.Empty,
-                        Quantity = materialToken["quantity"]?.ToObject<int>() ?? 1,
-                        Category = materialToken["category"]?.ToString() ?? string.Empty
+                        ItemReference = component["itemReference"]?.ToString() ?? string.Empty,
+                        Quantity = component["quantity"]?.Value<int>() ?? 1
                     };
                     recipe.Materials.Add(material);
                 }
             }
 
-            // Parse output
-            if (recipeToken["output"] != null)
+            // Parse optional catalyst (stored as JSON string for now)
+            var catalyst = recipeToken["optionalCatalyst"] as JObject;
+            if (catalyst != null)
             {
-                recipe.OutputItemId = recipeToken["output"]!["itemId"]?.ToString() ?? string.Empty;
-                recipe.OutputQuantity = recipeToken["output"]!["quantity"]?.ToObject<int>() ?? 1;
+                var catalystInfo = new
+                {
+                    itemReference = catalyst["itemReference"]?.ToString() ?? string.Empty,
+                    effect = catalyst["effect"]?.ToString() ?? string.Empty
+                };
+                recipe.UnlockRequirement = $"Catalyst: {catalystInfo.itemReference} - {catalystInfo.effect}";
             }
 
             return recipe;
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error parsing recipe from JSON");
+            Log.Error(ex, "Error parsing recipe in category {Category}", category);
             return null;
         }
+    }
+
+    /// <summary>
+    /// Parse unlock method from string.
+    /// </summary>
+    private RecipeUnlockMethod ParseUnlockMethod(string? unlockMethod)
+    {
+        if (string.IsNullOrEmpty(unlockMethod))
+            return RecipeUnlockMethod.Default;
+
+        return unlockMethod switch
+        {
+            "SkillLevel" => RecipeUnlockMethod.SkillLevel,
+            "Trainer" => RecipeUnlockMethod.Trainer,
+            "Discovery" => RecipeUnlockMethod.Discovery,
+            "QuestReward" => RecipeUnlockMethod.QuestReward,
+            "Achievement" => RecipeUnlockMethod.Achievement,
+            _ => RecipeUnlockMethod.Default
+        };
+    }
+
+    /// <summary>
+    /// Parse rarity from string.
+    /// </summary>
+    private ItemRarity ParseRarity(string? rarity)
+    {
+        if (string.IsNullOrEmpty(rarity))
+            return ItemRarity.Common;
+
+        return rarity switch
+        {
+            "Common" => ItemRarity.Common,
+            "Uncommon" => ItemRarity.Uncommon,
+            "Rare" => ItemRarity.Rare,
+            "Epic" => ItemRarity.Epic,
+            "Legendary" => ItemRarity.Legendary,
+            "Mythic" => ItemRarity.Mythic,
+            _ => ItemRarity.Common
+        };
     }
 
     /// <summary>
@@ -245,5 +255,6 @@ public class RecipeCatalogLoader
     public void ClearCache()
     {
         _cache.Clear();
+        _allRecipesCache = null;
     }
 }

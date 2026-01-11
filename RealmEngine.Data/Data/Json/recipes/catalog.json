@@ -1,11 +1,140 @@
 {
-  "description": "Crafting recipes catalog - all craftable items and their requirements",
+  "description": "Crafting recipes catalog - all craftable items with progression tiers and interdependencies",
   "version": "1.0",
   "lastUpdated": "2026-01-10",
   "type": "recipe_catalog",
   "recipe_types": {
-    "weapons": {
-      "description": "Weapon crafting recipes",
+    "blacksmithing_refining": {
+      "description": "Tier 1 Blacksmithing - Refining raw materials into usable ingots",
+      "items": [
+        {
+          "id": "recipe-iron-ingot",
+          "name": "Iron Ingot",
+          "slug": "iron-ingot",
+          "description": "Smelt iron ore into a usable ingot",
+          "rarityWeight": 100,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 1,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 1,
+          "craftingTime": 10,
+          "experienceGained": 2,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/materials/metals:iron-ingot",
+            "quantity": 1,
+            "minQuality": "Common",
+            "maxQuality": "Common"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/ores:iron-ore",
+              "quantity": 2
+            }
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/materials/reagents:flux-powder",
+            "effect": "+10% yield chance"
+          }
+        },
+        {
+          "id": "recipe-steel-ingot",
+          "name": "Steel Ingot",
+          "slug": "steel-ingot",
+          "description": "Alloy iron with coal to create stronger steel",
+          "rarityWeight": 70,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 15,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 2,
+          "craftingTime": 20,
+          "experienceGained": 8,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/materials/metals:steel-ingot",
+            "quantity": 1,
+            "minQuality": "Uncommon",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/metals:iron-ingot",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/reagents:coal",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "id": "recipe-bronze-ingot",
+          "name": "Bronze Ingot",
+          "slug": "bronze-ingot",
+          "description": "Alloy copper and tin to create durable bronze",
+          "rarityWeight": 80,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 8,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 1,
+          "craftingTime": 15,
+          "experienceGained": 5,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/materials/metals:bronze-ingot",
+            "quantity": 1,
+            "minQuality": "Common",
+            "maxQuality": "Uncommon"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/ores:copper-ore",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/materials/ores:tin-ore",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "id": "recipe-mithril-ingot",
+          "name": "Mithril Ingot",
+          "slug": "mithril-ingot",
+          "description": "Refine the legendary mithril ore",
+          "rarityWeight": 30,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 45,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 3,
+          "craftingTime": 60,
+          "experienceGained": 25,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/materials/metals:mithril-ingot",
+            "quantity": 1,
+            "minQuality": "Rare",
+            "maxQuality": "Epic"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/ores:mithril-ore",
+              "quantity": 4
+            },
+            {
+              "itemReference": "@items/materials/reagents:purified-flux",
+              "quantity": 1
+            }
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/materials/essences:essence-of-earth",
+            "effect": "+20% quality"
+          }
+        }
+      ]
+    },
+    "blacksmithing_weapons": {
+      "description": "Tier 2 Blacksmithing - Weapon crafting",
       "items": [
         {
           "id": "recipe-iron-dagger",
@@ -74,7 +203,7 @@
           "description": "A sturdy steel battleaxe",
           "rarityWeight": 60,
           "requiredSkill": "Blacksmithing",
-          "requiredSkillLevel": 15,
+          "requiredSkillLevel": 18,
           "requiredStation": "Anvil",
           "requiredStationTier": 2,
           "craftingTime": 90,
@@ -95,12 +224,85 @@
               "itemReference": "@items/materials/wood:ash-handle",
               "quantity": 1
             }
-          ]
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/consumables/elixirs:quenching-oil",
+            "effect": "+1 enchantment slot (requires Alchemy)"
+          }
         }
       ]
     },
-    "consumables": {
-      "description": "Alchemy and cooking recipes",
+    "blacksmithing_armor": {
+      "description": "Tier 2-3 Blacksmithing - Armor crafting",
+      "items": [
+        {
+          "id": "recipe-iron-chainmail",
+          "name": "Iron Chainmail",
+          "slug": "iron-chainmail",
+          "description": "Interlocking rings of iron protection",
+          "rarityWeight": 70,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 12,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 1,
+          "craftingTime": 120,
+          "experienceGained": 15,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/armor/chest:iron-chainmail",
+            "quantity": 1,
+            "minQuality": "Common",
+            "maxQuality": "Uncommon"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/metals:iron-ingot",
+              "quantity": 8
+            },
+            {
+              "itemReference": "@items/materials/leather:leather-padding",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "id": "recipe-steel-plate-armor",
+          "name": "Steel Plate Armor",
+          "slug": "steel-plate-armor",
+          "description": "Heavy steel plates offering maximum protection",
+          "rarityWeight": 50,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 25,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 2,
+          "craftingTime": 180,
+          "experienceGained": 30,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/armor/chest:steel-plate",
+            "quantity": 1,
+            "minQuality": "Uncommon",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/metals:steel-ingot",
+              "quantity": 12
+            },
+            {
+              "itemReference": "@items/materials/leather:reinforced-straps",
+              "quantity": 4
+            }
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/gems/red:polished-ruby",
+            "effect": "+Constitution bonus (requires Jewelcrafting)"
+          }
+        }
+      ]
+    },
+    "alchemy_potions": {
+      "description": "Tier 1 Alchemy - Basic potions and brews",
       "items": [
         {
           "id": "recipe-minor-health-potion",
@@ -195,11 +397,195 @@
               "quantity": 1
             }
           ]
+        },
+        {
+          "id": "recipe-stamina-potion",
+          "name": "Stamina Potion",
+          "slug": "stamina-potion",
+          "description": "Restores 100 stamina",
+          "rarityWeight": 75,
+          "requiredSkill": "Alchemy",
+          "requiredSkillLevel": 6,
+          "requiredStation": "AlchemyTable",
+          "requiredStationTier": 1,
+          "craftingTime": 25,
+          "experienceGained": 6,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/consumables/potions:stamina-potion",
+            "quantity": 1,
+            "minQuality": "Common",
+            "maxQuality": "Uncommon"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/herbs:mountain-sage",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/reagents:distilled-water",
+              "quantity": 1
+            }
+          ]
         }
       ]
     },
-    "enchantments": {
-      "description": "Enchanting scroll creation recipes",
+    "alchemy_elixirs": {
+      "description": "Tier 2 Alchemy - Enhanced elixirs and oils",
+      "items": [
+        {
+          "id": "recipe-elixir-of-strength",
+          "name": "Elixir of Strength",
+          "slug": "elixir-of-strength",
+          "description": "Temporarily increases Strength by 5 for 1 hour",
+          "rarityWeight": 60,
+          "requiredSkill": "Alchemy",
+          "requiredSkillLevel": 20,
+          "requiredStation": "AlchemyTable",
+          "requiredStationTier": 2,
+          "craftingTime": 50,
+          "experienceGained": 15,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/consumables/elixirs:elixir-of-strength",
+            "quantity": 1,
+            "minQuality": "Uncommon",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/consumables/potions:health-potion",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-earth",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/herbs:ironroot",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "id": "recipe-quenching-oil",
+          "name": "Quenching Oil",
+          "slug": "quenching-oil",
+          "description": "Special oil used by blacksmiths to enhance weapons",
+          "rarityWeight": 50,
+          "requiredSkill": "Alchemy",
+          "requiredSkillLevel": 18,
+          "requiredStation": "AlchemyTable",
+          "requiredStationTier": 2,
+          "craftingTime": 45,
+          "experienceGained": 12,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/consumables/elixirs:quenching-oil",
+            "quantity": 1,
+            "minQuality": "Uncommon",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/reagents:mineral-oil",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-fire",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/herbs:frost-lotus",
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    "alchemy_crystals": {
+      "description": "Tier 3 Alchemy - Crystal growth and refinement",
+      "items": [
+        {
+          "id": "recipe-life-crystal",
+          "name": "Life Crystal",
+          "slug": "life-crystal",
+          "description": "A pulsing crystal that enhances vitality",
+          "rarityWeight": 40,
+          "requiredSkill": "Alchemy",
+          "requiredSkillLevel": 35,
+          "requiredStation": "AlchemyTable",
+          "requiredStationTier": 3,
+          "craftingTime": 90,
+          "experienceGained": 25,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/crystals/life:minor-life-crystal",
+            "quantity": 1,
+            "minQuality": "Rare",
+            "maxQuality": "Epic"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/essences:essence-of-life",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/consumables/potions:greater-healing-potion",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/reagents:crystal-seed",
+              "quantity": 1
+            }
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/gems/red:polished-ruby",
+            "effect": "+15% potency"
+          }
+        },
+        {
+          "id": "recipe-mana-crystal",
+          "name": "Mana Crystal",
+          "slug": "mana-crystal",
+          "description": "A glowing crystal that amplifies magical power",
+          "rarityWeight": 40,
+          "requiredSkill": "Alchemy",
+          "requiredSkillLevel": 35,
+          "requiredStation": "AlchemyTable",
+          "requiredStationTier": 3,
+          "craftingTime": 90,
+          "experienceGained": 25,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/crystals/mana:minor-mana-crystal",
+            "quantity": 1,
+            "minQuality": "Rare",
+            "maxQuality": "Epic"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/essences:essence-of-arcane",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/consumables/potions:greater-mana-potion",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/reagents:crystal-seed",
+              "quantity": 1
+            }
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/gems/blue:polished-sapphire",
+            "effect": "+15% potency"
+          }
+        }
+      ]
+    },
+    "enchanting_scrolls": {
+      "description": "Tier 1 Enchanting - Basic enchantment scrolls",
       "items": [
         {
           "id": "recipe-minor-strength-scroll",
@@ -268,6 +654,309 @@
               "quantity": 2
             }
           ]
+        },
+        {
+          "id": "recipe-intellect-scroll",
+          "name": "Intellect Scroll",
+          "slug": "intellect-scroll",
+          "description": "Enchants gear with +4 Intelligence",
+          "rarityWeight": 55,
+          "requiredSkill": "Enchanting",
+          "requiredSkillLevel": 20,
+          "requiredStation": "EnchantingTable",
+          "requiredStationTier": 2,
+          "craftingTime": 60,
+          "experienceGained": 18,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/enchantments:intellect-scroll",
+            "quantity": 1,
+            "minQuality": "Rare",
+            "maxQuality": "Epic"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/reagents:fine-scroll",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-arcane",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/materials/reagents:mystic-ink",
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    "enchanting_runes": {
+      "description": "Tier 2 Enchanting - Permanent rune inscriptions",
+      "items": [
+        {
+          "id": "recipe-defensive-rune-fortitude",
+          "name": "Rune of Fortitude",
+          "slug": "rune-of-fortitude",
+          "description": "Permanent +Constitution bonus when socketed",
+          "rarityWeight": 45,
+          "requiredSkill": "Enchanting",
+          "requiredSkillLevel": 30,
+          "requiredStation": "EnchantingTable",
+          "requiredStationTier": 2,
+          "craftingTime": 120,
+          "experienceGained": 35,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/runes/defensive:rune-of-fortitude",
+            "quantity": 1,
+            "minQuality": "Rare",
+            "maxQuality": "Epic"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/stone:runestone",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-earth",
+              "quantity": 4
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-life",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/reagents:enchanting-dust",
+              "quantity": 3
+            }
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/materials/reagents:ancient-rune-fragment",
+            "effect": "+1 tier quality"
+          }
+        },
+        {
+          "id": "recipe-offensive-rune-power",
+          "name": "Rune of Power",
+          "slug": "rune-of-power",
+          "description": "Permanent +Strength bonus when socketed",
+          "rarityWeight": 45,
+          "requiredSkill": "Enchanting",
+          "requiredSkillLevel": 30,
+          "requiredStation": "EnchantingTable",
+          "requiredStationTier": 2,
+          "craftingTime": 120,
+          "experienceGained": 35,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/runes/offensive:rune-of-power",
+            "quantity": 1,
+            "minQuality": "Rare",
+            "maxQuality": "Epic"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/stone:runestone",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-fire",
+              "quantity": 4
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-earth",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/reagents:enchanting-dust",
+              "quantity": 3
+            }
+          ]
+        }
+      ]
+    },
+    "jewelcrafting_cutting": {
+      "description": "Tier 1 Jewelcrafting - Gem cutting and polishing",
+      "items": [
+        {
+          "id": "recipe-polished-ruby",
+          "name": "Polished Ruby",
+          "slug": "polished-ruby",
+          "description": "Cut and polish a raw ruby for socketing",
+          "rarityWeight": 60,
+          "requiredSkill": "Jewelcrafting",
+          "requiredSkillLevel": 10,
+          "requiredStation": "JewelryBench",
+          "requiredStationTier": 1,
+          "craftingTime": 40,
+          "experienceGained": 10,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/gems/red:polished-ruby",
+            "quantity": 1,
+            "minQuality": "Uncommon",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/gems:raw-ruby",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/reagents:polishing-compound",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "id": "recipe-polished-sapphire",
+          "name": "Polished Sapphire",
+          "slug": "polished-sapphire",
+          "description": "Cut and polish a raw sapphire for socketing",
+          "rarityWeight": 60,
+          "requiredSkill": "Jewelcrafting",
+          "requiredSkillLevel": 10,
+          "requiredStation": "JewelryBench",
+          "requiredStationTier": 1,
+          "craftingTime": 40,
+          "experienceGained": 10,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/gems/blue:polished-sapphire",
+            "quantity": 1,
+            "minQuality": "Uncommon",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/gems:raw-sapphire",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/reagents:polishing-compound",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "id": "recipe-flawless-diamond",
+          "name": "Flawless Diamond",
+          "slug": "flawless-diamond",
+          "description": "Perfect cut diamond of exceptional quality",
+          "rarityWeight": 20,
+          "requiredSkill": "Jewelcrafting",
+          "requiredSkillLevel": 50,
+          "requiredStation": "JewelryBench",
+          "requiredStationTier": 3,
+          "craftingTime": 90,
+          "experienceGained": 40,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/gems/special:flawless-diamond",
+            "quantity": 1,
+            "minQuality": "Epic",
+            "maxQuality": "Legendary"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/gems:raw-diamond",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/reagents:master-polishing-compound",
+              "quantity": 2
+            }
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/materials/reagents:diamond-dust",
+            "effect": "Guarantees Epic+ quality"
+          }
+        }
+      ]
+    },
+    "jewelcrafting_orbs": {
+      "description": "Tier 3 Jewelcrafting - Magical orb creation",
+      "items": [
+        {
+          "id": "recipe-orb-of-flames",
+          "name": "Orb of Flames",
+          "slug": "orb-of-flames",
+          "description": "Magical orb channeling fire essence",
+          "rarityWeight": 35,
+          "requiredSkill": "Jewelcrafting",
+          "requiredSkillLevel": 40,
+          "requiredStation": "JewelryBench",
+          "requiredStationTier": 3,
+          "craftingTime": 150,
+          "experienceGained": 50,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/orbs/magic:orb-of-flames",
+            "quantity": 1,
+            "minQuality": "Rare",
+            "maxQuality": "Legendary"
+          },
+          "components": [
+            {
+              "itemReference": "@items/gems/red:polished-ruby",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-fire",
+              "quantity": 5
+            },
+            {
+              "itemReference": "@items/materials/reagents:orb-casing",
+              "quantity": 1
+            }
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/crystals/life:greater-life-crystal",
+            "effect": "Adds life regeneration (requires Alchemy)"
+          }
+        },
+        {
+          "id": "recipe-orb-of-combat-mastery",
+          "name": "Orb of Combat Mastery",
+          "slug": "orb-of-combat-mastery",
+          "description": "Enhances combat prowess through magical focus",
+          "rarityWeight": 30,
+          "requiredSkill": "Jewelcrafting",
+          "requiredSkillLevel": 45,
+          "requiredStation": "JewelryBench",
+          "requiredStationTier": 3,
+          "craftingTime": 180,
+          "experienceGained": 60,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/orbs/combat:orb-of-combat-mastery",
+            "quantity": 1,
+            "minQuality": "Epic",
+            "maxQuality": "Legendary"
+          },
+          "components": [
+            {
+              "itemReference": "@items/gems/special:flawless-diamond",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-earth",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-fire",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/runes/offensive:rune-of-power",
+              "quantity": 1
+            }
+          ],
+          "optionalCatalyst": {
+            "itemReference": "@items/materials/reagents:ancient-focus-gem",
+            "effect": "Adds unique combat ability"
+          }
         }
       ]
     }
