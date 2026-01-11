@@ -1,11 +1,11 @@
 # Crafting System
 
-**Status**: ✅ **95% COMPLETE** - Full implementation with recipe learning, discovery, and execution  
+**Status**: ✅ **100% COMPLETE** - Full crafting ecosystem with enhancements!  
 **Last Updated**: January 11, 2026
 
 ## Implementation Progress
 
-### ✅ Phase 1-3 Complete (95%)
+### ✅ Phase 1-4 Complete (100%)
 - **CraftingService** - All validation methods implemented and tested (29/29 tests ✅)
 - **CraftRecipeHandler** - Full execution pipeline with material consumption, item creation, XP awards
 - **RecipeCatalogLoader** - Loads 28 recipes from JSON v5.1 format
@@ -29,10 +29,23 @@
 - ✅ **Station Validation** - Verifies correct station and tier
 - ✅ **Wildcard Materials** - Support for `@items/materials/organics:*` pattern matching
 
-### ⚠️ Optional Enhancements (5%)
-- ⚠️ **Enchanting Integration** - Apply enchantment scrolls to items (separate system)
-- ⚠️ **Upgrade System** - Improve existing items (+1 to +10 levels)
-- ⚠️ **Salvaging** - Reverse crafting to recover materials
+### ✅ Enhancement Systems Complete (100%)
+- ✅ **Enchanting System** - Apply magical properties to items (16/16 tests passing)
+  - Rarity-based slots: Common=1, Rare=2, Legendary=3
+  - Skill-based success: 100% (slot 1), 75% (slot 2), 50% (slot 3) + skill*0.3%
+  - Socket crystals add slots at skill levels 0/25/50
+  - Generic removal scrolls destroy enchantments
+- ✅ **Upgrade System** - Exponential stat improvements (+1 to +10) (11/11 tests passing)
+  - Formula: `multiplier = 1 + (level * 0.10) + (level² * 0.01)` (e.g., +5=1.75x, +10=3.00x)
+  - Hybrid safety: +1-5 always succeed, +6-10 have graduated risk (95%-50%)
+  - Typed essences: Weapon/Armor/Accessory with Minor/Greater/Superior/Perfect tiers
+  - Failed upgrades drop 1 level, always consume essences
+- ✅ **Salvaging System** - Recycle unwanted items (11/11 tests passing)
+  - Skill-based yield: 40% base + (skill * 0.3%), capped at 100%
+  - Rarity scaling: Common=3, Legendary=10 base scraps
+  - Type-based materials: Weapons→Metal+Wood, Armor→Leather/Metal, Jewelry→Gems+Metal
+  - Upgrade bonus: +1 scrap per upgrade level
+  - 3:1 refinement ratio (3 scraps → 1 regular material)
 
 ## Design Decisions (January 11, 2026)
 

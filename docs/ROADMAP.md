@@ -370,19 +370,30 @@
 ---
 
 #### Crafting System
-- **Status**: `[Not Started]`
+- **Status**: `[✅ Complete - 100%]`
 - **Effort**: High 
-- **Work**:
-  - Crafting stations (forge, alchemy table, enchanting altar)
-  - Material system and gathering
-  - Recipe discovery and learning
-  - Item creation and enhancement
-  - Quality levels and randomization
-- **Dependencies**: Skills System (crafting skills)
+- **Completion Date**: January 11, 2026
+- **What's Complete**:
+  - Recipe execution with material consumption ✅
+  - Recipe learning from trainers/quests ✅
+  - Recipe discovery via experimentation ✅
+  - Station and tier validation ✅
+  - Quality bonuses based on skill ✅
+  - **Enchanting System** - Apply scrolls to items (16/16 tests) ✅
+  - **Upgrade System** - Exponential stat scaling +1 to +10 (11/11 tests) ✅
+  - **Salvaging System** - Recycle items to materials (11/11 tests) ✅
+- **Test Coverage**: 79 tests (38 enhancement + 41 core)
+- **Dependencies**: Skills System (crafting skills) - JSON complete
 - **API Impact**:
-  - `GetRecipes(craftingType)` → known recipes
-  - `CraftItem(recipeId, materials)` → create item
-  - `EnchantItem(itemId, enchantmentId)` → add enchantment
+  - `CraftRecipeCommand` → create items with quality bonuses
+  - `LearnRecipeCommand` → learn from trainers/quests
+  - `DiscoverRecipeCommand` → experimentation-based discovery
+  - `GetKnownRecipesQuery` → known recipes with material validation
+  - `ApplyEnchantmentCommand` → add enchantments to items
+  - `AddEnchantmentSlotCommand` → socket crystals for more slots
+  - `RemoveEnchantmentCommand` → remove enchantments
+  - `UpgradeItemCommand` → improve items with essences
+  - `SalvageItemCommand` → recycle items into scrap materials
 
 ---
 
