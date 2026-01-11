@@ -54,6 +54,24 @@ public class ReferenceResolverService
             return null;
         }
 
+        // Special case: @items/materials:* should aggregate from ALL material subdirectories
+        // Handle this BEFORE try block to avoid any interference
+        if (components.ItemName == "*" && 
+            components.Domain == "items" && 
+            components.Category == "materials")
+        {
+            _logger.LogDebug("Aggregating items from all material subdirectories for wildcard reference");
+            var aggregatedItems = GetAllItemsFromMaterialSubdirectories();
+            
+            // Apply filters if specified
+            if (!string.IsNullOrEmpty(components.Filters))
+            {
+                aggregatedItems = ApplyFilters(aggregatedItems, components.Filters);
+            }
+            
+            return aggregatedItems;
+        }
+
         try
         {
             // Build catalog paths to try
@@ -519,6 +537,54 @@ public class ReferenceResolverService
             }
         }
 
+        return result;
+    }
+
+    /// <summary>
+    /// Gets all items from all material subdirectories
+    /// Handles @items/materials:* by aggregating from essences, gems, ingots, leather, ores, organics, reagents, stone, wood
+    /// </summary>
+    private JArray GetAllItemsFromMaterialSubdirectories()
+    {
+        var result = new JArray();
+        
+        // List of material subdirectories
+        var subdirectories = new[] 
+        { 
+            "essences", "gems", "ingots", "leather", "ores", 
+            "organics", "reagents", "stone", "wood" 
+        };
+        
+        _logger.LogInformation("🔍 Aggregating materials from {Count} subdirectories", subdirectories.Length);
+        
+        foreach (var subdir in subdirectories)
+        {
+            var catalogPath = $"items/materials/{subdir}/catalog.json";
+            var catalogFile = _dataCache.GetFile(catalogPath);
+            
+            if (catalogFile?.JsonData != null)
+            {
+                var items = catalogFile.JsonData["items"] as JArray;
+                if (items != null)
+                {
+                    _logger.LogDebug("✓ Found {ItemCount} items in {Subdir}", items.Count, subdir);
+                    foreach (var item in items)
+                    {
+                        result.Add(item);
+                    }
+                }
+                else
+                {
+                    _logger.LogWarning("⚠ No items array in {CatalogPath}", catalogPath);
+                }
+            }
+            else
+            {
+                _logger.LogWarning("⚠ Material subdirectory catalog not found: {CatalogPath}", catalogPath);
+            }
+        }
+        
+        _logger.LogInformation("✓ Aggregated {TotalCount} total materials", result.Count);
         return result;
     }
 
