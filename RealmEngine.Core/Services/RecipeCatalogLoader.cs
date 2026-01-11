@@ -113,7 +113,7 @@ public class RecipeCatalogLoader
     public Recipe? GetRecipeById(string recipeId)
     {
         var allRecipes = LoadAllRecipes();
-        return allRecipes.FirstOrDefault(r => r.Id == recipeId);
+        return allRecipes.FirstOrDefault(r => r.Id == recipeId || r.Slug == recipeId);
     }
 
     /// <summary>
