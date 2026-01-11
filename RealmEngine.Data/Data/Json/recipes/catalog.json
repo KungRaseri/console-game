@@ -1,0 +1,275 @@
+{
+  "description": "Crafting recipes catalog - all craftable items and their requirements",
+  "version": "1.0",
+  "lastUpdated": "2026-01-10",
+  "type": "recipe_catalog",
+  "recipe_types": {
+    "weapons": {
+      "description": "Weapon crafting recipes",
+      "items": [
+        {
+          "id": "recipe-iron-dagger",
+          "name": "Iron Dagger",
+          "slug": "iron-dagger",
+          "description": "A basic dagger for beginners",
+          "rarityWeight": 100,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 1,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 1,
+          "craftingTime": 30,
+          "experienceGained": 5,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/weapons/daggers:iron-dagger",
+            "quantity": 1,
+            "minQuality": "Common",
+            "maxQuality": "Uncommon"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/metals:iron-ingot",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/wood:oak-handle",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "id": "recipe-iron-sword",
+          "name": "Iron Sword",
+          "slug": "iron-sword",
+          "description": "A standard one-handed sword",
+          "rarityWeight": 80,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 5,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 1,
+          "craftingTime": 60,
+          "experienceGained": 10,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/weapons/swords:iron-sword",
+            "quantity": 1,
+            "minQuality": "Common",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/metals:iron-ingot",
+              "quantity": 4
+            },
+            {
+              "itemReference": "@items/materials/leather:leather-grip",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "id": "recipe-steel-axe",
+          "name": "Steel Axe",
+          "slug": "steel-axe",
+          "description": "A sturdy steel battleaxe",
+          "rarityWeight": 60,
+          "requiredSkill": "Blacksmithing",
+          "requiredSkillLevel": 15,
+          "requiredStation": "Anvil",
+          "requiredStationTier": 2,
+          "craftingTime": 90,
+          "experienceGained": 20,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/weapons/axes:steel-battleaxe",
+            "quantity": 1,
+            "minQuality": "Uncommon",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/metals:steel-ingot",
+              "quantity": 5
+            },
+            {
+              "itemReference": "@items/materials/wood:ash-handle",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    "consumables": {
+      "description": "Alchemy and cooking recipes",
+      "items": [
+        {
+          "id": "recipe-minor-health-potion",
+          "name": "Minor Health Potion",
+          "slug": "minor-health-potion",
+          "description": "Restores 50 HP",
+          "rarityWeight": 100,
+          "requiredSkill": "Alchemy",
+          "requiredSkillLevel": 1,
+          "requiredStation": "AlchemyTable",
+          "requiredStationTier": 1,
+          "craftingTime": 20,
+          "experienceGained": 3,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/consumables/potions:minor-health-potion",
+            "quantity": 1,
+            "minQuality": "Common",
+            "maxQuality": "Uncommon"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/herbs:bloodroot",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/reagents:pure-water",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "id": "recipe-health-potion",
+          "name": "Health Potion",
+          "slug": "health-potion",
+          "description": "Restores 150 HP",
+          "rarityWeight": 80,
+          "requiredSkill": "Alchemy",
+          "requiredSkillLevel": 10,
+          "requiredStation": "AlchemyTable",
+          "requiredStationTier": 1,
+          "craftingTime": 30,
+          "experienceGained": 8,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/consumables/potions:health-potion",
+            "quantity": 1,
+            "minQuality": "Uncommon",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/herbs:bloodroot",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/materials/herbs:silverleaf",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/reagents:distilled-water",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "id": "recipe-mana-potion",
+          "name": "Mana Potion",
+          "slug": "mana-potion",
+          "description": "Restores 100 mana",
+          "rarityWeight": 80,
+          "requiredSkill": "Alchemy",
+          "requiredSkillLevel": 8,
+          "requiredStation": "AlchemyTable",
+          "requiredStationTier": 1,
+          "craftingTime": 30,
+          "experienceGained": 8,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/consumables/potions:mana-potion",
+            "quantity": 1,
+            "minQuality": "Common",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/herbs:mana-thistle",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/materials/reagents:arcane-powder",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    "enchantments": {
+      "description": "Enchanting scroll creation recipes",
+      "items": [
+        {
+          "id": "recipe-minor-strength-scroll",
+          "name": "Minor Strength Scroll",
+          "slug": "minor-strength-scroll",
+          "description": "Enchants gear with +2 Strength",
+          "rarityWeight": 70,
+          "requiredSkill": "Enchanting",
+          "requiredSkillLevel": 5,
+          "requiredStation": "EnchantingTable",
+          "requiredStationTier": 1,
+          "craftingTime": 40,
+          "experienceGained": 10,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/enchantments:minor-strength-scroll",
+            "quantity": 1,
+            "minQuality": "Uncommon",
+            "maxQuality": "Rare"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/reagents:blank-scroll",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-earth",
+              "quantity": 2
+            },
+            {
+              "itemReference": "@items/materials/reagents:enchanting-ink",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "id": "recipe-agility-scroll",
+          "name": "Agility Scroll",
+          "slug": "agility-scroll",
+          "description": "Enchants gear with +3 Dexterity",
+          "rarityWeight": 60,
+          "requiredSkill": "Enchanting",
+          "requiredSkillLevel": 15,
+          "requiredStation": "EnchantingTable",
+          "requiredStationTier": 1,
+          "craftingTime": 50,
+          "experienceGained": 15,
+          "unlockMethod": "SkillLevel",
+          "producedItem": {
+            "itemReference": "@items/enchantments:agility-scroll",
+            "quantity": 1,
+            "minQuality": "Rare",
+            "maxQuality": "Epic"
+          },
+          "components": [
+            {
+              "itemReference": "@items/materials/reagents:fine-scroll",
+              "quantity": 1
+            },
+            {
+              "itemReference": "@items/materials/essences:essence-of-air",
+              "quantity": 3
+            },
+            {
+              "itemReference": "@items/materials/reagents:enchanting-ink",
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

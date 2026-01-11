@@ -139,6 +139,13 @@ public class Character
     public Dictionary<string, int> SpellCooldowns { get; set; } = new();
     
     /// <summary>
+    /// Gets or sets the learned crafting recipes by recipe ID.
+    /// Recipes with unlock method "SkillLevel" auto-unlock when skill is high enough.
+    /// Recipes with "Recipe", "Quest", or "Discovery" must be explicitly learned.
+    /// </summary>
+    public HashSet<string> LearnedRecipes { get; set; } = new();
+    
+    /// <summary>
     /// Gets or sets the active status effects currently applied to the character.
     /// Includes buffs, debuffs, and damage-over-time effects.
     /// </summary>
